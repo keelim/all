@@ -12,6 +12,8 @@ buildscript {
     dependencies {
         //noinspection GradleDependency
         classpath 'com.android.tools.build:gradle:3.5.0-rc03'
+        //noinspection GradleDynamicVersion
+        classpath 'io.fabric.tools:gradle:1.+'
         classpath 'com.google.gms:google-services:4.3.0'
         //noinspection GradleDependency
         classpath 'io.fabric.tools:gradle:1.29.0'

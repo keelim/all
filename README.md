@@ -26,5 +26,13 @@
     
     - home indicator
     - navigation drawer
+    
+> glide 
+    
+    - bus root map download --> github blog?
+    - operating fragment a entrance --> dormitory
+    - launching setting
   
+> view pager?
+
     

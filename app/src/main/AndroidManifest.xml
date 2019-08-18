@@ -11,6 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activities.CRootActivity"></activity>
+        <activity android:name=".activities.BRootActivity" />
+        <activity android:name=".activities.ARootActivity" />
         <activity android:name=".activities.DeveloperActivity" />
         <activity android:name=".activities.SplashActivity">
             <intent-filter>
@@ -25,8 +28,6 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
-
-
             </intent-filter>
         </activity>
 

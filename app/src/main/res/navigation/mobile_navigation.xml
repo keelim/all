@@ -8,18 +8,18 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.keelim.cnubus.ui.Broot.BFragment"
-        android:label="@string/title_home"
+        android:label="@string/a_root"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.keelim.cnubus.ui.Aroot.AFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/b_root"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.keelim.cnubus.ui.Croot.CFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/c_root"
         tools:layout="@layout/fragment_notifications" />
 </navigation>

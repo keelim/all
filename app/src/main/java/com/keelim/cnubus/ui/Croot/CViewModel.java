@@ -10,7 +10,7 @@ public class CViewModel extends ViewModel {
 
     public CViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is notifications fragment");
+        mText.setValue("C 노선은 개발 중입니다.");
     }
 
     public LiveData<String> getText() {

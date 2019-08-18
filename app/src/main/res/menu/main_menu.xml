@@ -16,7 +16,7 @@
 
         <item
             android:id="@+id/drawer_setting"
-            android:title="@string/b_root" />
+            android:title="@string/setting" />
 
         <item
             android:id="@+id/drawer_developer"

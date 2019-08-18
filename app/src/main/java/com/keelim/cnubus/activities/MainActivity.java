@@ -65,14 +65,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent_aroot);
                 break;
             case R.id.drawer_broot:
-                Toast.makeText(this, "화면 준비중입니다.", Toast.LENGTH_SHORT).show();
-//                Intent intent_broot = new Intent(getApplicationContext(), BRootActivity.class);
-//                startActivity(intent_broot);
+                Intent intent_broot = new Intent(getApplicationContext(), BRootActivity.class);
+                startActivity(intent_broot);
                 break;
             case R.id.drawer_croot:
-                Toast.makeText(this, "화면 준비중입니다.", Toast.LENGTH_SHORT).show();
-//                Intent intent_croot = new Intent(getApplicationContext(), CRootActivity.class);
-//                startActivity(intent_croot);
+                Intent intent_croot = new Intent(getApplicationContext(), CRootActivity.class);
+                startActivity(intent_croot);
                 break;
             case R.id.drawer_setting:
                 Toast.makeText(this, "화면 준비중입니다.", Toast.LENGTH_SHORT).show();

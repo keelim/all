@@ -15,6 +15,8 @@ public class ARootActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aroot);
+
+        imageView = findViewById(R.id.iv_aroot);
         Glide.with(this).load("https://raw.githubusercontent.com/keelim/Keelim.github.io/master/assets/a.png").into(imageView);
     }
 }

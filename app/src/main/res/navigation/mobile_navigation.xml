@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.keelim.cnubus.ui.home.HomeFragment"
+        android:name="com.keelim.cnubus.ui.Broot.BFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.keelim.cnubus.ui.dashboard.DashboardFragment"
+        android:name="com.keelim.cnubus.ui.Aroot.AFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.keelim.cnubus.ui.notifications.NotificationsFragment"
+        android:name="com.keelim.cnubus.ui.Croot.CFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
 </navigation>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group>
+        <item
+            android:id="@+id/drawer_account"
+            android:title="@string/a_root" />
+
+        <item
+            android:id="@+id/drawer_bug_report"
+            android:title="@string/b_root" />
+
+        <item
+            android:id="@+id/drawer_setting"
+            android:title="@string/b_root" />
+
+        <item
+            android:id="@+id/drawer_developer"
+            android:title="@string/developerpage" />
+
+
+    </group>
+</menu>
+
+

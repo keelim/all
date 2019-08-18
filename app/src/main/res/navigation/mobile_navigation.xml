@@ -9,17 +9,23 @@
         android:id="@+id/navigation_home"
         android:name="com.keelim.cnubus.ui.Broot.BFragment"
         android:label="@string/a_root"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_aroot" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.keelim.cnubus.ui.Aroot.AFragment"
         android:label="@string/b_root"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_broot" />
 
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.keelim.cnubus.ui.Croot.CFragment"
         android:label="@string/c_root"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_croot" />
+
+    <fragment
+        android:id="@+id/navigation_setting"
+        android:name="com.keelim.cnubus.ui.Setting.setting"
+        android:label="setting"
+        tools:layout="@layout/setting_fragment"/>
 </navigation>

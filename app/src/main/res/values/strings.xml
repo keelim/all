@@ -5,4 +5,5 @@
     <string name="c_root">C Root</string>
     <string name="ADMOB_APP_ID">ca-app-pub-3115620439518585~7951570697</string>
     <string name="ADMOB_APP_UNIT_ID">ca-app-pub-3115620439518585/2593741731</string>
+    <string name="setting">Setting</string>
 </resources>

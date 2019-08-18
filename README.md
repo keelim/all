@@ -32,6 +32,7 @@
     - bus root map download --> github blog?
     - operating fragment a entrance --> dormitory
     - launching setting
+    - github assest을 이용한다.
   
 > view pager?
 

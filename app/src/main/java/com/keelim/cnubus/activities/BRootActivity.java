@@ -15,6 +15,7 @@ public class BRootActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_broot);
+        imageView = findViewById(R.id.iv_broot);
         Glide.with(this).load("https://raw.githubusercontent.com/keelim/Keelim.github.io/master/assets/a.png").into(imageView);
 
     }

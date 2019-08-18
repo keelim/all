@@ -1,4 +1,4 @@
-package com.keelim.cnubus;
+package com.keelim.cnubus.activities;
 
 import android.os.Bundle;
 
@@ -6,6 +6,8 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.keelim.cnubus.R;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;

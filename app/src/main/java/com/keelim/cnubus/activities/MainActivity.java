@@ -61,9 +61,8 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.drawer_aroot:
-                Toast.makeText(this, "화면 준비중입니다.", Toast.LENGTH_SHORT).show();
-//                Intent intent_aroot = new Intent(getApplicationContext(), ARootActivity.class);
-//                startActivity(intent_aroot);
+                Intent intent_aroot = new Intent(getApplicationContext(), ARootActivity.class);
+                startActivity(intent_aroot);
                 break;
             case R.id.drawer_broot:
                 Toast.makeText(this, "화면 준비중입니다.", Toast.LENGTH_SHORT).show();

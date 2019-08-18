@@ -12,12 +12,12 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.keelim.cnubus.R;
 
-public class setting extends Fragment {
+public class SettingFragment extends Fragment {
 
     private SettingViewModel mViewModel;
 
-    public static setting newInstance() {
-        return new setting();
+    public static SettingFragment newInstance() {
+        return new SettingFragment();
     }
 
     @Override

@@ -3,4 +3,6 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="ADMOB_APP_ID">ca-app-pub-3115620439518585~7951570697</string>
+    <string name="ADMOB_APP_UNIT_ID">ca-app-pub-3115620439518585/2593741731</string>
 </resources>

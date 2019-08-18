@@ -2,12 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group>
         <item
-            android:id="@+id/drawer_account"
+            android:id="@+id/drawer_aroot"
             android:title="@string/a_root" />
 
         <item
-            android:id="@+id/drawer_bug_report"
+            android:id="@+id/drawer_broot"
             android:title="@string/b_root" />
+
+        <item
+            android:id="@+id/drawer_croot"
+            android:title="@string/c_root" />
+
 
         <item
             android:id="@+id/drawer_setting"

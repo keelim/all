@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#80D8FF</color>
+    <color name="colorPrimaryDark">#365C6D</color>
+    <color name="colorAccent">#304FFE</color>
     <color name="cnuBus_main">#80D8FF</color>
 </resources>

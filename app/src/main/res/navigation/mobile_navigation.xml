@@ -12,20 +12,20 @@
         tools:layout="@layout/fragment_aroot" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_aroot"
         android:name="com.keelim.cnubus.ui.Aroot.AFragment"
         android:label="@string/b_root"
         tools:layout="@layout/fragment_broot" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_broot"
         android:name="com.keelim.cnubus.ui.Croot.CFragment"
         android:label="@string/c_root"
         tools:layout="@layout/fragment_croot" />
 
     <fragment
-        android:id="@+id/navigation_setting"
-        android:name="com.keelim.cnubus.ui.Setting.setting"
+        android:id="@+id/navigation_croot"
+        android:name="com.keelim.cnubus.ui.Setting.SettingFragment"
         android:label="setting"
-        tools:layout="@layout/setting_fragment"/>
+        tools:layout="@layout/fragment_setting"/>
 </navigation>

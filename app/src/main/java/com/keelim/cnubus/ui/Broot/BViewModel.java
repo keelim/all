@@ -10,7 +10,7 @@ public class BViewModel extends ViewModel {
 
     public BViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment");
+        mText.setValue("B 노선은 개발 중입니다.");
     }
 
     public LiveData<String> getText() {

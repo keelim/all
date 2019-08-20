@@ -8,14 +8,7 @@ repositories {
 }
 
 android {
-    signingConfigs {
-        release {
-            storeFile file('C:\\Users\\h0033\\Desktop\\android key\\keystore.jks')
-            storePassword 'kimjaehyun08!'
-            keyAlias = 'cnuBus'
-            keyPassword 'cnubus!'
-        }
-    }
+
 
     compileSdkVersion 29
     defaultConfig {

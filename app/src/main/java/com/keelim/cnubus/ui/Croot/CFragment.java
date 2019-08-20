@@ -16,15 +16,15 @@ import com.keelim.cnubus.R;
 
 public class CFragment extends Fragment {
 
-    private CViewModel notificationsViewModel;
+    private CViewModel cViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        notificationsViewModel =
+        cViewModel =
                 ViewModelProviders.of(this).get(CViewModel.class);
         View root = inflater.inflate(R.layout.fragment_croot, container, false);
         final TextView textView = root.findViewById(R.id.text_notifications);
-        notificationsViewModel.getText().observe(this, new Observer<String>() {
+        cViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

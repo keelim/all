@@ -3,7 +3,6 @@ package com.keelim.cnubus.activities;
         import android.os.Bundle;
 
         import androidx.appcompat.app.AppCompatActivity;
-
         import com.keelim.cnubus.R;
         import com.keelim.cnubus.utils.MaterialHelper;
 

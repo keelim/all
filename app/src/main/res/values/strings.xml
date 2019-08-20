@@ -7,4 +7,5 @@
     <string name="ADMOB_APP_UNIT_ID">ca-app-pub-3115620439518585/2593741731</string>
     <string name="setting">Setting</string>
     <string name="developerpage">developerPage</string>
+    <string name="cnu_bus">CNU BUS</string>
 </resources>

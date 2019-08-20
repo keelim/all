@@ -36,4 +36,13 @@
   
 > view pager?
 
+    - 4가지 화면 뿐이네 viewpager 를 사용을 해야 하는가?
+    
+## todo
+- Broot, cRoot station listview로 정리
+
+- Aroot 이미지로 구현을 할 것
+
+- 출시를 위한 준비를 할 것 
+
     

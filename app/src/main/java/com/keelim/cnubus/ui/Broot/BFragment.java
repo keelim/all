@@ -16,20 +16,11 @@ import com.keelim.cnubus.R;
 
 public class BFragment extends Fragment {
 
-    private BViewModel homeViewModel;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                ViewModelProviders.of(this).get(BViewModel.class);
+        BViewModel homeViewModel = ViewModelProviders.of(this).get(BViewModel.class);
         View root = inflater.inflate(R.layout.fragment_aroot, container, false);
-        final TextView textView = root.findViewById(R.id.text_dashboard);
-        homeViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+
         return root;
     }
 }

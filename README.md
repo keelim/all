@@ -38,11 +38,15 @@
 
     - 4가지 화면 뿐이네 viewpager 를 사용을 해야 하는가?
     
+## 2019 08 21 
+> version 1.0 release
+
+> version 1.1 change
+    
 ## todo
 - Broot, cRoot station listview로 정리
 
-- Aroot 이미지로 구현을 할 것
+- CustomView로 구현을 할 것
 
-- 출시를 위한 준비를 할 것 
 
     

@@ -1,4 +1,4 @@
-package com.keelim.cnubus.utils;
+package com.keelim.cnubus.activities;
 
 import android.app.Activity;
 import android.widget.FrameLayout;
@@ -48,7 +48,6 @@ public class MaterialHelper {
                 .addUpdateAction()
                 .setActionsColumnsCount(4)
                 .addFeedbackAction("kimh00335@gmail.com");
-
 
         AboutView view = builder.build();
 

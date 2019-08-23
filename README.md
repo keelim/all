@@ -42,6 +42,11 @@
 > version 1.0 release
 
 > version 1.1 change
+
+## 2019 08 23
+> campus entire map setting
+
+> asset? where --> 
     
 ## todo
 - Broot, cRoot station listview로 정리

@@ -13,6 +13,11 @@
             android:id="@+id/drawer_croot"
             android:title="@string/c_root" />
 
+        <item
+            android:id="@+id/drawer_eniremap"
+            android:title="@string/entire_map"
+            />
+
 
         <item
             android:id="@+id/drawer_setting"

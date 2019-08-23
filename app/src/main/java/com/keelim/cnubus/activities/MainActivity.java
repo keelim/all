@@ -75,6 +75,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.drawer_setting:
                 Toast.makeText(this, "화면 준비중입니다.", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.drawer_eniremap:
+                Intent intent_entiremap = new Intent(getApplicationContext(), EntireMapActivity.class);
+                startActivity(intent_entiremap);
+                break;
             case R.id.drawer_developer:
                 Intent intent_developer = new Intent(getApplicationContext(), DeveloperActivity.class);
                 startActivity(intent_developer);

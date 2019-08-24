@@ -20,16 +20,9 @@ public class AFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        dashboardViewModel =
-                ViewModelProviders.of(this).get(AViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_broot, container, false);
-        final TextView textView = root.findViewById(R.id.text_dashboard);
-        dashboardViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+        AViewModel aViewModel = ViewModelProviders.of(this).get(AViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_aroot, container, false);
+
         return root;
     }
 }

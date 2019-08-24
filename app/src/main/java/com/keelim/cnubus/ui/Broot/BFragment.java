@@ -19,7 +19,7 @@ public class BFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         BViewModel homeViewModel = ViewModelProviders.of(this).get(BViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_aroot, container, false);
+        View root = inflater.inflate(R.layout.fragment_broot, container, false);
 
         return root;
     }

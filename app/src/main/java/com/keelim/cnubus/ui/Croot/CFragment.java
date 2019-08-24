@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.keelim.cnubus.R;
+import com.keelim.cnubus.ui.Broot.BViewModel;
 
 public class CFragment extends Fragment {
 
@@ -20,16 +21,8 @@ public class CFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        cViewModel =
-                ViewModelProviders.of(this).get(CViewModel.class);
+        BViewModel homeViewModel = ViewModelProviders.of(this).get(BViewModel.class);
         View root = inflater.inflate(R.layout.fragment_croot, container, false);
-        final TextView textView = root.findViewById(R.id.text_notifications);
-        cViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
         return root;
     }
 }

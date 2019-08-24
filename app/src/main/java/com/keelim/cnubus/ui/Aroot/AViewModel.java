@@ -10,7 +10,7 @@ public class AViewModel extends ViewModel {
 
     public AViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is dashboard fragment");
+        mText.setValue("A root 노선 개발 중");
     }
 
     public LiveData<String> getText() {

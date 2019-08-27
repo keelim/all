@@ -16,26 +16,17 @@ public class SettingFragment extends Fragment {
 
     private SettingViewModel mViewModel;
 
-    public static SettingFragment newInstance() {
-        return new SettingFragment();
-    }
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         mViewModel =
                 ViewModelProviders.of(this).get(SettingViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_croot, container, false);
+        View root = inflater.inflate(R.layout.fragment_setting, container, false);
 
         return root;
 
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(SettingViewModel.class);
-        // TODO: Use the ViewModel
-    }
+
 
 }

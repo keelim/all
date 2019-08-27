@@ -32,12 +32,9 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_aroot, R.id.navigation_broot, R.id.navigation_croot)
+                R.id.navigation_setting, R.id.navigation_aroot, R.id.navigation_broot, R.id.navigation_croot)
                 .build();
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
-        actionBar.setDisplayHomeAsUpEnabled(true);
 
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -71,9 +68,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.drawer_croot:
                 Intent intent_croot = new Intent(getApplicationContext(), CRootActivity.class);
                 startActivity(intent_croot);
-                break;
-            case R.id.drawer_setting:
-                Toast.makeText(this, "화면 준비중입니다.", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.drawer_eniremap:
                 Intent intent_entiremap = new Intent(getApplicationContext(), EntireMapActivity.class);

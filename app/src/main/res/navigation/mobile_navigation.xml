@@ -24,7 +24,7 @@
         tools:layout="@layout/fragment_croot" />
 
     <fragment
-        android:id="@+id/navigaton_setting"
+        android:id="@+id/navigation_setting"
         android:name="com.keelim.cnubus.ui.Setting.SettingFragment"
         android:label="@string/setting"
         tools:layout="@layout/fragment_setting"/>

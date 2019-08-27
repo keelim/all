@@ -20,10 +20,6 @@
 
 
         <item
-            android:id="@+id/drawer_setting"
-            android:title="@string/setting" />
-
-        <item
             android:id="@+id/drawer_developer"
             android:title="@string/developerpage" />
 

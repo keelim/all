@@ -3,29 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
-
-    <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.keelim.cnubus.ui.Broot.BFragment"
-        android:label="@string/a_root"
-        tools:layout="@layout/fragment_aroot" />
+    app:startDestination="@+id/navigation_aroot">
 
     <fragment
         android:id="@+id/navigation_aroot"
         android:name="com.keelim.cnubus.ui.Aroot.AFragment"
+        android:label="@string/a_root"
+        tools:layout="@layout/fragment_aroot" />
+
+    <fragment
+        android:id="@+id/navigation_broot"
+        android:name="com.keelim.cnubus.ui.Broot.BFragment"
         android:label="@string/b_root"
         tools:layout="@layout/fragment_broot" />
 
     <fragment
-        android:id="@+id/navigation_broot"
+        android:id="@+id/navigation_croot"
         android:name="com.keelim.cnubus.ui.Croot.CFragment"
         android:label="@string/c_root"
         tools:layout="@layout/fragment_croot" />
 
     <fragment
-        android:id="@+id/navigation_croot"
+        android:id="@+id/navigaton_setting"
         android:name="com.keelim.cnubus.ui.Setting.SettingFragment"
-        android:label="setting"
+        android:label="@string/setting"
         tools:layout="@layout/fragment_setting"/>
+
 </navigation>

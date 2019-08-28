@@ -51,6 +51,8 @@
 ## 2019 08 25
 > version change
 
+> popup 만들기
+
 ## 2019 08 28
 > frgament setting
 

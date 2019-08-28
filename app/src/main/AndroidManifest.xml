@@ -11,12 +11,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".activities.PopupActivity"
+            android:theme="@android:style/Theme.Dialog" />
+        <activity android:name=".activities.GuideActivity" />
         <activity android:name=".activities.EntireMapActivity" />
         <activity android:name=".activities.CRootActivity" />
         <activity android:name=".activities.BRootActivity" />
         <activity android:name=".activities.ARootActivity" />
         <activity android:name=".activities.DeveloperActivity" />
-        <activity android:name=".activities.SplashActivity">
+        <activity
+            android:name=".activities.SplashActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

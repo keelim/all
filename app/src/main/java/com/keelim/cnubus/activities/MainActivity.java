@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -50,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
         AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
+        mOnPopupClick();
+
     }
 
     @Override
@@ -102,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void mOnPopupClick(){
         //데이터 담아서 팝업(액티비티) 호출
-        Intent intent = new Intent(this, PopupActivity.class);
+        Intent intent = new Intent(getApplicationContext(), PopupActivity.class);
         intent.putExtra("data", "Test Popup");
         startActivityForResult(intent, 1);
     }

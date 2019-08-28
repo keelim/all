@@ -1,4 +1,4 @@
-package com.keelim.cnubus.activities;
+package com.keelim.cnubus.utils;
 
 import android.app.Activity;
 import android.widget.FrameLayout;

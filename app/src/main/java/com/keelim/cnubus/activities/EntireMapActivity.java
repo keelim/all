@@ -15,6 +15,6 @@ public class EntireMapActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_entire_map);
         ImageView imageView = findViewById(R.id.iv_entiremap);
-        Glide.with(this).load("http://plus.cnu.ac.kr/images/kr/sub01/campus_map_d1.jpg").into(imageView);
+        Glide.with(this).load("https://raw.githubusercontent.com/keelim/Keelim.github.io/master/assets/entire.jpg").into(imageView);
     }
 }

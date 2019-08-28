@@ -78,10 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent_croot = new Intent(getApplicationContext(), CRootActivity.class);
                 startActivity(intent_croot);
                 break;
-            case R.id.drawer_eniremap:
-                Intent intent_entiremap = new Intent(getApplicationContext(), EntireMapActivity.class);
-                startActivity(intent_entiremap);
-                break;
+
             case R.id.drawer_developer:
                 Intent intent_developer = new Intent(getApplicationContext(), DeveloperActivity.class);
                 startActivity(intent_developer);

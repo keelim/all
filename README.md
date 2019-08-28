@@ -64,10 +64,7 @@
 
  
     
-## todo
-- Broot, cRoot station listview로 정리
 
-- CustomView로 구현을 할 것
 
 
     

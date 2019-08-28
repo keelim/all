@@ -15,7 +15,6 @@
             android:name=".activities.PopupActivity"
             android:theme="@style/Theme.AppCompat.Dialog" />
         <activity android:name=".activities.GuideActivity" />
-        <activity android:name=".activities.EntireMapActivity" />
         <activity android:name=".activities.CRootActivity" />
         <activity android:name=".activities.BRootActivity" />
         <activity android:name=".activities.ARootActivity" />

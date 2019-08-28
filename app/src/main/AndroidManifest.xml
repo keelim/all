@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activities.PopupActivity"
-            android:theme="@android:style/Theme.Dialog" />
+            android:theme="@style/Theme.AppCompat.Dialog" />
         <activity android:name=".activities.GuideActivity" />
         <activity android:name=".activities.EntireMapActivity" />
         <activity android:name=".activities.CRootActivity" />

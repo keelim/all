@@ -13,7 +13,9 @@
             android:id="@+id/drawer_croot"
             android:title="@string/c_root" />
 
-
+        <item
+            android:id="@+id/drawer_night"
+            android:title="@string/night" />
 
         <item
             android:id="@+id/drawer_developer"

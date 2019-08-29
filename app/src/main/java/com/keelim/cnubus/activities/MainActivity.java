@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,8 +30,6 @@ public class MainActivity extends AppCompatActivity {
 
         preferepnces = getSharedPreferences("Pref", MODE_PRIVATE);
         checkFirstRun();
-
-
 
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
@@ -78,6 +75,10 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent_croot = new Intent(getApplicationContext(), CRootActivity.class);
                 startActivity(intent_croot);
                 break;
+            case R.id.drawer_night:
+                Intent intent_night = new Intent(getApplicationContext(), NightRootActivity.class);
+                startActivity(intent_night);
+                break;
 
             case R.id.drawer_developer:
                 Intent intent_developer = new Intent(getApplicationContext(), DeveloperActivity.class);
@@ -101,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void mOnPopupClick(){
+    public void mOnPopupClick() {
         //데이터 담아서 팝업(액티비티) 호출
         Intent intent = new Intent(getApplicationContext(), PopupActivity.class);
         intent.putExtra("data", "Test Popup");
@@ -110,15 +111,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode==1){
-            if(resultCode==RESULT_OK){
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
                 //데이터 받기
                 String result = data.getStringExtra("result");
             }
         }
     }
-
-
 
 
 }

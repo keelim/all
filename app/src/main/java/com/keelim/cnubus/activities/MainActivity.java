@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         preferepnces = getSharedPreferences("Pref", MODE_PRIVATE);
-        checkFirstRun();
+
 
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
@@ -93,16 +93,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
 
-    }
-
-    public void checkFirstRun() {
-        boolean isFirstRun = preferepnces.getBoolean("isFirstRun", true);
-        if (isFirstRun) {
-            Intent newIntent = new Intent(getApplicationContext(), GuideActivity.class);
-            startActivity(newIntent);
-
-            preferepnces.edit().putBoolean("isFirstRun", false).apply();
-        }
     }
 
 

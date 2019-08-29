@@ -3,6 +3,9 @@
     package="com.keelim.cnubus">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+
 
     <application
         android:allowBackup="true"
@@ -11,7 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.NightRootActivity"></activity>
+        <activity android:name=".activities.NightRootActivity" />
         <activity
             android:name=".activities.PopupActivity"
             android:theme="@style/Theme.AppCompat.Dialog" />
@@ -38,12 +41,25 @@
             </intent-filter>
         </activity>
 
+        <service
+            android:name=".services.FirebaseInstanceIDService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="da093908abc28a1043cbc271323c4e202e13ec65" />
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/ADMOB_APP_ID" />
+        <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
+     See README(https://goo.gl/l4GJaQ) for more. -->
+
+
+
     </application>
 
 </manifest>

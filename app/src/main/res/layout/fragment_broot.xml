@@ -5,34 +5,10 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:id="@+id/relativeLayoutb1"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:background="@color/cnuBus_main"
-        app:layout_constraintBottom_toTopOf="@+id/relativeLayoutb2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_margin="3dp"
-            android:background="#ffffff"
-            android:text="B번"
-            android:textSize="27dp"
-            android:textStyle="bold" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
         android:id="@+id/relativeLayoutb2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/relativeLayoutb1"
-        app:layout_constraintStart_toStartOf="@+id/relativeLayoutb1"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayoutb1">
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <ListView
             android:id="@+id/b_listview"

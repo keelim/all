@@ -1,14 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.CRootActivity">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/iv_croot"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <TableLayout
+        android:layout_width="300dp"
+        android:layout_height="240dp"
+        android:background="#000000"
+        android:stretchColumns="*"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:background="#ffffff">
+
+            <TextView
+                android:text="오전"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+
+            <TextView
+                android:text="오후"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:background="#ffffff">
+
+            <TextView
+                android:text="08:10"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+
+            <TextView
+                android:text="13:10"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:background="#ffffff">
+
+
+            <TextView
+                android:text="09:10"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+
+            <TextView
+                android:text="14:10"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:background="#ffffff">
+
+
+            <TextView
+                android:text="10:10"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+
+            <TextView
+                android:text="15:10"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:background="#ffffff">
+
+
+            <TextView
+                android:text="11:50"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+
+            <TextView
+                android:text="16:10"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:background="#ffffff">
+
+
+            <TextView
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="24dp" />
+
+            <TextView
+                android:text="17:10"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:background="#ffffff">
+
+
+            <TextView
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="24dp" />
+
+            <TextView
+                android:text="17:50"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+
+        </TableRow>
+
+
+    </TableLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

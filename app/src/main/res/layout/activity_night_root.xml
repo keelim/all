@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.NightRootActivity">
+
+    <TableLayout
+        android:layout_width="300dp"
+        android:layout_height="345dp"
+        android:background="#000000"
+        android:stretchColumns="*"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:background="#ffffff">
+
+            <TextView
+                android:text="시간"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+
+            <TextView
+                android:text="상행"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+
+            <TextView
+                android:text="하행"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:background="#ffffff">
+
+            <TextView
+                android:text="1"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+
+            <TextView
+                android:text="19:00"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+
+            <TextView
+                android:text="19:15"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:background="#ffffff">
+
+            <TextView
+                android:text="2"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+
+            <TextView
+                android:text="19:30"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+
+            <TextView
+                android:text="19:45"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:background="#ffffff">
+
+            <TextView
+                android:text="3"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+
+            <TextView
+                android:text="20:00"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+
+            <TextView
+                android:text="20:15"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:background="#ffffff">
+
+            <TextView
+                android:text="4"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+
+            <TextView
+                android:text="20:30"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+
+            <TextView
+                android:text="20:45"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:background="#ffffff">
+
+            <TextView
+                android:text="5"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+
+            <TextView
+                android:text="21:00"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+
+            <TextView
+                android:text="21:15"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:background="#ffffff">
+
+            <TextView
+                android:text="6"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+
+            <TextView
+                android:text="21:30"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+
+            <TextView
+                android:text="21:45"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:background="#ffffff">
+
+            <TextView
+                android:text="7"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+
+            <TextView
+                android:text="22:00"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+
+            <TextView
+                android:text="22:15"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:background="#ffffff">
+
+
+            <TextView
+                android:text="8"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+
+            <TextView
+                android:text="22:30"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+
+            <TextView
+                android:text="22:45"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:background="#ffffff">
+
+            <TextView
+                android:text="9"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+
+            <TextView
+                android:text="23:00"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+
+            <TextView
+                android:text="23:15"
+                android:textAlignment="center"
+                android:textSize="24dp" />
+        </TableRow>
+    </TableLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

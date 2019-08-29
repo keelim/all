@@ -9,4 +9,5 @@
     <string name="developerpage">개발자 관련 화면</string>
     <string name="cnu_bus">CNU BUS</string>
     <string name="entire_map">전체지도</string>
+    <string name="night">야간 노선</string>
 </resources>

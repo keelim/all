@@ -5,6 +5,4 @@
         app:key="notifications"
         app:title="푸시 알람 on/off"/>
 
-
-
 </androidx.preference.PreferenceScreen>

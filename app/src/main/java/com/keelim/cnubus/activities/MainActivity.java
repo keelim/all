@@ -25,12 +25,10 @@ import com.google.android.play.core.appupdate.AppUpdateManager;
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
 import com.google.android.play.core.install.model.AppUpdateType;
 import com.google.android.play.core.install.model.UpdateAvailability;
-import com.google.android.play.core.tasks.OnSuccessListener;
 import com.google.android.play.core.tasks.Task;
 import com.keelim.cnubus.R;
 
 public class MainActivity extends AppCompatActivity {
-    public SharedPreferences preferepnces;
 
 
     @Override
@@ -38,16 +36,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        preferepnces = getSharedPreferences("Pref", MODE_PRIVATE);
-
-
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_setting, R.id.navigation_aroot, R.id.navigation_broot, R.id.navigation_croot)
                 .build();
-
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
@@ -58,12 +52,10 @@ public class MainActivity extends AppCompatActivity {
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
-
         //update manager
         // Creates instance of the manager.
         checkUpdate(getApplicationContext());
-        mOnPopupClick();
-
+        popUp();
 
     }
 
@@ -123,13 +115,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
-
         return super.onOptionsItemSelected(item);
-
     }
 
 
-    public void mOnPopupClick() {
+    public void popUp() {
         //데이터 담아서 팝업(액티비티) 호출
         Intent intent = new Intent(getApplicationContext(), PopupActivity.class);
         intent.putExtra("data", "Test Popup");

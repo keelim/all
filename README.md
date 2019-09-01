@@ -75,8 +75,12 @@
 > gps feature 사용하기?
 
 ## 2019  09 01
-> night mode 적용
+> night mode 적용 
+>적용 이유
 
+    - 배터리 절감    
+    - 접근성 
+    - 환경
  
 
  

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <group>
         <item
             android:id="@+id/drawer_aroot"
@@ -16,6 +17,12 @@
         <item
             android:id="@+id/drawer_night"
             android:title="@string/night" />
+
+        <item
+            android:id="@+id/drawer_my"
+            app:showAsAction="always"
+            android:title="MY"
+             />
 
         <item
             android:id="@+id/drawer_developer"

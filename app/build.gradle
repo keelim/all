@@ -17,8 +17,8 @@ android {
         applicationId "com.keelim.cnubus"
         minSdkVersion 26
         targetSdkVersion 29
-        versionCode 5
-        versionName "1.3"
+        versionCode 6
+        versionName "1.4"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -52,23 +52,28 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    //noinspection GradleDynamicVersion
-    implementation 'com.github.jrvansuita:MaterialAbout:+'
+
     //firebase
     implementation 'com.google.firebase:firebase-core:17.2.0'
     implementation 'com.google.firebase:firebase-ads:18.2.0'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
     implementation 'com.google.firebase:firebase-perf:19.0.0'
     implementation 'com.google.firebase:firebase-messaging:20.0.0'
-
     implementation('com.crashlytics.sdk.android:crashlytics:2.10.1@aar') {
         transitive = true
     }
     //image
     implementation 'com.github.bumptech.glide:glide:4.9.0'
-    //play store
+    //store
     implementation 'com.google.android.play:core:1.6.1'
-
+    //GSON
+    implementation 'com.google.code.gson:gson:2.8.5'
+    //Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.6.1'
+    //okhttp
+    implementation 'com.squareup.okhttp3:okhttp:4.0.1'
+    //noinspection GradleDynamicVersion
+    implementation 'com.github.jrvansuita:MaterialAbout:+'
 
 
 }

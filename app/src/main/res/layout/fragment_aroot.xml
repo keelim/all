@@ -16,20 +16,12 @@
             android:id="@+id/a_listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_toStartOf="@+id/busview"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
 
         </ListView>
-
-        <View
-            android:id="@+id/busview"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:background="#4DBBBBBB" />
 
 
     </RelativeLayout>

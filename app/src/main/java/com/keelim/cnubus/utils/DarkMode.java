@@ -5,7 +5,7 @@ import android.content.res.Configuration;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
-public class DarkMode { //dark mode setting
+public class DarkMode { // 임의적으로 다크모드를 지정하는 클래스
     public void apply(boolean enabled) {
         int nightMode;
         if (enabled)

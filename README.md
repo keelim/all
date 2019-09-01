@@ -81,6 +81,8 @@
     - 배터리 절감    
     - 접근성 
     - 환경
+
+> night mode setting complete
  
 
  

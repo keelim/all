@@ -75,7 +75,8 @@
 > gps feature 사용하기?
 
 ## 2019  09 01
-> night mode 적용 
+> night mode 적용
+ 
 >적용 이유
 
     - 배터리 절감    
@@ -83,7 +84,17 @@
     - 환경
 
 > night mode setting complete
+
+## TODO
+> 버스 실시간 위치 계산을 할 것
+
+> SERVER usage
  
+> DB 관련
+
+> 안드로이드 동적 링크 사용 // deep link 적용
+    
+     
 
  
     

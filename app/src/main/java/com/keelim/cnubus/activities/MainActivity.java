@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -108,10 +109,12 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent_night = new Intent(getApplicationContext(), NightRootActivity.class);
                 startActivity(intent_night);
                 break;
-
             case R.id.drawer_developer:
                 Intent intent_developer = new Intent(getApplicationContext(), DeveloperActivity.class);
                 startActivity(intent_developer);
+                break;
+            case R.id.drawer_my:
+                Toast.makeText(this, "서비스 중입니다. ", Toast.LENGTH_SHORT).show();
                 break;
         }
 

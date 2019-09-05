@@ -72,7 +72,7 @@ public class FirebaseInstanceIDService extends FirebaseMessagingService {
             NotificationCompat.Builder notificationBuilder =
                     new NotificationCompat.Builder(this, channel)
                             .setSmallIcon(R.mipmap.ic_launcher)
-                            .setContentTitle("알림이 왔어요!")
+                            .setContentTitle("알림이 도착을 했습니다. ")
                             .setContentText(message.substring(0, messageDivider))
                             .setChannelId(channel)
                             .setAutoCancel(true)

@@ -6,8 +6,7 @@
     <string name="ADMOB_APP_ID">ca-app-pub-3115620439518585~7951570697</string>
     <string name="ADMOB_APP_UNIT_ID">ca-app-pub-3115620439518585/2593741731</string>
     <string name="setting">Setting</string>
-    <string name="developerpage">개발자 관련 화면</string>
+    <string name="developerpage">개발자 화면</string>
     <string name="cnu_bus">CNU BUS</string>
-    <string name="entire_map">전체지도</string>
     <string name="night">야간 노선</string>
 </resources>

@@ -55,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
 
         //update manager
         // Creates instance of the manager.
-        checkUpdate(getApplicationContext());
         popUp();
 
     }
@@ -114,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent_developer);
                 break;
             case R.id.drawer_my:
-                Toast.makeText(this, "서비스 중입니다. ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "테스트 준비 중입니다. ", Toast.LENGTH_SHORT).show();
                 break;
         }
 

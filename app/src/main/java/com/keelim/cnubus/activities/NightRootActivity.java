@@ -2,6 +2,7 @@ package com.keelim.cnubus.activities;
 
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,5 +15,6 @@ public class NightRootActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_night_root);
+        Toast.makeText(this, "야간 노선 입니다. ", Toast.LENGTH_SHORT).show();
     }
 }

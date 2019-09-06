@@ -9,4 +9,8 @@
     <string name="developerpage">개발자 화면</string>
     <string name="cnu_bus">CNU BUS</string>
     <string name="night">야간 노선</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="copyright">Copyright © Keel_im Corp. All rights reserved.</string>
+    <string name="current_time">현재시간:</string>
 </resources>

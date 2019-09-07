@@ -18,7 +18,7 @@ public class PopupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //타이틀바 없애기
-        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_popup);
 
         //UI 객체생성

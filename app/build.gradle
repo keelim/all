@@ -61,6 +61,7 @@ dependencies {
     //image
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     //store
+
     implementation 'com.google.android.play:core:1.6.1'
     //GSON
     implementation 'com.google.code.gson:gson:2.8.5'

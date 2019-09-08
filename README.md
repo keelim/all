@@ -88,8 +88,15 @@
 >## 2019 09 05
 > 안드로이드 위젯 만들기
 
-# 2019 09 06
+## 2019 09 06
 > 버스 어플 카피 뜰 것
+
+## 2019 09 08
+> UI note check
+
+> 설정/my activity 계획 시작
+
+> root fragment modify  
 
 
 ## TODO

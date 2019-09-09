@@ -28,7 +28,7 @@ public class MaterialHelper {
     public void loadAbout() {
         final FrameLayout flHolder = activity.findViewById(R.id.about);
 
-        AboutBuilder builder = AboutBuilder.with(activity)
+        AboutBuilder builder = AboutBuilder.with(activity) //Builder pattern
                 .setAppIcon(R.mipmap.ic_launcher)
                 .setAppName(R.string.app_name)
                 .setPhoto(R.mipmap.profile_picture)

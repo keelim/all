@@ -25,8 +25,6 @@ public class AFragment extends Fragment {
 
 
 
-
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         AViewModel aViewModel = ViewModelProviders.of(this).get(AViewModel.class);
@@ -51,7 +49,7 @@ public class AFragment extends Fragment {
         return root;
     }
 
-    public String getDate(){
+    private String getDate(){
         // 현재시간을 msec 으로 구한다.
         long now = System.currentTimeMillis();
         // 현재시간을 date 변수에 저장한다.

@@ -14,14 +14,13 @@ import androidx.lifecycle.ViewModelProviders;
 import com.keelim.cnubus.R;
 
 public class BFragment extends Fragment {
-    private ListView listView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         BViewModel homeViewModel = ViewModelProviders.of(this).get(BViewModel.class);
         View root = inflater.inflate(R.layout.fragment_broot, container, false);
 
-        listView = root.findViewById(R.id.b_listview);
+        ListView listView = root.findViewById(R.id.b_listview);
 
         ArrayAdapter<CharSequence> arrayAdapterA = ArrayAdapter.createFromResource(getActivity(), R.array.bList,
                 android.R.layout.simple_list_item_1);

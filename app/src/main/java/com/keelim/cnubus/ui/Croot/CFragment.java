@@ -21,15 +21,13 @@ import java.util.List;
 
 public class CFragment extends Fragment {
 
-    private ListView listView;
-
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         CViewModel homeViewModel = ViewModelProviders.of(this).get(CViewModel.class);
         View root = inflater.inflate(R.layout.fragment_croot, container, false);
 
-        listView = root.findViewById(R.id.c_listview);
+        ListView listView = root.findViewById(R.id.c_listview);
 
         ArrayAdapter<CharSequence> arrayAdapterA = ArrayAdapter.createFromResource(getActivity(), R.array.cList,
                 android.R.layout.simple_list_item_1);

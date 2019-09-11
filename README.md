@@ -96,7 +96,13 @@
 
 > 설정/my activity 계획 시작
 
-> root fragment modify  
+> root fragment modify
+
+## 2019 09 11
+> in app update -> 수정을 할 것
+
+> add feature -> 확인을 할 것
+  
 
 
 ## TODO

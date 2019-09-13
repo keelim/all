@@ -15,9 +15,6 @@ public class MyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my);
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("설정");
-
-
-
+        actionBar.setTitle("마이페이지");
     }
 }

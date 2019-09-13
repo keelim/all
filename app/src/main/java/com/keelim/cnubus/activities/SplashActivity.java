@@ -6,13 +6,18 @@ import android.os.Handler;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+
 import com.crashlytics.android.Crashlytics;
 import com.keelim.cnubus.R;
+import com.keelim.cnubus.databinding.ActivitySplashBinding;
+
 import io.fabric.sdk.android.Fabric;
 
 
 public class SplashActivity extends AppCompatActivity { //인트로 액티비티를 생성한다.
     private Handler handler;
+    ActivitySplashBinding binding;
 
 
     //인앱 업데이트 어디서 등록을 해야 하는가?
@@ -30,7 +35,8 @@ public class SplashActivity extends AppCompatActivity { //인트로 액티비티
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
-        setContentView(R.layout.activity_splash);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_splash);
+        binding.setActivity(this);
         handler = new Handler();
         handler.postDelayed(runnable, 1000); //handler를 통하여 사용
         Toast.makeText(this, "충남대 학생 여러분 환영 합니다.", Toast.LENGTH_SHORT).show();

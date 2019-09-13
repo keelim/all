@@ -6,50 +6,40 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.keelim.cnubus.R;
+import com.keelim.cnubus.databinding.FragmentArootBinding;
 
 import java.util.Date;
 
 public class AFragment extends Fragment {
-
-    private TextView currenTime;
     private String basic_string;
-
-
+    private FragmentArootBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         AViewModel aViewModel = ViewModelProviders.of(this).get(AViewModel.class);
-
-        View root = inflater.inflate(R.layout.fragment_aroot, container, false);
-        ListView listView = root.findViewById(R.id.a_listview);
-
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_aroot, container, false);
+        View root = binding.getRoot();
         ArrayAdapter<CharSequence> arrayAdapterA = ArrayAdapter.createFromResource(getActivity(), R.array.aList,
                 android.R.layout.simple_list_item_1);
 
-        listView.setAdapter(arrayAdapterA);
-
-        currenTime = root.findViewById(R.id.current_time_a);
-        basic_string = currenTime.getText().toString();
-        FloatingActionButton floatingActionButton = root.findViewById(R.id.floatingActionButtona);
-
-        floatingActionButton.setOnClickListener(view -> {
+        binding.aListview.setAdapter(arrayAdapterA);
+        basic_string = binding.currentTimeA.getText().toString();
+        binding.floatingActionButtona.setOnClickListener(view -> {
             String add_date = getDate();
-            currenTime.setText(String.format("%s%s", basic_string, add_date));
+            binding.currentTimeA.setText(String.format("%s%s", basic_string, add_date));
         });
 
         return root;
     }
 
-    private String getDate(){
+    private String getDate() {
         // 현재시간을 msec 으로 구한다.
         long now = System.currentTimeMillis();
         // 현재시간을 date 변수에 저장한다.
@@ -60,7 +50,6 @@ public class AFragment extends Fragment {
         return sdfNow.format(date);
     }
     // inner function
-
 
 
 }

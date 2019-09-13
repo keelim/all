@@ -102,9 +102,14 @@
 > in app update -> 수정을 할 것
 
 > add feature -> 확인을 할 것
+
+## 2019 09 13
+> dataBinding 소스 수정
+
+    - 어떤 식으로 수정을 해야 할 지 고민 할 것
+    - 다른 식의 응용이 있는가?
+    - dataBinding을 사용을 하는 이유는? 
   
-
-
 ## TODO
 > 실시간 버스 기능 
 

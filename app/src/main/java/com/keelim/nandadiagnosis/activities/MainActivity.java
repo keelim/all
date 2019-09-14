@@ -1,7 +1,12 @@
 package com.keelim.nandadiagnosis.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.navigation.NavController;
@@ -31,4 +36,21 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.drawer_developer:
+                Intent intent_developer = new Intent(getApplicationContext(), DeveloperActivity.class);
+                startActivity(intent_developer);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

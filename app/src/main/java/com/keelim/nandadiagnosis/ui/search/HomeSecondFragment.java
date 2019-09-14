@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.ui.home;
+package com.keelim.nandadiagnosis.ui.search;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

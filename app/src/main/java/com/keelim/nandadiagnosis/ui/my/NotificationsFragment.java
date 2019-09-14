@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.ui.notifications;
+package com.keelim.nandadiagnosis.ui.my;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

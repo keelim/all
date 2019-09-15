@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.search.SearchFragment">
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="400dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="3dp"
+            android:background="@color/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/layout_search_table"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TableLayout
+            android:id="@+id/layout_search_table"
+            android:layout_width="400dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:background="@color/colorAccent"
+            android:stretchColumns="*"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <View
+                    android:id="@+id/search_view_1"
+                    android:layout_width="30dp"
+                    android:layout_height="120dp"
+                    android:layout_margin="2dp"
+                    android:background="#ffffff" />
+
+                <View
+                    android:id="@+id/search_view_2"
+                    android:layout_width="30dp"
+                    android:layout_height="120dp"
+                    android:layout_margin="2dp"
+                    android:background="#ffffff" />
+
+                <View
+                    android:id="@+id/search_view_3"
+                    android:layout_width="30dp"
+                    android:layout_height="120dp"
+                    android:layout_margin="2dp"
+                    android:background="#ffffff" />
+
+                <View
+                    android:id="@+id/search_view_4"
+                    android:layout_width="30dp"
+                    android:layout_height="120dp"
+                    android:layout_margin="2dp"
+                    android:background="#ffffff" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <View
+                    android:id="@+id/search_view_5"
+                    android:layout_width="30dp"
+                    android:layout_height="120dp"
+                    android:layout_margin="2dp"
+                    android:background="#ffffff" />
+
+                <View
+                    android:id="@+id/search_view_6"
+                    android:layout_width="30dp"
+                    android:layout_height="120dp"
+                    android:layout_margin="2dp"
+                    android:background="#ffffff" />
+
+                <View
+                    android:id="@+id/search_view_7"
+                    android:layout_width="30dp"
+                    android:layout_height="120dp"
+                    android:layout_margin="2dp"
+                    android:background="#ffffff" />
+
+                <View
+                    android:id="@+id/search_view_8"
+                    android:layout_width="30dp"
+                    android:layout_height="120dp"
+                    android:layout_margin="2dp"
+                    android:background="#ffffff" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="3dp"
+                android:layout_weight="1">
+
+                <View
+                    android:id="@+id/search_view_9"
+                    android:layout_width="30dp"
+                    android:layout_height="120dp"
+                    android:layout_margin="2dp"
+                    android:background="#ffffff" />
+
+                <View
+                    android:id="@+id/search_view_10"
+                    android:layout_width="30dp"
+                    android:layout_height="120dp"
+                    android:layout_margin="2dp"
+                    android:background="#ffffff" />
+
+                <View
+                    android:id="@+id/search_view_11"
+                    android:layout_width="30dp"
+                    android:layout_height="120dp"
+                    android:layout_margin="2dp"
+                    android:background="#ffffff" />
+
+                <View
+                    android:id="@+id/search_view_12"
+                    android:layout_width="30dp"
+                    android:layout_height="120dp"
+                    android:layout_margin="2dp"
+                    android:background="#ffffff" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <View
+                    android:id="@+id/search_view_13"
+                    android:layout_width="30dp"
+                    android:layout_height="120dp"
+                    android:layout_margin="2dp"
+                    android:background="#ffffff" />
+
+                <View
+                    android:layout_width="30dp"
+                    android:layout_height="120dp"
+                    android:layout_margin="2dp" />
+
+                <View
+                    android:layout_width="30dp"
+                    android:layout_height="120dp"
+                    android:layout_margin="2dp" />
+
+                <View
+                    android:layout_width="30dp"
+                    android:layout_height="120dp"
+                    android:layout_margin="2dp" />
+
+            </TableRow>
+
+
+        </TableLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

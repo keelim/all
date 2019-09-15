@@ -5,11 +5,10 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/navigation_search">
 
-
     <fragment
         android:id="@+id/navigation_search"
         android:name="com.keelim.nandadiagnosis.ui.search.SearchFragment"
-        android:label="SearchFragment"
+        android:label="@string/title_search"
         tools:layout="@layout/fragment_search" />
     <fragment
         android:id="@+id/navigation_dashboard"

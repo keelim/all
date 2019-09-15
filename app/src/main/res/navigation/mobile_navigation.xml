@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.keelim.nandadiagnosis.ui.search.HomeFragment"
+        android:name="com.keelim.nandadiagnosis.ui.search.SearchTempFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home">
+        tools:layout="@layout/fragment_search_first">
 
         <action
             android:id="@+id/action_HomeFragment_to_HomeSecondFragment"
@@ -17,9 +17,9 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_home_second"
-        android:name="com.keelim.nandadiagnosis.ui.search.HomeSecondFragment"
+        android:name="com.keelim.nandadiagnosis.ui.search.SearchSecondFragment"
         android:label="@string/home_second"
-        tools:layout="@layout/fragment_home_second">
+        tools:layout="@layout/fragment_search_second">
         <action
             android:id="@+id/action_HomeSecondFragment_to_HomeFragment"
             app:destination="@id/navigation_home" />
@@ -31,13 +31,13 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.keelim.nandadiagnosis.ui.category.DashboardFragment"
+        android:name="com.keelim.nandadiagnosis.ui.category.CategoryFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_category" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.keelim.nandadiagnosis.ui.my.NotificationsFragment"
+        android:name="com.keelim.nandadiagnosis.ui.my.MyFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_my" />
 </navigation>

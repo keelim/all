@@ -15,15 +15,15 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.keelim.nandadiagnosis.R;
 
-public class HomeFragment extends Fragment {
+public class SearchTempFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
+    private SearchViewModel homeViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
+                ViewModelProviders.of(this).get(SearchViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_search_first, container, false);
         final TextView textView = root.findViewById(R.id.text_home);
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
@@ -44,7 +44,7 @@ public class HomeFragment extends Fragment {
                 HomeFragmentDirections.ActionHomeFragmentToHomeSecondFragment action =
                         HomeFragmentDirections.actionHomeFragmentToHomeSecondFragment
                                 ("From HomeFragment");
-                NavHostFragment.findNavController(HomeFragment.this)
+                NavHostFragment.findNavController(SearchTempFragment.this)
                         .navigate(action);
             }
         });

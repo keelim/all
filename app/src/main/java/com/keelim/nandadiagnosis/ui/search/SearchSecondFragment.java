@@ -12,7 +12,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.keelim.nandadiagnosis.R;
 
-public class HomeSecondFragment extends Fragment {
+public class SearchSecondFragment extends Fragment {
 
     @Override
     public View onCreateView(
@@ -20,7 +20,7 @@ public class HomeSecondFragment extends Fragment {
             Bundle savedInstanceState
     ) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home_second, container, false);
+        return inflater.inflate(R.layout.fragment_search_second, container, false);
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -33,7 +33,7 @@ public class HomeSecondFragment extends Fragment {
         view.findViewById(R.id.button_home_second).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(HomeSecondFragment.this)
+                NavHostFragment.findNavController(SearchSecondFragment.this)
                         .navigate(R.id.action_HomeSecondFragment_to_HomeFragment);
             }
         });

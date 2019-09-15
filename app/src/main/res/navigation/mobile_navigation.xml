@@ -3,41 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_search">
+
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.keelim.nandadiagnosis.ui.search.SearchTempFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_search_first">
-
-        <action
-            android:id="@+id/action_HomeFragment_to_HomeSecondFragment"
-            app:destination="@id/navigation_home_second" />
-    </fragment>
-    <fragment
-        android:id="@+id/navigation_home_second"
-        android:name="com.keelim.nandadiagnosis.ui.search.SearchSecondFragment"
-        android:label="@string/home_second"
-        tools:layout="@layout/fragment_search_second">
-        <action
-            android:id="@+id/action_HomeSecondFragment_to_HomeFragment"
-            app:destination="@id/navigation_home" />
-
-        <argument
-            android:name="myArg"
-            app:argType="string" />
-    </fragment>
-
+        android:id="@+id/navigation_search"
+        android:name="com.keelim.nandadiagnosis.ui.search.SearchFragment"
+        android:label="SearchFragment"
+        tools:layout="@layout/fragment_search" />
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.keelim.nandadiagnosis.ui.category.CategoryFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/title_category"
         tools:layout="@layout/fragment_category" />
 
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.keelim.nandadiagnosis.ui.my.MyFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/title_my"
         tools:layout="@layout/fragment_my" />
 </navigation>

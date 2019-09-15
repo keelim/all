@@ -12,26 +12,28 @@
         android:layout_height="match_parent"
         tools:context=".ui.search.SearchFragment">
 
-        <View
+        <ImageView
             android:id="@+id/view"
             android:layout_width="400dp"
             android:layout_height="200dp"
-            android:layout_marginTop="3dp"
+            android:layout_margin="5dp"
             android:background="@color/colorPrimary"
+            android:src="@drawable/common_google_signin_btn_icon_light_normal"
             app:layout_constraintBottom_toTopOf="@+id/layout_search_table"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
 
         <TableLayout
             android:id="@+id/layout_search_table"
             android:layout_width="400dp"
             android:layout_height="0dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="6dp"
+            android:layout_margin="5dp"
             android:background="@color/colorAccent"
+            android:padding="3dp"
             android:stretchColumns="*"
-
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -42,33 +44,40 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1">
 
-                <View
+                <ImageView
                     android:id="@+id/search_view_1"
                     android:layout_width="30dp"
                     android:layout_height="120dp"
                     android:layout_margin="2dp"
-                    android:background="#ffffff" />
+                    android:background="#ffffff"
+                    android:src="@drawable/ic_dashboard_black_24dp" >
 
-                <View
+
+                </ImageView>
+
+                <ImageView
                     android:id="@+id/search_view_2"
                     android:layout_width="30dp"
                     android:layout_height="120dp"
                     android:layout_margin="2dp"
-                    android:background="#ffffff" />
+                    android:background="#ffffff"
+                    android:src="@drawable/ic_dashboard_black_24dp" />
 
-                <View
+                <ImageView
                     android:id="@+id/search_view_3"
                     android:layout_width="30dp"
                     android:layout_height="120dp"
                     android:layout_margin="2dp"
-                    android:background="#ffffff" />
+                    android:background="#ffffff"
+                    android:src="@drawable/ic_dashboard_black_24dp" />
 
-                <View
+                <ImageView
                     android:id="@+id/search_view_4"
                     android:layout_width="30dp"
                     android:layout_height="120dp"
                     android:layout_margin="2dp"
-                    android:background="#ffffff" />
+                    android:background="#ffffff"
+                    android:src="@drawable/ic_dashboard_black_24dp" />
 
             </TableRow>
 
@@ -77,69 +86,76 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1">
 
-                <View
+                <ImageView
                     android:id="@+id/search_view_5"
                     android:layout_width="30dp"
                     android:layout_height="120dp"
                     android:layout_margin="2dp"
-                    android:background="#ffffff" />
+                    android:background="#ffffff"
+                    android:src="@drawable/ic_dashboard_black_24dp" />
 
-                <View
+                <ImageView
                     android:id="@+id/search_view_6"
                     android:layout_width="30dp"
                     android:layout_height="120dp"
                     android:layout_margin="2dp"
-                    android:background="#ffffff" />
+                    android:background="#ffffff"
+                    android:src="@drawable/ic_dashboard_black_24dp" />
 
-                <View
+                <ImageView
                     android:id="@+id/search_view_7"
                     android:layout_width="30dp"
                     android:layout_height="120dp"
                     android:layout_margin="2dp"
-                    android:background="#ffffff" />
+                    android:background="#ffffff"
+                    android:src="@drawable/ic_dashboard_black_24dp" />
 
-                <View
+                <ImageView
                     android:id="@+id/search_view_8"
                     android:layout_width="30dp"
                     android:layout_height="120dp"
                     android:layout_margin="2dp"
-                    android:background="#ffffff" />
+                    android:background="#ffffff"
+                    android:src="@drawable/ic_dashboard_black_24dp" />
 
             </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="3dp"
                 android:layout_weight="1">
 
-                <View
+                <ImageView
                     android:id="@+id/search_view_9"
                     android:layout_width="30dp"
                     android:layout_height="120dp"
                     android:layout_margin="2dp"
-                    android:background="#ffffff" />
+                    android:background="#ffffff"
+                    android:src="@drawable/ic_dashboard_black_24dp" />
 
-                <View
+                <ImageView
                     android:id="@+id/search_view_10"
                     android:layout_width="30dp"
                     android:layout_height="120dp"
                     android:layout_margin="2dp"
-                    android:background="#ffffff" />
+                    android:background="#ffffff"
+                    android:src="@drawable/ic_dashboard_black_24dp" />
 
-                <View
+                <ImageView
                     android:id="@+id/search_view_11"
                     android:layout_width="30dp"
                     android:layout_height="120dp"
                     android:layout_margin="2dp"
-                    android:background="#ffffff" />
+                    android:background="#ffffff"
+                    android:src="@drawable/ic_dashboard_black_24dp" />
 
-                <View
+                <ImageView
                     android:id="@+id/search_view_12"
                     android:layout_width="30dp"
                     android:layout_height="120dp"
                     android:layout_margin="2dp"
-                    android:background="#ffffff" />
+                    android:background="#ffffff"
+                    android:src="@drawable/ic_dashboard_black_24dp" />
 
             </TableRow>
 
@@ -147,12 +163,13 @@
                 android:layout_height="0dp"
                 android:layout_weight="1">
 
-                <View
+                <ImageView
                     android:id="@+id/search_view_13"
                     android:layout_width="30dp"
                     android:layout_height="120dp"
                     android:layout_margin="2dp"
-                    android:background="#ffffff" />
+                    android:background="#ffffff"
+                    android:src="@drawable/ic_dashboard_black_24dp" />
 
                 <View
                     android:layout_width="30dp"
@@ -173,6 +190,8 @@
 
 
         </TableLayout>
+
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="activity"
             type="com.keelim.nandadiagnosis.activities.SplashActivity" />
@@ -21,7 +22,7 @@
             android:layout_height="wrap_content"
             android:text="NANDA"
             android:textColor="#ffffff"
-            android:textSize="60dp"
+            android:textSize="60sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -35,7 +36,7 @@
             android:layout_marginBottom="185dp"
             android:text="version 1.0"
             android:textColor="#121212"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -50,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="72dp"
             android:textColor="#121212"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

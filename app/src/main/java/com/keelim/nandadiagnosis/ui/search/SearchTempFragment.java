@@ -38,15 +38,15 @@ public class SearchTempFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        view.findViewById(R.id.button_home).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                HomeFragmentDirections.ActionHomeFragmentToHomeSecondFragment action =
-                        HomeFragmentDirections.actionHomeFragmentToHomeSecondFragment
-                                ("From HomeFragment");
-                NavHostFragment.findNavController(SearchTempFragment.this)
-                        .navigate(action);
-            }
-        });
+//        view.findViewById(R.id.button_home).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                HomeFragmentDirections.ActionHomeFragmentToHomeSecondFragment action =
+//                        HomeFragmentDirections.actionHomeFragmentToHomeSecondFragment
+//                                ("From HomeFragment");
+//                NavHostFragment.findNavController(SearchTempFragment.this)
+//                        .navigate(action);
+//            }
+//        });
     }
 }

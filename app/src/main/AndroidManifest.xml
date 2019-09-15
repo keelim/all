@@ -24,6 +24,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.DeveloperActivity" />
+
+        <service android:name=".services.FirebaseInstanceIDService" />
     </application>
 
 </manifest>

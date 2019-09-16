@@ -7,18 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.search.SearchFragment">
 
-    <ImageView
-        android:id="@+id/view"
-        android:layout_width="400dp"
-        android:layout_height="200dp"
-        android:layout_margin="5dp"
-        android:background="@color/colorPrimary"
-        android:src="@drawable/common_google_signin_btn_icon_light_normal"
-        app:layout_constraintBottom_toTopOf="@+id/layout_search_table"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 
     <TableLayout
@@ -32,7 +20,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TableRow
             android:layout_width="match_parent"

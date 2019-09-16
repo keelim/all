@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -17,6 +18,8 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.keelim.nandadiagnosis.R;
 import com.keelim.nandadiagnosis.databinding.ActivityMainBinding;
+
+import static androidx.fragment.app.FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;

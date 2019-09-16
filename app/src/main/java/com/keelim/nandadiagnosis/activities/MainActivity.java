@@ -10,19 +10,23 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.keelim.nandadiagnosis.R;
+import com.keelim.nandadiagnosis.adapter.MainPageAdapter;
 import com.keelim.nandadiagnosis.databinding.ActivityMainBinding;
+import com.keelim.nandadiagnosis.ui.main_viewpager.AFragment;
+import com.keelim.nandadiagnosis.ui.main_viewpager.BFragment;
+import com.keelim.nandadiagnosis.ui.main_viewpager.CFragment;
 
 import static androidx.fragment.app.FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
+    private MainPageAdapter mainPageAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,22 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+        //viewPager setting
+        mainPageAdapter = new MainPageAdapter(getSupportFragmentManager(), BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        viewPagerSetting();
+
+    }
+
+    private void viewPagerSetting() {
+        mainPageAdapter.addItem(new AFragment());
+        mainPageAdapter.addItem(new BFragment());
+        mainPageAdapter.addItem(new CFragment());
+        binding.mainViewpager.setAdapter(mainPageAdapter);
+    }
+
+    private void toastSupport(String nanda_domain) {
+        Toast.makeText(getApplicationContext(), nanda_domain, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -101,7 +121,5 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void toastSupport(String nanda_domain) {
-        Toast.makeText(getApplicationContext(), nanda_domain, Toast.LENGTH_SHORT).show();
-    }
+
 }

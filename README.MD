@@ -1,6 +1,7 @@
 ## 2019  09 14 project start
 
 ## project name: NANDA diagnosis project
+## with nursing major junior JH, C
 
 > 2019 09 15
 
@@ -19,8 +20,11 @@
 > 2019 09 17     
     
     - 아이콘 만들기 
-    - viewpager 사용하기
+    - viewpager 사용하기 -> complete
+        - todo detail fragment making
     - 데이터베이스 구성을 할 것
         - server DB
         - 안드로이드 내부 DB > Jetpack library (Room)
-    - 
+        
+> 2019 09 18
+    

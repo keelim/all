@@ -8,18 +8,15 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.keelim.nandadiagnosis.R;
-import com.keelim.nandadiagnosis.databinding.FragmentMyBinding;
 
 public class MyFragment extends Fragment {
 
     private MyViewModel notificationsViewModel;
-    private FragmentMyBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {

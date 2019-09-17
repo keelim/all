@@ -1,7 +1,10 @@
 <!--?xml version="1.0" encoding="UTF-8"?-->
 <resources>
-  <color name="colorPrimary">#ffab00</color>
-  <color name="colorAccent">#ffdd4b</color>
-  <color name="colorPrimaryDark">#c67c00</color>
-  <color name="primaryTextColor">#000000</color>
+    <color name="colorPrimary">#ffab00</color>
+    <color name="colorAccent">#ffdd4b</color>
+    <color name="colorPrimaryDark">#c67c00</color>
+    <color name="primaryTextColor">#000000</color>
+    <color name="ic_launcher_background">#ffab00</color>
+    <color name="inverse">#73AAFF</color>
+
 </resources>

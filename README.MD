@@ -19,12 +19,20 @@
     
 > 2019 09 17     
     
-    - 아이콘 만들기 
+    - 아이콘 만들기 -> complete
+    
+    - 프로그램 구조 정하기
+        -  activity 구조 정하기
+        - fragment 구조 찾기
+    
     - viewpager 사용하기 -> complete
         - todo detail fragment making
-    - 데이터베이스 구성을 할 것
+        
+    - 데이터베이스 구성
+        - 스키마 작업 하기
         - server DB
         - 안드로이드 내부 DB > Jetpack library (Room)
         
 > 2019 09 18
     
+    - 

@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main_viewpager.CFragment">
+    tools:context=".ui.search_viewpager.ViewPagerThirdFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:text="NANDA 진단에 오신 것을 환영 합니다. 333333" />
 
 </FrameLayout>

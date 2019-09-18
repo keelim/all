@@ -20,19 +20,28 @@
 > 2019 09 17     
     
     - 아이콘 만들기 -> complete
+        - 힘들면 보색으로 아이콘 구성
     
     - 프로그램 구조 정하기
-        -  activity 구조 정하기
-        - fragment 구조 찾기
+        - activity 구조 -> complete
+        - fragment 구조 -> complete
     
     - viewpager 사용하기 -> complete
-        - todo detail fragment making
         
     - 데이터베이스 구성
-        - 스키마 작업 하기
+        - 스키마 작업 
         - server DB
         - 안드로이드 내부 DB > Jetpack library (Room)
+        - SQLite
         
 > 2019 09 18
     
-    - 
+    - 데이터베이스 구성
+        - 데이터베이스 파일을 만들 것
+        - 첫 시작시 데이터를 받아올 수 있도록 할 것
+            - 와이파이 연결시에만 받아올 것
+         
+    - 도움말 액티비티/프레그먼트 짤 것 -> 리스트뷰
+        - 도움말
+        - 문의하기
+        - 오픈소스 라이선스    

@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.keelim.nandadiagnosis.R;
 
-public class CategoryFragment extends Fragment {
+public class CategoryFragment extends Fragment { //
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,

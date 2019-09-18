@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.adapter;
+package com.keelim.nandadiagnosis.ui.search_viewpager;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -7,12 +7,12 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import java.util.ArrayList;
 
-public class MainPageAdapter extends FragmentPagerAdapter {
+public class SearchViewPagerAdapter extends FragmentPagerAdapter {
 
     private ArrayList<Fragment> fragments = new ArrayList<>();
 
 
-    public MainPageAdapter(@NonNull FragmentManager fm, int behavior) {
+    public SearchViewPagerAdapter(@NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);
     }
 

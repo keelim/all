@@ -1,0 +1,8 @@
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <SwitchPreferenceCompat
+        app:key="notifications"
+        app:title="푸시 알람 on/off"/>
+
+</androidx.preference.PreferenceScreen>

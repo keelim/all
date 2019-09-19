@@ -32,10 +32,6 @@
             </intent-filter>
         </activity>
 
-        <meta-data
-            android:name="android.app.searchable"
-            android:resource="@xml/searchable" />
-
         <activity android:name=".activities.DeveloperActivity" />
 
         <service android:name=".services.FirebaseInstanceIDService" />

@@ -2,19 +2,20 @@ package com.keelim.nandadiagnosis.ui.category;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.keelim.nandadiagnosis.R;
-import com.keelim.nandadiagnosis.activities.MainActivity;
 
 public class CategoryFragment extends Fragment { //
 
@@ -31,14 +32,15 @@ public class CategoryFragment extends Fragment { //
                 textView.setText(s);
             }
         });
-
-        //앱바 검색할 수 있게 하기
-        ActionBar actionBar = ((MainActivity) getActivity()).getSupportActionBar();
-
-
-
+        setHasOptionsMenu(true);
         return root;
     }
 
-
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        //search 등록 -> Fragment 마다 다르게 할 수 있음
+        inflater.inflate(R.menu.search_menu,menu);
+        MenuItem item = menu.findItem(R.id.menu_search);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 }

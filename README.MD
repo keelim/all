@@ -65,4 +65,7 @@
 
     - 도움말 문의 액티비티 만들기
 
-    - 검색 가능 구현
+    - 검색 가능 구현 (categroy frgamnet search 환경으로 변경)ㄴ
+        - 첫 시작시 데이터베이스 받아오는 코드 작성
+        - searchView -> database 의 연결을 하기 -> SQLite
+

@@ -8,11 +8,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.keelim.nandadiagnosis.R;
+import com.keelim.nandadiagnosis.activities.MainActivity;
 
 public class CategoryFragment extends Fragment { //
 
@@ -29,6 +31,14 @@ public class CategoryFragment extends Fragment { //
                 textView.setText(s);
             }
         });
+
+        //앱바 검색할 수 있게 하기
+        ActionBar actionBar = ((MainActivity) getActivity()).getSupportActionBar();
+
+
+
         return root;
     }
+
+
 }

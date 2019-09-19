@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.HelpActivity"></activity>
+        <activity android:name=".activities.HelpActivity" />
         <activity
             android:name=".activities.DomainActivity"
             android:label="@string/title_activity_domain"
@@ -28,8 +28,14 @@
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="android.app.searchable"
+            android:resource="@xml/searchable" />
+
         <activity android:name=".activities.DeveloperActivity" />
 
         <service android:name=".services.FirebaseInstanceIDService" />

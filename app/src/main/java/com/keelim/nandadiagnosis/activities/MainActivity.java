@@ -1,7 +1,10 @@
 package com.keelim.nandadiagnosis.activities;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +21,20 @@ import androidx.navigation.ui.NavigationUI;
 import com.keelim.nandadiagnosis.DomainValue;
 import com.keelim.nandadiagnosis.R;
 import com.keelim.nandadiagnosis.databinding.ActivityMainBinding;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
@@ -38,6 +55,25 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
+        fileChecking();
+
+    }
+
+    private void fileChecking() {
+        File check = getApplicationContext().getDatabasePath("temp.db");
+        if (!check.exists()) {
+            //데이터베이스를 받아온다.
+            //sqlite database 파일ㅣ
+
+            OkHttpClient client = new OkHttpClient();
+            Request request = new Request.Builder()
+                    .url("https://github.com/keelim/hellosdsd/images.db")
+                    .build();
+
+            CallBackDownloadFile callBackDownloadFile = new CallBackDownloadFile(Environment.getDataDirectory().getAbsolutePath() + "/database", "temp.db");
+            client.newCall(request).enqueue(callBackDownloadFile);
+
+        }
     }
 
 
@@ -126,6 +162,78 @@ public class MainActivity extends AppCompatActivity {
         Intent intent_common = new Intent(getApplicationContext(), DomainActivity.class);
         intent_common.putExtra(name, domainValue);
         startActivity(intent_common);
+    }
+
+    private class CallBackDownloadFile implements Callback {
+
+        private File directory;
+        private File fileToBeDownloaded;
+
+        public CallBackDownloadFile(String directory, String fileName) {
+            this.directory = new File(directory);
+            this.fileToBeDownloaded = new File(this.directory.getAbsolutePath() + "/" + fileName);
+        }
+
+
+        @Override
+        public void onFailure(@NotNull Call call, @NotNull IOException e) {
+            runOnUiThread(() -> {
+                Toast.makeText(MainActivity.this, "파일을 다운로드 할 수 없습니다. 인터넷 연결을 확인하세요", Toast.LENGTH_SHORT).show();
+                finish();
+            });
+        }
+
+        @Override
+        public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+            if (!this.directory.exists()) {
+                this.directory.mkdirs();
+            }
+
+            if (this.fileToBeDownloaded.exists()) {
+                this.fileToBeDownloaded.delete();
+            }
+
+            try {
+                this.fileToBeDownloaded.createNewFile();
+            } catch (IOException e) {
+                Log.e("Error", e.getMessage());
+                runOnUiThread(() -> {
+                    Toast.makeText(MainActivity.this, "다운로드 파일을 생성할 수 없습니다. ", Toast.LENGTH_SHORT).show();
+                });
+            }
+
+            InputStream inputStream = response.body().byteStream();
+            OutputStream outputStream = new FileOutputStream(this.fileToBeDownloaded);
+
+            final int BUFFER_SIZE = 2046;
+            byte[] data = new byte[BUFFER_SIZE];
+
+            int count;
+            long total = 0;
+
+            while ((count = inputStream.read(data)) != -1) {
+                total += count;
+                outputStream.write(data, 0, count);
+            }
+            outputStream.flush();
+            outputStream.close();
+            inputStream.close();
+
+            runOnUiThread(() -> {
+                Toast.makeText(MainActivity.this, "다운로드가 완료되었습니다. ", Toast.LENGTH_SHORT).show();
+            });
+
+        }
+    }
+
+    private class AsyncDownloader extends AsyncTask<Void, Long, Boolean>{
+        private final String URL = "file_url";
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            OkHttpClient httpClient = new OkHttpClient();
+//            httpClient.newCall(new Request.Builder())
+            return false;
+        }
     }
 
 

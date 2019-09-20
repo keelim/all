@@ -59,6 +59,10 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent_developer = new Intent(getApplicationContext(), DeveloperActivity.class);
                 startActivity(intent_developer);
                 break;
+            case R.id.drawer_help:
+                Intent intent_help = new Intent(getApplicationContext(), HelpActivity.class);
+                startActivity(intent_help);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

@@ -15,9 +15,8 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class HelpListAdapter extends BaseAdapter {
-    Context context;
-    ArrayList<HelpListItem> arrayList;
-    TextView helpTitle_TextView;
+    private Context context;
+    private ArrayList<HelpListItem> arrayList;
 
     public HelpListAdapter(Context context, ArrayList<HelpListItem> arrayList) {
         this.context = context;
@@ -43,7 +42,7 @@ public class HelpListAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         if (view == null)
             view = LayoutInflater.from(context).inflate(R.layout.item, null);
-            helpTitle_TextView = view.findViewById(R.id.help_title);
+        TextView helpTitle_TextView = view.findViewById(R.id.help_title);
             helpTitle_TextView.setText(arrayList.get(i).getTitle());
         return view;
     }

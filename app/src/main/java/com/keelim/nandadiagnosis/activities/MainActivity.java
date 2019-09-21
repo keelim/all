@@ -1,7 +1,6 @@
 package com.keelim.nandadiagnosis.activities;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -11,6 +10,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.navigation.NavController;
@@ -60,20 +60,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fileChecking() {
-        File check = getApplicationContext().getDatabasePath("temp.db");
+        File check = getApplicationContext().getDatabasePath("nanda.db");
         if (!check.exists()) {
             //데이터베이스를 받아온다.
             //sqlite database 파일ㅣ
+            builder_setting();
 
-            OkHttpClient client = new OkHttpClient();
-            Request request = new Request.Builder()
-                    .url("https://github.com/keelim/hellosdsd/images.db")
-                    .build();
-
-            CallBackDownloadFile callBackDownloadFile = new CallBackDownloadFile(Environment.getDataDirectory().getAbsolutePath() + "/database", "temp.db");
-            client.newCall(request).enqueue(callBackDownloadFile);
-
+        } else {
+            Toast.makeText(this, "데이터베이스가 존재합니다. 그대로 진행 합니다.", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void builder_setting() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("다운로드 요청")
+                .setMessage("어플리케이션 사용을 위해 데이터베이스를 다운로드 합니다.")
+                .setNegativeButton(android.R.string.cancel, null)
+                .setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
+                    Toast.makeText(this, "서버로부터 데이터 베이스를 요청 합니다. ", Toast.LENGTH_SHORT).show();
+
+                    OkHttpClient client = new OkHttpClient();
+                    Request request = new Request.Builder()
+                            .url("https://github.com/keelim/Keelim.github.io/raw/master/assets/nanda.db")
+                            .build();
+                    CallBackDownloadFile callBackDownloadFile = new CallBackDownloadFile(getDataDir().toString(), "nanda.db");
+                    client.newCall(request).enqueue(callBackDownloadFile);
+
+                }).create()
+                .show();
     }
 
 
@@ -171,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
 
         public CallBackDownloadFile(String directory, String fileName) {
             this.directory = new File(directory);
-            this.fileToBeDownloaded = new File(this.directory.getAbsolutePath() + "/" + fileName);
+            this.fileToBeDownloaded = new File(getDataDir(), fileName);
         }
 
 
@@ -185,23 +199,18 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-            if (!this.directory.exists()) {
-                this.directory.mkdirs();
-            }
-
-            if (this.fileToBeDownloaded.exists()) {
-                this.fileToBeDownloaded.delete();
-            }
 
             try {
                 this.fileToBeDownloaded.createNewFile();
+                Log.i("create", "파일 만들기 성공");
             } catch (IOException e) {
                 Log.e("Error", e.getMessage());
                 runOnUiThread(() -> {
-                    Toast.makeText(MainActivity.this, "다운로드 파일을 생성할 수 없습니다. ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "다운로드 파일을 생성할 수 없습니다.\n 데이터베이스 부족으로 인해 종료 합니다. ", Toast.LENGTH_SHORT).show();
+
+                    finish();
                 });
             }
-
             InputStream inputStream = response.body().byteStream();
             OutputStream outputStream = new FileOutputStream(this.fileToBeDownloaded);
 
@@ -225,16 +234,5 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-
-    private class AsyncDownloader extends AsyncTask<Void, Long, Boolean>{
-        private final String URL = "file_url";
-        @Override
-        protected Boolean doInBackground(Void... voids) {
-            OkHttpClient httpClient = new OkHttpClient();
-//            httpClient.newCall(new Request.Builder())
-            return false;
-        }
-    }
-
 
 }

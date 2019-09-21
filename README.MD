@@ -70,9 +70,9 @@
         - searchView -> database 의 연결을 하기 -> SQLite
         
 > 2019 09 21
->  
+
     - 데이터베이스 관련
-        - sql ->*.db, sqlite로 받아오는 방버
+        - sql ->*.db, sqlite로 받아오는 방법 complete
         - 안드로이드 db -> Room 연결
         - searchview -> Room 연결
         - 표현 방법 
@@ -80,3 +80,5 @@
     - 디자인 수정
         - 아이콘 디자인 수정
         - 도움말/문의 액티비티 수정
+        
+    - 바텀 시트 다이알로그 수정

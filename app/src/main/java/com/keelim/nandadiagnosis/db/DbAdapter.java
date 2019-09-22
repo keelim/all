@@ -13,9 +13,9 @@ import java.util.List;
 
 public class DbAdapter extends BaseAdapter {
     private Context context;
-    private List<DBitem> arrayList;
+    private List<DbItem> arrayList;
 
-    public DbAdapter(Context context, List<DBitem> arrayList) {
+    public DbAdapter(Context context, List<DbItem> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
     }

@@ -12,12 +12,13 @@ import com.keelim.nandadiagnosis.utils.MaterialHelper;
 
 
 public class DeveloperActivity extends AppCompatActivity {
-    ActivityDeveloperBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_developer);
+        com.keelim.nandadiagnosis.databinding.ActivityDeveloperBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_developer);
+        binding.setActivity(this);
+
         MaterialHelper.with(this).init().loadAbout();
         Toast.makeText(this, "개발자 관련 화면 입니다.", Toast.LENGTH_SHORT).show();
     }

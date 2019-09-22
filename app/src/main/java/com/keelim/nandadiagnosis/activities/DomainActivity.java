@@ -2,7 +2,6 @@ package com.keelim.nandadiagnosis.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -11,17 +10,16 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import com.google.android.material.snackbar.Snackbar;
 import com.keelim.nandadiagnosis.DomainValue;
 import com.keelim.nandadiagnosis.R;
-import com.keelim.nandadiagnosis.databinding.ActivityDomainBinding;
 import com.keelim.nandadiagnosis.ui.domain.DomainPageAdapter;
 
-public class DomainActivity extends AppCompatActivity {
-    ActivityDomainBinding binding;
-    private int handler;
+import java.util.Objects;
+
+public class DomainActivity extends AppCompatActivity { //todo 전체적으로 수정이 필요한 부분
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_domain);
+        com.keelim.nandadiagnosis.databinding.ActivityDomainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_domain);
         binding.setActivity(this);
 
         //page adapter apply
@@ -30,16 +28,11 @@ public class DomainActivity extends AppCompatActivity {
         binding.tabs.setupWithViewPager(binding.domainViewPager);
 
         //floating button
-        binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "여기에 뭐 어떻게 할까요?", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        binding.fab.setOnClickListener(view -> Snackbar.make(view, "여기에 뭐 어떻게 할까요?", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show());
 
         Intent common = getIntent();
-        handler = common.getExtras().getInt("domain");
+        int handler = Objects.requireNonNull(common.getExtras()).getInt("domain");
         handling(handler);
     }
 

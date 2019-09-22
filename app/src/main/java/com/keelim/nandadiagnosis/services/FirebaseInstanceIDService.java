@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -17,9 +18,10 @@ import com.google.firebase.messaging.RemoteMessage;
 import com.keelim.nandadiagnosis.R;
 import com.keelim.nandadiagnosis.activities.MainActivity;
 
+import java.util.Objects;
 
-public class FirebaseInstanceIDService extends FirebaseMessagingService {
 
+public class FirebaseInstanceIDService extends FirebaseMessagingService { //todo firebase push 할 떄 사용 -> 수정은 필요하다.
 
     @Override
     public void onNewToken(String s) {
@@ -28,9 +30,9 @@ public class FirebaseInstanceIDService extends FirebaseMessagingService {
     }
 
     @Override
-    public void onMessageReceived(RemoteMessage remoteMessage) {
+    public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         // 메시지 수신 시 실행되는 메소드
-        if (remoteMessage != null && remoteMessage.getData().size() > 0) {
+        if (remoteMessage.getData().size() > 0) {
             sendNotification(remoteMessage);
         }
     }
@@ -44,7 +46,7 @@ public class FirebaseInstanceIDService extends FirebaseMessagingService {
         String message = remoteMessage.getData().get("data");
         // 수신되는 푸시 메시지
 
-        int messageDivider = message.indexOf("|");
+        int messageDivider = Objects.requireNonNull(message).indexOf("|");
         // 구분자를 통해 어떤 종류의 알람인지를 구별합니다.
 
         String pushType = message.substring(messageDivider + 1); // 구분자 뒤에 나오는 메시지
@@ -68,7 +70,7 @@ public class FirebaseInstanceIDService extends FirebaseMessagingService {
             channelMessage.enableVibration(true);
             channelMessage.setShowBadge(false);
             channelMessage.setVibrationPattern(new long[]{100, 200, 100, 200});
-            notichannel.createNotificationChannel(channelMessage);
+            Objects.requireNonNull(notichannel).createNotificationChannel(channelMessage);
 
             NotificationCompat.Builder notificationBuilder =
                     new NotificationCompat.Builder(this, channel)
@@ -84,7 +86,7 @@ public class FirebaseInstanceIDService extends FirebaseMessagingService {
             NotificationManager notificationManager =
                     (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-            notificationManager.notify(9999, notificationBuilder.build());
+            Objects.requireNonNull(notificationManager).notify(9999, notificationBuilder.build());
 
 
         } else {

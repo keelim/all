@@ -14,13 +14,9 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.keelim.nandadiagnosis.R;
 
-/**
- * A placeholder fragment containing a simple view.
- */
 public class PlaceholderFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
-
     private PageViewModel pageViewModel;
 
     @Override

@@ -27,7 +27,7 @@ public class MaterialHelper {
     }
 
     public void loadAbout() {
-        final FrameLayout flHolder = activity.findViewById(R.id.about);
+        final FrameLayout frameLayout = activity.findViewById(R.id.about);
 
         AboutBuilder builder = AboutBuilder.with(activity) //Builder pattern
                 .setAppIcon(R.mipmap.ic_launcher)
@@ -51,8 +51,8 @@ public class MaterialHelper {
                 .addFeedbackAction("kimh00335@gmail.com");
 
         AboutView view = builder.build();
+        frameLayout.addView(view);
 
-        flHolder.addView(view);
     }
 
 

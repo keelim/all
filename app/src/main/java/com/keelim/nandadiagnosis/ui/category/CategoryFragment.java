@@ -19,15 +19,17 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.keelim.nandadiagnosis.R;
-import com.keelim.nandadiagnosis.db.DBitem;
 import com.keelim.nandadiagnosis.db.DatabaseHelper;
 import com.keelim.nandadiagnosis.db.DbAdapter;
+import com.keelim.nandadiagnosis.db.DbItem;
 
 import java.util.List;
+import java.util.Objects;
 
-public class CategoryFragment extends Fragment { //
+public class CategoryFragment extends Fragment { //todo view model 하고 같이 수정을 할 것
     private ListView listview;
     private DatabaseHelper databaseHelper;
+    private SQLiteDatabase database;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -39,11 +41,11 @@ public class CategoryFragment extends Fragment { //
 
 
         final TextView textView = root.findViewById(R.id.text_category);
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), s -> textView.setText(s));
+        dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         setHasOptionsMenu(true);
 
         databaseHelper = new DatabaseHelper(getActivity());
-        SQLiteDatabase database = databaseHelper.getReadableDatabase();
+        database = databaseHelper.getReadableDatabase();
 
         return root;
     }
@@ -55,8 +57,8 @@ public class CategoryFragment extends Fragment { //
 
         MenuItem item = menu.findItem(R.id.menu_search);
         SearchView searchView = (SearchView) item.getActionView();
-        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+        SearchManager searchManager = (SearchManager) Objects.requireNonNull(getActivity()).getSystemService(Context.SEARCH_SERVICE);
+        searchView.setSearchableInfo(Objects.requireNonNull(searchManager).getSearchableInfo(getActivity().getComponentName()));
         searchView.setSubmitButtonEnabled(true);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -76,20 +78,18 @@ public class CategoryFragment extends Fragment { //
     }
 
     private void loadDatabase() {
-        databaseHelper = new DatabaseHelper(getActivity().getApplicationContext());
-        List<DBitem> dBitems = databaseHelper.findAll();
-        if (dBitems != null) {
-            listview.setAdapter(new DbAdapter(getActivity().getApplicationContext(), dBitems));
+        databaseHelper = new DatabaseHelper(Objects.requireNonNull(getActivity()).getApplicationContext());
+        List<DbItem> dbItems = databaseHelper.findAll();
+        if (dbItems != null) {
+            listview.setAdapter(new DbAdapter(getActivity().getApplicationContext(), dbItems));
         }
     }
 
     private void searchDiagnosis(String keyword) {
-        databaseHelper = new DatabaseHelper(getActivity().getApplicationContext());
-        List<DBitem> dBitems = databaseHelper.search(keyword);
-        if (dBitems != null) {
-            listview.setAdapter(new DbAdapter(getActivity().getApplicationContext(), dBitems));
+        databaseHelper = new DatabaseHelper(Objects.requireNonNull(getActivity()).getApplicationContext());
+        List<DbItem> dbItems = databaseHelper.search(keyword);
+        if (dbItems != null) {
+            listview.setAdapter(new DbAdapter(getActivity().getApplicationContext(), dbItems));
         }
     }
-
-
 }

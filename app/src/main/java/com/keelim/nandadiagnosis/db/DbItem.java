@@ -2,20 +2,20 @@ package com.keelim.nandadiagnosis.db;
 
 import java.io.Serializable;
 
-public class DBitem implements Serializable {
-    private int id;
+public class DbItem implements Serializable {
+    private int nanda_mysql_id;
     private String reason;
     private String diagnosis;
     private String class_name;
     private String domain_name;
 
 
-    public int getId() {
-        return id;
+    public int getNanda_mysql_id() {
+        return nanda_mysql_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setNanda_mysql_id(int nanda_mysql_id) {
+        this.nanda_mysql_id = nanda_mysql_id;
     }
 
     public String getReason() {

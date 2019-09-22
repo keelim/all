@@ -8,7 +8,6 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 public class DomainPageAdapter extends FragmentStatePagerAdapter {
 
-
     public DomainPageAdapter(@NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);
     }
@@ -30,7 +29,7 @@ public class DomainPageAdapter extends FragmentStatePagerAdapter {
 
     @Nullable
     @Override
-    public CharSequence getPageTitle(int position) {
+    public CharSequence getPageTitle(int position) { // domain page tab 수정을 할 것
         switch (position) {
             case 0:
                 return "one";

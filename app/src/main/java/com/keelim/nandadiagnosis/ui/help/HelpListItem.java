@@ -1,6 +1,8 @@
 package com.keelim.nandadiagnosis.ui.help;
 
-public class HelpListItem {
+import java.io.Serializable;
+
+public class HelpListItem implements Serializable {
     private String title;
 
     public HelpListItem(String title) {

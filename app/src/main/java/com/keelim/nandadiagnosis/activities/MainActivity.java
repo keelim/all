@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fileChecking() {
-        File check = getApplicationContext().getDatabasePath("nanda.db");
+        File check = new File(getDataDir(), "nanda.db");
         if (!check.exists()) {
             //데이터베이스를 받아온다.
             //sqlite database 파일ㅣ
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                     Request request = new Request.Builder()
                             .url("https://github.com/keelim/Keelim.github.io/raw/master/assets/nanda.db")
                             .build();
-                    CallBackDownloadFile callBackDownloadFile = new CallBackDownloadFile(getDataDir().toString(), "nanda.db");
+                    CallBackDownloadFile callBackDownloadFile = new CallBackDownloadFile("nanda.db");
                     client.newCall(request).enqueue(callBackDownloadFile);
 
                 }).create()
@@ -179,12 +179,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private class CallBackDownloadFile implements Callback {
-
-        private File directory;
         private File fileToBeDownloaded;
 
-        public CallBackDownloadFile(String directory, String fileName) {
-            this.directory = new File(directory);
+        public CallBackDownloadFile(String fileName) {
             this.fileToBeDownloaded = new File(getDataDir(), fileName);
         }
 

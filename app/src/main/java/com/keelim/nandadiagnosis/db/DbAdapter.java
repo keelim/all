@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.ui.help;
+package com.keelim.nandadiagnosis.db;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,13 +9,13 @@ import android.widget.TextView;
 
 import com.keelim.nandadiagnosis.R;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public class HelpListAdapter extends BaseAdapter {
+public class DbAdapter extends BaseAdapter {
     private Context context;
-    private ArrayList<HelpListItem> arrayList;
+    private List<DBitem> arrayList;
 
-    public HelpListAdapter(Context context, ArrayList<HelpListItem> arrayList) {
+    public DbAdapter(Context context, List<DBitem> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
     }
@@ -38,9 +38,9 @@ public class HelpListAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         if (view == null)
-            view = LayoutInflater.from(context).inflate(R.layout.item_listview, null);
-        TextView helpTitle_TextView = view.findViewById(R.id.help_title);
-        helpTitle_TextView.setText(arrayList.get(i).getTitle());
+            view = LayoutInflater.from(context).inflate(R.layout.item_db, null);
+        TextView diagnosis_textView = view.findViewById(R.id.db_diagnosis);
+        diagnosis_textView.setText(arrayList.get(i).getDiagnosis());
         return view;
     }
 }

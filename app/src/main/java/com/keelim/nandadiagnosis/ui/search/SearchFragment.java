@@ -28,6 +28,9 @@ public class SearchFragment extends Fragment {
         binding = FragmentSearchBinding.inflate(inflater, container, false);
         mainPageAdapter = new SearchViewPagerAdapter(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPagerSetting();
+
+        Objects.requireNonNull(getActivity().getActionBar()).hide();
+
         return binding.getRoot();
     }
 

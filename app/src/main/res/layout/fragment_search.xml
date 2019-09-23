@@ -27,11 +27,8 @@
         <TableLayout
             android:id="@+id/layout_search_table"
             android:layout_width="400dp"
-            android:layout_height="0dp"
-            android:layout_margin="5dp"
-            android:layout_marginBottom="4dp"
+            android:layout_height="450dp"
             android:background="@color/colorAccent"
-            android:padding="3dp"
             android:stretchColumns="*"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -40,8 +37,8 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_weight="1">
+                android:layout_height="0dp"
+                android:layout_weight="0.8">
 
                 <ImageView
                     android:id="@+id/search_view_1"
@@ -49,7 +46,6 @@
                     android:layout_height="100dp"
                     android:layout_margin="2dp"
                     android:background="#ffffff"
-                    android:baselineAligned="false"
                     android:clickable="true"
                     android:onClick="toastMaker"
                     tools:srcCompat="@tools:sample/avatars" />
@@ -60,6 +56,7 @@
                     android:layout_height="100dp"
                     android:layout_margin="2dp"
                     android:background="#ffffff"
+                    android:baselineAligned="false"
                     android:clickable="true"
                     android:onClick="toastMaker"
                     tools:srcCompat="@tools:sample/avatars" />
@@ -88,7 +85,7 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1">
 
                 <ImageView
@@ -135,7 +132,7 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1">
 
                 <ImageView
@@ -166,7 +163,7 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:onClick="toastMaker"
-                    tools:srcCompat="@tools:sample/avatars"/>
+                    tools:srcCompat="@tools:sample/avatars" />
 
                 <ImageView
                     android:id="@+id/search_view_12"
@@ -188,7 +185,6 @@
                     android:id="@+id/search_view_13"
                     android:layout_width="30dp"
                     android:layout_height="100dp"
-                    android:layout_margin="2dp"
                     android:background="#ffffff"
                     android:clickable="true"
                     android:onClick="toastMaker"
@@ -196,18 +192,15 @@
 
                 <View
                     android:layout_width="30dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="2dp" />
+                    android:layout_height="100dp" />
 
                 <View
                     android:layout_width="30dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="2dp" />
+                    android:layout_height="100dp" />
 
                 <View
                     android:layout_width="30dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="2dp" />
+                    android:layout_height="100dp" />
 
             </TableRow>
 

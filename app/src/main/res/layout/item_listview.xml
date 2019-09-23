@@ -5,9 +5,11 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/help_title"
+        android:id="@+id/help_item"
         android:layout_width="0dp"
-        android:layout_height="30dp"
+        android:layout_height="60dp"
+        android:textColor="#000000"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

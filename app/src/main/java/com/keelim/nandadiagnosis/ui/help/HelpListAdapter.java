@@ -39,7 +39,7 @@ public class HelpListAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         if (view == null)
             view = LayoutInflater.from(context).inflate(R.layout.item_listview, null);
-        TextView helpTitle_TextView = view.findViewById(R.id.help_title);
+        TextView helpTitle_TextView = view.findViewById(R.id.help_item);
         helpTitle_TextView.setText(arrayList.get(i).getTitle());
         return view;
     }

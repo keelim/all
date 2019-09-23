@@ -17,7 +17,6 @@ import io.fabric.sdk.android.Fabric;
 public class SplashActivity extends AppCompatActivity { //handler를 다르게 설정을 할 수 있는가?
     //인트로 액티비티를 생성한다.
     private Handler handler;
-    private ActivitySplashBinding binding;
 
     //인앱 업데이트 어디서 등록을 해야 하는가?
     private Runnable runnable = () -> { //runable 작동을 하고 시작
@@ -34,7 +33,7 @@ public class SplashActivity extends AppCompatActivity { //handler를 다르게 �
 
         Fabric.with(this, new Crashlytics()); //Fabric 설정
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_splash);
+        com.keelim.nandadiagnosis.databinding.ActivitySplashBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_splash);
         binding.setActivity(this);
 
         handler = new Handler();

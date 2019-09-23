@@ -52,10 +52,7 @@
                     android:baselineAligned="false"
                     android:clickable="true"
                     android:onClick="toastMaker"
-                    android:src="@drawable/ic_dashboard_black_24dp">
-
-
-                </ImageView>
+                    tools:srcCompat="@tools:sample/avatars" />
 
                 <ImageView
                     android:id="@+id/search_view_2"
@@ -65,7 +62,7 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:onClick="toastMaker"
-                    android:src="@drawable/ic_dashboard_black_24dp" />
+                    tools:srcCompat="@tools:sample/avatars" />
 
                 <ImageView
                     android:id="@+id/search_view_3"
@@ -75,7 +72,7 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:onClick="toastMaker"
-                    android:src="@drawable/ic_dashboard_black_24dp" />
+                    tools:srcCompat="@tools:sample/avatars" />
 
                 <ImageView
                     android:id="@+id/search_view_4"
@@ -85,7 +82,7 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:onClick="toastMaker"
-                    android:src="@drawable/ic_dashboard_black_24dp" />
+                    tools:srcCompat="@tools:sample/avatars" />
 
             </TableRow>
 
@@ -102,7 +99,7 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:onClick="toastMaker"
-                    android:src="@drawable/ic_dashboard_black_24dp" />
+                    tools:srcCompat="@tools:sample/avatars" />
 
                 <ImageView
                     android:id="@+id/search_view_6"
@@ -112,7 +109,7 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:onClick="toastMaker"
-                    android:src="@drawable/ic_dashboard_black_24dp" />
+                    tools:srcCompat="@tools:sample/avatars" />
 
                 <ImageView
                     android:id="@+id/search_view_7"
@@ -122,7 +119,7 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:onClick="toastMaker"
-                    android:src="@drawable/ic_dashboard_black_24dp" />
+                    tools:srcCompat="@tools:sample/avatars" />
 
                 <ImageView
                     android:id="@+id/search_view_8"
@@ -132,7 +129,7 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:onClick="toastMaker"
-                    android:src="@drawable/ic_dashboard_black_24dp" />
+                    tools:srcCompat="@tools:sample/avatars" />
 
             </TableRow>
 
@@ -149,7 +146,7 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:onClick="toastMaker"
-                    android:src="@drawable/ic_dashboard_black_24dp" />
+                    tools:srcCompat="@tools:sample/avatars" />
 
                 <ImageView
                     android:id="@+id/search_view_10"
@@ -159,7 +156,7 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:onClick="toastMaker"
-                    android:src="@drawable/ic_dashboard_black_24dp" />
+                    tools:srcCompat="@tools:sample/avatars" />
 
                 <ImageView
                     android:id="@+id/search_view_11"
@@ -169,7 +166,7 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:onClick="toastMaker"
-                    android:src="@drawable/ic_dashboard_black_24dp" />
+                    tools:srcCompat="@tools:sample/avatars"/>
 
                 <ImageView
                     android:id="@+id/search_view_12"
@@ -179,7 +176,7 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:onClick="toastMaker"
-                    android:src="@drawable/ic_dashboard_black_24dp" />
+                    tools:srcCompat="@tools:sample/avatars" />
 
             </TableRow>
 
@@ -195,7 +192,7 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:onClick="toastMaker"
-                    android:src="@drawable/ic_dashboard_black_24dp" />
+                    tools:srcCompat="@tools:sample/avatars" />
 
                 <View
                     android:layout_width="30dp"

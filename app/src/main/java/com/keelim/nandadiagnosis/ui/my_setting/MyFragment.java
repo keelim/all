@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.ui.my;
+package com.keelim.nandadiagnosis.ui.my_setting;
 
 import android.os.Bundle;
 

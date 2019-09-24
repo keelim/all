@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis;
+package com.keelim.nandadiagnosis.utils;
 
 public interface DomainValue {
     int domain_hp = 1;

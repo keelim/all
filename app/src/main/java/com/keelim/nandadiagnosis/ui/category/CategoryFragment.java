@@ -33,15 +33,10 @@ public class CategoryFragment extends Fragment { //todo view model 하고 같이
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        CategoryViewModel dashboardViewModel = ViewModelProviders.of(this).get(CategoryViewModel.class);
         View root = inflater.inflate(R.layout.fragment_category, container, false);
-
         listview = root.findViewById(R.id.dbanswer_listview);
         loadDatabase();
 
-
-        final TextView textView = root.findViewById(R.id.text_category);
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         setHasOptionsMenu(true);
 
         databaseHelper = new DatabaseHelper(getActivity());

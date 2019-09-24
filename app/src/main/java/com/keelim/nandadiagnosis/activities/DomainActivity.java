@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.keelim.nandadiagnosis.DomainValue;
+import com.keelim.nandadiagnosis.utils.DomainValue;
 import com.keelim.nandadiagnosis.R;
 import com.keelim.nandadiagnosis.ui.domain.DomainPageAdapter;
 

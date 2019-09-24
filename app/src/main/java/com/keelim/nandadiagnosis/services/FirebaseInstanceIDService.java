@@ -103,7 +103,7 @@ public class FirebaseInstanceIDService extends FirebaseMessagingService { //todo
             NotificationManager notificationManager =
                     (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-            notificationManager.notify(9999, notificationBuilder.build());
+            Objects.requireNonNull(notificationManager).notify(9999, notificationBuilder.build());
 
         }
     }

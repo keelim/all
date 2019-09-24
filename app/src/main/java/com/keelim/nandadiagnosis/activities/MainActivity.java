@@ -17,7 +17,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.keelim.nandadiagnosis.DomainValue;
+import com.keelim.nandadiagnosis.utils.DomainValue;
 import com.keelim.nandadiagnosis.R;
 import com.keelim.nandadiagnosis.databinding.ActivityMainBinding;
 

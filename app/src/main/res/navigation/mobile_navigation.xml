@@ -7,14 +7,14 @@
 
     <fragment
         android:id="@+id/navigation_search"
-        android:name="com.keelim.nandadiagnosis.ui.search.SearchFragment"
+        android:name="com.keelim.nandadiagnosis.ui.category.CategoryFragment"
         android:label="@string/title_search"
         tools:layout="@layout/fragment_search" />
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.keelim.nandadiagnosis.ui.category.CategoryFragment"
+        android:name="com.keelim.nandadiagnosis.ui.search.SearchFragment"
         android:label="@string/title_category"
-        tools:layout="@layout/fragment_category" />
+        tools:layout="@layout/fragment_searcht" />
 
     <fragment
         android:id="@+id/navigation_notifications"

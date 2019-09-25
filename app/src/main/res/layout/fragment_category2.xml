@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.search_viewpager.ViewPagerFirstFragment">
+    tools:context=".ui.category_viewpager.ViewPagerSecondFragment">
 
-    <TextView
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="NANDA 진단에 오신 것을 환영 합니다. 111111" />
+        tools:src="@tools:sample/backgrounds/scenic" />
 
 </FrameLayout>
-<!--어떤 것을 표시를 할 것인가?-->
+    <!--어떤 것을 표시를 할 것인가?-->

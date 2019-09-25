@@ -9,7 +9,7 @@
         android:id="@+id/navigation_search"
         android:name="com.keelim.nandadiagnosis.ui.category.CategoryFragment"
         android:label="@string/title_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_category" />
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.keelim.nandadiagnosis.ui.search.SearchFragment"

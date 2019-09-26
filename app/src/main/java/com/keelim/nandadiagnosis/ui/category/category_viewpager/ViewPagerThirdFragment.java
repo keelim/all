@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.ui.category_viewpager;
+package com.keelim.nandadiagnosis.ui.category.category_viewpager;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,11 +9,11 @@ import androidx.fragment.app.Fragment;
 
 import com.keelim.nandadiagnosis.R;
 
-public class ViewPagerSecondFragment extends Fragment {
+
+public class ViewPagerThirdFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_category2, container, false);
+        return inflater.inflate(R.layout.fragment_category3, container, false);
     }
 }

@@ -51,7 +51,6 @@ public class FirebaseInstanceIDService extends FirebaseMessagingService { //todo
 
         String pushType = message.substring(messageDivider + 1); // 구분자 뒤에 나오는 메시지
 
-
         Intent resultIntent = new Intent(this, MainActivity.class);
         resultIntent.putExtra("pushType", pushType);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 1, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);

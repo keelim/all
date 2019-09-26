@@ -13,9 +13,9 @@ import java.util.ArrayList;
 
 public class HelpListAdapter extends BaseAdapter {
     private Context context;
-    private ArrayList<HelpListItem> arrayList;
+    private ArrayList<HelplistItem> arrayList;
 
-    public HelpListAdapter(Context context, ArrayList<HelpListItem> arrayList) {
+    public HelpListAdapter(Context context, ArrayList<HelplistItem> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
     }

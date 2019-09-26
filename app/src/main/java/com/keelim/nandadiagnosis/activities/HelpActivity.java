@@ -9,7 +9,7 @@ import androidx.databinding.DataBindingUtil;
 import com.google.android.material.snackbar.Snackbar;
 import com.keelim.nandadiagnosis.R;
 import com.keelim.nandadiagnosis.ui.help.HelpListAdapter;
-import com.keelim.nandadiagnosis.ui.help.HelpListItem;
+import com.keelim.nandadiagnosis.ui.help.HelplistItem;
 
 import java.util.ArrayList;
 
@@ -21,7 +21,7 @@ public class HelpActivity extends AppCompatActivity {
         com.keelim.nandadiagnosis.databinding.ActivityHelpBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_help);
         binding.setActivity(this);
 
-        ArrayList<HelpListItem> arrayList = arrayListSetting();
+        ArrayList<HelplistItem> arrayList = arrayListSetting();
         HelpListAdapter helpAdapter = new HelpListAdapter(getApplicationContext(), arrayList);
 
         binding.helpList.setAdapter(helpAdapter);
@@ -44,11 +44,11 @@ public class HelpActivity extends AppCompatActivity {
     }
 
     @NonNull
-    private ArrayList<HelpListItem> arrayListSetting() {
-        ArrayList<HelpListItem> arrayList = new ArrayList<>();
-        arrayList.add(new HelpListItem("도움말"));
-        arrayList.add(new HelpListItem("문의사항"));
-        arrayList.add(new HelpListItem("오픈소스라이선스"));
+    private ArrayList<HelplistItem> arrayListSetting() {
+        ArrayList<HelplistItem> arrayList = new ArrayList<>();
+        arrayList.add(new HelplistItem("도움말"));
+        arrayList.add(new HelplistItem("문의사항"));
+        arrayList.add(new HelplistItem("오픈소스라이선스"));
         return arrayList;
     }
 }

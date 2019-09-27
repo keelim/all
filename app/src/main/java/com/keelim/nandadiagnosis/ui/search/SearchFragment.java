@@ -10,12 +10,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.keelim.nandadiagnosis.R;
 import com.keelim.nandadiagnosis.db.DatabaseHelper;
 import com.keelim.nandadiagnosis.db.DbAdapter;
@@ -24,21 +27,24 @@ import com.keelim.nandadiagnosis.db.DbItem;
 import java.util.List;
 import java.util.Objects;
 
-public class SearchFragment extends Fragment { //todo view model 하고 같이 수정을 할 것
+public class SearchFragment extends Fragment  { //todo view model 하고 같이 수정을 할 것
     private ListView listview;
     private DatabaseHelper databaseHelper;
-    private SQLiteDatabase database;
+    private List<DbItem> dbItems;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_searcht, container, false);
         listview = root.findViewById(R.id.dbanswer_listview);
-        loadDatabase();
 
         setHasOptionsMenu(true);
-
         databaseHelper = new DatabaseHelper(getActivity());
-        database = databaseHelper.getReadableDatabase();
+        SQLiteDatabase database = databaseHelper.getReadableDatabase();
+
+        listview.setOnItemClickListener((adapterView, view, i, l) -> {
+            Snackbar.make(view, adapterView.getItemAtPosition(i).toString(), Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+        });
 
         return root;
     }
@@ -70,19 +76,14 @@ public class SearchFragment extends Fragment { //todo view model 하고 같이 �
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-    private void loadDatabase() {
+    private void searchDiagnosis(String keyword) {
         databaseHelper = new DatabaseHelper(Objects.requireNonNull(getActivity()).getApplicationContext());
-        List<DbItem> dbItems = databaseHelper.findAll();
+
+        dbItems = databaseHelper.search(keyword);
         if (dbItems != null) {
             listview.setAdapter(new DbAdapter(getActivity().getApplicationContext(), dbItems));
         }
     }
 
-    private void searchDiagnosis(String keyword) {
-        databaseHelper = new DatabaseHelper(Objects.requireNonNull(getActivity()).getApplicationContext());
-        List<DbItem> dbItems = databaseHelper.search(keyword);
-        if (dbItems != null) {
-            listview.setAdapter(new DbAdapter(getActivity().getApplicationContext(), dbItems));
-        }
-    }
+
 }

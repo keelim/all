@@ -5,27 +5,21 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.keelim.nandadiagnosis.utils.DomainValue;
 import com.keelim.nandadiagnosis.R;
-import com.keelim.nandadiagnosis.ui.domain.DomainPageAdapter;
+import com.keelim.nandadiagnosis.utils.DomainValue;
 
 import java.util.Objects;
 
 public class DomainActivity extends AppCompatActivity { //todo 전체적으로 수정이 필요한 부분
+    //그냥 웹뷰만 넣자
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         com.keelim.nandadiagnosis.databinding.ActivityDomainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_domain);
         binding.setActivity(this);
-
-        //page adapter apply
-        DomainPageAdapter domainPageAdapter = new DomainPageAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        binding.domainViewPager.setAdapter(domainPageAdapter);
-        binding.tabs.setupWithViewPager(binding.domainViewPager);
 
         //floating button
         binding.fab.setOnClickListener(view -> Snackbar.make(view, "여기에 뭐 어떻게 할까요?", Snackbar.LENGTH_LONG)

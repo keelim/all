@@ -50,30 +50,6 @@ public class DatabaseHelper extends SQLiteOpenHelper { // todo CUrsor 가 뭐지
         return dbItems;
     }
 
-    public List<DbItem> findAll() {
-        List<DbItem> dbItems = null;
-        try {
-            SQLiteDatabase sqLiteDatabase = getReadableDatabase();
-            Cursor cursor = sqLiteDatabase.rawQuery("select * from " + TABLE_NAME, null);
-            if (cursor.moveToFirst()) {
-                dbItems = new ArrayList<>();
-                do {
-                    DbItem dBitem = new DbItem();
-                    dBitem.setNanda_mysql_id(cursor.getInt(0));
-                    dBitem.setReason(cursor.getString(1));
-                    dBitem.setDiagnosis(cursor.getString(2));
-                    dBitem.setClass_name(cursor.getString(3));
-                    dBitem.setDomain_name(cursor.getString(4));
-                    dbItems.add(dBitem);
-                } while (cursor.moveToNext());
-            }
-            cursor.close();
-        } catch (Exception e) {
-            dbItems = null;
-        }
-
-        return dbItems;
-    }
 
 
     @Override

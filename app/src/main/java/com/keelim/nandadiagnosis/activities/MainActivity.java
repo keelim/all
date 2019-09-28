@@ -17,9 +17,9 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.keelim.nandadiagnosis.utils.DomainValue;
 import com.keelim.nandadiagnosis.R;
 import com.keelim.nandadiagnosis.databinding.ActivityMainBinding;
+import com.keelim.nandadiagnosis.utils.DomainValue;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -120,61 +120,61 @@ public class MainActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.search_view_1:
                 this.toastSupport("건강증진 Health promotion");
-                domainInputStartActivity("domain", DomainValue.domain_hp);
+                UrlStartActivity("URL", DomainValue.domain_hp);
                 break;
             case R.id.search_view_2:
                 this.toastSupport("영양 Nutrition");
-                domainInputStartActivity("domain", DomainValue.domain_nt);
+                UrlStartActivity("URL", DomainValue.domain_nt);
                 break;
             case R.id.search_view_3:
                 this.toastSupport("배설 Elimination and exchange");
-                domainInputStartActivity("domain", DomainValue.domain_ee);
+                UrlStartActivity("URL", DomainValue.domain_ee);
                 break;
             case R.id.search_view_4:
                 this.toastSupport("활동/휴식 Activity/Rest");
-                domainInputStartActivity("domain", DomainValue.domain_ar);
+                UrlStartActivity("URL", DomainValue.domain_ar);
                 break;
             case R.id.search_view_5:
                 this.toastSupport("지각/인지 Perception/Cognition");
-                domainInputStartActivity("domain", DomainValue.domain_pc);
+                UrlStartActivity("URL", DomainValue.domain_pc);
                 break;
             case R.id.search_view_6:
                 this.toastSupport("자아인식 Self_perception");
-                domainInputStartActivity("domain", DomainValue.domain_sp);
+                UrlStartActivity("URL", DomainValue.domain_sp);
                 break;
             case R.id.search_view_7:
                 this.toastSupport("역할 관계 Role Relationships");
-                domainInputStartActivity("domain", DomainValue.domain_rr);
+                UrlStartActivity("URL", DomainValue.domain_rr);
                 break;
             case R.id.search_view_8:
                 this.toastSupport("성 Sexuality");
-                domainInputStartActivity("domain", DomainValue.domain_s);
+                UrlStartActivity("URL", DomainValue.domain_s);
                 break;
             case R.id.search_view_9:
                 this.toastSupport("대응/스트레스 내성 Coping/Stress Tolerance");
-                domainInputStartActivity("domain", DomainValue.domain_cs);
+                UrlStartActivity("URL", DomainValue.domain_cs);
                 break;
             case R.id.search_view_10:
                 this.toastSupport("생의 원리 Life Principles");
-                domainInputStartActivity("domain", DomainValue.domain_lp);
+                UrlStartActivity("URL", DomainValue.domain_lp);
                 break;
             case R.id.search_view_11:
                 this.toastSupport("안정/보호 Safety/Promotion");
-                domainInputStartActivity("domain", DomainValue.domain_sap);
+                UrlStartActivity("URL", DomainValue.domain_sap);
                 break;
             case R.id.search_view_12:
                 this.toastSupport("안위 Comfort");
-                domainInputStartActivity("domain", DomainValue.domain_c);
+                UrlStartActivity("URL", DomainValue.domain_c);
                 break;
             default:
 
         }
     }
 
-    private void domainInputStartActivity(String name, int domainValue) { //todo 각각의 intent 값에 따라 결과가 달라야 함
-        Intent intent_common = new Intent(getApplicationContext(), DomainActivity.class);
-        intent_common.putExtra(name, domainValue);
-        startActivity(intent_common);
+    private void UrlStartActivity(String name, int domainValue) { //todo 각각의 intent 값에 따라 결과가 달라야 함
+        Intent intent_url = new Intent(getApplicationContext(), WebViewActivity.class);
+        intent_url.putExtra(name, domainValue);
+        startActivity(intent_url);
     }
 
     private class CallBackDownloadFile implements Callback { //okhttp call back method

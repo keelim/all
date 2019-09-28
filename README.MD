@@ -120,5 +120,11 @@
     - webview (github.io) -> dev.blog + comments // like web services
     - any other problem
     
+> 2019 09 29
+
+    - 데이터베이스 작성 완료
+     
+    - Searchfragment, MainActivity 
+    
     
     

@@ -2,6 +2,7 @@ package com.keelim.nandadiagnosis.ui.search;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,9 +11,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.keelim.nandadiagnosis.R;
+import com.keelim.nandadiagnosis.activities.WebViewActivity;
 import com.keelim.nandadiagnosis.db.DatabaseHelper;
 import com.keelim.nandadiagnosis.db.DbAdapter;
 import com.keelim.nandadiagnosis.db.DbItem;
@@ -27,7 +28,7 @@ import com.keelim.nandadiagnosis.db.DbItem;
 import java.util.List;
 import java.util.Objects;
 
-public class SearchFragment extends Fragment  { //todo view model 하고 같이 수정을 할 것
+public class SearchFragment extends Fragment { //todo view model 하고 같이 수정을 할 것
     private ListView listview;
     private DatabaseHelper databaseHelper;
     private List<DbItem> dbItems;
@@ -42,8 +43,12 @@ public class SearchFragment extends Fragment  { //todo view model 하고 같이 
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
 
         listview.setOnItemClickListener((adapterView, view, i, l) -> {
-            Snackbar.make(view, adapterView.getItemAtPosition(i).toString(), Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
+            TextView textView = view.findViewById(R.id.db_diagnosis);
+            Snackbar.make(view, textView.getText(), Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show(); //텍스트 뷰로 넘길 수 있다.
+            Intent category_webview = new Intent(getActivity().getApplicationContext(), WebViewActivity.class);
+            category_webview.putExtra("URL", "sdsdsd");
+            startActivity(category_webview);
         });
 
         return root;

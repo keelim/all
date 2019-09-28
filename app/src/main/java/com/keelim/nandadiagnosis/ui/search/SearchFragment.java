@@ -24,6 +24,7 @@ import com.keelim.nandadiagnosis.activities.WebViewActivity;
 import com.keelim.nandadiagnosis.db.DatabaseHelper;
 import com.keelim.nandadiagnosis.db.DbAdapter;
 import com.keelim.nandadiagnosis.db.DbItem;
+import com.keelim.nandadiagnosis.utils.UrlValue;
 
 import java.util.List;
 import java.util.Objects;
@@ -43,12 +44,11 @@ public class SearchFragment extends Fragment { //todo view model 하고 같이 �
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
 
         listview.setOnItemClickListener((adapterView, view, i, l) -> {
-            TextView textView = view.findViewById(R.id.db_diagnosis);
-            Snackbar.make(view, textView.getText(), Snackbar.LENGTH_LONG)
+            DbItem db = (DbItem) adapterView.getAdapter().getItem(i);
+
+            Snackbar.make(view, "클래스 영역: "+ db.getClass_name()+"도매인 영역"+db.getDomain_name(), Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show(); //텍스트 뷰로 넘길 수 있다.
-            Intent category_webview = new Intent(getActivity().getApplicationContext(), WebViewActivity.class);
-            category_webview.putExtra("URL", "sdsdsd");
-            startActivity(category_webview);
+            //todo -> 텍스트 뷰 영역으로 끌어와도 된다.
         });
 
         return root;
@@ -89,6 +89,4 @@ public class SearchFragment extends Fragment { //todo view model 하고 같이 �
             listview.setAdapter(new DbAdapter(getActivity().getApplicationContext(), dbItems));
         }
     }
-
-
 }

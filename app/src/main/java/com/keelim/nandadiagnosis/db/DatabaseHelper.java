@@ -14,8 +14,8 @@ public class DatabaseHelper extends SQLiteOpenHelper { // todo CUrsor 가 뭐지
     //todo -> 나중에 jetpack Room 사용을 고려
 
     private static final String DATABSAE_NAME = "nanda.db";
-    private static final String TABLE_NAME = "nandaraw";
-    private static final String COL_1 = "id";
+    private static final String TABLE_NAME = "nanda";
+    private static final String COL_1 = "nanda_id";
     private static final String COL_2 = "reason";
     private static final String COL_3 = "diagnosis";
     private static final String COL_4 = "class_name";

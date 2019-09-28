@@ -19,7 +19,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.keelim.nandadiagnosis.R;
 import com.keelim.nandadiagnosis.databinding.ActivityMainBinding;
-import com.keelim.nandadiagnosis.utils.DomainValue;
+import com.keelim.nandadiagnosis.utils.UrlValue;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -120,60 +120,60 @@ public class MainActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.search_view_1:
                 this.toastSupport("건강증진 Health promotion");
-                UrlStartActivity("URL", DomainValue.domain_hp);
+                UrlStartActivity(UrlValue.domain_hp);
                 break;
             case R.id.search_view_2:
                 this.toastSupport("영양 Nutrition");
-                UrlStartActivity("URL", DomainValue.domain_nt);
+                UrlStartActivity(UrlValue.domain_nt);
                 break;
             case R.id.search_view_3:
                 this.toastSupport("배설 Elimination and exchange");
-                UrlStartActivity("URL", DomainValue.domain_ee);
+                UrlStartActivity(UrlValue.domain_ee);
                 break;
             case R.id.search_view_4:
                 this.toastSupport("활동/휴식 Activity/Rest");
-                UrlStartActivity("URL", DomainValue.domain_ar);
+                UrlStartActivity(UrlValue.domain_ar);
                 break;
             case R.id.search_view_5:
                 this.toastSupport("지각/인지 Perception/Cognition");
-                UrlStartActivity("URL", DomainValue.domain_pc);
+                UrlStartActivity(UrlValue.domain_pc);
                 break;
             case R.id.search_view_6:
                 this.toastSupport("자아인식 Self_perception");
-                UrlStartActivity("URL", DomainValue.domain_sp);
+                UrlStartActivity(UrlValue.domain_sp);
                 break;
             case R.id.search_view_7:
                 this.toastSupport("역할 관계 Role Relationships");
-                UrlStartActivity("URL", DomainValue.domain_rr);
+                UrlStartActivity(UrlValue.domain_rr);
                 break;
             case R.id.search_view_8:
                 this.toastSupport("성 Sexuality");
-                UrlStartActivity("URL", DomainValue.domain_s);
+                UrlStartActivity(UrlValue.domain_s);
                 break;
             case R.id.search_view_9:
                 this.toastSupport("대응/스트레스 내성 Coping/Stress Tolerance");
-                UrlStartActivity("URL", DomainValue.domain_cs);
+                UrlStartActivity(UrlValue.domain_cs);
                 break;
             case R.id.search_view_10:
                 this.toastSupport("생의 원리 Life Principles");
-                UrlStartActivity("URL", DomainValue.domain_lp);
+                UrlStartActivity(UrlValue.domain_lp);
                 break;
             case R.id.search_view_11:
                 this.toastSupport("안정/보호 Safety/Promotion");
-                UrlStartActivity("URL", DomainValue.domain_sap);
+                UrlStartActivity(UrlValue.domain_sap);
                 break;
             case R.id.search_view_12:
                 this.toastSupport("안위 Comfort");
-                UrlStartActivity("URL", DomainValue.domain_c);
+                UrlStartActivity(UrlValue.domain_c);
                 break;
             default:
 
         }
     }
 
-    private void UrlStartActivity(String name, int domainValue) { //todo 각각의 intent 값에 따라 결과가 달라야 함
+    private void UrlStartActivity(String domainValue) { //todo 각각의 intent 값에 따라 결과가 달라야 함
         Intent intent_url = new Intent(getApplicationContext(), WebViewActivity.class);
-        intent_url.putExtra(name, domainValue);
+        intent_url.putExtra("URL", domainValue);
         startActivity(intent_url);
     }
 

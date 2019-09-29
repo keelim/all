@@ -123,11 +123,11 @@ public class MainActivity extends AppCompatActivity {
                 UrlStartActivity(UrlValue.domain_hp);
                 break;
             case R.id.search_view_2:
-                this.toastSupport("영양 Nutrition");
+                this.toastSupport("영양 nutrition");
                 UrlStartActivity(UrlValue.domain_nt);
                 break;
             case R.id.search_view_3:
-                this.toastSupport("배설 Elimination and exchange");
+                this.toastSupport("배설 elimination and exchange");
                 UrlStartActivity(UrlValue.domain_ee);
                 break;
             case R.id.search_view_4:
@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                 UrlStartActivity(UrlValue.domain_rr);
                 break;
             case R.id.search_view_8:
-                this.toastSupport("성 Sexuality");
+                this.toastSupport("성 sexuality");
                 UrlStartActivity(UrlValue.domain_s);
                 break;
             case R.id.search_view_9:
@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
                 UrlStartActivity(UrlValue.domain_sap);
                 break;
             case R.id.search_view_12:
-                this.toastSupport("안위 Comfort");
+                this.toastSupport("안위 comfort");
                 UrlStartActivity(UrlValue.domain_c);
                 break;
             default:

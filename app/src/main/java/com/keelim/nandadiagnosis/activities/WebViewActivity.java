@@ -20,16 +20,16 @@ import com.keelim.nandadiagnosis.R;
 public class WebViewActivity extends AppCompatActivity {
     private WebView webview;
 
-    @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_view);
-
-        webview.loadUrl("");
+        webview = findViewById(R.id.webView);
         webview.setWebViewClient(new WebViewClient()); // 클릭시 새창이 뜨지 않는다.?
         webview.setWebChromeClient(new WebChromeClient());//웹뷰에 크롬 사용 허용//이 부분이 없으면 크롬에서 알림 뜨지 않음
-        webview.setForceDarkAllowed(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            webview.setForceDarkAllowed(true);
+        }
         webview.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
         webview.setScrollbarFadingEnabled(true);
         webview.setLayerType(View.LAYER_TYPE_HARDWARE, null);

@@ -48,7 +48,7 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:onClick="toastMaker"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:src="@drawable/HealthPromotion" />
 
                 <ImageView
                     android:id="@+id/search_view_2"
@@ -59,7 +59,7 @@
                     android:baselineAligned="false"
                     android:clickable="true"
                     android:onClick="toastMaker"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:src="@drawable/Nutrition" />
 
                 <ImageView
                     android:id="@+id/search_view_3"
@@ -69,7 +69,7 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:onClick="toastMaker"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:src="@drawable/Elimination" />
 
                 <ImageView
                     android:id="@+id/search_view_4"
@@ -79,7 +79,7 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:onClick="toastMaker"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:src="@drawable/ActivityRest" />
 
             </TableRow>
 
@@ -96,7 +96,7 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:onClick="toastMaker"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:src="@drawable/Perceeption_Cognition" />
 
                 <ImageView
                     android:id="@+id/search_view_6"
@@ -106,7 +106,7 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:onClick="toastMaker"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:src="@drawable/SelfPerception" />
 
                 <ImageView
                     android:id="@+id/search_view_7"
@@ -116,7 +116,7 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:onClick="toastMaker"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:src="@drawable/RoleRelationship" />
 
                 <ImageView
                     android:id="@+id/search_view_8"
@@ -126,7 +126,7 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:onClick="toastMaker"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:src="@drawable/Sexuality" />
 
             </TableRow>
 
@@ -143,7 +143,7 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:onClick="toastMaker"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:src="@drawable/Tolerlance" />
 
                 <ImageView
                     android:id="@+id/search_view_10"
@@ -153,7 +153,7 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:onClick="toastMaker"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:src="@drawable/LifePrinciple" />
 
                 <ImageView
                     android:id="@+id/search_view_11"
@@ -163,7 +163,7 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:onClick="toastMaker"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:src="@drawable/SafetyProtection" />
 
                 <ImageView
                     android:id="@+id/search_view_12"
@@ -173,7 +173,7 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:onClick="toastMaker"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:src="@drawable/Comfort" />
 
             </TableRow>
 
@@ -188,7 +188,7 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:onClick="toastMaker"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    tools:srcCompat="@drawable/GrowthDevelopment" />
 
                 <View
                     android:layout_width="30dp"

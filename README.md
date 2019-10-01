@@ -1,4 +1,4 @@
-# ## 2019  09 14 project start
+## 2019  09 14 project start
 
 ## project name: NANDA diagnosis project
 ## with nursing major junior JH, C

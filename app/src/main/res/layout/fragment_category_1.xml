@@ -4,11 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.category.category_viewpager.ViewPagerFirstFragment">
-
-    <ImageView
+    
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:src="@tools:sample/backgrounds/scenic" />
+        android:text="최준호"
+        android:textSize="100sp"
+        android:textAlignment="center"
+        android:layout_height="match_parent"/>
 
 </FrameLayout>
-<!--어떤 것을 표시를 할 것인가?-->

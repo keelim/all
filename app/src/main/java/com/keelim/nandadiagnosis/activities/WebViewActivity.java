@@ -1,6 +1,5 @@
 package com.keelim.nandadiagnosis.activities;
 
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,7 +11,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.keelim.nandadiagnosis.R;
@@ -42,9 +40,8 @@ public class WebViewActivity extends AppCompatActivity {
         settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
         settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
         settings.setDomStorageEnabled(true);
+        String url = getIntent().getStringExtra("URL");
 
-        Intent intent = getIntent(); //인텐트를 통하여 제어하기
-        String url = intent.getStringExtra("URL");
         if (url != null) {
             webview.loadUrl(url);
         } else {

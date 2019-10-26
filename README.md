@@ -126,5 +126,10 @@
     - Searchfragment, MainActivity
     - Image asset 만들기 
     
+> 2019 10 26
+
+    - project modify start
+    - github todo, doing, done list making
+    
     
     

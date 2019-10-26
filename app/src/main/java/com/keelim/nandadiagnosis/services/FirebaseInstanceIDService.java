@@ -37,7 +37,6 @@ public class FirebaseInstanceIDService extends FirebaseMessagingService { //todo
         }
     }
 
-
     /**
      * 메시지가 수신되었을 때 실행되는 메소드
      **/

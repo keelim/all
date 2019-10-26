@@ -10,7 +10,8 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DatabaseHelper extends SQLiteOpenHelper { // todo CUrsor 가 뭐지?
+public class DatabaseHelper extends SQLiteOpenHelper {
+     //todo CUrsor 가 뭐지?
     //todo -> 나중에 jetpack Room 사용을 고려
 
     private static final String DATABSAE_NAME = "nanda.db";
@@ -20,6 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper { // todo CUrsor 가 뭐지
     private static final String COL_3 = "diagnosis";
     private static final String COL_4 = "class_name";
     private static final String COL_5 = "domain_name";
+
 
 
     public DatabaseHelper(@Nullable Context context) {

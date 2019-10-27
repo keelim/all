@@ -52,8 +52,5 @@ public class MaterialHelper {
 
         AboutView view = builder.build();
         frameLayout.addView(view);
-
     }
-
-
 }

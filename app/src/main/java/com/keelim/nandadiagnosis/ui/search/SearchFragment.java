@@ -2,7 +2,6 @@ package com.keelim.nandadiagnosis.ui.search;
 
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
@@ -20,11 +18,9 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.keelim.nandadiagnosis.R;
-import com.keelim.nandadiagnosis.activities.WebViewActivity;
 import com.keelim.nandadiagnosis.db.DatabaseHelper;
 import com.keelim.nandadiagnosis.db.DbAdapter;
 import com.keelim.nandadiagnosis.db.DbItem;
-import com.keelim.nandadiagnosis.utils.UrlValue;
 
 import java.util.List;
 import java.util.Objects;

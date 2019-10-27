@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.activities;
+package com.keelim.nandadiagnosis.main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,15 +11,17 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
+import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.keelim.nandadiagnosis.R;
-import com.keelim.nandadiagnosis.databinding.ActivityMainBinding;
-import com.keelim.nandadiagnosis.utils.UrlValue;
+import com.keelim.nandadiagnosis.developer.DeveloperActivity;
+import com.keelim.nandadiagnosis.help.HelpActivity;
+import com.keelim.nandadiagnosis.webview.WebViewActivity;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -37,23 +39,22 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
-    ActivityMainBinding binding;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        binding.setActivity(this);
+        setContentView(R.layout.activity_main);
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_search, R.id.navigation_dashboard, R.id.navigation_notifications)
                 .build();
 
+        BottomNavigationView nav_view = findViewById(R.id.nav_view);
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(binding.navView, navController);
+        NavigationUI.setupWithNavController(nav_view, navController);
 
         fileChecking();
 

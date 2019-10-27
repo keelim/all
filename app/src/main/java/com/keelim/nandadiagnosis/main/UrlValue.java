@@ -1,7 +1,7 @@
-package com.keelim.nandadiagnosis.utils;
+package com.keelim.nandadiagnosis.main;
 
 public interface UrlValue {
-    String domain_hp = "https://";
+    String domain_hp= "";
     String domain_nt = "";
     String domain_ee = "";
     String domain_ar = "";

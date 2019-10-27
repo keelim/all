@@ -1,10 +1,10 @@
-package com.keelim.nandadiagnosis.activities;
+package com.keelim.nandadiagnosis.help;
 
 import android.os.Bundle;
+import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.keelim.nandadiagnosis.R;
@@ -18,14 +18,15 @@ public class HelpActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        com.keelim.nandadiagnosis.databinding.ActivityHelpBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_help);
-        binding.setActivity(this);
+        setContentView(R.layout.activity_help);
 
         ArrayList<HelplistItem> arrayList = arrayListSetting();
         HelpListAdapter helpAdapter = new HelpListAdapter(getApplicationContext(), arrayList);
+        ListView help_list = findViewById(R.id.help_list);
 
-        binding.helpList.setAdapter(helpAdapter);
-        binding.helpList.setOnItemClickListener((adapterView, view, i, l) -> {
+
+        help_list.setAdapter(helpAdapter);
+        help_list.setOnItemClickListener((adapterView, view, i, l) -> {
             //i position
             switch (i) {
                 case 0:

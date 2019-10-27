@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.activities;
+package com.keelim.nandadiagnosis.splash;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,11 +6,10 @@ import android.os.Handler;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
 
 import com.crashlytics.android.Crashlytics;
 import com.keelim.nandadiagnosis.R;
-import com.keelim.nandadiagnosis.databinding.ActivitySplashBinding;
+import com.keelim.nandadiagnosis.main.MainActivity;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -30,8 +29,7 @@ public class SplashActivity extends AppCompatActivity { //handler를 다르게 �
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics()); //Fabric 설정
-        com.keelim.nandadiagnosis.databinding.ActivitySplashBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_splash);
-        binding.setActivity(this);
+        setContentView(R.layout.activity_splash);
         handler = new Handler();
         handler.postDelayed(runnable, 1000); //handler를 통하여 사용
         Toast.makeText(this, "NANDA 진단에 오신 것을 환영 합니다. ", Toast.LENGTH_SHORT).show();

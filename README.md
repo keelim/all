@@ -131,5 +131,10 @@
     - project modify start
     - github todo, doing, done list making
     
+> 2019 10 27
+
+    - mvp pattern 적용하기 
+    - github todo list 조정
+    
     
     

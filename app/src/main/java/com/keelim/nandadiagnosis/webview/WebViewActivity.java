@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.activities;
+package com.keelim.nandadiagnosis.webview;
 
 import android.os.Build;
 import android.os.Bundle;

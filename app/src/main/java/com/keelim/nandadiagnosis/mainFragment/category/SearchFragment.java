@@ -15,7 +15,6 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -24,6 +23,7 @@ import com.keelim.nandadiagnosis.db.DatabaseHelper;
 import com.keelim.nandadiagnosis.db.DbAdapter;
 import com.keelim.nandadiagnosis.db.DbItem;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -31,8 +31,8 @@ public class SearchFragment extends Fragment { //todo view model 하고 같이 �
     private ListView listview;
     private DatabaseHelper databaseHelper;
     private List<DbItem> dbItems;
-    private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -42,17 +42,15 @@ public class SearchFragment extends Fragment { //todo view model 하고 같이 �
         setHasOptionsMenu(true);
         databaseHelper = new DatabaseHelper(getActivity());
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
+        databaseHelper = new DatabaseHelper(getActivity().getApplicationContext());
 
         listview.setOnItemClickListener((adapterView, view, i, l) -> {
             DbItem db = (DbItem) adapterView.getAdapter().getItem(i);
-
             Snackbar.make(view, "클래스 영역: " + db.getClass_name() + "도매인 영역" + db.getDomain_name(), Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show(); //텍스트 뷰로 넘길 수 있다.
-
-            fragmentManager = getFragmentManager();
-            transaction = fragmentManager.beginTransaction();
-            transaction.replace(R.id.nav_host_fragment, new SearchAnswerFragment());
-
+            ; //ArrayList 반환
+            transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.nav_host_fragment, SearchAnswerFragment.newInstance(diagnosis(db.getDomain_name())));
         });
 
         return root;
@@ -86,11 +84,13 @@ public class SearchFragment extends Fragment { //todo view model 하고 같이 �
     }
 
     private void searchDiagnosis(String keyword) {
-        databaseHelper = new DatabaseHelper(Objects.requireNonNull(getActivity()).getApplicationContext());
-
         dbItems = databaseHelper.search(keyword);
         if (dbItems != null) {
             listview.setAdapter(new DbAdapter(getActivity().getApplicationContext(), dbItems));
         }
+    }
+
+    private ArrayList<String> diagnosis(String keyword) {
+        return databaseHelper.diagnosisAll(keyword);
     }
 }

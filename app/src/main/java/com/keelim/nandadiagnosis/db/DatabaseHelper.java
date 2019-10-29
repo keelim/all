@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-     //todo CUrsor 가 뭐지?
+    //todo CUrsor 가 뭐지?
     //todo -> 나중에 jetpack Room 사용을 고려
 
     private static final String DATABSAE_NAME = "nanda.db";
@@ -21,7 +21,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_3 = "diagnosis";
     private static final String COL_4 = "class_name";
     private static final String COL_5 = "domain_name";
-
 
 
     public DatabaseHelper(@Nullable Context context) {
@@ -52,6 +51,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return dbItems;
     }
 
+    public ArrayList<String> diagnosisAll(String keyword) { //todo 수정을 할 것
+        ArrayList<String> temp = null;
+        try {
+            SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+            Cursor cursor = sqLiteDatabase.rawQuery("select * from " + TABLE_NAME + " where " + COL_3, new String[]{keyword});
+            if (cursor.moveToFirst()) {
+                temp = new ArrayList<>();
+                do {
+                    temp.add(cursor.getString(0));
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+        } catch (Exception e) {
+            temp = null;
+        }
+        return temp;
+    }
 
 
     @Override

@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.ui.category;
+package com.keelim.nandadiagnosis.mainFragment.category;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,10 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.keelim.nandadiagnosis.databinding.FragmentCategoryBinding;
-import com.keelim.nandadiagnosis.ui.category.category_viewpager.CategoryViewPagerAdapter;
-import com.keelim.nandadiagnosis.ui.category.category_viewpager.ViewPagerFirstFragment;
-import com.keelim.nandadiagnosis.ui.category.category_viewpager.ViewPagerSecondFragment;
-import com.keelim.nandadiagnosis.ui.category.category_viewpager.ViewPagerThirdFragment;
+import com.keelim.nandadiagnosis.mainFragment.category.category_viewpager.CategoryViewPagerAdapter;
+import com.keelim.nandadiagnosis.mainFragment.category.category_viewpager.ViewPagerFirstFragment;
+import com.keelim.nandadiagnosis.mainFragment.category.category_viewpager.ViewPagerSecondFragment;
+import com.keelim.nandadiagnosis.mainFragment.category.category_viewpager.ViewPagerThirdFragment;
 
 import java.util.Objects;
 

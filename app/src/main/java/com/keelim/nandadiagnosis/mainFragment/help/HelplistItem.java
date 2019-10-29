@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.ui.help;
+package com.keelim.nandadiagnosis.mainFragment.help;
 
 import java.io.Serializable;
 

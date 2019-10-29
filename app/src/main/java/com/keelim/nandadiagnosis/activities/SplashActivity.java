@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.splash;
+package com.keelim.nandadiagnosis.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.crashlytics.android.Crashlytics;
 import com.keelim.nandadiagnosis.R;
-import com.keelim.nandadiagnosis.main.MainActivity;
 
 import io.fabric.sdk.android.Fabric;
 

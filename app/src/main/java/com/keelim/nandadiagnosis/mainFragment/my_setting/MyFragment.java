@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.ui.my_setting;
+package com.keelim.nandadiagnosis.mainFragment.my_setting;
 
 import android.os.Bundle;
 
@@ -11,5 +11,6 @@ public class MyFragment extends PreferenceFragmentCompat { //todo 설정을 만�
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.settings_preferences);
+        //셋팅 프레그먼트를 작성을 한다. -> 어떤 기능을 넣어야 할지는 아직 확정하지는 않았다.
     }
 }

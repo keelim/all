@@ -8,14 +8,14 @@
 
         <variable
             name="activity"
-            type="com.keelim.nandadiagnosis.splash.SplashActivity" />
+            type="com.keelim.nandadiagnosis.activities.SplashActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
-        tools:context=".splash.SplashActivity">
+        tools:context=".activities.SplashActivity">
 
         <TextView
             android:id="@+id/textView"

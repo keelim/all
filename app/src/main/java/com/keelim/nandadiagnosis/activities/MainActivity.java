@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.main;
+package com.keelim.nandadiagnosis.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +11,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -19,9 +18,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.keelim.nandadiagnosis.R;
-import com.keelim.nandadiagnosis.developer.DeveloperActivity;
-import com.keelim.nandadiagnosis.help.HelpActivity;
-import com.keelim.nandadiagnosis.webview.WebViewActivity;
+import com.keelim.nandadiagnosis.UrlValue;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -106,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.drawer_developer:
-                Intent intent_developer = new Intent(getApplicationContext(), DeveloperActivity.class);
+                Intent intent_developer = new Intent(getApplicationContext(), com.keelim.nandadiagnosis.activities.DeveloperActivity.class);
                 startActivity(intent_developer);
                 break;
             case R.id.drawer_help:

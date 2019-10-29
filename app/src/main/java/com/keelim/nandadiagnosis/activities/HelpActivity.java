@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.help;
+package com.keelim.nandadiagnosis.activities;
 
 import android.os.Bundle;
 import android.widget.ListView;
@@ -8,8 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.keelim.nandadiagnosis.R;
-import com.keelim.nandadiagnosis.ui.help.HelpListAdapter;
-import com.keelim.nandadiagnosis.ui.help.HelplistItem;
+import com.keelim.nandadiagnosis.mainFragment.help.HelpListAdapter;
+import com.keelim.nandadiagnosis.mainFragment.help.HelplistItem;
 
 import java.util.ArrayList;
 
@@ -26,7 +26,8 @@ public class HelpActivity extends AppCompatActivity {
 
 
         help_list.setAdapter(helpAdapter);
-        help_list.setOnItemClickListener((adapterView, view, i, l) -> {
+        help_list
+                .setOnItemClickListener((adapterView, view, i, l) -> {
             //i position
             switch (i) {
                 case 0:

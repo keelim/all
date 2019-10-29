@@ -19,6 +19,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.keelim.nandadiagnosis.R;
 import com.keelim.nandadiagnosis.UrlValue;
+import com.keelim.nandadiagnosis.developer.DeveloperActivity;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -103,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.drawer_developer:
-                Intent intent_developer = new Intent(getApplicationContext(), com.keelim.nandadiagnosis.activities.DeveloperActivity.class);
+                Intent intent_developer = new Intent(getApplicationContext(), DeveloperActivity.class);
                 startActivity(intent_developer);
                 break;
             case R.id.drawer_help:

@@ -4,6 +4,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -48,9 +49,16 @@ public class SearchFragment extends Fragment { //todo view model 하고 같이 �
             DbItem db = (DbItem) adapterView.getAdapter().getItem(i);
             Snackbar.make(view, "클래스 영역: " + db.getClass_name() + "도매인 영역" + db.getDomain_name(), Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show(); //텍스트 뷰로 넘길 수 있다.
-            ; //ArrayList 반환
+
             transaction = getFragmentManager().beginTransaction();
-            transaction.replace(R.id.nav_host_fragment, SearchAnswerFragment.newInstance(diagnosis(db.getDomain_name())));
+            ArrayList<String> temp = diagnosis(db.getClass_name());
+            transaction.replace(R.id.nav_host_fragment, SearchAnswerFragment.newInstance(temp));
+            if (temp==null){
+                Snackbar.make(view, "오류남 고치기 바람", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show(); //텍스트 뷰로 넘길 수 있다.
+            } else {
+                transaction.commit();
+            }
         });
 
         return root;

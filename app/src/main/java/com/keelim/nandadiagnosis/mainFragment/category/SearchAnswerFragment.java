@@ -29,10 +29,10 @@ public class SearchAnswerFragment extends Fragment {
     //Title, Description
     //Data 처리를 할 것
 
-    public static Fragment newInstance(ArrayList<String> title) {
+    public static Fragment newInstance(ArrayList<String> diagnosis) {
         SearchAnswerFragment fragment = new SearchAnswerFragment();
         Bundle args = new Bundle();
-        args.putStringArrayList("TITLE", title);
+        args.putStringArrayList("diagnosis", diagnosis);
         fragment.setArguments(args);
         return fragment;
     }
@@ -40,8 +40,8 @@ public class SearchAnswerFragment extends Fragment {
 
     void DataSetting() {
         //data를 셋팅을 해서 넣으면 된다.
-        for (int i = 0; i < diagnosis.size(); i++) {
-            Data data = new Data(diagnosis.get(i));
+        for (int i = 0; i < 10; i++) {
+            Data data = new Data(getDiagnosis().get(i));
             adapter.addItem(data);
         }
     }
@@ -50,9 +50,7 @@ public class SearchAnswerFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
-        if (bundle != null) {
-            setDiagnosis(bundle.getStringArrayList("title"));
-        }
+        setDiagnosis(bundle.getStringArrayList("diagnosis"));
     }
 
 
@@ -61,9 +59,10 @@ public class SearchAnswerFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search_answer_list, container, false);
 
-        RecyclerView recyclerView = getView().findViewById(R.id.search_recycler);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        RecyclerView recyclerView = view.findViewById(R.id.search_recycler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new RecyclerAdapter();
+        DataSetting();
         recyclerView.setAdapter(adapter);
 
         return view; //리사이클러 뷰를 셋팅을 한다.

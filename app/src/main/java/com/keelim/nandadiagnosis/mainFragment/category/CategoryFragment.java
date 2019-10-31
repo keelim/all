@@ -12,7 +12,7 @@ import com.keelim.nandadiagnosis.databinding.FragmentCategoryBinding;
 import com.keelim.nandadiagnosis.mainFragment.category.category_viewpager.CategoryViewPagerAdapter;
 import com.keelim.nandadiagnosis.mainFragment.category.category_viewpager.CategoryViewPager1;
 import com.keelim.nandadiagnosis.mainFragment.category.category_viewpager.CategoryViewPager2;
-import com.keelim.nandadiagnosis.mainFragment.category.category_viewpager.CategoryViewPager3;
+import com.keelim.nandadiagnosis.mainFragment.category.category_viewpager.ViewPagerThirdFragment;
 
 import java.util.Objects;
 
@@ -35,7 +35,7 @@ public class CategoryFragment extends Fragment {
     private void viewPagerSetting() {
         mainPageAdapter.addItem(new CategoryViewPager1());
         mainPageAdapter.addItem(new CategoryViewPager2());
-        mainPageAdapter.addItem(new CategoryViewPager3());
+        mainPageAdapter.addItem(new ViewPagerThirdFragment());
         binding.searchViewpager.setAdapter(mainPageAdapter);
     }
 

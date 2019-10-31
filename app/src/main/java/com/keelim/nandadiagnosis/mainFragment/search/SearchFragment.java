@@ -31,7 +31,8 @@ import java.util.Objects;
 public class SearchFragment extends Fragment { //todo view model 하고 같이 수정을 할 것
     private ListView listview;
     private DatabaseHelper databaseHelper;
-    private List<DbItem> dbItems;
+    private List<DbItem> dbItemsQuery;
+    private ArrayList<DbItem> dbItemBegin;
     private FragmentTransaction transaction;
 
 
@@ -43,7 +44,6 @@ public class SearchFragment extends Fragment { //todo view model 하고 같이 �
         setHasOptionsMenu(true);
         databaseHelper = new DatabaseHelper(getActivity());
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
-        databaseHelper = new DatabaseHelper(getActivity().getApplicationContext());
 
         listview.setOnItemClickListener((adapterView, view, i, l) -> {
             DbItem db = (DbItem) adapterView.getAdapter().getItem(i);
@@ -51,10 +51,9 @@ public class SearchFragment extends Fragment { //todo view model 하고 같이 �
                     .setAction("Action", null).show(); //텍스트 뷰로 넘길 수 있다.
 
             transaction = getFragmentManager().beginTransaction();
-            ArrayList<String> temp = diagnosis(db.getClass_name());
-            transaction.replace(R.id.nav_host_fragment, SearchAnswerFragment.newInstance(temp));
-            
-            if (temp == null) {
+
+            transaction.replace(R.id.nav_host_fragment, SearchAnswerFragment.newInstance(dbItemBegin));
+            if (dbItemBegin == null) {
                 Snackbar.make(view, "오류남 고치기 바람", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show(); //텍스트 뷰로 넘길 수 있다.
             } else {
@@ -93,18 +92,18 @@ public class SearchFragment extends Fragment { //todo view model 하고 같이 �
     }
 
     private void searchDiagnosis(String keyword) {
-        dbItems = databaseHelper.search(keyword);
-        if (dbItems != null) {
-            listview.setAdapter(new DbAdapter(getActivity().getApplicationContext(), dbItems));
+        dbItemsQuery = databaseHelper.search(keyword);
+        if (dbItemsQuery != null) {
+            listview.setAdapter(new DbAdapter(getActivity(), dbItemsQuery));
         }
     }
 
-    private ArrayList<String> diagnosis(String keyword) {
-        ArrayList<String> diagnosis = databaseHelper.diagnosisAll(keyword);
-        if (diagnosis == null) {
+    private ArrayList<DbItem> diagnosis(String keyword) {
+        dbItemBegin = databaseHelper.diagnosisAll(keyword);
+        if (dbItemBegin == null) {
             Toast.makeText(getActivity(), "diagnosis 가 문제가 있습니다.", Toast.LENGTH_SHORT).show();
             return null;
         }
-        return diagnosis;
+        return dbItemBegin;
     }
 }

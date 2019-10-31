@@ -10,29 +10,30 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.keelim.nandadiagnosis.R;
+import com.keelim.nandadiagnosis.mainFragment.search.db.DbItem;
 
 import java.util.ArrayList;
 
 public class SearchAnswerFragment extends Fragment {
     private RecyclerAdapter adapter;
 
-    private ArrayList<String> diagnosis;
+    private ArrayList<DbItem> diagnosis;
 
-    public ArrayList<String> getDiagnosis() {
+    public ArrayList<DbItem> getDiagnosis() {
         return diagnosis;
     }
 
-    public void setDiagnosis(ArrayList<String> diagnosis) {
+    public void setDiagnosis(ArrayList<DbItem> diagnosis) {
         this.diagnosis = diagnosis;
     }
 //프레그먼트에 값전달 --> 이미지는 뺴고 ArrayList 2개 받아와서 정리 하는 것이 깔급
     //Title, Description
     //Data 처리를 할 것
 
-    public static Fragment newInstance(ArrayList<String> diagnosis) {
+    public static Fragment newInstance(ArrayList<DbItem> diagnosis) {
         SearchAnswerFragment fragment = new SearchAnswerFragment();
         Bundle args = new Bundle();
-        args.putStringArrayList("diagnosis", diagnosis);
+        args.putParcelableArrayList("diagnosis", diagnosis);
         fragment.setArguments(args);
         return fragment;
     }
@@ -41,7 +42,7 @@ public class SearchAnswerFragment extends Fragment {
     void DataSetting() {
         //data를 셋팅을 해서 넣으면 된다.
         for (int i = 0; i < 10; i++) {
-            Data data = new Data(getDiagnosis().get(i));
+            Data data = new Data(getDiagnosis().get(i).getDiagnosis());
             adapter.addItem(data);
         }
     }
@@ -50,7 +51,7 @@ public class SearchAnswerFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
-        setDiagnosis(bundle.getStringArrayList("diagnosis"));
+        setDiagnosis(bundle.getParcelableArrayList("diagnosis"));
     }
 
 

@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment;
 
 import com.keelim.nandadiagnosis.R;
 
-public class ViewPagerSecondFragment extends Fragment {
+public class CategoryViewPager2 extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

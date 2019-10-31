@@ -11,7 +11,6 @@ public class Data {
         this.title = title;
     }
 
-
     public Data(String title) {
         this.title = title;
     }

@@ -49,8 +49,8 @@ public class FirebaseInstanceIDService extends FirebaseMessagingService { //todo
         // 구분자를 통해 어떤 종류의 알람인지를 구별합니다.
 
         String pushType = message.substring(messageDivider + 1); // 구분자 뒤에 나오는 메시지
-
         Intent resultIntent = new Intent(this, MainActivity.class);
+
         resultIntent.putExtra("pushType", pushType);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 1, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -60,7 +60,7 @@ public class FirebaseInstanceIDService extends FirebaseMessagingService { //todo
             String channel = "채널";
             String channel_nm = "채널 이름"; // 앱 설정에서 알림 이름으로 뜸.
 
-            NotificationManager notichannel = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationManager notiChannel = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             NotificationChannel channelMessage = new NotificationChannel(channel, channel_nm,
                     NotificationManager.IMPORTANCE_DEFAULT);
             channelMessage.setDescription("채널에 대한 설명입니다.");
@@ -68,7 +68,7 @@ public class FirebaseInstanceIDService extends FirebaseMessagingService { //todo
             channelMessage.enableVibration(true);
             channelMessage.setShowBadge(false);
             channelMessage.setVibrationPattern(new long[]{100, 200, 100, 200});
-            Objects.requireNonNull(notichannel).createNotificationChannel(channelMessage);
+            notiChannel.createNotificationChannel(channelMessage);
 
             NotificationCompat.Builder notificationBuilder =
                     new NotificationCompat.Builder(this, channel)
@@ -84,7 +84,7 @@ public class FirebaseInstanceIDService extends FirebaseMessagingService { //todo
             NotificationManager notificationManager =
                     (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-            Objects.requireNonNull(notificationManager).notify(9999, notificationBuilder.build());
+            notificationManager.notify(9999, notificationBuilder.build());
 
 
         } else {
@@ -101,7 +101,7 @@ public class FirebaseInstanceIDService extends FirebaseMessagingService { //todo
             NotificationManager notificationManager =
                     (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-            Objects.requireNonNull(notificationManager).notify(9999, notificationBuilder.build());
+            notificationManager.notify(9999, notificationBuilder.build());
 
         }
     }

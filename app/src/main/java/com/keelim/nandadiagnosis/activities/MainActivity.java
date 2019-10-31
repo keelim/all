@@ -19,7 +19,6 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.keelim.nandadiagnosis.R;
 import com.keelim.nandadiagnosis.UrlValue;
-import com.keelim.nandadiagnosis.developer.DeveloperActivity;
 
 import org.jetbrains.annotations.NotNull;
 

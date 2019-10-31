@@ -51,11 +51,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return dbItems;
     }
 
-    public ArrayList<String> diagnosisAll(String keyword) { //todo 수정을 할 것
+    public ArrayList<String> diagnosisAll(String keyword) { //todo class name 넣어햐 할 것 같다. --> 왜 안되는 것이여
         ArrayList<String> temp = null;
         try {
             SQLiteDatabase sqLiteDatabase = getReadableDatabase();
-            Cursor cursor = sqLiteDatabase.rawQuery("select * from " + TABLE_NAME + " where " + COL_3, new String[]{keyword});
+            Cursor cursor = sqLiteDatabase.rawQuery("select diagnosis from " + TABLE_NAME + " where " + COL_4, new String[]{keyword});
             if (cursor.moveToFirst()) {
                 temp = new ArrayList<>();
                 do {

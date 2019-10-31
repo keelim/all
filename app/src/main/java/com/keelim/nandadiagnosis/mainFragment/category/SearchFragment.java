@@ -4,7 +4,6 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
@@ -53,7 +53,8 @@ public class SearchFragment extends Fragment { //todo view model 하고 같이 �
             transaction = getFragmentManager().beginTransaction();
             ArrayList<String> temp = diagnosis(db.getClass_name());
             transaction.replace(R.id.nav_host_fragment, SearchAnswerFragment.newInstance(temp));
-            if (temp==null){
+            
+            if (temp == null) {
                 Snackbar.make(view, "오류남 고치기 바람", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show(); //텍스트 뷰로 넘길 수 있다.
             } else {
@@ -99,6 +100,11 @@ public class SearchFragment extends Fragment { //todo view model 하고 같이 �
     }
 
     private ArrayList<String> diagnosis(String keyword) {
-        return databaseHelper.diagnosisAll(keyword);
+        ArrayList<String> diagnosis = databaseHelper.diagnosisAll(keyword);
+        if (diagnosis == null) {
+            Toast.makeText(getActivity(), "diagnosis 가 문제가 있습니다.", Toast.LENGTH_SHORT).show();
+            return null;
+        }
+        return diagnosis;
     }
 }

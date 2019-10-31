@@ -26,8 +26,7 @@ public class HelpActivity extends AppCompatActivity {
 
 
         help_list.setAdapter(helpAdapter);
-        help_list
-                .setOnItemClickListener((adapterView, view, i, l) -> {
+        help_list.setOnItemClickListener((adapterView, view, i, l) -> {
             //i position
             switch (i) {
                 case 0:

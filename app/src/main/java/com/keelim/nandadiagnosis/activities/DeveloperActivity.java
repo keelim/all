@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.developer;
+package com.keelim.nandadiagnosis.activities;
 
 import android.os.Bundle;
 import android.widget.Toast;

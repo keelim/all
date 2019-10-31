@@ -14,10 +14,15 @@
         android:layout_height="match_parent"
         tools:context=".activities.HelpActivity">
 
-        <ListView
-            android:id="@+id/help_list"
+        <fragment
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:id="@+id/help_basic" />
+
+<!--        <ListView-->
+<!--            android:id="@+id/help_list"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

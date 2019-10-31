@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.mainFragment.category;
+package com.keelim.nandadiagnosis.mainFragment.search;
 
 import android.view.LayoutInflater;
 import android.view.View;

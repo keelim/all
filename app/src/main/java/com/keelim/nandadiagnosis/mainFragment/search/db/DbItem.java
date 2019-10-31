@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.db;
+package com.keelim.nandadiagnosis.mainFragment.search.db;
 
 import java.io.Serializable;
 

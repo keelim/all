@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.mainFragment.category;
+package com.keelim.nandadiagnosis.mainFragment.search;
 
 import android.app.SearchManager;
 import android.content.Context;
@@ -20,9 +20,9 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.keelim.nandadiagnosis.R;
-import com.keelim.nandadiagnosis.db.DatabaseHelper;
-import com.keelim.nandadiagnosis.db.DbAdapter;
-import com.keelim.nandadiagnosis.db.DbItem;
+import com.keelim.nandadiagnosis.mainFragment.search.db.DatabaseHelper;
+import com.keelim.nandadiagnosis.mainFragment.search.db.DbAdapter;
+import com.keelim.nandadiagnosis.mainFragment.search.db.DbItem;
 
 import java.util.ArrayList;
 import java.util.List;

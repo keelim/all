@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.db;
+package com.keelim.nandadiagnosis.mainFragment.search.db;
 
 import android.content.Context;
 import android.view.LayoutInflater;

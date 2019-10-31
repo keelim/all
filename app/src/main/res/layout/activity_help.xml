@@ -3,10 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="activity"
             type="com.keelim.nandadiagnosis.activities.HelpActivity" />
-        
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,14 +16,10 @@
         tools:context=".activities.HelpActivity">
 
         <fragment
+            android:id="@+id/help_basic"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/help_basic" />
+            android:layout_height="match_parent" />
 
-<!--        <ListView-->
-<!--            android:id="@+id/help_list"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

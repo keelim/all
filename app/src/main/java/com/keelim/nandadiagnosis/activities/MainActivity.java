@@ -41,20 +41,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_search, R.id.navigation_dashboard, R.id.navigation_notifications)
                 .build();
-
         BottomNavigationView nav_view = findViewById(R.id.nav_view);
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(nav_view, navController);
-
         fileChecking();
-
     }
 
     private void fileChecking() {
@@ -218,7 +212,6 @@ public class MainActivity extends AppCompatActivity {
             outputStream.flush();
             outputStream.close();
             inputStream.close();
-
             runOnUiThread(() -> {
                 Toast.makeText(MainActivity.this, "다운로드가 완료되었습니다. ", Toast.LENGTH_SHORT).show();
             });

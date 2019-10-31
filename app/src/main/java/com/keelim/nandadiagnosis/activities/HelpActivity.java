@@ -8,8 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.keelim.nandadiagnosis.R;
-import com.keelim.nandadiagnosis.mainFragment.help.HelpListAdapter;
-import com.keelim.nandadiagnosis.mainFragment.help.HelplistItem;
+import com.keelim.nandadiagnosis.help.HelpListAdapter;
+import com.keelim.nandadiagnosis.help.HelplistItem;
 
 import java.util.ArrayList;
 

@@ -18,7 +18,6 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.keelim.nandadiagnosis.R;
-import com.keelim.nandadiagnosis.UrlValue;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -112,51 +111,51 @@ public class MainActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.search_view_1:
                 this.toastSupport("건강증진 Health promotion");
-                UrlStartActivity(UrlValue.domain_hp);
+                UrlStartActivity(getString(R.string.url1));
                 break;
             case R.id.search_view_2:
                 this.toastSupport("영양 nutrition");
-                UrlStartActivity(UrlValue.domain_nt);
+                UrlStartActivity(getString(R.string.url2));
                 break;
             case R.id.search_view_3:
                 this.toastSupport("배설 elimination and exchange");
-                UrlStartActivity(UrlValue.domain_ee);
+                UrlStartActivity(getString(R.string.url3));
                 break;
             case R.id.search_view_4:
                 this.toastSupport("활동/휴식 Activity/Rest");
-                UrlStartActivity(UrlValue.domain_ar);
+                UrlStartActivity(getString(R.string.url4));
                 break;
             case R.id.search_view_5:
                 this.toastSupport("지각/인지 Perception/Cognition");
-                UrlStartActivity(UrlValue.domain_pc);
+                UrlStartActivity(getString(R.string.url5));
                 break;
             case R.id.search_view_6:
                 this.toastSupport("자아인식 Self_perception");
-                UrlStartActivity(UrlValue.domain_sp);
+                UrlStartActivity(getString(R.string.url6));
                 break;
             case R.id.search_view_7:
                 this.toastSupport("역할 관계 Role Relationships");
-                UrlStartActivity(UrlValue.domain_rr);
+                UrlStartActivity(getString(R.string.url7));
                 break;
             case R.id.search_view_8:
                 this.toastSupport("성 sexuality");
-                UrlStartActivity(UrlValue.domain_s);
+                UrlStartActivity(getString(R.string.url8));
                 break;
             case R.id.search_view_9:
                 this.toastSupport("대응/스트레스 내성 Coping/Stress Tolerance");
-                UrlStartActivity(UrlValue.domain_cs);
+                UrlStartActivity(getString(R.string.url9));
                 break;
             case R.id.search_view_10:
                 this.toastSupport("생의 원리 Life Principles");
-                UrlStartActivity(UrlValue.domain_lp);
+                UrlStartActivity(getString(R.string.url10));
                 break;
             case R.id.search_view_11:
                 this.toastSupport("안정/보호 Safety/Promotion");
-                UrlStartActivity(UrlValue.domain_sap);
+                UrlStartActivity(getString(R.string.url11));
                 break;
             case R.id.search_view_12:
                 this.toastSupport("안위 comfort");
-                UrlStartActivity(UrlValue.domain_c);
+                UrlStartActivity(getString(R.string.url12));
                 break;
             default:
 

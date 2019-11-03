@@ -8,10 +8,22 @@
     <string name="title_search">Search</string>
     <string name="title_category">Category</string>
     <string name="title_my">my</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_domain">DomainActivity</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
+<!--    url -->
+    <string name="url1">https://keelim.github.io/nandaDiagnosis/1.html</string>
+    <string name="url2">https://keelim.github.io/nandaDiagnosis/2.html</string>
+    <string name="url3">https://keelim.github.io/nandaDiagnosis/3.html</string>
+    <string name="url4">https://keelim.github.io/nandaDiagnosis/4.html</string>
+    <string name="url5">https://keelim.github.io/nandaDiagnosis/5.html</string>
+    <string name="url6">https://keelim.github.io/nandaDiagnosis/6.html</string>
+    <string name="url7">https://keelim.github.io/nandaDiagnosis/7.html</string>
+    <string name="url8">https://keelim.github.io/nandaDiagnosis/8.html</string>
+    <string name="url9">https://keelim.github.io/nandaDiagnosis/9.html</string>
+    <string name="url10">https://keelim.github.io/nandaDiagnosis/10.html</string>
+    <string name="url11">https://keelim.github.io/nandaDiagnosis/11.html</string>
+    <string name="url12">https://keelim.github.io/nandaDiagnosis/12.html</string>
+    <string name="url13">https://keelim.github.io/nandaDiagnosis/13.html</string>
 </resources>

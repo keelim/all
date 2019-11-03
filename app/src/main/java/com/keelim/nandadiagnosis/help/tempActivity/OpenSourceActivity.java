@@ -1,11 +1,10 @@
-package com.keelim.nandadiagnosis.help.temp;
+package com.keelim.nandadiagnosis.help.tempActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.keelim.nandadiagnosis.R;
 
 public class OpenSourceActivity extends AppCompatActivity {

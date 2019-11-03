@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.help.temp;
+package com.keelim.nandadiagnosis.help.tempActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 

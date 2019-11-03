@@ -51,30 +51,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return dbItems;
     }
 
-    public ArrayList<DbItem> diagnosisAll(String keyword) { //todo class name 넣어햐 할 것 같다. --> 왜 안되는 것이여
-        ArrayList<DbItem> dbItems = null;
-        try {
-            SQLiteDatabase sqLiteDatabase = getReadableDatabase();
-            Cursor cursor = sqLiteDatabase.rawQuery("select * from " + TABLE_NAME + " where " + COL_4, new String[]{keyword});
-            if (cursor.moveToFirst()) {
-                dbItems = new ArrayList<>();
-                do {
-                    DbItem dBitem = new DbItem();
-                    dBitem.setNanda_mysql_id(cursor.getInt(0));
-                    dBitem.setReason(cursor.getString(1));
-                    dBitem.setDiagnosis(cursor.getString(2));
-                    dBitem.setClass_name(cursor.getString(3));
-                    dBitem.setDomain_name(cursor.getString(4));
-                    dbItems.add(dBitem);
-                } while (cursor.moveToNext());
-            }
-            cursor.close();
-        } catch (Exception e) {
-            dbItems = null;
-        }
-        return dbItems;
-    }
-
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) { //database 만드러질 활용을 하는 것

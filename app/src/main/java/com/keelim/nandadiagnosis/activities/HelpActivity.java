@@ -11,9 +11,9 @@ import com.google.android.material.snackbar.Snackbar;
 import com.keelim.nandadiagnosis.R;
 import com.keelim.nandadiagnosis.help.HelpListAdapter;
 import com.keelim.nandadiagnosis.help.HelplistItem;
-import com.keelim.nandadiagnosis.help.temp.OpenSourceActivity;
-import com.keelim.nandadiagnosis.help.temp.PleaseActivity;
-import com.keelim.nandadiagnosis.help.temp.QuestionActivity;
+import com.keelim.nandadiagnosis.help.tempActivity.OpenSourceActivity;
+import com.keelim.nandadiagnosis.help.tempActivity.PleaseActivity;
+import com.keelim.nandadiagnosis.help.tempActivity.QuestionActivity;
 
 import java.util.ArrayList;
 

@@ -1,5 +1,6 @@
 package com.keelim.nandadiagnosis.activities;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,7 +41,7 @@ public class WebViewActivity extends AppCompatActivity {
         settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
         settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
         settings.setDomStorageEnabled(true);
-        String url = getIntent().getStringExtra("URL");
+        String url = urlHandling();
 
         if (url != null) {
             webview.loadUrl(url);
@@ -50,6 +51,44 @@ public class WebViewActivity extends AppCompatActivity {
             Log.e("Error", url);
         }
 
+    }
+
+    private String urlHandling() {
+        Intent intent = getIntent();
+        if (intent.getStringExtra("URL") != null)
+            return getIntent().getStringExtra("URL");
+        else {
+            String domain = intent.getStringExtra("url_sub"); // dommain 이름을 가지고 온다.
+            switch (domain) {
+                case "1":
+                    return getString(R.string.url1);
+                case "2":
+                    return getString(R.string.url2);
+                case "3":
+                    return getString(R.string.url3);
+                case "4":
+                    return getString(R.string.url4);
+                case "5":
+                    return getString(R.string.url5);
+                case "6":
+                    return getString(R.string.url6);
+                case "7":
+                    return getString(R.string.url7);
+                case "8":
+                    return getString(R.string.url8);
+                case "9":
+                    return getString(R.string.url9);
+                case "10":
+                    return getString(R.string.url10);
+                case "11":
+                    return getString(R.string.url11);
+                case "12":
+                    return getString(R.string.url12);
+                case "13":
+                    return getString(R.string.url13);
+            }
+        }
+        return "";
     }
 
     @Override

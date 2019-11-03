@@ -2,6 +2,7 @@ package com.keelim.nandadiagnosis.mainFragment.search;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,15 +12,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.keelim.nandadiagnosis.R;
+import com.keelim.nandadiagnosis.activities.WebViewActivity;
 import com.keelim.nandadiagnosis.mainFragment.search.db.DatabaseHelper;
 import com.keelim.nandadiagnosis.mainFragment.search.db.DbAdapter;
 import com.keelim.nandadiagnosis.mainFragment.search.db.DbItem;
@@ -33,7 +33,6 @@ public class SearchFragment extends Fragment { //todo view model 하고 같이 �
     private DatabaseHelper databaseHelper;
     private List<DbItem> dbItemsQuery;
     private ArrayList<DbItem> dbItemBegin;
-    private FragmentTransaction transaction;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -50,15 +49,10 @@ public class SearchFragment extends Fragment { //todo view model 하고 같이 �
             Snackbar.make(view, "클래스 영역: " + db.getClass_name() + "도매인 영역" + db.getDomain_name(), Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show(); //텍스트 뷰로 넘길 수 있다.
 
-            transaction = getFragmentManager().beginTransaction();
-
-            transaction.replace(R.id.nav_host_fragment, SearchAnswerFragment.newInstance(dbItemBegin));
-            if (dbItemBegin == null) {
-                Snackbar.make(view, "오류남 고치기 바람", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show(); //텍스트 뷰로 넘길 수 있다.
-            } else {
-                transaction.commit();
-            }
+            //web으로 넘겨 버리자
+            Intent intent_web = new Intent(getActivity(), WebViewActivity.class);
+            intent_web.putExtra("url_sub", db.getDomain_name()); // todo  domain name  -> url 어떻게 옮겨야 하나?
+            startActivity(intent_web);
         });
 
         return root;
@@ -98,12 +92,4 @@ public class SearchFragment extends Fragment { //todo view model 하고 같이 �
         }
     }
 
-    private ArrayList<DbItem> diagnosis(String keyword) {
-        dbItemBegin = databaseHelper.diagnosisAll(keyword);
-        if (dbItemBegin == null) {
-            Toast.makeText(getActivity(), "diagnosis 가 문제가 있습니다.", Toast.LENGTH_SHORT).show();
-            return null;
-        }
-        return dbItemBegin;
-    }
 }

@@ -18,7 +18,7 @@
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.keelim.nandadiagnosis.mainFragment.my_setting.MyFragment"
+        android:name="com.keelim.nandadiagnosis.mainFragment.my.MyFragment"
         android:label="@string/title_my"
         tools:layout="@layout/fragment_my" />
 </navigation>

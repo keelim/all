@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.mainFragment.my_setting;
+package com.keelim.nandadiagnosis.mainFragment.my;
 
 import android.os.Bundle;
 

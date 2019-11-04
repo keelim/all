@@ -2,10 +2,10 @@ package com.keelim.nandadiagnosis.help;
 
 import java.io.Serializable;
 
-public class HelplistItem implements Serializable {
+public class HelpListItem implements Serializable {
     private String title;
 
-    public HelplistItem(String title) {
+    public HelpListItem(String title) {
         this.title = title;
     }
 

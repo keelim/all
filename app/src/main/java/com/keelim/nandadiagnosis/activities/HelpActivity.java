@@ -10,10 +10,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.snackbar.Snackbar;
 import com.keelim.nandadiagnosis.R;
 import com.keelim.nandadiagnosis.help.HelpListAdapter;
-import com.keelim.nandadiagnosis.help.HelplistItem;
-import com.keelim.nandadiagnosis.help.tempActivity.OpenSourceActivity;
-import com.keelim.nandadiagnosis.help.tempActivity.PleaseActivity;
-import com.keelim.nandadiagnosis.help.tempActivity.QuestionActivity;
+import com.keelim.nandadiagnosis.help.HelpListItem;
+import com.keelim.nandadiagnosis.help.activity.OpenSourceActivity;
+import com.keelim.nandadiagnosis.help.activity.PleaseActivity;
+import com.keelim.nandadiagnosis.help.activity.QuestionActivity;
 
 import java.util.ArrayList;
 
@@ -24,7 +24,7 @@ public class HelpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
 
-        ArrayList<HelplistItem> arrayList = arrayListSetting();
+        ArrayList<HelpListItem> arrayList = arrayListSetting();
         HelpListAdapter helpAdapter = new HelpListAdapter(getApplicationContext(), arrayList);
         ListView help_list = findViewById(R.id.help_list);
 
@@ -55,11 +55,11 @@ public class HelpActivity extends AppCompatActivity {
     }
 
     @NonNull
-    private ArrayList<HelplistItem> arrayListSetting() {
-        ArrayList<HelplistItem> arrayList = new ArrayList<>();
-        arrayList.add(new HelplistItem("도움말"));
-        arrayList.add(new HelplistItem("문의사항"));
-        arrayList.add(new HelplistItem("오픈소스라이선스"));
+    private ArrayList<HelpListItem> arrayListSetting() {
+        ArrayList<HelpListItem> arrayList = new ArrayList<>();
+        arrayList.add(new HelpListItem("도움말"));
+        arrayList.add(new HelpListItem("문의사항"));
+        arrayList.add(new HelpListItem("오픈소스라이선스"));
         return arrayList;
     }
 }

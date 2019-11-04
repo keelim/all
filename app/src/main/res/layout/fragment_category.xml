@@ -48,7 +48,8 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:onClick="toastMaker"
-                    android:src="@drawable/healthpromotion" />
+                    android:src="@drawable/healthpromotion"
+                    android:contentDescription="건강증진" />
 
                 <ImageView
                     android:id="@+id/search_view_2"
@@ -59,6 +60,7 @@
                     android:baselineAligned="false"
                     android:clickable="true"
                     android:onClick="toastMaker"
+                    android:contentDescription="영양"
                     android:src="@drawable/nutrition" />
 
                 <ImageView
@@ -69,6 +71,7 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:onClick="toastMaker"
+                    android:contentDescription="배설/교환"
                     android:src="@drawable/elimination" />
 
                 <ImageView
@@ -79,6 +82,7 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:onClick="toastMaker"
+                    android:contentDescription="활동/휴식"
                     android:src="@drawable/activityrest" />
 
             </TableRow>
@@ -96,6 +100,7 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:onClick="toastMaker"
+                    android:contentDescription="지각/인식"
                     android:src="@drawable/perceptioncongnition" />
 
                 <ImageView
@@ -104,6 +109,7 @@
                     android:layout_height="100dp"
                     android:layout_margin="2dp"
                     android:background="#ffffff"
+                    android:contentDescription="자아지각"
                     android:clickable="true"
                     android:onClick="toastMaker"
                     android:src="@drawable/selfperception" />
@@ -114,6 +120,7 @@
                     android:layout_height="100dp"
                     android:layout_margin="2dp"
                     android:background="#ffffff"
+                    android:contentDescription="역할관계"
                     android:clickable="true"
                     android:onClick="toastMaker"
                     android:src="@drawable/rolerelationship" />
@@ -123,6 +130,7 @@
                     android:layout_width="30dp"
                     android:layout_height="100dp"
                     android:layout_margin="2dp"
+                    android:contentDescription="성"
                     android:background="#ffffff"
                     android:clickable="true"
                     android:onClick="toastMaker"
@@ -142,6 +150,7 @@
                     android:layout_margin="2dp"
                     android:background="#ffffff"
                     android:clickable="true"
+                    android:contentDescription="대처/스트레스 내성"
                     android:onClick="toastMaker"
                     android:src="@drawable/tolerlance" />
 
@@ -152,6 +161,7 @@
                     android:layout_margin="2dp"
                     android:background="#ffffff"
                     android:clickable="true"
+                    android:contentDescription="삶의 원칙"
                     android:onClick="toastMaker"
                     android:src="@drawable/lifeprinciple" />
 
@@ -161,6 +171,7 @@
                     android:layout_height="100dp"
                     android:layout_margin="2dp"
                     android:background="#ffffff"
+                    android:contentDescription="안전/보호"
                     android:clickable="true"
                     android:onClick="toastMaker"
                     android:src="@drawable/safetyprotection" />
@@ -172,6 +183,7 @@
                     android:layout_margin="2dp"
                     android:background="#ffffff"
                     android:clickable="true"
+                    android:contentDescription="안위"
                     android:onClick="toastMaker"
                     android:src="@drawable/comfort" />
 
@@ -188,6 +200,7 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:onClick="toastMaker"
+                    android:contentDescription="성장/발달"
                     android:src="@drawable/growthdevelopment" />
 
                 <View

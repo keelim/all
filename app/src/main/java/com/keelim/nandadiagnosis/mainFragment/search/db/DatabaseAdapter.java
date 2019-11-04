@@ -11,11 +11,11 @@ import com.keelim.nandadiagnosis.R;
 
 import java.util.List;
 
-public class DbAdapter extends BaseAdapter {
+public class DatabaseAdapter extends BaseAdapter {
     private Context context;
-    private List<DbItem> arrayList;
+    private List<DatabaseItem> arrayList;
 
-    public DbAdapter(Context context, List<DbItem> arrayList) {
+    public DatabaseAdapter(Context context, List<DatabaseItem> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
     }

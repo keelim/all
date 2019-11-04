@@ -3,7 +3,6 @@ package com.keelim.nandadiagnosis.mainFragment.search;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,39 +19,36 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.snackbar.Snackbar;
 import com.keelim.nandadiagnosis.R;
 import com.keelim.nandadiagnosis.activities.WebViewActivity;
+import com.keelim.nandadiagnosis.mainFragment.search.db.DatabaseAdapter;
 import com.keelim.nandadiagnosis.mainFragment.search.db.DatabaseHelper;
-import com.keelim.nandadiagnosis.mainFragment.search.db.DbAdapter;
-import com.keelim.nandadiagnosis.mainFragment.search.db.DbItem;
+import com.keelim.nandadiagnosis.mainFragment.search.db.DatabaseItem;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class SearchFragment extends Fragment { //todo view model 하고 같이 수정을 할 것
     private ListView listview;
     private DatabaseHelper databaseHelper;
-    private List<DbItem> dbItemsQuery;
-    private ArrayList<DbItem> dbItemBegin;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_searcht, container, false);
         listview = root.findViewById(R.id.dbanswer_listview);
-
         setHasOptionsMenu(true);
         databaseHelper = new DatabaseHelper(getActivity());
-        SQLiteDatabase database = databaseHelper.getReadableDatabase();
 
         listview.setOnItemClickListener((adapterView, view, i, l) -> {
-            DbItem db = (DbItem) adapterView.getAdapter().getItem(i);
+            DatabaseItem db = (DatabaseItem) adapterView.getAdapter().getItem(i);
             Snackbar.make(view, "클래스 영역: " + db.getClass_name() + "도매인 영역" + db.getDomain_name(), Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show(); //텍스트 뷰로 넘길 수 있다.
 
-            //web으로 넘겨 버리자
+            //web 으로 넘겨 버리자
             Intent intent_web = new Intent(getActivity(), WebViewActivity.class);
-            intent_web.putExtra("url_sub", db.getDomain_name()); // todo  domain name  -> url 어떻게 옮겨야 하나?
+            intent_web.putExtra("URL", urlHandling(db));
             startActivity(intent_web);
+
+
         });
 
         return root;
@@ -69,7 +65,7 @@ public class SearchFragment extends Fragment { //todo view model 하고 같이 �
         searchView.setSearchableInfo(Objects.requireNonNull(searchManager).getSearchableInfo(getActivity().getComponentName()));
         searchView.setSubmitButtonEnabled(true);
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() { //검색을 할 수 있게 하는 것
             @Override
             public boolean onQueryTextSubmit(String query) {
                 searchDiagnosis(query); //검색을 한다.
@@ -86,9 +82,27 @@ public class SearchFragment extends Fragment { //todo view model 하고 같이 �
     }
 
     private void searchDiagnosis(String keyword) {
-        dbItemsQuery = databaseHelper.search(keyword);
+        List<DatabaseItem> dbItemsQuery = databaseHelper.search(keyword);
         if (dbItemsQuery != null) {
-            listview.setAdapter(new DbAdapter(getActivity(), dbItemsQuery));
+            listview.setAdapter(new DatabaseAdapter(getActivity(), dbItemsQuery));
+        }
+    }
+
+
+    private String urlHandling(DatabaseItem item) { //todo 이렇게 하면 기본 페이지로 가는 것을 할 수 가 있다.
+        if (item == null) {
+            return getString(R.string.url_default);
+        } else { // 일단 데이터 베이스 구분자가 없으니까 아이디로 구분을 하자
+            int handling = item.getPrimaryKey();
+            String url;
+            if (handling>=250){
+                url = getString(R.string.url1);
+            } else if(handling>=200){
+                url = getString(R.string.url2);
+            } else {
+                url = getString(R.string.url3);
+            }
+            return url;
         }
     }
 

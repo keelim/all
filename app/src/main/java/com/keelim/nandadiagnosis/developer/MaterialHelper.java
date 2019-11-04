@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.utils;
+package com.keelim.nandadiagnosis.developer;
 
 import android.app.Activity;
 import android.widget.FrameLayout;

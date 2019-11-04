@@ -24,7 +24,7 @@ import java.util.Objects;
 public class FirebaseInstanceIDService extends FirebaseMessagingService { //todo firebase push 할 떄 사용 -> 수정은 필요하다.
 
     @Override
-    public void onNewToken(String s) {
+    public void onNewToken(@NonNull String s) {
         super.onNewToken(s);
         Log.e("Firebase", "FirebaseInstanceIDService : " + s);
     }

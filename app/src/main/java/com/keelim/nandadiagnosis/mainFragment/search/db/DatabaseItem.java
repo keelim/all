@@ -3,22 +3,20 @@ package com.keelim.nandadiagnosis.mainFragment.search.db;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
-
-public class DbItem implements Parcelable {
-    private int nanda_mysql_id;
+public class DatabaseItem implements Parcelable {
+    private int primaryKey;
     private String reason;
     private String diagnosis;
     private String class_name;
     private String domain_name;
 
 
-    public int getNanda_mysql_id() {
-        return nanda_mysql_id;
+    public int getPrimaryKey() {
+        return primaryKey;
     }
 
-    public void setNanda_mysql_id(int nanda_mysql_id) {
-        this.nanda_mysql_id = nanda_mysql_id;
+    public void setPrimaryKey(int primaryKey) {
+        this.primaryKey = primaryKey;
     }
 
     public String getReason() {
@@ -60,33 +58,33 @@ public class DbItem implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.nanda_mysql_id);
+        dest.writeInt(this.primaryKey);
         dest.writeString(this.reason);
         dest.writeString(this.diagnosis);
         dest.writeString(this.class_name);
         dest.writeString(this.domain_name);
     }
 
-    public DbItem() {
+    public DatabaseItem() {
     }
 
-    protected DbItem(Parcel in) {
-        this.nanda_mysql_id = in.readInt();
+    protected DatabaseItem(Parcel in) {
+        this.primaryKey = in.readInt();
         this.reason = in.readString();
         this.diagnosis = in.readString();
         this.class_name = in.readString();
         this.domain_name = in.readString();
     }
 
-    public static final Creator<DbItem> CREATOR = new Creator<DbItem>() {
+    public static final Creator<DatabaseItem> CREATOR = new Creator<DatabaseItem>() {
         @Override
-        public DbItem createFromParcel(Parcel source) {
-            return new DbItem(source);
+        public DatabaseItem createFromParcel(Parcel source) {
+            return new DatabaseItem(source);
         }
 
         @Override
-        public DbItem[] newArray(int size) {
-            return new DbItem[size];
+        public DatabaseItem[] newArray(int size) {
+            return new DatabaseItem[size];
         }
     };
 }

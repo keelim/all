@@ -27,21 +27,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         super(context, DATABSAE_NAME, null, 1);
     }
 
-    public List<DbItem> search(String keyword) {
-        List<DbItem> dbItems = null;
+    public List<DatabaseItem> search(String keyword) {
+        List<DatabaseItem> dbItems = null;
         try {
             SQLiteDatabase sqLiteDatabase = getReadableDatabase();
             Cursor cursor = sqLiteDatabase.rawQuery("select * from " + TABLE_NAME + " where " + COL_2 + " like ?", new String[]{"%" + keyword + "%"});
             if (cursor.moveToFirst()) {
                 dbItems = new ArrayList<>();
                 do {
-                    DbItem dBitem = new DbItem();
-                    dBitem.setNanda_mysql_id(cursor.getInt(0));
-                    dBitem.setReason(cursor.getString(1));
-                    dBitem.setDiagnosis(cursor.getString(2));
-                    dBitem.setClass_name(cursor.getString(3));
-                    dBitem.setDomain_name(cursor.getString(4));
-                    dbItems.add(dBitem);
+                    DatabaseItem databaseItem = new DatabaseItem();
+                    databaseItem.setPrimaryKey(cursor.getInt(0));
+                    databaseItem.setReason(cursor.getString(1));
+                    databaseItem.setDiagnosis(cursor.getString(2));
+                    databaseItem.setClass_name(cursor.getString(3));
+                    databaseItem.setDomain_name(cursor.getString(4));
+                    dbItems.add(databaseItem);
                 } while (cursor.moveToNext());
             }
             cursor.close();

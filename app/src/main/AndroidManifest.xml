@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".help.activity.PleaseActivity"></activity>
+        <activity android:name=".help.activity.PleaseActivity" />
         <activity android:name=".help.activity.OpenSourceActivity" />
         <activity android:name=".help.activity.QuestionActivity" />
         <activity

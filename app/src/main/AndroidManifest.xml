@@ -2,9 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.keelim.nandadiagnosis">
 
+    <!-- Include required permissions for Google Mobile Ads to run. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:fullBackupContent="@xml/backup_descriptor"
@@ -13,6 +15,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3115620439518585~3588723583"/>
+
+        <activity
+            android:name=".activities.AdMobActivity"
+            android:label="@string/title_activity_admob" />
+
+
+        <activity
+            android:name="com.google.android.gms.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:theme="@android:style/Theme.Translucent" />
         <activity android:name=".help.activity.PleaseActivity" />
         <activity android:name=".help.activity.OpenSourceActivity" />
         <activity android:name=".help.activity.QuestionActivity" />
@@ -20,15 +36,16 @@
             android:name=".activities.WebViewActivity"
             android:theme="@style/Theme.MaterialComponents.NoActionBar" />
         <activity android:name=".activities.HelpActivity" />
+
         <activity
             android:name=".activities.SplashActivity"
             android:theme="@style/Theme.MaterialComponents.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name">
@@ -38,13 +55,16 @@
             </intent-filter>
         </activity>
 
-        <meta-data
-            android:name="android.app.searchable"
-            android:resource="@xml/searchable" />
-
         <activity android:name=".activities.DeveloperActivity" />
 
         <service android:name=".services.FirebaseInstanceIDService" />
+
+        <meta-data
+        android:name="android.app.searchable"
+        android:resource="@xml/searchable" />
+
+
+
     </application>
 
 </manifest>

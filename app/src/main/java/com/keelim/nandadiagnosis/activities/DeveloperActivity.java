@@ -6,7 +6,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.keelim.nandadiagnosis.R;
-import com.keelim.nandadiagnosis.utils.MaterialHelper;
+import com.keelim.nandadiagnosis.developer.MaterialHelper;
 
 
 public class DeveloperActivity extends AppCompatActivity {

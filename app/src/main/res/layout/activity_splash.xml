@@ -14,7 +14,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/nurse"
+        android:backgroundTint="#555555"
+        android:backgroundTintMode="screen"
         tools:context=".activities.SplashActivity">
 
         <TextView
@@ -22,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="NANDA"
-            android:textColor="#ffffff"
+            android:textColor="#000000"
             android:textSize="60sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

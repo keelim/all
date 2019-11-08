@@ -18,7 +18,7 @@ public class SplashActivity extends AppCompatActivity { //handler를 다르게 �
 
     //인앱 업데이트 어디서 등록을 해야 하는가?
     private Runnable runnable = () -> { //runable 작동을 하고 시작
-        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+        Intent intent = new Intent(this, AdMobActivity.class);
         startActivity(intent); //인텐트를 넣어준다. intro -> main
         finish(); //앱을 종료한다.
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out); //애니메이션을 넣어준다.

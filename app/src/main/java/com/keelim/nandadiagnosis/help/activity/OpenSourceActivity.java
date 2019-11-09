@@ -13,7 +13,6 @@ public class OpenSourceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_open_source);
-
         Toast.makeText(this, "오픈소스 라이선스 메뉴 입니다.", Toast.LENGTH_SHORT).show();
     }
 }

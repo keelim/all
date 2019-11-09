@@ -9,12 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.keelim.nandadiagnosis.databinding.FragmentCategoryBinding;
-import com.keelim.nandadiagnosis.mainFragment.category.category_viewpager.CategoryViewPagerAdapter;
 import com.keelim.nandadiagnosis.mainFragment.category.category_viewpager.CategoryViewPager1;
 import com.keelim.nandadiagnosis.mainFragment.category.category_viewpager.CategoryViewPager2;
+import com.keelim.nandadiagnosis.mainFragment.category.category_viewpager.CategoryViewPagerAdapter;
 import com.keelim.nandadiagnosis.mainFragment.category.category_viewpager.ViewPagerThirdFragment;
-
-import java.util.Objects;
 
 import static androidx.fragment.app.FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT;
 
@@ -26,7 +24,7 @@ public class CategoryFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentCategoryBinding.inflate(inflater, container, false);
-        mainPageAdapter = new CategoryViewPagerAdapter(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        mainPageAdapter = new CategoryViewPagerAdapter(getActivity().getSupportFragmentManager(), BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPagerSetting();
         return binding.getRoot();
     }

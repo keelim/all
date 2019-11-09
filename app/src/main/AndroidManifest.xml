@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.keelim.nandadiagnosis">
 
-    <!-- Include required permissions for Google Mobile Ads to run. -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -17,12 +16,7 @@
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3115620439518585~3588723583"/>
-
-        <activity
-            android:name=".activities.AdMobActivity"
-            android:label="@string/title_activity_admob" />
-
+            android:value="ca-app-pub-3115620439518585~3588723583" />
 
         <activity
             android:name="com.google.android.gms.ads.AdActivity"
@@ -53,17 +47,11 @@
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
         </activity>
-
         <activity android:name=".activities.DeveloperActivity" />
 
         <service android:name=".services.FirebaseInstanceIDService" />
-
         <meta-data
-        android:name="android.app.searchable"
-        android:resource="@xml/searchable" />
-
-
-
+            android:name="android.app.searchable"
+            android:resource="@xml/searchable" />
     </application>
-
 </manifest>

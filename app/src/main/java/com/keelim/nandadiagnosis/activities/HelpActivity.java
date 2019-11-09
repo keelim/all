@@ -26,32 +26,27 @@ public class HelpActivity extends AppCompatActivity {
 
         ArrayList<HelpListItem> arrayList = arrayListSetting();
         HelpListAdapter helpAdapter = new HelpListAdapter(getApplicationContext(), arrayList);
+
         ListView help_list = findViewById(R.id.help_list);
-
-
         help_list.setAdapter(helpAdapter);
         help_list.setOnItemClickListener((adapterView, view, i, l) -> {
             //i position
             switch (i) {
                 case 0:
-                    Snackbar.make(view, "도움말을 누르셨습니다. ", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                    Intent intent_question = new Intent(getApplicationContext(), QuestionActivity.class);
-                    startActivity(intent_question);
+                    intentControl(QuestionActivity.class);
                     return;
                 case 1:
-                    Snackbar.make(view, "문의사항을 누르셨습니다.  ", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                    Intent intent_please = new Intent(getApplicationContext(), PleaseActivity.class);
-                    startActivity(intent_please);
+                    intentControl(PleaseActivity.class);
                     return;
                 case 2:
-                    Snackbar.make(view, "오픈소스 라이선스", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                    Intent intent_open = new Intent(getApplicationContext(), OpenSourceActivity.class);
-                    startActivity(intent_open);
+                    intentControl(OpenSourceActivity.class);
             }
         });
+    }
+
+    private void intentControl(Class classNum) {
+        Intent intent_question = new Intent(getApplicationContext(), classNum);
+        startActivity(intent_question);
     }
 
     @NonNull

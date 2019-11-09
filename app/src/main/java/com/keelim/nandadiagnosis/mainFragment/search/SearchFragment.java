@@ -11,12 +11,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.keelim.nandadiagnosis.R;
 import com.keelim.nandadiagnosis.activities.WebViewActivity;
 import com.keelim.nandadiagnosis.mainFragment.search.db.DatabaseAdapter;
@@ -26,10 +26,9 @@ import com.keelim.nandadiagnosis.mainFragment.search.db.DatabaseItem;
 import java.util.List;
 import java.util.Objects;
 
-public class SearchFragment extends Fragment { //todo view model 하고 같이 수정을 할 것
+public class SearchFragment extends Fragment {
     private ListView listview;
     private DatabaseHelper databaseHelper;
-
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -40,17 +39,13 @@ public class SearchFragment extends Fragment { //todo view model 하고 같이 �
 
         listview.setOnItemClickListener((adapterView, view, i, l) -> {
             DatabaseItem db = (DatabaseItem) adapterView.getAdapter().getItem(i);
-            Snackbar.make(view, "클래스 영역: " + db.getClass_name() + "도매인 영역" + db.getDomain_name(), Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show(); //텍스트 뷰로 넘길 수 있다.
-
+            Toast.makeText(getActivity(), "클래스 영역: " + db.getClass_name() + "도매인 영역" + db.getDomain_name(), Toast.LENGTH_SHORT).show();
             //web 으로 넘겨 버리자
+
             Intent intent_web = new Intent(getActivity(), WebViewActivity.class);
             intent_web.putExtra("URL", urlHandling(db));
             startActivity(intent_web);
-
-
         });
-
         return root;
     }
 
@@ -95,9 +90,9 @@ public class SearchFragment extends Fragment { //todo view model 하고 같이 �
         } else { // 일단 데이터 베이스 구분자가 없으니까 아이디로 구분을 하자
             int handling = item.getPrimaryKey();
             String url;
-            if (handling>=250){
+            if (handling >= 250) {
                 url = getString(R.string.url1);
-            } else if(handling>=200){
+            } else if (handling >= 200) {
                 url = getString(R.string.url2);
             } else {
                 url = getString(R.string.url3);

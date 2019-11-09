@@ -28,5 +28,7 @@
         This is an ad unit ID for an interstitial test ad. Replace with your own interstitial ad unit id.
         For more information, see https://support.google.com/admob/answer/3052638
     <!- -->
-    <string name="interstitial_ad_unit_id">ca-app-pub-3115620439518585/7104801924</string>
+    <string name="application_ad">ca-app-pub-3115620439518585~3588723583</string>
+    <string name="real_ad">ca-app-pub-3115620439518585/7104801924</string>
+    <string name="test_ad">ca-app-pub-3940256099942544/1033173712</string>
 </resources>

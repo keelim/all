@@ -1,127 +1,164 @@
-package com.keelim.nandadiagnosis.activities;
+package com.keelim.nandadiagnosis.activities;/*
+ * Copyright (C) 2013 Google, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.keelim.nandadiagnosis.R;
 
+/**
+ * Main Activity. Inflates main activity xml.
+ */
 public class AdMobActivity extends AppCompatActivity {
-    // Remove the below line after defining your own ad unit ID.
-    private static final String TOAST_TEXT = "Test ads are being shown. "
-            + "To show live ads, replace the ad unit ID in res/values/strings.xml with your own ad unit ID.";
 
-    private static final int START_LEVEL = 1;
-    private int mLevel;
-    private Button mNextLevelButton;
-    private InterstitialAd mInterstitialAd;
-    private TextView mLevelTextView;
+    private static final long GAME_LENGTH_MILLISECONDS = 3000;
+    private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/1033173712";
+
+    private InterstitialAd interstitialAd;
+    private CountDownTimer countDownTimer;
+    private Button retryButton;
+    private boolean gameIsInProgress;
+    private long timerMilliseconds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admob);
 
-        // Create the next level button, which tries to show an interstitial when clicked.
-        mNextLevelButton = ((Button) findViewById(R.id.next_level_button));
-        mNextLevelButton.setEnabled(false);
-        mNextLevelButton.setOnClickListener(new View.OnClickListener() {
+        // Initialize the Mobile Ads SDK.
+        MobileAds.initialize(this, initializationStatus -> {
+        });
+        // Create the InterstitialAd and set the adUnitId.
+        interstitialAd = new InterstitialAd(this);
+        // Defined in res/values/strings.xml
+        interstitialAd.setAdUnitId(AD_UNIT_ID);
+        interstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                Toast.makeText(AdMobActivity.this, "onAdLoaded()", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                Toast.makeText(AdMobActivity.this,
+                        "onAdFailedToLoad() with error code: " + errorCode,
+                        Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onAdClosed() {
+                startGame();
+            }
+        });
+
+        // Create the "retry" button, which tries to show an interstitial between game plays.
+        retryButton = findViewById(R.id.retry_button);
+        retryButton.setVisibility(View.INVISIBLE);
+        retryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showInterstitial();
             }
         });
 
-        // Create the text view to show the level number.
-        mLevelTextView = (TextView) findViewById(R.id.level);
-        mLevel = START_LEVEL;
-
-        // Create the InterstitialAd and set the adUnitId (defined in values/strings.xml).
-        mInterstitialAd = newInterstitialAd();
-        loadInterstitial();
-
-        // Toasts the test ad message on the screen. Remove this after defining your own ad unit ID.
-        Toast.makeText(this, TOAST_TEXT, Toast.LENGTH_LONG).show();
+        startGame();
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_admob, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            return true;
+    private void createTimer(final long milliseconds) {
+        // Create the game timer, which counts down to the end of the level
+        // and shows the "retry" button.
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
         }
 
-        return super.onOptionsItemSelected(item);
+        final TextView textView = findViewById(R.id.timer);
+
+        countDownTimer = new CountDownTimer(milliseconds, 50) {
+            @Override
+            public void onTick(long millisUnitFinished) {
+                timerMilliseconds = millisUnitFinished;
+                textView.setText("seconds remaining: " + ((millisUnitFinished / 1000) + 1));
+            }
+
+            @Override
+            public void onFinish() {
+                gameIsInProgress = false;
+                textView.setText("done!");
+                retryButton.setVisibility(View.VISIBLE);
+            }
+        };
     }
 
-    private InterstitialAd newInterstitialAd() {
-        InterstitialAd interstitialAd = new InterstitialAd(this);
-        interstitialAd.setAdUnitId(getString(R.string.interstitial_ad_unit_id));
-        interstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdLoaded() {
-                mNextLevelButton.setEnabled(true);
-            }
+    @Override
+    public void onResume() {
+        // Start or resume the game.
+        super.onResume();
 
-            @Override
-            public void onAdFailedToLoad(int errorCode) {
-                mNextLevelButton.setEnabled(true);
-            }
+        if (gameIsInProgress) {
+            resumeGame(timerMilliseconds);
+        }
+    }
 
-            @Override
-            public void onAdClosed() {
-                // Proceed to the next level.
-                goToNextLevel();
-            }
-        });
-        return interstitialAd;
+    @Override
+    public void onPause() {
+        // Cancel the timer if the game is paused.
+        countDownTimer.cancel();
+        super.onPause();
     }
 
     private void showInterstitial() {
-        // Show the ad if it's ready. Otherwise toast and reload the ad.
-        if (mInterstitialAd != null && mInterstitialAd.isLoaded()) {
-            mInterstitialAd.show();
+        // Show the ad if it's ready. Otherwise toast and restart the game.
+        if (interstitialAd != null && interstitialAd.isLoaded()) {
+            interstitialAd.show();
         } else {
             Toast.makeText(this, "Ad did not load", Toast.LENGTH_SHORT).show();
-            goToNextLevel();
+            startGame();
         }
     }
 
-    private void loadInterstitial() {
-        // Disable the next level button and load the ad.
-        mNextLevelButton.setEnabled(false);
-        AdRequest adRequest = new AdRequest.Builder()
-                .setRequestAgent("android_studio:ad_template").build();
-        mInterstitialAd.loadAd(adRequest);
+    private void startGame() {
+        // Request a new ad if one isn't already loaded, hide the button, and kick off the timer.
+        if (!interstitialAd.isLoading() && !interstitialAd.isLoaded()) {
+            AdRequest adRequest = new AdRequest.Builder().build();
+            interstitialAd.loadAd(adRequest);
+        }
+
+        retryButton.setVisibility(View.INVISIBLE);
+        resumeGame(GAME_LENGTH_MILLISECONDS);
     }
 
-    private void goToNextLevel() {
-        // Show the next level and reload the ad to prepare for the level after.
-        mLevelTextView.setText("Level " + (++mLevel));
-        mInterstitialAd = newInterstitialAd();
-        loadInterstitial();
+    private void resumeGame(long milliseconds) {
+        // Create a new timer for the correct length and start it.
+        gameIsInProgress = true;
+        timerMilliseconds = milliseconds;
+        createTimer(milliseconds);
+        countDownTimer.start();
     }
 }

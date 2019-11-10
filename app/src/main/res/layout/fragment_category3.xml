@@ -3,5 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".mainFragment.category.category_viewpager.ViewPagerThirdFragment" />
+    android:background="#CCFF90"
+    tools:context=".mainFragment.category.category_viewpager.CategoryView3" />
     <!--어떤 것을 표시를 할 것인가?-->

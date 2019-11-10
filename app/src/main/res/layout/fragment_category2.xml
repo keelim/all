@@ -3,4 +3,5 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".mainFragment.category.category_viewpager.CategoryViewPager2" />
+    android:background="#B9F6CA"
+    tools:context=".mainFragment.category.category_viewpager.CategoryView2" />

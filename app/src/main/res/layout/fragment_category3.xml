@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#CCFF90"
-    tools:context=".mainFragment.category.category_viewpager.CategoryView3" />
-    <!--어떤 것을 표시를 할 것인가?-->

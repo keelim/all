@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#B9F6CA"
-    tools:context=".mainFragment.category.category_viewpager.CategoryView2" />
+    android:background="#FFD180"
+    android:gravity="center"
+    android:textStyle="bold"
+    android:textSize="60sp"
+    android:text="외1" />

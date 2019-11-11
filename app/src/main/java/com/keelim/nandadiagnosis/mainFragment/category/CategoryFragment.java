@@ -12,7 +12,6 @@ import com.keelim.nandadiagnosis.databinding.FragmentCategoryBinding;
 import com.keelim.nandadiagnosis.mainFragment.category.category_viewpager.CategoryView1;
 import com.keelim.nandadiagnosis.mainFragment.category.category_viewpager.CategoryView2;
 import com.keelim.nandadiagnosis.mainFragment.category.category_viewpager.CategoryViewPagerAdapter;
-import com.keelim.nandadiagnosis.mainFragment.category.category_viewpager.CategoryView3;
 
 import static androidx.fragment.app.FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT;
 
@@ -33,7 +32,6 @@ public class CategoryFragment extends Fragment {
     private void viewPagerSetting() {
         mainPageAdapter.addItem(new CategoryView1());
         mainPageAdapter.addItem(new CategoryView2());
-        mainPageAdapter.addItem(new CategoryView3());
         binding.searchViewpager.setAdapter(mainPageAdapter);
     }
 

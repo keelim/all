@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
-    <data>
-
-    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -17,7 +12,7 @@
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/search_viewpager"
             android:layout_width="0dp"
-            android:layout_height="120dp"
+            android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@+id/layout_search_table"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +22,7 @@
         <TableLayout
             android:id="@+id/layout_search_table"
             android:layout_width="400dp"
-            android:layout_height="450dp"
+            android:layout_height="475dp"
             android:background="@color/colorAccent"
             android:stretchColumns="*"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -47,9 +42,9 @@
                     android:layout_margin="2dp"
                     android:background="#ffffff"
                     android:clickable="true"
+                    android:contentDescription="건강증진"
                     android:onClick="toastMaker"
-                    android:src="@drawable/healthpromotion"
-                    android:contentDescription="건강증진" />
+                    android:src="@drawable/healthpromotion" />
 
                 <ImageView
                     android:id="@+id/search_view_2"
@@ -59,8 +54,8 @@
                     android:background="#ffffff"
                     android:baselineAligned="false"
                     android:clickable="true"
-                    android:onClick="toastMaker"
                     android:contentDescription="영양"
+                    android:onClick="toastMaker"
                     android:src="@drawable/nutrition" />
 
                 <ImageView
@@ -70,8 +65,8 @@
                     android:layout_margin="2dp"
                     android:background="#ffffff"
                     android:clickable="true"
-                    android:onClick="toastMaker"
                     android:contentDescription="배설/교환"
+                    android:onClick="toastMaker"
                     android:src="@drawable/elimination" />
 
                 <ImageView
@@ -81,8 +76,8 @@
                     android:layout_margin="2dp"
                     android:background="#ffffff"
                     android:clickable="true"
-                    android:onClick="toastMaker"
                     android:contentDescription="활동/휴식"
+                    android:onClick="toastMaker"
                     android:src="@drawable/activityrest" />
 
             </TableRow>
@@ -99,8 +94,8 @@
                     android:layout_margin="2dp"
                     android:background="#ffffff"
                     android:clickable="true"
-                    android:onClick="toastMaker"
                     android:contentDescription="지각/인식"
+                    android:onClick="toastMaker"
                     android:src="@drawable/perceptioncongnition" />
 
                 <ImageView
@@ -109,8 +104,8 @@
                     android:layout_height="100dp"
                     android:layout_margin="2dp"
                     android:background="#ffffff"
-                    android:contentDescription="자아지각"
                     android:clickable="true"
+                    android:contentDescription="자아지각"
                     android:onClick="toastMaker"
                     android:src="@drawable/selfperception" />
 
@@ -120,8 +115,8 @@
                     android:layout_height="100dp"
                     android:layout_margin="2dp"
                     android:background="#ffffff"
-                    android:contentDescription="역할관계"
                     android:clickable="true"
+                    android:contentDescription="역할관계"
                     android:onClick="toastMaker"
                     android:src="@drawable/rolerelationship" />
 
@@ -130,9 +125,9 @@
                     android:layout_width="30dp"
                     android:layout_height="100dp"
                     android:layout_margin="2dp"
-                    android:contentDescription="성"
                     android:background="#ffffff"
                     android:clickable="true"
+                    android:contentDescription="성"
                     android:onClick="toastMaker"
                     android:src="@drawable/sexuality" />
 
@@ -171,8 +166,8 @@
                     android:layout_height="100dp"
                     android:layout_margin="2dp"
                     android:background="#ffffff"
-                    android:contentDescription="안전/보호"
                     android:clickable="true"
+                    android:contentDescription="안전/보호"
                     android:onClick="toastMaker"
                     android:src="@drawable/safetyprotection" />
 
@@ -199,8 +194,8 @@
                     android:layout_height="100dp"
                     android:background="#ffffff"
                     android:clickable="true"
-                    android:onClick="toastMaker"
                     android:contentDescription="성장/발달"
+                    android:onClick="toastMaker"
                     android:src="@drawable/growthdevelopment" />
 
                 <View
@@ -214,10 +209,7 @@
                 <View
                     android:layout_width="30dp"
                     android:layout_height="100dp" />
-
             </TableRow>
-
-
         </TableLayout>
 
 

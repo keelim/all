@@ -31,7 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         List<DatabaseItem> dbItems = null;
         try {
             SQLiteDatabase sqLiteDatabase = getReadableDatabase();
-            Cursor cursor = sqLiteDatabase.rawQuery("select * from " + TABLE_NAME + " where " + COL_2 + " like ?", new String[]{"%" + keyword + "%"});
+            Cursor cursor = sqLiteDatabase.rawQuery("select DISTINCT * from " + TABLE_NAME + " where " + COL_2 + " like ?", new String[]{"%" + keyword + "%"});
             if (cursor.moveToFirst()) {
                 dbItems = new ArrayList<>();
                 do {

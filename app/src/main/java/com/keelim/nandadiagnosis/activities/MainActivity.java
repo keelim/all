@@ -52,17 +52,15 @@ public class MainActivity extends AppCompatActivity {
 
     private void fileChecking() {
         File check = new File(getDataDir().getAbsolutePath() + "/databases/nanda.db");
-
         if (!check.exists()) {
             //데이터베이스를 받아온다.
-            //sqlite database 파일ㅣ
             alertBuilderSetting();
         } else {
             Toast.makeText(this, "데이터베이스가 존재합니다. 그대로 진행 합니다.", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void alertBuilderSetting() {
+    private void alertBuilderSetting() { //okhttp 작동 방식은 나중에 확인을 해보자
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("다운로드 요청")
                 .setMessage("어플리케이션 사용을 위해 데이터베이스를 다운로드 합니다.")
@@ -85,27 +83,6 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), nanda_domain, Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        switch (id) {
-            case R.id.drawer_developer:
-                Intent intent_developer = new Intent(getApplicationContext(), DeveloperActivity.class);
-                startActivity(intent_developer);
-                break;
-            case R.id.drawer_help:
-                Intent intent_help = new Intent(getApplicationContext(), HelpActivity.class);
-                startActivity(intent_help);
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     public void toastMaker(View view) {
         switch (view.getId()) {
@@ -162,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void UrlStartActivity(String domainValue) { //todo 각각의 intent 값에 따라 결과가 달라야 함
+    private void UrlStartActivity(String domainValue) {
         Intent intent_url = new Intent(getApplicationContext(), WebViewActivity.class);
         intent_url.putExtra("URL", domainValue);
         startActivity(intent_url);
@@ -203,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
             final int BUFFER_SIZE = 2046;
             byte[] data = new byte[BUFFER_SIZE];
 
-            int count; //todo 다운로드를 표시를 해주는 프로그레스바 필요
+            int count;
 
             while ((count = inputStream.read(data)) != -1) {
                 outputStream.write(data, 0, count);

@@ -28,5 +28,4 @@
             app:title="개발자 관련" />
     </PreferenceCategory>
 
-
 </androidx.preference.PreferenceScreen>

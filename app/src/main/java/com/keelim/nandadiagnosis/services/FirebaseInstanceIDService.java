@@ -32,6 +32,7 @@ public class FirebaseInstanceIDService extends FirebaseMessagingService { //todo
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         // 메시지 수신 시 실행되는 메소드
+
         if (remoteMessage.getData().size() > 0) {
             sendNotification(remoteMessage);
         }

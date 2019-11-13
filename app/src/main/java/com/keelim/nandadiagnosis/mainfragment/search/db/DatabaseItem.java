@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.mainFragment.search.db;
+package com.keelim.nandadiagnosis.mainfragment.search.db;
 
 import android.os.Parcel;
 import android.os.Parcelable;

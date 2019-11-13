@@ -1,24 +1,17 @@
-package com.keelim.nandadiagnosis.mainFragment.my;
+package com.keelim.nandadiagnosis.mainfragment.my;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
-import androidx.preference.PreferenceScreen;
 
 import com.keelim.nandadiagnosis.R;
 import com.keelim.nandadiagnosis.activities.DeveloperActivity;
 import com.keelim.nandadiagnosis.activities.WebViewActivity;
-import com.keelim.nandadiagnosis.help.activity.OpenSourceActivity;
-import com.keelim.nandadiagnosis.help.activity.PleaseActivity;
-import com.keelim.nandadiagnosis.help.activity.QuestionActivity;
+import com.keelim.nandadiagnosis.help.OpenSourceActivity;
+import com.keelim.nandadiagnosis.help.PleaseActivity;
+import com.keelim.nandadiagnosis.help.QuestionActivity;
 
 public class SettingFragment extends PreferenceFragmentCompat {
 

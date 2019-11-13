@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.mainFragment.category.category_viewpager;
+package com.keelim.nandadiagnosis.mainfragment.category.category_viewpager;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

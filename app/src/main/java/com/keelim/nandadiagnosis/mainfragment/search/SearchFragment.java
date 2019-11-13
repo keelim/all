@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.mainFragment.search;
+package com.keelim.nandadiagnosis.mainfragment.search;
 
 import android.app.SearchManager;
 import android.content.Context;
@@ -19,12 +19,11 @@ import androidx.fragment.app.Fragment;
 
 import com.keelim.nandadiagnosis.R;
 import com.keelim.nandadiagnosis.activities.WebViewActivity;
-import com.keelim.nandadiagnosis.mainFragment.search.db.DatabaseAdapter;
-import com.keelim.nandadiagnosis.mainFragment.search.db.DatabaseHelper;
-import com.keelim.nandadiagnosis.mainFragment.search.db.DatabaseItem;
+import com.keelim.nandadiagnosis.mainfragment.search.db.DatabaseAdapter;
+import com.keelim.nandadiagnosis.mainfragment.search.db.DatabaseHelper;
+import com.keelim.nandadiagnosis.mainfragment.search.db.DatabaseItem;
 
 import java.util.List;
-import java.util.Objects;
 
 public class SearchFragment extends Fragment {
     private ListView listview;

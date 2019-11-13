@@ -22,13 +22,12 @@
             android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent" />
-        <activity android:name=".help.activity.PleaseActivity" />
-        <activity android:name=".help.activity.OpenSourceActivity" />
-        <activity android:name=".help.activity.QuestionActivity" />
+        <activity android:name=".help.PleaseActivity" />
+        <activity android:name=".help.OpenSourceActivity" />
+        <activity android:name=".help.QuestionActivity" />
         <activity
             android:name=".activities.WebViewActivity"
             android:theme="@style/Theme.MaterialComponents.NoActionBar" />
-        <activity android:name=".activities.HelpActivity" />
 
         <activity
             android:name=".activities.SplashActivity"

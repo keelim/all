@@ -7,7 +7,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".mainFragment.category.CategoryFragment">
+        tools:context=".mainfragment.category.CategoryFragment">
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/search_viewpager"

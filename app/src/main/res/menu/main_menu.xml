@@ -1,34 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group>
         <item
-            android:id="@+id/drawer_aroot"
-            android:title="@string/a_root" />
-
-        <item
-            android:id="@+id/drawer_broot"
-            android:title="@string/b_root" />
-
-        <item
-            android:id="@+id/drawer_croot"
-            android:title="@string/c_root" />
-
-        <item
-            android:id="@+id/drawer_night"
-            android:title="@string/night" />
-
-        <item
-            android:id="@+id/drawer_my"
-            app:showAsAction="always"
-            android:title="MY"
-             />
-
-        <item
-            android:id="@+id/drawer_developer"
-            android:title="@string/developerpage" />
-
-
+            android:id="@+id/drawer_root_check"
+            android:title="노선 시간표 알아보기" />
     </group>
 </menu>
 

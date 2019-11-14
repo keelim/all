@@ -6,14 +6,14 @@
     <data>
         <variable
             name="activity"
-            type="com.keelim.cnubus.activities.NightRootActivity" />
+            type="com.keelim.cnubus.activities.total.NightRootActivity" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activities.NightRootActivity">
+        tools:context=".root.NightRootActivity">
 
         <TableLayout
             android:layout_width="300dp"

@@ -5,13 +5,13 @@
     <data>
         <variable
             name="activity"
-            type="com.keelim.cnubus.activities.ARootActivity" />
+            type="com.keelim.cnubus.activities.total.ARootActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activities.ARootActivity">
+        tools:context=".root.ARootActivity">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_aroot"

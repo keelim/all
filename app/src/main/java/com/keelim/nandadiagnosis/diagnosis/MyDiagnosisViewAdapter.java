@@ -40,8 +40,11 @@ public class MyDiagnosisViewAdapter extends BaseAdapter {
     public View getView(int position, View view, ViewGroup parent) {
         if (view == null)
             view = LayoutInflater.from(context).inflate(R.layout.item_listview, null);
-        TextView helpTitle_TextView = view.findViewById(R.id.diagnosis_item);
-        helpTitle_TextView.setText(diagnosisItems.get(position).getDiagnosis());
+        TextView diagnosisItem = view.findViewById(R.id.diagnosis_item);
+        diagnosisItem.setText(diagnosisItems.get(position).getDiagnosis());
+
+        TextView diagnosisDes = view.findViewById(R.id.diagnosis_des);
+        diagnosisDes.setText(diagnosisItems.get(position).getDiagnosis());
         return view;
     }
 }

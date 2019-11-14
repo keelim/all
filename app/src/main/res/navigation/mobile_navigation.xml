@@ -13,7 +13,7 @@
         android:id="@+id/navigation_dashboard"
         android:name="com.keelim.nandadiagnosis.mainfragment.search.SearchFragment"
         android:label="@string/title_category"
-        tools:layout="@layout/fragment_searcht" />
+        tools:layout="@layout/fragment_search" />
 
     <fragment
         android:id="@+id/navigation_notifications"

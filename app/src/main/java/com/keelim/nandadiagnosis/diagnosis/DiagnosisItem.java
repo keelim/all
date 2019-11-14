@@ -7,6 +7,11 @@ public class DiagnosisItem implements Parcelable {
     String diagnosis;
     String diagnosis_description;
 
+    public DiagnosisItem(String diagnosis, String diagnosis_description) {
+        this.diagnosis = diagnosis;
+        this.diagnosis_description = diagnosis_description;
+    }
+
     public String getDiagnosis() {
         return diagnosis;
     }

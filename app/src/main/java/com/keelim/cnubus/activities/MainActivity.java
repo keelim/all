@@ -1,10 +1,7 @@
 package com.keelim.cnubus.activities;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentSender;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -19,12 +16,6 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.play.core.appupdate.AppUpdateInfo;
-import com.google.android.play.core.appupdate.AppUpdateManager;
-import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
-import com.google.android.play.core.install.model.AppUpdateType;
-import com.google.android.play.core.install.model.UpdateAvailability;
-import com.google.android.play.core.tasks.Task;
 import com.keelim.cnubus.R;
 import com.keelim.cnubus.databinding.ActivityMainBinding;
 
@@ -55,28 +46,6 @@ public class MainActivity extends AppCompatActivity {
         popUp();
     }
 
-    public void checkUpdate(Context context) {
-        AppUpdateManager appUpdateManager = AppUpdateManagerFactory.create(context);
-        Task<AppUpdateInfo> appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
-
-        appUpdateInfoTask.addOnSuccessListener(appUpdateInfo -> {
-            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE) { //업데이트 상태인지를 확인하고 업데이트
-
-                try {
-                    appUpdateManager.startUpdateFlowForResult(appUpdateInfo,
-                            AppUpdateType.FLEXIBLE,
-                            MainActivity.this,
-                            300);
-                } catch (IntentSender.SendIntentException e) {
-                    e.printStackTrace();
-                }
-
-            } else {
-                Log.d("Support in-app-update", "UPDATE_NOT_AVAILABLE");
-            }
-        });
-
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

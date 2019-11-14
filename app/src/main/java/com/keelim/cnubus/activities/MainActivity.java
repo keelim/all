@@ -41,9 +41,7 @@ public class MainActivity extends AppCompatActivity {
         AdRequest adRequest = new AdRequest.Builder().build();
         binding.adView.loadAd(adRequest);
 
-        //update manager
-        // Creates instance of the manager.
-        popUp();
+        popUp(); //팝업 실행
     }
 
 
@@ -57,31 +55,12 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case R.id.drawer_aroot:
-                Intent intent_aroot = new Intent(getApplicationContext(), ARootActivity.class);
-                startActivity(intent_aroot);
+            case R.id.drawer_root_check:
+                Toast.makeText(this, "기능 추가 준비 중입니다.", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.drawer_broot:
-                Intent intent_broot = new Intent(getApplicationContext(), BRootActivity.class);
-                startActivity(intent_broot);
-                break;
-            case R.id.drawer_croot:
-                Intent intent_croot = new Intent(getApplicationContext(), CRootActivity.class);
-                startActivity(intent_croot);
-                break;
-            case R.id.drawer_night:
-                Intent intent_night = new Intent(getApplicationContext(), NightRootActivity.class);
-                startActivity(intent_night);
-                break;
-            case R.id.drawer_developer:
-                Intent intent_developer = new Intent(getApplicationContext(), DeveloperActivity.class);
-                startActivity(intent_developer);
-                break;
-            case R.id.drawer_my:
-                Toast.makeText(this, "테스트 준비 중입니다. ", Toast.LENGTH_SHORT).show();
-                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + id);
         }
-
         return super.onOptionsItemSelected(item);
     }
 

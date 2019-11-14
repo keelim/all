@@ -7,14 +7,14 @@
 
         <variable
             name="activity"
-            type="com.keelim.cnubus.activities.CRootActivity" />
+            type="com.keelim.cnubus.activities.total.CRootActivity" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activities.CRootActivity">
+        tools:context=".root.CRootActivity">
 
         <TableLayout
             android:layout_width="300dp"

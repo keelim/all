@@ -35,7 +35,6 @@ public class PopupActivity extends AppCompatActivity {
         Intent intent = new Intent();
         intent.putExtra("result", "Close Popup");
         setResult(RESULT_OK, intent);
-
         //액티비티(팝업) 닫기
         finish();
     }
@@ -53,6 +52,4 @@ public class PopupActivity extends AppCompatActivity {
     public void onBackPressed() {
         //안드로이드 백버튼 막기
     }
-
-
 }

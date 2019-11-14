@@ -1,8 +1,13 @@
-<androidx.preference.PreferenceScreen
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <SwitchPreferenceCompat
         app:key="notifications"
-        app:title="푸시 알람 on/off"/>
+        app:title="푸시 알람 on/off" />
+    <PreferenceCategory>
+        <Preference
+            app:key="developer"
+            app:summary="개발자 관련 페이지로 넘어갑니다"
+            app:title="개발자 관련" />
+    </PreferenceCategory>
 
 </androidx.preference.PreferenceScreen>

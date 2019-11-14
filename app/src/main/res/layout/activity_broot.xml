@@ -6,14 +6,14 @@
 
         <variable
             name="activity"
-            type="com.keelim.cnubus.activities.BRootActivity" />
+            type="com.keelim.cnubus.activities.total.BRootActivity" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activities.BRootActivity">
+        tools:context=".root.BRootActivity">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_broot"

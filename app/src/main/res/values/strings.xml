@@ -27,9 +27,94 @@
     <string-array name="test1">
         <item>1</item>
     </string-array>
-    
+
     <string-array name="test2">
         <item>1</item>
+    </string-array>
+
+    <string-array name="diagnosis">
+        <item>여가 활동 부족</item>
+        <item>비활동적 생활양식</item>
+        <item>허약노인증후군</item>
+        <item>허약노인증후군의 위험</item>
+        <item>허약노인증후군의 위험</item>
+        <item>지역사회 건강 부족</item>
+        <item>위험성 있는 건강 행위</item>
+        <item>비효과적 건강유지</item>
+        <item>비효과적 건강관리</item>
+        <item>건강관리 향상을 위한 준비</item>
+        <item>비효과적 건강관리</item>
+        <item>건강관리 향상을 위한 준비</item>
+        <item>비효과적 가족 건강관리</item>
+        <item>불이행</item>
+        <item>비효과적보호</item>
+        <item>불충분한 모유</item>
+        <item>비효과적 모유수유</item>
+        <item>모유수유 중단</item>
+        <item>모유수유 향상을 위한 준비</item>
+        <item>비효과적 영아수유 양상</item>
+        <item>영양 불균형</item>
+        <item>영양 향상을 위한 준비</item>
+        <item>비만</item>
+        <item>과체중</item>
+        <item>과체중의 위험</item>
+        <item>연하장애</item>
+        <item>불안정한 혈당수치의 위험</item>
+        <item>신생아의 황달</item>
+        <item>신생아의 황달의 위험</item>
+        <item>간기능 장애의 위험</item>
+        <item>전해질 불균형의 위험</item>
+        <item>체액 균형 향상을 위한 준비</item>
+        <item>체액 부족</item>
+        <item>체액 부족의 위험</item>
+        <item>체액 과다</item>
+        <item>체액 불균형의 위험</item>
+        <item>배뇨장애</item>
+        <item>배뇨 향상을 위한 준비</item>
+        <item>기능적 요실금</item>
+        <item>익류성 요실금</item>
+        <item>반사성 요실금</item>
+        <item>긴장성 요실금</item>
+        <item>긴박성 요실금</item>
+        <item>긴박성 요실금의 위험</item>
+        <item>요정체</item>
+        <item>변비</item>
+        <item>변비의 위험</item>
+        <item>만성 기능성 변비</item>
+        <item>만성 기능성 변비</item>
+        <item>만성 기능성 변비의 위험</item>
+        <item>지각된 변비</item>
+        <item>설사</item>
+        <item>기능장애성 위장관 운동</item>
+        <item>기능장애성 위장관 운동의 위험</item>
+        <item>변실금</item>
+        <item>가스교환 장애</item>
+        <item>불면증</item>
+        <item>수면 박탈</item>
+        <item>수면 향상을 위한 준비</item>
+        <item>수면 양상 장애</item>
+        <item>비사용 증후군의 위험</item>
+        <item>침상 기동성 장애</item>
+        <item>신체 기동성 장애</item>
+        <item>휠체어 기동성 장애</item>
+        <item>좌위수행 장애</item>
+        <item>기립수행 장애</item>
+        <item>이동 장애</item>
+        <item>보행 장애</item>
+        <item>피로</item>
+        <item>배회</item>
+        <item>활동 지속성 장애</item>
+        <item>활동 지속성 장애의 위험</item>
+        <item>비효과적 호흡 양상</item>
+        <item>심박출량 감소</item>
+        <item>심박출량 감소의 위험</item>
+        <item>심혈관기능 손상의 위험</item>
+        <item>비효과적 위장관 관류의 위험</item>
+        <item>비효과적 신장 관류의 위험</item>
+        <item>자발적 환기장애</item>
+        <item>심장조직 관류 감소의 위험</item>
+        <item>비효과적 말초조직 관류</item>
+        <item>비효과적 말초조직 관류의 위험</item>
     </string-array>
 
 

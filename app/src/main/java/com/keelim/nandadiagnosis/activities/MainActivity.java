@@ -18,6 +18,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.keelim.nandadiagnosis.R;
+import com.keelim.nandadiagnosis.diagnosis.DiagnosisActivity;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -84,11 +85,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void toastMaker(View view) {
+    public void click(View view) {
         switch (view.getId()) {
             case R.id.search_view_1:
-                this.toastSupport("건강증진 Health promotion");
-                UrlStartActivity(getString(R.string.url1));
+                Intent intent = new Intent(this, DiagnosisActivity.class);
+                startActivity(intent);
                 break;
             case R.id.search_view_2:
                 this.toastSupport("영양 nutrition");

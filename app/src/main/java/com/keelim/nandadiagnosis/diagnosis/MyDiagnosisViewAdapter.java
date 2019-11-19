@@ -42,7 +42,6 @@ public class MyDiagnosisViewAdapter extends BaseAdapter {
             view = LayoutInflater.from(context).inflate(R.layout.item_listview, null);
         TextView diagnosisItem = view.findViewById(R.id.diagnosis_item);
         diagnosisItem.setText(diagnosisItems.get(position).getDiagnosis());
-
         TextView diagnosisDes = view.findViewById(R.id.diagnosis_des);
         diagnosisDes.setText(diagnosisItems.get(position).getDiagnosis());
         return view;

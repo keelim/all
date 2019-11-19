@@ -47,6 +47,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.DeveloperActivity" />
+        <activity android:name=".diagnosis.DiagnosisActivity" />
 
         <service android:name=".services.FirebaseInstanceIDService" />
         <meta-data

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/list"
     android:name="com.keelim.nandadiagnosis.diagnosis.DiagnosisFragment"
-    tools:context=".diagnosis.DiagnosisFragment"
+    tools:context=".diagnosis.DiagnosisActivity"
     tools:listitem="@layout/item_listview"
     android:layout_width="match_parent"
     android:layout_height="match_parent" />

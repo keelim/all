@@ -77,46 +77,46 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
-
     public void click(View view) {
         switch (view.getId()) {
             case R.id.search_view_1:
-                intentList();
+                intentList("1");
                 break;
             case R.id.search_view_2:
-//                intentList();
+                intentList("2");
                 break;
             case R.id.search_view_3:
-//                intentList();
+                intentList("3");
                 break;
             case R.id.search_view_4:
-//                intentList();
+                intentList("4");
                 break;
             case R.id.search_view_5:
-//                intentList();
+                intentList("5");
                 break;
             case R.id.search_view_6:
-//                intentList();
+                intentList("6");
                 break;
             case R.id.search_view_7:
-//                intentList();
+                intentList("7");
                 break;
             case R.id.search_view_8:
-//                intentList();
+                intentList("8");
                 break;
             case R.id.search_view_9:
-//                intentList();
+                intentList("9");
                 break;
             case R.id.search_view_10:
-//                intentList();
+                intentList("10");
                 break;
             case R.id.search_view_11:
-//                intentList();
+                intentList("11");
                 break;
             case R.id.search_view_12:
-//                intentList();
+                intentList("12");
+                break;
+            case R.id.search_view_13:
+                intentList("!3");
                 break;
             default:
 
@@ -132,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
     private class CallBackDownloadFile implements Callback { //okhttp call back method
 
         private File fileToBeDownloaded;
+
         CallBackDownloadFile(String fileName) {
             this.fileToBeDownloaded = new File(getDataDir().getAbsolutePath() + "/databases", fileName);
         }
@@ -178,8 +179,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-    private void intentList() {
+
+    private void intentList(String num) {
         Intent intent = new Intent(this, DiagnosisActivity.class);
+        intent.putExtra("extra", num);
         startActivity(intent);
     }
 }

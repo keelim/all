@@ -113,9 +113,165 @@
         <item>비효과적 신장 관류의 위험</item>
         <item>자발적 환기장애</item>
         <item>심장조직 관류 감소의 위험</item>
+        <item>비효과적 뇌조직 관류의 위험</item>
         <item>비효과적 말초조직 관류</item>
         <item>비효과적 말초조직 관류의 위험</item>
-
+        <item>호흡기 이탈 반응 장애</item>
+        <item>가정 유지 장애</item>
+        <item>목욕 자기돌봄 결핍</item>
+        <item>옷 입기 자기돌봄 결핍</item>
+        <item>음식 섭취 자기돌봄 결핍</item>
+        <item>용변 자기돌봄 결핍</item>
+        <item>자기돌봄을 향상을 위한 준비</item>
+        <item>자기무시</item>
+        <item>편측성 지각이상</item>
+        <item>급성 혼동</item>
+        <item>급성 혼동의 위험</item>
+        <item>만성 혼동</item>
+        <item>불안정한 정서 조절</item>
+        <item>비효과적 충동 조절</item>
+        <item>지식 부족</item>
+        <item>지식 향상을 위한 준비</item>
+        <item>기억장애</item>
+        <item>의사소통 향상을 위한 준비</item>
+        <item>의사소통 향상을 위한 준비</item>
+        <item>언어적 의사소통 장애</item>
+        <item>희망 향상을 위한 준비</item>
+        <item>절망감</item>
+        <item>인간 존엄성 혼란 위험</item>
+        <item>자아정체성 혼란</item>
+        <item>자아정체성 혼란의 위험</item>
+        <item>자아개념 향상을 위한 준비</item>
+        <item>만성적 자존감 저하</item>
+        <item>만성적 자존감 저하의 위험</item>
+        <item>상황적 자존감 저하</item>
+        <item>상황적 자존감 저하의 위험</item>
+        <item>신체상 혼란</item>
+        <item>돌봄제공자의 역할 긴장</item>
+        <item>돌봄제공자의 역할 긴장의 위험</item>
+        <item>부모 역할 장애</item>
+        <item>부모 역할 향상을 위한 준비</item>
+        <item>부모 역할 장애의 위험</item>
+        <item>애착장애 위험</item>
+        <item>가족과정 기능장애</item>
+        <item>가족과정 손상</item>
+        <item>가족과정 향상을 위한 준비</item>
+        <item>비효과적 관계</item>
+        <item>관계 향상을 위한 준비</item>
+        <item>비효과적 관계의 위험</item>
+        <item>부모 역할 갈등</item>
+        <item>비효과적 역할 수행</item>
+        <item>사회적 상호작용 장애</item>
+        <item>성기능 장애</item>
+        <item>비효과적 성적 양상</item>
+        <item>비효과적 임신과 출산과정</item>
+        <item>임신과 출산과정 향상을 위한 준비</item>
+        <item>비효과적 임신과 출산과정의 위험</item>
+        <item>모아관계 장애의 위험</item>
+        <item>외상후 증후군</item>
+        <item>외상후 증후군의 위험</item>
+        <item>강간 상해 증후군</item>
+        <item>환경변화 스트레스 증후군</item>
+        <item>환경변화 스트레스 증후군의 위험</item>
+        <item>비효과적 활동계획</item>
+        <item>비효과적 활동계획의 위험</item>
+        <item>불안</item>
+        <item>방어적 대처</item>
+        <item>비효과적 대처</item>
+        <item>대처 향상을 위한 준비</item>
+        <item>비효과적 지역사회 대처</item>
+        <item>지역사회 대처 향상을 위한 준비</item>
+        <item>손상된 가족 대처</item>
+        <item>가족 대처 불능</item>
+        <item>가족 대처 향상을 위한 준비</item>
+        <item>죽음 불안</item>
+        <item>비효과적 부정</item>
+        <item>두려움</item>
+        <item>슬픔</item>
+        <item>기능이상을 유발하는 슬픔</item>
+        <item>기능이상을 유발하는 슬픔의 위험</item>
+        <item>기분 조절장애</item>
+        <item>파워 향상을 위한 준비</item>
+        <item>무력감</item>
+        <item>무력감의 위험</item>
+        <item>극복력 장애</item>
+        <item>극복력 향상을 위한 준비</item>
+        <item>극복력 장애의 위험</item>
+        <item>만성비탄</item>
+        <item>스트레스 과다</item>
+        <item>두 개 내 적용능력 감소</item>
+        <item>자율적 반사장애</item>
+        <item>자율적 반사장애의 위험</item>
+        <item>비조직적 영아행동</item>
+        <item>조직적 영아행동 향상을 위한 준비</item>
+        <item>비조직적 영아행동의 위험</item>
+        <item>영적 안녕 향상을 위한 준비</item>
+        <item>의사결정 향상을 위한 준비</item>
+        <item>의사결정 갈등</item>
+        <item>자주적 의사결정 장애</item>
+        <item>자주적 의사결정 향상을 위한 준비</item>
+        <item>자주적 의사결정 장애의 위험</item>
+        <item>도덕적 고뇌</item>
+        <item>손상된 신앙심</item>
+        <item>신앙심 향상을 위한 준비</item>
+        <item>신앙심 손상의 위험</item>
+        <item>영적 고뇌</item>
+        <item>영적 고뇌의 위험</item>
+        <item>감염의 위험</item>
+        <item>비효과적 기도 청결</item>
+        <item>흡연의 위험</item>
+        <item>출혈의 위험</item>
+        <item>상해의 위험</item>
+        <item>각막손상의 위험</item>
+        <item>수술 중 체위와 관련된 상해의 위험</item>
+        <item>열손상의 위험</item>
+        <item>요로손상의 위험</item>
+        <item>치열장애</item>
+        <item>구강점막 손상</item>
+        <item>구강점막 손상의 위험</item>
+        <item>말초신경 혈관 기능이상의 위험</item>
+        <item>욕창의 위험</item>
+        <item>쇼크의 위험</item>
+        <item>피부 통합성 장애</item>
+        <item>피부 통합성 장애의 위험</item>
+        <item>영아 급사증후군의 위험</item>
+        <item>질식의 위험</item>
+        <item>수술 후 회복 지연</item>
+        <item>수술 후 회복 지연의 위험</item>
+        <item>조직 통합성 장애</item>
+        <item>조직 통합성 장애의 위험</item>
+        <item>외상의 위험</item>
+        <item>혈관 손상의 위험</item>
+        <item>타인에 대한 폭력의 위험</item>
+        <item>자신에 대한 폭력의 위험</item>
+        <item>자해</item>
+        <item>자해의 위험</item>
+        <item>자살의 위험</item>
+        <item>오염</item>
+        <item>오염</item>
+        <item>오염의 위험</item>
+        <item>중독의 위험</item>
+        <item>요오드성 조영제 부작용의 위험</item>
+        <item>알레르기 반응의 위험</item>
+        <item>라텍스 알레르기 반응</item>
+        <item>라텍스 알레르기 반응의 위험</item>
+        <item>체온 불균형의 위험</item>
+        <item>고체온</item>
+        <item>저체온의 위험</item>
+        <item>수술 중 저체온의 위험</item>
+        <item>비효과적 체온조절</item>
+        <item>안위 손상</item>
+        <item>안위 향상을 위한 준비</item>
+        <item>오심</item>
+        <item>급성 통증</item>
+        <item>만성 통증</item>
+        <item>분만 통증</item>
+        <item>만성 통증 증후군</item>
+        <item>외로움의 위험</item>
+        <item>사회적 고립</item>
+        <item>불균형적 성장의 위험</item>
+        <item>발달지연의 위험</item>
+        <item>손상된 에너지</item>
     </string-array>
 
 

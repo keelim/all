@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.keelim.nandadiagnosis.databinding.FragmentCategoryBinding;
@@ -28,6 +29,11 @@ public class CategoryFragment extends Fragment {
         return binding.getRoot();
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        mainPageAdapter = new CategoryViewPagerAdapter(getActivity().getSupportFragmentManager(), BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        viewPagerSetting();
+    }
 
     private void viewPagerSetting() {
         mainPageAdapter.addItem(new CategoryView1());

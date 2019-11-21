@@ -33,7 +33,7 @@
     </string-array>
 
     <string-array name="diagnosis1">
-        <item>여가 활동 부족</item>  0
+        <item>여가 활동 부족</item>
         <item>비활동적 생활양식</item>
         <item>허약노인증후군</item>
         <item>허약노인증후군의 위험</item>
@@ -47,10 +47,8 @@
         <item>건강관리 향상을 위한 준비</item>
         <item>비효과적 가족 건강관리</item>
         <item>불이행</item>
-        <item>비효과적보호</item> 14
-    </string-array>
-    <string-array name="diagnosis2">
-        <item>불충분한 모유</item> 0
+        <item>비효과적보호</item>
+        <item>불충분한 모유</item>
         <item>비효과적 모유수유</item>
         <item>모유수유 중단</item>
         <item>모유수유 향상을 위한 준비</item>
@@ -70,10 +68,8 @@
         <item>체액 부족</item>
         <item>체액 부족의 위험</item>
         <item>체액 과다</item>
-        <item>체액 불균형의 위험</item> 20
-    </string-array>
-    <string-array name="diagnosis3">
-        <item>배뇨장애</item> 0
+        <item>체액 불균형의 위험</item>
+        <item>배뇨장애</item>
         <item>배뇨 향상을 위한 준비</item>
         <item>기능적 요실금</item>
         <item>익류성 요실금</item>
@@ -92,10 +88,8 @@
         <item>기능장애성 위장관 운동</item>
         <item>기능장애성 위장관 운동의 위험</item>
         <item>변실금</item>
-        <item>가스교환 장애</item> 19
-    </string-array>
-    <string-array name="diagnosis4">
-        <item>불면증</item> 0
+        <item>가스교환 장애</item>
+        <item>불면증</item>
         <item>수면 박탈</item>
         <item>수면 향상을 위한 준비</item>
         <item>수면 양상 장애</item>
@@ -129,10 +123,8 @@
         <item>음식 섭취 자기돌봄 결핍</item>
         <item>용변 자기돌봄 결핍</item>
         <item>자기돌봄을 향상을 위한 준비</item>
-        <item>자기무시</item> 34
-    </string-array>
-    <string-array name="diagnosis5">
-        <item>편측성 지각이상</item> 0
+        <item>자기무시</item>
+        <item>편측성 지각이상</item>
         <item>급성 혼동</item>
         <item>급성 혼동의 위험</item>
         <item>만성 혼동</item>
@@ -143,10 +135,8 @@
         <item>기억장애</item>
         <item>의사소통 향상을 위한 준비</item>
         <item>의사소통 향상을 위한 준비</item>
-        <item>언어적 의사소통 장애</item> 11
-    </string-array>
-    <string-array name="diahnosis6">
-        <item>희망 향상을 위한 준비</item> 0
+        <item>언어적 의사소통 장애</item>
+        <item>희망 향상을 위한 준비</item>
         <item>절망감</item>
         <item>인간 존엄성 혼란 위험</item>
         <item>자아정체성 혼란</item>
@@ -156,10 +146,8 @@
         <item>만성적 자존감 저하의 위험</item>
         <item>상황적 자존감 저하</item>
         <item>상황적 자존감 저하의 위험</item>
-        <item>신체상 혼란</item> 10
-    </string-array>
-    <string-array name="diagnosis7">
-        <item>돌봄제공자의 역할 긴장</item> 0
+        <item>신체상 혼란</item>
+        <item>돌봄제공자의 역할 긴장</item>
         <item>돌봄제공자의 역할 긴장의 위험</item>
         <item>부모 역할 장애</item>
         <item>부모 역할 향상을 위한 준비</item>
@@ -173,18 +161,14 @@
         <item>비효과적 관계의 위험</item>
         <item>부모 역할 갈등</item>
         <item>비효과적 역할 수행</item>
-        <item>사회적 상호작용 장애</item> 14
-    </string-array>
-    <string-array name="diagnosis8">
-        <item>성기능 장애</item> 0
+        <item>사회적 상호작용 장애</item>
+        <item>성기능 장애</item>
         <item>비효과적 성적 양상</item>
         <item>비효과적 임신과 출산과정</item>
         <item>임신과 출산과정 향상을 위한 준비</item>
         <item>비효과적 임신과 출산과정의 위험</item>
-        <item>모아관계 장애의 위험</item> 5
-    </string-array>
-    <string-array name="diagnosis9">
-        <item>외상후 증후군</item> 0
+        <item>모아관계 장애의 위험</item>
+        <item>외상후 증후군</item>
         <item>외상후 증후군의 위험</item>
         <item>강간 상해 증후군</item>
         <item>환경변화 스트레스 증후군</item>
@@ -220,10 +204,8 @@
         <item>자율적 반사장애의 위험</item>
         <item>비조직적 영아행동</item>
         <item>조직적 영아행동 향상을 위한 준비</item>
-        <item>비조직적 영아행동의 위험</item> 36
-    </string-array>
-    <string-array name="diagnosis10">
-        <item>영적 안녕 향상을 위한 준비</item> 0
+        <item>비조직적 영아행동의 위험</item>
+        <item>영적 안녕 향상을 위한 준비</item>
         <item>의사결정 향상을 위한 준비</item>
         <item>의사결정 갈등</item>
         <item>자주적 의사결정 장애</item>
@@ -234,10 +216,8 @@
         <item>신앙심 향상을 위한 준비</item>
         <item>신앙심 손상의 위험</item>
         <item>영적 고뇌</item>
-        <item>영적 고뇌의 위험</item> 11
-    </string-array>
-    <string-array name="diagnosis11">
-        <item>감염의 위험</item> 0
+        <item>영적 고뇌의 위험</item>
+        <item>감염의 위험</item>
         <item>비효과적 기도 청결</item>
         <item>흡연의 위험</item>
         <item>출혈의 위험</item>
@@ -279,10 +259,8 @@
         <item>고체온</item>
         <item>저체온의 위험</item>
         <item>수술 중 저체온의 위험</item>
-        <item>비효과적 체온조절</item> 42
-    </string-array>
-    <string-array name="diagnosis12">
-        <item>안위 손상</item> 0
+        <item>비효과적 체온조절</item>
+        <item>안위 손상</item>
         <item>안위 향상을 위한 준비</item>
         <item>오심</item>
         <item>급성 통증</item>
@@ -290,12 +268,10 @@
         <item>분만 통증</item>
         <item>만성 통증 증후군</item>
         <item>외로움의 위험</item>
-        <item>사회적 고립</item> 8
-    </string-array>
-    <string-array name="diagnosis13">
-        <item>불균형적 성장의 위험</item> 0
+        <item>사회적 고립</item>
+        <item>불균형적 성장의 위험</item>
         <item>발달지연의 위험</item>
-        <item>손상된 에너지</item> 2
+        <item>손상된 에너지</item>
     </string-array>
 
 

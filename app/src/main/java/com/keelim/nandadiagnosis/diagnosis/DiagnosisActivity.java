@@ -16,7 +16,6 @@ public class DiagnosisActivity extends AppCompatActivity {
     private ArrayList<DiagnosisItem> arrayList;
     private MyDiagnosisViewAdapter adapter;
     private String pointer;
-    private int clickhandler;
 
 
     @Override
@@ -43,70 +42,58 @@ public class DiagnosisActivity extends AppCompatActivity {
     }
 
     private void arrayListSetting() {
-        int handler = Integer.parseInt(pointer);
-        String[] array1;
-        switch (handler){
-            case 1:
-                array1 = getResources().getStringArray(R.array.diagnosis1);
-                clickhandler=1;
+        String[] array1 = getResources().getStringArray(R.array.diagnosis1);
+        String[] array2 = getResources().getStringArray(R.array.test2);
+        pointer = getIntent().getStringExtra("extra");
+        switch (pointer) {
+            case "1":
+                customAdd(0, 14, array1);
                 break;
-            case 2:
-                array1 = getResources().getStringArray(R.array.diagnosis2);
-                clickhandler=2;
+            case "2":
+                customAdd(15, 35, array1);
                 break;
-            case 3:
-                array1 = getResources().getStringArray(R.array.diagnosis3);
-                clickhandler=3;
+            case "3":
+                customAdd(36, 54, array1);
                 break;
-            case 4:
-                array1 = getResources().getStringArray(R.array.diagnosis4);
-                clickhandler=4;
+            case "4":
+                customAdd(55, 89, array1);
                 break;
-            case 5:
-                array1 = getResources().getStringArray(R.array.diagnosis5);
-                clickhandler=5;
+            case "5":
+                customAdd(90, 101, array1);
                 break;
-            case 6:
-                array1 = getResources().getStringArray(R.array.diahnosis6);
-                clickhandler=6;
+            case "6":
+                customAdd(102, 112, array1);
                 break;
-            case 7:
-                array1 = getResources().getStringArray(R.array.diagnosis7);
-                clickhandler=7;
+            case "7":
+                customAdd(113, 127, array1);
                 break;
-            case 8:
-                array1 = getResources().getStringArray(R.array.diagnosis8);
-                clickhandler=8;
+            case "8":
+                customAdd(128, 133, array1);
                 break;
-            case 9:
-                array1 = getResources().getStringArray(R.array.diagnosis9);
-                clickhandler=9;
+            case "9":
+                customAdd(134, 170, array1);
                 break;
-            case 10:
-                array1 = getResources().getStringArray(R.array.diagnosis10);
-                clickhandler=10;
+            case "10":
+                customAdd(171, 182, array1);
                 break;
-            case 11:
-                array1 = getResources().getStringArray(R.array.diagnosis11);
-                clickhandler=11;
+            case "11":
+                customAdd(183, 224, array1);
                 break;
-            case 12:
-                array1 = getResources().getStringArray(R.array.diagnosis12);
-                clickhandler=12;
+            case "12":
+                customAdd(225, 233, array1);
                 break;
-            case 13:
-                array1 = getResources().getStringArray(R.array.diagnosis13);
-                clickhandler=13;
+            case "13":
+                customAdd(234, 236, array1);
                 break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + handler);
         }
 
-        String[] array2 = getResources().getStringArray(R.array.test2);
-        for (int i = 0; i < array1.length; i++) {
+
+    }
+
+    private void customAdd(int startPoint, int finalPoint, String[] array1) {
+        for (int i = startPoint; i <= finalPoint; i++) {
             arrayList.add(new DiagnosisItem(array1[i], ""));
         }
     }
-
 
 }

@@ -9,26 +9,17 @@
         android:layout_height="match_parent"
         tools:context=".mainfragment.category.CategoryFragment">
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/search_viewpager"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/layout_search_table"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
 
         <TableLayout
             android:id="@+id/layout_search_table"
-            android:layout_width="400dp"
-            android:layout_height="475dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:background="@color/colorAccent"
             android:stretchColumns="*"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/search_viewpager">
+            app:layout_constraintTop_toTopOf="parent">
 
             <TableRow
                 android:layout_width="match_parent"

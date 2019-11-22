@@ -27,6 +27,7 @@ public class SettingFragment extends PreferenceFragmentCompat {
         String key = preference.getKey();
         if (key.equals("nandaHome")) {
             Intent intent_web = new Intent(getContext(), WebViewActivity.class);
+            intent_web.putExtra("URL", "https://keelim.github.io/nandaDiagnosis/");
             startActivity(intent_web);
             return true;
         } else if (key.equals("question")) {
@@ -43,7 +44,6 @@ public class SettingFragment extends PreferenceFragmentCompat {
             return true;
         } else if (key.equals("developer_page")) {
             Intent intent_developer = new Intent(getContext(), DeveloperActivity.class);
-            intent_developer.putExtra("URL", "https://keelim.github.io/nandaDiagnosis/");
             startActivity(intent_developer);
             return true;
         } else {

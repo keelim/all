@@ -11,9 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    //todo CUrsor 가 뭐지?
-    //todo -> 나중에 jetpack Room 사용을 고려
-
     private static final String DATABSAE_NAME = "nanda.db";
     private static final String TABLE_NAME = "nanda";
     private static final String COL_1 = "nanda_id";

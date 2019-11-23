@@ -39,26 +39,25 @@ public class SearchFragment extends Fragment {
         listview.setOnItemClickListener((adapterView, view, i, l) -> {
             DatabaseItem db = (DatabaseItem) adapterView.getAdapter().getItem(i);
             Toast.makeText(getActivity(), "클래스 영역: " + db.getClass_name() + "도매인 영역" + db.getDomain_name(), Toast.LENGTH_SHORT).show();
-            //web 으로 넘겨 버리자
-
-            Intent intent_web = new Intent(getActivity(), WebViewActivity.class);
-            intent_web.putExtra("URL", urlHandling(db));
-            startActivity(intent_web);
+            goToWeb(db);
         });
         return root;
     }
 
+    private void goToWeb(DatabaseItem db) {
+        Intent intent_web = new Intent(getActivity(), WebViewActivity.class);
+        intent_web.putExtra("URL", urlHandling(db));
+        startActivity(intent_web);
+    }
+
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        //search 등록 -> Fragment 마다 다르게 할 수 있음
         inflater.inflate(R.menu.search_menu, menu);
-
         MenuItem item = menu.findItem(R.id.menu_search);
         SearchView searchView = (SearchView) item.getActionView();
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
         searchView.setSubmitButtonEnabled(true);
-
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() { //검색을 할 수 있게 하는 것
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -68,7 +67,6 @@ public class SearchFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                searchDiagnosis(newText);
                 return false;
             }
         });

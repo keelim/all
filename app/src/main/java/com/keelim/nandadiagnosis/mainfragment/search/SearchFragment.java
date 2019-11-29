@@ -82,20 +82,21 @@ public class SearchFragment extends Fragment {
 
 
     private String urlHandling(DatabaseItem item) { //todo 이렇게 하면 기본 페이지로 가는 것을 할 수 가 있다.
-        if (item == null) {
-            return getString(R.string.url_default);
-        } else { // 일단 데이터 베이스 구분자가 없으니까 아이디로 구분을 하자
-            int handling = item.getPrimaryKey();
-            String url;
-            if (handling >= 250) {
-                url = getString(R.string.url1);
-            } else if (handling >= 200) {
-                url = getString(R.string.url2);
-            } else {
-                url = getString(R.string.url3);
-            }
-            return url;
-        }
+//        if (item == null) {
+//            return getString(R.string.url_default);
+//        } else { // 일단 데이터 베이스 구분자가 없으니까 아이디로 구분을 하자
+//            int handling = item.getPrimaryKey();
+//            String url;
+//            if (handling >= 250) {
+//                url = getString(R.string.url1);
+//            } else if (handling >= 200) {
+//                url = getString(R.string.url2);
+//            } else {
+//                url = getString(R.string.url3);
+//            }
+//            return url;
+//        }
+        return null;
     }
 
 }

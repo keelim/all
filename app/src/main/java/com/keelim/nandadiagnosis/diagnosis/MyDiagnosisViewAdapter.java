@@ -39,7 +39,7 @@ public class MyDiagnosisViewAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         if (view == null)
-            view = LayoutInflater.from(context).inflate(R.layout.item_listview, null);
+            view = LayoutInflater.from(context).inflate(R.layout.item_listview, parent);
         TextView diagnosisItem = view.findViewById(R.id.diagnosis_item);
         diagnosisItem.setText(diagnosisItems.get(position).getDiagnosis());
         TextView diagnosisDes = view.findViewById(R.id.diagnosis_des);

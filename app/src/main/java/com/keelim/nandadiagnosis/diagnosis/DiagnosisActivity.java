@@ -3,7 +3,6 @@ package com.keelim.nandadiagnosis.diagnosis;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,9 +32,7 @@ public class DiagnosisActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
         Intent intent_web = new Intent(this, WebViewActivity.class);
 
-        listView.setOnItemClickListener((parent, view, position, id) -> {
-            goWeb(nav + position + 1);
-        });
+        listView.setOnItemClickListener((parent, view, position, id) -> goWeb(nav + position + 1));
     }
 
     private void goWeb(int total) {

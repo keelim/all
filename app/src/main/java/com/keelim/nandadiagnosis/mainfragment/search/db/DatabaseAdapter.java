@@ -38,7 +38,7 @@ public class DatabaseAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         if (view == null)
-            view = LayoutInflater.from(context).inflate(R.layout.item_db, null); //todo?
+            view = LayoutInflater.from(context).inflate(R.layout.item_db, viewGroup);
         TextView diagnosis_textView = view.findViewById(R.id.db_diagnosis);
         diagnosis_textView.setText(arrayList.get(i).getDiagnosis());
         return view;

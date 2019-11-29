@@ -4,36 +4,17 @@
     <string name="title_category">Category</string>
     <string name="title_my">my</string>
 
-    <string name="url1">https://keelim.github.io/nandaDiagnosis/1.html</string>
-    <string name="url2">https://keelim.github.io/nandaDiagnosis/2.html</string>
-    <string name="url3">https://keelim.github.io/nandaDiagnosis/3.html</string>
-    <string name="url4">https://keelim.github.io/nandaDiagnosis/4.html</string>
-    <string name="url5">https://keelim.github.io/nandaDiagnosis/5.html</string>
-    <string name="url6">https://keelim.github.io/nandaDiagnosis/6.html</string>
-    <string name="url7">https://keelim.github.io/nandaDiagnosis/7.html</string>
-    <string name="url8">https://keelim.github.io/nandaDiagnosis/8.html</string>
-    <string name="url9">https://keelim.github.io/nandaDiagnosis/9.html</string>
-    <string name="url10">https://keelim.github.io/nandaDiagnosis/10.html</string>
-    <string name="url11">https://keelim.github.io/nandaDiagnosis/11.html</string>
-    <string name="url12">https://keelim.github.io/nandaDiagnosis/12.html</string>
-    <string name="url_default">https://keelim.github.io/nandaDiagnosis/index.html</string>
-    <string name="title_activity_admob">AdmobActivity</string>
-    <string name="action_settings">Settings</string>
 
     <string name="application_ad">ca-app-pub-3115620439518585~3588723583</string>
     <string name="real_ad">ca-app-pub-3115620439518585/7104801924</string>
     <string name="test_ad">ca-app-pub-3940256099942544/1033173712</string>
-
-    <string-array name="test1">
-        <item>1</item>
-    </string-array>
 
     <string-array name="test2">
         <item>1</item>
     </string-array>
 
     <string-array name="diagnosis1">
-        <item>여가 활동 부족</item>
+        <item>start 여가 활동 부족</item>
         <item>비활동적 생활양식</item>
         <item>허약노인증후군</item>
         <item>허약노인증후군의 위험</item>
@@ -42,12 +23,10 @@
         <item>비효과적 건강유지</item>
         <item>비효과적 건강관리</item>
         <item>건강관리 향상을 위한 준비</item>
-        <item>비효과적 건강관리</item>
-        <item>건강관리 향상을 위한 준비</item>
         <item>비효과적 가족 건강관리</item>
         <item>불이행</item>
-        <item>비효과적보호</item>
-        <item>불충분한 모유</item>
+        <item>비효과적보호 end</item>
+        <item>start불충분한 모유</item>
         <item>비효과적 모유수유</item>
         <item>모유수유 중단</item>
         <item>모유수유 향상을 위한 준비</item>
@@ -57,8 +36,8 @@
         <item>비만</item>
         <item>과체중</item>
         <item>과체중의 위험</item>
-        <item>연하장애</item>
-        <item>불안정한 혈당수치의 위험</item>
+        <item>연하장애 end</item>
+        <item>start 불안정한 혈당수치의 위험</item>
         <item>신생아의 황달</item>
         <item>신생아의 황달의 위험</item>
         <item>간기능 장애의 위험</item>
@@ -67,8 +46,8 @@
         <item>체액 부족</item>
         <item>체액 부족의 위험</item>
         <item>체액 과다</item>
-        <item>체액 불균형의 위험</item>
-        <item>배뇨장애</item>
+        <item>체액 불균형의 위험 end</item>
+        <item>start 배뇨장애</item>
         <item>배뇨 향상을 위한 준비</item>
         <item>기능적 요실금</item>
         <item>익류성 요실금</item>
@@ -86,8 +65,8 @@
         <item>기능장애성 위장관 운동</item>
         <item>기능장애성 위장관 운동의 위험</item>
         <item>변실금</item>
-        <item>가스교환 장애</item>
-        <item>불면증</item>
+        <item>가스교환 장애 end</item>
+        <item>start 불면증</item>
         <item>수면 박탈</item>
         <item>수면 향상을 위한 준비</item>
         <item>수면 양상 장애</item>
@@ -121,8 +100,8 @@
         <item>음식 섭취 자기돌봄 결핍</item>
         <item>용변 자기돌봄 결핍</item>
         <item>자기돌봄을 향상을 위한 준비</item>
-        <item>자기무시</item>
-        <item>편측성 지각이상</item>
+        <item>자기무시 end</item>
+        <item>start 편측성 지각이상</item>
         <item>급성 혼동</item>
         <item>급성 혼동의 위험</item>
         <item>만성 혼동</item>
@@ -132,9 +111,8 @@
         <item>지식 향상을 위한 준비</item>
         <item>기억장애</item>
         <item>의사소통 향상을 위한 준비</item>
-        <item>의사소통 향상을 위한 준비</item>
-        <item>언어적 의사소통 장애</item>
-        <item>희망 향상을 위한 준비</item>
+        <item>언어적 의사소통 장애 end</item>
+        <item>start 희망 향상을 위한 준비</item>
         <item>절망감</item>
         <item>인간 존엄성 혼란 위험</item>
         <item>자아정체성 혼란</item>
@@ -144,7 +122,7 @@
         <item>만성적 자존감 저하의 위험</item>
         <item>상황적 자존감 저하</item>
         <item>상황적 자존감 저하의 위험</item>
-        <item>신체상 혼란</item>
+        <item>신체상 혼란 end</item>
         <item>돌봄제공자의 역할 긴장</item>
         <item>돌봄제공자의 역할 긴장의 위험</item>
         <item>부모 역할 장애</item>
@@ -159,14 +137,14 @@
         <item>비효과적 관계의 위험</item>
         <item>부모 역할 갈등</item>
         <item>비효과적 역할 수행</item>
-        <item>사회적 상호작용 장애</item>
-        <item>성기능 장애</item>
+        <item>사회적 상호작용 장애end</item>
+        <item>start 성기능 장애</item>
         <item>비효과적 성적 양상</item>
         <item>비효과적 임신과 출산과정</item>
         <item>임신과 출산과정 향상을 위한 준비</item>
         <item>비효과적 임신과 출산과정의 위험</item>
-        <item>모아관계 장애의 위험</item>
-        <item>외상후 증후군</item>
+        <item>모아관계 장애의 위험 end</item>
+        <item>start 외상후 증후군</item>
         <item>외상후 증후군의 위험</item>
         <item>강간 상해 증후군</item>
         <item>환경변화 스트레스 증후군</item>
@@ -202,9 +180,9 @@
         <item>자율적 반사장애의 위험</item>
         <item>비조직적 영아행동</item>
         <item>조직적 영아행동 향상을 위한 준비</item>
-        <item>비조직적 영아행동의 위험</item>
+        <item>비조직적 영아행동의 위험 end</item>
         <item>영적 안녕 향상을 위한 준비</item>
-        <item>의사결정 향상을 위한 준비</item>
+        <item>start 의사결정 향상을 위한 준비</item>
         <item>의사결정 갈등</item>
         <item>자주적 의사결정 장애</item>
         <item>자주적 의사결정 향상을 위한 준비</item>
@@ -214,11 +192,12 @@
         <item>신앙심 향상을 위한 준비</item>
         <item>신앙심 손상의 위험</item>
         <item>영적 고뇌</item>
-        <item>영적 고뇌의 위험</item>
+        <item>영적 고뇌의 위험 end</item>
         <item>감염의 위험</item>
         <item>비효과적 기도 청결</item>
         <item>흡인의 위험</item>
         <item>출혈의 위험</item>
+        <item>안구건조의 위험</item>
         <item>낙상의 위험</item>
         <item>상해의 위험</item>
         <item>각막손상의 위험</item>
@@ -240,13 +219,12 @@
         <item>조직 통합성 장애</item>
         <item>조직 통합성 장애의 위험</item>
         <item>외상의 위험</item>
-        <item>혈관 손상의 위험</item>
+        <item>혈관 손상의 위험 end</item>
         <item>타인에 대한 폭력의 위험</item>
         <item>자신에 대한 폭력의 위험</item>
         <item>자해</item>
         <item>자해의 위험</item>
         <item>자살의 위험</item>
-        <item>오염</item>
         <item>오염</item>
         <item>오염의 위험</item>
         <item>중독의 위험</item>
@@ -256,21 +234,24 @@
         <item>라텍스 알레르기 반응의 위험</item>
         <item>체온 불균형의 위험</item>
         <item>고체온</item>
+        <item>저체온</item>
         <item>저체온의 위험</item>
         <item>수술 중 저체온의 위험</item>
-        <item>비효과적 체온조절</item>
-        <item>안위 손상</item>
+        <item>비효과적 체온조절 end </item>
+        <item>start 안위 손상</item>
         <item>안위 향상을 위한 준비</item>
         <item>오심</item>
         <item>급성 통증</item>
         <item>만성 통증</item>
         <item>분만 통증</item>
         <item>만성 통증 증후군</item>
+        <item>안위 손상</item>
+        <item>안위 향상을 위한 준비</item>
         <item>외로움의 위험</item>
-        <item>사회적 고립</item>
-        <item>불균형적 성장의 위험</item>
+        <item>사회적 고립 end </item>
+        <item>start 불균형적 성장의 위험</item>
         <item>발달지연의 위험</item>
-        <item>손상된 에너지</item>
+        <item>손상된 에너지 end</item>
     </string-array>
 
 

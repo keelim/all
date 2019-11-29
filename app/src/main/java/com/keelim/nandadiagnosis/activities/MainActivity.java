@@ -173,9 +173,7 @@ public class MainActivity extends AppCompatActivity {
             outputStream.flush();
             outputStream.close();
             inputStream.close();
-            runOnUiThread(() -> {
-                Toast.makeText(MainActivity.this, "다운로드가 완료되었습니다. ", Toast.LENGTH_SHORT).show();
-            });
+            runOnUiThread(() -> Toast.makeText(MainActivity.this, "다운로드가 완료되었습니다. ", Toast.LENGTH_SHORT).show());
         }
 
     }

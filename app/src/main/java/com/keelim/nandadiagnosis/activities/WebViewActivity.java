@@ -2,7 +2,6 @@ package com.keelim.nandadiagnosis.activities;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebChromeClient;

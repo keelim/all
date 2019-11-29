@@ -3,7 +3,6 @@ package com.keelim.nandadiagnosis.help;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.keelim.nandadiagnosis.R;
 

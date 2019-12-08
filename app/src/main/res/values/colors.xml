@@ -3,6 +3,4 @@
     <color name="colorPrimary">#80D8FF</color>
     <color name="colorPrimaryDark">#365C6D</color>
     <color name="colorAccent">#304FFE</color>
-    <color name="colorBackground">#202020</color>
-    <color name="colorOnError">#202020</color>
 </resources>

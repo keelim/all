@@ -5,7 +5,7 @@
     <data>
         <variable
             name="activity"
-            type="com.keelim.cnubus.activities.DeveloperActivity" />
+            type="com.keelim.cnubus.activities.developer.DeveloperActivity" />
 
     </data>
 
@@ -13,7 +13,7 @@
         android:id="@+id/about"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activities.DeveloperActivity">
+        tools:context=".activities.developer.DeveloperActivity">
 
     </FrameLayout>
 </layout>

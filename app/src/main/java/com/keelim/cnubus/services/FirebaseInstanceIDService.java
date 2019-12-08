@@ -17,17 +17,19 @@ import com.google.firebase.messaging.RemoteMessage;
 import com.keelim.cnubus.R;
 import com.keelim.cnubus.activities.MainActivity;
 
+import org.jetbrains.annotations.NotNull;
+
 public class FirebaseInstanceIDService extends FirebaseMessagingService {
 
 
     @Override
-    public void onNewToken(String s) {
+    public void onNewToken(@NotNull String s) {
         super.onNewToken(s);
         Log.e("Firebase", "FirebaseInstanceIDService : " + s);
     }
 
     @Override
-    public void onMessageReceived(RemoteMessage remoteMessage) {
+    public void onMessageReceived(@NotNull RemoteMessage remoteMessage) {
         // 메시지 수신 시 실행되는 메소드
         if (remoteMessage != null && remoteMessage.getData().size() > 0) {
             sendNotification(remoteMessage);

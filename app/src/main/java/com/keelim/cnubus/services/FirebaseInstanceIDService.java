@@ -36,9 +36,6 @@ public class FirebaseInstanceIDService extends FirebaseMessagingService {
     }
 
 
-    /**
-     * 메시지가 수신되었을 때 실행되는 메소드
-     **/
     private void sendNotification(RemoteMessage remoteMessage) {
 
         String message = remoteMessage.getData().get("data");

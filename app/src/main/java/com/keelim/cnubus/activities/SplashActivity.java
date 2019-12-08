@@ -28,7 +28,7 @@ public class SplashActivity extends AppCompatActivity { //인트로 액티비티
         binding = DataBindingUtil.setContentView(this, R.layout.activity_splash);
         binding.setActivity(this);
         handler = new Handler();
-        handler.postDelayed(runnable, 1000); //handler를 통하여 사용
+        handler.postDelayed(runnable, 1000); //handler 를 통하여 사용
         Toast.makeText(this, "충남대 학생 여러분 환영 합니다.", Toast.LENGTH_SHORT).show();
 
     }

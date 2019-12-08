@@ -9,7 +9,6 @@ import com.keelim.cnubus.R;
 
 public class NightRootActivity extends AppCompatActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

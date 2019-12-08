@@ -1,4 +1,4 @@
-package com.keelim.cnubus.utils;
+package com.keelim.cnubus.activities.developer;
 
 import android.app.Activity;
 import android.widget.FrameLayout;
@@ -10,7 +10,6 @@ import com.vansuita.materialabout.views.AboutView;
 public class MaterialHelper {
 
     private Activity activity;
-    private int theme = R.style.Theme_AppCompat_DayNight;
 
     private MaterialHelper(Activity activity) {
         this.activity = activity;
@@ -21,6 +20,7 @@ public class MaterialHelper {
     }
 
     public MaterialHelper init() {
+        int theme = R.style.Theme_AppCompat_DayNight;
         activity.setTheme(theme);
         return this;
     }

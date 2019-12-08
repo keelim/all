@@ -1,16 +1,16 @@
-package com.keelim.cnubus.ui.Croot;
+package com.keelim.cnubus.mainfragment.aroot;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class CViewModel extends ViewModel {
+public class AViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public CViewModel() {
+    public AViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("C 노선은 개발 중입니다.");
+        mText.setValue("A root 노선 개발 중");
     }
 
     public LiveData<String> getText() {

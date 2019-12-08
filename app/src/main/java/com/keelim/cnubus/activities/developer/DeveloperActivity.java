@@ -1,4 +1,4 @@
-package com.keelim.cnubus.activities;
+package com.keelim.cnubus.activities.developer;
 
         import android.os.Bundle;
         import android.widget.Toast;
@@ -8,7 +8,6 @@ package com.keelim.cnubus.activities;
 
         import com.keelim.cnubus.R;
         import com.keelim.cnubus.databinding.ActivityDeveloperBinding;
-        import com.keelim.cnubus.utils.MaterialHelper;
 
 public class DeveloperActivity extends AppCompatActivity {
     ActivityDeveloperBinding binding;

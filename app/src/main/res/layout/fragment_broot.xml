@@ -30,7 +30,6 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:clickable="true"
-            android:id="@+id/floatingActionButtonb"
             android:layout_centerVertical="true"
             android:layout_height="20dp"
             android:layout_toEndOf="@+id/current_time_b"
@@ -39,7 +38,6 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/relativeLayoutb2"
         android:layout_height="0dp"
         android:layout_width="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"

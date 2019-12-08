@@ -1,20 +1,13 @@
-package com.keelim.cnubus.ui.Setting;
+package com.keelim.cnubus.mainfragment.setting;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.keelim.cnubus.R;
-import com.keelim.cnubus.activities.DeveloperActivity;
+import com.keelim.cnubus.activities.developer.DeveloperActivity;
 
 public class SettingFragment extends PreferenceFragmentCompat {
 
@@ -24,7 +17,7 @@ public class SettingFragment extends PreferenceFragmentCompat {
     }
 
     @Override
-    public boolean onPreferenceTreeClick(Preference preference) {
+    public boolean onPreferenceTreeClick(Preference preference) { //preferebce 클릭 리스너
         String key = preference.getKey();
         if (key.equals("developer")) {
             Intent intent_developer = new Intent(getContext(), DeveloperActivity.class);

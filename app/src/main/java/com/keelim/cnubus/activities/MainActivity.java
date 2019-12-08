@@ -29,16 +29,17 @@ public class MainActivity extends AppCompatActivity {
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_setting, R.id.navigation_aroot, R.id.navigation_broot, R.id.navigation_croot)
                 .build();
-
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
+        // 모바일 광고를 넣는다.
+        //todo 광고를 어떻게 넣어야 하는가?
         MobileAds.initialize(this, getString(R.string.ADMOB_APP_ID));
         AdRequest adRequest = new AdRequest.Builder().build();
         binding.adView.loadAd(adRequest);
 
-        popUp(); //팝업 실행
+//        popUp(); //팝업 실행
     }
 
 

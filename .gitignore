@@ -21,4 +21,4 @@ app/src/main/res/drawable-v24/
 gradlew
 gradlew.bat
 *.gradle
-
+*.pro

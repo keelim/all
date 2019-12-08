@@ -21,7 +21,6 @@ import org.jetbrains.annotations.NotNull;
 
 public class FirebaseInstanceIDService extends FirebaseMessagingService {
 
-
     @Override
     public void onNewToken(@NotNull String s) {
         super.onNewToken(s);
@@ -44,23 +43,18 @@ public class FirebaseInstanceIDService extends FirebaseMessagingService {
 
         String message = remoteMessage.getData().get("data");
         // 수신되는 푸시 메시지
-
         int messageDivider = message.indexOf("|");
         // 구분자를 통해 어떤 종류의 알람인지를 구별합니다.
-
         String pushType = message.substring(messageDivider + 1); // 구분자 뒤에 나오는 메시지
-
 
         Intent resultIntent = new Intent(this, MainActivity.class);
         resultIntent.putExtra("pushType", pushType);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 1, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) { // 버전 제약을 두는 것
             String channel = "채널";
             String channel_nm = "채널 이름"; // 앱 설정에서 알림 이름으로 뜸.
-
             NotificationManager notichannel = (android.app.NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             NotificationChannel channelMessage = new NotificationChannel(channel, channel_nm,
                     android.app.NotificationManager.IMPORTANCE_DEFAULT);
@@ -82,11 +76,8 @@ public class FirebaseInstanceIDService extends FirebaseMessagingService {
                             .setContentIntent(pendingIntent)
                             .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);
 
-            NotificationManager notificationManager =
-                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
+            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.notify(9999, notificationBuilder.build());
-
 
         } else {
             NotificationCompat.Builder notificationBuilder =
@@ -99,8 +90,7 @@ public class FirebaseInstanceIDService extends FirebaseMessagingService {
                             .setContentIntent(pendingIntent)
                             .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);
 
-            NotificationManager notificationManager =
-                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
             notificationManager.notify(9999, notificationBuilder.build());
 

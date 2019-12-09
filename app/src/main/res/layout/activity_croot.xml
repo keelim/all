@@ -27,12 +27,12 @@
             <TextView
                 android:text="오전"
                 android:textAlignment="center"
-                android:textSize="24dp" />
+                android:textSize="24sp" />
 
             <TextView
                 android:text="오후"
                 android:textAlignment="center"
-                android:textSize="24dp" />
+                android:textSize="24sp" />
 
         </TableRow>
 
@@ -45,12 +45,12 @@
             <TextView
                 android:text="08:10"
                 android:textAlignment="center"
-                android:textSize="24dp" />
+                android:textSize="24sp" />
 
             <TextView
                 android:text="13:10"
                 android:textAlignment="center"
-                android:textSize="24dp" />
+                android:textSize="24sp" />
         </TableRow>
 
         <TableRow
@@ -63,12 +63,12 @@
             <TextView
                 android:text="09:10"
                 android:textAlignment="center"
-                android:textSize="24dp" />
+                android:textSize="24sp" />
 
             <TextView
                 android:text="14:10"
                 android:textAlignment="center"
-                android:textSize="24dp" />
+                android:textSize="24sp" />
         </TableRow>
 
         <TableRow
@@ -81,12 +81,12 @@
             <TextView
                 android:text="10:10"
                 android:textAlignment="center"
-                android:textSize="24dp" />
+                android:textSize="24sp" />
 
             <TextView
                 android:text="15:10"
                 android:textAlignment="center"
-                android:textSize="24dp" />
+                android:textSize="24sp" />
         </TableRow>
 
         <TableRow
@@ -99,12 +99,12 @@
             <TextView
                 android:text="11:50"
                 android:textAlignment="center"
-                android:textSize="24dp" />
+                android:textSize="24sp" />
 
             <TextView
                 android:text="16:10"
                 android:textAlignment="center"
-                android:textSize="24dp" />
+                android:textSize="24sp" />
         </TableRow>
 
         <TableRow
@@ -117,12 +117,12 @@
             <TextView
                 android:text=""
                 android:textAlignment="center"
-                android:textSize="24dp" />
+                android:textSize="24sp" />
 
             <TextView
                 android:text="17:10"
                 android:textAlignment="center"
-                android:textSize="24dp" />
+                android:textSize="24sp" />
         </TableRow>
 
         <TableRow
@@ -135,12 +135,12 @@
             <TextView
                 android:text=""
                 android:textAlignment="center"
-                android:textSize="24dp" />
+                android:textSize="24sp" />
 
             <TextView
                 android:text="17:50"
                 android:textAlignment="center"
-                android:textSize="24dp" />
+                android:textSize="24sp" />
 
         </TableRow>
 

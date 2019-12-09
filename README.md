@@ -111,10 +111,14 @@
     - dataBinding을 사용을 하는 이유는? 
   
 ## TODO
-> View pager
+> View pager + tab layout 을 통하여 구현을 한다.
 
-    A 노선 B노선 C노선 야간 노선
-    검색 -> 
-    주변 제일 가까운 정류장 표시 
-    설정은 따로 
+    A 노선 B노선 C노선 야간 노선 -> 노선 만들기의 집중을 할 것
+    시간 대 별로 -> 그냥 쏴주는 것 -> 서버를 통해서 시간대를 받아와서 시작을 하는 것
+    검색 -> 노선 검색 -> 특별히 신경쓸 여유는 없는 것 같다.
+    주변 제일 가까운 정류장 표시 -> google map api 사용을 할 것 
+    설정은 따로 -> setting activity
+    
+    ViewPager2 // Material
+     
 >

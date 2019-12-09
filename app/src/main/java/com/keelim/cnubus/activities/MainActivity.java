@@ -8,20 +8,14 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.keelim.cnubus.R;
 
 public class MainActivity extends AppCompatActivity {
     private AdView adView;
-    private BottomNavigationView navView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +41,10 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.drawer_root_check) {
             Toast.makeText(this, "기능 추가 준비 중입니다.", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.menu_setting) {
+            Toast.makeText(this, "설정 창으로 이동합니다.", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent); //설정 창으로 이동을 한다.
         } else {
             throw new IllegalStateException("Unexpected value: " + id);
         }

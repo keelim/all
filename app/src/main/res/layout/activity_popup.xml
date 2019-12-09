@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="충남대 학생 여러분 환영 합니다."
-                android:textSize="19dp"
+                android:textSize="19sp"
                 android:textColor="#000000" />
 
         </LinearLayout>

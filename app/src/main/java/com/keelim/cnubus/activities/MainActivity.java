@@ -8,38 +8,31 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.keelim.cnubus.R;
-import com.keelim.cnubus.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
-    ActivityMainBinding binding;
+    private AdView adView;
+    private BottomNavigationView navView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_setting, R.id.navigation_aroot, R.id.navigation_broot, R.id.navigation_croot)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(binding.navView, navController);
+        setContentView(R.layout.activity_main);
 
-        // 모바일 광고를 넣는다.
-        //todo 광고를 어떻게 넣어야 하는가?
         MobileAds.initialize(this, getString(R.string.ADMOB_APP_ID));
         AdRequest adRequest = new AdRequest.Builder().build();
-        binding.adView.loadAd(adRequest);
-
-//        popUp(); //팝업 실행
+        adView = findViewById(R.id.adView);
+        adView.loadAd(adRequest);
+        popUp(); //팝업 실행
     }
 
 
@@ -52,12 +45,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        switch (id) {
-            case R.id.drawer_root_check:
-                Toast.makeText(this, "기능 추가 준비 중입니다.", Toast.LENGTH_SHORT).show();
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + id);
+        if (id == R.id.drawer_root_check) {
+            Toast.makeText(this, "기능 추가 준비 중입니다.", Toast.LENGTH_SHORT).show();
+        } else {
+            throw new IllegalStateException("Unexpected value: " + id);
         }
         return super.onOptionsItemSelected(item);
     }

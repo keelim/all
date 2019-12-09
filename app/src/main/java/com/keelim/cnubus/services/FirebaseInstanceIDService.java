@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -30,17 +31,17 @@ public class FirebaseInstanceIDService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(@NotNull RemoteMessage remoteMessage) {
         // 메시지 수신 시 실행되는 메소드
-        if (remoteMessage != null && remoteMessage.getData().size() > 0) {
+        if (remoteMessage.getData().size() > 0) {
             sendNotification(remoteMessage);
         }
     }
 
 
-    private void sendNotification(RemoteMessage remoteMessage) {
+    private void sendNotification(@NonNull RemoteMessage remoteMessage) {
 
         String message = remoteMessage.getData().get("data");
         // 수신되는 푸시 메시지
-        int messageDivider = message.indexOf("|");
+        int messageDivider =  message.indexOf("|");
         // 구분자를 통해 어떤 종류의 알람인지를 구별합니다.
         String pushType = message.substring(messageDivider + 1); // 구분자 뒤에 나오는 메시지
 

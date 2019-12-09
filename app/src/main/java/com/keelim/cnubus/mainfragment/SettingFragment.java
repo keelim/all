@@ -1,4 +1,4 @@
-package com.keelim.cnubus.mainfragment.setting;
+package com.keelim.cnubus.mainfragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import androidx.preference.PreferenceFragmentCompat;
 import com.keelim.cnubus.R;
 import com.keelim.cnubus.activities.developer.DeveloperActivity;
 
-public class SettingFragment extends PreferenceFragmentCompat {
+class SettingFragment extends PreferenceFragmentCompat {
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {

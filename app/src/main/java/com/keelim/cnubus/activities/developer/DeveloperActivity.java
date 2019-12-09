@@ -10,7 +10,7 @@ package com.keelim.cnubus.activities.developer;
         import com.keelim.cnubus.databinding.ActivityDeveloperBinding;
 
 public class DeveloperActivity extends AppCompatActivity {
-    ActivityDeveloperBinding binding;
+    private ActivityDeveloperBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

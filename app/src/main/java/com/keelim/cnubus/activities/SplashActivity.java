@@ -3,7 +3,6 @@ package com.keelim.cnubus.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -14,8 +13,8 @@ import com.keelim.cnubus.databinding.ActivitySplashBinding;
 
 public class SplashActivity extends AppCompatActivity { //인트로 액티비티를 생성한다.
     private Handler handler;
-    ActivitySplashBinding binding;
-    Runnable runnable = () -> { //runable 작동을 하고 시작
+    private ActivitySplashBinding binding;
+    private Runnable runnable = () -> { //runable 작동을 하고 시작
         Intent intent = new Intent(SplashActivity.this, MainActivity.class);
         startActivity(intent); //인텐트를 넣어준다. intro -> main
         finish(); //앱을 종료한다.
@@ -36,7 +35,6 @@ public class SplashActivity extends AppCompatActivity { //인트로 액티비티
         super.onBackPressed();
         handler.removeCallbacks(runnable);
     }
-
 }
 
 

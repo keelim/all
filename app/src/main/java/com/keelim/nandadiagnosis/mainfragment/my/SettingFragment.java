@@ -25,29 +25,30 @@ public class SettingFragment extends PreferenceFragmentCompat {
     @Override
     public boolean onPreferenceTreeClick(Preference preference) {
         String key = preference.getKey();
-        if (key.equals("nandaHome")) {
-            Intent intent_web = new Intent(getContext(), WebViewActivity.class);
-            intent_web.putExtra("URL", "https://keelim.github.io/nandaDiagnosis/");
-            startActivity(intent_web);
-            return true;
-        } else if (key.equals("question")) {
-            Intent intent_question = new Intent(getContext(), QuestionActivity.class);
-            startActivity(intent_question);
-            return true;
-        } else if (key.equals("opensource")) {
-            Intent intent_opensource = new Intent(getContext(), OpenSourceActivity.class);
-            startActivity(intent_opensource);
-            return true;
-        } else if (key.equals("please")) {
-            Intent intent_please = new Intent(getContext(), PleaseActivity.class);
-            startActivity(intent_please);
-            return true;
-        } else if (key.equals("developer_page")) {
-            Intent intent_developer = new Intent(getContext(), DeveloperActivity.class);
-            startActivity(intent_developer);
-            return true;
-        } else {
-            return false;
+        switch (key) {
+            case "nandaHome":
+                Intent intent_web = new Intent(getContext(), WebViewActivity.class);
+                intent_web.putExtra("URL", "https://keelim.github.io/nandaDiagnosis/");
+                startActivity(intent_web);
+                return true;
+            case "question":
+                Intent intent_question = new Intent(getContext(), QuestionActivity.class);
+                startActivity(intent_question);
+                return true;
+            case "opensource":
+                Intent intent_opensource = new Intent(getContext(), OpenSourceActivity.class);
+                startActivity(intent_opensource);
+                return true;
+            case "please":
+                Intent intent_please = new Intent(getContext(), PleaseActivity.class);
+                startActivity(intent_please);
+                return true;
+            case "developer_page":
+                Intent intent_developer = new Intent(getContext(), DeveloperActivity.class);
+                startActivity(intent_developer);
+                return true;
+            default:
+                return false;
         }
     }
 }

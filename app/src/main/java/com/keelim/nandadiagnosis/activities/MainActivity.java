@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                     Request request = new Request.Builder()
                             .url("https://github.com/keelim/Keelim.github.io/raw/master/assets/nanda.db")
                             .build();
-                    CallBackDownloadFile callBackDownloadFile = new CallBackDownloadFile("nanda.db");
+                    CallBackDownloadFile callBackDownloadFile = new CallBackDownloadFile();
                     client.newCall(request).enqueue(callBackDownloadFile);
                 }).create()
                 .show();
@@ -123,18 +123,20 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void UrlStartActivity(String domainValue) {
-        Intent intent_url = new Intent(getApplicationContext(), WebViewActivity.class);
-        intent_url.putExtra("URL", domainValue);
-        startActivity(intent_url);
-    }
+// --Commented out by Inspection START (2019-12-10 오전 12:46):
+//    private void UrlStartActivity(String domainValue) {
+//        Intent intent_url = new Intent(getApplicationContext(), WebViewActivity.class);
+//        intent_url.putExtra("URL", domainValue);
+//        startActivity(intent_url);
+//    }
+// --Commented out by Inspection STOP (2019-12-10 오전 12:46)
 
     private class CallBackDownloadFile implements Callback { //okhttp call back method
 
-        private File fileToBeDownloaded;
+        private final File fileToBeDownloaded;
 
-        CallBackDownloadFile(String fileName) {
-            this.fileToBeDownloaded = new File(getDataDir().getAbsolutePath() + "/databases", fileName);
+        CallBackDownloadFile() {
+            this.fileToBeDownloaded = new File(getDataDir().getAbsolutePath() + "/databases", "nanda.db");
         }
 
         @Override

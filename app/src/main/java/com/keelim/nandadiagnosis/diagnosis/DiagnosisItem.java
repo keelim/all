@@ -4,8 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class DiagnosisItem implements Parcelable {
-    String diagnosis;
-    String diagnosis_description;
+    private String diagnosis;
+    private String diagnosis_description;
 
     public DiagnosisItem(String diagnosis, String diagnosis_description) {
         this.diagnosis = diagnosis;
@@ -16,13 +16,19 @@ public class DiagnosisItem implements Parcelable {
         return diagnosis;
     }
 
-    public void setDiagnosis(String diagnosis) {
-        this.diagnosis = diagnosis;
-    }
-
-    public String getDiagnosis_description() {
-        return diagnosis_description;
-    }
+// --Commented out by Inspection START (2019-12-10 오전 12:46):
+//    public void setDiagnosis(String diagnosis) {
+//        this.diagnosis = diagnosis;
+//    }
+// --Commented out by Inspection START (2019-12-10 오전 12:46):
+//// --Commented out by Inspection STOP (2019-12-10 오전 12:46)
+//
+//// --Commented out by Inspection START (2019-12-10 오전 12:46):
+////    public String getDiagnosis_description() {
+// --Commented out by Inspection STOP (2019-12-10 오전 12:46)
+//        return diagnosis_description;
+//    }
+// --Commented out by Inspection STOP (2019-12-10 오전 12:46)
 
     public void setDiagnosis_description(String diagnosis_description) {
         this.diagnosis_description = diagnosis_description;
@@ -39,10 +45,12 @@ public class DiagnosisItem implements Parcelable {
         dest.writeString(this.diagnosis_description);
     }
 
-    public DiagnosisItem() {
-    }
+// --Commented out by Inspection START (2019-12-10 오전 12:46):
+//    public DiagnosisItem() {
+//    }
+// --Commented out by Inspection STOP (2019-12-10 오전 12:46)
 
-    protected DiagnosisItem(Parcel in) {
+    private DiagnosisItem(Parcel in) {
         this.diagnosis = in.readString();
         this.diagnosis_description = in.readString();
     }

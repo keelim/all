@@ -22,7 +22,7 @@ public class SplashActivity extends AppCompatActivity { //handler를 다르게 �
     private Handler handler;
     private InterstitialAd interstitialAd;
     //인앱 업데이트 어디서 등록을 해야 하는가?
-    private Runnable runnable = () -> { //runable 작동을 하고 시작
+    private final Runnable runnable = () -> { //runable 작동을 하고 시작
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent); //인텐트를 넣어준다. intro -> main
         finish(); //앱을 종료한다.

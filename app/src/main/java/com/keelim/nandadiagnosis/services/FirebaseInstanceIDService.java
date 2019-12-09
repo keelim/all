@@ -69,7 +69,7 @@ public class FirebaseInstanceIDService extends FirebaseMessagingService { //todo
             channelMessage.enableVibration(true);
             channelMessage.setShowBadge(false);
             channelMessage.setVibrationPattern(new long[]{100, 200, 100, 200});
-            notiChannel.createNotificationChannel(channelMessage);
+            Objects.requireNonNull(notiChannel).createNotificationChannel(channelMessage);
 
             NotificationCompat.Builder notificationBuilder =
                     new NotificationCompat.Builder(this, channel)
@@ -85,7 +85,7 @@ public class FirebaseInstanceIDService extends FirebaseMessagingService { //todo
             NotificationManager notificationManager =
                     (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-            notificationManager.notify(9999, notificationBuilder.build());
+            Objects.requireNonNull(notificationManager).notify(9999, notificationBuilder.build());
 
 
         } else {
@@ -102,7 +102,7 @@ public class FirebaseInstanceIDService extends FirebaseMessagingService { //todo
             NotificationManager notificationManager =
                     (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-            notificationManager.notify(9999, notificationBuilder.build());
+            Objects.requireNonNull(notificationManager).notify(9999, notificationBuilder.build());
 
         }
     }

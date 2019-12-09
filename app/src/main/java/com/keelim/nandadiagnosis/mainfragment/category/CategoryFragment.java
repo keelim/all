@@ -12,12 +12,10 @@ import com.keelim.nandadiagnosis.databinding.FragmentCategoryBinding;
 
 public class CategoryFragment extends Fragment {
 
-    private FragmentCategoryBinding binding;
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentCategoryBinding.inflate(inflater, container, false);
+        com.keelim.nandadiagnosis.databinding.FragmentCategoryBinding binding = FragmentCategoryBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 }

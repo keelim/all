@@ -12,9 +12,9 @@ import com.keelim.nandadiagnosis.R;
 import java.util.ArrayList;
 
 
-public class MyDiagnosisViewAdapter extends BaseAdapter {
-    private Context context;
-    private ArrayList<DiagnosisItem> diagnosisItems;
+class MyDiagnosisViewAdapter extends BaseAdapter {
+    private final Context context;
+    private final ArrayList<DiagnosisItem> diagnosisItems;
 
     public MyDiagnosisViewAdapter(Context context, ArrayList<DiagnosisItem> diagnosisItems) {
         this.context = context;

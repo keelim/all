@@ -11,11 +11,10 @@ import com.keelim.nandadiagnosis.R;
 import com.keelim.nandadiagnosis.activities.WebViewActivity;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class DiagnosisActivity extends AppCompatActivity {
     private ArrayList<DiagnosisItem> arrayList;
-    private MyDiagnosisViewAdapter adapter;
-    private String pointer;
     private int nav;
 
 
@@ -26,7 +25,7 @@ public class DiagnosisActivity extends AppCompatActivity {
         arrayList = new ArrayList<>();
         arrayListSetting();
 
-        adapter = new MyDiagnosisViewAdapter(this, arrayList);
+        MyDiagnosisViewAdapter adapter = new MyDiagnosisViewAdapter(this, arrayList);
 
         ListView listView = findViewById(R.id.list);
         listView.setAdapter(adapter);
@@ -44,8 +43,8 @@ public class DiagnosisActivity extends AppCompatActivity {
     private void arrayListSetting() {
         String[] array1 = getResources().getStringArray(R.array.diagnosis1);
         String[] array2 = getResources().getStringArray(R.array.test2);
-        pointer = getIntent().getStringExtra("extra");
-        switch (pointer) {
+        String pointer = getIntent().getStringExtra("extra");
+        switch (Objects.requireNonNull(pointer)) {
             case "1":
                 customAdd(0, 14, array1);
                 nav = 0;

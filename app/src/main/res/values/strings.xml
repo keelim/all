@@ -29,7 +29,7 @@
         <item>산학연교육연구관앞</item>
         <item>정심화국제문화회관</item>
     </string-array>
-    
+
     <string-array name="broot">
         <item>정심화국제문화회관</item>
         <item>사회과학대학입구(한누리회관뒤)</item>
@@ -61,18 +61,19 @@
         <item>도서관</item>
         <item>골프연습장주차장</item>
     </string-array>
-    
+
     <string-array name="night1">
         <item>정심화국제문화회관(출발)</item>
         <item>도서관</item>
         <item>학생생활관</item>
     </string-array>
-    
+
     <string-array name="night2">
         <item>학생생활관</item>
         <item>도서관</item>
         <item>정심화국제문화회관(출발)</item>
     </string-array>
+    <string name="title_activity_maps">주변정류장찾기</string>
 
 
 </resources>

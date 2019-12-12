@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.gms.ads.AdRequest;
@@ -16,12 +17,12 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.keelim.cnubus.R;
-import com.keelim.cnubus.activities.main.DemoCollectionAdapter;
+import com.keelim.cnubus.activities.main.ViewPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
     private AdView adView;
-    DemoCollectionAdapter demoCollectionAdapter;
-    ViewPager2 viewPager;
+    ViewPagerAdapter pagerAdapter;
+    ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,14 +35,11 @@ public class MainActivity extends AppCompatActivity {
         popUp(); //팝업 실행
 
         // ViewPager and tab layout configuration
-        demoCollectionAdapter = new DemoCollectionAdapter(this);
+        pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), 1);
         viewPager = findViewById(R.id.viewpager);
-        viewPager.setAdapter(demoCollectionAdapter);
-
+        viewPager.setAdapter(pagerAdapter);
         TabLayout tabLayout = findViewById(R.id.tabLayout);
-        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
-            tab.setText("Object" + position+1);
-        }).attach();
+        tabLayout.setupWithViewPager(viewPager);
     }
 
 
@@ -84,6 +82,5 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
 
 }

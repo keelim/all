@@ -55,10 +55,12 @@ public class SearchFragment extends Fragment {
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.search_menu, menu);
         MenuItem item = menu.findItem(R.id.menu_search);
+
         SearchView searchView = (SearchView) item.getActionView();
         SearchManager searchManager = (SearchManager) Objects.requireNonNull(getActivity()).getSystemService(Context.SEARCH_SERVICE);
         searchView.setSearchableInfo(Objects.requireNonNull(searchManager).getSearchableInfo(getActivity().getComponentName()));
         searchView.setSubmitButtonEnabled(true);
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() { //검색을 할 수 있게 하는 것
             @Override
             public boolean onQueryTextSubmit(String query) {

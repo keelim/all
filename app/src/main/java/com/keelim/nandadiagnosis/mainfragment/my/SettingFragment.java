@@ -15,7 +15,6 @@ import com.keelim.nandadiagnosis.help.QuestionActivity;
 
 public class SettingFragment extends PreferenceFragmentCompat {
 
-
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.settings_preferences);

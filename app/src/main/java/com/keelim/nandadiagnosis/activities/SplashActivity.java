@@ -18,10 +18,9 @@ import com.keelim.nandadiagnosis.R;
 import io.fabric.sdk.android.Fabric;
 
 public class SplashActivity extends AppCompatActivity { //handler를 다르게 설정을 할 수 있는가?
-    //인트로 액티비티를 생성한다.
     private Handler handler;
     private InterstitialAd interstitialAd;
-    //인앱 업데이트 어디서 등록을 해야 하는가?
+    // 인앱 업데이트를 등록을 하는 방법
     private final Runnable runnable = () -> { //runable 작동을 하고 시작
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent); //인텐트를 넣어준다. intro -> main
@@ -41,10 +40,8 @@ public class SplashActivity extends AppCompatActivity { //handler를 다르게 �
         interstitialAd = new InterstitialAd(this); //전면광고 셋팅
         interstitialAd.setAdUnitId(getString(R.string.test_ad));
         interstitialAd.setAdListener(new AdListener(){
-
             @Override
             public void onAdLoaded() {
-                Toast.makeText(SplashActivity.this, "Loading complete", Toast.LENGTH_SHORT).show();
                 interstitialAd.show();
             }
 
@@ -53,7 +50,6 @@ public class SplashActivity extends AppCompatActivity { //handler를 다르게 �
                 handler = new Handler();
                 handler.postDelayed(runnable, 500); //handler를 통하여 사용
             }
-
             @Override
             public void onAdFailedToLoad(int i) {
                 Log.e("Error", "ad loading fail");

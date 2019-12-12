@@ -36,6 +36,7 @@ public class DiagnosisActivity extends AppCompatActivity {
     private void goWeb(int total) {
         Intent intent_web = new Intent(this, WebViewActivity.class);
         intent_web.putExtra("URL", "https://keelim.github.io/nandaDiagnosis/" + total + ".html");
+
         startActivity(intent_web);
     }
 

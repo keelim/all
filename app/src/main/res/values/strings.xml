@@ -4,14 +4,9 @@
     <string name="title_category">Category</string>
     <string name="title_my">my</string>
 
-
     <string name="application_ad">ca-app-pub-3115620439518585~3588723583</string>
     <string name="real_ad">ca-app-pub-3115620439518585/7104801924</string>
     <string name="test_ad">ca-app-pub-3940256099942544/1033173712</string>
-
-    <string-array name="test2">
-        <item>1</item>
-    </string-array>
 
     <string-array name="diagnosis1">
         <item>start 여가 활동 부족</item>

@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,6 +17,8 @@ import com.keelim.cnubus.R;
 
 public class RootFragment extends Fragment {
     private int rootPosition;
+    private ListView listView;
+
 
     public int rootPosition() {
         return rootPosition;
@@ -33,22 +37,29 @@ public class RootFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        listView = view.findViewById(R.id.root_list);
         Bundle args = getArguments();
         int position = args.getInt("position"); //position 에 따라서 다른 동작을 한다.
+
         // 0 a 1 b 2 c 3 night
-        setRootPosition(position);
-        switch (rootPosition()) {
+        switch (position) {
             case 0:
-                String[] aroot = getResources().getStringArray(R.array.aroot);
+                applyList(getResources().getStringArray(R.array.aroot));
+                Toast.makeText(getActivity(), "안되는 것 같은데1", Toast.LENGTH_SHORT).show();
             case 1:
-                String[] broot = getResources().getStringArray(R.array.broot);
+                applyList(getResources().getStringArray(R.array.broot));
             case 2:
-                String[] croot = getResources().getStringArray(R.array.croot);
+                applyList(getResources().getStringArray(R.array.croot));
             case 3:
-                String[] night = getResources().getStringArray(R.array.night1);
+                applyList(getResources().getStringArray(R.array.night1));
         }
 
         Toast.makeText(view.getContext(), "hello" + position, Toast.LENGTH_SHORT).show();
+    }
+
+    private void applyList(String[] root) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, root);
+        listView.setAdapter(adapter);
     }
 
 

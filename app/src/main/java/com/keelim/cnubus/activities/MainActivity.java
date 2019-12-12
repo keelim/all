@@ -8,25 +8,40 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.keelim.cnubus.R;
+import com.keelim.cnubus.activities.main.DemoCollectionAdapter;
 
 public class MainActivity extends AppCompatActivity {
     private AdView adView;
+    DemoCollectionAdapter demoCollectionAdapter;
+    ViewPager2 viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         MobileAds.initialize(this, getString(R.string.ADMOB_APP_ID));
         AdRequest adRequest = new AdRequest.Builder().build();
         adView = findViewById(R.id.adView);
         adView.loadAd(adRequest);
         popUp(); //팝업 실행
+
+        // ViewPager and tab layout configuration
+        demoCollectionAdapter = new DemoCollectionAdapter(this);
+        viewPager = findViewById(R.id.viewpager);
+        viewPager.setAdapter(demoCollectionAdapter);
+
+        TabLayout tabLayout = findViewById(R.id.tabLayout);
+        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
+            tab.setText("Object" + position+1);
+        }).attach();
     }
 
 
@@ -64,8 +79,11 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
-                String result = data.getStringExtra("result");
+                String result = data
+                        .getStringExtra("result");
             }
         }
     }
+
+
 }

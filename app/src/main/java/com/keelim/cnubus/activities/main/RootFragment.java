@@ -14,6 +14,15 @@ import com.keelim.cnubus.R;
 
 
 public class RootFragment extends Fragment {
+    private int rootPosition;
+
+    public int rootPosition() {
+        return rootPosition;
+    }
+
+    public void setRootPosition(int rootPosition) {
+        this.rootPosition = rootPosition;
+    }
 
     @Nullable
     @Override
@@ -25,7 +34,9 @@ public class RootFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         Bundle args = getArguments();
-        int position = args.getInt("position"); //position 을 받아온다.
+        int position = args.getInt("position"); //position 에 따라서 다른 동작을 한다.
+        // 0 a 1 b 2 c 3 night
+        setRootPosition(position);
         Toast.makeText(view.getContext(), "hello" + position, Toast.LENGTH_SHORT).show();
     }
 

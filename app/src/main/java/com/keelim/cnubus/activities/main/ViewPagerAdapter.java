@@ -25,7 +25,6 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         return fragment;
     }
 
-
     @Override
     public int getCount() {
         return 3;
@@ -40,6 +39,8 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
             case 1:
                 return "B노선";
             case 2:
+                return "C노선";
+            case 3:
                 return "야간노선";
             default:
                 return "";

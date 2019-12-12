@@ -8,6 +8,7 @@
     <string name="cnu_bus">CNU BUS</string>
     <string name="copyright">Copyright © Keel_im Corp. All rights reserved.</string>
     <string name="title_activity_settings">설정</string>
+    <string name="busurl">http://plus.cnu.ac.kr/html/kr/sub05/sub05_050403.html/</string>
 
     <string-array name="aroot">
         <item>정심화국제문화회관</item>

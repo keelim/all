@@ -2,10 +2,6 @@
     app:key="total">
     <PreferenceCategory app:key="feature_category">
 
-        <SwitchPreferenceCompat
-            app:key="notifications"
-            app:title="푸시 알람 on/off" />
-
         <Preference
             app:key="nandaHome"
             app:title="관련 홈페이지" />
@@ -24,7 +20,7 @@
 
         <Preference
             app:key="developer_page"
-            app:summary="개발자 관련 화면 이동"
+            app:summary="개발자 소개"
             app:title="개발자 관련" />
     </PreferenceCategory>
 

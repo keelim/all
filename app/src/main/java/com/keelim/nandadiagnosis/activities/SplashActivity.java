@@ -39,7 +39,7 @@ public class SplashActivity extends AppCompatActivity { //handler를 다르게 �
         });
 
         interstitialAd = new InterstitialAd(this); //전면광고 셋팅
-        interstitialAd.setAdUnitId(getString(R.string.real_ad));
+        interstitialAd.setAdUnitId(getString(R.string.test_ad));
         interstitialAd.setAdListener(new AdListener(){
 
             @Override

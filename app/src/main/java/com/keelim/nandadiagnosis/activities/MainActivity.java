@@ -123,13 +123,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-// --Commented out by Inspection START (2019-12-10 오전 12:46):
-//    private void UrlStartActivity(String domainValue) {
-//        Intent intent_url = new Intent(getApplicationContext(), WebViewActivity.class);
-//        intent_url.putExtra("URL", domainValue);
-//        startActivity(intent_url);
-//    }
-// --Commented out by Inspection STOP (2019-12-10 오전 12:46)
+
+    private void UrlStartActivity(String domainValue) {
+        Intent intent_url = new Intent(getApplicationContext(), WebViewActivity.class);
+        intent_url.putExtra("URL", domainValue);
+        startActivity(intent_url);
+    }
+
 
     private class CallBackDownloadFile implements Callback { //okhttp call back method
 

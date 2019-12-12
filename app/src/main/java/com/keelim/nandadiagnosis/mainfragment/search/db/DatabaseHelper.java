@@ -13,14 +13,8 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABSAE_NAME = "nanda.db";
     private static final String TABLE_NAME = "nanda";
-    // --Commented out by Inspection START (2019-12-10 오전 12:46):
-// --Commented out by Inspection START (2019-12-10 오전 12:46):
-// --Commented out by Inspection START (2019-12-10 오전 12:46):
-//////    // --Commented out by Inspection (2019-12-10 오전 12:46):private static final String COL_1 = "nanda_id";
-//////    private static final String COL_2 = "reason";
-// --Commented out by Inspection STOP (2019-12-10 오전 12:46)
-// --Commented out by Inspection STOP (2019-12-10 오전 12:46)
-// --Commented out by Inspection STOP (2019-12-10 오전 12:46)
+    private static final String COL_1 = "nanda_id";
+    private static final String COL_2 = "reason";
     private static final String COL_3 = "diagnosis";
     private static final String COL_4 = "class_name";
     private static final String COL_5 = "domain_name";

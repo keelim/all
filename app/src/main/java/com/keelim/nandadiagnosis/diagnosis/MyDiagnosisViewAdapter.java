@@ -12,9 +12,9 @@ import com.keelim.nandadiagnosis.R;
 import java.util.ArrayList;
 
 
-class MyDiagnosisViewAdapter extends BaseAdapter {
-    private final Context context;
-    private final ArrayList<DiagnosisItem> diagnosisItems;
+public class MyDiagnosisViewAdapter extends BaseAdapter {
+    private Context context;
+    private ArrayList<DiagnosisItem> diagnosisItems;
 
     public MyDiagnosisViewAdapter(Context context, ArrayList<DiagnosisItem> diagnosisItems) {
         this.context = context;
@@ -39,7 +39,7 @@ class MyDiagnosisViewAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         if (view == null)
-            view = LayoutInflater.from(context).inflate(R.layout.item_listview, parent);
+            view = LayoutInflater.from(context).inflate(R.layout.item_listview, null);
         TextView diagnosisItem = view.findViewById(R.id.diagnosis_item);
         diagnosisItem.setText(diagnosisItems.get(position).getDiagnosis());
         TextView diagnosisDes = view.findViewById(R.id.diagnosis_des);

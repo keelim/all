@@ -10,7 +10,7 @@ import com.vansuita.materialabout.views.AboutView;
 
 public class MaterialHelper {
 
-    private Activity activity;
+    private final Activity activity;
 
     private MaterialHelper(Activity activity) {
         this.activity = activity;

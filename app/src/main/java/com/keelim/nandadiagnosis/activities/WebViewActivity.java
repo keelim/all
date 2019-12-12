@@ -25,12 +25,11 @@ public class WebViewActivity extends AppCompatActivity {
         webview.setWebViewClient(new WebViewClient());
         webview.setWebChromeClient(new WebChromeClient());//웹뷰에 크롬 사용 허용//이 부분이 없으면 크롬에서 알림 뜨지 않음
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            webview.setForceDarkAllowed(true);
+            webview.setForceDarkAllowed(true); //다크 모드 강제를 하는 것
         }
         webview.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
         webview.setScrollbarFadingEnabled(true);
         webview.setLayerType(View.LAYER_TYPE_HARDWARE, null);
-
         WebSettings settings = webview.getSettings();
         settings.setLoadWithOverviewMode(true);
         settings.setUseWideViewPort(true);
@@ -39,19 +38,14 @@ public class WebViewActivity extends AppCompatActivity {
         settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
         settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
         settings.setDomStorageEnabled(true);
-        String url = urlHandling();
 
+        String url = urlHandling();
         if (url != null) {
             webview.loadUrl(url);
         } else {
             webview.loadUrl("https://www.google.com");
             Toast.makeText(this, "페이지 오류가 있습니다. 데이터를 수집 합니다.", Toast.LENGTH_SHORT).show();
         }
-
-    }
-
-    private String urlHandling() {
-        return getIntent().getStringExtra("URL");
 
     }
 
@@ -62,5 +56,10 @@ public class WebViewActivity extends AppCompatActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    //private zone
+    private String urlHandling() {
+        return getIntent().getStringExtra("URL");
     }
 }

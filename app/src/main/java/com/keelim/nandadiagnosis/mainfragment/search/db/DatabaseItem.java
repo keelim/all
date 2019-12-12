@@ -11,12 +11,16 @@ public class DatabaseItem implements Parcelable {
     private String domain_name;
 
 
-    public int getPrimaryKey() {
-        return primaryKey;
+    protected DatabaseItem(Parcel in) {
+        this.primaryKey = in.readInt();
+        this.reason = in.readString();
+        this.diagnosis = in.readString();
+        this.class_name = in.readString();
+        this.domain_name = in.readString();
     }
 
-    public void setPrimaryKey(int primaryKey) {
-        this.primaryKey = primaryKey;
+    public int getPrimaryKey() {
+        return primaryKey;
     }
 
     public String getReason() {
@@ -68,12 +72,8 @@ public class DatabaseItem implements Parcelable {
     public DatabaseItem() {
     }
 
-    protected DatabaseItem(Parcel in) {
-        this.primaryKey = in.readInt();
-        this.reason = in.readString();
-        this.diagnosis = in.readString();
-        this.class_name = in.readString();
-        this.domain_name = in.readString();
+    public void setPrimaryKey(int primaryKey) {
+        this.primaryKey = primaryKey;
     }
 
     public static final Creator<DatabaseItem> CREATOR = new Creator<DatabaseItem>() {

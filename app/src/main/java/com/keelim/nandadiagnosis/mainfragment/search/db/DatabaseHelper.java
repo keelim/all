@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
+    //CUrsor 가 뭐지?
+    //나중에 jetpack Room 사용을 고려
     private static final String DATABSAE_NAME = "nanda.db";
     private static final String TABLE_NAME = "nanda";
     private static final String COL_1 = "nanda_id";
@@ -47,7 +49,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return dbItems;
     }
-
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) { //database 만드러질 활용을 하는 것

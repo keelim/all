@@ -4,8 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class DiagnosisItem implements Parcelable {
-    String diagnosis;
-    String diagnosis_description;
+    private String diagnosis;
+    private String diagnosis_description;
 
     public DiagnosisItem(String diagnosis, String diagnosis_description) {
         this.diagnosis = diagnosis;
@@ -16,13 +16,14 @@ public class DiagnosisItem implements Parcelable {
         return diagnosis;
     }
 
+
+    public DiagnosisItem() {
+    }
+
     public void setDiagnosis(String diagnosis) {
         this.diagnosis = diagnosis;
     }
 
-    public String getDiagnosis_description() {
-        return diagnosis_description;
-    }
 
     public void setDiagnosis_description(String diagnosis_description) {
         this.diagnosis_description = diagnosis_description;
@@ -39,10 +40,11 @@ public class DiagnosisItem implements Parcelable {
         dest.writeString(this.diagnosis_description);
     }
 
-    public DiagnosisItem() {
+    public String getDiagnosis_description() {
+        return diagnosis_description;
     }
 
-    protected DiagnosisItem(Parcel in) {
+    private DiagnosisItem(Parcel in) {
         this.diagnosis = in.readString();
         this.diagnosis_description = in.readString();
     }

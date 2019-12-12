@@ -4,14 +4,9 @@
     <string name="title_category">Category</string>
     <string name="title_my">my</string>
 
-
     <string name="application_ad">ca-app-pub-3115620439518585~3588723583</string>
     <string name="real_ad">ca-app-pub-3115620439518585/7104801924</string>
     <string name="test_ad">ca-app-pub-3940256099942544/1033173712</string>
-
-    <string-array name="test2">
-        <item>1</item>
-    </string-array>
 
     <string-array name="diagnosis1">
         <item>start 여가 활동 부족</item>
@@ -123,7 +118,7 @@
         <item>상황적 자존감 저하</item>
         <item>상황적 자존감 저하의 위험</item>
         <item>신체상 혼란 end</item>
-        <item>돌봄제공자의 역할 긴장</item>
+        <item>start 돌봄제공자의 역할 긴장</item>
         <item>돌봄제공자의 역할 긴장의 위험</item>
         <item>부모 역할 장애</item>
         <item>부모 역할 향상을 위한 준비</item>
@@ -180,8 +175,8 @@
         <item>자율적 반사장애의 위험</item>
         <item>비조직적 영아행동</item>
         <item>조직적 영아행동 향상을 위한 준비</item>
-        <item>비조직적 영아행동의 위험 end</item>
-        <item>영적 안녕 향상을 위한 준비</item>
+        <item>비조직적 영아행동의 위험 </item>
+        <item>영적 안녕 향상을 위한 준비end</item>
         <item>start 의사결정 향상을 위한 준비</item>
         <item>의사결정 갈등</item>
         <item>자주적 의사결정 장애</item>

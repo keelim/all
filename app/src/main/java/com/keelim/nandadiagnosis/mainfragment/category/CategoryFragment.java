@@ -8,16 +8,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.keelim.nandadiagnosis.databinding.FragmentCategoryBinding;
+import com.keelim.nandadiagnosis.R;
 
 public class CategoryFragment extends Fragment {
 
-    private FragmentCategoryBinding binding;
-
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        binding = FragmentCategoryBinding.inflate(inflater, container, false);
-        return binding.getRoot();
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_category, container, false);
+        return root;
     }
 }

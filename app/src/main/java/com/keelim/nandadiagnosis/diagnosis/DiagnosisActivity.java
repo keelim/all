@@ -11,11 +11,10 @@ import com.keelim.nandadiagnosis.R;
 import com.keelim.nandadiagnosis.activities.WebViewActivity;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class DiagnosisActivity extends AppCompatActivity {
     private ArrayList<DiagnosisItem> arrayList;
-    private MyDiagnosisViewAdapter adapter;
-    private String pointer;
     private int nav;
 
 
@@ -26,77 +25,77 @@ public class DiagnosisActivity extends AppCompatActivity {
         arrayList = new ArrayList<>();
         arrayListSetting();
 
-        adapter = new MyDiagnosisViewAdapter(this, arrayList);
+        MyDiagnosisViewAdapter adapter = new MyDiagnosisViewAdapter(this, arrayList);
 
         ListView listView = findViewById(R.id.list);
         listView.setAdapter(adapter);
         Intent intent_web = new Intent(this, WebViewActivity.class);
-
         listView.setOnItemClickListener((parent, view, position, id) -> goWeb(nav + position + 1));
     }
 
     private void goWeb(int total) {
         Intent intent_web = new Intent(this, WebViewActivity.class);
         intent_web.putExtra("URL", "https://keelim.github.io/nandaDiagnosis/" + total + ".html");
+
         startActivity(intent_web);
     }
 
     private void arrayListSetting() {
         String[] array1 = getResources().getStringArray(R.array.diagnosis1);
         String[] array2 = getResources().getStringArray(R.array.test2);
-        pointer = getIntent().getStringExtra("extra");
-        switch (pointer) {
+        String pointer = getIntent().getStringExtra("extra");
+        switch (Objects.requireNonNull(pointer)) {
             case "1":
-                customAdd(0, 14, array1);
+                customAdd(0, 11, array1);
                 nav = 0;
                 break;
             case "2":
-                customAdd(15, 35, array1);
-                nav = 15;
+                customAdd(12, 22, array1);
+                nav = 12;
                 break;
             case "3":
-                customAdd(36, 54, array1);
-                nav = 36;
+                customAdd(23, 32, array1);
+                nav = 23;
                 break;
             case "4":
-                customAdd(55, 89, array1);
-                nav = 55;
+                customAdd(33, 51, array1);
+                nav = 33;
                 break;
             case "5":
-                customAdd(90, 101, array1);
-                nav = 90;
+                customAdd(52, 86, array1);
+                nav = 52;
                 break;
             case "6":
-                customAdd(102, 112, array1);
-                nav = 102;
+                customAdd(87, 97, array1);
+                nav = 87;
                 break;
             case "7":
-                customAdd(113, 127, array1);
-                nav = 113;
+                customAdd(98, 108, array1);
+                nav = 98;
                 break;
             case "8":
-                customAdd(128, 133, array1);
-                nav = 128;
+                customAdd(109, 123, array1);
+                nav = 109;
                 break;
             case "9":
-                customAdd(134, 170, array1);
-                nav = 134;
+                customAdd(124, 129, array1);
+                nav = 124;
                 break;
             case "10":
-                customAdd(171, 182, array1);
-                nav = 171;
+                customAdd(130, 168, array1);
+                nav = 130;
                 break;
             case "11":
-                customAdd(183, 224, array1);
-                nav = 183;
+                customAdd(169, 179, array1);
+                nav = 169;
                 break;
             case "12":
-                customAdd(225, 233, array1);
-                nav = 225;
+                customAdd(180, 207, array1);
+                nav = 180;
                 break;
             case "13":
-                customAdd(234, 236, array1);
-                nav = 234;
+                customAdd(208, 236, array1);
+                nav = 208;
                 break;
         }
 

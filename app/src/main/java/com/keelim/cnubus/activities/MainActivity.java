@@ -55,8 +55,10 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.busurl)));
             startActivity(intent);
         } else if (id == R.id.menu_setting) {
-            Toast.makeText(this, "설정 창으로 이동합니다.", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent); //설정 창으로 이동을 한다.
+        } else if(id == R.id.gps){
+            Intent intent = new Intent(this, MapsActivity.class);
             startActivity(intent); //설정 창으로 이동을 한다.
         }
         return super.onOptionsItemSelected(item);

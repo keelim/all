@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">충남대 버스</string>
+    <string name="app_name">충남대버스</string>
     <string name="a_root">A 노선</string>
     <string name="b_root">B 노선</string>
     <string name="c_root">C 노선</string>

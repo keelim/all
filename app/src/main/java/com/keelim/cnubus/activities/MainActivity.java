@@ -18,6 +18,8 @@ import com.google.android.material.tabs.TabLayout;
 import com.keelim.cnubus.R;
 import com.keelim.cnubus.activities.main.ViewPagerAdapter;
 
+import static androidx.fragment.app.FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT;
+
 public class MainActivity extends AppCompatActivity {
     private AdView adView;
     ViewPagerAdapter pagerAdapter;
@@ -34,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         popUp(); //팝업 실행
 
         // ViewPager and tab layout configuration
-        pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), 1);
+        pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPager = findViewById(R.id.viewpager);
         viewPager.setAdapter(pagerAdapter);
         TabLayout tabLayout = findViewById(R.id.tabLayout);
@@ -55,9 +57,12 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.busurl)));
             startActivity(intent);
         } else if (id == R.id.menu_setting) {
-            Toast.makeText(this, "설정 창으로 이동합니다.", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent); //설정 창으로 이동을 한다.
+        } else if(id == R.id.gps){
+//            Intent intent = new Intent(this, MapsActivity.class);
+//            startActivity(intent); //설정 창으로 이동을 한다.MapsActivity.class);
+//            startActivity(intent); //설정 창으로 이동을 한다.
         }
         return super.onOptionsItemSelected(item);
     }

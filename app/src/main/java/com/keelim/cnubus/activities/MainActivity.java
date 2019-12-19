@@ -60,9 +60,8 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent); //설정 창으로 이동을 한다.
         } else if(id == R.id.gps){
-//            Intent intent = new Intent(this, MapsActivity.class);
-//            startActivity(intent); //설정 창으로 이동을 한다.MapsActivity.class);
-//            startActivity(intent); //설정 창으로 이동을 한다.
+            Intent intent = new Intent(this, MapsActivity.class);
+            startActivity(intent); //설정 창으로 이동을 한다.MapsActivity.class);
         }
         return super.onOptionsItemSelected(item);
     }

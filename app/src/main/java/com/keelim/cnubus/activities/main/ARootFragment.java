@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment;
 
 import com.keelim.cnubus.R;
 
+import java.util.ArrayList;
+
 public class ARootFragment extends Fragment {
     private ListView listView;
 
@@ -26,6 +28,10 @@ public class ARootFragment extends Fragment {
         View root= inflater.inflate(R.layout.fragment_a_root, container, false);
         listView = root.findViewById(R.id.lv_aroot);
         applyList(getResources().getStringArray(R.array.aroot));
+
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+
+        });
         return root;
     }
 

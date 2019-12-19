@@ -18,9 +18,10 @@ public class BRootFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        listView = getView().findViewById(R.id.lv_broot);
+        View root =  inflater.inflate(R.layout.fragment_b_root, container, false);
+        listView =  root.findViewById(R.id.lv_broot);
         applyList(getResources().getStringArray(R.array.broot));
-        return inflater.inflate(R.layout.fragment_b_root, container, false);
+        return root;
     }
 
     private void applyList(String[] root) {

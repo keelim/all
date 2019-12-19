@@ -23,9 +23,10 @@ public class ARootFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        listView = getView().findViewById(R.id.lv_aroot);
+        View root= inflater.inflate(R.layout.fragment_a_root, container, false);
+        listView = root.findViewById(R.id.lv_aroot);
         applyList(getResources().getStringArray(R.array.aroot));
-        return inflater.inflate(R.layout.fragment_a_root, container, false);
+        return root;
     }
 
     private void applyList(String[] root) {

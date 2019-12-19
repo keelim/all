@@ -5,7 +5,7 @@
     <string name="c_root">C 노선</string>
     <string name="ADMOB_APP_ID">ca-app-pub-3115620439518585~7951570697</string>
     <string name="setting">Setting</string>
-    <string name="cnu_bus">CNU BUS</string>
+    <string name="cnu_bus">CNUBUS</string>
     <string name="copyright">Copyright © Keel_im Corp. All rights reserved.</string>
     <string name="title_activity_settings">설정</string>
     <string name="busurl">http://plus.cnu.ac.kr/html/kr/sub05/sub05_050403.html/</string>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">충남대 버스</string>
+    <string name="app_name">충남대버스</string>
     <string name="a_root">A 노선</string>
     <string name="b_root">B 노선</string>
     <string name="c_root">C 노선</string>
@@ -74,6 +74,5 @@
         <item>정심화국제문화회관(출발)</item>
     </string-array>
     <string name="title_activity_maps">주변정류장찾기</string>
-
 
 </resources>

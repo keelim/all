@@ -45,7 +45,6 @@ public class RootFragment extends Fragment {
         switch (position) {
             case 0:
                 applyList(getResources().getStringArray(R.array.aroot));
-                Toast.makeText(getActivity(), "안되는 것 같은데1", Toast.LENGTH_SHORT).show();
             case 1:
                 applyList(getResources().getStringArray(R.array.broot));
             case 2:
@@ -53,8 +52,6 @@ public class RootFragment extends Fragment {
             case 3:
                 applyList(getResources().getStringArray(R.array.night1));
         }
-
-        Toast.makeText(view.getContext(), "hello" + position, Toast.LENGTH_SHORT).show();
     }
 
     private void applyList(String[] root) {

@@ -119,7 +119,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Manifest.permission.ACCESS_FINE_LOCATION
         };
 
-
         int permissionCheck = PackageManager.PERMISSION_GRANTED;
 
         for (String permission : permissions) {

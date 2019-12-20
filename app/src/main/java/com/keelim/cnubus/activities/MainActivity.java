@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -68,14 +67,13 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void popUp() {
-        //데이터 담아서 팝업(액티비티) 호출
-        Intent intent = new Intent(getApplicationContext(), PopupActivity.class);
-        intent.putExtra("data", "Test Popup");
+        Intent intent = new Intent(MainActivity.this, PopupActivity.class);
         startActivityForResult(intent, 1);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // 예를 어떻게 설정을 해야 하나?
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {

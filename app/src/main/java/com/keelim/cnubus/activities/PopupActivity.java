@@ -25,6 +25,7 @@ public class PopupActivity extends AppCompatActivity { //원하는 부분을 팝
     }
 
     public void mOnClose(View view) {
+        //activity result
         Intent intent = new Intent();
         intent.putExtra("result", "Close Popup");
         setResult(RESULT_OK, intent);

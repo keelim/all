@@ -1,11 +1,6 @@
 package com.keelim.cnubus.activities;
 
-import android.Manifest;
-import android.annotation.TargetApi;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.fragment.app.FragmentActivity;
@@ -27,11 +22,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-
-        checkPermission();
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        Toast.makeText(this, "구글 맵 셋팅", Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -45,95 +40,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
 
     @Override
-
     public void onMapReady(final GoogleMap googleMap) {
-        // 구글에서 등록한 api와 엮어주기
-        // 시작위치를 서울 시청으로 변경
-        LatLng cityHall = new LatLng(37.566622, 126.978159); // 서울시청 위도와 경도
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(cityHall));
-        googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
-
-        // 시작시 마커 생성하기
-
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(cityHall);
-        markerOptions.title("시청");
-        markerOptions.snippet("서울 시청");
-        // 생성된 마커 옵션을 지도에 표시
-        googleMap.addMarker(markerOptions);
-
-        // 서울광장마커
-        // 회사 DB에 데이터를 가지고 있어야 된다.
-        LatLng plaza = new LatLng(37.565785, 126.978056);
-        markerOptions.position(plaza);
-        markerOptions.title("광장");
-        markerOptions.snippet("서울 광장");
-        googleMap.addMarker(markerOptions);
-
-        //맵 로드 된 이후
-        googleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
-            @Override
-            public void onMapLoaded() {
-                Toast.makeText(MapsActivity.this, "Map로딩성공", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        //카메라 이동 시작
-        googleMap.setOnCameraMoveStartedListener(new GoogleMap.OnCameraMoveStartedListener() {
-            @Override
-            public void onCameraMoveStarted(int i) {
-                Log.d("set>>", "start");
-            }
-        });
-
-        // 카메라 이동 중
-        googleMap.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
-            @Override
-            public void onCameraMove() {
-                Log.d("set>>", "move");
-            }
-        });
-
-        // 지도를 클릭하면 호출되는 이벤트
-        googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng latLng) {
-                // 기존 마커 정리
-                googleMap.clear();
-                // 클릭한 위치로 지도 이동하기
-                googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-                // 신규 마커 추가
-                MarkerOptions newMarker = new MarkerOptions();
-                newMarker.position(latLng);
-                googleMap.addMarker(newMarker);
-            }
-        });
+        // 구글 맵 객체를 불러온다.
+        mMap = googleMap;
+        // 서울 여의도에 대한 위치 설정
+        LatLng seoul = new LatLng(37.52487, 126.92723);
+        // 구글 맵에 표시할 마커에 대한 옵션 설정
+        MarkerOptions makerOptions = new MarkerOptions();
+        makerOptions
+                .position(seoul)
+                .title("원하는 위치(위도, 경도)에 마커를 표시했습니다.");
+        // 마커를 생성한다.
+        mMap.addMarker(makerOptions);
+        //카메라를 여의도 위치로 옮긴다.
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(seoul));
     }
-
-
-    @TargetApi(Build.VERSION_CODES.M)
-    private void checkPermission() {
-        String[] permissions = {
-                // Manifest는 android를 import
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION
-        };
-
-        int permissionCheck = PackageManager.PERMISSION_GRANTED;
-
-        for (String permission : permissions) {
-            permissionCheck = this.checkSelfPermission(permission);
-            if (permissionCheck == PackageManager.PERMISSION_DENIED) {
-                break;
-            }
-        }
-
-        if (permissionCheck == PackageManager.PERMISSION_DENIED) {
-            this.requestPermissions(permissions, 1);
-        }
-    }
-
-
 
 
 }

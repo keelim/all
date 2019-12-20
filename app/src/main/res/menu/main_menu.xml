@@ -12,9 +12,7 @@
             app:showAsAction="always" />
         <item
             android:id="@+id/menu_setting"
-            android:icon="@drawable/menu"
-            android:title="설정"
-            app:showAsAction="always" />
+            android:title="설정" />
     </group>
 </menu>
 

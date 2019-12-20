@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="activity"
             type="com.keelim.cnubus.activities.SplashActivity" />
@@ -34,8 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="185dp"
-            android:text="version 1.4"
-            android:textColor="#121212"
+            android:text="@string/version"
             android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -51,7 +51,6 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="72dp"
             android:text="@string/copyright"
-            android:textColor="#121212"
             android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

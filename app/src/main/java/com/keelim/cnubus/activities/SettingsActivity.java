@@ -22,6 +22,7 @@ public class SettingsActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.settings, new SettingsFragment())
                 .commit();
+
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -41,7 +42,12 @@ public class SettingsActivity extends AppCompatActivity {
                 Intent intent_developer = new Intent(getContext(), DeveloperActivity.class);
                 startActivity(intent_developer);
                 return true;
+            } else if (key.equals("opensource")) {
+
+            } else if (key.equals("update")) {
+
             }
+
             return false;
         }
     }

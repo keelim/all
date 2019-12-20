@@ -22,3 +22,4 @@ gradlew
 gradlew.bat
 *.gradle
 *.pro
+google_maps_api.xml

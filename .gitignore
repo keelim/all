@@ -23,3 +23,5 @@ gradlew.bat
 *.gradle
 *.pro
 google_maps_api.xml
+.idea
+*.gitignore

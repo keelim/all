@@ -73,14 +73,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //맵 로드 된 이후
         googleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             @Override
-
             public void onMapLoaded() {
                 Toast.makeText(MapsActivity.this, "Map로딩성공", Toast.LENGTH_SHORT).show();
             }
         });
 
         //카메라 이동 시작
-
         googleMap.setOnCameraMoveStartedListener(new GoogleMap.OnCameraMoveStartedListener() {
             @Override
             public void onCameraMoveStarted(int i) {
@@ -89,7 +87,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
 
         // 카메라 이동 중
-
         googleMap.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
             @Override
             public void onCameraMove() {
@@ -98,7 +95,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
 
         // 지도를 클릭하면 호출되는 이벤트
-
         googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
@@ -137,4 +133,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             this.requestPermissions(permissions, 1);
         }
     }
+
+
+
+
 }

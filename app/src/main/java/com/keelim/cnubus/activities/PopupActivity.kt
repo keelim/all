@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.keelim.cnubus.R
 
 class PopupActivity : AppCompatActivity() {
-    //원하는 부분을 팝업으로 만들 수 있다.
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE) // window 창 닫기
@@ -27,4 +27,5 @@ class PopupActivity : AppCompatActivity() {
         setResult(Activity.RESULT_OK, intent)
         finish()
     }
+
 }

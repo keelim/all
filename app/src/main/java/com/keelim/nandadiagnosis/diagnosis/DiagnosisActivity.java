@@ -42,7 +42,6 @@ public class DiagnosisActivity extends AppCompatActivity {
 
     private void arrayListSetting() {
         String[] array1 = getResources().getStringArray(R.array.diagnosis1);
-        String[] array2 = getResources().getStringArray(R.array.test2);
         String pointer = getIntent().getStringExtra("extra");
         switch (Objects.requireNonNull(pointer)) {
             case "1":

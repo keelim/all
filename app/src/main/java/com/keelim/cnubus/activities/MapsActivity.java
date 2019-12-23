@@ -26,7 +26,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        Toast.makeText(this, "구글 맵 셋팅", Toast.LENGTH_SHORT).show();
     }
 
     /**

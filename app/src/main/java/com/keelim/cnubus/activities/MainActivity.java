@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void popUp() {
         Intent intent = new Intent(MainActivity.this, PopupActivity.class);
-        startActivityForResult(intent, 1);
+        startActivityForResult(intent, 1); // 액티비티 간의 정보를 교환을 할 때
     }
 
     @Override

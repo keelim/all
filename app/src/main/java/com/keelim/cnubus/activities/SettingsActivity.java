@@ -3,6 +3,7 @@ package com.keelim.cnubus.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,9 +44,11 @@ public class SettingsActivity extends AppCompatActivity {
                 startActivity(intent_developer);
                 return true;
             } else if (key.equals("opensource")) {
-
+                Intent intent = new Intent(getContext(), OpenSourceActivity.class);
+                startActivity(intent);
+                return true;
             } else if (key.equals("update")) {
-
+                Toast.makeText(getContext(), "업데이트 기능 준비 중입니다. 잠시만 기다려 주세요", Toast.LENGTH_SHORT).show();
             }
 
             return false;

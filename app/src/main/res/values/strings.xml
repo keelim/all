@@ -67,13 +67,42 @@
         <item>학생생활관</item>
     </string-array>
 
-    <string-array name="night2">
-        <item>학생생활관</item>
-        <item>도서관</item>
-        <item>정심화국제문화회관(출발)</item>
-    </string-array>
-
     <string name="title_activity_maps">주변정류장찾기</string>
     <string name="version">version 2.0</string>
+    <string-array name="a_intent_array">
+        <item>1</item>
+        <item>16</item>
+        <item>9</item>
+        <item>12</item>
+        <item>10</item>
+        <item>11</item>
+        <item>13</item>
+        <item>8</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>4</item>
+        <item>3</item>
+        <item>15</item>
+        <item>1</item>
+    </string-array>
+    
+    <string-array name="b_intent_array">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+    </string-array>
 
 </resources>

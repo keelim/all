@@ -27,10 +27,10 @@ public class CRootFragment extends Fragment {
         applyList(rootList);
 
         listView.setOnItemClickListener((parent, view, position, id) -> {
-            Toast.makeText(getActivity(), rootList[position] + "정류장 입니다.", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getActivity(), MapsActivity.class);
-            intent.putExtra("location", "골프연습장 주차장");
-            startActivity(intent);
+            Toast.makeText(getActivity(), rootList[position] + "기능 준비 중입니다. 잠시만 기다려 주세요", Toast.LENGTH_SHORT).show();
+//            Intent intent = new Intent(getActivity(), MapsActivity.class);
+//            intent.putExtra("location", "골프연습장 주차장");
+//            startActivity(intent);
         });
         return root;
     }

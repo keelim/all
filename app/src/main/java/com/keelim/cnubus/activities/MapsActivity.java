@@ -1,5 +1,6 @@
 package com.keelim.cnubus.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -23,6 +24,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        Intent intent = getIntent();
+
+
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -44,21 +49,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // 구글 맵 객체를 불러온다.
         mMap = googleMap;
         // 서울 여의도에 대한 위치 설정
-        LatLng m1 = new LatLng(36.363895, 127.345148);
-        LatLng m2 = new LatLng(36.367002, 127.342782);
-        LatLng m3 = new LatLng(36.368622, 127.341531);
-        LatLng m4 = new LatLng(36.374241, 127.343924);
-        LatLng m5 = new LatLng(36.376406, 127.344168);
-        LatLng m6 = new LatLng(36.372513, 127.343118);
-        LatLng m7 = new LatLng(36.370587, 127.343520);
-        LatLng m8 = new LatLng(36.369522, 127.346725);
-        LatLng m9 = new LatLng(36.369119, 127.351884);
-        LatLng m10 = new LatLng(36.367465, 127.352190);
-        LatLng m11 = new LatLng(36.372480, 127.346155);
-        LatLng m12 = new LatLng(36.369780, 127.346901);
-        LatLng m13 = new LatLng(36.367404, 127.345517);
-        LatLng m14 = new LatLng(36.365505, 127.345159);
-        LatLng m15 = new LatLng(36.367564, 127.345800);
+        // 모든 종류장 좌표화해서 가지고 가는 것이 좋으려나
+        LatLng m1 = new LatLng(36.363895, 127.345148); //정삼화
+        LatLng m2 = new LatLng(36.367002, 127.342782); //한누리관 뒤
+        LatLng m3 = new LatLng(36.368622, 127.341531); // 서문
+        LatLng m4 = new LatLng(36.374241, 127.343924); // 음대
+        LatLng m5 = new LatLng(36.376406, 127.344168); // 서문
+        LatLng m6 = new LatLng(36.372513, 127.343118); //체육관 입구
+        LatLng m7 = new LatLng(36.370587, 127.343520); // 예술대학앞
+        LatLng m8 = new LatLng(36.369522, 127.346725); // 도서관앞
+        LatLng m9 = new LatLng(36.369119, 127.351884); //농업생명과학대학
+        LatLng m10 = new LatLng(36.367465, 127.352190); //동무
+        LatLng m11 = new LatLng(36.372480, 127.346155); //생활관
+        LatLng m12 = new LatLng(36.369780, 127.346901); //도서관앞
+        LatLng m13 = new LatLng(36.367404, 127.345517); //공과대학앞
+        LatLng m14 = new LatLng(36.365505, 127.345159); //산학협력관
+        LatLng m15 = new LatLng(36.367564, 127.345800); //경상대학
 
 
         // 구글 맵에 표시할 마커에 대한 옵션 설정
@@ -125,7 +131,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(m1));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(50));
     }
 
 

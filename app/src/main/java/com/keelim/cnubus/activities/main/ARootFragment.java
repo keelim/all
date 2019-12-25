@@ -43,11 +43,6 @@ public class ARootFragment extends Fragment {
         return root;
     }
 
-    private void goMap(Intent intent, String string) {
-        intent.putExtra("map", string);
-        startActivity(intent);
-    }
-
     /*<item>정심화국제문화회관</item>
         <item>경상대학앞</item>
     <item>도서관 앞(농대방향)</item>

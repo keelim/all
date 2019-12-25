@@ -27,9 +27,8 @@ public class BRootFragment extends Fragment {
         rootList =getResources().getStringArray(R.array.broot);
         applyList(rootList);
         listView.setOnItemClickListener((parent, view, position, id) -> {
-            Toast.makeText(getActivity(), rootList[position] + "정류장 입니다.", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getActivity(), MapsActivity.class);
-            intent.putExtra("location", "골프연습장 주차장");
+            intent.putExtra("location", "");
             startActivity(intent);
         });
         return root;

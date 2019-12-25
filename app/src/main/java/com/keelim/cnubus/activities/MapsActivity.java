@@ -104,7 +104,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //        mMap.addMarker(makerOptions);
 //
         mMap.moveCamera(CameraUpdateFactory.newLatLng(locationList.get(location)));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(50));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(45));
     }
 
 
@@ -124,7 +124,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         locationList.add(new LatLng(36.367002, 127.342782)); //한누리관 뒤
         locationList.add(new LatLng(36.368622, 127.341531)); // 서문
         locationList.add(new LatLng(36.374241, 127.343924)); // 음대
-        locationList.add(new LatLng(36.376406, 127.344168)); // 서문
+        locationList.add(new LatLng(36.376406, 127.344168)); // 공동 동물
         locationList.add(new LatLng(36.372513, 127.343118)); //체육관 입구
         locationList.add(new LatLng(36.370587, 127.343520)); // 예술대학앞
         locationList.add(new LatLng(36.369522, 127.346725)); // 도서관앞

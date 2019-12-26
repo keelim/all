@@ -43,68 +43,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.addMarker(markerOptions);
         }
 
-//        MarkerOptions makerOptions = new MarkerOptions();
-//        makerOptions.position(m1);
-//        mMap.addMarker(makerOptions);
-//
-//        makerOptions = new MarkerOptions();
-//        makerOptions.position(m2);
-//        mMap.addMarker(makerOptions);
-//
-//        makerOptions = new MarkerOptions();
-//        makerOptions.position(m3);
-//        mMap.addMarker(makerOptions);
-//
-//        makerOptions = new MarkerOptions();
-//        makerOptions.position(m4);
-//        mMap.addMarker(makerOptions);
-//
-//        makerOptions = new MarkerOptions();
-//        makerOptions.position(m5);
-//        mMap.addMarker(makerOptions);
-//
-//        makerOptions = new MarkerOptions();
-//        makerOptions.position(m6);
-//        mMap.addMarker(makerOptions);
-//
-//        makerOptions = new MarkerOptions();
-//        makerOptions.position(m7);
-//        mMap.addMarker(makerOptions);
-//
-//        makerOptions = new MarkerOptions();
-//        makerOptions.position(m8);
-//        mMap.addMarker(makerOptions);
-//
-//        makerOptions = new MarkerOptions();
-//        makerOptions.position(m9);
-//        mMap.addMarker(makerOptions);
-//
-//        makerOptions = new MarkerOptions();
-//        makerOptions.position(m10);
-//        mMap.addMarker(makerOptions);
-//
-//        makerOptions = new MarkerOptions();
-//        makerOptions.position(m11);
-//        mMap.addMarker(makerOptions);
-//
-//        makerOptions = new MarkerOptions();
-//        makerOptions.position(m12);
-//        mMap.addMarker(makerOptions);
-//
-//        makerOptions = new MarkerOptions();
-//        makerOptions.position(m13);
-//        mMap.addMarker(makerOptions);
-//
-//        makerOptions = new MarkerOptions();
-//        makerOptions.position(m14);
-//        mMap.addMarker(makerOptions);
-//
-//        makerOptions = new MarkerOptions();
-//        makerOptions.position(m15);
-//        mMap.addMarker(makerOptions);
 //
         mMap.moveCamera(CameraUpdateFactory.newLatLng(locationList.get(location)));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(45));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
     }
 
 

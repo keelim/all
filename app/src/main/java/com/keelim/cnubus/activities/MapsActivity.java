@@ -52,11 +52,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.addMarker(markerOptions);
         }
         if (location != -1) { //리스트를 통해 들어오는 경우
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(36.363895, 127.345148)));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(36.363883, 127.345126)));
 //            mMap.moveCamera(CameraUpdateFactory.newLatLng(locationList.get(location)));
             mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
         } else { //액션바를 통해 들어오는 경우 location -1
             Toast.makeText(this, "일반모드를 선택하셨습니다.", Toast.LENGTH_SHORT).show();
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(36.363883, 127.345126)));
+            mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
         }
 
     }
@@ -79,7 +81,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void locationListInit() {
         locationList = new ArrayList<>();
-        locationList.add(new LatLng(36.363895, 127.345148)); //정삼화
+        locationList.add(new LatLng(36.363883, 127.345126)); //정삼화
         locationList.add(new LatLng(36.367002, 127.342782)); //한누리관 뒤
         locationList.add(new LatLng(36.368622, 127.341531)); // 서문
         locationList.add(new LatLng(36.374241, 127.343924)); // 음대

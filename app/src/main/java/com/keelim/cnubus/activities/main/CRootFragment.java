@@ -14,12 +14,14 @@ import androidx.fragment.app.Fragment;
 import com.keelim.cnubus.R;
 import com.keelim.cnubus.activities.MapsActivity;
 
+import org.jetbrains.annotations.NotNull;
+
 public class CRootFragment extends Fragment {
     private ListView listView;
     private String[] rootList;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_c_root, container, false);
         listView = root.findViewById(R.id.lv_croot);

@@ -1,7 +1,10 @@
 package com.keelim.cnubus.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -12,6 +15,8 @@ import androidx.preference.PreferenceFragmentCompat;
 
 import com.keelim.cnubus.R;
 import com.keelim.cnubus.activities.developer.DeveloperActivity;
+
+import org.jetbrains.annotations.NotNull;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -30,14 +35,23 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NotNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     public static class SettingsFragment extends PreferenceFragmentCompat {
+
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             addPreferencesFromResource(R.xml.settings_preferences);
         }
-
         @Override
-        public boolean onPreferenceTreeClick(Preference preference) { //preferebce 클릭 리스너
+        public boolean onPreferenceTreeClick(@NotNull Preference preference) { //preferebce 클릭 리스너
             String key = preference.getKey();
             if (key.equals("developer")) {
                 Intent intent_developer = new Intent(getContext(), DeveloperActivity.class);
@@ -48,21 +62,24 @@ public class SettingsActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             } else if (key.equals("update")) {
-                Toast.makeText(getContext(), "업데이트 기능 준비 중입니다. 잠시만 기다려 주세요", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "버전 확인 중입니다.", Toast.LENGTH_SHORT).show();
+                preference.setSummary(getVersionInfo(getContext()));
             }
-
             return false;
         }
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-            return true;
+        private String getVersionInfo(@NotNull Context context) {
+            String version = null;
+            try {
+                version = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
+            } catch (PackageManager.NameNotFoundException e) {
+                Log.e("update", "update error");
+            }
+            return version;
         }
-        return super.onOptionsItemSelected(item);
+
     }
 
+// private method
 
 }

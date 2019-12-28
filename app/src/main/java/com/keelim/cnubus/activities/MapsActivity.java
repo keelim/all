@@ -2,6 +2,7 @@ package com.keelim.cnubus.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.fragment.app.FragmentActivity;
 
@@ -26,26 +27,33 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_maps);
         locationListInit();
         intentControl();
-
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-        // intent control
+        if (mapFragment == null)
+            Toast.makeText(this, "오류가 발생을 하였습니다.", Toast.LENGTH_SHORT).show();
+        else
+            mapFragment.getMapAsync(this);
+
     }
 
     @Override
     public void onMapReady(final GoogleMap googleMap) {
         mMap = googleMap;
 
-        for (int i = 0; i < 15; i++) {
+        for (int index = 0; index < 15; index++) {
             MarkerOptions markerOptions = new MarkerOptions();
-            markerOptions.position(locationList.get(i));
+            markerOptions.position(locationList.get(index))
+                    .title(markerHandling(index));
             mMap.addMarker(markerOptions);
         }
 
-//
         mMap.moveCamera(CameraUpdateFactory.newLatLng(locationList.get(location)));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
+    }
+
+    private String markerHandling(int i) {
+        String[] mapArray = getResources().getStringArray(R.array.stations);
+        return mapArray[i];
     }
 
 

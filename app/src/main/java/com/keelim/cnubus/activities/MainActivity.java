@@ -21,23 +21,25 @@ import static androidx.fragment.app.FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CU
 
 public class MainActivity extends AppCompatActivity {
     private AdView adView;
-    ViewPagerAdapter pagerAdapter;
-    ViewPager viewPager;
+    private ViewPagerAdapter pagerAdapter;
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         MobileAds.initialize(this, getString(R.string.ADMOB_APP_ID));
         AdRequest adRequest = new AdRequest.Builder().build();
         adView = findViewById(R.id.adView);
         adView.loadAd(adRequest);
+
         popUp(); //팝업 실행
 
-        // ViewPager and tab layout configuration
         pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPager = findViewById(R.id.viewpager);
         viewPager.setAdapter(pagerAdapter);
+
         TabLayout tabLayout = findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
     }
@@ -65,22 +67,21 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-    public void popUp() {
-        Intent intent = new Intent(MainActivity.this, PopupActivity.class);
-        startActivityForResult(intent, 1); // 액티비티 간의 정보를 교환을 할 때
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // 예를 어떻게 설정을 해야 하나?
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
-                String result = data
-                        .getStringExtra("result");
+                String result = data.getStringExtra("result");
             }
         }
+    }
+
+
+    // private method
+    public void popUp() {
+        Intent intent = new Intent(MainActivity.this, PopupActivity.class);
+        startActivityForResult(intent, 1); // 액티비티 간의 정보를 교환을 할 때
     }
 
 }

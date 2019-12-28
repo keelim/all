@@ -50,16 +50,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             markerOptions.position(locationList.get(index))
                     .title(markerHandling(index));
             mMap.addMarker(markerOptions);
+
+            if (location != -1) { //리스트를 통해 들어오는 경우
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(locationList.get(0)));
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
+            } else { //액션바를 통해 들어오는 경우 location -1
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(locationList.get(index)));
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
+            }
         }
-        if (location != -1) { //리스트를 통해 들어오는 경우
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(36.363883, 127.345126)));
-//            mMap.moveCamera(CameraUpdateFactory.newLatLng(locationList.get(location)));
-            mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
-        } else { //액션바를 통해 들어오는 경우 location -1
-            Toast.makeText(this, "일반모드를 선택하셨습니다.", Toast.LENGTH_SHORT).show();
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(36.363883, 127.345126)));
-            mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
-        }
+
 
     }
 

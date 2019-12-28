@@ -19,7 +19,6 @@ import java.util.ArrayList;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-
     // GoogleMapActivity
     private GoogleMap mMap;
     private ArrayList<LatLng> locationList;

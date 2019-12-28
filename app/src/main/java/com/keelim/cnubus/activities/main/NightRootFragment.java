@@ -11,11 +11,13 @@ import androidx.fragment.app.Fragment;
 
 import com.keelim.cnubus.R;
 
+import org.jetbrains.annotations.NotNull;
+
 public class NightRootFragment extends Fragment {
     private ListView listView;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root =  inflater.inflate(R.layout.fragment_night_root, container, false);
         listView = root.findViewById(R.id.lv_nightroot);

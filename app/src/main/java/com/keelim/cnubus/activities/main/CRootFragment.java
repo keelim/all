@@ -30,24 +30,10 @@ public class CRootFragment extends Fragment {
 
         listView.setOnItemClickListener((parent, view, position, id) -> {
             Toast.makeText(getActivity(), rootList[position] + "기능 준비 중입니다. 잠시만 기다려 주세요", Toast.LENGTH_SHORT).show();
-//            Intent intent = new Intent(getActivity(), MapsActivity.class);
-//            intent.putExtra("location", "골프연습장 주차장");
-//            startActivity(intent);
         });
         return root;
     }
 
-//        <string-array name="croot">
-//    <item>골프연습장주차장(출발)</item>
-//        <item>도서관앞</item>
-//        <item>산학연구관</item>
-//        <item>GS주유소</item>
-//        <item>유성온천역 4번출구 옆시내버스정류장</item>
-//    <item>유성온천역(7번)</item>
-//        <item>정심화국제문화회관</item>
-//        <item>도서관</item>
-//        <item>골프연습장주차장</item>
-//    </string-array>
 
 
     private void applyList(String[] root) {

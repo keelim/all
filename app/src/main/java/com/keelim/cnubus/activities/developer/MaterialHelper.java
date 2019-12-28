@@ -7,6 +7,9 @@ import com.keelim.cnubus.R;
 import com.vansuita.materialabout.builder.AboutBuilder;
 import com.vansuita.materialabout.views.AboutView;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
 public class MaterialHelper {
 
     private Activity activity;
@@ -15,6 +18,7 @@ public class MaterialHelper {
         this.activity = activity;
     }
 
+    @NotNull
     public static MaterialHelper with(Activity activity) {
         return new MaterialHelper(activity);
     }

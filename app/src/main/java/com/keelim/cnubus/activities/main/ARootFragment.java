@@ -14,6 +14,8 @@ import androidx.fragment.app.Fragment;
 import com.keelim.cnubus.R;
 import com.keelim.cnubus.activities.MapsActivity;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 
 public class ARootFragment extends Fragment {
@@ -27,7 +29,7 @@ public class ARootFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root= inflater.inflate(R.layout.fragment_a_root, container, false);
         listView = root.findViewById(R.id.lv_aroot);

@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -17,6 +18,9 @@ import com.keelim.cnubus.R;
 import java.util.ArrayList;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+
+
+    // GoogleMapActivity
     private GoogleMap mMap;
     private ArrayList<LatLng> locationList;
     private int location;
@@ -34,6 +38,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         else
             mapFragment.getMapAsync(this);
 
+        MapsInitializer.initialize(this);
     }
 
     @Override
@@ -46,9 +51,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     .title(markerHandling(index));
             mMap.addMarker(markerOptions);
         }
+        if (location != -1) { //리스트를 통해 들어오는 경우
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(36.363895, 127.345148)));
+//            mMap.moveCamera(CameraUpdateFactory.newLatLng(locationList.get(location)));
+            mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
+        } else { //액션바를 통해 들어오는 경우 location -1
+            Toast.makeText(this, "일반모드를 선택하셨습니다.", Toast.LENGTH_SHORT).show();
+        }
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(locationList.get(location)));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
     }
 
     private String markerHandling(int i) {
@@ -64,7 +74,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (stringLocation != null) {
             location = Integer.parseInt(stringLocation);
         } else
-            location = 0;
+            location = -1;
     }
 
     private void locationListInit() {
@@ -85,4 +95,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         locationList.add(new LatLng(36.365505, 127.345159)); //산학협력관
         locationList.add(new LatLng(36.367564, 127.345800)); //경상대학
     }
+
+
 }

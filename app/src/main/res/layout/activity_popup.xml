@@ -1,63 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <data>
-        <variable
-            name="activity"
-            type="com.keelim.cnubus.activities.PopupActivity" />
+<LinearLayout android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:background="#eeeeee"
+    android:theme="@style/Theme.AppCompat.NoActionBar"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    </data>
 
     <LinearLayout
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#eeeeee"
-        android:theme="@style/Theme.AppCompat.NoActionBar"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="18dp">
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="18dp">
+            android:layout_gravity="center"
+            android:text="A노선\n B노선 \n 야간노선을 지원합니다.\n 시간은 정확하지 않습니다. "
+            android:textSize="19sp"
+            android:textColor="#000000" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="A노선\n B노선 \n 야간노선을 지원합니다.\n 시간은 정확하지 않습니다. "
-                android:textSize="19sp"
-                android:textColor="#000000" />
-
-        </LinearLayout>
-        <!-- Notice -->
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#66bdbdbd" />
-
-        <!-- 닫기 버튼 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="53dp"
-                android:background="#00000000"
-                android:gravity="center"
-                android:onClick="mOnClose"
-                android:padding="16dp"
-                android:text="닫기"
-                android:textColor="#000000"
-                android:textSize="15sp" />
-        </LinearLayout>
-        <!--// 닫기 버튼 -->
     </LinearLayout>
-</layout>
+    <!-- Notice -->
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#66bdbdbd" />
+
+    <!-- 닫기 버튼 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:background="#00000000"
+            android:gravity="center"
+            android:onClick="mOnClose"
+            android:padding="16dp"
+            android:text="닫기"
+            android:textColor="#000000"
+            android:textSize="15sp" />
+    </LinearLayout>
+    <!--// 닫기 버튼 -->
+</LinearLayout>
 
 

@@ -89,7 +89,6 @@ public class FirebaseInstanceIDService extends FirebaseMessagingService {
                             .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);
 
             NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
             notificationManager.notify(9999, notificationBuilder.build());
 
         }

@@ -17,10 +17,6 @@
         android:theme="@style/AppTheme">
         <activity android:name=".activities.OpenSourceActivity" />
 
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
-
         <activity
             android:name=".activities.MapsActivity"
             android:label="@string/title_activity_maps" />
@@ -52,10 +48,12 @@
         <service
             android:name=".services.FirebaseInstanceIDService"
             android:exported="false">
+
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
 
         <meta-data
             android:name="io.fabric.ApiKey"
@@ -63,6 +61,11 @@
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/ADMOB_APP_ID" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
     </application>
 
 </manifest>

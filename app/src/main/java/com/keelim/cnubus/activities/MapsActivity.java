@@ -49,9 +49,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     .title(markerHandling(index));
             mMap.addMarker(markerOptions);
         }
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(locationList.get(location), 17);
+        CameraUpdate cameraUpdate;
+        if (location == -1) {
+            cameraUpdate = CameraUpdateFactory.newLatLngZoom(locationList.get(0), 17);
+        } else {
+            cameraUpdate = CameraUpdateFactory.newLatLngZoom(locationList.get(location), 17);
+        }
         mMap.animateCamera(cameraUpdate);
-
     }
 
     // private method

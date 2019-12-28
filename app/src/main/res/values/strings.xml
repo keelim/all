@@ -1,12 +1,7 @@
 <resources>
     <string name="app_name">충남대버스</string>
-    <string name="a_root">A 노선</string>
-    <string name="b_root">B 노선</string>
-    <string name="c_root">C 노선</string>
     <string name="ADMOB_APP_ID">ca-app-pub-3115620439518585~7951570697</string>
-    <string name="setting">Setting</string>
     <string name="cnu_bus">CNUBUS</string>
-    <string name="copyright">Copyright © Keel_im Corp. All rights reserved.</string>
     <string name="title_activity_settings">설정</string>
     <string name="busurl">http://plus.cnu.ac.kr/html/kr/sub05/sub05_050403.html/</string>
 
@@ -64,9 +59,8 @@
         <item>도서관</item>
         <item>학생생활관</item>
     </string-array>
-
     <string name="title_activity_maps">주변정류장찾기</string>
-    <string name="version">version 2.0</string>
+
     <string-array name="a_intent_array">
         <item>0</item>
         <item>14</item>
@@ -114,7 +108,6 @@
         <item>도서관앞(대학본부옆농대방향)</item>
         <item>농업생명과학대학 앞</item>
         <item>동문주차장</item>
-        <item>농업생명과학대학앞</item>
         <item>학생생활관3거리</item>
         <item>도서관앞(도서관삼거리 방향)</item>
         <item>공과대학앞</item>

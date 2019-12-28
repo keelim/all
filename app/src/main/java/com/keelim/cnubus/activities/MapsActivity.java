@@ -6,9 +6,9 @@ import android.widget.Toast;
 
 import androidx.fragment.app.FragmentActivity;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -37,9 +37,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Toast.makeText(this, "오류가 발생을 하였습니다.", Toast.LENGTH_SHORT).show();
         else
             mapFragment.getMapAsync(this);
-
-        MapsInitializer.initialize(this);
     }
+
 
     @Override
     public void onMapReady(final GoogleMap googleMap) {
@@ -50,26 +49,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             markerOptions.position(locationList.get(index))
                     .title(markerHandling(index));
             mMap.addMarker(markerOptions);
-
-            if (location != -1) { //리스트를 통해 들어오는 경우
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(locationList.get(0)));
-                mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
-            } else { //액션바를 통해 들어오는 경우 location -1
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(locationList.get(index)));
-                mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
-            }
         }
-
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(locationList.get(location), 17);
+        mMap.animateCamera(cameraUpdate);
 
     }
 
+    // private method
     private String markerHandling(int i) {
         String[] mapArray = getResources().getStringArray(R.array.stations);
         return mapArray[i];
     }
 
-
-    // private method
     private void intentControl() {
         Intent intent = getIntent();
         String stringLocation = intent.getStringExtra("location");
@@ -81,8 +72,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void locationListInit() {
         locationList = new ArrayList<>();
-        locationList.add(new LatLng(36.363883, 127.345126)); //정삼화
-        locationList.add(new LatLng(36.367002, 127.342782)); //한누리관 뒤
+        locationList.add(new LatLng(36.363876, 127.345119)); //정삼화
+        locationList.add(new LatLng(36.367262, 127.342408)); //한누리관 뒤
         locationList.add(new LatLng(36.368622, 127.341531)); // 서문
         locationList.add(new LatLng(36.374241, 127.343924)); // 음대
         locationList.add(new LatLng(36.376406, 127.344168)); // 공동 동물
@@ -98,5 +89,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         locationList.add(new LatLng(36.367564, 127.345800)); //경상대학
     }
 
-
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }

@@ -58,10 +58,19 @@ public class SettingsActivity extends AppCompatActivity {
                     Intent intent = new Intent(getContext(), OpenSourceActivity.class);
                     startActivity(intent);
                     return true;
+
                 case "update":
                     Toast.makeText(getContext(), "버전 확인 중입니다.", Toast.LENGTH_SHORT).show();
                     preference.setSummary(getVersionInfo(getContext()));
-                    break;
+                    return true;
+
+                case "mail":
+                    Intent mail = new Intent(Intent.ACTION_SEND);
+                    mail.setType("plain/Text");
+                    mail.putExtra(Intent.EXTRA_EMAIL, "kimh00335@gmail.com");
+                    mail.putExtra(Intent.EXTRA_SUBJECT, "[cnuBus] 문의 사항");
+                    startActivity(mail);
+                    return true;
             }
             return false;
         }

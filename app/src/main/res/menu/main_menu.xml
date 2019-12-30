@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group>
+        <item
+            android:id="@+id/drawer_root_check"
+            android:title="노선 시간표 알아보기" />
+        <item
+            android:id="@+id/gps"
+            android:icon="@drawable/gps"
+            android:title="주변 정류장 찾기"
+            app:showAsAction="always" />
+        <item
+            android:id="@+id/menu_setting"
+            android:title="설정" />
+    </group>
+</menu>
+
+

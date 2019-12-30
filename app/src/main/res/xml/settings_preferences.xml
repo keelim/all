@@ -1,0 +1,20 @@
+<androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory>
+        <Preference
+            app:key="app_share"
+            app:title="앱 공유하기" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="정보">
+        <Preference
+            app:key="opensource"
+            app:title="오픈소스 라이선스" />
+
+        <Preference
+            app:key="update"
+            app:title="어플리케이션 버전확인" />
+    </PreferenceCategory>
+
+</androidx.preference.PreferenceScreen>

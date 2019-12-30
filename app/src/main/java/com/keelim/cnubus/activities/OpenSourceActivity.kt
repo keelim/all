@@ -10,7 +10,7 @@ class OpenSourceActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_open_source)
-        Toast.makeText(this, "기능 준비 중입니다. 잠시만 기다려 주세요", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "오픈소스 기능 고지 입니다.", Toast.LENGTH_LONG).show()
     }
 
 }

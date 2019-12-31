@@ -2,7 +2,6 @@ package com.keelim.cnubus;
 
 import android.content.Context;
 
-
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
 

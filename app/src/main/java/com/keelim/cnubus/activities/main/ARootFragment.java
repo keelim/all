@@ -16,8 +16,6 @@ import com.keelim.cnubus.activities.MapsActivity;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-
 public class ARootFragment extends Fragment {
     private ListView listView;
     private String[] rootList;

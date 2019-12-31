@@ -54,6 +54,9 @@ public class SettingsActivity extends AppCompatActivity {
         public boolean onPreferenceTreeClick(@NotNull Preference preference) { //preferebce 클릭 리스너
             String key = preference.getKey();
             switch (key) {
+                case "app_share":
+
+                    break;
                 case "opensource":
                     Intent intent = new Intent(getContext(), OpenSourceActivity.class);
                     startActivity(intent);

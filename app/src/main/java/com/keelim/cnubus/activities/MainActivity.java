@@ -76,12 +76,6 @@ public class MainActivity extends AppCompatActivity {
                     String result = data.getStringExtra("result");
                 }
                 break;
-            case 2:
-
-                break;
-            case 3:
-
-                break;
         }
     }
 

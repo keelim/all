@@ -5,18 +5,18 @@ import androidx.room.*
 @Dao
 interface PersonDao {
     @Query("select * from person")
-    fun getAllPerson(): List<Person>
+    fun getAllPerson(): List<Locate>
 
     @Query("delete from person")
     fun clearAll()
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(vararg person:Person)
+    fun insert(vararg locates:Locate)
 
     @Update
-    fun update(vararg person:Person)
+    fun update(vararg locates:Locate)
 
     @Delete
-    fun delete(vararg person:Person)
+    fun delete(vararg locates:Locate)
 
 }

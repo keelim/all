@@ -4,8 +4,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-class Person(
+class Locate(
         @PrimaryKey val id: Int,
-        val name: String,
-        val job: String
+        val xlocation: Double,
+        val ylocation: Double
 )

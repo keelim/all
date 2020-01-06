@@ -96,7 +96,7 @@
         <item>13</item>
         <item>0</item>
     </string-array>
-    
+
     <string-array name="stations">
         <item>정심화국제문화회관</item>
         <item>사회과학대학입구(한누리회관뒤)</item>
@@ -114,5 +114,14 @@
         <item>산학연교육연구관앞</item>
         <item>경상대학교</item>
     </string-array>
+    <string name="title_activity_temp">TempActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
 </resources>

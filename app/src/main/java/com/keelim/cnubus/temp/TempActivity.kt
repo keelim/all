@@ -31,6 +31,7 @@ class TempActivity : AppCompatActivity() {
         }
 
         binding.tvSample.text = "임시 화면 입니다."
+
         subscribeUi(binding)
     }
 

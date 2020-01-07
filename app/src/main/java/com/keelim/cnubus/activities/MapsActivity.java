@@ -39,7 +39,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     @Override
-    public void onMapReady(final GoogleMap googleMap) {
+    public void onMapReady(final GoogleMap googleMap) { //구글 맵은 처음 사용을 하는 거니까
         mMap = googleMap;
 
         for (int index = 0; index < 15; index++) {

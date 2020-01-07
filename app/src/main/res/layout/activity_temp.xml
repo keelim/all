@@ -9,7 +9,7 @@
         <variable
             name="user"
             type="com.keelim.cnubus.temp.User" />
-        
+
         <variable
             name="viewModel"
             type="com.keelim.cnubus.temp.TempViewModel" />
@@ -72,10 +72,8 @@
             app:layout_constraintVertical_bias="0.896" />
 
         <ImageView
-            app:bind_image_error="@android:drawable/ic_dialog_email"
             app:bind_image="@{user.profileURL}"
             android:id="@+id/imageView"
-            android:onClick="@{()->viewModel.onClickHandler()}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@+id/tv_sample2"

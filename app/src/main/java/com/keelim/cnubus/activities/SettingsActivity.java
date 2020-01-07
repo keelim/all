@@ -32,6 +32,8 @@ public class SettingsActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+        Toast.makeText(this, "설정 화면 입니다.", Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
@@ -48,6 +50,7 @@ public class SettingsActivity extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             addPreferencesFromResource(R.xml.settings_preferences);
+
         }
 
         @Override
@@ -78,7 +81,7 @@ public class SettingsActivity extends AppCompatActivity {
             return false;
         }
 
-        private String getVersionInfo(@NotNull Context context) {
+        private String getVersionInfo(@NotNull Context context) { // 버전을 확인을 하는 메소드
             String version = null;
             try {
                 version = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
@@ -90,6 +93,5 @@ public class SettingsActivity extends AppCompatActivity {
 
     }
 
-// private method
 
 }

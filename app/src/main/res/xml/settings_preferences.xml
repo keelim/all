@@ -16,7 +16,14 @@
             app:title="앱 공유하기" />
         <Preference
             app:key="mail"
-            app:title="개발자 문의 메일 보내기"/>
+            app:title="개발자 문의 메일 보내기" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="실험실">
+        <Preference
+            app:key="lab1"
+            app:title="경로 추적" />
+
     </PreferenceCategory>
 
 </androidx.preference.PreferenceScreen>

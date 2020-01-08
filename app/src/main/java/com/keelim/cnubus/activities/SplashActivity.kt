@@ -8,7 +8,7 @@ import com.keelim.cnubus.R
 
 class SplashActivity : AppCompatActivity() {
     //인트로 액티비티를 생성한다.
-    private var handler: Handler? = null
+    private lateinit var handler: Handler
     private val runnable = Runnable {
         //runable 작동을 하고 시작
         val intent = Intent(this, MainActivity::class.java)
@@ -21,11 +21,11 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         handler = Handler()
-        handler!!.postDelayed(runnable, 1000) //handler 를 통하여 사용
+        handler.postDelayed(runnable, 1000) //handler 를 통하여 사용
     }
 
     override fun onBackPressed() { //back 키 눌렀을 때
         super.onBackPressed()
-        handler!!.removeCallbacks(runnable)
+        handler.removeCallbacks(runnable)
     }
 }

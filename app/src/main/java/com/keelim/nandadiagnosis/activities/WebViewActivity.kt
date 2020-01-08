@@ -46,6 +46,7 @@ class WebViewActivity : AppCompatActivity() {
     }
 
     private fun urlHandling(): String {
-        return intent.getStringExtra("URL")
+        val url = intent.getStringExtra("URL")
+        return url
     }
 }

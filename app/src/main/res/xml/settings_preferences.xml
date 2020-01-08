@@ -23,7 +23,6 @@
         <Preference
             app:key="lab1"
             app:title="경로 추적" />
-
     </PreferenceCategory>
 
 </androidx.preference.PreferenceScreen>

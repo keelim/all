@@ -13,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.keelim.cnubus.ModeCode;
 import com.keelim.cnubus.R;
 
 import org.jetbrains.annotations.NotNull;
@@ -58,8 +60,7 @@ public class SettingsActivity extends AppCompatActivity {
             String key = preference.getKey();
             switch (key) {
                 case "app_share":
-
-                    break;
+                    return true;
                 case "opensource":
                     Intent intent = new Intent(getContext(), OpenSourceActivity.class);
                     startActivity(intent);
@@ -76,6 +77,21 @@ public class SettingsActivity extends AppCompatActivity {
                     mail.putExtra(Intent.EXTRA_EMAIL, "kimh00335@gmail.com");
                     mail.putExtra(Intent.EXTRA_SUBJECT, "[cnuBus] 문의 사항");
                     startActivity(mail);
+                    return true;
+
+                case "lab1":
+                    new MaterialAlertDialogBuilder(getContext())
+                            .setTitle("실험기능")
+                            .setMessage("실험기능으로 앱이 갑자기 정지 할 수 있습니다.\n 그래도 실행하시겠습니까")
+                            .setPositiveButton("예", (dialog, which) -> {
+                                Intent lab = new Intent(getContext(), MapsActivity.class);
+                                lab.putExtra("lab1", ModeCode.LAB1.ordinal());
+                                startActivity(lab);
+                            })
+                            .setNegativeButton("아니오", (dialog, which) -> {
+
+                            })
+                            .show();
                     return true;
             }
             return false;

@@ -31,7 +31,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="682dp"
         app:adSize="BANNER"
-        app:adUnitId="ca-app-pub-3115620439518585/2593741731"
+        app:adUnitId="@string/ADMOB_UNIT_ID"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

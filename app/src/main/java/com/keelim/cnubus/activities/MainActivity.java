@@ -40,8 +40,6 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tabLayout = findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
-
-        popUp(); //팝업 실행
     }
 
 
@@ -60,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (id == R.id.menu_setting) {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent); //설정 창으로 이동을 한다.
-        } else if(id == R.id.gps){
+        } else if (id == R.id.gps) {
             Intent intent = new Intent(this, MapsActivity.class);
             startActivity(intent); //설정 창으로 이동을 한다.MapsActivity.class);
         }
@@ -77,12 +75,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
         }
-    }
-
-    // private method
-    private void popUp() {
-        Intent intent = new Intent(MainActivity.this, PopupActivity.class);
-        startActivityForResult(intent, 1); // 액티비티 간의 정보를 교환을 할 때
     }
 
 }

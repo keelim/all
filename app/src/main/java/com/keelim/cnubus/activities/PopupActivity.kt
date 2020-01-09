@@ -21,7 +21,7 @@ class PopupActivity : AppCompatActivity() {
         return event.action != MotionEvent.ACTION_OUTSIDE
     }
 
-    fun mOnClose(view: View?) { //activity result
+    fun mOnClose(view: View?) { //Main 에서 result OK 코드를 받음
         val intent = Intent()
         intent.putExtra("result", "Close Popup")
         setResult(Activity.RESULT_OK, intent)

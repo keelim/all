@@ -8,14 +8,15 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.keelim.nandadiagnosis.R;
+import com.keelim.nandadiagnosis.mainfragment.search.roomdb.Diagnosis;
 
 import java.util.List;
 
 public class DatabaseAdapter extends BaseAdapter {
     private Context context;
-    private List<DatabaseItem> arrayList;
+    private List<Diagnosis> arrayList;
 
-    public DatabaseAdapter(Context context, List<DatabaseItem> arrayList) {
+    public DatabaseAdapter(Context context, List<Diagnosis> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
     }

@@ -45,8 +45,8 @@ class WebViewActivity : AppCompatActivity() {
         return super.onKeyDown(keyCode, event)
     }
 
-    private fun urlHandling(): String {
-        val url = intent.getStringExtra("URL")
+    private fun urlHandling(): String? {
+        val url: String? = intent.getStringExtra("URL")
         return url
     }
 }

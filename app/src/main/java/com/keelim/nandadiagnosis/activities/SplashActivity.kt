@@ -18,7 +18,7 @@ import io.fabric.sdk.android.Fabric
 class SplashActivity : AppCompatActivity() {
     //handler를 다르게 설정을 할 수 있는가?
     private var handler: Handler = Handler()
-    private var interstitialAd: InterstitialAd? = null
+    private lateinit var interstitialAd: InterstitialAd
     // 인앱 업데이트를 등록을 하는 방법
     private val runnable = Runnable {
         //runable 작동을 하고 시작
@@ -36,10 +36,10 @@ class SplashActivity : AppCompatActivity() {
 
         MobileAds.initialize(this) { initializationStatus: InitializationStatus? -> }
         interstitialAd = InterstitialAd(this) //전면광고 셋팅
-        interstitialAd!!.adUnitId = getString(R.string.test_ad)
-        interstitialAd!!.adListener = object : AdListener() {
+        interstitialAd.adUnitId = getString(R.string.test_ad)
+        interstitialAd.adListener = object : AdListener() {
             override fun onAdLoaded() {
-                interstitialAd!!.show()
+                interstitialAd.show()
             }
 
             override fun onAdClosed() {
@@ -51,7 +51,7 @@ class SplashActivity : AppCompatActivity() {
             }
         }
         val adRequest = AdRequest.Builder().build()
-        interstitialAd!!.loadAd(adRequest)
+        interstitialAd.loadAd(adRequest)
     }
 
     override fun onBackPressed() { //back 키 눌렀을 때

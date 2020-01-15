@@ -9,6 +9,7 @@ import com.keelim.nandadiagnosis.activities.WebViewActivity
 import com.keelim.nandadiagnosis.help.OpenSourceActivity
 import com.keelim.nandadiagnosis.help.PleaseActivity
 import com.keelim.nandadiagnosis.help.QuestionActivity
+import com.keelim.nandadiagnosis.mainfragment.search.roomdb.DiagnoDatabase
 
 class SettingFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle, rootKey: String) {

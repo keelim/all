@@ -8,7 +8,7 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
 
-@Database(entities = arrayOf(Diagnosis::class), version = 2)
+@Database(entities = arrayOf(Diagnosis::class), version = 2, exportSchema = false)
 abstract class DiagnoDatabase : RoomDatabase() {
 
     abstract fun getDiagnosisDao(): DiagnosisDao

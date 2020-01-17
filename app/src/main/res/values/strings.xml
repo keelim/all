@@ -20,7 +20,7 @@
         <item>비효과적 가족 건강관리</item>
         <item>불이행</item>
         <item>비효과적보호</item>
-        <item>start불충분한 모유</item>
+        <item>불충분한 모유</item>
         <item>비효과적 모유수유</item>
         <item>모유수유 중단</item>
         <item>모유수유 향상을 위한 준비</item>
@@ -30,8 +30,8 @@
         <item>비만</item>
         <item>과체중</item>
         <item>과체중의 위험</item>
-        <item>연하장애 end</item>
-        <item>start 불안정한 혈당수치의 위험</item>
+        <item>연하장애</item>
+        <item>불안정한 혈당수치의 위험</item>
         <item>신생아의 황달</item>
         <item>신생아의 황달의 위험</item>
         <item>간기능 장애의 위험</item>
@@ -40,8 +40,8 @@
         <item>체액 부족</item>
         <item>체액 부족의 위험</item>
         <item>체액 과다</item>
-        <item>체액 불균형의 위험 end</item>
-        <item>start 배뇨장애</item>
+        <item>체액 불균형의 위험</item>
+        <item>배뇨장애</item>
         <item>배뇨 향상을 위한 준비</item>
         <item>기능적 요실금</item>
         <item>익류성 요실금</item>
@@ -59,8 +59,8 @@
         <item>기능장애성 위장관 운동</item>
         <item>기능장애성 위장관 운동의 위험</item>
         <item>변실금</item>
-        <item>가스교환 장애 end</item>
-        <item>start 불면증</item>
+        <item>가스교환 장애</item>
+        <item>불면증</item>
         <item>수면 박탈</item>
         <item>수면 향상을 위한 준비</item>
         <item>수면 양상 장애</item>
@@ -94,8 +94,8 @@
         <item>음식 섭취 자기돌봄 결핍</item>
         <item>용변 자기돌봄 결핍</item>
         <item>자기돌봄을 향상을 위한 준비</item>
-        <item>자기무시 end</item>
-        <item>start 편측성 지각이상</item>
+        <item>자기무시</item>
+        <item>편측성 지각이상</item>
         <item>급성 혼동</item>
         <item>급성 혼동의 위험</item>
         <item>만성 혼동</item>
@@ -105,8 +105,8 @@
         <item>지식 향상을 위한 준비</item>
         <item>기억장애</item>
         <item>의사소통 향상을 위한 준비</item>
-        <item>언어적 의사소통 장애 end</item>
-        <item>start 희망 향상을 위한 준비</item>
+        <item>언어적 의사소통 장애</item>
+        <item>희망 향상을 위한 준비</item>
         <item>절망감</item>
         <item>인간 존엄성 혼란 위험</item>
         <item>자아정체성 혼란</item>
@@ -116,8 +116,8 @@
         <item>만성적 자존감 저하의 위험</item>
         <item>상황적 자존감 저하</item>
         <item>상황적 자존감 저하의 위험</item>
-        <item>신체상 혼란 end</item>
-        <item>start 돌봄제공자의 역할 긴장</item>
+        <item>신체상 혼란</item>
+        <item>돌봄제공자의 역할 긴장</item>
         <item>돌봄제공자의 역할 긴장의 위험</item>
         <item>부모 역할 장애</item>
         <item>부모 역할 향상을 위한 준비</item>
@@ -131,7 +131,7 @@
         <item>비효과적 관계의 위험</item>
         <item>부모 역할 갈등</item>
         <item>비효과적 역할 수행</item>
-        <item>사회적 상호작용 장애end</item>
+        <item>사회적 상호작용 장애</item>
         <item>start 성기능 장애</item>
         <item>비효과적 성적 양상</item>
         <item>비효과적 임신과 출산과정</item>
@@ -239,8 +239,6 @@
         <item>만성 통증</item>
         <item>분만 통증</item>
         <item>만성 통증 증후군</item>
-        <item>안위 손상</item>
-        <item>안위 향상을 위한 준비</item>
         <item>외로움의 위험</item>
         <item>사회적 고립 end </item>
         <item>start 불균형적 성장의 위험</item>

@@ -37,56 +37,56 @@ class DiagnosisActivity : AppCompatActivity() {
         val pointer = intent.getStringExtra("extra")
         when (Objects.requireNonNull(pointer)) {
             "1" -> {
-                customAdd(0, 11, array1) //ok 1~12
                 nav = 0
+                customAdd(nav, 11, array1) //ok 1~12
             }
             "2" -> {
-                customAdd(12, 22, array1)
                 nav = 12
+                customAdd(nav, 22, array1) // 13~23
             }
             "3" -> {
-                customAdd(23, 32, array1)
                 nav = 23
+                customAdd(nav, 32, array1) //24~33
             }
             "4" -> {
-                customAdd(33, 51, array1)
                 nav = 33
+                customAdd(nav, 51, array1) //34~52
             }
             "5" -> {
-                customAdd(52, 86, array1)
                 nav = 52
+                customAdd(nav, 86, array1) //53~87
             }
             "6" -> {
-                customAdd(87, 97, array1)
                 nav = 87
+                customAdd(nav, 97, array1) //88 ~98
             }
             "7" -> {
-                customAdd(98, 108, array1)
                 nav = 98
+                customAdd(nav, 108, array1) //99~109
             }
             "8" -> {
-                customAdd(109, 123, array1)
                 nav = 109
+                customAdd(nav, 123, array1) //110~124
             }
             "9" -> {
-                customAdd(124, 129, array1)
                 nav = 124
+                customAdd(nav, 129, array1) //125~130
             }
             "10" -> {
-                customAdd(130, 168, array1)
                 nav = 130
+                customAdd(nav, 168, array1) //131~168
             }
             "11" -> {
-                customAdd(169, 179, array1)
-                nav = 169
+                nav = 168
+                customAdd(nav, 179, array1) //169~179
             }
             "12" -> {
-                customAdd(180, 207, array1)
-                nav = 180
+                nav = 179
+                customAdd(nav, 207, array1) //180~206
             }
             "13" -> {
-                customAdd(208, 236, array1)
-                nav = 208
+                nav = 206
+                customAdd(nav, 237, array1) //207~236
             }
         }
     }

@@ -118,7 +118,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             val inputStream = response.body!!.byteStream()
-            val outputStream: OutputStream = FileOutputStream(fileToBeDownloaded)
+            val outputStream: FileOutputStream = FileOutputStream(fileToBeDownloaded)
             val BUFFER_SIZE = 2046
             val data = ByteArray(BUFFER_SIZE)
             var count: Int

@@ -8,7 +8,7 @@
     <string name="test_ad">ca-app-pub-3940256099942544/1033173712</string>
 
     <string-array name="diagnosis1">
-        <item>start 여가 활동 부족</item>
+        <item>여가 활동 부족</item>
         <item>비활동적 생활양식</item>
         <item>허약노인증후군</item>
         <item>허약노인증후군의 위험</item>
@@ -19,7 +19,7 @@
         <item>건강관리 향상을 위한 준비</item>
         <item>비효과적 가족 건강관리</item>
         <item>불이행</item>
-        <item>비효과적보호 end</item>
+        <item>비효과적보호</item>
         <item>start불충분한 모유</item>
         <item>비효과적 모유수유</item>
         <item>모유수유 중단</item>

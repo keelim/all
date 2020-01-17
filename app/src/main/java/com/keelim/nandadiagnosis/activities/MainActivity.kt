@@ -111,7 +111,7 @@ class MainActivity : AppCompatActivity() {
                 val flag = fileToBeDownloaded.createNewFile()
                 Log.e("file create", "파일 만들기: $flag")
             } catch (e: IOException) {
-                Log.e("Error", Objects.requireNonNull(e.message))
+                Log.e("Error", e.message)
                 runOnUiThread {
                     Toast.makeText(this@MainActivity, "다운로드 파일을 생성할 수 없습니다.\n 데이터베이스 부족으로 인해 종료 합니다. ", Toast.LENGTH_SHORT).show()
                     finish()

@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.mainfragment.search
+package com.keelim.nandadiagnosis.search
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.mainfragment.search.roomdb.NandaEntity
+import com.keelim.nandadiagnosis.search.roomdb.NandaEntity
 
 class DatabaseAdapter(private val context: Context, private val arrayList: List<NandaEntity>) : BaseAdapter() {
     override fun getCount(): Int {

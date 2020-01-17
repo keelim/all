@@ -1,9 +1,7 @@
-package com.keelim.nandadiagnosis.mainfragment.search.roomdb
+package com.keelim.nandadiagnosis.search.roomdb
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import org.jetbrains.annotations.NotNull
 
 @Entity(tableName = "nanda")
 data class NandaEntity(

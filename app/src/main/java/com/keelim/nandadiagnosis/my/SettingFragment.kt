@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.mainfragment.my
+package com.keelim.nandadiagnosis.my
 
 import android.content.Intent
 import android.os.Bundle

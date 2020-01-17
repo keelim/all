@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.mainfragment.search.roomdb
+package com.keelim.nandadiagnosis.search.roomdb
 
 import androidx.room.Dao
 import androidx.room.Query

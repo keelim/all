@@ -18,7 +18,6 @@ class DiagnosisActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_diagnosislist)
-        arrayList = ArrayList()
         arrayListSetting()
         val adapter = MyDiagnosisViewAdapter(this, arrayList)
         val listView = findViewById<ListView>(R.id.list)

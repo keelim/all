@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.mainfragment.search.roomdb
+package com.keelim.nandadiagnosis.search.roomdb
 
 import android.content.Context
 import androidx.room.Database

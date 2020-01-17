@@ -2,7 +2,6 @@ package com.keelim.nandadiagnosis.mainfragment.search
 
 import android.app.SearchManager
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.AdapterView
@@ -12,7 +11,6 @@ import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.activities.WebViewActivity
 import com.keelim.nandadiagnosis.mainfragment.search.roomdb.AppDatabase
 import com.keelim.nandadiagnosis.mainfragment.search.roomdb.NandaEntity
 
@@ -39,12 +37,12 @@ class SearchFragment : Fragment() {
         inflater.inflate(R.menu.search_menu, menu)
         val item = menu.findItem(R.id.menu_search)
 
-        val searchView = item.actionView as SearchView
+        val searchView: SearchView? = item.actionView as SearchView
         val searchManager = activity!!.getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(activity!!.componentName))
-        searchView.isSubmitButtonEnabled = true
+        searchView?.setSearchableInfo(searchManager.getSearchableInfo(activity!!.componentName))
+        searchView?.isSubmitButtonEnabled = true
 
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             //검색을 할 수 있게 하는 것
             override fun onQueryTextSubmit(query: String): Boolean {
                 var items = searchDiagnosis(query) //검색을 한다.
@@ -61,7 +59,6 @@ class SearchFragment : Fragment() {
     }
 
     private fun searchDiagnosis(keyword: String): List<NandaEntity> { //여기까지는 이상이 없는 것 같다.
-        val temp = "%$keyword%"
-        return AppDatabase.getInstance(activity!!)!!.DataDao().search(temp)
+        return AppDatabase.getInstance(activity!!)!!.DataDao().search("%$keyword%")
     }
 }

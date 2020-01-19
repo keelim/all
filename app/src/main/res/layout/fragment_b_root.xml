@@ -5,7 +5,7 @@
     android:id="@+id/brootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.main.BRootFragment">
+    tools:context=".view.main.BRootFragment">
 
     <ListView
         android:id="@+id/lv_broot"

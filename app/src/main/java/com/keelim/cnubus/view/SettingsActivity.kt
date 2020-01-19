@@ -1,4 +1,4 @@
-package com.keelim.cnubus.activities
+package com.keelim.cnubus.view
 
 import android.content.Context
 import android.content.DialogInterface

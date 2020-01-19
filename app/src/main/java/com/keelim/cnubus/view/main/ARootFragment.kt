@@ -1,4 +1,4 @@
-package com.keelim.cnubus.activities.main
+package com.keelim.cnubus.view.main
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,7 +12,7 @@ import android.widget.ListView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.keelim.cnubus.R
-import com.keelim.cnubus.activities.MapsActivity
+import com.keelim.cnubus.view.MapsActivity
 
 class ARootFragment : Fragment() {
     private lateinit var rootList: Array<String>

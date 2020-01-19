@@ -3,17 +3,15 @@ package com.keelim.cnubus.view
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.keelim.cnubus.model.ModeCode
 import com.keelim.cnubus.R
+import com.keelim.cnubus.model.ModeCode
 
 class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,8 +21,9 @@ class SettingsActivity : AppCompatActivity() {
             .beginTransaction()
             .replace(R.id.settings, SettingsFragment())
             .commit()
-        val actionBar = supportActionBar
-        actionBar?.setDisplayHomeAsUpEnabled(true)
+        val actionBar = supportActionBar?.run {
+            setDisplayShowHomeEnabled(true)
+        }
         Toast.makeText(this, "설정 화면 입니다.", Toast.LENGTH_SHORT).show()
     }
 
@@ -39,13 +38,13 @@ class SettingsActivity : AppCompatActivity() {
     class SettingsFragment : PreferenceFragmentCompat() {
         override fun onCreatePreferences(
             savedInstanceState: Bundle,
-            rootKey: String) {
+            rootKey: String
+        ) {
             addPreferencesFromResource(R.xml.settings_preferences)
         }
 
         override fun onPreferenceTreeClick(preference: Preference): Boolean { //preferebce 클릭 리스너
-            val key = preference.key
-            when (key) {
+            when (preference.key) {
                 "app_share" -> return true
                 "opensource" -> {
                     val intent = Intent(context, OpenSourceActivity::class.java)
@@ -87,13 +86,9 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         private fun getVersionInfo(context: Context): String? { // 버전을 확인을 하는 메소드
-            var version: String? = null
-            try {
-                version = context.packageManager.getPackageInfo(context.packageName, 0)
-                    .versionName
-            } catch (e: PackageManager.NameNotFoundException) {
-                Log.e("update", "update error")
-            }
+
+            val version = context.packageManager.getPackageInfo(context.packageName, 0).versionName
+
             return version
         }
     }

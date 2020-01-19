@@ -5,25 +5,27 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.model.MyDiagnosisViewAdapter
 import com.keelim.nandadiagnosis.model.DiagnosisItem
+import com.keelim.nandadiagnosis.model.MyDiagnosisViewAdapter
+import kotlinx.android.synthetic.main.activity_diagnosislist.*
 import java.util.*
 import kotlin.collections.ArrayList
 
 class DiagnosisActivity : AppCompatActivity() {
     private var arrayList: ArrayList<DiagnosisItem>? = ArrayList()
     private var nav = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_diagnosislist)
         arrayListSetting()
         val adapter = MyDiagnosisViewAdapter(this, arrayList)
-        val listView = findViewById<ListView>(R.id.list)
-        listView.adapter = adapter
-        listView.onItemClickListener = OnItemClickListener { parent: AdapterView<*>?, view: View?, position: Int, id: Long -> goWeb(nav + position + 1) }
+        list.run {
+            this.adapter = adapter
+            onItemClickListener = OnItemClickListener { parent: AdapterView<*>?, view: View?, position: Int, id: Long -> goWeb(nav + position + 1) }
+        }
     }
 
     private fun goWeb(total: Int) {

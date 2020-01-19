@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.keelim.cnubus.ModeCode
+import com.keelim.cnubus.model.ModeCode
 import com.keelim.cnubus.R
 
 class SettingsActivity : AppCompatActivity() {

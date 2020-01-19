@@ -13,6 +13,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.keelim.nandadiagnosis.R
+import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.*
 import java.io.File
 import java.io.FileOutputStream
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         val appBarConfiguration = AppBarConfiguration.Builder(
                 R.id.navigation_search, R.id.navigation_dashboard, R.id.navigation_notifications)
                 .build()
-        val nav_view = findViewById<BottomNavigationView>(R.id.nav_view)
+
         val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
         NavigationUI.setupWithNavController(nav_view, navController)
@@ -93,7 +94,7 @@ class MainActivity : AppCompatActivity() {
 
     private inner class CallBackDownloadFile internal constructor() : Callback {
         //okhttp call back method
-        private val fileToBeDownloaded: File
+        private val fileToBeDownloaded: File = File(dataDir.absolutePath + "/databases", "nanda.db")
 
         override fun onFailure(call: Call, e: IOException) {
             runOnUiThread {
@@ -115,19 +116,21 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             val inputStream = response.body!!.byteStream()
-            val outputStream: FileOutputStream = FileOutputStream(fileToBeDownloaded)
+            val outputStream = FileOutputStream(fileToBeDownloaded)
             val BUFFER_SIZE = 2046
             val data = ByteArray(BUFFER_SIZE)
             var count: Int
-            while (inputStream.read(data).also { count = it } != -1) outputStream.write(data, 0, count)
-            outputStream.flush()
-            outputStream.close()
+            while (inputStream.read(data).also { count = it } != -1) {
+                outputStream.write(data, 0, count)
+            }
+
+            outputStream.run {
+                flush()
+                close()
+            }
             inputStream.close()
             runOnUiThread { Toast.makeText(this@MainActivity, "다운로드가 완료되었습니다. ", Toast.LENGTH_SHORT).show() }
         }
 
-        init {
-            fileToBeDownloaded = File(dataDir.absolutePath + "/databases", "nanda.db")
-        }
     }
 }

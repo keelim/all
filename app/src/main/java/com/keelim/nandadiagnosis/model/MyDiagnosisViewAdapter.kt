@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.model.DiagnosisItem
 
 class MyDiagnosisViewAdapter(private val context: Context, private val diagnosisItems: ArrayList<DiagnosisItem>?) : BaseAdapter() {
     override fun getCount(): Int {
@@ -23,12 +22,12 @@ class MyDiagnosisViewAdapter(private val context: Context, private val diagnosis
     }
 
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
-        var view = LayoutInflater.from(context).inflate(R.layout.item_listview, null)
-        val diagnosisItem = view.findViewById<TextView>(R.id.diagnosis_item)
+        val find_view = LayoutInflater.from(context).inflate(R.layout.item_listview, null)
+        val diagnosisItem = find_view.findViewById<TextView>(R.id.diagnosis_item)
         diagnosisItem.text = diagnosisItems!![position].diagnosis
-        val diagnosisDes = view.findViewById<TextView>(R.id.diagnosis_des)
+        val diagnosisDes = find_view.findViewById<TextView>(R.id.diagnosis_des)
         diagnosisDes.text = diagnosisItems[position].diagnosis
-        return view
+        return find_view
     }
 
 }

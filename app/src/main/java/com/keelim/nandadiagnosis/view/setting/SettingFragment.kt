@@ -1,14 +1,14 @@
-package com.keelim.nandadiagnosis.my
+package com.keelim.nandadiagnosis.view.setting
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.activities.WebViewActivity
-import com.keelim.nandadiagnosis.help.OpenSourceActivity
-import com.keelim.nandadiagnosis.help.PleaseActivity
-import com.keelim.nandadiagnosis.help.QuestionActivity
+import com.keelim.nandadiagnosis.view.OpenSourceActivity
+import com.keelim.nandadiagnosis.view.PleaseActivity
+import com.keelim.nandadiagnosis.view.QuestionActivity
+import com.keelim.nandadiagnosis.view.WebViewActivity
 
 class SettingFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle, rootKey: String) {

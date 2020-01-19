@@ -6,18 +6,18 @@
 
     <fragment
         android:id="@+id/navigation_search"
-        android:name="com.keelim.nandadiagnosis.category.CategoryFragment"
+        android:name="com.keelim.nandadiagnosis.view.category.CategoryFragment"
         android:label="@string/title_search"
         tools:layout="@layout/fragment_category" />
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.keelim.nandadiagnosis.search.SearchFragment"
+        android:name="com.keelim.nandadiagnosis.view.search.SearchFragment"
         android:label="@string/title_category"
         tools:layout="@layout/fragment_search" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.keelim.nandadiagnosis.my.SettingFragment"
+        android:name="com.keelim.nandadiagnosis.view.setting.SettingFragment"
         android:label="@string/title_my"
         tools:layout="@layout/fragment_my" />
 </navigation>

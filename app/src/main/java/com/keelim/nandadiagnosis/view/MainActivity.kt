@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.activities
+package com.keelim.nandadiagnosis.view
 
 import android.content.DialogInterface
 import android.content.Intent
@@ -13,13 +13,10 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.diagnosis.DiagnosisActivity
 import okhttp3.*
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
-import java.io.OutputStream
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

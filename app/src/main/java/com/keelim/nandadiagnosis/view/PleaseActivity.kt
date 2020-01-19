@@ -1,12 +1,12 @@
-package com.keelim.nandadiagnosis.help
+package com.keelim.nandadiagnosis.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.keelim.nandadiagnosis.R
 
-class QuestionActivity : AppCompatActivity() {
+class PleaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_question)
+        setContentView(R.layout.activity_please)
     }
 }

@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.activities
+package com.keelim.nandadiagnosis.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -34,7 +34,6 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
         Toast.makeText(this, "NANDA 진단에 오신 것을 환영 합니다. ", Toast.LENGTH_SHORT).show()
 
-        MobileAds.initialize(this) { initializationStatus: InitializationStatus? -> }
         interstitialAd = InterstitialAd(this) //전면광고 셋팅
         interstitialAd.adUnitId = getString(R.string.test_ad)
         interstitialAd.adListener = object : AdListener() {

@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.diagnosis
+package com.keelim.nandadiagnosis.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,7 +8,8 @@ import android.widget.AdapterView.OnItemClickListener
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.activities.WebViewActivity
+import com.keelim.nandadiagnosis.model.MyDiagnosisViewAdapter
+import com.keelim.nandadiagnosis.model.DiagnosisItem
 import java.util.*
 import kotlin.collections.ArrayList
 

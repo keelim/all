@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.help
+package com.keelim.nandadiagnosis.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.category
+package com.keelim.nandadiagnosis.view.category
 
 import android.os.Bundle
 import android.view.LayoutInflater

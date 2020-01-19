@@ -16,7 +16,7 @@ import androidx.core.app.NotificationCompat;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.keelim.nandadiagnosis.R;
-import com.keelim.nandadiagnosis.activities.MainActivity;
+import com.keelim.nandadiagnosis.view.MainActivity;
 
 import java.util.Objects;
 

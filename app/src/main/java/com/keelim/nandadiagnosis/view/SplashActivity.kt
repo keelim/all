@@ -10,8 +10,6 @@ import com.crashlytics.android.Crashlytics
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
-import com.google.android.gms.ads.MobileAds
-import com.google.android.gms.ads.initialization.InitializationStatus
 import com.keelim.nandadiagnosis.R
 import io.fabric.sdk.android.Fabric
 
@@ -34,23 +32,24 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
         Toast.makeText(this, "NANDA 진단에 오신 것을 환영 합니다. ", Toast.LENGTH_SHORT).show()
 
-        interstitialAd = InterstitialAd(this) //전면광고 셋팅
-        interstitialAd.adUnitId = getString(R.string.test_ad)
-        interstitialAd.adListener = object : AdListener() {
-            override fun onAdLoaded() {
-                interstitialAd.show()
-            }
+        interstitialAd = InterstitialAd(this).apply {
+            interstitialAd.adUnitId = getString(R.string.test_ad)
+            interstitialAd.adListener = object : AdListener() {
+                override fun onAdLoaded() {
+                    interstitialAd.show()
+                }
 
-            override fun onAdClosed() {
-                handler.postDelayed(runnable, 500) //handler를 통하여 사용
-            }
+                override fun onAdClosed() {
+                    handler.postDelayed(runnable, 500) //handler를 통하여 사용
+                }
 
-            override fun onAdFailedToLoad(i: Int) {
-                Log.e("Error", "ad loading fail")
-            }
+                override fun onAdFailedToLoad(i: Int) {
+                    Log.e("Error", "ad loading fail")
+                }
+            } //전면광고 셋팅
+            val adRequest = AdRequest.Builder().build()
+            interstitialAd.loadAd(adRequest)
         }
-        val adRequest = AdRequest.Builder().build()
-        interstitialAd.loadAd(adRequest)
     }
 
     override fun onBackPressed() { //back 키 눌렀을 때

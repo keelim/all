@@ -16,7 +16,6 @@ import kotlin.collections.ArrayList
 class DiagnosisActivity : AppCompatActivity() {
     private var arrayList: ArrayList<DiagnosisItem>? = ArrayList()
     private var nav = 0
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_diagnosislist)
@@ -29,15 +28,15 @@ class DiagnosisActivity : AppCompatActivity() {
     }
 
     private fun goWeb(total: Int) {
-        val intent_web = Intent(this, WebViewActivity::class.java)
-        intent_web.putExtra("URL", "https://keelim.github.io/nandaDiagnosis/$total.html")
+        val intent_web = Intent(this, WebViewActivity::class.java).apply {
+            putExtra("URL", "https://keelim.github.io/nandaDiagnosis/$total.html")
+        }
         startActivity(intent_web)
     }
 
     private fun arrayListSetting() {
         val array1 = resources.getStringArray(R.array.diagnosis1)
-        val pointer = intent.getStringExtra("extra")
-        when (Objects.requireNonNull(pointer)) {
+        when (intent.getStringExtra("extra")) {
             "1" -> {
                 nav = 0
                 customAdd(nav, 11, array1) //ok 1~12

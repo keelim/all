@@ -86,8 +86,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun intentList(num: String) {
-        val intent = Intent(this, DiagnosisActivity::class.java)
-        intent.putExtra("extra", num)
+        val intent = Intent(this, DiagnosisActivity::class.java).apply {
+            putExtra("extra", num)
+        }
         startActivity(intent)
     }
 

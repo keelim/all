@@ -1,4 +1,4 @@
-package com.keelim.cnubus.activities.main
+package com.keelim.cnubus.view.main
 
 import android.os.Bundle
 import android.view.LayoutInflater

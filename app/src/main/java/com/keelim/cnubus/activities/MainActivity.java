@@ -15,7 +15,7 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.tabs.TabLayout;
 import com.keelim.cnubus.R;
-import com.keelim.cnubus.activities.main.ViewPagerAdapter;
+import com.keelim.cnubus.model.ViewPagerAdapter;
 
 import static androidx.fragment.app.FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT;
 

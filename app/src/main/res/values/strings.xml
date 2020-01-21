@@ -245,6 +245,8 @@
         <item>발달지연의 위험</item>
         <item>손상된 에너지 end</item>
     </string-array>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="google_sign_in">Google sign in</string>
 
 
 </resources>

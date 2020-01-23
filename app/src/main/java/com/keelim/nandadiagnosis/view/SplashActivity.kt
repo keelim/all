@@ -33,7 +33,7 @@ class SplashActivity : AppCompatActivity() {
         Toast.makeText(this, "NANDA 진단에 오신 것을 환영 합니다. ", Toast.LENGTH_SHORT).show()
 
         interstitialAd = InterstitialAd(this)
-        interstitialAd.adUnitId = getString(R.string.test_ad)
+        interstitialAd.adUnitId = getString(R.string.real_ad)
         interstitialAd.adListener = object : AdListener() {
             override fun onAdLoaded() {
                 interstitialAd.show()

@@ -107,6 +107,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        @RequiresApi(Build.VERSION_CODES.N)
         @Throws(IOException::class)
         override fun onResponse(call: Call, response: Response) {
             try {

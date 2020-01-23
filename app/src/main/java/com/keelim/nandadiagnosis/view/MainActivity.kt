@@ -2,16 +2,17 @@ package com.keelim.nandadiagnosis.view
 
 import android.content.DialogInterface
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.keelim.nandadiagnosis.R
 import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.*
@@ -20,6 +21,7 @@ import java.io.FileOutputStream
 import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -32,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         fileChecking() //데이터베이스 파일 유무 확인
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     private fun fileChecking() {
         val check = File(dataDir.absolutePath + "/databases/nanda.db")
         if (!check.exists()) { //데이터베이스를 받아온다.
@@ -94,6 +97,7 @@ class MainActivity : AppCompatActivity() {
 
     private inner class CallBackDownloadFile internal constructor() : Callback {
         //okhttp call back method
+        @RequiresApi(Build.VERSION_CODES.N)
         private val fileToBeDownloaded: File = File(dataDir.absolutePath + "/databases", "nanda.db")
 
         override fun onFailure(call: Call, e: IOException) {

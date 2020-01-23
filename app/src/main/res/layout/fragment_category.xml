@@ -33,6 +33,7 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:contentDescription="건강증진"
+                    android:focusable="true"
                     android:onClick="click"
                     android:src="@drawable/healthpromotion" />
 
@@ -45,6 +46,7 @@
                     android:baselineAligned="false"
                     android:clickable="true"
                     android:contentDescription="영양"
+                    android:focusable="true"
                     android:onClick="click"
                     android:src="@drawable/nutrition" />
 
@@ -56,6 +58,7 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:contentDescription="배설/교환"
+                    android:focusable="true"
                     android:onClick="click"
                     android:src="@drawable/elimination" />
 
@@ -67,6 +70,7 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:contentDescription="활동/휴식"
+                    android:focusable="true"
                     android:onClick="click"
                     android:src="@drawable/activityrest" />
 
@@ -84,6 +88,7 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:contentDescription="지각/인식"
+                    android:focusable="true"
                     android:onClick="click"
                     android:src="@drawable/perceptioncongnition" />
 
@@ -95,6 +100,7 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:contentDescription="자아지각"
+                    android:focusable="true"
                     android:onClick="click"
                     android:src="@drawable/selfperception" />
 
@@ -106,6 +112,7 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:contentDescription="역할관계"
+                    android:focusable="true"
                     android:onClick="click"
                     android:src="@drawable/rolerelationship" />
 
@@ -117,6 +124,7 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:contentDescription="성"
+                    android:focusable="true"
                     android:onClick="click"
                     android:src="@drawable/sexuality" />
 
@@ -134,6 +142,7 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:contentDescription="대처/스트레스 내성"
+                    android:focusable="true"
                     android:onClick="click"
                     android:src="@drawable/tolerlance" />
 
@@ -145,6 +154,7 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:contentDescription="삶의 원칙"
+                    android:focusable="true"
                     android:onClick="click"
                     android:src="@drawable/lifeprinciple" />
 
@@ -156,6 +166,7 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:contentDescription="안전/보호"
+                    android:focusable="true"
                     android:onClick="click"
                     android:src="@drawable/safetyprotection" />
 
@@ -167,6 +178,7 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:contentDescription="안위"
+                    android:focusable="true"
                     android:onClick="click"
                     android:src="@drawable/comfort" />
 
@@ -183,6 +195,7 @@
                     android:background="#ffffff"
                     android:clickable="true"
                     android:contentDescription="성장/발달"
+                    android:focusable="true"
                     android:onClick="click"
                     android:src="@drawable/growthdevelopment" />
 

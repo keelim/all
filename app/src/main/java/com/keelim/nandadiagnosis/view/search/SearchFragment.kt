@@ -46,7 +46,7 @@ class SearchFragment : Fragment() {
         searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             //검색을 할 수 있게 하는 것
             override fun onQueryTextSubmit(query: String): Boolean {
-                var items = searchDiagnosis(query) //검색을 한다.
+                val items = searchDiagnosis(query) //검색을 한다.
                 listview.adapter = DatabaseAdapter(activity!!, items)
                 (listview.adapter as DatabaseAdapter).notifyDataSetChanged()
                 return true
@@ -60,6 +60,6 @@ class SearchFragment : Fragment() {
     }
 
     private fun searchDiagnosis(keyword: String): List<NandaEntity> { //여기까지는 이상이 없는 것 같다.
-        return AppDatabase.getInstance(activity!!)!!.DataDao().search("%$keyword%")
+        return AppDatabase.getInstance(activity!!)!!.dataDao().search("%$keyword%")
     }
 }

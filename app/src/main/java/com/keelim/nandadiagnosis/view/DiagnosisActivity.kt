@@ -7,14 +7,11 @@ import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
 import androidx.appcompat.app.AppCompatActivity
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.model.DiagnosisItem
 import com.keelim.nandadiagnosis.model.MyDiagnosisViewAdapter
 import kotlinx.android.synthetic.main.activity_diagnosislist.*
-import java.util.*
-import kotlin.collections.ArrayList
 
 class DiagnosisActivity : AppCompatActivity() {
-    private var arrayList: ArrayList<DiagnosisItem>? = ArrayList()
+    private var arrayList: ArrayList<MyDiagnosisViewAdapter.DiagnosisItem>? = ArrayList()
     private var nav = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,7 +91,7 @@ class DiagnosisActivity : AppCompatActivity() {
 
     private fun customAdd(startPoint: Int, finalPoint: Int, array1: Array<String>) {
         for (i in startPoint..finalPoint) {
-            arrayList!!.add(DiagnosisItem(array1[i], ""))
+            arrayList!!.add(MyDiagnosisViewAdapter.DiagnosisItem(array1[i], ""))
         }
     }
 }

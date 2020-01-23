@@ -30,4 +30,5 @@ class MyDiagnosisViewAdapter(private val context: Context, private val diagnosis
         return find_view
     }
 
+    data class DiagnosisItem(var diagnosis: String, var diagnosis_description: String)
 }

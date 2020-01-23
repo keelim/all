@@ -16,7 +16,7 @@ import com.keelim.nandadiagnosis.R
 import kotlinx.android.synthetic.main.activity_login.*
 
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() { // todo 구글 로그인을 위한 임시 페이지
 
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var auth: FirebaseAuth

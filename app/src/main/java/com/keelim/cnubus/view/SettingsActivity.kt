@@ -21,9 +21,9 @@ class SettingsActivity : AppCompatActivity() {
             .beginTransaction()
             .replace(R.id.settings, SettingsFragment())
             .commit()
-        val actionBar = supportActionBar?.run {
-            setDisplayShowHomeEnabled(true)
-        }
+        val actionBar = supportActionBar
+        actionBar?.setDisplayShowHomeEnabled(true)
+
         Toast.makeText(this, "설정 화면 입니다.", Toast.LENGTH_SHORT).show()
     }
 
@@ -87,9 +87,7 @@ class SettingsActivity : AppCompatActivity() {
 
         private fun getVersionInfo(context: Context): String? { // 버전을 확인을 하는 메소드
 
-            val version = context.packageManager.getPackageInfo(context.packageName, 0).versionName
-
-            return version
+            return context.packageManager.getPackageInfo(context.packageName, 0).versionName
         }
     }
 }

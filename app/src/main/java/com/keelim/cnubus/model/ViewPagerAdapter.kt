@@ -10,7 +10,7 @@ import com.keelim.cnubus.view.main.NightRootFragment
 import java.util.*
 
 class ViewPagerAdapter(fm: FragmentManager, behavior: Int) : FragmentStatePagerAdapter(fm, behavior) {
-    var fragments = ArrayList<Fragment>()
+    private var fragments = ArrayList<Fragment>()
 
     override fun getItem(position: Int): Fragment {
         return fragments[position]

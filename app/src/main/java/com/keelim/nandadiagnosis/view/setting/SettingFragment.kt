@@ -5,7 +5,8 @@ import android.os.Bundle
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.view.*
+import com.keelim.nandadiagnosis.view.LoginActivity
+import com.keelim.nandadiagnosis.view.WebViewActivity
 
 class SettingFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -37,6 +38,13 @@ class SettingFragment : PreferenceFragmentCompat() {
             "login" -> {
                 startActivity(Intent(context, LoginActivity::class.java))
                 true
+            }
+            "lab" -> {
+                activity!!.supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.container, OpenSourceFragment())
+                        .commit()
+                return true
             }
             else -> false
         }

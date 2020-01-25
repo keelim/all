@@ -17,6 +17,12 @@
             app:key="please"
             app:title="도움말" />
     </PreferenceCategory>
+    <PreferenceCategory>
+        <Preference
+            app:key="lab"
+            app:title="실험기능" />
+
+    </PreferenceCategory>
 
 
 </androidx.preference.PreferenceScreen>

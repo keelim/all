@@ -24,9 +24,9 @@
             android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent" />
-        <activity android:name=".view.PleaseActivity" />
-        <activity android:name=".view.OpenSourceActivity" />
-        <activity android:name=".view.QuestionActivity" />
+        <activity android:name=".view.setting.PleaseActivity" />
+        <activity android:name=".view.setting.OpenSourceActivity" />
+        <activity android:name=".view.setting.QuestionActivity" />
         <activity
             android:name=".view.WebViewActivity"
             android:theme="@style/Theme.MaterialComponents.NoActionBar" />

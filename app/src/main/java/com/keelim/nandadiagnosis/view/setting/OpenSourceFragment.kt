@@ -19,4 +19,5 @@ class OpenSourceFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_open_source, container, false)
 
     }
+
 }

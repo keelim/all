@@ -52,6 +52,5 @@ class SettingFragment : PreferenceFragmentCompat() {
         return activity!!.supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.container, fragment)
-                .addToBackStack(null)
     }
 }

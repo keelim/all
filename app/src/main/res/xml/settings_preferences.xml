@@ -18,8 +18,5 @@
             app:title="도움말" />
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="실험 기능">
-
-    </PreferenceCategory>
 
 </androidx.preference.PreferenceScreen>

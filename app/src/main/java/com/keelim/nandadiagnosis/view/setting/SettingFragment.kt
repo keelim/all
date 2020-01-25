@@ -8,9 +8,10 @@ import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.view.*
 
 class SettingFragment : PreferenceFragmentCompat() {
-    override fun onCreatePreferences(savedInstanceState: Bundle, rootKey: String) {
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.settings_preferences)
     }
+
 
     override fun onPreferenceTreeClick(preference: Preference): Boolean {
         return when (preference.key) {

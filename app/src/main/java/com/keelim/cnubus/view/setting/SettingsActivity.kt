@@ -1,4 +1,4 @@
-package com.keelim.cnubus.view
+package com.keelim.cnubus.view.setting
 
 import android.content.Context
 import android.content.DialogInterface
@@ -12,6 +12,7 @@ import androidx.preference.PreferenceFragmentCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.keelim.cnubus.R
 import com.keelim.cnubus.model.ModeCode
+import com.keelim.cnubus.view.MapsActivity
 
 class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,7 +20,9 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_settings)
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.settings, SettingsFragment())
+            .replace(R.id.settings,
+                SettingsFragment()
+            )
             .commit()
         val actionBar = supportActionBar
         actionBar?.setDisplayShowHomeEnabled(true)
@@ -86,8 +89,8 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         private fun getVersionInfo(context: Context): String? { // 버전을 확인을 하는 메소드
-
             return context.packageManager.getPackageInfo(context.packageName, 0).versionName
         }
+
     }
 }

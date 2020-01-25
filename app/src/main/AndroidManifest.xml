@@ -17,12 +17,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".view.OpenSourceActivity" />
+        <activity android:name=".view.setting.OpenSourceActivity" />
         <activity
             android:name=".view.MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity
-            android:name=".view.SettingsActivity"
+            android:name=".view.setting.SettingsActivity"
             android:label="@string/title_activity_settings" />
         <activity
             android:name=".view.MainActivity"

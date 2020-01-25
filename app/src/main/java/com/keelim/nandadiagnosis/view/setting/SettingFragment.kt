@@ -2,6 +2,8 @@ package com.keelim.nandadiagnosis.view.setting
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.keelim.nandadiagnosis.R
@@ -24,29 +26,32 @@ class SettingFragment : PreferenceFragmentCompat() {
                 true
             }
             "question" -> {
-                startActivity(Intent(context, QuestionActivity::class.java))
-                true
-            }
-            "opensource" -> {
-                startActivity(Intent(context, OpenSourceActivity::class.java))
-                true
-            }
-            "please" -> {
-                startActivity(Intent(context, PleaseActivity::class.java))
-                true
-            }
-            "login" -> {
-                startActivity(Intent(context, LoginActivity::class.java))
-                true
-            }
-            "lab" -> {
-                activity!!.supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.container, OpenSourceFragment())
+                changeFragment(QuestionFragment())
                         .commit()
                 return true
             }
+            "opensource" -> {
+                changeFragment(OpenSourceFragment())
+                        .commit()
+                return true
+            }
+            "please" -> {
+                changeFragment(PleaseFragment())
+                        .commit()
+                return true
+            }
+            "lab" -> {
+                startActivity(Intent(context, LoginActivity::class.java))
+                true
+            }
             else -> false
         }
+    }
+
+    private fun changeFragment(fragment: Fragment): FragmentTransaction {
+        return activity!!.supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.container, fragment)
+                .addToBackStack(null)
     }
 }

@@ -1,4 +1,4 @@
-package com.keelim.cnubus.view
+package com.keelim.cnubus.view.setting
 
 import android.os.Bundle
 import android.widget.Toast

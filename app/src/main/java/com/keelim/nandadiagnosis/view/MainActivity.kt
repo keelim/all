@@ -31,8 +31,11 @@ class MainActivity : AppCompatActivity() {
         val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
         NavigationUI.setupWithNavController(nav_view, navController)
-        fileChecking() //데이터베이스 파일 유무 확인
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            fileChecking() //데이터베이스 파일 유무 확인
+        }
     }
+
 
     @RequiresApi(Build.VERSION_CODES.N)
     private fun fileChecking() {

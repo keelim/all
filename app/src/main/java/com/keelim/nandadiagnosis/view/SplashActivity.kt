@@ -45,6 +45,7 @@ class SplashActivity : AppCompatActivity() {
 
             override fun onAdFailedToLoad(i: Int) {
                 Log.e("Error", "ad loading fail")
+                handler.postDelayed(runnable, 500) //handler를 통하여 사용
             }
         } //전면광고 셋팅
         val adRequest = AdRequest.Builder().build()

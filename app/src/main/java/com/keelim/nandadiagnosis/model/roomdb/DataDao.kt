@@ -9,6 +9,4 @@ interface DataDao {
     @Query("select * from nanda where reason like :keyword ")
     fun search(keyword: String?): List<NandaEntity>
 
-    @Query("select distinct * from nanda where reason like :keyword")
-    fun search2(keyword: String?): List<NandaEntity>
 }

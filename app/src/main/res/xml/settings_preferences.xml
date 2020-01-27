@@ -19,6 +19,15 @@
             app:key="lab"
             app:title="실험기능" />
 
+        <Preference
+            app:key="database"
+            app:title="데이터베이스 확인" />
+
+        <Preference
+            app:key="db_download"
+            app:summary="@string/version"
+            app:title="데이터베이스 다운로드 합니다." />
+
     </PreferenceCategory>
 
 

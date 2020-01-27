@@ -2,21 +2,21 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@+id/navigation_search">
+    app:startDestination="@+id/navigation_category">
 
     <fragment
-        android:id="@+id/navigation_search"
+        android:id="@+id/navigation_category"
         android:name="com.keelim.nandadiagnosis.view.category.CategoryFragment"
         android:label="@string/title_search"
         tools:layout="@layout/fragment_category" />
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_search"
         android:name="com.keelim.nandadiagnosis.view.search.SearchFragment"
         android:label="@string/title_category"
         tools:layout="@layout/fragment_search" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_my"
         android:name="com.keelim.nandadiagnosis.view.setting.SettingFragment"
         android:label="@string/title_my"
         tools:layout="@layout/fragment_my" />

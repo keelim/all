@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val appBarConfiguration = AppBarConfiguration.Builder(
-                R.id.navigation_search, R.id.navigation_dashboard, R.id.navigation_notifications)
+                R.id.navigation_category, R.id.navigation_search, R.id.navigation_my)
                 .build()
         val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)

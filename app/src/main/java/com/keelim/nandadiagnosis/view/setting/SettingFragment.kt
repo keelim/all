@@ -5,7 +5,8 @@ import android.os.Bundle
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.view.*
+import com.keelim.nandadiagnosis.view.LoginActivity
+import com.keelim.nandadiagnosis.view.WebViewActivity
 
 class SettingFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -22,23 +23,22 @@ class SettingFragment : PreferenceFragmentCompat() {
                 }
                 true
             }
-            "question" -> {
-                startActivity(Intent(context, QuestionActivity::class.java))
-                true
-            }
             "opensource" -> {
-                startActivity(Intent(context, OpenSourceActivity::class.java))
-                true
+                val open = Intent(context, OpenSourceActivity::class.java)
+                startActivity(open)
+                return true
             }
             "please" -> {
-                startActivity(Intent(context, PleaseActivity::class.java))
-                true
+                val please = Intent(context, PleaseActivity::class.java)
+                startActivity(please)
+                return true
             }
-            "login" -> {
+            "lab" -> {
                 startActivity(Intent(context, LoginActivity::class.java))
                 true
             }
             else -> false
         }
     }
+
 }

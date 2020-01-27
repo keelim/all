@@ -8,14 +8,17 @@
 
     <PreferenceCategory app:key="other_category">
         <Preference
-            app:key="question"
+            app:key="please"
             app:title="질문 및 문의" />
         <Preference
             app:key="opensource"
             app:title="오픈소스 라이선스" />
+    </PreferenceCategory>
+    <PreferenceCategory>
         <Preference
-            app:key="please"
-            app:title="도움말" />
+            app:key="lab"
+            app:title="실험기능" />
+
     </PreferenceCategory>
 
 

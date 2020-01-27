@@ -11,9 +11,9 @@ import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import com.keelim.nandadiagnosis.R
+import com.keelim.nandadiagnosis.model.DatabaseAdapter
 import com.keelim.nandadiagnosis.model.roomdb.AppDatabase
 import com.keelim.nandadiagnosis.model.roomdb.NandaEntity
-import com.keelim.nandadiagnosis.model.DatabaseAdapter
 
 class SearchFragment : Fragment() {
 
@@ -29,7 +29,8 @@ class SearchFragment : Fragment() {
         listview.adapter = adapter
         listview.onItemClickListener = OnItemClickListener { adapterView: AdapterView<*>, view: View?, i: Int, l: Long ->
             val db = adapterView.adapter.getItem(i) as NandaEntity
-            Toast.makeText(activity, "클래스 영역: " + db.class_name + "도매인 영역" + db.domain_name, Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, "클래스 영역: " + db.class_name + "도매인 영역" + db.domain_name, Toast.LENGTH_SHORT).show() // 무슨 화면이 나와야 하는가?
+            contentControl(db.nanda_id)
         }
         return root
     }
@@ -61,5 +62,12 @@ class SearchFragment : Fragment() {
 
     private fun searchDiagnosis(keyword: String): List<NandaEntity> { //여기까지는 이상이 없는 것 같다.
         return AppDatabase.getInstance(activity!!)!!.dataDao().search("%$keyword%")
+    }
+
+    private fun contentControl(position: Int) { // 넘겨 받은 난다 아이디를 통하여 구분
+        when (position) {
+            in 0..10 -> {
+            }
+        }
     }
 }

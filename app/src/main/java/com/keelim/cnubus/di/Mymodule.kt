@@ -1,6 +1,7 @@
 package com.keelim.cnubus.di
 
-import org.koin.dsl.module.module
+import org.koin.dsl.module
+
 
 var room = module{
 

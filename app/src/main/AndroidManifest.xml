@@ -52,7 +52,7 @@
 
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="@string/fabric_api" />
+            android:value="da093908abc28a1043cbc271323c4e202e13ec65" />
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/ADMOB_APP_ID" />

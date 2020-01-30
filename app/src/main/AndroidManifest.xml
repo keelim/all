@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
@@ -18,6 +18,7 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".view.setting.OpenSourceActivity" />
+        <activity android:name=".TempActivity" />
         <activity
             android:name=".view.MapsActivity"
             android:label="@string/title_activity_maps" />
@@ -37,7 +38,6 @@
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -52,11 +52,10 @@
 
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="da093908abc28a1043cbc271323c4e202e13ec65" />
+            android:value="@string/fabric_api" />
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/ADMOB_APP_ID" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />

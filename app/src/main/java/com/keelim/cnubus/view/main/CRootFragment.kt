@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ListView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
 import com.keelim.cnubus.R
+import kotlinx.android.synthetic.main.fragment_c_root.*
 
 class CRootFragment : Fragment() {
 
@@ -22,11 +23,7 @@ class CRootFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_c_root, container, false)
         root.findViewById<ListView>(R.id.lv_croot)
             .setOnItemClickListener { parent: AdapterView<*>?, view: View?, position: Int, id: Long ->
-                Toast.makeText(
-                    activity,
-                    rootList[position] + "기능 준비 중입니다. 잠시만 기다려 주세요",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Snackbar.make(crootLayout, "기능 준비 중입니다.", Snackbar.LENGTH_LONG)
             }
         rootList = resources.getStringArray(R.array.croot)
         applyList(root, rootList)

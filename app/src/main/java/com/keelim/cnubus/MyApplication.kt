@@ -13,4 +13,5 @@ class MyApplication : Application() {
             modules(myDiModule)
         }
     }
+
 } 

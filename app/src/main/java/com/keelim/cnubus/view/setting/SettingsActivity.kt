@@ -12,7 +12,6 @@ import androidx.preference.PreferenceFragmentCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.keelim.cnubus.R
-import com.keelim.cnubus.TempActivity
 import com.keelim.cnubus.model.ModeCode
 import com.keelim.cnubus.view.MapsActivity
 import kotlinx.android.synthetic.main.activity_settings.*

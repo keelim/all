@@ -1,4 +1,4 @@
-package com.keelim.cnubus
+package com.keelim.cnubus.view.setting
 
 import android.Manifest
 import android.content.Context
@@ -30,6 +30,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.snackbar.Snackbar
+import com.keelim.cnubus.R
 import kotlinx.android.synthetic.main.activity_maps.*
 import java.io.IOException
 import java.util.*
@@ -324,7 +325,9 @@ class TempActivity : AppCompatActivity(), OnMapReadyCallback, OnRequestPermissio
                     "설정"
                 ) { _: DialogInterface?, _: Int ->
                     val gpsIntent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                    startActivityForResult(gpsIntent, GPS_ENABLE_REQUEST_CODE)
+                    startActivityForResult(gpsIntent,
+                        GPS_ENABLE_REQUEST_CODE
+                    )
                 }
                 .setNegativeButton("취소") { dialog: DialogInterface, _: Int ->
                     dialog.cancel()

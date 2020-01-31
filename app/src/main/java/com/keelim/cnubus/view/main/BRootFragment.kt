@@ -28,11 +28,7 @@ class BRootFragment : Fragment() {
 
         root.findViewById<ListView>(R.id.lv_broot).onItemClickListener =
             OnItemClickListener { parent: AdapterView<*>?, view: View?, position: Int, id: Long ->
-                Toast.makeText(
-                    activity,
-                    rootList[position] + "정류장 입니다.",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(activity, rootList[position] + "정류장 입니다.", Toast.LENGTH_SHORT).show()
 
                 val intent = Intent(activity, MapsActivity::class.java)
                 intent.putExtra("location", intentList[position])

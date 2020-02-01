@@ -69,6 +69,7 @@ class MainActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("다운로드 요청")
                 .setMessage("어플리케이션 사용을 위해 데이터베이스를 다운로드 합니다.")
+                .setCancelable(false)
                 .setNegativeButton(android.R.string.cancel, null)
                 .setPositiveButton(android.R.string.ok) { dialogInterface: DialogInterface?, i: Int ->
                     Toast.makeText(this, "서버로부터 데이터 베이스를 요청 합니다. ", Toast.LENGTH_SHORT).show()

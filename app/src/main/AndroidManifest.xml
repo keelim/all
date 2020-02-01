@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"
@@ -19,7 +20,7 @@
         <activity
             android:name=".view.setting.OpenSourceActivity"
             android:label="@string/title_activity_open_source"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".view.setting.TempActivity" />
         <activity
             android:name=".view.MapsActivity"

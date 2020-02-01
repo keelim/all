@@ -4,14 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.crashlytics.android.Crashlytics
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
+import com.google.android.material.snackbar.Snackbar
 import com.keelim.nandadiagnosis.R
-import io.fabric.sdk.android.Fabric
+import kotlinx.android.synthetic.main.activity_splash.*
 
 class SplashActivity : AppCompatActivity() {
     //handler를 다르게 설정을 할 수 있는가?
@@ -28,9 +27,8 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Fabric.with(this, Crashlytics()) //Fabric 설정
         setContentView(R.layout.activity_splash)
-        Toast.makeText(this, "NANDA 진단에 오신 것을 환영 합니다. ", Toast.LENGTH_SHORT).show()
+        Snackbar.make(container_splash, "NANDA 진단에 오신 것을 환영합니다.", Snackbar.LENGTH_SHORT).show()
 
         interstitialAd = InterstitialAd(this)
         interstitialAd.adUnitId = getString(R.string.real_ad)

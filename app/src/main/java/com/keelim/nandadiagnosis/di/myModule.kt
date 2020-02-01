@@ -1,6 +1,6 @@
 package com.keelim.nandadiagnosis.di
 
-import org.koin.dsl.module.module
+import org.koin.dsl.module
 
 
 var list = module {

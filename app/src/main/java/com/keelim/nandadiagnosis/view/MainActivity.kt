@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
@@ -16,6 +15,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.keelim.nandadiagnosis.R
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_category.*
 import okhttp3.*
 import java.io.File
 import java.io.FileOutputStream
@@ -40,6 +40,21 @@ class MainActivity : AppCompatActivity() {
             if (!container.isDrawerOpen(GravityCompat.END))
                 container.openDrawer(GravityCompat.END)
         }
+
+        search_view_1.setOnClickListener { showDialog("1") }
+        search_view_1.setOnClickListener { showDialog("2") }
+        search_view_1.setOnClickListener { showDialog("3") }
+        search_view_1.setOnClickListener { showDialog("4") }
+        search_view_1.setOnClickListener { showDialog("5") }
+        search_view_1.setOnClickListener { showDialog("6") }
+        search_view_1.setOnClickListener { showDialog("7") }
+        search_view_1.setOnClickListener { showDialog("8") }
+        search_view_1.setOnClickListener { showDialog("9") }
+        search_view_1.setOnClickListener { showDialog("10") }
+        search_view_1.setOnClickListener { showDialog("11") }
+        search_view_1.setOnClickListener { showDialog("12") }
+        search_view_1.setOnClickListener { showDialog("13") }
+
     }
 
 
@@ -53,23 +68,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun click(view: View) { //xml에 연결되어 있는 페이지
-        when (view.id) {
-            R.id.search_view_1 -> showDialog("1")
-            R.id.search_view_2 -> showDialog("2")
-            R.id.search_view_3 -> showDialog("3")
-            R.id.search_view_4 -> showDialog("4")
-            R.id.search_view_5 -> showDialog("5")
-            R.id.search_view_6 -> showDialog("6")
-            R.id.search_view_7 -> showDialog("7")
-            R.id.search_view_8 -> showDialog("8")
-            R.id.search_view_9 -> showDialog("9")
-            R.id.search_view_10 -> showDialog("10")
-            R.id.search_view_11 -> showDialog("11")
-            R.id.search_view_12 -> showDialog("12")
-            R.id.search_view_13 -> showDialog("13")
-        }
-    }
 
     private fun alertBuilderSetting() { //okhttp 작동 방식은 나중에 확인을 해보자
         val builder = AlertDialog.Builder(this)
@@ -125,7 +123,6 @@ class MainActivity : AppCompatActivity() {
                 val flag = fileToBeDownloaded.createNewFile()
                 Log.e("file create", "파일 만들기: $flag")
             } catch (e: IOException) {
-                Log.e("Error", e.message)
                 runOnUiThread {
                     Toast.makeText(this@MainActivity, "다운로드 파일을 생성할 수 없습니다.\n 데이터베이스 부족으로 인해 종료 합니다. ", Toast.LENGTH_SHORT).show()
                     finish()

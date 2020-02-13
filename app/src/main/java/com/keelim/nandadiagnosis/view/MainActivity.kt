@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -33,6 +34,11 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupWithNavController(nav_view, navController)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             fileChecking() //데이터베이스 파일 유무 확인
+        }
+
+        main_drawer_button.setOnClickListener {
+            if (!container.isDrawerOpen(GravityCompat.END))
+                container.openDrawer(GravityCompat.END)
         }
     }
 

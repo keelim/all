@@ -24,13 +24,11 @@ class SettingFragment : PreferenceFragmentCompat() {
                 true
             }
             "opensource" -> {
-                val open = Intent(context, OpenSourceActivity::class.java)
-                startActivity(open)
+                startActivity(Intent(context, OpenSourceActivity::class.java))
                 return true
             }
             "please" -> {
-                val please = Intent(context, PleaseActivity::class.java)
-                startActivity(please)
+                startActivity(Intent(context, PleaseActivity::class.java))
                 return true
             }
             "lab" -> {

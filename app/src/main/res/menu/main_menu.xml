@@ -13,6 +13,9 @@
         <item
             android:id="@+id/menu_setting"
             android:title="설정" />
+        <item
+            android:id="@+id/menu_lab1"
+            android:title="실험1" />
     </group>
 </menu>
 

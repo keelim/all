@@ -4,9 +4,8 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import androidx.fragment.app.FragmentPagerAdapter
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
@@ -15,6 +14,7 @@ import com.keelim.cnubus.model.ViewPagerAdapter
 import com.keelim.cnubus.view.recycler.RecyclerActivity
 import com.keelim.cnubus.view.setting.SettingsActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.layout_drawer.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var pagerAdapter: ViewPagerAdapter
@@ -33,41 +33,32 @@ class MainActivity : AppCompatActivity() {
         )
         viewpager.adapter = pagerAdapter
         tabLayout.setupWithViewPager(viewpager)
-    }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main_menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.drawer_root_check -> {
-                val intent =
-                    Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.busurl)))
-                startActivity(intent)
-            }
-            R.id.menu_setting -> {
-                val intent = Intent(this, SettingsActivity::class.java)
-                startActivity(intent) //설정 창으로 이동을 한다.
-            }
-            R.id.gps -> {
-                val intent = Intent(this, MapsActivity::class.java)
-                startActivity(intent) //설정 창으로 이동을 한다.MapsActivity.class);
-            }
-            R.id.menu_lab1->{
-                startActivity(Intent(this, RecyclerActivity::class.java))
-            }
-
+        main_drawer_button.setOnClickListener {
+            if(!drawer_container.isDrawerOpen(GravityCompat.END)) drawer_container.openDrawer(GravityCompat.END)
         }
-        return super.onOptionsItemSelected(item)
+        drawer_close.setOnClickListener {
+            if (drawer_container.isDrawerOpen(GravityCompat.END)) {
+                drawer_container.closeDrawer(GravityCompat.END)
+            }
+        }
+
+        drawer_root_check.setOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.busurl))))
+        }
+
+        drawer_setting.setOnClickListener {
+            startActivity(Intent(this, SettingsActivity::class.java))
+        }
+
+        drawer_lab1.setOnClickListener {
+            startActivity(Intent(this,RecyclerActivity::class.java))
+        }
     }
 
-    override fun onActivityResult(
-        requestCode: Int,
-        resultCode: Int,
-        data: Intent?
-    ) {
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {

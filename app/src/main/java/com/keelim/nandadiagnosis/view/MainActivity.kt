@@ -2,11 +2,9 @@ package com.keelim.nandadiagnosis.view
 
 import android.content.DialogInterface
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -22,19 +20,19 @@ import java.io.FileOutputStream
 import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
-    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         val appBarConfiguration = AppBarConfiguration.Builder(
                 R.id.navigation_category, R.id.navigation_search, R.id.navigation_my)
                 .build()
+
         val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
         NavigationUI.setupWithNavController(nav_view, navController)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            fileChecking() //데이터베이스 파일 유무 확인
-        }
+
+        fileChecking() //데이터베이스 파일 유무 확인
 
         main_drawer_button.setOnClickListener {
             if (!container.isDrawerOpen(GravityCompat.END))
@@ -58,14 +56,12 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    @RequiresApi(Build.VERSION_CODES.N)
     private fun fileChecking() {
         val check = File(dataDir.absolutePath + "/databases/nanda.db")
         if (!check.exists()) { //데이터베이스를 받아온다.
             alertBuilderSetting()
-        } else {
-            Toast.makeText(this, "데이터베이스가 존재합니다. 그대로 진행 합니다.", Toast.LENGTH_SHORT).show()
-        }
+
+        } else Toast.makeText(this, "데이터베이스가 존재합니다. 그대로 진행 합니다.", Toast.LENGTH_SHORT).show()
     }
 
 
@@ -75,7 +71,7 @@ class MainActivity : AppCompatActivity() {
                 .setMessage("어플리케이션 사용을 위해 데이터베이스를 다운로드 합니다.")
                 .setCancelable(false)
                 .setNegativeButton(android.R.string.cancel, null)
-                .setPositiveButton(android.R.string.ok) { dialogInterface: DialogInterface?, i: Int ->
+                .setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
                     Toast.makeText(this, "서버로부터 데이터 베이스를 요청 합니다. ", Toast.LENGTH_SHORT).show()
                     val client = OkHttpClient()
                     val request = Request.Builder()
@@ -105,8 +101,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private inner class CallBackDownloadFile internal constructor() : Callback {
-        //okhttp call back method
-        @RequiresApi(Build.VERSION_CODES.N)
+
         private val fileToBeDownloaded: File = File(dataDir.absolutePath + "/databases", "nanda.db")
 
         override fun onFailure(call: Call, e: IOException) {
@@ -116,7 +111,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        @RequiresApi(Build.VERSION_CODES.N)
         @Throws(IOException::class)
         override fun onResponse(call: Call, response: Response) {
             try {
@@ -130,8 +124,8 @@ class MainActivity : AppCompatActivity() {
             }
             val inputStream = response.body!!.byteStream()
             val outputStream = FileOutputStream(fileToBeDownloaded)
-            val BUFFER_SIZE = 2046
-            val data = ByteArray(BUFFER_SIZE)
+            val buffer = 2046
+            val data = ByteArray(buffer)
             var count: Int
             while (inputStream.read(data).also { count = it } != -1) {
                 outputStream.write(data, 0, count)

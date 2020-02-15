@@ -1,5 +1,6 @@
 package com.keelim.nandadiagnosis.view
 
+import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
@@ -11,6 +12,14 @@ import androidx.core.view.GravityCompat
 import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.play.core.appupdate.AppUpdateManager
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.InstallStateUpdatedListener
+import com.google.android.play.core.install.model.ActivityResult
+import com.google.android.play.core.install.model.AppUpdateType
+import com.google.android.play.core.install.model.InstallStatus
+import com.google.android.play.core.install.model.UpdateAvailability
 import com.keelim.nandadiagnosis.R
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_category.*
@@ -20,6 +29,7 @@ import java.io.FileOutputStream
 import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var appUpdateManager: AppUpdateManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -52,6 +62,36 @@ class MainActivity : AppCompatActivity() {
         search_view_1.setOnClickListener { showDialog("11") }
         search_view_1.setOnClickListener { showDialog("12") }
         search_view_1.setOnClickListener { showDialog("13") }
+
+        // appUpdate
+        appUpdateManager = AppUpdateManagerFactory.create(this)
+
+        val appUpdateInfoTask = appUpdateManager.appUpdateInfo
+
+        appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE && appUpdateInfo.isUpdateTypeAllowed(
+                            AppUpdateType.FLEXIBLE
+                    )
+            ) {
+                appUpdateManager.startUpdateFlowForResult(
+                        // Pass the intent that is returned by 'getAppUpdateInfo()'.
+                        appUpdateInfo,
+                        // Or 'AppUpdateType.FLEXIBLE' for flexible updates.
+                        AppUpdateType.FLEXIBLE,
+                        // The current activity making the update request.
+                        this,
+                        // Include a request code to later monitor this update request.
+                        2
+                )
+                Snackbar.make(container, "업데이트를 시작합니다.", Snackbar.LENGTH_SHORT).show()
+            } else Snackbar.make(container, "최신 버전 어플리케이션 사용해주셔서 감사합니다.", Snackbar.LENGTH_SHORT).show()
+        }
+
+        val listener = InstallStateUpdatedListener { state ->
+            if (state.installStatus() == InstallStatus.DOWNLOADED)
+                popupSnackbarForCompleteUpdate()
+        }
+        appUpdateManager.registerListener(listener)
 
     }
 
@@ -100,6 +140,35 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    private fun popupSnackbarForCompleteUpdate() {
+        Snackbar.make(
+                container, "업데이트를 다운로드 하고 있습니다.", Snackbar.LENGTH_INDEFINITE
+        ).apply {
+            setAction("RESTART") { appUpdateManager.completeUpdate() }
+            setActionTextColor(resources.getColor(R.color.colorAccent, this@MainActivity.theme))
+            show()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 2) {
+            when (resultCode) {
+                RESULT_OK -> {
+                    Snackbar.make(container, "업데이트를 성공적으로 완료했습니다.", Snackbar.LENGTH_LONG)
+                }
+                Activity.RESULT_CANCELED -> {
+                    Snackbar.make(container, "업데이트를 취소하였습니다.", Snackbar.LENGTH_LONG)
+                }
+                ActivityResult.RESULT_IN_APP_UPDATE_FAILED -> {
+                    Snackbar.make(container, "시스템 오류가 발생했습니다.", Snackbar.LENGTH_LONG)
+                }
+            }
+
+        }
+    }
+
+
     private inner class CallBackDownloadFile internal constructor() : Callback {
 
         private val fileToBeDownloaded: File = File(dataDir.absolutePath + "/databases", "nanda.db")
@@ -142,4 +211,6 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
+
 }

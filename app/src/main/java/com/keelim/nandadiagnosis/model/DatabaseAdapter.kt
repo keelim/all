@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.model.roomdb.NandaEntity
+import com.keelim.nandadiagnosis.model.roomdb.DeviceEntity
 
-class DatabaseAdapter(private val context: Context, private val arrayList: List<NandaEntity>) : BaseAdapter() {
+class DatabaseAdapter(private val context: Context, private val arrayList: List<DeviceEntity>) : BaseAdapter() {
     override fun getCount(): Int {
         return arrayList.size
     }

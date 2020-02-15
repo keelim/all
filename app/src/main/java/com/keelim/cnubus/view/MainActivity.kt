@@ -12,6 +12,7 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.keelim.cnubus.R
 import com.keelim.cnubus.model.ViewPagerAdapter
+import com.keelim.cnubus.view.recycler.RecyclerActivity
 import com.keelim.cnubus.view.setting.SettingsActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -40,8 +41,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId
-        when (id) {
+        when (item.itemId) {
             R.id.drawer_root_check -> {
                 val intent =
                     Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.busurl)))
@@ -55,6 +55,10 @@ class MainActivity : AppCompatActivity() {
                 val intent = Intent(this, MapsActivity::class.java)
                 startActivity(intent) //설정 창으로 이동을 한다.MapsActivity.class);
             }
+            R.id.menu_lab1->{
+                startActivity(Intent(this, RecyclerActivity::class.java))
+            }
+
         }
         return super.onOptionsItemSelected(item)
     }

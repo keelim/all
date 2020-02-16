@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.error
+package com.keelim.cnubus.error
 
 import android.app.Activity
 import android.app.Application
@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Process
 import java.io.PrintWriter
 import java.io.StringWriter
+import kotlin.system.exitProcess
 
 class ExceptionHandler(
         application: Application,
@@ -61,7 +62,7 @@ class ExceptionHandler(
         } ?: defaultExceptionHandler.uncaughtException(thread, throwable)
 
         Process.killProcess(Process.myPid())
-        System.exit(-1)
+        exitProcess(-1)
     }
 
     private fun startErrorActivity(activity: Activity, errorText: String) = activity.run {

@@ -36,7 +36,10 @@ class MainActivity : AppCompatActivity() {
             AdRequest.Builder().build()
 
         adView.loadAd(adRequest)
-        pagerAdapter = ViewPagerAdapter(supportFragmentManager, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT)
+        pagerAdapter = ViewPagerAdapter(
+            supportFragmentManager,
+            FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
+        )
         viewpager.adapter = pagerAdapter
         tabLayout.setupWithViewPager(viewpager)
 
@@ -88,7 +91,11 @@ class MainActivity : AppCompatActivity() {
                     2
                 )
                 Snackbar.make(drawer_container, "업데이트를 시작합니다.", Snackbar.LENGTH_SHORT).show()
-            } else Snackbar.make(drawer_container, "최신 버전 어플리케이션 사용해주셔서 감사합니다.", Snackbar.LENGTH_SHORT).show()
+            } else Snackbar.make(
+                drawer_container,
+                "최신 버전 어플리케이션 사용해주셔서 감사합니다.",
+                Snackbar.LENGTH_SHORT
+            ).show()
         }
 
         val listener = InstallStateUpdatedListener { state ->
@@ -102,11 +109,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 1) {
-            if (resultCode == Activity.RESULT_OK) {
-                val result = data!!.getStringExtra("result")
-            }
-        } else if (requestCode == 2) {
+        if (requestCode == 2) {
             when (resultCode) {
                 RESULT_OK -> {
                     Snackbar.make(drawer_container, "업데이트를 성공적으로 완료했습니다.", Snackbar.LENGTH_LONG)

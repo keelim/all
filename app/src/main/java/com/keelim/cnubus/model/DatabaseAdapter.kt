@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import com.keelim.cnubus.model.db.LocationEntity
 
-class DatabaseAdapter(val context: Context, val arrayList: List<LocationEntity>) : BaseAdapter() {
+class DatabaseAdapter(val context: Context, private val arrayList: List<LocationEntity>) : BaseAdapter() {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 //        val returnView = LayoutInflater.from(context).inflate(R.layout, null)
 //        convertView.findViewById<R.id.>().text = arrayList[position].location1

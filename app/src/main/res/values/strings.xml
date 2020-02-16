@@ -2,7 +2,6 @@
     <string name="app_name">충남대버스</string>
     <string name="ADMOB_APP_ID">ca-app-pub-3115620439518585~7951570697</string>
     <string name="ADMOB_UNIT_ID">ca-app-pub-3115620439518585/2593741731</string>
-    <string name="ADMOB_TEST">ca-app-pub-3940256099942544/6300978111</string>
     <string name="fabric_api">da093908abc28a1043cbc271323c4e202e13ec65</string>
     <string name="cnu_bus">CNUBUS</string>
     <string name="title_activity_settings">설정</string>

@@ -3,7 +3,7 @@ package com.keelim.cnubus
 import android.app.Application
 import com.crashlytics.android.Crashlytics
 import com.keelim.cnubus.di.myDiModule
-import com.keelim.nandadiagnosis.error.ExceptionHandler
+import com.keelim.cnubus.error.ExceptionHandler
 import io.fabric.sdk.android.Fabric
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin

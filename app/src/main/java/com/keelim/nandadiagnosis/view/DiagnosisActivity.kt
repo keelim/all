@@ -20,7 +20,7 @@ class DiagnosisActivity : AppCompatActivity() {
         val adapter = MyDiagnosisViewAdapter(this, arrayList)
         list.run {
             this.adapter = adapter
-            onItemClickListener = OnItemClickListener { parent: AdapterView<*>?, view: View?, position: Int, id: Long -> goWeb(nav + position + 1) }
+            onItemClickListener = OnItemClickListener { _: AdapterView<*>?, _: View?, position: Int, _: Long -> goWeb(nav + position + 1) }
         }
     }
 

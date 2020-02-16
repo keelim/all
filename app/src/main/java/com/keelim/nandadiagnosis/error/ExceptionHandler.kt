@@ -1,10 +1,12 @@
-package com.keelim.nandadiagnosis.error
+package kr.co.prnd.erroractivitysample
 
 import android.app.Activity
 import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import android.os.Process
+import com.keelim.nandadiagnosis.error.ActivityLifecycleCallbacks
+import com.keelim.nandadiagnosis.error.ErrorActivity
 import java.io.PrintWriter
 import java.io.StringWriter
 

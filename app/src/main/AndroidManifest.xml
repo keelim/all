@@ -58,6 +58,7 @@
         </activity>
         <activity android:name=".view.DiagnosisActivity" />
         <activity android:name=".view.LoginActivity" />
+        <activity android:name=".error.ErrorActivity" />
 
         <service android:name=".services.FirebaseInstanceIDService" />
 

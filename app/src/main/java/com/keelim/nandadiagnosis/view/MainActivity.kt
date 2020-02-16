@@ -50,18 +50,18 @@ class MainActivity : AppCompatActivity() {
         }
 
         search_view_1.setOnClickListener { showDialog("1") }
-        search_view_1.setOnClickListener { showDialog("2") }
-        search_view_1.setOnClickListener { showDialog("3") }
-        search_view_1.setOnClickListener { showDialog("4") }
-        search_view_1.setOnClickListener { showDialog("5") }
-        search_view_1.setOnClickListener { showDialog("6") }
-        search_view_1.setOnClickListener { showDialog("7") }
-        search_view_1.setOnClickListener { showDialog("8") }
-        search_view_1.setOnClickListener { showDialog("9") }
-        search_view_1.setOnClickListener { showDialog("10") }
-        search_view_1.setOnClickListener { showDialog("11") }
-        search_view_1.setOnClickListener { showDialog("12") }
-        search_view_1.setOnClickListener { showDialog("13") }
+        search_view_2.setOnClickListener { showDialog("2") }
+        search_view_3.setOnClickListener { showDialog("3") }
+        search_view_4.setOnClickListener { showDialog("4") }
+        search_view_5.setOnClickListener { showDialog("5") }
+        search_view_6.setOnClickListener { showDialog("6") }
+        search_view_7.setOnClickListener { showDialog("7") }
+        search_view_8.setOnClickListener { showDialog("8") }
+        search_view_9.setOnClickListener { showDialog("9") }
+        search_view_10.setOnClickListener { showDialog("10") }
+        search_view_11.setOnClickListener { showDialog("11") }
+        search_view_12.setOnClickListener { showDialog("12") }
+        search_view_13.setOnClickListener { showDialog("13") }
 
         // appUpdate
         appUpdateManager = AppUpdateManagerFactory.create(this)

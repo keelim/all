@@ -17,7 +17,7 @@ class SettingFragment : PreferenceFragmentCompat() {
     override fun onPreferenceTreeClick(preference: Preference): Boolean {
         return when (preference.key) {
             "nandaHome" -> {
-                val intent_web = Intent(context, WebViewActivity::class.java).apply {
+                Intent(context, WebViewActivity::class.java).apply {
                     putExtra("URL", "https://keelim.github.io/nandaDiagnosis/")
                     startActivity(this)
                 }

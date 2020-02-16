@@ -28,7 +28,7 @@ class WebViewActivity : AppCompatActivity() {
             setLayerType(View.LAYER_TYPE_HARDWARE, null)
         }
 
-        val settings = webView.settings.run {
+        webView.settings.run {
             loadWithOverviewMode = true
             useWideViewPort = true
             setSupportZoom(true)

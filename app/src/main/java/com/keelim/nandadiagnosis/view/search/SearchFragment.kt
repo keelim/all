@@ -27,7 +27,7 @@ class SearchFragment : Fragment() {
         val adapter = DatabaseAdapter(context!!, arrayListOf())
         listview = root.findViewById(R.id.dbanswer_listview)
         listview.adapter = adapter
-        listview.onItemClickListener = OnItemClickListener { adapterView: AdapterView<*>, view: View?, i: Int, l: Long ->
+        listview.onItemClickListener = OnItemClickListener { adapterView: AdapterView<*>, _: View?, i: Int, _: Long ->
             val db = adapterView.adapter.getItem(i) as NandaEntity
             Toast.makeText(activity, "클래스 영역: " + db.class_name + "도매인 영역" + db.domain_name, Toast.LENGTH_SHORT).show() // 무슨 화면이 나와야 하는가?
             contentControl(db.nanda_id)

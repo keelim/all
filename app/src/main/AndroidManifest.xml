@@ -25,6 +25,11 @@
         <activity
             android:name=".view.MapsActivity"
             android:label="@string/title_activity_maps" />
+
+        <activity
+            android:name=".view.MapsLabActivity"
+            android:label="@string/title_activity_maps" />
+
         <activity
             android:name=".view.setting.SettingsActivity"
             android:label="@string/title_activity_settings" />

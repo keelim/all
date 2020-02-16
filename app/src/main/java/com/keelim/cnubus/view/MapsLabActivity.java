@@ -37,7 +37,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MapsLabActivity extends FragmentActivity implements OnMapReadyCallback {
-    private GoogleMap mMap;
+    private GoogleMap map;
     private ArrayList<LatLng> locationList;
     private int location;
 
@@ -92,21 +92,25 @@ public class MapsLabActivity extends FragmentActivity implements OnMapReadyCallb
             mapFragment.getMapAsync(this);
 
 
-
         FloatingActionButton floatingActionButton = findViewById(R.id.button_floating);
-        floatingActionButton.setOnClickListener(v-> showCurrentPlace());
+        floatingActionButton.setOnClickListener(v -> {
+                    showCurrentPlace();
+                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(mLikelyPlaceLatLngs[0], 17));
+                }
+        );
+
     }
 
 
     @Override
     public void onMapReady(final GoogleMap googleMap) { //구글 맵은 처음 사용을 하는 거니까
-        mMap = googleMap;
+        map = googleMap;
 
         for (int index = 0; index < 15; index++) {
             MarkerOptions markerOptions = new MarkerOptions();
             markerOptions.position(locationList.get(index))
                     .title(markerHandling(index));
-            mMap.addMarker(markerOptions);
+            map.addMarker(markerOptions);
         }
         CameraUpdate cameraUpdate;
         if (location == -1) {
@@ -114,7 +118,7 @@ public class MapsLabActivity extends FragmentActivity implements OnMapReadyCallb
         } else {
             cameraUpdate = CameraUpdateFactory.newLatLngZoom(locationList.get(location), 17);
         }
-        mMap.animateCamera(cameraUpdate);
+        map.animateCamera(cameraUpdate);
 
 
         /////////
@@ -167,8 +171,8 @@ public class MapsLabActivity extends FragmentActivity implements OnMapReadyCallb
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
-        if (mMap != null) {
-            outState.putParcelable(KEY_CAMERA_POSITION, mMap.getCameraPosition());
+        if (map != null) {
+            outState.putParcelable(KEY_CAMERA_POSITION, map.getCameraPosition());
             outState.putParcelable(KEY_LOCATION, lastKnownLocation);
             super.onSaveInstanceState(outState);
         }
@@ -183,10 +187,10 @@ public class MapsLabActivity extends FragmentActivity implements OnMapReadyCallb
                         // Set the map's camera position to the current location of the device.
                         lastKnownLocation = task.getResult();
                         if (lastKnownLocation != null) {
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+                            map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude()), DEFAULT_ZOOM));
                         }
                     } else {
-                        mMap.getUiSettings().setMyLocationButtonEnabled(false);
+                        map.getUiSettings().setMyLocationButtonEnabled(false);
                     }
                 });
             }
@@ -230,16 +234,16 @@ public class MapsLabActivity extends FragmentActivity implements OnMapReadyCallb
     }
 
     private void updateLocationUI() {
-        if (mMap == null) {
+        if (map == null) {
             return;
         }
         try {
             if (locationPermissionGranted) {
-                mMap.setMyLocationEnabled(true);
-                mMap.getUiSettings().setMyLocationButtonEnabled(true);
+                map.setMyLocationEnabled(true);
+                map.getUiSettings().setMyLocationButtonEnabled(true);
             } else {
-                mMap.setMyLocationEnabled(false);
-                mMap.getUiSettings().setMyLocationButtonEnabled(false);
+                map.setMyLocationEnabled(false);
+                map.getUiSettings().setMyLocationButtonEnabled(false);
                 lastKnownLocation = null;
                 getLocationPermission();
             }
@@ -249,18 +253,16 @@ public class MapsLabActivity extends FragmentActivity implements OnMapReadyCallb
     }
 
     private void showCurrentPlace() {
-        if (mMap == null) {
+        if (map == null) {
             return;
         }
 
         if (locationPermissionGranted) {
             // Use fields to define the data types to return.
-            List<Place.Field> placeFields = Arrays.asList(Place.Field.NAME, Place.Field.ADDRESS,
-                    Place.Field.LAT_LNG);
+            List<Place.Field> placeFields = Arrays.asList(Place.Field.NAME, Place.Field.ADDRESS, Place.Field.LAT_LNG);
 
             // Use the builder to create a FindCurrentPlaceRequest.
-            FindCurrentPlaceRequest request =
-                    FindCurrentPlaceRequest.newInstance(placeFields);
+            FindCurrentPlaceRequest request = FindCurrentPlaceRequest.newInstance(placeFields);
 
             // Get the likely places - that is, the businesses and other points of interest that
             // are the best match for the device's current location.
@@ -293,7 +295,6 @@ public class MapsLabActivity extends FragmentActivity implements OnMapReadyCallb
                             break;
                         }
                     }
-
                 }
             });
         } else {

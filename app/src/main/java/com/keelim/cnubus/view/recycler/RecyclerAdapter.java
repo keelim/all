@@ -45,15 +45,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     }
 
     // onCreateViewHolder() - 아이템 뷰를 위한 뷰홀더 객체 생성하여 리턴.
+    @NotNull
     @Override
     public RecyclerAdapter.ViewHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
         Context context = parent.getContext() ;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) ;
 
         View view = inflater.inflate(R.layout.items_recycler, parent, false) ;
-        RecyclerAdapter.ViewHolder vh = new RecyclerAdapter.ViewHolder(view) ;
 
-        return vh ;
+        return new ViewHolder(view);
     }
 
     // onBindViewHolder() - position에 해당하는 데이터를 뷰홀더의 아이템뷰에 표시.

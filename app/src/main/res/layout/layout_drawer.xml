@@ -88,4 +88,19 @@
         android:text="실험1"
         android:textSize="15.33sp" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.67dp"
+        android:background="#dedddd" />
+
+    <Button
+        android:id="@+id/drawer_lab2"
+        android:layout_width="match_parent"
+        android:layout_height="68.33dp"
+        android:layout_marginStart="20.33dp"
+        android:background="#00ffffff"
+        android:gravity="start|center_vertical"
+        android:text="실험2"
+        android:textSize="15.33sp" />
+
 </LinearLayout>

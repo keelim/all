@@ -82,8 +82,6 @@ public class MapsLabActivity extends FragmentActivity implements OnMapReadyCallb
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         ////
-
-
         locationListInit();
         intentControl();
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -95,7 +93,10 @@ public class MapsLabActivity extends FragmentActivity implements OnMapReadyCallb
 
 
         FloatingActionButton floatingActionButton = findViewById(R.id.button_floating);
-        floatingActionButton.setOnClickListener(v -> map.animateCamera(CameraUpdateFactory.newLatLngZoom(mLikelyPlaceLatLngs[mLikelyPlaceLatLngs.length - 1], 17))
+        floatingActionButton.setOnClickListener(v -> {
+                    showCurrentPlace();
+                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(mLikelyPlaceLatLngs[0], 17));
+                }
         );
 
     }
@@ -127,7 +128,6 @@ public class MapsLabActivity extends FragmentActivity implements OnMapReadyCallb
 
         getDeviceLocation();
 
-        showCurrentPlace();
     }
 
     // private method
@@ -223,9 +223,11 @@ public class MapsLabActivity extends FragmentActivity implements OnMapReadyCallb
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         locationPermissionGranted = false; //일단 권한 다시 초기화
-        if (requestCode == PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                locationPermissionGranted = true;
+        switch (requestCode) {
+            case PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    locationPermissionGranted = true;
+                }
             }
         }
         updateLocationUI();
@@ -287,12 +289,12 @@ public class MapsLabActivity extends FragmentActivity implements OnMapReadyCallb
                         mLikelyPlaceAttributions[i] = placeLikelihood.getPlace()
                                 .getAttributions();
                         mLikelyPlaceLatLngs[i] = placeLikelihood.getPlace().getLatLng();
+
                         i++;
                         if (i > (count - 1)) {
                             break;
                         }
                     }
-
                 }
             });
         } else {

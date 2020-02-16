@@ -53,6 +53,7 @@
         </activity>
         
         <activity android:name=".view.recycler.RecyclerActivity"/>
+        <activity android:name=".error.ErrorActivity" />
 
         <service
             android:name=".services.FirebaseInstanceIDService"

@@ -64,6 +64,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, RecyclerActivity::class.java))
         }
 
+        drawer_lab2.setOnClickListener {
+            startActivity(Intent(this, MapsLabActivity::class.java))
+        }
+
         appUpdateManager = AppUpdateManagerFactory.create(this)
 
         val appUpdateInfoTask = appUpdateManager.appUpdateInfo

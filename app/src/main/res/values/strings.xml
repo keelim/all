@@ -214,5 +214,6 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
+    <string name="real_ad">ca-app-pub-3115620439518585/5072014382</string>
 
 </resources>

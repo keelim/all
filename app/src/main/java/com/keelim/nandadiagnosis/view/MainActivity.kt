@@ -22,7 +22,6 @@ import com.google.android.play.core.install.model.InstallStatus
 import com.google.android.play.core.install.model.UpdateAvailability
 import com.keelim.nandadiagnosis.R
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_category.*
 import okhttp3.*
 import java.io.File
 import java.io.FileOutputStream
@@ -48,20 +47,6 @@ class MainActivity : AppCompatActivity() {
             if (!container.isDrawerOpen(GravityCompat.END))
                 container.openDrawer(GravityCompat.END)
         }
-
-        search_view_1.setOnClickListener { showDialog("1") }
-        search_view_2.setOnClickListener { showDialog("2") }
-        search_view_3.setOnClickListener { showDialog("3") }
-        search_view_4.setOnClickListener { showDialog("4") }
-        search_view_5.setOnClickListener { showDialog("5") }
-        search_view_6.setOnClickListener { showDialog("6") }
-        search_view_7.setOnClickListener { showDialog("7") }
-        search_view_8.setOnClickListener { showDialog("8") }
-        search_view_9.setOnClickListener { showDialog("9") }
-        search_view_10.setOnClickListener { showDialog("10") }
-        search_view_11.setOnClickListener { showDialog("11") }
-        search_view_12.setOnClickListener { showDialog("12") }
-        search_view_13.setOnClickListener { showDialog("13") }
 
         // appUpdate
         appUpdateManager = AppUpdateManagerFactory.create(this)
@@ -123,22 +108,7 @@ class MainActivity : AppCompatActivity() {
                 .show()
     }
 
-    private fun showDialog(num: String) { //데이터를 사용하는 페이지 이니 조심하라는 문구
-        val builder = AlertDialog.Builder(this)
-        builder.setMessage("이 기능은 데이터를 사용할 수 있습니다.\n 사용하시겠습니까?")
-                .setCancelable(false)
-                .setPositiveButton("예") { _, _ -> intentList(num) }
-                .setNegativeButton("아니오") { _, _ -> Toast.makeText(this, "아니오 선택했습니다.", Toast.LENGTH_LONG).show() }
-                .create()
-                .show()
-    }
 
-    private fun intentList(num: String) {
-        val intent = Intent(this, DiagnosisActivity::class.java).apply {
-            putExtra("extra", num)
-        }
-        startActivity(intent)
-    }
 
     private fun popupSnackbarForCompleteUpdate() {
         Snackbar.make(

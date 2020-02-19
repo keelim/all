@@ -29,11 +29,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 int pos = getAdapterPosition() ;
                 if (pos != RecyclerView.NO_POSITION) {
                     mData.set(pos, "item clicked. pos=" + pos) ;
-
                     notifyItemChanged(pos) ;
                 }
             });
-
             // 뷰 객체에 대한 참조. (hold strong reference)
             textView1 = itemView.findViewById(R.id.text1) ;
         }
@@ -50,7 +48,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     public RecyclerAdapter.ViewHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
         Context context = parent.getContext() ;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) ;
-
         View view = inflater.inflate(R.layout.items_recycler, parent, false) ;
 
         return new ViewHolder(view);

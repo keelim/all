@@ -9,7 +9,6 @@ abstract class BaseActivity<T: ViewDataBinding, R: BaseViewModel>: AppCompatActi
     private lateinit var viewDataBinding: T
 
     abstract val layoutResourceId:Int
-    abstract val viewModel: R
 
     abstract fun initStartView()
     abstract fun initDataBinding()

@@ -98,7 +98,6 @@ public class MapsLabActivity extends FragmentActivity implements OnMapReadyCallb
                     map.animateCamera(CameraUpdateFactory.newLatLngZoom(mLikelyPlaceLatLngs[0], 17));
                 }
         );
-
     }
 
 
@@ -120,14 +119,9 @@ public class MapsLabActivity extends FragmentActivity implements OnMapReadyCallb
         }
         map.animateCamera(cameraUpdate);
 
-
-        /////////
         getLocationPermission();
-
         updateLocationUI();
-
         getDeviceLocation();
-
     }
 
     // private method
@@ -139,10 +133,9 @@ public class MapsLabActivity extends FragmentActivity implements OnMapReadyCallb
     private void intentControl() {
         Intent intent = getIntent();
         String stringLocation = intent.getStringExtra("location");
-        if (stringLocation != null) {
-            location = Integer.parseInt(stringLocation);
-        } else
-            location = -1;
+
+        if (stringLocation != null) location = Integer.parseInt(stringLocation);
+        else location = -1;
     }
 
     private void locationListInit() {
@@ -184,7 +177,6 @@ public class MapsLabActivity extends FragmentActivity implements OnMapReadyCallb
                 Task<Location> locationResult = fusedLocationProviderClient.getLastLocation();
                 locationResult.addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        // Set the map's camera position to the current location of the device.
                         lastKnownLocation = task.getResult();
                         if (lastKnownLocation != null) {
                             map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude()), DEFAULT_ZOOM));
@@ -200,20 +192,13 @@ public class MapsLabActivity extends FragmentActivity implements OnMapReadyCallb
     }
 
     private void getLocationPermission() { //권한 체크 하기
-        /*
-         * Request location permission, so that we can get the location of the
-         * device. The result of the permission request is handled by a callback,
-         * onRequestPermissionsResult.
-         */
 
         //권한 체크 생각보다 간단하네
 
         if (ContextCompat.checkSelfPermission(this.getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
             locationPermissionGranted = true;
         else {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
-                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
             //권한을 배열을 만들어서 call 을 한다.
         }
     }
@@ -223,20 +208,16 @@ public class MapsLabActivity extends FragmentActivity implements OnMapReadyCallb
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         locationPermissionGranted = false; //일단 권한 다시 초기화
-        switch (requestCode) {
-            case PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    locationPermissionGranted = true;
-                }
+        if (requestCode == PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                locationPermissionGranted = true;
             }
         }
         updateLocationUI();
     }
 
     private void updateLocationUI() {
-        if (map == null) {
-            return;
-        }
+        if (map == null) return;
         try {
             if (locationPermissionGranted) {
                 map.setMyLocationEnabled(true);
@@ -253,28 +234,20 @@ public class MapsLabActivity extends FragmentActivity implements OnMapReadyCallb
     }
 
     private void showCurrentPlace() {
-        if (map == null) {
-            return;
-        }
+        if (map == null) return;
 
         if (locationPermissionGranted) {
-            // Use fields to define the data types to return.
             List<Place.Field> placeFields = Arrays.asList(Place.Field.NAME, Place.Field.ADDRESS, Place.Field.LAT_LNG);
 
-            // Use the builder to create a FindCurrentPlaceRequest.
             FindCurrentPlaceRequest request = FindCurrentPlaceRequest.newInstance(placeFields);
 
-            // Get the likely places - that is, the businesses and other points of interest that
-            // are the best match for the device's current location.
             @SuppressWarnings("MissingPermission") final Task<FindCurrentPlaceResponse> placeResult = placesClient.findCurrentPlace(request);
 
             placeResult.addOnCompleteListener(task -> {
                 if (task.isSuccessful() && task.getResult() != null) {
                     FindCurrentPlaceResponse likelyPlaces = task.getResult();
 
-                    // Set the count, handling cases where less than 5 entries are returned.
                     int count = Math.min(likelyPlaces.getPlaceLikelihoods().size(), M_MAX_ENTRIES);
-
                     int i = 0;
                     mLikelyPlaceNames = new String[count];
                     mLikelyPlaceAddresses = new String[count];
@@ -291,14 +264,12 @@ public class MapsLabActivity extends FragmentActivity implements OnMapReadyCallb
                         mLikelyPlaceLatLngs[i] = placeLikelihood.getPlace().getLatLng();
 
                         i++;
-                        if (i > (count - 1)) {
-                            break;
-                        }
+                        if (i > (count - 1)) break;
+
                     }
                 }
             });
-        } else {
-            getLocationPermission();
-        }
+        } else getLocationPermission();
+
     }
 }

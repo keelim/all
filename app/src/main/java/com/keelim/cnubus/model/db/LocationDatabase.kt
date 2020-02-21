@@ -13,20 +13,5 @@ abstract class LocationDatabase : RoomDatabase() {
     companion object {
         private var INSTANCE: LocationDatabase? = null
 
-        fun getInstance(context: Context): LocationDatabase? {
-            val DB_PATH = context.applicationInfo.dataDir + "/databases/"
-            if (INSTANCE == null) {
-                synchronized(LocationDatabase::class) {
-                    INSTANCE = Room.databaseBuilder(
-                        context.applicationContext,
-                        LocationDatabase::class.java,
-                        "location"
-                    ).createFromFile(File(DB_PATH, "location.db"))
-                        .allowMainThreadQueries()
-                        .build()
-                }
-            }
-            return INSTANCE
-        }
     }
 }

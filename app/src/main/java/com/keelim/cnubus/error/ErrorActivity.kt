@@ -3,16 +3,12 @@ package com.keelim.cnubus.error
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import com.keelim.cnubus.R
-import com.keelim.cnubus.databinding.ActivityErrorBinding
+import kotlinx.android.synthetic.main.activity_error.*
 
 
 class ErrorActivity : AppCompatActivity() {
-    val EXTRA_INTENT = "EXTRA_INTENT"
-    val EXTRA_ERROR_TEXT = "EXTRA_ERROR_TEXT"
 
-    private lateinit var binding: ActivityErrorBinding
 
     private val lastActivityIntent by lazy {
         intent.getParcelableExtra<Intent>(EXTRA_INTENT)
@@ -24,14 +20,20 @@ class ErrorActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_error)
+        setContentView(R.layout.activity_error)
 
-        binding.tvErrorLog.text = errorText
+        tv_error_log.text = errorText
 
-        binding.btnReload.setOnClickListener {
+        btn_reload.setOnClickListener {
             startActivity(lastActivityIntent)
             finish()
         }
     }
+
+    companion object {
+        const val EXTRA_INTENT = "EXTRA_INTENT"
+        const val EXTRA_ERROR_TEXT = "EXTRA_ERROR_TEXT"
+    }
+
 
 }

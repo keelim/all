@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.FragmentPagerAdapter
@@ -22,6 +24,7 @@ import com.keelim.cnubus.model.ViewPagerAdapter
 import com.keelim.cnubus.view.recycler.RecyclerActivity
 import com.keelim.cnubus.view.setting.SettingsActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_splash.*
 import kotlinx.android.synthetic.main.layout_drawer.*
 
 class MainActivity : AppCompatActivity() {
@@ -36,10 +39,7 @@ class MainActivity : AppCompatActivity() {
             AdRequest.Builder().build()
 
         adView.loadAd(adRequest)
-        pagerAdapter = ViewPagerAdapter(
-            supportFragmentManager,
-            FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
-        )
+        pagerAdapter = ViewPagerAdapter(supportFragmentManager, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT)
         viewpager.adapter = pagerAdapter
         tabLayout.setupWithViewPager(viewpager)
 
@@ -76,10 +76,7 @@ class MainActivity : AppCompatActivity() {
         val appUpdateInfoTask = appUpdateManager.appUpdateInfo
 
         appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
-            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE && appUpdateInfo.isUpdateTypeAllowed(
-                    AppUpdateType.FLEXIBLE
-                )
-            ) {
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
                 appUpdateManager.startUpdateFlowForResult(
                     // Pass the intent that is returned by 'getAppUpdateInfo()'.
                     appUpdateInfo,
@@ -91,11 +88,9 @@ class MainActivity : AppCompatActivity() {
                     2
                 )
                 Snackbar.make(drawer_container, "업데이트를 시작합니다.", Snackbar.LENGTH_SHORT).show()
+                main_progress.visibility = View.VISIBLE
             } else Snackbar.make(
-                drawer_container,
-                "최신 버전 어플리케이션 사용해주셔서 감사합니다.",
-                Snackbar.LENGTH_SHORT
-            ).show()
+                drawer_container, "최신 버전 어플리케이션 사용해주셔서 감사합니다.", Snackbar.LENGTH_SHORT).show()
         }
 
         val listener = InstallStateUpdatedListener { state ->
@@ -121,13 +116,13 @@ class MainActivity : AppCompatActivity() {
                     Snackbar.make(drawer_container, "시스템 오류가 발생했습니다.", Snackbar.LENGTH_LONG)
                 }
             }
+            main_progress.visibility = View.INVISIBLE
         }
     }
 
     private fun popupSnackbarForCompleteUpdate() {
-        Snackbar.make(
-            drawer_container, "업데이트를 다운로드 하고 있습니다.", Snackbar.LENGTH_INDEFINITE
-        ).apply {
+
+        Snackbar.make(drawer_container, "업데이트를 다운로드 하고 있습니다.", Snackbar.LENGTH_INDEFINITE).apply {
             setAction("RESTART") { appUpdateManager.completeUpdate() }
             setActionTextColor(resources.getColor(R.color.colorAccent, this@MainActivity.theme))
             show()

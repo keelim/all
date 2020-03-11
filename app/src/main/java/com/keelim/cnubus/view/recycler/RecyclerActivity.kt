@@ -7,11 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.keelim.cnubus.R
 
 
-class RecyclerActivity : AppCompatActivity() {
+class RecyclerActivity : AppCompatActivity(R.layout.activity_recycler) {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_recycler)
-
         // 리사이클러뷰에 표시할 데이터 리스트 생성.
         // 리사이클러뷰에 표시할 데이터 리스트 생성.
         val list: ArrayList<String> = ArrayList()

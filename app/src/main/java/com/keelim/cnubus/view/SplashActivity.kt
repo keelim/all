@@ -12,22 +12,23 @@ import com.google.android.material.snackbar.Snackbar
 import com.keelim.cnubus.R
 import kotlinx.android.synthetic.main.activity_splash.*
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : AppCompatActivity(R.layout.activity_splash) {
     //인트로 액티비티를 생성한다.
-    private var handler: Handler = Handler()
+    private var handler: Handler = Handler(mainLooper)
     private lateinit var interstitialAd: InterstitialAd
 
     private val runnable = Runnable {
         //runable 작동을 하고 시작
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent) //인텐트를 넣어준다. intro -> main
+        Intent(this, MainActivity::class.java).apply {
+            startActivity(this)
+        } //인텐트를 넣어준다. intro -> main
         finish() //앱을 종료한다.
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out) //애니메이션을 넣어준다.
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
+
         Snackbar.make(splash_container, "충남대버스에 오신것을 환영 합니다.", Snackbar.LENGTH_SHORT).show()
 
         interstitialAd = InterstitialAd(this)

@@ -11,20 +11,18 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.keelim.cnubus.R
 import kotlinx.android.synthetic.main.fragment_c_root.*
+import kotlinx.android.synthetic.main.fragment_c_root.view.*
 
 class CRootFragment : Fragment() {
 
     private lateinit var rootList: Array<String>
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.fragment_c_root, container, false)
-        root.findViewById<ListView>(R.id.lv_croot)
-            .setOnItemClickListener { parent: AdapterView<*>?, view: View?, position: Int, id: Long ->
-                Snackbar.make(crootLayout, "기능 준비 중입니다.", Snackbar.LENGTH_LONG)
-            }
+        root.lv_croot.setOnItemClickListener { adapterView, view, i, l ->
+            Snackbar.make(crootLayout, "기능 준비 중입니다.", Snackbar.LENGTH_LONG)
+        }
+
         rootList = resources.getStringArray(R.array.croot)
         applyList(root, rootList)
         return root

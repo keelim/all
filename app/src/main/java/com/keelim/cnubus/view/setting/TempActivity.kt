@@ -35,7 +35,7 @@ import kotlinx.android.synthetic.main.activity_maps.*
 import java.io.IOException
 import java.util.*
 
-class TempActivity : AppCompatActivity(), OnMapReadyCallback, OnRequestPermissionsResultCallback {
+class TempActivity : AppCompatActivity(R.layout.activity_maps), OnMapReadyCallback, OnRequestPermissionsResultCallback {
     private lateinit var mMap: GoogleMap
     private lateinit var currentMarker: Marker
     private lateinit var mCurrentLocation: Location
@@ -52,11 +52,8 @@ class TempActivity : AppCompatActivity(), OnMapReadyCallback, OnRequestPermissio
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_maps)
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
-            WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
-        )
+
+        window.setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
         locationRequest = LocationRequest() //위치 요청
             .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)

@@ -16,11 +16,11 @@ import com.keelim.cnubus.model.ModeCode
 import com.keelim.cnubus.view.MapsActivity
 import kotlinx.android.synthetic.main.activity_settings.*
 
-class SettingsActivity : AppCompatActivity() {
+class SettingsActivity : AppCompatActivity(R.layout.activity_settings) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_settings)
+
         supportFragmentManager.beginTransaction().replace(R.id.settings, SettingsFragment()).commit()
 
         val actionBar = supportActionBar

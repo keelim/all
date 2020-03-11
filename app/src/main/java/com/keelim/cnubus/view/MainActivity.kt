@@ -27,13 +27,12 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_splash.*
 import kotlinx.android.synthetic.main.layout_drawer.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private lateinit var pagerAdapter: ViewPagerAdapter
     private lateinit var appUpdateManager: AppUpdateManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
         MobileAds.initialize(this, getString(R.string.ADMOB_APP_ID))
         val adRequest =
             AdRequest.Builder().build()

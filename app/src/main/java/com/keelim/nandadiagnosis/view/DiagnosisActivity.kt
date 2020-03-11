@@ -10,12 +10,12 @@ import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.model.MyDiagnosisViewAdapter
 import kotlinx.android.synthetic.main.activity_diagnosislist.*
 
-class DiagnosisActivity : AppCompatActivity() {
+class DiagnosisActivity : AppCompatActivity(R.layout.activity_diagnosislist) {
     private var arrayList: ArrayList<MyDiagnosisViewAdapter.DiagnosisItem>? = ArrayList()
     private var nav = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_diagnosislist)
+
         arrayListSetting()
         val adapter = MyDiagnosisViewAdapter(this, arrayList)
         list.run {

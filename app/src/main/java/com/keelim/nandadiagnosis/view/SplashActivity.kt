@@ -12,10 +12,11 @@ import com.google.android.material.snackbar.Snackbar
 import com.keelim.nandadiagnosis.R
 import kotlinx.android.synthetic.main.activity_splash.*
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : AppCompatActivity(R.layout.activity_splash) {
     //handler를 다르게 설정을 할 수 있는가?
-    private var handler: Handler = Handler()
+    private var handler: Handler = Handler(mainLooper)
     private lateinit var interstitialAd: InterstitialAd
+
     // 인앱 업데이트를 등록을 하는 방법
     private val runnable = Runnable {
         //runable 작동을 하고 시작
@@ -27,7 +28,6 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
         Snackbar.make(container_splash, "NANDA 진단에 오신 것을 환영합니다.", Snackbar.LENGTH_SHORT).show()
 
         interstitialAd = InterstitialAd(this)

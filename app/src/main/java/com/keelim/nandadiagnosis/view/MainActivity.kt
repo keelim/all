@@ -27,14 +27,13 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private lateinit var appUpdateManager: AppUpdateManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
         val appBarConfiguration = AppBarConfiguration.Builder(
-                R.id.navigation_category, R.id.navigation_search, R.id.navigation_my)
+                        R.id.navigation_category, R.id.navigation_search, R.id.navigation_my)
                 .build()
 
         val navController = Navigation.findNavController(this, R.id.nav_host_fragment)

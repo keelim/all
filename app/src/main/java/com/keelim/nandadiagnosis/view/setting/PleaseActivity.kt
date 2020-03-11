@@ -6,11 +6,10 @@ import com.google.android.material.snackbar.Snackbar
 import com.keelim.nandadiagnosis.R
 import kotlinx.android.synthetic.main.activity_please.*
 
-class PleaseActivity : AppCompatActivity() {
+class PleaseActivity : AppCompatActivity(R.layout.activity_please) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_please)
         setSupportActionBar(toolbar)
         toolbar_layout.title = title
         fab.setOnClickListener { view ->

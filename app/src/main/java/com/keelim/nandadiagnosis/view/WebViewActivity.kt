@@ -12,11 +12,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.keelim.nandadiagnosis.R
 import kotlinx.android.synthetic.main.activity_web_view.*
 
-class WebViewActivity : AppCompatActivity() {
+class WebViewActivity : AppCompatActivity(R.layout.activity_web_view) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_web_view)
+
         webView.run {
             webViewClient = WebViewClient()
             webChromeClient = WebChromeClient() //웹뷰에 크롬 사용 허용//이 부분이 없으면 크롬에서 알림 뜨지 않음

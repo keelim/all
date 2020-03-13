@@ -22,7 +22,7 @@ abstract class ActivityLifecycleCallbacks : Application.ActivityLifecycleCallbac
         // no-op
     }
 
-    override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle?) {
+    override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
         // no-op
     }
 

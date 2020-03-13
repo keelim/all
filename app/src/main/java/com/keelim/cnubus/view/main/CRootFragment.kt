@@ -30,6 +30,6 @@ class CRootFragment : Fragment() {
 
     private fun applyList(root: View, rootList: Array<String>) {
         val adapter = ArrayAdapter(activity!!, android.R.layout.simple_list_item_1, rootList)
-        root.findViewById<ListView>(R.id.lv_croot).adapter = adapter
+        root.lv_croot.adapter = adapter
     }
 }

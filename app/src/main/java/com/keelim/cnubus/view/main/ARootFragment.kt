@@ -5,17 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
-import android.widget.ListView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.keelim.cnubus.R
 import com.keelim.cnubus.view.MapsActivity
 import kotlinx.android.synthetic.main.fragment_a_root.view.*
 
-class ARootFragment : Fragment() {
+class ARootFragment : Fragment(R.layout.fragment_a_root) {
     private lateinit var rootList: Array<String>
     private lateinit var intentList: Array<String>
 
@@ -26,7 +23,6 @@ class ARootFragment : Fragment() {
         intentList = resources.getStringArray(R.array.a_intent_array)
         applyList(root, rootList)
 
-
         root.lv_aroot.setOnItemClickListener { adapterView, view, i, l ->
             Toast.makeText(activity, rootList[i] + "정류장 입니다.", Toast.LENGTH_SHORT).show()
 
@@ -36,12 +32,12 @@ class ARootFragment : Fragment() {
             }
         }
 
+
         return root
     }
 
     private fun applyList(root: View, rootList: Array<String>) {
-        val adapter =
-            ArrayAdapter(activity!!, android.R.layout.simple_list_item_1, rootList)
-        root.findViewById<ListView>(R.id.lv_aroot).adapter = adapter
+        val adapter = ArrayAdapter(activity!!, android.R.layout.simple_list_item_1, rootList)
+        root.lv_aroot.adapter = adapter
     }
 }

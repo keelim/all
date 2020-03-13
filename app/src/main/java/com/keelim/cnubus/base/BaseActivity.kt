@@ -1,3 +1,4 @@
+/*
 package com.keelim.cnubus.base
 
 import android.os.Bundle
@@ -27,4 +28,4 @@ abstract class BaseActivity<T: ViewDataBinding, R: BaseViewModel>: AppCompatActi
 
 
 
-}
+}*/

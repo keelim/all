@@ -19,7 +19,6 @@ class BRootFragment : Fragment() {
     private lateinit var rootList: Array<String>
     private lateinit var intentList: Array<String>
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
         val root = inflater.inflate(R.layout.fragment_b_root, container, false)
         rootList = resources.getStringArray(R.array.broot)
         intentList = resources.getStringArray(R.array.b_intent_array)
@@ -38,8 +37,7 @@ class BRootFragment : Fragment() {
     }
 
     private fun applyList(root: View, rootList: Array<String>) {
-        val adapter =
-            ArrayAdapter(activity!!, android.R.layout.simple_list_item_1, rootList)
-        root.findViewById<ListView>(R.id.lv_broot).adapter = adapter
+        val adapter = ArrayAdapter(activity!!, android.R.layout.simple_list_item_1, rootList)
+        root.lv_broot.adapter = adapter
     }
 }

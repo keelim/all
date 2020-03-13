@@ -3,6 +3,7 @@ package com.keelim.cnubus.view
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.ads.AdListener
@@ -14,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_splash.*
 
 class SplashActivity : AppCompatActivity(R.layout.activity_splash) {
     //인트로 액티비티를 생성한다.
-    private var handler: Handler = Handler(mainLooper)
+    private var handler: Handler = Handler(Looper.getMainLooper())
     private lateinit var interstitialAd: InterstitialAd
 
     private val runnable = Runnable {
@@ -22,8 +23,8 @@ class SplashActivity : AppCompatActivity(R.layout.activity_splash) {
         Intent(this, MainActivity::class.java).apply {
             startActivity(this)
         } //인텐트를 넣어준다. intro -> main
-        finish() //앱을 종료한다.
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out) //애니메이션을 넣어준다.
+        finish() //앱을 종료한다.
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

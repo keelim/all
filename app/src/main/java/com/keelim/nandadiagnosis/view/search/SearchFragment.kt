@@ -15,22 +15,21 @@ import com.keelim.nandadiagnosis.model.DatabaseAdapter
 import com.keelim.nandadiagnosis.model.roomdb.AppDatabase
 import com.keelim.nandadiagnosis.model.roomdb.NandaEntity
 
-class SearchFragment : Fragment() {
+class SearchFragment : Fragment(R.layout.fragment_search) {
 
     private lateinit var listview: ListView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val root = inflater.inflate(R.layout.fragment_search, container, false)
         setHasOptionsMenu(true)
 
-        listview = root.findViewById(R.id.dbanswer_listview)
+        listview = view!!.findViewById(R.id.dbanswer_listview)
         listview.adapter = DatabaseAdapter(context!!, arrayListOf())
         listview.setOnItemClickListener { adapterView, view, i, l ->
             val db = adapterView.adapter.getItem(i) as NandaEntity
             Toast.makeText(activity, "클래스 영역: " + db.class_name + "도매인 영역" + db.domain_name, Toast.LENGTH_SHORT).show() // 무슨 화면이 나와야 하는가?
             contentControl(db.nanda_id)
         }
-        return root
+        return view!!
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

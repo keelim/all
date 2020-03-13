@@ -12,10 +12,7 @@ import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.view.DiagnosisActivity
 import kotlinx.android.synthetic.main.fragment_category.*
 
-class CategoryFragment : Fragment(), View.OnClickListener {
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_category, container, false)
-    }
+class CategoryFragment : Fragment(R.layout.fragment_category), View.OnClickListener {
 
     private fun showDialog(num: String) { //데이터를 사용하는 페이지 이니 조심하라는 문구
         AlertDialog.Builder(activity!!)
@@ -49,7 +46,6 @@ class CategoryFragment : Fragment(), View.OnClickListener {
             search_view_11 -> showDialog("11")
             search_view_12 -> showDialog("12")
             search_view_13 -> showDialog("13")
-
         }
     }
 

@@ -13,22 +13,22 @@ import kotlinx.android.synthetic.main.activity_diagnosislist.*
 class DiagnosisActivity : AppCompatActivity(R.layout.activity_diagnosislist) {
     private var arrayList: ArrayList<MyDiagnosisViewAdapter.DiagnosisItem>? = ArrayList()
     private var nav = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         arrayListSetting()
-        val adapter = MyDiagnosisViewAdapter(this, arrayList)
-        list.run {
-            this.adapter = adapter
-            onItemClickListener = OnItemClickListener { _: AdapterView<*>?, _: View?, position: Int, _: Long -> goWeb(nav + position + 1) }
+
+        list.adapter = MyDiagnosisViewAdapter(this, arrayList)
+        list.setOnItemClickListener { adapterView, view, i, l ->
+            goWeb(nav + i + 1)
         }
     }
 
     private fun goWeb(total: Int) {
-        val intent_web = Intent(this, WebViewActivity::class.java).apply {
+        Intent(this, WebViewActivity::class.java).apply {
             putExtra("URL", "https://keelim.github.io/nandaDiagnosis/$total.html")
+            startActivity(this)
         }
-        startActivity(intent_web)
     }
 
     private fun arrayListSetting() {

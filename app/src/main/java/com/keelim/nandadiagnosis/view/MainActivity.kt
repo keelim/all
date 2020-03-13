@@ -54,9 +54,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
         appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
             if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE && appUpdateInfo.isUpdateTypeAllowed(
-                            AppUpdateType.FLEXIBLE
-                    )
-            ) {
+                            AppUpdateType.FLEXIBLE)) {
                 appUpdateManager.startUpdateFlowForResult(
                         // Pass the intent that is returned by 'getAppUpdateInfo()'.
                         appUpdateInfo,
@@ -90,8 +88,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
 
     private fun alertBuilderSetting() { //okhttp 작동 방식은 나중에 확인을 해보자
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("다운로드 요청")
+        AlertDialog.Builder(this)
+                .setTitle("다운로드 요청")
                 .setMessage("어플리케이션 사용을 위해 데이터베이스를 다운로드 합니다.")
                 .setCancelable(false)
                 .setNegativeButton(android.R.string.cancel, null)
@@ -108,11 +106,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
 
-
     private fun popupSnackbarForCompleteUpdate() {
-        Snackbar.make(
-                container, "업데이트를 다운로드 하고 있습니다.", Snackbar.LENGTH_INDEFINITE
-        ).apply {
+        Snackbar.make(container, "업데이트를 다운로드 하고 있습니다.", Snackbar.LENGTH_INDEFINITE).apply {
             setAction("RESTART") { appUpdateManager.completeUpdate() }
             setActionTextColor(resources.getColor(R.color.colorAccent, this@MainActivity.theme))
             show()

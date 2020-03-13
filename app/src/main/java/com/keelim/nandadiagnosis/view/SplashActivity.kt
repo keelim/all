@@ -20,8 +20,7 @@ class SplashActivity : AppCompatActivity(R.layout.activity_splash) {
     // 인앱 업데이트를 등록을 하는 방법
     private val runnable = Runnable {
         //runable 작동을 하고 시작
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent) //인텐트를 넣어준다. intro -> main
+        startActivity(Intent(this, MainActivity::class.java)) //인텐트를 넣어준다. intro -> main
         finish() //앱을 종료한다.
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out) //애니메이션을 넣어준다.
     }

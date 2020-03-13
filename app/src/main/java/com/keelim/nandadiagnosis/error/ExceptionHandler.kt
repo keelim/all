@@ -1,14 +1,13 @@
-package kr.co.prnd.erroractivitysample
+package com.keelim.nandadiagnosis.error
 
 import android.app.Activity
 import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import android.os.Process
-import com.keelim.nandadiagnosis.error.ActivityLifecycleCallbacks
-import com.keelim.nandadiagnosis.error.ErrorActivity
 import java.io.PrintWriter
 import java.io.StringWriter
+import kotlin.system.exitProcess
 
 class ExceptionHandler(
         application: Application,
@@ -63,7 +62,7 @@ class ExceptionHandler(
         } ?: defaultExceptionHandler.uncaughtException(thread, throwable)
 
         Process.killProcess(Process.myPid())
-        System.exit(-1)
+        exitProcess(-1)
     }
 
     private fun startErrorActivity(activity: Activity, errorText: String) = activity.run {

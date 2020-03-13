@@ -18,8 +18,8 @@ class CategoryFragment : Fragment(), View.OnClickListener {
     }
 
     private fun showDialog(num: String) { //데이터를 사용하는 페이지 이니 조심하라는 문구
-        val builder = AlertDialog.Builder(activity!!)
-        builder.setMessage("이 기능은 데이터를 사용할 수 있습니다.\n 사용하시겠습니까?")
+        AlertDialog.Builder(activity!!)
+                .setMessage("이 기능은 데이터를 사용할 수 있습니다.\n 사용하시겠습니까?")
                 .setCancelable(false)
                 .setPositiveButton("예") { _, _ -> intentList(num) }
                 .setNegativeButton("아니오") { _, _ -> Toast.makeText(activity!!, "아니오 선택했습니다.", Toast.LENGTH_LONG).show() }
@@ -28,10 +28,10 @@ class CategoryFragment : Fragment(), View.OnClickListener {
     }
 
     private fun intentList(num: String) {
-        val intent = Intent(activity!!, DiagnosisActivity::class.java).apply {
+        Intent(activity!!, DiagnosisActivity::class.java).apply {
             putExtra("extra", num)
+            startActivity(this)
         }
-        startActivity(intent)
     }
 
     override fun onClick(v: View?) {

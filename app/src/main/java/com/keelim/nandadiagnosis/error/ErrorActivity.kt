@@ -7,14 +7,13 @@ import com.keelim.nandadiagnosis.R
 import kotlinx.android.synthetic.main.activity_error.*
 
 
-class ErrorActivity : AppCompatActivity() {
+class ErrorActivity : AppCompatActivity(R.layout.activity_error) {
 
     private val lastActivityIntent by lazy { intent.getParcelableExtra<Intent>(EXTRA_INTENT) }
     private val errorText by lazy { intent.getStringExtra(EXTRA_ERROR_TEXT) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_error)
 
         tv_error_log.text = errorText
 

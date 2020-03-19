@@ -20,7 +20,7 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
 
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var auth: FirebaseAuth
-    private var GOOGLE_LOGIN_CODE = 9001
+    private var googleLoginCode = 9001
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,14 +41,14 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
 
     private fun googleLogin() {
         val signInIntent = googleSignInClient.signInIntent
-        startActivityForResult(signInIntent, GOOGLE_LOGIN_CODE)
+        startActivityForResult(signInIntent, googleLoginCode)
     }
 
     override fun onActivityReenter(resultCode: Int, data: Intent?) {
         super.onActivityReenter(resultCode, data)
 
         when (resultCode) {
-            GOOGLE_LOGIN_CODE -> {
+            googleLoginCode -> {
                 val result = Auth.GoogleSignInApi.getSignInResultFromIntent(data)
                 if (result.isSuccess) {
                     val account = result.signInAccount

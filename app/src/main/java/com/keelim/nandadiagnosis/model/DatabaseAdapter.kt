@@ -24,8 +24,8 @@ class DatabaseAdapter(private val context: Context, private val arrayList: List<
     }
 
 
-    override fun getView(i: Int, view: View?, viewGroup: ViewGroup): View {
-        val returnView = LayoutInflater.from(context).inflate(R.layout.item_db, null)
+    override fun getView(i: Int, view: View?, parent: ViewGroup): View {
+        val returnView = LayoutInflater.from(context).inflate(R.layout.item_db, parent, false)
         returnView.findViewById<TextView>(R.id.db_diagnosis).text = arrayList[i].diagnosis
         return returnView
     }

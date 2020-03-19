@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/navigation_category"
-        android:name="com.keelim.nandadiagnosis.view.category.CategoryFragment"
+        android:name="com.keelim.nandadiagnosis.view.fragments.CategoryFragment"
         android:label="@string/title_search"
         tools:layout="@layout/fragment_category" />
     <fragment

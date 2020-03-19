@@ -15,13 +15,13 @@ abstract class AppDatabase : RoomDatabase() {
 
 
         fun getInstance(context: Context): AppDatabase? {
-            val DB_PATH = context.applicationInfo.dataDir + "/databases/"
+            val dbPath = context.applicationInfo.dataDir + "/databases/"
             if (INSTANCE == null) {
                 synchronized(AppDatabase::class) {
                     INSTANCE = Room.databaseBuilder(context.applicationContext,
-                            AppDatabase::class.java,
-                            "nanda"
-                    ).createFromFile(File(DB_PATH + "nanda.db"))
+                                    AppDatabase::class.java,
+                                    "nanda"
+                            ).createFromFile(File(dbPath + "nanda.db"))
                             .allowMainThreadQueries()
                             .build()
                 }

@@ -3,12 +3,14 @@ package com.keelim.nandadiagnosis.view
 import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.GravityCompat
 import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -40,12 +42,22 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
         NavigationUI.setupWithNavController(nav_view, navController)
 
-        fileChecking() //데이터베이스 파일 유무 확인
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            fileChecking()
+        } else {
+            Handler().postDelayed({
+                Toast.makeText(this, "버전이 맞지 않아 종료 합니다", Toast.LENGTH_SHORT).show()
+                finish()
+            }, 3000)
+        }
 
+
+/*
         main_drawer_button.setOnClickListener {
             if (!container.isDrawerOpen(GravityCompat.END))
                 container.openDrawer(GravityCompat.END)
         }
+*/
 
         // appUpdate
         appUpdateManager = AppUpdateManagerFactory.create(this)
@@ -78,6 +90,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.N)
     private fun fileChecking() {
         val check = File(dataDir.absolutePath + "/databases/nanda.db")
         if (!check.exists()) { //데이터베이스를 받아온다.
@@ -87,6 +100,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.N)
     private fun alertBuilderSetting() { //okhttp 작동 방식은 나중에 확인을 해보자
         AlertDialog.Builder(this)
                 .setTitle("다운로드 요청")
@@ -132,8 +146,9 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         }
     }
 
-
+    @RequiresApi(Build.VERSION_CODES.N)
     private inner class CallBackDownloadFile internal constructor() : Callback {
+
 
         private val fileToBeDownloaded: File = File(dataDir.absolutePath + "/databases", "nanda.db")
 

@@ -8,15 +8,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
+        android:contentDescription="TODO"
         app:layout_constraintTop_toTopOf="parent" />
-    />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textColor="#000000"
-        android:textSize="24dp"
+        android:textSize="24sp"
         app:layout_constraintLeft_toRightOf="@id/icon"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,7 +26,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textColor="#666666"
-        android:textSize="16dp"
+        android:textSize="16sp"
         app:layout_constraintLeft_toRightOf="@id/icon"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title" />

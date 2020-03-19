@@ -13,14 +13,10 @@ import com.keelim.nandadiagnosis.R
 import kotlinx.android.synthetic.main.activity_splash.*
 
 class SplashActivity : AppCompatActivity(R.layout.activity_splash) {
-    //handler를 다르게 설정을 할 수 있는가?
-    private var handler: Handler = Handler(mainLooper)
     private lateinit var interstitialAd: InterstitialAd
 
-    // 인앱 업데이트를 등록을 하는 방법
     private val runnable = Runnable {
-        //runable 작동을 하고 시작
-        startActivity(Intent(this, MainActivity::class.java)) //인텐트를 넣어준다. intro -> main
+        startActivity(Intent(this, MainActivity::class.java))
         finish() //앱을 종료한다.
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out) //애니메이션을 넣어준다.
     }
@@ -37,21 +33,16 @@ class SplashActivity : AppCompatActivity(R.layout.activity_splash) {
             }
 
             override fun onAdClosed() {
-                handler.postDelayed(runnable, 500) //handler를 통하여 사용
+                Handler().postDelayed(runnable, 500) //handler를 통하여 사용
             }
 
             override fun onAdFailedToLoad(i: Int) {
                 Log.e("Error", "ad loading fail")
-                handler.postDelayed(runnable, 500) //handler를 통하여 사용
+                Handler().postDelayed(runnable, 500) //handler를 통하여 사용
             }
         } //전면광고 셋팅
         val adRequest = AdRequest.Builder().build()
         interstitialAd.loadAd(adRequest)
-    }
-
-    override fun onBackPressed() { //back 키 눌렀을 때
-        super.onBackPressed()
-        handler.removeCallbacks(runnable)
     }
 }
 

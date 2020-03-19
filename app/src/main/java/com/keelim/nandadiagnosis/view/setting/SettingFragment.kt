@@ -13,7 +13,6 @@ class SettingFragment : PreferenceFragmentCompat() {
         addPreferencesFromResource(R.xml.settings_preferences)
     }
 
-
     override fun onPreferenceTreeClick(preference: Preference): Boolean {
         return when (preference.key) {
             "nandaHome" -> {

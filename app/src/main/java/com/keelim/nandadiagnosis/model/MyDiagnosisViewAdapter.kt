@@ -22,7 +22,7 @@ class MyDiagnosisViewAdapter(private val context: Context, private val diagnosis
     }
 
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
-        val find_view = LayoutInflater.from(context).inflate(R.layout.item_listview, null)
+        val find_view = LayoutInflater.from(context).inflate(R.layout.item_listview, parent, false)
         val diagnosisItem = find_view.findViewById<TextView>(R.id.diagnosis_item)
         diagnosisItem.text = diagnosisItems!![position].diagnosis
         val diagnosisDes = find_view.findViewById<TextView>(R.id.diagnosis_des)

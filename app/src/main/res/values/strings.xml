@@ -6,7 +6,7 @@
     <string name="application_ad">ca-app-pub-3115620439518585~3588723583</string>
     <string name="real_ad">ca-app-pub-3115620439518585/7104801924</string>
     <string name="test_ad">ca-app-pub-3940256099942544/1033173712</string>
-    <string name="version">version1.0.6</string>
+    <string name="version">version1.0.11</string>
     <string name="signature">Keel_im</string>
 
     <string-array name="diagnosis1">

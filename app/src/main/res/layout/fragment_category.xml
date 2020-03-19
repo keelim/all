@@ -1,217 +1,215 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorAccent"
-        tools:context=".view.category.CategoryFragment">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent"
+    tools:context=".view.fragments.CategoryFragment">
 
 
-        <TableLayout
-            android:id="@+id/layout_search_table"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:stretchColumns="*"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+    <TableLayout
+        android:id="@+id/layout_search_table"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:stretchColumns="*"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="0dp">
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
 
-                <ImageView
-                    android:id="@+id/search_view_1"
-                    android:layout_width="30dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="2dp"
-                    android:background="#ffffff"
-                    android:clickable="true"
-                    android:contentDescription="건강증진"
-                    android:focusable="true"
+            <ImageView
+                android:id="@+id/search_view_1"
+                android:layout_width="30dp"
+                android:layout_height="100dp"
+                android:layout_margin="2dp"
+                android:background="#ffffff"
+                android:clickable="true"
+                android:contentDescription="건강증진"
+                android:focusable="true"
 
-                    android:src="@drawable/healthpromotion" />
+                android:src="@drawable/healthpromotion" />
 
-                <ImageView
-                    android:id="@+id/search_view_2"
-                    android:layout_width="30dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="2dp"
-                    android:background="#ffffff"
-                    android:baselineAligned="false"
-                    android:clickable="true"
-                    android:contentDescription="영양"
-                    android:focusable="true"
+            <ImageView
+                android:id="@+id/search_view_2"
+                android:layout_width="30dp"
+                android:layout_height="100dp"
+                android:layout_margin="2dp"
+                android:background="#ffffff"
+                android:baselineAligned="false"
+                android:clickable="true"
+                android:contentDescription="영양"
+                android:focusable="true"
 
-                    android:src="@drawable/nutrition" />
+                android:src="@drawable/nutrition" />
 
-                <ImageView
-                    android:id="@+id/search_view_3"
-                    android:layout_width="30dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="2dp"
-                    android:background="#ffffff"
-                    android:clickable="true"
-                    android:contentDescription="배설/교환"
-                    android:focusable="true"
-                    android:src="@drawable/elimination" />
+            <ImageView
+                android:id="@+id/search_view_3"
+                android:layout_width="30dp"
+                android:layout_height="100dp"
+                android:layout_margin="2dp"
+                android:background="#ffffff"
+                android:clickable="true"
+                android:contentDescription="배설/교환"
+                android:focusable="true"
+                android:src="@drawable/elimination" />
 
-                <ImageView
-                    android:id="@+id/search_view_4"
-                    android:layout_width="30dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="2dp"
-                    android:background="#ffffff"
-                    android:clickable="true"
-                    android:contentDescription="활동/휴식"
-                    android:focusable="true"
+            <ImageView
+                android:id="@+id/search_view_4"
+                android:layout_width="30dp"
+                android:layout_height="100dp"
+                android:layout_margin="2dp"
+                android:background="#ffffff"
+                android:clickable="true"
+                android:contentDescription="활동/휴식"
+                android:focusable="true"
 
-                    android:src="@drawable/activityrest" />
+                android:src="@drawable/activityrest" />
 
-            </TableRow>
+        </TableRow>
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="0dp">
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
 
-                <ImageView
-                    android:id="@+id/search_view_5"
-                    android:layout_width="30dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="2dp"
-                    android:background="#ffffff"
-                    android:clickable="true"
-                    android:contentDescription="지각/인식"
-                    android:focusable="true"
+            <ImageView
+                android:id="@+id/search_view_5"
+                android:layout_width="30dp"
+                android:layout_height="100dp"
+                android:layout_margin="2dp"
+                android:background="#ffffff"
+                android:clickable="true"
+                android:contentDescription="지각/인식"
+                android:focusable="true"
 
-                    android:src="@drawable/perceptioncongnition" />
+                android:src="@drawable/perceptioncongnition" />
 
-                <ImageView
-                    android:id="@+id/search_view_6"
-                    android:layout_width="30dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="2dp"
-                    android:background="#ffffff"
-                    android:clickable="true"
-                    android:contentDescription="자아지각"
-                    android:focusable="true"
+            <ImageView
+                android:id="@+id/search_view_6"
+                android:layout_width="30dp"
+                android:layout_height="100dp"
+                android:layout_margin="2dp"
+                android:background="#ffffff"
+                android:clickable="true"
+                android:contentDescription="자아지각"
+                android:focusable="true"
 
-                    android:src="@drawable/selfperception" />
+                android:src="@drawable/selfperception" />
 
-                <ImageView
-                    android:id="@+id/search_view_7"
-                    android:layout_width="30dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="2dp"
-                    android:background="#ffffff"
-                    android:clickable="true"
-                    android:contentDescription="역할관계"
-                    android:focusable="true"
+            <ImageView
+                android:id="@+id/search_view_7"
+                android:layout_width="30dp"
+                android:layout_height="100dp"
+                android:layout_margin="2dp"
+                android:background="#ffffff"
+                android:clickable="true"
+                android:contentDescription="역할관계"
+                android:focusable="true"
 
-                    android:src="@drawable/rolerelationship" />
+                android:src="@drawable/rolerelationship" />
 
-                <ImageView
-                    android:id="@+id/search_view_8"
-                    android:layout_width="30dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="2dp"
-                    android:background="#ffffff"
-                    android:clickable="true"
-                    android:contentDescription="성"
-                    android:focusable="true"
+            <ImageView
+                android:id="@+id/search_view_8"
+                android:layout_width="30dp"
+                android:layout_height="100dp"
+                android:layout_margin="2dp"
+                android:background="#ffffff"
+                android:clickable="true"
+                android:contentDescription="성"
+                android:focusable="true"
 
-                    android:src="@drawable/sexuality" />
+                android:src="@drawable/sexuality" />
 
-            </TableRow>
+        </TableRow>
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="0dp">
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
 
-                <ImageView
-                    android:id="@+id/search_view_9"
-                    android:layout_width="30dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="2dp"
-                    android:background="#ffffff"
-                    android:clickable="true"
-                    android:contentDescription="대처/스트레스 내성"
-                    android:focusable="true"
+            <ImageView
+                android:id="@+id/search_view_9"
+                android:layout_width="30dp"
+                android:layout_height="100dp"
+                android:layout_margin="2dp"
+                android:background="#ffffff"
+                android:clickable="true"
+                android:contentDescription="대처/스트레스 내성"
+                android:focusable="true"
 
-                    android:src="@drawable/tolerlance" />
+                android:src="@drawable/tolerlance" />
 
-                <ImageView
-                    android:id="@+id/search_view_10"
-                    android:layout_width="30dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="2dp"
-                    android:background="#ffffff"
-                    android:clickable="true"
-                    android:contentDescription="삶의 원칙"
-                    android:focusable="true"
+            <ImageView
+                android:id="@+id/search_view_10"
+                android:layout_width="30dp"
+                android:layout_height="100dp"
+                android:layout_margin="2dp"
+                android:background="#ffffff"
+                android:clickable="true"
+                android:contentDescription="삶의 원칙"
+                android:focusable="true"
 
-                    android:src="@drawable/lifeprinciple" />
+                android:src="@drawable/lifeprinciple" />
 
-                <ImageView
-                    android:id="@+id/search_view_11"
-                    android:layout_width="30dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="2dp"
-                    android:background="#ffffff"
-                    android:clickable="true"
-                    android:contentDescription="안전/보호"
-                    android:focusable="true"
+            <ImageView
+                android:id="@+id/search_view_11"
+                android:layout_width="30dp"
+                android:layout_height="100dp"
+                android:layout_margin="2dp"
+                android:background="#ffffff"
+                android:clickable="true"
+                android:contentDescription="안전/보호"
+                android:focusable="true"
 
-                    android:src="@drawable/safetyprotection" />
+                android:src="@drawable/safetyprotection" />
 
-                <ImageView
-                    android:id="@+id/search_view_12"
-                    android:layout_width="30dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="2dp"
-                    android:background="#ffffff"
-                    android:clickable="true"
-                    android:contentDescription="안위"
-                    android:focusable="true"
+            <ImageView
+                android:id="@+id/search_view_12"
+                android:layout_width="30dp"
+                android:layout_height="100dp"
+                android:layout_margin="2dp"
+                android:background="#ffffff"
+                android:clickable="true"
+                android:contentDescription="안위"
+                android:focusable="true"
 
-                    android:src="@drawable/comfort" />
+                android:src="@drawable/comfort" />
 
-            </TableRow>
+        </TableRow>
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="0dp">
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
 
-                <ImageView
-                    android:id="@+id/search_view_13"
-                    android:layout_width="30dp"
-                    android:layout_height="100dp"
-                    android:background="#ffffff"
-                    android:clickable="true"
-                    android:contentDescription="성장/발달"
-                    android:focusable="true"
+            <ImageView
+                android:id="@+id/search_view_13"
+                android:layout_width="30dp"
+                android:layout_height="100dp"
+                android:background="#ffffff"
+                android:clickable="true"
+                android:contentDescription="성장/발달"
+                android:focusable="true"
 
-                    android:src="@drawable/growthdevelopment" />
+                android:src="@drawable/growthdevelopment" />
 
-                <View
-                    android:layout_width="30dp"
-                    android:layout_height="100dp" />
+            <View
+                android:layout_width="30dp"
+                android:layout_height="100dp" />
 
-                <View
-                    android:layout_width="30dp"
-                    android:layout_height="100dp" />
+            <View
+                android:layout_width="30dp"
+                android:layout_height="100dp" />
 
-                <View
-                    android:layout_width="30dp"
-                    android:layout_height="100dp" />
-            </TableRow>
-        </TableLayout>
+            <View
+                android:layout_width="30dp"
+                android:layout_height="100dp" />
+        </TableRow>
+    </TableLayout>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>

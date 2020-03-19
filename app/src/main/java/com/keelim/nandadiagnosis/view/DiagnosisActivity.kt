@@ -2,9 +2,6 @@ package com.keelim.nandadiagnosis.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
-import android.widget.AdapterView.OnItemClickListener
 import androidx.appcompat.app.AppCompatActivity
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.model.MyDiagnosisViewAdapter

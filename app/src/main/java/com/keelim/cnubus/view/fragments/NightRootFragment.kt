@@ -1,13 +1,11 @@
-package com.keelim.cnubus.view.main
+package com.keelim.cnubus.view.fragments
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.ListView
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.keelim.cnubus.R
@@ -15,18 +13,16 @@ import com.keelim.cnubus.view.MapsActivity
 import kotlinx.android.synthetic.main.fragment_night_root.*
 import kotlinx.android.synthetic.main.fragment_night_root.view.*
 
-class NightRootFragment : Fragment() {
+class NightRootFragment : Fragment(R.layout.fragment_night_root) {
     private lateinit var intentList: Array<String>
     private lateinit var rootList: Array<String>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val root = inflater.inflate(R.layout.fragment_night_root, container, false)
-
         rootList = resources.getStringArray(R.array.night1)
         intentList = resources.getStringArray(R.array.night_intent_array)
-        applyList(root, rootList)
 
-        root.lv_nightroot.setOnItemClickListener { adapterView, view, i, l ->
+
+        view!!.lv_nightroot.setOnItemClickListener { adapterView, view, i, l ->
             Snackbar.make(nightrootLayout, "기능 준비 중입니다. ", Snackbar.LENGTH_SHORT).show()
 
             Intent(activity, MapsActivity::class.java).apply {
@@ -35,11 +31,8 @@ class NightRootFragment : Fragment() {
             }
         }
 
-        return root
-    }
+        view!!.lv_nightroot.adapter = ArrayAdapter(activity!!, android.R.layout.simple_list_item_1, rootList)
 
-    private fun applyList(root: View, rootList: Array<String>) {
-        val adapter = ArrayAdapter(activity!!, android.R.layout.simple_list_item_1, rootList)
-        root.lv_nightroot.adapter = adapter
+        return view!!
     }
 }

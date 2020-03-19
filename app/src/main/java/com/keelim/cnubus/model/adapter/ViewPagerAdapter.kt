@@ -1,12 +1,12 @@
-package com.keelim.cnubus.model
+package com.keelim.cnubus.model.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.keelim.cnubus.view.main.ARootFragment
-import com.keelim.cnubus.view.main.BRootFragment
-import com.keelim.cnubus.view.main.CRootFragment
-import com.keelim.cnubus.view.main.NightRootFragment
+import com.keelim.cnubus.view.fragments.ARootFragment
+import com.keelim.cnubus.view.fragments.BRootFragment
+import com.keelim.cnubus.view.fragments.CRootFragment
+import com.keelim.cnubus.view.fragments.NightRootFragment
 import java.util.*
 
 class ViewPagerAdapter(fm: FragmentManager, behavior: Int) : FragmentStatePagerAdapter(fm, behavior) {

@@ -18,10 +18,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".view.setting.OpenSourceActivity"
+            android:name=".view.OpenSourceActivity"
             android:label="@string/title_activity_open_source"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".view.setting.TempActivity" />
+        <activity android:name=".view.TempActivity" />
         <activity
             android:name=".view.MapsActivity"
             android:label="@string/title_activity_maps" />
@@ -31,7 +31,7 @@
             android:label="@string/title_activity_maps" />
 
         <activity
-            android:name=".view.setting.SettingsActivity"
+            android:name=".view.SettingsActivity"
             android:label="@string/title_activity_settings" />
         <activity
             android:name=".view.MainActivity"
@@ -52,7 +52,7 @@
             </intent-filter>
         </activity>
         
-        <activity android:name=".view.recycler.RecyclerActivity"/>
+        <activity android:name=".view.RecyclerActivity"/>
         <activity android:name=".error.ErrorActivity" />
 
         <activity

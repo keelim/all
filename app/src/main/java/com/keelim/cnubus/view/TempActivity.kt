@@ -1,4 +1,4 @@
-package com.keelim.cnubus.view.setting
+package com.keelim.cnubus.view
 
 import android.Manifest
 import android.content.Context

@@ -1,10 +1,11 @@
-package com.keelim.cnubus.view.recycler
+package com.keelim.cnubus.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.keelim.cnubus.R
+import com.keelim.cnubus.model.adapter.RecyclerAdapter
 
 
 class RecyclerActivity : AppCompatActivity(R.layout.activity_recycler) {

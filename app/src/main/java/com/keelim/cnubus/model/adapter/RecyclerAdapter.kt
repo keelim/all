@@ -1,4 +1,4 @@
-package com.keelim.cnubus.view.recycler
+package com.keelim.cnubus.model.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,16 +7,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.keelim.cnubus.R
+import kotlinx.android.synthetic.main.items_recycler.view.*
 import java.util.*
 
-class RecyclerAdapter // 생성자에서 데이터 리스트 객체를 전달받음.
-internal constructor(private val mData: ArrayList<String>) :
-    RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+class RecyclerAdapter internal constructor(private val mData: ArrayList<String>) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
     // 아이템 뷰를 저장하는 뷰홀더 클래스.
-    inner class ViewHolder(itemView: View) :
-        RecyclerView.ViewHolder(itemView) {
-        var textView1: TextView
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
 
         init {
             itemView.setOnClickListener { v: View? ->
@@ -27,7 +25,7 @@ internal constructor(private val mData: ArrayList<String>) :
                 }
             }
             // 뷰 객체에 대한 참조. (hold strong reference)
-            textView1 = itemView.findViewById(R.id.text1)
+
         }
     }
 
@@ -42,7 +40,7 @@ internal constructor(private val mData: ArrayList<String>) :
     // onBindViewHolder() - position에 해당하는 데이터를 뷰홀더의 아이템뷰에 표시.
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val text = mData[position]
-        holder.textView1.text = text
+        holder.itemView.text1.text = text
     }
 
     // getItemCount() - 전체 데이터 갯수 리턴.

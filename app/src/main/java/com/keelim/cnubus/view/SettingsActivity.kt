@@ -1,4 +1,4 @@
-package com.keelim.cnubus.view.setting
+package com.keelim.cnubus.view
 
 import android.content.Context
 import android.content.DialogInterface
@@ -13,7 +13,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.keelim.cnubus.R
 import com.keelim.cnubus.model.ModeCode
-import com.keelim.cnubus.view.MapsActivity
 import kotlinx.android.synthetic.main.activity_settings.*
 
 class SettingsActivity : AppCompatActivity(R.layout.activity_settings) {
@@ -21,7 +20,9 @@ class SettingsActivity : AppCompatActivity(R.layout.activity_settings) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        supportFragmentManager.beginTransaction().replace(R.id.settings, SettingsFragment()).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.settings,
+            SettingsFragment()
+        ).commit()
 
         val actionBar = supportActionBar
         actionBar?.setDisplayShowHomeEnabled(true)

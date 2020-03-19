@@ -1,4 +1,4 @@
-package com.keelim.cnubus.view.setting
+package com.keelim.cnubus.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

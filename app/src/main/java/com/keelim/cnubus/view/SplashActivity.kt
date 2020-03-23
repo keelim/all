@@ -3,7 +3,6 @@ package com.keelim.cnubus.view
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.ads.AdListener
@@ -11,7 +10,11 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import com.google.android.material.snackbar.Snackbar
 import com.keelim.cnubus.R
+import com.microsoft.appcenter.AppCenter
+import com.microsoft.appcenter.analytics.Analytics
+import com.microsoft.appcenter.crashes.Crashes
 import kotlinx.android.synthetic.main.activity_splash.*
+
 
 class SplashActivity : AppCompatActivity(R.layout.activity_splash) {
     private lateinit var interstitialAd: InterstitialAd
@@ -27,6 +30,11 @@ class SplashActivity : AppCompatActivity(R.layout.activity_splash) {
         super.onCreate(savedInstanceState)
 
         Snackbar.make(splash_container, "충남대버스에 오신것을 환영 합니다.", Snackbar.LENGTH_SHORT).show()
+
+        AppCenter.start(
+            application, "e2bf6b60-7432-41b7-bde0-e88d697ca4a4",
+            Analytics::class.java, Crashes::class.java
+        )
 
         interstitialAd = InterstitialAd(this)
         interstitialAd.adUnitId = getString(R.string.real_ad)

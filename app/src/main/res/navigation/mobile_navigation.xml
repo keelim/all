@@ -11,13 +11,13 @@
         tools:layout="@layout/fragment_category" />
     <fragment
         android:id="@+id/navigation_search"
-        android:name="com.keelim.nandadiagnosis.view.search.SearchFragment"
+        android:name="com.keelim.nandadiagnosis.view.fragments.SearchFragment"
         android:label="@string/title_category"
         tools:layout="@layout/fragment_search" />
 
     <fragment
         android:id="@+id/navigation_my"
-        android:name="com.keelim.nandadiagnosis.view.setting.SettingFragment"
+        android:name="com.keelim.nandadiagnosis.view.fragments.SettingFragment"
         android:label="@string/title_my"
         tools:layout="@layout/fragment_my" />
 </navigation>

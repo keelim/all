@@ -11,20 +11,6 @@
         android:layout_height="match_parent">
 
 
-<!--
-        <Button
-            android:id="@+id/main_drawer_button"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="364dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/btn_menu"
-            app:layout_constraintStart_toStartOf="@+id/nav_host_fragment"
-            app:layout_constraintTop_toTopOf="@+id/nav_host_fragment">
-
-        </Button>
--->
-
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/nav_view"
             android:layout_width="match_parent"

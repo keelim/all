@@ -25,17 +25,19 @@ import com.google.android.play.core.install.model.UpdateAvailability
 import com.keelim.nandadiagnosis.R
 import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.*
+import org.koin.android.ext.android.inject
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private lateinit var appUpdateManager: AppUpdateManager
+    val request: Request by inject()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val appBarConfiguration = AppBarConfiguration.Builder(
-                        R.id.navigation_category, R.id.navigation_search, R.id.navigation_my)
+                R.id.navigation_category, R.id.navigation_search, R.id.navigation_my)
                 .build()
 
         val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
@@ -83,7 +85,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
         val listener = InstallStateUpdatedListener { state ->
             if (state.installStatus() == InstallStatus.DOWNLOADED)
-                popupSnackbarForCompleteUpdate()
+                popUpSnackbarForCompleteUpdate()
         }
         appUpdateManager.registerListener(listener)
 
@@ -109,18 +111,17 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 .setNegativeButton(android.R.string.cancel, null)
                 .setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
                     Toast.makeText(this, "서버로부터 데이터 베이스를 요청 합니다. ", Toast.LENGTH_SHORT).show()
-                    val client = OkHttpClient()
-                    val request = Request.Builder()
+                    /*val request = Request.Builder()
                             .url("https://github.com/keelim/Keelim.github.io/raw/master/assets/nanda.db")
-                            .build()
-                    val callBackDownloadFile = CallBackDownloadFile()
-                    client.newCall(request).enqueue(callBackDownloadFile)
+                            .build()*/
+
+                    OkHttpClient().newCall(request).enqueue(CallBackDownloadFile())
                 }.create()
                 .show()
     }
 
 
-    private fun popupSnackbarForCompleteUpdate() {
+    private fun popUpSnackbarForCompleteUpdate() {
         Snackbar.make(container, "업데이트를 다운로드 하고 있습니다.", Snackbar.LENGTH_INDEFINITE).apply {
             setAction("RESTART") { appUpdateManager.completeUpdate() }
             setActionTextColor(resources.getColor(R.color.colorAccent, this@MainActivity.theme))

@@ -9,6 +9,7 @@ import android.widget.TextView
 import com.keelim.nandadiagnosis.R
 
 class MyDiagnosisViewAdapter(private val context: Context, private val diagnosisItems: ArrayList<DiagnosisItem>?) : BaseAdapter() {
+
     override fun getCount(): Int {
         return diagnosisItems!!.size
     }

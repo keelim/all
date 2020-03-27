@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.view.search
+package com.keelim.nandadiagnosis.view.fragments
 
 import android.app.SearchManager
 import android.content.Context

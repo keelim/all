@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.view.setting
+package com.keelim.nandadiagnosis.view.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,6 +6,8 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.view.LoginActivity
+import com.keelim.nandadiagnosis.view.OpenSourceActivity
+import com.keelim.nandadiagnosis.view.PleaseActivity
 import com.keelim.nandadiagnosis.view.WebViewActivity
 
 class SettingFragment : PreferenceFragmentCompat() {

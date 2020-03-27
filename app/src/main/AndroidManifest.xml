@@ -18,11 +18,11 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".view.setting.PleaseActivity"
+            android:name=".view.PleaseActivity"
             android:label="@string/title_activity_please"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view.setting.OpenSourceActivity"
+            android:name=".view.OpenSourceActivity"
             android:label="@string/title_activity_open_source"
             android:theme="@style/AppTheme.NoActionBar" />
 

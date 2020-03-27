@@ -1,12 +1,12 @@
-package com.keelim.nandadiagnosis.view.setting
+package com.keelim.nandadiagnosis.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.keelim.nandadiagnosis.R
-import kotlinx.android.synthetic.main.activity_open_source.*
+import kotlinx.android.synthetic.main.activity_please.*
 
-class OpenSourceActivity : AppCompatActivity(R.layout.activity_open_source) {
+class PleaseActivity : AppCompatActivity(R.layout.activity_please) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

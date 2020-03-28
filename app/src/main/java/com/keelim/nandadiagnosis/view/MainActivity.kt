@@ -30,6 +30,7 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 
+
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private lateinit var appUpdateManager: AppUpdateManager
     val request: Request by inject()

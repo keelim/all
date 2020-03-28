@@ -2,6 +2,7 @@ package com.keelim.nandadiagnosis.view.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.keelim.nandadiagnosis.R
@@ -16,6 +17,14 @@ class SettingFragment : PreferenceFragmentCompat() {
 
     override fun onPreferenceTreeClick(preference: Preference): Boolean {
         return when (preference.key) {
+            "blog" -> {
+                Intent(context, WebViewActivity::class.java).apply {
+                    putExtra("URL", "https://blog.naver.com/cjhdori")
+                    startActivity(this)
+                }
+                true
+            }
+
             "nandaHome" -> {
                 Intent(context, WebViewActivity::class.java).apply {
                     putExtra("URL", "https://keelim.github.io/nandaDiagnosis/")
@@ -32,7 +41,7 @@ class SettingFragment : PreferenceFragmentCompat() {
                 return true
             }
             "lab" -> {
-                startActivity(Intent(context, LoginActivity::class.java))
+                Toast.makeText(activity!!, "실험이 끝났습니다.", Toast.LENGTH_SHORT).show()
                 true
             }
             else -> false

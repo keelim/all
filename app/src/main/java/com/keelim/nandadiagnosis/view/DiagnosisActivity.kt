@@ -77,11 +77,11 @@ class DiagnosisActivity : AppCompatActivity(R.layout.activity_diagnosislist) {
             }
             "12" -> {
                 nav = 179
-                customAdd(nav, 207, array1) //180~206
+                customAdd(nav, 206, array1) //180~206
             }
             "13" -> {
                 nav = 206
-                customAdd(nav, 237, array1) //207~236
+                customAdd(nav, 236, array1) //207~236
             }
         }
     }

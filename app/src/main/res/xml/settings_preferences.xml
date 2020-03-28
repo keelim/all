@@ -1,6 +1,10 @@
-<androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     app:key="total">
     <PreferenceCategory app:key="feature_category">
+        <Preference
+            app:key="blog"
+            app:title="관련 블로그" />
         <Preference
             app:key="nandaHome"
             app:title="관련 홈페이지" />
@@ -14,6 +18,7 @@
             app:key="opensource"
             app:title="오픈소스 라이선스" />
     </PreferenceCategory>
+
     <PreferenceCategory>
         <Preference
             app:key="lab"

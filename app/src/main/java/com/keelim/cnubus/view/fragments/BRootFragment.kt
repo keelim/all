@@ -16,7 +16,9 @@ class BRootFragment : Fragment(R.layout.fragment_b_root) {
     private lateinit var rootList: Array<String>
     private lateinit var intentList: Array<String>
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         rootList = resources.getStringArray(R.array.broot)
         intentList = resources.getStringArray(R.array.b_intent_array)
         view!!.lv_broot.adapter = ArrayAdapter(activity!!, android.R.layout.simple_list_item_1, rootList)
@@ -29,7 +31,5 @@ class BRootFragment : Fragment(R.layout.fragment_b_root) {
                 startActivity(this)
             }
         }
-
-        return view
     }
 }

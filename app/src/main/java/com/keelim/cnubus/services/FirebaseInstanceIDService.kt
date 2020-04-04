@@ -16,11 +16,6 @@ import com.keelim.cnubus.R
 import com.keelim.cnubus.view.MainActivity
 
 class FirebaseInstanceIDService : FirebaseMessagingService() {
-    override fun onNewToken(s: String) {
-        super.onNewToken(s)
-        Log.e("Firebase", "FirebaseInstanceIDService : $s")
-
-    }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) { // 메시지 수신 시 실행되는 메소드
         if (remoteMessage.data.isNotEmpty()) {

@@ -15,8 +15,9 @@ class CRootFragment : Fragment(R.layout.fragment_c_root) {
 
     private lateinit var rootList: Array<String>
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         view!!.lv_croot.setOnItemClickListener { adapterView, view, i, l ->
             Snackbar.make(crootLayout, "기능 준비 중입니다.", Snackbar.LENGTH_LONG)
         }
@@ -24,6 +25,5 @@ class CRootFragment : Fragment(R.layout.fragment_c_root) {
         rootList = resources.getStringArray(R.array.croot)
         view!!.lv_croot.adapter = ArrayAdapter(activity!!, android.R.layout.simple_list_item_1, rootList)
 
-        return view!!
     }
 }

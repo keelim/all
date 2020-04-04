@@ -17,7 +17,9 @@ class NightRootFragment : Fragment(R.layout.fragment_night_root) {
     private lateinit var intentList: Array<String>
     private lateinit var rootList: Array<String>
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         rootList = resources.getStringArray(R.array.night1)
         intentList = resources.getStringArray(R.array.night_intent_array)
 
@@ -33,6 +35,5 @@ class NightRootFragment : Fragment(R.layout.fragment_night_root) {
 
         view!!.lv_nightroot.adapter = ArrayAdapter(activity!!, android.R.layout.simple_list_item_1, rootList)
 
-        return view!!
     }
 }

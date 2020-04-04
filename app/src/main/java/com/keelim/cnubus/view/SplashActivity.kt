@@ -32,7 +32,7 @@ class SplashActivity : AppCompatActivity(R.layout.activity_splash) {
         Snackbar.make(splash_container, "충남대버스에 오신것을 환영 합니다.", Snackbar.LENGTH_SHORT).show()
 
         AppCenter.start(
-            application, "e2bf6b60-7432-41b7-bde0-e88d697ca4a4",
+            application, getString(R.string.appcenter),
             Analytics::class.java, Crashes::class.java
         )
 

@@ -2,7 +2,7 @@ package com.keelim.nandadiagnosis.view.fragments
 
 import android.app.SearchManager
 import android.content.Context
-import android.os.Bundle
+import android.content.Intent
 import android.view.Menu
 import android.view.MenuInflater
 import android.widget.Toast
@@ -16,8 +16,8 @@ import kotlinx.android.synthetic.main.fragment_search.view.*
 
 class SearchFragment : Fragment(R.layout.fragment_search) {
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
         setHasOptionsMenu(true)
         view!!.dbanswer_listview.adapter = DatabaseAdapter(context!!, arrayListOf())
         view!!.dbanswer_listview.setOnItemClickListener { adapterView, view, i, l ->

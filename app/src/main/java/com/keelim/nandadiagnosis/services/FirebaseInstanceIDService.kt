@@ -1,3 +1,4 @@
+/*
 package com.keelim.nandadiagnosis.services
 
 import android.app.Notification
@@ -78,4 +79,4 @@ class FirebaseInstanceIDService : FirebaseMessagingService() {
             notificationManager.notify(9999, notificationBuilder.build())
         }
     }
-}
+}*/

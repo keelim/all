@@ -19,6 +19,7 @@ import com.google.android.play.core.install.model.InstallStatus
 import com.google.android.play.core.install.model.UpdateAvailability
 import com.keelim.cnubus.R
 import com.keelim.cnubus.model.adapter.ViewPagerAdapter
+import com.keelim.cnubus.utils.BackPressCloseHandler
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_drawer.*
 
@@ -131,7 +132,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         if (drawer_container.isDrawerOpen(GravityCompat.START)) {
             drawer_container.closeDrawer(GravityCompat.START)
         } else
-            super.onBackPressed()
+            BackPressCloseHandler(this).onBackPressed()
 
     }
 

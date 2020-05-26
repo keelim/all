@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
@@ -23,6 +22,7 @@ import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.InstallStatus
 import com.google.android.play.core.install.model.UpdateAvailability
 import com.keelim.nandadiagnosis.R
+import com.keelim.nandadiagnosis.utils.BackPressCloseHandler
 import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.*
 import org.koin.android.ext.android.inject
@@ -34,6 +34,7 @@ import java.io.IOException
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private lateinit var appUpdateManager: AppUpdateManager
     val request: Request by inject()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -81,7 +82,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                         2
                 )
                 Snackbar.make(container, "업데이트를 시작합니다.", Snackbar.LENGTH_SHORT).show()
-            } else Snackbar.make(container, "최신 버전 어플리케이션 사용해주셔서 감사합니다.", Snackbar.LENGTH_SHORT).show()
+            } else
+                Snackbar.make(container, "최신 버전 어플리케이션 사용해주셔서 감사합니다.", Snackbar.LENGTH_SHORT).show()
         }
 
         val listener = InstallStateUpdatedListener { state ->
@@ -93,7 +95,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
 
-    @RequiresApi(Build.VERSION_CODES.N)
     private fun fileChecking() {
         val check = File(dataDir.absolutePath + "/databases/nanda.db")
         if (!check.exists()) { //데이터베이스를 받아온다.
@@ -103,7 +104,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
 
-    @RequiresApi(Build.VERSION_CODES.N)
     private fun alertBuilderSetting() { //okhttp 작동 방식은 나중에 확인을 해보자
         AlertDialog.Builder(this)
                 .setTitle("다운로드 요청")
@@ -148,7 +148,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
     private inner class CallBackDownloadFile internal constructor() : Callback {
 
 
@@ -191,6 +190,10 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             }
         }
 
+    }
+
+    override fun onBackPressed() {
+        BackPressCloseHandler(this).onBackPressed()
     }
 
 

@@ -1,20 +1,17 @@
 package com.keelim.nandadiagnosis
 
 import android.app.Application
-import com.keelim.nandadiagnosis.di.myDiModule
+
 import com.keelim.nandadiagnosis.error.ExceptionHandler
-import org.koin.android.ext.koin.androidContext
+import dagger.hilt.android.HiltAndroidApp
 
-import org.koin.core.context.startKoin
 
+@HiltAndroidApp
 class MyApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        startKoin {
-            androidContext(applicationContext)
-            modules(myDiModule)
-        }
+
         setCrashHandler()
     }
 

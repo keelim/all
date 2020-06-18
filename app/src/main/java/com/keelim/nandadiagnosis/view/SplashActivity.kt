@@ -66,6 +66,12 @@ class SplashActivity : AppCompatActivity(R.layout.activity_splash) {
                         Manifest.permission.READ_EXTERNAL_STORAGE)
                 .check()
     }
+
+    override fun onBackPressed() {
+
+    }
+
+
 }
 
 

@@ -25,7 +25,7 @@ import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.utils.BackPressCloseHandler
 import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.*
-import org.koin.android.ext.android.inject
+
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -33,11 +33,12 @@ import java.io.IOException
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private lateinit var appUpdateManager: AppUpdateManager
-    val request: Request by inject()
+    private lateinit var backPressCloseHandler: BackPressCloseHandler
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        backPressCloseHandler = BackPressCloseHandler(this)
         val appBarConfiguration = AppBarConfiguration.Builder(
                 R.id.navigation_category, R.id.navigation_search, R.id.navigation_my)
                 .build()
@@ -112,9 +113,9 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 .setNegativeButton(android.R.string.cancel, null)
                 .setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
                     Toast.makeText(this, "서버로부터 데이터 베이스를 요청 합니다. ", Toast.LENGTH_SHORT).show()
-                    /*val request = Request.Builder()
+                    val request = Request.Builder()
                             .url("https://github.com/keelim/Keelim.github.io/raw/master/assets/nanda.db")
-                            .build()*/
+                            .build()
 
                     OkHttpClient().newCall(request).enqueue(CallBackDownloadFile())
                 }.create()
@@ -193,7 +194,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     override fun onBackPressed() {
-        BackPressCloseHandler(this).onBackPressed()
+        backPressCloseHandler.onBackPressed()
     }
 
 

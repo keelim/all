@@ -2,19 +2,16 @@ package com.keelim.cnubus
 
 import android.app.Application
 
-import com.keelim.cnubus.di.myDiModule
+
 import com.keelim.cnubus.error.ExceptionHandler
+import dagger.hilt.android.HiltAndroidApp
 
-import org.koin.android.ext.koin.androidContext
-import org.koin.core.context.startKoin
 
+@HiltAndroidApp
 class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-        startKoin {
-            androidContext(applicationContext)
-            modules(myDiModule)
-        }
+
         setCrashHandler()
     }
 

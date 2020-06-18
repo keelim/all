@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.FragmentPagerAdapter
@@ -26,10 +27,18 @@ import kotlinx.android.synthetic.main.layout_drawer.*
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private lateinit var pagerAdapter: ViewPagerAdapter
     private lateinit var appUpdateManager: AppUpdateManager
+    private lateinit var backPressCloseHandler: BackPressCloseHandler
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        MobileAds.initialize(this, getString(R.string.ADMOB_APP_ID))
+        backPressCloseHandler = BackPressCloseHandler(this)
+        MobileAds.initialize(this) {
+            Toast.makeText(
+                this,
+                "complete Loading ads",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
         val adRequest = AdRequest.Builder().build()
         adView.loadAd(adRequest)
         pagerAdapter = ViewPagerAdapter(
@@ -132,7 +141,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         if (drawer_container.isDrawerOpen(GravityCompat.START)) {
             drawer_container.closeDrawer(GravityCompat.START)
         } else
-            BackPressCloseHandler(this).onBackPressed()
+            backPressCloseHandler.onBackPressed()
 
     }
 

@@ -80,4 +80,8 @@ class SplashActivity : AppCompatActivity(R.layout.activity_splash) {
         interstitialAd.loadAd(adRequest)
     }
 
+    override fun onBackPressed() {
+
+    }
+
 }

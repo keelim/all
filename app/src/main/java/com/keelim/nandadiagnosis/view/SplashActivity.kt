@@ -12,6 +12,7 @@ import com.google.android.gms.ads.InterstitialAd
 import com.google.android.material.snackbar.Snackbar
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
+import com.keelim.nandadiagnosis.BuildConfig
 import com.keelim.nandadiagnosis.R
 import kotlinx.android.synthetic.main.activity_splash.*
 import java.util.*
@@ -57,6 +58,8 @@ class SplashActivity : AppCompatActivity(R.layout.activity_splash) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Snackbar.make(container_splash, "NANDA 진단에 오신 것을 환영합니다.", Snackbar.LENGTH_SHORT).show()
+
+        version_name.text = BuildConfig.VERSION_NAME
 
         TedPermission.with(this)
                 .setPermissionListener(listener)

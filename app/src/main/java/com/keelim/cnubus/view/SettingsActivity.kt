@@ -56,7 +56,7 @@ class SettingsActivity : AppCompatActivity(R.layout.activity_settings) {
                 }
                 "update" -> {
                     Toast.makeText(context, "버전 확인 중입니다.", Toast.LENGTH_SHORT).show()
-                    preference.summary = getVersionInfo(context!!)
+                    preference.summary = getVersionInfo(requireContext())
                     return true
                 }
                 "mail" -> {
@@ -68,27 +68,27 @@ class SettingsActivity : AppCompatActivity(R.layout.activity_settings) {
                     return true
                 }
                 "lab1" -> {
-                    MaterialAlertDialogBuilder(context)
+                    MaterialAlertDialogBuilder(requireContext())
                         .setTitle("실험기능")
                         .setMessage("실험기능으로 앱이 갑자기 정지 할 수 있습니다.\n 그래도 실행하시겠습니까")
                         .setPositiveButton(
                             "예"
-                        ) { dialog: DialogInterface?, which: Int ->
+                        ) { _: DialogInterface?, _: Int ->
                             val lab = Intent(context, MapsActivity::class.java)
                             lab.putExtra("lab1", ModeCode.LAB1.ordinal)
                             startActivity(lab)
                         }
                         .setNegativeButton(
                             "아니오"
-                        ) { dialog: DialogInterface?, which: Int -> }
+                        ) { _: DialogInterface?, _: Int -> }
                         .show()
                     return true
                 }
                 "lab2" -> {
-                    MaterialAlertDialogBuilder(context)
+                    MaterialAlertDialogBuilder(requireContext())
                         .setTitle("실험기능")
                         .setMessage("실험기능으로 앱이 갑자기 정지 할 수 있습니다.\n 그래도 실행하시겠습니까")
-                        .setPositiveButton("예") { dialog: DialogInterface?, which: Int ->
+                        .setPositiveButton("예") { _: DialogInterface?, _: Int ->
                             val lab2 = Intent(context, TempActivity::class.java)
                             startActivity(lab2)
                         }

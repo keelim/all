@@ -9,7 +9,7 @@ import androidx.preference.PreferenceFragmentCompat
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.view.OpenSourceActivity
 import com.keelim.nandadiagnosis.view.PleaseActivity
-import com.keelim.nandadiagnosis.view.WebViewActivity
+import com.keelim.nandadiagnosis.view.WebActivity
 
 class SettingFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -22,14 +22,12 @@ class SettingFragment : PreferenceFragmentCompat() {
                 /*Intent(context, WebViewActivity::class.java).apply {
                     putExtra("URL", "https://blog.naver.com/cjhdori")
                     startActivity(this)*/
-
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(("https://blog.naver.com/cjhdori"))))
                 return true
             }
 
-
             "nandaHome" -> {
-                Intent(context, WebViewActivity::class.java).apply {
+                Intent(context, WebActivity::class.java).apply {
                     putExtra("URL", "https://keelim.github.io/nandaDiagnosis/")
                     startActivity(this)
                 }

@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.keelim.nandadiagnosis.R
 import kotlinx.android.synthetic.main.activity_web_view.*
 
-class WebViewActivity : AppCompatActivity(R.layout.activity_web_view) {
+class WebActivity : AppCompatActivity(R.layout.activity_web) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

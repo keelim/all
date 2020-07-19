@@ -7,7 +7,7 @@ import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.model.MyDiagnosisViewAdapter
 import kotlinx.android.synthetic.main.activity_diagnosislist.*
 
-class DiagnosisActivity : AppCompatActivity(R.layout.activity_diagnosislist) {
+class DiagnosisActivity : AppCompatActivity(R.layout.activity_diagnosis) {
     private var arrayList: ArrayList<MyDiagnosisViewAdapter.DiagnosisItem>? = ArrayList()
     private var nav = 0
 
@@ -22,7 +22,7 @@ class DiagnosisActivity : AppCompatActivity(R.layout.activity_diagnosislist) {
     }
 
     private fun goWeb(total: Int) {
-        Intent(this, WebViewActivity::class.java).apply {
+        Intent(this, WebActivity::class.java).apply {
             putExtra("URL", "https://keelim.github.io/nandaDiagnosis/$total.html")
             startActivity(this)
         }

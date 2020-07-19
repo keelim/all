@@ -40,7 +40,7 @@
             android:theme="@android:style/Theme.Translucent" />
 
         <activity
-            android:name=".view.WebViewActivity"
+            android:name=".view.WebActivity"
             android:theme="@style/Theme.MaterialComponents.NoActionBar" />
         <activity
             android:name=".view.SplashActivity"

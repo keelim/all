@@ -4,9 +4,6 @@
         <Preference
             app:key="blog"
             app:title="관련 블로그" />
-        <Preference
-            app:key="nandaHome"
-            app:title="관련 홈페이지" />
     </PreferenceCategory>
 
     <PreferenceCategory app:key="other_category">

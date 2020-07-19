@@ -16,7 +16,7 @@ class DiagnosisActivity : AppCompatActivity(R.layout.activity_diagnosislist) {
         arrayListSetting()
 
         list.adapter = MyDiagnosisViewAdapter(this, arrayList)
-        list.setOnItemClickListener { adapterView, view, i, l ->
+        list.setOnItemClickListener { _, _, i, _ ->
             goWeb(nav + i + 1)
         }
     }

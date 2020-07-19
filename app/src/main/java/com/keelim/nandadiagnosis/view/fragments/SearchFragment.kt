@@ -19,8 +19,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setHasOptionsMenu(true)
-        view!!.dbanswer_listview.adapter = DatabaseAdapter(context!!, arrayListOf())
-        view!!.dbanswer_listview.setOnItemClickListener { adapterView, view, i, l ->
+        requireView().dbanswer_listview.adapter = DatabaseAdapter(requireContext(), arrayListOf())
+        requireView().dbanswer_listview.setOnItemClickListener { adapterView, _, i, _ ->
             val db = adapterView.adapter.getItem(i) as NandaEntity
             Toast.makeText(activity, "클래스 영역: " + db.class_name + "도매인 영역" + db.domain_name, Toast.LENGTH_SHORT).show() // 무슨 화면이 나와야 하는가?
             contentControl(db.nanda_id)
@@ -33,8 +33,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         val item = menu.findItem(R.id.menu_search)
 
         val searchView = item.actionView as SearchView
-        val searchManager = activity!!.getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(activity!!.componentName))
+        val searchManager = requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
         searchView.isSubmitButtonEnabled = true
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -55,7 +55,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
 
     private fun searchDiagnosis(keyword: String): List<NandaEntity> { //여기까지는 이상이 없는 것 같다.
-        return AppDatabase.getInstance(activity!!)!!.dataDao().search("%$keyword%")
+        return AppDatabase.getInstance(requireActivity())!!.dataDao().search("%$keyword%")
     }
 
     private fun contentControl(position: Int) { // 넘겨 받은 난다 아이디를 통하여 구분

@@ -39,7 +39,7 @@ class WebViewActivity : AppCompatActivity(R.layout.activity_web_view) {
         }
 
         val url = urlHandling()
-        webView.loadUrl(url)
+        webView.loadUrl(url!!)
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {

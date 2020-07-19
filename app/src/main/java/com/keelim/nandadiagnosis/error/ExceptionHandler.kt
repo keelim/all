@@ -53,7 +53,7 @@ class ExceptionHandler(
     private fun isSkipActivity(activity: Activity) = activity is ErrorActivity
 
     override fun uncaughtException(thread: Thread?, throwable: Throwable) {
-        fabricExceptionHandler.uncaughtException(thread, throwable)
+        fabricExceptionHandler.uncaughtException(thread!!, throwable)
         lastActivity?.run {
             val stringWriter = StringWriter()
             throwable.printStackTrace(PrintWriter(stringWriter))

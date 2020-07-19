@@ -6,7 +6,9 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -25,7 +27,6 @@ import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.utils.BackPressCloseHandler
 import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.*
-
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -50,19 +51,12 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             fileChecking()
         } else {
-            Handler().postDelayed({
+            Handler(Looper.getMainLooper()).postDelayed({
                 Toast.makeText(this, "버전이 맞지 않아 종료 합니다", Toast.LENGTH_SHORT).show()
                 finish()
             }, 3000)
         }
 
-
-/*
-        main_drawer_button.setOnClickListener {
-            if (!container.isDrawerOpen(GravityCompat.END))
-                container.openDrawer(GravityCompat.END)
-        }
-*/
 
         // appUpdate
         appUpdateManager = AppUpdateManagerFactory.create(this)
@@ -106,6 +100,10 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
 
     private fun alertBuilderSetting() { //okhttp 작동 방식은 나중에 확인을 해보자
+        runOnUiThread {
+            main_progressbar.visibility = View.VISIBLE
+        }
+
         AlertDialog.Builder(this)
                 .setTitle("다운로드 요청")
                 .setMessage("어플리케이션 사용을 위해 데이터베이스를 다운로드 합니다.")
@@ -120,6 +118,10 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                     OkHttpClient().newCall(request).enqueue(CallBackDownloadFile())
                 }.create()
                 .show()
+
+        runOnUiThread {
+            main_progressbar.visibility = View.INVISIBLE
+        }
     }
 
 
@@ -136,13 +138,13 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         if (requestCode == 2) {
             when (resultCode) {
                 RESULT_OK -> {
-                    Snackbar.make(container, "업데이트를 성공적으로 완료했습니다.", Snackbar.LENGTH_LONG)
+                    Snackbar.make(container, "업데이트를 성공적으로 완료했습니다.", Snackbar.LENGTH_LONG).show()
                 }
                 Activity.RESULT_CANCELED -> {
-                    Snackbar.make(container, "업데이트를 취소하였습니다.", Snackbar.LENGTH_LONG)
+                    Snackbar.make(container, "업데이트를 취소하였습니다.", Snackbar.LENGTH_LONG).show()
                 }
                 ActivityResult.RESULT_IN_APP_UPDATE_FAILED -> {
-                    Snackbar.make(container, "시스템 오류가 발생했습니다.", Snackbar.LENGTH_LONG)
+                    Snackbar.make(container, "시스템 오류가 발생했습니다.", Snackbar.LENGTH_LONG).show()
                 }
             }
 
@@ -186,6 +188,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 close()
             }
             inputStream.close()
+
             runOnUiThread {
                 Toast.makeText(this@MainActivity, "다운로드가 완료되었습니다. ", Toast.LENGTH_SHORT).show()
             }

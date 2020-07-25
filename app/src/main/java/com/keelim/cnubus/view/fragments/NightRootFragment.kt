@@ -24,7 +24,7 @@ class NightRootFragment : Fragment(R.layout.fragment_night_root) {
         intentList = resources.getStringArray(R.array.night_intent_array)
 
 
-        view!!.lv_nightroot.setOnItemClickListener { adapterView, view, i, l ->
+        requireView().lv_nightroot.setOnItemClickListener { _, _, i, _ ->
             Snackbar.make(nightrootLayout, "기능 준비 중입니다. ", Snackbar.LENGTH_SHORT).show()
 
             Intent(activity, MapsActivity::class.java).apply {
@@ -33,7 +33,7 @@ class NightRootFragment : Fragment(R.layout.fragment_night_root) {
             }
         }
 
-        view!!.lv_nightroot.adapter = ArrayAdapter(activity!!, android.R.layout.simple_list_item_1, rootList)
+        requireView().lv_nightroot.adapter = ArrayAdapter(requireActivity(), android.R.layout.simple_list_item_1, rootList)
 
     }
 }

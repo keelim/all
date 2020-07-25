@@ -5,7 +5,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.model.MyDiagnosisViewAdapter
-import kotlinx.android.synthetic.main.activity_diagnosislist.*
+import kotlinx.android.synthetic.main.activity_diagnosis.*
+
 
 class DiagnosisActivity : AppCompatActivity(R.layout.activity_diagnosis) {
     private var arrayList: ArrayList<MyDiagnosisViewAdapter.DiagnosisItem>? = ArrayList()

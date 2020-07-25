@@ -74,8 +74,6 @@ class SplashActivity : AppCompatActivity(R.layout.activity_splash) {
     override fun onBackPressed() {
 
     }
-
-
 }
 
 

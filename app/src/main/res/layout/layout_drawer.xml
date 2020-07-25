@@ -85,7 +85,7 @@
         android:layout_marginStart="20.33dp"
         android:background="#00ffffff"
         android:gravity="start|center_vertical"
-        android:text="실험1"
+        android:text="실험"
         android:textSize="15.33sp" />
 
     <View
@@ -100,7 +100,7 @@
         android:layout_marginStart="20.33dp"
         android:background="#00ffffff"
         android:gravity="start|center_vertical"
-        android:text="실험2"
+        android:text="실험 맵"
         android:textSize="15.33sp" />
 
 </LinearLayout>

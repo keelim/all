@@ -79,7 +79,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         appUpdateManager = AppUpdateManagerFactory.create(this)
 
         val appUpdateInfoTask = appUpdateManager.appUpdateInfo
-
         appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
             if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE && appUpdateInfo.isUpdateTypeAllowed(
                     AppUpdateType.FLEXIBLE
@@ -116,12 +115,13 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             when (resultCode) {
                 RESULT_OK -> {
                     Snackbar.make(drawer_container, "업데이트를 성공적으로 완료했습니다.", Snackbar.LENGTH_LONG)
+                        .show()
                 }
                 Activity.RESULT_CANCELED -> {
-                    Snackbar.make(drawer_container, "업데이트를 취소하였습니다.", Snackbar.LENGTH_LONG)
+                    Snackbar.make(drawer_container, "업데이트를 취소하였습니다.", Snackbar.LENGTH_LONG).show()
                 }
                 ActivityResult.RESULT_IN_APP_UPDATE_FAILED -> {
-                    Snackbar.make(drawer_container, "시스템 오류가 발생했습니다.", Snackbar.LENGTH_LONG)
+                    Snackbar.make(drawer_container, "시스템 오류가 발생했습니다.", Snackbar.LENGTH_LONG).show()
                 }
             }
         }

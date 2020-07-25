@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         }
 
         drawer_setting.setOnClickListener {
-            startActivity(Intent(this, SettingsActivity::class.java))
+            startActivity(Intent(this, SettingActivity::class.java))
         }
 
         drawer_lab1.setOnClickListener {

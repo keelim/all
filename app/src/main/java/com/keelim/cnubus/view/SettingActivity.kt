@@ -15,18 +15,18 @@ import com.keelim.cnubus.R
 import com.keelim.cnubus.model.ModeCode
 import kotlinx.android.synthetic.main.activity_settings.*
 
-class SettingsActivity : AppCompatActivity(R.layout.activity_settings) {
+class SettingActivity : AppCompatActivity(R.layout.activity_settings) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        supportFragmentManager.beginTransaction().replace(R.id.settings,
+        supportFragmentManager.beginTransaction().replace(
+            R.id.settings,
             SettingsFragment()
         ).commit()
 
-        val actionBar = supportActionBar
-        actionBar?.setDisplayShowHomeEnabled(true)
-        Snackbar.make(setting_container, "설정화면 입니다. ",Snackbar.LENGTH_LONG).show()
+        supportActionBar!!.setDisplayShowHomeEnabled(true)
+        Snackbar.make(setting_container, "설정화면 입니다. ", Snackbar.LENGTH_LONG).show()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -38,35 +38,38 @@ class SettingsActivity : AppCompatActivity(R.layout.activity_settings) {
     }
 
     class SettingsFragment : PreferenceFragmentCompat() {
-        override fun onCreatePreferences(
-            savedInstanceState: Bundle?,
-            rootKey: String?
-        ) {
+        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             addPreferencesFromResource(R.xml.settings_preferences)
         }
 
         override fun onPreferenceTreeClick(preference: Preference): Boolean { //preferebce 클릭 리스너
             when (preference.key) {
-                "app_share" -> return true
+                "app_share" -> {
+                    Toast.makeText(activity, "기능 준비 중 입니다. ", Toast.LENGTH_SHORT).show()
+                    return true
+                }
 
                 "opensource" -> {
-                    val intent = Intent(context, OpenSourceActivity::class.java)
-                    startActivity(intent)
+                    Intent(context, OpenSourceActivity::class.java).apply {
+                        startActivity(this)
+                    }
                     return true
                 }
                 "update" -> {
                     Toast.makeText(context, "버전 확인 중입니다.", Toast.LENGTH_SHORT).show()
-                    preference.summary = getVersionInfo(requireContext())
+                    preference.summary = getVersionInfo()
                     return true
                 }
                 "mail" -> {
-                    val mail = Intent(Intent.ACTION_SEND)
-                    mail.type = "plain/Text"
-                    mail.putExtra(Intent.EXTRA_EMAIL, "kimh00335@gmail.com")
-                    mail.putExtra(Intent.EXTRA_SUBJECT, "[cnuBus] 문의 사항")
-                    startActivity(mail)
+                    Intent(Intent.ACTION_SEND).apply {
+                        this.type = "plain/Text"
+                        this.putExtra(Intent.EXTRA_EMAIL, "kimh00335@gmail.com")
+                        this.putExtra(Intent.EXTRA_SUBJECT, "[cnuBus] 문의 사항")
+                        startActivity(this)
+                    }
                     return true
                 }
+
                 "lab1" -> {
                     MaterialAlertDialogBuilder(requireContext())
                         .setTitle("실험기능")
@@ -84,25 +87,15 @@ class SettingsActivity : AppCompatActivity(R.layout.activity_settings) {
                         .show()
                     return true
                 }
-                "lab2" -> {
-                    MaterialAlertDialogBuilder(requireContext())
-                        .setTitle("실험기능")
-                        .setMessage("실험기능으로 앱이 갑자기 정지 할 수 있습니다.\n 그래도 실행하시겠습니까")
-                        .setPositiveButton("예") { _: DialogInterface?, _: Int ->
-                            val lab2 = Intent(context, TempActivity::class.java)
-                            startActivity(lab2)
-                        }
-                        .setNegativeButton(
-                            "아니오"
-                        ) { _: DialogInterface?, _: Int -> }
-                        .show()
-                }
             }
             return false
         }
 
-        private fun getVersionInfo(context: Context): String? { // 버전을 확인을 하는 메소드
-            return context.packageManager.getPackageInfo(context.packageName, 0).versionName
+        private fun getVersionInfo(): String? { // 버전을 확인을 하는 메소드
+            return requireActivity().packageManager.getPackageInfo(
+                requireContext().packageName,
+                0
+            ).versionName
         }
     }
 }

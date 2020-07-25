@@ -35,7 +35,7 @@
             android:label="@string/title_activity_maps" />
 
         <activity
-            android:name=".view.SettingsActivity"
+            android:name=".view.SettingActivity"
             android:label="@string/title_activity_settings" />
         <activity
             android:name=".view.MainActivity"

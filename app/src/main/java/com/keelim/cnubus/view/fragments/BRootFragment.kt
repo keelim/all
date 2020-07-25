@@ -21,9 +21,9 @@ class BRootFragment : Fragment(R.layout.fragment_b_root) {
         super.onActivityCreated(savedInstanceState)
         rootList = resources.getStringArray(R.array.broot)
         intentList = resources.getStringArray(R.array.b_intent_array)
-        view!!.lv_broot.adapter = ArrayAdapter(activity!!, android.R.layout.simple_list_item_1, rootList)
+        requireView().lv_broot.adapter = ArrayAdapter(requireActivity(), android.R.layout.simple_list_item_1, rootList)
 
-        view!!.lv_broot.setOnItemClickListener { adapterView, view, i, l ->
+        requireView().lv_broot.setOnItemClickListener { _, _, i, _ ->
             Toast.makeText(activity, rootList[i] + "정류장 입니다.", Toast.LENGTH_SHORT).show()
 
             Intent(activity, MapsActivity::class.java).apply {

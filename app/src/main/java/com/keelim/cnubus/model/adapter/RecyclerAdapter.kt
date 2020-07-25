@@ -17,7 +17,7 @@ class RecyclerAdapter internal constructor(private val mData: ArrayList<String>)
 
 
         init {
-            itemView.setOnClickListener { v: View? ->
+            itemView.setOnClickListener {
                 val pos = adapterPosition
                 if (pos != RecyclerView.NO_POSITION) {
                     mData[pos] = "item clicked. pos=$pos"

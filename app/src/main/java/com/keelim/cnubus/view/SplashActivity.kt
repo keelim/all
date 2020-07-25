@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -67,12 +68,14 @@ class SplashActivity : AppCompatActivity(R.layout.activity_splash) {
             }
 
             override fun onAdClosed() {
-                Handler().postDelayed(runnable, 500) //handler를 통하여 사용
+                Handler(Looper.getMainLooper()).postDelayed(runnable, 500) //handler를 통하여 사용
+                finish()
             }
 
             override fun onAdFailedToLoad(i: Int) {
                 Log.e("Error", "광고 로딩 실패")
-                Handler().postDelayed(runnable, 500) //handler를 통하여 사용
+                Handler(Looper.getMainLooper()).postDelayed(runnable, 500) //handler를 통하여 사용
+                finish()
             }
         } //전면광고 셋팅
 

@@ -2,9 +2,6 @@ package com.keelim.cnubus.view.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -22,9 +19,10 @@ class ARootFragment : Fragment(R.layout.fragment_a_root) {
         rootList = resources.getStringArray(R.array.aroot)
         intentList = resources.getStringArray(R.array.a_intent_array)
 
-        view!!.lv_aroot.adapter = ArrayAdapter(activity!!, android.R.layout.simple_list_item_1, rootList)
+        requireView().lv_aroot.adapter =
+            ArrayAdapter(requireActivity(), android.R.layout.simple_list_item_1, rootList)
 
-        view!!.lv_aroot.setOnItemClickListener { adapterView, view, i, l ->
+        requireView().lv_aroot.setOnItemClickListener { _, _, i, _ ->
             Toast.makeText(activity, rootList[i] + "정류장 입니다.", Toast.LENGTH_SHORT).show()
 
             Intent(activity, MapsActivity::class.java).apply {

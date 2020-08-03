@@ -41,9 +41,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         }
         val adRequest = AdRequest.Builder().build()
         adView.loadAd(adRequest)
-        pagerAdapter = ViewPagerAdapter(
-            supportFragmentManager,
-            FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
+        pagerAdapter = ViewPagerAdapter(supportFragmentManager, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
         )
         viewpager.adapter = pagerAdapter
         tabLayout.setupWithViewPager(viewpager)

@@ -6,12 +6,12 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".view.OpenSourceActivity"
-    tools:showIn="@layout/activity_open_source">
+    tools:showIn="@layout/activity_opensource">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
-        android:text="@string/large_text" />
+        android:text="@string/license" />
 
 </androidx.core.widget.NestedScrollView>

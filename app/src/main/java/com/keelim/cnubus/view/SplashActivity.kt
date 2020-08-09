@@ -16,7 +16,7 @@ import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import com.keelim.cnubus.R
 import kotlinx.android.synthetic.main.activity_splash.*
-import java.util.ArrayList
+import java.util.*
 
 
 class SplashActivity : AppCompatActivity(R.layout.activity_splash) {
@@ -24,9 +24,12 @@ class SplashActivity : AppCompatActivity(R.layout.activity_splash) {
     private val runnable = Runnable {
         Intent(this, MainActivity::class.java).apply {
             startActivity(this)
+            overridePendingTransition(
+                android.R.anim.fade_in,
+                android.R.anim.fade_out
+            ) //애니메이션을 넣어준다.
+            finish()
         }
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out) //애니메이션을 넣어준다.
-        finish()
     }
 
     private var listener = object : PermissionListener {
@@ -79,7 +82,5 @@ class SplashActivity : AppCompatActivity(R.layout.activity_splash) {
         interstitialAd.loadAd(adRequest)
     }
 
-    override fun onBackPressed() {
-
-    }
+    override fun onBackPressed() {}
 }

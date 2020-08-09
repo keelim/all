@@ -6,28 +6,21 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.keelim.cnubus.R
 import com.keelim.cnubus.model.adapter.RecyclerAdapter
+import kotlinx.android.synthetic.main.activity_recycler.*
 
 
 class RecyclerActivity : AppCompatActivity(R.layout.activity_recycler) {
-
+    private lateinit var list: ArrayList<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // 리사이클러뷰에 표시할 데이터 리스트 생성.
-        // 리사이클러뷰에 표시할 데이터 리스트 생성.
-        val list: ArrayList<String> = ArrayList()
+        list = ArrayList()
+
         for (i in 0..99) {
             list.add(String.format("TEXT %d", i))
         }
 
-        // 리사이클러뷰에 LinearLayoutManager 객체 지정.
-        // 리사이클러뷰에 LinearLayoutManager 객체 지정.
-        val recyclerView = findViewById<RecyclerView>(R.id.recycler1)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-
-        // 리사이클러뷰에 SimpleTextAdapter 객체 지정.
-        // 리사이클러뷰에 SimpleTextAdapter 객체 지정.
-        val adapter = RecyclerAdapter(list)
-        recyclerView.adapter = adapter
+        recycler1.layoutManager = LinearLayoutManager(this)
+        recycler1.adapter =  RecyclerAdapter(list)
     }
 
 }

@@ -19,7 +19,7 @@ import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.InstallStatus
 import com.google.android.play.core.install.model.UpdateAvailability
 import com.keelim.cnubus.R
-import com.keelim.cnubus.model.adapter.ViewPagerAdapter
+import com.keelim.cnubus.model.ViewPagerAdapter
 import com.keelim.cnubus.utils.BackPressCloseHandler
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_drawer.*
@@ -33,15 +33,14 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         super.onCreate(savedInstanceState)
         backPressCloseHandler = BackPressCloseHandler(this)
         MobileAds.initialize(this) {
-            Toast.makeText(
-                this,
-                "complete Loading ads",
-                Toast.LENGTH_SHORT
-            ).show()
+            Toast.makeText(this, "complete Loading ads", Toast.LENGTH_SHORT).show()
         }
         val adRequest = AdRequest.Builder().build()
         adView.loadAd(adRequest)
-        pagerAdapter = ViewPagerAdapter(supportFragmentManager, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
+
+        pagerAdapter = ViewPagerAdapter(
+            supportFragmentManager,
+            FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
         )
         viewpager.adapter = pagerAdapter
         tabLayout.setupWithViewPager(viewpager)
@@ -64,10 +63,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
         drawer_setting.setOnClickListener {
             startActivity(Intent(this, SettingActivity::class.java))
-        }
-
-        drawer_lab1.setOnClickListener {
-            startActivity(Intent(this, RecyclerActivity::class.java))
         }
 
         drawer_lab2.setOnClickListener {
@@ -126,7 +121,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     private fun popupSnackBarForCompleteUpdate() {
-
         Snackbar.make(drawer_container, "업데이트를 다운로드 하고 있습니다.", Snackbar.LENGTH_INDEFINITE).apply {
             setAction("RESTART") { appUpdateManager.completeUpdate() }
             setActionTextColor(resources.getColor(R.color.colorAccent, this@MainActivity.theme))
@@ -135,7 +129,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     override fun onBackPressed() {
-
         if (drawer_container.isDrawerOpen(GravityCompat.START)) {
             drawer_container.closeDrawer(GravityCompat.START)
         } else

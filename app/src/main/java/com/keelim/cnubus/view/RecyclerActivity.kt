@@ -3,9 +3,8 @@ package com.keelim.cnubus.view
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.keelim.cnubus.R
-import com.keelim.cnubus.model.adapter.RecyclerAdapter
+import com.keelim.cnubus.model.RecyclerAdapter
 import kotlinx.android.synthetic.main.activity_recycler.*
 
 
@@ -20,7 +19,7 @@ class RecyclerActivity : AppCompatActivity(R.layout.activity_recycler) {
         }
 
         recycler1.layoutManager = LinearLayoutManager(this)
-        recycler1.adapter =  RecyclerAdapter(list)
+        recycler1.adapter = RecyclerAdapter(list)
     }
 
 }

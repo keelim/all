@@ -1,4 +1,4 @@
-package com.keelim.cnubus.model.adapter
+package com.keelim.cnubus.model
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

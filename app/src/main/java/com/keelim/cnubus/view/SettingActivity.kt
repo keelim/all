@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.google.android.material.snackbar.Snackbar
+import com.keelim.cnubus.BuildConfig
 import com.keelim.cnubus.R
 import kotlinx.android.synthetic.main.activity_settings.*
 
@@ -66,8 +67,7 @@ class SettingActivity : AppCompatActivity(R.layout.activity_settings) {
         }
 
         private fun getVersionInfo(): String? { // 버전을 확인을 하는 메소드
-            return requireActivity().packageManager.getPackageInfo(
-                requireContext().packageName, 0).versionName
+            return BuildConfig.VERSION_NAME
         }
     }
 }

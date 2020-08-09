@@ -2,7 +2,6 @@ package com.keelim.cnubus.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.fragment.app.FragmentActivity;
 
@@ -18,8 +17,6 @@ import com.keelim.cnubus.R;
 import java.util.ArrayList;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
-    // GoogleMapActivity
-    private GoogleMap mMap;
     private ArrayList<LatLng> locationList;
     private int location;
 
@@ -29,24 +26,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_maps);
         locationListInit();
         intentControl();
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        if (mapFragment == null)
-            Toast.makeText(this, "오류가 발생을 하였습니다.", Toast.LENGTH_SHORT).show();
-        else
-            mapFragment.getMapAsync(this);
+
+        mapFragment.getMapAsync(this);
     }
 
 
     @Override
     public void onMapReady(final GoogleMap googleMap) { //구글 맵은 처음 사용을 하는 거니까
-        mMap = googleMap;
+        // GoogleMapActivity
 
         for (int index = 0; index < 15; index++) {
             MarkerOptions markerOptions = new MarkerOptions();
             markerOptions.position(locationList.get(index))
                     .title(markerHandling(index));
-            mMap.addMarker(markerOptions);
+            googleMap.addMarker(markerOptions);
         }
         CameraUpdate cameraUpdate;
         if (location == -1) {
@@ -54,7 +50,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         } else {
             cameraUpdate = CameraUpdateFactory.newLatLngZoom(locationList.get(location), 17);
         }
-        mMap.animateCamera(cameraUpdate);
+        googleMap.animateCamera(cameraUpdate);
     }
 
     // private method

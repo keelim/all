@@ -2,12 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.keelim.cnubus">
-
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission
         android:name="android.permission.READ_PHONE_STATE"
         tools:node="remove" />
@@ -22,14 +20,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".view.DrawerActivity"
-            android:label="@string/title_activity_drawer"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
             android:name=".view.OpenSourceActivity"
             android:label="@string/title_activity_open_source"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".view.TempActivity" />
         <activity
             android:name=".view.MapsActivity"
             android:label="@string/title_activity_maps" />

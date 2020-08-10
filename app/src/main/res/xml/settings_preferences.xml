@@ -8,25 +8,18 @@
 
     <PreferenceCategory app:key="other_category">
         <Preference
-            app:key="please"
-            app:title="질문 및 문의" />
-        <Preference
             app:key="opensource"
             app:title="오픈소스 라이선스" />
     </PreferenceCategory>
 
     <PreferenceCategory>
-        <Preference
-            app:key="lab"
-            app:title="실험기능" />
 
         <Preference
-            app:key="database"
-            app:title="데이터베이스 확인" />
+            app:key="version"
+            app:title="버전 확인" />
 
         <Preference
             app:key="db_download"
-            app:summary="@string/version"
             app:title="데이터베이스 다운로드 합니다." />
 
     </PreferenceCategory>

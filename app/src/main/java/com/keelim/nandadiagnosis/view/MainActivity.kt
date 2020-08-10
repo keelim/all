@@ -1,12 +1,14 @@
 package com.keelim.nandadiagnosis.view
 
 import android.app.Activity
+import android.app.Instrumentation
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.telecom.Call
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -40,8 +42,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         super.onCreate(savedInstanceState)
 
         backPressCloseHandler = BackPressCloseHandler(this)
-        val appBarConfiguration = AppBarConfiguration.Builder(
-                R.id.navigation_category, R.id.navigation_search, R.id.navigation_my)
+        val appBarConfiguration = AppBarConfiguration.Builder(R.id.navigation_category, R.id.navigation_search, R.id.navigation_setting)
                 .build()
 
         val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
@@ -112,13 +113,12 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 .setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
                     Toast.makeText(this, "서버로부터 데이터 베이스를 요청 합니다. ", Toast.LENGTH_SHORT).show()
                     val request = Request.Builder()
-                            .url("https://github.com/keelim/Keelim.github.io/raw/master/assets/nanda.db")
+                            .url(getString(R.string.db_path))
                             .build()
 
                     OkHttpClient().newCall(request).enqueue(CallBackDownloadFile())
                 }.create()
                 .show()
-
 
         main_progressbar.visibility = View.INVISIBLE
 
@@ -141,7 +141,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
                 Activity.RESULT_CANCELED -> Snackbar.make(container, "업데이트를 취소하였습니다.", Snackbar.LENGTH_LONG).show()
 
-                ActivityResult.RESULT_IN_APP_UPDATE_FAILED -> Snackbar.make(container, "시스템 오류가 발생했습니다.", Snackbar.LENGTH_LONG).show()
+                Instrumentation.ActivityResult.RESULT_IN_APP_UPDATE_FAILED -> Snackbar.make(container, "시스템 오류가 발생했습니다.", Snackbar.LENGTH_LONG).show()
 
             }
 

@@ -20,7 +20,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
-
+        <activity
+            android:name=".view.DrawerActivity"
+            android:label="@string/title_activity_drawer"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".view.PleaseActivity"
             android:label="@string/title_activity_please"
@@ -38,15 +41,13 @@
             android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent" />
-
         <activity
             android:name=".view.WebActivity"
             android:theme="@style/Theme.MaterialComponents.NoActionBar" />
         <activity
             android:name=".view.SplashActivity"
             android:theme="@style/Theme.MaterialComponents.NoActionBar">
-
-        <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -61,9 +62,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.DiagnosisActivity" />
-
         <activity android:name=".error.ErrorActivity" />
-
 
         <meta-data
             android:name="android.app.searchable"

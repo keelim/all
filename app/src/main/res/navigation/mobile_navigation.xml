@@ -2,22 +2,22 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@+id/navigation_search">
+    app:startDestination="@+id/navigation_category">
 
     <fragment
-        android:id="@+id/navigation_search"
-        android:name="com.keelim.nandadiagnosis.mainfragment.category.CategoryFragment"
-        android:label="@string/title_search"
+        android:id="@+id/navigation_category"
+        android:name="com.keelim.nandadiagnosis.view.fragments.CategoryFragment"
+        android:label="@string/title_category"
         tools:layout="@layout/fragment_category" />
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.keelim.nandadiagnosis.mainfragment.search.SearchFragment"
-        android:label="@string/title_category"
+        android:id="@+id/navigation_search"
+        android:name="com.keelim.nandadiagnosis.view.fragments.SearchFragment"
+        android:label="@string/title_search"
         tools:layout="@layout/fragment_search" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.keelim.nandadiagnosis.mainfragment.my.SettingFragment"
+        android:id="@+id/navigation_setting"
+        android:name="com.keelim.nandadiagnosis.view.fragments.SettingFragment"
         android:label="@string/title_my"
-        tools:layout="@layout/fragment_my" />
+        tools:layout="@layout/fragment_setting" />
 </navigation>

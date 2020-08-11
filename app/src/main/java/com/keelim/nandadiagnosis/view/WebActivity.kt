@@ -18,7 +18,7 @@ class WebActivity : AppCompatActivity(R.layout.activity_web) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        webView.run {
+        webView.apply {
             webViewClient = WebViewClient()
             webChromeClient = WebChromeClient() //웹뷰에 크롬 사용 허용//이 부분이 없으면 크롬에서 알림 뜨지 않음
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -29,7 +29,7 @@ class WebActivity : AppCompatActivity(R.layout.activity_web) {
             setLayerType(View.LAYER_TYPE_HARDWARE, null)
         }
 
-        webView.settings.run {
+        webView.settings.apply {
             loadWithOverviewMode = true
             useWideViewPort = true
             setSupportZoom(true)
@@ -39,8 +39,7 @@ class WebActivity : AppCompatActivity(R.layout.activity_web) {
             domStorageEnabled = true
         }
 
-        val url = urlHandling()
-        webView.loadUrl(url!!)
+        webView.loadUrl(urlHandling()!!)
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {

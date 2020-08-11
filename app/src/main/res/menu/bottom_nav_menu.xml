@@ -12,7 +12,7 @@
         android:title="@string/title_search" />
 
     <item
-        android:id="@+id/navigation_my"
+        android:id="@+id/navigation_setting"
         android:icon="@android:drawable/ic_menu_set_as"
         android:title="@string/title_my" />
 

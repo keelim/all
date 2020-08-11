@@ -13,9 +13,5 @@ class OpenSourceActivity : AppCompatActivity(R.layout.activity_open_source) {
         setSupportActionBar(toolbar)
         toolbar_layout.title = title
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
     }
 }

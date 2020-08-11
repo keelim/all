@@ -4,9 +4,10 @@
     package="com.keelim.nandadiagnosis">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
     <uses-permission
         android:name="android.permission.READ_PHONE_STATE"
         tools:node="remove" />
@@ -20,7 +21,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
-
+        <activity
+            android:name=".view.DrawerActivity"
+            android:label="@string/title_activity_drawer"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".view.PleaseActivity"
             android:label="@string/title_activity_please"
@@ -38,15 +42,13 @@
             android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent" />
-
         <activity
             android:name=".view.WebActivity"
             android:theme="@style/Theme.MaterialComponents.NoActionBar" />
         <activity
             android:name=".view.SplashActivity"
             android:theme="@style/Theme.MaterialComponents.NoActionBar">
-
-        <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -61,13 +63,23 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.DiagnosisActivity" />
-
         <activity android:name=".error.ErrorActivity" />
-
 
         <meta-data
             android:name="android.app.searchable"
             android:resource="@xml/searchable" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.keelim.nandadiagnosis.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+
     </application>
 
 </manifest>

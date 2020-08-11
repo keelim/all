@@ -66,7 +66,9 @@ class SplashActivity : AppCompatActivity(R.layout.activity_splash) {
                 .setPermissionListener(listener)
                 .setRationaleMessage("앱의 기능을 사용하기 위해서는 권한이 필요합니다.")
                 .setDeniedMessage("[설정] > [권한] 에서 권한을 허용할 수 있습니다.")
-                .setPermissions(Manifest.permission.INTERNET, Manifest.permission.ACCESS_NETWORK_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                .setPermissions(Manifest.permission.INTERNET,
+                        Manifest.permission.ACCESS_NETWORK_STATE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
                         Manifest.permission.READ_EXTERNAL_STORAGE)
                 .check()
     }

@@ -32,7 +32,7 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
 
     private fun showDialog(num: String) { //데이터를 사용하는 페이지 이니 조심하라는 문구
         AlertDialog.Builder(requireActivity())
-                .setMessage("이 기능은 데이터를 사용할 수 있습니다.\n 사용하시겠습니까?")
+                .setMessage("이 기능은 데이터를 사용할 수 있습니다.")
                 .setCancelable(false)
                 .setPositiveButton("예") { _, _ -> intentList(num) }
                 .setNegativeButton("아니오") { _, _ -> Toast.makeText(requireActivity(), "아니오 선택했습니다.", Toast.LENGTH_LONG).show() }
@@ -51,10 +51,4 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
         super.onResume()
         (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
     }
-
-    override fun onStop() {
-        super.onStop()
-        (activity as AppCompatActivity?)!!.supportActionBar!!.show()
-    }
-
 }

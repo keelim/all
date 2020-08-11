@@ -1,12 +1,5 @@
 <androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory>
-        <Preference
-            app:key="app_share"
-            app:title="앱 공유하기" />
-
-    </PreferenceCategory>
-
     <PreferenceCategory app:title="정보">
         <Preference
             app:key="opensource"
@@ -15,6 +8,13 @@
         <Preference
             app:key="update"
             app:title="어플리케이션 버전확인" />
+    </PreferenceCategory>
+
+    <PreferenceCategory>
+        <Preference
+            app:key="mail"
+            app:title="개발자 문의 메일 보내기" />
+
     </PreferenceCategory>
 
 </androidx.preference.PreferenceScreen>

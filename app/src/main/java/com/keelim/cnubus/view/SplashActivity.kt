@@ -59,8 +59,8 @@ class SplashActivity : AppCompatActivity(R.layout.activity_splash) {
                 Manifest.permission.VIBRATE)
             .check()
 
+        /*interstitialAd.adUnitId = getString(R.string.real_ad)
         interstitialAd = InterstitialAd(this)
-        interstitialAd.adUnitId = getString(R.string.real_ad)
         interstitialAd.adListener = object : AdListener() {
             override fun onAdLoaded() {
                 interstitialAd.show()
@@ -71,6 +71,7 @@ class SplashActivity : AppCompatActivity(R.layout.activity_splash) {
                 finish()
             }
 
+
             override fun onAdFailedToLoad(i: Int) {
                 Log.e("Error", "광고 로딩 실패")
                 Handler(Looper.getMainLooper()).postDelayed(runnable, 500) //handler를 통하여 사용
@@ -79,7 +80,7 @@ class SplashActivity : AppCompatActivity(R.layout.activity_splash) {
         } //전면광고 셋팅
 
         val adRequest = AdRequest.Builder().build()
-        interstitialAd.loadAd(adRequest)
+        interstitialAd.loadAd(adRequest)*/
     }
 
     override fun onBackPressed() {}

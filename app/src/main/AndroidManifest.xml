@@ -21,7 +21,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".view.OpenSourceActivity"
-            android:label="@string/title_activity_open_source"
+            android:label="오픈소스"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.MapsActivity"

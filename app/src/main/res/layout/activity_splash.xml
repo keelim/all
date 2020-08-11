@@ -5,19 +5,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/container_splash"
     android:layout_height="match_parent"
     android:background="#FFE57F"
-    tools:context=".activities.SplashActivity">
+    tools:context=".view.SplashActivity">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="NANDA"
+        android:layout_marginTop="165dp"
+        android:layout_marginBottom="53dp"
+        android:text="@string/app_name"
         android:textColor="#000000"
-        android:textSize="60sp"
+        android:textSize="72sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/progressBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,39 +29,25 @@
         android:id="@+id/version_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="185dp"
-        android:text="version 1.0"
+        android:layout_marginBottom="187dp"
         android:textColor="#121212"
+        android:text=""
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:id="@+id/version_name2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="72dp"
-        android:textColor="#121212"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/progressBar" />
 
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="13dp"
-        android:layout_marginTop="33dp"
-        app:layout_constraintStart_toStartOf="@+id/version_name"
+        android:layout_width="85dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="47dp"
+        app:layout_constraintBottom_toTopOf="@+id/version_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 

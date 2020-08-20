@@ -1,10 +1,10 @@
-package com.keelim.nandadiagnosis.view
+package com.keelim.nandadiagnosis.ui.diagnosis
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.model.MyDiagnosisViewAdapter
+import com.keelim.nandadiagnosis.ui.WebActivity
 import kotlinx.android.synthetic.main.activity_diagnosis.*
 
 

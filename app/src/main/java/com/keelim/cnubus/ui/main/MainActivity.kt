@@ -1,15 +1,12 @@
-package com.keelim.cnubus.view
+package com.keelim.cnubus.ui.main
 
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.FragmentPagerAdapter
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.MobileAds
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
@@ -19,7 +16,8 @@ import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.InstallStatus
 import com.google.android.play.core.install.model.UpdateAvailability
 import com.keelim.cnubus.R
-import com.keelim.cnubus.model.ViewPagerAdapter
+import com.keelim.cnubus.ui.MapsLabActivity
+import com.keelim.cnubus.ui.SettingActivity
 import com.keelim.cnubus.utils.BackPressCloseHandler
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_drawer.*
@@ -32,12 +30,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         backPressCloseHandler = BackPressCloseHandler(this)
-        MobileAds.initialize(this) {
-            Toast.makeText(this, "complete Loading ads", Toast.LENGTH_SHORT).show()
-        }
-        val adRequest = AdRequest.Builder().build()
-        adView.loadAd(adRequest)
-
         pagerAdapter = ViewPagerAdapter(
             supportFragmentManager,
             FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
@@ -58,7 +50,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         }
 
         drawer_root_check.setOnClickListener {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.busurl))))
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.plus.cnu.ac.kr")))
         }
 
         drawer_setting.setOnClickListener {

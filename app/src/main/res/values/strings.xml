@@ -3,9 +3,7 @@
     <string name="title_search">SEARCH</string>
     <string name="title_category">CATEGORY</string>
     <string name="title_my">SETTING</string>
-    <string name="application_ad">ca-app-pub-3115620439518585~3588723583</string>
     <string name="real_ad">ca-app-pub-3115620439518585/7104801924</string>
-    <string name="test_ad">ca-app-pub-3940256099942544/1033173712</string>
 
     <string-array name="diagnosis1">
         <item>여가 활동 부족</item>
@@ -245,8 +243,6 @@
         <item>발달지연의 위험</item>
         <item>손상된 에너지 end</item>
     </string-array>
-    <string name="title_activity_login">LoginActivity</string>
-    <string name="google_sign_in">Google sign in</string>
     <string name="large_text">                                 Apache License
                            Version 2.0, January 2004
                         http://www.apache.org/licenses/
@@ -428,7 +424,7 @@
 
       To apply the Apache License to your work, attach the following
       boilerplate notice, with the fields enclosed by brackets "[]"
-      replaced with your own identifying information. (Don't include
+      replaced with your own identifying information. (Don\'t include
       the brackets!)  The text should be enclosed in the appropriate
       comment syntax for the file format. We also recommend that a
       file or class name and description of purpose be included on the
@@ -451,6 +447,7 @@
 </string>
 
     <string name="db_path">https://github.com/keelim/Keelim.github.io/raw/master/assets/nanda.db</string>
+    <string name="title_activity_open_source">오픈소스</string>
 
 
 </resources>

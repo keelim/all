@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.model
+package com.keelim.nandadiagnosis.ui.diagnosis
 
 import android.content.Context
 import android.view.LayoutInflater

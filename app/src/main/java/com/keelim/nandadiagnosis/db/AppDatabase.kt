@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.model.roomdb
+package com.keelim.nandadiagnosis.db
 
 import android.content.Context
 import androidx.room.Database

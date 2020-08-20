@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.model
+package com.keelim.nandadiagnosis.data
 
 import android.graphics.drawable.Drawable
 

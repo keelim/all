@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.view
+package com.keelim.nandadiagnosis.ui
 
 import android.Manifest
 import android.content.Intent
@@ -15,6 +15,7 @@ import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import com.keelim.nandadiagnosis.BuildConfig
 import com.keelim.nandadiagnosis.R
+import com.keelim.nandadiagnosis.ui.main.MainActivity
 import kotlinx.android.synthetic.main.activity_splash.*
 import java.util.*
 
@@ -73,9 +74,7 @@ class SplashActivity : AppCompatActivity(R.layout.activity_splash) {
                 .check()
     }
 
-    override fun onBackPressed() {
-
-    }
+    override fun onBackPressed() {}
 }
 
 

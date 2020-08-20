@@ -7,11 +7,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorAccent"
-    tools:context=".view.fragments.CategoryFragment">
+    tools:context=".ui.main.category.CategoryFragment">
 
 
     <TableLayout
-        android:id="@+id/layout_search_table"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:stretchColumns="*"

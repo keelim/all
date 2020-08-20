@@ -1,4 +1,4 @@
-package com.keelim.cnubus.view.fragments
+package com.keelim.cnubus.ui.main.aroot
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,7 +6,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.keelim.cnubus.R
-import com.keelim.cnubus.view.MapsActivity
+import com.keelim.cnubus.ui.MapsActivity
 import kotlinx.android.synthetic.main.fragment_a_root.view.*
 
 class ARootFragment : Fragment(R.layout.fragment_a_root) {
@@ -16,8 +16,8 @@ class ARootFragment : Fragment(R.layout.fragment_a_root) {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        rootList = resources.getStringArray(R.array.aroot)
-        intentList = resources.getStringArray(R.array.a_intent_array)
+//        rootList = resources.getStringArray(R.array.aroot)
+//        intentList = resources.getStringArray(R.array.a_intent_array)
 
         requireView().lv_aroot.adapter =
             ArrayAdapter(requireActivity(), android.R.layout.simple_list_item_1, rootList)

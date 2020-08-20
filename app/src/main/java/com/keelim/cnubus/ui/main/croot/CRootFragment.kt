@@ -1,9 +1,6 @@
-package com.keelim.cnubus.view.fragments
+package com.keelim.cnubus.ui.main.croot
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
@@ -22,7 +19,7 @@ class CRootFragment : Fragment(R.layout.fragment_c_root) {
             Snackbar.make(crootLayout, "기능 준비 중입니다.", Snackbar.LENGTH_LONG)
         }
 
-        rootList = resources.getStringArray(R.array.croot)
+//        rootList = resources.getStringArray(R.array.croot)
         requireView().lv_croot.adapter = ArrayAdapter(requireActivity(), android.R.layout.simple_list_item_1, rootList)
 
     }

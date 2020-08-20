@@ -1,4 +1,4 @@
-package com.keelim.cnubus.view.fragments
+package com.keelim.cnubus.ui.main.night
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,7 +6,7 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.keelim.cnubus.R
-import com.keelim.cnubus.view.MapsActivity
+import com.keelim.cnubus.ui.MapsActivity
 import kotlinx.android.synthetic.main.fragment_night_root.*
 import kotlinx.android.synthetic.main.fragment_night_root.view.*
 
@@ -17,7 +17,7 @@ class NightRootFragment : Fragment(R.layout.fragment_night_root) {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        rootList = resources.getStringArray(R.array.night1)
+//        rootList = resources.getStringArray(R.array.night1)
 //        intentList = resources.getStringArray(R.array.night_intent_array)
 
 

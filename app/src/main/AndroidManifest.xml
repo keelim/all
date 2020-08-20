@@ -20,20 +20,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".view.OpenSourceActivity"
+            android:name=".ui.OpenSourceActivity"
             android:label="오픈소스"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view.MapsActivity"
-            android:label="@string/title_activity_maps" />
+            android:name=".ui.MapsActivity"
+            android:label="maps" />
         <activity
-            android:name=".view.MapsLabActivity"
-            android:label="@string/title_activity_maps" />
+            android:name=".ui.MapsLabActivity"
+            android:label="maps" />
         <activity
-            android:name=".view.SettingActivity"
-            android:label="@string/title_activity_settings" />
+            android:name=".ui.SettingActivity"
+            android:label="setting" />
         <activity
-            android:name=".view.MainActivity"
+            android:name=".ui.main.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
@@ -42,7 +42,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.SplashActivity"
+            android:name=".ui.SplashActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -50,7 +50,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.RecyclerActivity" />
+        <activity android:name=".ui.RecyclerActivity" />
         <activity android:name=".error.ErrorActivity" />
         <activity
             android:name="com.google.android.gms.ads.AdActivity"
@@ -68,9 +68,7 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="da093908abc28a1043cbc271323c4e202e13ec65" />
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="@string/ADMOB_APP_ID" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />

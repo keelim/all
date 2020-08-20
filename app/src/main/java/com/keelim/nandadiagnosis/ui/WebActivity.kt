@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.view
+package com.keelim.nandadiagnosis.ui
 
 import android.os.Build
 import android.os.Bundle

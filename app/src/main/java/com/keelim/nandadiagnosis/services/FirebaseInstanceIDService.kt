@@ -1,4 +1,3 @@
-/*
 package com.keelim.nandadiagnosis.services
 
 import android.app.Notification
@@ -13,8 +12,9 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.view.MainActivity
+import com.keelim.nandadiagnosis.ui.main.MainActivity
 
 class FirebaseInstanceIDService : FirebaseMessagingService() {
 
@@ -79,4 +79,4 @@ class FirebaseInstanceIDService : FirebaseMessagingService() {
             notificationManager.notify(9999, notificationBuilder.build())
         }
     }
-}*/
+}

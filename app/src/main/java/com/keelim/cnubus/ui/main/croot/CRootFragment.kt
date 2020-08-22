@@ -16,10 +16,10 @@ class CRootFragment : Fragment(R.layout.fragment_c_root) {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         requireView().lv_croot.setOnItemClickListener { _, _, _, _ ->
-            Snackbar.make(crootLayout, "기능 준비 중입니다.", Snackbar.LENGTH_LONG)
+            Snackbar.make(crootLayout, "C 노선 지도 업데이트 준비 중입니다. ", Snackbar.LENGTH_LONG).show()
         }
 
-//        rootList = resources.getStringArray(R.array.croot)
+        rootList = resources.getStringArray(R.array.croot)
         requireView().lv_croot.adapter = ArrayAdapter(requireActivity(), android.R.layout.simple_list_item_1, rootList)
 
     }

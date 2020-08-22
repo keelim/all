@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.keelim.cnubus">
-    
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -20,14 +20,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".ui.content.ContentActivity"
+            android:label="@string/title_activity_content"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".ui.OpenSourceActivity"
             android:label="오픈소스"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.MapsActivity"
-            android:label="maps" />
-        <activity
-            android:name=".ui.MapsLabActivity"
             android:label="maps" />
         <activity
             android:name=".ui.SettingActivity"
@@ -52,10 +53,6 @@
         </activity>
         <activity android:name=".ui.RecyclerActivity" />
         <activity android:name=".error.ErrorActivity" />
-        <activity
-            android:name="com.google.android.gms.ads.AdActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-            android:theme="@android:style/Theme.Translucent" />
 
         <service
             android:name=".services.FirebaseInstanceIDService"
@@ -64,10 +61,6 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
-        <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="da093908abc28a1043cbc271323c4e202e13ec65" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

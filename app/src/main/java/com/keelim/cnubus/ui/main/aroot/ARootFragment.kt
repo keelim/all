@@ -16,8 +16,8 @@ class ARootFragment : Fragment(R.layout.fragment_a_root) {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-//        rootList = resources.getStringArray(R.array.aroot)
-//        intentList = resources.getStringArray(R.array.a_intent_array)
+        rootList = resources.getStringArray(R.array.aroot)
+        intentList = resources.getStringArray(R.array.a_intent_array)
 
         requireView().lv_aroot.adapter =
             ArrayAdapter(requireActivity(), android.R.layout.simple_list_item_1, rootList)

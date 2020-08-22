@@ -17,7 +17,7 @@ class NightRootFragment : Fragment(R.layout.fragment_night_root) {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-//        rootList = resources.getStringArray(R.array.night1)
+        rootList = resources.getStringArray(R.array.night1)
 //        intentList = resources.getStringArray(R.array.night_intent_array)
 
 

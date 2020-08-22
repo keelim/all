@@ -7,10 +7,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import com.google.android.material.snackbar.Snackbar
 import com.keelim.cnubus.BuildConfig
 import com.keelim.cnubus.R
-import kotlinx.android.synthetic.main.activity_settings.*
 
 class SettingActivity : AppCompatActivity(R.layout.activity_settings) {
 
@@ -23,7 +21,6 @@ class SettingActivity : AppCompatActivity(R.layout.activity_settings) {
         ).commit()
 
         supportActionBar!!.setDisplayShowHomeEnabled(true)
-        Snackbar.make(setting_container, "설정화면 입니다. ", Snackbar.LENGTH_LONG).show()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -43,9 +40,7 @@ class SettingActivity : AppCompatActivity(R.layout.activity_settings) {
             when (preference.key) {
 
                 "opensource" -> {
-                    Intent(context, OpenSourceActivity::class.java).apply {
-                        startActivity(this)
-                    }
+                    startActivity(Intent(activity, OpenSourceActivity::class.java))
                     return true
                 }
                 "update" -> {

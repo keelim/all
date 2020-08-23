@@ -18,14 +18,14 @@ class NightRootFragment : Fragment(R.layout.fragment_night_root) {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         rootList = resources.getStringArray(R.array.night1)
-//        intentList = resources.getStringArray(R.array.night_intent_array)
+        intentList = resources.getStringArray(R.array.night_intent_array)
 
 
         requireView().lv_nightroot.setOnItemClickListener { _, _, i, _ ->
             Snackbar.make(nightrootLayout, "기능 준비 중입니다. ", Snackbar.LENGTH_SHORT).show()
 
             Intent(activity, MapsActivity::class.java).apply {
-//                putExtra("location", intentList[i])
+                putExtra("location", intentList[i])
                 startActivity(this)
             }
         }

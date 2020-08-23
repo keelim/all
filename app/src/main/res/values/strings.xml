@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">MY CNUBUS</string>
     <string name="cnubus">CNUBUS</string>
     <string name="bus_url">http://plus.cnu.ac.kr/html/kr/sub05/sub05_050403.html</string>
     <string name="title_activity_content">ContentActivity</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
+    <string name="license">This i s</string>
 
 </resources>

@@ -30,13 +30,11 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         backPressCloseHandler = BackPressCloseHandler(this)
-        pagerAdapter = ViewPagerAdapter(
-            supportFragmentManager,
-            FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
-        )
-        viewpager.adapter = pagerAdapter
-        tabLayout.setupWithViewPager(viewpager)
 
+        pagerAdapter = ViewPagerAdapter(supportFragmentManager, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT)
+        viewpager.adapter = pagerAdapter
+
+        tabLayout.setupWithViewPager(viewpager)
 
         main_drawer_button.setOnClickListener {   //네비게이션 드로어나 다른 방식으로 구현
             if (!drawer_container.isDrawerOpen(GravityCompat.END)) drawer_container.openDrawer(
@@ -65,10 +63,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
         val appUpdateInfoTask = appUpdateManager.appUpdateInfo
         appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
-            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE && appUpdateInfo.isUpdateTypeAllowed(
-                    AppUpdateType.FLEXIBLE
-                )
-            ) {
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
                 appUpdateManager.startUpdateFlowForResult(
                     // Pass the intent that is returned by 'getAppUpdateInfo()'.
                     appUpdateInfo,
@@ -90,7 +85,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 popupSnackBarForCompleteUpdate()
         }
         appUpdateManager.registerListener(listener)
-
     }
 
 

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.PagerAdapter
+import com.bumptech.glide.Glide
 import com.keelim.cnubus.R
 
 import kotlinx.android.synthetic.main.activity_content.*
@@ -39,7 +40,9 @@ class ContentActivity : AppCompatActivity() {
             inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             val view = inflater.inflate(R.layout.layout_slider, container, false)
             val imageView = view.findViewById<View>(R.id.slider_iv) as ImageView
-            imageView.setImageResource(images[position])
+            Glide.with(this@ContentActivity).load(images[position]).into(imageView)
+            // 아웃 오브 메모리 방지를 해준다.
+//            imageView.setImageResource(images[position])
             container.addView(view)
             return view
         }

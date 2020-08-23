@@ -124,5 +124,6 @@
         <item>산학협력관"</item>
         <item>경상대학"</item>
     </string-array>
+    <string-array name="night_intent_array">1</string-array>
 
 </resources>

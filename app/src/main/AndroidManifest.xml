@@ -8,10 +8,9 @@
 
     <application
         android:name=".MyApplication"
-        android:allowBackup="true"
-        android:fullBackupContent="@xml/backup_descriptor"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/cnubus"
+        android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -58,9 +57,10 @@
             </intent-filter>
         </service>
 
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+<!--        <meta-data-->
+<!--            android:name="com.google.android.geo.API_KEY"-->
+<!--            android:value="@string/google_maps_key" />-->
+
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />

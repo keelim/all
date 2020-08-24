@@ -20,6 +20,7 @@ import java.util.Objects;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     private ArrayList<LatLng> locationList;
     private int location;
+    private CameraUpdate cameraUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,24 +29,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         locationListInit();
         intentControl();
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-
-        Objects.requireNonNull(mapFragment).getMapAsync(this);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        Objects.requireNonNull(mapFragment).getMapAsync(this); //onMapReady callback
     }
-
 
     @Override
     public void onMapReady(final GoogleMap googleMap) { //구글 맵은 처음 사용을 하는 거니까
-        // GoogleMapActivity
-
         for (int index = 0; index < 15; index++) {
             MarkerOptions markerOptions = new MarkerOptions();
-            markerOptions.position(locationList.get(index))
-                    .title(markerHandling(index));
+            markerOptions.position(locationList.get(index)).title(markerHandling(index));
             googleMap.addMarker(markerOptions);
         }
-        CameraUpdate cameraUpdate;
+
         if (location == -1) {
             cameraUpdate = CameraUpdateFactory.newLatLngZoom(locationList.get(0), 17);
         } else {
@@ -54,7 +49,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         googleMap.animateCamera(cameraUpdate);
     }
 
-    // private method
     private String markerHandling(int i) {
         String[] mapArray = getResources().getStringArray(R.array.stations);
         return mapArray[i];
@@ -63,6 +57,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void intentControl() {
         Intent intent = getIntent();
         String stringLocation = intent.getStringExtra("location");
+
         if (stringLocation != null) {
             location = Integer.parseInt(stringLocation);
         } else
@@ -86,10 +81,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         locationList.add(new LatLng(36.367404, 127.345517)); //공과대학앞
         locationList.add(new LatLng(36.365505, 127.345159)); //산학협력관
         locationList.add(new LatLng(36.367564, 127.345800)); //경상대학
-    }
-
-    @Override
-    public void onBackPressed() {
-        finish();
     }
 }

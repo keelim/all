@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.model
+package com.keelim.nandadiagnosis.ui.main.search
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.model.roomdb.NandaEntity
+import com.keelim.nandadiagnosis.db.NandaEntity
 
 
 class DatabaseAdapter(private val context: Context, private val arrayList: List<NandaEntity>) : BaseAdapter() {

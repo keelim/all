@@ -1,4 +1,3 @@
-/*
 package com.keelim.nandadiagnosis.services
 
 import android.app.Notification
@@ -13,8 +12,9 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.view.MainActivity
+import com.keelim.nandadiagnosis.ui.main.MainActivity
 
 class FirebaseInstanceIDService : FirebaseMessagingService() {
 
@@ -24,18 +24,17 @@ class FirebaseInstanceIDService : FirebaseMessagingService() {
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
-        if (remoteMessage.data.isNotEmpty()) sendNotification(remoteMessage)
+        if (!remoteMessage.data.isEmpty()) sendNotification(remoteMessage)
     }
 
     private fun sendNotification(remoteMessage: RemoteMessage) {
         val message = remoteMessage.data["data"]
         // 수신되는 푸시 메시지
-        val messageDivider = message!!.indexOf("|")
+
         // 구분자를 통해 어떤 종류의 알람인지를 구별합니다.
 
-        val pushType = message.substring(messageDivider + 1) // 구분자 뒤에 나오는 메시지
         val resultIntent = Intent(this, MainActivity::class.java).apply {
-            putExtra("pushType", pushType)
+            putExtra("pushType", "pushType")
         }
         val pendingIntent = PendingIntent.getActivity(this, 1, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -55,7 +54,6 @@ class FirebaseInstanceIDService : FirebaseMessagingService() {
             val notificationBuilder = NotificationCompat.Builder(this, channel)
                     .setSmallIcon(R.mipmap.ic_launcher)
                     .setContentTitle("알림이 도착을 했습니다. ")
-                    .setContentText(message.substring(0, messageDivider))
                     .setChannelId(channel)
                     .setAutoCancel(true)
                     .setColor(Color.parseColor("#0ec874"))
@@ -79,4 +77,4 @@ class FirebaseInstanceIDService : FirebaseMessagingService() {
             notificationManager.notify(9999, notificationBuilder.build())
         }
     }
-}*/
+}

@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.model
+package com.keelim.nandadiagnosis.ui.diagnosis
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import com.keelim.nandadiagnosis.R
 import kotlinx.android.synthetic.main.item_listview.view.*
+import java.util.*
 
 class MyDiagnosisViewAdapter(private val context: Context, private val diagnosisItems: ArrayList<DiagnosisItem>?) : BaseAdapter() {
 

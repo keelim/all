@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.model.roomdb
+package com.keelim.nandadiagnosis.db
 
 import androidx.room.Dao
 import androidx.room.Query

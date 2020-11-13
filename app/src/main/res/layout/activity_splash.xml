@@ -8,7 +8,7 @@
     android:id="@+id/container_splash"
     android:layout_height="match_parent"
     android:background="#FFE57F"
-    tools:context=".view.SplashActivity">
+    tools:context=".ui.SplashActivity">
 
     <TextView
         android:id="@+id/textView"

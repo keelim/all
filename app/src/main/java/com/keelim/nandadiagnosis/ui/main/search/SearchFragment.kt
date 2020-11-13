@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.view.fragments
+package com.keelim.nandadiagnosis.ui.main.search
 
 import android.app.SearchManager
 import android.content.Context
@@ -9,9 +9,8 @@ import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.model.DatabaseAdapter
-import com.keelim.nandadiagnosis.model.roomdb.AppDatabase
-import com.keelim.nandadiagnosis.model.roomdb.NandaEntity
+import com.keelim.nandadiagnosis.db.AppDatabase
+import com.keelim.nandadiagnosis.db.NandaEntity
 import kotlinx.android.synthetic.main.fragment_search.view.*
 
 class SearchFragment : Fragment(R.layout.fragment_search) {

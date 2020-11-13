@@ -1,17 +1,16 @@
-package com.keelim.nandadiagnosis.view
+package com.keelim.nandadiagnosis.ui.main
 
 import android.app.Activity
-import android.app.Instrumentation
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.telecom.Call
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
@@ -28,7 +27,10 @@ import com.google.android.play.core.install.model.UpdateAvailability
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.utils.BackPressCloseHandler
 import kotlinx.android.synthetic.main.activity_main.*
-import okhttp3.*
+import okhttp3.Callback
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -91,6 +93,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.N)
     private fun fileChecking() {
         val check = File(dataDir.absolutePath + "/databases/nanda.db")
         if (!check.exists()) { //데이터베이스를 받아온다.
@@ -101,9 +104,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
 
     private fun alertBuilderSetting() { //okhttp 작동 방식은 나중에 확인을 해보자
-
         main_progressbar.visibility = View.VISIBLE
-
 
         AlertDialog.Builder(this)
                 .setTitle("다운로드 요청")
@@ -141,26 +142,26 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
                 Activity.RESULT_CANCELED -> Snackbar.make(container, "업데이트를 취소하였습니다.", Snackbar.LENGTH_LONG).show()
 
-                Instrumentation.ActivityResult.RESULT_IN_APP_UPDATE_FAILED -> Snackbar.make(container, "시스템 오류가 발생했습니다.", Snackbar.LENGTH_LONG).show()
+                ActivityResult.RESULT_IN_APP_UPDATE_FAILED -> Snackbar.make(container, "시스템 오류가 발생했습니다.", Snackbar.LENGTH_LONG).show()
 
             }
 
         }
     }
 
-    private inner class CallBackDownloadFile internal constructor() : Callback {
+    private inner class CallBackDownloadFile : Callback {
 
+        @RequiresApi(Build.VERSION_CODES.N)
         private val fileToBeDownloaded: File = File(dataDir.absolutePath + "/databases", "nanda.db")
 
-        override fun onFailure(call: Call, e: IOException) {
+        override fun onFailure(call: okhttp3.Call, e: IOException) {
             runOnUiThread {
                 Toast.makeText(this@MainActivity, "파일을 다운로드 할 수 없습니다. 인터넷 연결을 확인하세요", Toast.LENGTH_SHORT).show()
                 finish()
             }
         }
 
-        @Throws(IOException::class)
-        override fun onResponse(call: Call, response: Response) {
+        override fun onResponse(call: okhttp3.Call, response: Response) {
             try {
                 val flag = fileToBeDownloaded.createNewFile()
                 Log.e("file create", "파일 만들기: $flag")
@@ -188,6 +189,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
 
             Toast.makeText(this@MainActivity, "다운로드가 완료되었습니다. ", Toast.LENGTH_SHORT).show()
+
         }
     }
 

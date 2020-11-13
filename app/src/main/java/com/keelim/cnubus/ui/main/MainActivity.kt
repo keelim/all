@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         }
 
         drawer_root_check.setOnClickListener { // 공지사항 홈페이지로 넘어간다.
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.bus_url))))
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("http://plus..cnu.ac.kr/html/kr/sub05/sub05_050403.html")))
         }
 
         drawer_setting.setOnClickListener {// 설정으로 넘어간다. 아직 기능 구현은 하지 않음

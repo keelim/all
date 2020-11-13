@@ -16,7 +16,6 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ui.content.ContentActivity"
-            android:label="@string/title_activity_content"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.OpenSourceActivity"

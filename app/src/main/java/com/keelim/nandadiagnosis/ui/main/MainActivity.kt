@@ -10,6 +10,7 @@ import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
@@ -92,6 +93,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.N)
     private fun fileChecking() {
         val check = File(dataDir.absolutePath + "/databases/nanda.db")
         if (!check.exists()) { //데이터베이스를 받아온다.
@@ -149,6 +151,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     private inner class CallBackDownloadFile : Callback {
 
+        @RequiresApi(Build.VERSION_CODES.N)
         private val fileToBeDownloaded: File = File(dataDir.absolutePath + "/databases", "nanda.db")
 
         override fun onFailure(call: okhttp3.Call, e: IOException) {

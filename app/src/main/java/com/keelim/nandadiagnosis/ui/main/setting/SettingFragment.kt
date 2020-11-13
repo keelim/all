@@ -3,9 +3,11 @@ package com.keelim.nandadiagnosis.ui.main.setting
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.keelim.nandadiagnosis.R
@@ -46,6 +48,7 @@ class SettingFragment : PreferenceFragmentCompat() {
 
     private inner class CallBackDownloadFile : Callback {
 
+        @RequiresApi(Build.VERSION_CODES.N)
         private val fileToBeDownloaded: File = File(requireActivity().dataDir.absolutePath + "/databases", "nanda.db")
 
 

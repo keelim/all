@@ -20,7 +20,6 @@ import java.util.Objects;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     private ArrayList<LatLng> locationList;
     private int location;
-    private CameraUpdate cameraUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +40,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             googleMap.addMarker(markerOptions);
         }
 
+        CameraUpdate cameraUpdate;
         if (location == -1) {
             cameraUpdate = CameraUpdateFactory.newLatLngZoom(locationList.get(0), 17);
         } else {

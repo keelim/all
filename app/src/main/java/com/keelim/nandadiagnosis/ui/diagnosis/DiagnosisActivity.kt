@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.ui.WebActivity
 import kotlinx.android.synthetic.main.activity_diagnosis.*
+import java.util.*
 
 
 class DiagnosisActivity : AppCompatActivity(R.layout.activity_diagnosis) {

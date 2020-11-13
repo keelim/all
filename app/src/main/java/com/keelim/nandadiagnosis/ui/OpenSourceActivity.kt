@@ -11,6 +11,5 @@ class OpenSourceActivity : AppCompatActivity(R.layout.activity_open_source) {
         super.onCreate(savedInstanceState)
         setSupportActionBar(toolbar)
         toolbar_layout.title = title
-
     }
 }

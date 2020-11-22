@@ -9,10 +9,8 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
-import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.ActivityWebBinding
-import kotlinx.android.synthetic.main.activity_web.*
-import kotlinx.android.synthetic.main.activity_web.view.*
+
 
 
 class WebActivity : AppCompatActivity() {
@@ -21,8 +19,9 @@ class WebActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding  = ActivityWebBinding.inflate(layoutInflater)
         val view = binding.root
+        setContentView(view)
 
-        view.webView.apply {
+        binding.webView.apply {
             webViewClient = WebViewClient()
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 isForceDarkAllowed = true //다크 모드 강제를 하는 것
@@ -33,7 +32,7 @@ class WebActivity : AppCompatActivity() {
             setLayerType(View.LAYER_TYPE_HARDWARE, null)
         }
 
-        view.webView.settings.apply {
+        binding.webView.settings.apply {
             loadWithOverviewMode = true
             useWideViewPort = true
             setSupportZoom(true)
@@ -43,12 +42,12 @@ class WebActivity : AppCompatActivity() {
             domStorageEnabled = true
         }
 
-        view.webView.loadUrl(urlHandling()!!)
+        binding.webView.loadUrl(urlHandling()!!)
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
-        if (keyCode == KeyEvent.KEYCODE_BACK && webView!!.canGoBack()) {
-            binding.root.webView!!.goBack()
+        if (keyCode == KeyEvent.KEYCODE_BACK && binding.webView.canGoBack()) {
+            binding.webView.goBack()
             return true
         }
         return super.onKeyDown(keyCode, event)

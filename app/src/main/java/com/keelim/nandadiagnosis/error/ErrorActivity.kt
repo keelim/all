@@ -4,13 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.keelim.nandadiagnosis.databinding.ActivityErrorBinding
-import kotlinx.android.synthetic.main.activity_error.*
+
 
 
 class ErrorActivity : AppCompatActivity() {
     private val lastActivityIntent by lazy { intent.getParcelableExtra<Intent>(EXTRA_INTENT) }
     private val errorText by lazy { intent.getStringExtra(EXTRA_ERROR_TEXT) }
-    private lateinit var binding: ActivityErrorBinding;
+    private lateinit var binding: ActivityErrorBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,7 +20,7 @@ class ErrorActivity : AppCompatActivity() {
 
         binding.tvErrorLog.text = errorText
 
-        btn_reload.setOnClickListener {
+        binding.btnReload.setOnClickListener {
             startActivity(lastActivityIntent)
             finish()
         }

@@ -24,7 +24,7 @@ class FirebaseInstanceIDService : FirebaseMessagingService() {
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
-        if (!remoteMessage.data.isEmpty()) sendNotification(remoteMessage)
+        if (remoteMessage.data.isNotEmpty()) sendNotification(remoteMessage)
     }
 
     private fun sendNotification(remoteMessage: RemoteMessage) {

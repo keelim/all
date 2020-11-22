@@ -2,32 +2,37 @@ package com.keelim.nandadiagnosis.ui.main.category
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.keelim.nandadiagnosis.R
+import com.keelim.nandadiagnosis.databinding.FragmentCategoryBinding
 import com.keelim.nandadiagnosis.ui.diagnosis.DiagnosisActivity
-import kotlinx.android.synthetic.main.fragment_category.view.*
 
 
 class CategoryFragment : Fragment(R.layout.fragment_category) {
+    private var fragmentCategoryBinding: FragmentCategoryBinding? = null
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        requireView().search_view_1.setOnClickListener { showDialog("1") }
-        requireView().search_view_2.setOnClickListener { showDialog("2") }
-        requireView().search_view_3.setOnClickListener { showDialog("3") }
-        requireView().search_view_4.setOnClickListener { showDialog("4") }
-        requireView().search_view_5.setOnClickListener { showDialog("5") }
-        requireView().search_view_6.setOnClickListener { showDialog("6") }
-        requireView().search_view_7.setOnClickListener { showDialog("7") }
-        requireView().search_view_8.setOnClickListener { showDialog("8") }
-        requireView().search_view_9.setOnClickListener { showDialog("9") }
-        requireView().search_view_10.setOnClickListener { showDialog("10") }
-        requireView().search_view_11.setOnClickListener { showDialog("11") }
-        requireView().search_view_12.setOnClickListener { showDialog("12") }
-        requireView().search_view_13.setOnClickListener { showDialog("13") }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val binding = FragmentCategoryBinding.bind(view)
+        fragmentCategoryBinding = binding
+
+        binding.searchView1.setOnClickListener { showDialog("1") }
+        binding.searchView2.setOnClickListener { showDialog("2") }
+        binding.searchView3.setOnClickListener { showDialog("3") }
+        binding.searchView4.setOnClickListener { showDialog("4") }
+        binding.searchView5.setOnClickListener { showDialog("5") }
+        binding.searchView6.setOnClickListener { showDialog("6") }
+        binding.searchView7.setOnClickListener { showDialog("7") }
+        binding.searchView8.setOnClickListener { showDialog("8") }
+        binding.searchView9.setOnClickListener { showDialog("9") }
+        binding.searchView10.setOnClickListener { showDialog("10") }
+        binding.searchView11.setOnClickListener { showDialog("11") }
+        binding.searchView12.setOnClickListener { showDialog("12") }
+        binding.searchView13.setOnClickListener { showDialog("13") }
     }
 
     private fun showDialog(num: String) { //데이터를 사용하는 페이지 이니 조심하라는 문구
@@ -50,5 +55,10 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
     override fun onResume() {
         super.onResume()
         (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
+    }
+
+    override fun onDestroyView() {
+        fragmentCategoryBinding = null
+        super.onDestroyView()
     }
 }

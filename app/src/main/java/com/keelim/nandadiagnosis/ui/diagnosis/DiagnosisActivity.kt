@@ -4,21 +4,24 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.keelim.nandadiagnosis.R
+import com.keelim.nandadiagnosis.databinding.ActivityDiagnosisBinding
 import com.keelim.nandadiagnosis.ui.WebActivity
-import kotlinx.android.synthetic.main.activity_diagnosis.*
 import java.util.*
 
 
-class DiagnosisActivity : AppCompatActivity(R.layout.activity_diagnosis) {
+class DiagnosisActivity : AppCompatActivity() {
     private var arrayList: ArrayList<MyDiagnosisViewAdapter.DiagnosisItem>? = ArrayList()
     private var nav = 0
+    private lateinit var binding: ActivityDiagnosisBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val view = binding.root
+        setContentView(view)
         arrayListSetting()
 
-        list.adapter = MyDiagnosisViewAdapter(this, arrayList)
-        list.setOnItemClickListener { _, _, i, _ ->
+        binding.list.adapter = MyDiagnosisViewAdapter(this, arrayList)
+        binding.list.setOnItemClickListener { _, _, i, _ ->
             goWeb(nav + i + 1)
         }
     }

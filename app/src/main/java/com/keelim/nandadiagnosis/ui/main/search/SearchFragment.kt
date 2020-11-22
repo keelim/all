@@ -5,21 +5,28 @@ import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import com.keelim.nandadiagnosis.R
+import com.keelim.nandadiagnosis.databinding.FragmentSearchBinding
 import com.keelim.nandadiagnosis.db.AppDatabase
 import com.keelim.nandadiagnosis.db.NandaEntity
-import kotlinx.android.synthetic.main.fragment_search.view.*
 
 class SearchFragment : Fragment(R.layout.fragment_search) {
+    private var fragmentSearchBinding: FragmentSearchBinding? = null
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
-        requireView().search_lv.adapter = DatabaseAdapter(requireContext(), arrayListOf())
-        requireView().search_lv.setOnItemClickListener { adapterView, _, i, _ ->
+
+        val binding = FragmentSearchBinding.bind(view)
+        fragmentSearchBinding = binding
+
+        binding.searchLv.adapter = DatabaseAdapter(requireContext(), arrayListOf())
+        binding.searchLv.setOnItemClickListener { adapterView, _, i, _ ->
             val db = adapterView.adapter.getItem(i) as NandaEntity
             Toast.makeText(activity, "클래스 영역: " + db.class_name + "도매인 영역" + db.domain_name, Toast.LENGTH_SHORT).show() // 무슨 화면이 나와야 하는가?
             contentControl(db.nanda_id)
@@ -40,7 +47,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             //검색을 할 수 있게 하는 것
             override fun onQueryTextSubmit(query: String): Boolean {
                 val items = searchDiagnosis(query) //검색을 한다.
-                view!!.search_lv.adapter = DatabaseAdapter(activity!!, items).apply {
+
+                fragmentSearchBinding!!.searchLv.adapter = DatabaseAdapter(activity!!, items).apply {
                     notifyDataSetChanged()
                 }
                 return true
@@ -62,5 +70,10 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             in 0..10 -> {
             }
         }
+    }
+
+    override fun onDestroyView() {
+        fragmentSearchBinding = null
+        super.onDestroyView()
     }
 }

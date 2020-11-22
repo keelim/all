@@ -5,8 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import com.keelim.nandadiagnosis.R
-import kotlinx.android.synthetic.main.item_listview.view.*
+import com.keelim.nandadiagnosis.databinding.ItemListviewBinding
 import java.util.*
 
 class MyDiagnosisViewAdapter(private val context: Context, private val diagnosisItems: ArrayList<DiagnosisItem>?) : BaseAdapter() {
@@ -24,11 +23,11 @@ class MyDiagnosisViewAdapter(private val context: Context, private val diagnosis
     }
 
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
-        val findView = LayoutInflater.from(context).inflate(R.layout.item_listview, parent, false)
+        val binding: ItemListviewBinding = ItemListviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        binding.diagnosisItem.text = diagnosisItems!![position].diagnosis
+        binding.diagnosisDes.text = diagnosisItems[position].diagnosis
 
-        findView.diagnosis_item.text = diagnosisItems!![position].diagnosis
-        findView.diagnosis_des.text = diagnosisItems[position].diagnosis
-        return findView
+        return binding.root
     }
 
     data class DiagnosisItem(var diagnosis: String, var diagnosis_description: String)

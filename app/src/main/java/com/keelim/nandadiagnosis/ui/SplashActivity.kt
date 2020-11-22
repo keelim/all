@@ -15,12 +15,15 @@ import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import com.keelim.nandadiagnosis.BuildConfig
 import com.keelim.nandadiagnosis.R
+import com.keelim.nandadiagnosis.databinding.ActivitySplashBinding
 import com.keelim.nandadiagnosis.ui.main.MainActivity
-import kotlinx.android.synthetic.main.activity_splash.*
+
 import java.util.*
 
-class SplashActivity : AppCompatActivity(R.layout.activity_splash) {
+class SplashActivity : AppCompatActivity() {
     private lateinit var interstitialAd: InterstitialAd
+    private lateinit var binding: ActivitySplashBinding
+
 
     private val runnable = Runnable {
         startActivity(Intent(this, MainActivity::class.java))
@@ -30,7 +33,7 @@ class SplashActivity : AppCompatActivity(R.layout.activity_splash) {
 
     private var listener = object : PermissionListener {
         override fun onPermissionGranted() {
-            Snackbar.make(container_splash, "모든 권한이 승인 되었습니다. ", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(binding.containerSplash, "모든 권한이 승인 되었습니다. ", Snackbar.LENGTH_SHORT).show()
 
             interstitialAd = InterstitialAd(this@SplashActivity)
             interstitialAd.adUnitId = getString(R.string.real_ad)
@@ -59,9 +62,12 @@ class SplashActivity : AppCompatActivity(R.layout.activity_splash) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Snackbar.make(container_splash, "NANDA 진단에 오신 것을 환영합니다.", Snackbar.LENGTH_SHORT).show()
+        binding = ActivitySplashBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+        Snackbar.make(binding.containerSplash, "NANDA 진단에 오신 것을 환영합니다.", Snackbar.LENGTH_SHORT).show()
 
-        version_name.text = BuildConfig.VERSION_NAME
+        binding.versionName.text = BuildConfig.VERSION_NAME
 
         TedPermission.with(this)
                 .setPermissionListener(listener)

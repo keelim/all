@@ -58,7 +58,11 @@ class SettingFragment : PreferenceFragmentCompat() {
 
         override fun onResponse(call: okhttp3.Call, response: Response) {
             try {
-                val flag = fileToBeDownloaded.createNewFile()
+                val flag = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    fileToBeDownloaded.createNewFile()
+                } else {
+                    TODO("VERSION.SDK_INT < N")
+                }
             } catch (e: IOException) {
                 Log.e("Error", e.message!!)
                 Toast.makeText(requireActivity(), "다운로드 파일을 생성할 수 없습니다.\n 데이터베이스 부족으로 인해 종료 합니다. ", Toast.LENGTH_SHORT).show()
@@ -79,9 +83,7 @@ class SettingFragment : PreferenceFragmentCompat() {
 
             inputStream.close()
             Toast.makeText(requireActivity(), "다운로드가 완료되었습니다. ", Toast.LENGTH_SHORT).show()
-
         }
     }
-
 
 }

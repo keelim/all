@@ -1,11 +1,12 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
+    id 'kotlin-parcelize'
     id 'kotlin-kapt'
     id 'com.google.gms.google-services'
     id 'com.google.firebase.firebase-perf'
     id 'com.google.firebase.crashlytics'
+//    id 'kotlin-android-extensions'
 //    id 'dagger.hilt.android.plugin'
 }
 
@@ -32,8 +33,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    buildToolsVersion '30.0.2'
-
+    buildFeatures {
+//        dataBinding = true
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -64,6 +67,7 @@ dependencies {
 
     implementation 'androidx.room:room-runtime:2.2.5'
     implementation 'com.google.firebase:firebase-messaging:21.0.0'
+
     kapt 'androidx.room:room-compiler:2.2.5'
     implementation 'androidx.room:room-ktx:2.2.5'
     testImplementation 'androidx.room:room-testing:2.2.5'

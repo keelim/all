@@ -25,8 +25,9 @@ import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.InstallStatus
 import com.google.android.play.core.install.model.UpdateAvailability
 import com.keelim.nandadiagnosis.R
+import com.keelim.nandadiagnosis.databinding.ActivityMainBinding
 import com.keelim.nandadiagnosis.utils.BackPressCloseHandler
-import kotlinx.android.synthetic.main.activity_main.*
+
 import okhttp3.Callback
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -36,12 +37,16 @@ import java.io.FileOutputStream
 import java.io.IOException
 
 
-class MainActivity : AppCompatActivity(R.layout.activity_main) {
+class MainActivity : AppCompatActivity() {
     private lateinit var appUpdateManager: AppUpdateManager
     private lateinit var backPressCloseHandler: BackPressCloseHandler
+    private lateinit var binding : ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
         backPressCloseHandler = BackPressCloseHandler(this)
         val appBarConfiguration = AppBarConfiguration.Builder(R.id.navigation_category, R.id.navigation_search, R.id.navigation_setting)
@@ -49,7 +54,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
         val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
-        NavigationUI.setupWithNavController(nav_view, navController)
+        NavigationUI.setupWithNavController(binding.navView, navController)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             fileChecking()
@@ -79,9 +84,9 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                         // Include a request code to later monitor this update request.
                         2
                 )
-                Snackbar.make(container, "업데이트를 시작합니다.", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(binding.container, "업데이트를 시작합니다.", Snackbar.LENGTH_SHORT).show()
             } else
-                Snackbar.make(container, "최신 버전 어플리케이션 사용해주셔서 감사합니다.", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(binding.container, "최신 버전 어플리케이션 사용해주셔서 감사합니다.", Snackbar.LENGTH_SHORT).show()
         }
 
         val listener = InstallStateUpdatedListener { state ->
@@ -104,7 +109,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
 
     private fun alertBuilderSetting() { //okhttp 작동 방식은 나중에 확인을 해보자
-        main_progressbar.visibility = View.VISIBLE
+        binding.mainProgressbar.visibility = View.VISIBLE
 
         AlertDialog.Builder(this)
                 .setTitle("다운로드 요청")
@@ -121,13 +126,13 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 }.create()
                 .show()
 
-        main_progressbar.visibility = View.INVISIBLE
+        binding.mainProgressbar.visibility = View.INVISIBLE
 
     }
 
 
     private fun popUpSnackbarForCompleteUpdate() {
-        Snackbar.make(container, "업데이트를 다운로드 하고 있습니다.", Snackbar.LENGTH_INDEFINITE).apply {
+        Snackbar.make(binding.container, "업데이트를 다운로드 하고 있습니다.", Snackbar.LENGTH_INDEFINITE).apply {
             setAction("RESTART") { appUpdateManager.completeUpdate() }
             setActionTextColor(resources.getColor(R.color.colorAccent, this@MainActivity.theme))
             show()
@@ -138,11 +143,11 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 2) {
             when (resultCode) {
-                RESULT_OK -> Snackbar.make(container, "업데이트를 성공적으로 완료했습니다.", Snackbar.LENGTH_LONG).show()
+                RESULT_OK -> Snackbar.make(binding.container, "업데이트를 성공적으로 완료했습니다.", Snackbar.LENGTH_LONG).show()
 
-                Activity.RESULT_CANCELED -> Snackbar.make(container, "업데이트를 취소하였습니다.", Snackbar.LENGTH_LONG).show()
+                Activity.RESULT_CANCELED -> Snackbar.make(binding.container, "업데이트를 취소하였습니다.", Snackbar.LENGTH_LONG).show()
 
-                ActivityResult.RESULT_IN_APP_UPDATE_FAILED -> Snackbar.make(container, "시스템 오류가 발생했습니다.", Snackbar.LENGTH_LONG).show()
+                ActivityResult.RESULT_IN_APP_UPDATE_FAILED -> Snackbar.make(binding.container, "시스템 오류가 발생했습니다.", Snackbar.LENGTH_LONG).show()
 
             }
 
@@ -163,7 +168,11 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
         override fun onResponse(call: okhttp3.Call, response: Response) {
             try {
-                val flag = fileToBeDownloaded.createNewFile()
+                val flag = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    fileToBeDownloaded.createNewFile()
+                } else {
+                    TODO("VERSION.SDK_INT < N")
+                }
                 Log.e("file create", "파일 만들기: $flag")
             } catch (e: IOException) {
                 runOnUiThread {

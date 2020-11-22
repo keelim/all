@@ -10,26 +10,30 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import com.keelim.nandadiagnosis.R
+import com.keelim.nandadiagnosis.databinding.ActivityWebBinding
 import kotlinx.android.synthetic.main.activity_web.*
+import kotlinx.android.synthetic.main.activity_web.view.*
 
 
-class WebActivity : AppCompatActivity(R.layout.activity_web) {
-
+class WebActivity : AppCompatActivity() {
+    private lateinit var binding : ActivityWebBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding  = ActivityWebBinding.inflate(layoutInflater)
+        val view = binding.root
 
-        webView.apply {
+        view.webView.apply {
             webViewClient = WebViewClient()
-            webChromeClient = WebChromeClient() //웹뷰에 크롬 사용 허용//이 부분이 없으면 크롬에서 알림 뜨지 않음
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 isForceDarkAllowed = true //다크 모드 강제를 하는 것
+                webChromeClient = WebChromeClient() //웹뷰에 크롬 사용 허용//이 부분이 없으면 크롬에서 알림 뜨지 않음
             }
             scrollBarStyle = WebView.SCROLLBARS_OUTSIDE_OVERLAY
             isScrollbarFadingEnabled = true
             setLayerType(View.LAYER_TYPE_HARDWARE, null)
         }
 
-        webView.settings.apply {
+        view.webView.settings.apply {
             loadWithOverviewMode = true
             useWideViewPort = true
             setSupportZoom(true)
@@ -39,12 +43,12 @@ class WebActivity : AppCompatActivity(R.layout.activity_web) {
             domStorageEnabled = true
         }
 
-        webView.loadUrl(urlHandling()!!)
+        view.webView.loadUrl(urlHandling()!!)
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK && webView!!.canGoBack()) {
-            webView!!.goBack()
+            binding.root.webView!!.goBack()
             return true
         }
         return super.onKeyDown(keyCode, event)

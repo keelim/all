@@ -1,27 +1,44 @@
-name: Build Test
+name: develop CI
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened, edited, ready_for_review, review_requested]
+  push:
+    tags:
+      - DEV*
 
 jobs:
   build:
 
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
-      - name: set up JDK 1.8
-        uses: actions/setup-java@v1
-        with:
-          java-version: 1.8
-      - name: Cache Gradle packages
-        uses: actions/cache@v2
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
-      - name: Build with Gradle
-        run: ./gradlew build
+    - uses: actions/checkout@v2
+    - name: set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: Build with Gradle
+      run: bash ./gradlew assembleDevDebug
+    - name: Set tag name env
+      run: echo ::set-env name=DEVELOP_VERSION::${GITHUB_REF#refs/*/}
+    - name: check tag name
+      run: |
+        echo $DEVELOP_VERSION
+        echo ${{ env.DEVELOP_VERSION }}
+    - name: change file name
+      run: mv app/build/outputs/apk/dev/debug/app-dev-debug.apk app/build/outputs/apk/dev/debug/${{ env.DEVELOP_VERSION }}.apk
+    - name: Upload APK
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ env.DEVELOP_VERSION }}
+        path: app/build/outputs/apk/dev/debug/${{ env.DEVELOP_VERSION }}.apk
+    - name: Slack Notification
+      uses: rtCamp/action-slack-notify@master
+      env:
+        SLACK_CHANNEL: android-build
+        SLACK_COLOR: '#DD0000'
+        SLACK_ICON: https://scontent-gmp1-1.xx.fbcdn.net/v/t1.0-1/p320x320/91169376_156983249102340_1282099367657865216_n.png?_nc_cat=107&_nc_sid=1eb0c7&_nc_ohc=HUqFwEXCh1AAX9albM-&_nc_ht=scontent-gmp1-1.xx&oh=7995cc28944e6dedf4f6cf36c1649a46&oe=5F8FEB24
+        SLACK_MESSAGE: '${{ env.DEVELOP_VERSION }} 개발 빌드가 완료되었습니다'
+        SLACK_TITLE: '${{ env.DEVELOP_VERSION }}  개발버전 입니다.'
+        SLACK_USERNAME: 개발 개발
+        SLACK_WEBHOOK: ${{ secrets.ANDROID_BUILD }}
+        SLACK_FOOTER: 개발버전 입니다.

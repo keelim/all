@@ -15,6 +15,7 @@ import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.InstallStatus
 import com.google.android.play.core.install.model.UpdateAvailability
 import com.keelim.cnubus.R
+import com.keelim.cnubus.databinding.ActivityMainBinding
 import com.keelim.cnubus.ui.SettingActivity
 import com.keelim.cnubus.ui.content.ContentActivity
 import com.keelim.cnubus.utils.BackPressCloseHandler
@@ -22,19 +23,24 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_drawer.*
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
+    private lateinit var binding: ActivityMainBinding
     private lateinit var appUpdateManager: AppUpdateManager
     private lateinit var backPressCloseHandler: BackPressCloseHandler
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         backPressCloseHandler = BackPressCloseHandler(this)
 
-        viewpager.adapter = ViewPagerAdapter(supportFragmentManager, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT)
-        tabLayout.setupWithViewPager(viewpager)
+        binding.viewpager.adapter = ViewPagerAdapter(
+            supportFragmentManager,
+            FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
+        )
+        binding.tabLayout.setupWithViewPager(viewpager)
 
-        main_drawer_button.setOnClickListener {   //todo 네비게이션 드로어로 업데이트 하는 방안 준비
+        binding.mainDrawerButton.setOnClickListener {   //todo 네비게이션 드로어로 업데이트 하는 방안 준비
             if (!drawer_container.isDrawerOpen(GravityCompat.END)) drawer_container.openDrawer(
-                    GravityCompat.END
+                GravityCompat.END
             )
         }
 
@@ -45,7 +51,9 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         }
 
         drawer_root_check.setOnClickListener { // 공지사항 홈페이지로 넘어간다.
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("http://plus..cnu.ac.kr/html/kr/sub05/sub05_050403.html")))
+            startActivity(
+                Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.notification_uri)))
+            )
         }
 
         drawer_setting.setOnClickListener {// 설정으로 넘어간다. 아직 기능 구현은 하지 않음
@@ -62,18 +70,14 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
             if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
                 appUpdateManager.startUpdateFlowForResult(
-                    // Pass the intent that is returned by 'getAppUpdateInfo()'.
                     appUpdateInfo,
-                    // Or 'AppUpdateType.FLEXIBLE' for flexible updates.
                     AppUpdateType.FLEXIBLE,
-                    // The current activity making the update request.
                     this,
-                    // Include a request code to later monitor this update request.
                     2
                 )
-                Snackbar.make(drawer_container, "업데이트를 시작합니다.", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(binding.drawerContainer, "업데이트를 시작합니다.", Snackbar.LENGTH_SHORT).show()
             } else Snackbar.make(
-                drawer_container, "최신 버전 어플리케이션 사용해주셔서 감사합니다.", Snackbar.LENGTH_SHORT
+                binding.drawerContainer, "최신 버전 어플리케이션 사용해주셔서 감사합니다.", Snackbar.LENGTH_SHORT
             ).show()
         }
 
@@ -89,20 +93,20 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         super.onActivityResult(requestCode, resultCode, data)
         when (resultCode) {
             RESULT_OK -> {
-                Snackbar.make(drawer_container, "업데이트를 성공적으로 완료했습니다.", Snackbar.LENGTH_LONG)
-                        .show()
+                Snackbar.make(binding.drawerContainer, "업데이트를 성공적으로 완료했습니다.", Snackbar.LENGTH_LONG)
+                    .show()
             }
             RESULT_CANCELED -> {
-                Snackbar.make(drawer_container, "업데이트를 취소하였습니다.", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(binding.drawerContainer, "업데이트를 취소하였습니다.", Snackbar.LENGTH_LONG).show()
             }
             RESULT_IN_APP_UPDATE_FAILED -> {
-                Snackbar.make(drawer_container, "시스템 오류가 발생했습니다.", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(binding.drawerContainer, "시스템 오류가 발생했습니다.", Snackbar.LENGTH_LONG).show()
             }
         }
     }
 
     private fun popupSnackBarForCompleteUpdate() {
-        Snackbar.make(drawer_container, "업데이트를 다운로드 하고 있습니다.", Snackbar.LENGTH_INDEFINITE).apply {
+        Snackbar.make(binding.drawerContainer, "업데이트를 다운로드 하고 있습니다.", Snackbar.LENGTH_INDEFINITE).apply {
             setAction("RESTART") { appUpdateManager.completeUpdate() }
             setActionTextColor(resources.getColor(R.color.colorAccent, this@MainActivity.theme))
             show()
@@ -110,8 +114,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     override fun onBackPressed() {
-        if (drawer_container.isDrawerOpen(GravityCompat.START)) {
-            drawer_container.closeDrawer(GravityCompat.START)
+        if (binding.drawerContainer.isDrawerOpen(GravityCompat.START)) {
+            binding.drawerContainer.closeDrawer(GravityCompat.START)
         } else
             backPressCloseHandler.onBackPressed()
     }

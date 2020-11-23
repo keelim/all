@@ -31,14 +31,3 @@ jobs:
       with:
         name: ${{ env.DEVELOP_VERSION }}
         path: app/build/outputs/apk/dev/debug/${{ env.DEVELOP_VERSION }}.apk
-    - name: Slack Notification
-      uses: rtCamp/action-slack-notify@master
-      env:
-        SLACK_CHANNEL: android-build
-        SLACK_COLOR: '#DD0000'
-        SLACK_ICON: https://scontent-gmp1-1.xx.fbcdn.net/v/t1.0-1/p320x320/91169376_156983249102340_1282099367657865216_n.png?_nc_cat=107&_nc_sid=1eb0c7&_nc_ohc=HUqFwEXCh1AAX9albM-&_nc_ht=scontent-gmp1-1.xx&oh=7995cc28944e6dedf4f6cf36c1649a46&oe=5F8FEB24
-        SLACK_MESSAGE: '${{ env.DEVELOP_VERSION }} 개발 빌드가 완료되었습니다'
-        SLACK_TITLE: '${{ env.DEVELOP_VERSION }}  개발버전 입니다.'
-        SLACK_USERNAME: 개발 개발
-        SLACK_WEBHOOK: ${{ secrets.ANDROID_BUILD }}
-        SLACK_FOOTER: 개발버전 입니다.

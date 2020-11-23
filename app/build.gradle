@@ -18,13 +18,15 @@ android {
         applicationId "com.keelim.nandadiagnosis"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 23
-        versionName "1.0.21"
+        versionCode 24
+        versionName "1.0.22"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
@@ -78,4 +80,5 @@ dependencies {
 
 
     implementation 'gun0912.ted:tedpermission:2.2.0'
+    implementation 'com.felipecsl.asymmetricgridview:library:2.0.1'
 }

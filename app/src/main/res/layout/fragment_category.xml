@@ -1,214 +1,243 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainGrid"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent"
-    tools:context=".ui.main.category.CategoryFragment">
+    android:alignmentMode="alignMargins"
+    android:columnCount="2"
+    android:columnOrderPreserved="false"
+    android:padding="12dp"
+    android:rowCount="3">
+
+    <!-- Row 1 -->
+
+    <!-- Column 1 -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card1"
+        style="@style/card_style"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp">
+
+        <LinearLayout style="@style/card_style_3">
+
+            <TextView
+                style="@style/card_style_2"
+                android:text="건강증진" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- Column 2 -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card2"
+        style="@style/card_style"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp">
+
+        <LinearLayout style="@style/card_style_3">
+
+            <TextView
+                style="@style/card_style_2"
+                android:text="영양" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 
 
-    <TableLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:stretchColumns="*"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <!-- Row 2 -->
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="0dp">
+    <!-- Column 1 -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card3"
+        style="@style/card_style"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp">
 
-            <ImageView
-                android:id="@+id/search_view_1"
-                android:layout_width="30dp"
-                android:layout_height="100dp"
-                android:layout_margin="2dp"
-                android:background="#ffffff"
-                android:clickable="true"
-                android:contentDescription="건강증진"
-                android:focusable="true"
+        <LinearLayout style="@style/card_style_3">
 
-                android:src="@drawable/healthpromotion" />
+            <TextView
+                style="@style/card_style_2"
+                android:text="배설/교환" />
 
-            <ImageView
-                android:id="@+id/search_view_2"
-                android:layout_width="30dp"
-                android:layout_height="100dp"
-                android:layout_margin="2dp"
-                android:background="#ffffff"
-                android:baselineAligned="false"
-                android:clickable="true"
-                android:contentDescription="영양"
-                android:focusable="true"
+        </LinearLayout>
 
-                android:src="@drawable/nutrition" />
+    </androidx.cardview.widget.CardView>
 
-            <ImageView
-                android:id="@+id/search_view_3"
-                android:layout_width="30dp"
-                android:layout_height="100dp"
-                android:layout_margin="2dp"
-                android:background="#ffffff"
-                android:clickable="true"
-                android:contentDescription="배설/교환"
-                android:focusable="true"
-                android:src="@drawable/elimination" />
+    <!-- Column 2 -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card4"
+        style="@style/card_style"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp">
 
-            <ImageView
-                android:id="@+id/search_view_4"
-                android:layout_width="30dp"
-                android:layout_height="100dp"
-                android:layout_margin="2dp"
-                android:background="#ffffff"
-                android:clickable="true"
-                android:contentDescription="활동/휴식"
-                android:focusable="true"
+        <LinearLayout style="@style/card_style_3">
 
-                android:src="@drawable/activityrest" />
+            <TextView
+                style="@style/card_style_2"
+                android:text="활동/휴식" />
 
-        </TableRow>
+        </LinearLayout>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="0dp">
-
-            <ImageView
-                android:id="@+id/search_view_5"
-                android:layout_width="30dp"
-                android:layout_height="100dp"
-                android:layout_margin="2dp"
-                android:background="#ffffff"
-                android:clickable="true"
-                android:contentDescription="지각/인식"
-                android:focusable="true"
-
-                android:src="@drawable/perceptioncongnition" />
-
-            <ImageView
-                android:id="@+id/search_view_6"
-                android:layout_width="30dp"
-                android:layout_height="100dp"
-                android:layout_margin="2dp"
-                android:background="#ffffff"
-                android:clickable="true"
-                android:contentDescription="자아지각"
-                android:focusable="true"
-
-                android:src="@drawable/selfperception" />
-
-            <ImageView
-                android:id="@+id/search_view_7"
-                android:layout_width="30dp"
-                android:layout_height="100dp"
-                android:layout_margin="2dp"
-                android:background="#ffffff"
-                android:clickable="true"
-                android:contentDescription="역할관계"
-                android:focusable="true"
-
-                android:src="@drawable/rolerelationship" />
-
-            <ImageView
-                android:id="@+id/search_view_8"
-                android:layout_width="30dp"
-                android:layout_height="100dp"
-                android:layout_margin="2dp"
-                android:background="#ffffff"
-                android:clickable="true"
-                android:contentDescription="성"
-                android:focusable="true"
-
-                android:src="@drawable/sexuality" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="0dp">
-
-            <ImageView
-                android:id="@+id/search_view_9"
-                android:layout_width="30dp"
-                android:layout_height="100dp"
-                android:layout_margin="2dp"
-                android:background="#ffffff"
-                android:clickable="true"
-                android:contentDescription="대처/스트레스 내성"
-                android:focusable="true"
-
-                android:src="@drawable/tolerlance" />
-
-            <ImageView
-                android:id="@+id/search_view_10"
-                android:layout_width="30dp"
-                android:layout_height="100dp"
-                android:layout_margin="2dp"
-                android:background="#ffffff"
-                android:clickable="true"
-                android:contentDescription="삶의 원칙"
-                android:focusable="true"
-
-                android:src="@drawable/lifeprinciple" />
-
-            <ImageView
-                android:id="@+id/search_view_11"
-                android:layout_width="30dp"
-                android:layout_height="100dp"
-                android:layout_margin="2dp"
-                android:background="#ffffff"
-                android:clickable="true"
-                android:contentDescription="안전/보호"
-                android:focusable="true"
-
-                android:src="@drawable/safetyprotection" />
-
-            <ImageView
-                android:id="@+id/search_view_12"
-                android:layout_width="30dp"
-                android:layout_height="100dp"
-                android:layout_margin="2dp"
-                android:background="#ffffff"
-                android:clickable="true"
-                android:contentDescription="안위"
-                android:focusable="true"
-
-                android:src="@drawable/comfort" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="0dp">
-
-            <ImageView
-                android:id="@+id/search_view_13"
-                android:layout_width="30dp"
-                android:layout_height="100dp"
-                android:background="#ffffff"
-                android:clickable="true"
-                android:contentDescription="성장/발달"
-                android:focusable="true"
-
-                android:src="@drawable/growthdevelopment" />
-
-            <View
-                android:layout_width="30dp"
-                android:layout_height="100dp" />
-
-            <View
-                android:layout_width="30dp"
-                android:layout_height="100dp" />
-
-            <View
-                android:layout_width="30dp"
-                android:layout_height="100dp" />
-        </TableRow>
-    </TableLayout>
+    </androidx.cardview.widget.CardView>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Row 2 -->
+
+    <!-- Column 1 -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card5"
+        style="@style/card_style"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp">
+
+        <LinearLayout style="@style/card_style_3">
+
+            <TextView
+                style="@style/card_style_2"
+                android:text="지각/인식" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- Column 2 -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card6"
+        style="@style/card_style"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp">
+
+        <LinearLayout style="@style/card_style_3">
+
+            <TextView
+                style="@style/card_style_2"
+                android:text="자아지각" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card7"
+        style="@style/card_style"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp">
+
+        <LinearLayout style="@style/card_style_3">
+
+            <TextView
+                style="@style/card_style_2"
+                android:text="역할 관계" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card8"
+        style="@style/card_style"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp">
+
+        <LinearLayout style="@style/card_style_3">
+
+            <TextView
+                style="@style/card_style_2"
+                android:text="성" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card9"
+        style="@style/card_style"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_margin="6dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="대처/스트레스 \n내성"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card10"
+        style="@style/card_style"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp">
+
+        <LinearLayout style="@style/card_style_3">
+
+            <TextView
+                style="@style/card_style_2"
+                android:text="삶의 원칙" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card11"
+        style="@style/card_style"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp">
+
+        <LinearLayout style="@style/card_style_3">
+
+            <TextView
+                style="@style/card_style_2"
+                android:text="안전/보호" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card12"
+        style="@style/card_style"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp">
+
+        <LinearLayout style="@style/card_style_3">
+
+            <TextView
+                style="@style/card_style_2"
+                android:text="안위" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card13"
+        style="@style/card_style"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp">
+
+        <LinearLayout style="@style/card_style_3">
+
+            <TextView
+                style="@style/card_style_2"
+                android:text="성장/발달" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+</GridLayout>

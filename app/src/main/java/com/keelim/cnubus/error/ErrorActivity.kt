@@ -4,11 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.keelim.cnubus.R
-import kotlinx.android.synthetic.main.activity_error.*
+import com.keelim.cnubus.databinding.ActivityErrorBinding
 
 
-class ErrorActivity : AppCompatActivity() {
-
+class ErrorActivity : AppCompatActivity(R.layout.activity_error) {
+    private lateinit var binding: ActivityErrorBinding
 
     private val lastActivityIntent by lazy {
         intent.getParcelableExtra<Intent>(EXTRA_INTENT)
@@ -20,11 +20,11 @@ class ErrorActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_error)
+        binding = ActivityErrorBinding.inflate(layoutInflater)
 
-        tv_error_log.text = errorText
+        binding.tvErrorLog.text = errorText
 
-        btn_reload.setOnClickListener {
+        binding.btnReload.setOnClickListener {
             startActivity(lastActivityIntent)
             finish()
         }
@@ -34,6 +34,4 @@ class ErrorActivity : AppCompatActivity() {
         const val EXTRA_INTENT = "EXTRA_INTENT"
         const val EXTRA_ERROR_TEXT = "EXTRA_ERROR_TEXT"
     }
-
-
 }

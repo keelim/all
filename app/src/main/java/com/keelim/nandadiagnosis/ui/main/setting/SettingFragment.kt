@@ -1,25 +1,61 @@
 package com.keelim.nandadiagnosis.ui.main.setting
 
 
+import android.app.DownloadManager
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.ui.OpenSourceActivity
 import com.keelim.nandadiagnosis.ui.WebActivity
-import okhttp3.Callback
-import okhttp3.Response
 import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
 
 class SettingFragment : PreferenceFragmentCompat() {
+    private lateinit var downloadManager: DownloadManager
+    private var downloadId: Long = -1L
+
+    private val onDownloadComplete = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            val id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
+            if (DownloadManager.ACTION_DOWNLOAD_COMPLETE == intent.action) {
+                if (downloadId == id) {
+                    val query = DownloadManager.Query().apply {
+                        setFilterById(id)
+                    }
+                    var cursor = downloadManager.query(query)
+                    if (!cursor.moveToFirst()) return
+
+                    var columnIndex = cursor.getColumnIndex(DownloadManager.COLUMN_STATUS)
+                    var status = cursor.getInt(columnIndex)
+                    if (status == DownloadManager.STATUS_SUCCESSFUL)
+                        Toast.makeText(context, "Download succeeded", Toast.LENGTH_SHORT).show()
+                    else if (status == DownloadManager.STATUS_FAILED)
+                        Toast.makeText(context, "Download failed", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        downloadManager = requireActivity().getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+
+        val intentFilter = IntentFilter().apply {
+            addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
+            addAction(DownloadManager.ACTION_NOTIFICATION_CLICKED)
+            requireActivity().registerReceiver(onDownloadComplete, this)
+        }
+    }
+
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.settings_preferences)
     }
@@ -27,7 +63,7 @@ class SettingFragment : PreferenceFragmentCompat() {
     override fun onPreferenceTreeClick(preference: Preference): Boolean {
         return when (preference.key) {
             "blog" -> {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(("https://blog.naver.com/cjhdori"))))
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse((getString(R.string.blog_url)))))
                 return true
             }
 
@@ -42,48 +78,40 @@ class SettingFragment : PreferenceFragmentCompat() {
                 return true
             }
 
+            "db_download" -> {
+                Toast.makeText(activity, "다운로드 동안 잠시만 기다려 주세요", Toast.LENGTH_SHORT).show()
+                downloadDatabase()
+                return true
+            }
+
             else -> false
         }
     }
 
-    private inner class CallBackDownloadFile : Callback {
+    private fun downloadDatabase() { //데이터베이스를 다운로드 받는다
 
-        @RequiresApi(Build.VERSION_CODES.N)
-        private val fileToBeDownloaded: File = File(requireActivity().dataDir.absolutePath + "/databases", "nanda.db")
-
-
-        override fun onFailure(call: okhttp3.Call, e: IOException) {
-            Toast.makeText(requireActivity(), "파일을 다운로드 할 수 없습니다. 인터넷 연결을 확인하세요", Toast.LENGTH_SHORT).show()
+        val file = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            File(requireActivity().dataDir.absolutePath + "/databases", "nanda.db")
+        } else {
+            requireActivity().getDatabasePath("nanda.db")
         }
 
-        override fun onResponse(call: okhttp3.Call, response: Response) {
-            try {
-                val flag = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    fileToBeDownloaded.createNewFile()
-                } else {
-                    TODO("VERSION.SDK_INT < N")
-                }
-            } catch (e: IOException) {
-                Log.e("Error", e.message!!)
-                Toast.makeText(requireActivity(), "다운로드 파일을 생성할 수 없습니다.\n 데이터베이스 부족으로 인해 종료 합니다. ", Toast.LENGTH_SHORT).show()
-            }
-            val inputStream = response.body!!.byteStream()
-            val outputStream = FileOutputStream(fileToBeDownloaded)
-            val buffer = 2046
-            val data = ByteArray(buffer)
-            var count: Int
-            while (inputStream.read(data).also { count = it } != -1) {
-                outputStream.write(data, 0, count)
-            }
+        val url = requireActivity().getString(R.string.db_path)
 
-            outputStream.run {
-                flush()
-                close()
-            }
+        val request = DownloadManager.Request(Uri.parse(url))
+                .setTitle("Downloading")
+                .setDescription("Downloading Database file")
+                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
+                .setDestinationUri(Uri.fromFile(file))
+                .setAllowedOverMetered(true)
+                .setAllowedOverRoaming(true)
 
-            inputStream.close()
-            Toast.makeText(requireActivity(), "다운로드가 완료되었습니다. ", Toast.LENGTH_SHORT).show()
-        }
+        downloadId = downloadManager.enqueue(request)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        requireActivity().unregisterReceiver(onDownloadComplete)
     }
 
 }

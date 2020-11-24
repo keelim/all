@@ -12,6 +12,14 @@ plugins {
 
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('C:\\Users\\h0033\\Desktop\\keystore.jks')
+            storePassword 'kimjaehyun08!'
+            keyAlias 'nanda'
+            keyPassword 'kimjaehyun08!'
+        }
+    }
     compileSdkVersion 30
 
     defaultConfig {
@@ -21,6 +29,7 @@ android {
         versionCode 24
         versionName "1.0.22"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.release
     }
 
     buildTypes {
@@ -78,7 +87,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-
     implementation 'gun0912.ted:tedpermission:2.2.0'
-    implementation 'com.felipecsl.asymmetricgridview:library:2.0.1'
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+
 }

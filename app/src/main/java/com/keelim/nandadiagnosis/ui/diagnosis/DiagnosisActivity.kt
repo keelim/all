@@ -16,6 +16,7 @@ class DiagnosisActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityDiagnosisBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
         arrayListSetting()

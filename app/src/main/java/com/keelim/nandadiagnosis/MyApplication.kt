@@ -3,7 +3,6 @@ package com.keelim.nandadiagnosis
 import android.app.Application
 import com.keelim.nandadiagnosis.error.ExceptionHandler
 
-
 class MyApplication : Application() {
 
     override fun onCreate() {

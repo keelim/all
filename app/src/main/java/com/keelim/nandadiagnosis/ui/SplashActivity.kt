@@ -3,8 +3,6 @@ package com.keelim.nandadiagnosis.ui
 import android.Manifest
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.ads.AdListener
@@ -17,10 +15,9 @@ import com.keelim.nandadiagnosis.BuildConfig
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.ActivitySplashBinding
 import com.keelim.nandadiagnosis.ui.main.MainActivity
-
 import java.util.*
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : AppCompatActivity(R.layout.activity_splash) {
     private lateinit var interstitialAd: InterstitialAd
     private lateinit var binding: ActivitySplashBinding
 
@@ -42,14 +39,13 @@ class SplashActivity : AppCompatActivity() {
                     interstitialAd.show()
                 }
 
-                override fun onAdClosed() {
-                    Handler(Looper.getMainLooper()).postDelayed(runnable, 500) //handler를 통하여 사용
-                }
+                override fun onAdClosed() {}
 
                 override fun onAdFailedToLoad(i: Int) {
-                    Handler(Looper.getMainLooper()).postDelayed(runnable, 500) //handler를 통하여 사용
+                    Toast.makeText(this@SplashActivity, "ad load fail", Toast.LENGTH_SHORT).show()
                 }
             } //전면광고 셋팅
+
             interstitialAd.loadAd(AdRequest.Builder().build())
         }
 
@@ -63,8 +59,6 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
         Snackbar.make(binding.containerSplash, "NANDA 진단에 오신 것을 환영합니다.", Snackbar.LENGTH_SHORT).show()
 
         binding.versionName.text = BuildConfig.VERSION_NAME

@@ -448,6 +448,7 @@
 
     <string name="db_path">https://github.com/keelim/Keelim.github.io/raw/master/assets/nanda.db</string>
     <string name="title_activity_open_source">오픈소스</string>
+    <string name="blog_url">https://blog.naver.com/cjhdori</string>
 
 
 </resources>

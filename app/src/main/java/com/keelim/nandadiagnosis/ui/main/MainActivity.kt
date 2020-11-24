@@ -27,11 +27,11 @@ import com.google.android.play.core.install.model.UpdateAvailability
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.ActivityMainBinding
 import com.keelim.nandadiagnosis.utils.BackPressCloseHandler
-
 import okhttp3.Callback
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
+
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -40,7 +40,7 @@ import java.io.IOException
 class MainActivity : AppCompatActivity() {
     private lateinit var appUpdateManager: AppUpdateManager
     private lateinit var backPressCloseHandler: BackPressCloseHandler
-    private lateinit var binding : ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,25 +62,20 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "버전이 맞지 않아 종료 합니다", Toast.LENGTH_SHORT).show()
                 finish()
             }, 3000)
+
         }
 
 
         // appUpdate
         appUpdateManager = AppUpdateManagerFactory.create(this)
-
         val appUpdateInfoTask = appUpdateManager.appUpdateInfo
 
         appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
-            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE && appUpdateInfo.isUpdateTypeAllowed(
-                            AppUpdateType.FLEXIBLE)) {
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
                 appUpdateManager.startUpdateFlowForResult(
-                        // Pass the intent that is returned by 'getAppUpdateInfo()'.
                         appUpdateInfo,
-                        // Or 'AppUpdateType.FLEXIBLE' for flexible updates.
                         AppUpdateType.FLEXIBLE,
-                        // The current activity making the update request.
                         this,
-                        // Include a request code to later monitor this update request.
                         2
                 )
                 Snackbar.make(binding.container, "업데이트를 시작합니다.", Snackbar.LENGTH_SHORT).show()
@@ -93,7 +88,6 @@ class MainActivity : AppCompatActivity() {
                 popUpSnackbarForCompleteUpdate()
         }
         appUpdateManager.registerListener(listener)
-
     }
 
 

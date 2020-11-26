@@ -1,13 +1,13 @@
 package com.keelim.nandadiagnosis.ui.main
 
 import android.app.Activity
-import android.content.DialogInterface
-import android.content.Intent
+import android.app.DownloadManager
+import android.content.*
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -27,20 +27,16 @@ import com.google.android.play.core.install.model.UpdateAvailability
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.ActivityMainBinding
 import com.keelim.nandadiagnosis.utils.BackPressCloseHandler
-import okhttp3.Callback
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.Response
-
 import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var appUpdateManager: AppUpdateManager
     private lateinit var backPressCloseHandler: BackPressCloseHandler
     private lateinit var binding: ActivityMainBinding
+
+    private lateinit var downloadManager: DownloadManager
+    private var downloadId: Long = -1L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,6 +96,29 @@ class MainActivity : AppCompatActivity() {
         } else Toast.makeText(this, "데이터베이스가 존재합니다. 그대로 진행 합니다.", Toast.LENGTH_SHORT).show()
     }
 
+    private val onDownloadComplete = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            val id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
+            if (DownloadManager.ACTION_DOWNLOAD_COMPLETE == intent.action) {
+                if (downloadId == id) {
+                    val query = DownloadManager.Query().apply {
+                        setFilterById(id)
+                    }
+                    var cursor = downloadManager.query(query)
+                    if (!cursor.moveToFirst()) return
+
+                    var columnIndex = cursor.getColumnIndex(DownloadManager.COLUMN_STATUS)
+                    var status = cursor.getInt(columnIndex)
+                    if (status == DownloadManager.STATUS_SUCCESSFUL)
+                        Toast.makeText(context, "Download succeeded", Toast.LENGTH_SHORT).show()
+                    else if (status == DownloadManager.STATUS_FAILED)
+                        Toast.makeText(context, "Download failed", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+    }
+
 
     private fun alertBuilderSetting() { //okhttp 작동 방식은 나중에 확인을 해보자
         binding.mainProgressbar.visibility = View.VISIBLE
@@ -111,11 +130,13 @@ class MainActivity : AppCompatActivity() {
                 .setNegativeButton(android.R.string.cancel, null)
                 .setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
                     Toast.makeText(this, "서버로부터 데이터 베이스를 요청 합니다. ", Toast.LENGTH_SHORT).show()
-                    val request = Request.Builder()
-                            .url(getString(R.string.db_path))
-                            .build()
 
-                    OkHttpClient().newCall(request).enqueue(CallBackDownloadFile())
+                    downloadDatabase()
+//                    val request = Request.Builder()
+//                            .url(getString(R.string.db_path))
+//                            .build()
+
+//                    OkHttpClient().newCall(request).enqueue(CallBackDownloadFile())
                 }.create()
                 .show()
 
@@ -147,6 +168,33 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
+    private fun downloadDatabase() {
+        val file = getDatabasePath("nanda.db")
+
+        val url = getString(R.string.db_path)
+
+        downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+
+        val intentFilter = IntentFilter().apply {
+            addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
+            addAction(DownloadManager.ACTION_NOTIFICATION_CLICKED)
+            registerReceiver(onDownloadComplete, this)
+        }
+
+        val request = DownloadManager.Request(Uri.parse(url))
+                .setTitle("Downloading")
+                .setDescription("Downloading Database file")
+                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
+                .setDestinationUri(Uri.fromFile(file))
+                .setAllowedOverMetered(true)
+                .setAllowedOverRoaming(true)
+
+        downloadId = downloadManager.enqueue(request)
+    }
+
+
+/*
     private inner class CallBackDownloadFile : Callback {
 
         @RequiresApi(Build.VERSION_CODES.N)
@@ -194,6 +242,7 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
+*/
 
     override fun onBackPressed() {
         backPressCloseHandler.onBackPressed()

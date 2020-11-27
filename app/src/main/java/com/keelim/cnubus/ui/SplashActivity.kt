@@ -19,30 +19,27 @@ import java.util.*
 
 class SplashActivity : AppCompatActivity(R.layout.activity_splash) {
     private lateinit var binding: ActivitySplashBinding
-    private val runnable = Runnable {
-        Intent(this, MainActivity::class.java).apply {
-            startActivity(this)
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out) //애니메이션을 넣어준다.
-            finish()
-        }
-    }
 
     private var listener = object : PermissionListener {
         override fun onPermissionGranted() {
             Toast.makeText(this@SplashActivity, "모든 권한이 승인 되었습니다. ", Toast.LENGTH_SHORT).show()
-
-            Handler(Looper.getMainLooper()).postDelayed(runnable, 3000) //권한이 전부 승인되면 실행
+            Handler(Looper.getMainLooper()).postDelayed({
+                Intent(this@SplashActivity, MainActivity::class.java).apply {
+                    startActivity(this)
+                    finish()
+                }
+            }, 3000) //권한이 전부 승인되면 실행
         }
 
         override fun onPermissionDenied(deniedPermissions: ArrayList<String>?) {
-            Toast.makeText(this@SplashActivity, deniedPermissions.toString(), Toast.LENGTH_SHORT)
-                .show()
+            Toast.makeText(this@SplashActivity, deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
+
         Snackbar.make(binding.splashContainer, "충남대버스에 오신것을 환영 합니다.", Snackbar.LENGTH_SHORT).show()
 
         TedPermission.with(this)

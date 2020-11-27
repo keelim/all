@@ -12,19 +12,30 @@ plugins {
 
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('C:\\Users\\h0033\\Desktop\\keystore.jks')
+            storePassword 'kimjaehyun08!'
+            keyAlias 'nanda'
+            keyPassword 'kimjaehyun08!'
+        }
+    }
     compileSdkVersion 30
 
     defaultConfig {
         applicationId "com.keelim.nandadiagnosis"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 23
-        versionName "1.0.21"
+        versionCode 24
+        versionName "1.0.22"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.release
     }
 
     buildTypes {
         release {
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
@@ -51,13 +62,20 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.preference:preference-ktx:1.1.1'
 
-    //firebase
-    implementation 'com.google.firebase:firebase-core:18.0.0'
-    implementation 'com.google.firebase:firebase-perf:19.0.10'
-    implementation 'com.google.firebase:firebase-ads:19.5.0'
-    implementation 'com.google.firebase:firebase-analytics:18.0.0'
-    implementation 'com.google.android.gms:play-services-ads:19.5.0'
-    implementation 'com.google.firebase:firebase-crashlytics:17.3.0'
+    implementation platform('com.google.firebase:firebase-bom:26.1.0')
+
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.firebase:firebase-database'
+    implementation 'com.google.firebase:firebase-storage'
+    implementation 'com.google.firebase:firebase-firestore'
+    implementation 'com.google.firebase:firebase-messaging'
+    implementation 'com.google.firebase:firebase-core'
+    implementation 'com.google.firebase:firebase-ads'
+
+    implementation 'com.google.android.gms:play-services-ads:19.5'
+
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-crashlytics'
 
     implementation 'com.squareup.okhttp3:okhttp:4.8.1'
 
@@ -66,16 +84,18 @@ dependencies {
     implementation 'com.google.android.play:core-ktx:1.8.1'
 
     implementation 'androidx.room:room-runtime:2.2.5'
-    implementation 'com.google.firebase:firebase-messaging:21.0.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
     kapt 'androidx.room:room-compiler:2.2.5'
     implementation 'androidx.room:room-ktx:2.2.5'
     testImplementation 'androidx.room:room-testing:2.2.5'
 
+    implementation 'gun0912.ted:tedpermission:2.2.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-
-
-    implementation 'gun0912.ted:tedpermission:2.2.0'
 }

@@ -14,12 +14,7 @@ class SettingActivity : AppCompatActivity(R.layout.activity_settings) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        supportFragmentManager.beginTransaction().replace(
-            R.id.settings,
-            SettingsFragment()
-        ).commit()
-
+        supportFragmentManager.beginTransaction().replace(R.id.settings, SettingsFragment()).commit()
         supportActionBar!!.setDisplayShowHomeEnabled(true)
     }
 
@@ -61,7 +56,7 @@ class SettingActivity : AppCompatActivity(R.layout.activity_settings) {
             return false
         }
 
-        private fun getVersionInfo(): String? { // 버전을 확인을 하는 메소드
+        private fun getVersionInfo(): String { // 버전을 확인을 하는 메소드
             return BuildConfig.VERSION_NAME
         }
     }

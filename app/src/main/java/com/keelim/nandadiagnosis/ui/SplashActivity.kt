@@ -17,19 +17,11 @@ import com.keelim.nandadiagnosis.BuildConfig
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.ActivitySplashBinding
 import com.keelim.nandadiagnosis.ui.main.MainActivity
-
 import java.util.*
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : AppCompatActivity(R.layout.activity_splash) {
     private lateinit var interstitialAd: InterstitialAd
     private lateinit var binding: ActivitySplashBinding
-
-
-    private val runnable = Runnable {
-        startActivity(Intent(this, MainActivity::class.java))
-        finish() //앱을 종료한다.
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out) //애니메이션을 넣어준다.
-    }
 
     private var listener = object : PermissionListener {
         override fun onPermissionGranted() {
@@ -42,15 +34,18 @@ class SplashActivity : AppCompatActivity() {
                     interstitialAd.show()
                 }
 
-                override fun onAdClosed() {
-                    Handler(Looper.getMainLooper()).postDelayed(runnable, 500) //handler를 통하여 사용
-                }
+                override fun onAdClosed() {}
 
                 override fun onAdFailedToLoad(i: Int) {
-                    Handler(Looper.getMainLooper()).postDelayed(runnable, 500) //handler를 통하여 사용
+                    Toast.makeText(this@SplashActivity, "ad load fail", Toast.LENGTH_SHORT).show()
                 }
             } //전면광고 셋팅
             interstitialAd.loadAd(AdRequest.Builder().build())
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+                finish() //앱을 종료한다.
+            }, 300)
         }
 
         override fun onPermissionDenied(deniedPermissions: ArrayList<String>?) {
@@ -63,8 +58,6 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
         Snackbar.make(binding.containerSplash, "NANDA 진단에 오신 것을 환영합니다.", Snackbar.LENGTH_SHORT).show()
 
         binding.versionName.text = BuildConfig.VERSION_NAME

@@ -4,13 +4,9 @@ import android.app.Activity
 import android.app.DownloadManager
 import android.content.*
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.View
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
@@ -27,10 +23,9 @@ import com.google.android.play.core.install.model.UpdateAvailability
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.ActivityMainBinding
 import com.keelim.nandadiagnosis.utils.BackPressCloseHandler
-import java.io.File
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private lateinit var appUpdateManager: AppUpdateManager
     private lateinit var backPressCloseHandler: BackPressCloseHandler
     private lateinit var binding: ActivityMainBinding
@@ -41,7 +36,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
         backPressCloseHandler = BackPressCloseHandler(this)
         val appBarConfiguration = AppBarConfiguration.Builder(R.id.navigation_category, R.id.navigation_search, R.id.navigation_setting)
@@ -51,18 +45,11 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
         NavigationUI.setupWithNavController(binding.navView, navController)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            fileChecking()
-        } else {
-            Handler(Looper.getMainLooper()).postDelayed({
-                Toast.makeText(this, "버전이 맞지 않아 종료 합니다", Toast.LENGTH_SHORT).show()
-                finish()
-            }, 3000)
+        fileChecking() // 데이터 베이스 파일이 있는지 확인한다.
+//        checkingAppUpdate()
+    }
 
-        }
-
-
-        // appUpdate
+    private fun checkingAppUpdate() {
         appUpdateManager = AppUpdateManagerFactory.create(this)
         val appUpdateInfoTask = appUpdateManager.appUpdateInfo
 
@@ -86,13 +73,11 @@ class MainActivity : AppCompatActivity() {
         appUpdateManager.registerListener(listener)
     }
 
-
-    @RequiresApi(Build.VERSION_CODES.N)
     private fun fileChecking() {
-        val check = File(dataDir.absolutePath + "/databases/nanda.db")
+        val check = getDatabasePath("nanda.db")
+
         if (!check.exists()) { //데이터베이스를 받아온다.
             alertBuilderSetting()
-
         } else Toast.makeText(this, "데이터베이스가 존재합니다. 그대로 진행 합니다.", Toast.LENGTH_SHORT).show()
     }
 
@@ -119,7 +104,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
     private fun alertBuilderSetting() { //okhttp 작동 방식은 나중에 확인을 해보자
         binding.mainProgressbar.visibility = View.VISIBLE
 
@@ -130,7 +114,6 @@ class MainActivity : AppCompatActivity() {
                 .setNegativeButton(android.R.string.cancel, null)
                 .setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
                     Toast.makeText(this, "서버로부터 데이터 베이스를 요청 합니다. ", Toast.LENGTH_SHORT).show()
-
                     downloadDatabase()
 //                    val request = Request.Builder()
 //                            .url(getString(R.string.db_path))
@@ -143,7 +126,6 @@ class MainActivity : AppCompatActivity() {
         binding.mainProgressbar.visibility = View.INVISIBLE
 
     }
-
 
     private fun popUpSnackbarForCompleteUpdate() {
         Snackbar.make(binding.container, "업데이트를 다운로드 하고 있습니다.", Snackbar.LENGTH_INDEFINITE).apply {
@@ -158,25 +140,20 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == 2) {
             when (resultCode) {
                 RESULT_OK -> Snackbar.make(binding.container, "업데이트를 성공적으로 완료했습니다.", Snackbar.LENGTH_LONG).show()
-
                 Activity.RESULT_CANCELED -> Snackbar.make(binding.container, "업데이트를 취소하였습니다.", Snackbar.LENGTH_LONG).show()
-
                 ActivityResult.RESULT_IN_APP_UPDATE_FAILED -> Snackbar.make(binding.container, "시스템 오류가 발생했습니다.", Snackbar.LENGTH_LONG).show()
-
             }
-
         }
     }
 
 
     private fun downloadDatabase() {
         val file = getDatabasePath("nanda.db")
-
         val url = getString(R.string.db_path)
 
         downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
 
-        val intentFilter = IntentFilter().apply {
+        IntentFilter().apply {
             addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
             addAction(DownloadManager.ACTION_NOTIFICATION_CLICKED)
             registerReceiver(onDownloadComplete, this)
@@ -243,6 +220,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 */
+
+    override fun onDestroy() {
+        unregisterReceiver(onDownloadComplete)
+        super.onDestroy()
+    }
 
     override fun onBackPressed() {
         backPressCloseHandler.onBackPressed()

@@ -3,6 +3,8 @@ package com.keelim.nandadiagnosis.ui
 import android.Manifest
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.ads.AdListener
@@ -21,13 +23,6 @@ class SplashActivity : AppCompatActivity(R.layout.activity_splash) {
     private lateinit var interstitialAd: InterstitialAd
     private lateinit var binding: ActivitySplashBinding
 
-
-    private val runnable = Runnable {
-        startActivity(Intent(this, MainActivity::class.java))
-        finish() //앱을 종료한다.
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out) //애니메이션을 넣어준다.
-    }
-
     private var listener = object : PermissionListener {
         override fun onPermissionGranted() {
             Snackbar.make(binding.containerSplash, "모든 권한이 승인 되었습니다. ", Snackbar.LENGTH_SHORT).show()
@@ -45,8 +40,12 @@ class SplashActivity : AppCompatActivity(R.layout.activity_splash) {
                     Toast.makeText(this@SplashActivity, "ad load fail", Toast.LENGTH_SHORT).show()
                 }
             } //전면광고 셋팅
-
             interstitialAd.loadAd(AdRequest.Builder().build())
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+                finish() //앱을 종료한다.
+            }, 300)
         }
 
         override fun onPermissionDenied(deniedPermissions: ArrayList<String>?) {

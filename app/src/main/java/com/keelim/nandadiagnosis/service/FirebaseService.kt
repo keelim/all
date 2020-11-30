@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.services
+package com.keelim.nandadiagnosis.service
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -15,7 +15,7 @@ import com.google.firebase.messaging.RemoteMessage
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.ui.main.MainActivity
 
-class FirebaseInstanceIDService : FirebaseMessagingService() {
+class FirebaseService : FirebaseMessagingService() {
 
     override fun onNewToken(s: String) {
         super.onNewToken(s)
@@ -34,8 +34,8 @@ class FirebaseInstanceIDService : FirebaseMessagingService() {
         }
         val pendingIntent = PendingIntent.getActivity(this, 1, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
-        val channel = "채널"
-        val channelName = "채널 이름" // 앱 설정에서 알림 이름으로 뜸.
+        val channel = "nanda"
+        val channelName = "Nanda Service" // 앱 설정에서 알림 이름으로 뜸.
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

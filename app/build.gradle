@@ -1,13 +1,10 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-parcelize'
     id 'kotlin-kapt'
     id 'com.google.gms.google-services'
     id 'com.google.firebase.firebase-perf'
     id 'com.google.firebase.crashlytics'
-//    id 'kotlin-android-extensions'
-//    id 'dagger.hilt.android.plugin'
 }
 
 android {

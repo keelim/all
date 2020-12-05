@@ -1,2 +1,2 @@
 rootProject.name = "cnuBus"
-include(":app")
+include ':app'

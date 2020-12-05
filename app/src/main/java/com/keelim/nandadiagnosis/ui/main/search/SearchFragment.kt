@@ -37,32 +37,33 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.search_menu, menu)
         val item = menu.findItem(R.id.menu_search)
-
-        val searchView = item.actionView as SearchView
         val searchManager = requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
-        searchView.isSubmitButtonEnabled = true
+        val searchView = item.actionView as SearchView
 
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            //검색을 할 수 있게 하는 것
-            override fun onQueryTextSubmit(query: String): Boolean {
-                val items = searchDiagnosis(query) //검색을 한다.
+        searchView.apply {
+            setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
+            isSubmitButtonEnabled = true
 
-                fragmentSearchBinding!!.searchLv.adapter = DatabaseAdapter(activity!!, items).apply {
-                    notifyDataSetChanged()
+            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                //검색을 할 수 있게 하는 것
+                override fun onQueryTextSubmit(query: String): Boolean {
+                    val items = searchDiagnosis(query) //검색을 한다.
+
+                    fragmentSearchBinding!!.searchLv.adapter = DatabaseAdapter(activity!!, items).apply {
+                        notifyDataSetChanged()
+                    }
+                    return true
                 }
-                return true
-            }
 
-            override fun onQueryTextChange(newText: String): Boolean {
-                return false
-            }
-        })
+                override fun onQueryTextChange(newText: String): Boolean { return false }
+            })
+        }
+
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     private fun searchDiagnosis(keyword: String): List<NandaEntity> { //여기까지는 이상이 없는 것 같다.
-        return AppDatabase.getInstance(requireActivity())!!.dataDao().search("%$keyword%")
+        return AppDatabase.getInstance(requireActivity())!!.dataDao().search(keyword)
     }
 
     private fun contentControl(position: Int) { // 넘겨 받은 난다 아이디를 통하여 구분

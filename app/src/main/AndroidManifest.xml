@@ -7,7 +7,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-
     <uses-permission
         android:name="android.permission.READ_PHONE_STATE"
         tools:node="remove" />
@@ -29,7 +28,7 @@
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3115620439518585~3588723583" />
+            android:value="${ad}" />
 
         <activity
             android:name="com.google.android.gms.ads.AdActivity"
@@ -61,8 +60,6 @@
         <meta-data
             android:name="android.app.searchable"
             android:resource="@xml/searchable" />
-
-
     </application>
 
 </manifest>

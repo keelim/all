@@ -29,20 +29,20 @@ class SettingFragment : PreferenceFragmentCompat() {
                     val query = DownloadManager.Query().apply {
                         setFilterById(id)
                     }
-                    var cursor = downloadManager.query(query)
-                    if (!cursor.moveToFirst()) return
+                    val cursor = downloadManager.query(query)
 
-                    var columnIndex = cursor.getColumnIndex(DownloadManager.COLUMN_STATUS)
-                    var status = cursor.getInt(columnIndex)
-                    if (status == DownloadManager.STATUS_SUCCESSFUL)
-                        Toast.makeText(context, "Download succeeded", Toast.LENGTH_SHORT).show()
-                    else if (status == DownloadManager.STATUS_FAILED)
-                        Toast.makeText(context, "Download failed", Toast.LENGTH_SHORT).show()
+                    if (!cursor.moveToFirst()) return
+                    val columnIndex = cursor.getColumnIndex(DownloadManager.COLUMN_STATUS)
+
+                    when (cursor.getInt(columnIndex)) {
+                        DownloadManager.STATUS_SUCCESSFUL -> Toast.makeText(context, "Download succeeded", Toast.LENGTH_SHORT).show()
+                        DownloadManager.STATUS_FAILED -> Toast.makeText(context, "Download failed", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }
-
     }
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -81,6 +81,11 @@ class SettingFragment : PreferenceFragmentCompat() {
             "db_download" -> {
                 Toast.makeText(activity, "다운로드 동안 잠시만 기다려 주세요", Toast.LENGTH_SHORT).show()
                 downloadDatabase()
+                return true
+            }
+
+            "private" -> {
+
                 return true
             }
 

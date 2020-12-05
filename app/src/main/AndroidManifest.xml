@@ -20,9 +20,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".ui.login.LoginActivity"
-            android:label="@string/title_activity_login"></activity>
+
         <activity
             android:name=".ui.OpenSourceActivity"
             android:label="@string/title_activity_open_source"
@@ -30,7 +28,7 @@
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3115620439518585~3588723583" />
+            android:value="${ad}" />
 
         <activity
             android:name="com.google.android.gms.ads.AdActivity"

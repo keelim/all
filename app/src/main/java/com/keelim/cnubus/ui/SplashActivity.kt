@@ -40,8 +40,6 @@ class SplashActivity : AppCompatActivity(R.layout.activity_splash) {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
 
-        Snackbar.make(binding.splashContainer, "충남대버스에 오신것을 환영 합니다.", Snackbar.LENGTH_SHORT).show()
-
         TedPermission.with(this)
             .setPermissionListener(listener)
             .setRationaleMessage("앱의 기능을 사용하기 위해서는 권한이 필요합니다.")

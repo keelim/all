@@ -9,17 +9,36 @@ plugins{
 //    id 'dagger.hilt.android.plugin'
 }
 
-android {
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+def ad_api = properties.getProperty('ad')
+def geo_api = properties.getProperty('geo')
 
+android {
+    signingConfigs {
+        debug {
+            storeFile file('C:\\Users\\h0033\\Desktop\\keystore.jks')
+            storePassword 'kimjaehyun08!'
+            keyAlias 'cnubus'
+            keyPassword 'kimjaehyun08!'
+        }
+    }
     compileSdkVersion 30
+    buildToolsVersion '30.0.2'
 
     defaultConfig {
         applicationId "com.keelim.cnubus"
         minSdkVersion 24
         targetSdkVersion 30
-        versionCode 28
-        versionName "2.0.16"
+        versionCode 29
+        versionName "2.0.17"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "API_KEY", properties['ad_unit']
+//        manifestPlaceholders = [ad: ad_api, geo:geo_api]
+        manifestPlaceholders = [ad: ad_api]
+//        manifestPlaceholders = [geo: geo_api]
+        signingConfig signingConfigs.debug
     }
 
     buildTypes {
@@ -37,6 +56,10 @@ android {
 //        dataBinding = true
         viewBinding = true
     }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 }
 
 dependencies {
@@ -45,26 +68,29 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
 
     implementation 'androidx.preference:preference-ktx:1.1.1'
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
     implementation platform('com.google.firebase:firebase-bom:26.1.0')
 
     implementation 'com.google.firebase:firebase-core'
-    implementation 'com.google.firebase:firebase-ads'
     implementation 'com.google.firebase:firebase-messaging'
     implementation 'com.google.firebase:firebase-perf'
     implementation 'com.google.firebase:firebase-crashlytics'
+
+    implementation 'com.google.android.gms:play-services-ads:19.5.0'
 
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.google.android.gms:play-services-location:17.1.0'
     implementation 'com.google.android.libraries.places:places:2.4.0'
 
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.1'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.3.1'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.2'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.2'
 
-    implementation 'com.google.android.material:material:1.3.0-alpha03'
+    implementation 'com.google.android.material:material:1.3.0-alpha04'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
 
     testImplementation 'junit:junit:4.13.1'

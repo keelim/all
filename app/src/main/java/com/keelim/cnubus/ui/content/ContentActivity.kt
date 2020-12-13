@@ -12,15 +12,13 @@ import com.bumptech.glide.Glide
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.ActivityContentBinding
 
-import kotlinx.android.synthetic.main.activity_content.*
-import kotlinx.android.synthetic.main.activity_content.view.*
-
-class ContentActivity : AppCompatActivity(R.layout.activity_content) {
+class ContentActivity : AppCompatActivity() {
     private lateinit var binding: ActivityContentBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityContentBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         binding.viewpager.adapter = ViewPagerAdapter(this)
     }
 

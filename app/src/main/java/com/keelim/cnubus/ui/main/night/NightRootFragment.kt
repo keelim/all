@@ -24,14 +24,14 @@ class NightRootFragment : Fragment(R.layout.fragment_night_root) {
 
 
 
-        binding.lvNightroot.setOnItemClickListener { _, _, i, _ ->
-            Snackbar.make(binding.nightrootLayout, "기능 준비 중입니다. ", Snackbar.LENGTH_SHORT).show()
+        /*binding.lvNightroot.setOnItemClickListener { _, _, i, _ ->
+            Snackbar.make(binding.root, "기능 준비 중입니다. ", Snackbar.LENGTH_SHORT).show()
 
             Intent(activity, MapsActivity::class.java).apply {
                 putExtra("location", intentList[i])
                 startActivity(this)
             }
-        }
+        }*/
 
         binding.lvNightroot.adapter = ArrayAdapter(requireActivity(), android.R.layout.simple_list_item_1, rootList)
     }

@@ -23,9 +23,6 @@ import com.keelim.cnubus.MyApplication;
 
 import java.util.Date;
 
-/**
- * Prefetches App Open Ads.
- */
 public class AppOpenManager implements LifecycleObserver, Application.ActivityLifecycleCallbacks {
     private static final String LOG_TAG = "AppOpenManager";
     private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/3419835294";

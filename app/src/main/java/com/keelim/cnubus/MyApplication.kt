@@ -12,12 +12,10 @@ class MyApplication : Application() {
     private lateinit var appOpenManager: AppOpenManager
     override fun onCreate() {
         super.onCreate()
+
         setCrashHandler()
 
-        MobileAds.initialize(this) {
-            OnInitializationCompleteListener { }
-        }
-
+        MobileAds.initialize(this) {}
         appOpenManager = AppOpenManager(this) // 콜드 부팅에서 복귀시 ad
     }
 

@@ -43,7 +43,7 @@
             android:name=".ui.MapsActivity"
             android:label="maps" />
         <activity
-            android:name=".ui.SettingActivity"
+            android:name=".ui.main.setting.SettingActivity"
             android:label="setting" />
         <activity
             android:name=".ui.main.MainActivity"

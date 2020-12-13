@@ -7,8 +7,6 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.FragmentCRootBinding
-import kotlinx.android.synthetic.main.fragment_c_root.*
-import kotlinx.android.synthetic.main.fragment_c_root.view.*
 
 class CRootFragment : Fragment(R.layout.fragment_c_root) {
     private var fragmentCRootBinding: FragmentCRootBinding? = null

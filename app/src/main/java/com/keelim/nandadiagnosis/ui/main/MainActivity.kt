@@ -23,9 +23,10 @@ import com.google.android.play.core.install.model.UpdateAvailability
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.ActivityMainBinding
 import com.keelim.nandadiagnosis.util.BackPressCloseHandler
+import java.io.File
 
 
-class MainActivity : AppCompatActivity(R.layout.activity_main) {
+class MainActivity : AppCompatActivity() {
     private lateinit var appUpdateManager: AppUpdateManager
     private lateinit var backPressCloseHandler: BackPressCloseHandler
     private lateinit var binding: ActivityMainBinding
@@ -63,7 +64,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-
+        setContentView(binding.root)
         backPressCloseHandler = BackPressCloseHandler(this)
 
         val appBarConfiguration = AppBarConfiguration.Builder(R.id.navigation_category, R.id.navigation_search, R.id.navigation_setting)
@@ -89,9 +90,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 Toast.makeText(this@MainActivity, "최신 버전 어플리케이션 사용해주셔서 감사합니다", Toast.LENGTH_SHORT).show()
         }
 
-        InstallStateUpdatedListener { state ->
-            if (state.installStatus() == InstallStatus.DOWNLOADED)
-                popUpSnackbarForCompleteUpdate()
+        InstallStateUpdatedListener { state ->  if (state.installStatus() == InstallStatus.DOWNLOADED) popUpSnackbarForCompleteUpdate()
         }.apply {
             appUpdateManager.registerListener(this)
         }
@@ -99,8 +98,9 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     private fun fileChecking() {
-        val check = getDatabasePath("nanda.db")
-
+//        val check = File(dataDir.absolutePath + "/databases", "nanda.db")
+//        val check = File(getDatabasePath("nanda.db").path)
+        val check = File(getExternalFilesDir(null), "nanda.db")
         if (!check.exists()) databaseDownloadAlertDialog()
         else Toast.makeText(this, "데이터베이스가 존재합니다. 그대로 진행 합니다", Toast.LENGTH_SHORT).show()
     }
@@ -144,7 +144,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
 
     private fun downloadDatabase() {
-        val file = getDatabasePath("nanda.db")
+//        val file = getDatabasePath("nanda.db")
+        val file = File(getExternalFilesDir(null), "nanda.db")
         val url = getString(R.string.db_path)
 
         downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager

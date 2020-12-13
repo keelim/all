@@ -17,11 +17,10 @@ class DiagnosisActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDiagnosisBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+        setContentView(binding.root)
         arrayListSetting()
 
-        binding.list.adapter = MyDiagnosisViewAdapter(this, arrayList)
+        binding.list.adapter = MyDiagnosisViewAdapter(arrayList)
         binding.list.setOnItemClickListener { _, _, i, _ ->
             goWeb(nav + i + 1)
         }

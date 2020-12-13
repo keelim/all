@@ -7,11 +7,11 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import com.google.android.play.core.review.ReviewManagerFactory
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.ui.OpenSourceActivity
 import com.keelim.nandadiagnosis.ui.WebActivity
@@ -84,8 +84,16 @@ class SettingFragment : PreferenceFragmentCompat() {
                 return true
             }
 
-            "private" -> {
+            "review" -> {
+                val manager = ReviewManagerFactory.create(requireActivity())
 
+                manager.requestReviewFlow().apply {
+                    addOnCompleteListener {
+                        if (this.isSuccessful) {
+                            manager.launchReviewFlow(requireActivity(), this.result)
+                        }
+                    }
+                }
                 return true
             }
 
@@ -94,13 +102,7 @@ class SettingFragment : PreferenceFragmentCompat() {
     }
 
     private fun downloadDatabase() { //데이터베이스를 다운로드 받는다
-
-        val file = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            File(requireActivity().dataDir.absolutePath + "/databases", "nanda.db")
-        } else {
-            requireActivity().getDatabasePath("nanda.db")
-        }
-
+        val file = File(requireActivity().getExternalFilesDir(null), "nanda.db")
         val url = requireActivity().getString(R.string.db_path)
 
         val request = DownloadManager.Request(Uri.parse(url))

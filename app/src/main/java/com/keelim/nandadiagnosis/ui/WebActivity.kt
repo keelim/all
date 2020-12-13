@@ -8,14 +8,14 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
-import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.ActivityWebBinding
 
-class WebActivity : AppCompatActivity(R.layout.activity_web) {
+class WebActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWebBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityWebBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         binding.webView.apply {
             webViewClient = WebViewClient()

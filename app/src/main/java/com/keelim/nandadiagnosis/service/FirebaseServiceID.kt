@@ -15,7 +15,7 @@ import com.google.firebase.messaging.RemoteMessage
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.ui.main.MainActivity
 
-class FirebaseService : FirebaseMessagingService() {
+class FirebaseServiceID : FirebaseMessagingService() {
 
     override fun onNewToken(s: String) {
         super.onNewToken(s)

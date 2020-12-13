@@ -1,6 +1,5 @@
 package com.keelim.nandadiagnosis.ui.diagnosis
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +7,7 @@ import android.widget.BaseAdapter
 import com.keelim.nandadiagnosis.databinding.ItemListviewBinding
 import java.util.*
 
-class MyDiagnosisViewAdapter(private val context: Context, private val diagnosisItems: ArrayList<DiagnosisItem>?) : BaseAdapter() {
+class MyDiagnosisViewAdapter(private val diagnosisItems: ArrayList<DiagnosisItem>?) : BaseAdapter() {
 
     override fun getCount(): Int {
         return diagnosisItems!!.size

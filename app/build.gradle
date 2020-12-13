@@ -11,24 +11,27 @@ Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 def ad_api = properties.getProperty('ad')
 
-android {
 
+android {
     compileSdkVersion 30
+    buildToolsVersion '30.0.3'
 
     defaultConfig {
         applicationId "com.keelim.nandadiagnosis"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 25
-        versionName "1.0.23"
+        versionCode 26
+        versionName "1.0.24"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         manifestPlaceholders = [ad: ad_api]
-        buildConfigField "String", "API_KEY", properties['ad_unit']
+        buildConfigField "String", "API_KEY", properties['ad_unit'] //inter~~~
+        buildConfigField "String", "API_KEY2", properties['ad_unit2'] //app openManager
     }
 
     buildTypes {
         release {
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
@@ -45,6 +48,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
 }
 
 dependencies {
@@ -71,7 +75,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-crashlytics'
 
-    implementation 'com.google.android.gms:play-services-ads:19.5'
+    implementation 'com.google.android.gms:play-services-ads:19.6.0'
 
     implementation 'androidx.core:core-ktx:1.3.2'
     implementation 'androidx.annotation:annotation:1.1.0'

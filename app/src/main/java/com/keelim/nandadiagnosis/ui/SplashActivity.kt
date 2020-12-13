@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.ads.AdListener
@@ -14,21 +15,23 @@ import com.google.android.material.snackbar.Snackbar
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import com.keelim.nandadiagnosis.BuildConfig
-import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.ActivitySplashBinding
 import com.keelim.nandadiagnosis.ui.main.MainActivity
 import java.util.*
 
-class SplashActivity : AppCompatActivity(R.layout.activity_splash) {
+class SplashActivity : AppCompatActivity() {
     private lateinit var interstitialAd: InterstitialAd
     private lateinit var binding: ActivitySplashBinding
+    private val test = "ca -app-pub-3940256099942544/1033173712"
+    private infix fun String.or(that: String): String = if (BuildConfig.DEBUG) this else that
 
     private var listener = object : PermissionListener {
         override fun onPermissionGranted() {
-            Snackbar.make(binding.containerSplash, "모든 권한이 승인 되었습니다. ", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(binding.root, "모든 권한이 승인 되었습니다. ", Snackbar.LENGTH_SHORT).show()
 
             interstitialAd = InterstitialAd(this@SplashActivity)
-            interstitialAd.adUnitId = getString(R.string.real_ad)
+//            interstitialAd.adUnitId = getString(R.string.real_ad)
+            interstitialAd.adUnitId = test or BuildConfig.API_KEY
             interstitialAd.adListener = object : AdListener() {
                 override fun onAdLoaded() {
                     interstitialAd.show()
@@ -36,8 +39,9 @@ class SplashActivity : AppCompatActivity(R.layout.activity_splash) {
 
                 override fun onAdClosed() {}
 
-                override fun onAdFailedToLoad(i: Int) {
+                override fun onAdFailedToLoad(errorCode: Int) {
                     Toast.makeText(this@SplashActivity, "ad load fail", Toast.LENGTH_SHORT).show()
+                    Log.e("ADMOB", errorCode.toString())
                 }
             } //전면광고 셋팅
             interstitialAd.loadAd(AdRequest.Builder().build())
@@ -49,16 +53,18 @@ class SplashActivity : AppCompatActivity(R.layout.activity_splash) {
         }
 
         override fun onPermissionDenied(deniedPermissions: ArrayList<String>?) {
-            Toast.makeText(this@SplashActivity, deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
-            Thread.sleep(3000)
-            finish()
+            Handler(Looper.getMainLooper()).postDelayed({
+                Toast.makeText(this@SplashActivity, deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
+                finish()
+            }, 3000)
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
-        Snackbar.make(binding.containerSplash, "NANDA 진단에 오신 것을 환영합니다.", Snackbar.LENGTH_SHORT).show()
+        setContentView(binding.root)
+        Snackbar.make(binding.root, "NANDA 진단에 오신 것을 환영합니다.", Snackbar.LENGTH_SHORT).show()
 
         binding.versionName.text = BuildConfig.VERSION_NAME
 

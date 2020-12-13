@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import java.io.File
 
 @Database(entities = [NandaEntity::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
@@ -16,7 +17,8 @@ abstract class AppDatabase : RoomDatabase() {
             if (INSTANCE == null) {
                 synchronized(AppDatabase::class) {
                     INSTANCE = Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, "nanda")
-                            .createFromFile(context.getDatabasePath("nanda.db"))
+                            .createFromFile(File(context.getExternalFilesDir(null), "nanda.db"))
+//                            .createFromFile(context.getDatabasePath("nanda.db"))
                             .allowMainThreadQueries()
                             .build()
                 }

@@ -19,6 +19,10 @@
             app:title="버전 확인" />
 
         <Preference
+            app:key="review"
+            app:title="솔직한 리뷰를 해주세요" />
+
+        <Preference
             app:key="db_download"
             app:title="데이터베이스 재 다운로드" />
 

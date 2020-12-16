@@ -24,7 +24,11 @@
 
         <Preference
             app:key="db_download"
-            app:title="데이터베이스 재 다운로드" />
+            app:title="데이터베이스 다운로드" />
+
+        <Preference
+            app:key="update"
+            app:title="인앱 업데이트" />
 
     </PreferenceCategory>
 

@@ -2,6 +2,7 @@ package com.keelim.nandadiagnosis.ui
 
 import android.Manifest
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -80,6 +81,49 @@ class SplashActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {}
+
+
+    private val permissions = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+        arrayOf(Manifest.permission.INTERNET, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.FOREGROUND_SERVICE)
+    } else {
+        arrayOf(Manifest.permission.INTERNET, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+    }
+
+    /*private fun observePermission(){
+        permissions.toObservable()
+                .filter {  ActivityCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED}
+                .toList()
+                .map{permissions.sortedArray()}
+                .subscribe {
+                    permissionList:Array<String>?, _:Throwable ->
+                    permissionList?.let {
+                        ActivityCompat.requestPermissions(this, it, 0)
+                    }
+                }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        Observables.zip(
+                permissions.toObservable(),
+                grantResults.toObservable())
+                .filter {
+                    it.second != PackageManager.PERMISSION_GRANTED
+                }.count()
+                .subscribe { permissionCount: Long?, t2: Throwable? ->
+                    if (permissionCount == 0L) {//zero means all permissions granted
+                        Handler(Looper.getMainLooper()).postDelayed({
+                               Intent(this@SplashActivity, MainActivity::class.java).apply {
+                                   startActivity(this)
+                                   finish()
+                               }
+                        }, 3000)
+                    } else {
+                        Toast.makeText(this@SplashActivity, "This application is not granted please reinstall me", Toast.LENGTH_SHORT).show()
+                        finishAffinity()
+                    }
+                }
+    }*/
 }
 
 

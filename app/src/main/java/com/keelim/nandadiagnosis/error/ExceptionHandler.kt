@@ -9,8 +9,7 @@ import java.io.PrintWriter
 import java.io.StringWriter
 import kotlin.system.exitProcess
 
-class ExceptionHandler(
-        application: Application,
+class ExceptionHandler(application: Application,
         private val defaultExceptionHandler: Thread.UncaughtExceptionHandler,
         private val fabricExceptionHandler: Thread.UncaughtExceptionHandler
 ) : Thread.UncaughtExceptionHandler {

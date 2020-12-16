@@ -3,15 +3,13 @@ package com.keelim.nandadiagnosis.ui.main
 import android.app.Activity
 import android.app.DownloadManager
 import android.content.*
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.Navigation
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
@@ -23,6 +21,8 @@ import com.google.android.play.core.install.model.UpdateAvailability
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.ActivityMainBinding
 import com.keelim.nandadiagnosis.utils.BackPressCloseHandler
+import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 import java.io.File
 
 
@@ -30,6 +30,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appUpdateManager: AppUpdateManager
     private lateinit var backPressCloseHandler: BackPressCloseHandler
     private lateinit var binding: ActivityMainBinding
+    private val file by lazy { File(getExternalFilesDir(null), "nanda.db") }
+    private val url by lazy { getString(R.string.db_path) }
 
     private lateinit var downloadManager: DownloadManager
     private var downloadId: Long = -1L
@@ -37,6 +39,8 @@ class MainActivity : AppCompatActivity() {
     companion object {
         const val updateCode = 2
     }
+
+    private val request:DownloadManager.Request by inject{ parametersOf(url, file)}
 
     private val onDownloadComplete = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
@@ -53,6 +57,7 @@ class MainActivity : AppCompatActivity() {
 
                     when (cursor.getInt(columnIndex)) {
                         DownloadManager.STATUS_SUCCESSFUL -> Toast.makeText(context, "Download succeeded", Toast.LENGTH_SHORT).show()
+
                         DownloadManager.STATUS_FAILED -> Toast.makeText(context, "Download failed", Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -67,12 +72,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         backPressCloseHandler = BackPressCloseHandler(this)
 
-        val appBarConfiguration = AppBarConfiguration.Builder(R.id.navigation_category, R.id.navigation_search, R.id.navigation_setting)
-                .build()
 
-        val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
-        NavigationUI.setupWithNavController(binding.navView, navController)
+        val navController = findNavController(R.id.nav_host_fragment)
+        binding.navView.setupWithNavController(navController)
 
         fileChecking() // 데이터 베이스 파일이 있는지 확인한다.
         checkingAppUpdate()
@@ -90,7 +92,8 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this@MainActivity, "최신 버전 어플리케이션 사용해주셔서 감사합니다", Toast.LENGTH_SHORT).show()
         }
 
-        InstallStateUpdatedListener { state ->  if (state.installStatus() == InstallStatus.DOWNLOADED) popUpSnackbarForCompleteUpdate()
+        InstallStateUpdatedListener { state ->
+            if (state.installStatus() == InstallStatus.DOWNLOADED) popUpSnackbarForCompleteUpdate()
         }.apply {
             appUpdateManager.registerListener(this)
         }
@@ -98,8 +101,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun fileChecking() {
-//        val check = File(dataDir.absolutePath + "/databases", "nanda.db")
-//        val check = File(getDatabasePath("nanda.db").path)
         val check = File(getExternalFilesDir(null), "nanda.db")
         if (!check.exists()) databaseDownloadAlertDialog()
         else Toast.makeText(this, "데이터베이스가 존재합니다. 그대로 진행 합니다", Toast.LENGTH_SHORT).show()
@@ -120,11 +121,10 @@ class MainActivity : AppCompatActivity() {
                 .show()
 
         binding.mainProgressbar.visibility = View.INVISIBLE
-
     }
 
     private fun popUpSnackbarForCompleteUpdate() {
-        Snackbar.make(binding.container, "업데이트를 다운로드 하고 있습니다.", Snackbar.LENGTH_INDEFINITE).apply {
+        Snackbar.make(binding.root, "업데이트를 다운로드 하고 있습니다.", Snackbar.LENGTH_INDEFINITE).apply {
             setAction("RESTART") { appUpdateManager.completeUpdate() }
             setActionTextColor(resources.getColor(R.color.colorAccent, this@MainActivity.theme))
             show()
@@ -135,19 +135,16 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == updateCode) {
             when (resultCode) {
-                RESULT_OK -> Snackbar.make(binding.container, "업데이트를 성공적으로 완료했습니다.", Snackbar.LENGTH_LONG).show()
-                Activity.RESULT_CANCELED -> Snackbar.make(binding.container, "업데이트를 취소하였습니다.", Snackbar.LENGTH_LONG).show()
-                ActivityResult.RESULT_IN_APP_UPDATE_FAILED -> Snackbar.make(binding.container, "시스템 오류가 발생했습니다.", Snackbar.LENGTH_LONG).show()
+                RESULT_OK -> Snackbar.make(binding.root, "업데이트를 성공적으로 완료했습니다.", Snackbar.LENGTH_LONG).show()
+
+                Activity.RESULT_CANCELED -> Snackbar.make(binding.root, "업데이트를 취소하였습니다.", Snackbar.LENGTH_LONG).show()
+
+                ActivityResult.RESULT_IN_APP_UPDATE_FAILED -> Snackbar.make(binding.root, "시스템 오류가 발생했습니다.", Snackbar.LENGTH_LONG).show()
             }
         }
     }
 
-
     private fun downloadDatabase() {
-//        val file = getDatabasePath("nanda.db")
-        val file = File(getExternalFilesDir(null), "nanda.db")
-        val url = getString(R.string.db_path)
-
         downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
 
         IntentFilter().apply {
@@ -155,14 +152,6 @@ class MainActivity : AppCompatActivity() {
             addAction(DownloadManager.ACTION_NOTIFICATION_CLICKED)
             registerReceiver(onDownloadComplete, this)
         }
-
-        val request = DownloadManager.Request(Uri.parse(url))
-                .setTitle("Downloading")
-                .setDescription("Downloading Database file")
-                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
-                .setDestinationUri(Uri.fromFile(file))
-                .setAllowedOverMetered(true)
-                .setAllowedOverRoaming(true)
 
         downloadId = downloadManager.enqueue(request)
     }

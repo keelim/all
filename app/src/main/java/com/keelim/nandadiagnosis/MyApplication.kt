@@ -3,7 +3,7 @@ package com.keelim.nandadiagnosis
 import android.app.Application
 import com.google.android.gms.ads.MobileAds
 import com.keelim.nandadiagnosis.error.ExceptionHandler
-import com.keelim.nandadiagnosis.util.AppOpenManager
+import com.keelim.nandadiagnosis.utils.AppOpenManager
 
 class MyApplication : Application() {
     private lateinit var appOpenManager: AppOpenManager

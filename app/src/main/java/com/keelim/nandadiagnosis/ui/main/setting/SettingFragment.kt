@@ -13,8 +13,8 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.ui.OpenSourceActivity
 import com.keelim.nandadiagnosis.ui.WebActivity
+import com.keelim.nandadiagnosis.ui.open.OpenSourceActivity
 import java.io.File
 
 class SettingFragment : PreferenceFragmentCompat() {
@@ -58,47 +58,34 @@ class SettingFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.settings_preferences)
+        readyReview()
     }
 
     override fun onPreferenceTreeClick(preference: Preference): Boolean {
-        return when (preference.key) {
+        when (preference.key) {
             "blog" -> {
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse((getString(R.string.blog_url)))))
-                return true
             }
 
             "nandaHome" -> {
                 Intent(context, WebActivity::class.java).apply {
                     Toast.makeText(activity, "홈페이지 재구성 중 입니다.", Toast.LENGTH_SHORT).show()
                 }
-                true
             }
             "opensource" -> {
                 startActivity(Intent(context, OpenSourceActivity::class.java))
-                return true
             }
 
             "db_download" -> {
                 Toast.makeText(activity, "다운로드 동안 잠시만 기다려 주세요", Toast.LENGTH_SHORT).show()
                 downloadDatabase()
-                return true
             }
 
-            "review" -> {
-                val manager = ReviewManagerFactory.create(requireActivity())
-
-                manager.requestReviewFlow().apply {
-                    addOnCompleteListener {
-                        if (this.isSuccessful) {
-                            manager.launchReviewFlow(requireActivity(), this.result)
-                        }
-                    }
-                }
-                return true
+            "update" -> {
+                Toast.makeText(requireActivity(), "업데이트 준비 중 입니다", Toast.LENGTH_SHORT).show()
             }
-
-            else -> false
         }
+        return super.onPreferenceTreeClick(preference)
     }
 
     private fun downloadDatabase() { //데이터베이스를 다운로드 받는다
@@ -121,4 +108,15 @@ class SettingFragment : PreferenceFragmentCompat() {
         requireActivity().unregisterReceiver(onDownloadComplete)
     }
 
+    private fun readyReview() {
+        val manager = ReviewManagerFactory.create(requireActivity())
+
+        manager.requestReviewFlow().apply {
+            addOnCompleteListener {
+                if (this.isSuccessful) {
+                    manager.launchReviewFlow(requireActivity(), this.result)
+                }
+            }
+        }
+    }
 }

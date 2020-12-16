@@ -23,7 +23,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".ui.OpenSourceActivity"
+            android:name=".ui.open.OpenSourceActivity"
             android:label="@string/title_activity_open_source"
             android:theme="@style/AppTheme.NoActionBar" />
 

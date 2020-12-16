@@ -22,7 +22,7 @@ import com.google.android.play.core.install.model.InstallStatus
 import com.google.android.play.core.install.model.UpdateAvailability
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.ActivityMainBinding
-import com.keelim.nandadiagnosis.util.BackPressCloseHandler
+import com.keelim.nandadiagnosis.utils.BackPressCloseHandler
 import java.io.File
 
 

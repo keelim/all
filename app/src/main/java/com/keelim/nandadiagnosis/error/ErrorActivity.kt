@@ -18,7 +18,6 @@ class ErrorActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.tvErrorLog.text = errorText
-
         binding.btnReload.setOnClickListener {
             startActivity(lastActivityIntent)
             finish()

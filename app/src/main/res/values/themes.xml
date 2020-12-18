@@ -1,0 +1,3 @@
+<resources>
+  <style name="Theme.NandaDiagnosis" parent="Theme.MaterialComponents.Light"/>
+</resources>

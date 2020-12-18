@@ -4,7 +4,6 @@ import android.app.Activity
 import android.app.DownloadManager
 import android.content.*
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -76,6 +75,7 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
         binding.navView.setupWithNavController(navController)
 
+
         fileChecking() // 데이터 베이스 파일이 있는지 확인한다.
         checkingAppUpdate()
     }
@@ -108,8 +108,6 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun databaseDownloadAlertDialog() {
-        binding.mainProgressbar.visibility = View.VISIBLE
-
         AlertDialog.Builder(this)
                 .setTitle("다운로드 요청")
                 .setMessage("어플리케이션 사용을 위해 데이터베이스를 다운로드 합니다.")
@@ -119,8 +117,6 @@ class MainActivity : AppCompatActivity() {
                     downloadDatabase()
                 }.create()
                 .show()
-
-        binding.mainProgressbar.visibility = View.INVISIBLE
     }
 
     private fun popUpSnackbarForCompleteUpdate() {

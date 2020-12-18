@@ -18,15 +18,16 @@ android {
 
     defaultConfig {
         applicationId "com.keelim.nandadiagnosis"
-        minSdkVersion 23
+        minSdkVersion 24
         targetSdkVersion 30
-        versionCode 26
-        versionName "1.0.24"
+        versionCode 27
+        versionName "1.0.25"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         manifestPlaceholders = [ad: ad_api]
         buildConfigField "String", "API_KEY", properties['ad_unit'] //inter~~~
-        buildConfigField "String", "API_KEY2", properties['ad_unit2'] //app openManager
+        buildConfigField "String", "API_KEY2", properties['ad_unit2']
+        signingConfig signingConfigs.debug//app openManager
     }
 
     buildTypes {
@@ -41,7 +42,6 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     buildFeatures {
-//        dataBinding = true
         viewBinding = true
     }
 
@@ -64,13 +64,8 @@ dependencies {
     implementation 'androidx.preference:preference-ktx:1.1.1'
 
     implementation platform('com.google.firebase:firebase-bom:26.1.0')
-
-    implementation 'com.google.firebase:firebase-auth'
-    implementation 'com.google.firebase:firebase-database'
-    implementation 'com.google.firebase:firebase-storage'
-    implementation 'com.google.firebase:firebase-firestore'
-    implementation 'com.google.firebase:firebase-messaging'
     implementation 'com.google.firebase:firebase-core'
+    implementation 'com.google.firebase:firebase-messaging'
     implementation 'com.google.firebase:firebase-ads'
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-crashlytics'
@@ -85,13 +80,26 @@ dependencies {
 
     implementation 'androidx.room:room-runtime:2.2.5'
     implementation 'androidx.room:room-ktx:2.2.5'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+
     kapt 'androidx.room:room-compiler:2.2.5'
     testImplementation 'androidx.room:room-testing:2.2.5'
 
     implementation 'gun0912.ted:tedpermission:2.2.0'
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
 
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    implementation 'org.koin:koin-android:2.1.5'
+
+    implementation ("com.google.guava:guava:30.1-android")
+
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.17'
+    implementation 'io.reactivex.rxjava2:rxkotlin:2.3.0'
 }

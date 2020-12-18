@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.ui
+package com.keelim.nandadiagnosis.ui.open
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

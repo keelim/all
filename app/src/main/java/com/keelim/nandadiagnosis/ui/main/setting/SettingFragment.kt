@@ -13,13 +13,19 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.ui.OpenSourceActivity
 import com.keelim.nandadiagnosis.ui.WebActivity
+import com.keelim.nandadiagnosis.ui.open.OpenSourceActivity
+import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 import java.io.File
 
 class SettingFragment : PreferenceFragmentCompat() {
     private lateinit var downloadManager: DownloadManager
     private var downloadId: Long = -1L
+
+    private val file by lazy { File(requireActivity().getExternalFilesDir(null), "nanda.db") }
+    private val url by lazy { getString(R.string.db_path) }
+    private val request:DownloadManager.Request by inject{ parametersOf(url, file)}
 
     private val onDownloadComplete = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
@@ -46,10 +52,10 @@ class SettingFragment : PreferenceFragmentCompat() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-
         downloadManager = requireActivity().getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
 
-        val intentFilter = IntentFilter().apply {
+        val intentFilter = IntentFilter()
+        with(intentFilter) {
             addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
             addAction(DownloadManager.ACTION_NOTIFICATION_CLICKED)
             requireActivity().registerReceiver(onDownloadComplete, this)
@@ -58,67 +64,50 @@ class SettingFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.settings_preferences)
+        readyReview()
     }
 
     override fun onPreferenceTreeClick(preference: Preference): Boolean {
-        return when (preference.key) {
-            "blog" -> {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse((getString(R.string.blog_url)))))
-                return true
-            }
+        when (preference.key) {
+            "blog" -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse((getString(R.string.blog_url)))))
 
-            "nandaHome" -> {
+            "home" ->
                 Intent(context, WebActivity::class.java).apply {
                     Toast.makeText(activity, "홈페이지 재구성 중 입니다.", Toast.LENGTH_SHORT).show()
                 }
-                true
-            }
-            "opensource" -> {
-                startActivity(Intent(context, OpenSourceActivity::class.java))
-                return true
-            }
 
-            "db_download" -> {
+            "opensource" -> startActivity(Intent(context, OpenSourceActivity::class.java))
+
+            "database" -> {
                 Toast.makeText(activity, "다운로드 동안 잠시만 기다려 주세요", Toast.LENGTH_SHORT).show()
                 downloadDatabase()
-                return true
             }
 
-            "review" -> {
-                val manager = ReviewManagerFactory.create(requireActivity())
+            "update" -> Toast.makeText(requireActivity(), "업데이트 준비 중 입니다", Toast.LENGTH_SHORT).show()
+            "dark" -> Toast.makeText(requireActivity(), "업데이트 준비 중 입니다", Toast.LENGTH_SHORT).show()
 
-                manager.requestReviewFlow().apply {
-                    addOnCompleteListener {
-                        if (this.isSuccessful) {
-                            manager.launchReviewFlow(requireActivity(), this.result)
-                        }
-                    }
-                }
-                return true
-            }
-
-            else -> false
         }
+        return super.onPreferenceTreeClick(preference)
     }
 
     private fun downloadDatabase() { //데이터베이스를 다운로드 받는다
-        val file = File(requireActivity().getExternalFilesDir(null), "nanda.db")
-        val url = requireActivity().getString(R.string.db_path)
-
-        val request = DownloadManager.Request(Uri.parse(url))
-                .setTitle("Downloading")
-                .setDescription("Downloading Database file")
-                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
-                .setDestinationUri(Uri.fromFile(file))
-                .setAllowedOverMetered(true)
-                .setAllowedOverRoaming(true)
-
         downloadId = downloadManager.enqueue(request)
+    }
+
+    private fun readyReview() {
+        val manager = ReviewManagerFactory.create(requireActivity())
+
+        manager.requestReviewFlow().apply {
+            addOnCompleteListener {
+                if (this.isSuccessful) {
+                    manager.launchReviewFlow(requireActivity(), this.result)
+                }
+            }
+        }
     }
 
     override fun onDetach() {
         super.onDetach()
         requireActivity().unregisterReceiver(onDownloadComplete)
     }
-
 }

@@ -11,7 +11,7 @@ val downloadModule = module{
         DownloadManager.Request(Uri.parse(url))
                 .setTitle("Downloading")
                 .setDescription("Downloading Database file")
-                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
+                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
                 .setDestinationUri(Uri.fromFile(file))
                 .setAllowedOverMetered(true)
                 .setAllowedOverRoaming(true)

@@ -69,25 +69,22 @@ class SettingFragment : PreferenceFragmentCompat() {
 
     override fun onPreferenceTreeClick(preference: Preference): Boolean {
         when (preference.key) {
-            "blog" ->
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse((getString(R.string.blog_url)))))
+            "blog" -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse((getString(R.string.blog_url)))))
 
-
-            "nandaHome" ->
+            "home" ->
                 Intent(context, WebActivity::class.java).apply {
                     Toast.makeText(activity, "홈페이지 재구성 중 입니다.", Toast.LENGTH_SHORT).show()
                 }
 
-            "opensource" ->
-                startActivity(Intent(context, OpenSourceActivity::class.java))
+            "opensource" -> startActivity(Intent(context, OpenSourceActivity::class.java))
 
-
-            "db_download" -> {
+            "database" -> {
                 Toast.makeText(activity, "다운로드 동안 잠시만 기다려 주세요", Toast.LENGTH_SHORT).show()
                 downloadDatabase()
             }
 
             "update" -> Toast.makeText(requireActivity(), "업데이트 준비 중 입니다", Toast.LENGTH_SHORT).show()
+            "dark" -> Toast.makeText(requireActivity(), "업데이트 준비 중 입니다", Toast.LENGTH_SHORT).show()
 
         }
         return super.onPreferenceTreeClick(preference)

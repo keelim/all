@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:name="com.keelim.nandadiagnosis.search.SearchFragment"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ui.main.search.SearchFragment">
 
-    <ListView
-        android:id="@+id/search_lv"
+    <androidx.recyclerview.widget.RecyclerView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/list"
+        android:name="com.keelim.nandadiagnosis.ui.main.searchtemp.SearchTempFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        app:layoutManager="LinearLayoutManager"
+        tools:listitem="@layout/item_listview" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

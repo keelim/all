@@ -16,7 +16,6 @@ import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import com.keelim.cnubus.BuildConfig
 import com.keelim.cnubus.databinding.ActivitySplashBinding
-import com.keelim.cnubus.ui.main.MainActivity
 import java.util.*
 
 
@@ -53,7 +52,11 @@ class SplashActivity : AppCompatActivity() {
 
         override fun onPermissionDenied(deniedPermissions: ArrayList<String>?) {
             Handler(Looper.getMainLooper()).postDelayed({
-                Toast.makeText(this@SplashActivity, deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@SplashActivity,
+                    deniedPermissions.toString(),
+                    Toast.LENGTH_SHORT
+                ).show()
                 finish()
             }, 3000)
         }

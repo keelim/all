@@ -9,7 +9,7 @@ import com.keelim.nandadiagnosis.databinding.ItemListviewBinding
 
 
 
-class SearchRecyclerViewAdapter(private val values: List<com.keelim.nandadiagnosis.data.db.NandaEntity>) : RecyclerView.Adapter<SearchRecyclerViewAdapter.ViewHolder>() {
+class SearchRecyclerViewAdapter(private val values: List<NandaEntity>) : RecyclerView.Adapter<SearchRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(ItemListviewBinding.inflate(LayoutInflater.from(parent.context), parent, false))
@@ -35,7 +35,8 @@ class SearchRecyclerViewAdapter(private val values: List<com.keelim.nandadiagnos
             binding.root.setOnClickListener {
                 val pos = adapterPosition
                 val db = values[pos]
-                /*Snackbar.make(binding.root, "클래스 영역: ${db.class_name}도매인 영역${db.domain_name}", Snackbar.LENGTH_SHORT).show()*/
+
+
             }
         }
 

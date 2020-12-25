@@ -4,11 +4,15 @@ import android.app.Activity
 import android.app.DownloadManager
 import android.content.*
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
@@ -17,6 +21,7 @@ import com.google.android.play.core.install.model.ActivityResult
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.InstallStatus
 import com.google.android.play.core.install.model.UpdateAvailability
+import com.keelim.nandadiagnosis.BuildConfig
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.ActivityMainBinding
 import com.keelim.nandadiagnosis.utils.BackPressCloseHandler
@@ -39,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         const val updateCode = 2
     }
 
-    private val request:DownloadManager.Request by inject{ parametersOf(url, file)}
+    private val request: DownloadManager.Request by inject { parametersOf(url, file) }
 
     private val onDownloadComplete = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
@@ -55,9 +60,17 @@ class MainActivity : AppCompatActivity() {
                     val columnIndex = cursor.getColumnIndex(DownloadManager.COLUMN_STATUS)
 
                     when (cursor.getInt(columnIndex)) {
-                        DownloadManager.STATUS_SUCCESSFUL -> Toast.makeText(context, "Download succeeded", Toast.LENGTH_SHORT).show()
+                        DownloadManager.STATUS_SUCCESSFUL -> Toast.makeText(
+                            context,
+                            "Download succeeded",
+                            Toast.LENGTH_SHORT
+                        ).show()
 
-                        DownloadManager.STATUS_FAILED -> Toast.makeText(context, "Download failed", Toast.LENGTH_SHORT).show()
+                        DownloadManager.STATUS_FAILED -> Toast.makeText(
+                            context,
+                            "Download failed",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }
@@ -71,13 +84,21 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         backPressCloseHandler = BackPressCloseHandler(this)
 
-
         val navController = findNavController(R.id.nav_host_fragment)
         binding.navView.setupWithNavController(navController)
 
-
         fileChecking() // 데이터 베이스 파일이 있는지 확인한다.
+
         checkingAppUpdate()
+
+        val mAdView = AdView(this)
+        mAdView.adSize = AdSize.SMART_BANNER
+        mAdView.adUnitId = if (BuildConfig.DEBUG) "ca-app-pub-3940256099942544/6300978111"
+        else BuildConfig.API_KEY3
+
+        binding.adview.addView(mAdView)
+        val adRequest = AdRequest.Builder().build()
+        mAdView.loadAd(adRequest)
     }
 
     private fun checkingAppUpdate() {
@@ -85,11 +106,19 @@ class MainActivity : AppCompatActivity() {
         val appUpdateInfoTask = appUpdateManager.appUpdateInfo
 
         appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
-            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
-                appUpdateManager.startUpdateFlowForResult(appUpdateInfo, AppUpdateType.FLEXIBLE, this, updateCode)
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE && appUpdateInfo.isUpdateTypeAllowed(
+                    AppUpdateType.FLEXIBLE
+                )
+            ) {
+                appUpdateManager.startUpdateFlowForResult(
+                    appUpdateInfo,
+                    AppUpdateType.FLEXIBLE,
+                    this,
+                    updateCode
+                )
                 Toast.makeText(this@MainActivity, "업데이트를 시작합니다", Toast.LENGTH_SHORT).show()
             } else
-                Toast.makeText(this@MainActivity, "최신 버전 어플리케이션 사용해주셔서 감사합니다", Toast.LENGTH_SHORT).show()
+                Log.d("InAppUpdate", "Android latest Version")
         }
 
         InstallStateUpdatedListener { state ->
@@ -109,14 +138,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun databaseDownloadAlertDialog() {
         AlertDialog.Builder(this)
-                .setTitle("다운로드 요청")
-                .setMessage("어플리케이션 사용을 위해 데이터베이스를 다운로드 합니다.")
-                .setCancelable(false)
-                .setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
-                    Toast.makeText(this, "서버로부터 데이터 베이스를 요청 합니다. ", Toast.LENGTH_SHORT).show()
-                    downloadDatabase()
-                }.create()
-                .show()
+            .setTitle("다운로드 요청")
+            .setMessage("어플리케이션 사용을 위해 데이터베이스를 다운로드 합니다.")
+            .setCancelable(false)
+            .setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
+                Toast.makeText(this, "서버로부터 데이터 베이스를 요청 합니다. ", Toast.LENGTH_SHORT).show()
+                downloadDatabase()
+            }.create()
+            .show()
     }
 
     private fun popUpSnackbarForCompleteUpdate() {
@@ -150,11 +179,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         downloadId = downloadManager.enqueue(request)
-    }
-
-    override fun onDestroy() {
-        unregisterReceiver(onDownloadComplete)
-        super.onDestroy()
     }
 
     override fun onBackPressed() {

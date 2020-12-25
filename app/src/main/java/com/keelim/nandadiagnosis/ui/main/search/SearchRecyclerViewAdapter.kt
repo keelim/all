@@ -4,8 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.keelim.nandadiagnosis.data.db.NandaEntity
 import com.keelim.nandadiagnosis.databinding.ItemListviewBinding
-import com.keelim.nandadiagnosis.db.NandaEntity
+
+
 
 class SearchRecyclerViewAdapter(private val values: List<NandaEntity>) : RecyclerView.Adapter<SearchRecyclerViewAdapter.ViewHolder>() {
 
@@ -33,7 +35,8 @@ class SearchRecyclerViewAdapter(private val values: List<NandaEntity>) : Recycle
             binding.root.setOnClickListener {
                 val pos = adapterPosition
                 val db = values[pos]
-                /*Snackbar.make(binding.root, "클래스 영역: ${db.class_name}도매인 영역${db.domain_name}", Snackbar.LENGTH_SHORT).show()*/
+
+
             }
         }
 

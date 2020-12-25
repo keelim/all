@@ -20,14 +20,14 @@ android {
         applicationId "com.keelim.nandadiagnosis"
         minSdkVersion 24
         targetSdkVersion 30
-        versionCode 27
-        versionName "1.0.25"
+        versionCode 28
+        versionName "1.0.26"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         manifestPlaceholders = [ad: ad_api]
         buildConfigField "String", "API_KEY", properties['ad_unit'] //inter~~~
         buildConfigField "String", "API_KEY2", properties['ad_unit2']
-        signingConfig signingConfigs.debug//app openManager
+        buildConfigField "String", "API_KEY3", properties['ad_unit3'] //banner
     }
 
     buildTypes {
@@ -48,15 +48,14 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':data:db')
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.2'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.2'
 
@@ -78,13 +77,8 @@ dependencies {
 
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
-    implementation 'androidx.room:room-runtime:2.2.5'
-    implementation 'androidx.room:room-ktx:2.2.5'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
-
-    kapt 'androidx.room:room-compiler:2.2.5'
-    testImplementation 'androidx.room:room-testing:2.2.5'
 
     implementation 'gun0912.ted:tedpermission:2.2.0'
 
@@ -97,7 +91,7 @@ dependencies {
 
     implementation 'org.koin:koin-android:2.1.5'
 
-    implementation ("com.google.guava:guava:30.1-android")
+    implementation("com.google.guava:guava:30.1-android")
 
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.17'

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.keelim.nandadiagnosis">
 
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -15,10 +16,10 @@
         android:name=".MyApplication"
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="false"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="false">
 
@@ -63,8 +64,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.diagnosis.DiagnosisActivity" />
-        <activity android:name=".error.ErrorActivity" />
+        <activity android:name="com.keelim.nandadiagnosis.ui.main.category.DiagnosisActivity" />
 
     </application>
 

@@ -4,10 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.keelim.nandadiagnosis.data.db.NandaEntity
 import com.keelim.nandadiagnosis.databinding.ItemListviewBinding
-import com.keelim.nandadiagnosis.db.NandaEntity
 
-class SearchRecyclerViewAdapter(private val values: List<NandaEntity>) : RecyclerView.Adapter<SearchRecyclerViewAdapter.ViewHolder>() {
+
+
+class SearchRecyclerViewAdapter(private val values: List<com.keelim.nandadiagnosis.data.db.NandaEntity>) : RecyclerView.Adapter<SearchRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(ItemListviewBinding.inflate(LayoutInflater.from(parent.context), parent, false))

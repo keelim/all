@@ -32,17 +32,18 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
         binding.card12.setOnClickListener { showDialog("12") }
         binding.card13.setOnClickListener { showDialog("13") }
 
-
     }
 
     private fun showDialog(num: String) { //데이터를 사용하는 페이지 이니 조심하라는 문구
         AlertDialog.Builder(requireActivity())
-                .setMessage("이 기능은 데이터를 사용할 수 있습니다.")
-                .setCancelable(false)
-                .setPositiveButton("예") { _, _ -> intentList(num) }
-                .setNegativeButton("아니오") { _, _ -> Toast.makeText(requireActivity(), "아니오 선택했습니다.", Toast.LENGTH_LONG).show() }
-                .create()
-                .show()
+            .setMessage("이 기능은 데이터를 사용할 수 있습니다.")
+            .setCancelable(false)
+            .setPositiveButton("예") { _, _ -> intentList(num) }
+            .setNegativeButton("아니오") { _, _ ->
+                Toast.makeText(requireActivity(), "아니오 선택했습니다.", Toast.LENGTH_LONG).show()
+            }
+            .create()
+            .show()
     }
 
     private fun intentList(num: String) {

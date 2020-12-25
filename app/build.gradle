@@ -1,4 +1,4 @@
-plugins{
+plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
@@ -11,7 +11,6 @@ plugins{
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 def ad_api = properties.getProperty('ad')
-def geo_api = properties.getProperty('geo')
 
 android {
     compileSdkVersion 30
@@ -21,8 +20,8 @@ android {
         applicationId "com.keelim.cnubus"
         minSdkVersion 24
         targetSdkVersion 30
-        versionCode 30
-        versionName "2.0.18"
+        versionCode 31
+        versionName "2.0.19"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "API_KEY", properties['ad_unit']
@@ -56,37 +55,27 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-
-    implementation 'androidx.preference:preference-ktx:1.1.1'
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation project(":feature:error")
+    implementation project(":feature:map")
+    implementation project(":data:api")
 
     implementation platform('com.google.firebase:firebase-bom:26.1.0')
-
     implementation 'com.google.firebase:firebase-core'
     implementation 'com.google.firebase:firebase-messaging'
     implementation 'com.google.firebase:firebase-perf'
+    implementation 'com.google.firebase:firebase-ads'
     implementation 'com.google.firebase:firebase-crashlytics'
 
     implementation 'com.google.android.gms:play-services-ads:19.6.0'
-
-    implementation 'com.google.android.gms:play-services-maps:17.0.0'
-    implementation 'com.google.android.gms:play-services-location:17.1.0'
-    implementation 'com.google.android.libraries.places:places:2.4.0'
-
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.2'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.2'
 
-    implementation 'com.google.android.material:material:1.3.0-alpha04'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+    implementation 'androidx.preference:preference-ktx:1.1.1'
 
+    implementation 'com.google.android.material:material:1.3.0-beta01'
 
-    testImplementation 'junit:junit:4.13.1'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'androidx.lifecycle:lifecycle-process:2.2.0'
 
     implementation 'androidx.core:core-ktx:1.3.2'
     implementation 'com.google.android.play:core-ktx:1.8.1'
@@ -95,6 +84,16 @@ dependencies {
 
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     kapt 'com.github.bumptech.glide:compiler:4.11.0'
+
+    implementation 'org.koin:koin-android:2.1.5'
+    implementation("com.google.guava:guava:30.1-android")
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.17'
+    implementation 'io.reactivex.rxjava2:rxkotlin:2.3.0'
+
+    testImplementation 'junit:junit:4.13.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
 
 

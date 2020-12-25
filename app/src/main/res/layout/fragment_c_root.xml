@@ -5,7 +5,7 @@
     android:id="@+id/crootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.croot.CRootFragment">
+    tools:context=".ui.root.croot.CRootFragment">
 
 
     <ListView

@@ -8,7 +8,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.FragmentCategoryBinding
-import com.keelim.nandadiagnosis.ui.diagnosis.DiagnosisActivity
 
 class CategoryFragment : Fragment(R.layout.fragment_category) {
     private var fragmentCategoryBinding: FragmentCategoryBinding? = null

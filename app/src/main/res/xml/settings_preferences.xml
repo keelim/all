@@ -6,11 +6,11 @@
         app:title="관련 링크">
         <Preference
             app:key="blog"
-            app:title="관련 블로그" />
+            app:title="관련블로그" />
 
         <Preference
             app:key="home"
-            app:title="homepage" />
+            app:title="홈페이지" />
     </PreferenceCategory>
 
     <PreferenceCategory app:title="기능">

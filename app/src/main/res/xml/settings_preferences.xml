@@ -1,7 +1,9 @@
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:key="total">
-    <PreferenceCategory app:key="feature_category">
+    <PreferenceCategory
+        app:key="feature_category"
+        app:title="관련 링크">
         <Preference
             app:key="blog"
             app:title="관련 블로그" />
@@ -11,24 +13,22 @@
             app:title="homepage" />
     </PreferenceCategory>
 
-    <PreferenceCategory app:key="other_category">
-        <Preference
-            app:key="opensource"
-            app:title="오픈소스 라이선스" />
-    </PreferenceCategory>
-
-    <PreferenceCategory>
-        <Preference
-            app:key="database"
-            app:title="데이터베이스 다운로드" />
-
+    <PreferenceCategory app:title="기능">
         <Preference
             app:key="update"
-            app:title="인앱 업데이트" />
+            app:title="업데이트" />
 
         <SwitchPreference
             android:defaultValue="false"
             android:key="dark"
             android:title="다크모드 활성화" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="other_category"
+        app:title="약관">
+        <Preference
+            app:key="opensource"
+            app:title="오픈소스 라이선스" />
     </PreferenceCategory>
 </androidx.preference.PreferenceScreen>

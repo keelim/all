@@ -3,9 +3,13 @@ package com.keelim.cnubus
 
 import android.app.Application
 import com.google.android.gms.ads.MobileAds
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener
-import com.keelim.cnubus.error.ExceptionHandler
+import com.keelim.cnubus.data.api.downloadModule
+import com.keelim.cnubus.feature.error.ExceptionHandler
 import com.keelim.cnubus.utils.AppOpenManager
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
+import org.koin.core.logger.Level
 
 
 class MyApplication : Application() {
@@ -13,10 +17,15 @@ class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        setCrashHandler()
-
         MobileAds.initialize(this) {}
         appOpenManager = AppOpenManager(this) // 콜드 부팅에서 복귀시 ad
+
+        setCrashHandler()
+        startKoin {
+            androidLogger(Level.NONE)
+            androidContext(this@MyApplication)
+            modules(downloadModule)
+        }
     }
 
     private fun setCrashHandler() {
@@ -35,6 +44,4 @@ class MyApplication : Application() {
             )
         )
     }
-
-
 } 

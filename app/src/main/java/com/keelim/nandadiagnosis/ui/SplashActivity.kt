@@ -2,13 +2,16 @@ package com.keelim.nandadiagnosis.ui
 
 import android.Manifest
 import android.content.Intent
-import android.os.Build
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.pm.ShortcutInfoCompat
+import androidx.core.content.pm.ShortcutManagerCompat
+import androidx.core.graphics.drawable.IconCompat
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
@@ -16,33 +19,33 @@ import com.google.android.material.snackbar.Snackbar
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import com.keelim.nandadiagnosis.BuildConfig
+import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.ActivitySplashBinding
 import com.keelim.nandadiagnosis.ui.main.MainActivity
 import java.util.*
 
+
 class SplashActivity : AppCompatActivity() {
     private lateinit var interstitialAd: InterstitialAd
     private lateinit var binding: ActivitySplashBinding
-    private val test = "ca -app-pub-3940256099942544/1033173712"
-    private infix fun String.or(that: String): String = if (BuildConfig.DEBUG) this else that
+    private val test = "ca-app-pub-3940256099942544/1033173712"
+    private lateinit var settings: SharedPreferences
 
     private var listener = object : PermissionListener {
         override fun onPermissionGranted() {
             Snackbar.make(binding.root, "모든 권한이 승인 되었습니다. ", Snackbar.LENGTH_SHORT).show()
 
             interstitialAd = InterstitialAd(this@SplashActivity)
-//            interstitialAd.adUnitId = getString(R.string.real_ad)
-            interstitialAd.adUnitId = test or BuildConfig.API_KEY
+            interstitialAd.adUnitId =
+                    if(BuildConfig.DEBUG) test else BuildConfig.API_KEY
             interstitialAd.adListener = object : AdListener() {
-                override fun onAdLoaded() {
-                    interstitialAd.show()
-                }
+                override fun onAdLoaded() { interstitialAd.show() }
 
                 override fun onAdClosed() {}
 
                 override fun onAdFailedToLoad(errorCode: Int) {
-                    Toast.makeText(this@SplashActivity, "ad load fail", Toast.LENGTH_SHORT).show()
-                    Log.e("ADMOB", errorCode.toString())
+                    Toast.makeText(this@SplashActivity, "ad load fail $errorCode", Toast.LENGTH_SHORT).show()
+                    Log.e("Error code", "admob $errorCode")
                 }
             } //전면광고 셋팅
             interstitialAd.loadAd(AdRequest.Builder().build())
@@ -65,9 +68,7 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        Snackbar.make(binding.root, "NANDA 진단에 오신 것을 환영합니다.", Snackbar.LENGTH_SHORT).show()
-
-        binding.versionName.text = BuildConfig.VERSION_NAME
+        addShortcut()
 
         TedPermission.with(this)
                 .setPermissionListener(listener)
@@ -80,50 +81,30 @@ class SplashActivity : AppCompatActivity() {
                 .check()
     }
 
+    private fun addShortcut() {
+        settings = getSharedPreferences(PREF_FIRST_START, 0)
+
+        if (settings.getBoolean("AppFirstLaunch", true)) {  // 아이콘이 두번 추가 안되도록 하기 위해서 필요한 체크입니다.
+            settings.edit().putBoolean("AppFirstLaunch", false).apply()
+            if (ShortcutManagerCompat.isRequestPinShortcutSupported(this)) {
+
+                val shortcutInfo = ShortcutInfoCompat.Builder(this, "#1")
+                        .setIntent(Intent(this, SplashActivity::class.java).setAction(Intent.ACTION_MAIN)) // !!! intent's action must be set on oreo
+                        .setShortLabel(getString(R.string.app_name)) //  아이콘에 같이 보여질 이름
+                        .setIcon(IconCompat.createWithResource(this, R.mipmap.ic_launcher)) //아이콘에 보여질 이미지
+                        .build()
+                ShortcutManagerCompat.requestPinShortcut(this, shortcutInfo, null)
+
+                Toast.makeText(this, "홈 화면에 바로가기를 추가하였습니다. ", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
     override fun onBackPressed() {}
 
-
-    private val permissions = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-        arrayOf(Manifest.permission.INTERNET, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.FOREGROUND_SERVICE)
-    } else {
-        arrayOf(Manifest.permission.INTERNET, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+    companion object {
+        const val PREF_FIRST_START = "AppFirstLaunch"
     }
-
-    /*private fun observePermission(){
-        permissions.toObservable()
-                .filter {  ActivityCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED}
-                .toList()
-                .map{permissions.sortedArray()}
-                .subscribe {
-                    permissionList:Array<String>?, _:Throwable ->
-                    permissionList?.let {
-                        ActivityCompat.requestPermissions(this, it, 0)
-                    }
-                }
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        Observables.zip(
-                permissions.toObservable(),
-                grantResults.toObservable())
-                .filter {
-                    it.second != PackageManager.PERMISSION_GRANTED
-                }.count()
-                .subscribe { permissionCount: Long?, t2: Throwable? ->
-                    if (permissionCount == 0L) {//zero means all permissions granted
-                        Handler(Looper.getMainLooper()).postDelayed({
-                               Intent(this@SplashActivity, MainActivity::class.java).apply {
-                                   startActivity(this)
-                                   finish()
-                               }
-                        }, 3000)
-                    } else {
-                        Toast.makeText(this@SplashActivity, "This application is not granted please reinstall me", Toast.LENGTH_SHORT).show()
-                        finishAffinity()
-                    }
-                }
-    }*/
 }
 
 

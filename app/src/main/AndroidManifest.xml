@@ -64,7 +64,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.diagnosis.DiagnosisActivity" />
+        <activity android:name="com.keelim.nandadiagnosis.ui.main.category.DiagnosisActivity" />
 
     </application>
 

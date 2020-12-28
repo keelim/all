@@ -91,7 +91,7 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
         if (BuildConfig.DEBUG)
             AppOpenAd.load(myApplication, AD_UNIT_ID, request, AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT, loadCallback); //test unit ID
         else
-            AppOpenAd.load(myApplication, BuildConfig.API_KEY2, request, AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT, loadCallback); //test unit ID
+            AppOpenAd.load(myApplication, "ca-app-pub-3115620439518585/2318260160", request, AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT, loadCallback); //test unit ID
 
     }
 

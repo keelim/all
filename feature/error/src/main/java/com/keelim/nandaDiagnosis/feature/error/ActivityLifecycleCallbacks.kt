@@ -1,4 +1,4 @@
-package com.keelim.cnubus.feature.error
+package com.keelim.nandaDiagnosis.feature.error
 
 import android.app.Activity
 import android.app.Application

@@ -3,7 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'com.google.gms.google-services'
-    id 'com.google.firebase.firebase-perf'
+//    id 'com.google.firebase.firebase-perf'
     id 'com.google.firebase.crashlytics'
     id 'dependencies'
 //    id 'class-loader-plugin'
@@ -49,12 +49,14 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    buildFeatures {
-        viewBinding = true
-    }
 
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+
+    buildFeatures {
+        viewBinding = true
+        dataBinding = true
     }
 }
 
@@ -64,7 +66,7 @@ dependencies {
     implementation project(':feature:error')
 
     implementation AndroidX.core
-    implementation AndroidX.annotation
+    implementation AndroidX.annot
     implementation AndroidX.recyclerview
     implementation AndroidX.activity
     implementation AndroidX.appcompat
@@ -84,6 +86,7 @@ dependencies {
     implementation Google.ads
     implementation Google.material
     implementation Google.play
+    implementation Google.guava
 
     implementation Lifecycle.livedata
     implementation Lifecycle.viewmodel
@@ -101,5 +104,8 @@ dependencies {
     implementation Rx.kotlin
 
     implementation Koin.koin
-    implementation Google.guava
+    implementation Glide.runtime
+    implementation 'com.dino.library:simplerecyclerview:0.7.0'
+
+//    implementation Google.billing
 }

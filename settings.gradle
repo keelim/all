@@ -6,10 +6,12 @@ pluginManagement {
     }
 }
 
+includeBuild("includeBuild/dependencies")
+
 include(
         ":app",
         ":data:db",
-        ":feature:error"
+        ":feature:error",
 )
 
-includeBuild("includeBuild/dependencies")
+

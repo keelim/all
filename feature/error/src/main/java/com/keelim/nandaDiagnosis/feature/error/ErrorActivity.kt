@@ -1,10 +1,9 @@
-package com.keelim.cnubus.feature.error
+package com.keelim.nandaDiagnosis.feature.error
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-
-import com.keelim.cnubus.feature.error.databinding.ActivityErrorBinding
+import com.keelim.nandaDiagnosis.feature.error.databinding.ActivityErrorBinding
 
 
 class ErrorActivity : AppCompatActivity(R.layout.activity_error) {

@@ -18,6 +18,10 @@
             app:key="update"
             app:title="업데이트" />
 
+        <Preference
+            app:key="search"
+            app:title="검색" />
+
         <SwitchPreference
             android:defaultValue="false"
             android:key="dark"

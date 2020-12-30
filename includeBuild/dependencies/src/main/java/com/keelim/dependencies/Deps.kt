@@ -43,6 +43,7 @@ object Coroutines {
     private const val version = "1.4.1"
     const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
     const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version"
+    const val jvm = "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.4.2"
 }
 
 object Dagger {
@@ -55,24 +56,24 @@ object Dagger {
 
 object Google {
     const val gmsPlugin = "com.google.gms:google-services:4.3.4"
-    const val material = "com.google.android.material:material:1.3.0-alpha03"
-    const val play = "com.google.android.play:core:1.8.3"
+    const val material = "com.google.android.material:material:1.3.0-beta01"
+    const val play = "com.google.android.play:core:1.9.0"
     const val ads = "com.google.android.gms:play-services-ads:19.6.0"
     const val guava = "com.google.guava:guava:30.1-jre"
+//    const val billing = "com.android.billingclient:billing-ktx:3.0.2"
 }
 
 object AndroidX {
-
     const val activity = "androidx.activity:activity-ktx:1.2.0-beta01"
-    const val annotation = "androidx.annotation:annotation:1.2.0-alpha01"
+    const val annot = "androidx.annotation:annotation:1.2.0-alpha01"
     const val appcompat = "androidx.appcompat:appcompat:1.3.0-alpha02"
     const val browser = "androidx.browser:browser:1.3.0-rc01"
     const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.0.4"
-    const val core = "androidx.core:core-ktx:1.4.0-alpha01"
+    const val core = "androidx.core:core-ktx:1.5.0-alpha05"
     const val drawerlayout = "androidx.drawerlayout:drawerlayout:1.1.1"
     const val fragment = "androidx.fragment:fragment-ktx:1.3.0-beta01"
     const val preference = "androidx.preference:preference-ktx:1.1.1"
-    const val recyclerview = "androidx.recyclerview:recyclerview:1.2.0-alpha06"
+    const val recyclerview = "androidx.recyclerview:recyclerview:1.2.0-beta01"
     const val startup = "androidx.startup:startup-runtime:1.0.0"
     const val transition = "androidx.transition:transition:1.4.0-beta01"
     const val viewpager2 = "androidx.viewpager2:viewpager2:1.1.0-alpha01"
@@ -132,7 +133,7 @@ object Lifecycle {
 }
 
 object Navigation {
-    private const val version = "2.3.1"
+    private const val version = "2.3.2"
     const val fragment = "androidx.navigation:navigation-fragment-ktx:$version"
     const val ui = "androidx.navigation:navigation-ui-ktx:$version"
     const val dynamicFeaturesFragment = "androidx.navigation:navigation-dynamic-features-fragment:$version"

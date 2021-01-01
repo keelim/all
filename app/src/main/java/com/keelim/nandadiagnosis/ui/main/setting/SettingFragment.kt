@@ -5,12 +5,13 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
-import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.ui.WebActivity
+import com.keelim.nandadiagnosis.ui.kakao_search.SearchActivity
 import com.keelim.nandadiagnosis.ui.open.OpenSourceActivity
+
 
 class SettingFragment : PreferenceFragmentCompat() {
 
@@ -19,8 +20,9 @@ class SettingFragment : PreferenceFragmentCompat() {
         readyReview()
     }
 
-    override fun onPreferenceTreeClick(preference: Preference): Boolean {
-        when (preference.key) {
+
+    override fun onPreferenceTreeClick(preference: androidx.preference.Preference?): Boolean {
+        when (preference!!.key) {
             "blog" -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse((getString(R.string.blog_url)))))
 
             "home" -> Intent(context, WebActivity::class.java).apply {
@@ -34,7 +36,13 @@ class SettingFragment : PreferenceFragmentCompat() {
                 startActivity(this)
             }
 
-            "dark" -> Toast.makeText(requireActivity(), "업데이트 준비 중 입니다", Toast.LENGTH_SHORT).show()
+            "dark" -> {
+                Toast.makeText(requireActivity(), "업데이트 준비 중 입니다", Toast.LENGTH_SHORT).show()
+            }
+
+            "search"->{
+                requireActivity().startActivity(Intent(requireActivity(), SearchActivity::class.java))
+            }
         }
         return super.onPreferenceTreeClick(preference)
     }
@@ -50,4 +58,5 @@ class SettingFragment : PreferenceFragmentCompat() {
             }
         }
     }
+
 }

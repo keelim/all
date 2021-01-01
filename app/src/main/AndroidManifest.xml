@@ -65,8 +65,11 @@
 
         <activity android:name="com.keelim.nandadiagnosis.ui.main.category.DiagnosisActivity" />
         <activity android:name=".ui.search.SearchActivity" />
+        <activity android:name=".ui.kakao_search.SearchActivity" />
 
     </application>
 
 </manifest>
+
+
 

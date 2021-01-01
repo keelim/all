@@ -9,6 +9,7 @@ import androidx.preference.PreferenceFragmentCompat
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.ui.WebActivity
+import com.keelim.nandadiagnosis.ui.kakao_search.SearchActivity
 import com.keelim.nandadiagnosis.ui.open.OpenSourceActivity
 
 
@@ -37,6 +38,10 @@ class SettingFragment : PreferenceFragmentCompat() {
 
             "dark" -> {
                 Toast.makeText(requireActivity(), "업데이트 준비 중 입니다", Toast.LENGTH_SHORT).show()
+            }
+
+            "search"->{
+                requireActivity().startActivity(Intent(requireActivity(), SearchActivity::class.java))
             }
         }
         return super.onPreferenceTreeClick(preference)

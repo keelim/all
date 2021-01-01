@@ -2,7 +2,6 @@ plugins {
     id 'com.android.library'
     id 'kotlin-android'
     id 'kotlin-kapt'
-    id 'dependencies'
 }
 
 apply from: rootProject.file('gradle/android.gradle')
@@ -20,8 +19,9 @@ android {
 }
 
 dependencies {
-    kapt Room.compiler
-    implementation Room.ktx
-    implementation Room.runtime
-    testImplementation Room.testing
+    implementation "androidx.room:room-ktx:2.2.6"
+    implementation "androidx.room:room-runtime:2.2.6"
+    kapt "androidx.room:room-compiler:2.2.6"
+    testImplementation "androidx.room:room-testing:2.2.6"
+
 }

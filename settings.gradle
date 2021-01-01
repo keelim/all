@@ -6,12 +6,11 @@ pluginManagement {
     }
 }
 
-includeBuild("includeBuild/dependencies")
-
 include(
         ":app",
         ":data:db",
         ":feature:error",
+        ":feature:kakao_search"
 )
 
 

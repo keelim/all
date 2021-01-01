@@ -1,0 +1,16 @@
+pluginManagement {
+    repositories {
+        google()
+        jcenter()
+        gradlePluginPortal()
+    }
+}
+
+include(
+        ":app",
+        ":data:db",
+        ":feature:error",
+        ":feature:kakao_search"
+)
+
+

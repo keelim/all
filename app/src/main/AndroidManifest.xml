@@ -15,7 +15,6 @@
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
-        android:fullBackupContent="@xml/backup_descriptor"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -29,7 +28,7 @@
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="${ad}" />
+            android:value="ca-app-pub-3115620439518585~3588723583" />
 
         <activity
             android:name=".ui.open.OpenSourceActivity"
@@ -65,7 +64,12 @@
         </activity>
 
         <activity android:name="com.keelim.nandadiagnosis.ui.main.category.DiagnosisActivity" />
+        <activity android:name=".ui.search.SearchActivity" />
+        <activity android:name=".ui.kakao_search.SearchActivity" />
 
     </application>
 
 </manifest>
+
+
+

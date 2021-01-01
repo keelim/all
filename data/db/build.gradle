@@ -4,16 +4,10 @@ plugins {
     id 'kotlin-kapt'
 }
 
+apply from: rootProject.file('gradle/android.gradle')
+
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.3"
-
     defaultConfig {
-        minSdkVersion 24
-        targetSdkVersion 30
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles "proguard-rules.pro"
-
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [
@@ -25,8 +19,9 @@ android {
 }
 
 dependencies {
-    kapt 'androidx.room:room-compiler:2.2.6'
-    implementation 'androidx.room:room-ktx:2.2.6'
-    implementation 'androidx.room:room-runtime:2.2.6'
-    testImplementation 'androidx.room:room-testing:2.2.6'
+    implementation "androidx.room:room-ktx:2.2.6"
+    implementation "androidx.room:room-runtime:2.2.6"
+    kapt "androidx.room:room-compiler:2.2.6"
+    testImplementation "androidx.room:room-testing:2.2.6"
+
 }

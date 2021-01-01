@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+  <data>
+
+    <variable
+        name="vm"
+        type="com.keelim.nandadiagnosis.ui.kakao_search.SearchViewModel" />
+  </data>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+      <EditText
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:text="@={vm.query}" />
+
+      <Button
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:onClick="@{() -> vm.search()}"
+          android:text="검색" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        bind:dino_includeEdge="@{true}"
+        bind:dino_itemLayout="@{@layout/item_image}"
+        bind:dino_itemSpace="@{`8dp`}"
+        bind:dino_items="@{vm.images}"
+        bind:dino_onLoad="@{() -> vm.loadMore()}"
+        bind:dino_threshold="@{10}"
+        bind:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        bind:spanCount="2" />
+
+  </LinearLayout>
+</layout>

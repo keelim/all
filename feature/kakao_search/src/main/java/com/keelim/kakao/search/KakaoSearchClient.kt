@@ -1,8 +1,9 @@
 package com.keelim.kakao.search
 
-import com.keelim.kakao.search.enums.KakaoSearchBookTargetType
 import com.keelim.kakao.search.enums.KakaoSearchSortType
-import com.keelim.kakao.search.model.*
+import com.keelim.kakao.search.model.BaseKakaoResponse
+import com.keelim.kakao.search.model.KakaoImageResponse
+import com.keelim.kakao.search.model.KakaoWebResponse
 import com.keelim.kakao.search.network.KakaoSearchApi
 import com.keelim.kakao.search.network.NetworkManager
 import retrofit2.create
@@ -31,15 +32,6 @@ class KakaoSearchClient(
         return kakaoSearchApi.searchWeb(kakaoRestApiKey, query, sort, page, size)
     }
 
-    suspend fun searchVclip(
-        query: String,
-        sort: KakaoSearchSortType = KakaoSearchSortType.ACCURACY,
-        page: Int = 1,
-        size: Int = 15,
-    ): BaseKakaoResponse<KakaoVclipResponse> {
-        return kakaoSearchApi.searchVclip(kakaoRestApiKey, query, sort, page, size)
-    }
-
     suspend fun searchImage(
         query: String,
         sort: KakaoSearchSortType = KakaoSearchSortType.ACCURACY,
@@ -48,34 +40,4 @@ class KakaoSearchClient(
     ): BaseKakaoResponse<KakaoImageResponse> {
         return kakaoSearchApi.searchImage(kakaoRestApiKey, query, sort, page, size)
     }
-
-    suspend fun searchBlog(
-        query: String,
-        sort: KakaoSearchSortType = KakaoSearchSortType.ACCURACY,
-        page: Int = 1,
-        size: Int = 10,
-    ): BaseKakaoResponse<KakaoBlogResponse> {
-        return kakaoSearchApi.searchBlog(kakaoRestApiKey, query, sort, page, size)
-    }
-
-    suspend fun searchBook(
-        query: String,
-        sort: KakaoSearchSortType = KakaoSearchSortType.ACCURACY,
-        page: Int = 1,
-        size: Int = 10,
-        target: KakaoSearchBookTargetType? = null,
-    ): BaseKakaoResponse<KakaoBookResponse> {
-        return kakaoSearchApi.searchBook(kakaoRestApiKey, query, sort, page, size, target)
-    }
-
-    suspend fun searchCafe(
-        query: String,
-        sort: KakaoSearchSortType = KakaoSearchSortType.ACCURACY,
-        page: Int = 1,
-        size: Int = 10,
-    ): BaseKakaoResponse<KakaoCafeResponse> {
-        return kakaoSearchApi.searchCafe(kakaoRestApiKey, query, sort, page, size)
-    }
-
-
 }

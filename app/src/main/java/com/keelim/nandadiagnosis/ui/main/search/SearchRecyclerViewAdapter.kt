@@ -3,16 +3,26 @@ package com.keelim.nandadiagnosis.ui.main.search
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.keelim.nandadiagnosis.data.db.NandaEntity
 import com.keelim.nandadiagnosis.databinding.ItemListviewBinding
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 
-
-class SearchRecyclerViewAdapter(private val values: List<NandaEntity>) : RecyclerView.Adapter<SearchRecyclerViewAdapter.ViewHolder>() {
+class SearchRecyclerViewAdapter(private var values: List<NandaEntity>) :
+    RecyclerView.Adapter<SearchRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(ItemListviewBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return ViewHolder(
+            ItemListviewBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            ), listener
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -25,7 +35,31 @@ class SearchRecyclerViewAdapter(private val values: List<NandaEntity>) : Recycle
 
     override fun getItemCount(): Int = values.size
 
-    inner class ViewHolder(binding: ItemListviewBinding) : RecyclerView.ViewHolder(binding.root) {
+    fun getItem(postion: Int): NandaEntity = values[postion]
+
+    fun setNandaItem(items: List<NandaEntity>) {
+        val disposable = Observable.just(items)
+            .subscribeOn(AndroidSchedulers.mainThread())
+            .observeOn(Schedulers.io())
+            .map { DiffUtil.calculateDiff(ListDiffCallback(this.values, items)) }
+            .subscribe({
+                this.values = items
+                it.dispatchUpdatesTo(this)
+            }, {
+
+            })
+        disposable.dispose()
+    }
+
+    interface OnSearchItemClickListener {
+        fun onSearchItemClick(position: Int)
+        fun onSearchItemLongClick(position: Int)
+    }
+
+    var listener: OnSearchItemClickListener? = null
+
+    inner class ViewHolder(binding: ItemListviewBinding, listener: OnSearchItemClickListener?) :
+        RecyclerView.ViewHolder(binding.root) {
         val itemTextView: TextView = binding.diagnosisItem
         val desView: TextView = binding.diagnosisDes
         val classView = binding.className
@@ -35,8 +69,12 @@ class SearchRecyclerViewAdapter(private val values: List<NandaEntity>) : Recycle
             binding.root.setOnClickListener {
                 val pos = adapterPosition
                 val db = values[pos]
+                listener?.onSearchItemClick(bindingAdapterPosition)
+            }
 
-
+            binding.root.setOnLongClickListener {
+                listener?.onSearchItemLongClick(bindingAdapterPosition)
+                return@setOnLongClickListener true
             }
         }
 
@@ -44,5 +82,6 @@ class SearchRecyclerViewAdapter(private val values: List<NandaEntity>) : Recycle
             return super.toString() + " '" + desView.text + "'"
         }
     }
+
 
 }

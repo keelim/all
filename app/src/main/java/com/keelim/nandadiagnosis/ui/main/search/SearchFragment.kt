@@ -22,7 +22,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import java.util.concurrent.TimeUnit
 
 
-class SearchFragment : Fragment(R.layout.fragment_search) {
+class SearchFragment : Fragment(R.layout.fragment_search) { //frag
     private var fragmentSearchBinding: FragmentSearchBinding? = null
     private var saveList: List<NandaEntity>? = null
 

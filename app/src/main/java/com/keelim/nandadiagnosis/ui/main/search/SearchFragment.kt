@@ -5,9 +5,11 @@ import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.Gravity
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
+import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -23,13 +25,14 @@ import java.util.concurrent.TimeUnit
 class SearchFragment : Fragment(R.layout.fragment_search) {
     private var fragmentSearchBinding: FragmentSearchBinding? = null
     private var saveList: List<NandaEntity>? = null
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
 
         val binding = FragmentSearchBinding.bind(view)
         fragmentSearchBinding = binding
-
     }
 
 
@@ -37,8 +40,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         inflater.inflate(R.menu.search_menu, menu)
         val item = menu.findItem(R.id.menu_search)
 
-        val searchManager =
-            requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val searchManager = requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
         val searchView = item.actionView as SearchView
 
         Observable.create<CharSequence> { emitter ->
@@ -53,14 +55,24 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                         fragmentSearchBinding!!.list.adapter =
                             SearchRecyclerViewAdapter(items).apply {
                                 notifyDataSetChanged()
+                                listener =
+                                    object : SearchRecyclerViewAdapter.OnSearchItemClickListener {
+                                        override fun onSearchItemClick(position: Int) { Toast.makeText(requireContext(), getItem(position).nanda_id, Toast.LENGTH_SHORT).show() }
+
+                                        override fun onSearchItemLongClick(position: Int) {
+                                            PopupWindow(requireContext()).apply {
+                                                isFocusable = true
+                                                showAtLocation(fragmentSearchBinding!!.root,Gravity.CENTER, 0,0 )
+                                            }
+                                        }
+
+                                    }
                             }
                         return true
                     }
 
                     override fun onQueryTextChange(newText: String): Boolean {
-                        newText.let {
-                            emitter.onNext(it)
-                        }
+                        newText.let { emitter.onNext(it) }
                         return true
                     }
                 })

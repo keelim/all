@@ -1,6 +1,7 @@
 package com.keelim.cnubus.services
 
 
+import android.annotation.SuppressLint
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -16,6 +17,10 @@ import com.keelim.cnubus.R
 import com.keelim.cnubus.ui.MainActivity
 
 class FirebaseInstanceIDService : FirebaseMessagingService() {
+
+    override fun onNewToken(p0: String) {
+        super.onNewToken(p0)
+    }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) { // 메시지 수신 시 실행되는 메소드
         sendNotification(remoteMessage)

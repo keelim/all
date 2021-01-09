@@ -7,7 +7,7 @@ import com.keelim.cnubus.ui.root.aroot.ARootFragment
 import com.keelim.cnubus.ui.root.broot.BRootFragment
 import com.keelim.cnubus.ui.root.croot.CRootFragment
 import com.keelim.cnubus.ui.root.night.NightRootFragment
-import com.keelim.cnubus.ui.root.setting.SettingsFragment
+import com.keelim.cnubus.ui.setting.SettingsFragment
 import java.util.*
 
 class ViewPager2Adapter(fa:FragmentActivity) :FragmentStateAdapter(fa){

@@ -17,11 +17,16 @@ class CRootFragment : Fragment(R.layout.fragment_c_root) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentCRootBinding.bind(view)
         fragmentCRootBinding = binding
-        binding.lvCroot.setOnItemClickListener { _, _, _, _ ->
-            Snackbar.make(binding.crootLayout, "C 노선 지도 업데이트 준비 중입니다. ", Snackbar.LENGTH_LONG).show()
-        }
+
         rootList = resources.getStringArray(R.array.croot)
-        binding.lvCroot.adapter = ArrayAdapter(requireActivity(), android.R.layout.simple_list_item_1, rootList)
+
+        binding.lvCroot.adapter = CRecyclerViewAdapter(rootList).apply {
+            listener = object: CRecyclerViewAdapter.OnRootClickListener{
+                override fun onRootClickListener(position: Int) {
+                    Snackbar.make(binding.root, "C 노선 지도 업데이트 준비 중입니다. ", Snackbar.LENGTH_LONG).show()
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {

@@ -20,8 +20,8 @@ android {
         applicationId "com.keelim.nandadiagnosis"
         minSdkVersion 24
         targetSdkVersion 30
-        versionCode 29
-        versionName "1.0.27"
+        versionCode 30
+        versionName "1.0.28"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -35,6 +35,13 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug{
+            splits.abi.enable = true
+            splits.density.enable = true
+            aaptOptions.cruncherEnabled = true
+            ext.alwaysUpdateBuildId = false
         }
 
     }

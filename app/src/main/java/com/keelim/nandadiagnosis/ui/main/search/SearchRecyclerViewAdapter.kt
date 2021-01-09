@@ -67,13 +67,11 @@ class SearchRecyclerViewAdapter(private var values: List<NandaEntity>) :
 
         init {
             binding.root.setOnClickListener {
-                val pos = adapterPosition
-                val db = values[pos]
-                listener?.onSearchItemClick(bindingAdapterPosition)
+                listener?.onSearchItemClick(adapterPosition)
             }
 
             binding.root.setOnLongClickListener {
-                listener?.onSearchItemLongClick(bindingAdapterPosition)
+                listener?.onSearchItemLongClick(adapterPosition)
                 return@setOnLongClickListener true
             }
         }

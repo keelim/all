@@ -5,11 +5,9 @@ import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
 import android.text.TextUtils
-import android.view.Gravity
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
-import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -33,6 +31,11 @@ class SearchFragment : Fragment(R.layout.fragment_search) { //frag
 
         val binding = FragmentSearchBinding.bind(view)
         fragmentSearchBinding = binding
+
+        binding.list.apply {
+            setHasFixedSize(true)
+            addItemDecoration(RecyclerViewDecoration(0, 10))
+        }
     }
 
 
@@ -47,25 +50,17 @@ class SearchFragment : Fragment(R.layout.fragment_search) { //frag
             searchView.apply {
                 setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
                 isSubmitButtonEnabled = true
+                //검색을 할 수 있게 하는 것
                 setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                    //검색을 할 수 있게 하는 것
                     override fun onQueryTextSubmit(query: String): Boolean {
                         val items = searchDiagnosis(query) //검색을 한다.
                         saveList = items
                         fragmentSearchBinding!!.list.adapter =
                             SearchRecyclerViewAdapter(items).apply {
                                 notifyDataSetChanged()
-                                listener =
-                                    object : SearchRecyclerViewAdapter.OnSearchItemClickListener {
-                                        override fun onSearchItemClick(position: Int) { Toast.makeText(requireContext(), getItem(position).nanda_id, Toast.LENGTH_SHORT).show() }
-
-                                        override fun onSearchItemLongClick(position: Int) {
-                                            PopupWindow(requireContext()).apply {
-                                                isFocusable = true
-                                                showAtLocation(fragmentSearchBinding!!.root,Gravity.CENTER, 0,0 )
-                                            }
-                                        }
-
+                                listener = object : SearchRecyclerViewAdapter.OnSearchItemClickListener {
+                                        override fun onSearchItemClick(position: Int) {}
+                                        override fun onSearchItemLongClick(position: Int) {}
                                     }
                             }
                         return true

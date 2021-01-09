@@ -14,6 +14,14 @@ properties.load(project.rootProject.file('local.properties').newDataInputStream(
 def ad_api = properties.getProperty('ad')
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('C:\\Users\\h0033\\Desktop\\keystore.jks')
+            storePassword 'kimjaehyun08!'
+            keyAlias 'nanda'
+            keyPassword 'kimjaehyun08!'
+        }
+    }
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
@@ -21,13 +29,14 @@ android {
         applicationId "com.keelim.cnubus"
         minSdkVersion 24
         targetSdkVersion 30
-        versionCode 31
-        versionName "2.0.19"
+        versionCode 32
+        versionName "2.0.20"
 
         buildConfigField "String", "API_KEY", properties['ad_unit']
         buildConfigField "String", "API_KEY2", properties['ad_unit2']
 //        manifestPlaceholders = [ad: ad_api, geo:geo_api]
         manifestPlaceholders = [ad: ad_api]
+        signingConfig signingConfigs.debug
 //        manifestPlaceholders = [geo: geo_api]
     }
 

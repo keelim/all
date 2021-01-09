@@ -28,10 +28,10 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="${ad}" />
 
+        <activity android:name=".ui.content.ContentActivity" />
         <activity
-            android:name=".ui.content.ContentActivity" />
-        <activity
-            android:name=".ui.OpenSourceActivity" />
+            android:name=".ui.OpenSourceActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".feature.map.MapsActivity"
             android:label="maps" />

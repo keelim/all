@@ -4,12 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.keelim.cnubus.databinding.FragmentItemBinding
+import com.keelim.cnubus.databinding.ItemListBinding
 
-class BRecyclerViewAdapter(private val string:String, private val values: List<String>) : RecyclerView.Adapter<BRecyclerViewAdapter.ViewHolder>() {
+class BRecyclerViewAdapter(private val values: Array<String>) : RecyclerView.Adapter<BRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(FragmentItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return ViewHolder(ItemListBinding.inflate(LayoutInflater.from(parent.context), parent, false), listener)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -19,11 +19,20 @@ class BRecyclerViewAdapter(private val string:String, private val values: List<S
 
     override fun getItemCount(): Int = values.size
 
-    inner class ViewHolder(binding: FragmentItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        val idView: TextView = binding.itemNumber
-        
+    interface OnRootClickListener {
+        fun onRootClickListener(position: Int)
+    }
 
+    var listener: OnRootClickListener? = null
 
+    inner class ViewHolder(binding: ItemListBinding, listener: OnRootClickListener?) : RecyclerView.ViewHolder(binding.root) {
+        val idView: TextView = binding.text
+
+        init {
+            binding.root.setOnClickListener {
+                listener?.onRootClickListener(adapterPosition)
+            }
+        }
     }
 
 }

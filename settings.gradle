@@ -1,10 +1,7 @@
+
 include(
-    ":app",
-    ":feature:error",
-    ":feature:map"
+        ":app",
+        ":feature:error",
+        ":feature:map",
+        ":data:api"
 )
-
-enableFeaturePreview("GRADLE_METADATA")
-rootProject.name = "cnuBus"
-
-include ':data:api'

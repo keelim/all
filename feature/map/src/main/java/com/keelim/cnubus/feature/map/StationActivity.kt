@@ -3,8 +3,10 @@ package com.keelim.cnubus.feature.map
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.*
+import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+
 import com.keelim.cnubus.feature.map.databinding.ActivityStationBinding
 import org.koin.android.ext.android.inject
 
@@ -15,8 +17,8 @@ class StationActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityStationBinding
     private lateinit var locationList: ArrayList<LatLng>
-    private var location = 0
     private val stationList :ArrayList<LatLng> by inject()
+    private var location = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

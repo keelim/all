@@ -2,6 +2,8 @@ package com.keelim.nandadiagnosis.ui.main
 
 import android.app.DownloadManager
 import android.content.*
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -63,6 +65,8 @@ class MainActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.nav_host_fragment)
         binding.navView.setupWithNavController(navController)
+
+        supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.WHITE))
 
         fileChecking()
 

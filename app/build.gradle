@@ -3,31 +3,31 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'com.google.gms.google-services'
-    id 'com.google.firebase.firebase-perf'
+//    id 'com.google.firebase.firebase-perf'
     id 'com.google.firebase.crashlytics'
-    id 'dependencies'
+
 //    id 'dagger.hilt.android.plugin'
 }
 
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
-def dad_api = properties.getProperty('ad')
+def ad_api = properties.getProperty('ad')
 
 android {
-    compileSdkVersion Versions.compileSdk
-    buildToolsVersion Versions.buildTools
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId Versions.appId
-        minSdkVersion Versions.minSdk
-        targetSdkVersion Versions.targetSdk
-        versionCode Versions.versionCode
-        versionName Versions.versionName
+        applicationId "com.keelim.cnubus"
+        minSdkVersion 24
+        targetSdkVersion 30
+        versionCode 31
+        versionName "2.0.19"
 
-//        buildConfigField "String", "API_KEY", properties['ad_unit']
-//        buildConfigField "String", "API_KEY2", properties['ad_unit2']
+        buildConfigField "String", "API_KEY", properties['ad_unit']
+        buildConfigField "String", "API_KEY2", properties['ad_unit2']
 //        manifestPlaceholders = [ad: ad_api, geo:geo_api]
-//        manifestPlaceholders = [ad: ad_api]
+        manifestPlaceholders = [ad: ad_api]
 //        manifestPlaceholders = [geo: geo_api]
     }
 
@@ -35,6 +35,13 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug{
+            splits.abi.enable = true
+            splits.density.enable = true
+            aaptOptions.cruncherEnabled = true
+            ext.alwaysUpdateBuildId = false
         }
 
     }
@@ -60,41 +67,42 @@ dependencies {
     implementation project(":data:api")
 
     implementation platform('com.google.firebase:firebase-bom:26.1.0')
-    implementation Firebase.core
-    implementation Firebase.messaging
-    implementation Firebase.performance
-    implementation Firebase.ads
-    implementation Firebase.analytics
-    implementation Firebase.crashlytics
+    implementation "com.google.firebase:firebase-core"
+    implementation "com.google.firebase:firebase-crashlytics-ktx"
+    implementation "com.google.firebase:firebase-messaging-ktx"
+    implementation "com.google.firebase:firebase-ads"
+    implementation "com.google.firebase:firebase-analytics-ktx"
+    implementation 'com.google.firebase:firebase-inappmessaging-display-ktx'
 
-    implementation Navigation.fragment
-    implementation Navigation.ui
+    implementation "androidx.navigation:navigation-fragment-ktx:2.3.2"
+    implementation "androidx.navigation:navigation-ui-ktx:2.3.2"
 
-    implementation AndroidX.core
-    implementation AndroidX.recyclerview
-    implementation AndroidX.preference
+    implementation "androidx.core:core-ktx:1.5.0-alpha05"
+    implementation "androidx.recyclerview:recyclerview:1.2.0-beta01"
+    implementation "androidx.preference:preference-ktx:1.1.1"
+    implementation "androidx.activity:activity-ktx:1.2.0-rc01"
+    implementation "androidx.appcompat:appcompat:1.3.0-alpha02"
+    implementation "androidx.constraintlayout:constraintlayout:2.0.4"
 
-    implementation Lifecycle.process
-
-    implementation Google.play
-    implementation Google.material
-    implementation Google.guava
-    implementation Google.ads
+    implementation "com.google.android.material:material:1.3.0-beta01"
+    implementation "com.google.android.play:core:1.9.0"
+    implementation "com.google.android.gms:play-services-ads:19.6.0"
+    implementation "com.google.guava:guava:30.1-jre"
 
     implementation 'gun0912.ted:tedpermission:2.2.0'
 
-    implementation Koin.koin
+    implementation "org.koin:koin-android:2.1.5"
 
-    implementation Rx.android
-    implementation Rx.java
-    implementation Rx.kotlin
+    implementation  "io.reactivex.rxjava2:rxandroid:2.1.1"
+    implementation  "io.reactivex.rxjava2:rxjava:2.2.20"
+    implementation  "io.reactivex.rxjava2:rxkotlin:2.4.0"
 
 //    testImplementation 'junit:junit:4.13.1'
 //    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
 //    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-    implementation Glide.runtime
-    kapt Glide.compiler
+    implementation "com.github.bumptech.glide:glide:4.11.0"
+    kapt "com.github.bumptech.glide:compiler:4.11.0"
 }
 
 

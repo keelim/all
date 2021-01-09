@@ -1,6 +1,6 @@
-<androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <PreferenceCategory app:title="정보">
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory app:title="관련 링크">
         <Preference
             app:key="content"
             app:title="공지사항" />
@@ -9,25 +9,26 @@
             app:key="homepage"
             app:title="홈페이지" />
 
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="기능">
+        <Preference
+            app:key="update"
+            app:title="업데이트" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="dark"
+            android:title="다크모드 활성화" />
+    </PreferenceCategory>
+
+
+    <PreferenceCategory
+        app:key="other_category"
+        app:title="약관">
         <Preference
             app:key="opensource"
             app:title="오픈소스 라이선스" />
-
-        <Preference
-            app:key="update"
-            app:title="어플리케이션 버전확인" />
-    </PreferenceCategory>
-
-    <PreferenceCategory>
-        <Preference
-            app:key="mail"
-            app:title="개발자 문의 메일 보내기" />
-
-        <Preference
-            app:key="review"
-            app:title="앱을 리뷰해주세요" />
-
-
     </PreferenceCategory>
 
 </androidx.preference.PreferenceScreen>

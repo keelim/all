@@ -1,10 +1,3 @@
-pluginManagement {
-    repositories {
-        google()
-        jcenter()
-        gradlePluginPortal()
-    }
-}
 
 include(
         ":app",
@@ -12,5 +5,3 @@ include(
         ":feature:map",
         ":data:api"
 )
-
-includeBuild("includeBuild/dependencies")

@@ -27,7 +27,7 @@ class BRootFragment : Fragment(R.layout.fragment_b_root) {
         binding.lvBroot.setOnItemClickListener { _, _, i, _ ->
             Toast.makeText(activity, rootList[i] + "정류장 입니다.", Toast.LENGTH_SHORT).show()
 
-            Intent(activity, com.keelim.cnubus.feature.map.MapsActivity::class.java).apply {
+            Intent(activity, MapsActivity::class.java).apply {
                 putExtra("location", intentList[i])
                 startActivity(this)
             }

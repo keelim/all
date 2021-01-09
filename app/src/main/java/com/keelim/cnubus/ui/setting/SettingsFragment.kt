@@ -1,4 +1,4 @@
-package com.keelim.cnubus.ui.root.setting
+package com.keelim.cnubus.ui.setting
 
 import android.content.Intent
 import android.net.Uri
@@ -20,38 +20,22 @@ class SettingsFragment : PreferenceFragmentCompat() {
     override fun onPreferenceTreeClick(preference: Preference): Boolean { //preference 클릭 리스너
         when (preference.key) {
             "content" -> {
-                requireActivity().startActivity(
-                    Intent(
-                        requireActivity(),
-                        ContentActivity::class.java
-                    )
-                )
+                requireActivity().startActivity(Intent(requireActivity(), ContentActivity::class.java))
             }
 
             "homepage" -> {
-                requireActivity().startActivity(
-                    Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse(getString(R.string.notification_uri))
-                    )
-                )
+                requireActivity().startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.notification_uri))))
             }
 
             "opensource" -> {
-                startActivity(Intent(activity, OpenSourceActivity::class.java))
-            }
-
-            "mail" -> {
-                Intent(Intent.ACTION_SEND).apply {
-                    type = "plain/Text"
-                    putExtra(Intent.EXTRA_EMAIL, "kimh00335@gmail.com")
-                    putExtra(Intent.EXTRA_SUBJECT, "[cnuBus] 문의 사항")
-                    startActivity(this)
-                }
+                startActivity(Intent(requireActivity(), OpenSourceActivity::class.java))
             }
 
             "update" -> {
-                Toast.makeText(context, "인 앱 업데이트 준비 중입니다.", Toast.LENGTH_SHORT).show()
+                Intent(Intent.ACTION_VIEW).apply {
+                    data = Uri.parse(getString(R.string.updateLink))
+                    startActivity(this)
+                }
             }
 
             "dark" -> Toast.makeText(requireActivity(), "업데이트 준비 중 입니다", Toast.LENGTH_SHORT).show()

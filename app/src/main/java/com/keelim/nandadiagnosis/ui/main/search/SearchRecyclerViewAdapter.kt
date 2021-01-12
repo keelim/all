@@ -3,6 +3,8 @@ package com.keelim.nandadiagnosis.ui.main.search
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.selection.ItemDetailsLookup
+import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.keelim.nandadiagnosis.data.db.NandaEntity
@@ -12,8 +14,14 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 
-class SearchRecyclerViewAdapter(private var values: List<NandaEntity>) :
-    RecyclerView.Adapter<SearchRecyclerViewAdapter.ViewHolder>() {
+class SearchRecyclerViewAdapter(private var values: List<NandaEntity>) : RecyclerView.Adapter<SearchRecyclerViewAdapter.ViewHolder>() {
+    var tracker: SelectionTracker<Long>? = null
+
+    init {
+        setHasStableIds(true) //고유 id 를 설정
+    }
+
+    override fun getItemId(position: Int): Long = position.toLong()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -31,6 +39,10 @@ class SearchRecyclerViewAdapter(private var values: List<NandaEntity>) :
         holder.desView.text = item.reason
         holder.classView.text = item.class_name
         holder.domainView.text = item.domain_name
+
+        tracker?.let {
+            holder.bind(it.isSelected(position.toLong()))
+        }
     }
 
     override fun getItemCount(): Int = values.size
@@ -71,15 +83,25 @@ class SearchRecyclerViewAdapter(private var values: List<NandaEntity>) :
             }
 
             binding.root.setOnLongClickListener {
+
                 listener?.onSearchItemLongClick(adapterPosition)
                 return@setOnLongClickListener true
             }
         }
 
+        fun bind(isActivated: Boolean = false) {
+            itemView.isActivated = isActivated
+        }
+
         override fun toString(): String {
             return super.toString() + " '" + desView.text + "'"
         }
+
+        fun getItemDetails(): ItemDetailsLookup.ItemDetails<Long> =
+            object : ItemDetailsLookup.ItemDetails<Long>() {
+                override fun getPosition(): Int = adapterPosition
+                override fun getSelectionKey(): Long? = itemId
+            }
     }
-
-
 }
+

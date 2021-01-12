@@ -17,4 +17,5 @@ data class NandaEntity(
         val domain_name: String,
 
         val category:Int
+
 )

@@ -13,7 +13,8 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
-import com.google.android.play.core.appupdate.AppUpdateManager
+import com.google.android.material.shape.CornerFamily
+import com.google.android.material.shape.MaterialShapeDrawable
 import com.keelim.nandadiagnosis.BuildConfig
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.ActivityMainBinding
@@ -24,7 +25,6 @@ import java.io.File
 
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var appUpdateManager: AppUpdateManager
     private lateinit var backPressCloseHandler: BackPressCloseHandler
     private lateinit var binding: ActivityMainBinding
 
@@ -68,8 +68,16 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.WHITE))
 
-        fileChecking()
+        val radius = resources.getDimension(R.dimen.radius_small)
+        val bottomNavigationViewBackground = binding.navView.background as MaterialShapeDrawable
+        bottomNavigationViewBackground.shapeAppearanceModel =
+            bottomNavigationViewBackground.shapeAppearanceModel.toBuilder()
+                .setTopRightCorner(CornerFamily.ROUNDED, radius)
+                .setTopLeftCorner(CornerFamily.ROUNDED, radius)
+                .build()
 
+        fileChecking()
+ 
         val mAdView = AdView(this)
         mAdView.adSize = AdSize.SMART_BANNER
         mAdView.adUnitId = if (BuildConfig.DEBUG) "ca-app-pub-3940256099942544/6300978111"
@@ -112,9 +120,5 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         backPressCloseHandler.onBackPressed()
-    }
-
-    companion object {
-        const val updateCode = 2
     }
 }

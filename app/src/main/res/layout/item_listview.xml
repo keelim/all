@@ -9,6 +9,7 @@
     app:contentPadding="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@drawable/item_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -16,6 +17,7 @@
             android:id="@+id/diagnosis_item"
             style="@style/tv_style"
             android:textSize="24sp"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

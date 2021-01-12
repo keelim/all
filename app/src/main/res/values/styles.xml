@@ -54,4 +54,9 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+    <style name="ShapeAppearance.Button.CutCorners" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">12dp</item>
+    </style>
+
 </resources>

@@ -7,7 +7,7 @@
     tools:context=".ui.main.search.SearchFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list"
+        android:id="@+id/recycler_view"
         android:name="com.keelim.nandadiagnosis.ui.main.searchtemp.SearchTempFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

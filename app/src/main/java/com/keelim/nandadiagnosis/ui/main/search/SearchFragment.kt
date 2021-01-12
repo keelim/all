@@ -11,6 +11,11 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.selection.SelectionPredicates
+import androidx.recyclerview.selection.SelectionTracker
+import androidx.recyclerview.selection.StableIdKeyProvider
+import androidx.recyclerview.selection.StorageStrategy
+import androidx.recyclerview.widget.RecyclerView
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.data.db.AppDatabase
 import com.keelim.nandadiagnosis.data.db.NandaEntity
@@ -23,7 +28,7 @@ import java.util.concurrent.TimeUnit
 class SearchFragment : Fragment(R.layout.fragment_search) { //frag
     private var fragmentSearchBinding: FragmentSearchBinding? = null
     private var saveList: List<NandaEntity>? = null
-
+    private var trackers: SelectionTracker<Long>? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -31,11 +36,12 @@ class SearchFragment : Fragment(R.layout.fragment_search) { //frag
 
         val binding = FragmentSearchBinding.bind(view)
         fragmentSearchBinding = binding
-
-        binding.list.apply {
+        binding.recyclerView.apply {
             setHasFixedSize(true)
             addItemDecoration(RecyclerViewDecoration(0, 10))
         }
+
+//        initTracker()
     }
 
 
@@ -55,13 +61,15 @@ class SearchFragment : Fragment(R.layout.fragment_search) { //frag
                     override fun onQueryTextSubmit(query: String): Boolean {
                         val items = searchDiagnosis(query) //검색을 한다.
                         saveList = items
-                        fragmentSearchBinding!!.list.adapter =
+                        fragmentSearchBinding!!.recyclerView.adapter =
                             SearchRecyclerViewAdapter(items).apply {
-                                notifyDataSetChanged()
-                                listener = object : SearchRecyclerViewAdapter.OnSearchItemClickListener {
+                                listener =
+                                    object : SearchRecyclerViewAdapter.OnSearchItemClickListener {
                                         override fun onSearchItemClick(position: Int) {}
                                         override fun onSearchItemLongClick(position: Int) {}
                                     }
+                                notifyDataSetChanged()
+                                tracker = trackers
                             }
                         return true
                     }
@@ -89,7 +97,38 @@ class SearchFragment : Fragment(R.layout.fragment_search) { //frag
         super.onDestroyView()
     }
 
-    private fun searchDiagnosis(keyword: String): List<NandaEntity> { //여기까지는 이상이 없는 것 같다.
+    private fun searchDiagnosis(keyword: String): List<NandaEntity> { //데이터베이스 가져와서 검색하기
         return AppDatabase.getInstance(requireActivity())!!.dataDao().search(keyword)
     }
+
+    private fun initTracker() {
+        val recyclerView: RecyclerView = fragmentSearchBinding!!.recyclerView
+        trackers = SelectionTracker.Builder<Long>(
+            "mySelection",
+            recyclerView,
+            StableIdKeyProvider(recyclerView),
+            MyItemDetailsLookup(recyclerView),
+            StorageStrategy.createLongStorage()
+        )
+            .withSelectionPredicate(SelectionPredicates.createSelectAnything())
+            .build()
+
+        /*tracker?.addObserver(
+            object : SelectionTracker.SelectionObserver<Long>() {
+                override fun onSelectionChanged() {
+                    super.onSelectionChanged()
+                    val nItems: Int? = tracker?.selection!!.size()
+                    if (nItems == 2) {
+                        launchSum(tracker?.selection!!)
+                    }
+                }
+            })*/
+    }
+
+    /*private fun launchSum(selection: Selection<Long>) {
+        val list = selection.map {
+            adapter.list[it.toInt()]
+        }.toList()
+        SumActivity.launch(this, list as ArrayList<Int>)
+    }*/
 }

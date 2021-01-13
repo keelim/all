@@ -5,7 +5,6 @@ plugins {
     id 'com.google.gms.google-services'
 //    id 'com.google.firebase.firebase-perf'
     id 'com.google.firebase.crashlytics'
-
 //    id 'dagger.hilt.android.plugin'
 }
 
@@ -14,14 +13,6 @@ properties.load(project.rootProject.file('local.properties').newDataInputStream(
 def ad_api = properties.getProperty('ad')
 
 android {
-    signingConfigs {
-        debug {
-            storeFile file('C:\\Users\\h0033\\Desktop\\keystore.jks')
-            storePassword 'kimjaehyun08!'
-            keyAlias 'nanda'
-            keyPassword 'kimjaehyun08!'
-        }
-    }
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
@@ -36,7 +27,7 @@ android {
         buildConfigField "String", "API_KEY2", properties['ad_unit2']
 //        manifestPlaceholders = [ad: ad_api, geo:geo_api]
         manifestPlaceholders = [ad: ad_api]
-        signingConfig signingConfigs.debug
+
 //        manifestPlaceholders = [geo: geo_api]
     }
 
@@ -46,7 +37,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
-        debug{
+        debug {
             splits.abi.enable = true
             splits.density.enable = true
             aaptOptions.cruncherEnabled = true
@@ -102,9 +93,9 @@ dependencies {
 
     implementation "org.koin:koin-android:2.1.5"
 
-    implementation  "io.reactivex.rxjava2:rxandroid:2.1.1"
-    implementation  "io.reactivex.rxjava2:rxjava:2.2.20"
-    implementation  "io.reactivex.rxjava2:rxkotlin:2.4.0"
+    implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
+    implementation "io.reactivex.rxjava2:rxjava:2.2.20"
+    implementation "io.reactivex.rxjava2:rxkotlin:2.4.0"
 
 //    testImplementation 'junit:junit:4.13.1'
 //    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
@@ -112,6 +103,8 @@ dependencies {
 
     implementation "com.github.bumptech.glide:glide:4.11.0"
     kapt "com.github.bumptech.glide:compiler:4.11.0"
+
+    implementation 'com.squareup:otto:1.3.7'
 }
 
 

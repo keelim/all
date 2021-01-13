@@ -20,7 +20,6 @@ class SettingFragment : PreferenceFragmentCompat() {
         readyReview()
     }
 
-
     override fun onPreferenceTreeClick(preference: androidx.preference.Preference?): Boolean {
         when (preference!!.key) {
             "blog" -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse((getString(R.string.blog_url)))))
@@ -32,7 +31,7 @@ class SettingFragment : PreferenceFragmentCompat() {
             "opensource" -> startActivity(Intent(context, OpenSourceActivity::class.java))
 
             "update" -> Intent(Intent.ACTION_VIEW).apply {
-                data = Uri.parse("https://play.google.com/store/apps/details?id=com.keelim.nandadiagnosis")
+                data = Uri.parse(getString(R.string.urinanda))
                 startActivity(this)
             }
 
@@ -58,5 +57,4 @@ class SettingFragment : PreferenceFragmentCompat() {
             }
         }
     }
-
 }

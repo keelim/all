@@ -56,4 +56,5 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
         fragmentCategoryBinding = null
         super.onDestroyView()
     }
+
 }

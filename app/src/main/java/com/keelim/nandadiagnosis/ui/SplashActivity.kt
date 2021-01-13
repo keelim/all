@@ -1,15 +1,12 @@
 package com.keelim.nandadiagnosis.ui
 
 import android.Manifest
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.provider.Settings
 import android.util.Log
 import android.widget.Toast
@@ -27,6 +24,10 @@ import com.keelim.nandadiagnosis.BuildConfig
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.ActivitySplashBinding
 import com.keelim.nandadiagnosis.ui.main.MainActivity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.util.*
 
 
@@ -59,7 +60,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(binding.root)
         addShortcut()
 
-        if (hasPermissions(this, permissions)) { //권한이 있는 경우
+        if (hasPermissions(permissions)) { //권한이 있는 경우
             goNext()
         } else {
             ActivityCompat.requestPermissions(this, permissions, MULTIPLE_PERMISSIONS)
@@ -85,9 +86,9 @@ class SplashActivity : AppCompatActivity() {
         }
     }
 
-    private fun hasPermissions(context: Context, permissions: Array<String>): Boolean {
+    private fun hasPermissions( permissions: Array<String>): Boolean {
         permissions.forEach { permission ->
-            if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED)
+            if (ActivityCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED)
                 return false
         }
         return true
@@ -138,10 +139,11 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun goNext(){
-        Handler(Looper.getMainLooper()).postDelayed({
+        CoroutineScope(Dispatchers.IO).launch{
+            delay(1000)
             startActivity(Intent(this@SplashActivity, MainActivity::class.java))
             finish() //앱을 종료한다.
-        }, 300)
+        }
     }
 
     override fun onBackPressed() {}

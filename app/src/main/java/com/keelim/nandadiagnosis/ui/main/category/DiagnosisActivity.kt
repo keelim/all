@@ -4,23 +4,22 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.keelim.nandadiagnosis.R
+import com.keelim.nandadiagnosis.data.db.AppDatabase
+import com.keelim.nandadiagnosis.data.db.NandaEntity
 import com.keelim.nandadiagnosis.databinding.ActivityDiagnosisBinding
-import com.keelim.nandadiagnosis.databinding.ActivityDiagnosisRecyclerBinding
+import com.keelim.nandadiagnosis.model.DiagnosisItem
 import com.keelim.nandadiagnosis.ui.WebActivity
 import java.util.*
 
 
 class DiagnosisActivity : AppCompatActivity() {
-    private var arrayList: ArrayList<MyDiagnosisViewAdapter.DiagnosisItem>? = ArrayList()
-    private var arrayList2: ArrayList<DiagnosisRecyclerViewAdapter.DiagnosisItem>? = ArrayList()
+    private var arrayList: ArrayList<DiagnosisItem>? = ArrayList()
     private var nav = 0
     private lateinit var binding: ActivityDiagnosisBinding
-    private lateinit var tempBinding: ActivityDiagnosisRecyclerBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDiagnosisBinding.inflate(layoutInflater)
-//        tempBinding = ActivityDiagnosisRecyclerBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
         arrayListSetting()
@@ -30,7 +29,8 @@ class DiagnosisActivity : AppCompatActivity() {
             goWeb(nav + i + 1)
         }
 
-//        tempBinding.recyclerView.adapter = DiagnosisRecyclerViewAdapter(arrayList2!!.toList(), nav)
+        ////////////////////////////////////////
+        val number = intent.getStringExtra("extra")
 
     }
 
@@ -101,8 +101,12 @@ class DiagnosisActivity : AppCompatActivity() {
 
     private fun customAdd(startPoint: Int, finalPoint: Int, array1: Array<String>) {
         for (i in startPoint..finalPoint) {
-            arrayList!!.add(MyDiagnosisViewAdapter.DiagnosisItem(array1[i], ""))
-//            arrayList2!!.add(DiagnosisRecyclerViewAdapter.DiagnosisItem(array1[i], ""))
+            arrayList!!.add(DiagnosisItem(array1[i], ""))
         }
+    }
+
+
+    private fun getDiagnosis(number: Int): List<NandaEntity> { //데이터베이스 가져와서 검색하기
+        return AppDatabase.getInstance(this)!!.dataDao().get(number)
     }
 }

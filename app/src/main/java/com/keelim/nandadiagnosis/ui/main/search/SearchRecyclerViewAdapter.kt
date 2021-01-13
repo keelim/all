@@ -15,6 +15,12 @@ import io.reactivex.schedulers.Schedulers
 class SearchRecyclerViewAdapter(private var values: List<NandaEntity>) :
     RecyclerView.Adapter<SearchRecyclerViewAdapter.ViewHolder>() {
 
+    init {
+        setHasStableIds(true) //고유 id 를 설정
+    }
+
+    override fun getItemId(position: Int): Long = position.toLong()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             ItemListviewBinding.inflate(
@@ -71,15 +77,19 @@ class SearchRecyclerViewAdapter(private var values: List<NandaEntity>) :
             }
 
             binding.root.setOnLongClickListener {
+
                 listener?.onSearchItemLongClick(adapterPosition)
                 return@setOnLongClickListener true
             }
+        }
+
+        fun bind(isActivated: Boolean = false) {
+            itemView.isActivated = isActivated
         }
 
         override fun toString(): String {
             return super.toString() + " '" + desView.text + "'"
         }
     }
-
-
 }
+

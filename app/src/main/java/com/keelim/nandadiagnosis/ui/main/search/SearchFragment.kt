@@ -3,6 +3,7 @@ package com.keelim.nandadiagnosis.ui.main.search
 
 import android.app.SearchManager
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.Menu
@@ -24,7 +25,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) { //frag
     private var fragmentSearchBinding: FragmentSearchBinding? = null
     private var saveList: List<NandaEntity>? = null
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
@@ -32,18 +32,19 @@ class SearchFragment : Fragment(R.layout.fragment_search) { //frag
         val binding = FragmentSearchBinding.bind(view)
         fragmentSearchBinding = binding
 
-        binding.list.apply {
+        binding.recyclerView.apply {
             setHasFixedSize(true)
             addItemDecoration(RecyclerViewDecoration(0, 10))
+            adapter = SearchRecyclerViewAdapter(listOf())
         }
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.search_menu, menu)
         val item = menu.findItem(R.id.menu_search)
 
-        val searchManager = requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val searchManager =
+            requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
         val searchView = item.actionView as SearchView
 
         Observable.create<CharSequence> { emitter ->
@@ -55,14 +56,26 @@ class SearchFragment : Fragment(R.layout.fragment_search) { //frag
                     override fun onQueryTextSubmit(query: String): Boolean {
                         val items = searchDiagnosis(query) //검색을 한다.
                         saveList = items
-                        fragmentSearchBinding!!.list.adapter =
+                        fragmentSearchBinding!!.recyclerView.adapter =
                             SearchRecyclerViewAdapter(items).apply {
-                                notifyDataSetChanged()
-                                listener = object : SearchRecyclerViewAdapter.OnSearchItemClickListener {
+                                listener =
+                                    object : SearchRecyclerViewAdapter.OnSearchItemClickListener {
                                         override fun onSearchItemClick(position: Int) {}
-                                        override fun onSearchItemLongClick(position: Int) {}
+                                        override fun onSearchItemLongClick(position: Int) {
+                                            val s = items[position].run {
+                                                "$nanda_id \n $reason \n $diagnosis \n $class_name \n $domain_name \n $category"
+                                            }
+
+                                            val chooser = Intent.createChooser(Intent(Intent.ACTION_SEND).apply {
+                                                    type = "text/plain"
+                                                    putExtra(Intent.EXTRA_TEXT, s)
+                                                }, "내용 공유하기")
+                                            requireActivity().startActivity(chooser)
+                                        }
                                     }
+                                notifyDataSetChanged()
                             }
+
                         return true
                     }
 
@@ -89,7 +102,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) { //frag
         super.onDestroyView()
     }
 
-    private fun searchDiagnosis(keyword: String): List<NandaEntity> { //여기까지는 이상이 없는 것 같다.
+    private fun searchDiagnosis(keyword: String): List<NandaEntity> { //데이터베이스 가져와서 검색하기
         return AppDatabase.getInstance(requireActivity())!!.dataDao().search(keyword)
     }
+
 }

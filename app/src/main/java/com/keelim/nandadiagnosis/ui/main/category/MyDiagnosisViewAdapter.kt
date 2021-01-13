@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import com.keelim.nandadiagnosis.databinding.ItemListviewBinding
+import com.keelim.nandadiagnosis.model.DiagnosisItem
 import java.util.*
 
 class MyDiagnosisViewAdapter(private val diagnosisItems: ArrayList<DiagnosisItem>?) : BaseAdapter() {
@@ -29,5 +30,6 @@ class MyDiagnosisViewAdapter(private val diagnosisItems: ArrayList<DiagnosisItem
         return binding.root
     }
 
-    data class DiagnosisItem(var diagnosis: String, var diagnosis_description: String)
+
 }
+

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">난다진단</string>
-    <string name="title_search">SEARCH</string>
     <string name="title_category">CATEGORY</string>
+    <string name="title_search">SEARCH</string>
     <string name="title_my">SETTING</string>
     <string name="real_ad">ca-app-pub-3115620439518585/7104801924</string>
 
@@ -460,6 +460,7 @@
     <string name="login_failed">"Login failed"</string>
     <string name="title_nandadiagnosis">db</string>
     <string name="my_notification_channel_id">987654321</string>
+    <string name="urinanda">https://play.google.com/store/apps/details?id=com.keelim.nandadiagnosis</string>
 
 
 </resources>

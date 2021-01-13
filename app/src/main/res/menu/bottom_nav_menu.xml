@@ -8,12 +8,12 @@
 
     <item
         android:id="@+id/navigation_search"
-        android:icon="@android:drawable/ic_search_category_default"
+        android:icon="@drawable/ic_baseline_search_24"
         android:title="@string/title_search" />
 
     <item
         android:id="@+id/navigation_setting"
-        android:icon="@android:drawable/ic_menu_set_as"
+        android:icon="@drawable/ic_baseline_settings_24"
         android:title="@string/title_my" />
 
 </menu>

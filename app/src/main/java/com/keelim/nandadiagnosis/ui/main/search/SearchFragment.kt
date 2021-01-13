@@ -37,9 +37,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) { //frag
             addItemDecoration(RecyclerViewDecoration(0, 10))
             adapter = SearchRecyclerViewAdapter(listOf())
         }
-
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.search_menu, menu)

@@ -7,6 +7,8 @@ import android.widget.Toast
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.google.android.play.core.review.ReviewManagerFactory
+import com.keelim.bus.BusEvent
+import com.keelim.bus.BusProvider
 import com.keelim.cnubus.R
 import com.keelim.cnubus.ui.OpenSourceActivity
 import com.keelim.cnubus.ui.content.ContentActivity
@@ -38,7 +40,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 }
             }
 
-            "dark" -> Toast.makeText(requireActivity(), "업데이트 준비 중 입니다", Toast.LENGTH_SHORT).show()
+            "dark" -> {
+                Toast.makeText(requireActivity(), "업데이트 준비 중 입니다", Toast.LENGTH_SHORT).show()
+                //todo 해야 할 일
+                BusProvider.getInstance().post(BusEvent(true))
+            }
         }
         return super.onPreferenceTreeClick(preference)
     }

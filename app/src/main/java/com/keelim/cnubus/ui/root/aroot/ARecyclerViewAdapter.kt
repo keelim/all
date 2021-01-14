@@ -21,6 +21,7 @@ class ARecyclerViewAdapter(private val values: Array<String>) : RecyclerView.Ada
 
     interface OnRootClickListener {
         fun onRootClickListener(position: Int)
+        fun onRootLongClickListener(position: Int)
     }
 
     var listener: OnRootClickListener? = null
@@ -31,6 +32,12 @@ class ARecyclerViewAdapter(private val values: Array<String>) : RecyclerView.Ada
         init {
             binding.root.setOnClickListener {
                 listener?.onRootClickListener(adapterPosition)
+            }
+
+            binding.root.setOnLongClickListener {
+
+                listener?.onRootLongClickListener(adapterPosition)
+                return@setOnLongClickListener true
             }
         }
     }

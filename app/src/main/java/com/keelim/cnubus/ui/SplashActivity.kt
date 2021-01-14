@@ -7,8 +7,6 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.provider.Settings
 import android.util.Log
 import android.widget.Toast
@@ -22,11 +20,13 @@ import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import com.google.android.material.snackbar.Snackbar
-import com.gun0912.tedpermission.PermissionListener
-import com.gun0912.tedpermission.TedPermission
 import com.keelim.cnubus.BuildConfig
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.ActivitySplashBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.util.*
 
 
@@ -127,10 +127,11 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun goNext(){
-        Handler(Looper.getMainLooper()).postDelayed({
+        CoroutineScope(Dispatchers.IO).launch{
+            delay(1000)
             startActivity(Intent(this@SplashActivity, MainActivity::class.java))
             finish() //앱을 종료한다.
-        }, 300)
+        }
     }
 
     override fun onBackPressed() {}

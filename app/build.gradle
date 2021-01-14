@@ -65,6 +65,7 @@ dependencies {
     implementation project(':data:db')
     implementation project(':feature:error')
     implementation project(":feature:kakao_search")
+    implementation project(":feature:bus")
 
     implementation "androidx.core:core-ktx:1.5.0-alpha05"
     implementation "androidx.recyclerview:recyclerview:1.2.0-beta01"

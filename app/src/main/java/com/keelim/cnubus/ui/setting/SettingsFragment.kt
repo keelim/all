@@ -1,22 +1,38 @@
 package com.keelim.cnubus.ui.setting
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
+import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.SwitchPreference
 import com.google.android.play.core.review.ReviewManagerFactory
-import com.keelim.bus.BusEvent
-import com.keelim.bus.BusProvider
 import com.keelim.cnubus.R
 import com.keelim.cnubus.ui.OpenSourceActivity
 import com.keelim.cnubus.ui.content.ContentActivity
+import com.keelim.cnubus.utils.ThemeHelper
+
 
 class SettingsFragment : PreferenceFragmentCompat() {
+
+    private lateinit var darkPerf: SwitchPreference
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var editor: SharedPreferences.Editor
+    private var s: Boolean = false
+
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.settings_preferences)
         readyReview()
+
+        val themePreference: ListPreference = findPreference("dark")!!
+        themePreference.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { preference, newValue ->
+            val themeOption = newValue as String
+            ThemeHelper.applyTheme(themeOption)
+            true
+        }
     }
 
     override fun onPreferenceTreeClick(preference: Preference): Boolean { //preference 클릭 리스너
@@ -38,12 +54,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     data = Uri.parse(getString(R.string.updateLink))
                     startActivity(this)
                 }
-            }
-
-            "dark" -> {
-                Toast.makeText(requireActivity(), "업데이트 준비 중 입니다", Toast.LENGTH_SHORT).show()
-                //todo 해야 할 일
-                BusProvider.getInstance().post(BusEvent(true))
             }
         }
         return super.onPreferenceTreeClick(preference)

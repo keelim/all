@@ -13,14 +13,6 @@ properties.load(project.rootProject.file('local.properties').newDataInputStream(
 def ad_api = properties.getProperty('ad')
 
 android {
-    signingConfigs {
-        release {
-            storeFile file('C:\\Users\\h0033\\Desktop\\keystore.jks')
-            storePassword 'kimjaehyun08!'
-            keyAlias 'cnubus'
-            keyPassword 'kimjaehyun08!'
-        }
-    }
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 

@@ -6,8 +6,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.keelim.bus.BusEvent
-import com.keelim.bus.BusProvider
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.FragmentARootBinding
 import com.keelim.cnubus.feature.map.MapsActivity
@@ -36,7 +34,6 @@ class ARootFragment : Fragment(R.layout.fragment_a_root) {
                 }
 
                 override fun onRootLongClickListener(position: Int) {
-                    BusProvider.getInstance().post(BusEvent(true))
                 }
             }
         }

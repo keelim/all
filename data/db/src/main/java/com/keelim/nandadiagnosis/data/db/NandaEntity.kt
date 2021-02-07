@@ -18,4 +18,8 @@ data class NandaEntity(
 
         val category:Int
 
-)
+) {
+        override fun toString(): String {
+                return "$nanda_id \n $reason \n $diagnosis \n $class_name \n $domain_name \n $category"
+        }
+}

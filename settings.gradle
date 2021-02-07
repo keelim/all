@@ -4,7 +4,7 @@ include(
         ":data:db",
         ":feature:error",
         ":feature:kakao_search",
-        ":feature:bus"
+        //":feature:bus"
 )
 
 

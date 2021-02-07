@@ -3,15 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="@color/main_bg_color"
     app:cardCornerRadius="20dp"
     app:cardElevation="5dp"
-    app:cardUseCompatPadding="true"
-    app:contentPadding="10dp">
+    app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="@drawable/item_background"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_backgroud"
+        android:paddingStart="10dp">
 
         <TextView
             android:id="@+id/diagnosis_item"

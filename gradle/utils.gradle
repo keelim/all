@@ -1,3 +1,0 @@
-Plugin.metaClass.isAndroidApp = {-> delegate.class.getCanonicalName() == "com.android.build.gradle.AppPlugin" }
-Plugin.metaClass.isDynamicFeature = {-> delegate.class.getCanonicalName() == "com.android.build.gradle.DynamicFeaturePlugin" }
-Plugin.metaClass.isAndroidLibrary = {-> delegate.class.getCanonicalName() == "com.android.build.gradle.LibraryPlugin" }

@@ -21,12 +21,7 @@ class SampleActivity : Activity() {
 
         val disposable: Disposable = RxEventBus.getInstance()
                 .events
-                .subscribe({ t -> Toast.makeText(this@SampleActivity, t, Toast.LENGTH_SHORT).show() }, object : Consumer<Throwable> {
-                    override fun accept(t: Throwable?) {
-                        Toast.makeText(this@SampleActivity, "error", Toast.LENGTH_SHORT).show()
-                    }
-
-                })
+                .subscribe({ t -> Toast.makeText(this@SampleActivity, t, Toast.LENGTH_SHORT).show() }) { Toast.makeText(this@SampleActivity, "error", Toast.LENGTH_SHORT).show() }
         compositeDisposable.addAll(disposable)
     }
 

@@ -175,7 +175,7 @@
                         android:layout_height="wrap_content"
                         android:text="대처/스트레스 \n내성"
                         android:textAlignment="center"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/main_text_color"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 

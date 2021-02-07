@@ -3,7 +3,7 @@ plugins {
     id 'kotlin-android'
 }
 
-apply from: rootProject.file('./gradle/android.gradle')
+apply from: rootProject.file('gradle/android.gradle')
 
 dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.2.20'

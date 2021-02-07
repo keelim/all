@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.keelim.kakao.search.kakaoSearchClient
 import com.keelim.kakao.search.model.KakaoImageResponse
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class SearchViewModel : ViewModel() {
     private val kakaoSearchClient by kakaoSearchClient("a906eb8fa9271b21411c05fd6f74588a")
@@ -20,7 +21,7 @@ class SearchViewModel : ViewModel() {
     val images: LiveData<List<KakaoImageResponse>> = _images
 
     fun search() {
-        Log.e("dino_log", "search")
+        Timber.e( "search")
         viewModelScope.launch {
             val query = query.value ?: return@launch
             val response = kakaoSearchClient.searchImage(query, page = page)
@@ -32,7 +33,7 @@ class SearchViewModel : ViewModel() {
     }
 
     fun loadMore() {
-        Log.e("dino_log", "loadMore")
+        Timber.e( "loadMore")
         viewModelScope.launch {
             val query = query.value ?: return@launch
             page++

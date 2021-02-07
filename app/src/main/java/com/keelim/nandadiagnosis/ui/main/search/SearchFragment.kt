@@ -12,10 +12,17 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.selection.Selection
+import androidx.recyclerview.selection.SelectionPredicates
+import androidx.recyclerview.selection.SelectionTracker
+import androidx.recyclerview.selection.StorageStrategy
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.data.db.AppDatabase
 import com.keelim.nandadiagnosis.data.db.NandaEntity
 import com.keelim.nandadiagnosis.databinding.FragmentSearchBinding
+import com.keelim.nandadiagnosis.ui.main.search.selection.MyItemDetailsLookup
+import com.keelim.nandadiagnosis.ui.main.search.selection.MyItemKeyProvider
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import java.util.concurrent.TimeUnit
@@ -23,7 +30,8 @@ import java.util.concurrent.TimeUnit
 
 class SearchFragment : Fragment(R.layout.fragment_search) { //frag
     private var fragmentSearchBinding: FragmentSearchBinding? = null
-    private var saveList: List<NandaEntity>? = null
+    private var trackers: SelectionTracker<Long>? = null
+    val viewModel: TempViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -32,10 +40,28 @@ class SearchFragment : Fragment(R.layout.fragment_search) { //frag
         val binding = FragmentSearchBinding.bind(view)
         fragmentSearchBinding = binding
 
+//        binding.viewModel = SearchViewModel()
+
+
         binding.recyclerView.apply {
             setHasFixedSize(true)
             addItemDecoration(RecyclerViewDecoration(0, 10))
-            adapter = SearchRecyclerViewAdapter(listOf())
+            adapter = SearchRecyclerViewAdapter().apply {
+                setNandaItem(listOf())
+                listener = object : SearchRecyclerViewAdapter.OnSearchItemClickListener {
+                    override fun onSearchItemClick(position: Int) {
+
+                    }
+                    override fun onSearchItemLongClick(position: Int) {
+
+                    }
+                }
+            }
+        }
+        initTracker()
+
+        binding.floating.setOnClickListener {
+            multiSelection(trackers?.selection!!)
         }
     }
 
@@ -43,39 +69,21 @@ class SearchFragment : Fragment(R.layout.fragment_search) { //frag
         inflater.inflate(R.menu.search_menu, menu)
         val item = menu.findItem(R.id.menu_search)
 
-        val searchManager =
-            requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val searchManager = requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
         val searchView = item.actionView as SearchView
 
         Observable.create<CharSequence> { emitter ->
             searchView.apply {
                 setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
                 isSubmitButtonEnabled = true
-                //검색을 할 수 있게 하는 것
+
                 setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                     override fun onQueryTextSubmit(query: String): Boolean {
                         val items = searchDiagnosis(query) //검색을 한다.
-                        saveList = items
-                        fragmentSearchBinding!!.recyclerView.adapter =
-                            SearchRecyclerViewAdapter(items).apply {
-                                listener =
-                                    object : SearchRecyclerViewAdapter.OnSearchItemClickListener {
-                                        override fun onSearchItemClick(position: Int) {}
-                                        override fun onSearchItemLongClick(position: Int) {
-                                            val s = items[position].run {
-                                                "$nanda_id \n $reason \n $diagnosis \n $class_name \n $domain_name \n $category"
-                                            }
-
-                                            val chooser = Intent.createChooser(Intent(Intent.ACTION_SEND).apply {
-                                                    type = "text/plain"
-                                                    putExtra(Intent.EXTRA_TEXT, s)
-                                                }, "내용 공유하기")
-                                            requireActivity().startActivity(chooser)
-                                        }
-                                    }
-                                notifyDataSetChanged()
-                            }
-
+                        (fragmentSearchBinding!!.recyclerView.adapter as SearchRecyclerViewAdapter).apply {
+                            setNandaItem(items)
+                            notifyDataSetChanged()
+                        }
                         return true
                     }
 
@@ -86,12 +94,12 @@ class SearchFragment : Fragment(R.layout.fragment_search) { //frag
                 })
             }
         }.apply {
-            debounce(3000L, TimeUnit.MILLISECONDS)
-                .filter { !TextUtils.isEmpty(it) }
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    Toast.makeText(requireActivity(), "searching => $it", Toast.LENGTH_SHORT).show()
-                }
+            debounce(1000L, TimeUnit.MILLISECONDS)
+                    .filter { !TextUtils.isEmpty(it) }
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe {
+                        Toast.makeText(requireActivity(), "searching => $it", Toast.LENGTH_SHORT).show()
+                    }
         }
 
         super.onCreateOptionsMenu(menu, inflater)
@@ -106,4 +114,33 @@ class SearchFragment : Fragment(R.layout.fragment_search) { //frag
         return AppDatabase.getInstance(requireActivity())!!.dataDao().search(keyword)
     }
 
+    private fun initTracker() {
+        trackers = SelectionTracker.Builder(
+                "mySelection",
+                fragmentSearchBinding!!.recyclerView,
+                MyItemKeyProvider(fragmentSearchBinding!!.recyclerView),
+                MyItemDetailsLookup(fragmentSearchBinding!!.recyclerView),
+                StorageStrategy.createLongStorage()
+        ).withSelectionPredicate(SelectionPredicates.createSelectAnything())
+                .build()
+        (fragmentSearchBinding!!.recyclerView.adapter as (SearchRecyclerViewAdapter)).apply {
+            tracker = trackers
+        }
+    }
+
+    private fun multiSelection(selection: Selection<Long>) {
+        var s = ""
+        val list = selection.map { (fragmentSearchBinding!!.recyclerView.adapter as SearchRecyclerViewAdapter).getItem(it.toInt()) }
+        list.forEach { s += it.toString() + "\n" }
+
+        shareInformation(s)
+    }
+
+    private fun shareInformation(s: String) {
+        val chooser = Intent.createChooser(Intent(Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(Intent.EXTRA_TEXT, s)
+        }, "내용 공유하기")
+        requireActivity().startActivity(chooser)
+    }
 }

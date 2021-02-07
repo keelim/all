@@ -4,7 +4,6 @@ package com.keelim.nandadiagnosis.utils;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Lifecycle;
@@ -22,11 +21,12 @@ import com.keelim.nandadiagnosis.MyApplication;
 
 import java.util.Date;
 
+import timber.log.Timber;
+
 /**
  * Prefetches App Open Ads.
  */
 public class AppOpenManager implements LifecycleObserver, Application.ActivityLifecycleCallbacks {
-    private static final String LOG_TAG = "AppOpenManager";
     private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/3419835294";
     private static boolean isShowingAd = false;
     private AppOpenAd appOpenAd = null;
@@ -50,7 +50,7 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     public void onStart() {
         showAdIfAvailable();
-        Log.d(LOG_TAG, "onStart");
+        Timber.d("onStart");
     }
 
     /**
@@ -86,8 +86,6 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
 
                 };
         AdRequest request = getAdRequest();
-//        AppOpenAd.load(myApplication, myApplication.getString(R.string.ad_unit1), request, AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT, loadCallback);
-//        AppOpenAd.load(myApplication, AD_UNIT_ID, request, AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT, loadCallback); //test unit ID
 
         if (BuildConfig.DEBUG)
             AppOpenAd.load(myApplication, AD_UNIT_ID, request, AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT, loadCallback); //test unit ID
@@ -107,7 +105,7 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
      * Utility method that checks if ad exists and can be shown.
      */
     public boolean isAdAvailable() {
-        return appOpenAd != null && wasLoadTimeLessThanNHoursAgo(4);
+        return appOpenAd != null && wasLoadTimeLessThanNHoursAgo();
     }
 
     @Override
@@ -143,7 +141,7 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
 
     public void showAdIfAvailable() {
         if (!isShowingAd && isAdAvailable()) {
-            Log.d(LOG_TAG, "will show ad");
+            Timber.d( "will show ad");
 
             FullScreenContentCallback fullScreenContentCallback = new FullScreenContentCallback() {
                 @Override
@@ -165,7 +163,7 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
 
             appOpenAd.show(currentActivity, fullScreenContentCallback);
         } else {
-            Log.d(LOG_TAG, "Can not show ad. ");
+            Timber.d("Can not show ad. ");
             fetchAd();
         }
     }
@@ -173,10 +171,10 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
     /**
      * Utility method to check if ad was loaded more than n hours ago.
      */
-    private boolean wasLoadTimeLessThanNHoursAgo(long numHours) {
+    private boolean wasLoadTimeLessThanNHoursAgo() {
         long dateDifference = (new Date()).getTime() - this.loadTime;
         long numMilliSecondsPerHour = 3600000;
-        return (dateDifference < (numMilliSecondsPerHour * numHours));
+        return (dateDifference < (numMilliSecondsPerHour * (long) 4));
     }
 
 }

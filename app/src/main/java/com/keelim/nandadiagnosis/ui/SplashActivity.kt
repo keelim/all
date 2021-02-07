@@ -19,6 +19,7 @@ import androidx.core.graphics.drawable.IconCompat
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
+import com.google.android.gms.ads.LoadAdError
 import com.google.android.material.snackbar.Snackbar
 import com.keelim.nandadiagnosis.BuildConfig
 import com.keelim.nandadiagnosis.R
@@ -106,15 +107,23 @@ class SplashActivity : AppCompatActivity() {
                     interstitialAd = InterstitialAd(this@SplashActivity)
                     interstitialAd.adUnitId = if (BuildConfig.DEBUG) test else "ca-app-pub-3115620439518585/6097818530"
                     interstitialAd.adListener = object : AdListener() {
-                        override fun onAdLoaded() { interstitialAd.show() }
-
-                        override fun onAdClosed() {}
-
-                        override fun onAdFailedToLoad(errorCode: Int) {
-                            Toast.makeText(this@SplashActivity, "ad load fail $errorCode", Toast.LENGTH_SHORT).show()
-                            Log.e("Error code", "admob $errorCode")
+                        override fun onAdLoaded() {
+                            super.onAdLoaded()
+                            interstitialAd.show()
                         }
-                    } //전면광고 셋팅
+
+                        override fun onAdFailedToLoad(loadAdError: LoadAdError) {
+                            val error = "domain: ${loadAdError.domain}, code: ${loadAdError.code}, " + "message: ${loadAdError.message}"
+                            Toast.makeText(this@SplashActivity, "onAdFailedToLoad() with error $error", Toast.LENGTH_SHORT).show()
+                            goNext()
+                        }
+
+                        override fun onAdClosed() {
+                            super.onAdClosed()
+                            goNext()
+                        }
+                    }
+ //전면광고 셋팅
                     interstitialAd.loadAd(AdRequest.Builder().build())
 
                     goNext()

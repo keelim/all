@@ -2,6 +2,7 @@ package com.keelim.nandadiagnosis.ui.main.category
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.data.db.AppDatabase
@@ -20,18 +21,23 @@ class DiagnosisActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDiagnosisBinding.inflate(layoutInflater)
-
         setContentView(binding.root)
         arrayListSetting()
 
-        binding.list.adapter = MyDiagnosisViewAdapter(arrayList)
-        binding.list.setOnItemClickListener { _, _, i, _ ->
-            goWeb(nav + i + 1)
+//        binding.list.adapter = MyDiagnosisViewAdapter(arrayList)
+//        binding.list.setOnItemClickListener { _, _, i, _ ->
+//            goWeb(nav + i + 1)
+//        }
+
+        binding.list.adapter = DiagnosisRecyclerViewAdapter().apply {
+            setDiagnosisItem(arrayList!!.toMutableList())
+            listener = object: DiagnosisRecyclerViewAdapter.OnSearchItemClickListener{
+                override fun onSearchItemClick(position: Int) {
+                    goWeb(nav + position + 1)
+                }
+
+            }
         }
-
-        ////////////////////////////////////////
-        val number = intent.getStringExtra("extra")
-
     }
 
     private fun goWeb(total: Int) {

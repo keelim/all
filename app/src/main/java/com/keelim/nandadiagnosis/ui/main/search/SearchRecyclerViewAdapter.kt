@@ -3,6 +3,8 @@ package com.keelim.nandadiagnosis.ui.main.search
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.selection.ItemDetailsLookup
+import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.keelim.nandadiagnosis.data.db.NandaEntity
@@ -12,8 +14,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 
-class SearchRecyclerViewAdapter(private var values: List<NandaEntity>) :
-    RecyclerView.Adapter<SearchRecyclerViewAdapter.ViewHolder>() {
+class SearchRecyclerViewAdapter() : RecyclerView.Adapter<SearchRecyclerViewAdapter.ViewHolder>() {
+    var list: List<NandaEntity> = listOf()
+    var tracker: SelectionTracker<Long>? = null
 
     init {
         setHasStableIds(true) //고유 id 를 설정
@@ -22,39 +25,27 @@ class SearchRecyclerViewAdapter(private var values: List<NandaEntity>) :
     override fun getItemId(position: Int): Long = position.toLong()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
-            ItemListviewBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            ), listener
-        )
+        return ViewHolder(ItemListviewBinding.inflate(LayoutInflater.from(parent.context), parent, false), listener)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = values[position]
+        val item = list[position]
         holder.itemTextView.text = item.diagnosis
         holder.desView.text = item.reason
         holder.classView.text = item.class_name
         holder.domainView.text = item.domain_name
+
+        tracker?.let {
+            holder.bind(item, it.isSelected(position.toLong()))
+        }
     }
 
-    override fun getItemCount(): Int = values.size
+    override fun getItemCount(): Int = list.size
 
-    fun getItem(postion: Int): NandaEntity = values[postion]
+    fun getItem(postion: Int): NandaEntity = list[postion]
 
     fun setNandaItem(items: List<NandaEntity>) {
-        val disposable = Observable.just(items)
-            .subscribeOn(AndroidSchedulers.mainThread())
-            .observeOn(Schedulers.io())
-            .map { DiffUtil.calculateDiff(ListDiffCallback(this.values, items)) }
-            .subscribe({
-                this.values = items
-                it.dispatchUpdatesTo(this)
-            }, {
-
-            })
-        disposable.dispose()
+        list = items
     }
 
     interface OnSearchItemClickListener {
@@ -65,7 +56,7 @@ class SearchRecyclerViewAdapter(private var values: List<NandaEntity>) :
     var listener: OnSearchItemClickListener? = null
 
     inner class ViewHolder(binding: ItemListviewBinding, listener: OnSearchItemClickListener?) :
-        RecyclerView.ViewHolder(binding.root) {
+            RecyclerView.ViewHolder(binding.root) {
         val itemTextView: TextView = binding.diagnosisItem
         val desView: TextView = binding.diagnosisDes
         val classView = binding.className
@@ -77,19 +68,24 @@ class SearchRecyclerViewAdapter(private var values: List<NandaEntity>) :
             }
 
             binding.root.setOnLongClickListener {
-
                 listener?.onSearchItemLongClick(adapterPosition)
                 return@setOnLongClickListener true
             }
         }
 
-        fun bind(isActivated: Boolean = false) {
+        fun bind(item: NandaEntity, isActivated: Boolean = false) {
             itemView.isActivated = isActivated
         }
 
         override fun toString(): String {
             return super.toString() + " '" + desView.text + "'"
         }
+
+        fun getItemDetails(): ItemDetailsLookup.ItemDetails<Long> =
+                object : ItemDetailsLookup.ItemDetails<Long>() {
+                    override fun getPosition(): Int = adapterPosition
+                    override fun getSelectionKey(): Long? = itemId
+                }
     }
 }
 

@@ -461,6 +461,7 @@
     <string name="title_nandadiagnosis">db</string>
     <string name="my_notification_channel_id">987654321</string>
     <string name="urinanda">https://play.google.com/store/apps/details?id=com.keelim.nandadiagnosis</string>
+    <string name="share_the_multiple_selection">share the multiple selection</string>
 
 
 </resources>

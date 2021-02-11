@@ -7,8 +7,6 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.provider.Settings
 import android.util.Log
 import android.widget.Toast
@@ -21,12 +19,15 @@ import androidx.core.graphics.drawable.IconCompat
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
+import com.google.android.gms.ads.LoadAdError
 import com.google.android.material.snackbar.Snackbar
-import com.gun0912.tedpermission.PermissionListener
-import com.gun0912.tedpermission.TedPermission
 import com.keelim.cnubus.BuildConfig
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.ActivitySplashBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.util.*
 
 
@@ -94,15 +95,28 @@ class SplashActivity : AppCompatActivity() {
                     interstitialAd = InterstitialAd(this@SplashActivity)
                     interstitialAd.adUnitId = if (BuildConfig.DEBUG) test else BuildConfig.API_KEY2
                     interstitialAd.adListener = object : AdListener() {
-                        override fun onAdLoaded() { interstitialAd.show() }
-
-                        override fun onAdClosed() {}
-
-                        override fun onAdFailedToLoad(errorCode: Int) {
-                            Toast.makeText(this@SplashActivity, "ad load fail $errorCode", Toast.LENGTH_SHORT).show()
-                            Log.e("Error code", "admob $errorCode")
+                        override fun onAdLoaded() {
+                            super.onAdLoaded()
+                            interstitialAd.show()
                         }
-                    } //전면광고 셋팅
+
+                        override fun onAdFailedToLoad(loadAdError: LoadAdError) {
+                            val error =
+                                    "domain: ${loadAdError.domain}, code: ${loadAdError.code}, " + "message: ${loadAdError.message}"
+                            Toast.makeText(
+                                    this@SplashActivity,
+                                    "onAdFailedToLoad() with error $error",
+                                    Toast.LENGTH_SHORT
+                            ).show()
+                            goNext()
+                        }
+
+                        override fun onAdClosed() {
+                            super.onAdClosed()
+                            goNext()
+                        }
+                    }
+
                     interstitialAd.loadAd(AdRequest.Builder().build())
 
                     goNext()
@@ -127,10 +141,11 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun goNext(){
-        Handler(Looper.getMainLooper()).postDelayed({
+        CoroutineScope(Dispatchers.IO).launch{
+            delay(1000)
             startActivity(Intent(this@SplashActivity, MainActivity::class.java))
             finish() //앱을 종료한다.
-        }, 300)
+        }
     }
 
     override fun onBackPressed() {}

@@ -18,16 +18,11 @@ import com.keelim.cnubus.utils.ThemeHelper
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
-    private lateinit var darkPerf: SwitchPreference
-    private lateinit var sharedPreferences: SharedPreferences
-    private lateinit var editor: SharedPreferences.Editor
-    private var s: Boolean = false
-
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.settings_preferences)
         readyReview()
 
-        val themePreference: ListPreference = findPreference("dark")!!
+        val themePreference: ListPreference = findPreference("themePref")!!
         themePreference.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { preference, newValue ->
             val themeOption = newValue as String
             ThemeHelper.applyTheme(themeOption)

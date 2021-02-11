@@ -20,7 +20,7 @@
             app:dialogTitle="Light Mode/Dark Mode"
             app:entries="@array/themeListArray"
             app:entryValues="@array/themeEntryArray"
-            app:key="dark"
+            app:key="themePref"
             app:title="테마 선택하기"
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>

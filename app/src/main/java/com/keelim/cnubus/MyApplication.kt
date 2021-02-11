@@ -2,7 +2,6 @@ package com.keelim.cnubus
 
 
 import android.app.Application
-import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
 import com.google.android.gms.ads.MobileAds
 import com.keelim.cnubus.data.api.downloadModule
@@ -13,6 +12,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
+import timber.log.Timber
 
 
 class MyApplication : Application() {
@@ -33,6 +33,10 @@ class MyApplication : Application() {
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         val themePref = sharedPreferences.getString("themePref", ThemeHelper.DEFAULT_MODE)
         ThemeHelper.applyTheme(themePref!!)
+
+        if(BuildConfig.DEBUG){
+            Timber.plant(Timber.DebugTree())
+        }
     }
 
     private fun setCrashHandler() {

@@ -6,9 +6,9 @@
     <color name="colorAccent">#80DEEA</color>
 
     <color name="error">#227F8B</color>
+    <color name="main_text_color">#E0E0E0</color>
 
     <color name="main_bg_color">#2E2E2E</color>
-    <color name="main_text_color">#E0E0E0</color>
 
     <color name="preview_edit_button_parent_bg">#333333</color>
 

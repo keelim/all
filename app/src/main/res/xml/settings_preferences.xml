@@ -1,5 +1,4 @@
-<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
     <PreferenceCategory app:title="관련 링크">
         <Preference
             app:key="content"
@@ -16,10 +15,14 @@
             app:key="update"
             app:title="업데이트" />
 
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="dark"
-            android:title="다크모드 활성화" />
+        <ListPreference
+            app:defaultValue="default"
+            app:dialogTitle="Light Mode/Dark Mode"
+            app:entries="@array/themeListArray"
+            app:entryValues="@array/themeEntryArray"
+            app:key="themePref"
+            app:title="테마 선택하기"
+            app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
 

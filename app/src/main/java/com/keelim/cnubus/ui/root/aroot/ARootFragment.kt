@@ -32,6 +32,9 @@ class ARootFragment : Fragment(R.layout.fragment_a_root) {
                         startActivity(this)
                     }
                 }
+
+                override fun onRootLongClickListener(position: Int) {
+                }
             }
         }
     }

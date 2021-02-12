@@ -20,8 +20,8 @@ android {
         applicationId "com.keelim.nandadiagnosis"
         minSdkVersion 24
         targetSdkVersion 30
-        versionCode 33
-        versionName "1.0.31"
+        versionCode 34
+        versionName "1.0.32"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 

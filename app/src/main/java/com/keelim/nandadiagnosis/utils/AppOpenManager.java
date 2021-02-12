@@ -11,13 +11,13 @@ import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 import androidx.lifecycle.ProcessLifecycleOwner;
 
-import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.appopen.AppOpenAd;
 import com.keelim.nandadiagnosis.BuildConfig;
 import com.keelim.nandadiagnosis.MyApplication;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Date;
 
@@ -58,25 +58,16 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
 
         loadCallback =
                 new AppOpenAd.AppOpenAdLoadCallback() {
-                    /**
-                     * Called when an app open ad has loaded.
-                     *
-                     * @param ad the loaded app open ad.
-                     */
+
                     @Override
-                    public void onAppOpenAdLoaded(AppOpenAd ad) {
-                        AppOpenManager.this.appOpenAd = ad;
+                    public void onAdLoaded(@NonNull @NotNull AppOpenAd appOpenAd) {
+                        super.onAdLoaded(appOpenAd);
+                        AppOpenManager.this.appOpenAd = appOpenAd;
                         AppOpenManager.this.loadTime = (new Date()).getTime();
                     }
 
-                    /**
-                     * Called when an app open ad has failed to load.
-                     *
-                     * @param loadAdError the error
-                     */
                     @Override
-                    public void onAppOpenAdFailedToLoad(LoadAdError loadAdError) {// Handle the error.
-                    }
+                    public void onAdFailedToLoad(@NonNull @NotNull LoadAdError loadAdError) { }
 
                 };
         AdRequest request = getAdRequest();
@@ -137,25 +128,25 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
         if (!isShowingAd && isAdAvailable()) {
             Timber.d( "will show ad");
 
-            FullScreenContentCallback fullScreenContentCallback = new FullScreenContentCallback() {
-                @Override
-                public void onAdDismissedFullScreenContent() {
-                    AppOpenManager.this.appOpenAd = null;
-                    isShowingAd = false;
-                    fetchAd();
-                }
+//            FullScreenContentCallback fullScreenContentCallback = new FullScreenContentCallback() {
+//                @Override
+//                public void onAdDismissedFullScreenContent() {
+//                    AppOpenManager.this.appOpenAd = null;
+//                    isShowingAd = false;
+//                    fetchAd();
+//                }
+//
+//                @Override
+//                public void onAdFailedToShowFullScreenContent(AdError adError) {
+//                }
+//
+//                @Override
+//                public void onAdShowedFullScreenContent() {
+//                    isShowingAd = true;
+//                }
+//            };
 
-                @Override
-                public void onAdFailedToShowFullScreenContent(AdError adError) {
-                }
-
-                @Override
-                public void onAdShowedFullScreenContent() {
-                    isShowingAd = true;
-                }
-            };
-
-            appOpenAd.show(currentActivity, fullScreenContentCallback);
+            appOpenAd.show(currentActivity);
         } else {
             Timber.d("Can not show ad. ");
             fetchAd();

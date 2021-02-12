@@ -36,11 +36,9 @@ class SettingFragment : PreferenceFragmentCompat() {
 
     override fun onPreferenceTreeClick(preference: Preference?): Boolean {
         when (preference!!.key) {
-            "blog" -> {
-                Intent(requireActivity(), WebActivity::class.java).apply {
-                    putExtra("URL", getString(R.string.blog_url))
-                    startActivity(this)
-                }
+            "blog" -> Intent(Intent.ACTION_VIEW).apply {
+                data = Uri.parse(getString(R.string.blog_url))
+                startActivity(this)
             }
 
             "home" -> Toast.makeText(activity, "홈페이지 재구성 중 입니다.", Toast.LENGTH_SHORT).show()

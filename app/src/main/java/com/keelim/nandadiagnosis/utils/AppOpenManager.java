@@ -53,13 +53,8 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
         Timber.d("onStart");
     }
 
-    /**
-     * Request an ad
-     */
     public void fetchAd() {
-        if (isAdAvailable()) {
-            return;
-        }
+        if (isAdAvailable()) { return; }
 
         loadCallback =
                 new AppOpenAd.AppOpenAdLoadCallback() {
@@ -80,8 +75,7 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
                      * @param loadAdError the error
                      */
                     @Override
-                    public void onAppOpenAdFailedToLoad(LoadAdError loadAdError) {
-                        // Handle the error.
+                    public void onAppOpenAdFailedToLoad(LoadAdError loadAdError) {// Handle the error.
                     }
 
                 };

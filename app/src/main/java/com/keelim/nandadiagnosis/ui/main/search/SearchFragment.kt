@@ -1,5 +1,19 @@
+/*
+ * Designed and developed by 2020 keelim (Jaehyun Kim)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.keelim.nandadiagnosis.ui.main.search
-
 
 import android.app.SearchManager
 import android.content.Context
@@ -12,7 +26,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.selection.Selection
 import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
@@ -27,11 +40,9 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import java.util.concurrent.TimeUnit
 
-
-class SearchFragment : Fragment(R.layout.fragment_search) { //frag
+class SearchFragment : Fragment(R.layout.fragment_search) { // frag
     private var fragmentSearchBinding: FragmentSearchBinding? = null
     private var trackers: SelectionTracker<Long>? = null
-    val viewModel: TempViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,7 +53,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) { //frag
 
 //        binding.viewModel = SearchViewModel()
 
-
         binding.recyclerView.apply {
             setHasFixedSize(true)
             addItemDecoration(RecyclerViewDecoration(0, 10))
@@ -50,10 +60,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) { //frag
                 setNandaItem(listOf())
                 listener = object : SearchRecyclerViewAdapter.OnSearchItemClickListener {
                     override fun onSearchItemClick(position: Int) {
-
                     }
                     override fun onSearchItemLongClick(position: Int) {
-
                     }
                 }
             }
@@ -79,7 +87,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) { //frag
 
                 setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                     override fun onQueryTextSubmit(query: String): Boolean {
-                        val items = searchDiagnosis(query) //검색을 한다.
+                        val items = searchDiagnosis(query) // 검색을 한다.
                         (fragmentSearchBinding!!.recyclerView.adapter as SearchRecyclerViewAdapter).apply {
                             setNandaItem(items)
                             notifyDataSetChanged()
@@ -95,11 +103,11 @@ class SearchFragment : Fragment(R.layout.fragment_search) { //frag
             }
         }.apply {
             debounce(1000L, TimeUnit.MILLISECONDS)
-                    .filter { !TextUtils.isEmpty(it) }
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe {
-                        Toast.makeText(requireActivity(), "searching => $it", Toast.LENGTH_SHORT).show()
-                    }
+                .filter { !TextUtils.isEmpty(it) }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    Toast.makeText(requireActivity(), "searching => $it", Toast.LENGTH_SHORT).show()
+                }
         }
 
         super.onCreateOptionsMenu(menu, inflater)
@@ -110,19 +118,19 @@ class SearchFragment : Fragment(R.layout.fragment_search) { //frag
         super.onDestroyView()
     }
 
-    private fun searchDiagnosis(keyword: String): List<NandaEntity> { //데이터베이스 가져와서 검색하기
+    private fun searchDiagnosis(keyword: String): List<NandaEntity> { // 데이터베이스 가져와서 검색하기
         return AppDatabase.getInstance(requireActivity())!!.dataDao().search(keyword)
     }
 
     private fun initTracker() {
         trackers = SelectionTracker.Builder(
-                "mySelection",
-                fragmentSearchBinding!!.recyclerView,
-                MyItemKeyProvider(fragmentSearchBinding!!.recyclerView),
-                MyItemDetailsLookup(fragmentSearchBinding!!.recyclerView),
-                StorageStrategy.createLongStorage()
+            "mySelection",
+            fragmentSearchBinding!!.recyclerView,
+            MyItemKeyProvider(fragmentSearchBinding!!.recyclerView),
+            MyItemDetailsLookup(fragmentSearchBinding!!.recyclerView),
+            StorageStrategy.createLongStorage()
         ).withSelectionPredicate(SelectionPredicates.createSelectAnything())
-                .build()
+            .build()
         (fragmentSearchBinding!!.recyclerView.adapter as (SearchRecyclerViewAdapter)).apply {
             tracker = trackers
         }
@@ -137,10 +145,13 @@ class SearchFragment : Fragment(R.layout.fragment_search) { //frag
     }
 
     private fun shareInformation(s: String) {
-        val chooser = Intent.createChooser(Intent(Intent.ACTION_SEND).apply {
-            type = "text/plain"
-            putExtra(Intent.EXTRA_TEXT, s)
-        }, "내용 공유하기")
+        val chooser = Intent.createChooser(
+            Intent(Intent.ACTION_SEND).apply {
+                type = "text/plain"
+                putExtra(Intent.EXTRA_TEXT, s)
+            },
+            "내용 공유하기"
+        )
         requireActivity().startActivity(chooser)
     }
 }

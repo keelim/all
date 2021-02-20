@@ -1,3 +1,18 @@
+/*
+ * Designed and developed by 2020 keelim (Jaehyun Kim)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.keelim.nandadiagnosis.ui
 
 import android.os.Bundle
@@ -19,7 +34,7 @@ class WebActivity : AppCompatActivity() {
 
         binding.webView.apply {
             webViewClient = WebViewClient()
-            webChromeClient = WebChromeClient() //웹뷰에 크롬 사용 허용//이 부분이 없으면 크롬에서 알림 뜨지 않음
+            webChromeClient = WebChromeClient() // 웹뷰에 크롬 사용 허용//이 부분이 없으면 크롬에서 알림 뜨지 않음
             scrollBarStyle = WebView.SCROLLBARS_OUTSIDE_OVERLAY
             isScrollbarFadingEnabled = true
             setLayerType(View.LAYER_TYPE_HARDWARE, null)
@@ -46,7 +61,7 @@ class WebActivity : AppCompatActivity() {
         return super.onKeyDown(keyCode, event)
     }
 
-    private fun urlHandling(): String? { //인텐트에서 받아오는 값을 처리한다.
+    private fun urlHandling(): String? { // 인텐트에서 받아오는 값을 처리한다.
         return intent.getStringExtra("URL")
     }
 }

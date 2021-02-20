@@ -13,21 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.ui.open
+package com.keelim.common
 
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import com.keelim.nandadiagnosis.databinding.ActivityOpenSourceBinding
+import android.content.Context
+import android.widget.Toast
+import androidx.annotation.StringRes
 
-class OpenSourceActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityOpenSourceBinding
+fun Context.toast(message: String, duration: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(this, message, duration).show()
+}
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityOpenSourceBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        setSupportActionBar(binding.toolbar)
-        binding.toolbarLayout.title = title
-    }
+fun Context.toast(@StringRes resId: Int, duration: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(this, this.resources.getText(resId), duration).show()
 }

@@ -1,6 +1,5 @@
-package com.keelim.bus;
+package com.keelim.common;
 
-import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 
 public class RxEventBus {
@@ -19,7 +18,11 @@ public class RxEventBus {
         return mRxEventBus;
     }
 
-    public void sendEvent(String string) {mSubject.onNext(string);}
+    public void sendEvent(String string) {
+        mSubject.onNext(string);
+    }
 
-    public Observable<String> getEvents() {return mSubject;}
+    public PublishSubject<String> getEvents() {
+        return mSubject;
+    }
 }

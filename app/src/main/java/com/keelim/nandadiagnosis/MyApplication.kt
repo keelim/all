@@ -28,25 +28,25 @@ import org.koin.core.logger.Level
 import timber.log.Timber
 
 class MyApplication : Application() {
-    private lateinit var appOpenManager: AppOpenManager
-    override fun onCreate() {
-        super.onCreate()
+  private lateinit var appOpenManager: AppOpenManager
+  override fun onCreate() {
+    super.onCreate()
 
-        MobileAds.initialize(this) {}
-        appOpenManager = AppOpenManager(this) // 콜드 부팅에서 복귀시 ad
+    MobileAds.initialize(this) {}
+    appOpenManager = AppOpenManager(this) // 콜드 부팅에서 복귀시 ad
 
-        startKoin {
-            androidLogger(Level.NONE)
-            androidContext(this@MyApplication)
-            modules(downloadModule)
-        }
-
-        if (BuildConfig.DEBUG) {
-            Timber.plant(Timber.DebugTree())
-        }
-
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-        val themePref = sharedPreferences.getString("themePref", ThemeHelper.DEFAULT_MODE)
-        ThemeHelper.applyTheme(themePref!!)
+    startKoin {
+      androidLogger(Level.NONE)
+      androidContext(this@MyApplication)
+      modules(downloadModule)
     }
+
+    if (BuildConfig.DEBUG) {
+      Timber.plant(Timber.DebugTree())
+    }
+
+    val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+    val themePref = sharedPreferences.getString("themePref", ThemeHelper.DEFAULT_MODE)
+    ThemeHelper.applyTheme(themePref!!)
+  }
 }

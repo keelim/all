@@ -23,13 +23,13 @@ import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.ActivitySearchBinding
 
 class SearchActivity : AppCompatActivity() {
-    private lateinit var binding: ActivitySearchBinding
-    private val searchViewModel by viewModels<SearchViewModel>()
+  private lateinit var binding: ActivitySearchBinding
+  private val searchViewModel by viewModels<SearchViewModel>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_search)
-        binding.lifecycleOwner = this
-        binding.vm = searchViewModel
-    }
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    binding = DataBindingUtil.setContentView(this, R.layout.activity_search)
+    binding.lifecycleOwner = this
+    binding.vm = searchViewModel
+  }
 }

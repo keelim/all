@@ -23,23 +23,23 @@ import androidx.lifecycle.ViewModel
 import com.keelim.nandadiagnosis.model.Event
 
 class CategoryViewModel : ViewModel() {
-    private val _dialog = MutableLiveData<Event<String>>()
-    val dialog: LiveData<Event<String>> get() = _dialog
+  private val _dialog = MutableLiveData<Event<String>>()
+  val dialog: LiveData<Event<String>> get() = _dialog
 
-    fun onClickEvent(num: String) {
-        _dialog.value = Event(num)
-    }
+  fun onClickEvent(num: String) {
+    _dialog.value = Event(num)
+  }
 }
 
 inline fun <T> LiveData<Event<T>>.eventObserve(
-    owner: LifecycleOwner,
-    crossinline onChanged: (T) -> Unit,
+  owner: LifecycleOwner,
+  crossinline onChanged: (T) -> Unit,
 ): Observer<Event<T>> {
-    val wrappedObserver = Observer<Event<T>> { t ->
-        t.getHandle()?.let {
-            onChanged.invoke(it)
-        }
+  val wrappedObserver = Observer<Event<T>> { t ->
+    t.getHandle()?.let {
+      onChanged.invoke(it)
     }
-    observe(owner, wrappedObserver)
-    return wrappedObserver
+  }
+  observe(owner, wrappedObserver)
+  return wrappedObserver
 }

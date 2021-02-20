@@ -16,14 +16,14 @@
 package com.keelim.nandadiagnosis.model
 
 class Event<out T>(private val content: T) {
-    private var handle = false
+  private var handle = false
 
-    fun getHandle(): T? {
-        return if (handle) {
-            null
-        } else {
-            handle = true
-            content
-        }
+  fun getHandle(): T? {
+    return if (handle) {
+      null
+    } else {
+      handle = true
+      content
     }
+  }
 }

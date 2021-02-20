@@ -1,9 +1,10 @@
 android {
-    compileSdkVersion 30
+    compileSdkVersion "android-S"
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         minSdkVersion 24
+        targetSdkVersion "S"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildFeatures {
@@ -26,3 +27,5 @@ android {
         jvmTarget = '1.8'
     }
 }
+
+apply from: "$rootDir/spotless.gradle"

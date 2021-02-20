@@ -13,21 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.ui.open
+package com.keelim.common
 
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import com.keelim.nandadiagnosis.databinding.ActivityOpenSourceBinding
+import android.content.Context
+import com.google.gson.Gson
 
-class OpenSourceActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityOpenSourceBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityOpenSourceBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        setSupportActionBar(binding.toolbar)
-        binding.toolbarLayout.title = title
-    }
+inline fun <reified ENTITY> Context.loadJson(gson: Gson, fileName: String): ENTITY {
+    val result = assets.open(fileName)
+        .bufferedReader()
+        .use { it.readText() }
+    return gson.fromJson(result, ENTITY::class.java)
 }

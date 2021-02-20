@@ -13,21 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.ui.open
+package com.keelim.nandadiagnosis.model
 
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import com.keelim.nandadiagnosis.databinding.ActivityOpenSourceBinding
+class Event<out T>(private val content: T) {
+    private var handle = false
 
-class OpenSourceActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityOpenSourceBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityOpenSourceBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        setSupportActionBar(binding.toolbar)
-        binding.toolbarLayout.title = title
+    fun getHandle(): T? {
+        return if (handle) {
+            null
+        } else {
+            handle = true
+            content
+        }
     }
 }

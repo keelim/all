@@ -13,21 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.ui.open
+package com.keelim.common
 
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import com.keelim.nandadiagnosis.databinding.ActivityOpenSourceBinding
+import androidx.lifecycle.ViewModel
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewbinding.ViewBinding
 
-class OpenSourceActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityOpenSourceBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityOpenSourceBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        setSupportActionBar(binding.toolbar)
-        binding.toolbarLayout.title = title
-    }
+class DataBindingViewHolder<T>(val binding: ViewBinding, private val viewModel: ViewModel) : RecyclerView.ViewHolder(binding.root) {
+//    fun bind(item: T){
+//        binding.setVariable(BR.item, item)
+//        binding.setVariable(BR.viewModel, viewModel)
+//        binding.executePendingBindings()
+//    }
 }

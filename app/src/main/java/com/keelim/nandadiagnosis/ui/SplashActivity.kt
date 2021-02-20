@@ -1,3 +1,18 @@
+/*
+ * Designed and developed by 2020 keelim (Jaehyun Kim)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.keelim.nandadiagnosis.ui
 
 import android.Manifest
@@ -8,7 +23,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -29,8 +43,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.util.*
-
 
 class SplashActivity : AppCompatActivity() {
     private lateinit var interstitialAd: InterstitialAd
@@ -61,7 +73,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(binding.root)
         addShortcut()
 
-        if (hasPermissions(permissions)) { //권한이 있는 경우
+        if (hasPermissions(permissions)) { // 권한이 있는 경우
             goNext()
         } else {
             ActivityCompat.requestPermissions(this, permissions, MULTIPLE_PERMISSIONS)
@@ -71,14 +83,14 @@ class SplashActivity : AppCompatActivity() {
     private fun addShortcut() {
         settings = getSharedPreferences(PREF_FIRST_START, 0)
 
-        if (settings.getBoolean("AppFirstLaunch", true)) {  // 아이콘이 두번 추가 안되도록 하기 위해서 필요한 체크입니다.
+        if (settings.getBoolean("AppFirstLaunch", true)) { // 아이콘이 두번 추가 안되도록 하기 위해서 필요한 체크입니다.
             settings.edit().putBoolean("AppFirstLaunch", false).apply()
 
             if (ShortcutManagerCompat.isRequestPinShortcutSupported(this)) {
                 val shortcutInfo = ShortcutInfoCompat.Builder(this, "#1")
                     .setIntent(Intent(this, SplashActivity::class.java).setAction(Intent.ACTION_MAIN))
                     .setShortLabel(getString(R.string.app_name)) //  아이콘에 같이 보여질 이름
-                    .setIcon(IconCompat.createWithResource(this, R.mipmap.ic_launcher)) //아이콘에 보여질 이미지
+                    .setIcon(IconCompat.createWithResource(this, R.mipmap.ic_launcher)) // 아이콘에 보여질 이미지
                     .build()
 
                 ShortcutManagerCompat.requestPinShortcut(this, shortcutInfo, null)
@@ -87,7 +99,7 @@ class SplashActivity : AppCompatActivity() {
         }
     }
 
-    private fun hasPermissions( permissions: Array<String>): Boolean {
+    private fun hasPermissions(permissions: Array<String>): Boolean {
         permissions.forEach { permission ->
             if (ActivityCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED)
                 return false
@@ -95,7 +107,7 @@ class SplashActivity : AppCompatActivity() {
         return true
     }
 
-    //권한 요청에 대한 결과 처리
+    // 권한 요청에 대한 결과 처리
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
@@ -123,11 +135,10 @@ class SplashActivity : AppCompatActivity() {
                             goNext()
                         }
                     }
- //전면광고 셋팅
+                    // 전면광고 셋팅
                     interstitialAd.loadAd(AdRequest.Builder().build())
 
                     goNext()
-
                 } else {
                     // 하나라도 거부한다면.
                     AlertDialog.Builder(this)
@@ -147,11 +158,11 @@ class SplashActivity : AppCompatActivity() {
         }
     }
 
-    private fun goNext(){
-        CoroutineScope(Dispatchers.IO).launch{
+    private fun goNext() {
+        CoroutineScope(Dispatchers.IO).launch {
             delay(1000)
             startActivity(Intent(this@SplashActivity, MainActivity::class.java))
-            finish() //앱을 종료한다.
+            finish() // 앱을 종료한다.
         }
     }
 
@@ -162,5 +173,3 @@ class SplashActivity : AppCompatActivity() {
         const val MULTIPLE_PERMISSIONS = 8888
     }
 }
-
-

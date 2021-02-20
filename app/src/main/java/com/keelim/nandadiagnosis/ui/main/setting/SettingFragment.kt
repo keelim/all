@@ -30,48 +30,48 @@ import com.keelim.nandadiagnosis.utils.ThemeHelper
 
 class SettingFragment : PreferenceFragmentCompat() {
 
-    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        addPreferencesFromResource(R.xml.settings_preferences)
-        readyReview()
+  override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+    addPreferencesFromResource(R.xml.settings_preferences)
+    readyReview()
 
-        val themePreference: ListPreference = findPreference("themePref")!!
-        themePreference.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { preference, newValue ->
-            val themeOption = newValue as String
-            ThemeHelper.applyTheme(themeOption)
-            true
-        }
+    val themePreference: ListPreference = findPreference("themePref")!!
+    themePreference.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { preference, newValue ->
+      val themeOption = newValue as String
+      ThemeHelper.applyTheme(themeOption)
+      true
     }
+  }
 
-    override fun onPreferenceTreeClick(preference: Preference?): Boolean {
-        when (preference!!.key) {
-            "blog" -> Intent(Intent.ACTION_VIEW).apply {
-                data = Uri.parse(getString(R.string.blog_url))
-                startActivity(this)
-            }
+  override fun onPreferenceTreeClick(preference: Preference?): Boolean {
+    when (preference!!.key) {
+      "blog" -> Intent(Intent.ACTION_VIEW).apply {
+        data = Uri.parse(getString(R.string.blog_url))
+        startActivity(this)
+      }
 
-            "home" -> Toast.makeText(activity, "홈페이지 재구성 중 입니다.", Toast.LENGTH_SHORT).show()
+      "home" -> Toast.makeText(activity, "홈페이지 재구성 중 입니다.", Toast.LENGTH_SHORT).show()
 
-            "opensource" -> startActivity(Intent(context, OpenSourceActivity::class.java))
+      "opensource" -> startActivity(Intent(context, OpenSourceActivity::class.java))
 
-            "update" -> Intent(Intent.ACTION_VIEW).apply {
-                data = Uri.parse(getString(R.string.urinanda))
-                startActivity(this)
-            }
+      "update" -> Intent(Intent.ACTION_VIEW).apply {
+        data = Uri.parse(getString(R.string.urinanda))
+        startActivity(this)
+      }
 
-            "search" -> requireActivity().startActivity(Intent(requireActivity(), SearchActivity::class.java))
-        }
-        return super.onPreferenceTreeClick(preference)
+      "search" -> requireActivity().startActivity(Intent(requireActivity(), SearchActivity::class.java))
     }
+    return super.onPreferenceTreeClick(preference)
+  }
 
-    private fun readyReview() {
-        val manager = ReviewManagerFactory.create(requireActivity())
+  private fun readyReview() {
+    val manager = ReviewManagerFactory.create(requireActivity())
 
-        manager.requestReviewFlow().apply {
-            addOnCompleteListener {
-                if (this.isSuccessful) {
-                    manager.launchReviewFlow(requireActivity(), this.result)
-                }
-            }
+    manager.requestReviewFlow().apply {
+      addOnCompleteListener {
+        if (this.isSuccessful) {
+          manager.launchReviewFlow(requireActivity(), this.result)
         }
+      }
     }
+  }
 }

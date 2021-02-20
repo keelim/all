@@ -25,23 +25,23 @@ import java.util.ArrayList
 
 class MyDiagnosisViewAdapter(private val diagnosisItems: ArrayList<DiagnosisItem>?) : BaseAdapter() {
 
-    override fun getCount(): Int {
-        return diagnosisItems!!.size
-    }
+  override fun getCount(): Int {
+    return diagnosisItems!!.size
+  }
 
-    override fun getItem(position: Int): Any {
-        return diagnosisItems!![position]
-    }
+  override fun getItem(position: Int): Any {
+    return diagnosisItems!![position]
+  }
 
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
-    }
+  override fun getItemId(position: Int): Long {
+    return position.toLong()
+  }
 
-    override fun getView(position: Int, view: View?, parent: ViewGroup): View {
-        val binding: ItemListviewBinding = ItemListviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        binding.diagnosisItem.text = diagnosisItems!![position].diagnosis
-        binding.diagnosisDes.text = diagnosisItems[position].diagnosis
+  override fun getView(position: Int, view: View?, parent: ViewGroup): View {
+    val binding: ItemListviewBinding = ItemListviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+    binding.diagnosisItem.text = diagnosisItems!![position].diagnosis
+    binding.diagnosisDes.text = diagnosisItems[position].diagnosis
 
-        return binding.root
-    }
+    return binding.root
+  }
 }

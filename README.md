@@ -9,7 +9,9 @@
 - cnubus 는 교내 버스 어플리케이션으로 충남대에서 버스 노선 및 데이터가 있으나 위치 관련된 정보의 부재로 교내 애플리케이션을 통해 위치를 확인할 수 있는 앱을 제작
 - 현재 프로젝트 종료로 IOS, Server 서비스 종료로 Firebase 를 이용한 서버리스 서비스 개선 중
 </p>
+
 ![preview](previews/preview.PNG)
+
 ## Tech stack & Open-source libraries
 - Minimum SDK level 24
 - [Kotlin](https://kotlinlang.org/) based, [introducing Coroutines](https://github.com/Kotlin/kotlinx.coroutines) 

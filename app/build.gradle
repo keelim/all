@@ -10,7 +10,6 @@ plugins {
 
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
-//def ad_api = properties.getProperty('ad')
 
 android {
     compileSdkVersion 30
@@ -20,8 +19,8 @@ android {
         applicationId "com.keelim.cnubus"
         minSdkVersion 24
         targetSdkVersion 30
-        versionCode 34
-        versionName "2.0.22"
+        versionCode 35
+        versionName "2.0.23"
 
         buildConfigField "String", "API_KEY", properties['ad_unit']
         buildConfigField "String", "API_KEY2", properties['ad_unit2']
@@ -46,22 +45,23 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
     buildFeatures {
         dataBinding = true
         viewBinding = true
     }
 
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(":feature:error")
     implementation project(":feature:map")
-    implementation project(":feature:bus")
     implementation project(":data:api")
+    implementation project(":common")
 
     implementation platform('com.google.firebase:firebase-bom:26.1.0')
     implementation "com.google.firebase:firebase-core"
@@ -103,6 +103,8 @@ dependencies {
 
     implementation 'com.jakewharton.timber:timber:4.7.1'
 }
+
+apply from: "$rootDir/spotless.gradle"
 
 
 

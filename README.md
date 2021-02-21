@@ -9,7 +9,9 @@
 <p align="center">  
 난다진단(NandaDiagnosis) 의 13가지 항목 건강증진, 영양, 배설/교환, 활동/휴식, 지각/인식, 자아지각, 역할관계, 성, 대처/스트레스 내성, 삶의 원칙, 안전 보호, 안위, 성장/발달의 항목의 데이터를 제공해주는 애플리케이션 입니다.
 </p>
+
 ![preview](previews/preview.PNG)
+
 ## Tech stack & Open-source libraries
 - Minimum SDK level 24
 - [Kotlin](https://kotlinlang.org/) based, [introducing Coroutines](https://github.com/Kotlin/kotlinx.coroutines) 
@@ -33,10 +35,8 @@
 - [Github Actions](https://docs.github.com/en/actions) - for CI/CD (automated playstore(aab))
 
 ## MAD Score
-![summary](previews/summary.PNG)
-![kotlin](previews/kotlin.PNG)
-
-
+![summary](previews/summary.png)
+![kotlin](previews/kotlin.png)
 
 
 ## Architecture

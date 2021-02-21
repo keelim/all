@@ -35,8 +35,8 @@
 - [Github Actions](https://docs.github.com/en/actions) - for CI/CD (automated playstore(aab))
 
 ## MAD Score
-![summary](previews/summary.PNG)
-![kotlin](previews/kotlin.PNG)
+![summary](previews/summary.png)
+![kotlin](previews/kotlin.png)
 
 
 ## Architecture

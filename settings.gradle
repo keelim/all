@@ -3,6 +3,6 @@ include(
         ":app",
         ":feature:error",
         ":feature:map",
-        ":feature:bus",
-        ":data:api"
+        ":data:api",
+        ":common",
 )

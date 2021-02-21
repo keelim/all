@@ -2,10 +2,9 @@ plugins {
     id 'com.android.library'
     id 'kotlin-android'
     id 'kotlin-kapt'
-
 }
 
-apply from: rootProject.file('gradle/android.gradle')
+apply from: rootProject.file('./gradle/android.gradle')
 
 dependencies {
     implementation "androidx.constraintlayout:constraintlayout:2.0.4"

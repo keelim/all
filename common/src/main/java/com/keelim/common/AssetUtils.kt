@@ -13,9 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.cnubus.ui
+package com.keelim.common
 
-import androidx.appcompat.app.AppCompatActivity
-import com.keelim.cnubus.R
+import android.content.Context
+import com.google.gson.Gson
 
-class OpenSourceActivity : AppCompatActivity(R.layout.activity_opensource)
+inline fun <reified ENTITY> Context.loadJson(gson: Gson, fileName: String): ENTITY {
+    val result = assets.open(fileName)
+        .bufferedReader()
+        .use { it.readText() }
+    return gson.fromJson(result, ENTITY::class.java)
+}

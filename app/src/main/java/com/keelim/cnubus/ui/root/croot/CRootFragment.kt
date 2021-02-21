@@ -1,8 +1,22 @@
+/*
+ * Designed and developed by 2020 keelim (Jaehyun Kim)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.keelim.cnubus.ui.root.croot
 
 import android.os.Bundle
 import android.view.View
-import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.keelim.cnubus.R
@@ -12,7 +26,6 @@ class CRootFragment : Fragment(R.layout.fragment_c_root) {
     private var fragmentCRootBinding: FragmentCRootBinding? = null
     private lateinit var rootList: Array<String>
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentCRootBinding.bind(view)
@@ -21,7 +34,7 @@ class CRootFragment : Fragment(R.layout.fragment_c_root) {
         rootList = resources.getStringArray(R.array.croot)
 
         binding.lvCroot.adapter = CRecyclerViewAdapter(rootList).apply {
-            listener = object: CRecyclerViewAdapter.OnRootClickListener{
+            listener = object : CRecyclerViewAdapter.OnRootClickListener {
                 override fun onRootClickListener(position: Int) {
                     Snackbar.make(binding.root, "C 노선 지도 업데이트 준비 중입니다. ", Snackbar.LENGTH_LONG).show()
                 }

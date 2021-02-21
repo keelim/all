@@ -13,9 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.cnubus.ui
+package com.keelim.cnubus.feature.map
 
-import androidx.appcompat.app.AppCompatActivity
-import com.keelim.cnubus.R
+import androidx.lifecycle.ViewModel
 
-class OpenSourceActivity : AppCompatActivity(R.layout.activity_opensource)
+class MapsViewModel : ViewModel()

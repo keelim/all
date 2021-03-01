@@ -40,6 +40,10 @@ android {
         kotlinCompilerExtensionVersion '1.0.0-beta01'
         kotlinCompilerVersion '1.4.30'
     }
+
+    lintOptions{
+        abortOnError false
+    }
 }
 
 apply from: "$rootDir/spotless.gradle"

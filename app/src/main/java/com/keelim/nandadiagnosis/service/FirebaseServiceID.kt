@@ -26,7 +26,7 @@ import com.google.firebase.messaging.RemoteMessage
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.ui.main.MainActivity
 import timber.log.Timber
-import java.util.Date
+import java.util.*
 
 class FirebaseServiceID : FirebaseMessagingService() {
 
@@ -43,7 +43,7 @@ class FirebaseServiceID : FirebaseMessagingService() {
 
   private fun showNotification(notification: RemoteMessage.Notification) {
     val intent = Intent(this, MainActivity::class.java)
-    val pIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+    val pIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
     val channelId = getString(R.string.my_notification_channel_id)
 
     val notificationBuilder = NotificationCompat.Builder(this, channelId)

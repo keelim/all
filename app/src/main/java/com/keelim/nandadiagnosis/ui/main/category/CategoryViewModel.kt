@@ -15,16 +15,12 @@
  */
 package com.keelim.nandadiagnosis.ui.main.category
 
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.keelim.nandadiagnosis.model.Event
 
 class CategoryViewModel : ViewModel() {
   private val _dialog = MutableLiveData<Event<String>>()
-  val dialog: LiveData<Event<String>> get() = _dialog
+  val dialog: LiveData<Event<String>> = _dialog
 
   fun onClickEvent(num: String) {
     _dialog.value = Event(num)

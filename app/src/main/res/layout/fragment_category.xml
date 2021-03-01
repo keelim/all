@@ -32,7 +32,7 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card1"
                     style="@style/card_style"
-                    android:onClick="@{() ->vm.onClickEvent(@string/one)}"
+
                     app:cardCornerRadius="8dp"
                     app:cardElevation="8dp">
 
@@ -50,7 +50,6 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card2"
                     style="@style/card_style"
-                    android:onClick="@{() ->vm.onClickEvent(@string/two)}"
                     app:cardCornerRadius="8dp"
                     app:cardElevation="8dp">
 
@@ -70,7 +69,6 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card3"
                     style="@style/card_style"
-                    android:onClick="@{() ->vm.onClickEvent(@string/three)}"
                     app:cardCornerRadius="8dp"
                     app:cardElevation="8dp">
 
@@ -88,7 +86,6 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card4"
                     style="@style/card_style"
-                    android:onClick="@{() ->vm.onClickEvent(@string/four)}"
                     app:cardCornerRadius="8dp"
                     app:cardElevation="8dp">
 
@@ -109,7 +106,6 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card5"
                     style="@style/card_style"
-                    android:onClick="@{() ->vm.onClickEvent(@string/five)}"
                     app:cardCornerRadius="8dp"
                     app:cardElevation="8dp">
 
@@ -127,7 +123,6 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card6"
                     style="@style/card_style"
-                    android:onClick="@{() ->vm.onClickEvent(@string/six)}"
                     app:cardCornerRadius="8dp"
                     app:cardElevation="8dp">
 
@@ -143,7 +138,6 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card7"
                     style="@style/card_style"
-                    android:onClick="@{() ->vm.onClickEvent(@string/seven)}"
                     app:cardCornerRadius="8dp"
                     app:cardElevation="8dp">
 
@@ -160,7 +154,6 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card8"
                     style="@style/card_style"
-                    android:onClick="@{() ->vm.onClickEvent(@string/eight)}"
                     app:cardCornerRadius="8dp"
                     app:cardElevation="8dp">
 
@@ -177,7 +170,6 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card9"
                     style="@style/card_style"
-                    android:onClick="@{() ->vm.onClickEvent(@string/nine)}"
                     app:cardCornerRadius="8dp"
                     app:cardElevation="8dp">
 
@@ -204,7 +196,6 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card10"
                     style="@style/card_style"
-                    android:onClick="@{() ->vm.onClickEvent(@string/ten)}"
                     app:cardCornerRadius="8dp"
                     app:cardElevation="8dp">
 
@@ -221,7 +212,6 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card11"
                     style="@style/card_style"
-                    android:onClick="@{() ->vm.onClickEvent(@string/eleven)}"
                     app:cardCornerRadius="8dp"
                     app:cardElevation="8dp">
 
@@ -238,7 +228,6 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card12"
                     style="@style/card_style"
-                    android:onClick="@{() ->vm.onClickEvent(@string/twelve)}"
                     app:cardCornerRadius="8dp"
                     app:cardElevation="8dp">
 
@@ -255,7 +244,6 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card13"
                     style="@style/card_style"
-                    android:onClick="@{() ->vm.onClickEvent(@string/thirteen)}"
                     app:cardCornerRadius="8dp"
                     app:cardElevation="8dp">
 

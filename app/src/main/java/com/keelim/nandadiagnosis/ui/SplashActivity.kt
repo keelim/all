@@ -38,7 +38,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.keelim.nandadiagnosis.BuildConfig
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.ActivitySplashBinding
-
 import com.keelim.nandadiagnosis.ui.main.MainActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -57,7 +56,7 @@ class SplashActivity : AppCompatActivity() {
     Manifest.permission.INTERNET,
     Manifest.permission.READ_EXTERNAL_STORAGE,
   ).apply {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P){
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
       Manifest.permission.FOREGROUND_SERVICE
     }
   }
@@ -133,7 +132,6 @@ class SplashActivity : AppCompatActivity() {
           // 전면광고 셋팅
           interstitialAd.loadAd(AdRequest.Builder().build())
           goNext()
-
         } else {
           // 하나라도 거부한다면.
           AlertDialog.Builder(this)

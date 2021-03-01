@@ -32,7 +32,7 @@ class CategoryFragment : Fragment() {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
     val binding = DataBindingUtil.inflate<FragmentCategoryBinding>(inflater, R.layout.fragment_category, container, false)
-      .apply{
+      .apply {
         card1.setOnClickListener { showDialog("1") }
         card2.setOnClickListener { showDialog("2") }
         card3.setOnClickListener { showDialog("3") }

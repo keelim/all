@@ -20,7 +20,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -44,14 +48,14 @@ class SearchTempFragment : Fragment() { // frag
 
   private var fragmentSearchBinding: FragmentSearchBinding? = null
   private var trackers: SelectionTracker<Long>? = null
-  private lateinit var  binding: FragmentSearchTempBinding
+  private lateinit var binding: FragmentSearchTempBinding
   private lateinit var vm: SearchViewModel
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View {
-    binding = DataBindingUtil.inflate(inflater,R.layout.fragment_search_temp, container, false )
+    binding = DataBindingUtil.inflate(inflater, R.layout.fragment_search_temp, container, false)
     val application = requireActivity().application
     val dataSource = AppDatabase.getInstance(application)!!.dataDao()
     val viewModelFactory = SearchViewModelFactory(dataSource, application)
@@ -105,10 +109,10 @@ class SearchTempFragment : Fragment() { // frag
 //              val items = vm.getItemFromDatabase(query)
             vm.search(query)
             val items = vm.items.value
-              (fragmentSearchBinding!!.recyclerView.adapter as SearchRecyclerViewAdapter).apply {
-                setNandaItem(items!!)
-                notifyDataSetChanged()
-              }
+            (fragmentSearchBinding!!.recyclerView.adapter as SearchRecyclerViewAdapter).apply {
+              setNandaItem(items!!)
+              notifyDataSetChanged()
+            }
 
             return true
           }

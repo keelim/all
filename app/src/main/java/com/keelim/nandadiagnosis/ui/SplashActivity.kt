@@ -50,21 +50,15 @@ class SplashActivity : AppCompatActivity() {
   private val test = "ca-app-pub-3940256099942544/1033173712"
   private lateinit var settings: SharedPreferences
 
-  private val permissions = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-    arrayOf(
-      Manifest.permission.WRITE_EXTERNAL_STORAGE,
-      Manifest.permission.INSTALL_SHORTCUT,
-      Manifest.permission.INTERNET,
-      Manifest.permission.READ_EXTERNAL_STORAGE,
+  private val permissions = arrayOf(
+    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+    Manifest.permission.INSTALL_SHORTCUT,
+    Manifest.permission.INTERNET,
+    Manifest.permission.READ_EXTERNAL_STORAGE,
+  ).apply {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
       Manifest.permission.FOREGROUND_SERVICE
-    )
-  } else {
-    arrayOf(
-      Manifest.permission.WRITE_EXTERNAL_STORAGE,
-      Manifest.permission.INSTALL_SHORTCUT,
-      Manifest.permission.INTERNET,
-      Manifest.permission.READ_EXTERNAL_STORAGE
-    )
+    }
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -137,7 +131,6 @@ class SplashActivity : AppCompatActivity() {
           }
           // 전면광고 셋팅
           interstitialAd.loadAd(AdRequest.Builder().build())
-
           goNext()
         } else {
           // 하나라도 거부한다면.

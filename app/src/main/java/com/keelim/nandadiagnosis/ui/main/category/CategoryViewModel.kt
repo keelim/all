@@ -24,7 +24,7 @@ import com.keelim.nandadiagnosis.model.Event
 
 class CategoryViewModel : ViewModel() {
   private val _dialog = MutableLiveData<Event<String>>()
-  val dialog: LiveData<Event<String>> get() = _dialog
+  val dialog: LiveData<Event<String>> = _dialog
 
   fun onClickEvent(num: String) {
     _dialog.value = Event(num)

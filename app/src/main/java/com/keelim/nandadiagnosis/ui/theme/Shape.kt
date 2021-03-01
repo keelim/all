@@ -13,19 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.data.db
+package com.keelim.nandadiagnosis.ui.theme
 
-import androidx.room.Dao
-import androidx.room.Query
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Shapes
+import androidx.compose.ui.unit.dp
 
-@Dao
-interface DataDao {
-  @Query("select * from nanda where reason like  '%' || :keyword || '%'")
-  fun searchOrigin(keyword: String?): List<NandaEntity>
-
-  @Query("select * from nanda where reason like  '%' || :keyword || '%'")
-  suspend fun search(keyword: String?): List<NandaEntity>
-
-  @Query("select * from nanda where category = :number")
-  fun get(number: Int?): List<NandaEntity>
-}
+val Shapes = Shapes(
+  small = RoundedCornerShape(4.dp),
+  medium = RoundedCornerShape(4.dp),
+  large = RoundedCornerShape(0.dp)
+)

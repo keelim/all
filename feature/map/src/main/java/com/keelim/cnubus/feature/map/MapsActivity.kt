@@ -37,11 +37,11 @@ import com.google.android.gms.maps.CameraUpdate
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.ktx.addMarker
 import com.google.maps.android.ktx.awaitMap
 import com.keelim.cnubus.feature.map.databinding.ActivityMapsBinding
+import com.keelim.common.snack
 import timber.log.Timber
 import java.util.ArrayList
 
@@ -140,12 +140,8 @@ class MapsActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         permissionCheck(
-            cancel = {
-                showPermissionInfoDialog()
-            },
-            ok = {
-                addLocationListener()
-            }
+            cancel = { showPermissionInfoDialog() },
+            ok = { addLocationListener() }
         )
     }
 

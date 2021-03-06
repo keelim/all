@@ -30,6 +30,10 @@ android {
         jvmTarget = '11'
         useIR = true
     }
+
+    lintOptions{
+        abortOnError false
+    }
 }
 
 apply from: "$rootDir/spotless.gradle"

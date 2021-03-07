@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.keelim.nandadiagnosis">
 
-    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -69,12 +68,6 @@
 
         <activity android:name="com.keelim.nandadiagnosis.ui.main.category.DiagnosisActivity" />
         <activity android:name=".ui.kakao_search.SearchActivity" />
-
-        <activity
-            android:name="com.keelim.nandadiagnosis.ui.Splash"
-            android:exported="true"
-            android:label="@string/title_activity_splash"
-            android:theme="@style/AppTheme.NoActionBar" />
 
     </application>
 </manifest>

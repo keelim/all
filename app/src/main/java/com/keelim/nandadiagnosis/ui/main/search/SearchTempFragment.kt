@@ -20,11 +20,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -36,7 +32,6 @@ import androidx.recyclerview.selection.StorageStrategy
 import com.keelim.common.toast
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.data.db.AppDatabase
-import com.keelim.nandadiagnosis.databinding.FragmentSearchBinding
 import com.keelim.nandadiagnosis.databinding.FragmentSearchTempBinding
 import com.keelim.nandadiagnosis.ui.main.search.selection.MyItemDetailsLookup
 import com.keelim.nandadiagnosis.ui.main.search.selection.MyItemKeyProvider
@@ -46,15 +41,11 @@ import java.util.concurrent.TimeUnit
 
 class SearchTempFragment : Fragment() { // frag
 
-  private var fragmentSearchBinding: FragmentSearchBinding? = null
+  private var fragmentSearchBinding: FragmentSearchTempBinding? = null
   private var trackers: SelectionTracker<Long>? = null
   private lateinit var binding: FragmentSearchTempBinding
   private lateinit var vm: SearchViewModel
-  override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
-  ): View {
+  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
     binding = DataBindingUtil.inflate(inflater, R.layout.fragment_search_temp, container, false)
     val application = requireActivity().application
     val dataSource = AppDatabase.getInstance(application)!!.dataDao()

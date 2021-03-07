@@ -16,11 +16,7 @@
 package com.keelim.nandadiagnosis.ui.main
 
 import android.app.DownloadManager
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.DialogInterface
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -101,6 +97,7 @@ class MainActivity : AppCompatActivity() {
     else "ca-app-pub-3115620439518585/8213873659"
 
     binding.adview.addView(mAdView)
+
     val adRequest = AdRequest.Builder().build()
     mAdView.loadAd(adRequest)
   }

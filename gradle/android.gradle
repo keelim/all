@@ -1,5 +1,5 @@
 android {
-    compileSdkVersion "android-S"
+    compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
     defaultConfig {
@@ -10,7 +10,6 @@ android {
     buildFeatures {
         viewBinding = true
         dataBinding = true
-        compose = true
     }
     buildTypes {
         release {
@@ -26,19 +25,6 @@ android {
 
     kotlinOptions {
         jvmTarget = '1.8'
-        useIR = true
-    }
-
-    packagingOptions {
-        // Multiple dependency bring these files in. Exclude them to enable
-        // our test APK to build (has no effect on our AARs)
-        excludes += "/META-INF/AL2.0"
-        excludes += "/META-INF/LGPL2.1"
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion '1.0.0-beta01'
-        kotlinCompilerVersion '1.4.30'
     }
 
     lintOptions{
@@ -47,10 +33,3 @@ android {
 }
 
 apply from: "$rootDir/spotless.gradle"
-
-dependencies {
-    implementation "androidx.compose.ui:ui:1.0.0-beta01"
-    implementation "androidx.compose.material:material:1.0.0-beta01"
-    implementation "androidx.compose.material:material-icons-extended:1.0.0-beta01"
-    implementation "androidx.compose.ui:ui-tooling:1.0.0-beta01"
-}

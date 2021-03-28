@@ -3,47 +3,35 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'com.google.gms.google-services'
-//    id 'com.google.firebase.firebase-perf'
+    id 'com.google.firebase.firebase-perf'
     id 'com.google.firebase.crashlytics'
+    id 'com.google.firebase.appdistribution'
 }
-
-/*Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
-def ad_api = properties.getProperty('ad')*/
 
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.3"
+    buildToolsVersion "31.0.0-rc2"
 
     defaultConfig {
         applicationId "com.keelim.nandadiagnosis"
         minSdkVersion 24
         targetSdkVersion 30
-        versionCode 33
-        versionName "1.0.31"
+        versionCode 36
+        versionName "1.0.36"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        /*manifestPlaceholders = [ad: ad_api]
-        buildConfigField "String", "API_KEY", properties['ad_unit'] //inter~~~
-        buildConfigField "String", "API_KEY2", properties['ad_unit2']
-        buildConfigField "String", "API_KEY3", properties['ad_unit3']*/
     }
 
     buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            firebaseAppDistribution {
+                testers="kimh00335@gmail.com"
+            }
         }
-
-        debug{
-            splits.abi.enable = true
-            splits.density.enable = true
-            aaptOptions.cruncherEnabled = true
-            ext.alwaysUpdateBuildId = false
-        }
-
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -57,6 +45,10 @@ android {
     buildFeatures {
         viewBinding = true
         dataBinding = true
+    }
+
+    lintOptions{
+        abortOnError false
     }
 }
 
@@ -112,3 +104,4 @@ dependencies {
     implementation 'com.google.ads.mediation:facebook:6.2.0.0'
     implementation 'com.jakewharton.timber:timber:4.7.1'
 }
+apply from: "$rootDir/spotless.gradle"

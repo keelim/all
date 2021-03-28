@@ -5,27 +5,32 @@ plugins {
     id 'com.google.gms.google-services'
     id 'com.google.firebase.firebase-perf'
     id 'com.google.firebase.crashlytics'
+    id 'com.google.firebase.appdistribution'
 }
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.3"
+    buildToolsVersion '31.0.0 rc2'
 
     defaultConfig {
         applicationId "com.keelim.nandadiagnosis"
         minSdkVersion 24
         targetSdkVersion 30
         versionCode 36
-        versionName "1.0.34"
+        versionName "1.0.36"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            minifyEnabled true
+//            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            firebaseAppDistribution {
+                testers="kimh00335@gmail.com"
+            }
         }
+
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

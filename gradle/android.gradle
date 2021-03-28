@@ -1,6 +1,6 @@
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.3"
+    buildToolsVersion "31.0.0-rc2"
 
     defaultConfig {
         minSdkVersion 24
@@ -25,4 +25,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    lintOptions{
+        abortOnError false
+    }
 }
+apply from: "$rootDir/spotless.gradle"

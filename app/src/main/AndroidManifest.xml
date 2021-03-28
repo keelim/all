@@ -47,8 +47,8 @@
 
         <activity
             android:name=".ui.SplashActivity"
-            android:exported="false"
-            android:theme="@style/Theme.MaterialComponents.NoActionBar">
+            android:theme="@style/Theme.MaterialComponents.NoActionBar"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -57,8 +57,8 @@
 
         <activity
             android:name=".ui.main.MainActivity"
-            android:exported="false"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:exported="true">
             <nav-graph android:value="@navigation/mobile_navigation" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

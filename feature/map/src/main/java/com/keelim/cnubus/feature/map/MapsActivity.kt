@@ -18,8 +18,11 @@ package com.keelim.cnubus.feature.map
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.LocationManager
 import android.os.Bundle
+import android.provider.Settings
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
@@ -58,9 +61,15 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback {
         setContentView(binding.root)
         locationListInit()
         intentControl()
-        val mapFragment = supportFragmentManager
-            .findFragmentById(R.id.map) as SupportMapFragment?
+        val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
+
+        val locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
+
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+            Toast.makeText(this, "제대로된 작동을  위해 GPS 를 켜주세요", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+        }
 
         binding.floating.setOnClickListener {
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(current, 17f))
@@ -74,7 +83,7 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback {
         }
     }
 
-    override fun onMapReady(googleMap: GoogleMap) { // 구글 맵은 처음 사용을 하는 거니까
+    override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
         (0..14).forEach { index ->
@@ -96,7 +105,6 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback {
     }
 
     private fun intentControl() {
-        val intent = intent
         val stringLocation = intent.getStringExtra("location")
         location = stringLocation?.toInt() ?: -1
     }
@@ -184,18 +192,18 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback {
         fusedLocationProvider = FusedLocationProviderClient(this)
 
         locationCallback = object : LocationCallback() {
-            override fun onLocationResult(locationResult: LocationResult?) {
+            override fun onLocationResult(locationResult: LocationResult) {
                 super.onLocationResult(locationResult)
 
-                val location = locationResult?.lastLocation
+                val location = locationResult.lastLocation
 
-                location?.run {
+                location.run {
                     current = LatLng(latitude, longitude)
                     Timber.d("위도 $latitude 경도 $longitude")
                 }
             }
         }
-        locationRequest = LocationRequest().apply {
+        locationRequest = LocationRequest.create().apply {
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
             interval = 10000
             fastestInterval = 5000

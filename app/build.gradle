@@ -6,12 +6,13 @@ plugins {
     id 'com.google.firebase.firebase-perf'
     id 'com.google.firebase.crashlytics'
     id 'com.google.firebase.appdistribution'
+    id 'dagger.hilt.android.plugin'
 }
 
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.3"
+    buildToolsVersion "31.0.0 rc2"
 
     defaultConfig {
         applicationId "com.keelim.nandadiagnosis"
@@ -103,5 +104,10 @@ dependencies {
 
     implementation 'com.google.ads.mediation:facebook:6.2.0.0'
     implementation 'com.jakewharton.timber:timber:4.7.1'
+
+    implementation "com.google.dagger:hilt-android:2.33-beta"
+    kapt "com.google.dagger:hilt-android-compiler:2.33-beta"
+
+
 }
 apply from: "$rootDir/spotless.gradle"

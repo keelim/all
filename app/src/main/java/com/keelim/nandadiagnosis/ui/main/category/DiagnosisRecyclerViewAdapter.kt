@@ -20,7 +20,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.keelim.nandadiagnosis.databinding.ItemListviewBinding
-import com.keelim.nandadiagnosis.model.DiagnosisItem
+import com.keelim.nandadiagnosis.data.DiagnosisItem
 
 class DiagnosisRecyclerViewAdapter : RecyclerView.Adapter<DiagnosisRecyclerViewAdapter.ViewHolder>() {
   var list: List<DiagnosisItem> = listOf()

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.model
+package com.keelim.nandadiagnosis.data
 
 class SingleLiveEvent<out T>(private val content: T) {
   private var hasBeenHandled = false

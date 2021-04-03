@@ -18,15 +18,17 @@ package com.keelim.nandadiagnosis
 import android.app.Application
 import androidx.preference.PreferenceManager
 import com.google.android.gms.ads.MobileAds
-import com.keelim.nandadiagnosis.module.downloadModule
+import com.keelim.nandadiagnosis.di.downloadModule
 import com.keelim.nandadiagnosis.utils.AppOpenManager
 import com.keelim.nandadiagnosis.utils.ThemeHelper
+import dagger.hilt.android.HiltAndroidApp
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
 import timber.log.Timber
 
+@HiltAndroidApp
 class MyApplication : Application() {
   private lateinit var appOpenManager: AppOpenManager
   override fun onCreate() {

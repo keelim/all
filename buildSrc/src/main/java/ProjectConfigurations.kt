@@ -5,7 +5,7 @@ object ProjectConfigurations {
     const val compileSdk = 30
     const val minSdk = 24
     const val targetSdk = 30
-    const val buildTools = "31.0.0 rc2"
+    const val buildTools = "30.0.3"
     const val versionCode = 38
     const val versionName = "1.0.38"
 

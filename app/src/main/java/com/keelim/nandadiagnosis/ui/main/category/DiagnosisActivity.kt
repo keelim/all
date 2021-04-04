@@ -19,10 +19,10 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.keelim.nandadiagnosis.R
+import com.keelim.nandadiagnosis.data.DiagnosisItem
 import com.keelim.nandadiagnosis.data.db.AppDatabase
 import com.keelim.nandadiagnosis.data.db.NandaEntity
 import com.keelim.nandadiagnosis.databinding.ActivityDiagnosisBinding
-import com.keelim.nandadiagnosis.data.DiagnosisItem
 import com.keelim.nandadiagnosis.ui.WebActivity
 import java.util.ArrayList
 

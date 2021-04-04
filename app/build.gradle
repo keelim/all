@@ -17,11 +17,11 @@ android {
     buildToolsVersion ProjectConfigurations.buildTools
 
     defaultConfig {
-        applicationId "com.keelim.cnubus"
+        applicationId ProjectConfigurations.applicationId
         minSdkVersion ProjectConfigurations.minSdk
         targetSdkVersion ProjectConfigurations.targetSdk
-        versionCode 36
-        versionName "2.0.24"
+        versionCode ProjectConfigurations.versionCode
+        versionName ProjectConfigurations.versionName
 
         buildConfigField "String", "API_KEY", properties['ad_unit']
         buildConfigField "String", "API_KEY2", properties['ad_unit2']

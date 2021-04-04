@@ -1,4 +1,4 @@
-
+rootProject.name = 'nandaDiagnosis'
 include(
         ":app",
         ":data:db",

@@ -1,10 +1,10 @@
-
+import ProjectConfigurations
 android {
-    compileSdkVersion 30
-    buildToolsVersion "31.0.0 rc2"
+    compileSdkVersion ProjectConfigurations.compileSdk
+    buildToolsVersion ProjectConfigurations.buildTools
 
     defaultConfig {
-        minSdkVersion 24
+        minSdkVersion ProjectConfigurations.minSdk
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildFeatures {

@@ -19,6 +19,7 @@ import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.provider.SearchRecentSuggestions
 import android.text.TextUtils
 import android.view.Menu
 import android.view.MenuInflater
@@ -26,7 +27,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.selection.Selection
 import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
@@ -44,7 +44,6 @@ import java.util.concurrent.TimeUnit
 class SearchFragment : Fragment(R.layout.fragment_search) { // frag
   private var fragmentSearchBinding: FragmentSearchBinding? = null
   private var trackers: SelectionTracker<Long>? = null
-  val viewModel: TempViewModel by viewModels()
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -86,6 +85,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) { // frag
       searchView.apply {
         setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
         isSubmitButtonEnabled = true
+        setIconifiedByDefault(false) // Do not iconify the widget; expand it by default
 
         setOnQueryTextListener(object : SearchView.OnQueryTextListener {
           override fun onQueryTextSubmit(query: String): Boolean {
@@ -94,6 +94,9 @@ class SearchFragment : Fragment(R.layout.fragment_search) { // frag
               setNandaItem(items)
               notifyDataSetChanged()
             }
+
+            SearchRecentSuggestions(requireActivity(), SuggestionProvider.AUTHORITY, SuggestionProvider.MODE)
+              .saveRecentQuery(query, null)
             return true
           }
 
@@ -141,9 +144,12 @@ class SearchFragment : Fragment(R.layout.fragment_search) { // frag
   private fun multiSelection(selection: Selection<Long>) {
     var s = ""
     val list = selection.map { (fragmentSearchBinding!!.recyclerView.adapter as SearchRecyclerViewAdapter).getItem(it.toInt()) }
-    list.forEach { s += it.toString() + "\n" }
-
-    shareInformation(s)
+    if (list.isEmpty()) {
+      Toast.makeText(requireActivity(), "데이터를 선택해주세요", Toast.LENGTH_SHORT).show()
+    } else {
+      list.forEach { s += it.toString() + "\n" }
+      shareInformation(s)
+    }
   }
 
   private fun shareInformation(s: String) {

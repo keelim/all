@@ -9,6 +9,6 @@ object ProjectConfigurations {
     const val versionCode = 38
     const val versionName = "1.0.38"
 
-    val javaVer = JavaVersion.VERSION_1_8
+    val javaVer = JavaVersion.VERSION_11
     const val javaVerString = "1.8"
 }

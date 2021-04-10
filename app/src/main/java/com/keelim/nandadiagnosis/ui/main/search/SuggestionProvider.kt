@@ -15,9 +15,15 @@
  */
 package com.keelim.nandadiagnosis.ui.main.search
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import android.content.SearchRecentSuggestionsProvider
 
-class TempViewModel : ViewModel() {
-  private val _query = MutableLiveData<List<String>>()
+class SuggestionProvider : SearchRecentSuggestionsProvider() {
+  init {
+    setupSuggestions(AUTHORITY, MODE)
+  }
+
+  companion object {
+    const val AUTHORITY = "com.keelim.nandadiagnosis.ui.main.search.SuggestionProvider"
+    const val MODE: Int = DATABASE_MODE_QUERIES or DATABASE_MODE_2LINES
+  }
 }

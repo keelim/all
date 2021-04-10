@@ -1,4 +1,5 @@
 import ProjectConfigurations
+
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
@@ -31,17 +32,18 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             firebaseAppDistribution {
-                testers="kimh00335@gmail.com"
+                testers = "kimh00335@gmail.com"
             }
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '11'
+        useIR = true
     }
 
     buildFeatures {
@@ -49,7 +51,7 @@ android {
         dataBinding = true
     }
 
-    lintOptions{
+    lintOptions {
         abortOnError false
     }
 }
@@ -59,15 +61,15 @@ dependencies {
     implementation project(':data:db')
     implementation project(':feature:error')
     implementation project(":feature:kakao_search")
-    implementation project(":feature:bus")
 
     implementation "androidx.core:core-ktx:1.5.0-beta01"
-    implementation "androidx.recyclerview:recyclerview:1.2.0-beta01"
-    implementation 'androidx.recyclerview:recyclerview-selection:1.1.0'
-    implementation "androidx.preference:preference-ktx:1.1.1"
     implementation "androidx.activity:activity-ktx:1.2.0-rc01"
     implementation "androidx.appcompat:appcompat:1.3.0-beta01"
     implementation "androidx.constraintlayout:constraintlayout:2.0.4"
+    implementation "androidx.recyclerview:recyclerview:1.2.0-beta01"
+    implementation 'androidx.recyclerview:recyclerview-selection:1.1.0'
+    implementation "androidx.preference:preference-ktx:1.1.1"
+
 
     implementation "androidx.navigation:navigation-fragment-ktx:2.3.3"
     implementation "androidx.navigation:navigation-ui-ktx:2.3.3"
@@ -80,27 +82,26 @@ dependencies {
     implementation "com.google.firebase:firebase-analytics-ktx"
     implementation 'com.google.firebase:firebase-inappmessaging-display-ktx'
 
-    implementation "com.google.android.material:material:1.3.0-rc01"
+    implementation UI.material
     implementation "com.google.android.play:core:1.9.1"
     implementation "com.google.android.gms:play-services-ads:19.7.0"
     implementation "com.google.guava:guava:30.1-jre"
 
-    implementation  "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
-    implementation  "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
-    implementation  "androidx.lifecycle:lifecycle-extensions:2.2.0"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
 
-    implementation  "com.squareup.retrofit2:retrofit:2.9.0"
-    implementation  "com.squareup.retrofit2:converter-gson:2.9.0"
 
-    implementation  "io.reactivex.rxjava2:rxandroid:2.1.1"
-    implementation  "io.reactivex.rxjava2:rxjava:2.2.20"
-    implementation  "io.reactivex.rxjava2:rxkotlin:2.4.0"
+    implementation Retrofit.retrofit
+    implementation Retrofit.retrofit_gson
+
+    implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
+    implementation "io.reactivex.rxjava2:rxjava:2.2.20"
+    implementation "io.reactivex.rxjava2:rxkotlin:2.4.0"
 
     implementation "org.koin:koin-android:2.1.5"
-    implementation "com.github.bumptech.glide:glide:4.11.0"
+    implementation "com.github.bumptech.glide:glide:4.12.0"
     implementation 'com.dino.library:simplerecyclerview:0.7.0'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
 
     implementation 'com.google.ads.mediation:facebook:6.2.0.0'
@@ -108,7 +109,5 @@ dependencies {
 
     implementation "com.google.dagger:hilt-android:2.33-beta"
     kapt "com.google.dagger:hilt-android-compiler:2.33-beta"
-
-
 }
 apply from: "$rootDir/spotless.gradle"

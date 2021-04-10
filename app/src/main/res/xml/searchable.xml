@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <searchable xmlns:android="http://schemas.android.com/apk/res/android"
-    android:label="검색">
+    android:hint="검색해주세요!!!"
+    android:label="검색"
+    android:searchSuggestAuthority="package com.keelim.nandadiagnosis.ui.main.search.SuggestionProvider"
+    android:voiceSearchMode="showVoiceSearchButton|launchRecognizer"
+    android:searchSuggestSelection=" ?">
     <actionkey android:keycode="KEYCODE_CALL" />
 </searchable>

@@ -1,4 +1,23 @@
-@file:Suppress("ClassName")
+object UI {
+    const val browser = "androidx.browser:browser:1.3.0-alpha06"
+    const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.2"
+    const val drawerlayout = "androidx.drawerlayout:drawerlayout:1.1.1"
+    const val material = "com.google.android.material:material:1.4.0-alpha02"
+    const val swiperefreshlayout = "androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01"
+    const val palette = "androidx.palette:palette:1.0.0"
+    const val preference = "androidx.preference:preference:1.1.1"
+    const val recyclerview = "androidx.recyclerview:recyclerview:1.2.0-alpha06"
+    const val viewPager = "androidx.viewpager2:viewpager2:1.1.0-alpha01"
+}
+
+object Retrofit {
+    private const val version = "4.9.0"
+    const val core = "com.squareup.okhttp3:okhttp:$version"
+    const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:$version"
+
+    const val retrofit = "com.squareup.retrofit2:retrofit:2.9.0"
+    const val retrofit_gson = "com.squareup.retrofit2:converter-gson:2.9.0"
+}
 
 object Dep {
     object GradlePlugin {
@@ -44,17 +63,6 @@ object Dep {
             const val testing = "androidx.room:room-testing:$roomVersion"
         }
 
-        object UI {
-            const val browser = "androidx.browser:browser:1.3.0-alpha06"
-            const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.2"
-            const val drawerlayout = "androidx.drawerlayout:drawerlayout:1.1.1"
-            const val material = "com.google.android.material:material:1.3.0-alpha03"
-            const val swiperefreshlayout = "androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01"
-            const val palette = "androidx.palette:palette:1.0.0"
-            const val preference = "androidx.preference:preference:1.1.1"
-            const val recyclerview = "androidx.recyclerview:recyclerview:1.2.0-alpha06"
-            const val viewPager = "androidx.viewpager2:viewpager2:1.1.0-alpha01"
-        }
 
         const val viewBinding =
             "androidx.databinding:viewbinding:${GradlePlugin.androidStudioVersion}"
@@ -101,11 +109,7 @@ object Dep {
         const val compiler = "com.github.bumptech.glide:compiler:$version"
     }
 
-    object OkHttp {
-        private const val version = "4.9.0"
-        const val core = "com.squareup.okhttp3:okhttp:$version"
-        const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:$version"
-    }
+
 
     const val timber = "com.jakewharton.timber:timber:4.7.1"
     const val leakCanary = "com.squareup.leakcanary:leakcanary-android:2.5"

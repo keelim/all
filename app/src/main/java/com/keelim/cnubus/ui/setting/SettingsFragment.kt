@@ -24,7 +24,7 @@ import androidx.preference.PreferenceFragmentCompat
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.keelim.cnubus.R
 import com.keelim.cnubus.ui.OpenSourceActivity
-import com.keelim.cnubus.ui.content.ContentActivity
+import com.keelim.cnubus.ui.content.Content2Activity
 import com.keelim.cnubus.utils.ThemeHelper
 
 class SettingsFragment : PreferenceFragmentCompat() {
@@ -44,7 +44,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     override fun onPreferenceTreeClick(preference: Preference): Boolean { // preference 클릭 리스너
         when (preference.key) {
             "content" -> {
-                requireActivity().startActivity(Intent(requireActivity(), ContentActivity::class.java))
+                requireActivity().startActivity(Intent(requireActivity(), Content2Activity::class.java))
             }
 
             "homepage" -> {

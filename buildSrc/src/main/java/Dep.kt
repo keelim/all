@@ -1,6 +1,25 @@
-@file:Suppress("ClassName")
+object SquareUp {
+    const val timber = "com.jakewharton.timber:timber:4.7.1"
+    const val leakCanary = "com.squareup.leakcanary:leakcanary-android:2.5"
+}
+object Hilt {
+    const val version = "2.33-beta"
+    const val android = "com.google.dagger:hilt-android:${version}"
+    const val hilt_compiler = "com.google.dagger:hilt-android-compiler:${version}"
+    const val testing = "com.google.dagger:hilt-android-testing:${version}"
 
-object Dep {
+    private const val androidX = "1.0.0-alpha02"
+    const val viewModel = "androidx.hilt:hilt-lifecycle-viewmodel:${androidX}"
+    const val android_hilt_compiler = "androidx.hilt:hilt-compiler:${androidX}"
+}
+
+object Glide {
+    private const val version = "4.12.0"
+    const val core = "com.github.bumptech.glide:glide:$version"
+    const val compiler = "com.github.bumptech.glide:compiler:$version"
+
+
+    object Dep {
     object GradlePlugin {
         const val androidStudioVersion = "4.2.0-alpha14"
         const val android = "com.android.tools.build:gradle:$androidStudioVersion"
@@ -66,16 +85,6 @@ object Dep {
         const val compiler = "com.google.dagger:dagger-compiler:$version"
     }
 
-    object Hilt {
-        const val version = "2.29.1-alpha"
-        const val android = "com.google.dagger:hilt-android:${version}"
-        const val hilt_compiler = "com.google.dagger:hilt-android-compiler:${version}"
-        const val testing = "com.google.dagger:hilt-android-testing:${version}"
-
-        private const val androidX = "1.0.0-alpha02"
-        const val viewModel = "androidx.hilt:hilt-lifecycle-viewmodel:${androidX}"
-        const val android_hilt_compiler = "androidx.hilt:hilt-compiler:${androidX}"
-    }
 
     object Kotlin {
         const val version = "1.4.10"
@@ -94,10 +103,6 @@ object Dep {
 
     const val jsoup = "org.jsoup:jsoup:1.13.1"
 
-    object Glide {
-        private const val version = "4.11.0"
-        const val core = "com.github.bumptech.glide:glide:$version"
-        const val compiler = "com.github.bumptech.glide:compiler:$version"
     }
 
     object OkHttp {
@@ -106,8 +111,7 @@ object Dep {
         const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:$version"
     }
 
-    const val timber = "com.jakewharton.timber:timber:4.7.1"
-    const val leakCanary = "com.squareup.leakcanary:leakcanary-android:2.5"
+
 
     object Test {
         const val junit = "junit:junit:4.13"

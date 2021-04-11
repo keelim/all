@@ -15,11 +15,10 @@
  */
 package com.keelim.cnubus.feature.map
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.maps.model.LatLng
 
-class MapsViewModel : ViewModel(){
+class MapsViewModel : ViewModel() {
     private var _items = MutableLiveData<List<LatLng>>()
 }

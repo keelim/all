@@ -1,3 +1,4 @@
+
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
@@ -11,13 +12,14 @@ dependencies {
     implementation project(":feature:error")
     implementation "org.koin:koin-android:2.1.5"
 
+    implementation SquareUp.timber
+
     implementation "androidx.constraintlayout:constraintlayout:2.0.4"
     implementation 'androidx.appcompat:appcompat:1.3.0-rc01'
     implementation 'com.google.android.gms:play-services-location:18.0.0'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
 
 //    implementation 'androidx.fragment:fragment-ktx:1.2.5'
-    implementation 'com.jakewharton.timber:timber:4.7.1'
     implementation 'com.google.android.material:material:1.3.0'
     implementation 'androidx.activity:activity-ktx:1.2.2'
 }

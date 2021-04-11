@@ -29,7 +29,7 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3115620439518585~7951570697" />
 
-        <activity android:name=".ui.content.ContentActivity" />
+        <activity android:name=".ui.content.Content2Activity" />
         <activity
             android:name=".ui.OpenSourceActivity"
             android:theme="@style/AppTheme.NoActionBar" />

@@ -13,22 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.common
+package com.keelim.cnubus.data
 
-import android.content.Context
-import android.view.View
-import android.widget.Toast
-import androidx.annotation.StringRes
-import com.google.android.material.snackbar.Snackbar
+open class Event<out T>(private val content: T) {
+    var hasBeenHandled = false
+        private set
 
-fun Context.toast(message: String, duration: Int = Toast.LENGTH_SHORT) {
-    Toast.makeText(this, message, duration).show()
-}
+    fun getContentIfNotHandled(): T? {
+        return if (hasBeenHandled) { // 이벤트가 이미 처리 되었다면
+            null // null을 반환하고,
+        } else { // 그렇지 않다면
+            hasBeenHandled = true // 이벤트가 처리되었다고 표시한 후에
+            content // 값을 반환합니다.
+        }
+    }
 
-fun Context.toast(@StringRes resId: Int, duration: Int = Toast.LENGTH_SHORT) {
-    Toast.makeText(this, this.resources.getText(resId), duration).show()
-}
-
-fun View.snack(message: String, duration: Int = Snackbar.LENGTH_SHORT) {
-    Snackbar.make(this, message, duration).show()
+    /**
+     * 이벤트의 처리 여부에 상관 없이 값을 반환합니다.
+     */
+    fun peekContent(): T = content
 }

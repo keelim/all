@@ -28,6 +28,7 @@ import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.FragmentActivity
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.GeofencingClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
@@ -52,6 +53,7 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback {
     private var current: LatLng? = null
     private var locationList: ArrayList<LatLng>? = null
     private var location = 0
+    lateinit var geofencingClient:GeofencingClient
 
     private lateinit var binding: ActivityMapsBinding
 
@@ -66,7 +68,7 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback {
 
         val locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
 
-        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             Toast.makeText(this, "제대로된 작동을  위해 GPS 를 켜주세요", Toast.LENGTH_SHORT).show()
             startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
         }

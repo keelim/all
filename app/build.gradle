@@ -1,4 +1,4 @@
-import ProjectConfigurations
+
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
@@ -6,7 +6,8 @@ plugins {
     id 'com.google.gms.google-services'
     id 'com.google.firebase.firebase-perf'
     id 'com.google.firebase.crashlytics'
-//    id 'dagger.hilt.android.plugin'
+    id 'com.google.firebase.appdistribution'
+    id 'dagger.hilt.android.plugin'
 }
 
 Properties properties = new Properties()
@@ -31,22 +32,19 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-
-        debug {
-            splits.abi.enable = true
-            splits.density.enable = true
-            aaptOptions.cruncherEnabled = true
-            ext.alwaysUpdateBuildId = false
+            firebaseAppDistribution {
+                testers="kimh00335@gmail.com"
+            }
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '11'
+        useIR = true
     }
 
     buildFeatures {
@@ -93,15 +91,18 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
     implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
     implementation "io.reactivex.rxjava2:rxkotlin:2.4.0"
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-    implementation 'com.github.bumptech.glide:glide:4.12.0'
-    kapt 'com.github.bumptech.glide:compiler:4.12.0'
+    implementation Glide.core
+    kapt Glide.compiler
 
-    implementation 'com.jakewharton.timber:timber:4.7.1'
+    implementation SquareUp.timber
+    implementation Hilt.android
+    kapt Hilt.hilt_compiler
 }
 
 apply from: "$rootDir/spotless.gradle"

@@ -13,22 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.common
+package com.keelim.cnubus.ui.content
 
-import android.content.Context
-import android.view.View
-import android.widget.Toast
-import androidx.annotation.StringRes
-import com.google.android.material.snackbar.Snackbar
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import com.keelim.cnubus.data.Event
 
-fun Context.toast(message: String, duration: Int = Toast.LENGTH_SHORT) {
-    Toast.makeText(this, message, duration).show()
-}
+class Content2ViewModel : ViewModel() {
+    private val _viewEvent = MutableLiveData<Event<Any>>()
+    val viewEvent: LiveData<Event<Any>>
+        get() = _viewEvent
 
-fun Context.toast(@StringRes resId: Int, duration: Int = Toast.LENGTH_SHORT) {
-    Toast.makeText(this, this.resources.getText(resId), duration).show()
-}
+    fun viewEvent(content: Any) {
+        _viewEvent.value = Event(content)
+    }
 
-fun View.snack(message: String, duration: Int = Snackbar.LENGTH_SHORT) {
-    Snackbar.make(this, message, duration).show()
+    companion object {
+        const val VIEW_1 = "homepage"
+    }
+
+    fun start1() = viewEvent(VIEW_1)
 }

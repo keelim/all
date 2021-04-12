@@ -40,7 +40,7 @@
 
 
 ## Architecture
-MVVM architecture and a repository pattern.
+MVVM architecture
 
 ![architecture](https://user-images.githubusercontent.com/24237865/77502018-f7d36000-6e9c-11ea-92b0-1097240c8689.png)
 

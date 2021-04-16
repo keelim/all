@@ -53,7 +53,7 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback {
     private var current: LatLng? = null
     private var locationList: ArrayList<LatLng>? = null
     private var location = 0
-    lateinit var geofencingClient:GeofencingClient
+    lateinit var geofencingClient: GeofencingClient
 
     private lateinit var binding: ActivityMapsBinding
 

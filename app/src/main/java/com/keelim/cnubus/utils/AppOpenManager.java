@@ -23,6 +23,8 @@ import com.keelim.cnubus.MyApplication;
 
 import java.util.Date;
 
+import timber.log.Timber;
+
 public class AppOpenManager implements LifecycleObserver, Application.ActivityLifecycleCallbacks {
     private static final String LOG_TAG = "AppOpenManager";
     private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/3419835294";
@@ -67,27 +69,20 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
                      *
                      * @param ad the loaded app open ad.
                      */
-                    @Override
-                    public void onAppOpenAdLoaded(AppOpenAd ad) {
-                        AppOpenManager.this.appOpenAd = ad;
-                        AppOpenManager.this.loadTime = (new Date()).getTime();
-                    }
+
 
                     /**
                      * Called when an app open ad has failed to load.
                      *
                      * @param loadAdError the error
                      */
-                    @Override
-                    public void onAppOpenAdFailedToLoad(LoadAdError loadAdError) {
-                        // Handle the error.
-                    }
+
 
                 };
         AdRequest request = getAdRequest();
 //        AppOpenAd.load(myApplication, myApplication.getString(R.string.ad_unit1), request, AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT, loadCallback);
 //        AppOpenAd.load(myApplication, AD_UNIT_ID, request, AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT, loadCallback); //test unit ID
-        AppOpenAd.load(myApplication, BuildConfig.API_KEY, request, AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT, loadCallback); //test unit ID
+        AppOpenAd.load(myApplication, "ca-app-pub-3115620439518585/4679881383", request, AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT, loadCallback); //test unit ID
     }
 
     /**
@@ -157,9 +152,9 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
                 }
             };
 
-            appOpenAd.show(currentActivity, fullScreenContentCallback);
+            appOpenAd.show(currentActivity);
         } else {
-            Log.d(LOG_TAG, "Can not show ad. ");
+            Timber.d("Can not show ad. ");
             fetchAd();
         }
     }

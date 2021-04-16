@@ -30,10 +30,10 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.graphics.drawable.IconCompat
-import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.material.snackbar.Snackbar
 import com.keelim.cnubus.BuildConfig
 import com.keelim.cnubus.R
@@ -42,12 +42,18 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class SplashActivity : AppCompatActivity() {
+    companion object {
+        const val PREF_FIRST_START = "AppFirstLaunch"
+        const val MULTIPLE_PERMISSIONS = 8888
+    }
     private lateinit var binding: ActivitySplashBinding
-    private lateinit var interstitialAd: InterstitialAd
-    private val test = "ca -app-pub-3940256099942544/1033173712"
     private lateinit var settings: SharedPreferences
+    private var mInterstitialAd: InterstitialAd? = null
+    private val test = "ca -app-pub-3940256099942544/1033173712"
+    private infix fun String.or(that: String): String = if (BuildConfig.DEBUG) this else that
 
     private val permissions = arrayOf(
         Manifest.permission.INTERNET,
@@ -104,33 +110,7 @@ class SplashActivity : AppCompatActivity() {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Snackbar.make(binding.root, "모든 권한이 승인 되었습니다. ", Snackbar.LENGTH_SHORT).show()
 
-                    interstitialAd = InterstitialAd(this@SplashActivity)
-                    interstitialAd.adUnitId = if (BuildConfig.DEBUG) test else BuildConfig.API_KEY2
-                    interstitialAd.adListener = object : AdListener() {
-                        override fun onAdLoaded() {
-                            super.onAdLoaded()
-                            interstitialAd.show()
-                        }
-
-                        override fun onAdFailedToLoad(loadAdError: LoadAdError) {
-                            val error =
-                                "domain: ${loadAdError.domain}, code: ${loadAdError.code}, " + "message: ${loadAdError.message}"
-                            Toast.makeText(
-                                this@SplashActivity,
-                                "onAdFailedToLoad() with error $error",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            goNext()
-                        }
-
-                        override fun onAdClosed() {
-                            super.onAdClosed()
-                            goNext()
-                        }
-                    }
-
-                    interstitialAd.loadAd(AdRequest.Builder().build())
-
+                    showAd()
                     goNext()
                 } else {
                     // 하나라도 거부한다면.
@@ -159,10 +139,29 @@ class SplashActivity : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {}
+    private fun showAd() {
+        val adRequest = AdRequest.Builder().build()
+        InterstitialAd.load(
+            this, test or "ca-app-pub-3115620439518585/4013096159", adRequest,
+            object : InterstitialAdLoadCallback() {
+                override fun onAdFailedToLoad(adError: LoadAdError) {
+                    Timber.d(adError.message)
+                    mInterstitialAd = null
+                }
 
-    companion object {
-        const val PREF_FIRST_START = "AppFirstLaunch"
-        const val MULTIPLE_PERMISSIONS = 8888
+                override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                    Timber.d("Ad was loaded.")
+                    mInterstitialAd = interstitialAd
+
+                    if (mInterstitialAd != null) {
+                        mInterstitialAd!!.show(this@SplashActivity)
+                    } else {
+                        Timber.d("The interstitial ad wasn't ready yet.")
+                    }
+                }
+            }
+        )
     }
+
+    override fun onBackPressed() {}
 }

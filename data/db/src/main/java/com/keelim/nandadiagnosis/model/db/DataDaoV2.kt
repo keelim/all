@@ -13,28 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.data.db
+package com.keelim.nandadiagnosis.model.db
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.Dao
+import androidx.room.Query
+import com.keelim.nandadiagnosis.model.db.NandaEntity
 
-@Entity(tableName = "nanda")
-data class NandaEntity(
-  @PrimaryKey
-  val nanda_id: Int,
+@Dao
+interface
+DataDaoV2 {
+  @Query("select * from nanda where reason like  '%' || :keyword || '%'")
+  suspend fun search(keyword: String?): List<NandaEntity>
 
-  val reason: String,
+  @Query("select * from nanda where category = :number")
+  suspend fun get(number: Int?): List<NandaEntity>
 
-  val diagnosis: String,
-
-  val class_name: String,
-
-  val domain_name: String,
-
-  val category: Int
-
-) {
-  override fun toString(): String {
-    return "$nanda_id \n $reason \n $diagnosis \n $class_name \n $domain_name \n $category"
-  }
+  @Query("select * from nanda order by nanda_id desc")
+  suspend fun getNanda(): NandaEntity?
 }

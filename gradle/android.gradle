@@ -33,3 +33,9 @@ android {
     }
 }
 apply from: "$rootDir/spotless.gradle"
+
+dependencies {
+    testImplementation AppTest.junit
+    androidTestImplementation AppTest.androidJunit
+    androidTestImplementation AppTest.espressoCore
+}

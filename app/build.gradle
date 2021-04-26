@@ -1,5 +1,3 @@
-import ProjectConfigurations
-
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
@@ -24,7 +22,6 @@ android {
         versionName ProjectConfigurations.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
     }
 
     buildTypes {
@@ -58,21 +55,10 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':common')
     implementation project(':data:db')
     implementation project(':feature:error')
     implementation project(":feature:kakao_search")
-
-    implementation "androidx.core:core-ktx:1.5.0-beta01"
-    implementation "androidx.activity:activity-ktx:1.2.0-rc01"
-    implementation "androidx.appcompat:appcompat:1.3.0-beta01"
-    implementation "androidx.constraintlayout:constraintlayout:2.0.4"
-    implementation "androidx.recyclerview:recyclerview:1.2.0-beta01"
-    implementation 'androidx.recyclerview:recyclerview-selection:1.1.0'
-    implementation "androidx.preference:preference-ktx:1.1.1"
-
-
-    implementation "androidx.navigation:navigation-fragment-ktx:2.3.3"
-    implementation "androidx.navigation:navigation-ui-ktx:2.3.3"
 
     implementation platform('com.google.firebase:firebase-bom:26.1.0')
     implementation "com.google.firebase:firebase-core"
@@ -82,32 +68,39 @@ dependencies {
     implementation "com.google.firebase:firebase-analytics-ktx"
     implementation 'com.google.firebase:firebase-inappmessaging-display-ktx'
 
-    implementation UI.material
-    implementation "com.google.android.play:core:1.9.1"
-    implementation "com.google.android.gms:play-services-ads:19.7.0"
-    implementation "com.google.guava:guava:30.1-jre"
-
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
-    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
-
-
-    implementation Retrofit.retrofit
-    implementation Retrofit.retrofit_gson
-
-    implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
-    implementation "io.reactivex.rxjava2:rxjava:2.2.20"
-    implementation "io.reactivex.rxjava2:rxkotlin:2.4.0"
-
-    implementation "org.koin:koin-android:2.1.5"
-    implementation "com.github.bumptech.glide:glide:4.12.0"
-    implementation 'com.dino.library:simplerecyclerview:0.7.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-
     implementation 'com.google.ads.mediation:facebook:6.2.0.0'
-    implementation 'com.jakewharton.timber:timber:4.7.1'
+    implementation "org.koin:koin-android:2.1.5"
+    implementation 'com.dino.library:simplerecyclerview:0.7.0'
 
-    implementation "com.google.dagger:hilt-android:2.33-beta"
-    kapt "com.google.dagger:hilt-android-compiler:2.33-beta"
+    implementation AndroidX.activity_ktx
+    implementation AndroidX.core_ktx
+    implementation AndroidX.appcompat
+    implementation AndroidX.navigation_ui
+    implementation AndroidX.navigation_fragment
+
+    implementation UI.constraintLayout
+    implementation UI.recycler_selection
+    implementation UI.recyclerview
+    implementation UI.preference_ktx
+    implementation UI.material
+
+    implementation Play.play_core
+    implementation Play.play_ads
+
+    implementation SquareUp.retrofit
+    implementation SquareUp.gson_converter
+    implementation SquareUp.timber
+
+    implementation Rx.rxandroid
+
+    implementation Hilt.android
+    kapt Hilt.hilt_compiler
+
+    implementation Glide.core
+    kapt Glide.compiler
+
+    testImplementation AppTest.junit
+    androidTestImplementation AppTest.androidJunit
+    androidTestImplementation AppTest.espressoCore
 }
 apply from: "$rootDir/spotless.gradle"

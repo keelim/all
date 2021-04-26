@@ -7,13 +7,7 @@ plugins {
 apply from: rootProject.file('./gradle/android.gradle')
 
 dependencies {
-    implementation SquareUp.timber
-
-    implementation UI.constraintLayout
-    implementation UI.material
-
     implementation LifeCycle.viewmodel
     implementation LifeCycle.livedata
-    implementation LifeCycle.extensions
-    implementation LifeCycle.runtime
+    implementation UI.material
 }

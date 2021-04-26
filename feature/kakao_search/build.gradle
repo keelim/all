@@ -1,4 +1,3 @@
-import UI
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
@@ -8,12 +7,11 @@ plugins {
 apply from: rootProject.file('gradle/android.gradle')
 
 dependencies {
+    implementation AndroidX.core_ktx
+    implementation AndroidX.appcompat
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.4.30"
-    implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.4.2'
-    implementation Retrofit.retrofit
-    implementation Retrofit.retrofit_gson
+    implementation SquareUp.retrofit
+    implementation SquareUp.gson_converter
+
     implementation UI.material
 }

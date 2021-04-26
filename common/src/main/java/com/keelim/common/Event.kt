@@ -13,6 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.data
+package com.keelim.common
 
-data class DiagnosisItem(var diagnosis: String, var diagnosis_description: String)
+import androidx.lifecycle.Observer
+
+open class Event<out T> (private val content: T) {
+    var flag = false
+
+    fun getContentIfNotHandled(): T? {
+        return if (flag) null
+        else {
+            flag = true
+            content
+        }
+    }
+
+    fun peekContent(): T = content
+
+    class EventObserver<T>(private val onEventUnhandledContent: (T) -> Unit) : Observer<Event<T>> {
+        override fun onChanged(t: Event<T>?) {
+            t?.getContentIfNotHandled()?.let { value ->
+                onEventUnhandledContent(value)
+            }
+        }
+    }
+}

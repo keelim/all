@@ -17,7 +17,6 @@ package com.keelim.nandadiagnosis.model.db
 
 import androidx.room.Dao
 import androidx.room.Query
-import com.keelim.nandadiagnosis.model.db.NandaEntity
 
 @Dao
 interface

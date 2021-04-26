@@ -22,13 +22,12 @@ import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import androidx.appcompat.app.AppCompatActivity
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.base.BaseActivity
 import com.keelim.nandadiagnosis.databinding.ActivityWebBinding
 
 class WebActivity : BaseActivity() {
-  private val binding:ActivityWebBinding by binding(R.layout.activity_web)
+  private val binding: ActivityWebBinding by binding(R.layout.activity_web)
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 

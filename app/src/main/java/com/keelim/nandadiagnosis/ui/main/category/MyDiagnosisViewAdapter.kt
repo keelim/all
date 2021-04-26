@@ -19,7 +19,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import com.keelim.nandadiagnosis.data.DiagnosisItem
+import com.keelim.nandadiagnosis.model.DiagnosisItem
 import com.keelim.nandadiagnosis.databinding.ItemListviewBinding
 import java.util.ArrayList
 

@@ -1,9 +1,8 @@
-import Dep
 buildscript {
     repositories {
         google()
-        mavenCentral()
         jcenter()
+        mavenCentral()
     }
 
     dependencies {
@@ -19,11 +18,10 @@ buildscript {
 }
 
 allprojects {
-
     repositories {
         google()
-        mavenCentral()
         jcenter()
+        mavenCentral()
         maven { url 'https://jitpack.io' }
     }
 }

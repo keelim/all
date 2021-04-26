@@ -19,9 +19,11 @@ android {
 }
 
 dependencies {
-    implementation "androidx.room:room-ktx:2.2.6"
-    implementation "androidx.room:room-runtime:2.2.6"
-    kapt "androidx.room:room-compiler:2.2.6"
-    testImplementation "androidx.room:room-testing:2.2.6"
+    implementation Room.ktx
+    implementation Room.runtime
+    kapt Room.compiler
+    testImplementation Room.testing
 
+    implementation LifeCycle.viewmodel
+    implementation 'androidx.test.ext:junit:1.1.2'
 }

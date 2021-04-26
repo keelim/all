@@ -17,30 +17,21 @@ package com.keelim.nandadiagnosis.ui.main.category
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.data.DiagnosisItem
-import com.keelim.nandadiagnosis.data.db.AppDatabase
-import com.keelim.nandadiagnosis.data.db.NandaEntity
+import com.keelim.nandadiagnosis.base.BaseActivity
 import com.keelim.nandadiagnosis.databinding.ActivityDiagnosisBinding
+import com.keelim.nandadiagnosis.model.DiagnosisItem
 import com.keelim.nandadiagnosis.ui.WebActivity
 import java.util.ArrayList
 
-class DiagnosisActivity : AppCompatActivity() {
+class DiagnosisActivity : BaseActivity() {
   private var arrayList: ArrayList<DiagnosisItem>? = ArrayList()
   private var nav = 0
-  private lateinit var binding: ActivityDiagnosisBinding
+  private val binding: ActivityDiagnosisBinding by binding(R.layout.activity_diagnosis)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    binding = ActivityDiagnosisBinding.inflate(layoutInflater)
-    setContentView(binding.root)
     arrayListSetting()
-
-//        binding.list.adapter = MyDiagnosisViewAdapter(arrayList)
-//        binding.list.setOnItemClickListener { _, _, i, _ ->
-//            goWeb(nav + i + 1)
-//        }
 
     binding.list.adapter = DiagnosisRecyclerViewAdapter().apply {
       setDiagnosisItem(arrayList!!.toMutableList())
@@ -121,9 +112,5 @@ class DiagnosisActivity : AppCompatActivity() {
     for (i in startPoint..finalPoint) {
       arrayList!!.add(DiagnosisItem(array1[i], ""))
     }
-  }
-
-  private fun getDiagnosis(number: Int): List<NandaEntity> { // 데이터베이스 가져와서 검색하기
-    return AppDatabase.getInstance(this)!!.dataDao().get(number)
   }
 }

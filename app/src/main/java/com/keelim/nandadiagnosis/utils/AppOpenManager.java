@@ -68,21 +68,12 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
                      *
                      * @param ad the loaded app open ad.
                      */
-                    @Override
-                    public void onAppOpenAdLoaded(AppOpenAd ad) {
-                        AppOpenManager.this.appOpenAd = ad;
-                        AppOpenManager.this.loadTime = (new Date()).getTime();
-                    }
 
                     /**
                      * Called when an app open ad has failed to load.
                      *
                      * @param loadAdError the error
                      */
-                    @Override
-                    public void onAppOpenAdFailedToLoad(LoadAdError loadAdError) {
-                        // Handle the error.
-                    }
 
                 };
         AdRequest request = getAdRequest();
@@ -161,7 +152,7 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
                 }
             };
 
-            appOpenAd.show(currentActivity, fullScreenContentCallback);
+            appOpenAd.show(currentActivity);
         } else {
             Timber.d("Can not show ad. ");
             fetchAd();

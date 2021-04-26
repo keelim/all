@@ -13,16 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.data.db
+package com.keelim.common
 
-import androidx.room.Dao
-import androidx.room.Query
+import android.content.Context
+import android.view.View
+import android.widget.Toast
+import androidx.annotation.StringRes
+import com.google.android.material.snackbar.Snackbar
 
-@Dao
-interface DataDao {
-  @Query("select * from nanda where reason like  '%' || :keyword || '%'")
-  fun search(keyword: String?): List<NandaEntity>
+fun Context.toast(message: String, duration: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(this, message, duration).show()
+}
 
-  @Query("select * from nanda where category = :number")
-  fun get(number: Int?): List<NandaEntity>
+fun Context.toast(@StringRes resId: Int, duration: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(this, this.resources.getText(resId), duration).show()
+}
+
+fun View.snack(message: String, duration: Int = Snackbar.LENGTH_SHORT) {
+    Snackbar.make(this, message, duration).show()
 }

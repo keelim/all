@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.data.db
+package com.keelim.nandadiagnosis.model.db
 
 import android.content.Context
 import androidx.room.Database
@@ -22,23 +22,28 @@ import androidx.room.RoomDatabase
 import java.io.File
 
 @Database(entities = [NandaEntity::class], version = 2, exportSchema = false)
-abstract class AppDatabase : RoomDatabase() {
-  abstract fun dataDao(): DataDao
+abstract class AppDatabaseV2 : RoomDatabase() {
+    abstract val dataDao: DataDaoV2
 
-  companion object {
-    private var INSTANCE: AppDatabase? = null
+    companion object {
+        @Volatile
+        private var INSTANCE: AppDatabaseV2? = null
 
-    fun getInstance(context: Context): AppDatabase? {
-      if (INSTANCE == null) {
-        synchronized(AppDatabase::class) {
-          INSTANCE = Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, "nanda")
-            .createFromFile(File(context.getExternalFilesDir(null), "nanda.db"))
+        fun getInstance(context: Context): AppDatabaseV2? {
+            if (INSTANCE == null) {
+                synchronized(AppDatabaseV2::class) {
+                    INSTANCE = Room.databaseBuilder(
+                        context.applicationContext,
+                        AppDatabaseV2::class.java,
+                        "nanda"
+                    )
+                        .createFromFile(File(context.getExternalFilesDir(null), "nanda.db"))
 //                            .createFromFile(context.getDatabasePath("nanda.db"))
-            .allowMainThreadQueries()
-            .build()
+                        .allowMainThreadQueries()
+                        .build()
+                }
+            }
+            return INSTANCE
         }
-      }
-      return INSTANCE
     }
-  }
 }

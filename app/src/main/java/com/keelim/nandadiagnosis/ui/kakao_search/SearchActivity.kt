@@ -20,16 +20,18 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.keelim.nandadiagnosis.R
+import com.keelim.nandadiagnosis.base.BaseActivity
 import com.keelim.nandadiagnosis.databinding.ActivitySearchBinding
 
-class SearchActivity : AppCompatActivity() {
-  private lateinit var binding: ActivitySearchBinding
+class SearchActivity : BaseActivity() {
+  private val binding: ActivitySearchBinding by binding(R.layout.activity_search)
   private val searchViewModel by viewModels<SearchViewModel>()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    binding = DataBindingUtil.setContentView(this, R.layout.activity_search)
-    binding.lifecycleOwner = this
-    binding.vm = searchViewModel
+    binding.apply{
+      lifecycleOwner = this@SearchActivity
+      vm = searchViewModel
+    }
   }
 }

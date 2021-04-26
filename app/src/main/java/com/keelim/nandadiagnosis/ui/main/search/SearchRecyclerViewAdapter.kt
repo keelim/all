@@ -21,7 +21,7 @@ import android.widget.TextView
 import androidx.recyclerview.selection.ItemDetailsLookup
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.widget.RecyclerView
-import com.keelim.nandadiagnosis.data.db.NandaEntity
+import com.keelim.nandadiagnosis.model.db.NandaEntity
 import com.keelim.nandadiagnosis.databinding.ItemListviewBinding
 
 class SearchRecyclerViewAdapter() : RecyclerView.Adapter<SearchRecyclerViewAdapter.ViewHolder>() {

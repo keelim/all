@@ -22,13 +22,13 @@ import androidx.annotation.StringRes
 import com.google.android.material.snackbar.Snackbar
 
 fun Context.toast(message: String, duration: Int = Toast.LENGTH_SHORT) {
-    Toast.makeText(this, message, duration).show()
+  Toast.makeText(this, message, duration).show()
 }
 
 fun Context.toast(@StringRes resId: Int, duration: Int = Toast.LENGTH_SHORT) {
-    Toast.makeText(this, this.resources.getText(resId), duration).show()
+  Toast.makeText(this, this.resources.getText(resId), duration).show()
 }
 
 fun View.snack(message: String, duration: Int = Snackbar.LENGTH_SHORT) {
-    Snackbar.make(this, message, duration).show()
+  Snackbar.make(this, message, duration).show()
 }

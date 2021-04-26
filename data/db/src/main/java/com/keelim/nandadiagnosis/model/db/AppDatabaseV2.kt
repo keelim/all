@@ -23,27 +23,27 @@ import java.io.File
 
 @Database(entities = [NandaEntity::class], version = 2, exportSchema = false)
 abstract class AppDatabaseV2 : RoomDatabase() {
-    abstract val dataDao: DataDaoV2
+  abstract val dataDao: DataDaoV2
 
-    companion object {
-        @Volatile
-        private var INSTANCE: AppDatabaseV2? = null
+  companion object {
+    @Volatile
+    private var INSTANCE: AppDatabaseV2? = null
 
-        fun getInstance(context: Context): AppDatabaseV2? {
-            if (INSTANCE == null) {
-                synchronized(AppDatabaseV2::class) {
-                    INSTANCE = Room.databaseBuilder(
-                        context.applicationContext,
-                        AppDatabaseV2::class.java,
-                        "nanda"
-                    )
-                        .createFromFile(File(context.getExternalFilesDir(null), "nanda.db"))
+    fun getInstance(context: Context): AppDatabaseV2? {
+      if (INSTANCE == null) {
+        synchronized(AppDatabaseV2::class) {
+          INSTANCE = Room.databaseBuilder(
+            context.applicationContext,
+            AppDatabaseV2::class.java,
+            "nanda"
+          )
+            .createFromFile(File(context.getExternalFilesDir(null), "nanda.db"))
 //                            .createFromFile(context.getDatabasePath("nanda.db"))
-                        .allowMainThreadQueries()
-                        .build()
-                }
-            }
-            return INSTANCE
+            .allowMainThreadQueries()
+            .build()
         }
+      }
+      return INSTANCE
     }
+  }
 }

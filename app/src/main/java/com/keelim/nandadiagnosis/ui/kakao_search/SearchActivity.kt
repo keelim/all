@@ -17,8 +17,6 @@ package com.keelim.nandadiagnosis.ui.kakao_search
 
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.base.BaseActivity
 import com.keelim.nandadiagnosis.databinding.ActivitySearchBinding
@@ -29,7 +27,7 @@ class SearchActivity : BaseActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    binding.apply{
+    binding.apply {
       lifecycleOwner = this@SearchActivity
       vm = searchViewModel
     }

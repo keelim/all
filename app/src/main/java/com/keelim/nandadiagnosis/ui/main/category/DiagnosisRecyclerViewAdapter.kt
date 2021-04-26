@@ -19,7 +19,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.keelim.nandadiagnosis.data.DiagnosisItem
+import com.keelim.nandadiagnosis.model.DiagnosisItem
 import com.keelim.nandadiagnosis.databinding.ItemListviewBinding
 
 class DiagnosisRecyclerViewAdapter : RecyclerView.Adapter<DiagnosisRecyclerViewAdapter.ViewHolder>() {

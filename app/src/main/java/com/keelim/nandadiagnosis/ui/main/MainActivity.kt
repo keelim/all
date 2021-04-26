@@ -36,13 +36,14 @@ import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.keelim.nandadiagnosis.BuildConfig
 import com.keelim.nandadiagnosis.R
+import com.keelim.nandadiagnosis.base.BaseActivity
 import com.keelim.nandadiagnosis.databinding.ActivityMainBinding
 import com.keelim.nandadiagnosis.utils.BackPressCloseHandler
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 import java.io.File
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
   private lateinit var backPressCloseHandler: BackPressCloseHandler
   private lateinit var binding: ActivityMainBinding
 
@@ -76,9 +77,9 @@ class MainActivity : AppCompatActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    backPressCloseHandler = BackPressCloseHandler(this)
     binding = ActivityMainBinding.inflate(layoutInflater)
     setContentView(binding.root)
-    backPressCloseHandler = BackPressCloseHandler(this)
 
     val navController = findNavController(R.id.nav_host_fragment)
     binding.navView.setupWithNavController(navController)

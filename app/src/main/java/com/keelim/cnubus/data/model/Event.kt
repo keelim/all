@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.cnubus.data
+package com.keelim.cnubus.data.model
 
 open class Event<out T>(private val content: T) {
     var hasBeenHandled = false

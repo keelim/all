@@ -18,7 +18,7 @@ package com.keelim.cnubus.ui.content
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.keelim.cnubus.data.Event
+import com.keelim.cnubus.data.model.Event
 
 class Content2ViewModel : ViewModel() {
     private val _viewEvent = MutableLiveData<Event<Any>>()

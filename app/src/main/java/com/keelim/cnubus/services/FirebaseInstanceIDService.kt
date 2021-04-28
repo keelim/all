@@ -42,15 +42,13 @@ class FirebaseInstanceIDService : FirebaseMessagingService() {
     private fun sendNotification(remoteMessage: RemoteMessage) {
         val message = remoteMessage.data["data"]
         // 수신되는 푸시 메시지
-//        val messageDivider = message!!.indexOf("|")
-//        // 구분자를 통해 어떤 종류의 알람인지를 구별합니다.
-//
-//        val pushType = message.substring(messageDivider + 1) // 구분자 뒤에 나오는 메시지
+        val messageDivider = message!!.indexOf("|")
+        // 구분자를 통해 어떤 종류의 알람인지를 구별합니다.
+        val pushType = message.substring(messageDivider + 1) // 구분자 뒤에 나오는 메시지
         val resultIntent = Intent(this, MainActivity::class.java)
         resultIntent.putExtra("pushType", "pushType")
 
-        val pendingIntent =
-            PendingIntent.getActivity(this, 1, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val pendingIntent = PendingIntent.getActivity(this, 1, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
         val notificationBuilder: NotificationCompat.Builder =
             NotificationCompat.Builder(this, "")

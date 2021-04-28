@@ -37,6 +37,7 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.material.snackbar.Snackbar
 import com.keelim.cnubus.BuildConfig
 import com.keelim.cnubus.R
+import com.keelim.cnubus.base.BaseActivity
 import com.keelim.cnubus.databinding.ActivitySplashBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -44,12 +45,13 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : BaseActivity() {
     companion object {
         const val PREF_FIRST_START = "AppFirstLaunch"
         const val MULTIPLE_PERMISSIONS = 8888
     }
-    private lateinit var binding: ActivitySplashBinding
+
+    private val binding: ActivitySplashBinding by binding(R.layout.activity_splash)
     private lateinit var settings: SharedPreferences
     private var mInterstitialAd: InterstitialAd? = null
     private val test = "ca -app-pub-3940256099942544/1033173712"
@@ -63,8 +65,6 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySplashBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
         addShortcut()
 

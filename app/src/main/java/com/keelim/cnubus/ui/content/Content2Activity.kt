@@ -24,19 +24,21 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.keelim.cnubus.R
+import com.keelim.cnubus.base.BaseActivity
 import com.keelim.cnubus.databinding.ActivityContent2Binding
 
-class Content2Activity : FragmentActivity() {
-    private lateinit var binding: ActivityContent2Binding
+class Content2Activity : BaseActivity() {
+    private val binding: ActivityContent2Binding by binding(R.layout.activity_content2)
     private val viewModel by viewModels<Content2ViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_content2)
-        binding.vm = viewModel
-        binding.lifecycleOwner = this
 
-        val pagerAdapter = ScreenSliderPagerAdapter(this)
-        binding.pager.adapter = pagerAdapter
+        binding.apply {
+            vm = viewModel
+            lifecycleOwner = this@Content2Activity
+        }
+
+        binding.pager.adapter = ScreenSliderPagerAdapter(this)
 
         viewModel.viewEvent.observe(
             this,

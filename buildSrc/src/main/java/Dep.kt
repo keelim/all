@@ -5,18 +5,28 @@ object Play {
     const val play_core = "com.google.android.play:core:1.10.0"
 }
 
-object Rx{
-    const val rxandroid =  "io.reactivex.rxjava2:rxandroid:2.1.1"
-    const val rxjava =  "io.reactivex.rxjava2:rxjava:2.2.21"
-    const val rxkotlin =  "io.reactivex.rxjava2:rxkotlin:2.4.0"
+object Coil {
+    const val coil = "io.coil-kt:coil:1.2.0"
+}
+
+object Rx {
+    const val rxandroid = "io.reactivex.rxjava2:rxandroid:2.1.1"
+    const val rxjava = "io.reactivex.rxjava2:rxjava:2.2.21"
+    const val rxkotlin = "io.reactivex.rxjava2:rxkotlin:2.4.0"
 }
 
 object SquareUp {
     private const val version = "4.9.0"
+    private const val rversion = "2.9.0"
     const val timber = "com.jakewharton.timber:timber:4.7.1"
     const val leakCanary = "com.squareup.leakcanary:leakcanary-android:2.5"
     const val core = "com.squareup.okhttp3:okhttp:$version"
     const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:$version"
+    const val urlconnection = "com.squareup.okhttp3:okhttp-urlconnection:$version"
+    const val retrofit = "com.squareup.retrofit2:retrofit:$rversion"
+    const val retrofit_gson = "com.squareup.retrofit2:converter-gson:$rversion"
+
+
 }
 
 object Room {
@@ -39,11 +49,13 @@ object Hilt {
     const val version = "2.33-beta"
     const val android = "com.google.dagger:hilt-android:${version}"
     const val hilt_compiler = "com.google.dagger:hilt-android-compiler:${version}"
-    const val testing = "com.google.dagger:hilt-android-testing:${version}"
+    const val hilt_common = "androidx.hilt:hilt-common:$version"
+    const val viewModel = "androidx.hilt:hilt-lifecycle-viewmodel:${version}"
 
-    private const val androidX = "1.0.0-alpha02"
-    const val viewModel = "androidx.hilt:hilt-lifecycle-viewmodel:${androidX}"
-    const val android_hilt_compiler = "androidx.hilt:hilt-compiler:${androidX}"
+    const val testing = "com.google.dagger:hilt-android-testing:${version}"
+    const val android_hilt_compiler = "androidx.hilt:hilt-compiler:${version}"
+
+
 }
 
 object AndroidX {
@@ -56,8 +68,8 @@ object AndroidX {
     const val appcompat = "androidx.appcompat:appcompat:1.3.0-rc01"
     const val core_ktx = "androidx.core:core-ktx:1.6.0-alpha01"
 
-    const val navigation_fragment =  "androidx.navigation:navigation-fragment-ktx:2.3.5"
-    const val navigation_ui =  "androidx.navigation:navigation-ui-ktx:2.3.5"
+    const val navigation_fragment = "androidx.navigation:navigation-fragment-ktx:2.3.5"
+    const val navigation_ui = "androidx.navigation:navigation-ui-ktx:2.3.5"
 
     object fragment {
         private const val fragmentVersion = "1.3.0-beta01"

@@ -84,13 +84,18 @@ dependencies {
     androidTestImplementation AppTest.androidJunit
     androidTestImplementation AppTest.espressoCore
 
-    implementation Glide.core
-    kapt Glide.compiler
-
     implementation SquareUp.timber
 
     implementation Hilt.android
     kapt Hilt.hilt_compiler
+
+    implementation Coil.coil
+
+    implementation SquareUp.core
+    implementation SquareUp.loggingInterceptor
+    implementation SquareUp.urlconnection
+    implementation SquareUp.retrofit
+    implementation SquareUp.retrofit_gson
 }
 
 apply from: "$rootDir/spotless.gradle"

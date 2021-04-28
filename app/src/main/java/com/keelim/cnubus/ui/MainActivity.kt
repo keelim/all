@@ -18,17 +18,17 @@ package com.keelim.cnubus.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayoutMediator
+import com.keelim.cnubus.R
+import com.keelim.cnubus.base.BaseActivity
 import com.keelim.cnubus.databinding.ActivityMainBinding
 import com.keelim.cnubus.utils.BackPressCloseHandler
 
-class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
+class MainActivity : BaseActivity() {
+    private val binding: ActivityMainBinding by binding(R.layout.activity_main)
     private lateinit var backPressCloseHandler: BackPressCloseHandler
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
         backPressCloseHandler = BackPressCloseHandler(this)
 
@@ -42,10 +42,6 @@ class MainActivity : AppCompatActivity() {
                 4 -> tab.text = "설정"
             }
         }.attach()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
     }
 
     override fun onBackPressed() {

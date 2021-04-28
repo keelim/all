@@ -13,13 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.ui.kakao_search
+package com.keelim.nandadiagnosis.data.model
 
-import android.widget.ImageView
-import androidx.databinding.BindingAdapter
-import coil.load
-
-@BindingAdapter("loadUrl")
-fun ImageView.loadUrl(url: String) {
-  this.load(url)
-}
+data class DiagnosisItem(var diagnosis: String, var diagnosis_description: String)

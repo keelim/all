@@ -13,13 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.ui.kakao_search
+package com.keelim.nandadiagnosis.data.db
 
-import android.widget.ImageView
-import androidx.databinding.BindingAdapter
-import coil.load
+import androidx.room.Dao
+import androidx.room.Query
 
-@BindingAdapter("loadUrl")
-fun ImageView.loadUrl(url: String) {
-  this.load(url)
+@Dao
+interface
+DataDaoV2 {
+  @Query("select * from nanda where reason like  '%' || :keyword || '%'")
+  suspend fun search(keyword: String?): List<NandaEntity>
+
+  @Query("select * from nanda where category = :number")
+  suspend fun get(number: Int?): List<NandaEntity>
+
+  @Query("select * from nanda order by nanda_id desc")
+  suspend fun getNanda(): NandaEntity?
 }

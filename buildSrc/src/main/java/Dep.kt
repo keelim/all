@@ -1,3 +1,8 @@
+object Coil {
+    const val coil = "io.coil-kt:coil:1.2.0"
+}
+
+
 object Play {
     const val play_location = "com.google.android.gms:play-services-location:18.0.0"
     const val play_map = "com.google.android.gms:play-services-maps:17.0.0"
@@ -13,13 +18,16 @@ object Rx{
 
 object SquareUp {
     private const val version = "4.9.0"
+    private const val rversion = "2.9.0"
     const val timber = "com.jakewharton.timber:timber:4.7.1"
     const val leakCanary = "com.squareup.leakcanary:leakcanary-android:2.5"
     const val core = "com.squareup.okhttp3:okhttp:$version"
     const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:$version"
-    private const val retrofit_version = "2.9.0"
-    const val retrofit = "com.squareup.retrofit2:retrofit:$retrofit_version"
-    const val gson_converter = "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    const val urlconnection = "com.squareup.okhttp3:okhttp-urlconnection:$version"
+    const val retrofit = "com.squareup.retrofit2:retrofit:$rversion"
+    const val retrofit_gson = "com.squareup.retrofit2:converter-gson:$rversion"
+
+
 }
 
 object Room {

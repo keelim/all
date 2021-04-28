@@ -13,13 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.ui.kakao_search
+package com.keelim.nandadiagnosis.data.remote
 
-import android.widget.ImageView
-import androidx.databinding.BindingAdapter
-import coil.load
+import com.keelim.nandadiagnosis.data.db.NandaEntity
+import com.keelim.nandadiagnosis.service.NandaService
+import javax.inject.Inject
 
-@BindingAdapter("loadUrl")
-fun ImageView.loadUrl(url: String) {
-  this.load(url)
+class RemoteDataSourceImpl @Inject constructor(
+  private val service: NandaService
+) : RemoteDataSource {
+  override suspend fun getNandaInformation(type: String): List<NandaEntity> {
+    return service.getNanfaInformation(type)
+  }
 }

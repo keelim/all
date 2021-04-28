@@ -13,20 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.model.db
+package com.keelim.nandadiagnosis.data.model
 
-import androidx.room.Dao
-import androidx.room.Query
+class SingleLiveEvent<out T>(private val content: T) {
+  private var hasBeenHandled = false
 
-@Dao
-interface
-DataDaoV2 {
-  @Query("select * from nanda where reason like  '%' || :keyword || '%'")
-  suspend fun search(keyword: String?): List<NandaEntity>
-
-  @Query("select * from nanda where category = :number")
-  suspend fun get(number: Int?): List<NandaEntity>
-
-  @Query("select * from nanda order by nanda_id desc")
-  suspend fun getNanda(): NandaEntity?
+  fun getContentIfNotHandled(): T? {
+    return if (hasBeenHandled) {
+      null
+    } else {
+      hasBeenHandled = true
+      content
+    }
+  }
 }

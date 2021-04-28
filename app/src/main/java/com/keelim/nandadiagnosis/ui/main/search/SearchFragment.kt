@@ -32,9 +32,9 @@ import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
 import com.keelim.nandadiagnosis.R
+import com.keelim.nandadiagnosis.data.db.AppDatabaseV2
+import com.keelim.nandadiagnosis.data.db.NandaEntity
 import com.keelim.nandadiagnosis.databinding.FragmentSearchBinding
-import com.keelim.nandadiagnosis.model.db.AppDatabaseV2
-import com.keelim.nandadiagnosis.model.db.NandaEntity
 import com.keelim.nandadiagnosis.ui.main.search.selection.MyItemDetailsLookup
 import com.keelim.nandadiagnosis.ui.main.search.selection.MyItemKeyProvider
 import io.reactivex.Observable

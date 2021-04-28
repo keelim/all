@@ -19,8 +19,8 @@ import android.content.Intent
 import android.os.Bundle
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.base.BaseActivity
+import com.keelim.nandadiagnosis.data.model.DiagnosisItem
 import com.keelim.nandadiagnosis.databinding.ActivityDiagnosisBinding
-import com.keelim.nandadiagnosis.model.DiagnosisItem
 import com.keelim.nandadiagnosis.ui.WebActivity
 import java.util.ArrayList
 

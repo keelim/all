@@ -16,24 +16,25 @@
 package com.keelim.cnubus.ui.content
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.annotation.DrawableRes
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import coil.load
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.FragmentImageSliderBinding
 
-class ImageSlideFragment(@DrawableRes val image: Int) : Fragment(R.layout.fragment_image_slider) {
-    private var _fragmentImageSliderBinding: FragmentImageSliderBinding? = null
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val binding = FragmentImageSliderBinding.bind(view)
-        _fragmentImageSliderBinding = binding
-        binding.imgSlideImage.setImageResource(image)
-    }
-
-    override fun onDestroyView() {
-        _fragmentImageSliderBinding = null
-        super.onDestroyView()
+class ImageSlideFragment(@DrawableRes val image: Int) : Fragment() {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        val binding:FragmentImageSliderBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_image_slider, container, false)
+        binding.imgSlideImage.load(image)
+        return binding.root
     }
 }

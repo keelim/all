@@ -107,5 +107,6 @@ dependencies {
     implementation SquareUp.urlconnection
     implementation SquareUp.retrofit
     implementation SquareUp.retrofit_gson
+    implementation SquareUp.timber
 }
 apply from: "$rootDir/spotless.gradle"

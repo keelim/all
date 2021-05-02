@@ -63,7 +63,7 @@ object NetworkModule {
 
   @Provides
   @Singleton
-  fun provideHarryPotterService(retrofit: Retrofit): NandaService {
+  fun provideNandaService(retrofit: Retrofit): NandaService {
     return retrofit.create(NandaService::class.java)
   }
 }

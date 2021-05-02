@@ -40,9 +40,11 @@ import com.keelim.nandadiagnosis.ui.main.search.selection.MyItemKeyProvider
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.coroutines.runBlocking
+import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
-class SearchFragment : Fragment(R.layout.fragment_search) { // frag
+class
+SearchFragment : Fragment(R.layout.fragment_search) { // frag
   private var fragmentSearchBinding: FragmentSearchBinding? = null
   private var trackers: SelectionTracker<Long>? = null
 
@@ -86,7 +88,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) { // frag
       searchView.apply {
         setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
         isSubmitButtonEnabled = true
-        setIconifiedByDefault(false) // Do not iconify the widget; expand it by default
+        isQueryRefinementEnabled = true
 
         setOnQueryTextListener(object : SearchView.OnQueryTextListener {
           override fun onQueryTextSubmit(query: String): Boolean {
@@ -102,6 +104,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) { // frag
               SuggestionProvider.MODE
             )
               .saveRecentQuery(query, null)
+            Timber.d("Save the query")
             return true
           }
 

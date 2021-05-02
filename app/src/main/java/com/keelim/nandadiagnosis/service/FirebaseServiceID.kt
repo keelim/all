@@ -35,10 +35,16 @@ class FirebaseServiceID : FirebaseMessagingService() {
     sendTokenToServer(token)
   }
 
-  private fun sendTokenToServer(token: String) {}
+  private fun sendTokenToServer(token: String) {
+    // TODO: implementation
+  }
 
   override fun onMessageReceived(remoteMessage: RemoteMessage) {
-    remoteMessage.notification?.let { showNotification(it) }
+    Timber.d("From: ${remoteMessage.from}")
+
+    if (remoteMessage.data.isNotEmpty()) {
+      remoteMessage.notification?.let { showNotification(it) }
+    }
   }
 
   private fun showNotification(notification: RemoteMessage.Notification) {

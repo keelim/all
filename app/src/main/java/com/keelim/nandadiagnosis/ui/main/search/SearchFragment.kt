@@ -80,8 +80,7 @@ SearchFragment : Fragment(R.layout.fragment_search) { // frag
     inflater.inflate(R.menu.search_menu, menu)
     val item = menu.findItem(R.id.menu_search)
 
-    val searchManager =
-      requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
+    val searchManager = requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
     val searchView = item.actionView as SearchView
 
     Observable.create<CharSequence> { emitter ->
@@ -93,18 +92,22 @@ SearchFragment : Fragment(R.layout.fragment_search) { // frag
         setOnQueryTextListener(object : SearchView.OnQueryTextListener {
           override fun onQueryTextSubmit(query: String): Boolean {
             val items = searchDiagnosis(query) // 검색을 한다.
-            (fragmentSearchBinding!!.recyclerView.adapter as SearchRecyclerViewAdapter).apply {
-              setNandaItem(items)
-              notifyDataSetChanged()
-            }
+            if (items.isEmpty()) {
+              (fragmentSearchBinding!!.recyclerView.adapter as SearchRecyclerViewAdapter).apply {
+                setNandaItem(items)
+                notifyDataSetChanged()
+              }
 
-            SearchRecentSuggestions(
-              requireActivity(),
-              SuggestionProvider.AUTHORITY,
-              SuggestionProvider.MODE
-            )
-              .saveRecentQuery(query, null)
-            Timber.d("Save the query")
+              SearchRecentSuggestions(
+                requireActivity(),
+                SuggestionProvider.AUTHORITY,
+                SuggestionProvider.MODE
+              )
+                .saveRecentQuery(query, null)
+              Timber.d("Save the query")
+            } else {
+              Toast.makeText(requireActivity(), "검색되는 항목이 없습니다.", Toast.LENGTH_SHORT).show()
+            }
             return true
           }
 

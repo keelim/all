@@ -27,6 +27,12 @@ class TerminateService : Service() {
     TODO("Not yet implemented")
   }
 
+  override fun onDestroy() {
+    super.onDestroy()
+    removeNotification()
+    Timber.d("if activity is forced down, remove the notification")
+  }
+
   override fun onTaskRemoved(rootIntent: Intent?) {
     super.onTaskRemoved(rootIntent)
     removeNotification()

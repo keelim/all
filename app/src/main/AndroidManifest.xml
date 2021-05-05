@@ -72,7 +72,9 @@
         <activity android:name="com.keelim.nandadiagnosis.ui.main.category.DiagnosisActivity" />
         <activity android:name=".ui.kakao_search.SearchActivity" />
 
-        <service android:name=".service.TerminateService"
+        <service
+            android:name=".service.TerminateService"
+            android:exported="false"
             android:stopWithTask="false" />
 
         <provider

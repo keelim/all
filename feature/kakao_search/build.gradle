@@ -11,7 +11,7 @@ dependencies {
     implementation AndroidX.appcompat
 
     implementation SquareUp.retrofit
-    implementation SquareUp.gson_converter
+    implementation SquareUp.retrofit_gson
 
     implementation UI.material
 }

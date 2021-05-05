@@ -19,8 +19,8 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.keelim.nandadiagnosis.model.db.DataDaoV2
-import com.keelim.nandadiagnosis.model.db.NandaEntity
+import com.keelim.nandadiagnosis.data.db.DataDaoV2
+import com.keelim.nandadiagnosis.data.db.NandaEntity
 import kotlinx.coroutines.launch
 
 class SearchViewModel(val database: DataDaoV2, application: Application) :

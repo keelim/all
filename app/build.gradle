@@ -88,7 +88,7 @@ dependencies {
     implementation Play.play_ads
 
     implementation SquareUp.retrofit
-    implementation SquareUp.gson_converter
+    implementation SquareUp.retrofit_gson
     implementation SquareUp.timber
 
     implementation Rx.rxandroid
@@ -96,11 +96,17 @@ dependencies {
     implementation Hilt.android
     kapt Hilt.hilt_compiler
 
-    implementation Glide.core
-    kapt Glide.compiler
-
     testImplementation AppTest.junit
     androidTestImplementation AppTest.androidJunit
     androidTestImplementation AppTest.espressoCore
+
+    implementation Coil.coil
+
+    implementation SquareUp.core
+    implementation SquareUp.loggingInterceptor
+    implementation SquareUp.urlconnection
+    implementation SquareUp.retrofit
+    implementation SquareUp.retrofit_gson
+    implementation SquareUp.timber
 }
 apply from: "$rootDir/spotless.gradle"

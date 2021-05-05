@@ -16,6 +16,9 @@
 package com.keelim.nandadiagnosis.ui.main
 
 import android.app.DownloadManager
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.DialogInterface
@@ -23,9 +26,11 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.NotificationCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.gms.ads.AdRequest
@@ -37,6 +42,7 @@ import com.keelim.nandadiagnosis.BuildConfig
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.base.BaseActivity
 import com.keelim.nandadiagnosis.databinding.ActivityMainBinding
+import com.keelim.nandadiagnosis.service.TerminateService
 import com.keelim.nandadiagnosis.utils.BackPressCloseHandler
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
@@ -103,6 +109,9 @@ class MainActivity : BaseActivity() {
     binding.adview.addView(mAdView)
     val adRequest = AdRequest.Builder().build()
     mAdView.loadAd(adRequest)
+
+    createNotification()
+    startService(Intent(this, TerminateService::class.java))
   }
 
   private fun fileChecking() {
@@ -137,5 +146,27 @@ class MainActivity : BaseActivity() {
 
   override fun onBackPressed() {
     backPressCloseHandler.onBackPressed()
+  }
+
+  private fun createNotification() {
+    val intent = Intent(this, MainActivity::class.java)
+    val pIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+    val channelId = getString(R.string.my_notification_channel_id)
+
+    val notificationBuilder = NotificationCompat.Builder(this, channelId)
+      .setContentTitle("난다 진단")
+      .setContentText("앱 실행 중")
+      .setContentIntent(pIntent)
+      .setPriority(NotificationCompat.PRIORITY_HIGH)
+      .setSmallIcon(R.mipmap.ic_launcher)
+      .setOngoing(true)
+
+    getSystemService(NotificationManager::class.java).run {
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        val channel = NotificationChannel(channelId, "알림", NotificationManager.IMPORTANCE_HIGH)
+        createNotificationChannel(channel)
+      }
+      notify(0, notificationBuilder.build())
+    }
   }
 }

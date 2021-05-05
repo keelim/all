@@ -13,28 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.model.db
+package com.keelim.nandadiagnosis.service
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import com.keelim.nandadiagnosis.data.db.NandaEntity
+import retrofit2.http.GET
+import retrofit2.http.Path
 
-@Entity(tableName = "nanda")
-data class NandaEntity(
-  @PrimaryKey
-  val nanda_id: Int,
-
-  val reason: String,
-
-  val diagnosis: String,
-
-  val class_name: String,
-
-  val domain_name: String,
-
-  val category: Int
-
-) {
-  override fun toString(): String {
-    return "$nanda_id \n $reason \n $diagnosis \n $class_name \n $domain_name \n $category"
-  }
+interface NandaService {
+  @GET("api/v1/nanda_information/{name}")
+  suspend fun getNanfaInformation(@Path("name") type: String): List<NandaEntity>
 }

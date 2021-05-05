@@ -32,17 +32,19 @@ import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
 import com.keelim.nandadiagnosis.R
+import com.keelim.nandadiagnosis.data.db.AppDatabaseV2
+import com.keelim.nandadiagnosis.data.db.NandaEntity
 import com.keelim.nandadiagnosis.databinding.FragmentSearchBinding
-import com.keelim.nandadiagnosis.model.db.AppDatabaseV2
-import com.keelim.nandadiagnosis.model.db.NandaEntity
 import com.keelim.nandadiagnosis.ui.main.search.selection.MyItemDetailsLookup
 import com.keelim.nandadiagnosis.ui.main.search.selection.MyItemKeyProvider
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.coroutines.runBlocking
+import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
-class SearchFragment : Fragment(R.layout.fragment_search) { // frag
+class
+SearchFragment : Fragment(R.layout.fragment_search) { // frag
   private var fragmentSearchBinding: FragmentSearchBinding? = null
   private var trackers: SelectionTracker<Long>? = null
 
@@ -78,30 +80,34 @@ class SearchFragment : Fragment(R.layout.fragment_search) { // frag
     inflater.inflate(R.menu.search_menu, menu)
     val item = menu.findItem(R.id.menu_search)
 
-    val searchManager =
-      requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
+    val searchManager = requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
     val searchView = item.actionView as SearchView
 
     Observable.create<CharSequence> { emitter ->
       searchView.apply {
         setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
         isSubmitButtonEnabled = true
-        setIconifiedByDefault(false) // Do not iconify the widget; expand it by default
+        isQueryRefinementEnabled = true
 
         setOnQueryTextListener(object : SearchView.OnQueryTextListener {
           override fun onQueryTextSubmit(query: String): Boolean {
             val items = searchDiagnosis(query) // 검색을 한다.
-            (fragmentSearchBinding!!.recyclerView.adapter as SearchRecyclerViewAdapter).apply {
-              setNandaItem(items)
-              notifyDataSetChanged()
-            }
+            if (items.isEmpty()) {
+              (fragmentSearchBinding!!.recyclerView.adapter as SearchRecyclerViewAdapter).apply {
+                setNandaItem(items)
+                notifyDataSetChanged()
+              }
 
-            SearchRecentSuggestions(
-              requireActivity(),
-              SuggestionProvider.AUTHORITY,
-              SuggestionProvider.MODE
-            )
-              .saveRecentQuery(query, null)
+              SearchRecentSuggestions(
+                requireActivity(),
+                SuggestionProvider.AUTHORITY,
+                SuggestionProvider.MODE
+              )
+                .saveRecentQuery(query, null)
+              Timber.d("Save the query")
+            } else {
+              Toast.makeText(requireActivity(), "검색되는 항목이 없습니다.", Toast.LENGTH_SHORT).show()
+            }
             return true
           }
 

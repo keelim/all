@@ -18,7 +18,7 @@ package com.keelim.nandadiagnosis.ui.main.search
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.keelim.nandadiagnosis.model.db.DataDaoV2
+import com.keelim.nandadiagnosis.data.db.DataDaoV2
 
 class SearchViewModelFactory(
   private val dataSource: DataDaoV2,

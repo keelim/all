@@ -30,6 +30,7 @@ import timber.log.Timber
 
 @HiltAndroidApp
 class MyApplication : Application() {
+
   private lateinit var appOpenManager: AppOpenManager
   override fun onCreate() {
     super.onCreate()

@@ -16,7 +16,7 @@
 package com.keelim.nandadiagnosis.ui.main.search
 
 import androidx.recyclerview.widget.DiffUtil
-import com.keelim.nandadiagnosis.model.db.NandaEntity
+import com.keelim.nandadiagnosis.data.db.NandaEntity
 
 class ListDiffCallback(private val oldTodoList: List<NandaEntity>, private val newTodoList: List<NandaEntity>) : DiffUtil.Callback() {
   override fun getOldListSize(): Int = oldTodoList.size

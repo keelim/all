@@ -38,7 +38,6 @@ import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
-import com.google.firebase.messaging.RemoteMessage
 import com.keelim.nandadiagnosis.BuildConfig
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.base.BaseActivity
@@ -48,7 +47,6 @@ import com.keelim.nandadiagnosis.utils.BackPressCloseHandler
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 import java.io.File
-import java.util.Date
 
 class MainActivity : BaseActivity() {
   private lateinit var backPressCloseHandler: BackPressCloseHandler

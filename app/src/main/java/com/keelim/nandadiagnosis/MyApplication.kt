@@ -16,15 +16,9 @@
 package com.keelim.nandadiagnosis
 
 import android.app.Application
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.content.Intent
-import android.os.Build
-import androidx.core.app.NotificationCompat
 import androidx.preference.PreferenceManager
 import com.google.android.gms.ads.MobileAds
 import com.keelim.nandadiagnosis.di.downloadModule
-import com.keelim.nandadiagnosis.service.TerminateService
 import com.keelim.nandadiagnosis.utils.AppOpenManager
 import com.keelim.nandadiagnosis.utils.ThemeHelper
 import dagger.hilt.android.HiltAndroidApp
@@ -57,6 +51,5 @@ class MyApplication : Application() {
     val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
     val themePref = sharedPreferences.getString("themePref", ThemeHelper.DEFAULT_MODE)
     ThemeHelper.applyTheme(themePref!!)
-
   }
 }

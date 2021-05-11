@@ -1,5 +1,5 @@
 object Coil {
-    const val coil = "io.coil-kt:coil:1.2.0"
+    const val coil = "io.coil-kt:coil:1.2.1"
 }
 
 
@@ -17,7 +17,7 @@ object Rx{
 }
 
 object SquareUp {
-    private const val version = "4.9.0"
+    private const val version = "4.9.1"
     private const val rversion = "2.9.0"
     const val timber = "com.jakewharton.timber:timber:4.7.1"
     const val leakCanary = "com.squareup.leakcanary:leakcanary-android:2.5"
@@ -31,7 +31,7 @@ object SquareUp {
 }
 
 object Room {
-    private const val roomVersion = "2.2.6"
+    private const val roomVersion = "2.3.0"
     const val runtime = "androidx.room:room-runtime:$roomVersion"
     const val compiler = "androidx.room:room-compiler:$roomVersion"
     const val ktx = "androidx.room:room-ktx:$roomVersion"
@@ -62,12 +62,12 @@ object Hilt {
 object AndroidX {
     const val annotation = "androidx.annotation:annotation:1.2.0-alpha01"
 
-    private const val activityVersion = "1.2.2"
+    private const val activityVersion = "1.2.3"
     const val activity = "androidx.activity:activity:$activityVersion"
     const val activity_ktx = "androidx.activity:activity-ktx:$activityVersion"
 
     const val appcompat = "androidx.appcompat:appcompat:1.3.0-rc01"
-    const val core_ktx = "androidx.core:core-ktx:1.6.0-alpha01"
+    const val core_ktx = "androidx.core:core-ktx:1.6.0-alpha03"
 
     const val navigation_fragment =  "androidx.navigation:navigation-fragment-ktx:2.3.5"
     const val navigation_ui =  "androidx.navigation:navigation-ui-ktx:2.3.5"

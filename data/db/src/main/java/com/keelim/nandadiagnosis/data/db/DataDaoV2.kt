@@ -16,6 +16,7 @@
 package com.keelim.nandadiagnosis.data.db
 
 import androidx.room.Dao
+import androidx.room.Insert
 import androidx.room.Query
 
 @Dao
@@ -29,4 +30,13 @@ DataDaoV2 {
 
   @Query("select * from nanda order by nanda_id desc")
   suspend fun getNanda(): NandaEntity?
+
+  @Query("select * from nanda")
+  suspend fun getAll(): List<NandaEntity>
+
+  @Insert
+  fun insertNanda(nanda: NandaEntity)
+
+  @Query("delete  from nanda where reason ==:keyword")
+  fun delete(keyword: String?)
 }

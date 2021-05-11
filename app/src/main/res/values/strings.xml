@@ -204,7 +204,7 @@
    limitations under the License.
 </string>
     <string name="notification_uri">https://plus.cnu.ac.kr/html/kr/sub05/sub05_050403.html</string>
-    <string name="title_activity_maps2">Map</string>
     <string name="updateLink">https://play.google.com/store/apps/details?id=com.keelim.cnubus</string>
+    <string name="my_notification_channel_id">987654321</string>
 
 </resources>

@@ -24,13 +24,12 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityRetainedComponent
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 
-
 @Module
 @InstallIn(ActivityRetainedComponent::class)
 object DataSourceModule {
     @Provides
     @ActivityRetainedScoped
-    fun provideRemoteDataSource(roadService: RoadService): RemoteDataSource{
+    fun provideRemoteDataSource(roadService: RoadService): RemoteDataSource {
         return RemoteDataSourceImpl(roadService)
     }
 }

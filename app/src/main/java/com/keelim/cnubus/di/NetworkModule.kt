@@ -44,9 +44,11 @@ object NetworkModule {
             writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
             readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
             retryOnConnectionFailure(true)
-            addInterceptor(HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.BODY
-            })
+            addInterceptor(
+                HttpLoggingInterceptor().apply {
+                    level = HttpLoggingInterceptor.Level.BODY
+                }
+            )
         }.build()
     }
 
@@ -65,5 +67,4 @@ object NetworkModule {
     fun provideHarryPotterService(retrofit: Retrofit): RoadService {
         return retrofit.create(RoadService::class.java)
     }
-
 }

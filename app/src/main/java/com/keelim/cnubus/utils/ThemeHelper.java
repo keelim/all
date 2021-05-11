@@ -20,7 +20,6 @@ import android.os.Build;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.core.os.BuildCompat;
 
 public class ThemeHelper {
 

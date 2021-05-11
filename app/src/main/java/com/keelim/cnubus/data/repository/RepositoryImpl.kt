@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteDataSource
-): Repository {
+) : Repository {
     override suspend fun getRoadInformation(type: String): List<String> {
         return remoteDataSource.getRoadInformation(type)
     }

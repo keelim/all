@@ -6,7 +6,6 @@ package com.keelim.cnubus.utils;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
@@ -16,7 +15,6 @@ import androidx.lifecycle.ProcessLifecycleOwner;
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.FullScreenContentCallback;
-import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.appopen.AppOpenAd;
 import com.keelim.cnubus.BuildConfig;
 import com.keelim.cnubus.MyApplication;
@@ -50,7 +48,7 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     public void onStart() {
         showAdIfAvailable();
-        Log.d(LOG_TAG, "onStart");
+        Timber.d("onStart");
 
     }
 
@@ -80,9 +78,11 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
 
                 };
         AdRequest request = getAdRequest();
-//        AppOpenAd.load(myApplication, myApplication.getString(R.string.ad_unit1), request, AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT, loadCallback);
-//        AppOpenAd.load(myApplication, AD_UNIT_ID, request, AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT, loadCallback); //test unit ID
-        AppOpenAd.load(myApplication, "ca-app-pub-3115620439518585/4679881383", request, AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT, loadCallback); //test unit ID
+        if (BuildConfig.DEBUG){
+            AppOpenAd.load(myApplication, "ca-app-pub-3115620439518585/4679881383", request, AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT, loadCallback); //test unit ID
+        } else{
+            AppOpenAd.load(myApplication, AD_UNIT_ID, request, AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT, loadCallback);
+        }
     }
 
     /**
@@ -132,7 +132,7 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
 
     public void showAdIfAvailable() {
         if (!isShowingAd && isAdAvailable()) {
-            Log.d(LOG_TAG, "will show ad");
+            Timber.d("will show ad");
 
             FullScreenContentCallback fullScreenContentCallback = new FullScreenContentCallback() {
                 @Override

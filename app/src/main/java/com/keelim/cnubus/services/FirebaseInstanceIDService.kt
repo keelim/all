@@ -48,7 +48,7 @@ class FirebaseInstanceIDService : FirebaseMessagingService() {
         val resultIntent = Intent(this, MainActivity::class.java)
         resultIntent.putExtra("pushType", "pushType")
 
-        val pendingIntent = PendingIntent.getActivity(this, 1, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val pendingIntent = PendingIntent.getActivity(this, 1, resultIntent, PendingIntent.FLAG_IMMUTABLE)
 
         val notificationBuilder: NotificationCompat.Builder =
             NotificationCompat.Builder(this, "")

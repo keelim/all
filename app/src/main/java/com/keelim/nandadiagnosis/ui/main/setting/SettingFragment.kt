@@ -16,17 +16,14 @@
 package com.keelim.nandadiagnosis.ui.main.setting
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.SwitchPreference
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.ui.WebActivity
 import com.keelim.nandadiagnosis.ui.kakao_search.SearchActivity
 import com.keelim.nandadiagnosis.ui.open.OpenSourceActivity
 import com.keelim.nandadiagnosis.utils.ThemeHelper

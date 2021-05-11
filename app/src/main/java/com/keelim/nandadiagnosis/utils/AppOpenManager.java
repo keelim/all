@@ -11,13 +11,13 @@ import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 import androidx.lifecycle.ProcessLifecycleOwner;
 
-import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.appopen.AppOpenAd;
 import com.keelim.nandadiagnosis.BuildConfig;
 import com.keelim.nandadiagnosis.MyApplication;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Date;
 
@@ -53,13 +53,8 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
         Timber.d("onStart");
     }
 
-    /**
-     * Request an ad
-     */
     public void fetchAd() {
-        if (isAdAvailable()) {
-            return;
-        }
+        if (isAdAvailable()) { return; }
 
         loadCallback =
                 new AppOpenAd.AppOpenAdLoadCallback() {
@@ -134,13 +129,23 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
         if (!isShowingAd && isAdAvailable()) {
             Timber.d( "will show ad");
 
-            FullScreenContentCallback fullScreenContentCallback = new FullScreenContentCallback() {
-                @Override
-                public void onAdDismissedFullScreenContent() {
-                    AppOpenManager.this.appOpenAd = null;
-                    isShowingAd = false;
-                    fetchAd();
-                }
+//            FullScreenContentCallback fullScreenContentCallback = new FullScreenContentCallback() {
+//                @Override
+//                public void onAdDismissedFullScreenContent() {
+//                    AppOpenManager.this.appOpenAd = null;
+//                    isShowingAd = false;
+//                    fetchAd();
+//                }
+//
+//                @Override
+//                public void onAdFailedToShowFullScreenContent(AdError adError) {
+//                }
+//
+//                @Override
+//                public void onAdShowedFullScreenContent() {
+//                    isShowingAd = true;
+//                }
+//            };
 
                 @Override
                 public void onAdFailedToShowFullScreenContent(AdError adError) {

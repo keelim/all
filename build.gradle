@@ -1,5 +1,7 @@
-
 buildscript {
+    ext {
+        compose_version = '1.0.0-beta01'
+    }
     repositories {
         google()
         jcenter()
@@ -23,7 +25,6 @@ plugins {
 }
 
 allprojects {
-
     repositories {
         google()
         jcenter()
@@ -32,7 +33,3 @@ allprojects {
     }
 }
 
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
-}

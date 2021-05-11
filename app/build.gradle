@@ -26,8 +26,11 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true
+//            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            firebaseAppDistribution {
+                testers="kimh00335@gmail.com"
+            }
         }
         debug{
             firebaseAppDistribution {
@@ -46,8 +49,8 @@ android {
     }
 
     buildFeatures {
-        viewBinding = true
         dataBinding = true
+        viewBinding = true
     }
 
     lintOptions {

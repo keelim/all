@@ -59,6 +59,11 @@
             android:name="firebase_performance_logcat_enabled"
             android:value="true" />
 
+        <service
+            android:name=".services.TerminateService"
+            android:exported="false"
+            android:stopWithTask="true" />
+
 
     </application>
 

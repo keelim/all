@@ -46,12 +46,12 @@ class ARecyclerViewAdapter(private val values: Array<String>) : RecyclerView.Ada
 
         init {
             binding.root.setOnClickListener {
-                listener?.onRootClickListener(adapterPosition)
+                listener?.onRootClickListener(bindingAdapterPosition)
             }
 
             binding.root.setOnLongClickListener {
 
-                listener?.onRootLongClickListener(adapterPosition)
+                listener?.onRootLongClickListener(bindingAdapterPosition)
                 return@setOnLongClickListener true
             }
         }

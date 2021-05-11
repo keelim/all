@@ -107,7 +107,7 @@ object Glide {
 
     object Dep {
         object GradlePlugin {
-            const val androidStudioVersion = "4.2.0-alpha14"
+            private const val androidStudioVersion = "4.2.0-alpha14"
             const val android = "com.android.tools.build:gradle:$androidStudioVersion"
             const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Kotlin.version}"
             const val kotlinSerialization =

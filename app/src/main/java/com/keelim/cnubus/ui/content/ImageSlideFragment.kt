@@ -26,14 +26,13 @@ import coil.load
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.FragmentImageSliderBinding
 
-
 class ImageSlideFragment(@DrawableRes val image: Int) : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding:FragmentImageSliderBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_image_slider, container, false)
+        val binding: FragmentImageSliderBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_image_slider, container, false)
         binding.imgSlideImage.load(image)
         return binding.root
     }

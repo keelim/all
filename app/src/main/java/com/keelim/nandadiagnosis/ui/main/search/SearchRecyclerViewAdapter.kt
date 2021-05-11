@@ -74,11 +74,11 @@ class SearchRecyclerViewAdapter() : RecyclerView.Adapter<SearchRecyclerViewAdapt
 
     init {
       binding.root.setOnClickListener {
-        listener?.onSearchItemClick(adapterPosition)
+        listener?.onSearchItemClick(bindingAdapterPosition)
       }
 
       binding.root.setOnLongClickListener {
-        listener?.onSearchItemLongClick(adapterPosition)
+        listener?.onSearchItemLongClick(bindingAdapterPosition)
         return@setOnLongClickListener true
       }
     }
@@ -93,7 +93,7 @@ class SearchRecyclerViewAdapter() : RecyclerView.Adapter<SearchRecyclerViewAdapt
 
     fun getItemDetails(): ItemDetailsLookup.ItemDetails<Long> =
       object : ItemDetailsLookup.ItemDetails<Long>() {
-        override fun getPosition(): Int = adapterPosition
+        override fun getPosition(): Int = bindingAdapterPosition
         override fun getSelectionKey(): Long? = itemId
       }
   }

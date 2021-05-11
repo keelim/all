@@ -28,6 +28,8 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug{
             firebaseAppDistribution {
                 testers = "kimh00335@gmail.com"
             }
@@ -60,7 +62,7 @@ dependencies {
     implementation project(':feature:error')
     implementation project(":feature:kakao_search")
 
-    implementation platform('com.google.firebase:firebase-bom:26.1.0')
+    implementation platform('com.google.firebase:firebase-bom:27.1.0')
     implementation "com.google.firebase:firebase-core"
     implementation "com.google.firebase:firebase-crashlytics-ktx"
     implementation "com.google.firebase:firebase-messaging-ktx"
@@ -68,9 +70,9 @@ dependencies {
     implementation "com.google.firebase:firebase-analytics-ktx"
     implementation 'com.google.firebase:firebase-inappmessaging-display-ktx'
 
-    implementation 'com.google.ads.mediation:facebook:6.2.0.0'
-    implementation "org.koin:koin-android:2.1.5"
-    implementation 'com.dino.library:simplerecyclerview:0.7.0'
+    implementation 'com.google.ads.mediation:facebook:6.4.0.0'
+    implementation "org.koin:koin-android:2.2.2"
+    implementation 'com.dino.library:simplerecyclerview:0.7.2'
 
     implementation AndroidX.activity_ktx
     implementation AndroidX.core_ktx

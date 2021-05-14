@@ -35,7 +35,6 @@ import androidx.recyclerview.selection.StorageStrategy
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.data.db.AppDatabaseV2
 import com.keelim.nandadiagnosis.data.db.NandaEntity
-import com.keelim.nandadiagnosis.data.db.history.History
 import com.keelim.nandadiagnosis.data.db.history.HistoryDatabase
 import com.keelim.nandadiagnosis.databinding.FragmentSearchBinding
 import com.keelim.nandadiagnosis.ui.main.search.selection.MyItemDetailsLookup
@@ -49,8 +48,7 @@ import kotlinx.coroutines.runBlocking
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
-class
-SearchFragment : Fragment(R.layout.fragment_search) { // frag
+class SearchFragment : Fragment(R.layout.fragment_search) { // frag
   private var fragmentSearchBinding: FragmentSearchBinding? = null
   private var trackers: SelectionTracker<Long>? = null
   private lateinit var historyAdapter: HistoryAdapter
@@ -148,9 +146,9 @@ SearchFragment : Fragment(R.layout.fragment_search) { // frag
 
   private fun searchDiagnosis(keyword: String): List<NandaEntity> { // 데이터베이스 가져와서 검색하기
     val result: List<NandaEntity> = runBlocking {
-      HistoryDatabase.getInstance(requireActivity())!!.historyDao().insertHisotry(History(null, keyword))
       AppDatabaseV2.getInstance(requireActivity())!!.dataDao.search(keyword)
     }
+//    HistoryDatabase.getInstance(requireActivity())!!.historyDao().insertHisotry(History(null, keyword))
     return result
   }
 

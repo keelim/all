@@ -11,7 +11,9 @@ import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 import androidx.lifecycle.ProcessLifecycleOwner;
 
+import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.appopen.AppOpenAd;
 import com.keelim.nandadiagnosis.BuildConfig;
@@ -129,23 +131,13 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
         if (!isShowingAd && isAdAvailable()) {
             Timber.d( "will show ad");
 
-//            FullScreenContentCallback fullScreenContentCallback = new FullScreenContentCallback() {
-//                @Override
-//                public void onAdDismissedFullScreenContent() {
-//                    AppOpenManager.this.appOpenAd = null;
-//                    isShowingAd = false;
-//                    fetchAd();
-//                }
-//
-//                @Override
-//                public void onAdFailedToShowFullScreenContent(AdError adError) {
-//                }
-//
-//                @Override
-//                public void onAdShowedFullScreenContent() {
-//                    isShowingAd = true;
-//                }
-//            };
+            FullScreenContentCallback fullScreenContentCallback = new FullScreenContentCallback() {
+                @Override
+                public void onAdDismissedFullScreenContent() {
+                    AppOpenManager.this.appOpenAd = null;
+                    isShowingAd = false;
+                    fetchAd();
+                }
 
                 @Override
                 public void onAdFailedToShowFullScreenContent(AdError adError) {

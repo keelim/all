@@ -53,8 +53,8 @@ class SearchViewModel : ViewModel() {
       page++
       val response = kakaoSearchClient.searchImage(query, page = page)
 
-      val list = images.value?.toMutableList()
-      list?.addAll(response.documents)
+      val list = images.value.orEmpty().toMutableList()
+      list.addAll(response.documents)
       _images.value = list
     }
   }

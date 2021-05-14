@@ -3,9 +3,6 @@
 
     <data>
 
-        <variable
-            name="vm"
-            type="com.keelim.nandadiagnosis.ui.main.category.CategoryViewModel" />
     </data>
 
     <ScrollView

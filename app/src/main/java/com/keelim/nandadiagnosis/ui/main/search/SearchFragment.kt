@@ -26,6 +26,7 @@ import android.view.MenuInflater
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.selection.Selection
 import androidx.recyclerview.selection.SelectionPredicates
@@ -34,19 +35,23 @@ import androidx.recyclerview.selection.StorageStrategy
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.data.db.AppDatabaseV2
 import com.keelim.nandadiagnosis.data.db.NandaEntity
+import com.keelim.nandadiagnosis.data.db.history.HistoryDatabase
 import com.keelim.nandadiagnosis.databinding.FragmentSearchBinding
 import com.keelim.nandadiagnosis.ui.main.search.selection.MyItemDetailsLookup
 import com.keelim.nandadiagnosis.ui.main.search.selection.MyItemKeyProvider
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
-class
-SearchFragment : Fragment(R.layout.fragment_search) { // frag
+class SearchFragment : Fragment(R.layout.fragment_search) { // frag
   private var fragmentSearchBinding: FragmentSearchBinding? = null
   private var trackers: SelectionTracker<Long>? = null
+  private lateinit var historyAdapter: HistoryAdapter
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -70,6 +75,7 @@ SearchFragment : Fragment(R.layout.fragment_search) { // frag
       }
     }
     initTracker()
+    initHistoryRecyclerView()
 
     binding.floating.setOnClickListener {
       multiSelection(trackers?.selection!!)
@@ -80,7 +86,8 @@ SearchFragment : Fragment(R.layout.fragment_search) { // frag
     inflater.inflate(R.menu.search_menu, menu)
     val item = menu.findItem(R.id.menu_search)
 
-    val searchManager = requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
+    val searchManager =
+      requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
     val searchView = item.actionView as SearchView
 
     Observable.create<CharSequence> { emitter ->
@@ -92,7 +99,9 @@ SearchFragment : Fragment(R.layout.fragment_search) { // frag
         setOnQueryTextListener(object : SearchView.OnQueryTextListener {
           override fun onQueryTextSubmit(query: String): Boolean {
             val items = searchDiagnosis(query) // 검색을 한다.
-            if (items.isEmpty()) {
+            showHistoryView()
+            if (items.isNotEmpty()) {
+              hideHistoryView()
               (fragmentSearchBinding!!.recyclerView.adapter as SearchRecyclerViewAdapter).apply {
                 setNandaItem(items)
                 notifyDataSetChanged()
@@ -106,7 +115,8 @@ SearchFragment : Fragment(R.layout.fragment_search) { // frag
                 .saveRecentQuery(query, null)
               Timber.d("Save the query")
             } else {
-              Toast.makeText(requireActivity(), "검색되는 항목이 없습니다.", Toast.LENGTH_SHORT).show()
+              Toast.makeText(requireActivity(), "검색되는 항목이 없습니다.", Toast.LENGTH_SHORT)
+                .show()
             }
             return true
           }
@@ -138,6 +148,7 @@ SearchFragment : Fragment(R.layout.fragment_search) { // frag
     val result: List<NandaEntity> = runBlocking {
       AppDatabaseV2.getInstance(requireActivity())!!.dataDao.search(keyword)
     }
+//    HistoryDatabase.getInstance(requireActivity())!!.historyDao().insertHisotry(History(null, keyword))
     return result
   }
 
@@ -177,5 +188,36 @@ SearchFragment : Fragment(R.layout.fragment_search) { // frag
       "내용 공유하기"
     )
     requireActivity().startActivity(chooser)
+  }
+
+  private fun showHistoryView() {
+    Thread {
+      val keywords = HistoryDatabase.getInstance(requireActivity())!!.historyDao().getAll().reversed()
+
+      requireActivity().runOnUiThread {
+        fragmentSearchBinding!!.historyRecycler.isVisible = true
+        historyAdapter.submitList(keywords.orEmpty())
+      }
+    }
+  }
+
+  private fun hideHistoryView() {
+    fragmentSearchBinding!!.historyRecycler.isVisible = false
+  }
+
+  private fun initHistoryRecyclerView() {
+    historyAdapter = HistoryAdapter(
+      historyDeleteClickListener = {
+        deleteSearchKeyword(it)
+      }
+    )
+    fragmentSearchBinding!!.historyRecycler.adapter = historyAdapter
+  }
+
+  private fun deleteSearchKeyword(keyword: String) {
+    CoroutineScope(Dispatchers.IO).launch {
+      HistoryDatabase.getInstance(requireActivity())!!.historyDao().delete(keyword)
+      showHistoryView()
+    }
   }
 }

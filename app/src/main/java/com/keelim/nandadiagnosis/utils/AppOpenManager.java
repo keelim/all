@@ -19,6 +19,8 @@ import com.google.android.gms.ads.appopen.AppOpenAd;
 import com.keelim.nandadiagnosis.BuildConfig;
 import com.keelim.nandadiagnosis.MyApplication;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Date;
 
 import timber.log.Timber;
@@ -53,13 +55,8 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
         Timber.d("onStart");
     }
 
-    /**
-     * Request an ad
-     */
     public void fetchAd() {
-        if (isAdAvailable()) {
-            return;
-        }
+        if (isAdAvailable()) { return; }
 
         loadCallback =
                 new AppOpenAd.AppOpenAdLoadCallback() {

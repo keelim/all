@@ -13,30 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.data.db
+package com.keelim.nandadiagnosis.data.db.history
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 
 @Dao
-interface
-DataDaoV2 {
-  @Query("select * from nanda where reason like  '%' || :keyword || '%'")
-  suspend fun search(keyword: String?): List<NandaEntity>
-
-  @Query("select * from nanda where category = :number")
-  suspend fun get(number: Int?): List<NandaEntity>
-
-  @Query("select * from nanda order by nanda_id desc")
-  suspend fun getNanda(): NandaEntity?
-
-  @Query("select * from nanda")
-  suspend fun getAll(): List<NandaEntity>
+interface HistoryDao {
+  @Query("select * from history")
+  fun getAll(): List<History>
 
   @Insert
-  fun insertNanda(nanda: NandaEntity)
+  fun insertHisotry(history: History)
 
-  @Query("delete  from nanda where reason ==:keyword")
-  fun delete(keyword: String?)
+  @Query("delete from history where keyword==:keyword")
+  fun delete(keyword: String)
 }

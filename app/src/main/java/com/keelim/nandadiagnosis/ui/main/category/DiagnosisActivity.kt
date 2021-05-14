@@ -22,10 +22,9 @@ import com.keelim.nandadiagnosis.base.BaseActivity
 import com.keelim.nandadiagnosis.data.model.DiagnosisItem
 import com.keelim.nandadiagnosis.databinding.ActivityDiagnosisBinding
 import com.keelim.nandadiagnosis.ui.WebActivity
-import java.util.ArrayList
 
 class DiagnosisActivity : BaseActivity() {
-  private var arrayList: ArrayList<DiagnosisItem>? = ArrayList()
+  private var list: MutableList<DiagnosisItem> = mutableListOf()
   private var nav = 0
   private val binding: ActivityDiagnosisBinding by binding(R.layout.activity_diagnosis)
 
@@ -34,7 +33,7 @@ class DiagnosisActivity : BaseActivity() {
     arrayListSetting()
 
     binding.list.adapter = DiagnosisRecyclerViewAdapter().apply {
-      setDiagnosisItem(arrayList!!.toMutableList())
+      setDiagnosisItem(this.list)
       listener = object : DiagnosisRecyclerViewAdapter.OnSearchItemClickListener {
         override fun onSearchItemClick(position: Int) {
           goWeb(nav + position + 1)
@@ -110,7 +109,7 @@ class DiagnosisActivity : BaseActivity() {
 
   private fun customAdd(startPoint: Int, finalPoint: Int, array1: Array<String>) {
     for (i in startPoint..finalPoint) {
-      arrayList!!.add(DiagnosisItem(array1[i], ""))
+      list.add(DiagnosisItem(array1[i], ""))
     }
   }
 }

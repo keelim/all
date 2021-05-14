@@ -159,7 +159,6 @@ class MainActivity : BaseActivity() {
       .setContentIntent(pIntent)
       .setPriority(NotificationCompat.PRIORITY_HIGH)
       .setSmallIcon(R.mipmap.ic_launcher)
-      .setOngoing(true)
 
     getSystemService(NotificationManager::class.java).run {
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

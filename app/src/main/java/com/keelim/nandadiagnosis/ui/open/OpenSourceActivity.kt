@@ -15,19 +15,7 @@
  */
 package com.keelim.nandadiagnosis.ui.open
 
-import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.keelim.nandadiagnosis.databinding.ActivityOpenSourceBinding
+import com.keelim.nandadiagnosis.R
 
-class OpenSourceActivity : AppCompatActivity() {
-  private lateinit var binding: ActivityOpenSourceBinding
-
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    binding = ActivityOpenSourceBinding.inflate(layoutInflater)
-    setContentView(binding.root)
-
-    setSupportActionBar(binding.toolbar)
-    binding.toolbarLayout.title = title
-  }
-}
+class OpenSourceActivity : AppCompatActivity(R.layout.activity_open_source)

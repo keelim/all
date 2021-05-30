@@ -16,35 +16,47 @@
 package com.keelim.nandadiagnosis.ui.main.setting
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
-import androidx.preference.ListPreference
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.fragment.app.viewModels
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.SwitchPreference
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.ui.WebActivity
 import com.keelim.nandadiagnosis.ui.kakao_search.SearchActivity
+import com.keelim.nandadiagnosis.ui.main.MainViewModel
+import com.keelim.nandadiagnosis.ui.main.setting.theme.AppTheme.Companion.THEME_ARRAY
 import com.keelim.nandadiagnosis.ui.open.OpenSourceActivity
-import com.keelim.nandadiagnosis.utils.ThemeHelper
+import com.keelim.nandadiagnosis.utils.MaterialDialog
+import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.negativeButton
+import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.positiveButton
+import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.singleChoiceItems
+import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.title
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SettingFragment : PreferenceFragmentCompat() {
-  private lateinit var sharedPreferences: SharedPreferences
-  private lateinit var darkPerf: SwitchPreference
+  private val mainViewModel by viewModels<MainViewModel>()
 
   override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
     addPreferencesFromResource(R.xml.settings_preferences)
-    readyReview()
 
-    val themePreference: ListPreference = findPreference("themePref")!!
-    themePreference.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { preference, newValue ->
-      val themeOption = newValue as String
-      ThemeHelper.applyTheme(themeOption)
-      true
-    }
+    readyReview()
+  }
+
+  override fun onCreateView(
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
+    initAppThemeObserver()
+    return super.onCreateView(inflater, container, savedInstanceState)
   }
 
   override fun onPreferenceTreeClick(preference: Preference?): Boolean {
@@ -66,6 +78,8 @@ class SettingFragment : PreferenceFragmentCompat() {
       }
 
       "search" -> requireActivity().startActivity(Intent(requireActivity(), SearchActivity::class.java))
+
+      "theme" -> selectTheme()
     }
     return super.onPreferenceTreeClick(preference)
   }
@@ -82,7 +96,39 @@ class SettingFragment : PreferenceFragmentCompat() {
     }
   }
 
-  companion object {
-    const val DARK = "DARK"
+  private fun initAppThemeObserver() {
+    mainViewModel.theme.observe(
+      viewLifecycleOwner,
+      { theme ->
+        val nextTheme = THEME_ARRAY.firstOrNull {
+          it.modeNight == theme
+        }
+//        appTheme?.let {
+//                    binding.themeIcon.setImageResource(it.themeIconRes)
+//                    binding.themeDescription.text = getString(it.modeNameRes)
+//                }
+      }
+    )
+  }
+
+  private fun selectTheme() {
+    val currentTheme = mainViewModel.theme.value
+    var checkedItem = THEME_ARRAY.indexOfFirst { it.modeNight == currentTheme }
+    if (checkedItem >= 0) {
+      val items = THEME_ARRAY.map { theme -> getText(theme.modeNameRes) }.toTypedArray()
+
+      MaterialDialog.createDialog(requireContext()) {
+        title(R.string.choose_theme)
+        singleChoiceItems(items, checkedItem) {
+          checkedItem = it
+        }
+        positiveButton(getString(R.string.ok)) {
+          val mode = THEME_ARRAY[checkedItem].modeNight
+          AppCompatDelegate.setDefaultNightMode(mode)
+          mainViewModel.setAppTheme(mode)
+        }
+        negativeButton(getString(R.string.cancel))
+      }.show()
+    }
   }
 }

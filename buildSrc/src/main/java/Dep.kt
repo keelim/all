@@ -2,6 +2,12 @@ object Coil {
     const val coil = "io.coil-kt:coil:1.2.1"
 }
 
+object DataStore {
+    const val dataStorePreferences = "1.0.0-beta01"
+    const val preferences =
+        "androidx.datastore:datastore-preferences:${dataStorePreferences}"
+}
+
 
 object Play {
     const val play_location = "com.google.android.gms:play-services-location:18.0.0"
@@ -10,10 +16,10 @@ object Play {
     const val play_core = "com.google.android.play:core:1.10.0"
 }
 
-object Rx{
-    const val rxandroid =  "io.reactivex.rxjava2:rxandroid:2.1.1"
-    const val rxjava =  "io.reactivex.rxjava2:rxjava:2.2.21"
-    const val rxkotlin =  "io.reactivex.rxjava2:rxkotlin:2.4.0"
+object Rx {
+    const val rxandroid = "io.reactivex.rxjava2:rxandroid:2.1.1"
+    const val rxjava = "io.reactivex.rxjava2:rxjava:2.2.21"
+    const val rxkotlin = "io.reactivex.rxjava2:rxkotlin:2.4.0"
 }
 
 object SquareUp {
@@ -47,7 +53,7 @@ object LifeCycle {
 }
 
 object Hilt {
-    const val version = "2.33-beta"
+    const val version = "2.36"
     const val android = "com.google.dagger:hilt-android:${version}"
     const val hilt_compiler = "com.google.dagger:hilt-android-compiler:${version}"
     const val hilt_common = "androidx.hilt:hilt-common:$version"
@@ -69,8 +75,8 @@ object AndroidX {
     const val appcompat = "androidx.appcompat:appcompat:1.3.0-rc01"
     const val core_ktx = "androidx.core:core-ktx:1.6.0-alpha03"
 
-    const val navigation_fragment =  "androidx.navigation:navigation-fragment-ktx:2.3.5"
-    const val navigation_ui =  "androidx.navigation:navigation-ui-ktx:2.3.5"
+    const val navigation_fragment = "androidx.navigation:navigation-fragment-ktx:2.3.5"
+    const val navigation_ui = "androidx.navigation:navigation-ui-ktx:2.3.5"
 
     object fragment {
         private const val fragmentVersion = "1.3.0-beta01"

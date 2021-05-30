@@ -1,0 +1,101 @@
+package com.keelim.nandadiagnosis.ui.main
+
+import android.content.Intent
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.keelim.nandadiagnosis.R
+import com.keelim.nandadiagnosis.databinding.FragmentMainBottomBinding
+import com.keelim.nandadiagnosis.ui.main.setting.theme.AppTheme
+import com.keelim.nandadiagnosis.ui.open.OpenSourceActivity
+import com.keelim.nandadiagnosis.utils.MaterialDialog
+import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.negativeButton
+import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.positiveButton
+import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.singleChoiceItems
+import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.title
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
+class MainBottomFragment : BottomSheetDialogFragment() {
+    private var _binding: FragmentMainBottomBinding? = null
+    private val binding get() = _binding!!
+
+    private val mainViewModel by viewModels<MainViewModel>()
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentMainBottomBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initAppThemeObserver()
+        setClickListeners()
+    }
+
+    private fun initAppThemeObserver(){
+        mainViewModel.theme.observe(
+            viewLifecycleOwner, { currentTheme ->
+                val appTheme = AppTheme.THEME_ARRAY.firstOrNull() { it.modeNight == currentTheme}
+                appTheme?.let {
+                    binding.themeIcon.setImageResource(it.themeIconRes)
+                    binding.themeDescription.text = getString(it.modeNameRes)
+                }
+            }
+        )
+    }
+
+    private fun setClickListeners(){
+        binding.themeOption.setOnClickListener {
+            chooseThemeClick()
+        }
+
+        binding.aboutButton.setOnClickListener {
+            dismiss()
+            findNavController().navigate(R.id.aboutFragment)
+        }
+
+        binding.openSourceLicensesButton.setOnClickListener {
+            dismiss()
+            startActivity(Intent(requireContext(), OpenSourceActivity::class.java))
+        }
+    }
+
+    private fun chooseThemeClick() {
+        val currentTheme = mainViewModel.theme.value
+        var checkedItem = AppTheme.THEME_ARRAY.indexOfFirst { it.modeNight == currentTheme }
+        if (checkedItem >= 0) {
+            val items = AppTheme.THEME_ARRAY.map {
+                getText(it.modeNameRes)
+            }.toTypedArray()
+            MaterialDialog.createDialog(requireContext()) {
+                title(R.string.choose_theme)
+                singleChoiceItems(items, checkedItem) {
+                    checkedItem = it
+                }
+                positiveButton(getString(R.string.ok)) {
+                    val mode = AppTheme.THEME_ARRAY[checkedItem].modeNight
+                    AppCompatDelegate.setDefaultNightMode(mode)
+                    mainViewModel.setAppTheme(mode)
+                    // Update theme description TextView
+                    binding.themeDescription.text = getString(AppTheme.THEME_ARRAY[checkedItem].modeNameRes)
+                }
+                negativeButton(getString(R.string.cancel))
+            }.show()
+        }
+    }
+}

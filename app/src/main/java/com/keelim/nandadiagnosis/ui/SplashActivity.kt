@@ -23,6 +23,7 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
@@ -32,16 +33,14 @@ import com.keelim.nandadiagnosis.BuildConfig
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.base.BaseActivity
 import com.keelim.nandadiagnosis.databinding.ActivitySplashBinding
+import com.keelim.nandadiagnosis.ui.main.Main2Activity
 import com.keelim.nandadiagnosis.ui.main.MainActivity
 import com.keelim.nandadiagnosis.utils.MaterialDialog
 import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.message
 import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.negativeButton
 import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.positiveButton
 import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.title
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class SplashActivity : BaseActivity() {
@@ -150,10 +149,10 @@ class SplashActivity : BaseActivity() {
   }
 
   private fun goNext() {
-    CoroutineScope(Dispatchers.IO).launch {
-      delay(1000)
-      startActivity(Intent(this@SplashActivity, MainActivity::class.java))
-      finish() // 앱을 종료한다.
+    lifecycleScope.launchWhenCreated {
+      delay(1500)
+      startActivity(Intent(this@SplashActivity, Main2Activity::class.java))
+      finish()
     }
   }
 

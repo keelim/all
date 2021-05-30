@@ -33,18 +33,18 @@
 
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        bind:dino_includeEdge="@{true}"
-        bind:dino_itemLayout="@{@layout/item_image}"
-        bind:dino_itemSpace="@{`8dp`}"
-        bind:dino_items="@{vm.images}"
-        bind:dino_onLoad="@{() -> vm.loadMore()}"
-        bind:dino_threshold="@{10}"
-        bind:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        bind:spanCount="2" />
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:orientation="vertical"-->
+<!--        bind:dino_includeEdge="@{true}"-->
+<!--        bind:dino_itemLayout="@{@layout/item_image}"-->
+<!--        bind:dino_itemSpace="@{`8dp`}"-->
+<!--        bind:dino_items="@{vm.images}"-->
+<!--        bind:dino_onLoad="@{() -> vm.loadMore()}"-->
+<!--        bind:dino_threshold="@{10}"-->
+<!--        bind:layoutManager="androidx.recyclerview.widget.GridLayoutManager"-->
+<!--        bind:spanCount="2" />-->
 
   </LinearLayout>
 </layout>

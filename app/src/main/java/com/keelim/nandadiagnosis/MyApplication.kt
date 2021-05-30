@@ -16,40 +16,42 @@
 package com.keelim.nandadiagnosis
 
 import android.app.Application
-import androidx.preference.PreferenceManager
+import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.gms.ads.MobileAds
-import com.keelim.nandadiagnosis.di.downloadModule
+import com.keelim.nandadiagnosis.ui.main.setting.theme.ThemeRepository
 import com.keelim.nandadiagnosis.utils.AppOpenManager
-import com.keelim.nandadiagnosis.utils.ThemeHelper
 import dagger.hilt.android.HiltAndroidApp
-import org.koin.android.ext.koin.androidContext
-import org.koin.android.ext.koin.androidLogger
-import org.koin.core.context.startKoin
-import org.koin.core.logger.Level
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
 @HiltAndroidApp
 class MyApplication : Application() {
 
+  @Inject
+  lateinit var themeRepository: ThemeRepository
+
   private lateinit var appOpenManager: AppOpenManager
+  private val appCoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
+
   override fun onCreate() {
     super.onCreate()
 
     MobileAds.initialize(this) {}
     appOpenManager = AppOpenManager(this) // 콜드 부팅에서 복귀시 ad
 
-    startKoin {
-      androidLogger(Level.NONE)
-      androidContext(this@MyApplication)
-      modules(downloadModule)
-    }
-
     if (BuildConfig.DEBUG) {
       Timber.plant(Timber.DebugTree())
     }
 
-    val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-    val themePref = sharedPreferences.getString("themePref", ThemeHelper.DEFAULT_MODE)
-    ThemeHelper.applyTheme(themePref!!)
+    appCoroutineScope.launch {
+      AppCompatDelegate.setDefaultNightMode(
+        themeRepository.getUserTheme().firstOrNull() ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+      )
+    }
   }
 }

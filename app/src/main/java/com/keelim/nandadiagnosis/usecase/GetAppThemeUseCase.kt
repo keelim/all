@@ -13,21 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.di
+package com.keelim.nandadiagnosis.usecase
 
-import android.app.DownloadManager
-import android.net.Uri
-import org.koin.dsl.module
-import java.io.File
+import com.keelim.nandadiagnosis.ui.main.setting.theme.ThemeRepository
+import kotlinx.coroutines.flow.Flow
 
-val downloadModule = module {
-  single { (url: String, file: File) ->
-    DownloadManager.Request(Uri.parse(url))
-      .setTitle("Downloading")
-      .setDescription("Downloading Database file")
-      .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-      .setDestinationUri(Uri.fromFile(file))
-      .setAllowedOverMetered(true)
-      .setAllowedOverRoaming(true)
-  }
+class GetAppThemeUseCase(
+  themeRepository: ThemeRepository
+) {
+
+  /**
+   * Retrieves the current selected [AppTheme] in user preferences
+   * every time it changes.
+   */
+  val appTheme: Flow<Int> = themeRepository.getUserTheme()
 }

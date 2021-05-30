@@ -16,8 +16,8 @@ android {
 
     defaultConfig {
         applicationId ProjectConfigurations.applicationId
-        minSdkVersion ProjectConfigurations.minSdk
-        targetSdkVersion ProjectConfigurations.targetSdk
+        minSdk ProjectConfigurations.minSdk
+        targetSdk ProjectConfigurations.targetSdk
         versionCode ProjectConfigurations.versionCode
         versionName ProjectConfigurations.versionName
 
@@ -26,7 +26,7 @@ android {
 
     buildTypes {
         release {
-//            minifyEnabled true
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             firebaseAppDistribution {
                 testers="kimh00335@gmail.com"
@@ -65,23 +65,23 @@ dependencies {
     implementation project(':feature:error')
     implementation project(":feature:kakao_search")
 
-    implementation platform('com.google.firebase:firebase-bom:27.1.0')
+    implementation platform('com.google.firebase:firebase-bom:28.0.1')
     implementation "com.google.firebase:firebase-core"
     implementation "com.google.firebase:firebase-crashlytics-ktx"
     implementation "com.google.firebase:firebase-messaging-ktx"
-    implementation "com.google.firebase:firebase-ads"
     implementation "com.google.firebase:firebase-analytics-ktx"
     implementation 'com.google.firebase:firebase-inappmessaging-display-ktx'
 
     implementation 'com.google.ads.mediation:facebook:6.4.0.0'
-    implementation "org.koin:koin-android:2.2.2"
-    implementation 'com.dino.library:simplerecyclerview:0.7.2'
 
     implementation AndroidX.activity_ktx
     implementation AndroidX.core_ktx
     implementation AndroidX.appcompat
     implementation AndroidX.navigation_ui
     implementation AndroidX.navigation_fragment
+
+    implementation LifeCycle.viewmodel
+    implementation LifeCycle.livedata
 
     implementation UI.constraintLayout
     implementation UI.recycler_selection
@@ -113,5 +113,7 @@ dependencies {
     implementation SquareUp.retrofit
     implementation SquareUp.retrofit_gson
     implementation SquareUp.timber
+
+    implementation DataStore.preferences
 }
 apply from: "$rootDir/spotless.gradle"

@@ -13,21 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.service
+package com.keelim.nandadiagnosis.utils
 
-import com.keelim.nandadiagnosis.data.db.NandaEntity
-import com.squareup.okhttp.ResponseBody
-import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Streaming
-import retrofit2.http.Url
+import androidx.annotation.IntRange
 
-interface NandaService {
-  @GET("api/v1/nanda_information/{name}")
-  suspend fun getNanfaInformation(@Path("name") type: String): List<NandaEntity>
-
-  @Streaming
-  @GET
-  suspend fun getDatabase(@Url fileUrl: String): Response<ResponseBody>
+object ProgressUtil {
+  fun getPercentage(@IntRange(from = 0, to = 100) progress: Int): String {
+    return progress.takeIf { it in 0..100 }?.let { "$it%" } ?: "-%"
+  }
 }

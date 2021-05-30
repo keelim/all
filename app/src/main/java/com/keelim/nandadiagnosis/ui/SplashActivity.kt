@@ -17,18 +17,12 @@ package com.keelim.nandadiagnosis.ui
 
 import android.Manifest
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
-import androidx.core.content.pm.ShortcutInfoCompat
-import androidx.core.content.pm.ShortcutManagerCompat
-import androidx.core.graphics.drawable.IconCompat
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
@@ -39,6 +33,11 @@ import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.base.BaseActivity
 import com.keelim.nandadiagnosis.databinding.ActivitySplashBinding
 import com.keelim.nandadiagnosis.ui.main.MainActivity
+import com.keelim.nandadiagnosis.utils.MaterialDialog
+import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.message
+import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.negativeButton
+import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.positiveButton
+import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.title
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -49,7 +48,6 @@ class SplashActivity : BaseActivity() {
   private var mInterstitialAd: InterstitialAd? = null
   private val binding: ActivitySplashBinding by binding(R.layout.activity_splash)
   private val test = "ca-app-pub-3940256099942544/1033173712"
-  private lateinit var settings: SharedPreferences
   private infix fun String.or(that: String): String = if (BuildConfig.DEBUG) this else that
 
   private val permissions = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
@@ -70,47 +68,15 @@ class SplashActivity : BaseActivity() {
   }
 
   companion object {
-    const val PREF_FIRST_START = "AppFirstLaunch"
     const val MULTIPLE_PERMISSIONS = 8888
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    addShortcut()
-
     if (hasPermissions(permissions)) { // 권한이 있는 경우
       goNext()
     } else {
       ActivityCompat.requestPermissions(this, permissions, MULTIPLE_PERMISSIONS)
-    }
-  }
-
-  private fun addShortcut() {
-    settings = getSharedPreferences(PREF_FIRST_START, 0)
-
-    if (settings.getBoolean("AppFirstLaunch", true)) { // 아이콘이 두번 추가 안되도록 하기 위해서 필요한 체크입니다.
-      settings.edit().putBoolean("AppFirstLaunch", false).apply()
-
-      if (ShortcutManagerCompat.isRequestPinShortcutSupported(this)) {
-        val shortcutInfo = ShortcutInfoCompat.Builder(this, "#1")
-          .setIntent(
-            Intent(
-              this,
-              SplashActivity::class.java
-            ).setAction(Intent.ACTION_MAIN)
-          )
-          .setShortLabel(getString(R.string.app_name)) //  아이콘에 같이 보여질 이름
-          .setIcon(
-            IconCompat.createWithResource(
-              this,
-              R.mipmap.ic_launcher
-            )
-          ) // 아이콘에 보여질 이미지
-          .build()
-
-        ShortcutManagerCompat.requestPinShortcut(this, shortcutInfo, null)
-        Toast.makeText(this, "홈 화면에 바로가기를 추가하였습니다. ", Toast.LENGTH_SHORT).show()
-      }
     }
   }
 
@@ -167,18 +133,17 @@ class SplashActivity : BaseActivity() {
           goNext()
         } else {
           // 하나라도 거부한다면.
-          AlertDialog.Builder(this)
-            .setTitle("앱 권한")
-            .setMessage("해당 앱의 원할한 기능을 이용하시려면 애플리케이션 정보>권한> 에서 모든 권한을 허용해 주십시오")
-            .setPositiveButton("권한설정") { dialog, which ->
+          MaterialDialog.createDialog(this) {
+            title("앱 권한")
+            message("해당 앱의 원할한 기능을 이용하시려면 애플리케이션 정보>권한> 에서 모든 권한을 허용해 주십시오")
+            positiveButton("권한설정") {
               Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
                 data = Uri.parse("package:" + applicationContext.packageName)
                 startActivity(this)
-                dialog.cancel()
               }
             }
-            .setNegativeButton("취소") { dialog, which -> dialog.cancel() }
-            .show()
+            negativeButton(getString(R.string.cancel))
+          }.show()
         }
       }
     }

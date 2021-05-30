@@ -13,21 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.service
+package com.keelim.nandadiagnosis.data.repository
 
-import com.keelim.nandadiagnosis.data.db.NandaEntity
-import com.squareup.okhttp.ResponseBody
-import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Streaming
-import retrofit2.http.Url
+import javax.inject.Inject
+import javax.inject.Singleton
 
-interface NandaService {
-  @GET("api/v1/nanda_information/{name}")
-  suspend fun getNanfaInformation(@Path("name") type: String): List<NandaEntity>
-
-  @Streaming
-  @GET
-  suspend fun getDatabase(@Url fileUrl: String): Response<ResponseBody>
-}
+@Singleton
+class DownloadRepository @Inject constructor()

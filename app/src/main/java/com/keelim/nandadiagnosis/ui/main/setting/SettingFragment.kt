@@ -30,6 +30,7 @@ import com.google.android.play.core.review.ReviewManagerFactory
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.ui.WebActivity
 import com.keelim.nandadiagnosis.ui.kakao_search.SearchActivity
+import com.keelim.nandadiagnosis.ui.main.Main2Activity
 import com.keelim.nandadiagnosis.ui.main.MainViewModel
 import com.keelim.nandadiagnosis.ui.main.setting.theme.AppTheme.Companion.THEME_ARRAY
 import com.keelim.nandadiagnosis.ui.open.OpenSourceActivity
@@ -80,6 +81,8 @@ class SettingFragment : PreferenceFragmentCompat() {
       "search" -> requireActivity().startActivity(Intent(requireActivity(), SearchActivity::class.java))
 
       "theme" -> selectTheme()
+
+      "lab" -> startActivity(Intent(context, Main2Activity::class.java))
     }
     return super.onPreferenceTreeClick(preference)
   }

@@ -20,4 +20,14 @@
         android:name="com.keelim.nandadiagnosis.ui.main.setting.SettingFragment"
         android:label="@string/title_my"
         tools:layout="@layout/fragment_setting" />
+
+    <dialog
+        android:id="@+id/moreBottomSheetDialog"
+        android:name="com.keelim.nandadiagnosis.ui.main.MainBottomFragment"
+        tools:layout="@layout/fragment_main_bottom" />
+
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.keelim.nandadiagnosis.ui.main.FragmentAbout"
+        tools:layout="@layout/fragment_about" />
 </navigation>

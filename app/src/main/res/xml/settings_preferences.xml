@@ -24,6 +24,9 @@
         <Preference
             app:key="theme"
             app:title="테마 설정"/>
+        <Preference
+            app:key="lab"
+            app:title="실험"/>
 
     </PreferenceCategory>
 

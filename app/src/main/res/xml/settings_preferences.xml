@@ -21,22 +21,18 @@
             app:key="search"
             app:title="검색" />
 
-        <ListPreference
-            app:defaultValue="default"
-            app:dialogTitle="Light Mode/Dark Mode"
-            app:entries="@array/themeListArray"
-            app:entryValues="@array/themeEntryArray"
-            app:key="themePref"
-            app:title="테마 선택하기"
-            app:useSimpleSummaryProvider="true" />
+        <Preference
+            app:key="theme"
+            app:title="테마 설정"/>
 
     </PreferenceCategory>
 
     <PreferenceCategory
         app:key="other_category"
         app:title="약관">
+
         <Preference
             app:key="opensource"
-            app:title="오픈소스 라이선스"></Preference>
+            app:title="오픈소스 라이선스" />
     </PreferenceCategory>
 </androidx.preference.PreferenceScreen>

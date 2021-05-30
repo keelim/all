@@ -13,21 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.service
+package com.keelim.nandadiagnosis.usecase
 
-import com.keelim.nandadiagnosis.data.db.NandaEntity
-import com.squareup.okhttp.ResponseBody
-import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Streaming
-import retrofit2.http.Url
+import com.keelim.nandadiagnosis.ui.main.setting.theme.ThemeRepository
 
-interface NandaService {
-  @GET("api/v1/nanda_information/{name}")
-  suspend fun getNanfaInformation(@Path("name") type: String): List<NandaEntity>
+class SetAppThemeUseCase(
+  private val themeRepository: ThemeRepository
+) {
 
-  @Streaming
-  @GET
-  suspend fun getDatabase(@Url fileUrl: String): Response<ResponseBody>
+  suspend operator fun invoke(theme: Int) = themeRepository.setUserTheme(theme)
 }

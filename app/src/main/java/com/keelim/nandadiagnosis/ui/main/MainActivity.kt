@@ -21,15 +21,15 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
+import androidx.activity.viewModels
 import androidx.core.app.NotificationCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -38,32 +38,34 @@ import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
+import com.keelim.common.toast
 import com.keelim.nandadiagnosis.BuildConfig
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.base.BaseActivity
 import com.keelim.nandadiagnosis.databinding.ActivityMainBinding
 import com.keelim.nandadiagnosis.service.TerminateService
 import com.keelim.nandadiagnosis.utils.BackPressCloseHandler
-import org.koin.android.ext.android.inject
-import org.koin.core.parameter.parametersOf
+import com.keelim.nandadiagnosis.utils.MaterialDialog
+import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.message
+import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.negativeButton
+import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.positiveButton
+import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.title
+import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity() {
   private lateinit var backPressCloseHandler: BackPressCloseHandler
+  private val mainViewModel by viewModels<MainViewModel>()
+
   private lateinit var binding: ActivityMainBinding
-
   private lateinit var downloadManager: DownloadManager
-  private var downloadId: Long = -1L
 
-  private val file by lazy { File(getExternalFilesDir(null), "nanda.db") }
-  private val url by lazy { getString(R.string.db_path) }
-  private val request: DownloadManager.Request by inject { parametersOf(url, file) }
-
-  private val onDownloadComplete = object : BroadcastReceiver() {
+  val recevier = object : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
       val id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
       if (DownloadManager.ACTION_DOWNLOAD_COMPLETE == intent.action) {
-        if (downloadId == id) {
+        if (id == -1L) {
           val query = DownloadManager.Query().apply { setFilterById(id) }
           val cursor = downloadManager.query(query)
 
@@ -71,9 +73,8 @@ class MainActivity : BaseActivity() {
           val columnIndex = cursor.getColumnIndex(DownloadManager.COLUMN_STATUS)
 
           when (cursor.getInt(columnIndex)) {
-            DownloadManager.STATUS_SUCCESSFUL -> Toast.makeText(context, "다운로드가 완료되었습니다.", Toast.LENGTH_SHORT).show()
-
-            DownloadManager.STATUS_FAILED -> Toast.makeText(context, "다운로드가 실패되었습니다", Toast.LENGTH_SHORT).show()
+            DownloadManager.STATUS_SUCCESSFUL -> toast("다운로드가 완료되었습니다.")
+            DownloadManager.STATUS_FAILED -> toast("다운로드가 실패되었습니다")
           }
         }
       }
@@ -121,27 +122,36 @@ class MainActivity : BaseActivity() {
   }
 
   private fun databaseDownloadAlertDialog() {
-    AlertDialog.Builder(this)
-      .setTitle("다운로드 요청")
-      .setMessage("어플리케이션 사용을 위해 데이터베이스를 다운로드 합니다.")
-      .setCancelable(false)
-      .setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
-        Toast.makeText(this, "서버로부터 데이터 베이스를 요청 합니다. ", Toast.LENGTH_SHORT).show()
+    MaterialDialog.createDialog(this) {
+      title("다운로드 요청")
+      message("어플리케이션 사용을 위해 데이터베이스를 다운로드 합니다.")
+      positiveButton(getString(R.string.ok)) {
+        toast("서버로부터 데이터 베이스를 요청 합니다. ")
         downloadDatabase()
-      }.create()
-      .show()
+      }
+      negativeButton(getString(R.string.cancel))
+    }.show()
   }
 
   private fun downloadDatabase() {
     downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-
-    IntentFilter().apply {
+    val intentFilter: IntentFilter = IntentFilter().apply {
       addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
       addAction(DownloadManager.ACTION_NOTIFICATION_CLICKED)
-      registerReceiver(onDownloadComplete, this)
     }
+    registerReceiver(recevier, intentFilter)
 
-    downloadId = downloadManager.enqueue(request)
+    downloadManager.enqueue(
+      DownloadManager.Request(Uri.parse(getString(R.string.db_path)))
+        .setTitle("Downloading")
+        .setDescription("Downloading Database file")
+        .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+        .setDestinationUri(Uri.fromFile(File(getExternalFilesDir(null), "nanda.db")))
+        .setAllowedOverMetered(true)
+        .setAllowedOverRoaming(true)
+    )
+//            val path = File(getExternalFilesDir(null), "nanda.db").absolutePath
+//            mainViewModel.downloadDatabase(path)
   }
 
   override fun onBackPressed() {
@@ -162,7 +172,8 @@ class MainActivity : BaseActivity() {
 
     getSystemService(NotificationManager::class.java).run {
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        val channel = NotificationChannel(channelId, "알림", NotificationManager.IMPORTANCE_HIGH)
+        val channel =
+          NotificationChannel(channelId, "알림", NotificationManager.IMPORTANCE_HIGH)
         createNotificationChannel(channel)
       }
       notify(0, notificationBuilder.build())

@@ -24,36 +24,35 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.provider.Settings
 import android.widget.Toast
-import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.fragment.app.FragmentActivity
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.coroutineScope
 import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.GeofencingClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdate
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.maps.android.ktx.addMarker
+import com.google.maps.android.ktx.awaitMap
 import com.keelim.cnubus.feature.map.databinding.ActivityMapsBinding
 import timber.log.Timber
 import java.util.ArrayList
 
-class MapsActivity : FragmentActivity(), OnMapReadyCallback {
+class MapsActivity : AppCompatActivity() {
     private lateinit var fusedLocationProvider: FusedLocationProviderClient
     private lateinit var locationRequest: LocationRequest
     private lateinit var locationCallback: LocationCallback
-    private lateinit var mMap: GoogleMap
-    private val viewModel: MapsViewModel by viewModels()
     private var current: LatLng? = null
     private var locationList: ArrayList<LatLng>? = null
     private var location = 0
-    lateinit var geofencingClient: GeofencingClient
+    private var locationPermissionGranted = false
 
     private lateinit var binding: ActivityMapsBinding
 
@@ -63,48 +62,54 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback {
         setContentView(binding.root)
         locationListInit()
         intentControl()
-        val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
-        mapFragment?.getMapAsync(this)
+        val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+        lifecycle.coroutineScope.launchWhenCreated {
+            val googleMap = mapFragment.awaitMap()
+            addClickListener(googleMap)
 
+            (0..14).forEach { index ->
+                googleMap.addMarker {
+                    position(locationList!![index])
+                    title(markerHandling(index))
+                    snippet(snippetHandling(index))
+                }
+            }
+            val cameraUpdate: CameraUpdate = if (location == -1) {
+                CameraUpdateFactory.newLatLngZoom(locationList!![0], 17f)
+            } else {
+                CameraUpdateFactory.newLatLngZoom(locationList!![location], 17f)
+            }
+            googleMap.animateCamera(cameraUpdate)
+            getLocationPermission()
+            updateLocationUI(googleMap)
+        }
         val locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
 
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             Toast.makeText(this, "제대로된 작동을  위해 GPS 를 켜주세요", Toast.LENGTH_SHORT).show()
             startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
         }
-
+    }
+    private suspend fun addClickListener(googleMap: GoogleMap) {
         binding.floating.setOnClickListener {
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(current, 17f))
-
-            MarkerOptions().apply {
-                position(current!!)
-                draggable(true)
-                icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
-                mMap.addMarker(this)
+            lifecycle.coroutineScope.launchWhenStarted {
+                googleMap.run {
+                    animateCamera(CameraUpdateFactory.newLatLngZoom(current, 17f))
+                    googleMap.addMarker {
+                        position(current!!)
+                        draggable(true)
+                        icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+                    }
+                }
             }
         }
     }
 
-    override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
+    private fun markerHandling(index: Int): String =
+        resources.getStringArray(R.array.stations)[index]
 
-        (0..14).forEach { index ->
-            val markerOptions = MarkerOptions()
-            markerOptions.position(locationList!![index]).title(markerHandling(index))
-            googleMap.addMarker(markerOptions)
-        }
-        val cameraUpdate: CameraUpdate = if (location == -1) {
-            CameraUpdateFactory.newLatLngZoom(locationList!![0], 17f)
-        } else {
-            CameraUpdateFactory.newLatLngZoom(locationList!![location], 17f)
-        }
-        googleMap.animateCamera(cameraUpdate)
-    }
-
-    private fun markerHandling(i: Int): String {
-        val mapArray = resources.getStringArray(R.array.stations)
-        return mapArray[i]
-    }
+    private fun snippetHandling(index: Int): String =
+        resources.getStringArray(R.array.station_info)[index]
 
     private fun intentControl() {
         val stringLocation = intent.getStringExtra("location")
@@ -177,8 +182,19 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback {
     }
 
     private fun permissionCheck(cancel: () -> Unit, ok: () -> Unit) {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION))
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(
+                    this,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                )
+            )
                 cancel()
             else
                 ActivityCompat.requestPermissions(
@@ -191,7 +207,7 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback {
     }
 
     private fun myPositionInit() {
-        fusedLocationProvider = FusedLocationProviderClient(this)
+        fusedLocationProvider = LocationServices.getFusedLocationProviderClient(this)
 
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
@@ -212,18 +228,63 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback {
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    private fun getLocationPermission() {
+        /*
+         * Request location permission, so that we can get the location of the
+         * device. The result of the permission request is handled by a callback,
+         * onRequestPermissionsResult.
+         */
+        if (ContextCompat.checkSelfPermission(
+                this.applicationContext,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
+            == PackageManager.PERMISSION_GRANTED
+        ) {
+            locationPermissionGranted = true
+        } else {
+            ActivityCompat.requestPermissions(
+                this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
+            )
+        }
+    }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        locationPermissionGranted = false
         when (requestCode) {
-            1000 -> {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    addLocationListener()
-                } else {
-                    Toast.makeText(this, "권한 거부됨", Toast.LENGTH_SHORT).show()
+            PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION -> {
+
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.isNotEmpty() &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED
+                ) {
+                    locationPermissionGranted = true
                 }
-                return
             }
         }
+    }
+
+    private fun updateLocationUI(mMap: GoogleMap) {
+        try {
+            if (locationPermissionGranted) {
+                mMap.isMyLocationEnabled = true
+                mMap.uiSettings?.isMyLocationButtonEnabled = true
+            } else {
+                mMap.isMyLocationEnabled = false
+                mMap.uiSettings?.isMyLocationButtonEnabled = false
+                getLocationPermission()
+            }
+        } catch (e: SecurityException) {
+            Timber.e(e)
+        }
+    }
+
+    companion object {
+        private const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
     }
 }

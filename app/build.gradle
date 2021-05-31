@@ -29,6 +29,11 @@ android {
                 testers="kimh00335@gmail.com"
             }
         }
+        debug{
+            firebaseAppDistribution {
+                testers="kimh00335@gmail.com"
+            }
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
@@ -44,6 +49,9 @@ android {
         dataBinding = true
         viewBinding = true
     }
+    kapt {
+        correctErrorTypes true
+    }
 }
 
 dependencies {
@@ -53,12 +61,11 @@ dependencies {
     implementation project(":data:api")
     implementation project(":common")
 
-    implementation platform('com.google.firebase:firebase-bom:26.1.0')
+    implementation platform('com.google.firebase:firebase-bom:28.0.1')
     implementation "com.google.firebase:firebase-core"
     implementation "com.google.firebase:firebase-crashlytics-ktx"
     implementation 'com.google.firebase:firebase-perf-ktx'
     implementation "com.google.firebase:firebase-messaging-ktx"
-    implementation "com.google.firebase:firebase-ads"
     implementation "com.google.firebase:firebase-analytics-ktx"
     implementation 'com.google.firebase:firebase-inappmessaging-display-ktx'
 
@@ -96,6 +103,11 @@ dependencies {
     implementation SquareUp.urlconnection
     implementation SquareUp.retrofit
     implementation SquareUp.retrofit_gson
+
+    implementation DataStore.preferences
+
+    implementation LifeCycle.viewmodel
+    implementation LifeCycle.livedata
 }
 
 apply from: "$rootDir/spotless.gradle"

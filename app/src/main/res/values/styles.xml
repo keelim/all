@@ -9,6 +9,7 @@
         <item name="colorError">@color/error</item>
         <item name="android:textColor">@color/main_text_color</item>
         <item name="toolbarStyle">@style/MyToolbar</item>
+
     </style>
 
     <style name="LoginTheme" parent="Theme.MaterialComponents.NoActionBar">
@@ -65,6 +66,11 @@
     <style name="MyToolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
         <item name="titleTextColor">@color/main_bg_color</item>
         <item name="backgroundColor">@color/main_bg_color</item>
+    </style>
+
+    <style name="Nanda.Button.TextButton.Mini" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textAppearance">@style/TextAppearance.Nanda.Caption</item>
+        <item name="textAllCaps">false</item>
     </style>
 
 </resources>

@@ -14,12 +14,9 @@ import androidx.lifecycle.ProcessLifecycleOwner;
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.FullScreenContentCallback;
-import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.appopen.AppOpenAd;
 import com.keelim.nandadiagnosis.BuildConfig;
 import com.keelim.nandadiagnosis.MyApplication;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Date;
 
@@ -140,7 +137,7 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
                 }
 
                 @Override
-                public void onAdFailedToShowFullScreenContent(AdError adError) {
+                public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
                 }
 
                 @Override

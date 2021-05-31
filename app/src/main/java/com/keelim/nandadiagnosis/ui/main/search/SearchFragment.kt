@@ -98,7 +98,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) { // frag
 
         setOnQueryTextListener(object : SearchView.OnQueryTextListener {
           override fun onQueryTextSubmit(query: String): Boolean {
-            val items = searchDiagnosis(query) // 검색을 한다.
+            val items = searchDiagnosis(query.replace("\\s", "")) // 검색을 한다.
             showHistoryView()
             if (items.isNotEmpty()) {
               hideHistoryView()
@@ -145,11 +145,10 @@ class SearchFragment : Fragment(R.layout.fragment_search) { // frag
   }
 
   private fun searchDiagnosis(keyword: String): List<NandaEntity> { // 데이터베이스 가져와서 검색하기
-    val result: List<NandaEntity> = runBlocking {
+    //    HistoryDatabase.getInstance(requireActivity())!!.historyDao().insertHisotry(History(null, keyword))
+    return runBlocking {
       AppDatabaseV2.getInstance(requireActivity())!!.dataDao.search(keyword)
     }
-//    HistoryDatabase.getInstance(requireActivity())!!.historyDao().insertHisotry(History(null, keyword))
-    return result
   }
 
   private fun initTracker() {
@@ -196,7 +195,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) { // frag
 
       requireActivity().runOnUiThread {
         fragmentSearchBinding!!.historyRecycler.isVisible = true
-        historyAdapter.submitList(keywords.orEmpty())
+        historyAdapter.submitList(keywords)
       }
     }
   }

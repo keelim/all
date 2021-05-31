@@ -38,8 +38,7 @@ class SearchViewModel(val database: DataDaoV2, application: Application) :
   }
 
   private suspend fun getNandaDatabase(): NandaEntity? {
-    val nanda = database.getNanda()
-    return nanda
+    return database.getNanda()
   }
 
   fun getSearchMyData(keyword: String?): List<NandaEntity>? {
@@ -52,7 +51,6 @@ class SearchViewModel(val database: DataDaoV2, application: Application) :
   }
 
   private suspend fun getCategoryData(number: Int?): List<NandaEntity>? {
-    val nanda_list: List<NandaEntity> = database.get(number)
-    return nanda_list
+    return database.get(number)
   }
 }

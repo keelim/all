@@ -480,8 +480,17 @@
     <string name="light_theme">Light</string>
     <string name="dark_theme">Dark</string>
     <string name="cancel">취소</string>
-    <string name="ok">선택</string>
+    <string name="ok">확인</string>
     <string name="choose_theme">테마 선택</string>
+    <string name="more_option">More option</string>
+    <string name="theme">Theme Change</string>
+    <string name="open_source_licenses">opensource license</string>
+    <string name="about">About</string>
+    <string name="terms_and_conditions">Terms and conditions</string>
+    <string name="beta">beta</string>
+    <string name="alpha">alpha</string>
+    <string name="search">search</string>
+    <string name="update">update</string>
 
 
 </resources>

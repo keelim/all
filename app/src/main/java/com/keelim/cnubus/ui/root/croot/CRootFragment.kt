@@ -23,13 +23,13 @@ import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.FragmentCRootBinding
 
 class CRootFragment : Fragment(R.layout.fragment_c_root) {
-    private var fragmentCRootBinding: FragmentCRootBinding? = null
+    private var _binding: FragmentCRootBinding? = null
+    private val binding get() = _binding!!
     private lateinit var rootList: Array<String>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val binding = FragmentCRootBinding.bind(view)
-        fragmentCRootBinding = binding
+        _binding = FragmentCRootBinding.bind(view)
 
         rootList = resources.getStringArray(R.array.croot)
 
@@ -40,10 +40,5 @@ class CRootFragment : Fragment(R.layout.fragment_c_root) {
                 }
             }
         }
-    }
-
-    override fun onDestroyView() {
-        fragmentCRootBinding = null
-        super.onDestroyView()
     }
 }

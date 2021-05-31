@@ -27,12 +27,11 @@ import com.keelim.cnubus.feature.map.MapsActivity
 class BRootFragment : Fragment(R.layout.fragment_b_root) {
     private lateinit var rootList: Array<String>
     private lateinit var intentList: Array<String>
-    private var fragmentBRootBinding: FragmentBRootBinding? = null
-
+    private var _binding: FragmentBRootBinding? = null
+    private val binding get() = _binding!!
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val binding = FragmentBRootBinding.bind(view)
-        fragmentBRootBinding = binding
+        _binding = FragmentBRootBinding.bind(view)
 
         rootList = resources.getStringArray(R.array.broot)
         intentList = resources.getStringArray(R.array.b_intent_array)
@@ -50,10 +49,5 @@ class BRootFragment : Fragment(R.layout.fragment_b_root) {
                 }
             }
         }
-    }
-
-    override fun onDestroyView() {
-        fragmentBRootBinding = null
-        super.onDestroyView()
     }
 }

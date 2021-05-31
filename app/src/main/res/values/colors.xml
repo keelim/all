@@ -13,4 +13,5 @@
     \
 
     <color name="ic_launcher">#304ffe</color>
+    <color name="colorDivider">#ECECEC</color>
 </resources>

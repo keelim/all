@@ -35,9 +35,8 @@ class Content2Activity : BaseActivity() {
         binding.apply {
             vm = viewModel
             lifecycleOwner = this@Content2Activity
+            pager.adapter = ScreenSliderPagerAdapter(this@Content2Activity)
         }
-
-        binding.pager.adapter = ScreenSliderPagerAdapter(this)
 
         viewModel.viewEvent.observe(
             this,

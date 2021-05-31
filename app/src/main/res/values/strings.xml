@@ -490,6 +490,7 @@
     <string name="beta">beta</string>
     <string name="alpha">alpha</string>
     <string name="search">search</string>
+    <string name="update">update</string>
 
 
 </resources>

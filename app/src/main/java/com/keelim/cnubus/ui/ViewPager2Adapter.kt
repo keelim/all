@@ -27,9 +27,7 @@ import java.util.ArrayList
 
 class ViewPager2Adapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
     private var fragments = ArrayList<Fragment>()
-    override fun getItemCount(): Int {
-        return 5
-    }
+    override fun getItemCount(): Int { return 5 }
 
     override fun createFragment(position: Int): Fragment {
         return fragments[position]

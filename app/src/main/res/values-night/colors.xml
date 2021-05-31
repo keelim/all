@@ -11,4 +11,5 @@
     <color name="main_bg_color">#2E2E2E</color>
 
     <color name="ic_launcher">#ffffff</color>
+    <color name="colorDivider">#1C3C4E</color>
 </resources>

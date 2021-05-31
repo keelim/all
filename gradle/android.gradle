@@ -1,4 +1,3 @@
-import ProjectConfigurations
 
 android {
     compileSdkVersion ProjectConfigurations.compileSdk
@@ -29,6 +28,7 @@ android {
 
     kotlinOptions {
         jvmTarget = '11'
+        useIR = true
     }
 }
 

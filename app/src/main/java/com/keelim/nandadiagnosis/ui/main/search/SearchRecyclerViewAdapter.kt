@@ -24,7 +24,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.keelim.nandadiagnosis.data.db.NandaEntity
 import com.keelim.nandadiagnosis.databinding.ItemListviewBinding
 
-class SearchRecyclerViewAdapter() : RecyclerView.Adapter<SearchRecyclerViewAdapter.ViewHolder>() {
+class SearchRecyclerViewAdapter : RecyclerView.Adapter<SearchRecyclerViewAdapter.ViewHolder>() {
   var list: List<NandaEntity> = listOf()
   var tracker: SelectionTracker<Long>? = null
 

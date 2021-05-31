@@ -23,28 +23,19 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.navigation.findNavController
-import androidx.navigation.ui.setupWithNavController
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdSize
-import com.google.android.gms.ads.AdView
-import com.google.android.material.shape.CornerFamily
-import com.google.android.material.shape.MaterialShapeDrawable
 import com.keelim.common.toast
-import com.keelim.nandadiagnosis.BuildConfig
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.base.BaseActivity
-import com.keelim.nandadiagnosis.databinding.ActivityMainBinding
+import com.keelim.nandadiagnosis.databinding.ActivityMain2Binding
 import com.keelim.nandadiagnosis.service.TerminateService
-import com.keelim.nandadiagnosis.utils.BackPressCloseHandler
 import com.keelim.nandadiagnosis.utils.MaterialDialog
 import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.message
 import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.negativeButton
@@ -54,11 +45,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 
 @AndroidEntryPoint
-class MainActivity : BaseActivity() {
-  private lateinit var backPressCloseHandler: BackPressCloseHandler
-  private val mainViewModel by viewModels<MainViewModel>()
+class Main2Activity : AppCompatActivity() {
+  private lateinit var binding: ActivityMain2Binding
 
-  private lateinit var binding: ActivityMainBinding
+  private val mainViewModel by viewModels<MainViewModel>()
   private lateinit var downloadManager: DownloadManager
 
   val recevier = object : BroadcastReceiver() {
@@ -83,36 +73,51 @@ class MainActivity : BaseActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    backPressCloseHandler = BackPressCloseHandler(this)
-    binding = ActivityMainBinding.inflate(layoutInflater)
+    binding = ActivityMain2Binding.inflate(layoutInflater)
     setContentView(binding.root)
 
-    val navController = findNavController(R.id.nav_host_fragment)
-    binding.navView.setupWithNavController(navController)
+    initNavigation()
+    initBottomAppBar()
 
-    supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.WHITE))
-
-    val radius = resources.getDimension(R.dimen.radius_small)
-    val bottomNavigationViewBackground = binding.navView.background as MaterialShapeDrawable
-    bottomNavigationViewBackground.shapeAppearanceModel =
-      bottomNavigationViewBackground.shapeAppearanceModel.toBuilder()
-        .setTopRightCorner(CornerFamily.ROUNDED, radius)
-        .setTopLeftCorner(CornerFamily.ROUNDED, radius)
-        .build()
+    binding.searchButton.setOnClickListener {
+      navController().navigate(R.id.navigation_search)
+    }
 
     fileChecking()
-
-    val mAdView = AdView(this)
-    mAdView.adSize = AdSize.SMART_BANNER
-    mAdView.adUnitId = if (BuildConfig.DEBUG) "ca-app-pub-3940256099942544/6300978111"
-    else "ca-app-pub-3115620439518585/8213873659"
-
-    binding.adview.addView(mAdView)
-    val adRequest = AdRequest.Builder().build()
-    mAdView.loadAd(adRequest)
-
     createNotification()
     startService(Intent(this, TerminateService::class.java))
+  }
+
+  private fun initNavigation() {
+    navController().addOnDestinationChangedListener { _, destination, _ ->
+      when (destination.id) {
+        R.id.navigation_category -> {
+          binding.bottomAppBar.visibility = View.VISIBLE
+          binding.searchButton.show()
+        }
+        else -> {
+          binding.bottomAppBar.visibility = View.GONE
+          binding.searchButton.hide()
+        }
+      }
+    }
+  }
+
+  private fun initBottomAppBar() {
+    binding.bottomAppBar.setNavigationOnClickListener {
+    }
+
+    binding.bottomAppBar.setOnMenuItemClickListener {
+      when (it.itemId) {
+        R.id.more -> {
+          showMoreOptions()
+          true
+        }
+        else -> {
+          false
+        }
+      }
+    }
   }
 
   private fun fileChecking() {
@@ -150,16 +155,10 @@ class MainActivity : BaseActivity() {
         .setAllowedOverMetered(true)
         .setAllowedOverRoaming(true)
     )
-//            val path = File(getExternalFilesDir(null), "nanda.db").absolutePath
-//            mainViewModel.downloadDatabase(path)
-  }
-
-  override fun onBackPressed() {
-    backPressCloseHandler.onBackPressed()
   }
 
   private fun createNotification() {
-    val intent = Intent(this, MainActivity::class.java)
+    val intent = Intent(this, Main2Activity::class.java)
     val pIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
     val channelId = getString(R.string.my_notification_channel_id)
 
@@ -179,4 +178,8 @@ class MainActivity : BaseActivity() {
       notify(0, notificationBuilder.build())
     }
   }
+
+  private fun navController() = findNavController(R.id.nav_host_fragment)
+
+  private fun showMoreOptions() = navController().navigate(R.id.moreBottomSheetDialog)
 }

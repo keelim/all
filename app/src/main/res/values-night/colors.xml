@@ -10,13 +10,6 @@
 
     <color name="main_bg_color">#2E2E2E</color>
 
-    <color name="preview_edit_button_parent_bg">#333333</color>
-
-    <color name="icon_normal_color">#F0F0F0</color>
-    <color name="bg_for_alpha_image">#333333</color>
-
-    <color name="ucrop_toolbar_text_color">#F0F0F0</color>
-
-    <color name="divider">#575757</color>
     <color name="ic_launcher">#ffffff</color>
+    <color name="colorDivider">#1C3C4E</color>
 </resources>

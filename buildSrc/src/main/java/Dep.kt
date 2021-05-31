@@ -1,8 +1,9 @@
 object Play {
     const val play_location = "com.google.android.gms:play-services-location:18.0.0"
-    const val play_map = "com.google.android.gms:play-services-maps:17.0.0"
-    const val play_ads = "com.google.android.gms:play-services-ads:20.0.0"
+    const val play_map = "com.google.android.gms:play-services-maps:17.0.1"
+    const val play_ads = "com.google.android.gms:play-services-ads:20.1.0"
     const val play_core = "com.google.android.play:core:1.10.0"
+    const val maps_sdk = "com.google.maps.android:maps-ktx:3.0.1"
 }
 
 object Coil {
@@ -45,8 +46,14 @@ object LifeCycle {
     const val extensions = "androidx.lifecycle:lifecycle-extensions:2.2.0"
 }
 
+object DataStore {
+    const val dataStorePreferences = "1.0.0-alpha07"
+    const val preferences =
+        "androidx.datastore:datastore-preferences:${dataStorePreferences}"
+}
+
 object Hilt {
-    const val version = "2.33-beta"
+    const val version = "2.36"
     const val android = "com.google.dagger:hilt-android:${version}"
     const val hilt_compiler = "com.google.dagger:hilt-android-compiler:${version}"
     const val hilt_common = "androidx.hilt:hilt-common:$version"
@@ -54,8 +61,6 @@ object Hilt {
 
     const val testing = "com.google.dagger:hilt-android-testing:${version}"
     const val android_hilt_compiler = "androidx.hilt:hilt-compiler:${version}"
-
-
 }
 
 object AndroidX {
@@ -107,7 +112,7 @@ object Glide {
 
     object Dep {
         object GradlePlugin {
-            const val androidStudioVersion = "4.2.0-alpha14"
+            private const val androidStudioVersion = "4.2.0-alpha14"
             const val android = "com.android.tools.build:gradle:$androidStudioVersion"
             const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Kotlin.version}"
             const val kotlinSerialization =

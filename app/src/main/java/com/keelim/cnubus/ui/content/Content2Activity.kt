@@ -19,7 +19,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -36,9 +35,8 @@ class Content2Activity : BaseActivity() {
         binding.apply {
             vm = viewModel
             lifecycleOwner = this@Content2Activity
+            pager.adapter = ScreenSliderPagerAdapter(this@Content2Activity)
         }
-
-        binding.pager.adapter = ScreenSliderPagerAdapter(this)
 
         viewModel.viewEvent.observe(
             this,

@@ -124,6 +124,23 @@
         <item>산학협력관"</item>
         <item>경상대학"</item>
     </string-array>
+    <string-array name="station_info">
+        <item>이곳은 정삼화 홀 입니다</item>
+        <item>이곳은 한누리관(동아리 건물) 뒤 입니다.</item>
+        <item>이곳은 서문 입니다</item>
+        <item>이곳은 음대 입니다</item>
+        <item>이곳은 공동 동물 입니다</item>
+        <item>이곳은 체육관 입구 입니다</item>
+        <item>이곳은 예술대학앞 입니다</item>
+        <item>이곳은 도서관 앞 입니다</item>
+        <item>이곳은 농업생명과학대학" 입니다</item>
+        <item>이곳은 동문 입니다</item>
+        <item>이곳은 생활관 입니다</item>
+        <item>이곳은 도서관 앞 입니다</item>
+        <item>이곳은 공과 대학 앞 입니다</item>
+        <item>이곳은 산학 협력관 입니다</item>
+        <item>이곳은 경상대학 입니다</item>
+    </string-array>
     <string-array name="night_intent_array">1</string-array>
 
 </resources>

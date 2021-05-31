@@ -16,31 +16,42 @@
 package com.keelim.cnubus
 
 import android.app.Application
-import androidx.preference.PreferenceManager
+import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.gms.ads.MobileAds
 import com.keelim.cnubus.feature.error.ExceptionHandler
+import com.keelim.cnubus.ui.setting.theme.ThemeRepository
 import com.keelim.cnubus.utils.AppOpenManager
-import com.keelim.cnubus.utils.ThemeHelper
 import dagger.hilt.android.HiltAndroidApp
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
 @HiltAndroidApp
 class MyApplication : Application() {
+    @Inject
+    lateinit var themeRepository: ThemeRepository
+
     private lateinit var appOpenManager: AppOpenManager
+    private val appCoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
+
     override fun onCreate() {
         super.onCreate()
 
         MobileAds.initialize(this) {}
         appOpenManager = AppOpenManager(this) // 콜드 부팅에서 복귀시 ad
 
-//        setCrashHandler()
-
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-        val themePref = sharedPreferences.getString("themePref", ThemeHelper.DEFAULT_MODE)
-        ThemeHelper.applyTheme(themePref!!)
-
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
+        }
+
+        appCoroutineScope.launch {
+            AppCompatDelegate.setDefaultNightMode(
+                themeRepository.getUserTheme().firstOrNull() ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+            )
         }
     }
 

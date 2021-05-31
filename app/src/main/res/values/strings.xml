@@ -204,7 +204,18 @@
    limitations under the License.
 </string>
     <string name="notification_uri">https://plus.cnu.ac.kr/html/kr/sub05/sub05_050403.html</string>
-    <string name="title_activity_maps2">Map</string>
     <string name="updateLink">https://play.google.com/store/apps/details?id=com.keelim.cnubus</string>
+    <string name="my_notification_channel_id">987654321</string>
+   <string name="system">System default</string>
+   <string name="light_theme">Light</string>
+   <string name="dark_theme">Dark</string>
+   <string name="cancel">취소</string>
+   <string name="ok">선택</string>
+   <string name="choose_theme">테마 선택</string>
+    <string name="more_option">More_options</string>
+    <string name="theme">Theme Change</string>
+   <string name="update">업데이트</string>
+   <string name="open_source_licenses">Opensource license</string>
+   <string name="about">About</string>
 
 </resources>

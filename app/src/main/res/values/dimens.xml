@@ -12,4 +12,10 @@
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="text_margin">16dp</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->
+
+    <dimen name="pageMargin">20dp</dimen>
+    <dimen name="offset">20dp</dimen>
+    <dimen name="pageMarginAndOffset">40dp</dimen>
+    <dimen name="frameSize">320dp</dimen>
+    <dimen name="menu_row_height">64dp</dimen>
 </resources>

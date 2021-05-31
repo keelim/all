@@ -34,7 +34,6 @@ import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.base.BaseActivity
 import com.keelim.nandadiagnosis.databinding.ActivitySplashBinding
 import com.keelim.nandadiagnosis.ui.main.Main2Activity
-import com.keelim.nandadiagnosis.ui.main.MainActivity
 import com.keelim.nandadiagnosis.utils.MaterialDialog
 import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.message
 import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.negativeButton

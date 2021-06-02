@@ -105,6 +105,7 @@ class Main2Activity : AppCompatActivity() {
 
   private fun initBottomAppBar() {
     binding.bottomAppBar.setNavigationOnClickListener {
+      showMenu()
     }
 
     binding.bottomAppBar.setOnMenuItemClickListener {
@@ -182,4 +183,6 @@ class Main2Activity : AppCompatActivity() {
   private fun navController() = findNavController(R.id.nav_host_fragment)
 
   private fun showMoreOptions() = navController().navigate(R.id.moreBottomSheetDialog)
+
+  private fun showMenu() = navController().navigate(R.id.menuBottomSheetDialogFragment)
 }

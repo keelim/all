@@ -27,7 +27,6 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.FragmentMainBottomBinding
-import com.keelim.nandadiagnosis.ui.WebActivity
 import com.keelim.nandadiagnosis.ui.main.setting.theme.AppTheme
 import com.keelim.nandadiagnosis.ui.open.OpenSourceActivity
 import com.keelim.nandadiagnosis.utils.MaterialDialog
@@ -102,10 +101,7 @@ class MainBottomFragment : BottomSheetDialogFragment() {
 
     binding.blog.setOnClickListener {
       dismiss()
-      Intent(Intent.ACTION_VIEW).apply {
-        data = Uri.parse(getString(R.string.github))
-        startActivity(this)
-      }
+      findNavController().navigate(R.id.inAppWebFragment)
     }
   }
 

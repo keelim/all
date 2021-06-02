@@ -88,6 +88,7 @@ dependencies {
     implementation UI.recyclerview
     implementation UI.preference_ktx
     implementation UI.material
+    implementation UI.swiperefreshlayout
 
     implementation Play.play_core
     implementation Play.play_ads
@@ -115,5 +116,6 @@ dependencies {
     implementation SquareUp.timber
 
     implementation DataStore.preferences
+
 }
 apply from: "$rootDir/spotless.gradle"

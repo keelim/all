@@ -101,8 +101,9 @@ class MainBottomFragment : BottomSheetDialogFragment() {
     }
 
     binding.blog.setOnClickListener {
-      Intent(requireActivity(), WebActivity::class.java).apply {
-        putExtra("URL", getString(R.string.blog_url))
+      dismiss()
+      Intent(Intent.ACTION_VIEW).apply {
+        data = Uri.parse(getString(R.string.github))
         startActivity(this)
       }
     }

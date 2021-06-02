@@ -72,5 +72,10 @@
         <item name="android:textAppearance">@style/TextAppearance.Nanda.Caption</item>
         <item name="textAllCaps">false</item>
     </style>
+    
+    <style name="InAppWebview" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:statusBarColor">@color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
 
 </resources>

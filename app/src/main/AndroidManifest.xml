@@ -77,6 +77,14 @@
             android:exported="false"
             android:stopWithTask="false" />
 
+        <service android:name=".service.FirebaseMessagingService"
+            android:exported="false"
+            >
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
         <provider
             android:name=".ui.main.search.SuggestionProvider"
             android:authorities=".ui.main.search.SuggestionProvider"

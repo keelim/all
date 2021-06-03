@@ -70,7 +70,7 @@ class InAppWebFragment : Fragment() {
         override fun handleOnBackPressed() {
           if (binding.webview.canGoBack()) {
             binding.webview.goBack()
-          } else{
+          } else {
             findNavController().navigate(R.id.navigation_category)
           }
         }

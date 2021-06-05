@@ -21,7 +21,8 @@ import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.base.BaseActivity
 import com.keelim.nandadiagnosis.databinding.ActivitySearchBinding
 
-class SearchActivity : BaseActivity() {
+class
+SearchActivity : BaseActivity() {
   private val binding: ActivitySearchBinding by binding(R.layout.activity_search)
   private val searchViewModel by viewModels<SearchViewModel>()
 

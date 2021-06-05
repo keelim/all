@@ -193,11 +193,11 @@ class Main2Activity : AppCompatActivity() {
 
   private fun updateResult(isNewIntent: Boolean = false) {
     val data = intent.getStringExtra("notificationType") ?: "앱 런처" +
-    if (isNewIntent) {
-      ("알림으로 실행되었습니다. 환영합니다")
-    } else {
-      ("환영합니다. 난다 진단 입니다.")
-    }
+      if (isNewIntent) {
+        ("알림으로 실행되었습니다. 환영합니다")
+      } else {
+        ("환영합니다. 난다 진단 입니다.")
+      }
     toast(data)
   }
 }

@@ -21,7 +21,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.provider.SearchRecentSuggestions
 import android.text.TextUtils
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -133,7 +137,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) { // frag
     }
     super.onCreateOptionsMenu(menu, inflater)
   }
-  
+
   private fun searchDiagnosis(keyword: String): List<NandaEntity> { // 데이터베이스 가져와서 검색하기
     return runBlocking {
       AppDatabaseV2.getInstance(requireActivity())!!.dataDao.search(keyword)

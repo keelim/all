@@ -31,7 +31,7 @@ import com.google.firebase.messaging.RemoteMessage
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.ui.main.Main2Activity
 import timber.log.Timber
-import java.util.*
+import java.util.Date
 
 class FirebaseMessagingService : FirebaseMessagingService() {
 
@@ -51,7 +51,7 @@ class FirebaseMessagingService : FirebaseMessagingService() {
       remoteMessage.notification?.let { showNotification(it) }
     }
 
-    ////
+    // //
 
     val title = remoteMessage.data["title"]
     val message = remoteMessage.data["message"]
@@ -60,7 +60,6 @@ class FirebaseMessagingService : FirebaseMessagingService() {
     type ?: return
 
     createNotificationChannel()
-
 
     NotificationManagerCompat.from(this)
       .notify(type.id, createNotification(type, title, message))
@@ -86,7 +85,7 @@ class FirebaseMessagingService : FirebaseMessagingService() {
     title: String?,
     message: String?,
   ): Notification {
-    val intent = Intent(this, Main2Activity::class.java).apply{
+    val intent = Intent(this, Main2Activity::class.java).apply {
       putExtra("notificationType", "${type.title} 타입")
       addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
     }
@@ -124,7 +123,6 @@ class FirebaseMessagingService : FirebaseMessagingService() {
     }
     return notificationBuilder.build()
   }
-
 
   private fun showNotification(notification: RemoteMessage.Notification) {
     val intent = Intent(this, Main2Activity::class.java)

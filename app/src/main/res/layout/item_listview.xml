@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/item_backgroud"
-        android:paddingStart="10dp">
+        android:paddingHorizontal="10dp">
 
         <TextView
             android:id="@+id/diagnosis_item"

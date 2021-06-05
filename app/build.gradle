@@ -7,6 +7,7 @@ plugins {
     id 'com.google.firebase.crashlytics'
     id 'com.google.firebase.appdistribution'
     id 'dagger.hilt.android.plugin'
+    id "androidx.navigation.safeargs.kotlin"
 }
 
 
@@ -64,6 +65,7 @@ dependencies {
     implementation project(':data:db')
     implementation project(':feature:error')
     implementation project(":feature:kakao_search")
+    implementation project(":feature:reference_search")
 
     implementation platform('com.google.firebase:firebase-bom:28.0.1')
     implementation "com.google.firebase:firebase-core"
@@ -116,6 +118,8 @@ dependencies {
     implementation SquareUp.timber
 
     implementation DataStore.preferences
+
+    implementation Glide.core
 
 }
 apply from: "$rootDir/spotless.gradle"

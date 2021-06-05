@@ -16,6 +16,7 @@
 package com.keelim.nandadiagnosis.ui.main.setting
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -33,9 +34,9 @@ class FragmentAbout : Fragment() {
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
+  ): View {
     _binding = FragmentAboutBinding.inflate(layoutInflater, container, false)
-    return super.onCreateView(inflater, container, savedInstanceState)
+    return binding.root
   }
 
   override fun onDestroyView() {
@@ -59,7 +60,10 @@ class FragmentAbout : Fragment() {
       }
     }
     binding.github.setOnClickListener {
-      startActivity(Intent("https:www.github.com/keelim/nandaDiagnosis"))
+      Intent(Intent.ACTION_VIEW).apply {
+        data = Uri.parse(getString(R.string.github))
+        startActivity(this)
+      }
     }
 
     binding.openSourceLicensesCard.setOnClickListener {

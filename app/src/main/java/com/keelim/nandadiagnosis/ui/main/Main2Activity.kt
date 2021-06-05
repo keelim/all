@@ -47,7 +47,6 @@ import java.io.File
 @AndroidEntryPoint
 class Main2Activity : AppCompatActivity() {
   private lateinit var binding: ActivityMain2Binding
-
   private val mainViewModel by viewModels<MainViewModel>()
   private lateinit var downloadManager: DownloadManager
 
@@ -88,6 +87,12 @@ class Main2Activity : AppCompatActivity() {
     startService(Intent(this, TerminateService::class.java))
   }
 
+  override fun onNewIntent(intent: Intent?) {
+    super.onNewIntent(intent)
+    setIntent(intent)
+    updateResult(true)
+  }
+
   private fun initNavigation() {
     navController().addOnDestinationChangedListener { _, destination, _ ->
       when (destination.id) {
@@ -105,6 +110,7 @@ class Main2Activity : AppCompatActivity() {
 
   private fun initBottomAppBar() {
     binding.bottomAppBar.setNavigationOnClickListener {
+      showMenu()
     }
 
     binding.bottomAppBar.setOnMenuItemClickListener {
@@ -182,4 +188,16 @@ class Main2Activity : AppCompatActivity() {
   private fun navController() = findNavController(R.id.nav_host_fragment)
 
   private fun showMoreOptions() = navController().navigate(R.id.moreBottomSheetDialog)
+
+  private fun showMenu() = navController().navigate(R.id.menuBottomSheetDialogFragment)
+
+  private fun updateResult(isNewIntent: Boolean = false) {
+    val data = intent.getStringExtra("notificationType") ?: "앱 런처" +
+    if (isNewIntent) {
+      ("알림으로 실행되었습니다. 환영합니다")
+    } else {
+      ("환영합니다. 난다 진단 입니다.")
+    }
+    toast(data)
+  }
 }

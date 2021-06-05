@@ -8,26 +8,42 @@
         android:id="@+id/navigation_category"
         android:name="com.keelim.nandadiagnosis.ui.main.category.CategoryFragment"
         android:label="@string/title_category"
-        tools:layout="@layout/fragment_category" />
+        tools:layout="@layout/fragment_category" >
+        <action
+            android:id="@+id/action_navigation_category_to_diagnosisFragment"
+            app:destination="@id/diagnosisFragment" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_search"
         android:name="com.keelim.nandadiagnosis.ui.main.search.SearchFragment"
         android:label="@string/title_search"
         tools:layout="@layout/fragment_search" />
 
-    <fragment
-        android:id="@+id/navigation_setting"
-        android:name="com.keelim.nandadiagnosis.ui.main.setting.SettingFragment"
-        android:label="@string/title_my"
-        tools:layout="@layout/fragment_setting" />
-
     <dialog
         android:id="@+id/moreBottomSheetDialog"
         android:name="com.keelim.nandadiagnosis.ui.main.MainBottomFragment"
         tools:layout="@layout/fragment_main_bottom" />
 
+
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.keelim.nandadiagnosis.ui.main.setting.FragmentAbout"
         tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/inAppWebFragment"
+        android:name="com.keelim.nandadiagnosis.ui.main.inappweb.InAppWebFragment"
+        android:label="InAppWebFragment" />
+    <dialog
+        android:id="@+id/menuBottomSheetDialogFragment"
+        android:name="com.keelim.nandadiagnosis.ui.main.MenuBottomSheetDialogFragment"
+        android:label="MenuBottomSheetDialogFragment" />
+    <fragment
+        android:id="@+id/diagnosisFragment"
+        android:name="com.keelim.nandadiagnosis.ui.main.category.DiagnosisFragment"
+        android:label="DiagnosisFragment" >
+        <argument
+            android:name="navigation"
+            app:argType="string"
+            android:defaultValue='"0"' />
+    </fragment>
 </navigation>

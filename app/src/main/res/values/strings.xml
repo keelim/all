@@ -474,6 +474,7 @@
     <string name="title_nandadiagnosis">db</string>
     <string name="my_notification_channel_id">987654321</string>
     <string name="urinanda">https://play.google.com/store/apps/details?id=com.keelim.nandadiagnosis</string>
+    <string name="github">https:www.github.com/keelim/nandaDiagnosis</string>
     <string name="share_the_multiple_selection">share the multiple selection</string>
     <string name="title_activity_splash">Splash</string>
     <string name="system">System default</string>
@@ -490,7 +491,5 @@
     <string name="beta">beta</string>
     <string name="alpha">alpha</string>
     <string name="search">search</string>
-    <string name="update">update</string>
-
-
+    <string name="update">업데이트</string>
 </resources>

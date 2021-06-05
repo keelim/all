@@ -21,7 +21,7 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="false">
+        android:usesCleartextTraffic="true">
 
         <meta-data
             android:name="android.app.searchable"
@@ -69,7 +69,6 @@
                 android:resource="@xml/searchable" />
         </activity>
 
-        <activity android:name="com.keelim.nandadiagnosis.ui.main.category.DiagnosisActivity" />
         <activity android:name=".ui.kakao_search.SearchActivity" />
 
         <service
@@ -77,11 +76,18 @@
             android:exported="false"
             android:stopWithTask="false" />
 
+        <service android:name=".service.FirebaseMessagingService"
+            android:exported="false"
+            >
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
         <provider
             android:name=".ui.main.search.SuggestionProvider"
             android:authorities=".ui.main.search.SuggestionProvider"
             android:exported="false" />
-
 
     </application>
 </manifest>

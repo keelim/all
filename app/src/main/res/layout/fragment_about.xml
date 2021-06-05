@@ -85,36 +85,6 @@
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/terms_and_conditions_card"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/card_margin"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/github">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/menu_row_height"
-            android:gravity="center_vertical">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:src="@drawable/ic_file_24" />
-
-            <com.google.android.material.textview.MaterialTextView
-                style="?attr/textAppearanceBody1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:text="@string/terms_and_conditions"
-                android:textColor="?attr/colorOnSurface" />
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/open_source_licenses_card"
@@ -123,12 +93,16 @@
         android:layout_margin="@dimen/card_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/terms_and_conditions_card">
+        app:layout_constraintTop_toBottomOf="@+id/github">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/menu_row_height"
-            android:gravity="center_vertical">
+            android:layout_marginTop="12dp"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/github">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -144,5 +118,8 @@
                 android:text="@string/open_source_licenses"
                 android:textColor="?attr/colorOnSurface" />
         </LinearLayout>
+
+
     </com.google.android.material.card.MaterialCardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

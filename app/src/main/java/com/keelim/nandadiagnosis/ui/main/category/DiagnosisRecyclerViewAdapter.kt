@@ -17,7 +17,6 @@ package com.keelim.nandadiagnosis.ui.main.category
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -27,7 +26,7 @@ import com.keelim.nandadiagnosis.databinding.ItemListviewBinding
 class DiagnosisRecyclerViewAdapter : ListAdapter<DiagnosisItem, DiagnosisRecyclerViewAdapter.ViewHolder>(diffUtil) {
   inner class ViewHolder(private val binding: ItemListviewBinding, listener: OnSearchItemClickListener?) :
     RecyclerView.ViewHolder(binding.root) {
-    fun bind(item:DiagnosisItem){
+    fun bind(item: DiagnosisItem) {
       binding.diagnosisItem.text = item.diagnosis
       binding.diagnosisDes.text = item.diagnosis_description
       binding.root.setOnClickListener {
@@ -49,7 +48,6 @@ class DiagnosisRecyclerViewAdapter : ListAdapter<DiagnosisItem, DiagnosisRecycle
   }
 
   var listener: OnSearchItemClickListener? = null
-
 
   companion object {
     val diffUtil = object : DiffUtil.ItemCallback<DiagnosisItem>() {

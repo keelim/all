@@ -69,7 +69,6 @@
                 android:resource="@xml/searchable" />
         </activity>
 
-        <activity android:name="com.keelim.nandadiagnosis.ui.main.category.DiagnosisActivity" />
         <activity android:name=".ui.kakao_search.SearchActivity" />
 
         <service
@@ -89,7 +88,6 @@
             android:name=".ui.main.search.SuggestionProvider"
             android:authorities=".ui.main.search.SuggestionProvider"
             android:exported="false" />
-
 
     </application>
 </manifest>

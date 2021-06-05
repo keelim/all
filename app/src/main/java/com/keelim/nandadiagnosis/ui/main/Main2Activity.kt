@@ -47,7 +47,6 @@ import java.io.File
 @AndroidEntryPoint
 class Main2Activity : AppCompatActivity() {
   private lateinit var binding: ActivityMain2Binding
-
   private val mainViewModel by viewModels<MainViewModel>()
   private lateinit var downloadManager: DownloadManager
 

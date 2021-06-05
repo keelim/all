@@ -39,6 +39,7 @@ import com.keelim.nandadiagnosis.data.db.history.HistoryDatabase
 import com.keelim.nandadiagnosis.databinding.FragmentSearchBinding
 import com.keelim.nandadiagnosis.ui.main.search.selection.MyItemDetailsLookup
 import com.keelim.nandadiagnosis.ui.main.search.selection.MyItemKeyProvider
+import com.keelim.nandadiagnosis.ui.reference_search.HistoryAdapter
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.coroutines.CoroutineScope
@@ -51,7 +52,6 @@ import java.util.concurrent.TimeUnit
 class SearchFragment : Fragment(R.layout.fragment_search) { // frag
   private var fragmentSearchBinding: FragmentSearchBinding? = null
   private var trackers: SelectionTracker<Long>? = null
-  private lateinit var historyAdapter: HistoryAdapter
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -75,7 +75,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) { // frag
       }
     }
     initTracker()
-    initHistoryRecyclerView()
 
     binding.floating.setOnClickListener {
       multiSelection(trackers?.selection!!)
@@ -99,9 +98,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) { // frag
         setOnQueryTextListener(object : SearchView.OnQueryTextListener {
           override fun onQueryTextSubmit(query: String): Boolean {
             val items = searchDiagnosis(query.replace("\\s", "")) // 검색을 한다.
-            showHistoryView()
             if (items.isNotEmpty()) {
-              hideHistoryView()
               (fragmentSearchBinding!!.recyclerView.adapter as SearchRecyclerViewAdapter).apply {
                 setNandaItem(items)
                 notifyDataSetChanged()
@@ -145,7 +142,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) { // frag
   }
 
   private fun searchDiagnosis(keyword: String): List<NandaEntity> { // 데이터베이스 가져와서 검색하기
-    //    HistoryDatabase.getInstance(requireActivity())!!.historyDao().insertHisotry(History(null, keyword))
     return runBlocking {
       AppDatabaseV2.getInstance(requireActivity())!!.dataDao.search(keyword)
     }
@@ -187,36 +183,5 @@ class SearchFragment : Fragment(R.layout.fragment_search) { // frag
       "내용 공유하기"
     )
     requireActivity().startActivity(chooser)
-  }
-
-  private fun showHistoryView() {
-    Thread {
-      val keywords = HistoryDatabase.getInstance(requireActivity())!!.historyDao().getAll().reversed()
-
-      requireActivity().runOnUiThread {
-        fragmentSearchBinding!!.historyRecycler.isVisible = true
-        historyAdapter.submitList(keywords)
-      }
-    }
-  }
-
-  private fun hideHistoryView() {
-    fragmentSearchBinding!!.historyRecycler.isVisible = false
-  }
-
-  private fun initHistoryRecyclerView() {
-    historyAdapter = HistoryAdapter(
-      historyDeleteClickListener = {
-        deleteSearchKeyword(it)
-      }
-    )
-    fragmentSearchBinding!!.historyRecycler.adapter = historyAdapter
-  }
-
-  private fun deleteSearchKeyword(keyword: String) {
-    CoroutineScope(Dispatchers.IO).launch {
-      HistoryDatabase.getInstance(requireActivity())!!.historyDao().delete(keyword)
-      showHistoryView()
-    }
   }
 }

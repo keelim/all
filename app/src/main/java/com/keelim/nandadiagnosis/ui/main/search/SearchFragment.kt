@@ -21,12 +21,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.provider.SearchRecentSuggestions
 import android.text.TextUtils
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.View
+import android.view.*
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.selection.Selection
 import androidx.recyclerview.selection.SelectionPredicates
@@ -35,30 +32,37 @@ import androidx.recyclerview.selection.StorageStrategy
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.data.db.AppDatabaseV2
 import com.keelim.nandadiagnosis.data.db.NandaEntity
-import com.keelim.nandadiagnosis.data.db.history.HistoryDatabase
 import com.keelim.nandadiagnosis.databinding.FragmentSearchBinding
 import com.keelim.nandadiagnosis.ui.main.search.selection.MyItemDetailsLookup
 import com.keelim.nandadiagnosis.ui.main.search.selection.MyItemKeyProvider
-import com.keelim.nandadiagnosis.ui.reference_search.HistoryAdapter
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
 class SearchFragment : Fragment(R.layout.fragment_search) { // frag
-  private var fragmentSearchBinding: FragmentSearchBinding? = null
   private var trackers: SelectionTracker<Long>? = null
+  private var _binding: FragmentSearchBinding? = null
+  private val binding get() = _binding!!
+
+  override fun onCreateView(
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
+    _binding = FragmentSearchBinding.inflate(layoutInflater, container, false)
+    return binding.root
+  }
+
+  override fun onDestroyView() {
+    super.onDestroyView()
+    _binding = null
+  }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     setHasOptionsMenu(true)
-
-    val binding = FragmentSearchBinding.bind(view)
-    fragmentSearchBinding = binding
 
     binding.recyclerView.apply {
       setHasFixedSize(true)
@@ -66,16 +70,12 @@ class SearchFragment : Fragment(R.layout.fragment_search) { // frag
       adapter = SearchRecyclerViewAdapter().apply {
         setNandaItem(listOf())
         listener = object : SearchRecyclerViewAdapter.OnSearchItemClickListener {
-          override fun onSearchItemClick(position: Int) {
-          }
-
-          override fun onSearchItemLongClick(position: Int) {
-          }
+          override fun onSearchItemClick(position: Int) {}
+          override fun onSearchItemLongClick(position: Int) {}
         }
       }
     }
     initTracker()
-
     binding.floating.setOnClickListener {
       multiSelection(trackers?.selection!!)
     }
@@ -85,8 +85,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) { // frag
     inflater.inflate(R.menu.search_menu, menu)
     val item = menu.findItem(R.id.menu_search)
 
-    val searchManager =
-      requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
+    val searchManager = requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
     val searchView = item.actionView as SearchView
 
     Observable.create<CharSequence> { emitter ->
@@ -99,7 +98,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) { // frag
           override fun onQueryTextSubmit(query: String): Boolean {
             val items = searchDiagnosis(query.replace("\\s", "")) // 검색을 한다.
             if (items.isNotEmpty()) {
-              (fragmentSearchBinding!!.recyclerView.adapter as SearchRecyclerViewAdapter).apply {
+              (binding.recyclerView.adapter as SearchRecyclerViewAdapter).apply {
                 setNandaItem(items)
                 notifyDataSetChanged()
               }
@@ -132,15 +131,9 @@ class SearchFragment : Fragment(R.layout.fragment_search) { // frag
           Toast.makeText(requireActivity(), "searching => $it", Toast.LENGTH_SHORT).show()
         }
     }
-
     super.onCreateOptionsMenu(menu, inflater)
   }
-
-  override fun onDestroyView() {
-    fragmentSearchBinding = null
-    super.onDestroyView()
-  }
-
+  
   private fun searchDiagnosis(keyword: String): List<NandaEntity> { // 데이터베이스 가져와서 검색하기
     return runBlocking {
       AppDatabaseV2.getInstance(requireActivity())!!.dataDao.search(keyword)
@@ -150,22 +143,22 @@ class SearchFragment : Fragment(R.layout.fragment_search) { // frag
   private fun initTracker() {
     trackers = SelectionTracker.Builder(
       "mySelection",
-      fragmentSearchBinding!!.recyclerView,
-      MyItemKeyProvider(fragmentSearchBinding!!.recyclerView),
-      MyItemDetailsLookup(fragmentSearchBinding!!.recyclerView),
+      binding.recyclerView,
+      MyItemKeyProvider(binding.recyclerView),
+      MyItemDetailsLookup(binding!!.recyclerView),
       StorageStrategy.createLongStorage()
     ).withSelectionPredicate(SelectionPredicates.createSelectAnything())
       .build()
-    (fragmentSearchBinding!!.recyclerView.adapter as (SearchRecyclerViewAdapter)).apply {
+
+    (binding.recyclerView.adapter as (SearchRecyclerViewAdapter)).apply {
       tracker = trackers
     }
   }
 
   private fun multiSelection(selection: Selection<Long>) {
     var s = ""
-    val list = selection.map {
-      (fragmentSearchBinding!!.recyclerView.adapter as SearchRecyclerViewAdapter).getItem(it.toInt())
-    }
+    val list =
+      selection.map { (binding.recyclerView.adapter as SearchRecyclerViewAdapter).getItem(it.toInt()) }
     if (list.isEmpty()) {
       Toast.makeText(requireActivity(), "데이터를 선택해주세요", Toast.LENGTH_SHORT).show()
     } else {
@@ -175,13 +168,14 @@ class SearchFragment : Fragment(R.layout.fragment_search) { // frag
   }
 
   private fun shareInformation(s: String) {
-    val chooser = Intent.createChooser(
-      Intent(Intent.ACTION_SEND).apply {
-        type = "text/plain"
-        putExtra(Intent.EXTRA_TEXT, s)
-      },
-      "내용 공유하기"
+    requireActivity().startActivity(
+      Intent.createChooser(
+        Intent(Intent.ACTION_SEND).apply {
+          type = "text/plain"
+          putExtra(Intent.EXTRA_TEXT, s)
+        },
+        "내용 공유하기"
+      )
     )
-    requireActivity().startActivity(chooser)
   }
 }

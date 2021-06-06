@@ -1,0 +1,102 @@
+/*
+ * Designed and developed by 2020 keelim (Jaehyun Kim)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.keelim.nandadiagnosis.ui.main.search
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.selection.ItemDetailsLookup
+import androidx.recyclerview.selection.SelectionTracker
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.keelim.nandadiagnosis.data.db.NandaEntity
+import com.keelim.nandadiagnosis.databinding.ItemListviewBinding
+
+class SearchRecyclerViewAdapter2 :
+  ListAdapter<NandaEntity, SearchRecyclerViewAdapter2.ViewHolder>(diffUtil) {
+  var tracker: SelectionTracker<Long>? = null
+  var listener: OnSearchItemClickListener? = null
+
+  init {
+    setHasStableIds(true) // 고유 id 를 설정
+  }
+
+  override fun getItemId(position: Int): Long = position.toLong()
+
+  public override fun getItem(position: Int): NandaEntity = currentList[position]
+
+  inner class ViewHolder(private val binding: ItemListviewBinding, listener: OnSearchItemClickListener?) :
+    RecyclerView.ViewHolder(binding.root) {
+
+    fun bind(item: NandaEntity, isActivated: Boolean = false) {
+      itemView.isActivated = isActivated
+
+      binding.diagnosisItem.text = item.diagnosis
+      binding.diagnosisDes.text = item.reason
+      binding.className.text = item.class_name
+      binding.domainName.text = item.domain_name
+
+      binding.root.setOnClickListener {
+        listener?.onSearchItemClick(bindingAdapterPosition)
+      }
+
+      binding.root.setOnLongClickListener {
+        listener?.onSearchItemLongClick(bindingAdapterPosition)
+        return@setOnLongClickListener true
+      }
+    }
+
+    fun getItemDetails(): ItemDetailsLookup.ItemDetails<Long> =
+      object : ItemDetailsLookup.ItemDetails<Long>() {
+        override fun getPosition(): Int = bindingAdapterPosition
+        override fun getSelectionKey(): Long = itemId
+      }
+  }
+
+
+  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    return ViewHolder(
+      ItemListviewBinding.inflate(
+        LayoutInflater.from(parent.context),
+        parent,
+        false
+      ), listener
+    )
+  }
+
+  override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    tracker?.let {
+      holder.bind(currentList[position], it.isSelected(position.toLong()))
+    }
+  }
+
+  interface OnSearchItemClickListener {
+    fun onSearchItemClick(position: Int)
+    fun onSearchItemLongClick(position: Int)
+  }
+
+  companion object {
+    val diffUtil = object : DiffUtil.ItemCallback<NandaEntity>() {
+      override fun areItemsTheSame(oldItem: NandaEntity, newItem: NandaEntity): Boolean {
+        return oldItem == newItem
+      }
+
+      override fun areContentsTheSame(oldItem: NandaEntity, newItem: NandaEntity): Boolean {
+        return oldItem.diagnosis == newItem.diagnosis
+      }
+    }
+  }
+}

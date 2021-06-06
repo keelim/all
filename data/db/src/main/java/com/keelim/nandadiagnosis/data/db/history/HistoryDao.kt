@@ -25,7 +25,7 @@ interface HistoryDao {
   fun getAll(): List<History>
 
   @Insert
-  fun insertHisotry(history: History)
+  fun insertHistory(history: History)
 
   @Query("delete from history where keyword==:keyword")
   fun delete(keyword: String)

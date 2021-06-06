@@ -15,17 +15,16 @@
  */
 package com.keelim.nandadiagnosis.ui.main.category
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.data.model.DiagnosisItem
 import com.keelim.nandadiagnosis.databinding.FragmentDiagnosisBinding
-import com.keelim.nandadiagnosis.ui.WebActivity
 import java.util.ArrayList
 
 class DiagnosisFragment : Fragment() {
@@ -64,10 +63,7 @@ class DiagnosisFragment : Fragment() {
   }
 
   private fun goWeb(total: Int) {
-    Intent(requireActivity(), WebActivity::class.java).apply {
-      putExtra("URL", "https://keelim.github.io/nandaDiagnosis/$total.html")
-      startActivity(this)
-    }
+    findNavController().navigate(DiagnosisFragmentDirections.actionDiagnosisFragmentToWebFragment("https://keelim.github.io/nandaDiagnosis/$total.html"))
   }
 
   private fun initArray() {

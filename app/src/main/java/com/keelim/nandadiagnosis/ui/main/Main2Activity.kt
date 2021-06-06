@@ -32,6 +32,9 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.navigation.findNavController
+import com.facebook.CallbackManager
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.keelim.common.toast
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.ActivityMain2Binding
@@ -49,6 +52,9 @@ class Main2Activity : AppCompatActivity() {
   private lateinit var binding: ActivityMain2Binding
   private val mainViewModel by viewModels<MainViewModel>()
   private lateinit var downloadManager: DownloadManager
+  private val callbackManager by lazy { CallbackManager.Factory.create() }
+  private val auth by lazy { Firebase.auth }
+
 
   val recevier = object : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
@@ -85,12 +91,19 @@ class Main2Activity : AppCompatActivity() {
     fileChecking()
     createNotification()
     startService(Intent(this, TerminateService::class.java))
+
+    loginCheck()
   }
 
   override fun onNewIntent(intent: Intent?) {
     super.onNewIntent(intent)
     setIntent(intent)
     updateResult(true)
+  }
+
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    super.onActivityResult(requestCode, resultCode, data)
+    callbackManager.onActivityResult(requestCode, resultCode, data)
   }
 
   private fun initNavigation() {
@@ -185,6 +198,17 @@ class Main2Activity : AppCompatActivity() {
     }
   }
 
+  private fun loginCheck() {
+    auth.currentUser ?: Toast.makeText(
+      this,
+      "Login 을 하시면 더 많은 서비스를 확인할 수 있습니다. ",
+      Toast.LENGTH_SHORT
+    ).show()
+    if (auth.currentUser == null) {
+      Toast.makeText(this, "Login 을 하시면 더 많은 서비스를 확인할 수 있습니다. ", Toast.LENGTH_SHORT).show()
+    }
+  }
+
   private fun navController() = findNavController(R.id.nav_host_fragment)
 
   private fun showMoreOptions() = navController().navigate(R.id.moreBottomSheetDialog)
@@ -193,7 +217,7 @@ class Main2Activity : AppCompatActivity() {
 
   private fun updateResult(isNewIntent: Boolean = false) {
     val data = intent.getStringExtra("notificationType") ?: "앱 런처" +
-      if (isNewIntent) {
+    if (isNewIntent) {
         ("알림으로 실행되었습니다. 환영합니다")
       } else {
         ("환영합니다. 난다 진단 입니다.")

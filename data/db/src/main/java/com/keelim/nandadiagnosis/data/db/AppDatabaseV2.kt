@@ -19,15 +19,25 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
+import com.keelim.nandadiagnosis.data.db.history.History
+import com.keelim.nandadiagnosis.data.db.history.HistoryDao
 import java.io.File
 
-@Database(entities = [NandaEntity::class], version = 2, exportSchema = false)
+@Database(entities = [NandaEntity::class, History::class], version = 2, exportSchema = false)
 abstract class AppDatabaseV2 : RoomDatabase() {
   abstract val dataDao: DataDaoV2
+  abstract val historyDao: HistoryDao
 
   companion object {
     @Volatile
     private var INSTANCE: AppDatabaseV2? = null
+    val migration_1_2 = object: Migration(2, 3){
+      override fun migrate(database: SupportSQLiteDatabase) {
+        database.execSQL("create table `HISTORY` (`id` INTEGER, `history` TEXT," + "PRIMARY KEY(`id`)")
+      }
+    }
 
     fun getInstance(context: Context): AppDatabaseV2? {
       if (INSTANCE == null) {
@@ -37,8 +47,8 @@ abstract class AppDatabaseV2 : RoomDatabase() {
             AppDatabaseV2::class.java,
             "nanda"
           )
+            .addMigrations(migration_1_2)
             .createFromFile(File(context.getExternalFilesDir(null), "nanda.db"))
-//                            .createFromFile(context.getDatabasePath("nanda.db"))
             .allowMainThreadQueries()
             .build()
         }

@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.cnubus.feature.map
+package com.keelim.cnubus.data.model.search
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.google.android.gms.maps.model.LatLng
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
-class MapsViewModel : ViewModel() {
-    private var _items = MutableLiveData<List<LatLng>>()
-}
+@Parcelize
+data class Location(
+    private val latitude: Float,
+    private val longitude: Float
+) : Parcelable

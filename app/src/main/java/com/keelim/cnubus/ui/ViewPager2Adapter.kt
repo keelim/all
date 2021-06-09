@@ -25,7 +25,7 @@ import com.keelim.cnubus.ui.root.night.NightRootFragment
 import com.keelim.cnubus.ui.setting.SettingsFragment
 import java.util.ArrayList
 
-class ViewPager2Adapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
+class ViewPager2Adapter(fa: Fragment) : FragmentStateAdapter(fa) {
     private var fragments = ArrayList<Fragment>()
     override fun getItemCount(): Int { return 5 }
 

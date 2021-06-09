@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.cnubus.services
+package com.keelim.cnubus.data.response.monitoringstations
 
-import retrofit2.http.GET
-import retrofit2.http.Path
+import com.google.gson.annotations.SerializedName
 
-interface RoadService {
-    @GET("api/v1/road_information/{root}")
-    suspend fun getRoadInformation(@Path("root") type: String): List<String>
-}
+data class Header(
+    @SerializedName("resultCode")
+    val resultCode: String?,
+    @SerializedName("resultMsg")
+    val resultMsg: String?
+)

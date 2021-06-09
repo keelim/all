@@ -21,9 +21,11 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.LocationManager
+import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -37,11 +39,11 @@ import com.google.android.gms.maps.CameraUpdate
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.ktx.addMarker
 import com.google.maps.android.ktx.awaitMap
 import com.keelim.cnubus.feature.map.databinding.ActivityMapsBinding
-import com.keelim.common.snack
 import timber.log.Timber
 import java.util.ArrayList
 
@@ -62,6 +64,8 @@ class MapsActivity : AppCompatActivity() {
         setContentView(binding.root)
         locationListInit()
         intentControl()
+        requestLocationPermission()
+
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         lifecycle.coroutineScope.launchWhenCreated {
             val googleMap = mapFragment.awaitMap()
@@ -80,7 +84,7 @@ class MapsActivity : AppCompatActivity() {
                 CameraUpdateFactory.newLatLngZoom(locationList!![location], 17f)
             }
             googleMap.animateCamera(cameraUpdate)
-            getLocationPermission()
+            requestLocationPermission()
             updateLocationUI(googleMap)
         }
         val locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
@@ -224,26 +228,6 @@ class MapsActivity : AppCompatActivity() {
         }
     }
 
-    private fun getLocationPermission() {
-        /*
-         * Request location permission, so that we can get the location of the
-         * device. The result of the permission request is handled by a callback,
-         * onRequestPermissionsResult.
-         */
-        if (ContextCompat.checkSelfPermission(
-                this.applicationContext,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            )
-            == PackageManager.PERMISSION_GRANTED
-        ) {
-            locationPermissionGranted = true
-        } else {
-            ActivityCompat.requestPermissions(
-                this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
-            )
-        }
-    }
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -251,36 +235,86 @@ class MapsActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        locationPermissionGranted = false
-        when (requestCode) {
-            PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION -> {
+        locationPermissionGranted = requestCode == PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION &&
+                grantResults[0] == PackageManager.PERMISSION_GRANTED
 
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.isNotEmpty() &&
-                    grantResults[0] == PackageManager.PERMISSION_GRANTED
-                ) {
-                    locationPermissionGranted = true
-                }
+        val backgroundLocationPermissionGranted = requestCode == PERMISSIONS_REQUEST_BACKGROUND_ACCESS__LOCATION &&
+                grantResults[0] == PackageManager.PERMISSION_GRANTED
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
+            if (backgroundLocationPermissionGranted.not()){
+                requestPermissionBackgroundLocation()
             }
         }
     }
+
+    private fun requestLocationPermission() {
+        if (ContextCompat.checkSelfPermission(
+                this.applicationContext,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
+            == PackageManager.PERMISSION_GRANTED &&
+            ContextCompat.checkSelfPermission(
+                this.applicationContext,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+            == PackageManager.PERMISSION_GRANTED
+        ) {
+            locationPermissionGranted = true
+        } else {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+
+                ),
+                PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
+            )
+        }
+    }
+
+    private fun requestPermissionLocation(){
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+            ),
+            PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
+        )
+    }
+
+    @RequiresApi(Build.VERSION_CODES.Q)
+    private fun requestPermissionBackgroundLocation(){
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(
+                Manifest.permission.ACCESS_BACKGROUND_LOCATION,
+            ),
+            PERMISSIONS_REQUEST_BACKGROUND_ACCESS__LOCATION
+        )
+    }
+
 
     private fun updateLocationUI(mMap: GoogleMap) {
         try {
             if (locationPermissionGranted) {
                 mMap.isMyLocationEnabled = true
-                mMap.uiSettings?.isMyLocationButtonEnabled = true
+                mMap.uiSettings.isMyLocationButtonEnabled = true
             } else {
                 mMap.isMyLocationEnabled = false
-                mMap.uiSettings?.isMyLocationButtonEnabled = false
-                getLocationPermission()
+                mMap.uiSettings.isMyLocationButtonEnabled = false
+                requestLocationPermission()
             }
         } catch (e: SecurityException) {
             Timber.e(e)
         }
     }
 
+
     companion object {
         private const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
+        private const val PERMISSIONS_REQUEST_BACKGROUND_ACCESS__LOCATION = 2
     }
 }

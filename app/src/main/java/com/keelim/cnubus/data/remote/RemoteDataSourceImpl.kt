@@ -15,7 +15,7 @@
  */
 package com.keelim.cnubus.data.remote
 
-import com.keelim.cnubus.services.RoadService
+import com.keelim.cnubus.data.api.RoadService
 import javax.inject.Inject
 
 class RemoteDataSourceImpl @Inject constructor(

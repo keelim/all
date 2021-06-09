@@ -15,7 +15,7 @@
  */
 package com.keelim.cnubus.di
 
-import com.keelim.cnubus.services.RoadService
+import com.keelim.cnubus.data.api.RoadService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -44,6 +44,7 @@ object LifeCycle {
     const val livedata = "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
     const val runtime = "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
     const val extensions = "androidx.lifecycle:lifecycle-extensions:2.2.0"
+    const val services = "androidx.lifecycle:lifecycle-services:$lifecycleVersion"
 }
 
 object DataStore {
@@ -75,6 +76,10 @@ object AndroidX {
 
     const val navigation_fragment = "androidx.navigation:navigation-fragment-ktx:2.3.5"
     const val navigation_ui = "androidx.navigation:navigation-ui-ktx:2.3.5"
+
+    const val browser = "androidx.browser:browser:1.3.0"
+
+
 
     object fragment {
         private const val fragmentVersion = "1.3.0-beta01"

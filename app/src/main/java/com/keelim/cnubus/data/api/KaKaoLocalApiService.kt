@@ -23,7 +23,6 @@ import retrofit2.http.Headers
 import retrofit2.http.Query
 
 interface KaKaoLocalApiService {
-    @Headers("Authorization: KakaoAK ${BuildConfig.KAKAO_API_KEY}}")
     @GET("v2/local/geo/transcord.json?/output_coord=TM")
     suspend fun getTmCoordinates(
         @Query("x") longitude: Double,

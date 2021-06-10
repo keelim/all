@@ -1,9 +1,8 @@
-package com.keelim.cnubus.ui
+package com.keelim.cnubus.ui.main
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.ActivityMainBinding
 import com.keelim.cnubus.services.TerminateService
 import dagger.hilt.android.AndroidEntryPoint

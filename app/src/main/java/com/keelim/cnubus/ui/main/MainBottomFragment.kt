@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.cnubus.ui
+package com.keelim.cnubus.ui.main
 
 import android.content.Intent
 import android.net.Uri
@@ -27,6 +27,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.FragmentMainBottomBinding
+import com.keelim.cnubus.ui.OpenSourceActivity
 import com.keelim.cnubus.ui.setting.theme.AppTheme
 import com.keelim.cnubus.utils.MaterialDialog
 import com.keelim.cnubus.utils.MaterialDialog.Companion.negativeButton

@@ -18,28 +18,39 @@ package com.keelim.cnubus.ui.content
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.activity.viewModels
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.viewModels
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.keelim.cnubus.R
-import com.keelim.cnubus.base.BaseActivity
-import com.keelim.cnubus.databinding.ActivityContent2Binding
+import com.keelim.cnubus.databinding.FragmentContent2Binding
 
-class Content2Activity : BaseActivity() {
-    private val binding: ActivityContent2Binding by binding(R.layout.activity_content2)
+class Content2Fragment : Fragment() {
+    private lateinit var binding: FragmentContent2Binding
     private val viewModel by viewModels<Content2ViewModel>()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_content2, container, false)
         binding.apply {
             vm = viewModel
-            lifecycleOwner = this@Content2Activity
-            pager.adapter = ScreenSliderPagerAdapter(this@Content2Activity)
+            lifecycleOwner = this@Content2Fragment
+            pager.adapter = ScreenSliderPagerAdapter(this@Content2Fragment)
         }
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         viewModel.viewEvent.observe(
-            this,
+            viewLifecycleOwner,
             {
                 it.getContentIfNotHandled()?.let { event ->
                     when (event) {
@@ -53,6 +64,7 @@ class Content2Activity : BaseActivity() {
                 }
             }
         )
+
     }
 
     private val images = arrayOf(
@@ -60,19 +72,15 @@ class Content2Activity : BaseActivity() {
         R.drawable.content2
     )
 
-    inner class ScreenSliderPagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
-        override fun getItemCount(): Int = NUMS_PAGE
+    inner class ScreenSliderPagerAdapter(fa: Fragment) : FragmentStateAdapter(fa) {
+        override fun getItemCount(): Int = PAGE_NUM
 
         override fun createFragment(position: Int): Fragment {
-            return when (position) {
-                0 -> ImageSlideFragment(images[position])
-                1 -> ImageSlideFragment(images[position])
-                else -> ImageSlideFragment(images[0])
-            }
+            return ImageSlideFragment(images[position])
         }
     }
 
     companion object {
-        const val NUMS_PAGE = 2
+        const val PAGE_NUM = 2
     }
 }

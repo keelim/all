@@ -26,7 +26,6 @@ android {
         versionCode ProjectConfigurations.versionCode
         versionName ProjectConfigurations.versionName
 
-        buildConfigField "String", "KAKAO_API_KEY", project.properties["KAKAO_API_KEY"]
 
     }
 

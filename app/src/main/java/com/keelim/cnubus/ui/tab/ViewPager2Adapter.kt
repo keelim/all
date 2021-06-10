@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.cnubus.ui
+package com.keelim.cnubus.ui.tab
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity

@@ -25,6 +25,7 @@ import com.keelim.cnubus.BuildConfig
 import com.keelim.cnubus.R
 import com.keelim.cnubus.base.BaseActivity
 import com.keelim.cnubus.databinding.ActivitySplashBinding
+import com.keelim.cnubus.ui.main.MainActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

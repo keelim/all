@@ -15,10 +15,10 @@
  */
 package com.keelim.nandadiagnosis
 
-import com.keelim.nandaDiagnosis.feature.error.ExceptionHandler
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.gms.ads.MobileAds
+import com.keelim.nandaDiagnosis.feature.error.ExceptionHandler
 import com.keelim.nandadiagnosis.ui.main.setting.theme.ThemeRepository
 import com.keelim.nandadiagnosis.utils.AppOpenManager
 import dagger.hilt.android.HiltAndroidApp

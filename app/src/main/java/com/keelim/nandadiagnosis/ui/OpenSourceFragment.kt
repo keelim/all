@@ -25,26 +25,26 @@ import com.keelim.nandadiagnosis.databinding.FragmentOpenSourceBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class OpenSourceFragment : Fragment(){
-    private var _binding: FragmentOpenSourceBinding? = null
-    private val binding get() = _binding!!
+class OpenSourceFragment : Fragment() {
+  private var _binding: FragmentOpenSourceBinding? = null
+  private val binding get() = _binding!!
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentOpenSourceBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+  override fun onCreateView(
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View {
+    _binding = FragmentOpenSourceBinding.inflate(inflater, container, false)
+    return binding.root
+  }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        Snackbar.make(binding.root, "오픈소스 라이센스 입니다.", Snackbar.LENGTH_SHORT).show()
-    }
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+    Snackbar.make(binding.root, "오픈소스 라이센스 입니다.", Snackbar.LENGTH_SHORT).show()
+  }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+  override fun onDestroyView() {
+    super.onDestroyView()
+    _binding = null
+  }
 }

@@ -33,7 +33,7 @@ abstract class AppDatabaseV2 : RoomDatabase() {
   companion object {
     @Volatile
     private var INSTANCE: AppDatabaseV2? = null
-    private val MIGRATION_2_3 = object: Migration(2, 3){
+    private val MIGRATION_2_3 = object : Migration(2, 3) {
       override fun migrate(database: SupportSQLiteDatabase) {
         database.execSQL("create table `HISTORY` (`id` INTEGER, `history` TEXT," + "PRIMARY KEY(`id`)")
       }

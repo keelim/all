@@ -3,6 +3,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://jitpack.io' }
     }
 }
 
@@ -11,10 +12,6 @@ include(
         ":app",
         ":data:db",
         ":feature:error",
-        ":feature:kakao_search",
         ":feature:reference_search",
         ":common",
 )
-
-
-include ':feature:reference_search'

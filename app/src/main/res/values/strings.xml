@@ -492,4 +492,6 @@
     <string name="alpha">alpha</string>
     <string name="search">search</string>
     <string name="update">업데이트</string>
+    <string name="facebook_app_id">966700797412686</string> <string name="fb_login_protocol_scheme">fb966700797412686</string>
+
 </resources>

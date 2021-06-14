@@ -2,8 +2,6 @@
 <searchable xmlns:android="http://schemas.android.com/apk/res/android"
     android:hint="Search Nanda"
     android:label="@string/app_name"
-    android:searchSuggestAuthority="package com.keelim.nandadiagnosis.ui.main.search.SuggestionProvider"
-    android:searchSuggestSelection=" ?"
     android:voiceSearchMode="showVoiceSearchButton|launchRecognizer">
     <actionkey android:keycode="KEYCODE_CALL" />
 </searchable>

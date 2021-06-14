@@ -22,9 +22,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.FragmentAboutBinding
-import com.keelim.nandadiagnosis.ui.open.OpenSourceActivity
+import com.keelim.nandadiagnosis.ui.OpenSourceFragment
 
 class FragmentAbout : Fragment() {
   private var _binding: FragmentAboutBinding? = null
@@ -67,7 +68,7 @@ class FragmentAbout : Fragment() {
     }
 
     binding.openSourceLicensesCard.setOnClickListener {
-      startActivity(Intent(requireContext(), OpenSourceActivity::class.java))
+      findNavController().navigate(R.id.openSource)
     }
   }
 }

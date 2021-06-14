@@ -15,6 +15,7 @@
  */
 package com.keelim.nandadiagnosis
 
+import com.keelim.nandaDiagnosis.feature.error.ExceptionHandler
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.gms.ads.MobileAds
@@ -53,5 +54,20 @@ class MyApplication : Application() {
         themeRepository.getUserTheme().firstOrNull() ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
       )
     }
+
+    setCrashHandler()
+  }
+  private fun setCrashHandler() {
+    val defaultExceptionHandler = Thread.getDefaultUncaughtExceptionHandler()
+    Thread.setDefaultUncaughtExceptionHandler { _, _ -> }
+
+    val fabricExceptionHandler = Thread.getDefaultUncaughtExceptionHandler()
+    Thread.setDefaultUncaughtExceptionHandler(
+      ExceptionHandler(
+        this,
+        defaultExceptionHandler!!,
+        fabricExceptionHandler!!
+      )
+    )
   }
 }

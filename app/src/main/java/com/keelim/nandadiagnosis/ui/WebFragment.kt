@@ -1,19 +1,4 @@
-/*
- * Designed and developed by 2020 keelim (Jaehyun Kim)
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-package com.keelim.nandadiagnosis.ui.main.inappweb
+package com.keelim.nandadiagnosis.ui
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -29,13 +14,14 @@ import android.webkit.WebView
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.FragmentInappwebBinding
 
-class InAppWebFragment : Fragment() {
+class WebFragment : Fragment() {
   private var _binding: FragmentInappwebBinding? = null
   private val binding get() = _binding!!
-
+  private val args by navArgs<WebFragmentArgs>()
 
 
   @SuppressLint("SetJavaScriptEnabled")
@@ -52,7 +38,7 @@ class InAppWebFragment : Fragment() {
       webViewClient = WebViewClient()
       webChromeClient = WebChromeClient()
       settings.javaScriptEnabled = true
-      loadUrl(DEFAULT_URL)
+      loadUrl(args.url)
     }
 
     initEvent()
@@ -83,7 +69,7 @@ class InAppWebFragment : Fragment() {
         if (URLUtil.isNetworkUrl(loadingUrl)) {
           binding.webview.loadUrl(loadingUrl)
         } else {
-          binding.webview.loadUrl("https://$loadingUrl")
+          binding.webview.loadUrl("accepted server data")
         }
       }
       return@setOnEditorActionListener false
@@ -98,7 +84,7 @@ class InAppWebFragment : Fragment() {
     }
 
     binding.homeButton.setOnClickListener {
-      binding.webview.loadUrl(DEFAULT_URL)
+      binding.webview.loadUrl(args.url)
     }
 
     binding.refreshLayout.setOnRefreshListener {
@@ -119,7 +105,7 @@ class InAppWebFragment : Fragment() {
       binding.progressbar.hide()
       binding.backButton.isEnabled = binding.webview.canGoBack()
       binding.forwardButton.isEnabled = binding.webview.canGoForward()
-//      binding.addressBar.setText(url)
+      binding.addressBar.setText(url)
     }
   }
 
@@ -128,9 +114,5 @@ class InAppWebFragment : Fragment() {
       super.onProgressChanged(view, newProgress)
       binding.progressbar.progress = newProgress
     }
-  }
-
-  companion object {
-    const val DEFAULT_URL = "https://m.blog.naver.com/cjhdori"
   }
 }

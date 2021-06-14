@@ -19,6 +19,7 @@ import android.content.Context
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.StringRes
+import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 
 fun Context.toast(message: String, duration: Int = Toast.LENGTH_SHORT) {
@@ -29,6 +30,27 @@ fun Context.toast(@StringRes resId: Int, duration: Int = Toast.LENGTH_SHORT) {
   Toast.makeText(this, this.resources.getText(resId), duration).show()
 }
 
-fun View.snack(message: String, duration: Int = Snackbar.LENGTH_SHORT) {
-  Snackbar.make(this, message, duration).show()
+fun Fragment.toast(message: String, duration: Int = Toast.LENGTH_SHORT) {
+  Toast.makeText(requireActivity(), message, duration).show()
 }
+
+fun Fragment.toast(@StringRes resId: Int, duration: Int = Toast.LENGTH_SHORT) {
+  Toast.makeText(requireActivity(), this.resources.getText(resId), duration).show()
+}
+
+fun Context.snack(message: String, view: View , duration: Int = Snackbar.LENGTH_SHORT) {
+  Snackbar.make(view, message, duration).show()
+}
+
+fun Context.snack(@StringRes resId: Int, view: View , duration: Int = Snackbar.LENGTH_SHORT) {
+  Snackbar.make(view, this.resources.getText(resId), duration).show()
+}
+
+fun Fragment.snack(message: String, view: View , duration: Int = Snackbar.LENGTH_SHORT) {
+  Snackbar.make(view, message, duration).show()
+}
+
+fun Fragment.snack(@StringRes resId: Int,view: View , duration: Int = Snackbar.LENGTH_SHORT) {
+  Snackbar.make(view, this.resources.getText(resId), duration).show()
+}
+

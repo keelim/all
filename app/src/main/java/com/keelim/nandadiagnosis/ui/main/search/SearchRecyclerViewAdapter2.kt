@@ -25,7 +25,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.keelim.nandadiagnosis.data.db.NandaEntity
 import com.keelim.nandadiagnosis.databinding.ItemListviewBinding
 
-class SearchRecyclerViewAdapter2 :
+class SearchRecyclerViewAdapter2(
+  val favoriteListener: (Int, Int) -> Unit,
+) :
   ListAdapter<NandaEntity, SearchRecyclerViewAdapter2.ViewHolder>(diffUtil) {
   var tracker: SelectionTracker<Long>? = null
   var listener: OnSearchItemClickListener? = null
@@ -48,6 +50,7 @@ class SearchRecyclerViewAdapter2 :
       binding.diagnosisDes.text = item.reason
       binding.className.text = item.class_name
       binding.domainName.text = item.domain_name
+      binding.searchSwitch.isChecked = item.favorite == 1
 
       binding.root.setOnClickListener {
         listener?.onSearchItemClick(bindingAdapterPosition)
@@ -56,6 +59,10 @@ class SearchRecyclerViewAdapter2 :
       binding.root.setOnLongClickListener {
         listener?.onSearchItemLongClick(bindingAdapterPosition)
         return@setOnLongClickListener true
+      }
+
+      binding.searchSwitch.setOnClickListener {
+        favoriteListener(item.favorite, item.nanda_id)
       }
     }
 

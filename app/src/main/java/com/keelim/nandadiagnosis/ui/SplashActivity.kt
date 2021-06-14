@@ -23,12 +23,11 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import androidx.core.app.ActivityCompat
-import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
-import com.google.android.material.snackbar.Snackbar
+import com.keelim.common.snack
 import com.keelim.nandadiagnosis.BuildConfig
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.base.BaseActivity
@@ -39,7 +38,10 @@ import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.message
 import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.negativeButton
 import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.positiveButton
 import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.title
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class SplashActivity : BaseActivity() {
@@ -47,35 +49,31 @@ class SplashActivity : BaseActivity() {
   private val binding: ActivitySplashBinding by binding(R.layout.activity_splash)
   private val test = "ca-app-pub-3940256099942544/1033173712"
   private infix fun String.or(that: String): String = if (BuildConfig.DEBUG) this else that
-
-  private val permissions = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-    arrayOf(
-      Manifest.permission.WRITE_EXTERNAL_STORAGE,
-      Manifest.permission.INSTALL_SHORTCUT,
-      Manifest.permission.INTERNET,
-      Manifest.permission.READ_EXTERNAL_STORAGE,
-      Manifest.permission.FOREGROUND_SERVICE
-    )
-  } else {
-    arrayOf(
-      Manifest.permission.WRITE_EXTERNAL_STORAGE,
-      Manifest.permission.INSTALL_SHORTCUT,
-      Manifest.permission.INTERNET,
-      Manifest.permission.READ_EXTERNAL_STORAGE
-    )
-  }
-
-  companion object {
-    const val MULTIPLE_PERMISSIONS = 8888
-  }
+  private val scope = MainScope()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    initSplash()
+  }
+
+  private fun initSplash() {
+    val permissions = arrayOf(
+      Manifest.permission.WRITE_EXTERNAL_STORAGE,
+      Manifest.permission.READ_EXTERNAL_STORAGE
+    )
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+      permissions.plus(Manifest.permission.FOREGROUND_SERVICE)
+    }
     if (hasPermissions(permissions)) { // 권한이 있는 경우
       goNext()
     } else {
       ActivityCompat.requestPermissions(this, permissions, MULTIPLE_PERMISSIONS)
     }
+  }
+
+  override fun onDestroy() {
+    super.onDestroy()
+    scope.cancel()
   }
 
   private fun showAd() {
@@ -125,8 +123,7 @@ class SplashActivity : BaseActivity() {
     when (requestCode) {
       MULTIPLE_PERMISSIONS -> {
         if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-          Snackbar.make(binding.root, "모든 권한이 승인 되었습니다. ", Snackbar.LENGTH_SHORT).show()
-
+          snack("모든 권한이 승인 되었습니다.", binding.root)
           showAd()
           goNext()
         } else {
@@ -148,7 +145,7 @@ class SplashActivity : BaseActivity() {
   }
 
   private fun goNext() {
-    lifecycleScope.launchWhenCreated {
+    scope.launch {
       delay(1500)
       startActivity(Intent(this@SplashActivity, Main2Activity::class.java))
       finish()
@@ -156,4 +153,8 @@ class SplashActivity : BaseActivity() {
   }
 
   override fun onBackPressed() {}
+
+  companion object {
+    const val MULTIPLE_PERMISSIONS = 8888
+  }
 }

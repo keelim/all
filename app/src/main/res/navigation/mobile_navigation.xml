@@ -67,4 +67,10 @@
         android:name="com.keelim.nandadiagnosis.ui.auth.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.keelim.nandadiagnosis.ui.kakao_search.SearchFragment"
+        android:label="SearchFragment" />
+
+
 </navigation>

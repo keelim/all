@@ -19,7 +19,6 @@ import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.provider.SearchRecentSuggestions
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.Menu
@@ -34,7 +33,7 @@ import androidx.recyclerview.selection.Selection
 import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
-import androidx.room.Room
+import com.keelim.common.toast
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.data.db.AppDatabaseV2
 import com.keelim.nandadiagnosis.data.db.NandaEntity
@@ -46,7 +45,13 @@ import com.keelim.nandadiagnosis.ui.main.search.selection.MyItemKeyProvider
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
@@ -55,9 +60,11 @@ class SearchFragment : Fragment() { // frag
   private var trackers: SelectionTracker<Long>? = null
   private var _binding: FragmentSearchBinding? = null
   private val binding get() = _binding!!
+  private val scope = MainScope()
 
   private lateinit var db: AppDatabaseV2
   private lateinit var historyAdapter: HistoryAdapter
+  private lateinit var searchRecyclerViewAdapter2: SearchRecyclerViewAdapter2
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
@@ -70,33 +77,39 @@ class SearchFragment : Fragment() { // frag
   override fun onDestroyView() {
     super.onDestroyView()
     _binding = null
+    scope.cancel()
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     setHasOptionsMenu(true)
 
+    historyAdapter = HistoryAdapter(historyDeleteListener = {
+      deleteSearch(it)
+    },
+      textSelectListener = {
+        searchDiagnosis(it)
+      },
+    )
+    binding.historyRecycler.adapter = historyAdapter
+    searchRecyclerViewAdapter2 = SearchRecyclerViewAdapter2(
+      favoriteListener = { favorite, id ->
+        favoriteUpdate(favorite, id)
+      }
+    ).apply {
+      submitList(listOf())
+      listener = object : SearchRecyclerViewAdapter2.OnSearchItemClickListener {
+        override fun onSearchItemClick(position: Int) {}
+        override fun onSearchItemLongClick(position: Int) {}
+      }
+    }
     binding.recyclerView.apply {
       setHasFixedSize(true)
       addItemDecoration(RecyclerViewDecoration(0, 10))
-      adapter = SearchRecyclerViewAdapter2().apply {
-        submitList(listOf())
-        listener = object : SearchRecyclerViewAdapter2.OnSearchItemClickListener {
-          override fun onSearchItemClick(position: Int) {}
-          override fun onSearchItemLongClick(position: Int) {}
-        }
-      }
-      historyAdapter = HistoryAdapter(historyDeleteListener = {
-        deleteSearch(it)
-      })
-      binding.historyRecycler.adapter = historyAdapter
+      adapter = searchRecyclerViewAdapter2
     }
 
     initTracker()
-    binding.floating.setOnClickListener {
-      multiSelection(trackers?.selection!!)
-    }
-
     db = AppDatabaseV2.getInstance(requireContext())!!
   }
 
@@ -120,15 +133,8 @@ class SearchFragment : Fragment() { // frag
             saveSearchKeyword(query)
             hideHistoryView()
             if (items.isNotEmpty()) {
-              (binding.recyclerView.adapter as SearchRecyclerViewAdapter2).apply {
-                submitList(items)
-              }
-
-              SearchRecentSuggestions(
-                requireActivity(),
-                SuggestionProvider.AUTHORITY,
-                SuggestionProvider.MODE
-              ).saveRecentQuery(query, null)
+              searchRecyclerViewAdapter2.submitList(items)
+              searchRecyclerViewAdapter2.notifyDataSetChanged()
               Timber.d("Save the query")
             } else {
               Toast.makeText(requireActivity(), "검색되는 항목이 없습니다.", Toast.LENGTH_SHORT).show()
@@ -155,7 +161,7 @@ class SearchFragment : Fragment() { // frag
 
   private fun searchDiagnosis(keyword: String): List<NandaEntity> { // 데이터베이스 가져와서 검색하기
     return runBlocking {
-      AppDatabaseV2.getInstance(requireActivity())!!.dataDao.search(keyword)
+      db.dataDao.search(keyword)
     }
   }
 
@@ -172,6 +178,10 @@ class SearchFragment : Fragment() { // frag
 
     (binding.recyclerView.adapter as (SearchRecyclerViewAdapter2)).apply {
       tracker = trackers
+    }
+
+    binding.floating.setOnClickListener {
+      multiSelection(trackers?.selection!!)
     }
   }
 
@@ -198,27 +208,39 @@ class SearchFragment : Fragment() { // frag
   }
 
   private fun saveSearchKeyword(keyword: String) {
-    Thread {
+    scope.launch {
       db.historyDao.insertHistory(History(null, keyword))
-    }.start()
+    }
   }
 
   private fun deleteSearch(keyword: String) {
-    Thread {
+    scope.launch {
       db.historyDao.delete(keyword)
       showHistoryView()
-    }.start()
+    }
+  }
+
+  private fun favoriteUpdate(favorite: Int, id:Int){
+    CoroutineScope(Dispatchers.IO).launch {
+      when (favorite) {
+          1 -> db.dataDao.favoriteUpdate(0, id)
+          0 -> db.dataDao.favoriteUpdate(1, id)
+          else-> {}
+      }
+    }
   }
 
   private fun showHistoryView() {
-    Thread {
-      var keywords = db.historyDao.getAll().reversed()
+    scope.launch {
+      val keywords = withContext(CoroutineScope(Dispatchers.IO).coroutineContext) {
+          db.historyDao.getAll().reversed()
+        }
       Timber.d("데이터베이스 $keywords")
       requireActivity().runOnUiThread {
         binding.historyRecycler.isVisible = true
-        historyAdapter.submitList(keywords.orEmpty())
+        historyAdapter.submitList(keywords)
       }
-    }.start()
+    }
     binding.historyRecycler.isVisible = true
   }
 

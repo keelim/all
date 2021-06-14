@@ -19,7 +19,6 @@ import android.app.DownloadManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
-import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
@@ -38,6 +37,7 @@ import com.google.firebase.ktx.Firebase
 import com.keelim.common.toast
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.ActivityMain2Binding
+import com.keelim.nandadiagnosis.di.DownloadReceiver
 import com.keelim.nandadiagnosis.service.TerminateService
 import com.keelim.nandadiagnosis.utils.MaterialDialog
 import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.message
@@ -46,39 +46,21 @@ import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.positiveButton
 import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.title
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class Main2Activity : AppCompatActivity() {
-  private lateinit var binding: ActivityMain2Binding
-  private val mainViewModel by viewModels<MainViewModel>()
   private lateinit var downloadManager: DownloadManager
+  private val binding: ActivityMain2Binding by lazy {ActivityMain2Binding.inflate(layoutInflater)}
+  private val mainViewModel by viewModels<MainViewModel>()
   private val callbackManager by lazy { CallbackManager.Factory.create() }
   private val auth by lazy { Firebase.auth }
 
-
-  val recevier = object : BroadcastReceiver() {
-    override fun onReceive(context: Context, intent: Intent) {
-      val id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
-      if (DownloadManager.ACTION_DOWNLOAD_COMPLETE == intent.action) {
-        if (id == -1L) {
-          val query = DownloadManager.Query().apply { setFilterById(id) }
-          val cursor = downloadManager.query(query)
-
-          if (!cursor.moveToFirst()) return
-          val columnIndex = cursor.getColumnIndex(DownloadManager.COLUMN_STATUS)
-
-          when (cursor.getInt(columnIndex)) {
-            DownloadManager.STATUS_SUCCESSFUL -> toast("다운로드가 완료되었습니다.")
-            DownloadManager.STATUS_FAILED -> toast("다운로드가 실패되었습니다")
-          }
-        }
-      }
-    }
-  }
+  @Inject
+  lateinit var recevier:DownloadReceiver
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    binding = ActivityMain2Binding.inflate(layoutInflater)
     setContentView(binding.root)
 
     initNavigation()
@@ -99,6 +81,11 @@ class Main2Activity : AppCompatActivity() {
     super.onNewIntent(intent)
     setIntent(intent)
     updateResult(true)
+  }
+
+  override fun onDestroy() {
+    super.onDestroy()
+    unregisterReceiver(recevier)
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

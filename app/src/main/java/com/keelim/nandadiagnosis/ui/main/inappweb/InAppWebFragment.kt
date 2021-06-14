@@ -36,9 +36,7 @@ class InAppWebFragment : Fragment() {
   private var _binding: FragmentInappwebBinding? = null
   private val binding get() = _binding!!
 
-  companion object {
-    const val DEFAULT_URL = "https://m.blog.naver.com/cjhdori"
-  }
+
 
   @SuppressLint("SetJavaScriptEnabled")
   override fun onCreateView(
@@ -121,7 +119,7 @@ class InAppWebFragment : Fragment() {
       binding.progressbar.hide()
       binding.backButton.isEnabled = binding.webview.canGoBack()
       binding.forwardButton.isEnabled = binding.webview.canGoForward()
-      binding.addressBar.setText(url)
+//      binding.addressBar.setText(url)
     }
   }
 
@@ -130,5 +128,9 @@ class InAppWebFragment : Fragment() {
       super.onProgressChanged(view, newProgress)
       binding.progressbar.progress = newProgress
     }
+  }
+
+  companion object {
+    const val DEFAULT_URL = "https://m.blog.naver.com/cjhdori"
   }
 }

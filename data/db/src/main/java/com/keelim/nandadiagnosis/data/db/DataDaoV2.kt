@@ -25,6 +25,9 @@ DataDaoV2 {
   @Query("select * from nanda where reason like  '%' || :keyword || '%'")
   suspend fun search(keyword: String?): List<NandaEntity>
 
+  @Query("SELECT * FROM nanda WHERE favorite = 1")
+  suspend fun getFavorite(): List<NandaEntity>
+
   @Query("select * from nanda where category = :number")
   suspend fun get(number: Int?): List<NandaEntity>
 
@@ -35,8 +38,11 @@ DataDaoV2 {
   suspend fun getAll(): List<NandaEntity>
 
   @Insert
-  fun insertNanda(nanda: NandaEntity)
+  suspend fun insertNanda(nanda: NandaEntity)
 
   @Query("delete  from nanda where reason ==:keyword")
-  fun delete(keyword: String?)
+  suspend fun delete(keyword: String?)
+
+  @Query("UPDATE nanda SET favorite=:favorite WHERE nanda_id = :id")
+  suspend fun favoriteUpdate(favorite: Int, id: Int)
 }

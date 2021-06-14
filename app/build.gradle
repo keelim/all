@@ -64,7 +64,6 @@ dependencies {
     implementation project(':common')
     implementation project(':data:db')
     implementation project(':feature:error')
-    implementation project(":feature:kakao_search")
     implementation project(":feature:reference_search")
 
     implementation platform('com.google.firebase:firebase-bom:28.0.1')
@@ -101,8 +100,6 @@ dependencies {
     implementation SquareUp.retrofit_gson
     implementation SquareUp.timber
 
-    implementation Rx.rxandroid
-
     implementation Hilt.android
     kapt Hilt.hilt_compiler
 
@@ -124,11 +121,7 @@ dependencies {
     implementation Glide.core
 
 
-
     implementation 'com.facebook.android:facebook-login:8.2.0'
     implementation 'com.github.yuyakaido:cardstackview:2.3.4'
-
-
-
 }
 apply from: "$rootDir/spotless.gradle"

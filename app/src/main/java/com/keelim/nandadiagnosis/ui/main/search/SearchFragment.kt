@@ -33,7 +33,6 @@ import androidx.recyclerview.selection.Selection
 import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
-import com.keelim.common.toast
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.data.db.AppDatabaseV2
 import com.keelim.nandadiagnosis.data.db.NandaEntity
@@ -84,9 +83,10 @@ class SearchFragment : Fragment() { // frag
     super.onViewCreated(view, savedInstanceState)
     setHasOptionsMenu(true)
 
-    historyAdapter = HistoryAdapter(historyDeleteListener = {
-      deleteSearch(it)
-    },
+    historyAdapter = HistoryAdapter(
+      historyDeleteListener = {
+        deleteSearch(it)
+      },
       textSelectListener = {
         searchDiagnosis(it)
       },
@@ -220,12 +220,12 @@ class SearchFragment : Fragment() { // frag
     }
   }
 
-  private fun favoriteUpdate(favorite: Int, id:Int){
+  private fun favoriteUpdate(favorite: Int, id: Int) {
     CoroutineScope(Dispatchers.IO).launch {
       when (favorite) {
-          1 -> db.dataDao.favoriteUpdate(0, id)
-          0 -> db.dataDao.favoriteUpdate(1, id)
-          else-> {}
+        1 -> db.dataDao.favoriteUpdate(0, id)
+        0 -> db.dataDao.favoriteUpdate(1, id)
+        else -> {}
       }
     }
   }
@@ -233,8 +233,8 @@ class SearchFragment : Fragment() { // frag
   private fun showHistoryView() {
     scope.launch {
       val keywords = withContext(CoroutineScope(Dispatchers.IO).coroutineContext) {
-          db.historyDao.getAll().reversed()
-        }
+        db.historyDao.getAll().reversed()
+      }
       Timber.d("데이터베이스 $keywords")
       requireActivity().runOnUiThread {
         binding.historyRecycler.isVisible = true

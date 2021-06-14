@@ -25,7 +25,7 @@ import com.keelim.nandadiagnosis.data.db.history.History
 import com.keelim.nandadiagnosis.data.db.history.HistoryDao
 import java.io.File
 
-@Database(entities = [NandaEntity::class, History::class], version = 2, exportSchema = false)
+@Database(entities = [NandaEntity::class, History::class], version = 3, exportSchema = false)
 abstract class AppDatabaseV2 : RoomDatabase() {
   abstract val dataDao: DataDaoV2
   abstract val historyDao: HistoryDao
@@ -33,7 +33,7 @@ abstract class AppDatabaseV2 : RoomDatabase() {
   companion object {
     @Volatile
     private var INSTANCE: AppDatabaseV2? = null
-    val migration_1_2 = object: Migration(2, 3){
+    private val MIGRATION_2_3 = object: Migration(2, 3){
       override fun migrate(database: SupportSQLiteDatabase) {
         database.execSQL("create table `HISTORY` (`id` INTEGER, `history` TEXT," + "PRIMARY KEY(`id`)")
       }
@@ -47,7 +47,7 @@ abstract class AppDatabaseV2 : RoomDatabase() {
             AppDatabaseV2::class.java,
             "nanda"
           )
-            .addMigrations(migration_1_2)
+            .addMigrations(MIGRATION_2_3)
             .createFromFile(File(context.getExternalFilesDir(null), "nanda.db"))
             .allowMainThreadQueries()
             .build()

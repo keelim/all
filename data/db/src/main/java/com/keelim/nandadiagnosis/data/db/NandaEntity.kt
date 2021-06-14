@@ -31,7 +31,9 @@ data class NandaEntity(
 
   val domain_name: String,
 
-  val category: Int
+  val category: Int,
+
+  val favorite:Int,
 
 ) {
   override fun toString(): String {

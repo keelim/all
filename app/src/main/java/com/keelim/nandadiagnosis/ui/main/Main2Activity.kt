@@ -51,13 +51,13 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class Main2Activity : AppCompatActivity() {
   private lateinit var downloadManager: DownloadManager
-  private val binding: ActivityMain2Binding by lazy {ActivityMain2Binding.inflate(layoutInflater)}
+  private val binding: ActivityMain2Binding by lazy { ActivityMain2Binding.inflate(layoutInflater) }
   private val mainViewModel by viewModels<MainViewModel>()
   private val callbackManager by lazy { CallbackManager.Factory.create() }
   private val auth by lazy { Firebase.auth }
 
   @Inject
-  lateinit var recevier:DownloadReceiver
+  lateinit var recevier: DownloadReceiver
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -204,7 +204,7 @@ class Main2Activity : AppCompatActivity() {
 
   private fun updateResult(isNewIntent: Boolean = false) {
     val data = intent.getStringExtra("notificationType") ?: "앱 런처" +
-    if (isNewIntent) {
+      if (isNewIntent) {
         ("알림으로 실행되었습니다. 환영합니다")
       } else {
         ("환영합니다. 난다 진단 입니다.")

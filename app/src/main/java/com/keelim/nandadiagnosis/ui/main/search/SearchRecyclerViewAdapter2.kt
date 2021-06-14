@@ -73,14 +73,14 @@ class SearchRecyclerViewAdapter2(
       }
   }
 
-
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
     return ViewHolder(
       ItemListviewBinding.inflate(
         LayoutInflater.from(parent.context),
         parent,
         false
-      ), listener
+      ),
+      listener
     )
   }
 

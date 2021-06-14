@@ -36,8 +36,6 @@ class InAppWebFragment : Fragment() {
   private var _binding: FragmentInappwebBinding? = null
   private val binding get() = _binding!!
 
-
-
   @SuppressLint("SetJavaScriptEnabled")
   override fun onCreateView(
     inflater: LayoutInflater,

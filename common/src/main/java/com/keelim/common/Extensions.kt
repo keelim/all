@@ -38,19 +38,18 @@ fun Fragment.toast(@StringRes resId: Int, duration: Int = Toast.LENGTH_SHORT) {
   Toast.makeText(requireActivity(), this.resources.getText(resId), duration).show()
 }
 
-fun Context.snack(message: String, view: View , duration: Int = Snackbar.LENGTH_SHORT) {
+fun Context.snack(message: String, view: View, duration: Int = Snackbar.LENGTH_SHORT) {
   Snackbar.make(view, message, duration).show()
 }
 
-fun Context.snack(@StringRes resId: Int, view: View , duration: Int = Snackbar.LENGTH_SHORT) {
+fun Context.snack(@StringRes resId: Int, view: View, duration: Int = Snackbar.LENGTH_SHORT) {
   Snackbar.make(view, this.resources.getText(resId), duration).show()
 }
 
-fun Fragment.snack(message: String, view: View , duration: Int = Snackbar.LENGTH_SHORT) {
+fun Fragment.snack(message: String, view: View, duration: Int = Snackbar.LENGTH_SHORT) {
   Snackbar.make(view, message, duration).show()
 }
 
-fun Fragment.snack(@StringRes resId: Int,view: View , duration: Int = Snackbar.LENGTH_SHORT) {
+fun Fragment.snack(@StringRes resId: Int, view: View, duration: Int = Snackbar.LENGTH_SHORT) {
   Snackbar.make(view, this.resources.getText(resId), duration).show()
 }
-

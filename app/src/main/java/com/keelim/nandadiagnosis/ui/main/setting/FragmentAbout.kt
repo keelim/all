@@ -25,7 +25,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.FragmentAboutBinding
-import com.keelim.nandadiagnosis.ui.OpenSourceFragment
 
 class FragmentAbout : Fragment() {
   private var _binding: FragmentAboutBinding? = null

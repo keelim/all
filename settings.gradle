@@ -12,7 +12,6 @@ include(
         ":app",
         ":data:db",
         ":feature:error",
-        ":feature:kakao_search",
         ":feature:reference_search",
         ":common",
 )

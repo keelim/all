@@ -22,11 +22,11 @@ import androidx.room.Query
 @Dao
 interface HistoryDao {
   @Query("select * from history")
-  fun getAll(): List<History>
+  suspend fun getAll(): List<History>
 
   @Insert
-  fun insertHisotry(history: History)
+  suspend fun insertHistory(history: History)
 
   @Query("delete from history where keyword==:keyword")
-  fun delete(keyword: String)
+  suspend fun delete(keyword: String)
 }

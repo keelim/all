@@ -13,30 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.data.db
+package com.keelim.nandadiagnosis.ui
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import android.widget.ImageView
+import androidx.databinding.BindingAdapter
+import coil.load
 
-@Entity(tableName = "nanda")
-data class NandaEntity(
-  @PrimaryKey
-  val nanda_id: Int,
-
-  val reason: String,
-
-  val diagnosis: String,
-
-  val class_name: String,
-
-  val domain_name: String,
-
-  val category: Int,
-
-  val favorite:Int,
-
-) {
-  override fun toString(): String {
-    return "$nanda_id \n $reason \n $diagnosis \n $class_name \n $domain_name \n $category"
-  }
+@BindingAdapter("loadUrl")
+fun ImageView.loadUrl(url: String) {
+  this.load(url)
 }

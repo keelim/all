@@ -15,9 +15,9 @@
 - - -
 ##  Version 2
 
-![preview2](previews/version2 1.PNG)
+![preview2](previews/version21.PNG)
 
-![preview3](previews/version2 2.PNG)
+![preview3](previews/version22.PNG)
 
 ## Tech stack & Open-source libraries
 - Minimum SDK level 24

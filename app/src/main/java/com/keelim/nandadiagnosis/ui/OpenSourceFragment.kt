@@ -16,11 +16,14 @@
 package com.keelim.nandadiagnosis.ui
 
 import android.os.Bundle
+import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
+import com.keelim.nandadiagnosis.R
+import com.keelim.nandadiagnosis.databinding.FragmentInappwebBinding
 import com.keelim.nandadiagnosis.databinding.FragmentOpenSourceBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -34,7 +37,9 @@ class OpenSourceFragment : Fragment() {
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View {
-    _binding = FragmentOpenSourceBinding.inflate(inflater, container, false)
+    val contextWrapper = ContextThemeWrapper(requireActivity(), R.style.InAppWebview)
+    val cloneInflater = inflater.cloneInContext(contextWrapper)
+    _binding = FragmentOpenSourceBinding.inflate(cloneInflater, container, false)
     return binding.root
   }
 

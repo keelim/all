@@ -119,7 +119,7 @@ class WebFragment : Fragment() {
       binding.progressbar.hide()
       binding.backButton.isEnabled = binding.webview.canGoBack()
       binding.forwardButton.isEnabled = binding.webview.canGoForward()
-      binding.addressBar.setText(url)
+//      binding.addressBar.setText(url)
     }
   }
 

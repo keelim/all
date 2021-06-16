@@ -74,6 +74,9 @@ dependencies {
     implementation "com.google.firebase:firebase-messaging-ktx"
     implementation "com.google.firebase:firebase-analytics-ktx"
     implementation 'com.google.firebase:firebase-inappmessaging-display-ktx'
+    implementation 'com.google.firebase:firebase-config-ktx'
+
+
 
     implementation 'com.google.ads.mediation:facebook:6.5.0.0'
 
@@ -123,5 +126,8 @@ dependencies {
 
     implementation 'com.facebook.android:facebook-login:8.2.0'
     implementation 'com.github.yuyakaido:cardstackview:2.3.4'
+
+
+
 }
 apply from: "$rootDir/spotless.gradle"

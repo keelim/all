@@ -102,6 +102,11 @@ class MainBottomFragment : BottomSheetDialogFragment() {
       dismiss()
       findNavController().navigate(R.id.inAppWebFragment)
     }
+
+    binding.login.setOnClickListener {
+      dismiss()
+      findNavController().navigate(R.id.loginFragment)
+    }
   }
 
   private fun chooseThemeClick() {

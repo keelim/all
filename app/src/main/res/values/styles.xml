@@ -77,5 +77,4 @@
         <item name="android:statusBarColor">@color/transparent</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
-
 </resources>

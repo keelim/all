@@ -28,11 +28,20 @@
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.keelim.nandadiagnosis.ui.main.setting.FragmentAbout"
-        tools:layout="@layout/fragment_about" />
+        tools:layout="@layout/fragment_about" >
+        <action
+            android:id="@+id/action_aboutFragment_to_webFragment"
+            app:destination="@id/webFragment" />
+    </fragment>
     <fragment
         android:id="@+id/inAppWebFragment"
         android:name="com.keelim.nandadiagnosis.ui.main.inappweb.InAppWebFragment"
-        android:label="InAppWebFragment" />
+        android:label="InAppWebFragment" >
+        <argument
+            android:name="url"
+            app:argType="string"
+            android:defaultValue="https://" />
+    </fragment>
     <fragment
         android:id="@+id/openSource"
         android:name="com.keelim.nandadiagnosis.ui.OpenSourceFragment"

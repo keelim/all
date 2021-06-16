@@ -21,12 +21,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.keelim.nandadiagnosis.R
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.remoteconfig.ktx.remoteConfig
+import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
+import com.keelim.nandadiagnosis.data.model.Recent
 import com.keelim.nandadiagnosis.databinding.FragmentCategoryBinding
-import com.keelim.nandadiagnosis.utils.MaterialDialog
-import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.message
-import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.negativeButton
-import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.positiveButton
+import com.keelim.nandadiagnosis.ui.main.category.recent.RecentAdapter
+import org.json.JSONArray
+import org.json.JSONObject
+import timber.log.Timber
 
 class CategoryFragment : Fragment() {
   private var _binding: FragmentCategoryBinding? = null
@@ -47,31 +52,80 @@ class CategoryFragment : Fragment() {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-
-    binding.card1.setOnClickListener { showDialog("1") }
-    binding.card2.setOnClickListener { showDialog("2") }
-    binding.card3.setOnClickListener { showDialog("3") }
-    binding.card4.setOnClickListener { showDialog("4") }
-    binding.card5.setOnClickListener { showDialog("5") }
-    binding.card6.setOnClickListener { showDialog("6") }
-    binding.card7.setOnClickListener { showDialog("7") }
-    binding.card8.setOnClickListener { showDialog("8") }
-    binding.card9.setOnClickListener { showDialog("9") }
-    binding.card10.setOnClickListener { showDialog("10") }
-    binding.card11.setOnClickListener { showDialog("11") }
-    binding.card12.setOnClickListener { showDialog("12") }
-    binding.card13.setOnClickListener { showDialog("13") }
+    initView()
+    initData()
   }
 
-  fun showDialog(num: String) { // 데이터를 사용하는 페이지 이니 조심하라는 문구
-    MaterialDialog.createDialog(requireContext()) {
-      message("이 기능은 데이터를 사용할 수 있습니다.")
-      positiveButton(getString(R.string.ok)) {
+  private fun initView() {
+    with(binding) {
+      card1.setOnClickListener { goNext("1") }
+      card2.setOnClickListener { goNext("2") }
+      card3.setOnClickListener { goNext("3") }
+      card4.setOnClickListener { goNext("4") }
+      card5.setOnClickListener { goNext("5") }
+      card6.setOnClickListener { goNext("6") }
+      card7.setOnClickListener { goNext("7") }
+      card8.setOnClickListener { goNext("8") }
+      card9.setOnClickListener { goNext("9") }
+      card10.setOnClickListener { goNext("10") }
+      card11.setOnClickListener { goNext("11") }
+      card12.setOnClickListener { goNext("12") }
+      card13.setOnClickListener { goNext("13") }
+
+    }
+  }
+
+  private fun initData() {
+    val remoteConfig = Firebase.remoteConfig
+    remoteConfig.setConfigSettingsAsync(
+      remoteConfigSettings {
+        minimumFetchIntervalInSeconds = 0
+      }
+    )
+    remoteConfig.fetchAndActivate().addOnCompleteListener {
+      if (it.isSuccessful) {
+        val quotes = parseJson(remoteConfig.getString("recents"))
+        Timber.d("$quotes")
+        displayPager(quotes)
+      }
+    }
+  }
+
+  private fun parseJson(json: String): List<Recent> {
+    val jsonArray = JSONArray(json)
+    var jsonList = emptyList<JSONObject>()
+    for (index in 0 until jsonArray.length()) {
+      val jsonObject = jsonArray.getJSONObject(index)
+      jsonObject?.let {
+        jsonList = jsonList + it
+      }
+    }
+
+    return jsonList.map {
+      Recent(
+        reason = it.getString("reason"),
+        domain = it.getString("domain"),
+        class_name = it.getString("class_name"),
+        category = it.getString("category"),
+      )
+    }
+  }
+
+  private fun displayPager(recents: List<Recent>) {
+    val recentAdapter = RecentAdapter(recents = recents,)
+    with(binding.recycler){
+      adapter = recentAdapter
+      layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+    }
+  }
+
+  fun goNext(num: String) { // 데이터를 사용하는 페이지 이니 조심하라는 문구
+    Snackbar.make(binding.root, "이 기능은 데이터를 사용할 수 있습니다.", Snackbar.LENGTH_LONG)
+      .setAction("ok") {
         findNavController().navigate(
           CategoryFragmentDirections.actionNavigationCategoryToDiagnosisFragment(num)
         )
       }
-      negativeButton(getString(R.string.cancel))
-    }.show()
+      .show()
   }
 }

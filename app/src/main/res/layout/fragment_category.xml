@@ -1,263 +1,266 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <data>
-    </data>
-
-    <ScrollView
-        android:id="@+id/scrollView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout="@layout/item_recent" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <GridLayout
+        android:id="@+id/mainGrid"
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:alignmentMode="alignMargins"
+        android:columnCount="2"
+        android:columnOrderPreserved="false"
+        android:padding="4dp"
+        android:rowCount="3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recycler">
 
-            <GridLayout
-                android:id="@+id/mainGrid"
-                android:layout_width="match_parent"
-                android:layout_height="600dp"
-                android:alignmentMode="alignMargins"
-                android:columnCount="2"
-                android:columnOrderPreserved="false"
-                android:padding="8dp"
-                android:rowCount="3">
+        <!-- Row 1 -->
+        <!-- Column 1 -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card1"
+            style="@style/card_style"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
 
-                <!-- Row 1 -->
-                <!-- Column 1 -->
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/card1"
-                    style="@style/card_style"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="8dp">
+            <LinearLayout style="@style/card_style_3">
 
-                    <LinearLayout style="@style/card_style_3">
+                <TextView
+                    style="@style/card_style_2"
+                    android:text="건강증진" />
 
-                        <TextView
-                            style="@style/card_style_2"
-                            android:text="건강증진" />
+            </LinearLayout>
 
-                    </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-                </androidx.cardview.widget.CardView>
+        <!-- Column 2 -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card2"
+            style="@style/card_style"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
 
-                <!-- Column 2 -->
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/card2"
-                    style="@style/card_style"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="8dp">
+            <LinearLayout style="@style/card_style_3">
 
-                    <LinearLayout style="@style/card_style_3">
+                <TextView
+                    style="@style/card_style_2"
+                    android:text="영양" />
+            </LinearLayout>
 
-                        <TextView
-                            style="@style/card_style_2"
-                            android:text="영양" />
-                    </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-                </androidx.cardview.widget.CardView>
 
+        <!-- Row 2 -->
 
-                <!-- Row 2 -->
+        <!-- Column 1 -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card3"
+            style="@style/card_style"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
 
-                <!-- Column 1 -->
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/card3"
-                    style="@style/card_style"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="8dp">
+            <LinearLayout style="@style/card_style_3">
 
-                    <LinearLayout style="@style/card_style_3">
+                <TextView
+                    style="@style/card_style_2"
+                    android:text="배설/교환" />
 
-                        <TextView
-                            style="@style/card_style_2"
-                            android:text="배설/교환" />
+            </LinearLayout>
 
-                    </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-                </androidx.cardview.widget.CardView>
+        <!-- Column 2 -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card4"
+            style="@style/card_style"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
 
-                <!-- Column 2 -->
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/card4"
-                    style="@style/card_style"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="8dp">
+            <LinearLayout style="@style/card_style_3">
 
-                    <LinearLayout style="@style/card_style_3">
+                <TextView
+                    style="@style/card_style_2"
+                    android:text="활동/휴식" />
 
-                        <TextView
-                            style="@style/card_style_2"
-                            android:text="활동/휴식" />
+            </LinearLayout>
 
-                    </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-                </androidx.cardview.widget.CardView>
 
+        <!-- Row 2 -->
 
-                <!-- Row 2 -->
+        <!-- Column 1 -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card5"
+            style="@style/card_style"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
 
-                <!-- Column 1 -->
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/card5"
-                    style="@style/card_style"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="8dp">
+            <LinearLayout style="@style/card_style_3">
 
-                    <LinearLayout style="@style/card_style_3">
+                <TextView
+                    style="@style/card_style_2"
+                    android:text="지각/인식" />
 
-                        <TextView
-                            style="@style/card_style_2"
-                            android:text="지각/인식" />
+            </LinearLayout>
 
-                    </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-                </androidx.cardview.widget.CardView>
+        <!-- Column 2 -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card6"
+            style="@style/card_style"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
 
-                <!-- Column 2 -->
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/card6"
-                    style="@style/card_style"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="8dp">
+            <LinearLayout style="@style/card_style_3">
 
-                    <LinearLayout style="@style/card_style_3">
+                <TextView
+                    style="@style/card_style_2"
+                    android:text="자아지각" />
+            </LinearLayout>
 
-                        <TextView
-                            style="@style/card_style_2"
-                            android:text="자아지각" />
-                    </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-                </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card7"
+            style="@style/card_style"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/card7"
-                    style="@style/card_style"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="8dp">
+            <LinearLayout style="@style/card_style_3">
 
-                    <LinearLayout style="@style/card_style_3">
+                <TextView
+                    style="@style/card_style_2"
+                    android:text="역할 관계" />
 
-                        <TextView
-                            style="@style/card_style_2"
-                            android:text="역할 관계" />
+            </LinearLayout>
 
-                    </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-                </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card8"
+            style="@style/card_style"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/card8"
-                    style="@style/card_style"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="8dp">
+            <LinearLayout style="@style/card_style_3">
 
-                    <LinearLayout style="@style/card_style_3">
+                <TextView
+                    style="@style/card_style_2"
+                    android:text="성" />
 
-                        <TextView
-                            style="@style/card_style_2"
-                            android:text="성" />
+            </LinearLayout>
 
-                    </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-                </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card9"
+            style="@style/card_style"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/card9"
-                    style="@style/card_style"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="8dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_margin="6dp"
+                android:orientation="vertical">
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal|center_vertical"
-                        android:layout_margin="6dp"
-                        android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="대처/스트레스 \n내성"
+                    android:textAlignment="center"
+                    android:textColor="@color/main_text_color"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="대처/스트레스 \n내성"
-                            android:textAlignment="center"
-                            android:textColor="@color/main_text_color"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
+            </LinearLayout>
 
-                    </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-                </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card10"
+            style="@style/card_style"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/card10"
-                    style="@style/card_style"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="8dp">
+            <LinearLayout style="@style/card_style_3">
 
-                    <LinearLayout style="@style/card_style_3">
+                <TextView
+                    style="@style/card_style_2"
+                    android:text="삶의 원칙" />
 
-                        <TextView
-                            style="@style/card_style_2"
-                            android:text="삶의 원칙" />
+            </LinearLayout>
 
-                    </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-                </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card11"
+            style="@style/card_style"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/card11"
-                    style="@style/card_style"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="8dp">
+            <LinearLayout style="@style/card_style_3">
 
-                    <LinearLayout style="@style/card_style_3">
+                <TextView
+                    style="@style/card_style_2"
+                    android:text="안전/보호" />
 
-                        <TextView
-                            style="@style/card_style_2"
-                            android:text="안전/보호" />
+            </LinearLayout>
 
-                    </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-                </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card12"
+            style="@style/card_style"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/card12"
-                    style="@style/card_style"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="8dp">
+            <LinearLayout style="@style/card_style_3">
 
-                    <LinearLayout style="@style/card_style_3">
+                <TextView
+                    style="@style/card_style_2"
+                    android:text="안위" />
 
-                        <TextView
-                            style="@style/card_style_2"
-                            android:text="안위" />
+            </LinearLayout>
 
-                    </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-                </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card13"
+            style="@style/card_style"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/card13"
-                    style="@style/card_style"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="8dp">
+            <LinearLayout style="@style/card_style_3">
 
-                    <LinearLayout style="@style/card_style_3">
+                <TextView
+                    style="@style/card_style_2"
+                    android:text="성장/발달" />
 
-                        <TextView
-                            style="@style/card_style_2"
-                            android:text="성장/발달" />
+            </LinearLayout>
 
-                    </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-                </androidx.cardview.widget.CardView>
+    </GridLayout>
 
-            </GridLayout>
-
-        </RelativeLayout>
-
-    </ScrollView>
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 
 

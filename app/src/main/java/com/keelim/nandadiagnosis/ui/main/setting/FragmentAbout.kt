@@ -60,9 +60,12 @@ class FragmentAbout : Fragment() {
       }
     }
     binding.github.setOnClickListener {
+
+
       Intent(Intent.ACTION_VIEW).apply {
-        data = Uri.parse(getString(R.string.github))
-        startActivity(this)
+        findNavController().navigate(
+          FragmentAboutDirections.actionAboutFragmentToWebFragment(getString(R.string.github))
+        )
       }
     }
 

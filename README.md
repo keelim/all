@@ -12,6 +12,13 @@
 
 ![preview](previews/preview.PNG)
 
+- - -
+##  Version 2
+
+![preview2](previews/version2 1.PNG)
+
+![preview3](previews/version2 2.PNG)
+
 ## Tech stack & Open-source libraries
 - Minimum SDK level 24
 - [Kotlin](https://kotlinlang.org/) based, [introducing Coroutines](https://github.com/Kotlin/kotlinx.coroutines)

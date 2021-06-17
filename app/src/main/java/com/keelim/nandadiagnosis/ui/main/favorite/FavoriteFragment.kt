@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.keelim.common.toast
 import com.keelim.nandadiagnosis.data.db.AppDatabaseV2
 import com.keelim.nandadiagnosis.databinding.FragmentFavoriteBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
@@ -16,6 +17,7 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+@AndroidEntryPoint
 class FavoriteFragment : Fragment() {
   private var _binding: FragmentFavoriteBinding? = null
   private val binding get() = _binding!!
@@ -59,8 +61,13 @@ class FavoriteFragment : Fragment() {
       }
 
       CoroutineScope(Dispatchers.Main).launch {
-        adapter.submitList(items)
-        adapter.notifyDataSetChanged()
+        if (items.isEmpty()){
+          binding.favoriteRecycler.visibility = View.GONE
+          binding.noText.visibility = View.VISIBLE
+        } else{
+          adapter.submitList(items)
+          adapter.notifyDataSetChanged()
+        }
       }
     }
   }

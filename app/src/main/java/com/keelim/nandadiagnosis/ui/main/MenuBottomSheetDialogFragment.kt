@@ -46,10 +46,15 @@ class MenuBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-
-    binding.move.setOnClickListener {
-      dismiss()
-      findNavController().navigate(R.id.inAppWebFragment)
+    with(binding){
+     move.setOnClickListener {
+       dismiss()
+       findNavController().navigate(R.id.inAppWebFragment)
+     }
+      moveFavorite.setOnClickListener {
+        dismiss()
+        findNavController().navigate(R.id.favoriteFragment)
+      }
     }
   }
 }

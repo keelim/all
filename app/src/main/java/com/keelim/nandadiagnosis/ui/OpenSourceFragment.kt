@@ -23,7 +23,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.databinding.FragmentInappwebBinding
 import com.keelim.nandadiagnosis.databinding.FragmentOpenSourceBinding
 import dagger.hilt.android.AndroidEntryPoint
 

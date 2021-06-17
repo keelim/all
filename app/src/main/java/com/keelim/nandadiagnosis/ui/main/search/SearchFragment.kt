@@ -50,7 +50,7 @@ import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 @AndroidEntryPoint
-class SearchFragment : Fragment() { // frag
+class SearchFragment : Fragment() {
   private var trackers: SelectionTracker<Long>? = null
   private var _binding: FragmentSearchBinding? = null
   private val binding get() = _binding!!

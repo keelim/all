@@ -21,6 +21,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import com.keelim.common.toast
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.FragmentMenuBottomSheetDialogBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -47,13 +50,22 @@ class MenuBottomSheetDialogFragment : BottomSheetDialogFragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     with(binding){
-     move.setOnClickListener {
-       dismiss()
-       findNavController().navigate(R.id.inAppWebFragment)
-     }
+      move.setOnClickListener {
+        dismiss()
+        findNavController().navigate(R.id.inAppWebFragment)
+      }
       moveFavorite.setOnClickListener {
         dismiss()
         findNavController().navigate(R.id.favoriteFragment)
+      }
+
+      moveProfile.setOnClickListener {
+        val auth = Firebase.auth
+        auth.currentUser ?: run {
+          toast("로그인을 해주세여")
+        }
+        dismiss()
+        findNavController().navigate(R.id.profileFragment)
       }
     }
   }

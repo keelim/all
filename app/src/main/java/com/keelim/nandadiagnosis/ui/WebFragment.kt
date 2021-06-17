@@ -32,7 +32,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.FragmentInappwebBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class WebFragment : Fragment() {
   private var _binding: FragmentInappwebBinding? = null
   private val binding get() = _binding!!

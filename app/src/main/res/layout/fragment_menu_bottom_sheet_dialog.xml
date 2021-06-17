@@ -57,4 +57,31 @@
             android:textAppearance="?attr/textAppearanceBody2"
             app:icon="@drawable/ic_baseline_arrow_forward_ios_24" />
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center_vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="관련 블로그"
+            android:textAppearance="?attr/textAppearanceOverline" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/move_profile"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="이동하기"
+            android:textAppearance="?attr/textAppearanceBody2"
+            app:icon="@drawable/ic_baseline_arrow_forward_ios_24" />
+    </LinearLayout>
+
 </LinearLayout>

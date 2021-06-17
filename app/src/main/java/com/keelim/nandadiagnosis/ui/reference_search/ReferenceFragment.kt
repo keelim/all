@@ -30,6 +30,7 @@ import com.keelim.reference_search.Reference
 import com.keelim.reference_search.ReferenceService
 import com.keelim.reference_search.data.AppDatabase
 import com.keelim.reference_search.data.History
+import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -37,6 +38,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
 
+@AndroidEntryPoint
 class ReferenceFragment : Fragment() {
   private var _binding: FragmentReferenceBinding? = null
   private val binding get() = _binding!!

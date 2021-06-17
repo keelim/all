@@ -19,7 +19,6 @@ import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -33,26 +32,22 @@ import androidx.recyclerview.selection.Selection
 import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
+import com.keelim.common.toast
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.data.db.AppDatabaseV2
-import com.keelim.nandadiagnosis.data.db.NandaEntity
 import com.keelim.nandadiagnosis.data.db.history.History
 import com.keelim.nandadiagnosis.databinding.FragmentSearchBinding
 import com.keelim.nandadiagnosis.ui.main.search.history.HistoryAdapter
 import com.keelim.nandadiagnosis.ui.main.search.selection.MyItemDetailsLookup
 import com.keelim.nandadiagnosis.ui.main.search.selection.MyItemKeyProvider
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import timber.log.Timber
-import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
 class SearchFragment : Fragment() { // frag
@@ -60,7 +55,6 @@ class SearchFragment : Fragment() { // frag
   private var _binding: FragmentSearchBinding? = null
   private val binding get() = _binding!!
   private val scope = MainScope()
-
   private lateinit var db: AppDatabaseV2
   private lateinit var historyAdapter: HistoryAdapter
   private lateinit var searchRecyclerViewAdapter2: SearchRecyclerViewAdapter2
@@ -87,9 +81,7 @@ class SearchFragment : Fragment() { // frag
       historyDeleteListener = {
         deleteSearch(it)
       },
-      textSelectListener = {
-        searchDiagnosis(it)
-      },
+      textSelectListener = {},
     )
     binding.historyRecycler.adapter = historyAdapter
     searchRecyclerViewAdapter2 = SearchRecyclerViewAdapter2(
@@ -98,10 +90,6 @@ class SearchFragment : Fragment() { // frag
       }
     ).apply {
       submitList(listOf())
-      listener = object : SearchRecyclerViewAdapter2.OnSearchItemClickListener {
-        override fun onSearchItemClick(position: Int) {}
-        override fun onSearchItemLongClick(position: Int) {}
-      }
     }
     binding.recyclerView.apply {
       setHasFixedSize(true)
@@ -114,6 +102,7 @@ class SearchFragment : Fragment() { // frag
   }
 
   override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+
     inflater.inflate(R.menu.search_menu, menu)
     val item = menu.findItem(R.id.menu_search)
 
@@ -121,48 +110,37 @@ class SearchFragment : Fragment() { // frag
     val searchView = item.actionView as SearchView
     showHistoryView()
 
-    Observable.create<CharSequence> { emitter ->
-      searchView.apply {
-        setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
-        isSubmitButtonEnabled = true
-        isQueryRefinementEnabled = true
+    searchView.apply {
+      setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
+      isSubmitButtonEnabled = true
+      isQueryRefinementEnabled = true
 
-        setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-          override fun onQueryTextSubmit(query: String): Boolean {
-            val items = searchDiagnosis(query.replace("\\s", "")) // 검색을 한다.
-            saveSearchKeyword(query)
-            hideHistoryView()
-            if (items.isNotEmpty()) {
-              searchRecyclerViewAdapter2.submitList(items)
-              searchRecyclerViewAdapter2.notifyDataSetChanged()
-              Timber.d("Save the query")
-            } else {
-              Toast.makeText(requireActivity(), "검색되는 항목이 없습니다.", Toast.LENGTH_SHORT).show()
+      setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        override fun onQueryTextSubmit(query: String): Boolean {
+          saveSearchKeyword(query)
+
+          scope.launch {
+            val items = db.dataDao.search(query.replace("\\s", ""))
+            CoroutineScope(Dispatchers.Main).launch {
+              hideHistoryView()
+              if (items.isNotEmpty()) {
+                searchRecyclerViewAdapter2.submitList(items)
+                searchRecyclerViewAdapter2.notifyDataSetChanged()
+                Timber.d("Save the query")
+              } else {
+                toast("검색되는 항목이 없습니다.")
+              }
             }
-            return true
           }
-
+          return true
+        }
           override fun onQueryTextChange(newText: String): Boolean {
-            newText.let { emitter.onNext(it) }
             return true
           }
         })
       }
-    }.apply {
-      debounce(1000L, TimeUnit.MILLISECONDS)
-        .filter { !TextUtils.isEmpty(it) }
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe {
-          Toast.makeText(requireActivity(), "searching => $it", Toast.LENGTH_SHORT).show()
-        }
-    }
-    super.onCreateOptionsMenu(menu, inflater)
-  }
 
-  private fun searchDiagnosis(keyword: String): List<NandaEntity> { // 데이터베이스 가져와서 검색하기
-    return runBlocking {
-      db.dataDao.search(keyword)
-    }
+    super.onCreateOptionsMenu(menu, inflater)
   }
 
   private fun initTracker() {
@@ -225,7 +203,7 @@ class SearchFragment : Fragment() { // frag
       when (favorite) {
         1 -> db.dataDao.favoriteUpdate(0, id)
         0 -> db.dataDao.favoriteUpdate(1, id)
-        else -> {}
+        else -> Unit
       }
     }
   }
@@ -236,7 +214,7 @@ class SearchFragment : Fragment() { // frag
         db.historyDao.getAll().reversed()
       }
       Timber.d("데이터베이스 $keywords")
-      requireActivity().runOnUiThread {
+      CoroutineScope(Dispatchers.Main).launch {
         binding.historyRecycler.isVisible = true
         historyAdapter.submitList(keywords)
       }

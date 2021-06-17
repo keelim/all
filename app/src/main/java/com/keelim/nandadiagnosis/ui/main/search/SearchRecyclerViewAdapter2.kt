@@ -30,7 +30,6 @@ class SearchRecyclerViewAdapter2(
 ) :
   ListAdapter<NandaEntity, SearchRecyclerViewAdapter2.ViewHolder>(diffUtil) {
   var tracker: SelectionTracker<Long>? = null
-  var listener: OnSearchItemClickListener? = null
 
   init {
     setHasStableIds(true) // 고유 id 를 설정
@@ -40,7 +39,7 @@ class SearchRecyclerViewAdapter2(
 
   public override fun getItem(position: Int): NandaEntity = currentList[position]
 
-  inner class ViewHolder(private val binding: ItemListviewBinding, listener: OnSearchItemClickListener?) :
+  inner class ViewHolder(private val binding: ItemListviewBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: NandaEntity, isActivated: Boolean = false) {
@@ -51,15 +50,6 @@ class SearchRecyclerViewAdapter2(
       binding.className.text = item.class_name
       binding.domainName.text = item.domain_name
       binding.searchSwitch.isChecked = item.favorite == 1
-
-      binding.root.setOnClickListener {
-        listener?.onSearchItemClick(bindingAdapterPosition)
-      }
-
-      binding.root.setOnLongClickListener {
-        listener?.onSearchItemLongClick(bindingAdapterPosition)
-        return@setOnLongClickListener true
-      }
 
       binding.searchSwitch.setOnClickListener {
         favoriteListener(item.favorite, item.nanda_id)
@@ -79,8 +69,7 @@ class SearchRecyclerViewAdapter2(
         LayoutInflater.from(parent.context),
         parent,
         false
-      ),
-      listener
+      )
     )
   }
 
@@ -88,11 +77,6 @@ class SearchRecyclerViewAdapter2(
     tracker?.let {
       holder.bind(currentList[position], it.isSelected(position.toLong()))
     }
-  }
-
-  interface OnSearchItemClickListener {
-    fun onSearchItemClick(position: Int)
-    fun onSearchItemLongClick(position: Int)
   }
 
   companion object {

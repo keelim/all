@@ -71,7 +71,6 @@ class CategoryFragment : Fragment() {
       card11.setOnClickListener { goNext("11") }
       card12.setOnClickListener { goNext("12") }
       card13.setOnClickListener { goNext("13") }
-
     }
   }
 
@@ -112,8 +111,8 @@ class CategoryFragment : Fragment() {
   }
 
   private fun displayPager(recents: List<Recent>) {
-    val recentAdapter = RecentAdapter(recents = recents,)
-    with(binding.recycler){
+    val recentAdapter = RecentAdapter(recents = recents)
+    with(binding.recycler) {
       adapter = recentAdapter
       layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
     }

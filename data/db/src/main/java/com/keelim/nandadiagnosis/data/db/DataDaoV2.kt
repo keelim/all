@@ -26,7 +26,7 @@ DataDaoV2 {
   suspend fun search(keyword: String?): List<NandaEntity>
 
   @Query("SELECT * FROM nanda WHERE favorite = 1")
-  suspend fun getFavorite(): List<NandaEntity>
+  suspend fun favorites(): List<NandaEntity>
 
   @Query("select * from nanda where category = :number")
   suspend fun get(number: Int?): List<NandaEntity>

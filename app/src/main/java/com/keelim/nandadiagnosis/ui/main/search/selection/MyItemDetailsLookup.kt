@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.presentation.main.search.selection
+package com.keelim.nandadiagnosis.ui.main.search.selection
 
 import android.view.MotionEvent
 import androidx.recyclerview.selection.ItemDetailsLookup
 import androidx.recyclerview.widget.RecyclerView
-import com.keelim.nandadiagnosis.presentation.main.search.SearchRecyclerViewAdapter2
+import com.keelim.nandadiagnosis.ui.main.search.SearchRecyclerViewAdapter2
 
 class MyItemDetailsLookup(private val recyclerView: RecyclerView) : ItemDetailsLookup<Long>() {
   override fun getItemDetails(event: MotionEvent): ItemDetails<Long>? {

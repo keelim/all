@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.presentation.main.category.recent
+package com.keelim.nandadiagnosis.ui.main.category.recent
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.keelim.nandadiagnosis.data.model.Recent
+import com.keelim.nandadiagnosis.data.entity.Recent
 import com.keelim.nandadiagnosis.databinding.ItemRecentBinding
 
 class RecentAdapter(

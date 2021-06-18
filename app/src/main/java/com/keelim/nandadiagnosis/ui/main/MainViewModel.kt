@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.presentation.main
+package com.keelim.nandadiagnosis.ui.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.keelim.nandadiagnosis.service.NandaService
+import com.keelim.nandadiagnosis.data.network.NandaService
 import com.keelim.nandadiagnosis.usecase.GetAppThemeUseCase
 import com.keelim.nandadiagnosis.usecase.SetAppThemeUseCase
 import com.squareup.okhttp.ResponseBody

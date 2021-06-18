@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.presentation.main.category
+package com.keelim.nandadiagnosis.ui.main.category
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -26,9 +26,9 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
-import com.keelim.nandadiagnosis.data.model.Recent
+import com.keelim.nandadiagnosis.data.entity.Recent
 import com.keelim.nandadiagnosis.databinding.FragmentCategoryBinding
-import com.keelim.nandadiagnosis.presentation.main.category.recent.RecentAdapter
+import com.keelim.nandadiagnosis.ui.main.category.recent.RecentAdapter
 import org.json.JSONArray
 import org.json.JSONObject
 import timber.log.Timber

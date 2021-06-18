@@ -30,7 +30,7 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.keelim.common.snack
 import com.keelim.nandadiagnosis.BuildConfig
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.base.BaseActivity
+import com.keelim.nandadiagnosis.base.SimpleBaseActivity
 import com.keelim.nandadiagnosis.databinding.ActivitySplashBinding
 import com.keelim.nandadiagnosis.ui.main.Main2Activity
 import com.keelim.nandadiagnosis.utils.MaterialDialog
@@ -46,7 +46,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
-class SplashActivity : BaseActivity() {
+class SplashActivitySimple : SimpleBaseActivity() {
   private var mInterstitialAd: InterstitialAd? = null
   private val binding: ActivitySplashBinding by binding(R.layout.activity_splash)
   private val test = "ca-app-pub-3940256099942544/1033173712"
@@ -93,7 +93,7 @@ class SplashActivity : BaseActivity() {
           mInterstitialAd = interstitialAd
 
           if (mInterstitialAd != null) {
-            mInterstitialAd!!.show(this@SplashActivity)
+            mInterstitialAd!!.show(this@SplashActivitySimple)
           } else {
             Timber.d("The interstitial ad wasn't ready yet.")
           }
@@ -149,7 +149,7 @@ class SplashActivity : BaseActivity() {
   private fun goNext() {
     scope.launch {
       delay(1500)
-      startActivity(Intent(this@SplashActivity, Main2Activity::class.java))
+      startActivity(Intent(this@SplashActivitySimple, Main2Activity::class.java))
       finish()
     }
   }

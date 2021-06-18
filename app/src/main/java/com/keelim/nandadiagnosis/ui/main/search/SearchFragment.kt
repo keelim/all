@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.presentation.main.search
+package com.keelim.nandadiagnosis.ui.main.search
 
 import android.app.SearchManager
 import android.content.Context
@@ -35,11 +35,11 @@ import androidx.recyclerview.selection.StorageStrategy
 import com.keelim.common.toast
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.data.db.AppDatabaseV2
-import com.keelim.nandadiagnosis.data.db.history.History
+import com.keelim.nandadiagnosis.data.db.entity.History
 import com.keelim.nandadiagnosis.databinding.FragmentSearchBinding
-import com.keelim.nandadiagnosis.presentation.main.search.history.HistoryAdapter
-import com.keelim.nandadiagnosis.presentation.main.search.selection.MyItemDetailsLookup
-import com.keelim.nandadiagnosis.presentation.main.search.selection.MyItemKeyProvider
+import com.keelim.nandadiagnosis.ui.main.search.history.HistoryAdapter
+import com.keelim.nandadiagnosis.ui.main.search.selection.MyItemDetailsLookup
+import com.keelim.nandadiagnosis.ui.main.search.selection.MyItemKeyProvider
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

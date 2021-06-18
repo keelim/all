@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.presentation.main.favorite
+package com.keelim.nandadiagnosis.ui.main.favorite
 
 import android.os.Bundle
 import android.view.LayoutInflater

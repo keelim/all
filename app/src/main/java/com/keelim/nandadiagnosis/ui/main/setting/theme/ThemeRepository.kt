@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.presentation.main.setting.theme
+package com.keelim.nandadiagnosis.ui.main.setting.theme
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
@@ -22,8 +22,8 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import com.keelim.nandadiagnosis.presentation.main.setting.theme.ThemeRepository.Companion.STORE_NAME
-import com.keelim.nandadiagnosis.presentation.main.setting.theme.ThemeRepository.PreferencesKeys.USER_THEME
+import com.keelim.nandadiagnosis.ui.main.setting.theme.ThemeRepository.Companion.STORE_NAME
+import com.keelim.nandadiagnosis.ui.main.setting.theme.ThemeRepository.PreferencesKeys.USER_THEME
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

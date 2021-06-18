@@ -15,8 +15,8 @@
  */
 package com.keelim.nandadiagnosis.data.remote
 
-import com.keelim.nandadiagnosis.data.db.NandaEntity
-import com.keelim.nandadiagnosis.service.NandaService
+import com.keelim.nandadiagnosis.data.db.entity.NandaEntity
+import com.keelim.nandadiagnosis.data.network.NandaService
 import javax.inject.Inject
 
 class RemoteDataSourceImpl @Inject constructor(

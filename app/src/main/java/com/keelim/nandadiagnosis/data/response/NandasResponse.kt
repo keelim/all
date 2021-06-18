@@ -1,4 +1,6 @@
 package com.keelim.nandadiagnosis.data.response
 
-class NandasResponse {
-}
+data class NandasResponse(
+    val items: List<NandaResponse>,
+    val count: Int
+)

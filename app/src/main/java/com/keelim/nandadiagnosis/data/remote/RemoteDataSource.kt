@@ -15,8 +15,8 @@
  */
 package com.keelim.nandadiagnosis.data.remote
 
-import com.keelim.nandadiagnosis.data.db.NandaEntity
+import com.keelim.nandadiagnosis.data.db.entity.NandaEntity2
 
 interface RemoteDataSource {
-  suspend fun getNandaInformation(type: String): List<NandaEntity>
+  suspend fun getNandaInformation(type: String): List<NandaEntity2>
 }

@@ -78,8 +78,12 @@
         android:label="FavoriteFragment" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.keelim.nandadiagnosis.ui.auth.ProfileFragment"
+        android:name="com.keelim.nandadiagnosis.ui.auth.profile.ProfileFragment"
         android:label="ProfileFragment" />
+    <fragment
+        android:id="@+id/favoriteFragment2"
+        android:name="com.keelim.nandadiagnosis.ui.main.favorite.FavoriteFragment2"
+        android:label="FavoriteFragment2" />
 
 
 </navigation>

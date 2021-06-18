@@ -18,15 +18,10 @@ package com.keelim.nandadiagnosis.service
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.app.Service
-import android.content.Intent
 import android.os.Build
-import android.os.IBinder
 import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.LifecycleService
 import com.keelim.nandadiagnosis.R
-import timber.log.Timber
 
 class TerminateService : LifecycleService() {
 
@@ -63,6 +58,6 @@ class TerminateService : LifecycleService() {
 
   companion object {
     private const val CHANNEL_ID = "CHANNEL_ID"
-    private const val NOTIFICATION_ID  = 777
+    private const val NOTIFICATION_ID = 777
   }
 }

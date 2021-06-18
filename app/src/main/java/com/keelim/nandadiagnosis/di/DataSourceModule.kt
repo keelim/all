@@ -15,9 +15,9 @@
  */
 package com.keelim.nandadiagnosis.di
 
+import com.keelim.nandadiagnosis.data.network.NandaService
 import com.keelim.nandadiagnosis.data.repository.RemoteDataSource
 import com.keelim.nandadiagnosis.data.repository.RemoteDataSourceImpl
-import com.keelim.nandadiagnosis.data.network.NandaService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

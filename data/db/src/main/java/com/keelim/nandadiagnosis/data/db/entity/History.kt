@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.data.db.history
+package com.keelim.nandadiagnosis.data.db.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

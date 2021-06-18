@@ -13,11 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.data.db
+package com.keelim.nandadiagnosis.data.db.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import com.keelim.nandadiagnosis.data.db.entity.NandaEntity
 
 @Dao
 interface

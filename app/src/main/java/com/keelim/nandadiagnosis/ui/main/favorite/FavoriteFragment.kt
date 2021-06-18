@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.keelim.common.toast
 import com.keelim.nandadiagnosis.data.db.AppDatabaseV2
@@ -24,6 +25,7 @@ class FavoriteFragment : Fragment() {
   private val adapter by lazy { FavoriteAdapter() }
   private lateinit var db: AppDatabaseV2
   private val scope = MainScope()
+
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -63,7 +65,6 @@ class FavoriteFragment : Fragment() {
       CoroutineScope(Dispatchers.Main).launch {
         if (items.isEmpty()){
           binding.favoriteRecycler.visibility = View.GONE
-          binding.noText.visibility = View.VISIBLE
         } else{
           adapter.submitList(items)
           adapter.notifyDataSetChanged()

@@ -15,7 +15,7 @@
  */
 package com.keelim.nandadiagnosis.data.network
 
-import com.keelim.nandadiagnosis.data.db.entity.NandaEntity
+import com.keelim.nandadiagnosis.data.db.entity.NandaEntity2
 import com.keelim.nandadiagnosis.data.response.NandaResponse
 import com.keelim.nandadiagnosis.data.response.NandasResponse
 import com.squareup.okhttp.ResponseBody
@@ -27,7 +27,7 @@ import retrofit2.http.Url
 
 interface NandaService {
   @GET("api/v1/nanda_information/{name}")
-  suspend fun getNanfaInformation(@Path("name") type: String): List<NandaEntity>
+  suspend fun getNanfaInformation(@Path("name") type: String): List<NandaEntity2>
 
   @Streaming
   @GET

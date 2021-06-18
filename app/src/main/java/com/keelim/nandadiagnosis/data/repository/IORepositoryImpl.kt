@@ -1,5 +1,7 @@
 package com.keelim.nandadiagnosis.data.repository
 
+import com.keelim.nandadiagnosis.data.db.AppDatabaseV2
+import com.keelim.nandadiagnosis.data.db.entity.NandaEntity
 import com.keelim.nandadiagnosis.data.db.entity.NandaEntity2
 import com.keelim.nandadiagnosis.data.network.NandaService
 import com.keelim.nandadiagnosis.di.DefaultDispatcher
@@ -12,10 +14,16 @@ class IORepositoryImpl @Inject constructor(
     private val nandaService: NandaService,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
     @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher,
+    private val db:AppDatabaseV2,
 ): IORepository {
 
     override suspend fun getNandaList(): List<NandaEntity2> = withContext(ioDispatcher){
-        TODO("Not yet implemented")
+        val response = nandaService.getNandas()
+        return@withContext if (response.isSuccessful) {
+            response.body()?.items?.map { it.toEntity() } ?: listOf()
+        } else {
+            listOf()
+        }
     }
 
     override suspend fun getLocalNandaList(): List<NandaEntity2> = withContext(ioDispatcher){
@@ -44,5 +52,9 @@ class IORepositoryImpl @Inject constructor(
 
     override suspend fun deleteNandaItem(uid: Long) = withContext(ioDispatcher){
         TODO("Not yet implemented")
+    }
+
+    override suspend fun getFavoriteList(): List<NandaEntity> = withContext(ioDispatcher){
+        return@withContext db.dataDao.favorites()
     }
 }

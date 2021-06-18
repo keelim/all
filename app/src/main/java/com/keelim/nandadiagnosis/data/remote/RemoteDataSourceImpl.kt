@@ -16,13 +16,14 @@
 package com.keelim.nandadiagnosis.data.remote
 
 import com.keelim.nandadiagnosis.data.db.entity.NandaEntity
+import com.keelim.nandadiagnosis.data.db.entity.NandaEntity2
 import com.keelim.nandadiagnosis.data.network.NandaService
 import javax.inject.Inject
 
 class RemoteDataSourceImpl @Inject constructor(
   private val service: NandaService
 ) : RemoteDataSource {
-  override suspend fun getNandaInformation(type: String): List<NandaEntity> {
+  override suspend fun getNandaInformation(type: String): List<NandaEntity2> {
     return service.getNanfaInformation(type)
   }
 }

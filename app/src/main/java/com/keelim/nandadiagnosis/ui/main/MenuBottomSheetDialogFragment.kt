@@ -49,7 +49,7 @@ class MenuBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    with(binding){
+    with(binding) {
       move.setOnClickListener {
         dismiss()
         findNavController().navigate(R.id.inAppWebFragment)

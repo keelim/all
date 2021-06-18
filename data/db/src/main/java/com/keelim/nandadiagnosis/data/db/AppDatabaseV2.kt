@@ -22,9 +22,9 @@ import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.keelim.nandadiagnosis.data.db.dao.DataDaoV2
-import com.keelim.nandadiagnosis.data.db.entity.NandaEntity
-import com.keelim.nandadiagnosis.data.db.entity.History
 import com.keelim.nandadiagnosis.data.db.dao.HistoryDao
+import com.keelim.nandadiagnosis.data.db.entity.History
+import com.keelim.nandadiagnosis.data.db.entity.NandaEntity
 import java.io.File
 
 @Database(entities = [NandaEntity::class, History::class], version = 3, exportSchema = false)

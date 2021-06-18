@@ -17,29 +17,29 @@ package com.keelim.nandadiagnosis.data.db.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.*
+import java.util.Date
 
 @Entity(tableName = "nanda")
 data class NandaEntity2(
-    @PrimaryKey
-    val nanda_id: Int,
+  @PrimaryKey
+  val nanda_id: Int,
 
-    val reason: String,
+  val reason: String,
 
-    val diagnosis: String,
+  val diagnosis: String,
 
-    val class_name: String,
+  val class_name: String,
 
-    val domain_name: String,
+  val domain_name: String,
 
-    val category: Int,
+  val category: Int,
 
-    val favorite: Int,
+  val favorite: Int,
 
-    val created_at: Date,
+  val created_at: Date,
 
-    ) {
-    override fun toString(): String {
-        return "$nanda_id \n $reason \n $diagnosis \n $class_name \n $domain_name \n $category"
-    }
+) {
+  override fun toString(): String {
+    return "$nanda_id \n $reason \n $diagnosis \n $class_name \n $domain_name \n $category"
+  }
 }

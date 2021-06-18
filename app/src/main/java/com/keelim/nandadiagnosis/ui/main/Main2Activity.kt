@@ -120,7 +120,6 @@ class Main2Activity @Inject constructor(
     }
   }
 
-
   private fun fileChecking() {
     val check = File(getExternalFilesDir(null), "nanda.db")
 

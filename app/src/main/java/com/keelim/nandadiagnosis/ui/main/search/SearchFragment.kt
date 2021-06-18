@@ -134,11 +134,11 @@ class SearchFragment : Fragment() {
           }
           return true
         }
-          override fun onQueryTextChange(newText: String): Boolean {
-            return true
-          }
-        })
-      }
+        override fun onQueryTextChange(newText: String): Boolean {
+          return true
+        }
+      })
+    }
 
     super.onCreateOptionsMenu(menu, inflater)
   }

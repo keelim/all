@@ -17,9 +17,9 @@ package com.keelim.nandadiagnosis.di
 
 import com.keelim.nandadiagnosis.data.db.AppDatabaseV2
 import com.keelim.nandadiagnosis.data.network.NandaService
-import com.keelim.nandadiagnosis.data.repository.RemoteDataSource
 import com.keelim.nandadiagnosis.data.repository.IORepository
 import com.keelim.nandadiagnosis.data.repository.IORepositoryImpl
+import com.keelim.nandadiagnosis.data.repository.RemoteDataSource
 import com.keelim.nandadiagnosis.data.repository.Repository
 import com.keelim.nandadiagnosis.data.repository.RepositoryImpl
 import dagger.Module
@@ -47,7 +47,7 @@ object RepositoryModule {
     @IoDispatcher ioDispatcher: CoroutineDispatcher,
     @DefaultDispatcher defaultDispatcher: CoroutineDispatcher,
     db: AppDatabaseV2,
-  ): IORepository{
+  ): IORepository {
     return IORepositoryImpl(
       nandaService = nandaService,
       ioDispatcher = ioDispatcher,

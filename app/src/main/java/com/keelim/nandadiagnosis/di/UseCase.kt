@@ -45,9 +45,9 @@ object UseCase {
 
   @Provides
   @ViewModelScoped
-  fun provideGetNandaListUseCase(ioRepository:IORepository) = GetNandaListUseCase(ioRepository)
+  fun provideGetNandaListUseCase(ioRepository: IORepository) = GetNandaListUseCase(ioRepository)
 
   @Provides
   @ViewModelScoped
-  fun provideGetFavoriteListUseCase(ioRepository:IORepository) = GetFavoriteListUseCase(ioRepository)
+  fun provideGetFavoriteListUseCase(ioRepository: IORepository) = GetFavoriteListUseCase(ioRepository)
 }

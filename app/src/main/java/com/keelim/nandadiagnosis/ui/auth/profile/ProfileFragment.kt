@@ -21,15 +21,18 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class ProfileFragment : Fragment() {
+class ProfileFragment @Inject constructor(
+    private val auth: FirebaseAuth,
+    ) : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
     private val scope = MainScope()
-    private lateinit var auth: FirebaseAuth
     private lateinit var db: AppDatabaseV2
-    private lateinit var adapter:FavoriteAdapter
+    private lateinit var adapter: FavoriteAdapter
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,7 +51,6 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        auth = Firebase.auth
         auth.currentUser ?: run { findNavController().navigateUp() }
 
         adapter = FavoriteAdapter()
@@ -88,7 +90,6 @@ class ProfileFragment : Fragment() {
                     binding.noText.visibility = View.VISIBLE
                 } else{
                     adapter.submitList(items)
-                    adapter.notifyDataSetChanged()
                 }
             }
         }

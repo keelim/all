@@ -13,10 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.data.repository
+package com.keelim.nandadiagnosis.base
 
-import javax.inject.Inject
-import javax.inject.Singleton
+import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 
-@Singleton
-class DownloadRepository @Inject constructor()
+open class SimpleBaseActivity : AppCompatActivity() {
+  protected inline fun <reified T : ViewDataBinding> binding(@LayoutRes resId: Int): Lazy<T> =
+    lazy { DataBindingUtil.setContentView<T>(this, resId) }
+}

@@ -1,11 +1,14 @@
 package com.keelim.nandadiagnosis.base
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import kotlinx.coroutines.Job
 
-internal abstract class BaseActivity<VM:BaseViewModel, VB: ViewBinding>: AppCompatActivity() {
+internal abstract class BaseFragment<VM:BaseViewModel, VB: ViewBinding>: Fragment() {
     abstract val viewModel:VM
     protected lateinit var binding:VB
 
@@ -13,11 +16,17 @@ internal abstract class BaseActivity<VM:BaseViewModel, VB: ViewBinding>: AppComp
 
     private lateinit var fetchJob: Job
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = getViewBinding()
-        setContentView(binding.root)
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         fetchJob = viewModel.fetchData()
         observeData()
     }

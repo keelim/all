@@ -16,7 +16,6 @@
 package com.keelim.nandadiagnosis.data.repository
 
 import com.keelim.nandadiagnosis.data.db.entity.NandaEntity2
-import com.keelim.nandadiagnosis.data.remote.RemoteDataSource
 import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(

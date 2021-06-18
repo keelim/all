@@ -22,5 +22,6 @@ interface IORepository {
 
     suspend fun deleteNandaItem(uid: Long)
 
+    // production =>
     suspend fun getFavoriteList(): List<NandaEntity>
 }

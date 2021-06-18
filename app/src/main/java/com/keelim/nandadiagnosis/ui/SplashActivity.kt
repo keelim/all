@@ -46,7 +46,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
-class SplashActivitySimple : SimpleBaseActivity() {
+class SplashActivity : SimpleBaseActivity() {
   private var mInterstitialAd: InterstitialAd? = null
   private val binding: ActivitySplashBinding by binding(R.layout.activity_splash)
   private val test = "ca-app-pub-3940256099942544/1033173712"
@@ -93,7 +93,7 @@ class SplashActivitySimple : SimpleBaseActivity() {
           mInterstitialAd = interstitialAd
 
           if (mInterstitialAd != null) {
-            mInterstitialAd!!.show(this@SplashActivitySimple)
+            mInterstitialAd!!.show(this@SplashActivity)
           } else {
             Timber.d("The interstitial ad wasn't ready yet.")
           }
@@ -149,7 +149,7 @@ class SplashActivitySimple : SimpleBaseActivity() {
   private fun goNext() {
     scope.launch {
       delay(1500)
-      startActivity(Intent(this@SplashActivitySimple, Main2Activity::class.java))
+      startActivity(Intent(this@SplashActivity, Main2Activity::class.java))
       finish()
     }
   }

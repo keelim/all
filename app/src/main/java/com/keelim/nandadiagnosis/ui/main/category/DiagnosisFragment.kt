@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.presentation.main.category
+package com.keelim.nandadiagnosis.ui.main.category
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -23,7 +23,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.data.model.DiagnosisItem
+import com.keelim.nandadiagnosis.data.entity.DiagnosisItem
 import com.keelim.nandadiagnosis.databinding.FragmentDiagnosisBinding
 import java.util.ArrayList
 

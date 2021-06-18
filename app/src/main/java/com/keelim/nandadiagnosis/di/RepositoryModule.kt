@@ -15,7 +15,10 @@
  */
 package com.keelim.nandadiagnosis.di
 
+import com.keelim.nandadiagnosis.data.network.NandaService
 import com.keelim.nandadiagnosis.data.remote.RemoteDataSource
+import com.keelim.nandadiagnosis.data.repository.IORepository
+import com.keelim.nandadiagnosis.data.repository.IORepositoryImpl
 import com.keelim.nandadiagnosis.data.repository.Repository
 import com.keelim.nandadiagnosis.data.repository.RepositoryImpl
 import dagger.Module
@@ -23,6 +26,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityRetainedComponent
 import dagger.hilt.android.scopes.ActivityRetainedScoped
+import kotlinx.coroutines.CoroutineDispatcher
+import javax.inject.Singleton
 
 @Module
 @InstallIn(ActivityRetainedComponent::class)
@@ -32,5 +37,19 @@ object RepositoryModule {
   @ActivityRetainedScoped
   fun providerRepository(remoteDataSource: RemoteDataSource): Repository {
     return RepositoryImpl(remoteDataSource)
+  }
+
+  @Provides
+  @Singleton
+  fun providerIORepository(
+    nandaService:NandaService,
+    @IoDispatcher ioDispatcher: CoroutineDispatcher,
+    @DefaultDispatcher defaultDispatcher: CoroutineDispatcher,
+  ): IORepository{
+    return IORepositoryImpl(
+      nandaService = nandaService,
+      ioDispatcher = ioDispatcher,
+      defaultDispatcher = defaultDispatcher
+    )
   }
 }

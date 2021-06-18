@@ -1,11 +1,11 @@
-package com.keelim.nandadiagnosis.presentation.main.favorite
+package com.keelim.nandadiagnosis.ui.main.favorite
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.keelim.nandadiagnosis.data.db.NandaEntity
+import com.keelim.nandadiagnosis.data.db.entity.NandaEntity
 import com.keelim.nandadiagnosis.databinding.ItemFavoriteBinding
 
 class FavoriteAdapter : ListAdapter<NandaEntity, FavoriteAdapter.ViewHolder>(diffUtil) {

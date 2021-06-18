@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.presentation.main.category
+package com.keelim.nandadiagnosis.ui.main.category
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.keelim.nandadiagnosis.data.model.DiagnosisItem
+import com.keelim.nandadiagnosis.data.entity.DiagnosisItem
 import com.keelim.nandadiagnosis.databinding.ItemListviewBinding
 
 class DiagnosisRecyclerViewAdapter : ListAdapter<DiagnosisItem, DiagnosisRecyclerViewAdapter.ViewHolder>(diffUtil) {

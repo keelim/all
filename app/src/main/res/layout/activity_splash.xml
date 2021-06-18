@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#FFE57F"
-        tools:context=".ui.SplashActivity">
+        tools:context=".ui.SplashActivitySimple">
 
         <TextView
             android:id="@+id/textView"

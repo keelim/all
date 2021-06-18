@@ -13,9 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.service
+package com.keelim.nandadiagnosis.data.network
 
-import com.keelim.nandadiagnosis.data.db.NandaEntity
+import com.keelim.nandadiagnosis.data.db.entity.NandaEntity
+import com.keelim.nandadiagnosis.data.response.NandaResponse
+import com.keelim.nandadiagnosis.data.response.NandasResponse
 import com.squareup.okhttp.ResponseBody
 import retrofit2.Response
 import retrofit2.http.GET
@@ -30,4 +32,10 @@ interface NandaService {
   @Streaming
   @GET
   suspend fun getDatabase(@Url fileUrl: String): Response<ResponseBody>
+
+  @GET("nandas")
+  suspend fun getNandas(): Response<NandasResponse>
+
+  @GET("nandas/{nandas_id}")
+  suspend fun getNanda(@Path("nandas_id") nandasId: Long): Response<NandaResponse>
 }

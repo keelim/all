@@ -15,8 +15,8 @@
  */
 package com.keelim.nandadiagnosis.data.repository
 
-import com.keelim.nandadiagnosis.data.db.NandaEntity
+import com.keelim.nandadiagnosis.data.db.entity.NandaEntity2
 
 interface Repository {
-  suspend fun getNandaInformation(type: String): List<NandaEntity>
+  suspend fun getNandaInformation(type: String): List<NandaEntity2>
 }

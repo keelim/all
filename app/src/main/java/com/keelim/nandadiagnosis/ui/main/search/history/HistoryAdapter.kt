@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.presentation.main.search.history
+package com.keelim.nandadiagnosis.ui.main.search.history
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.keelim.nandadiagnosis.data.db.history.History
+import com.keelim.nandadiagnosis.data.db.entity.History
 import com.keelim.nandadiagnosis.databinding.ItemHistoryBinding
 
 class HistoryAdapter(

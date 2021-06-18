@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.presentation.main
+package com.keelim.nandadiagnosis.ui.main
 
 import android.content.Intent
 import android.net.Uri
@@ -27,7 +27,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.FragmentMainBottomBinding
-import com.keelim.nandadiagnosis.presentation.main.setting.theme.AppTheme
+import com.keelim.nandadiagnosis.ui.main.setting.theme.AppTheme
 import com.keelim.nandadiagnosis.utils.MaterialDialog
 import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.negativeButton
 import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.positiveButton

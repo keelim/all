@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.ui.main.favorite
+package com.keelim.nandadiagnosis.presentation.main.favorite
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

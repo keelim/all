@@ -1,5 +1,6 @@
 package com.keelim.nandadiagnosis.data.repository;
 
+import com.keelim.nandadiagnosis.data.db.entity.NandaEntity
 import com.keelim.nandadiagnosis.data.db.entity.NandaEntity2;
 
 
@@ -20,4 +21,6 @@ interface IORepository {
     suspend fun deleteAll()
 
     suspend fun deleteNandaItem(uid: Long)
+
+    suspend fun getFavoriteList(): List<NandaEntity>
 }

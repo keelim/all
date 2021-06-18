@@ -56,7 +56,7 @@ class MenuBottomSheetDialogFragment : BottomSheetDialogFragment() {
       }
       moveFavorite.setOnClickListener {
         dismiss()
-        findNavController().navigate(R.id.favoriteFragment)
+        findNavController().navigate(R.id.favoriteFragment2)
       }
 
       moveProfile.setOnClickListener {

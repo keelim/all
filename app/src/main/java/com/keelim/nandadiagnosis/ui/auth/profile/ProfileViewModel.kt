@@ -18,16 +18,21 @@ package com.keelim.nandadiagnosis.ui.auth.profile
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.FirebaseUser
 import com.keelim.nandadiagnosis.base.BaseViewModel
+import com.keelim.nandadiagnosis.di.IoDispatcher
 import com.keelim.nandadiagnosis.di.PreferenceManager
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 internal class ProfileViewModel @Inject constructor(
   private val preferenceManager: PreferenceManager,
+  @IoDispatcher private val dispatcher: CoroutineDispatcher,
 ) : BaseViewModel() {
   private var _profileState = MutableLiveData<ProfileState>(ProfileState.UnInitialized)
   val profileState: LiveData<ProfileState> get() = _profileState
@@ -43,5 +48,28 @@ internal class ProfileViewModel @Inject constructor(
 
   private fun setState(state: ProfileState) {
     _profileState.postValue(state)
+  }
+
+  fun saveToken(idToken: String) = viewModelScope.launch {
+    withContext(dispatcher) {
+      preferenceManager.putIdToken(idToken)
+      fetchData()
+    }
+  }
+
+  fun setUser(user: FirebaseUser?) = viewModelScope.launch {
+    user?.let { user ->
+      setState(
+        ProfileState.Success.Registered(
+          user.displayName ?: "익명",
+          user.photoUrl,
+          listOf()
+        )
+      )
+    } ?: kotlin.run {
+      setState(
+        ProfileState.Success.NotRegistered
+      )
+    }
   }
 }

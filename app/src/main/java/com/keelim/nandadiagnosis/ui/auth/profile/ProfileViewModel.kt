@@ -15,12 +15,33 @@
  */
 package com.keelim.nandadiagnosis.ui.auth.profile
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.keelim.nandadiagnosis.base.BaseViewModel
+import com.keelim.nandadiagnosis.di.PreferenceManager
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-internal class ProfileViewModel : BaseViewModel() {
+@HiltViewModel
+internal class ProfileViewModel @Inject constructor(
+  private val preferenceManager: PreferenceManager,
+) : BaseViewModel() {
+  private var _profileState = MutableLiveData<ProfileState>(ProfileState.UnInitialized)
+  val profileState: LiveData<ProfileState> get() = _profileState
+
   override fun fetchData(): Job = viewModelScope.launch {
+    setState(ProfileState.Loading)
+    preferenceManager.getIdToken()?.let {
+      setState(ProfileState.Login(it))
+    } ?: kotlin.run {
+      setState(ProfileState.Success.NotRegistered)
+    }
+  }
+
+  private fun setState(state: ProfileState) {
+    _profileState.postValue(state)
   }
 }

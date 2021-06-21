@@ -76,11 +76,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-inappmessaging-display-ktx'
     implementation 'com.google.firebase:firebase-config-ktx'
 
-
-
     implementation 'com.google.ads.mediation:facebook:6.5.0.0'
 
     implementation AndroidX.activity_ktx
+    implementation AndroidX.activity
     implementation AndroidX.core_ktx
     implementation AndroidX.appcompat
     implementation AndroidX.navigation_ui
@@ -104,6 +103,7 @@ dependencies {
     implementation SquareUp.timber
 
     implementation Hilt.android
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
     kapt Hilt.hilt_compiler
 
     testImplementation AppTest.junit

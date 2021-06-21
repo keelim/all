@@ -20,6 +20,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -30,6 +31,7 @@ import com.keelim.common.toast
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.base.BaseFragment
 import com.keelim.nandadiagnosis.databinding.FragmentProfileBinding
+import com.keelim.nandadiagnosis.ui.main.favorite.FavoriteAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
@@ -50,6 +52,7 @@ internal class ProfileFragment2 @Inject constructor(
       .build()
   }
   private val gsc by lazy { GoogleSignIn.getClient(requireActivity(), gso) }
+  private val adapter = FavoriteAdapter()
 
   private val loginLauncher =
     registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -78,11 +81,14 @@ internal class ProfileFragment2 @Inject constructor(
   }
 
   private fun initViews() = with(binding) {
+    profileRecycler.adapter = adapter
+    profileRecycler.layoutManager = LinearLayoutManager(requireContext())
     loginButton.setOnClickListener {
       signInGoogle()
     }
 
     logoutButton.setOnClickListener {
+      viewModel.signOut()
     }
   }
 
@@ -111,6 +117,7 @@ internal class ProfileFragment2 @Inject constructor(
   }
 
   private fun handleLogin(state: ProfileState.Login) = with(binding) {
+    progressBar.isVisible = true
     val credential = GoogleAuthProvider.getCredential(state.token, null)
     auth.signInWithCredential(credential)
       .addOnCompleteListener(requireActivity()) { task ->
@@ -135,6 +142,7 @@ internal class ProfileFragment2 @Inject constructor(
     } else {
       noText.isGone = true
       profileRecycler.isGone = true
+      adapter.submitList(state.favoriteList)
     }
   }
 

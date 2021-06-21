@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.keelim.nandadiagnosis.base.BaseViewModel
 import com.keelim.nandadiagnosis.di.IoDispatcher
 import com.keelim.nandadiagnosis.di.PreferenceManager
+import com.keelim.nandadiagnosis.usecase.GetFavoriteListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Job
@@ -32,6 +33,7 @@ import javax.inject.Inject
 @HiltViewModel
 internal class ProfileViewModel @Inject constructor(
   private val preferenceManager: PreferenceManager,
+  private val getFavoriteListUseCase: GetFavoriteListUseCase,
   @IoDispatcher private val dispatcher: CoroutineDispatcher,
 ) : BaseViewModel() {
   private var _profileState = MutableLiveData<ProfileState>(ProfileState.UnInitialized)
@@ -63,7 +65,7 @@ internal class ProfileViewModel @Inject constructor(
         ProfileState.Success.Registered(
           user.displayName ?: "익명",
           user.photoUrl,
-          listOf()
+          getFavoriteListUseCase()
         )
       )
     } ?: kotlin.run {
@@ -71,5 +73,12 @@ internal class ProfileViewModel @Inject constructor(
         ProfileState.Success.NotRegistered
       )
     }
+  }
+
+  fun signOut() = viewModelScope.launch {
+    withContext(dispatcher){
+      preferenceManager.removedToken()
+    }
+    fetchData()
   }
 }

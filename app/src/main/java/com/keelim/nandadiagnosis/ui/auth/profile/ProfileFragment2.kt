@@ -20,10 +20,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import coil.load
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
+import com.keelim.common.toast
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.base.BaseFragment
 import com.keelim.nandadiagnosis.databinding.FragmentProfileBinding
@@ -56,6 +59,7 @@ internal class ProfileFragment2 @Inject constructor(
         try {
           task.getResult(ApiException::class.java)?.let { account ->
             Timber.d("firebase with google ${account.id}")
+            viewModel.saveToken(account.idToken ?: throw Exception())
           } ?: throw Exception()
         } catch (e: Exception) {
           e.printStackTrace()
@@ -67,12 +71,11 @@ internal class ProfileFragment2 @Inject constructor(
     when (it) {
       is ProfileState.UnInitialized -> initViews()
       is ProfileState.Loading -> handleLoading()
-      is ProfileState.Login -> TODO()
+      is ProfileState.Login -> handleLogin(it)
       is ProfileState.Success -> handleSuccess(it)
       is ProfileState.Error -> handleError()
     }
   }
-
 
   private fun initViews() = with(binding) {
     loginButton.setOnClickListener {
@@ -80,7 +83,6 @@ internal class ProfileFragment2 @Inject constructor(
     }
 
     logoutButton.setOnClickListener {
-
     }
   }
 
@@ -97,17 +99,46 @@ internal class ProfileFragment2 @Inject constructor(
   private fun handleSuccess(state: ProfileState.Success) = with(binding) {
     progressBar.isGone = true
     when (state) {
-      ProfileState.Success.NotRegistered -> {
-
-      }
       is ProfileState.Success.Registered -> {
+        handleRegister(state)
+      }
+
+      is ProfileState.Success.NotRegistered -> {
         profileGroup.isGone = true
         loginRequiredGroup.isVisible = true
       }
     }
   }
 
-  private fun handleError() {
+  private fun handleLogin(state: ProfileState.Login) = with(binding) {
+    val credential = GoogleAuthProvider.getCredential(state.token, null)
+    auth.signInWithCredential(credential)
+      .addOnCompleteListener(requireActivity()) { task ->
+        if (task.isSuccessful) {
+          val user = auth.currentUser
+          viewModel.setUser(user)
+        } else {
+          viewModel.setUser(null)
+        }
+      }
+  }
 
+  private fun handleRegister(state: ProfileState.Success.Registered) = with(binding) {
+    profileGroup.isVisible = true
+    loginRequiredGroup.isGone = true
+    imageView.load(state.profileImage.toString())
+    userId.text = state.userName
+
+    if (state.favoriteList.isEmpty()) {
+      noText.isGone = false
+      profileRecycler.isGone = true
+    } else {
+      noText.isGone = true
+      profileRecycler.isGone = true
+    }
+  }
+
+  private fun handleError() {
+    requireActivity().toast("에러가 발생했습니다.")
   }
 }

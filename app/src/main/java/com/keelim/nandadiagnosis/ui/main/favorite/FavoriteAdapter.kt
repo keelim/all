@@ -24,9 +24,7 @@ import com.keelim.nandadiagnosis.data.db.entity.NandaEntity
 import com.keelim.nandadiagnosis.databinding.ItemFavoriteBinding
 
 class FavoriteAdapter : ListAdapter<NandaEntity, FavoriteAdapter.ViewHolder>(diffUtil) {
-  inner class ViewHolder(
-    val binding: ItemFavoriteBinding
-  ) : RecyclerView.ViewHolder(binding.root) {
+  inner class ViewHolder(val binding: ItemFavoriteBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(item: NandaEntity) {
       binding.diagnosisItem.text = item.diagnosis
       binding.diagnosisDes.text = item.reason

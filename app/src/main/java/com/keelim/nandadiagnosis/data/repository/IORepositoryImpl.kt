@@ -72,4 +72,12 @@ class IORepositoryImpl @Inject constructor(
   override suspend fun getFavoriteList(): List<NandaEntity> = withContext(ioDispatcher) {
     return@withContext db.dataDao.favorites()
   }
+
+  override suspend fun getSearchList(keyword:String?): List<NandaEntity>  = withContext(ioDispatcher){
+    return@withContext db.dataDao.search(keyword.orEmpty())
+  }
+
+  override suspend fun getTotalNandaList(): List<NandaEntity> = withContext(ioDispatcher){
+    return@withContext db.dataDao.getAll()
+  }
 }

@@ -71,7 +71,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="관련 블로그"
+            android:text="프로필"
             android:textAppearance="?attr/textAppearanceOverline" />
 
         <com.google.android.material.button.MaterialButton

@@ -60,12 +60,8 @@ class MenuBottomSheetDialogFragment : BottomSheetDialogFragment() {
       }
 
       moveProfile.setOnClickListener {
-        val auth = Firebase.auth
-        auth.currentUser ?: run {
-          toast("로그인을 해주세여")
-        }
         dismiss()
-        findNavController().navigate(R.id.profileFragment)
+        toast("버전 준비 중입니다.")
       }
     }
   }

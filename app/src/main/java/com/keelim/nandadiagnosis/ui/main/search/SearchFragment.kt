@@ -28,6 +28,7 @@ import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.selection.Selection
 import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
@@ -52,12 +53,27 @@ import timber.log.Timber
 @AndroidEntryPoint
 class SearchFragment : Fragment() {
   private var trackers: SelectionTracker<Long>? = null
+
   private var _binding: FragmentSearchBinding? = null
   private val binding get() = _binding!!
+
   private val scope = MainScope()
+
+  private val viewModel:SearchViewModel by viewModels()
+
   private lateinit var db: AppDatabaseV2
-  private lateinit var historyAdapter: HistoryAdapter
-  private lateinit var searchRecyclerViewAdapter2: SearchRecyclerViewAdapter2
+  private val historyAdapter = HistoryAdapter(
+    historyDeleteListener = {
+      deleteSearch(it)
+    },
+    textSelectListener = {},
+  )
+  private val searchRecyclerViewAdapter2 = SearchRecyclerViewAdapter2(
+    favoriteListener = { favorite, id ->
+      favoriteUpdate(favorite, id)
+    }
+  )
+
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
@@ -76,33 +92,33 @@ class SearchFragment : Fragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     setHasOptionsMenu(true)
+    initViews()
+    viewModel.fetchData()
+    observeData()
+  }
 
-    historyAdapter = HistoryAdapter(
-      historyDeleteListener = {
-        deleteSearch(it)
-      },
-      textSelectListener = {},
-    )
-    binding.historyRecycler.adapter = historyAdapter
-    searchRecyclerViewAdapter2 = SearchRecyclerViewAdapter2(
-      favoriteListener = { favorite, id ->
-        favoriteUpdate(favorite, id)
-      }
-    ).apply {
-      submitList(listOf())
+  private fun observeData() = viewModel.searchListState.observe(viewLifecycleOwner){
+    when(it){
+      is SearchListState.Error -> Timber.d("Errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr")
+      is SearchListState.Loading -> Timber.d("Loadinggggggggggggggggggggggggggggggggg")
+      is SearchListState.Searching -> Timber.d("Searchingggggggggggggggggggggggggggggggggggggg")
+      is SearchListState.Success -> Timber.d("Sucesssssssssssssssssssssssssssssssssssssssssssssss")
+      is SearchListState.UnInitialized -> toast("데이터 설정 중입니다.")
     }
-    binding.recyclerView.apply {
+  }
+
+  private fun initViews() = with(binding) {
+    historyRecycler.adapter = historyAdapter
+    recyclerView.apply {
       setHasFixedSize(true)
       addItemDecoration(RecyclerViewDecoration(0, 10))
       adapter = searchRecyclerViewAdapter2
     }
-
     initTracker()
     db = AppDatabaseV2.getInstance(requireContext())!!
   }
 
   override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-
     inflater.inflate(R.menu.search_menu, menu)
     val item = menu.findItem(R.id.menu_search)
 
@@ -125,7 +141,6 @@ class SearchFragment : Fragment() {
               hideHistoryView()
               if (items.isNotEmpty()) {
                 searchRecyclerViewAdapter2.submitList(items)
-                searchRecyclerViewAdapter2.notifyDataSetChanged()
                 Timber.d("Save the query")
               } else {
                 toast("검색되는 항목이 없습니다.")
@@ -154,18 +169,14 @@ class SearchFragment : Fragment() {
       .withSelectionPredicate(SelectionPredicates.createSelectAnything())
       .build()
 
-    (binding.recyclerView.adapter as (SearchRecyclerViewAdapter2)).apply {
-      tracker = trackers
-    }
-
+    searchRecyclerViewAdapter2.tracker = trackers
     binding.floating.setOnClickListener {
       multiSelection(trackers?.selection!!)
     }
   }
 
   private fun multiSelection(selection: Selection<Long>) {
-    val list2 =
-      selection.map { (binding.recyclerView.adapter as SearchRecyclerViewAdapter2).getItem(it.toInt()) }
+    val list2 = selection.map { searchRecyclerViewAdapter2.getItem(it.toInt()) }
     if (list2.isEmpty()) {
       Toast.makeText(requireActivity(), "데이터를 선택해주세요", Toast.LENGTH_SHORT).show()
     } else {
@@ -214,10 +225,8 @@ class SearchFragment : Fragment() {
         db.historyDao.getAll().reversed()
       }
       Timber.d("데이터베이스 $keywords")
-      CoroutineScope(Dispatchers.Main).launch {
-        binding.historyRecycler.isVisible = true
-        historyAdapter.submitList(keywords)
-      }
+      binding.historyRecycler.isVisible = true
+      historyAdapter.submitList(keywords)
     }
     binding.historyRecycler.isVisible = true
   }

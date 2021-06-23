@@ -17,6 +17,9 @@ package com.keelim.nandadiagnosis.di
 
 import android.content.Context
 import com.keelim.nandadiagnosis.data.db.AppDatabaseV2
+import com.keelim.nandadiagnosis.data.network.NandaService
+import com.keelim.nandadiagnosis.data.repository.RemoteDataSource
+import com.keelim.nandadiagnosis.data.repository.RemoteDataSourceImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,5 +37,11 @@ object DatabaseModule {
     @ApplicationContext context: Context,
   ): AppDatabaseV2 {
     return AppDatabaseV2.getInstance(context)!!
+  }
+
+  @Provides
+  @Singleton
+  fun provideRemoteDataSource(nandaService: NandaService): RemoteDataSource {
+    return RemoteDataSourceImpl(nandaService)
   }
 }

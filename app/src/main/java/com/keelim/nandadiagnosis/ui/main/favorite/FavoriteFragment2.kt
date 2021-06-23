@@ -29,6 +29,7 @@ internal class FavoriteFragment2 : BaseFragment<FavoriteViewModel, FragmentFavor
   private val favoriteAdapter by lazy { FavoriteAdapter() }
   override val viewModel: FavoriteViewModel by viewModels()
 
+
   override fun getViewBinding(): FragmentFavoriteBinding =
     FragmentFavoriteBinding.inflate(layoutInflater)
 

@@ -27,6 +27,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.keelim.common.toast
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.base.BaseFragment
@@ -37,9 +39,8 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-internal class ProfileFragment2 @Inject constructor(
-  private val auth: FirebaseAuth,
-) : BaseFragment<ProfileViewModel, FragmentProfileBinding>() {
+internal class ProfileFragment2: BaseFragment<ProfileViewModel, FragmentProfileBinding>() {
+
   override val viewModel: ProfileViewModel by viewModels()
 
   override fun getViewBinding(): FragmentProfileBinding =
@@ -53,6 +54,7 @@ internal class ProfileFragment2 @Inject constructor(
   }
   private val gsc by lazy { GoogleSignIn.getClient(requireActivity(), gso) }
   private val adapter = FavoriteAdapter()
+  private val auth by lazy { Firebase.auth}
 
   private val loginLauncher =
     registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -131,6 +133,7 @@ internal class ProfileFragment2 @Inject constructor(
   }
 
   private fun handleRegister(state: ProfileState.Success.Registered) = with(binding) {
+    Timber.w("값 $state")
     profileGroup.isVisible = true
     loginRequiredGroup.isGone = true
     imageView.load(state.profileImage.toString())
@@ -138,10 +141,8 @@ internal class ProfileFragment2 @Inject constructor(
 
     if (state.favoriteList.isEmpty()) {
       noText.isGone = false
-      profileRecycler.isGone = true
     } else {
       noText.isGone = true
-      profileRecycler.isGone = true
       adapter.submitList(state.favoriteList)
     }
   }

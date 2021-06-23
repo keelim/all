@@ -13,22 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.di
+package com.keelim.nandadiagnosis.usecase
 
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import com.keelim.nandadiagnosis.data.db.entity.NandaEntity
+import com.keelim.nandadiagnosis.data.repository.IORepository
+import javax.inject.Inject
 
-@Module
-@InstallIn(SingletonComponent::class)
-object FirebaseModule {
+class GetSearchListUseCase @Inject constructor(
+  private val ioRepository: IORepository,
+) {
 
-  @Provides
-  @Singleton
-  fun provideFirebaseAuth(): FirebaseAuth = Firebase.auth
+  suspend operator fun invoke(query:String?): List<NandaEntity> {
+    return ioRepository.getSearchList(query)
+  }
 }

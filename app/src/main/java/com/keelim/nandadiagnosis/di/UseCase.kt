@@ -21,6 +21,7 @@ import com.keelim.nandadiagnosis.usecase.GetAppThemeUseCase
 import com.keelim.nandadiagnosis.usecase.GetFavoriteListUseCase
 import com.keelim.nandadiagnosis.usecase.GetNandaListUseCase
 import com.keelim.nandadiagnosis.usecase.GetNandaUseCase
+import com.keelim.nandadiagnosis.usecase.GetSearchListUseCase
 import com.keelim.nandadiagnosis.usecase.SetAppThemeUseCase
 import dagger.Module
 import dagger.Provides
@@ -50,4 +51,8 @@ object UseCase {
   @Provides
   @ViewModelScoped
   fun provideGetFavoriteListUseCase(ioRepository: IORepository) = GetFavoriteListUseCase(ioRepository)
+
+  @Provides
+  @ViewModelScoped
+  fun provideGetSearchListUseCase(ioRepository: IORepository) = GetSearchListUseCase(ioRepository)
 }

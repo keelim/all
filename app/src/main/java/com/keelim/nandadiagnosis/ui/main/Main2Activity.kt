@@ -27,7 +27,8 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import com.facebook.CallbackManager
-import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.keelim.common.toast
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.ActivityMain2Binding
@@ -43,13 +44,13 @@ import java.io.File
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class Main2Activity @Inject constructor(
-  private val auth: FirebaseAuth,
-) : AppCompatActivity() {
+class Main2Activity() : AppCompatActivity() {
   private lateinit var downloadManager: DownloadManager
   private val binding: ActivityMain2Binding by lazy { ActivityMain2Binding.inflate(layoutInflater) }
   private val callbackManager by lazy { CallbackManager.Factory.create() }
   private val mainViewModel by viewModels<MainViewModel>()
+
+  private val auth by lazy { Firebase.auth }
 
   @Inject
   lateinit var recevier: DownloadReceiver

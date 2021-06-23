@@ -58,7 +58,7 @@
             android:theme="@android:style/Theme.Translucent" />
 
         <activity
-            android:name=".ui.SplashActivitySimple"
+            android:name=".ui.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.MaterialComponents.NoActionBar">
             <intent-filter>

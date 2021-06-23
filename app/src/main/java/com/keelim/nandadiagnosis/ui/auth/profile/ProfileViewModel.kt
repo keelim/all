@@ -28,6 +28,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -61,6 +62,7 @@ internal class ProfileViewModel @Inject constructor(
 
   fun setUser(user: FirebaseUser?) = viewModelScope.launch {
     user?.let { user ->
+      Timber.d("유저 값 $user")
       setState(
         ProfileState.Success.Registered(
           user.displayName ?: "익명",

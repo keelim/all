@@ -25,11 +25,11 @@ import com.keelim.nandadiagnosis.databinding.ItemFavoriteBinding
 
 class FavoriteAdapter : ListAdapter<NandaEntity, FavoriteAdapter.ViewHolder>(diffUtil) {
   inner class ViewHolder(val binding: ItemFavoriteBinding) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(item: NandaEntity) {
-      binding.diagnosisItem.text = item.diagnosis
-      binding.diagnosisDes.text = item.reason
-      binding.className.text = item.class_name
-      binding.domainName.text = item.domain_name
+    fun bind(item: NandaEntity) = with(binding){
+      diagnosisItem.text = item.diagnosis
+      diagnosisDes.text = item.reason
+      className.text = item.class_name
+      domainName.text = item.domain_name
     }
   }
 

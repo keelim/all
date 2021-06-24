@@ -56,22 +56,20 @@ class CategoryFragment : Fragment() {
     initData()
   }
 
-  private fun initView() {
-    with(binding) {
-      card1.setOnClickListener { goNext("1") }
-      card2.setOnClickListener { goNext("2") }
-      card3.setOnClickListener { goNext("3") }
-      card4.setOnClickListener { goNext("4") }
-      card5.setOnClickListener { goNext("5") }
-      card6.setOnClickListener { goNext("6") }
-      card7.setOnClickListener { goNext("7") }
-      card8.setOnClickListener { goNext("8") }
-      card9.setOnClickListener { goNext("9") }
-      card10.setOnClickListener { goNext("10") }
-      card11.setOnClickListener { goNext("11") }
-      card12.setOnClickListener { goNext("12") }
-      card13.setOnClickListener { goNext("13") }
-    }
+  private fun initView() = with(binding) {
+    card1.setOnClickListener { goNext("1") }
+    card2.setOnClickListener { goNext("2") }
+    card3.setOnClickListener { goNext("3") }
+    card4.setOnClickListener { goNext("4") }
+    card5.setOnClickListener { goNext("5") }
+    card6.setOnClickListener { goNext("6") }
+    card7.setOnClickListener { goNext("7") }
+    card8.setOnClickListener { goNext("8") }
+    card9.setOnClickListener { goNext("9") }
+    card10.setOnClickListener { goNext("10") }
+    card11.setOnClickListener { goNext("11") }
+    card12.setOnClickListener { goNext("12") }
+    card13.setOnClickListener { goNext("13") }
   }
 
   private fun initData() {
@@ -118,7 +116,7 @@ class CategoryFragment : Fragment() {
     }
   }
 
-  fun goNext(num: String) { // 데이터를 사용하는 페이지 이니 조심하라는 문구
+  private fun goNext(num: String) { // 데이터를 사용하는 페이지 이니 조심하라는 문구
     Snackbar.make(binding.root, "이 기능은 데이터를 사용할 수 있습니다.", Snackbar.LENGTH_LONG)
       .setAction("ok") {
         findNavController().navigate(

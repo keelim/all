@@ -25,7 +25,7 @@ import androidx.navigation.fragment.navArgs
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.data.entity.DiagnosisItem
 import com.keelim.nandadiagnosis.databinding.FragmentDiagnosisBinding
-import java.util.ArrayList
+import java.util.*
 
 class DiagnosisFragment : Fragment() {
   private var _binding: FragmentDiagnosisBinding? = null
@@ -33,6 +33,14 @@ class DiagnosisFragment : Fragment() {
   private val data: ArrayList<DiagnosisItem> by lazy { ArrayList() }
   private val args by navArgs<DiagnosisFragmentArgs>()
   private var nav: Int = 0
+  private val diagnosisAdapter = DiagnosisRecyclerViewAdapter(listener = { position ->
+    findNavController()
+      .navigate(
+        DiagnosisFragmentDirections
+          .actionDiagnosisFragmentToWebFragment("https://keelim.github.io/nandaDiagnosis/${nav + position + 1}.html")
+      )
+  }
+  )
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -52,21 +60,13 @@ class DiagnosisFragment : Fragment() {
     super.onViewCreated(view, savedInstanceState)
     initArray()
 
-    binding.list.adapter = DiagnosisRecyclerViewAdapter().apply {
+    binding.list.adapter = diagnosisAdapter.apply {
       submitList(data)
-      listener = object : DiagnosisRecyclerViewAdapter.OnSearchItemClickListener {
-        override fun onSearchItemClick(position: Int) {
-          goWeb(nav + position + 1)
-        }
-      }
     }
   }
 
-  private fun goWeb(total: Int) {
-    findNavController().navigate(DiagnosisFragmentDirections.actionDiagnosisFragmentToWebFragment("https://keelim.github.io/nandaDiagnosis/$total.html"))
-  }
-
   private fun initArray() {
+
     when (args.navigation) {
       "1" -> {
         nav = 0

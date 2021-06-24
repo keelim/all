@@ -36,7 +36,6 @@ import androidx.recyclerview.selection.StorageStrategy
 import com.keelim.common.toast
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.data.db.AppDatabaseV2
-import com.keelim.nandadiagnosis.data.db.entity.History
 import com.keelim.nandadiagnosis.databinding.FragmentSearchBinding
 import com.keelim.nandadiagnosis.ui.main.search.history.HistoryAdapter
 import com.keelim.nandadiagnosis.ui.main.search.selection.MyItemDetailsLookup
@@ -47,7 +46,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -190,16 +188,12 @@ class SearchFragment : Fragment() {
   }
 
   private fun saveSearchKeyword(keyword: String) {
-    scope.launch {
-      db.historyDao.insertHistory(History(null, keyword))
-    }
+    viewModel.saveHistory(keyword)
   }
 
   private fun deleteSearch(keyword: String) {
-    scope.launch {
-      db.historyDao.delete(keyword)
-      showHistoryView()
-    }
+    viewModel.deleteHistory(keyword)
+    showHistoryView()
   }
 
   private fun favoriteUpdate(favorite: Int, id: Int) {
@@ -214,9 +208,8 @@ class SearchFragment : Fragment() {
 
   private fun showHistoryView() {
     scope.launch {
-      val keywords = withContext(CoroutineScope(Dispatchers.IO).coroutineContext) {
-        db.historyDao.getAll().reversed()
-      }
+      viewModel.getAllHistories()
+      val keywords = viewModel.historyList.value
       Timber.d("데이터베이스 $keywords")
       binding.historyRecycler.isVisible = true
       historyAdapter.submitList(keywords)

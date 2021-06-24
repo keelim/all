@@ -4,6 +4,7 @@
     <color name="colorAccent">#ffdd4b</color>
     <color name="colorPrimaryDark">#c67c00</color>
     <color name="main_text_color">#121212</color>
+    <color name="black">#121212</color>
     <color name="error">#DAAF2D</color>
     <color name="main_bg_color">#ffffff</color>
     <color name="white">#ffffff</color>

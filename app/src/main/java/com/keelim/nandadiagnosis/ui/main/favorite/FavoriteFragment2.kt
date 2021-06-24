@@ -23,16 +23,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.keelim.common.toast
-import com.keelim.nandadiagnosis.base.BaseFragment
 import com.keelim.nandadiagnosis.databinding.FragmentFavoriteBinding
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
 class FavoriteFragment2 : Fragment() {
-  private val favoriteAdapter =  FavoriteAdapter()
+  private val favoriteAdapter = FavoriteAdapter()
   private val viewModel: FavoriteViewModel by viewModels()
-  private var _binding : FragmentFavoriteBinding? = null
+  private var _binding: FragmentFavoriteBinding? = null
   private val binding get() = _binding!!
 
   override fun onCreateView(

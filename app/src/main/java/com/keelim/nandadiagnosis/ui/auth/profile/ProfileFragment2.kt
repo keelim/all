@@ -25,7 +25,6 @@ import coil.load
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -36,10 +35,9 @@ import com.keelim.nandadiagnosis.databinding.FragmentProfileBinding
 import com.keelim.nandadiagnosis.ui.main.favorite.FavoriteAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
-import javax.inject.Inject
 
 @AndroidEntryPoint
-internal class ProfileFragment2: BaseFragment<ProfileViewModel, FragmentProfileBinding>() {
+internal class ProfileFragment2 : BaseFragment<ProfileViewModel, FragmentProfileBinding>() {
 
   override val viewModel: ProfileViewModel by viewModels()
 
@@ -54,7 +52,7 @@ internal class ProfileFragment2: BaseFragment<ProfileViewModel, FragmentProfileB
   }
   private val gsc by lazy { GoogleSignIn.getClient(requireActivity(), gso) }
   private val adapter = FavoriteAdapter()
-  private val auth by lazy { Firebase.auth}
+  private val auth by lazy { Firebase.auth }
 
   private val loginLauncher =
     registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->

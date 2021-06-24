@@ -26,7 +26,7 @@ class RecentAdapter(private val recents: List<Recent>) : RecyclerView.Adapter<Re
   inner class ViewHolder(val binding: ItemRecentBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(item: Recent) = with(binding){
+    fun bind(item: Recent) = with(binding) {
       itemCategory.text = item.category
       itemClass.text = item.class_name
       itemDomain.text = item.domain

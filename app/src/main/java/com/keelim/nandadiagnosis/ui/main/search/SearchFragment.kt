@@ -57,7 +57,7 @@ class SearchFragment : Fragment() {
 
   private val scope = MainScope()
 
-  private val viewModel:SearchViewModel by viewModels()
+  private val viewModel: SearchViewModel by viewModels()
 
   private lateinit var db: AppDatabaseV2
   private val historyAdapter = HistoryAdapter(
@@ -95,11 +95,11 @@ class SearchFragment : Fragment() {
     observeData()
   }
 
-  private fun observeData() = viewModel.searchListState.observe(viewLifecycleOwner){
-    when(it){
+  private fun observeData() = viewModel.searchListState.observe(viewLifecycleOwner) {
+    when (it) {
       is SearchListState.Error -> Timber.d("Errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr")
       is SearchListState.Loading -> Timber.d("Loadinggggggggggggggggggggggggggggggggg")
-      is SearchListState.Searching ->handleSuccess(it)
+      is SearchListState.Searching -> handleSuccess(it)
       is SearchListState.Success -> Timber.d("Successssssssssssssssssssssssssssssssssssssssssssss")
       is SearchListState.UnInitialized -> requireActivity().toast("데이터 설정 중입니다.")
     }
@@ -221,11 +221,11 @@ class SearchFragment : Fragment() {
     binding.historyRecycler.isVisible = false
   }
 
-  private fun handleSuccess(state: SearchListState.Searching){
+  private fun handleSuccess(state: SearchListState.Searching) {
     hideHistoryView()
-    if (state.searchList.isEmpty()){
+    if (state.searchList.isEmpty()) {
       Timber.d("결과 값이 비어 있습니다.")
-    } else{
+    } else {
       searchRecyclerViewAdapter2.submitList(state.searchList)
     }
   }

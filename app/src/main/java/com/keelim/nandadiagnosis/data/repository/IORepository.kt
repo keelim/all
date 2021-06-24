@@ -40,11 +40,11 @@ interface IORepository {
   // production =>
   suspend fun getFavoriteList(): List<NandaEntity>
 
-  suspend fun getSearchList(keyword:String?): List<NandaEntity>
+  suspend fun getSearchList(keyword: String?): List<NandaEntity>
 
   suspend fun getHistories(): List<History>
 
-  suspend fun saveHistory(keyword:String)
+  suspend fun saveHistory(keyword: String)
 
   suspend fun deleteHistory(keyword: String)
 }

@@ -23,7 +23,7 @@ class GetSearchListUseCase @Inject constructor(
   private val ioRepository: IORepository,
 ) {
 
-  suspend operator fun invoke(query:String?): List<NandaEntity> {
+  suspend operator fun invoke(query: String?): List<NandaEntity> {
     return ioRepository.getSearchList(query)
   }
 }

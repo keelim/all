@@ -39,8 +39,8 @@ class MainViewModel @Inject constructor(
   val theme: LiveData<Int> = getTheme.appTheme.asLiveData()
 
   fun setAppTheme(theme: Int) = viewModelScope.launch {
-      setTheme.invoke(theme)
-    }
+    setTheme.invoke(theme)
+  }
 
   fun downloadDatabase(filePath: String) {
     viewModelScope.launch {

@@ -15,8 +15,6 @@
  */
 package com.keelim.nandadiagnosis.usecase.history
 
-import com.keelim.nandadiagnosis.data.db.entity.History
-import com.keelim.nandadiagnosis.data.db.entity.NandaEntity
 import com.keelim.nandadiagnosis.data.repository.IORepository
 import javax.inject.Inject
 
@@ -24,7 +22,7 @@ class SaveHistoryUseCase @Inject constructor(
   private val ioRepository: IORepository,
 ) {
 
-  suspend operator fun invoke(keyword:String?) {
+  suspend operator fun invoke(keyword: String?) {
     ioRepository.saveHistory(keyword.orEmpty())
   }
 }

@@ -135,9 +135,11 @@ class SplashActivity : SimpleBaseActivity() {
             title("앱 권한")
             message("해당 앱의 원할한 기능을 이용하시려면 애플리케이션 정보>권한> 에서 모든 권한을 허용해 주십시오")
             positiveButton("권한설정") {
-              startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
-                data = Uri.parse("package:" + applicationContext.packageName)
-              })
+              startActivity(
+                Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+                  data = Uri.parse("package:" + applicationContext.packageName)
+                }
+              )
             }
             negativeButton(getString(R.string.cancel))
           }.show()

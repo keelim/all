@@ -25,7 +25,6 @@ import androidx.navigation.fragment.navArgs
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.data.entity.DiagnosisItem
 import com.keelim.nandadiagnosis.databinding.FragmentDiagnosisBinding
-import java.util.*
 
 class DiagnosisFragment : Fragment() {
   private var _binding: FragmentDiagnosisBinding? = null
@@ -33,13 +32,14 @@ class DiagnosisFragment : Fragment() {
   private val data: ArrayList<DiagnosisItem> by lazy { ArrayList() }
   private val args by navArgs<DiagnosisFragmentArgs>()
   private var nav: Int = 0
-  private val diagnosisAdapter = DiagnosisRecyclerViewAdapter(listener = { position ->
-    findNavController()
-      .navigate(
-        DiagnosisFragmentDirections
-          .actionDiagnosisFragmentToWebFragment("https://keelim.github.io/nandaDiagnosis/${nav + position + 1}.html")
-      )
-  }
+  private val diagnosisAdapter = DiagnosisRecyclerViewAdapter(
+    listener = { position ->
+      findNavController()
+        .navigate(
+          DiagnosisFragmentDirections
+            .actionDiagnosisFragmentToWebFragment("https://keelim.github.io/nandaDiagnosis/${nav + position + 1}.html")
+        )
+    }
   )
 
   override fun onCreateView(

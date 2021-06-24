@@ -29,7 +29,7 @@ class DiagnosisRecyclerViewAdapter(
 
   inner class ViewHolder(private val binding: ItemListviewBinding) :
     RecyclerView.ViewHolder(binding.root) {
-    fun bind(item: DiagnosisItem, position:Int)  = with(binding){
+    fun bind(item: DiagnosisItem, position: Int) = with(binding) {
       diagnosisItem.text = item.diagnosis
       diagnosisDes.text = item.diagnosis_description
 

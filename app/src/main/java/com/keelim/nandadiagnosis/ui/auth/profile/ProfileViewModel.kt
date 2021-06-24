@@ -78,7 +78,7 @@ internal class ProfileViewModel @Inject constructor(
   }
 
   fun signOut() = viewModelScope.launch {
-    withContext(dispatcher){
+    withContext(dispatcher) {
       preferenceManager.removedToken()
     }
     fetchData()

@@ -17,6 +17,7 @@ package com.keelim.nandadiagnosis.ui.main.favorite
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.keelim.nandadiagnosis.base.BaseViewModel
 import com.keelim.nandadiagnosis.usecase.GetFavoriteListUseCase
@@ -30,17 +31,17 @@ internal class FavoriteViewModel
 @Inject
 constructor(
   private val getFavoriteListUseCase: GetFavoriteListUseCase,
-) : BaseViewModel() {
-  private var _favoriteState = MutableLiveData<FavoriteListState>()
+) : ViewModel() {
+  private var _favoriteState = MutableLiveData<FavoriteListState>(FavoriteListState.UnInitialized)
   val favoriteState: LiveData<FavoriteListState> get() = _favoriteState
 
-  override fun fetchData(): Job = viewModelScope.launch {
+  fun fetchData(): Job = viewModelScope.launch {
     setState(
       FavoriteListState.Loading
     )
     setState(
       FavoriteListState.Success(
-        getFavoriteListUseCase()
+        getFavoriteListUseCase.invoke()
       )
     )
   }

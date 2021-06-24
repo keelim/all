@@ -15,7 +15,11 @@
  */
 package com.keelim.nandadiagnosis.ui.main.favorite
 
+import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.keelim.common.toast
@@ -25,15 +29,28 @@ import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
-internal class FavoriteFragment2 : BaseFragment<FavoriteViewModel, FragmentFavoriteBinding>() {
-  private val favoriteAdapter by lazy { FavoriteAdapter() }
-  override val viewModel: FavoriteViewModel by viewModels()
+class FavoriteFragment2 : Fragment() {
+  private val favoriteAdapter =  FavoriteAdapter()
+  private val viewModel: FavoriteViewModel by viewModels()
+  private var _binding : FragmentFavoriteBinding? = null
+  private val binding get() = _binding!!
 
+  override fun onCreateView(
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View {
+    _binding = FragmentFavoriteBinding.inflate(layoutInflater)
+    return binding.root
+  }
 
-  override fun getViewBinding(): FragmentFavoriteBinding =
-    FragmentFavoriteBinding.inflate(layoutInflater)
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+    viewModel.fetchData()
+    observeData()
+  }
 
-  override fun observeData() = viewModel.favoriteState.observe(this) {
+  private fun observeData() = viewModel.favoriteState.observe(viewLifecycleOwner) {
     Timber.d("viewmodel scope $it")
     when (it) {
       is FavoriteListState.UnInitialized -> {
@@ -52,21 +69,17 @@ internal class FavoriteFragment2 : BaseFragment<FavoriteViewModel, FragmentFavor
   }
 
   private fun handleError() {
-    toast("Error 로딩 화면에 에러가 표시 됩니다.")
+    requireActivity().toast("Error 로딩 화면에 에러가 표시 됩니다.")
   }
 
   private fun handleSuccess(state: FavoriteListState.Success) {
-    toast("$state")
+    requireActivity().toast("$state")
     Timber.d(" 데이터 화면 넘어가기 $state")
-
-    binding.favoriteRecycler.visibility = View.VISIBLE
-    favoriteAdapter.apply {
-      submitList(state.favoriteList)
-    }
+    favoriteAdapter.submitList(state.favoriteList)
   }
 
   private fun handleLoading() {
-    toast("현재 데이터를 불러오는 중입니다.")
+    requireActivity().toast("현재 데이터를 불러오는 중입니다.")
   }
 
   private fun initViews(binding: FragmentFavoriteBinding) = with(binding) {

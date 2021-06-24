@@ -23,31 +23,29 @@ import androidx.recyclerview.widget.RecyclerView
 import com.keelim.nandadiagnosis.data.entity.DiagnosisItem
 import com.keelim.nandadiagnosis.databinding.ItemListviewBinding
 
-class DiagnosisRecyclerViewAdapter : ListAdapter<DiagnosisItem, DiagnosisRecyclerViewAdapter.ViewHolder>(diffUtil) {
-  inner class ViewHolder(private val binding: ItemListviewBinding, listener: OnSearchItemClickListener?) :
+class DiagnosisRecyclerViewAdapter(
+  var listener: (Int) -> Unit,
+) : ListAdapter<DiagnosisItem, DiagnosisRecyclerViewAdapter.ViewHolder>(diffUtil) {
+
+  inner class ViewHolder(private val binding: ItemListviewBinding) :
     RecyclerView.ViewHolder(binding.root) {
-    fun bind(item: DiagnosisItem) {
-      binding.diagnosisItem.text = item.diagnosis
-      binding.diagnosisDes.text = item.diagnosis_description
-      binding.root.setOnClickListener {
-        listener?.onSearchItemClick(absoluteAdapterPosition)
+    fun bind(item: DiagnosisItem, position:Int)  = with(binding){
+      diagnosisItem.text = item.diagnosis
+      diagnosisDes.text = item.diagnosis_description
+
+      root.setOnClickListener {
+        listener.invoke(position)
       }
     }
   }
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-    return ViewHolder(ItemListviewBinding.inflate(LayoutInflater.from(parent.context), parent, false), listener)
+    return ViewHolder(ItemListviewBinding.inflate(LayoutInflater.from(parent.context), parent, false))
   }
 
   override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-    holder.bind(currentList[position])
+    holder.bind(currentList[position], position)
   }
-
-  interface OnSearchItemClickListener {
-    fun onSearchItemClick(position: Int)
-  }
-
-  var listener: OnSearchItemClickListener? = null
 
   companion object {
     val diffUtil = object : DiffUtil.ItemCallback<DiagnosisItem>() {

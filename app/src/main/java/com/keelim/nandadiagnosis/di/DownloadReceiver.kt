@@ -47,7 +47,10 @@ class DownloadReceiver @Inject constructor(
           DownloadManager.STATUS_FAILED ->
             context.toast("다운로드가 실패되었습니다")
 
-          else -> {}
+          DownloadManager.STATUS_PAUSED ->
+            context.toast("다운로드가 중지되었습니다.")
+
+          else -> Unit
         }
       }
     }

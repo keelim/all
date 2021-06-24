@@ -53,7 +53,7 @@ object LifeCycle {
 }
 
 object Hilt {
-    const val version = "2.36"
+    const val version = "2.37"
     const val android = "com.google.dagger:hilt-android:${version}"
     const val hilt_compiler = "com.google.dagger:hilt-android-compiler:${version}"
     const val hilt_common = "androidx.hilt:hilt-common:$version"
@@ -72,17 +72,15 @@ object AndroidX {
     const val activity = "androidx.activity:activity:$activityVersion"
     const val activity_ktx = "androidx.activity:activity-ktx:$activityVersion"
 
+    private const val fragmentVersion = "1.2.3"
+    const val fragment = "androidx.fragment:fragment:$fragmentVersion"
+    const val fragment_ktx = "androidx.fragment:fragment-ktx:$fragmentVersion"
+
     const val appcompat = "androidx.appcompat:appcompat:1.3.0-rc01"
     const val core_ktx = "androidx.core:core-ktx:1.6.0-alpha03"
 
     const val navigation_fragment = "androidx.navigation:navigation-fragment-ktx:2.3.5"
     const val navigation_ui = "androidx.navigation:navigation-ui-ktx:2.3.5"
-
-    object fragment {
-        private const val fragmentVersion = "1.3.0-beta01"
-        const val fragment = "androidx.fragment:fragment:$fragmentVersion"
-        const val ktx = "androidx.fragment:fragment-ktx:$fragmentVersion"
-    }
 }
 
 object UI {

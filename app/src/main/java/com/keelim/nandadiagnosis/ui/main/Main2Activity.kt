@@ -16,20 +16,15 @@
 package com.keelim.nandadiagnosis.ui.main
 
 import android.app.DownloadManager
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NotificationCompat
 import androidx.navigation.findNavController
 import com.facebook.CallbackManager
 import com.google.firebase.auth.ktx.auth
@@ -49,11 +44,12 @@ import java.io.File
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class Main2Activity : AppCompatActivity() {
+class Main2Activity() : AppCompatActivity() {
   private lateinit var downloadManager: DownloadManager
   private val binding: ActivityMain2Binding by lazy { ActivityMain2Binding.inflate(layoutInflater) }
-  private val mainViewModel by viewModels<MainViewModel>()
   private val callbackManager by lazy { CallbackManager.Factory.create() }
+  private val mainViewModel by viewModels<MainViewModel>()
+
   private val auth by lazy { Firebase.auth }
 
   @Inject
@@ -62,18 +58,12 @@ class Main2Activity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(binding.root)
-
+    startService(Intent(this, TerminateService::class.java))
     initNavigation()
     initBottomAppBar()
 
-    binding.searchButton.setOnClickListener {
-      navController().navigate(R.id.navigation_search)
-    }
-
     fileChecking()
-    createNotification()
     startService(Intent(this, TerminateService::class.java))
-
     loginCheck()
   }
 
@@ -85,6 +75,7 @@ class Main2Activity : AppCompatActivity() {
 
   override fun onDestroy() {
     super.onDestroy()
+    stopService(Intent(this, TerminateService::class.java))
     unregisterReceiver(recevier)
   }
 
@@ -108,12 +99,16 @@ class Main2Activity : AppCompatActivity() {
     }
   }
 
-  private fun initBottomAppBar() {
-    binding.bottomAppBar.setNavigationOnClickListener {
+  private fun initBottomAppBar() = with(binding) {
+    searchButton.setOnClickListener {
+      navController().navigate(R.id.navigation_search)
+    }
+
+    bottomAppBar.setNavigationOnClickListener {
       showMenu()
     }
 
-    binding.bottomAppBar.setOnMenuItemClickListener {
+    bottomAppBar.setOnMenuItemClickListener {
       when (it.itemId) {
         R.id.more -> {
           showMoreOptions()
@@ -128,8 +123,11 @@ class Main2Activity : AppCompatActivity() {
 
   private fun fileChecking() {
     val check = File(getExternalFilesDir(null), "nanda.db")
-    if (!check.exists()) databaseDownloadAlertDialog()
-    else Toast.makeText(this, "데이터베이스가 존재합니다. 그대로 진행 합니다", Toast.LENGTH_SHORT).show()
+
+    if (!check.exists())
+      databaseDownloadAlertDialog()
+    else
+      Toast.makeText(this, "데이터베이스가 존재합니다. 그대로 진행 합니다", Toast.LENGTH_SHORT).show()
   }
 
   private fun databaseDownloadAlertDialog() {
@@ -163,34 +161,8 @@ class Main2Activity : AppCompatActivity() {
     )
   }
 
-  private fun createNotification() {
-    val intent = Intent(this, Main2Activity::class.java)
-    val pIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-    val channelId = getString(R.string.my_notification_channel_id)
-
-    val notificationBuilder = NotificationCompat.Builder(this, channelId)
-      .setContentTitle("난다 진단")
-      .setContentText("앱 실행 중")
-      .setContentIntent(pIntent)
-      .setPriority(NotificationCompat.PRIORITY_HIGH)
-      .setSmallIcon(R.mipmap.ic_launcher)
-
-    getSystemService(NotificationManager::class.java).run {
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        val channel =
-          NotificationChannel(channelId, "알림", NotificationManager.IMPORTANCE_HIGH)
-        createNotificationChannel(channel)
-      }
-      notify(0, notificationBuilder.build())
-    }
-  }
-
   private fun loginCheck() {
-    auth.currentUser ?: Toast.makeText(
-      this,
-      "Login 을 하시면 더 많은 서비스를 확인할 수 있습니다. ",
-      Toast.LENGTH_SHORT
-    ).show()
+    auth.currentUser ?: toast("Login 을 하시면 더 많은 서비스를 확인할 수 있습니다. ")
     if (auth.currentUser == null) {
       Toast.makeText(this, "Login 을 하시면 더 많은 서비스를 확인할 수 있습니다. ", Toast.LENGTH_SHORT).show()
     }

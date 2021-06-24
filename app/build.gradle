@@ -74,12 +74,13 @@ dependencies {
     implementation "com.google.firebase:firebase-messaging-ktx"
     implementation "com.google.firebase:firebase-analytics-ktx"
     implementation 'com.google.firebase:firebase-inappmessaging-display-ktx'
+    implementation 'com.google.firebase:firebase-config-ktx'
 
     implementation 'com.google.ads.mediation:facebook:6.5.0.0'
 
     implementation AndroidX.activity_ktx
+    implementation AndroidX.fragment_ktx
     implementation AndroidX.core_ktx
-    implementation AndroidX.appcompat
     implementation AndroidX.navigation_ui
     implementation AndroidX.navigation_fragment
 
@@ -102,6 +103,7 @@ dependencies {
 
     implementation Hilt.android
     kapt Hilt.hilt_compiler
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
 
     testImplementation AppTest.junit
     androidTestImplementation AppTest.androidJunit
@@ -123,5 +125,6 @@ dependencies {
 
     implementation 'com.facebook.android:facebook-login:8.2.0'
     implementation 'com.github.yuyakaido:cardstackview:2.3.4'
+
 }
 apply from: "$rootDir/spotless.gradle"

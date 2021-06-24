@@ -15,6 +15,7 @@
  */
 package com.keelim.nandadiagnosis.data.repository
 
+import com.keelim.nandadiagnosis.data.db.entity.History
 import com.keelim.nandadiagnosis.data.db.entity.NandaEntity
 import com.keelim.nandadiagnosis.data.db.entity.NandaEntity2
 
@@ -40,4 +41,10 @@ interface IORepository {
   suspend fun getFavoriteList(): List<NandaEntity>
 
   suspend fun getSearchList(keyword:String?): List<NandaEntity>
+
+  suspend fun getHistories(): List<History>
+
+  suspend fun saveHistory(keyword:String)
+
+  suspend fun deleteHistory(keyword: String)
 }

@@ -51,13 +51,11 @@ class FirebaseMessagingService : FirebaseMessagingService() {
       remoteMessage.notification?.let { showNotification(it) }
     }
 
-    // //
-
     val title = remoteMessage.data["title"]
     val message = remoteMessage.data["message"]
-    val type = remoteMessage.data["type"]?.let { NotificationType.valueOf(it) }
-
-    type ?: return
+    val type = remoteMessage.data["type"]?.let {
+      NotificationType.valueOf(it)
+    } ?: return
 
     createNotificationChannel()
 
@@ -101,12 +99,14 @@ class FirebaseMessagingService : FirebaseMessagingService() {
 
     when (type) {
       NotificationType.NORMAL -> Unit
+
       NotificationType.EXPANDABLE -> {
         notificationBuilder.setStyle(
           NotificationCompat.BigTextStyle()
             .bigText("난다진단이 실행 중 입니다.")
         )
       }
+
       NotificationType.CUSTOM -> {
         notificationBuilder
           .setStyle(NotificationCompat.DecoratedCustomViewStyle())

@@ -73,10 +73,6 @@
         tools:layout="@layout/fragment_login" />
 
     <fragment
-        android:id="@+id/favoriteFragment"
-        android:name="com.keelim.nandadiagnosis.ui.main.favorite.FavoriteFragment"
-        android:label="FavoriteFragment" />
-    <fragment
         android:id="@+id/profileFragment"
         android:name="com.keelim.nandadiagnosis.ui.auth.profile.ProfileFragment"
         android:label="ProfileFragment" />

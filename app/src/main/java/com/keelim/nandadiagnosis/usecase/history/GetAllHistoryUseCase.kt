@@ -13,6 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.ui.reference_search
+package com.keelim.nandadiagnosis.usecase.history
 
-class HistoryAdapter
+import com.keelim.nandadiagnosis.data.db.entity.History
+import com.keelim.nandadiagnosis.data.db.entity.NandaEntity
+import com.keelim.nandadiagnosis.data.repository.IORepository
+import javax.inject.Inject
+
+class GetAllHistoryUseCase @Inject constructor(
+  private val ioRepository: IORepository,
+) {
+
+  suspend operator fun invoke(): List<History> {
+    return ioRepository.getHistories()
+  }
+}

@@ -81,8 +81,6 @@
                 android:resource="@xml/searchable" />
         </activity>
 
-        <activity android:name="com.keelim.nandaDiagnosis.feature.error.ErrorActivity"/>
-
         <service
             android:name=".service.TerminateService"
             android:exported="false"

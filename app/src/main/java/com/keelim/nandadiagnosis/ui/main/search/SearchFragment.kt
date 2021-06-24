@@ -101,9 +101,9 @@ class SearchFragment : Fragment() {
     when(it){
       is SearchListState.Error -> Timber.d("Errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr")
       is SearchListState.Loading -> Timber.d("Loadinggggggggggggggggggggggggggggggggg")
-      is SearchListState.Searching -> Timber.d("Searchingggggggggggggggggggggggggggggggggggggg")
-      is SearchListState.Success -> Timber.d("Sucesssssssssssssssssssssssssssssssssssssssssssssss")
-      is SearchListState.UnInitialized -> toast("데이터 설정 중입니다.")
+      is SearchListState.Searching ->handleSuccess(it)
+      is SearchListState.Success -> Timber.d("Successssssssssssssssssssssssssssssssssssssssssssss")
+      is SearchListState.UnInitialized -> requireActivity().toast("데이터 설정 중입니다.")
     }
   }
 
@@ -134,19 +134,7 @@ class SearchFragment : Fragment() {
       setOnQueryTextListener(object : SearchView.OnQueryTextListener {
         override fun onQueryTextSubmit(query: String): Boolean {
           saveSearchKeyword(query)
-
-          scope.launch {
-            val items = db.dataDao.search(query.replace("\\s", ""))
-            CoroutineScope(Dispatchers.Main).launch {
-              hideHistoryView()
-              if (items.isNotEmpty()) {
-                searchRecyclerViewAdapter2.submitList(items)
-                Timber.d("Save the query")
-              } else {
-                toast("검색되는 항목이 없습니다.")
-              }
-            }
-          }
+          viewModel.search(query.replace("\\s", ""))
           return true
         }
         override fun onQueryTextChange(newText: String): Boolean {
@@ -176,11 +164,16 @@ class SearchFragment : Fragment() {
   }
 
   private fun multiSelection(selection: Selection<Long>) {
-    val list2 = selection.map { searchRecyclerViewAdapter2.getItem(it.toInt()) }
+    val list2 = selection
+      .map { searchRecyclerViewAdapter2.getItem(it.toInt()) }
+
     if (list2.isEmpty()) {
       Toast.makeText(requireActivity(), "데이터를 선택해주세요", Toast.LENGTH_SHORT).show()
     } else {
-      shareInformation(list2.fold("") { acc, entity -> acc + entity.toString() })
+      shareInformation(
+        list2
+          .fold("") { acc, entity -> acc + entity.toString() }
+      )
     }
   }
 
@@ -233,5 +226,14 @@ class SearchFragment : Fragment() {
 
   private fun hideHistoryView() {
     binding.historyRecycler.isVisible = false
+  }
+
+  private fun handleSuccess(state: SearchListState.Searching){
+    hideHistoryView()
+    if (state.searchList.isEmpty()){
+      Timber.d("결과 값이 비어 있습니다.")
+    } else{
+      searchRecyclerViewAdapter2.submitList(state.searchList)
+    }
   }
 }

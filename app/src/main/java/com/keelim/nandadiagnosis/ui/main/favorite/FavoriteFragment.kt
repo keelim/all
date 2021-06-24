@@ -80,7 +80,6 @@ class FavoriteFragment : Fragment() {
           binding.favoriteRecycler.visibility = View.GONE
         } else {
           adapter.submitList(items)
-          adapter.notifyDataSetChanged()
         }
       }
     }

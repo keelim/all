@@ -11,7 +11,6 @@ rootProject.name = 'nandaDiagnosis'
 include(
         ":app",
         ":data:db",
-        ":feature:error",
         ":feature:reference_search",
         ":common",
 )

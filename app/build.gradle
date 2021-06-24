@@ -63,7 +63,6 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':common')
     implementation project(':data:db')
-    implementation project(':feature:error')
     implementation project(":feature:reference_search")
 
     implementation platform('com.google.firebase:firebase-bom:28.0.1')

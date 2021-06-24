@@ -54,8 +54,7 @@ class MyApplication : Application() {
         themeRepository.getUserTheme().firstOrNull() ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
       )
     }
-
-    setCrashHandler()
+//    setCrashHandler()
   }
   private fun setCrashHandler() {
     val defaultExceptionHandler = Thread.getDefaultUncaughtExceptionHandler()

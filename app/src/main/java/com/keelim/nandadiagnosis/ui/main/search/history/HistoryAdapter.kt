@@ -20,7 +20,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.keelim.nandadiagnosis.data.db.history.History
+import com.keelim.nandadiagnosis.data.db.entity.History
 import com.keelim.nandadiagnosis.databinding.ItemHistoryBinding
 
 class HistoryAdapter(
@@ -32,12 +32,13 @@ class HistoryAdapter(
   inner class ViewHolder(private val binding: ItemHistoryBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(item: History) {
-      binding.historyKeywordTv.text = item.keyword
-      binding.historyDeleteButton.setOnClickListener {
+    fun bind(item: History) = with(binding){
+      historyKeywordTv.text = item.keyword
+      historyDeleteButton.setOnClickListener {
         historyDeleteListener(item.keyword.orEmpty())
       }
-      binding.historyKeywordTv.setOnClickListener {
+
+      historyKeywordTv.setOnClickListener {
         textSelectListener(item.keyword.orEmpty())
       }
     }

@@ -19,7 +19,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.keelim.nandadiagnosis.service.NandaService
+import com.keelim.nandadiagnosis.data.network.NandaService
 import com.keelim.nandadiagnosis.usecase.GetAppThemeUseCase
 import com.keelim.nandadiagnosis.usecase.SetAppThemeUseCase
 import com.squareup.okhttp.ResponseBody
@@ -38,11 +38,9 @@ class MainViewModel @Inject constructor(
 ) : ViewModel() {
   val theme: LiveData<Int> = getTheme.appTheme.asLiveData()
 
-  fun setAppTheme(theme: Int) {
-    viewModelScope.launch {
+  fun setAppTheme(theme: Int) = viewModelScope.launch {
       setTheme.invoke(theme)
     }
-  }
 
   fun downloadDatabase(filePath: String) {
     viewModelScope.launch {

@@ -7,6 +7,45 @@
     android:paddingTop="16dp">
 
     <LinearLayout
+        android:id="@+id/login"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/menu_row_height"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/login_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:src="@drawable/ic_baseline_home_24" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="?attr/textAppearanceCaption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="login"
+                android:textColor="?attr/colorOnSurface" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/login_description"
+                style="?attr/textAppearanceCaption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/material_on_surface_emphasis_medium" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
         android:id="@+id/blog"
         android:layout_width="match_parent"
         android:layout_height="@dimen/menu_row_height"

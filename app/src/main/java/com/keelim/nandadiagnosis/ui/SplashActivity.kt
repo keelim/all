@@ -30,7 +30,7 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.keelim.common.snack
 import com.keelim.nandadiagnosis.BuildConfig
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.base.BaseActivity
+import com.keelim.nandadiagnosis.base.SimpleBaseActivity
 import com.keelim.nandadiagnosis.databinding.ActivitySplashBinding
 import com.keelim.nandadiagnosis.ui.main.Main2Activity
 import com.keelim.nandadiagnosis.utils.MaterialDialog
@@ -38,13 +38,15 @@ import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.message
 import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.negativeButton
 import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.positiveButton
 import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.title
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class SplashActivity : BaseActivity() {
+@AndroidEntryPoint
+class SplashActivity : SimpleBaseActivity() {
   private var mInterstitialAd: InterstitialAd? = null
   private val binding: ActivitySplashBinding by binding(R.layout.activity_splash)
   private val test = "ca-app-pub-3940256099942544/1033173712"
@@ -84,17 +86,18 @@ class SplashActivity : BaseActivity() {
         override fun onAdFailedToLoad(adError: LoadAdError) {
           Timber.d(adError.message)
           mInterstitialAd = null
+          goNext()
         }
 
         override fun onAdLoaded(interstitialAd: InterstitialAd) {
           Timber.d("Ad was loaded.")
           mInterstitialAd = interstitialAd
-
-          if (mInterstitialAd != null) {
-            mInterstitialAd!!.show(this@SplashActivity)
-          } else {
+          mInterstitialAd ?: kotlin.run {
             Timber.d("The interstitial ad wasn't ready yet.")
+            goNext()
           }
+          mInterstitialAd!!.show(this@SplashActivity)
+          goNext()
         }
       }
     )
@@ -132,10 +135,9 @@ class SplashActivity : BaseActivity() {
             title("앱 권한")
             message("해당 앱의 원할한 기능을 이용하시려면 애플리케이션 정보>권한> 에서 모든 권한을 허용해 주십시오")
             positiveButton("권한설정") {
-              Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+              startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
                 data = Uri.parse("package:" + applicationContext.packageName)
-                startActivity(this)
-              }
+              })
             }
             negativeButton(getString(R.string.cancel))
           }.show()

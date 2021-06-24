@@ -15,22 +15,44 @@
  */
 package com.keelim.nandadiagnosis.di
 
-import com.keelim.nandadiagnosis.data.remote.RemoteDataSource
+import com.keelim.nandadiagnosis.data.db.AppDatabaseV2
+import com.keelim.nandadiagnosis.data.network.NandaService
+import com.keelim.nandadiagnosis.data.repository.IORepository
+import com.keelim.nandadiagnosis.data.repository.IORepositoryImpl
+import com.keelim.nandadiagnosis.data.repository.RemoteDataSource
 import com.keelim.nandadiagnosis.data.repository.Repository
 import com.keelim.nandadiagnosis.data.repository.RepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityRetainedComponent
 import dagger.hilt.android.scopes.ActivityRetainedScoped
+import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineDispatcher
+import javax.inject.Singleton
 
 @Module
-@InstallIn(ActivityRetainedComponent::class)
+@InstallIn(SingletonComponent::class)
 object RepositoryModule {
 
   @Provides
   @ActivityRetainedScoped
   fun providerRepository(remoteDataSource: RemoteDataSource): Repository {
     return RepositoryImpl(remoteDataSource)
+  }
+
+  @Provides
+  @Singleton
+  fun providerIORepository(
+    nandaService: NandaService,
+    @IoDispatcher ioDispatcher: CoroutineDispatcher,
+    @DefaultDispatcher defaultDispatcher: CoroutineDispatcher,
+    db: AppDatabaseV2,
+  ): IORepository {
+    return IORepositoryImpl(
+      nandaService = nandaService,
+      ioDispatcher = ioDispatcher,
+      defaultDispatcher = defaultDispatcher,
+      db = db,
+    )
   }
 }

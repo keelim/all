@@ -15,12 +15,34 @@
  */
 package com.keelim.nandadiagnosis.base
 
-import androidx.annotation.LayoutRes
+import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
+import androidx.viewbinding.ViewBinding
+import kotlinx.coroutines.Job
 
-open class BaseActivity : AppCompatActivity() {
-  protected inline fun <reified T : ViewDataBinding> binding(@LayoutRes resId: Int): Lazy<T> =
-    lazy { DataBindingUtil.setContentView<T>(this, resId) }
+internal abstract class BaseActivity<VM : BaseViewModel, VB : ViewBinding> : AppCompatActivity() {
+  abstract val viewModel: VM
+  protected lateinit var binding: VB
+
+  abstract fun getViewBinding(): VB
+
+  private lateinit var fetchJob: Job
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    binding = getViewBinding()
+    setContentView(binding.root)
+
+    fetchJob = viewModel.fetchData()
+    observeData()
+  }
+
+  abstract fun observeData()
+
+  override fun onDestroy() {
+    if (fetchJob.isActive) {
+      fetchJob.cancel()
+    }
+    super.onDestroy()
+  }
 }

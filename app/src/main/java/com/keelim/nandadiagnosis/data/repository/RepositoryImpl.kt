@@ -15,14 +15,13 @@
  */
 package com.keelim.nandadiagnosis.data.repository
 
-import com.keelim.nandadiagnosis.data.db.NandaEntity
-import com.keelim.nandadiagnosis.data.remote.RemoteDataSource
+import com.keelim.nandadiagnosis.data.db.entity.NandaEntity2
 import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(
   private val remoteDataSource: RemoteDataSource
 ) : Repository {
-  override suspend fun getNandaInformation(type: String): List<NandaEntity> {
+  override suspend fun getNandaInformation(type: String): List<NandaEntity2> {
     return remoteDataSource.getNandaInformation(type)
   }
 }

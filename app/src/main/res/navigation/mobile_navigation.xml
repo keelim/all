@@ -59,7 +59,7 @@
     </fragment>
     <fragment
         android:id="@+id/webFragment"
-        android:name="com.keelim.nandadiagnosis.ui.WebFragment"
+        android:name="com.keelim.nandadiagnosis.ui.main.inappweb.WebFragment"
         android:label="WebFragment">
         <argument
             android:name="url"

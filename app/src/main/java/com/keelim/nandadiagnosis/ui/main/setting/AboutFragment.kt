@@ -25,7 +25,7 @@ import androidx.navigation.fragment.findNavController
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.FragmentAboutBinding
 
-class FragmentAbout : Fragment() {
+class AboutFragment : Fragment() {
   private var _binding: FragmentAboutBinding? = null
   private val binding get() = _binding!!
 
@@ -45,29 +45,32 @@ class FragmentAbout : Fragment() {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    initViews()
+  }
+
+  private fun initViews() = with(binding) {
     activity?.packageName?.let {
       val packageInfo = context?.packageManager?.getPackageInfo(it, 0)
       val versionName = packageInfo?.versionName
-      binding.versionNumberTextView.text = versionName
+      versionNumberTextView.text = versionName
       if (versionName?.contains(getString(R.string.beta)) == true) {
-        binding.releaseChannelTextView.visibility = View.VISIBLE
-        binding.releaseChannelTextView.text = getString(R.string.beta)
+        releaseChannelTextView.visibility = View.VISIBLE
+        releaseChannelTextView.text = getString(R.string.beta)
       }
       if (versionName?.contains(getString(R.string.alpha)) == true) {
-        binding.releaseChannelTextView.visibility = View.VISIBLE
-        binding.releaseChannelTextView.text = getString(R.string.alpha)
+        releaseChannelTextView.visibility = View.VISIBLE
+        releaseChannelTextView.text = getString(R.string.alpha)
       }
     }
-    binding.github.setOnClickListener {
-
+    github.setOnClickListener {
       Intent(Intent.ACTION_VIEW).apply {
         findNavController().navigate(
-          FragmentAboutDirections.actionAboutFragmentToWebFragment(getString(R.string.github))
+          AboutFragmentDirections.actionAboutFragmentToWebFragment(getString(R.string.github))
         )
       }
     }
 
-    binding.openSourceLicensesCard.setOnClickListener {
+    openSourceLicensesCard.setOnClickListener {
       findNavController().navigate(R.id.openSource)
     }
   }

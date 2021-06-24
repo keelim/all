@@ -40,6 +40,4 @@ interface IORepository {
   suspend fun getFavoriteList(): List<NandaEntity>
 
   suspend fun getSearchList(keyword:String?): List<NandaEntity>
-
-  suspend fun getTotalNandaList(): List<NandaEntity>
 }

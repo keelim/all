@@ -86,17 +86,18 @@ class SplashActivity : SimpleBaseActivity() {
         override fun onAdFailedToLoad(adError: LoadAdError) {
           Timber.d(adError.message)
           mInterstitialAd = null
+          goNext()
         }
 
         override fun onAdLoaded(interstitialAd: InterstitialAd) {
           Timber.d("Ad was loaded.")
           mInterstitialAd = interstitialAd
-
-          if (mInterstitialAd != null) {
-            mInterstitialAd!!.show(this@SplashActivity)
-          } else {
+          mInterstitialAd ?: kotlin.run {
             Timber.d("The interstitial ad wasn't ready yet.")
+            goNext()
           }
+          mInterstitialAd!!.show(this@SplashActivity)
+          goNext()
         }
       }
     )
@@ -134,10 +135,9 @@ class SplashActivity : SimpleBaseActivity() {
             title("앱 권한")
             message("해당 앱의 원할한 기능을 이용하시려면 애플리케이션 정보>권한> 에서 모든 권한을 허용해 주십시오")
             positiveButton("권한설정") {
-              Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+              startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
                 data = Uri.parse("package:" + applicationContext.packageName)
-                startActivity(this)
-              }
+              })
             }
             negativeButton(getString(R.string.cancel))
           }.show()

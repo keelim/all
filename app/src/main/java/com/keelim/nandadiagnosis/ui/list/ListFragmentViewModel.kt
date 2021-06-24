@@ -40,7 +40,7 @@ constructor(
     )
     setState(
       NandaListState.Success(
-        getNandaListUseCase()
+        getNandaListUseCase.invoke()
       )
     )
   }

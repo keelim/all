@@ -32,12 +32,13 @@ class HistoryAdapter(
   inner class ViewHolder(private val binding: ItemHistoryBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(item: History) {
-      binding.historyKeywordTv.text = item.keyword
-      binding.historyDeleteButton.setOnClickListener {
+    fun bind(item: History) = with(binding){
+      historyKeywordTv.text = item.keyword
+      historyDeleteButton.setOnClickListener {
         historyDeleteListener(item.keyword.orEmpty())
       }
-      binding.historyKeywordTv.setOnClickListener {
+
+      historyKeywordTv.setOnClickListener {
         textSelectListener(item.keyword.orEmpty())
       }
     }

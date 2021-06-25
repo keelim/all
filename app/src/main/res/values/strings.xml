@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Comssa</string>
+    <string name="app_label">Comssa</string>
+    <string name="search_hint">검색어를 입력해주세요</string>
+    <string name="db_path">https://github.com/keelim/Keelim.github.io/raw/master/assets/comssa.db</string>
+</resources>

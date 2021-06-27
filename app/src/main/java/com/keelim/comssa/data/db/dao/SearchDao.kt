@@ -12,4 +12,7 @@ interface SearchDao {
 
     @Query("UPDATE Search SET favorite=:favorite WHERE id = :id")
     fun favoriteUpdate(favorite:Int, id:Int)
+
+    @Query("SELECT * FROM Search WHERE favorite == 1")
+    fun getFavorite(): List<Search>
 }

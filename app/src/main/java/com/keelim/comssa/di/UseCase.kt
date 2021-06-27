@@ -1,6 +1,7 @@
 package com.keelim.comssa.di
 
 import com.keelim.comssa.data.repository.IoRepository
+import com.keelim.comssa.usecase.GetFavoriteUseCase
 import com.keelim.comssa.usecase.SearchUseCase
 import com.keelim.comssa.usecase.UpdateFavoriteUseCase
 import dagger.Module
@@ -28,6 +29,16 @@ object UseCase {
         ioRepository: IoRepository,
     ): UpdateFavoriteUseCase {
         return UpdateFavoriteUseCase(
+            ioRepository = ioRepository
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun getFavorite(
+        ioRepository: IoRepository,
+    ): GetFavoriteUseCase{
+        return GetFavoriteUseCase(
             ioRepository = ioRepository
         )
     }

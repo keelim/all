@@ -11,11 +11,13 @@ import android.provider.SearchRecentSuggestions
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.keelim.comssa.R
 import com.keelim.comssa.data.db.entity.Search
 import com.keelim.comssa.databinding.ActivityMainBinding
 import com.keelim.comssa.extensions.toast
 import com.keelim.comssa.provides.SuggestionProvider
+import com.keelim.comssa.ui.main.bottom_sheet.BottomSheetDialog
 import com.keelim.comssa.utils.DownloadReceiver
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
@@ -23,12 +25,13 @@ import javax.inject.Inject
 import timber.log.Timber
 
 @AndroidEntryPoint
-class MainActivity() : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val viewModel:MainViewModel by viewModels()
     private val itemAdapter = MainAdapter(
         favoriteListener = { favorite, id ->
             viewModel.favorite(favorite, id)
+            toast("관심 목록에 등록을 하였습니다.")
         }
     )
 
@@ -57,6 +60,11 @@ class MainActivity() : AppCompatActivity() {
 
     private fun handleUnInitialized() {
         toast("데이터 로드 중입니다.")
+        binding.bottomButton.setOnClickListener {
+            val bottomSheet = BottomSheetDialog()
+            bottomSheet.show(supportFragmentManager, bottomSheet.tag)
+
+        }
     }
 
     private fun handleSuccess(data:List<Search>) {
@@ -97,12 +105,14 @@ class MainActivity() : AppCompatActivity() {
                     .saveRecentQuery(query, null)
             }
         }
-
-        recycler.adapter = itemAdapter
+        recycler.apply{
+            adapter = itemAdapter
+            layoutManager = LinearLayoutManager(this@MainActivity)
+        }
     }
 
     private fun fileChecking() {
-        val check = File(getExternalFilesDir(null), "nanda.db")
+        val check = File(getExternalFilesDir(null), "comssa.db")
 
         if (check.exists().not())
             databaseDownloadAlertDialog()
@@ -135,7 +145,7 @@ class MainActivity() : AppCompatActivity() {
                 .setTitle("Downloading")
                 .setDescription("Downloading Database file")
                 .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-                .setDestinationUri(Uri.fromFile(File(getExternalFilesDir(null), "nanda.db")))
+                .setDestinationUri(Uri.fromFile(File(getExternalFilesDir(null), "comssa.db")))
                 .setAllowedOverMetered(true)
                 .setAllowedOverRoaming(true)
         )

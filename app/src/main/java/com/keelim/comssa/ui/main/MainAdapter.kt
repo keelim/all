@@ -1,7 +1,6 @@
 package com.keelim.comssa.ui.main
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -17,8 +16,8 @@ class MainAdapter(
         fun bind(item:Search) = with(binding){
             title.text = item.title
             description.text = item.description
-
-            favoriteButton.setOnClickListener {
+            favoriteSwitch.isChecked = item.favorite == 1
+            favoriteSwitch.setOnClickListener {
                 favoriteListener.invoke(item.favorite, item.id)
             }
         }

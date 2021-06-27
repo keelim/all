@@ -18,4 +18,8 @@ class IoRepositoryImpl @Inject constructor(
     override suspend fun updateFavorite(favorite:Int, id:Int) = withContext(ioDispatcher){
         return@withContext db.searchDao.favoriteUpdate(favorite, id)
     }
+
+    override suspend fun getFavorite(): List<Search>  = withContext(ioDispatcher){
+        return@withContext db.searchDao.getFavorite()
+    }
 }

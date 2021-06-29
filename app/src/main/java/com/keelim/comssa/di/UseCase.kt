@@ -1,9 +1,9 @@
 package com.keelim.comssa.di
 
+import com.keelim.comssa.data.repository.DataRepository
 import com.keelim.comssa.data.repository.IoRepository
-import com.keelim.comssa.usecase.GetFavoriteUseCase
-import com.keelim.comssa.usecase.SearchUseCase
-import com.keelim.comssa.usecase.UpdateFavoriteUseCase
+import com.keelim.comssa.data.repository.ReviewRepository
+import com.keelim.comssa.usecase.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -42,4 +42,27 @@ object UseCase {
             ioRepository = ioRepository
         )
     }
+
+    @Provides
+    @Singleton
+    fun provideGetAkkDatasUseCase(
+        dataRepository: DataRepository,
+    ): GetAllDatasUseCase{
+        return GetAllDatasUseCase(
+            dataRepository = dataRepository
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetRandomFeatureDataUseCase(
+        dataRepository: DataRepository,
+        reviewRepository: ReviewRepository,
+    ): GetRandomFeatureDataUseCase{
+        return GetRandomFeatureDataUseCase(
+            dataRepository = dataRepository,
+            reviewRepository = reviewRepository
+        )
+    }
+
 }

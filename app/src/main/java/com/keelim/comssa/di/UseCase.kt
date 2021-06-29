@@ -65,4 +65,13 @@ object UseCase {
         )
     }
 
+    @Provides
+    @Singleton
+    fun provideGetAllReviewUseCase(
+        reviewRepository: ReviewRepository,
+    ): GetAllReviewsUseCase{
+        return GetAllReviewsUseCase(
+            reviewRepository = reviewRepository
+        )
+    }
 }

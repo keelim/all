@@ -8,8 +8,9 @@ import com.keelim.comssa.data.model.Review
 import kotlinx.coroutines.tasks.await
 
 class ReviewApiImpl:ReviewApi {
+    private val fireStore = Firebase.firestore
     override suspend fun getLatestReview(dataId: String): Review? {
-        val fireStore = Firebase.firestore
+
         return fireStore.collection("reviews")
             .whereEqualTo("dataId", dataId)
             .orderBy("createdAt", Query.Direction.DESCENDING)
@@ -18,5 +19,13 @@ class ReviewApiImpl:ReviewApi {
             .await()
             .map { it.toObject<Review>() }
             .firstOrNull()
+    }
+
+    override suspend fun getAllReviews(movieId: String): List<Review> {
+        return fireStore.collection("reviews")
+            .whereEqualTo("movieId", movieId)
+            .get()
+            .await()
+            .map{it.toObject<Review>()}
     }
 }

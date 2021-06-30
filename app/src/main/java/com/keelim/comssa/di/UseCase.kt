@@ -111,4 +111,16 @@ object UseCase {
             reviewRepository = reviewRepository
         )
     }
+
+    @Provides
+    @Singleton
+    fun provideGetAllDataReviewsUseCase(
+        userRepository: UserRepository,
+        reviewRepository: ReviewRepository
+    ):GetAllDataReviewsUseCase{
+        return GetAllDataReviewsUseCase(
+            userRepository = userRepository,
+            reviewRepository = reviewRepository
+        )
+    }
 }

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/authorIdTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:text="✏️ 나의 리뷰"
+        android:textSize="12sp"
+        app:drawableTint="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/contentsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/shape_review_content"
+        android:paddingHorizontal="10dp"
+        android:paddingTop="30dp"
+        android:paddingBottom="10dp"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/authorIdTextView"
+        tools:text="선거운동은 각급 선거관리위원회의 관리하에 법률이 정하는 범위안에서 하되, 균등한 기회가 보장되어야 한다. 국채를 모집하거나 예산외에 국가의 부담이 될 계약을 체결하려 할 때에는 정부는 미리 국회의 의결을 얻어야 한다." />
+
+    <TextView
+        android:id="@+id/scoreTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:drawablePadding="3dp"
+        android:gravity="center_vertical"
+        android:textSize="12sp"
+        app:drawableStartCompat="@drawable/ic_baseline_star_12"
+        app:drawableTint="@color/black"
+        app:layout_constraintStart_toStartOf="@id/contentsTextView"
+        app:layout_constraintTop_toTopOf="@+id/contentsTextView"
+        tools:text="4.5" />
+
+    <TextView
+        android:id="@+id/deleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.5"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="6dp"
+        android:text="삭제하기"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="@id/contentsTextView"
+        app:layout_constraintTop_toBottomOf="@id/contentsTextView"
+        tools:ignore="HardcodedText,SmallSp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

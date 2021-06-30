@@ -9,8 +9,8 @@ import kotlinx.coroutines.tasks.await
 
 class ReviewApiImpl:ReviewApi {
     private val fireStore = Firebase.firestore
-    override suspend fun getLatestReview(dataId: String): Review? {
 
+    override suspend fun getLatestReview(dataId: String): Review? {
         return fireStore.collection("reviews")
             .whereEqualTo("dataId", dataId)
             .orderBy("createdAt", Query.Direction.DESCENDING)
@@ -21,11 +21,22 @@ class ReviewApiImpl:ReviewApi {
             .firstOrNull()
     }
 
-    override suspend fun getAllReviews(movieId: String): List<Review> {
+
+    override suspend fun getAllReviews(dataId: String): List<Review>{
         return fireStore.collection("reviews")
-            .whereEqualTo("movieId", movieId)
+            .whereEqualTo("movieId", dataId)
+            .orderBy("createdAt", Query.Direction.DESCENDING)
             .get()
             .await()
-            .map{it.toObject<Review>()}
+            .map { it.toObject<Review>() }
+    }
+
+    override suspend fun getAllUserReviews(userIds: String): List<Review> {
+        return fireStore.collection("reviews")
+            .whereEqualTo("userId", userIds)
+            .orderBy("createdAt", Query.Direction.DESCENDING)
+            .get()
+            .await()
+            .map { it.toObject<Review>() }
     }
 }

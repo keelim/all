@@ -2,7 +2,9 @@ package com.keelim.comssa.di
 
 import com.keelim.comssa.data.api.DataApi
 import com.keelim.comssa.data.api.ReviewApi
+import com.keelim.comssa.data.api.UserApi
 import com.keelim.comssa.data.db.AppDatabase
+import com.keelim.comssa.data.preference.PreferenceManager
 import com.keelim.comssa.data.repository.*
 import dagger.Module
 import dagger.Provides
@@ -48,6 +50,20 @@ object RepositoryModule {
         return ReviewRepositoryImpl(
             reviewApi = reviewApi,
             ioDispatcher = ioDispatcher
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserRepository(
+        userApi: UserApi,
+        preferenceManager: PreferenceManager,
+        @IoDispatcher ioDispatcher: CoroutineDispatcher,
+    ): UserRepository {
+        return UserRepositoryImpl(
+            userApi = userApi,
+            preferenceManager = preferenceManager,
+            dispatcher = ioDispatcher
         )
     }
 }

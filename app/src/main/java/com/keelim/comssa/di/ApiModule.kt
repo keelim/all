@@ -1,9 +1,6 @@
 package com.keelim.comssa.di
 
-import com.keelim.comssa.data.api.DataApi
-import com.keelim.comssa.data.api.DataApiImpl
-import com.keelim.comssa.data.api.ReviewApi
-import com.keelim.comssa.data.api.ReviewApiImpl
+import com.keelim.comssa.data.api.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,5 +20,11 @@ object ApiModule {
     @Singleton
     fun provideReviewApi(): ReviewApi {
         return ReviewApiImpl()
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserApi(): UserApi{
+        return UserApiImpl()
     }
 }

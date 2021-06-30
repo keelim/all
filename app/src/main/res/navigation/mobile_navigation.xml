@@ -9,15 +9,27 @@
         android:id="@+id/homeFragment"
         android:name="com.keelim.comssa.ui.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_reviewsFragment"
+            app:destination="@id/reviewsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/reviewsFragment"
         android:name="com.keelim.comssa.ui.reviews.ReviewsFragment"
         android:label="fragment_reviews"
-        tools:layout="@layout/fragment_reviews" />
+        tools:layout="@layout/fragment_review" >
+        <argument
+            android:name="data"
+            app:argType="com.keelim.comssa.data.model.Data" />
+    </fragment>
     <fragment
         android:id="@+id/myPageFragment"
         android:name="com.keelim.comssa.ui.mypage.MyPageFragment"
         android:label="fragment_my_page"
-        tools:layout="@layout/fragment_my_page" />
+        tools:layout="@layout/fragment_my_page" >
+        <action
+            android:id="@+id/action_myPageFragment_to_reviewsFragment"
+            app:destination="@id/reviewsFragment" />
+    </fragment>
 </navigation>

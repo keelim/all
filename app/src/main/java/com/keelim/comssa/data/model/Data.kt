@@ -1,7 +1,10 @@
 package com.keelim.comssa.data.model
 
+import android.os.Parcelable
 import com.google.firebase.firestore.DocumentId
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Data(
     @DocumentId
     val id: String? = null,
@@ -20,4 +23,4 @@ data class Data(
     val numberOfScore: Int? = null,
     val releaseYear: Int? = null,
     val runtime: Int? = null
-)
+) : Parcelable

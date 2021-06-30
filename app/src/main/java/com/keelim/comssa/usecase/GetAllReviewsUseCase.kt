@@ -7,7 +7,7 @@ import javax.inject.Inject
 class GetAllReviewsUseCase @Inject constructor(
     private val reviewRepository: ReviewRepository,
 ) {
-    suspend operator fun invoke(movieId: String): List<Review> {
-        return reviewRepository.getAllReviews(movieId)
+    suspend operator fun invoke(dataId: String): List<Review> {
+        return reviewRepository.getAllReviews(dataId)
     }
 }

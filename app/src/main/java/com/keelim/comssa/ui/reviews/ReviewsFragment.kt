@@ -13,7 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class ReviewsFragment: Fragment() {
     private var _binding: FragmentReviewsBinding? = null
     private val binding get() = _binding!!
-    private val viewModel:ReviewsViewModel by viewModels()
+    private val viewModel:ReviewViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -3,7 +3,7 @@ object Coil {
 }
 
 object DataStore {
-    const val dataStorePreferences = "1.0.0-beta01"
+    private const val dataStorePreferences = "1.0.0-beta01"
     const val preferences =
         "androidx.datastore:datastore-preferences:${dataStorePreferences}"
 }
@@ -113,7 +113,7 @@ object Glide {
 
     object Dep {
         object GradlePlugin {
-            const val androidStudioVersion = "4.2.0-alpha14"
+            private const val androidStudioVersion = "4.2.0-alpha14"
             const val android = "com.android.tools.build:gradle:$androidStudioVersion"
             const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Kotlin.version}"
             const val kotlinSerialization =
@@ -134,7 +134,7 @@ object Glide {
             const val version = "1.4.10"
             const val stdlibJvm = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$version"
 
-            object coroutines {
+            object Coroutines {
                 private const val coroutinesVersion = "1.3.9"
                 const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
                 const val android =

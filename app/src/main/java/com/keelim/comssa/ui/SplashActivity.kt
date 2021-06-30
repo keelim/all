@@ -1,5 +1,5 @@
 /*
- * Designed and developed by 2020 keelim (Jaehyun Kim)
+ * Designed and developed by 2021 keelim (Jaehyun Kim)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,23 +15,19 @@
  */
 package com.keelim.comssa.ui
 
-
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.material.snackbar.Snackbar
 import com.keelim.comssa.BuildConfig
-import com.keelim.comssa.R
 import com.keelim.comssa.databinding.ActivitySplashBinding
 import com.keelim.comssa.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,7 +40,7 @@ import timber.log.Timber
 @AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
   private var mInterstitialAd: InterstitialAd? = null
-  private val binding by lazy {ActivitySplashBinding.inflate(layoutInflater)}
+  private val binding by lazy { ActivitySplashBinding.inflate(layoutInflater) }
 
   private val test = "ca-app-pub-3940256099942544/1033173712"
 
@@ -78,7 +74,8 @@ class SplashActivity : AppCompatActivity() {
 
   private fun showAd() {
     val adRequest = AdRequest.Builder().build()
-    InterstitialAd.load(this,
+    InterstitialAd.load(
+      this,
       test or "ca-app-pub-3115620439518585/4013096159",
       adRequest,
       object : InterstitialAdLoadCallback() {

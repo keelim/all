@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.keelim.comssa.data.model.Review
 import com.keelim.comssa.databinding.FragmentReviewBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ReviewFragment : Fragment() {
     private val arguments: ReviewsFragmentArgs by navArgs()
     private var _binding: FragmentReviewBinding? = null

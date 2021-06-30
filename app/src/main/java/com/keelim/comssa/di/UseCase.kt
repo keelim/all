@@ -89,4 +89,26 @@ object UseCase {
             dataRepository = dataRepository,
         )
     }
+
+    @Provides
+    @Singleton
+    fun provideDeleteReviewUseCase(
+        reviewRepository: ReviewRepository,
+    ):DeleteReviewUseCase{
+        return DeleteReviewUseCase(
+            reviewRepository = reviewRepository
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideSubmitReviewUseCase(
+        userRepository: UserRepository,
+        reviewRepository: ReviewRepository,
+    ): SubmitReviewUseCase{
+        return SubmitReviewUseCase(
+            userRepository = userRepository,
+            reviewRepository = reviewRepository
+        )
+    }
 }

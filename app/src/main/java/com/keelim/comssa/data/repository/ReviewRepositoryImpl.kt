@@ -22,4 +22,12 @@ class ReviewRepositoryImpl @Inject constructor(
     override suspend fun getAllUserReviews(userId: String): List<Review> = withContext(ioDispatcher){
         return@withContext reviewApi.getAllUserReviews(userId)
     }
+
+    override suspend fun addReview(review: Review): Review  = withContext(ioDispatcher){
+        return@withContext reviewApi.addReview(review)
+    }
+
+    override suspend fun removeReview(review: Review) = withContext(ioDispatcher){
+        reviewApi.removeReview(review)
+    }
 }

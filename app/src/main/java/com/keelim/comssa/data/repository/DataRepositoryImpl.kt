@@ -14,4 +14,8 @@ class DataRepositoryImpl @Inject constructor(
     override suspend fun getAllDatas(): List<Data>  = withContext(ioDispatcher){
         return@withContext dataApi.getAllData()
     }
+
+    override suspend fun getData(dataIds: List<String>): List<Data> = withContext(ioDispatcher){
+        return@withContext dataApi.getDatas(dataIds)
+    }
 }

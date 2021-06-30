@@ -20,7 +20,7 @@ class ReviewFragment : Fragment() {
     private var _binding: FragmentReviewBinding? = null
     private val binding get() = _binding!!
     private val data by lazy { arguments.data }
-    private val reviewAdapter = MovieReviewsAdapter(data)
+    private val reviewAdapter = DataReviewsAdapter(data)
     private val viewModel: ReviewViewModel by viewModels()
 
 

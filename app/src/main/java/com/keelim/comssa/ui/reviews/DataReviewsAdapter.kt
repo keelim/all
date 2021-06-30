@@ -14,14 +14,14 @@ import com.keelim.comssa.extensions.toAbbreviatedString
 import com.keelim.comssa.extensions.toDecimalFormatString
 
 
-class MovieReviewsAdapter(private val movie: Data) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class DataReviewsAdapter(private val data: Data) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var reviews: List<Review> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {
             ITEM_VIEW_TYPE_HEADER -> {
-                MovieInformationViewHolder(
+                DataInformationViewHolder(
                     ItemDataInformationBinding
                         .inflate(LayoutInflater.from(parent.context), parent, false)
                 )
@@ -36,8 +36,8 @@ class MovieReviewsAdapter(private val movie: Data) : RecyclerView.Adapter<Recycl
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int): Unit =
         when (holder) {
-            is MovieInformationViewHolder -> {
-                holder.bind(movie)
+            is DataInformationViewHolder -> {
+                holder.bind(data)
             }
             is ReviewViewHolder -> {
                 holder.bind(reviews[position - 1])
@@ -51,7 +51,7 @@ class MovieReviewsAdapter(private val movie: Data) : RecyclerView.Adapter<Recycl
             else -> ITEM_VIEW_TYPE_ITEM
         }
 
-    class MovieInformationViewHolder(private val binding: ItemDataInformationBinding) :
+    class DataInformationViewHolder(private val binding: ItemDataInformationBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")

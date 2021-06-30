@@ -11,9 +11,9 @@ import com.keelim.comssa.databinding.ItemReviewedDataBinding
 import com.keelim.comssa.extensions.toDecimalFormatString
 
 class MyPageAdapter(
-    var onMovieClickListener: (Data) -> Unit
+    var onDataClickListener: (Data) -> Unit
 ) : RecyclerView.Adapter<MyPageAdapter.ViewHolder>() {
-    var reviewedMovies: List<ReviewedData> = emptyList()
+    var reviewedDatas: List<ReviewedData> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyPageAdapter.ViewHolder =
         ViewHolder(
@@ -21,17 +21,17 @@ class MyPageAdapter(
                 .inflate(LayoutInflater.from(parent.context), parent, false)
         )
 
-    override fun getItemCount(): Int = reviewedMovies.size
+    override fun getItemCount(): Int = reviewedDatas.size
 
     override fun onBindViewHolder(holder: MyPageAdapter.ViewHolder, position: Int): Unit =
-        holder.bind(reviewedMovies[position])
+        holder.bind(reviewedDatas[position])
 
     inner class ViewHolder(private val binding: ItemReviewedDataBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
             binding.root.setOnClickListener {
-                onMovieClickListener.invoke(reviewedMovies[adapterPosition].data)
+                onDataClickListener.invoke(reviewedDatas[adapterPosition].data)
             }
         }
 

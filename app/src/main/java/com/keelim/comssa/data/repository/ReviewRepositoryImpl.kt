@@ -15,8 +15,8 @@ class ReviewRepositoryImpl @Inject constructor(
         return@withContext reviewApi.getLatestReview(dataId = dataId)
     }
 
-    override suspend fun getAllReviews(movieId: String): List<Review> = withContext(ioDispatcher){
-        return@withContext reviewApi.getAllReviews(movieId)
+    override suspend fun getAllReviews(dataId: String): List<Review> = withContext(ioDispatcher){
+        return@withContext reviewApi.getAllReviews(dataId)
     }
 
     override suspend fun getAllUserReviews(userId: String): List<Review> = withContext(ioDispatcher){

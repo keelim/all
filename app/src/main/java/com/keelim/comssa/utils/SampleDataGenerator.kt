@@ -9,12 +9,12 @@ class SampleDataGenerator {
     fun generate() {
         val firestore = Firebase.firestore
 
-        movieData.forEach {
-            firestore.collection("movies").add(it)
+        datas.forEach {
+            firestore.collection("datas").add(it)
         }
     }
 
-    private val movieData = listOf(
+    private val datas = listOf(
         Data(
             isFeatured = false,
             title = "크루엘라",

@@ -44,10 +44,10 @@ class ReviewApiImpl:ReviewApi {
 
     override suspend fun addReview(review: Review): Review {
         val newReviewReference = fireStore.collection("reviews").document()
-        val movieReference = fireStore.collection("datas").document(review.dataId!!)
+        val dataReference = fireStore.collection("datas").document(review.dataId!!)
 
         fireStore.runTransaction { transaction ->
-            val data = transaction.get(movieReference).toObject<Data>()!!
+            val data = transaction.get(dataReference).toObject<Data>()!!
 
             val oldAverageScore = data.averageScore ?: 0f
             val oldNumberOfScore = data.numberOfScore ?: 0
@@ -57,7 +57,7 @@ class ReviewApiImpl:ReviewApi {
             val newAverageScore = (oldTotalScore + (review.score ?: 0f)) / newNumberOfScore
 
             transaction.set(
-                movieReference,
+                dataReference,
                 data.copy(
                     numberOfScore = newNumberOfScore,
                     averageScore = newAverageScore
@@ -76,15 +76,15 @@ class ReviewApiImpl:ReviewApi {
 
     override suspend fun removeReview(review: Review) {
         val reviewReference = fireStore.collection("reviews").document(review.id!!)
-        val movieReference = fireStore.collection("datas").document(review.dataId!!)
+        val dataReference = fireStore.collection("datas").document(review.dataId!!)
 
         fireStore.runTransaction { transaction ->
-            val movie = transaction
-                .get(movieReference)
+            val data = transaction
+                .get(dataReference)
                 .toObject<Data>()!!
 
-            val oldAverageScore = movie.averageScore ?: 0f
-            val oldNumberOfScore = movie.numberOfScore ?: 0
+            val oldAverageScore = data.averageScore ?: 0f
+            val oldNumberOfScore = data.numberOfScore ?: 0
             val oldTotalScore = oldAverageScore * oldNumberOfScore
 
             val newNumberOfScore = (oldNumberOfScore - 1).coerceAtLeast(0)
@@ -95,8 +95,8 @@ class ReviewApiImpl:ReviewApi {
             }
 
             transaction.set(
-                movieReference,
-                movie.copy(
+                dataReference,
+                data.copy(
                     numberOfScore = newNumberOfScore,
                     averageScore = newAverageScore
                 )

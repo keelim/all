@@ -18,7 +18,7 @@ import com.keelim.comssa.extensions.toAbbreviatedString
 import com.keelim.comssa.extensions.toDecimalFormatString
 
 class HomeAdapter(
-    val onMovieClickListener: (Data) -> Unit
+    val onDataClickListener: (Data) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var data: List<DataItem> = emptyList()
@@ -29,13 +29,13 @@ class HomeAdapter(
                 TitleItemViewHolder(parent.context)
             }
             ITEM_VIEW_TYPE_FEATURED -> {
-                FeaturedMovieItemViewHolder(
+                FeaturedDataItemViewHolder(
                     ItemFeaturedDataBinding
                         .inflate(LayoutInflater.from(parent.context), parent, false)
                 )
             }
             ITEM_VIEW_TYPE_ITEM -> {
-                MovieItemViewHolder(
+                DataItemViewHolder(
                     ItemDataBinding
                         .inflate(LayoutInflater.from(parent.context), parent, false)
                 )
@@ -51,10 +51,10 @@ class HomeAdapter(
             holder is TitleItemViewHolder && itemValue is String -> {
                 holder.bind(itemValue)
             }
-            holder is FeaturedMovieItemViewHolder && itemValue is FeaturedData -> {
+            holder is FeaturedDataItemViewHolder && itemValue is FeaturedData -> {
                 holder.bind(itemValue)
             }
-            holder is MovieItemViewHolder && itemValue is Data -> {
+            holder is DataItemViewHolder && itemValue is Data -> {
                 holder.bind(itemValue)
             }
             else -> throw RuntimeException("알 수 없는 ViewHolder 입니다.")
@@ -67,10 +67,10 @@ class HomeAdapter(
         else -> ITEM_VIEW_TYPE_ITEM
     }
 
-    fun addData(featuredMovie: FeaturedData?, datas: List<Data>) {
+    fun addData(featuredData: FeaturedData?, datas: List<Data>) {
         val newData = mutableListOf<DataItem>()
 
-        featuredMovie?.let {
+        featuredData?.let {
             newData += DataItem("🔥 요즘 핫한 영화")
             newData += DataItem(it)
         }
@@ -95,7 +95,7 @@ class HomeAdapter(
         }
     }
 
-    inner class FeaturedMovieItemViewHolder(private val binding: ItemFeaturedDataBinding) :
+    inner class FeaturedDataItemViewHolder(private val binding: ItemFeaturedDataBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")
@@ -118,18 +118,18 @@ class HomeAdapter(
             }
 
             root.setOnClickListener { (data[adapterPosition].value as? FeaturedData)?.data?.let {
-                    onMovieClickListener.invoke(it)
+                    onDataClickListener.invoke(it)
                 }
             }
         }
     }
 
-    inner class MovieItemViewHolder(private val binding: ItemDataBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class DataItemViewHolder(private val binding: ItemDataBinding) : RecyclerView.ViewHolder(binding.root) {
 
         init {
             binding.root.setOnClickListener {
                 (data[adapterPosition].value as? Data)?.let {
-                    onMovieClickListener?.invoke(it)
+                    onDataClickListener?.invoke(it)
                 }
             }
         }

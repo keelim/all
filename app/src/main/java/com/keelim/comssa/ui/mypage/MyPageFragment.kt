@@ -19,7 +19,7 @@ import com.keelim.comssa.ui.home.GridSpacingItemDecoration
 class MyPageFragment : Fragment() {
     private var _binding: FragmentMyPageBinding? = null
     private val binding get() = _binding!!
-    private val myPageAdapter = MyPageAdapter(onMovieClickListener = {
+    private val myPageAdapter = MyPageAdapter(onDataClickListener = {
         val action = MyPageFragmentDirections.actionMyPageFragmentToReviewsFragment(it)
         findNavController().navigate(action)
     }
@@ -63,9 +63,9 @@ class MyPageFragment : Fragment() {
         binding.descriptionTextView.text = message
     }
 
-    private fun showReviewedMovies(reviewedMovies: List<ReviewedData>) {
+    private fun showReviewedDatas(reviewedDatas: List<ReviewedData>) {
         myPageAdapter.apply {
-            this.reviewedMovies = reviewedMovies
+            this.reviewedDatas = reviewedDatas
             notifyDataSetChanged()
         }
     }
@@ -78,7 +78,7 @@ class MyPageFragment : Fragment() {
         }
 
         (binding.recyclerView.adapter as? MyPageAdapter)?.apply {
-            onMovieClickListener = { data ->
+            onDataClickListener = { data ->
                 val action = MyPageFragmentDirections.actionMyPageFragmentToReviewsFragment(data)
                 findNavController().navigate(action)
             }
@@ -91,7 +91,7 @@ class MyPageFragment : Fragment() {
             if (it.isNullOrEmpty()) {
                 showNoDataDescription("아직 리뷰한 영화가 없어요.\n홈 탭을 눌러 영화를 리뷰해보세요 🙌")
             } else {
-                showReviewedMovies(it)
+                showReviewedDatas(it)
             }
         } catch (exception: Exception) {
             exception.printStackTrace()

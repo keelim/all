@@ -22,7 +22,7 @@ class HomeFragment: Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val homeAdapter = HomeAdapter(
-        onMovieClickListener = {
+        onDataClickListener = {
 
         }
     )
@@ -63,7 +63,7 @@ class HomeFragment: Fragment() {
         errorDescriptionTextView.text = message
     }
 
-    private fun showMovies() = with(binding) {
+    private fun showDatas() = with(binding) {
         recyclerView.toVisible()
         errorDescriptionTextView.toGone()
         homeAdapter.apply {
@@ -100,7 +100,7 @@ class HomeFragment: Fragment() {
     private fun recyclerUpdate() {
         try {
             showLoadingIndicator()
-            showMovies()
+            showDatas()
         } catch (exception: Exception) {
             exception.printStackTrace()
             showErrorDescription("에러가 발생했어요 😢")

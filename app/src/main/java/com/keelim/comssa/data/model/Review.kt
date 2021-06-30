@@ -12,7 +12,7 @@ data class Review(
     val createdAt: Date? = null,
 
     val userId: String? = null,
-    val movieId: String? = null,
+    val dataId: String? = null,
     val content: String? = null,
     val score: Float? = null
 )

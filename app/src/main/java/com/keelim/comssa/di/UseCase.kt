@@ -3,6 +3,7 @@ package com.keelim.comssa.di
 import com.keelim.comssa.data.repository.DataRepository
 import com.keelim.comssa.data.repository.IoRepository
 import com.keelim.comssa.data.repository.ReviewRepository
+import com.keelim.comssa.data.repository.UserRepository
 import com.keelim.comssa.usecase.*
 import dagger.Module
 import dagger.Provides
@@ -72,6 +73,20 @@ object UseCase {
     ): GetAllReviewsUseCase{
         return GetAllReviewsUseCase(
             reviewRepository = reviewRepository
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetUserReviewedDataUseCase(
+        userRepository: UserRepository,
+        dataRepository: DataRepository,
+        reviewRepository: ReviewRepository,
+    ): GetUserReviewedDataUseCase{
+        return GetUserReviewedDataUseCase(
+            userRepository = userRepository,
+            reviewRepository = reviewRepository,
+            dataRepository = dataRepository,
         )
     }
 }

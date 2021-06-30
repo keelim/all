@@ -18,4 +18,8 @@ class ReviewRepositoryImpl @Inject constructor(
     override suspend fun getAllReviews(movieId: String): List<Review> = withContext(ioDispatcher){
         return@withContext reviewApi.getAllReviews(movieId)
     }
+
+    override suspend fun getAllUserReviews(userId: String): List<Review> = withContext(ioDispatcher){
+        return@withContext reviewApi.getAllUserReviews(userId)
+    }
 }

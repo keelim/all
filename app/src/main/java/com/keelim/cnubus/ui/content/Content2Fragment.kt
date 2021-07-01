@@ -49,9 +49,7 @@ class Content2Fragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.viewEvent.observe(
-            viewLifecycleOwner,
-            {
+        viewModel.viewEvent.observe(viewLifecycleOwner, {
                 it.getContentIfNotHandled()?.let { event ->
                     when (event) {
                         Content2ViewModel.VIEW_1 -> startActivity(

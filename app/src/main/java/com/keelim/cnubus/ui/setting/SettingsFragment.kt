@@ -25,10 +25,10 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.viewModels
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.keelim.cnubus.R
 import com.keelim.cnubus.ui.main.MainViewModel
-import com.keelim.cnubus.ui.OpenSourceActivity
 import com.keelim.cnubus.ui.content.Content2Activity
 import com.keelim.cnubus.ui.setting.theme.AppTheme.Companion.THEME_ARRAY
 import com.keelim.cnubus.utils.MaterialDialog
@@ -76,7 +76,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 )
             }
 
-            "opensource" -> startActivity(Intent(requireActivity(), OpenSourceActivity::class.java))
+            "opensource" -> startActivity(Intent(requireContext(), OssLicensesMenuActivity::class.java))
 
             "update" -> {
                 startActivity(Intent(Intent.ACTION_VIEW).apply {

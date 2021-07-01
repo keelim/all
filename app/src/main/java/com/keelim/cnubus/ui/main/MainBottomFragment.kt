@@ -23,11 +23,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.viewModels
+import com.google.android.gms.oss.licenses.OssLicensesActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.FragmentMainBottomBinding
-import com.keelim.cnubus.ui.OpenSourceActivity
 import com.keelim.cnubus.ui.setting.theme.AppTheme
 import com.keelim.cnubus.utils.MaterialDialog
 import com.keelim.cnubus.utils.MaterialDialog.Companion.negativeButton
@@ -62,37 +62,33 @@ class MainBottomFragment : BottomSheetDialogFragment() {
         setClickListeners()
     }
 
-    private fun initAppThemeObserver() {
-        mainViewModel.theme.observe(
-            viewLifecycleOwner,
-            { currentTheme ->
-                val appTheme = AppTheme.THEME_ARRAY.firstOrNull { it.modeNight == currentTheme }
-                appTheme?.let {
-                    binding.themeIcon.setImageResource(it.themeIconRes)
-                    binding.themeDescription.text = getString(it.modeNameRes)
+    private fun initAppThemeObserver() = mainViewModel.theme.observe(viewLifecycleOwner, { currentTheme ->
+            val appTheme = AppTheme.THEME_ARRAY.firstOrNull { it.modeNight == currentTheme }
+            appTheme?.let {
+                binding.themeIcon.setImageResource(it.themeIconRes)
+                binding.themeDescription.text = getString(it.modeNameRes)
                 }
             }
         )
-    }
 
-    private fun setClickListeners() {
-        binding.themeOption.setOnClickListener {
+
+    private fun setClickListeners() = with(binding) {
+        themeOption.setOnClickListener {
             chooseThemeClick()
         }
 
-        binding.openSourceLicensesButton.setOnClickListener {
+        openSourceLicensesButton.setOnClickListener {
             dismiss()
-            startActivity(Intent(requireContext(), OpenSourceActivity::class.java))
+            startActivity(Intent(requireContext(), OssLicensesActivity::class.java))
         }
 
-        binding.update.setOnClickListener {
-            Intent(Intent.ACTION_VIEW).apply {
+        update.setOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW).apply {
                 data = Uri.parse(getString(R.string.updateLink))
-                startActivity(this)
-            }
+            })
         }
 
-        binding.aboutButton.setOnClickListener {
+        aboutButton.setOnClickListener {
             Snackbar.make(binding.root, "기능 준비 중입니다.", Snackbar.LENGTH_SHORT).show()
         }
     }
@@ -114,7 +110,8 @@ class MainBottomFragment : BottomSheetDialogFragment() {
                     AppCompatDelegate.setDefaultNightMode(mode)
                     mainViewModel.setAppTheme(mode)
                     // Update theme description TextView
-                    binding.themeDescription.text = getString(AppTheme.THEME_ARRAY[checkedItem].modeNameRes)
+                    binding.themeDescription.text =
+                        getString(AppTheme.THEME_ARRAY[checkedItem].modeNameRes)
                 }
                 negativeButton(getString(R.string.cancel))
             }.show()

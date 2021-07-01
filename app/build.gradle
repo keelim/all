@@ -8,6 +8,8 @@ plugins {
     id 'com.google.firebase.crashlytics'
     id 'com.google.firebase.appdistribution'
     id 'dagger.hilt.android.plugin'
+    id "androidx.navigation.safeargs.kotlin"
+    id 'com.google.android.gms.oss-licenses-plugin'
 }
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
@@ -100,6 +102,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.3.0'
     implementation 'com.google.android.material:material:1.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'com.google.android.gms:play-services-maps:17.0.1'
 
     testImplementation AppTest.junit
     androidTestImplementation AppTest.androidJunit
@@ -122,6 +125,8 @@ dependencies {
 
     implementation LifeCycle.viewmodel
     implementation LifeCycle.livedata
+
+    implementation 'com.google.android.gms:play-services-oss-licenses:17.0.0'
 }
 
 apply from: "$rootDir/spotless.gradle"

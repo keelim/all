@@ -21,6 +21,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.gms.ads.MobileAds
 import com.keelim.cnubus.ui.setting.theme.ThemeRepository
 import com.keelim.cnubus.utils.AppOpenManager
+import com.keelim.cnubus.utils.ComponentLogger
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -35,6 +36,9 @@ class MyApplication : Application() {
     @Inject
     lateinit var themeRepository: ThemeRepository
 
+    @Inject
+    lateinit var componentLogger: ComponentLogger
+
     private lateinit var appOpenManager: AppOpenManager
     private val appCoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
@@ -45,6 +49,7 @@ class MyApplication : Application() {
 
         appOpenManager = AppOpenManager(this) // 콜드 부팅에서 복귀시 ad
 
+        componentLogger.initialize(this)
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }

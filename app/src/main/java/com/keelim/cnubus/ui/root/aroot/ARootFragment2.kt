@@ -13,26 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.cnubus.ui.root.croot
+package com.keelim.cnubus.ui.root.aroot
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.google.android.material.snackbar.Snackbar
 import com.keelim.cnubus.R
-import com.keelim.cnubus.databinding.FragmentCRootBinding
-import com.keelim.cnubus.ui.root.aroot.CRecyclerViewAdapter
+import com.keelim.cnubus.databinding.FragmentARootBinding
+import com.keelim.cnubus.feature.map.MapsActivity
 
-class CRootFragment : Fragment() {
-    private var _binding: FragmentCRootBinding? = null
+class ARootFragment2 : Fragment() {
+    private val rootList by lazy { resources.getStringArray(R.array.aroot) }
+    private val intentList by lazy { resources.getStringArray(R.array.a_intent_array) }
+    private var _binding: FragmentARootBinding? = null
     private val binding get() = _binding!!
-    private val rootList by lazy { resources.getStringArray(R.array.croot) }
-    private val cRecyclerViewAdapter = CRecyclerViewAdapter(
-        {
-            Snackbar.make(binding.root, "C 노선 지도 업데이트 준비 중입니다. ", Snackbar.LENGTH_LONG).show()
-        }, {
+    private val aRecyclerViewAdapter = ARecyclerViewAdapter2(
+        shortClickListener = { position ->
+            Toast.makeText(requireActivity(), rootList[position] + "정류장 입니다.", Toast.LENGTH_SHORT)
+                .show()
+
+            Intent(requireActivity(), MapsActivity::class.java).apply {
+                putExtra("location", intentList[position])
+                startActivity(this)
+            }
+        },
+        longClickListener = {
 
         }
     )
@@ -42,7 +51,7 @@ class CRootFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentCRootBinding.inflate(inflater, container, false)
+        _binding = FragmentARootBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -51,15 +60,14 @@ class CRootFragment : Fragment() {
         initViews()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    private fun initViews()  = with(binding){
-        lvCroot.adapter = cRecyclerViewAdapter.apply {
+    private fun initViews() = with(binding) {
+        lvAroot.adapter = aRecyclerViewAdapter.apply {
             submitList(rootList.toList())
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

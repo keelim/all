@@ -17,37 +17,61 @@ package com.keelim.cnubus.ui.root.broot
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.FragmentBRootBinding
 import com.keelim.cnubus.feature.map.MapsActivity
+import com.keelim.cnubus.ui.root.aroot.BRecyclerViewAdapter
 
-class BRootFragment : Fragment(R.layout.fragment_b_root) {
-    private lateinit var rootList: Array<String>
-    private lateinit var intentList: Array<String>
+class BRootFragment : Fragment() {
+    private val rootList by lazy { resources.getStringArray(R.array.broot) }
+    private val intentList by lazy { resources.getStringArray(R.array.b_intent_array) }
     private var _binding: FragmentBRootBinding? = null
     private val binding get() = _binding!!
+
+    private val bRecyclerViewAdapter = BRecyclerViewAdapter(
+        shortClickListener = { position ->
+            Toast.makeText(requireActivity(), rootList[position] + "정류장 입니다.", Toast.LENGTH_SHORT)
+                .show()
+
+            Intent(requireActivity(), MapsActivity::class.java).apply {
+                putExtra("location", intentList[position])
+                startActivity(this)
+            }
+        },
+        longClickListener = {
+
+        }
+    )
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentBRootBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentBRootBinding.bind(view)
 
-        rootList = resources.getStringArray(R.array.broot)
-        intentList = resources.getStringArray(R.array.b_intent_array)
-//        binding.lvBroot.adapter = ArrayAdapter(requireActivity(), android.R.layout.simple_list_item_1, rootList)
+        initViews()
+    }
 
-        binding.lvBroot.adapter = BRecyclerViewAdapter(rootList).apply {
-            listener = object : BRecyclerViewAdapter.OnRootClickListener {
-                override fun onRootClickListener(position: Int) {
-                    Toast.makeText(requireActivity(), rootList[position] + "정류장 입니다.", Toast.LENGTH_SHORT).show()
-
-                    Intent(requireActivity(), MapsActivity::class.java).apply {
-                        putExtra("location", intentList[position])
-                        startActivity(this)
-                    }
-                }
-            }
+    private fun initViews() = with(binding) {
+        lvBroot.adapter = bRecyclerViewAdapter.apply {
+            submitList(rootList.toList())
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

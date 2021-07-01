@@ -27,14 +27,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    getTheme: GetAppThemeUseCase,
-    private val setTheme: SetAppThemeUseCase,
+    val getTheme: GetAppThemeUseCase,
+    val setTheme: SetAppThemeUseCase,
 ) : ViewModel() {
     val theme: LiveData<Int> = getTheme.appTheme.asLiveData()
 
-    fun setAppTheme(theme: Int) {
-        viewModelScope.launch {
-            setTheme.invoke(theme)
-        }
+    fun setAppTheme(theme: Int) = viewModelScope.launch {
+        setTheme.invoke(theme)
     }
 }
+

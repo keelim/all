@@ -29,9 +29,13 @@ import dagger.hilt.android.scopes.ViewModelScoped
 object UseCase {
     @Provides
     @ViewModelScoped
-    fun provideAppThemeUseCase(themeRepository: ThemeRepository) = GetAppThemeUseCase(themeRepository)
+    fun provideAppThemeUseCase(themeRepository: ThemeRepository): GetAppThemeUseCase {
+        return GetAppThemeUseCase(themeRepository)
+    }
 
     @Provides
     @ViewModelScoped
-    fun provideSetAppThemeUseCase(themeRepository: ThemeRepository) = SetAppThemeUseCase(themeRepository)
+    fun provideSetAppThemeUseCase(themeRepository: ThemeRepository): SetAppThemeUseCase {
+        return SetAppThemeUseCase(themeRepository)
+    }
 }

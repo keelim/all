@@ -10,9 +10,10 @@ android {
     defaultConfig {
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [
-                        "room.incremental": "true"
-                ]
+                arguments += [
+                        "room.schemaLocation":"$projectDir/schemas".toString(),
+                        "room.incremental":"true",
+                        "room.expandProjection":"true"]
             }
         }
     }

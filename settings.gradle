@@ -13,4 +13,5 @@ include(
         ":data:db",
         ":feature:reference_search",
         ":common",
+        ":compose"
 )

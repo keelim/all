@@ -61,8 +61,13 @@ object Hilt {
 
     const val testing = "com.google.dagger:hilt-android-testing:${version}"
     const val android_hilt_compiler = "androidx.hilt:hilt-compiler:${version}"
+}
 
-
+object Compose {
+    private const val compose_version = "1.0.0-rc01"
+    const val compose_ui = "androidx.compose.ui:ui:$compose_version"
+    const val compose_material = "androidx.compose.material:material:$compose_version"
+    const val compose_ui_tooling = "androidx.compose.ui:ui-tooling:$compose_version"
 }
 
 object AndroidX {
@@ -72,7 +77,7 @@ object AndroidX {
     const val activity = "androidx.activity:activity:$activityVersion"
     const val activity_ktx = "androidx.activity:activity-ktx:$activityVersion"
 
-    private const val fragmentVersion = "1.2.3"
+    private const val fragmentVersion = "1.3.4"
     const val fragment = "androidx.fragment:fragment:$fragmentVersion"
     const val fragment_ktx = "androidx.fragment:fragment-ktx:$fragmentVersion"
 

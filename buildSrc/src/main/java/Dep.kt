@@ -32,8 +32,6 @@ object SquareUp {
     const val urlconnection = "com.squareup.okhttp3:okhttp-urlconnection:$version"
     const val retrofit = "com.squareup.retrofit2:retrofit:$rversion"
     const val retrofit_gson = "com.squareup.retrofit2:converter-gson:$rversion"
-
-
 }
 
 object Room {

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.ui.auth.profile
+package com.keelim.nandadiagnosis.ui.auth
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -22,7 +22,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.keelim.nandadiagnosis.base.BaseViewModel
 import com.keelim.nandadiagnosis.di.IoDispatcher
 import com.keelim.nandadiagnosis.di.PreferenceManager
-import com.keelim.nandadiagnosis.usecase.GetFavoriteListUseCase
+import com.keelim.nandadiagnosis.usecase.favorite.GetFavoriteListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Job
@@ -33,9 +33,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 internal class ProfileViewModel @Inject constructor(
-  private val preferenceManager: PreferenceManager,
-  private val getFavoriteListUseCase: GetFavoriteListUseCase,
-  @IoDispatcher private val dispatcher: CoroutineDispatcher,
+    private val preferenceManager: PreferenceManager,
+    private val getFavoriteListUseCase: GetFavoriteListUseCase,
+    @IoDispatcher private val dispatcher: CoroutineDispatcher,
 ) : BaseViewModel() {
   private var _profileState = MutableLiveData<ProfileState>(ProfileState.UnInitialized)
   val profileState: LiveData<ProfileState> get() = _profileState
@@ -64,15 +64,15 @@ internal class ProfileViewModel @Inject constructor(
     user?.let { user ->
       Timber.d("유저 값 $user")
       setState(
-        ProfileState.Success.Registered(
-          user.displayName ?: "익명",
-          user.photoUrl,
-          getFavoriteListUseCase()
-        )
+          ProfileState.Success.Registered(
+              user.displayName ?: "익명",
+              user.photoUrl,
+              getFavoriteListUseCase()
+          )
       )
     } ?: kotlin.run {
       setState(
-        ProfileState.Success.NotRegistered
+          ProfileState.Success.NotRegistered
       )
     }
   }

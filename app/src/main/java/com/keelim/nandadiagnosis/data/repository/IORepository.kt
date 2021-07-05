@@ -47,4 +47,6 @@ interface IORepository {
   suspend fun saveHistory(keyword: String)
 
   suspend fun deleteHistory(keyword: String)
+
+  suspend fun updateFavorite(favorite:Int, id:Int)
 }

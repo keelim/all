@@ -18,7 +18,7 @@ package com.keelim.nandadiagnosis.di
 import com.keelim.nandadiagnosis.data.repository.IORepository
 import com.keelim.nandadiagnosis.ui.main.setting.theme.ThemeRepository
 import com.keelim.nandadiagnosis.usecase.GetAppThemeUseCase
-import com.keelim.nandadiagnosis.usecase.GetFavoriteListUseCase
+import com.keelim.nandadiagnosis.usecase.favorite.GetFavoriteListUseCase
 import com.keelim.nandadiagnosis.usecase.GetNandaListUseCase
 import com.keelim.nandadiagnosis.usecase.GetNandaUseCase
 import com.keelim.nandadiagnosis.usecase.GetSearchListUseCase

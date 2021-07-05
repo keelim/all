@@ -89,4 +89,8 @@ class IORepositoryImpl @Inject constructor(
   override suspend fun deleteHistory(keyword: String) = withContext(ioDispatcher) {
     db.historyDao.delete(keyword)
   }
+
+  override suspend fun updateFavorite(favorite: Int, id: Int)  = withContext(ioDispatcher){
+    db.dataDao.favoriteUpdate(favorite, id)
+  }
 }

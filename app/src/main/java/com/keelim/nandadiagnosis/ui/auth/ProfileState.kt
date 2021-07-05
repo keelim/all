@@ -13,17 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.usecase
+package com.keelim.nandadiagnosis.ui.auth
 
+import android.net.Uri
 import com.keelim.nandadiagnosis.data.db.entity.NandaEntity
-import com.keelim.nandadiagnosis.data.repository.IORepository
-import javax.inject.Inject
 
-class GetFavoriteListUseCase @Inject constructor(
-  private val ioRepository: IORepository,
-) {
+sealed class ProfileState {
+  object UnInitialized : ProfileState()
 
-  suspend operator fun invoke(): List<NandaEntity> {
-    return ioRepository.getFavoriteList()
+  object Loading : ProfileState()
+
+  data class Login(
+    val token: String,
+  ) : ProfileState()
+
+  sealed class Success : ProfileState() {
+    data class Registered(
+      val userName: String,
+      val profileImage: Uri?,
+      val favoriteList: List<NandaEntity> = listOf()
+    ) : Success()
+
+    object NotRegistered : Success()
   }
+
+  object Error : ProfileState()
 }

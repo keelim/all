@@ -21,6 +21,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.keelim.nandadiagnosis.data.db.entity.History
 import com.keelim.nandadiagnosis.usecase.GetSearchListUseCase
+import com.keelim.nandadiagnosis.usecase.favorite.FavoriteUpdateUseCase
 import com.keelim.nandadiagnosis.usecase.history.DeleteHistoryUseCase
 import com.keelim.nandadiagnosis.usecase.history.GetAllHistoryUseCase
 import com.keelim.nandadiagnosis.usecase.history.SaveHistoryUseCase
@@ -36,6 +37,7 @@ class SearchViewModel @Inject constructor(
   private val deleteHistoryUseCase: DeleteHistoryUseCase,
   private val saveHistoryUseCase: SaveHistoryUseCase,
   private val getAllHistoryUseCase: GetAllHistoryUseCase,
+  private val favoriteUpdateUseCase: FavoriteUpdateUseCase,
 ) : ViewModel() {
   private val _searchListState = MutableLiveData<SearchListState>(SearchListState.UnInitialized)
   val searchListState: LiveData<SearchListState> get() = _searchListState
@@ -72,5 +74,9 @@ class SearchViewModel @Inject constructor(
 
   private fun setState(state: SearchListState) {
     _searchListState.postValue(state)
+  }
+
+  fun favoriteUpdate(favorite:Int, id:Int) = viewModelScope.launch {
+    favoriteUpdateUseCase.invoke(favorite, id)
   }
 }

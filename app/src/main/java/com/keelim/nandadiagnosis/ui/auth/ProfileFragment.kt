@@ -13,12 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.ui.auth.profile
+package com.keelim.nandadiagnosis.ui.auth
 
 import android.app.Activity
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
@@ -37,12 +42,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
-internal class ProfileFragment2 : BaseFragment<ProfileViewModel, FragmentProfileBinding>() {
+class ProfileFragment : Fragment() {
+  private var _binding:FragmentProfileBinding? = null
+  private val binding get() = _binding!!
+  private val viewModel: ProfileViewModel by viewModels()
 
-  override val viewModel: ProfileViewModel by viewModels()
-
-  override fun getViewBinding(): FragmentProfileBinding =
-    FragmentProfileBinding.inflate(layoutInflater)
 
   private val gso by lazy {
     GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -70,7 +74,28 @@ internal class ProfileFragment2 : BaseFragment<ProfileViewModel, FragmentProfile
       }
     }
 
-  override fun observeData() = viewModel.profileState.observe(this) {
+  override fun onCreateView(
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View {
+    _binding = FragmentProfileBinding.inflate(inflater, container, false)
+    return binding.root
+  }
+
+  override fun onDestroyView() {
+    super.onDestroyView()
+    _binding = null
+  }
+
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+    observeData()
+    viewModel.fetchData()
+  }
+
+
+  private fun observeData() = viewModel.profileState.observe(viewLifecycleOwner) {
     when (it) {
       is ProfileState.UnInitialized -> initViews()
       is ProfileState.Loading -> handleLoading()

@@ -19,7 +19,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.keelim.nandadiagnosis.usecase.GetFavoriteListUseCase
+import com.keelim.nandadiagnosis.usecase.favorite.GetFavoriteListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -29,7 +29,7 @@ import javax.inject.Inject
 internal class FavoriteViewModel
 @Inject
 constructor(
-  private val getFavoriteListUseCase: GetFavoriteListUseCase,
+    private val getFavoriteListUseCase: GetFavoriteListUseCase,
 ) : ViewModel() {
   private var _favoriteState = MutableLiveData<FavoriteListState>(FavoriteListState.UnInitialized)
   val favoriteState: LiveData<FavoriteListState> get() = _favoriteState

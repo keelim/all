@@ -22,8 +22,8 @@ import androidx.lifecycle.viewModelScope
 import com.keelim.comssa.usecase.SearchUseCase
 import com.keelim.comssa.usecase.UpdateFavoriteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 @HiltViewModel
 class MainViewModel @Inject constructor(

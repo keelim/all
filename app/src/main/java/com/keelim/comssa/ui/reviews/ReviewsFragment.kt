@@ -38,7 +38,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ReviewsFragment : Fragment() {
 
-  private val arguments: ReviewsFragmentArgs by navArgs()
+  private val arguments by navArgs<ReviewsFragmentArgs>()
   private var _binding: FragmentReviewBinding? = null
   private val binding get() = _binding!!
   private val data by lazy { arguments.data }

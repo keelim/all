@@ -20,6 +20,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.keelim.comssa.databinding.BottomSheetDialogBinding
 import com.keelim.comssa.ui.favorite.FavoriteActivity
@@ -58,6 +59,10 @@ class BottomSheetDialog : BottomSheetDialogFragment() {
     downloadButton.setOnClickListener {
 //            databaseDownloadAlertDialog()
       startActivity(Intent(requireActivity(), FavoriteActivity::class.java))
+    }
+
+    opensource.setOnClickListener {
+      startActivity(Intent(requireContext(), OssLicensesMenuActivity::class.java))
     }
   }
 }

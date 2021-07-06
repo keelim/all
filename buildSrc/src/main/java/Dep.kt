@@ -104,6 +104,13 @@ object AppTest {
     const val espressoCore = "androidx.test.espresso:espresso-core:3.3.0"
 }
 
+object Compose {
+    private const val compose_version = "1.0.0-rc01"
+    const val compose_ui = "androidx.compose.ui:ui:$compose_version"
+    const val compose_material = "androidx.compose.material:material:$compose_version"
+    const val compose_ui_tooling = "androidx.compose.ui:ui-tooling:$compose_version"
+}
+
 
 object Glide {
     private const val version = "4.12.0"

@@ -1,5 +1,5 @@
 /*
- * Designed and developed by 2021 keelim (Jaehyun Kim)
+ * Designed and developed by 2020 keelim (Jaehyun Kim)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,16 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.comssa.data.repository
+package com.keelim.nandadiagnosis.compose.ui.theme
 
-import com.keelim.comssa.data.db.entity.Search
+import androidx.compose.ui.graphics.Color
 
-interface IoRepository {
-
-    suspend fun getSearch(keyword: String): List<Search>
-
-    suspend fun updateFavorite(favorite: Int, id: Int)
-
-    suspend fun getFavorite(): List<Search>
-
-}
+val Purple200 = Color(0xFFBB86FC)
+val Purple500 = Color(0xFF6200EE)
+val Purple700 = Color(0xFF3700B3)
+val Teal200 = Color(0xFF03DAC5)

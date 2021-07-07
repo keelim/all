@@ -57,6 +57,7 @@ class FavoriteActivity : AppCompatActivity() {
   }
 
   private fun handleSuccess(state: FavoriteState.Success) {
-    favoriteAdapter.submitList(state.data)
+    favoriteAdapter.submitList(viewModel.favoriteList.value)
+//    favoriteAdapter.submitList(state.data)
   }
 }

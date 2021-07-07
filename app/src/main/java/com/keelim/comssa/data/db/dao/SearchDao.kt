@@ -18,6 +18,8 @@ package com.keelim.comssa.data.db.dao
 import androidx.room.Dao
 import androidx.room.Query
 import com.keelim.comssa.data.db.entity.Search
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
 
 @Dao
 interface SearchDao {
@@ -30,4 +32,12 @@ interface SearchDao {
 
   @Query("SELECT * FROM Search WHERE favorite == 1")
   fun getFavorite(): List<Search>
+
+  @Query("SELECT * FROM Search WHERE title like '%'|| :keyword || '%'")
+  fun getSearch2(keyword: String): Flow<List<Search>>
+
+  @Query("SELECT * FROM Search WHERE favorite == 1")
+  fun getFavorite2(): Flow<List<Search>>
+
+  fun getSearchDistinctUntilChanged(keyword: String) = getSearch2(keyword).distinctUntilChanged()
 }

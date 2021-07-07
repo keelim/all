@@ -16,6 +16,7 @@
 package com.keelim.comssa.data.repository
 
 import com.keelim.comssa.data.db.entity.Search
+import kotlinx.coroutines.flow.Flow
 
 interface IoRepository {
 
@@ -25,4 +26,7 @@ interface IoRepository {
 
     suspend fun getFavorite(): List<Search>
 
+
+
+    val favoriteFlow: Flow<List<Search>>
 }

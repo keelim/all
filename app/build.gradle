@@ -70,7 +70,7 @@ dependencies {
     implementation project(":data:api")
     implementation project(":common")
 
-    implementation platform('com.google.firebase:firebase-bom:28.0.1')
+    implementation platform('com.google.firebase:firebase-bom:28.2.0')
     implementation "com.google.firebase:firebase-core"
     implementation "com.google.firebase:firebase-crashlytics-ktx"
     implementation 'com.google.firebase:firebase-perf-ktx'

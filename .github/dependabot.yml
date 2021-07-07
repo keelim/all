@@ -1,21 +1,6 @@
 version: 2
 updates:
-  - package-ecosystem: "github-actions"
-    directory: "/"
+  - package-ecosystem: "gradle" 
+    directory: "/" 
     schedule:
-    interval: "weekly"
-  - package-ecosystem: "gradle"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-      day: "monday"
-      timezone: "Asia/Seoul"
-    target-branch: "develop"
-    assignees:
-      - "keelim"
-    commit-message:
-      prefix: "chore"
-      include: "scope"
-    labels:
-      - "github actions"
-      - "dependencies"
+      interval: "daily"

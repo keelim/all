@@ -20,11 +20,18 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.keelim.nandadiagnosis.data.db.entity.History
+<<<<<<< Updated upstream
 import com.keelim.nandadiagnosis.usecase.GetSearchListUseCase
 import com.keelim.nandadiagnosis.usecase.favorite.FavoriteUpdateUseCase
 import com.keelim.nandadiagnosis.usecase.history.DeleteHistoryUseCase
 import com.keelim.nandadiagnosis.usecase.history.GetAllHistoryUseCase
 import com.keelim.nandadiagnosis.usecase.history.SaveHistoryUseCase
+=======
+import com.keelim.nandadiagnosis.domain.GetSearchListUseCase
+import com.keelim.nandadiagnosis.domain.history.DeleteHistoryUseCase
+import com.keelim.nandadiagnosis.domain.history.GetAllHistoryUseCase
+import com.keelim.nandadiagnosis.domain.history.SaveHistoryUseCase
+>>>>>>> Stashed changes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -33,7 +40,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-  private val getSearchListUseCase: GetSearchListUseCase,
+  private val getSearchListUseCase: com.keelim.nandadiagnosis.domain.GetSearchListUseCase,
   private val deleteHistoryUseCase: DeleteHistoryUseCase,
   private val saveHistoryUseCase: SaveHistoryUseCase,
   private val getAllHistoryUseCase: GetAllHistoryUseCase,
@@ -42,8 +49,8 @@ class SearchViewModel @Inject constructor(
   private val _searchListState = MutableLiveData<SearchListState>(SearchListState.UnInitialized)
   val searchListState: LiveData<SearchListState> get() = _searchListState
 
-  private val _historyList = MutableLiveData<List<History>>(listOf())
-  val historyList: LiveData<List<History>> get() = _historyList
+  private val _historyList = MutableLiveData<List<com.keelim.nandadiagnosis.data.db.entity.History>>(listOf())
+  val historyList: LiveData<List<com.keelim.nandadiagnosis.data.db.entity.History>> get() = _historyList
 
   fun fetchData(): Job = viewModelScope.launch {
     setState(

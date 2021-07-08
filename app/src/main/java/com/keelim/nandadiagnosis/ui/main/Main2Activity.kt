@@ -32,8 +32,8 @@ import com.google.firebase.ktx.Firebase
 import com.keelim.common.toast
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.ActivityMain2Binding
-import com.keelim.nandadiagnosis.di.DownloadReceiver
 import com.keelim.nandadiagnosis.service.TerminateService
+import com.keelim.nandadiagnosis.utils.DownloadReceiver
 import com.keelim.nandadiagnosis.utils.MaterialDialog
 import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.message
 import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.negativeButton

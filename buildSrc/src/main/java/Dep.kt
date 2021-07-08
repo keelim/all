@@ -68,6 +68,21 @@ object Compose {
     const val compose_ui_tooling = "androidx.compose.ui:ui-tooling:$compose_version"
 }
 
+object Kotlin {
+    const val version = "1..5.20"
+    const val stdlibJvm = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$version"
+
+    object Coroutines {
+        private const val coroutinesVersion = "1.5.0"
+        const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
+        const val android =
+            "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
+        const val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
+    }
+
+    const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.0"
+}
+
 object AndroidX {
     const val annotation = "androidx.annotation:annotation:1.2.0-alpha01"
 
@@ -133,20 +148,7 @@ object Glide {
         }
 
 
-        object Kotlin {
-            const val version = "1.4.10"
-            const val stdlibJvm = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$version"
 
-            object coroutines {
-                private const val coroutinesVersion = "1.3.9"
-                const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
-                const val android =
-                    "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
-                const val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
-            }
-
-            const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.0"
-        }
 
         const val jsoup = "org.jsoup:jsoup:1.13.1"
 

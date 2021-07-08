@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.comssa.usecase
+package com.keelim.comssa.domain
 
 import com.keelim.comssa.data.model.Data
 import com.keelim.comssa.data.repository.DataRepository

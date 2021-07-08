@@ -1,43 +1,29 @@
 plugins {
-    id 'com.android.library'
-    id 'kotlin-android'
+    id("com.android.library")
+    kotlin("android")
+    kotlin("kapt")
+    id("kotlin-parcelize")
+    id("dagger.hilt.android.plugin")
 }
 
-android {
-    compileSdk 30
-    buildToolsVersion "30.0.3"
-
-    defaultConfig {
-        minSdk 24
-        targetSdk 30
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles "consumer-rules.pro"
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
+listOf(
+    "android.gradle",
+).forEach { file ->
+    apply(from = "${rootDir}/gradle/${file}")
 }
 
 dependencies {
+    implementation(project(":data"))
+    implementation(AndroidX.core_ktx)
+    implementation(Hilt.android)
+    kapt(Hilt.hilt_compiler)
 
-    implementation 'androidx.core:core-ktx:1.6.0'
-    implementation 'androidx.appcompat:appcompat:1.3.0'
-    implementation 'com.google.android.material:material:1.4.0'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    implementation(SquareUp.timber)
+    implementation(Kotlin.Coroutines.android)
+
+    implementation(Kotlin.stdlibJvm)
+    testImplementation(AppTest.junit)
+    androidTestImplementation(AppTest.androidJunit)
+    androidTestImplementation(AppTest.espressoCore)
+    androidTestImplementation(Kotlin.Coroutines.test)
 }

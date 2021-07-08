@@ -19,16 +19,17 @@ import com.keelim.comssa.data.repository.DataRepository
 import com.keelim.comssa.data.repository.IoRepository
 import com.keelim.comssa.data.repository.ReviewRepository
 import com.keelim.comssa.data.repository.UserRepository
-import com.keelim.comssa.usecase.DeleteReviewUseCase
-import com.keelim.comssa.usecase.GetAllDataReviewsUseCase
-import com.keelim.comssa.usecase.GetAllDatasUseCase
-import com.keelim.comssa.usecase.GetAllReviewsUseCase
-import com.keelim.comssa.usecase.GetFavoriteUseCase
-import com.keelim.comssa.usecase.GetRandomFeatureDataUseCase
-import com.keelim.comssa.usecase.GetUserReviewedDataUseCase
-import com.keelim.comssa.usecase.SearchUseCase
-import com.keelim.comssa.usecase.SubmitReviewUseCase
-import com.keelim.comssa.usecase.UpdateFavoriteUseCase
+import com.keelim.comssa.domain.DeleteReviewUseCase
+import com.keelim.comssa.domain.GetAllDataReviewsUseCase
+import com.keelim.comssa.domain.GetAllDatasUseCase
+import com.keelim.comssa.domain.GetAllReviewsUseCase
+import com.keelim.comssa.domain.GetFavoriteUseCase
+import com.keelim.comssa.domain.GetRandomFeatureDataUseCase
+import com.keelim.comssa.domain.GetUserReviewedDataUseCase
+import com.keelim.comssa.domain.SearchUseCase
+import com.keelim.comssa.domain.SubmitReviewUseCase
+import com.keelim.comssa.domain.UpdateFavoriteUseCase
+
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

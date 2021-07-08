@@ -127,7 +127,7 @@ class HomeAdapter(
           if (review.userId.isNullOrBlank()) {
             "🌟 따끈따끈한 후기"
           } else {
-            "- ${review.userId.take(3)}*** -"
+            "- ${review.userId!!.take(3)}*** -"
           }
 
         latestReviewTextView.text = "\"${review.content}\""

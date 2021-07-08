@@ -15,7 +15,6 @@
  */
 package com.keelim.comssa.di
 
-import com.keelim.comssa.data.api.DataApi
 import com.keelim.comssa.data.api.ReviewApi
 import com.keelim.comssa.data.api.UserApi
 import com.keelim.comssa.data.db.AppDatabase
@@ -32,8 +31,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Singleton
+import kotlinx.coroutines.CoroutineDispatcher
 
 @Module
 @InstallIn(SingletonComponent::class)

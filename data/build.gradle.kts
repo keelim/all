@@ -2,12 +2,12 @@ plugins {
     id("com.android.library")
     kotlin("android")
     kotlin("kapt")
+    id("kotlin-parcelize")
     id("dagger.hilt.android.plugin")
 }
 
 listOf(
-        "commonConfiguration.gradle",
-        "libraryConfiguration.gradle"
+    "android.gradle",
 ).forEach { file ->
     apply(from = "${rootDir}/gradle/${file}")
 }
@@ -17,9 +17,9 @@ android {
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments += mapOf(
-                        "room.schemaLocation" to "$projectDir/schemas",
-                        "room.incremental" to "true",
-                        "room.expandProjection" to "true"
+                    "room.schemaLocation" to "$projectDir/schemas",
+                    "room.incremental" to "true",
+                    "room.expandProjection" to "true"
                 )
             }
         }
@@ -32,27 +32,29 @@ android {
 }
 
 dependencies {
-    implementation(project(":core"))
+    implementation(platform("com.google.firebase:firebase-bom:28.1.0"))
+    implementation("com.google.firebase:firebase-storage-ktx")
+    implementation("com.google.firebase:firebase-database-ktx")
+    implementation("com.google.firebase:firebase-firestore-ktx")
 
-    implementation(Dep.Kotlin.stdlibJvm)
-    implementation(Dep.Kotlin.coroutines.android)
+    implementation(AndroidX.core_ktx)
 
-    implementation(Dep.AndroidX.room.runtime)
-    kapt(Dep.AndroidX.room.compiler)
-    implementation(Dep.AndroidX.room.ktx)
-    implementation(Dep.AndroidX.UI.preference)
-
-    // OkHttp
-    implementation(Dep.OkHttp.core)
-    implementation(Dep.OkHttp.loggingInterceptor)
-
-    // Dagger Hilt
     implementation(Hilt.android)
-    kapt(Hilt.compiler)
+    kapt(Hilt.hilt_compiler)
 
-    testImplementation(Dep.Test.junit)
-    androidTestImplementation(Dep.AndroidX.room.testing)
-    androidTestImplementation(Dep.Test.androidJunit)
-    androidTestImplementation(Dep.Test.espressoCore)
-    androidTestImplementation(Dep.Kotlin.coroutines.test)
+    implementation(Room.runtime)
+    implementation(Room.ktx)
+    kapt(Room.compiler)
+
+    implementation(SquareUp.timber)
+    implementation(Kotlin.Coroutines.android)
+    implementation(Kotlin.Coroutines.play)
+
+    implementation(Kotlin.stdlibJvm)
+
+    testImplementation(AppTest.junit)
+    androidTestImplementation(Room.testing)
+    androidTestImplementation(AppTest.androidJunit)
+    androidTestImplementation(AppTest.espressoCore)
+    androidTestImplementation(Kotlin.Coroutines.test)
 }

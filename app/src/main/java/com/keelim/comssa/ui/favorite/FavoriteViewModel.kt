@@ -20,16 +20,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.keelim.comssa.usecase.GetFavoriteUseCase
-import com.keelim.comssa.usecase.UpdateFavoriteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
 
 @HiltViewModel
 class FavoriteViewModel @Inject constructor(
-    private val updateFavoriteUseCase: UpdateFavoriteUseCase,
-    private val getFavoriteUseCase: GetFavoriteUseCase,
+    private val updateFavoriteUseCase: com.keelim.comssa.domain.UpdateFavoriteUseCase,
+    private val getFavoriteUseCase: com.keelim.comssa.domain.GetFavoriteUseCase,
 ) : ViewModel() {
     private val _favoriteState = MutableLiveData<FavoriteState>(FavoriteState.UnInitialized)
     val favoriteState: LiveData<FavoriteState> get() = _favoriteState

@@ -19,8 +19,8 @@ import com.keelim.comssa.data.api.UserApi
 import com.keelim.comssa.data.model.User
 import com.keelim.comssa.data.preference.PreferenceManager
 import com.keelim.comssa.di.IoDispatcher
-import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
+import kotlinx.coroutines.CoroutineDispatcher
 
 class UserRepositoryImpl @Inject constructor(
   private val userApi: UserApi,

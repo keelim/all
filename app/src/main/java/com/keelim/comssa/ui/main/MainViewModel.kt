@@ -19,16 +19,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.keelim.comssa.usecase.SearchUseCase
-import com.keelim.comssa.usecase.UpdateFavoriteUseCase
+import com.keelim.comssa.domain.SearchUseCase
+import com.keelim.comssa.domain.UpdateFavoriteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-  private val searchUseCase: SearchUseCase,
-  private val updateFavoriteUseCase: UpdateFavoriteUseCase,
+  private val searchUseCase: com.keelim.comssa.domain.SearchUseCase,
+  private val updateFavoriteUseCase: com.keelim.comssa.domain.UpdateFavoriteUseCase,
 ) : ViewModel() {
   private val _mainListState = MutableLiveData<MainListState>(MainListState.UnInitialized)
   val mainListState: LiveData<MainListState> get() = _mainListState

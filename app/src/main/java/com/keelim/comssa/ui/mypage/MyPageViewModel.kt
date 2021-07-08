@@ -20,14 +20,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.keelim.comssa.data.model.ReviewedData
-import com.keelim.comssa.usecase.GetUserReviewedDataUseCase
+import com.keelim.comssa.domain.GetUserReviewedDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MyPageViewModel @Inject constructor(
-  private val getUserReviewedDataUseCase: GetUserReviewedDataUseCase
+  private val getUserReviewedDataUseCase: com.keelim.comssa.domain.GetUserReviewedDataUseCase
 ) : ViewModel() {
   private val _reviewedData = MutableLiveData<List<ReviewedData>>(listOf())
   val reviewedData: LiveData<List<ReviewedData>> get() = _reviewedData

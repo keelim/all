@@ -22,18 +22,18 @@ import androidx.lifecycle.viewModelScope
 import com.keelim.comssa.data.model.Data
 import com.keelim.comssa.data.model.DataReviews
 import com.keelim.comssa.data.model.Review
-import com.keelim.comssa.usecase.DeleteReviewUseCase
-import com.keelim.comssa.usecase.GetAllDataReviewsUseCase
-import com.keelim.comssa.usecase.SubmitReviewUseCase
+import com.keelim.comssa.domain.DeleteReviewUseCase
+import com.keelim.comssa.domain.GetAllDataReviewsUseCase
+import com.keelim.comssa.domain.SubmitReviewUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ReviewViewModel @Inject constructor(
-  private val submitReviewUseCase: SubmitReviewUseCase,
-  private val deleteReviewUseCase: DeleteReviewUseCase,
-  private val getAllDataReviewsUseCase: GetAllDataReviewsUseCase
+  private val submitReviewUseCase: com.keelim.comssa.domain.SubmitReviewUseCase,
+  private val deleteReviewUseCase: com.keelim.comssa.domain.DeleteReviewUseCase,
+  private val getAllDataReviewsUseCase: com.keelim.comssa.domain.GetAllDataReviewsUseCase
 ) : ViewModel() {
   private val _review = MutableLiveData<Review>(Review())
   val review: LiveData<Review> get() = _review

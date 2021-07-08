@@ -32,8 +32,8 @@ import javax.inject.Singleton
 object ApiModule {
   @Provides
   @Singleton
-  fun provideDataApi(): DataApi {
-    return DataApiImpl()
+  fun provideDataApi(): com.keelim.comssa.data.api.DataApi {
+    return com.keelim.comssa.data.api.DataApiImpl()
   }
 
   @Provides

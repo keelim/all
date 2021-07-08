@@ -55,7 +55,7 @@ object RepositoryModule {
   @Singleton
   fun provideDataRepository(
     @IoDispatcher ioDispatcher: CoroutineDispatcher,
-    dataApi: DataApi,
+    dataApi: com.keelim.comssa.data.api.DataApi,
   ): DataRepository {
     return DataRepositoryImpl(
       dataApi = dataApi,

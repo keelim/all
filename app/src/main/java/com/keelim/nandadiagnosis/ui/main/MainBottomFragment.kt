@@ -105,7 +105,7 @@ class MainBottomFragment : BottomSheetDialogFragment() {
 
     binding.login.setOnClickListener {
       dismiss()
-      findNavController().navigate(R.id.loginFragment)
+      findNavController().navigate(R.id.profileFragment)
     }
   }
 

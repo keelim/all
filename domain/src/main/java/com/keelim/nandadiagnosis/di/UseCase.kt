@@ -16,30 +16,17 @@
 package com.keelim.nandadiagnosis.di
 
 import com.keelim.nandadiagnosis.data.repository.IORepository
-<<<<<<< Updated upstream:app/src/main/java/com/keelim/nandadiagnosis/di/UseCase.kt
-import com.keelim.nandadiagnosis.ui.main.setting.theme.ThemeRepository
-import com.keelim.nandadiagnosis.usecase.GetAppThemeUseCase
-import com.keelim.nandadiagnosis.usecase.favorite.GetFavoriteListUseCase
-import com.keelim.nandadiagnosis.usecase.GetNandaListUseCase
-import com.keelim.nandadiagnosis.usecase.GetNandaUseCase
-import com.keelim.nandadiagnosis.usecase.GetSearchListUseCase
-import com.keelim.nandadiagnosis.usecase.SetAppThemeUseCase
-import com.keelim.nandadiagnosis.usecase.history.DeleteHistoryUseCase
-import com.keelim.nandadiagnosis.usecase.history.GetAllHistoryUseCase
-import com.keelim.nandadiagnosis.usecase.history.SaveHistoryUseCase
-=======
 import com.keelim.nandadiagnosis.data.repository.theme.ThemeRepository
 import com.keelim.nandadiagnosis.domain.*
 import com.keelim.nandadiagnosis.domain.history.DeleteHistoryUseCase
 import com.keelim.nandadiagnosis.domain.history.GetAllHistoryUseCase
 import com.keelim.nandadiagnosis.domain.history.SaveHistoryUseCase
-
->>>>>>> Stashed changes:domain/src/main/java/com/keelim/nandadiagnosis/di/UseCase.kt
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
+
 
 @Module
 @InstallIn(ViewModelComponent::class)

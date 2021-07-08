@@ -19,33 +19,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-<<<<<<< Updated upstream
-import com.keelim.nandadiagnosis.usecase.favorite.GetFavoriteListUseCase
-=======
-<<<<<<< Updated upstream
-import com.keelim.nandadiagnosis.usecase.favorite.GetFavoriteListUseCase
-=======
 import com.keelim.nandadiagnosis.domain.GetFavoriteListUseCase
->>>>>>> Stashed changes
->>>>>>> Stashed changes
+
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-internal class FavoriteViewModel
+class FavoriteViewModel
 @Inject
 constructor(
-<<<<<<< Updated upstream
-    private val getFavoriteListUseCase: GetFavoriteListUseCase,
-=======
-<<<<<<< Updated upstream
-    private val getFavoriteListUseCase: GetFavoriteListUseCase,
-=======
-  private val getFavoriteListUseCase: com.keelim.nandadiagnosis.domain.GetFavoriteListUseCase,
->>>>>>> Stashed changes
->>>>>>> Stashed changes
+  private val getFavoriteListUseCase: GetFavoriteListUseCase,
 ) : ViewModel() {
   private var _favoriteState = MutableLiveData<FavoriteListState>(FavoriteListState.UnInitialized)
   val favoriteState: LiveData<FavoriteListState> get() = _favoriteState

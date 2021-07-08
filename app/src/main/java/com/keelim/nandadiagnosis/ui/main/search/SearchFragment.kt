@@ -52,13 +52,6 @@ class SearchFragment : Fragment() {
 
   private val viewModel: SearchViewModel by viewModels()
 
-<<<<<<< Updated upstream
-=======
-<<<<<<< Updated upstream
-=======
-  private lateinit var db: com.keelim.nandadiagnosis.data.db.AppDatabaseV2
->>>>>>> Stashed changes
->>>>>>> Stashed changes
   private val historyAdapter = HistoryAdapter(
     historyDeleteListener = {
       deleteSearch(it)
@@ -112,13 +105,6 @@ class SearchFragment : Fragment() {
       adapter = searchRecyclerViewAdapter2
     }
     initTracker()
-<<<<<<< Updated upstream
-=======
-<<<<<<< Updated upstream
-=======
-    db = com.keelim.nandadiagnosis.data.db.AppDatabaseV2.getInstance(requireContext())!!
->>>>>>> Stashed changes
->>>>>>> Stashed changes
   }
 
   override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

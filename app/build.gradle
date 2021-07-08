@@ -62,8 +62,9 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':common')
-    implementation project(':data:db')
     implementation project(':compose')
+    implementation project(':data')
+    implementation project(':domain')
     implementation project(":feature:reference_search")
 
     implementation platform('com.google.firebase:firebase-bom:28.2.0')

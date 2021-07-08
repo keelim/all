@@ -88,7 +88,7 @@ class CategoryFragment : Fragment() {
     }
   }
 
-  private fun parseJson(json: String): List<Recent> {
+  private fun parseJson(json: String): List<com.keelim.nandadiagnosis.data.entity.Recent> {
     val jsonArray = JSONArray(json)
     var jsonList = emptyList<JSONObject>()
     for (index in 0 until jsonArray.length()) {
@@ -99,7 +99,7 @@ class CategoryFragment : Fragment() {
     }
 
     return jsonList.map {
-      Recent(
+      com.keelim.nandadiagnosis.data.entity.Recent(
         reason = it.getString("reason"),
         domain = it.getString("domain"),
         class_name = it.getString("class_name"),
@@ -108,7 +108,7 @@ class CategoryFragment : Fragment() {
     }
   }
 
-  private fun displayPager(recents: List<Recent>) {
+  private fun displayPager(recents: List<com.keelim.nandadiagnosis.data.entity.Recent>) {
     val recentAdapter = RecentAdapter(recents = recents)
     with(binding.recycler) {
       adapter = recentAdapter

@@ -21,12 +21,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.keelim.nandadiagnosis.data.entity.Recent
 import com.keelim.nandadiagnosis.databinding.ItemRecentBinding
 
-class RecentAdapter(private val recents: List<Recent>) : RecyclerView.Adapter<RecentAdapter.ViewHolder>() {
+class RecentAdapter(private val recents: List<com.keelim.nandadiagnosis.data.entity.Recent>) : RecyclerView.Adapter<RecentAdapter.ViewHolder>() {
 
   inner class ViewHolder(val binding: ItemRecentBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(item: Recent) = with(binding) {
+    fun bind(item: com.keelim.nandadiagnosis.data.entity.Recent) = with(binding) {
       itemCategory.text = item.category
       itemClass.text = item.class_name
       itemDomain.text = item.domain

@@ -18,7 +18,7 @@ package com.keelim.nandadiagnosis
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.gms.ads.MobileAds
-import com.keelim.nandadiagnosis.ui.main.setting.theme.ThemeRepository
+import com.keelim.nandadiagnosis.data.repository.theme.ThemeRepository
 import com.keelim.nandadiagnosis.utils.AppOpenManager
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.CoroutineScope

@@ -23,12 +23,12 @@ sealed class SearchListState {
   object Loading : SearchListState()
 
   data class Success(
-    val searchList: List<NandaEntity>
+    val searchList: List<com.keelim.nandadiagnosis.data.db.entity.NandaEntity>
   ) : SearchListState()
 
   object Error : SearchListState()
 
   data class Searching(
-    val searchList: List<NandaEntity>
+    val searchList: List<com.keelim.nandadiagnosis.data.db.entity.NandaEntity>
   ) : SearchListState()
 }

@@ -20,8 +20,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.keelim.nandadiagnosis.data.network.NandaService
-import com.keelim.nandadiagnosis.usecase.GetAppThemeUseCase
-import com.keelim.nandadiagnosis.usecase.SetAppThemeUseCase
+import com.keelim.nandadiagnosis.domain.GetAppThemeUseCase
+import com.keelim.nandadiagnosis.domain.SetAppThemeUseCase
 import com.squareup.okhttp.ResponseBody
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -32,9 +32,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-  getTheme: GetAppThemeUseCase,
-  private val setTheme: SetAppThemeUseCase,
-  private val nandaService: NandaService
+  getTheme: com.keelim.nandadiagnosis.domain.GetAppThemeUseCase,
+  private val setTheme: com.keelim.nandadiagnosis.domain.SetAppThemeUseCase,
+  private val nandaService: com.keelim.nandadiagnosis.data.network.NandaService
 ) : ViewModel() {
   val theme: LiveData<Int> = getTheme.appTheme.asLiveData()
 

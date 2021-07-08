@@ -10,8 +10,9 @@ dependencyResolutionManagement {
 rootProject.name = 'nandaDiagnosis'
 include(
         ":app",
-        ":data:db",
         ":feature:reference_search",
         ":common",
         ":compose"
 )
+include ':data'
+include ':domain'

@@ -477,9 +477,7 @@
     <string name="github">https:www.github.com/keelim/nandaDiagnosis</string>
     <string name="share_the_multiple_selection">share the multiple selection</string>
     <string name="title_activity_splash">Splash</string>
-    <string name="system">System default</string>
-    <string name="light_theme">Light</string>
-    <string name="dark_theme">Dark</string>
+
     <string name="cancel">취소</string>
     <string name="ok">확인</string>
     <string name="choose_theme">테마 선택</string>

@@ -28,7 +28,7 @@ import com.keelim.nandadiagnosis.databinding.ItemListviewBinding
 class SearchRecyclerViewAdapter2(
   val favoriteListener: (Int, Int) -> Unit,
 ) :
-  ListAdapter<NandaEntity, SearchRecyclerViewAdapter2.ViewHolder>(diffUtil) {
+  ListAdapter<com.keelim.nandadiagnosis.data.db.entity.NandaEntity, SearchRecyclerViewAdapter2.ViewHolder>(diffUtil) {
   var tracker: SelectionTracker<Long>? = null
 
   init {
@@ -37,12 +37,12 @@ class SearchRecyclerViewAdapter2(
 
   override fun getItemId(position: Int): Long = position.toLong()
 
-  public override fun getItem(position: Int): NandaEntity = currentList[position]
+  public override fun getItem(position: Int): com.keelim.nandadiagnosis.data.db.entity.NandaEntity = currentList[position]
 
   inner class ViewHolder(private val binding: ItemListviewBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(item: NandaEntity, isActivated: Boolean = false) {
+    fun bind(item: com.keelim.nandadiagnosis.data.db.entity.NandaEntity, isActivated: Boolean = false) {
       itemView.isActivated = isActivated
 
       binding.diagnosisItem.text = item.diagnosis
@@ -80,12 +80,12 @@ class SearchRecyclerViewAdapter2(
   }
 
   companion object {
-    val diffUtil = object : DiffUtil.ItemCallback<NandaEntity>() {
-      override fun areItemsTheSame(oldItem: NandaEntity, newItem: NandaEntity): Boolean {
+    val diffUtil = object : DiffUtil.ItemCallback<com.keelim.nandadiagnosis.data.db.entity.NandaEntity>() {
+      override fun areItemsTheSame(oldItem: com.keelim.nandadiagnosis.data.db.entity.NandaEntity, newItem: com.keelim.nandadiagnosis.data.db.entity.NandaEntity): Boolean {
         return oldItem == newItem
       }
 
-      override fun areContentsTheSame(oldItem: NandaEntity, newItem: NandaEntity): Boolean {
+      override fun areContentsTheSame(oldItem: com.keelim.nandadiagnosis.data.db.entity.NandaEntity, newItem: com.keelim.nandadiagnosis.data.db.entity.NandaEntity): Boolean {
         return oldItem.diagnosis == newItem.diagnosis
       }
     }

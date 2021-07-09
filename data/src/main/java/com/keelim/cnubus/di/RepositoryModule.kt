@@ -13,19 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.cnubus.data.api
+package com.keelim.cnubus.di
 
-import com.keelim.cnubus.BuildConfig
-import com.keelim.cnubus.data.response.tm.TmCoordinateResponse
-import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Headers
-import retrofit2.http.Query
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityRetainedComponent
 
-interface KaKaoLocalApiService {
-    @GET("v2/local/geo/transcord.json?/output_coord=TM")
-    suspend fun getTmCoordinates(
-        @Query("x") longitude: Double,
-        @Query("y") latitude: Double,
-    ): Response<TmCoordinateResponse>
+@Module
+@InstallIn(ActivityRetainedComponent::class)
+object RepositoryModule {
+
 }

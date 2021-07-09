@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.cnubus.ui.setting.theme
+package com.keelim.cnubus.data.repository.theme
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
@@ -22,19 +22,20 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import com.keelim.cnubus.ui.setting.theme.ThemeRepository.Companion.STORE_NAME
-import com.keelim.cnubus.ui.setting.theme.ThemeRepository.PreferencesKeys.USER_THEME
+import com.keelim.cnubus.data.repository.theme.ThemeRepository.Companion.STORE_NAME
+import com.keelim.cnubus.data.repository.theme.ThemeRepository.PreferencesKeys.USER_THEME
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
-val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = STORE_NAME)
 
 @Singleton
 class ThemeRepository @Inject constructor(
     @ApplicationContext val context: Context
 ) {
+    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = STORE_NAME)
+
     fun getUserTheme() = context.dataStore.data.map { preferences ->
         preferences[USER_THEME] ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
     }

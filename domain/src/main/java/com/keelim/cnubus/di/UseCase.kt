@@ -15,9 +15,9 @@
  */
 package com.keelim.cnubus.di
 
-import com.keelim.cnubus.ui.setting.theme.ThemeRepository
-import com.keelim.cnubus.usecase.GetAppThemeUseCase
-import com.keelim.cnubus.usecase.SetAppThemeUseCase
+import com.keelim.cnubus.data.repository.theme.ThemeRepository
+import com.keelim.cnubus.domain.GetAppThemeUseCase
+import com.keelim.cnubus.domain.SetAppThemeUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

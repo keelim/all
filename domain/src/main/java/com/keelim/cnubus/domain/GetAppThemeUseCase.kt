@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.cnubus.usecase
+package com.keelim.cnubus.domain
 
-import com.keelim.cnubus.ui.setting.theme.ThemeRepository
+import com.keelim.cnubus.data.repository.theme.ThemeRepository
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class GetAppThemeUseCase(
+class GetAppThemeUseCase @Inject constructor(
     themeRepository: ThemeRepository
 ) {
     val appTheme: Flow<Int> = themeRepository.getUserTheme()

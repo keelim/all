@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.cnubus.ui.setting.theme
+package com.keelim.cnubus.data.repository.theme
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatDelegate
-import com.keelim.cnubus.R
+import com.keelim.cnubus.data.R
 
 enum class AppTheme(
     val modeNight: Int,

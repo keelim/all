@@ -13,8 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.cnubus.data.remote
+package com.keelim.cnubus.data.repository
 
-interface RemoteDataSource {
-    suspend fun getRoadInformation(type: String): List<String>
+import javax.inject.Inject
+
+class RepositoryImpl @Inject constructor(
+) : Repository {
+
 }

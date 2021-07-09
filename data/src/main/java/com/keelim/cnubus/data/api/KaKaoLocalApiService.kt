@@ -13,15 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.cnubus.data.repository
+package com.keelim.cnubus.data.api
 
-import com.keelim.cnubus.data.remote.RemoteDataSource
-import javax.inject.Inject
+import com.keelim.cnubus.data.response.tm.TmCoordinateResponse
+import retrofit2.Response
+import retrofit2.http.GET
+import retrofit2.http.Query
 
-class RepositoryImpl @Inject constructor(
-    private val remoteDataSource: RemoteDataSource
-) : Repository {
-    override suspend fun getRoadInformation(type: String): List<String> {
-        return remoteDataSource.getRoadInformation(type)
-    }
+interface KaKaoLocalApiService {
+    @GET("v2/local/geo/transcord.json?/output_coord=TM")
+    suspend fun getTmCoordinates(
+        @Query("x") longitude: Double,
+        @Query("y") latitude: Double,
+    ): Response<TmCoordinateResponse>
 }

@@ -15,7 +15,7 @@
  */
 package com.keelim.cnubus.data.repository
 
-import com.keelim.cnubus.BuildConfig
+import com.keelim.cnubus.data.BuildConfig
 import com.keelim.cnubus.data.Url
 import com.keelim.cnubus.data.api.KaKaoLocalApiService
 import okhttp3.OkHttpClient

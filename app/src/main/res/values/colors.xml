@@ -8,7 +8,9 @@
     <color name="error">#80DEEA</color>
 
     <color name="main_bg_color">#ffffff</color>
+    <color name="white">#ffffff</color>
     <color name="main_text_color">#121212</color>
+    <color name="black">#121212</color>
 
     \
 

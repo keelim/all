@@ -8,8 +8,6 @@ plugins {
 apply from: rootProject.file('./gradle/android.gradle')
 
 dependencies {
-    implementation project(":data:api")
-    implementation project(":feature:error")
 
     implementation SquareUp.timber
 

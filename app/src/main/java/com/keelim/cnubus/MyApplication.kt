@@ -16,10 +16,9 @@
 package com.keelim.cnubus
 
 import android.app.Application
-import android.content.Intent
 import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.gms.ads.MobileAds
-import com.keelim.cnubus.ui.setting.theme.ThemeRepository
+import com.keelim.cnubus.data.repository.theme.ThemeRepository
 import com.keelim.cnubus.utils.AppOpenManager
 import com.keelim.cnubus.utils.ComponentLogger
 import dagger.hilt.android.HiltAndroidApp

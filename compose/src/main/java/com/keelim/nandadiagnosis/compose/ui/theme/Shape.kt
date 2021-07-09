@@ -13,15 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.cnubus.data.remote
+package com.keelim.nandadiagnosis.compose.ui.theme
 
-import com.keelim.cnubus.data.api.RoadService
-import javax.inject.Inject
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Shapes
+import androidx.compose.ui.unit.dp
 
-class RemoteDataSourceImpl @Inject constructor(
-    private val service: RoadService
-) : RemoteDataSource {
-    override suspend fun getRoadInformation(type: String): List<String> {
-        return service.getRoadInformation(type)
-    }
-}
+val Shapes = Shapes(
+  small = RoundedCornerShape(4.dp),
+  medium = RoundedCornerShape(4.dp),
+  large = RoundedCornerShape(0.dp)
+)

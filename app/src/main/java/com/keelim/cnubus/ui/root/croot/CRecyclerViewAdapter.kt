@@ -13,40 +13,52 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.cnubus.ui.root.croot
+package com.keelim.cnubus.ui.root.aroot
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.keelim.cnubus.databinding.ItemListBinding
 
-class CRecyclerViewAdapter(private val values: Array<String>) : RecyclerView.Adapter<CRecyclerViewAdapter.ViewHolder>() {
+class CRecyclerViewAdapter(
+    var shortClickListener: (Int) -> Unit,
+    var longClickListener: (Int) -> Unit,
+) : ListAdapter<String, CRecyclerViewAdapter.ViewHolder>(diffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(ItemListBinding.inflate(LayoutInflater.from(parent.context), parent, false), listener)
+        return ViewHolder(ItemListBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = values[position]
-        holder.idView.text = item
+        holder.bind(currentList[position], position)
     }
 
-    override fun getItemCount(): Int = values.size
-
-    interface OnRootClickListener {
-        fun onRootClickListener(position: Int)
-    }
-
-    var listener: OnRootClickListener? = null
-
-    inner class ViewHolder(binding: ItemListBinding, listener: OnRootClickListener?) : RecyclerView.ViewHolder(binding.root) {
-        val idView: TextView = binding.text
-
-        init {
+    inner class ViewHolder(private val binding: ItemListBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(item:String, position: Int) = with(binding){
+            binding.text.text= item
             binding.root.setOnClickListener {
-                listener?.onRootClickListener(bindingAdapterPosition)
+                shortClickListener.invoke(position)
             }
+
+            binding.root.setOnLongClickListener {
+                longClickListener.invoke(position)
+                return@setOnLongClickListener true
+            }
+        }
+    }
+
+    companion object {
+        val diffUtil = object : DiffUtil.ItemCallback<String>() {
+            override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
+                return oldItem == newItem
+            }
+
+            override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
+                return oldItem == newItem
+            }
+
         }
     }
 }

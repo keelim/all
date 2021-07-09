@@ -30,7 +30,7 @@ import com.google.android.play.core.review.ReviewManagerFactory
 import com.keelim.cnubus.R
 import com.keelim.cnubus.ui.main.MainViewModel
 import com.keelim.cnubus.ui.content.Content2Activity
-import com.keelim.cnubus.ui.setting.theme.AppTheme.Companion.THEME_ARRAY
+import com.keelim.cnubus.data.repository.theme.AppTheme.Companion.THEME_ARRAY
 import com.keelim.cnubus.utils.MaterialDialog
 import com.keelim.cnubus.utils.MaterialDialog.Companion.negativeButton
 import com.keelim.cnubus.utils.MaterialDialog.Companion.positiveButton

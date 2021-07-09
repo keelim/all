@@ -16,6 +16,21 @@ object Rx {
     const val rxkotlin = "io.reactivex.rxjava2:rxkotlin:2.4.0"
 }
 
+object Kotlin {
+    const val version = "1.5.10"
+    const val stdlibJvm = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$version"
+
+    object Coroutines {
+        private const val coroutinesVersion = "1.5.0"
+        const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
+        const val android =
+            "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
+        const val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
+    }
+
+    const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.0"
+}
+
 object SquareUp {
     private const val version = "4.9.0"
     private const val rversion = "2.9.0"
@@ -54,7 +69,7 @@ object DataStore {
 }
 
 object Hilt {
-    const val version = "2.36"
+    const val version = "2.37"
     const val android = "com.google.dagger:hilt-android:${version}"
     const val hilt_compiler = "com.google.dagger:hilt-android-compiler:${version}"
     const val hilt_common = "androidx.hilt:hilt-common:$version"
@@ -80,7 +95,6 @@ object AndroidX {
     const val browser = "androidx.browser:browser:1.3.0"
 
 
-
     object fragment {
         private const val fragmentVersion = "1.3.0-beta01"
         const val fragment = "androidx.fragment:fragment:$fragmentVersion"
@@ -92,12 +106,19 @@ object UI {
     const val browser = "androidx.browser:browser:1.3.0-alpha06"
     const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.4"
     const val drawerlayout = "androidx.drawerlayout:drawerlayout:1.1.1"
-    const val material = "com.google.android.material:material:1.4.0-alpha02"
+    const val material = "com.google.android.material:material:1.4.0"
     const val swiperefreshlayout = "androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01"
     const val palette = "androidx.palette:palette:1.0.0"
     const val preference_ktx = "androidx.preference:preference-ktx:1.1.1"
     const val recyclerview = "androidx.recyclerview:recyclerview:1.2.0"
     const val viewPager = "androidx.viewpager2:viewpager2:1.1.0-alpha01"
+}
+
+object Compose {
+    private const val compose_version = "1.0.0-rc01"
+    const val compose_ui = "androidx.compose.ui:ui:$compose_version"
+    const val compose_material = "androidx.compose.material:material:$compose_version"
+    const val compose_ui_tooling = "androidx.compose.ui:ui-tooling:$compose_version"
 }
 
 object AppTest {
@@ -131,22 +152,6 @@ object Glide {
             private const val version = "2.29.1"
             const val dagger = "com.google.dagger:dagger:$version"
             const val compiler = "com.google.dagger:dagger-compiler:$version"
-        }
-
-
-        object Kotlin {
-            const val version = "1.4.10"
-            const val stdlibJvm = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$version"
-
-            object coroutines {
-                private const val coroutinesVersion = "1.3.9"
-                const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
-                const val android =
-                    "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
-                const val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
-            }
-
-            const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.0"
         }
 
         const val jsoup = "org.jsoup:jsoup:1.13.1"

@@ -56,11 +56,10 @@ class MapsActivity : AppCompatActivity() {
     private var location = 0
     private var locationPermissionGranted = false
 
-    private lateinit var binding: ActivityMapsBinding
+    private val binding by lazy { ActivityMapsBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         locationListInit()
         intentControl()
@@ -94,7 +93,8 @@ class MapsActivity : AppCompatActivity() {
             startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
         }
     }
-    private suspend fun addClickListener(googleMap: GoogleMap) {
+
+    private fun addClickListener(googleMap: GoogleMap) {
         binding.floating.setOnClickListener {
             lifecycle.coroutineScope.launchWhenStarted {
                 googleMap.run {
@@ -186,9 +186,9 @@ class MapsActivity : AppCompatActivity() {
                 this,
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
         ) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(
                     this,
@@ -238,11 +238,12 @@ class MapsActivity : AppCompatActivity() {
         locationPermissionGranted = requestCode == PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION &&
                 grantResults[0] == PackageManager.PERMISSION_GRANTED
 
-        val backgroundLocationPermissionGranted = requestCode == PERMISSIONS_REQUEST_BACKGROUND_ACCESS__LOCATION &&
-                grantResults[0] == PackageManager.PERMISSION_GRANTED
+        val backgroundLocationPermissionGranted =
+            requestCode == PERMISSIONS_REQUEST_BACKGROUND_ACCESS__LOCATION &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
-            if (backgroundLocationPermissionGranted.not()){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (backgroundLocationPermissionGranted.not()) {
                 requestPermissionBackgroundLocation()
             }
         }
@@ -268,13 +269,13 @@ class MapsActivity : AppCompatActivity() {
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION,
 
-                ),
+                    ),
                 PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
             )
         }
     }
 
-    private fun requestPermissionLocation(){
+    private fun requestPermissionLocation() {
         ActivityCompat.requestPermissions(
             this,
             arrayOf(
@@ -286,7 +287,7 @@ class MapsActivity : AppCompatActivity() {
     }
 
     @RequiresApi(Build.VERSION_CODES.Q)
-    private fun requestPermissionBackgroundLocation(){
+    private fun requestPermissionBackgroundLocation() {
         ActivityCompat.requestPermissions(
             this,
             arrayOf(

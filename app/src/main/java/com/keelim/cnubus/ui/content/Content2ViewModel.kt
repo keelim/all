@@ -22,8 +22,7 @@ import com.keelim.cnubus.data.model.Event
 
 class Content2ViewModel : ViewModel() {
     private val _viewEvent = MutableLiveData<Event<Any>>()
-    val viewEvent: LiveData<Event<Any>>
-        get() = _viewEvent
+    val viewEvent: LiveData<Event<Any>> get() = _viewEvent
 
     fun viewEvent(content: Any) {
         _viewEvent.value = Event(content)

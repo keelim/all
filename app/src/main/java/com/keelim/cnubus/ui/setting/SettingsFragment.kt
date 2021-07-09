@@ -25,12 +25,12 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.viewModels
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.keelim.cnubus.R
-import com.keelim.cnubus.ui.MainViewModel
-import com.keelim.cnubus.ui.OpenSourceActivity
+import com.keelim.cnubus.ui.main.MainViewModel
 import com.keelim.cnubus.ui.content.Content2Activity
-import com.keelim.cnubus.ui.setting.theme.AppTheme.Companion.THEME_ARRAY
+import com.keelim.cnubus.data.repository.theme.AppTheme.Companion.THEME_ARRAY
 import com.keelim.cnubus.utils.MaterialDialog
 import com.keelim.cnubus.utils.MaterialDialog.Companion.negativeButton
 import com.keelim.cnubus.utils.MaterialDialog.Companion.positiveButton
@@ -44,7 +44,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.settings_preferences)
-
         readyReview()
     }
 
@@ -60,7 +59,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     override fun onPreferenceTreeClick(preference: Preference): Boolean { // preference 클릭 리스너
         when (preference.key) {
             "content" -> {
-                requireActivity().startActivity(
+                startActivity(
                     Intent(
                         requireActivity(),
                         Content2Activity::class.java
@@ -69,7 +68,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             }
 
             "homepage" -> {
-                requireActivity().startActivity(
+                startActivity(
                     Intent(
                         Intent.ACTION_VIEW,
                         Uri.parse(getString(R.string.notification_uri))
@@ -77,13 +76,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 )
             }
 
-            "opensource" -> startActivity(Intent(requireActivity(), OpenSourceActivity::class.java))
+            "opensource" -> startActivity(Intent(requireContext(), OssLicensesMenuActivity::class.java))
 
             "update" -> {
-                Intent(Intent.ACTION_VIEW).apply {
+                startActivity(Intent(Intent.ACTION_VIEW).apply {
                     data = Uri.parse(getString(R.string.updateLink))
-                    startActivity(this)
-                }
+                })
             }
 
             "theme" -> selectTheme()

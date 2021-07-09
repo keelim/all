@@ -16,29 +16,50 @@
 package com.keelim.cnubus.ui.root.croot
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.FragmentCRootBinding
+import com.keelim.cnubus.ui.root.aroot.CRecyclerViewAdapter
 
-class CRootFragment : Fragment(R.layout.fragment_c_root) {
+class CRootFragment : Fragment() {
     private var _binding: FragmentCRootBinding? = null
     private val binding get() = _binding!!
-    private lateinit var rootList: Array<String>
+    private val rootList by lazy { resources.getStringArray(R.array.croot) }
+    private val cRecyclerViewAdapter = CRecyclerViewAdapter(
+        {
+            Snackbar.make(binding.root, "C 노선 지도 업데이트 준비 중입니다. ", Snackbar.LENGTH_LONG).show()
+        }, {
+
+        }
+    )
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentCRootBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding = FragmentCRootBinding.bind(view)
+        initViews()
+    }
 
-        rootList = resources.getStringArray(R.array.croot)
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
-        binding.lvCroot.adapter = CRecyclerViewAdapter(rootList).apply {
-            listener = object : CRecyclerViewAdapter.OnRootClickListener {
-                override fun onRootClickListener(position: Int) {
-                    Snackbar.make(binding.root, "C 노선 지도 업데이트 준비 중입니다. ", Snackbar.LENGTH_LONG).show()
-                }
-            }
+    private fun initViews()  = with(binding){
+        lvCroot.adapter = cRecyclerViewAdapter.apply {
+            submitList(rootList.toList())
         }
     }
+
 }

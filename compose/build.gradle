@@ -1,0 +1,23 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
+
+apply from: rootProject.file('./gradle/android.gradle')
+
+android {
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.0.0-rc01"
+    }
+}
+
+dependencies {
+
+    implementation Compose.compose_ui
+    implementation Compose.compose_ui_tooling
+    implementation Compose.compose_material
+}

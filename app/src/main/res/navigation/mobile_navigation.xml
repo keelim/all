@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/tabFragment"
-        android:name="com.keelim.cnubus.ui.TabFragment"
+        android:name="com.keelim.cnubus.ui.tab.TabFragment"
         android:label="TabFragment" />
 </navigation>

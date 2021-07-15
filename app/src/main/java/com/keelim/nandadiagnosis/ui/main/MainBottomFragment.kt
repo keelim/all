@@ -64,15 +64,14 @@ class MainBottomFragment : BottomSheetDialogFragment() {
 
   private fun initAppThemeObserver() {
     mainViewModel.theme.observe(
-      viewLifecycleOwner,
-      { currentTheme ->
-        val appTheme = AppTheme.THEME_ARRAY.firstOrNull() { it.modeNight == currentTheme }
-        appTheme?.let {
-          binding.themeIcon.setImageResource(it.themeIconRes)
-          binding.themeDescription.text = getString(it.modeNameRes)
-        }
+      viewLifecycleOwner
+    ) { currentTheme ->
+      val appTheme = AppTheme.THEME_ARRAY.firstOrNull() { it.modeNight == currentTheme }
+      appTheme?.let {
+        binding.themeIcon.setImageResource(it.themeIconRes)
+        binding.themeDescription.text = getString(it.modeNameRes)
       }
-    )
+    }
   }
 
   private fun setClickListeners() {
@@ -106,6 +105,12 @@ class MainBottomFragment : BottomSheetDialogFragment() {
     binding.login.setOnClickListener {
       dismiss()
       findNavController().navigate(R.id.profileFragment)
+    }
+
+    binding.labFeature.setOnClickListener {
+      dismiss()
+      findNavController().navigate(R.id.categoryFragment)
+
     }
   }
 

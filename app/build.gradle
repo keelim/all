@@ -65,7 +65,8 @@ dependencies {
     implementation project(':compose')
     implementation project(':data')
     implementation project(':domain')
-    implementation project(":feature:reference_search")
+    implementation project(':ui-reference-search')
+    implementation project(':ui-category')
 
     implementation platform('com.google.firebase:firebase-bom:28.2.0')
     implementation "com.google.firebase:firebase-core"
@@ -126,6 +127,7 @@ dependencies {
 
     implementation 'com.facebook.android:facebook-login:8.2.0'
     implementation 'com.github.yuyakaido:cardstackview:2.3.4'
+    
 
 }
 apply from: "$rootDir/spotless.gradle"

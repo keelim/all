@@ -32,8 +32,8 @@ import com.google.firebase.ktx.Firebase
 import com.keelim.common.toast
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.ActivityMain2Binding
-import com.keelim.nandadiagnosis.di.DownloadReceiver
 import com.keelim.nandadiagnosis.service.TerminateService
+import com.keelim.nandadiagnosis.utils.DownloadReceiver
 import com.keelim.nandadiagnosis.utils.MaterialDialog
 import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.message
 import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.negativeButton
@@ -123,11 +123,10 @@ class Main2Activity() : AppCompatActivity() {
 
   private fun fileChecking() {
     val check = File(getExternalFilesDir(null), "nanda.db")
-
-    if (!check.exists())
+    if (check.exists().not())
       databaseDownloadAlertDialog()
     else
-      Toast.makeText(this, "데이터베이스가 존재합니다. 그대로 진행 합니다", Toast.LENGTH_SHORT).show()
+      toast("데이터베이스가 존재합니다. 그대로 진행 합니다")
   }
 
   private fun databaseDownloadAlertDialog() {

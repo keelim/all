@@ -62,9 +62,11 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':common')
-    implementation project(':data:db')
     implementation project(':compose')
-    implementation project(":feature:reference_search")
+    implementation project(':data')
+    implementation project(':domain')
+    implementation project(':ui-reference-search')
+    implementation project(':ui-category')
 
     implementation platform('com.google.firebase:firebase-bom:28.2.0')
     implementation "com.google.firebase:firebase-core"
@@ -121,10 +123,11 @@ dependencies {
     implementation DataStore.preferences
 
     implementation Glide.core
-
+    implementation Kotlin.stdlibJvm
 
     implementation 'com.facebook.android:facebook-login:11.1.0'
     implementation 'com.github.yuyakaido:cardstackview:2.3.4'
+    
 
 }
 apply from: "$rootDir/spotless.gradle"

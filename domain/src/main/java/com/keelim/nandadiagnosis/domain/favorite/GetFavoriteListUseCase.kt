@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.usecase.favorite
+package com.keelim.nandadiagnosis.domain.favorite
 
 import com.keelim.nandadiagnosis.data.db.entity.NandaEntity
 import com.keelim.nandadiagnosis.data.repository.IORepository

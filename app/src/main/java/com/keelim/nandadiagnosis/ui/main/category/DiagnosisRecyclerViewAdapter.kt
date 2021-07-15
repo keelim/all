@@ -20,16 +20,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.keelim.nandadiagnosis.data.entity.DiagnosisItem
-import com.keelim.nandadiagnosis.databinding.ItemListviewBinding
+import com.keelim.ui_category.databinding.ItemListviewBinding
 
 class DiagnosisRecyclerViewAdapter(
   var listener: (Int) -> Unit,
-) : ListAdapter<DiagnosisItem, DiagnosisRecyclerViewAdapter.ViewHolder>(diffUtil) {
+) : ListAdapter<com.keelim.nandadiagnosis.data.entity.DiagnosisItem, DiagnosisRecyclerViewAdapter.ViewHolder>(
+  diffUtil
+) {
 
   inner class ViewHolder(private val binding: ItemListviewBinding) :
     RecyclerView.ViewHolder(binding.root) {
-    fun bind(item: DiagnosisItem, position: Int) = with(binding) {
+    fun bind(item: com.keelim.nandadiagnosis.data.entity.DiagnosisItem, position: Int) = with(binding) {
       diagnosisItem.text = item.diagnosis
       diagnosisDes.text = item.diagnosis_description
 
@@ -48,12 +49,12 @@ class DiagnosisRecyclerViewAdapter(
   }
 
   companion object {
-    val diffUtil = object : DiffUtil.ItemCallback<DiagnosisItem>() {
-      override fun areItemsTheSame(oldItem: DiagnosisItem, newItem: DiagnosisItem): Boolean {
+    val diffUtil = object : DiffUtil.ItemCallback<com.keelim.nandadiagnosis.data.entity.DiagnosisItem>() {
+      override fun areItemsTheSame(oldItem: com.keelim.nandadiagnosis.data.entity.DiagnosisItem, newItem: com.keelim.nandadiagnosis.data.entity.DiagnosisItem): Boolean {
         return oldItem == newItem
       }
 
-      override fun areContentsTheSame(oldItem: DiagnosisItem, newItem: DiagnosisItem): Boolean {
+      override fun areContentsTheSame(oldItem: com.keelim.nandadiagnosis.data.entity.DiagnosisItem, newItem: com.keelim.nandadiagnosis.data.entity.DiagnosisItem): Boolean {
         return oldItem.diagnosis == newItem.diagnosis
       }
     }

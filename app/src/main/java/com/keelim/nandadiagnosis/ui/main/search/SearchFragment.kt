@@ -19,11 +19,7 @@ import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
@@ -35,14 +31,11 @@ import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
 import com.keelim.common.toast
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.data.db.AppDatabaseV2
 import com.keelim.nandadiagnosis.databinding.FragmentSearchBinding
 import com.keelim.nandadiagnosis.ui.main.search.history.HistoryAdapter
 import com.keelim.nandadiagnosis.ui.main.search.selection.MyItemDetailsLookup
 import com.keelim.nandadiagnosis.ui.main.search.selection.MyItemKeyProvider
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
@@ -59,7 +52,6 @@ class SearchFragment : Fragment() {
 
   private val viewModel: SearchViewModel by viewModels()
 
-  private lateinit var db: AppDatabaseV2
   private val historyAdapter = HistoryAdapter(
     historyDeleteListener = {
       deleteSearch(it)
@@ -113,7 +105,6 @@ class SearchFragment : Fragment() {
       adapter = searchRecyclerViewAdapter2
     }
     initTracker()
-    db = AppDatabaseV2.getInstance(requireContext())!!
   }
 
   override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -197,13 +188,7 @@ class SearchFragment : Fragment() {
   }
 
   private fun favoriteUpdate(favorite: Int, id: Int) {
-    CoroutineScope(Dispatchers.IO).launch {
-      when (favorite) {
-        1 -> db.dataDao.favoriteUpdate(0, id)
-        0 -> db.dataDao.favoriteUpdate(1, id)
-        else -> Unit
-      }
-    }
+    viewModel.favoriteUpdate(favorite, id)
   }
 
   private fun showHistoryView() {

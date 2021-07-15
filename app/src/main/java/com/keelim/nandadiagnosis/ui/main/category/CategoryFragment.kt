@@ -26,9 +26,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
-import com.keelim.nandadiagnosis.data.entity.Recent
-import com.keelim.nandadiagnosis.databinding.FragmentCategoryBinding
-import com.keelim.nandadiagnosis.ui.main.category.recent.RecentAdapter
+import com.keelim.ui_category.databinding.FragmentCategoryBinding
 import org.json.JSONArray
 import org.json.JSONObject
 import timber.log.Timber
@@ -88,7 +86,7 @@ class CategoryFragment : Fragment() {
     }
   }
 
-  private fun parseJson(json: String): List<Recent> {
+  private fun parseJson(json: String): List<com.keelim.nandadiagnosis.data.entity.Recent> {
     val jsonArray = JSONArray(json)
     var jsonList = emptyList<JSONObject>()
     for (index in 0 until jsonArray.length()) {
@@ -99,7 +97,7 @@ class CategoryFragment : Fragment() {
     }
 
     return jsonList.map {
-      Recent(
+      com.keelim.nandadiagnosis.data.entity.Recent(
         reason = it.getString("reason"),
         domain = it.getString("domain"),
         class_name = it.getString("class_name"),
@@ -108,7 +106,7 @@ class CategoryFragment : Fragment() {
     }
   }
 
-  private fun displayPager(recents: List<Recent>) {
+  private fun displayPager(recents: List<com.keelim.nandadiagnosis.data.entity.Recent>) {
     val recentAdapter = RecentAdapter(recents = recents)
     with(binding.recycler) {
       adapter = recentAdapter

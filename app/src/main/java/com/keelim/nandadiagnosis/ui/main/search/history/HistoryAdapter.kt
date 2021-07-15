@@ -27,12 +27,12 @@ class HistoryAdapter(
   val historyDeleteListener: (String) -> Unit,
   val textSelectListener: (String) -> Unit,
 ) :
-  ListAdapter<History, HistoryAdapter.ViewHolder>(diffUtil) {
+  ListAdapter<com.keelim.nandadiagnosis.data.db.entity.History, HistoryAdapter.ViewHolder>(diffUtil) {
 
   inner class ViewHolder(private val binding: ItemHistoryBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(item: History) = with(binding) {
+    fun bind(item: com.keelim.nandadiagnosis.data.db.entity.History) = with(binding) {
       historyKeywordTv.text = item.keyword
       historyDeleteButton.setOnClickListener {
         historyDeleteListener(item.keyword.orEmpty())
@@ -55,12 +55,12 @@ class HistoryAdapter(
   }
 
   companion object {
-    val diffUtil = object : DiffUtil.ItemCallback<History>() {
-      override fun areItemsTheSame(oldItem: History, newItem: History): Boolean {
+    val diffUtil = object : DiffUtil.ItemCallback<com.keelim.nandadiagnosis.data.db.entity.History>() {
+      override fun areItemsTheSame(oldItem: com.keelim.nandadiagnosis.data.db.entity.History, newItem: com.keelim.nandadiagnosis.data.db.entity.History): Boolean {
         return oldItem == newItem
       }
 
-      override fun areContentsTheSame(oldItem: History, newItem: History): Boolean {
+      override fun areContentsTheSame(oldItem: com.keelim.nandadiagnosis.data.db.entity.History, newItem: com.keelim.nandadiagnosis.data.db.entity.History): Boolean {
         return oldItem.keyword == newItem.keyword
       }
     }

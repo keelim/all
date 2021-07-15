@@ -22,7 +22,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.keelim.nandadiagnosis.base.BaseViewModel
 import com.keelim.nandadiagnosis.di.IoDispatcher
 import com.keelim.nandadiagnosis.di.PreferenceManager
-import com.keelim.nandadiagnosis.usecase.favorite.GetFavoriteListUseCase
+import com.keelim.nandadiagnosis.domain.favorite.GetFavoriteListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Job

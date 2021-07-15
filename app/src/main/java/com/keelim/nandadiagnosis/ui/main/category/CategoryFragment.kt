@@ -26,9 +26,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
-import com.keelim.nandadiagnosis.data.entity.Recent
-import com.keelim.nandadiagnosis.databinding.FragmentCategoryBinding
-import com.keelim.nandadiagnosis.ui.main.category.recent.RecentAdapter
+import com.keelim.ui_category.databinding.FragmentCategoryBinding
 import org.json.JSONArray
 import org.json.JSONObject
 import timber.log.Timber

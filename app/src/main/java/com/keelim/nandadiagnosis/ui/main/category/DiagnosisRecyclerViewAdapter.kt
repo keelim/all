@@ -20,12 +20,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.keelim.nandadiagnosis.data.entity.DiagnosisItem
-import com.keelim.nandadiagnosis.databinding.ItemListviewBinding
+import com.keelim.ui_category.databinding.ItemListviewBinding
 
 class DiagnosisRecyclerViewAdapter(
   var listener: (Int) -> Unit,
-) : ListAdapter<com.keelim.nandadiagnosis.data.entity.DiagnosisItem, DiagnosisRecyclerViewAdapter.ViewHolder>(diffUtil) {
+) : ListAdapter<com.keelim.nandadiagnosis.data.entity.DiagnosisItem, DiagnosisRecyclerViewAdapter.ViewHolder>(
+  diffUtil
+) {
 
   inner class ViewHolder(private val binding: ItemListviewBinding) :
     RecyclerView.ViewHolder(binding.root) {

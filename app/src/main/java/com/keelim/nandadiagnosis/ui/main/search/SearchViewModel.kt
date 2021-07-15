@@ -22,7 +22,7 @@ import androidx.lifecycle.viewModelScope
 import com.keelim.nandadiagnosis.domain.history.DeleteHistoryUseCase
 import com.keelim.nandadiagnosis.domain.history.GetAllHistoryUseCase
 import com.keelim.nandadiagnosis.domain.history.SaveHistoryUseCase
-import com.keelim.nandadiagnosis.usecase.favorite.FavoriteUpdateUseCase
+import com.keelim.nandadiagnosis.domain.favorite.FavoriteUpdateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch

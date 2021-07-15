@@ -76,5 +76,10 @@
         android:name="com.keelim.nandadiagnosis.ui.auth.ProfileFragment"
         android:label="ProfileFragment" />
 
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.keelim.nandadiagnosis.ui.main.category.CategoryFragment"
+        android:label="CategoryFragment" />
+
 
 </navigation>

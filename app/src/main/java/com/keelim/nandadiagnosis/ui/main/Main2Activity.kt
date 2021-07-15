@@ -123,11 +123,10 @@ class Main2Activity() : AppCompatActivity() {
 
   private fun fileChecking() {
     val check = File(getExternalFilesDir(null), "nanda.db")
-
-    if (!check.exists())
+    if (check.exists().not())
       databaseDownloadAlertDialog()
     else
-      Toast.makeText(this, "데이터베이스가 존재합니다. 그대로 진행 합니다", Toast.LENGTH_SHORT).show()
+      toast("데이터베이스가 존재합니다. 그대로 진행 합니다")
   }
 
   private fun databaseDownloadAlertDialog() {

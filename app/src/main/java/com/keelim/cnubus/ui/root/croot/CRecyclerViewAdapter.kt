@@ -1,4 +1,4 @@
-/*
+package com.keelim.cnubus.ui.root.croot/*
  * Designed and developed by 2020 keelim (Jaehyun Kim)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.cnubus.ui.root.aroot
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

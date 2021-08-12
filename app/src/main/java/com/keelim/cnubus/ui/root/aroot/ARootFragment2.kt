@@ -20,26 +20,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.FragmentARootBinding
 import com.keelim.cnubus.feature.map.MapsActivity
+import com.keelim.common.toast
 
 class ARootFragment2 : Fragment() {
-    private val rootList by lazy { resources.getStringArray(R.array.aroot) }
-    private val intentList by lazy { resources.getStringArray(R.array.a_intent_array) }
+    private val rootList by lazy { resources.getStringArray(R.array.aroot).toList() }
+    private val intentList by lazy { resources.getStringArray(R.array.a_intent_array).toList() }
     private var _binding: FragmentARootBinding? = null
     private val binding get() = _binding!!
     private val aRecyclerViewAdapter = ARecyclerViewAdapter2(
         shortClickListener = { position ->
-            Toast.makeText(requireActivity(), rootList[position] + "정류장 입니다.", Toast.LENGTH_SHORT)
-                .show()
-
-            Intent(requireActivity(), MapsActivity::class.java).apply {
+            requireActivity().toast(rootList[position] + "정류장 입니다.")
+            startActivity(Intent(requireContext(), MapsActivity::class.java).apply {
                 putExtra("location", intentList[position])
-                startActivity(this)
-            }
+            })
         },
         longClickListener = {
 
@@ -61,6 +58,7 @@ class ARootFragment2 : Fragment() {
     }
 
     private fun initViews() = with(binding) {
+        lvAroot.setHasFixedSize(true)
         lvAroot.adapter = aRecyclerViewAdapter.apply {
             submitList(rootList.toList())
         }

@@ -19,7 +19,7 @@ import com.keelim.cnubus.data.repository.theme.ThemeRepository
 import javax.inject.Inject
 
 
-class SetAppThemeUseCase @Inject constructor(
+class SetAppThemeUseCase(
     private val themeRepository: ThemeRepository
 ) {
 

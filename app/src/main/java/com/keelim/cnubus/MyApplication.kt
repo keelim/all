@@ -57,7 +57,6 @@ class MyApplication : Application() {
             AppCompatDelegate.setDefaultNightMode(
                 themeRepository.getUserTheme().firstOrNull() ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
             )
-
         }
     }
 }

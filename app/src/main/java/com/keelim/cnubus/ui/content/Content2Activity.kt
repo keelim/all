@@ -19,15 +19,15 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.keelim.cnubus.R
-import com.keelim.cnubus.base.BaseActivity
 import com.keelim.cnubus.databinding.ActivityContent2Binding
 
-class Content2Activity : BaseActivity() {
-    private val binding: ActivityContent2Binding by binding(R.layout.activity_content2)
+class Content2Activity : AppCompatActivity() {
+    private val binding by lazy { ActivityContent2Binding.inflate(layoutInflater) }
     private val viewModel by viewModels<Content2ViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -56,7 +56,7 @@
             android:label="maps" />
 
         <activity
-            android:name=".ui.SplashActivity"
+            android:name=".ui.saplsh.SplashActivity"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

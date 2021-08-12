@@ -38,21 +38,18 @@ class Content2Activity : BaseActivity() {
             pager.adapter = ScreenSliderPagerAdapter(this@Content2Activity)
         }
 
-        viewModel.viewEvent.observe(
-            this,
-            {
-                it.getContentIfNotHandled()?.let { event ->
-                    when (event) {
-                        Content2ViewModel.VIEW_1 -> startActivity(
-                            Intent(
-                                Intent.ACTION_VIEW,
-                                Uri.parse(getString(R.string.notification_uri))
-                            )
+        viewModel.viewEvent.observe(this) {
+            it.getContentIfNotHandled()?.let { event ->
+                when (event) {
+                    Content2ViewModel.VIEW_1 -> startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse(getString(R.string.notification_uri))
                         )
-                    }
+                    )
                 }
             }
-        )
+        }
     }
 
     private val images = arrayOf(

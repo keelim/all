@@ -34,7 +34,6 @@ import javax.inject.Inject
 class MyApplication : Application() {
     @Inject
     lateinit var themeRepository: ThemeRepository
-
     @Inject
     lateinit var componentLogger: ComponentLogger
 
@@ -49,9 +48,6 @@ class MyApplication : Application() {
         appOpenManager = AppOpenManager(this) // 콜드 부팅에서 복귀시 ad
 
         componentLogger.initialize(this)
-        if (BuildConfig.DEBUG) {
-            Timber.plant(Timber.DebugTree())
-        }
 
         appCoroutineScope.launch {
             AppCompatDelegate.setDefaultNightMode(

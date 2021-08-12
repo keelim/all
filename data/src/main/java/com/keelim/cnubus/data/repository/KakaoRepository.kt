@@ -24,7 +24,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 
-object KakaoRepository {
+class KakaoRepository() {
 
     suspend fun getNearbyMonitorStation(latitude: Double, longitude: Double) {
         val tmCoordinates = kakaoLocalApiService

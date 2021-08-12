@@ -23,12 +23,11 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.FragmentCRootBinding
-import com.keelim.cnubus.ui.root.aroot.CRecyclerViewAdapter
 
 class CRootFragment : Fragment() {
     private var _binding: FragmentCRootBinding? = null
     private val binding get() = _binding!!
-    private val rootList by lazy { resources.getStringArray(R.array.croot) }
+    private val rootList by lazy { resources.getStringArray(R.array.croot).toList() }
     private val cRecyclerViewAdapter = CRecyclerViewAdapter(
         {
             Snackbar.make(binding.root, "C 노선 지도 업데이트 준비 중입니다. ", Snackbar.LENGTH_LONG).show()
@@ -57,9 +56,9 @@ class CRootFragment : Fragment() {
     }
 
     private fun initViews()  = with(binding){
+        lvCroot.setHasFixedSize(true)
         lvCroot.adapter = cRecyclerViewAdapter.apply {
-            submitList(rootList.toList())
+            submitList(rootList)
         }
     }
-
 }

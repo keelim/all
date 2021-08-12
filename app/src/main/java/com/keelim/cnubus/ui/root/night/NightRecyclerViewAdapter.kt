@@ -17,30 +17,48 @@ package com.keelim.cnubus.ui.root.night
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.snackbar.Snackbar
-import com.keelim.cnubus.databinding.FragmentItemBinding
+import com.keelim.cnubus.databinding.ItemListBinding
 
-class NightRecyclerViewAdapter(private val values: List<String>) : RecyclerView.Adapter<NightRecyclerViewAdapter.ViewHolder>() {
+class NightRecyclerViewAdapter(
+    val click: () -> Unit
+):
+    ListAdapter<String, NightRecyclerViewAdapter.ViewHolder>(diffUtil) {
+    inner class ViewHolder(
+        private val binding: ItemListBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: String) = with(binding) {
+            text.text = item
+            root.setOnClickListener {
+                click.invoke()
+            }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(FragmentItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return ViewHolder(
+            ItemListBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = values[position]
-        holder.idView.text = item
+        holder.bind(currentList[position])
     }
 
-    override fun getItemCount(): Int = values.size
+    companion object {
+        val diffUtil = object : DiffUtil.ItemCallback<String>() {
+            override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
+                return oldItem == newItem
+            }
 
-    inner class ViewHolder(binding: FragmentItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        val idView: TextView = binding.itemNumber
-
-        init {
-            binding.root.setOnClickListener {
-                Snackbar.make(it, "업데이트 중입니다. ", Snackbar.LENGTH_SHORT).show()
+            override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
+                return oldItem == newItem
             }
         }
     }

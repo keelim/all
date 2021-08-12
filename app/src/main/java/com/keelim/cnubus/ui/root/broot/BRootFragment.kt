@@ -25,23 +25,20 @@ import androidx.fragment.app.Fragment
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.FragmentBRootBinding
 import com.keelim.cnubus.feature.map.MapsActivity
-import com.keelim.cnubus.ui.root.aroot.BRecyclerViewAdapter
+import com.keelim.common.toast
 
 class BRootFragment : Fragment() {
-    private val rootList by lazy { resources.getStringArray(R.array.broot) }
-    private val intentList by lazy { resources.getStringArray(R.array.b_intent_array) }
+    private val rootList by lazy { resources.getStringArray(R.array.broot).toList() }
+    private val intentList by lazy { resources.getStringArray(R.array.b_intent_array).toList() }
     private var _binding: FragmentBRootBinding? = null
     private val binding get() = _binding!!
 
     private val bRecyclerViewAdapter = BRecyclerViewAdapter(
         shortClickListener = { position ->
-            Toast.makeText(requireActivity(), rootList[position] + "정류장 입니다.", Toast.LENGTH_SHORT)
-                .show()
-
-            Intent(requireActivity(), MapsActivity::class.java).apply {
+            requireActivity().toast(rootList[position] + "정류장 입니다.")
+            startActivity(Intent(requireContext(), MapsActivity::class.java).apply {
                 putExtra("location", intentList[position])
-                startActivity(this)
-            }
+            })
         },
         longClickListener = {
 
@@ -60,13 +57,13 @@ class BRootFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentBRootBinding.bind(view)
-
         initViews()
     }
 
     private fun initViews() = with(binding) {
+        lvBroot.setHasFixedSize(true)
         lvBroot.adapter = bRecyclerViewAdapter.apply {
-            submitList(rootList.toList())
+            submitList(rootList)
         }
     }
 

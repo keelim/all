@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:id="@+id/splash_container"
         android:background="@color/colorPrimary"
-        tools:context=".ui.SplashActivity">
+        tools:context=".ui.saplsh.SplashActivity">
 
         <TextView
             android:id="@+id/textView"

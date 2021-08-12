@@ -29,10 +29,8 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
-
-@Singleton
-class ThemeRepository @Inject constructor(
-    @ApplicationContext val context: Context
+class ThemeRepository (
+    private val context: Context
 ) {
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = STORE_NAME)
 

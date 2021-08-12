@@ -42,9 +42,6 @@
         <activity
             android:name=".ui.main.MainActivity"
             android:exported="true" />
-        <activity
-            android:name=".ui.weather.Weather"
-            android:exported="true" />
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
@@ -56,15 +53,15 @@
             android:label="maps" />
 
         <activity
-            android:name=".ui.SplashActivity"
-            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
+            android:name=".ui.saplsh.SplashActivity"
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".feature.error.ErrorActivity" />
 
         <meta-data
             android:name="firebase_performance_logcat_enabled"
@@ -75,15 +72,6 @@
             android:name=".widget.WidgetProvider$UpdateWidgetServices"
             android:foregroundServiceType="location" />
 
-        <receiver android:name=".widget.WidgetProvider">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/widget_info" />
-        </receiver>
     </application>
 
 </manifest>

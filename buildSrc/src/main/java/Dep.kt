@@ -69,7 +69,7 @@ object DataStore {
 }
 
 object Hilt {
-    const val version = "2.37"
+    const val version = "2.36"
     const val android = "com.google.dagger:hilt-android:${version}"
     const val hilt_compiler = "com.google.dagger:hilt-android-compiler:${version}"
     const val hilt_common = "androidx.hilt:hilt-common:$version"

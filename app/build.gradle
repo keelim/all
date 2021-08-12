@@ -14,8 +14,6 @@ plugins {
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
-
-
 android {
     compileSdkVersion ProjectConfigurations.compileSdk
     buildToolsVersion ProjectConfigurations.buildTools

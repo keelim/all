@@ -102,14 +102,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     private fun initAppThemeObserver() {
-        mainViewModel.theme.observe(
-            viewLifecycleOwner,
-            { theme ->
-                val nextTheme = THEME_ARRAY.firstOrNull {
-                    it.modeNight == theme
-                }
+        mainViewModel.theme.observe(viewLifecycleOwner) { theme ->
+            val nextTheme = THEME_ARRAY.firstOrNull {
+                it.modeNight == theme
             }
-        )
+        }
     }
 
     private fun selectTheme() {

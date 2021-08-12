@@ -19,16 +19,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.FragmentNightRootBinding
+import com.keelim.common.toast
 
 class NightRootFragment : Fragment(R.layout.fragment_night_root) {
-    private  val intentList by lazy{resources.getStringArray(R.array.night1) }
-    private val rootList by lazy{resources.getStringArray(R.array.night_intent_array)}
+    private val rootList by lazy { resources.getStringArray(R.array.night_intent_array).toList() }
     private var _binding: FragmentNightRootBinding? = null
     private val binding get() = _binding!!
+    private val nightRecyclerViewAdapter = NightRecyclerViewAdapter(
+        click = {
+            requireActivity().toast("노선 준비 중입니다. ")
+        }
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,11 +46,19 @@ class NightRootFragment : Fragment(R.layout.fragment_night_root) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.lvNightroot.adapter = ArrayAdapter(requireActivity(), android.R.layout.simple_list_item_1, rootList)
+        initViews()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun initViews() = with(binding) {
+        lvNightroot.setHasFixedSize(true)
+        lvNightroot.layoutManager = LinearLayoutManager(requireContext())
+        lvNightroot.adapter = nightRecyclerViewAdapter.apply {
+            submitList(rootList)
+        }
     }
 }

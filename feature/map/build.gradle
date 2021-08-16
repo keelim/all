@@ -8,7 +8,7 @@ plugins {
 apply from: rootProject.file('./gradle/android.gradle')
 
 dependencies {
-
+    implementation(project(":common"))
     implementation SquareUp.timber
 
     implementation AndroidX.appcompat

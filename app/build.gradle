@@ -1,12 +1,12 @@
 plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
-    id 'kotlin-kapt'
-    id 'com.google.gms.google-services'
-    id 'com.google.firebase.firebase-perf'
-    id 'com.google.firebase.crashlytics'
-    id 'com.google.firebase.appdistribution'
-    id 'dagger.hilt.android.plugin'
+    id "com.android.application"
+    id "kotlin-android"
+    id "kotlin-kapt"
+    id "com.google.gms.google-services"
+    id "com.google.firebase.firebase-perf"
+    id "com.google.firebase.crashlytics"
+    id "com.google.firebase.appdistribution"
+    id "dagger.hilt.android.plugin"
     id "androidx.navigation.safeargs.kotlin"
 }
 
@@ -27,7 +27,7 @@ android {
     buildTypes {
         release {
             minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             firebaseAppDistribution {
                 testers="kimh00335@gmail.com"
             }
@@ -44,7 +44,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = '11'
+        jvmTarget = "11"
         useIR = true
     }
 
@@ -59,25 +59,25 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(':common')
-//    implementation project(':compose')
-    implementation project(':data')
-    implementation project(':domain')
-    implementation project(':ui-reference-search')
-    implementation project(':ui-category')
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation project(":common")
+//    implementation project(":compose")
+    implementation project(":data")
+    implementation project(":domain")
+    implementation project(":ui-reference-search")
+    implementation project(":ui-category")
 
-    implementation platform('com.google.firebase:firebase-bom:28.2.0')
+    implementation platform("com.google.firebase:firebase-bom:28.3.1")
     implementation "com.google.firebase:firebase-core"
     implementation "com.google.firebase:firebase-auth-ktx"
     implementation "com.google.firebase:firebase-database-ktx"
     implementation "com.google.firebase:firebase-crashlytics-ktx"
     implementation "com.google.firebase:firebase-messaging-ktx"
     implementation "com.google.firebase:firebase-analytics-ktx"
-    implementation 'com.google.firebase:firebase-inappmessaging-display-ktx'
-    implementation 'com.google.firebase:firebase-config-ktx'
+    implementation "com.google.firebase:firebase-inappmessaging-display-ktx"
+    implementation "com.google.firebase:firebase-config-ktx"
 
-    implementation 'com.google.ads.mediation:facebook:6.5.0.0'
+    implementation "com.google.ads.mediation:facebook:6.5.1.1"
 
     implementation AndroidX.activity_ktx
     implementation AndroidX.fragment_ktx
@@ -104,7 +104,7 @@ dependencies {
 
     implementation Hilt.android
     kapt Hilt.hilt_compiler
-    implementation 'com.google.android.gms:play-services-auth:19.0.0'
+    implementation(Play.play_auth)
 
     testImplementation AppTest.junit
     androidTestImplementation AppTest.androidJunit
@@ -124,9 +124,9 @@ dependencies {
     implementation Glide.core
     implementation Kotlin.stdlibJvm
 
-    implementation 'com.facebook.android:facebook-login:11.2.0'
-    implementation 'com.github.yuyakaido:cardstackview:2.3.4'
-    
+    implementation "com.facebook.android:facebook-login:11.2.0"
+    implementation "com.github.yuyakaido:cardstackview:2.3.4"
+
 
 }
 apply from: "$rootDir/spotless.gradle"

@@ -22,13 +22,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.keelim.nandadiagnosis.data.entity.DiagnosisItem
 import com.keelim.ui_category.R
 import com.keelim.ui_category.databinding.FragmentDiagnosisBinding
 
 class DiagnosisFragment : Fragment() {
   private var _binding: FragmentDiagnosisBinding? = null
   private val binding get() = _binding!!
-  private val data: ArrayList<com.keelim.nandadiagnosis.data.entity.DiagnosisItem> by lazy { ArrayList() }
+  private val data: ArrayList<DiagnosisItem> by lazy { ArrayList() }
   private val args by navArgs<DiagnosisFragmentArgs>()
   private var nav: Int = 0
   private val diagnosisAdapter = DiagnosisRecyclerViewAdapter(
@@ -125,7 +126,7 @@ class DiagnosisFragment : Fragment() {
   private fun customAdd(startPoint: Int, finalPoint: Int) {
     val diagnosis = resources.getStringArray(R.array.diagnosis1)
     (startPoint..finalPoint).forEach { index ->
-      data.add(com.keelim.nandadiagnosis.data.entity.DiagnosisItem(diagnosis[index], ""))
+      data.add(DiagnosisItem(diagnosis[index], ""))
     }
   }
 }

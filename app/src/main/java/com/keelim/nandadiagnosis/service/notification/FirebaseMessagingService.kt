@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.service
+package com.keelim.nandadiagnosis.service.notification
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -79,9 +79,9 @@ class FirebaseMessagingService : FirebaseMessagingService() {
   }
 
   private fun createNotification(
-    type: NotificationType,
-    title: String?,
-    message: String?,
+      type: NotificationType,
+      title: String?,
+      message: String?,
   ): Notification {
     val intent = Intent(this, Main2Activity::class.java).apply {
       putExtra("notificationType", "${type.title} 타입")

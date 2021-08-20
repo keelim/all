@@ -19,11 +19,11 @@ dependencies {
     kapt(Hilt.hilt_compiler)
 
     implementation(SquareUp.timber)
-    implementation(Kotlin.Coroutines.android)
+    implementation(Coroutines.android)
 
     implementation(Kotlin.stdlibJvm)
     testImplementation(AppTest.junit)
     androidTestImplementation(AppTest.androidJunit)
     androidTestImplementation(AppTest.espressoCore)
-    androidTestImplementation(Kotlin.Coroutines.test)
+    androidTestImplementation(Coroutines.test)
 }

@@ -24,7 +24,7 @@ import com.keelim.cnubus.databinding.ItemListBinding
 
 class NightRecyclerViewAdapter(
     val click: () -> Unit
-):
+) :
     ListAdapter<String, NightRecyclerViewAdapter.ViewHolder>(diffUtil) {
     inner class ViewHolder(
         private val binding: ItemListBinding

@@ -36,8 +36,8 @@ class BRecyclerViewAdapter(
     }
 
     inner class ViewHolder(private val binding: ItemListBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item:String, position: Int) = with(binding){
-            binding.text.text= item
+        fun bind(item: String, position: Int) = with(binding) {
+            binding.text.text = item
             binding.root.setOnClickListener {
                 shortClickListener.invoke(position)
             }
@@ -58,7 +58,6 @@ class BRecyclerViewAdapter(
             override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
                 return oldItem == newItem
             }
-
         }
     }
 }

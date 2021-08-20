@@ -26,7 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class TabFragment : Fragment() {
-    private var _binding:FragmentTabBinding? = null
+    private var _binding: FragmentTabBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -34,7 +34,7 @@ class TabFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding =  FragmentTabBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentTabBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -56,6 +56,5 @@ class TabFragment : Fragment() {
                 4 -> tab.text = "설정"
             }
         }.attach()
-
     }
 }

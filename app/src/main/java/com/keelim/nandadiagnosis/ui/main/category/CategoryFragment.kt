@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.ui.main.category
 
+import android.app.Fragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,7 +26,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
-import com.keelim.ui_category.databinding.FragmentCategoryBinding
+import com.keelim.nandadiagnosis.ui.main.category.RecentAdapter
 import org.json.JSONArray
 import org.json.JSONObject
 import timber.log.Timber

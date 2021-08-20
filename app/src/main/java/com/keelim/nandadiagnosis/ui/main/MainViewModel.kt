@@ -32,9 +32,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-  getTheme: com.keelim.nandadiagnosis.domain.GetAppThemeUseCase,
-  private val setTheme: com.keelim.nandadiagnosis.domain.SetAppThemeUseCase,
-  private val nandaService: com.keelim.nandadiagnosis.data.network.NandaService
+  getTheme: GetAppThemeUseCase,
+  private val setTheme: SetAppThemeUseCase,
+  private val nandaService: NandaService
 ) : ViewModel() {
   val theme: LiveData<Int> = getTheme.appTheme.asLiveData()
 

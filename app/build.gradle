@@ -52,10 +52,10 @@ android {
         dataBinding = true
         viewBinding = true
     }
-
-    lintOptions {
+    lint {
         abortOnError false
     }
+
 }
 
 dependencies {

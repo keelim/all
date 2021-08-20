@@ -1,3 +1,4 @@
+package com.keelim.nandadiagnosis.ui.main.category
 /*
  * Designed and developed by 2020 keelim (Jaehyun Kim)
  *
@@ -14,7 +15,6 @@
  * limitations under the License.
  */
 
-import android.app.Fragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,7 +26,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
-import com.keelim.nandadiagnosis.ui.main.category.RecentAdapter
+import com.keelim.nandadiagnosis.databinding.FragmentCategoryBinding
 import org.json.JSONArray
 import org.json.JSONObject
 import timber.log.Timber

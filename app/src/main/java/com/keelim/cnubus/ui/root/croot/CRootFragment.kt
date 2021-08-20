@@ -31,8 +31,8 @@ class CRootFragment : Fragment() {
     private val cRecyclerViewAdapter = CRecyclerViewAdapter(
         {
             Snackbar.make(binding.root, "C 노선 지도 업데이트 준비 중입니다. ", Snackbar.LENGTH_LONG).show()
-        }, {
-
+        },
+        {
         }
     )
 
@@ -55,7 +55,7 @@ class CRootFragment : Fragment() {
         _binding = null
     }
 
-    private fun initViews()  = with(binding){
+    private fun initViews() = with(binding) {
         lvCroot.setHasFixedSize(true)
         lvCroot.adapter = cRecyclerViewAdapter.apply {
             submitList(rootList)

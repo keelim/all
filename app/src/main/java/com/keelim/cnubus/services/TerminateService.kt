@@ -18,7 +18,6 @@ package com.keelim.cnubus.services
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
@@ -58,6 +57,6 @@ class TerminateService : LifecycleService() {
 
     companion object {
         private const val CHANNEL_ID = "CHANNEL_ID"
-        private const val NOTIFICATION_ID  = 777
+        private const val NOTIFICATION_ID = 777
     }
 }

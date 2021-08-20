@@ -17,7 +17,6 @@ package com.keelim.cnubus.domain
 
 import com.keelim.cnubus.data.repository.theme.ThemeRepository
 import kotlinx.coroutines.flow.Flow
-import javax.inject.Inject
 
 class GetAppThemeUseCase(
     themeRepository: ThemeRepository

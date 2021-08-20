@@ -28,19 +28,15 @@ import com.keelim.cnubus.BuildConfig
 import com.keelim.cnubus.databinding.ActivitySplashBinding
 import com.keelim.cnubus.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.HiltAndroidApp
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
-    private val binding by lazy { ActivitySplashBinding.inflate(layoutInflater) }
-    private var mInterstitialAd: InterstitialAd? = null
-    private val test = "ca -app-pub-3940256099942544/1033173712"
     private infix fun String.or(that: String): String = if (BuildConfig.DEBUG) this else that
+    private var mInterstitialAd: InterstitialAd? = null
+    private val binding by lazy { ActivitySplashBinding.inflate(layoutInflater) }
+    private val test = "ca -app-pub-3940256099942544/1033173712"
     private val splashViewModel: SplashViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,16 +45,16 @@ class SplashActivity : AppCompatActivity() {
         observeData()
     }
 
-    private fun observeData() = lifecycleScope.launchWhenCreated{
+    private fun observeData() = lifecycleScope.launchWhenCreated {
         splashViewModel.loading.collect {
-            if(it){
-                showAd()
-            }
+            if (it) { showAd() }
         }
     }
 
     private fun showAd() {
-        val adRequest = AdRequest.Builder().build()
+        val adRequest = AdRequest.Builder()
+            .build()
+
         InterstitialAd.load(
             this,
             test or "ca-app-pub-3115620439518585/4013096159",

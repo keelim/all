@@ -18,14 +18,9 @@ package com.keelim.cnubus.feature.map
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.LocationManager
-import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
-import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -43,54 +38,60 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.ktx.addMarker
 import com.google.maps.android.ktx.awaitMap
+import com.keelim.cnubus.data.model.gps.locationList
 import com.keelim.cnubus.feature.map.databinding.ActivityMapsBinding
+import com.keelim.common.toast
 import timber.log.Timber
-import java.util.ArrayList
 
 class MapsActivity : AppCompatActivity() {
     private lateinit var fusedLocationProvider: FusedLocationProviderClient
     private lateinit var locationRequest: LocationRequest
     private lateinit var locationCallback: LocationCallback
     private var current: LatLng? = null
-    private var locationList: ArrayList<LatLng>? = null
     private var location = 0
     private var locationPermissionGranted = false
 
     private val binding by lazy { ActivityMapsBinding.inflate(layoutInflater) }
+    private val permissions = arrayOf(
+        Manifest.permission.ACCESS_FINE_LOCATION,
+        Manifest.permission.ACCESS_COARSE_LOCATION,
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        locationListInit()
-        intentControl()
         requestLocationPermission()
+        myPositionInit()
+        intentControl()
+        gpsSettings()
 
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         lifecycle.coroutineScope.launchWhenCreated {
             val googleMap = mapFragment.awaitMap()
             addClickListener(googleMap)
 
-            (0..14).forEach { index ->
+            locationList.mapIndexed { index, latLng ->
                 googleMap.addMarker {
-                    position(locationList!![index])
+                    position(latLng)
                     title(markerHandling(index))
                     snippet(snippetHandling(index))
                 }
             }
+
             val cameraUpdate: CameraUpdate = if (location == -1) {
-                CameraUpdateFactory.newLatLngZoom(locationList!![0], 17f)
+                CameraUpdateFactory.newLatLngZoom(locationList[0], 17f)
             } else {
-                CameraUpdateFactory.newLatLngZoom(locationList!![location], 17f)
+                CameraUpdateFactory.newLatLngZoom(locationList[location], 17f)
             }
             googleMap.animateCamera(cameraUpdate)
-            requestLocationPermission()
             updateLocationUI(googleMap)
         }
-        val locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
+    }
 
+    private fun gpsSettings() {
+        val locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            Toast.makeText(this, "제대로된 작동을  위해 GPS 를 켜주세요", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+            toast("GPS를 켜주세요")
         }
     }
 
@@ -107,38 +108,6 @@ class MapsActivity : AppCompatActivity() {
                 }
             }
         }
-    }
-
-    private fun markerHandling(index: Int): String =
-        resources.getStringArray(R.array.stations)[index]
-
-    private fun snippetHandling(index: Int): String =
-        resources.getStringArray(R.array.station_info)[index]
-
-    private fun intentControl() {
-        val stringLocation = intent.getStringExtra("location")
-        location = stringLocation?.toInt() ?: -1
-    }
-
-    private fun locationListInit() {
-        myPositionInit()
-
-        locationList = ArrayList()
-        locationList!!.add(LatLng(36.363876, 127.345119)) // 정삼화
-        locationList!!.add(LatLng(36.367262, 127.342408)) // 한누리관 뒤
-        locationList!!.add(LatLng(36.368622, 127.341531)) // 서문
-        locationList!!.add(LatLng(36.374241, 127.343924)) // 음대
-        locationList!!.add(LatLng(36.376406, 127.344168)) // 공동 동물
-        locationList!!.add(LatLng(36.372513, 127.343118)) // 체육관 입구
-        locationList!!.add(LatLng(36.370587, 127.343520)) // 예술대학앞
-        locationList!!.add(LatLng(36.369522, 127.346725)) // 도서관앞
-        locationList!!.add(LatLng(36.369119, 127.351884)) // 농업생명과학대학
-        locationList!!.add(LatLng(36.367465, 127.352190)) // 동문
-        locationList!!.add(LatLng(36.372480, 127.346155)) // 생활관
-        locationList!!.add(LatLng(36.369780, 127.346901)) // 도서관앞
-        locationList!!.add(LatLng(36.367404, 127.345517)) // 공과대학앞
-        locationList!!.add(LatLng(36.365505, 127.345159)) // 산학협력관
-        locationList!!.add(LatLng(36.367564, 127.345800)) // 경상대학
     }
 
     override fun onResume() {
@@ -186,9 +155,9 @@ class MapsActivity : AppCompatActivity() {
                 this,
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
+                    this,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED
         ) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(
                     this,
@@ -228,76 +197,33 @@ class MapsActivity : AppCompatActivity() {
         }
     }
 
-
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        locationPermissionGranted = requestCode == PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION &&
-                grantResults[0] == PackageManager.PERMISSION_GRANTED
-
-        val backgroundLocationPermissionGranted =
-            requestCode == PERMISSIONS_REQUEST_BACKGROUND_ACCESS__LOCATION &&
-                    grantResults[0] == PackageManager.PERMISSION_GRANTED
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            if (backgroundLocationPermissionGranted.not()) {
-                requestPermissionBackgroundLocation()
-            }
-        }
+        locationPermissionGranted =
+            requestCode == PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION && grantResults[0] == PackageManager.PERMISSION_GRANTED
     }
 
     private fun requestLocationPermission() {
-        if (ContextCompat.checkSelfPermission(
-                this.applicationContext,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            )
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
             == PackageManager.PERMISSION_GRANTED &&
-            ContextCompat.checkSelfPermission(
-                this.applicationContext,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            )
+            ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
             == PackageManager.PERMISSION_GRANTED
         ) {
             locationPermissionGranted = true
         } else {
             ActivityCompat.requestPermissions(
                 this,
-                arrayOf(
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION,
-
-                    ),
+                permissions,
                 PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
             )
         }
     }
 
-    private fun requestPermissionLocation() {
-        ActivityCompat.requestPermissions(
-            this,
-            arrayOf(
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-            ),
-            PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
-        )
-    }
-
-    @RequiresApi(Build.VERSION_CODES.Q)
-    private fun requestPermissionBackgroundLocation() {
-        ActivityCompat.requestPermissions(
-            this,
-            arrayOf(
-                Manifest.permission.ACCESS_BACKGROUND_LOCATION,
-            ),
-            PERMISSIONS_REQUEST_BACKGROUND_ACCESS__LOCATION
-        )
-    }
-
-
+    @SuppressLint("MissingPermission")
     private fun updateLocationUI(mMap: GoogleMap) {
         try {
             if (locationPermissionGranted) {
@@ -313,9 +239,18 @@ class MapsActivity : AppCompatActivity() {
         }
     }
 
+    private fun markerHandling(index: Int): String =
+        resources.getStringArray(R.array.stations)[index]
+
+    private fun snippetHandling(index: Int): String =
+        resources.getStringArray(R.array.station_info)[index]
+
+    private fun intentControl() {
+        val stringLocation = intent.getStringExtra("location")
+        location = stringLocation?.toInt() ?: -1
+    }
 
     companion object {
         private const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
-        private const val PERMISSIONS_REQUEST_BACKGROUND_ACCESS__LOCATION = 2
     }
 }

@@ -16,8 +16,6 @@
 package com.keelim.cnubus.domain
 
 import com.keelim.cnubus.data.repository.theme.ThemeRepository
-import javax.inject.Inject
-
 
 class SetAppThemeUseCase(
     private val themeRepository: ThemeRepository

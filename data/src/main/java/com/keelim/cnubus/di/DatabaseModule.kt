@@ -21,6 +21,4 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-object DatabaseModule {
-
-}
+object DatabaseModule

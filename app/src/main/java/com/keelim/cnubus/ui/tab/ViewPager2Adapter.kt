@@ -22,21 +22,20 @@ import com.keelim.cnubus.ui.root.broot.BRootFragment
 import com.keelim.cnubus.ui.root.croot.CRootFragment
 import com.keelim.cnubus.ui.root.night.NightRootFragment
 import com.keelim.cnubus.ui.setting.SettingsFragment
-import java.util.ArrayList
 
 class ViewPager2Adapter(fa: Fragment) : FragmentStateAdapter(fa) {
     private var fragments = ArrayList<Fragment>()
-    override fun getItemCount(): Int { return 5 }
+    override fun getItemCount(): Int = fragments.size
 
-    override fun createFragment(position: Int): Fragment {
-        return fragments[position]
-    }
+    override fun createFragment(position: Int): Fragment = fragments[position]
 
     init {
-        fragments.add(ARootFragment2())
-        fragments.add(BRootFragment())
-        fragments.add(CRootFragment())
-        fragments.add(NightRootFragment())
-        fragments.add(SettingsFragment())
+        fragments.apply {
+            add(ARootFragment2())
+            add(BRootFragment())
+            add(CRootFragment())
+            add(NightRootFragment())
+            add(SettingsFragment())
+        }
     }
 }

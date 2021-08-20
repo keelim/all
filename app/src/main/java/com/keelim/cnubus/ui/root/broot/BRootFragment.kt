@@ -20,7 +20,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.FragmentBRootBinding
@@ -36,12 +35,13 @@ class BRootFragment : Fragment() {
     private val bRecyclerViewAdapter = BRecyclerViewAdapter(
         shortClickListener = { position ->
             requireActivity().toast(rootList[position] + "정류장 입니다.")
-            startActivity(Intent(requireContext(), MapsActivity::class.java).apply {
-                putExtra("location", intentList[position])
-            })
+            startActivity(
+                Intent(requireContext(), MapsActivity::class.java).apply {
+                    putExtra("location", intentList[position])
+                }
+            )
         },
         longClickListener = {
-
         }
     )
 

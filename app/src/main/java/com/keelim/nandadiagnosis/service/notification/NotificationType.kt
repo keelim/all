@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.service
+package com.keelim.nandadiagnosis.service.notification
 
 enum class NotificationType(val title: String, val id: Int) {
   NORMAL("일반 알림", 0),

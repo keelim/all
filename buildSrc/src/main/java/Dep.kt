@@ -28,6 +28,7 @@ object Coroutines {
     const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
     const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
     const val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
+    const val play = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$coroutinesVersion"
 }
 
 object SquareUp {

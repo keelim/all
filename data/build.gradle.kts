@@ -33,4 +33,5 @@ dependencies {
     androidTestImplementation(AppTest.androidJunit)
     androidTestImplementation(AppTest.espressoCore)
     androidTestImplementation(Kotlin.Coroutines.test)
+    api(Play.maps_sdk)
 }

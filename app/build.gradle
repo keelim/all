@@ -1,18 +1,16 @@
 plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
-    id 'kotlin-kapt'
-    id 'kotlin-parcelize'
-    id 'com.google.gms.google-services'
-    id 'com.google.firebase.firebase-perf'
-    id 'com.google.firebase.crashlytics'
-    id 'com.google.firebase.appdistribution'
-    id 'dagger.hilt.android.plugin'
-    id "androidx.navigation.safeargs.kotlin"
-    id 'com.google.android.gms.oss-licenses-plugin'
+    id("com.android.application")
+    id("kotlin-android")
+    id("kotlin-kapt")
+    id("kotlin-parcelize")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.firebase-perf")
+    id("com.google.firebase.crashlytics")
+    id("com.google.firebase.appdistribution")
+    id("dagger.hilt.android.plugin")
+    id("androidx.navigation.safeargs.kotlin")
+    id("com.google.android.gms.oss-licenses-plugin")
 }
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
 android {
     compileSdkVersion ProjectConfigurations.compileSdk

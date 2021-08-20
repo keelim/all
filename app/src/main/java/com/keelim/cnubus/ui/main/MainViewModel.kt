@@ -36,4 +36,3 @@ class MainViewModel @Inject constructor(
         setTheme.invoke(theme)
     }
 }
-

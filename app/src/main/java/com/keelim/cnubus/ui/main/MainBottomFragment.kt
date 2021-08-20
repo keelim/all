@@ -27,8 +27,8 @@ import com.google.android.gms.oss.licenses.OssLicensesActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
 import com.keelim.cnubus.R
-import com.keelim.cnubus.databinding.FragmentMainBottomBinding
 import com.keelim.cnubus.data.repository.theme.AppTheme
+import com.keelim.cnubus.databinding.FragmentMainBottomBinding
 import com.keelim.cnubus.utils.MaterialDialog
 import com.keelim.cnubus.utils.MaterialDialog.Companion.negativeButton
 import com.keelim.cnubus.utils.MaterialDialog.Companion.positiveButton
@@ -70,7 +70,6 @@ class MainBottomFragment : BottomSheetDialogFragment() {
         }
     }
 
-
     private fun setClickListeners() = with(binding) {
         themeOption.setOnClickListener {
             chooseThemeClick()
@@ -82,9 +81,11 @@ class MainBottomFragment : BottomSheetDialogFragment() {
         }
 
         update.setOnClickListener {
-            startActivity(Intent(Intent.ACTION_VIEW).apply {
-                data = Uri.parse(getString(R.string.updateLink))
-            })
+            startActivity(
+                Intent(Intent.ACTION_VIEW).apply {
+                    data = Uri.parse(getString(R.string.updateLink))
+                }
+            )
         }
 
         aboutButton.setOnClickListener {

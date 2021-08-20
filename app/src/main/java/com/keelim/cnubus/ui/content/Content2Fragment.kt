@@ -31,6 +31,10 @@ import com.keelim.cnubus.databinding.FragmentContent2Binding
 class Content2Fragment : Fragment() {
     private lateinit var binding: FragmentContent2Binding
     private val viewModel by viewModels<Content2ViewModel>()
+    private val images = arrayOf(
+        R.drawable.content1,
+        R.drawable.content2
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,22 +56,18 @@ class Content2Fragment : Fragment() {
         viewModel.viewEvent.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let { event ->
                 when (event) {
-                    Content2ViewModel.VIEW_1 -> startActivity(
-                        Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse(getString(R.string.notification_uri))
+                    Content2ViewModel.VIEW_1 -> {
+                        startActivity(
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse(getString(R.string.notification_uri))
+                            )
                         )
-                    )
+                    }
                 }
             }
         }
-
     }
-
-    private val images = arrayOf(
-        R.drawable.content1,
-        R.drawable.content2
-    )
 
     inner class ScreenSliderPagerAdapter(fa: Fragment) : FragmentStateAdapter(fa) {
         override fun getItemCount(): Int = PAGE_NUM

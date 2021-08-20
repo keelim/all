@@ -16,29 +16,20 @@
 package com.keelim.cnubus.data.repository.kakao
 
 import com.keelim.cnubus.data.BuildConfig
-import com.keelim.cnubus.data.Url
 import com.keelim.cnubus.data.api.KaKaoLocalApiService
+import com.keelim.cnubus.data.model.URL
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
+import retrofit2.http.Url
 
 class KakaoRepository() {
-
-    suspend fun getNearbyMonitorStation(latitude: Double, longitude: Double) {
-        val tmCoordinates = kakaoLocalApiService
-            .getTmCoordinates(longitude, latitude)
-            .body()
-            ?.documents
-            ?.firstOrNull()
-
-        val tmx = tmCoordinates?.x
-        val tmy = tmCoordinates?.y
-    }
+    
     private val kakaoLocalApiService: KaKaoLocalApiService by lazy {
         Retrofit.Builder()
-            .baseUrl(Url.KAKAO_API_BASE_URL)
+            .baseUrl(URL.KAKAO_API_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(buildHttpClient())
             .build()

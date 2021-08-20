@@ -13,6 +13,7 @@ listOf(
 
 dependencies {
     implementation(project(":common"))
+    implementation(project(":data"))
     implementation(SquareUp.timber)
     implementation(AndroidX.appcompat)
     implementation(AndroidX.activity_ktx)

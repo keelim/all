@@ -115,10 +115,16 @@ object UI {
 }
 
 object Compose {
-    private const val compose_version = "1.0.0-rc01"
+    private const val compose_version = "1.0.1"
     const val compose_ui = "androidx.compose.ui:ui:$compose_version"
     const val compose_material = "androidx.compose.material:material:$compose_version"
     const val compose_ui_tooling = "androidx.compose.ui:ui-tooling:$compose_version"
+    const val foundation = "androidx.compose.foundation:foundation:$compose_version"
+    const val compose_icon = "androidx.compose.material:material-icons-core:$compose_version"
+    const val expand_icon = "androidx.compose.material:material-icons-extended:$compose_version"
+    const val runtime_livedata = "androidx.compose.runtime:runtime-livedata:$compose_version"
+    const val compose_junit = "androidx.compose.ui:ui-test-junit4:$compose_version"
+
 }
 
 object AppTest {

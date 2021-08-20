@@ -3,15 +3,16 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        maven { url 'https://jitpack.io' }
+        maven("https://plugins.gradle.org/m2/")
+        maven("https://jitpack.io")
     }
 }
 rootProject.name = "cnubus"
 include(
-        ":app",
-        ":feature:map",
-        ":common",
-        ":compose"
+    ":app",
+    ":feature:map",
+    ":common",
+    ":compose",
+    ":domain",
+    ":data"
 )
-include ':domain'
-include ':data'

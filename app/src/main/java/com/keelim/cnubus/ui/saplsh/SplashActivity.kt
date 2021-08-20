@@ -28,11 +28,7 @@ import com.keelim.cnubus.BuildConfig
 import com.keelim.cnubus.databinding.ActivitySplashBinding
 import com.keelim.cnubus.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.HiltAndroidApp
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -49,9 +45,9 @@ class SplashActivity : AppCompatActivity() {
         observeData()
     }
 
-    private fun observeData() = lifecycleScope.launchWhenCreated{
+    private fun observeData() = lifecycleScope.launchWhenCreated {
         splashViewModel.loading.collect {
-            if(it){ showAd() }
+            if (it) { showAd() }
         }
     }
 

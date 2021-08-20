@@ -28,9 +28,9 @@ import androidx.preference.PreferenceFragmentCompat
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.keelim.cnubus.R
-import com.keelim.cnubus.ui.main.MainViewModel
-import com.keelim.cnubus.ui.content.Content2Activity
 import com.keelim.cnubus.data.repository.theme.AppTheme.Companion.THEME_ARRAY
+import com.keelim.cnubus.ui.content.Content2Activity
+import com.keelim.cnubus.ui.main.MainViewModel
 import com.keelim.cnubus.utils.MaterialDialog
 import com.keelim.cnubus.utils.MaterialDialog.Companion.negativeButton
 import com.keelim.cnubus.utils.MaterialDialog.Companion.positiveButton
@@ -79,9 +79,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
             "opensource" -> startActivity(Intent(requireContext(), OssLicensesMenuActivity::class.java))
 
             "update" -> {
-                startActivity(Intent(Intent.ACTION_VIEW).apply {
-                    data = Uri.parse(getString(R.string.updateLink))
-                })
+                startActivity(
+                    Intent(Intent.ACTION_VIEW).apply {
+                        data = Uri.parse(getString(R.string.updateLink))
+                    }
+                )
             }
 
             "theme" -> selectTheme()

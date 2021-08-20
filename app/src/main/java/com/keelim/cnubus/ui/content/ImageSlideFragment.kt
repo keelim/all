@@ -28,7 +28,7 @@ import com.keelim.cnubus.databinding.FragmentImageSliderBinding
 
 class ImageSlideFragment(
     @DrawableRes val image: Int
-    ) : Fragment() {
+) : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

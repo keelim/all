@@ -53,6 +53,3 @@ fun Fragment.toast(message: String, duration: Int = Toast.LENGTH_SHORT) {
 fun Fragment.toast(@StringRes resId: Int, duration: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(requireActivity(), this.resources.getText(resId), duration).show()
 }
-
-
-

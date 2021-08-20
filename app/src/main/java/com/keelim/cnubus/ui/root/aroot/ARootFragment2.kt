@@ -34,12 +34,13 @@ class ARootFragment2 : Fragment() {
     private val aRecyclerViewAdapter = ARecyclerViewAdapter2(
         shortClickListener = { position ->
             requireActivity().toast(rootList[position] + "정류장 입니다.")
-            startActivity(Intent(requireContext(), MapsActivity::class.java).apply {
-                putExtra("location", intentList[position])
-            })
+            startActivity(
+                Intent(requireContext(), MapsActivity::class.java).apply {
+                    putExtra("location", intentList[position])
+                }
+            )
         },
         longClickListener = {
-
         }
     )
 

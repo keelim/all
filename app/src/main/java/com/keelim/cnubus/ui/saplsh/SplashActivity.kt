@@ -37,10 +37,10 @@ import timber.log.Timber
 
 @AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
-    private val binding by lazy { ActivitySplashBinding.inflate(layoutInflater) }
-    private var mInterstitialAd: InterstitialAd? = null
-    private val test = "ca -app-pub-3940256099942544/1033173712"
     private infix fun String.or(that: String): String = if (BuildConfig.DEBUG) this else that
+    private var mInterstitialAd: InterstitialAd? = null
+    private val binding by lazy { ActivitySplashBinding.inflate(layoutInflater) }
+    private val test = "ca -app-pub-3940256099942544/1033173712"
     private val splashViewModel: SplashViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,14 +51,14 @@ class SplashActivity : AppCompatActivity() {
 
     private fun observeData() = lifecycleScope.launchWhenCreated{
         splashViewModel.loading.collect {
-            if(it){
-                showAd()
-            }
+            if(it){ showAd() }
         }
     }
 
     private fun showAd() {
-        val adRequest = AdRequest.Builder().build()
+        val adRequest = AdRequest.Builder()
+            .build()
+
         InterstitialAd.load(
             this,
             test or "ca-app-pub-3115620439518585/4013096159",

@@ -23,8 +23,8 @@ import androidx.fragment.app.Fragment
 import com.keelim.cnubus.databinding.FragmentOpensourceBinding
 import com.keelim.common.snack
 
-class OpenSourceFragment : Fragment(){
-    private var _binding:FragmentOpensourceBinding? = null
+class OpenSourceFragment : Fragment() {
+    private var _binding: FragmentOpensourceBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(

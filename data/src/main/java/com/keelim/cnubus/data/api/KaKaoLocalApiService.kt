@@ -15,8 +15,6 @@
  */
 package com.keelim.cnubus.data.api
 
-import com.keelim.cnubus.data.response.tm.TmCoordinateResponse
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -25,5 +23,5 @@ interface KaKaoLocalApiService {
     suspend fun getTmCoordinates(
         @Query("x") longitude: Double,
         @Query("y") latitude: Double,
-    ): Response<TmCoordinateResponse>
+    )
 }

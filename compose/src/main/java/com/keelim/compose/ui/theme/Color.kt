@@ -13,13 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.cnubus.data.response.tm
+package com.keelim.compose.ui.theme
 
-import com.google.gson.annotations.SerializedName
+import androidx.compose.ui.graphics.Color
 
-data class Document(
-    @SerializedName("x")
-    val x: Double?,
-    @SerializedName("y")
-    val y: Double?
-)
+val Purple200 = Color(0xFFBB86FC)
+val Purple500 = Color(0xFF6200EE)
+val Purple700 = Color(0xFF3700B3)
+val Teal200 = Color(0xFF03DAC5)

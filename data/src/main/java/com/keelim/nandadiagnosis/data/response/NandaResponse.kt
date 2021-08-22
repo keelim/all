@@ -16,7 +16,7 @@
 package com.keelim.nandadiagnosis.data.response
 
 import com.keelim.nandadiagnosis.data.db.entity.NandaEntity2
-import java.util.*
+import java.util.Date
 
 data class NandaResponse(
   val id: Int,

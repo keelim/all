@@ -59,7 +59,7 @@ class MenuBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
       moveProfile.setOnClickListener {
         dismiss()
-        toast("버전 준비 중입니다.")
+        requireContext().toast("버전 준비 중입니다.")
       }
     }
   }

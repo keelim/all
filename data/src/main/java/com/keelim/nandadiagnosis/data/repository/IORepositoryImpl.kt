@@ -27,10 +27,10 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class IORepositoryImpl @Inject constructor(
-    private val nandaService: NandaService,
-    @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
-    @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher,
-    private val db: AppDatabaseV2,
+  private val nandaService: NandaService,
+  @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
+  @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher,
+  private val db: AppDatabaseV2,
 ) : IORepository {
 
   override suspend fun getNandaList(): List<NandaEntity2> = withContext(ioDispatcher) {
@@ -90,7 +90,7 @@ class IORepositoryImpl @Inject constructor(
     db.historyDao().delete(keyword)
   }
 
-  override suspend fun updateFavorite(favorite: Int, id: Int)  = withContext(ioDispatcher){
+  override suspend fun updateFavorite(favorite: Int, id: Int) = withContext(ioDispatcher) {
     db.dataDao().favoriteUpdate(favorite, id)
   }
 }

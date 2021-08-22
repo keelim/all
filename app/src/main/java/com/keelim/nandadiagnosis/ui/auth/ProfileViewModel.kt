@@ -33,9 +33,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 internal class ProfileViewModel @Inject constructor(
-    private val preferenceManager: PreferenceManager,
-    private val getFavoriteListUseCase: GetFavoriteListUseCase,
-    @IoDispatcher private val dispatcher: CoroutineDispatcher,
+  private val preferenceManager: PreferenceManager,
+  private val getFavoriteListUseCase: GetFavoriteListUseCase,
+  @IoDispatcher private val dispatcher: CoroutineDispatcher,
 ) : BaseViewModel() {
   private var _profileState = MutableLiveData<ProfileState>(ProfileState.UnInitialized)
   val profileState: LiveData<ProfileState> get() = _profileState
@@ -64,15 +64,15 @@ internal class ProfileViewModel @Inject constructor(
     user?.let { user ->
       Timber.d("유저 값 $user")
       setState(
-          ProfileState.Success.Registered(
-              user.displayName ?: "익명",
-              user.photoUrl,
-              getFavoriteListUseCase()
-          )
+        ProfileState.Success.Registered(
+          user.displayName ?: "익명",
+          user.photoUrl,
+          getFavoriteListUseCase()
+        )
       )
     } ?: kotlin.run {
       setState(
-          ProfileState.Success.NotRegistered
+        ProfileState.Success.NotRegistered
       )
     }
   }

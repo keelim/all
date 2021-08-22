@@ -15,7 +15,6 @@
  */
 package com.keelim.nandadiagnosis.data.db
 
-import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.keelim.nandadiagnosis.data.db.dao.DataDaoV2
@@ -36,5 +35,4 @@ import com.keelim.nandadiagnosis.data.db.entity.NandaEntity
 abstract class AppDatabaseV2 : RoomDatabase() {
   abstract fun dataDao(): DataDaoV2
   abstract fun historyDao(): HistoryDao
-
 }

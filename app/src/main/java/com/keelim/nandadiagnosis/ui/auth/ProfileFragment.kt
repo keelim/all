@@ -34,7 +34,6 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.keelim.common.toast
-import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.FragmentProfileBinding
 import com.keelim.nandadiagnosis.ui.main.favorite.FavoriteAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,10 +41,9 @@ import timber.log.Timber
 
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
-  private var _binding:FragmentProfileBinding? = null
+  private var _binding: FragmentProfileBinding? = null
   private val binding get() = _binding!!
   private val viewModel: ProfileViewModel by viewModels()
-
 
   private val gso by lazy {
     GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -92,7 +90,6 @@ class ProfileFragment : Fragment() {
     observeData()
     viewModel.fetchData()
   }
-
 
   private fun observeData() = viewModel.profileState.observe(viewLifecycleOwner) {
     when (it) {

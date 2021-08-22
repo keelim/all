@@ -44,7 +44,7 @@ import java.io.File
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class Main2Activity() : AppCompatActivity() {
+class Main2Activity : AppCompatActivity() {
   private lateinit var downloadManager: DownloadManager
   private val binding: ActivityMain2Binding by lazy { ActivityMain2Binding.inflate(layoutInflater) }
   private val callbackManager by lazy { CallbackManager.Factory.create() }

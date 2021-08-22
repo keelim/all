@@ -23,9 +23,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.keelim.nandadiagnosis.data.db.entity.NandaEntity
 import com.keelim.nandadiagnosis.databinding.ItemFavoriteBinding
 
-class FavoriteAdapter : ListAdapter<com.keelim.nandadiagnosis.data.db.entity.NandaEntity, FavoriteAdapter.ViewHolder>(diffUtil) {
+class FavoriteAdapter : ListAdapter<NandaEntity, FavoriteAdapter.ViewHolder>(diffUtil) {
   inner class ViewHolder(val binding: ItemFavoriteBinding) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(item: com.keelim.nandadiagnosis.data.db.entity.NandaEntity) = with(binding) {
+    fun bind(item: NandaEntity) = with(binding) {
       diagnosisItem.text = item.diagnosis
       diagnosisDes.text = item.reason
       className.text = item.class_name
@@ -48,12 +48,12 @@ class FavoriteAdapter : ListAdapter<com.keelim.nandadiagnosis.data.db.entity.Nan
   }
 
   companion object {
-    val diffUtil = object : DiffUtil.ItemCallback<com.keelim.nandadiagnosis.data.db.entity.NandaEntity>() {
-      override fun areItemsTheSame(oldItem: com.keelim.nandadiagnosis.data.db.entity.NandaEntity, newItem: com.keelim.nandadiagnosis.data.db.entity.NandaEntity): Boolean {
+    val diffUtil = object : DiffUtil.ItemCallback<NandaEntity>() {
+      override fun areItemsTheSame(oldItem: NandaEntity, newItem: NandaEntity): Boolean {
         return oldItem == newItem
       }
 
-      override fun areContentsTheSame(oldItem: com.keelim.nandadiagnosis.data.db.entity.NandaEntity, newItem: com.keelim.nandadiagnosis.data.db.entity.NandaEntity): Boolean {
+      override fun areContentsTheSame(oldItem: NandaEntity, newItem: NandaEntity): Boolean {
         return oldItem == newItem
       }
     }

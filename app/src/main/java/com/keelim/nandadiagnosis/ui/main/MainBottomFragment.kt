@@ -26,8 +26,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.databinding.FragmentMainBottomBinding
 import com.keelim.nandadiagnosis.data.repository.theme.AppTheme
+import com.keelim.nandadiagnosis.databinding.FragmentMainBottomBinding
 import com.keelim.nandadiagnosis.utils.MaterialDialog
 import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.negativeButton
 import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.positiveButton
@@ -66,7 +66,7 @@ class MainBottomFragment : BottomSheetDialogFragment() {
     mainViewModel.theme.observe(
       viewLifecycleOwner
     ) { currentTheme ->
-      val appTheme = AppTheme.THEME_ARRAY.firstOrNull() { it.modeNight == currentTheme }
+      val appTheme = AppTheme.THEME_ARRAY.firstOrNull { it.modeNight == currentTheme }
       appTheme?.let {
         binding.themeIcon.setImageResource(it.themeIconRes)
         binding.themeDescription.text = getString(it.modeNameRes)
@@ -110,7 +110,6 @@ class MainBottomFragment : BottomSheetDialogFragment() {
     binding.labFeature.setOnClickListener {
       dismiss()
       findNavController().navigate(R.id.categoryFragment)
-
     }
   }
 

@@ -16,6 +16,7 @@
 package com.keelim.nandadiagnosis.di
 
 import android.content.Context
+import androidx.room.Room
 import com.keelim.nandadiagnosis.data.db.AppDatabaseV2
 import com.keelim.nandadiagnosis.data.network.NandaService
 import com.keelim.nandadiagnosis.data.repository.RemoteDataSource
@@ -25,6 +26,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import java.io.File
 import javax.inject.Singleton
 
 @Module
@@ -36,7 +38,14 @@ object DatabaseModule {
   fun provideAppDatabase(
     @ApplicationContext context: Context,
   ): AppDatabaseV2 {
-    return AppDatabaseV2.getInstance(context)!!
+    return Room.databaseBuilder(
+      context.applicationContext,
+      AppDatabaseV2::class.java,
+      "nanda"
+    )
+      .createFromFile(File(context.getExternalFilesDir(null), "nanda.db"))
+      .allowMainThreadQueries()
+      .build()
   }
 
   @Provides

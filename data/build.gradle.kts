@@ -48,7 +48,7 @@ dependencies {
     kapt(Room.compiler)
 
     implementation(SquareUp.timber)
-    implementation(Kotlin.Coroutines.android)
+    implementation(Coroutines.android)
 
     implementation(SquareUp.core)
     implementation(SquareUp.loggingInterceptor)
@@ -64,5 +64,5 @@ dependencies {
     androidTestImplementation(Room.testing)
     androidTestImplementation(AppTest.androidJunit)
     androidTestImplementation(AppTest.espressoCore)
-    androidTestImplementation(Kotlin.Coroutines.test)
+    androidTestImplementation(Coroutines.test)
 }

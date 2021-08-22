@@ -13,13 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.domain
+package com.keelim.common
 
-import com.keelim.nandadiagnosis.data.repository.theme.ThemeRepository
+import android.content.Context
+import android.widget.Toast
+import androidx.annotation.StringRes
 
-class SetAppThemeUseCase(
-  private val themeRepository: ThemeRepository
-) {
+fun Context.toast(message: String, length: Int = Toast.LENGTH_SHORT) {
+  Toast.makeText(this, message, length).show()
+}
 
-  suspend operator fun invoke(theme: Int) = themeRepository.setUserTheme(theme)
+fun Context.toast(@StringRes message: Int, length: Int = Toast.LENGTH_SHORT) {
+  Toast.makeText(this, message, length).show()
 }

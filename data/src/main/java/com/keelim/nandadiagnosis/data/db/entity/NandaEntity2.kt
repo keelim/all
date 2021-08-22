@@ -17,7 +17,7 @@ package com.keelim.nandadiagnosis.data.db.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.*
+import java.util.Date
 
 @Entity(tableName = "nanda")
 data class NandaEntity2(

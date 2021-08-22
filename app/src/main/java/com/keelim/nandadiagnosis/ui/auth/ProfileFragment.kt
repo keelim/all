@@ -35,7 +35,6 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.keelim.common.toast
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.base.BaseFragment
 import com.keelim.nandadiagnosis.databinding.FragmentProfileBinding
 import com.keelim.nandadiagnosis.ui.main.favorite.FavoriteAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,7 +49,7 @@ class ProfileFragment : Fragment() {
 
   private val gso by lazy {
     GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-      .requestIdToken(getString(R.string.default_web_client_id))
+//      .requestIdToken(getString())
       .requestEmail()
       .build()
   }

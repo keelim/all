@@ -15,47 +15,26 @@
  */
 package com.keelim.nandadiagnosis.data.db
 
-import android.content.Context
+import androidx.room.AutoMigration
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.migration.Migration
-import androidx.sqlite.db.SupportSQLiteDatabase
 import com.keelim.nandadiagnosis.data.db.dao.DataDaoV2
 import com.keelim.nandadiagnosis.data.db.dao.HistoryDao
 import com.keelim.nandadiagnosis.data.db.entity.History
 import com.keelim.nandadiagnosis.data.db.entity.NandaEntity
-import java.io.File
 
-@Database(entities = [NandaEntity::class, History::class], version = 3, exportSchema = false)
+@Database(
+  entities = [NandaEntity::class, History::class],
+  autoMigrations = [
+//    AutoMigration(from = 1, to = 2),
+//    AutoMigration(from = 2, to = 3),
+  ],
+  version = 1,
+  exportSchema = true,
+)
+
 abstract class AppDatabaseV2 : RoomDatabase() {
-  abstract val dataDao: DataDaoV2
-  abstract val historyDao: HistoryDao
+  abstract fun dataDao(): DataDaoV2
+  abstract fun historyDao(): HistoryDao
 
-  companion object {
-    @Volatile
-    private var INSTANCE: AppDatabaseV2? = null
-    private val MIGRATION_2_3 = object : Migration(2, 3) {
-      override fun migrate(database: SupportSQLiteDatabase) {
-        database.execSQL("create table `HISTORY` (`id` INTEGER, `history` TEXT," + "PRIMARY KEY(`id`)")
-      }
-    }
-
-    fun getInstance(context: Context): AppDatabaseV2? {
-      if (INSTANCE == null) {
-        synchronized(AppDatabaseV2::class) {
-          INSTANCE = Room.databaseBuilder(
-            context.applicationContext,
-            AppDatabaseV2::class.java,
-            "nanda"
-          )
-            .addMigrations(MIGRATION_2_3)
-            .createFromFile(File(context.getExternalFilesDir(null), "nanda.db"))
-            .allowMainThreadQueries()
-            .build()
-        }
-      }
-      return INSTANCE
-    }
-  }
 }

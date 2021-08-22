@@ -66,7 +66,7 @@ class MainBottomFragment : BottomSheetDialogFragment() {
     mainViewModel.theme.observe(
       viewLifecycleOwner
     ) { currentTheme ->
-      val appTheme = AppTheme.THEME_ARRAY.firstOrNull() { it.modeNight == currentTheme }
+      val appTheme = AppTheme.THEME_ARRAY.firstOrNull { it.modeNight == currentTheme }
       appTheme?.let {
         binding.themeIcon.setImageResource(it.themeIconRes)
         binding.themeDescription.text = getString(it.modeNameRes)

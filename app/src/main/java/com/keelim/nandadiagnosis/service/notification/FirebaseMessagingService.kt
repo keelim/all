@@ -126,7 +126,7 @@ class FirebaseMessagingService : FirebaseMessagingService() {
 
   private fun showNotification(notification: RemoteMessage.Notification) {
     val intent = Intent(this, Main2Activity::class.java)
-    val pIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+    val pIntent = PendingIntent.getActivity(this, 0, intent, FLAG_UPDATE_CURRENT)
     val channelId = getString(R.string.my_notification_channel_id)
 
     val notificationBuilder = NotificationCompat.Builder(this, channelId)

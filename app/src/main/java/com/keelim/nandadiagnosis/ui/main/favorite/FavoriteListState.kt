@@ -23,7 +23,7 @@ sealed class FavoriteListState {
   object Loading : FavoriteListState()
 
   data class Success(
-    val favoriteList: List<com.keelim.nandadiagnosis.data.db.entity.NandaEntity>
+    val favoriteList: List<NandaEntity>
   ) : FavoriteListState()
 
   object Error : FavoriteListState()

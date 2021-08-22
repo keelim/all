@@ -48,7 +48,6 @@ object DatabaseModule {
       .build()
   }
 
-
   @Provides
   @Singleton
   fun provideRemoteDataSource(nandaService: NandaService): RemoteDataSource {

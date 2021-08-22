@@ -17,7 +17,6 @@ package com.keelim.nandadiagnosis.domain
 
 import com.keelim.nandadiagnosis.data.repository.theme.ThemeRepository
 
-
 class SetAppThemeUseCase(
   private val themeRepository: ThemeRepository
 ) {

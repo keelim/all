@@ -71,26 +71,26 @@ class IORepositoryImpl @Inject constructor(
   }
 
   override suspend fun getFavoriteList(): List<NandaEntity> = withContext(ioDispatcher) {
-    return@withContext db.dataDao.favorites()
+    db.dataDao().favorites()
   }
 
   override suspend fun getSearchList(keyword: String?): List<NandaEntity> = withContext(ioDispatcher) {
-    return@withContext db.dataDao.search(keyword.orEmpty())
+    db.dataDao().search(keyword.orEmpty())
   }
 
   override suspend fun getHistories(): List<History> = withContext(ioDispatcher) {
-    return@withContext db.historyDao.getAll().reversed()
+    db.historyDao().getAll().reversed()
   }
 
   override suspend fun saveHistory(keyword: String) = withContext(ioDispatcher) {
-    db.historyDao.insertHistory(History(null, keyword))
+    db.historyDao().insertHistory(History(null, keyword))
   }
 
   override suspend fun deleteHistory(keyword: String) = withContext(ioDispatcher) {
-    db.historyDao.delete(keyword)
+    db.historyDao().delete(keyword)
   }
 
   override suspend fun updateFavorite(favorite: Int, id: Int)  = withContext(ioDispatcher){
-    db.dataDao.favoriteUpdate(favorite, id)
+    db.dataDao().favoriteUpdate(favorite, id)
   }
 }

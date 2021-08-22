@@ -44,7 +44,7 @@ object SquareUp {
 }
 
 object Room {
-    private const val roomVersion = "2.3.0-alpha02"
+    private const val roomVersion = "2.4.0-alpha04"
     const val runtime = "androidx.room:room-runtime:$roomVersion"
     const val compiler = "androidx.room:room-compiler:$roomVersion"
     const val ktx = "androidx.room:room-ktx:$roomVersion"

@@ -27,7 +27,7 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
-import com.keelim.common.snack
+import com.keelim.common.toast
 import com.keelim.nandadiagnosis.BuildConfig
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.base.SimpleBaseActivity
@@ -126,7 +126,7 @@ class SplashActivity : SimpleBaseActivity() {
     when (requestCode) {
       MULTIPLE_PERMISSIONS -> {
         if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-          snack("모든 권한이 승인 되었습니다.", binding.root)
+          toast("모든 권한이 승인 되었습니다.")
           showAd()
           goNext()
         } else {

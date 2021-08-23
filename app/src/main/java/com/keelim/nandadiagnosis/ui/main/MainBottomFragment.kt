@@ -22,6 +22,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -40,7 +41,7 @@ class MainBottomFragment : BottomSheetDialogFragment() {
   private var _binding: FragmentMainBottomBinding? = null
   private val binding get() = _binding!!
 
-  private val mainViewModel by viewModels<MainViewModel>()
+  private val mainViewModel:MainViewModel by activityViewModels()
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -81,16 +82,19 @@ class MainBottomFragment : BottomSheetDialogFragment() {
 
     binding.aboutButton.setOnClickListener {
       dismiss()
+      mainViewModel.loadingOn()
       findNavController().navigate(R.id.aboutFragment)
     }
 
     binding.openSourceLicensesButton.setOnClickListener {
       dismiss()
+      mainViewModel.loadingOn()
       findNavController().navigate(R.id.openSource)
     }
 
     binding.update.setOnClickListener {
       dismiss()
+      mainViewModel.loadingOn()
       Intent(Intent.ACTION_VIEW).apply {
         data = Uri.parse(getString(R.string.urinanda))
         startActivity(this)
@@ -99,16 +103,19 @@ class MainBottomFragment : BottomSheetDialogFragment() {
 
     binding.blog.setOnClickListener {
       dismiss()
+      mainViewModel.loadingOn()
       findNavController().navigate(R.id.inAppWebFragment)
     }
 
     binding.login.setOnClickListener {
       dismiss()
+      mainViewModel.loadingOn()
       findNavController().navigate(R.id.profileFragment)
     }
 
     binding.labFeature.setOnClickListener {
       dismiss()
+      mainViewModel.loadingOn()
       findNavController().navigate(R.id.categoryFragment)
     }
   }

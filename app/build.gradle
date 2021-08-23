@@ -51,10 +51,15 @@ android {
     buildFeatures {
         dataBinding = true
         viewBinding = true
+        compose = true
     }
 
     lint {
         abortOnError false
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.0.1"
     }
 }
 
@@ -127,8 +132,13 @@ dependencies {
     implementation "com.facebook.android:facebook-login:11.2.0"
     implementation "com.github.yuyakaido:cardstackview:2.3.4"
 
-    implementation(Compose.runtime_livedata)
     implementation(Compose.compose_ui)
-
+    implementation(Compose.compose_ui_tooling)
+    implementation(Compose.foundation)
+    implementation(Compose.compose_material)
+    implementation(Compose.compose_icon)
+    implementation(Compose.expand_icon)
+    implementation(Compose.runtime_livedata)
+    androidTestImplementation(Compose.compose_junit)
 }
 apply from: "$rootDir/spotless.gradle"

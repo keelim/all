@@ -25,6 +25,9 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.navigation.findNavController
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -48,9 +51,10 @@ class Main2Activity : AppCompatActivity() {
   private lateinit var downloadManager: DownloadManager
   private val binding: ActivityMain2Binding by lazy { ActivityMain2Binding.inflate(layoutInflater) }
 
-  private val mainViewModel by viewModels<MainViewModel>()
+  private val mainViewModel:MainViewModel by viewModels()
 
   private val auth by lazy { Firebase.auth }
+
 
   @Inject
   lateinit var recevier: DownloadReceiver
@@ -61,7 +65,7 @@ class Main2Activity : AppCompatActivity() {
     startService(Intent(this, TerminateService::class.java))
     initNavigation()
     initBottomAppBar()
-
+    observeLoading()
     fileChecking()
     loginCheck()
   }
@@ -89,10 +93,12 @@ class Main2Activity : AppCompatActivity() {
 
   private fun initBottomAppBar() = with(binding) {
     searchButton.setOnClickListener {
+      mainViewModel.loadingOn()
       navController().navigate(R.id.navigation_search)
     }
 
     bottomAppBar.setNavigationOnClickListener {
+      mainViewModel.loadingOn()
       showMenu()
     }
 
@@ -170,5 +176,28 @@ class Main2Activity : AppCompatActivity() {
         ("환영합니다. 난다 진단 입니다.")
       }
     toast(data)
+  }
+
+  private fun observeLoading() = mainViewModel.loading.observe(this){
+    when(it){
+      true -> binding.composeView.apply {
+        bringToFront()
+
+        setContent {
+          CircularIndeterminateProgressBar(
+            isDisplayed = true
+          )
+        }
+      }
+      false -> binding.composeView.apply {
+        bringToFront()
+
+        setContent {
+          CircularIndeterminateProgressBar(
+            isDisplayed = false
+          )
+        }
+      }
+    }
   }
 }

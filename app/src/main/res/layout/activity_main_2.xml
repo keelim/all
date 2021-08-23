@@ -9,6 +9,12 @@
     android:fitsSystemWindows="true"
     tools:context=".ui.main.Main2Activity">
 
+    <androidx.compose.ui.platform.ComposeView
+        android:id="@+id/compose_view"
+        android:layout_width="50dp"
+        
+        android:layout_height="50dp"
+        android:layout_gravity="center" />
 
     <fragment
         android:id="@+id/nav_host_fragment"
@@ -38,5 +44,7 @@
         app:fabCradleRoundedCornerRadius="@dimen/bottom_app_bar_fab_cradle_corner_radius"
         app:menu="@menu/bottom_app_bar_menu"
         app:navigationIcon="@drawable/ic_menu_24dp" />
+
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

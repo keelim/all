@@ -15,12 +15,11 @@
  */
 package com.keelim.nandadiagnosis.ui.main
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.keelim.nandadiagnosis.data.network.NandaService
 import com.keelim.nandadiagnosis.domain.GetAppThemeUseCase
 import com.keelim.nandadiagnosis.domain.SetAppThemeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -39,11 +38,12 @@ class MainViewModel @Inject constructor(
     setTheme.invoke(theme)
   }
 
-  val loading = mutableStateOf(false)
+  private val _loading = MutableLiveData(false)
+  val loading:LiveData<Boolean> = _loading
 
-  fun loading() = viewModelScope.launch {
-    loading.value = true
+  fun loadingOn() = viewModelScope.launch{
+    _loading.value = true
     delay(1000)
-    loading.value = false
+    _loading.value = false
   }
 }

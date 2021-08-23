@@ -15,6 +15,7 @@
  */
 package com.keelim.nandadiagnosis.ui.main
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -22,19 +23,15 @@ import androidx.lifecycle.viewModelScope
 import com.keelim.nandadiagnosis.data.network.NandaService
 import com.keelim.nandadiagnosis.domain.GetAppThemeUseCase
 import com.keelim.nandadiagnosis.domain.SetAppThemeUseCase
-import com.squareup.okhttp.ResponseBody
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
-import timber.log.Timber
-import java.io.FileOutputStream
-import java.io.InputStream
 import javax.inject.Inject
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
   getTheme: GetAppThemeUseCase,
   private val setTheme: SetAppThemeUseCase,
-  private val nandaService: NandaService
 ) : ViewModel() {
   val theme: LiveData<Int> = getTheme.appTheme.asLiveData()
 
@@ -42,38 +39,11 @@ class MainViewModel @Inject constructor(
     setTheme.invoke(theme)
   }
 
-  fun downloadDatabase(filePath: String) {
-    viewModelScope.launch {
-      val responseBody =
-        nandaService
-          .getDatabase("https://github.com/keelim/Keelim.github.io/raw/master/assets/nanda.db")
-          .body()
-      saveFile(responseBody, filePath)
-    }
-  }
+  val loading = mutableStateOf(false)
 
-  private fun saveFile(body: ResponseBody?, pathWhereYouWantToSaveFile: String): String {
-    if (body == null)
-      return ""
-    var input: InputStream? = null
-    try {
-      input = body.byteStream()
-      // val file = File(getCacheDir(), "cacheFileAppeal.srl")
-      val fos = FileOutputStream(pathWhereYouWantToSaveFile)
-      fos.use { output ->
-        val buffer = ByteArray(4 * 1024) // or other buffer size
-        var read: Int
-        while (input.read(buffer).also { read = it } != -1) {
-          output.write(buffer, 0, read)
-        }
-        output.flush()
-      }
-      return pathWhereYouWantToSaveFile
-    } catch (e: Exception) {
-      Timber.e("saveFile")
-    } finally {
-      input?.close()
-    }
-    return ""
+  fun loading() = viewModelScope.launch {
+    loading.value = true
+    delay(1000)
+    loading.value = false
   }
 }

@@ -35,6 +35,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
@@ -42,13 +43,18 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import com.keelim.nandadiagnosis.databinding.FragmentCategoryBinding
+import com.keelim.nandadiagnosis.ui.main.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.HiltAndroidApp
 import org.json.JSONArray
 import org.json.JSONObject
 import timber.log.Timber
 
+@AndroidEntryPoint
 class CategoryFragment : Fragment() {
   private var _binding: FragmentCategoryBinding? = null
   private val binding get() = _binding!!
+  private val mainViewModel:MainViewModel by viewModels()
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
@@ -130,6 +136,7 @@ class CategoryFragment : Fragment() {
   }
 
   private fun goNext(num: String) { // 데이터를 사용하는 페이지 이니 조심하라는 문구
+    mainViewModel.loading()
     Snackbar.make(binding.root, "이 기능은 데이터를 사용할 수 있습니다.", Snackbar.LENGTH_LONG)
       .setAction("ok") {
         findNavController().navigate(

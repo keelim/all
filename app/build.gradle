@@ -52,10 +52,10 @@ android {
         dataBinding = true
         viewBinding = true
     }
+
     lint {
         abortOnError false
     }
-
 }
 
 dependencies {
@@ -127,6 +127,8 @@ dependencies {
     implementation "com.facebook.android:facebook-login:11.2.0"
     implementation "com.github.yuyakaido:cardstackview:2.3.4"
 
+    implementation(Compose.runtime_livedata)
+    implementation(Compose.compose_ui)
 
 }
 apply from: "$rootDir/spotless.gradle"

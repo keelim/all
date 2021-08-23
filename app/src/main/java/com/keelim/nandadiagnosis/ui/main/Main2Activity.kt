@@ -26,11 +26,11 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
-import com.facebook.CallbackManager
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.keelim.common.toast
 import com.keelim.nandadiagnosis.R
+import com.keelim.nandadiagnosis.compose.ui.CircularIndeterminateProgressBar
 import com.keelim.nandadiagnosis.databinding.ActivityMain2Binding
 import com.keelim.nandadiagnosis.service.TerminateService
 import com.keelim.nandadiagnosis.utils.DownloadReceiver
@@ -47,7 +47,7 @@ import javax.inject.Inject
 class Main2Activity : AppCompatActivity() {
   private lateinit var downloadManager: DownloadManager
   private val binding: ActivityMain2Binding by lazy { ActivityMain2Binding.inflate(layoutInflater) }
-  private val callbackManager by lazy { CallbackManager.Factory.create() }
+
   private val mainViewModel by viewModels<MainViewModel>()
 
   private val auth by lazy { Firebase.auth }
@@ -63,25 +63,13 @@ class Main2Activity : AppCompatActivity() {
     initBottomAppBar()
 
     fileChecking()
-    startService(Intent(this, TerminateService::class.java))
     loginCheck()
-  }
-
-  override fun onNewIntent(intent: Intent?) {
-    super.onNewIntent(intent)
-    setIntent(intent)
-    updateResult(true)
   }
 
   override fun onDestroy() {
     super.onDestroy()
     stopService(Intent(this, TerminateService::class.java))
     unregisterReceiver(recevier)
-  }
-
-  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-    super.onActivityResult(requestCode, resultCode, data)
-    callbackManager.onActivityResult(requestCode, resultCode, data)
   }
 
   private fun initNavigation() {
@@ -159,6 +147,7 @@ class Main2Activity : AppCompatActivity() {
         .setAllowedOverRoaming(true)
     )
   }
+
 
   private fun loginCheck() {
     auth.currentUser ?: toast("Login 을 하시면 더 많은 서비스를 확인할 수 있습니다. ")

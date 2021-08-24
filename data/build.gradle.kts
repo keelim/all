@@ -40,7 +40,7 @@ dependencies {
     implementation(AndroidX.core_ktx)
 
     implementation(Hilt.android)
-    implementation("androidx.appcompat:appcompat:1.3.0")
+    implementation("androidx.appcompat:appcompat:1.3.1")
     kapt(Hilt.hilt_compiler)
 
     implementation(Room.runtime)

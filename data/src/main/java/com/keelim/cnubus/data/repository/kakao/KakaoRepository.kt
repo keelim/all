@@ -23,10 +23,9 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
-import retrofit2.http.Url
 
 class KakaoRepository() {
-    
+
     private val kakaoLocalApiService: KaKaoLocalApiService by lazy {
         Retrofit.Builder()
             .baseUrl(URL.KAKAO_API_BASE_URL)

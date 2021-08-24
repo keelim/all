@@ -25,16 +25,14 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.keelim.cnubus.databinding.FragmentTabBinding
 import com.keelim.cnubus.ui.main.MainViewModel
-import com.keelim.common.toast
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 import kotlin.math.abs
 
 @AndroidEntryPoint
 class TabFragment : Fragment() {
     private var _binding: FragmentTabBinding? = null
     private val binding get() = _binding!!
-    private val viewModel:MainViewModel by activityViewModels()
+    private val viewModel: MainViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,

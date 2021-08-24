@@ -24,6 +24,11 @@ jobs:
     - name: Access MAPS_API_KEY
       env:
         APOD_API_KEY: ${{ secrets.MAPS_API_KEY }}
+      run: echo '${{ secrets.GOOGLE_SERVICES_JSON }}' > ./app/google-services.json
+
+    - name: Access MAPS_API_KEY
+      env:
+        APOD_API_KEY: ${{ secrets.MAPS_API_KEY }}
       run: echo MAPS_API_KEY=\"$MAPS_API_KEY\" > ./local.properties
 
     - name: Build with Gradle

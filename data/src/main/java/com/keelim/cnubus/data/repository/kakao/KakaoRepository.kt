@@ -25,7 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 
 class KakaoRepository() {
-    
+
     private val kakaoLocalApiService: KaKaoLocalApiService by lazy {
         Retrofit.Builder()
             .baseUrl(URL.KAKAO_API_BASE_URL)

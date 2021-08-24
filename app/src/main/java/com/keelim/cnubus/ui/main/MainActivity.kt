@@ -40,8 +40,8 @@ class MainActivity : AppCompatActivity() {
         stopService(Intent(this, TerminateService::class.java))
     }
 
-    private fun observeLoading() = viewModel.loading.observe(this){
-        when(it){
+    private fun observeLoading() = viewModel.loading.observe(this) {
+        when (it) {
             true -> binding.composeView.apply {
                 bringToFront()
                 setContent {

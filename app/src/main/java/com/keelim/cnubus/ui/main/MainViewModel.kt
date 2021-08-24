@@ -15,7 +15,11 @@
  */
 package com.keelim.cnubus.ui.main
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import com.keelim.cnubus.domain.GetAppThemeUseCase
 import com.keelim.cnubus.domain.SetAppThemeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -35,7 +39,7 @@ class MainViewModel @Inject constructor(
     }
 
     private val _loading = MutableLiveData(false)
-    val loading :LiveData<Boolean> = _loading
+    val loading: LiveData<Boolean> = _loading
 
     fun loadingOn() = viewModelScope.launch {
         _loading.value = true

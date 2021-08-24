@@ -26,12 +26,12 @@ dependencies {
     implementation(SquareUp.retrofit_gson)
 
     implementation(SquareUp.timber)
-    implementation(Kotlin.Coroutines.android)
+    implementation(Coroutines.android)
 
     implementation(Kotlin.stdlibJvm)
     testImplementation(AppTest.junit)
     androidTestImplementation(AppTest.androidJunit)
     androidTestImplementation(AppTest.espressoCore)
-    androidTestImplementation(Kotlin.Coroutines.test)
-    api(Play.maps_sdk)
+    androidTestImplementation(Coroutines.test)
+    implementation(Play.maps_sdk)
 }

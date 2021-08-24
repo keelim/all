@@ -17,22 +17,43 @@ package com.keelim.cnubus.ui.main
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.keelim.cnubus.databinding.ActivityMainBinding
 import com.keelim.cnubus.services.TerminateService
+import com.keelim.compose.ui.CircularIndeterminateProgressBar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+    private val viewModel: MainViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         startService(Intent(this, TerminateService::class.java))
+        observeLoading()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         stopService(Intent(this, TerminateService::class.java))
+    }
+
+    private fun observeLoading() = viewModel.loading.observe(this){
+        when(it){
+            true -> binding.composeView.apply {
+                bringToFront()
+                setContent {
+                    CircularIndeterminateProgressBar(true)
+                }
+            }
+            false -> binding.composeView.apply {
+                bringToFront()
+                setContent {
+                    CircularIndeterminateProgressBar(false)
+                }
+            }
+        }
     }
 }

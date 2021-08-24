@@ -52,7 +52,13 @@ android {
     buildFeatures {
         dataBinding = true
         viewBinding = true
+        compose = true
     }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.0.1"
+    }
+
     kapt {
         correctErrorTypes true
     }
@@ -60,11 +66,10 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(":common")
+//    implementation project(":common")
     implementation project(":data")
     implementation project(":domain")
     implementation project(":compose")
-    implementation project(":feature:map")
 
     implementation platform('com.google.firebase:firebase-bom:28.2.0')
     implementation "com.google.firebase:firebase-core"
@@ -110,6 +115,21 @@ dependencies {
     implementation LifeCycle.livedata
 
     implementation 'com.google.android.gms:play-services-oss-licenses:17.0.0'
+
+    implementation(Play.play_location)
+    implementation(Play.play_map)
+    implementation(Play.maps_sdk)
+
+    implementation(Compose.compose_ui)
+    implementation(Compose.compose_ui_tooling)
+    implementation(Compose.foundation)
+    implementation(Compose.compose_material)
+    implementation(Compose.compose_icon)
+    implementation(Compose.expand_icon)
+    implementation(Compose.runtime_livedata)
+    androidTestImplementation(Compose.compose_junit)
+
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.3.1'
 }
 
 apply from: "$rootDir/spotless.gradle"

@@ -21,7 +21,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.keelim.cnubus.databinding.FragmentOpensourceBinding
-import com.keelim.common.snack
+import com.keelim.common.toast
 
 class OpenSourceFragment : Fragment() {
     private var _binding: FragmentOpensourceBinding? = null
@@ -43,6 +43,6 @@ class OpenSourceFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        snack("오픈 소스 화면 입니다.", binding.root)
+        requireContext().toast("오픈 소스 화면 입니다.")
     }
 }

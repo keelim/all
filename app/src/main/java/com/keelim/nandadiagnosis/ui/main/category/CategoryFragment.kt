@@ -35,20 +35,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
+import com.keelim.nandadiagnosis.data.entity.Recent
 import com.keelim.nandadiagnosis.databinding.FragmentCategoryBinding
+import com.keelim.nandadiagnosis.ui.main.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONArray
 import org.json.JSONObject
 import timber.log.Timber
 
+@AndroidEntryPoint
 class CategoryFragment : Fragment() {
   private var _binding: FragmentCategoryBinding? = null
   private val binding get() = _binding!!
+  private val mainViewModel:MainViewModel by activityViewModels()
+
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
@@ -101,7 +109,7 @@ class CategoryFragment : Fragment() {
     }
   }
 
-  private fun parseJson(json: String): List<com.keelim.nandadiagnosis.data.entity.Recent> {
+  private fun parseJson(json: String): List<Recent> {
     val jsonArray = JSONArray(json)
     var jsonList = emptyList<JSONObject>()
     for (index in 0 until jsonArray.length()) {
@@ -112,7 +120,7 @@ class CategoryFragment : Fragment() {
     }
 
     return jsonList.map {
-      com.keelim.nandadiagnosis.data.entity.Recent(
+      Recent(
         reason = it.getString("reason"),
         domain = it.getString("domain"),
         class_name = it.getString("class_name"),
@@ -121,7 +129,7 @@ class CategoryFragment : Fragment() {
     }
   }
 
-  private fun displayPager(recents: List<com.keelim.nandadiagnosis.data.entity.Recent>) {
+  private fun displayPager(recents: List<Recent>) {
     val recentAdapter = RecentAdapter(recents = recents)
     with(binding.recycler) {
       adapter = recentAdapter
@@ -132,6 +140,7 @@ class CategoryFragment : Fragment() {
   private fun goNext(num: String) { // 데이터를 사용하는 페이지 이니 조심하라는 문구
     Snackbar.make(binding.root, "이 기능은 데이터를 사용할 수 있습니다.", Snackbar.LENGTH_LONG)
       .setAction("ok") {
+        mainViewModel.loadingOn()
         findNavController().navigate(
           CategoryFragmentDirections.actionNavigationCategoryToDiagnosisFragment(num)
         )

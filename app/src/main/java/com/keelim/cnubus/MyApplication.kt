@@ -18,6 +18,7 @@ package com.keelim.cnubus
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.gms.ads.MobileAds
+import com.jakewharton.threetenabp.AndroidThreeTen
 import com.keelim.cnubus.data.repository.theme.ThemeRepository
 import com.keelim.cnubus.utils.AppOpenManager
 import com.keelim.cnubus.utils.ComponentLogger
@@ -47,6 +48,7 @@ class MyApplication : Application() {
         appOpenManager = AppOpenManager(this) // 콜드 부팅에서 복귀시 ad
 
         componentLogger.initialize(this)
+        AndroidThreeTen.init(this)
 
         appCoroutineScope.launch {
             AppCompatDelegate.setDefaultNightMode(

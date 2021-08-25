@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="KeelimView">
-        <attr name="keelim_name" format="string"/>
-        <attr name="keelim_color" format="reference"/>
-        <attr name="keelim_age" format="integer"/>
-        <attr name="keelim_number" format="string"/>
-        <attr name="keelim_icon" format="reference"/>
+    <declare-styleable name="MyCustomView">
+        <attr name="mcv_name" format="string" />
+        <attr name="mcv_name_color" format="reference" />
+        <attr name="mcv_age" format="integer" />
+        <attr name="mcv_number" format="string" />
+        <attr name="mcv_icon" format="reference" />
     </declare-styleable>
 </resources>

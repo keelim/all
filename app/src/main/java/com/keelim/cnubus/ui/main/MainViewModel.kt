@@ -29,7 +29,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val getTheme: GetAppThemeUseCase,
+    getTheme: GetAppThemeUseCase,
     private val setTheme: SetAppThemeUseCase,
 ) : ViewModel() {
     val theme: LiveData<Int> = getTheme.appTheme.asLiveData()

@@ -15,13 +15,4 @@
  */
 package com.keelim.cnubus.data.api
 
-import retrofit2.http.GET
-import retrofit2.http.Query
-
-interface KaKaoLocalApiService {
-    @GET("v2/local/geo/transcord.json?/output_coord=TM")
-    suspend fun getTmCoordinates(
-        @Query("x") longitude: Double,
-        @Query("y") latitude: Double,
-    )
-}
+interface KaKaoLocalApiService

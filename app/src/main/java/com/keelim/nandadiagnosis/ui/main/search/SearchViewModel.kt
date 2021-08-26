@@ -20,7 +20,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+<<<<<<< Updated upstream
 import com.keelim.nandadiagnosis.data.db.entity.History
+=======
+>>>>>>> Stashed changes
 import com.keelim.nandadiagnosis.domain.GetSearchListUseCase
 import com.keelim.nandadiagnosis.domain.favorite.FavoriteUpdateUseCase
 import com.keelim.nandadiagnosis.domain.history.DeleteHistoryUseCase

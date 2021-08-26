@@ -16,6 +16,8 @@
 package com.keelim.nandadiagnosis.ui.main
 
 import android.app.DownloadManager
+import android.app.Notification
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
@@ -168,16 +170,6 @@ class Main2Activity : AppCompatActivity() {
 
   private fun showMenu() = navController().navigate(R.id.menuBottomSheetDialogFragment)
 
-  private fun updateResult(isNewIntent: Boolean = false) {
-    val data = intent.getStringExtra("notificationType") ?: "앱 런처" +
-      if (isNewIntent) {
-        ("알림으로 실행되었습니다. 환영합니다")
-      } else {
-        ("환영합니다. 난다 진단 입니다.")
-      }
-    toast(data)
-  }
-
   private fun observeLoading() = mainViewModel.loading.observe(this){
     when(it){
       true -> binding.composeView.apply {
@@ -200,4 +192,5 @@ class Main2Activity : AppCompatActivity() {
       }
     }
   }
+
 }

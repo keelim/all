@@ -89,16 +89,21 @@ class SearchFragment : Fragment() {
     initViews()
     viewModel.fetchData()
     observeData()
+    observeFlow()
   }
 
   private fun observeData() = viewModel.searchListState.observe(viewLifecycleOwner) {
     when (it) {
-      is SearchListState.Error -> Timber.d("Errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr")
-      is SearchListState.Loading -> Timber.d("Loadinggggggggggggggggggggggggggggggggg")
+      is SearchListState.Error -> Unit
+      is SearchListState.Loading -> requireContext().toast("데이터 로딩 중")
       is SearchListState.Searching -> handleSuccess(it)
-      is SearchListState.Success -> Timber.d("Successssssssssssssssssssssssssssssssssssssssssssss")
+      is SearchListState.Success -> Unit
       is SearchListState.UnInitialized -> requireActivity().toast("데이터 설정 중입니다.")
     }
+  }
+
+  private fun observeFlow() = viewModel.searchResult.observe(viewLifecycleOwner){
+//    searchRecyclerViewAdapter2.submitList(it)
   }
 
   private fun initViews() = with(binding) {
@@ -127,10 +132,12 @@ class SearchFragment : Fragment() {
       setOnQueryTextListener(object : SearchView.OnQueryTextListener {
         override fun onQueryTextSubmit(query: String): Boolean {
           saveSearchKeyword(query)
+          Timber.d("데이터베이스 $query")
           viewModel.search(query.replace("\\s", ""))
           return true
         }
         override fun onQueryTextChange(newText: String): Boolean {
+//          viewModel.searchQuery.value = newText
           return true
         }
       })

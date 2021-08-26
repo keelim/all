@@ -19,31 +19,35 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import com.keelim.nandadiagnosis.data.db.entity.NandaEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface
 DataDaoV2 {
-  @Query("select * from nanda where reason like  '%' || :keyword || '%'")
+  @Query("SELECT * FROM nanda WHERE reason LIKE  '%' || :keyword || '%'")
   suspend fun search(keyword: String?): List<NandaEntity>
 
   @Query("SELECT * FROM nanda WHERE favorite = 1")
   suspend fun favorites(): List<NandaEntity>
 
-  @Query("select * from nanda where category = :number")
+  @Query("SELECT * FROM nanda WHERE category = :number")
   suspend fun get(number: Int?): List<NandaEntity>
 
-  @Query("select * from nanda order by nanda_id desc")
+  @Query("SELECT * FROM nanda ORDER BY nanda_id DESC")
   suspend fun getNanda(): NandaEntity?
 
-  @Query("select * from nanda")
+  @Query("SELECT * FROM nanda")
   suspend fun getAll(): List<NandaEntity>
 
   @Insert
   suspend fun insertNanda(nanda: NandaEntity)
 
-  @Query("delete  from nanda where reason ==:keyword")
+  @Query("DELETE  FROM nanda WHERE reason ==:keyword")
   suspend fun delete(keyword: String?)
 
   @Query("UPDATE nanda SET favorite=:favorite WHERE nanda_id = :id")
   suspend fun favoriteUpdate(favorite: Int, id: Int)
+
+  @Query("SELECT * FROM nanda WHERE reason LIKE  '%' || :query || '%'")
+  fun getSearchFlow(query: String): Flow<List<NandaEntity>>
 }

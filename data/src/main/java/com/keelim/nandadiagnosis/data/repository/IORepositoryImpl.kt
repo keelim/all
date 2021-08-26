@@ -25,6 +25,7 @@ import com.keelim.nandadiagnosis.di.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
 
 class IORepositoryImpl @Inject constructor(
   private val nandaService: NandaService,
@@ -92,5 +93,9 @@ class IORepositoryImpl @Inject constructor(
 
   override suspend fun updateFavorite(favorite: Int, id: Int) = withContext(ioDispatcher) {
     db.dataDao().favoriteUpdate(favorite, id)
+  }
+
+  override fun getSearchFlow(query: String): Flow<List<NandaEntity>>{
+    return db.dataDao().getSearchFlow(query)
   }
 }

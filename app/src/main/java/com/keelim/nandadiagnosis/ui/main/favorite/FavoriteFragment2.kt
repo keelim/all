@@ -21,10 +21,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.keelim.common.toast
 import com.keelim.nandadiagnosis.databinding.FragmentFavoriteBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -49,20 +52,21 @@ class FavoriteFragment2 : Fragment() {
     observeData()
   }
 
-  private fun observeData() = viewModel.favoriteState.observe(viewLifecycleOwner) {
-    Timber.d("viewmodel scope $it")
-    when (it) {
-      is FavoriteListState.UnInitialized -> {
-        initViews(binding)
-      }
-      is FavoriteListState.Success -> {
-        handleSuccess(it)
-      }
-      is FavoriteListState.Loading -> {
-        handleLoading()
-      }
-      is FavoriteListState.Error -> {
-        handleError()
+  private fun observeData() = lifecycleScope.launch {
+    viewModel.favoriteState.collect {
+      when (it) {
+        is FavoriteListState.UnInitialized -> {
+          initViews(binding)
+        }
+        is FavoriteListState.Success -> {
+          handleSuccess(it)
+        }
+        is FavoriteListState.Loading -> {
+          handleLoading()
+        }
+        is FavoriteListState.Error -> {
+          handleError()
+        }
       }
     }
   }

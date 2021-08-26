@@ -15,14 +15,20 @@
  */
 package com.keelim.nandadiagnosis.domain
 
+import com.keelim.nandadiagnosis.data.db.entity.NandaEntity
 import com.keelim.nandadiagnosis.data.repository.IORepository
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
 
 class GetSearchListUseCase @Inject constructor(
   private val ioRepository: IORepository,
 ) {
 
-  suspend operator fun invoke(query: String?): List<com.keelim.nandadiagnosis.data.db.entity.NandaEntity> {
+  suspend operator fun invoke(query: String?): List<NandaEntity> {
     return ioRepository.getSearchList(query)
+  }
+
+  fun getFlowData(query:String) : Flow<List<NandaEntity>>{
+    return ioRepository.getSearchFlow(query)
   }
 }

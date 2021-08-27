@@ -10,7 +10,7 @@ dependencyResolutionManagement {
 rootProject.name = "cnubus"
 include(
     ":app",
-//    ":common",
+    ":common",
     ":domain",
     ":data",
     ":compose",

@@ -29,3 +29,7 @@ dependencies {
     implementation(Compose.runtime_livedata)
     androidTestImplementation(Compose.compose_junit)
 }
+
+kapt {
+    useBuildCache = true
+}

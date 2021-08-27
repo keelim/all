@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.cnubus.ui.saplsh
+package com.keelim.cnubus.ui.splash
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

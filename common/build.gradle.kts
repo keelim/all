@@ -16,3 +16,7 @@ dependencies {
     implementation(LifeCycle.livedata)
     implementation(UI.material)
 }
+
+kapt {
+    useBuildCache = true
+}

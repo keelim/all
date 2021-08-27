@@ -140,5 +140,11 @@ dependencies {
     implementation(Compose.expand_icon)
     implementation(Compose.runtime_livedata)
     androidTestImplementation(Compose.compose_junit)
+
+    implementation("androidx.startup:startup-runtime:1.0.0")
 }
 apply from: "$rootDir/spotless.gradle"
+
+kapt {
+    useBuildCache = true
+}

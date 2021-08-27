@@ -21,3 +21,7 @@ dependencies {
     implementation(Room.ktx)
     kapt(Room.compiler)
 }
+
+kapt {
+    useBuildCache = true
+}

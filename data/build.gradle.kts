@@ -66,3 +66,7 @@ dependencies {
     androidTestImplementation(AppTest.espressoCore)
     androidTestImplementation(Coroutines.test)
 }
+
+kapt {
+    useBuildCache = true
+}

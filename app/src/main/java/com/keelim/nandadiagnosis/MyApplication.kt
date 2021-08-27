@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.gms.ads.MobileAds
 import com.keelim.nandadiagnosis.data.repository.theme.ThemeRepository
 import com.keelim.nandadiagnosis.utils.AppOpenManager
+import com.keelim.nandadiagnosis.utils.ComponentLogger
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -35,18 +36,20 @@ class MyApplication : Application() {
   @Inject
   lateinit var themeRepository: ThemeRepository
 
-  private lateinit var appOpenManager: AppOpenManager
+  @Inject
+  lateinit var  componentLogger: ComponentLogger
+
   private val appCoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
+
+  private lateinit var appOpenManager: AppOpenManager
+
+
 
   override fun onCreate() {
     super.onCreate()
 
-    MobileAds.initialize(this) {}
     appOpenManager = AppOpenManager(this) // 콜드 부팅에서 복귀시 ad
-
-    if (BuildConfig.DEBUG) {
-      Timber.plant(Timber.DebugTree())
-    }
+    componentLogger.initialize(this)
 
     appCoroutineScope.launch {
       AppCompatDelegate.setDefaultNightMode(

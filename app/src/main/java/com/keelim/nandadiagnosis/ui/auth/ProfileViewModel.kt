@@ -17,30 +17,29 @@ package com.keelim.nandadiagnosis.ui.auth
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseUser
-import com.keelim.nandadiagnosis.base.BaseViewModel
 import com.keelim.nandadiagnosis.di.IoDispatcher
 import com.keelim.nandadiagnosis.di.PreferenceManager
 import com.keelim.nandadiagnosis.domain.favorite.GetFavoriteListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
-import javax.inject.Inject
 
 @HiltViewModel
 internal class ProfileViewModel @Inject constructor(
   private val preferenceManager: PreferenceManager,
   private val getFavoriteListUseCase: GetFavoriteListUseCase,
   @IoDispatcher private val dispatcher: CoroutineDispatcher,
-) : BaseViewModel() {
+) : ViewModel() {
   private var _profileState = MutableLiveData<ProfileState>(ProfileState.UnInitialized)
   val profileState: LiveData<ProfileState> get() = _profileState
 
-  override fun fetchData(): Job = viewModelScope.launch {
+  fun fetchData() = viewModelScope.launch {
     setState(ProfileState.Loading)
     preferenceManager.getIdToken()?.let {
       setState(ProfileState.Login(it))

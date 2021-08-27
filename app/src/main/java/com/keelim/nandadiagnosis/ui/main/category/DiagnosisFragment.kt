@@ -34,13 +34,13 @@ class DiagnosisFragment : Fragment() {
   private val data: ArrayList<DiagnosisItem> by lazy { ArrayList() }
   private val args by navArgs<DiagnosisFragmentArgs>()
   private var nav: Int = 0
-  private val mainViewModel:MainViewModel by activityViewModels()
+  private val mainViewModel: MainViewModel by activityViewModels()
   private val diagnosisAdapter = DiagnosisRecyclerViewAdapter(
     listener = { position ->
       mainViewModel.loadingOn()
       findNavController()
-          DiagnosisFragmentDirections
-            .actionDiagnosisFragmentToWebFragment("https://keelim.github.io/nandaDiagnosis/${nav + position + 1}.html")
+      DiagnosisFragmentDirections
+        .actionDiagnosisFragmentToWebFragment("https://keelim.github.io/nandaDiagnosis/${nav + position + 1}.html")
     }
   )
 

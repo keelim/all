@@ -23,9 +23,9 @@ import com.keelim.nandadiagnosis.data.network.NandaService
 import com.keelim.nandadiagnosis.di.DefaultDispatcher
 import com.keelim.nandadiagnosis.di.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
-import kotlinx.coroutines.flow.Flow
 
 class IORepositoryImpl @Inject constructor(
   private val nandaService: NandaService,
@@ -95,7 +95,7 @@ class IORepositoryImpl @Inject constructor(
     db.dataDao().favoriteUpdate(favorite, id)
   }
 
-  override fun getSearchFlow(query: String): Flow<List<NandaEntity>>{
+  override fun getSearchFlow(query: String): Flow<List<NandaEntity>> {
     return db.dataDao().getSearchFlow(query)
   }
 }

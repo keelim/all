@@ -24,11 +24,11 @@ import com.keelim.nandadiagnosis.di.IoDispatcher
 import com.keelim.nandadiagnosis.di.PreferenceManager
 import com.keelim.nandadiagnosis.domain.favorite.GetFavoriteListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
+import javax.inject.Inject
 
 @HiltViewModel
 internal class ProfileViewModel @Inject constructor(

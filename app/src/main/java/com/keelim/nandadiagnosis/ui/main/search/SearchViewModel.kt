@@ -27,11 +27,11 @@ import com.keelim.nandadiagnosis.domain.history.DeleteHistoryUseCase
 import com.keelim.nandadiagnosis.domain.history.GetAllHistoryUseCase
 import com.keelim.nandadiagnosis.domain.history.SaveHistoryUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
@@ -72,7 +72,7 @@ class SearchViewModel @Inject constructor(
           getSearchListUseCase.invoke(keyword.orEmpty())
         )
       )
-    } catch (e:Exception){
+    } catch (e: Exception) {
       setState(
         SearchListState.Error
       )

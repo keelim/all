@@ -51,5 +51,5 @@ interface IORepository {
 
   suspend fun updateFavorite(favorite: Int, id: Int)
 
-  fun getSearchFlow(query:String) : Flow<List<NandaEntity>>
+  fun getSearchFlow(query: String): Flow<List<NandaEntity>>
 }

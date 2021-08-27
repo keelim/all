@@ -34,13 +34,13 @@ import com.google.android.gms.maps.CameraUpdate
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.ktx.addMarker
 import com.google.maps.android.ktx.awaitMap
 import com.keelim.cnubus.R
 import com.keelim.cnubus.data.model.gps.locationList
 import com.keelim.cnubus.databinding.ActivityMapsBinding
+
 import com.keelim.common.toast
 import timber.log.Timber
 
@@ -69,7 +69,6 @@ class MapsActivity : AppCompatActivity() {
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         lifecycle.coroutineScope.launchWhenCreated {
             val googleMap = mapFragment.awaitMap()
-            addClickListener(googleMap)
 
             locationList.mapIndexed { index, latLng ->
                 googleMap.addMarker {
@@ -93,21 +92,6 @@ class MapsActivity : AppCompatActivity() {
         val locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             toast("GPS를 켜주세요")
-        }
-    }
-
-    private fun addClickListener(googleMap: GoogleMap) {
-        binding.floating.setOnClickListener {
-            lifecycle.coroutineScope.launchWhenStarted {
-                googleMap.run {
-                    animateCamera(CameraUpdateFactory.newLatLngZoom(current, 17f))
-                    googleMap.addMarker {
-                        position(current!!)
-                        draggable(true)
-                        icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
-                    }
-                }
-            }
         }
     }
 

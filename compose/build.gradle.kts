@@ -11,6 +11,7 @@ listOf(
 }
 
 android {
+
     buildFeatures {
         compose = true
     }

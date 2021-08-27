@@ -21,7 +21,7 @@ import com.google.android.gms.ads.MobileAds
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.keelim.cnubus.data.repository.theme.ThemeRepository
 import com.keelim.cnubus.utils.AppOpenManager
-import com.keelim.cnubus.utils.ComponentLogger
+import com.keelim.nandadiagnosis.utils.ComponentLogger
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -43,10 +43,7 @@ class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        MobileAds.initialize(this) {}
-
         appOpenManager = AppOpenManager(this) // 콜드 부팅에서 복귀시 ad
-
         componentLogger.initialize(this)
         AndroidThreeTen.init(this)
 

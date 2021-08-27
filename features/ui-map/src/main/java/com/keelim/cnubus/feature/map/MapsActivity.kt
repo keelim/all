@@ -37,13 +37,15 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.ktx.addMarker
 import com.google.maps.android.ktx.awaitMap
-import com.keelim.cnubus.R
+import com.keelim.cnubus.data.model.gps.LocationList
 import com.keelim.cnubus.data.model.gps.locationList
-import com.keelim.cnubus.databinding.ActivityMapsBinding
-
+import com.keelim.cnubus.feature.map.databinding.ActivityMapsBinding
 import com.keelim.common.toast
+import dagger.hilt.android.AndroidEntryPoint
+
 import timber.log.Timber
 
+@AndroidEntryPoint
 class MapsActivity : AppCompatActivity() {
     private lateinit var fusedLocationProvider: FusedLocationProviderClient
     private lateinit var locationRequest: LocationRequest
@@ -58,6 +60,12 @@ class MapsActivity : AppCompatActivity() {
         Manifest.permission.ACCESS_COARSE_LOCATION,
     )
 
+//    private val mapsAdapter = MapsAdapter(
+//        click = {
+//            CameraUpdateFactory.newLatLngZoom(locationList[it], 17f)
+//        }
+//    )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -69,7 +77,6 @@ class MapsActivity : AppCompatActivity() {
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         lifecycle.coroutineScope.launchWhenCreated {
             val googleMap = mapFragment.awaitMap()
-
             locationList.mapIndexed { index, latLng ->
                 googleMap.addMarker {
                     position(latLng)
@@ -78,7 +85,7 @@ class MapsActivity : AppCompatActivity() {
                 }
             }
 
-            val cameraUpdate: CameraUpdate = if (location == -1) {
+            val cameraUpdate = if (location == -1) {
                 CameraUpdateFactory.newLatLngZoom(locationList[0], 17f)
             } else {
                 CameraUpdateFactory.newLatLngZoom(locationList[location], 17f)
@@ -86,6 +93,8 @@ class MapsActivity : AppCompatActivity() {
             googleMap.animateCamera(cameraUpdate)
             updateLocationUI(googleMap)
         }
+
+        initViews()
     }
 
     private fun gpsSettings() {
@@ -233,6 +242,15 @@ class MapsActivity : AppCompatActivity() {
     private fun intentControl() {
         val stringLocation = intent.getStringExtra("location")
         location = stringLocation?.toInt() ?: -1
+    }
+
+    private fun initViews() = with(binding){
+//        markRecyclerView.adapter = mapsAdapter.apply {
+//            setHasStableIds(true)
+//            submitList(locationList.map {
+//                LocationList(it)
+//            })
+//        }
     }
 
     companion object {

@@ -102,7 +102,7 @@ class SearchFragment : Fragment() {
     }
   }
 
-  private fun observeFlow() = viewModel.searchResult.observe(viewLifecycleOwner){
+  private fun observeFlow() = viewModel.searchResult.observe(viewLifecycleOwner) {
 //    searchRecyclerViewAdapter2.submitList(it)
   }
 

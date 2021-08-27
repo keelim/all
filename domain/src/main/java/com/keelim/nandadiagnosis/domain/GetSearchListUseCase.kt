@@ -17,8 +17,8 @@ package com.keelim.nandadiagnosis.domain
 
 import com.keelim.nandadiagnosis.data.db.entity.NandaEntity
 import com.keelim.nandadiagnosis.data.repository.IORepository
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
 class GetSearchListUseCase @Inject constructor(
   private val ioRepository: IORepository,
@@ -28,7 +28,7 @@ class GetSearchListUseCase @Inject constructor(
     return ioRepository.getSearchList(query)
   }
 
-  fun getFlowData(query:String) : Flow<List<NandaEntity>>{
+  fun getFlowData(query: String): Flow<List<NandaEntity>> {
     return ioRepository.getSearchFlow(query)
   }
 }

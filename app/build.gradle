@@ -142,6 +142,8 @@ dependencies {
     androidTestImplementation(Compose.compose_junit)
 
     implementation("androidx.startup:startup-runtime:1.0.0")
+    debugImplementation("com.mocklets:pluto:1.0.7")
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.7")
 }
 apply from: "$rootDir/spotless.gradle"
 

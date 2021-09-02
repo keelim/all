@@ -50,8 +50,8 @@ object NetworkModule {
           level = HttpLoggingInterceptor.Level.BODY
         }
       )
-      if(BuildConfig.DEBUG){
-       addInterceptor(PlutoInterceptor())
+      if (BuildConfig.DEBUG) {
+        addInterceptor(PlutoInterceptor())
       }
     }.build()
   }

@@ -15,6 +15,9 @@
  */
 package com.keelim.nandadiagnosis.di
 
+import com.keelim.nandadiagnosis.data.BuildConfig
+import com.keelim.nandadiagnosis.data.network.NandaService
+import com.mocklets.pluto.PlutoInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -47,6 +50,9 @@ object NetworkModule {
           level = HttpLoggingInterceptor.Level.BODY
         }
       )
+      if(BuildConfig.DEBUG){
+       addInterceptor(PlutoInterceptor())
+      }
     }.build()
   }
 
@@ -62,7 +68,7 @@ object NetworkModule {
 
   @Provides
   @Singleton
-  fun provideNandaService(retrofit: Retrofit): com.keelim.nandadiagnosis.data.network.NandaService {
-    return retrofit.create(com.keelim.nandadiagnosis.data.network.NandaService::class.java)
+  fun provideNandaService(retrofit: Retrofit): NandaService {
+    return retrofit.create(NandaService::class.java)
   }
 }

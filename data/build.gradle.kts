@@ -35,3 +35,7 @@ dependencies {
     androidTestImplementation(Coroutines.test)
     implementation(Play.maps_sdk)
 }
+
+kapt {
+    useBuildCache = true
+}

@@ -61,12 +61,11 @@ class MapsActivity : AppCompatActivity() {
     private val locationPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
             val responsePermissions = permissions.entries.filter {
-                it.key == Manifest.permission.ACCESS_FINE_LOCATION
-                        || it.key == Manifest.permission.ACCESS_COARSE_LOCATION
+                it.key == Manifest.permission.ACCESS_FINE_LOCATION ||
+                    it.key == Manifest.permission.ACCESS_COARSE_LOCATION
             }
             if (responsePermissions.filter { it.value == true }.size == locationPermissions.size) {
                 setMyLocationListener()
-
             } else {
 //                with(binding.locationTitleTextView) {
 //                    text = "위치를 확인해주세요"
@@ -77,7 +76,6 @@ class MapsActivity : AppCompatActivity() {
                 toast("권한이 없습니다. 확인해주세요")
             }
         }
-
 
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -185,8 +183,7 @@ class MapsActivity : AppCompatActivity() {
         location = stringLocation?.toInt() ?: -1
     }
 
-    private fun initViews() = with(binding){
-
+    private fun initViews() = with(binding) {
     }
 
     private fun removeLocationListener() {

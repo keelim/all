@@ -24,7 +24,6 @@ import androidx.fragment.app.Fragment
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.FragmentARootBinding
 import com.keelim.cnubus.feature.map.MapsActivity
-import com.keelim.cnubus.feature.map.MapsActivity2
 import com.keelim.common.toast
 
 class ARootFragment2 : Fragment() {
@@ -36,7 +35,7 @@ class ARootFragment2 : Fragment() {
         shortClickListener = { position ->
             requireActivity().toast(rootList[position] + "정류장 입니다.")
             startActivity(
-                Intent(requireContext(), MapsActivity2::class.java).apply {
+                Intent(requireContext(), MapsActivity::class.java).apply {
                     putExtra("location", intentList[position])
                 }
             )

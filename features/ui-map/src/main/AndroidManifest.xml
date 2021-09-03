@@ -8,8 +8,5 @@
             android:name=".MapsActivity"
             android:label="maps" />
 
-        <activity
-            android:name=".MapsActivity2"
-            android:label="maps" />
     </application>
 </manifest>

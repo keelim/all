@@ -17,7 +17,6 @@ package com.keelim.cnubus
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
-import com.google.android.gms.ads.MobileAds
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.keelim.cnubus.data.repository.theme.ThemeRepository
 import com.keelim.cnubus.utils.AppOpenManager

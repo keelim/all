@@ -13,26 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.cnubus.ui.saplsh
+package com.keelim.cnubus.initialize
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
-import javax.inject.Inject
+import android.content.Context
+import androidx.startup.Initializer
+import com.keelim.cnubus.BuildConfig
+import com.keelim.cnubus.utils.CrashlyticsTree
+import timber.log.Timber
 
-@HiltViewModel
-class SplashViewModel @Inject constructor() : ViewModel() {
-    private val _loading = MutableStateFlow(false)
-    val loading: StateFlow<Boolean> get() = _loading
+class TimberInitializer : Initializer<Unit> {
 
-    init {
-        viewModelScope.launch {
-            delay(1_000L)
-            _loading.value = true
+    override fun create(context: Context) {
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        } else {
+            Timber.plant(CrashlyticsTree())
         }
+    }
+
+    override fun dependencies(): List<Class<out Initializer<*>>> {
+        return emptyList()
     }
 }

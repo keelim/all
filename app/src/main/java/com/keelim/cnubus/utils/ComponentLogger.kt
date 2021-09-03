@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.cnubus.utils
+package com.keelim.nandadiagnosis.utils
 import android.app.Activity
 import android.app.Application
 import android.content.Context
@@ -25,7 +25,7 @@ import androidx.fragment.app.FragmentManager
 import timber.log.Timber
 import javax.inject.Inject
 
-private const val loggerTag = "Logger"
+private const val loggerTag = "[Lifecycle Logger]"
 
 private inline val <T : Any> T.javaClassName: String
     get() = javaClass.name

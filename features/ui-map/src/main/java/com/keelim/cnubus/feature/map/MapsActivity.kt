@@ -17,32 +17,28 @@ package com.keelim.cnubus.feature.map
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.AlertDialog
-import android.content.pm.PackageManager
+import android.content.Context
+import android.location.Location
+import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.coroutineScope
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
-import com.google.android.gms.maps.CameraUpdate
 import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.ktx.addMarker
 import com.google.maps.android.ktx.awaitMap
-import com.keelim.cnubus.data.model.gps.LocationList
 import com.keelim.cnubus.data.model.gps.locationList
 import com.keelim.cnubus.feature.map.databinding.ActivityMapsBinding
 import com.keelim.common.toast
 import dagger.hilt.android.AndroidEntryPoint
-
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -52,27 +48,44 @@ class MapsActivity : AppCompatActivity() {
     private lateinit var locationCallback: LocationCallback
     private var current: LatLng? = null
     private var location = 0
-    private var locationPermissionGranted = false
 
     private val binding by lazy { ActivityMapsBinding.inflate(layoutInflater) }
-    private val permissions = arrayOf(
+    private val locationPermissions = arrayOf(
         Manifest.permission.ACCESS_FINE_LOCATION,
         Manifest.permission.ACCESS_COARSE_LOCATION,
     )
 
-//    private val mapsAdapter = MapsAdapter(
-//        click = {
-//            CameraUpdateFactory.newLatLngZoom(locationList[it], 17f)
-//        }
-//    )
+    private lateinit var locationManager: LocationManager
+    private lateinit var myLocationListener: MyLocationListener
 
+    private val locationPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+            val responsePermissions = permissions.entries.filter {
+                it.key == Manifest.permission.ACCESS_FINE_LOCATION
+                        || it.key == Manifest.permission.ACCESS_COARSE_LOCATION
+            }
+            if (responsePermissions.filter { it.value == true }.size == locationPermissions.size) {
+                setMyLocationListener()
+
+            } else {
+//                with(binding.locationTitleTextView) {
+//                    text = "위치를 확인해주세요"
+//                    setOnClickListener {
+//                        getMyLocation()
+//                    }
+//                }
+                toast("권한이 없습니다. 확인해주세요")
+            }
+        }
+
+
+    @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        requestLocationPermission()
+        getMyLocation()
         myPositionInit()
         intentControl()
-        gpsSettings()
 
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         lifecycle.coroutineScope.launchWhenCreated {
@@ -90,35 +103,34 @@ class MapsActivity : AppCompatActivity() {
             } else {
                 CameraUpdateFactory.newLatLngZoom(locationList[location], 17f)
             }
-            googleMap.animateCamera(cameraUpdate)
-            updateLocationUI(googleMap)
+            googleMap.apply {
+                animateCamera(cameraUpdate)
+                isMyLocationEnabled = true
+                uiSettings.isMyLocationButtonEnabled = true
+            }
         }
 
         initViews()
     }
 
-    private fun gpsSettings() {
-        val locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
-        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            toast("GPS를 켜주세요")
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        permissionCheck(
-            cancel = { showPermissionInfoDialog() },
-            ok = { addLocationListener() }
-        )
-    }
-
-    override fun onPause() {
-        super.onPause()
-        removeLocationListener()
-    }
-
     @SuppressLint("MissingPermission")
-    private fun addLocationListener() {
+    private fun setMyLocationListener() {
+        val minTime: Long = 1500
+        val minDistance = 100f
+        if (::myLocationListener.isInitialized.not()) {
+            myLocationListener = MyLocationListener()
+        }
+        with(locationManager) {
+            requestLocationUpdates(
+                LocationManager.GPS_PROVIDER,
+                minTime, minDistance, myLocationListener
+            )
+            requestLocationUpdates(
+                LocationManager.NETWORK_PROVIDER,
+                minTime, minDistance, myLocationListener
+            )
+        }
+
         fusedLocationProvider.requestLocationUpdates(
             locationRequest,
             locationCallback,
@@ -126,52 +138,23 @@ class MapsActivity : AppCompatActivity() {
         )
     }
 
-    private fun removeLocationListener() {
-        fusedLocationProvider.removeLocationUpdates(locationCallback)
+    private fun getMyLocation() {
+        if (::locationManager.isInitialized.not()) {
+            locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        }
+        val isGpsEnable = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+        if (isGpsEnable) {
+            locationPermissionLauncher.launch(locationPermissions)
+        }
     }
 
-    private fun showPermissionInfoDialog() {
-        AlertDialog.Builder(this)
-            .setMessage("현재 위치 정보를 얻으려면 위치 권한이 필요합니다\n 권한이 필요한 이유")
-            .setPositiveButton("yes") { dialog, which ->
-                ActivityCompat.requestPermissions(
-                    this@MapsActivity,
-                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                    1000
-                )
-            }
-            .create()
-            .show()
-    }
-
-    private fun permissionCheck(cancel: () -> Unit, ok: () -> Unit) {
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(
-                    this,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                )
-            )
-                cancel()
-            else
-                ActivityCompat.requestPermissions(
-                    this,
-                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                    1000
-                )
-        } else
-            ok()
+    override fun onPause() {
+        super.onPause()
+        removeLocationListener()
     }
 
     private fun myPositionInit() {
         fusedLocationProvider = LocationServices.getFusedLocationProviderClient(this)
-
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
                 super.onLocationResult(locationResult)
@@ -191,48 +174,6 @@ class MapsActivity : AppCompatActivity() {
         }
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        locationPermissionGranted =
-            requestCode == PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION && grantResults[0] == PackageManager.PERMISSION_GRANTED
-    }
-
-    private fun requestLocationPermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-            == PackageManager.PERMISSION_GRANTED &&
-            ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-            == PackageManager.PERMISSION_GRANTED
-        ) {
-            locationPermissionGranted = true
-        } else {
-            ActivityCompat.requestPermissions(
-                this,
-                permissions,
-                PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
-            )
-        }
-    }
-
-    @SuppressLint("MissingPermission")
-    private fun updateLocationUI(mMap: GoogleMap) {
-        try {
-            if (locationPermissionGranted) {
-                mMap.isMyLocationEnabled = true
-                mMap.uiSettings.isMyLocationButtonEnabled = true
-            } else {
-                mMap.isMyLocationEnabled = false
-                mMap.uiSettings.isMyLocationButtonEnabled = false
-                requestLocationPermission()
-            }
-        } catch (e: SecurityException) {
-            Timber.e(e)
-        }
-    }
-
     private fun markerHandling(index: Int): String =
         resources.getStringArray(R.array.stations)[index]
 
@@ -245,15 +186,19 @@ class MapsActivity : AppCompatActivity() {
     }
 
     private fun initViews() = with(binding){
-//        markRecyclerView.adapter = mapsAdapter.apply {
-//            setHasStableIds(true)
-//            submitList(locationList.map {
-//                LocationList(it)
-//            })
-//        }
+
     }
 
-    companion object {
-        private const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
+    private fun removeLocationListener() {
+        if (::locationManager.isInitialized && ::myLocationListener.isInitialized) {
+            locationManager.removeUpdates(myLocationListener)
+        }
+        fusedLocationProvider.removeLocationUpdates(locationCallback)
+    }
+
+    inner class MyLocationListener : LocationListener {
+        override fun onLocationChanged(location: Location) {
+            removeLocationListener()
+        }
     }
 }

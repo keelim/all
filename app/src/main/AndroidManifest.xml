@@ -35,12 +35,10 @@
             android:value="ca-app-pub-3115620439518585~7951570697" />
 
         <activity android:name=".ui.content.Content2Activity" />
-        <activity
-            android:name=".feature.map.MapsActivity"
-            android:label="maps" />
+
 
         <activity
-            android:name=".ui.saplsh.SplashActivity"
+            android:name=".ui.splash.SplashActivity"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
             android:exported="true">
             <intent-filter>
@@ -56,5 +54,20 @@
 
         <service android:name=".services.TerminateService" />
 
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data
+                android:name="com.keelim.cnubus.initialize.TimberInitializer"
+                android:value="androidx.startup" />
+            <meta-data
+                android:name="com.keelim.cnubus.initialize.MobileAdsInitializer"
+                android:value="androidx.startup" />
+            <meta-data
+                android:name="com.keelim.cnubus.initialize.CoilInitializer"
+                android:value="androidx.startup" />
+        </provider>
     </application>
 </manifest>

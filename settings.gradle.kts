@@ -10,8 +10,14 @@ dependencyResolutionManagement {
 rootProject.name = "cnubus"
 include(
     ":app",
-//    ":common",
+    ":common",
     ":domain",
+    ":ui-map",
     ":data",
     ":compose",
 )
+arrayOf(
+    ":ui-map"
+).forEach { name ->
+    project(name).projectDir = File(rootDir, "features/${name.substring(startIndex = 1)}")
+}

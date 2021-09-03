@@ -11,6 +11,7 @@ listOf(
 }
 
 android {
+
     buildFeatures {
         compose = true
     }
@@ -28,4 +29,8 @@ dependencies {
     implementation(Compose.expand_icon)
     implementation(Compose.runtime_livedata)
     androidTestImplementation(Compose.compose_junit)
+}
+
+kapt {
+    useBuildCache = true
 }

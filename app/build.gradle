@@ -15,13 +15,11 @@ plugins {
 
 android {
     compileSdkVersion ProjectConfigurations.compileSdk
-    buildToolsVersion ProjectConfigurations.buildTools
-
 
     defaultConfig {
         applicationId ProjectConfigurations.applicationId
-        minSdkVersion ProjectConfigurations.minSdk
-        targetSdkVersion ProjectConfigurations.targetSdk
+        minSdk ProjectConfigurations.minSdk
+        targetSdk ProjectConfigurations.targetSdk
         versionCode ProjectConfigurations.versionCode
         versionName ProjectConfigurations.versionName
     }
@@ -67,10 +65,11 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-//    implementation project(":common")
     implementation project(":data")
     implementation project(":domain")
     implementation project(":compose")
+    implementation project(":common")
+    implementation project(":ui-map")
 
     implementation platform('com.google.firebase:firebase-bom:28.2.0')
     implementation "com.google.firebase:firebase-core"
@@ -117,10 +116,6 @@ dependencies {
 
     implementation 'com.google.android.gms:play-services-oss-licenses:17.0.0'
 
-    implementation(Play.play_location)
-    implementation(Play.play_map)
-    implementation(Play.maps_sdk)
-
     implementation(Compose.compose_ui)
     implementation(Compose.compose_ui_tooling)
     implementation(Compose.foundation)
@@ -134,6 +129,10 @@ dependencies {
 }
 
 apply from: "$rootDir/spotless.gradle"
+
+kapt {
+    useBuildCache = true
+}
 
 
 

@@ -10,6 +10,45 @@
 난다진단(NandaDiagnosis) 의 13가지 항목 건강증진, 영양, 배설/교환, 활동/휴식, 지각/인식, 자아지각, 역할관계, 성, 대처/스트레스 내성, 삶의 원칙, 안전 보호, 안위, 성장/발달의 항목의 데이터를 제공해주는 애플리케이션 입니다.
 </p>
 
+```
+nandaDiagnosis
+├─ app
+│  ├─ initialize
+│  ├─ service
+│  ├─ ui
+│  │  ├─ auth
+│  │  └─ main
+│  │     ├─ category
+│  │     ├─ favorite
+│  │     ├─ inappweb
+│  │     ├─ search
+│  │     └─ setting
+│  ├─ utils
+│  └─ MyApplication.kt
+├─ buildSrc
+├─ common
+├─ compose
+│  └─ ui
+├─ data
+│  ├─ schemas
+│  ├─ data
+│  │  ├─ db
+│  │  ├─ entity
+│  │  ├─ network
+│  │  ├─ repository
+│  │  └─ response
+│  └─ di
+├─ domain
+│  ├─ di
+│  └─ domain
+├─ gradle
+│  └─ android.gradle
+├─ build.gradle.kts
+├─ settings.gradle.kts
+├─ spotless.gradle
+└─ spotless.license.kt
+```
+
 ![preview](previews/preview.PNG)
 
 - - -

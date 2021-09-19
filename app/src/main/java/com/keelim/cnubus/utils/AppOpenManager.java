@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
@@ -143,7 +144,7 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
                 }
 
                 @Override
-                public void onAdFailedToShowFullScreenContent(AdError adError) {
+                public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
                 }
 
                 @Override

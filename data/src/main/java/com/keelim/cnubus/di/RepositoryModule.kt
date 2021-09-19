@@ -1,5 +1,5 @@
 /*
- * Designed and developed by 2020 keelim (Jaehyun Kim)
+ * Designed and developed by 2021 keelim (Jaehyun Kim)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,10 @@
 package com.keelim.cnubus.di
 
 import android.content.Context
+import com.keelim.cnubus.data.repository.setting.DeveloperRepository
+import com.keelim.cnubus.data.repository.setting.DeveloperRepositoryImpl
 import com.keelim.cnubus.data.repository.theme.ThemeRepository
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,16 +27,25 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-@Module
 @InstallIn(SingletonComponent::class)
-object RepositoryModule {
-    @Provides
-    @Singleton
-    fun provideThemeRepository(
-        @ApplicationContext context: Context,
-    ): ThemeRepository {
-        return ThemeRepository(
-            context
-        )
+@Module(includes = [RepositoryModule.ThemeModule::class])
+internal abstract class RepositoryModule {
+    @Binds
+    abstract fun bindsDeveloperRepository(
+        repository: DeveloperRepositoryImpl,
+    ): DeveloperRepository
+
+    @InstallIn(SingletonComponent::class)
+    @Module
+    internal object ThemeModule {
+        @Provides
+        @Singleton
+        fun provideThemeRepository(
+            @ApplicationContext context: Context,
+        ): ThemeRepository {
+            return ThemeRepository(
+                context
+            )
+        }
     }
 }

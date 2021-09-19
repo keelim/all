@@ -28,7 +28,12 @@ dependencies {
     implementation(Compose.compose_icon)
     implementation(Compose.expand_icon)
     implementation(Compose.runtime_livedata)
+    implementation(Coil.coil)
+    implementation(Coil.compose)
     androidTestImplementation(Compose.compose_junit)
+
+    implementation(Dep2.AndroidX.Activity.compose)
+    implementation(Dep2.Compose.themeAdapter)
 }
 
 kapt {

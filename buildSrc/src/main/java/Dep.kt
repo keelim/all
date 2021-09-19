@@ -8,7 +8,9 @@ object Play {
 }
 
 object Coil {
-    const val coil = "io.coil-kt:coil:1.3.2"
+    private const val version = "1.3.2"
+    const val coil = "io.coil-kt:coil:$version"
+    const val compose = "io.coil-kt:coil-compose:$version"
 }
 
 object Rx {

@@ -12,7 +12,10 @@ listOf(
 }
 
 dependencies {
-
+    implementation(project(":data"))
+    implementation(project(":compose"))
+    implementation(Dep2.inject)
+    implementation("androidx.activity:activity-ktx:1.3.1")
 }
 
 kapt {

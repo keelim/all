@@ -36,6 +36,7 @@ import com.keelim.cnubus.utils.MaterialDialog.Companion.negativeButton
 import com.keelim.cnubus.utils.MaterialDialog.Companion.positiveButton
 import com.keelim.cnubus.utils.MaterialDialog.Companion.singleChoiceItems
 import com.keelim.cnubus.utils.MaterialDialog.Companion.title
+import com.keelim.ui_setting.SettingActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -85,6 +86,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     }
                 )
             }
+
+            "developer" -> startActivity(Intent(requireContext(), SettingActivity::class.java))
 
             "theme" -> selectTheme()
         }

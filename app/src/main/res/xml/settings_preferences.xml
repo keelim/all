@@ -27,6 +27,10 @@
         <Preference
             app:key="opensource"
             app:title="오픈소스 라이선스" />
+
+        <Preference
+            app:key="developer"
+            app:title="개발자 소개" />
     </PreferenceCategory>
 
 </androidx.preference.PreferenceScreen>

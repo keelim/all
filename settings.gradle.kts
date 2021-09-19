@@ -12,12 +12,14 @@ include(
     ":app",
     ":common",
     ":domain",
-    ":ui-map",
     ":data",
     ":compose",
-)
-arrayOf(
-    ":ui-map"
-).forEach { name ->
-    project(name).projectDir = File(rootDir, "features/${name.substring(startIndex = 1)}")
-}
+    ":features:ui-map",
+    ":features:ui-setting",
+    )
+//arrayOf(
+//    ":features:ui-map",
+//    ":features:ui-setting",
+//).forEach { name ->
+//    project(name).projectDir = File(rootDir, "features/${name.substring(startIndex = 1)}")
+//}

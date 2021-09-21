@@ -30,8 +30,8 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.ui.main.Main2Activity
+import java.util.*
 import timber.log.Timber
-import java.util.Date
 
 class FirebaseMessagingService : FirebaseMessagingService() {
 
@@ -83,11 +83,15 @@ class FirebaseMessagingService : FirebaseMessagingService() {
     title: String?,
     message: String?,
   ): Notification {
-    val intent = Intent(this, Main2Activity::class.java).apply {
-      putExtra("notificationType", "${type.title} 타입")
-      addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
-    }
-    val pendingIntent = PendingIntent.getActivity(this, type.id, intent, FLAG_UPDATE_CURRENT)
+    val pendingIntent = PendingIntent.getActivity(
+      this,
+      type.id,
+      Intent(this, Main2Activity::class.java).apply {
+        putExtra("notificationType", "${type.title} 타입")
+        addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+      },
+      PendingIntent.FLAG_MUTABLE or FLAG_UPDATE_CURRENT
+    )
 
     val notificationBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
       .setContentTitle(title)

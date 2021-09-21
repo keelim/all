@@ -59,7 +59,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.0.1"
+        kotlinCompilerExtensionVersion = "1.1.0-alpha03"
     }
 }
 
@@ -69,8 +69,7 @@ dependencies {
     implementation project(":compose")
     implementation project(":data")
     implementation project(":domain")
-    implementation project(":ui-reference-search")
-    implementation project(":ui-category")
+    implementation project(":features:ui-setting")
 
     implementation platform("com.google.firebase:firebase-bom:28.3.1")
     implementation "com.google.firebase:firebase-core"
@@ -81,8 +80,6 @@ dependencies {
     implementation "com.google.firebase:firebase-analytics-ktx"
     implementation "com.google.firebase:firebase-inappmessaging-display-ktx"
     implementation "com.google.firebase:firebase-config-ktx"
-
-    implementation "com.google.ads.mediation:facebook:6.5.1.1"
 
     implementation AndroidX.activity_ktx
     implementation AndroidX.fragment_ktx
@@ -129,9 +126,6 @@ dependencies {
     implementation Glide.core
     implementation Kotlin.stdlibJvm
 
-    implementation "com.facebook.android:facebook-login:11.2.0"
-    implementation "com.github.yuyakaido:cardstackview:2.3.4"
-
     implementation(Compose.compose_ui)
     implementation(Compose.compose_ui_tooling)
     implementation(Compose.foundation)
@@ -141,9 +135,7 @@ dependencies {
     implementation(Compose.runtime_livedata)
     androidTestImplementation(Compose.compose_junit)
 
-    implementation("androidx.startup:startup-runtime:1.0.0")
-    debugImplementation("com.mocklets:pluto:1.0.7")
-    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.7")
+    implementation("androidx.startup:startup-runtime:1.1.0")
 }
 apply from: "$rootDir/spotless.gradle"
 

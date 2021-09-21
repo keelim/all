@@ -38,9 +38,8 @@ class DiagnosisFragment : Fragment() {
   private val diagnosisAdapter = DiagnosisRecyclerViewAdapter(
     listener = { position ->
       mainViewModel.loadingOn()
-      findNavController()
-      DiagnosisFragmentDirections
-        .actionDiagnosisFragmentToWebFragment("https://keelim.github.io/nandaDiagnosis/${nav + position + 1}.html")
+      findNavController().navigate(DiagnosisFragmentDirections
+        .actionDiagnosisFragmentToWebFragment("https://keelim.github.io/nandaDiagnosis/${nav + position + 1}.html"))
     }
   )
 

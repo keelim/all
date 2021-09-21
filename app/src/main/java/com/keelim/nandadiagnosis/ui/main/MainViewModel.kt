@@ -23,9 +23,9 @@ import androidx.lifecycle.viewModelScope
 import com.keelim.nandadiagnosis.domain.GetAppThemeUseCase
 import com.keelim.nandadiagnosis.domain.SetAppThemeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
@@ -39,9 +39,9 @@ class MainViewModel @Inject constructor(
   }
 
   private val _loading = MutableLiveData(false)
-  val loading:LiveData<Boolean> = _loading
+  val loading: LiveData<Boolean> = _loading
 
-  fun loadingOn() = viewModelScope.launch{
+  fun loadingOn() = viewModelScope.launch {
     _loading.value = true
     delay(1000)
     _loading.value = false

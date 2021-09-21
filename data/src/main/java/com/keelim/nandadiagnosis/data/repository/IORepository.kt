@@ -18,6 +18,7 @@ package com.keelim.nandadiagnosis.data.repository
 import com.keelim.nandadiagnosis.data.db.entity.History
 import com.keelim.nandadiagnosis.data.db.entity.NandaEntity
 import com.keelim.nandadiagnosis.data.db.entity.NandaEntity2
+import kotlinx.coroutines.flow.Flow
 
 interface IORepository {
 
@@ -49,4 +50,6 @@ interface IORepository {
   suspend fun deleteHistory(keyword: String)
 
   suspend fun updateFavorite(favorite: Int, id: Int)
+
+  fun getSearchFlow(query: String): Flow<List<NandaEntity>>
 }

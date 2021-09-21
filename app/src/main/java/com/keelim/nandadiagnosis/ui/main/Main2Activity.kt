@@ -25,9 +25,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.navigation.findNavController
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -51,10 +49,9 @@ class Main2Activity : AppCompatActivity() {
   private lateinit var downloadManager: DownloadManager
   private val binding: ActivityMain2Binding by lazy { ActivityMain2Binding.inflate(layoutInflater) }
 
-  private val mainViewModel:MainViewModel by viewModels()
+  private val mainViewModel: MainViewModel by viewModels()
 
   private val auth by lazy { Firebase.auth }
-
 
   @Inject
   lateinit var recevier: DownloadReceiver
@@ -154,7 +151,6 @@ class Main2Activity : AppCompatActivity() {
     )
   }
 
-
   private fun loginCheck() {
     auth.currentUser ?: toast("Login 을 하시면 더 많은 서비스를 확인할 수 있습니다. ")
     if (auth.currentUser == null) {
@@ -168,18 +164,8 @@ class Main2Activity : AppCompatActivity() {
 
   private fun showMenu() = navController().navigate(R.id.menuBottomSheetDialogFragment)
 
-  private fun updateResult(isNewIntent: Boolean = false) {
-    val data = intent.getStringExtra("notificationType") ?: "앱 런처" +
-      if (isNewIntent) {
-        ("알림으로 실행되었습니다. 환영합니다")
-      } else {
-        ("환영합니다. 난다 진단 입니다.")
-      }
-    toast(data)
-  }
-
-  private fun observeLoading() = mainViewModel.loading.observe(this){
-    when(it){
+  private fun observeLoading() = mainViewModel.loading.observe(this) {
+    when (it) {
       true -> binding.composeView.apply {
         bringToFront()
 

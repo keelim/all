@@ -23,9 +23,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.keelim.SettingActivity
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.data.repository.theme.AppTheme
 import com.keelim.nandadiagnosis.databinding.FragmentMainBottomBinding
@@ -41,7 +41,7 @@ class MainBottomFragment : BottomSheetDialogFragment() {
   private var _binding: FragmentMainBottomBinding? = null
   private val binding get() = _binding!!
 
-  private val mainViewModel:MainViewModel by activityViewModels()
+  private val mainViewModel: MainViewModel by activityViewModels()
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -117,6 +117,7 @@ class MainBottomFragment : BottomSheetDialogFragment() {
       dismiss()
       mainViewModel.loadingOn()
       findNavController().navigate(R.id.categoryFragment)
+      requireContext().startActivity(Intent(requireContext(), SettingActivity::class.java))
     }
   }
 

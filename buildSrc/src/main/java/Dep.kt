@@ -8,7 +8,9 @@ object Play {
 }
 
 object Coil {
-    const val coil = "io.coil-kt:coil:1.3.2"
+    private const val version = "1.3.2"
+    const val coil = "io.coil-kt:coil:$version"
+    const val compose = "io.coil-kt:coil-compose:$version"
 }
 
 object Rx {
@@ -28,7 +30,6 @@ object Coroutines {
     const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
     const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
     const val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
-    const val play = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$coroutinesVersion"
 }
 
 object SquareUp {
@@ -44,7 +45,7 @@ object SquareUp {
 }
 
 object Room {
-    private const val roomVersion = "2.4.0-alpha04"
+    private const val roomVersion = "2.3.0-alpha02"
     const val runtime = "androidx.room:room-runtime:$roomVersion"
     const val compiler = "androidx.room:room-compiler:$roomVersion"
     const val ktx = "androidx.room:room-ktx:$roomVersion"
@@ -66,7 +67,7 @@ object DataStore {
 }
 
 object Hilt {
-    const val version = "2.36"
+    const val version = "2.38.1"
     const val android = "com.google.dagger:hilt-android:${version}"
     const val hilt_compiler = "com.google.dagger:hilt-android-compiler:${version}"
     const val hilt_common = "androidx.hilt:hilt-common:$version"
@@ -86,12 +87,12 @@ object AndroidX {
     const val appcompat = "androidx.appcompat:appcompat:1.4.0-alpha03"
     const val core_ktx = "androidx.core:core-ktx:1.7.0-alpha01"
 
-    const val navigation_fragment = "androidx.navigation:navigation-fragment-ktx:2.3.5"
-    const val navigation_ui = "androidx.navigation:navigation-ui-ktx:2.3.5"
+    const val navigation_fragment = "androidx.navigation:navigation-fragment-ktx:2.4.0-alpha09"
+    const val navigation_ui = "androidx.navigation:navigation-ui-ktx:2.4.0-alpha09"
 
     const val browser = "androidx.browser:browser:1.3.0"
     private const val fragmentVersion = "1.4.0-alpha07"
-    const val fragment_ktx = "androidx.fragment:fragment-ktx:$fragmentVersion"
+    const val fragment_ktx = "androidx.fragment:fragment-ktx:1.3.0"
 }
 
 object UI {
@@ -109,7 +110,7 @@ object UI {
 }
 
 object Compose {
-    private const val compose_version = "1.0.1"
+    private const val compose_version = "1.1.0-alpha03"
     const val compose_ui = "androidx.compose.ui:ui:$compose_version"
     const val compose_material = "androidx.compose.material:material:$compose_version"
     const val compose_ui_tooling = "androidx.compose.ui:ui-tooling:$compose_version"
@@ -118,6 +119,7 @@ object Compose {
     const val expand_icon = "androidx.compose.material:material-icons-extended:$compose_version"
     const val runtime_livedata = "androidx.compose.runtime:runtime-livedata:$compose_version"
     const val compose_junit = "androidx.compose.ui:ui-test-junit4:$compose_version"
+    const val themeAdapter = "com.google.android.material:compose-theme-adapter:1.0.1"
 }
 
 object AppTest {
@@ -132,4 +134,10 @@ object Glide {
     private const val version = "4.12.0"
     const val core = "com.github.bumptech.glide:glide:$version"
     const val compiler = "com.github.bumptech.glide:compiler:$version"
+}
+
+object Billing{
+    private const val billing_version = "4.0.0"
+    const val billing = "com.android.billingclient:billing:$billing_version"
+    const val billing_ktx = "com.android.billingclient:billing-ktx:$billing_version"
 }

@@ -15,24 +15,22 @@
  */
 package com.keelim.nandadiagnosis.ui.main.favorite
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.keelim.nandadiagnosis.domain.GetFavoriteListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class FavoriteViewModel
-@Inject
-constructor(
+class FavoriteViewModel @Inject constructor(
   private val getFavoriteListUseCase: GetFavoriteListUseCase,
 ) : ViewModel() {
-  private var _favoriteState = MutableLiveData<FavoriteListState>(FavoriteListState.UnInitialized)
-  val favoriteState: LiveData<FavoriteListState> get() = _favoriteState
+  private var _favoriteState = MutableStateFlow<FavoriteListState>(FavoriteListState.UnInitialized)
+  val favoriteState: StateFlow<FavoriteListState> get() = _favoriteState
 
   fun fetchData(): Job = viewModelScope.launch {
     setState(
@@ -46,6 +44,6 @@ constructor(
   }
 
   private fun setState(state: FavoriteListState) {
-    _favoriteState.postValue(state)
+    _favoriteState.value = state
   }
 }

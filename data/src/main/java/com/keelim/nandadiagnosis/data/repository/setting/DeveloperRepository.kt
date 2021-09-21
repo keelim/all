@@ -1,5 +1,5 @@
 /*
- * Designed and developed by 2020 keelim (Jaehyun Kim)
+ * Designed and developed by 2021 keelim (Jaehyun Kim)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,14 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.reference_search.data
+package com.keelim.nandadiagnosis.data.repository.setting
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import com.keelim.nandadiagnosis.data.model.Developer
 
-@Entity
-data class History(
-  @PrimaryKey val uid: Int?,
-  @ColumnInfo(name = "keyword") val keyword: String?
-)
+interface DeveloperRepository {
+    suspend fun getDeveloper(): List<Developer>
+}

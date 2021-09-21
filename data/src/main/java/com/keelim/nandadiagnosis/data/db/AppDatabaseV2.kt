@@ -24,15 +24,15 @@ import com.keelim.nandadiagnosis.data.db.entity.NandaEntity
 
 @Database(
   entities = [NandaEntity::class, History::class],
-  autoMigrations = [
+//  autoMigrations = [
 //    AutoMigration(from = 1, to = 2),
 //    AutoMigration(from = 2, to = 3),
-  ],
+//  ],
   version = 1,
   exportSchema = true,
 )
 
 abstract class AppDatabaseV2 : RoomDatabase() {
   abstract fun dataDao(): DataDaoV2
-  abstract fun historyDao(): HistoryDao
+//  abstract fun historyDao(): HistoryDao
 }

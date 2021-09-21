@@ -26,6 +26,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import timber.log.Timber
 
 class IORepositoryImpl @Inject constructor(
   private val nandaService: NandaService,
@@ -76,19 +77,24 @@ class IORepositoryImpl @Inject constructor(
   }
 
   override suspend fun getSearchList(keyword: String?): List<NandaEntity> = withContext(ioDispatcher) {
-    db.dataDao().search(keyword.orEmpty())
+    val result = db.dataDao().search(keyword.orEmpty())
+    Timber.d("검색 결과", result)
+    return@withContext result
   }
 
   override suspend fun getHistories(): List<History> = withContext(ioDispatcher) {
-    db.historyDao().getAll().reversed()
+//    db.historyDao().getAll().reversed()
+    emptyList()
   }
 
   override suspend fun saveHistory(keyword: String) = withContext(ioDispatcher) {
-    db.historyDao().insertHistory(History(null, keyword))
+//    db.historyDao().insertHistory(History(null, keyword))
+//    emptyList()
   }
 
   override suspend fun deleteHistory(keyword: String) = withContext(ioDispatcher) {
-    db.historyDao().delete(keyword)
+//    db.historyDao().delete(keyword)
+//    emptyList()
   }
 
   override suspend fun updateFavorite(favorite: Int, id: Int) = withContext(ioDispatcher) {

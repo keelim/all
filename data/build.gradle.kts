@@ -66,7 +66,6 @@ dependencies {
     androidTestImplementation(AppTest.espressoCore)
     androidTestImplementation(Coroutines.test)
 
-    debugImplementation("com.mocklets:pluto:1.0.7")
 }
 
 kapt {

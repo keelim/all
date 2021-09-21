@@ -15,19 +15,17 @@
  */
 package com.keelim.nandadiagnosis.di
 
-import com.keelim.nandadiagnosis.data.BuildConfig
 import com.keelim.nandadiagnosis.data.network.NandaService
-import com.mocklets.pluto.PlutoInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -50,9 +48,6 @@ object NetworkModule {
           level = HttpLoggingInterceptor.Level.BODY
         }
       )
-      if (BuildConfig.DEBUG) {
-        addInterceptor(PlutoInterceptor())
-      }
     }.build()
   }
 

@@ -17,6 +17,7 @@ package com.keelim.nandadiagnosis.data.db.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.keelim.nandadiagnosis.data.db.entity.NandaEntity
 import kotlinx.coroutines.flow.Flow
@@ -39,7 +40,7 @@ DataDaoV2 {
   @Query("SELECT * FROM nanda")
   suspend fun getAll(): List<NandaEntity>
 
-  @Insert
+  @Insert(onConflict = OnConflictStrategy.REPLACE)
   suspend fun insertNanda(nanda: NandaEntity)
 
   @Query("DELETE  FROM nanda WHERE reason ==:keyword")

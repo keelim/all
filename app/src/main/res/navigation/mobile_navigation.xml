@@ -81,5 +81,4 @@
         android:name="com.keelim.nandadiagnosis.ui.main.category.CategoryFragment"
         android:label="CategoryFragment" />
 
-
 </navigation>

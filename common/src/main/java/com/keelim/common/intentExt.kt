@@ -1,5 +1,5 @@
 /*
- * Designed and developed by 2020 keelim (Jaehyun Kim)
+ * Designed and developed by 2021 keelim (Jaehyun Kim)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,20 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.reference_search.data
+package com.keelim.common
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.activity.ComponentActivity
 
-@Dao
-interface HistoryDao {
-  @Query("select * from history")
-  fun getAll(): List<History>
+inline fun <reified T : Any> ComponentActivity.extra(
+    key: String,
+    default: T? = null
+) = lazy {
+    val value = intent.extras?.get(key)
+    if (value is String) value else default
+}
 
-  @Insert
-  fun insertHistory(history: History)
-
-  @Query("delete from history where keyword = :keyword")
-  fun delete(keyword: String)
+inline fun <reified T : Any> ComponentActivity.extraNotNull(
+    key: String,
+    default: T? = null
+) = lazy {
+    val value = intent.extras?.get(key)
+    requireNotNull(if (value is T) value else default) { key }
 }

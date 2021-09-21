@@ -1,5 +1,5 @@
 /*
- * Designed and developed by 2021 keelim (Jaehyun Kim)
+ * Designed and developed by 2020 keelim (Jaehyun Kim)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,11 +17,10 @@ package com.keelim.common
 
 import com.keelim.nandadiagnosis.compose.ui.UiState
 
-
 fun <T> Result<T>.toUiState(): UiState<T> {
-    return when (this) {
-        is Result.Error -> UiState(exception = this.exception)
-        Result.Loading -> UiState.loading()
-        is Result.Success -> UiState.success(value = this.data)
-    }
+  return when (this) {
+    is Result.Error -> UiState(exception = this.exception)
+    Result.Loading -> UiState.loading()
+    is Result.Success -> UiState.success(value = this.data)
+  }
 }

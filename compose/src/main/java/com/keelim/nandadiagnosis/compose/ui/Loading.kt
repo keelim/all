@@ -1,5 +1,5 @@
 /*
- * Designed and developed by 2021 keelim (Jaehyun Kim)
+ * Designed and developed by 2020 keelim (Jaehyun Kim)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,15 +19,15 @@ import androidx.compose.runtime.Composable
 
 @Composable
 fun Loading(
-    loading: Boolean,
-    loadingContent: @Composable () -> Unit,
-    error: Boolean = false,
-    errorContent: @Composable () -> Unit = {},
-    content: @Composable () -> Unit
+  loading: Boolean,
+  loadingContent: @Composable () -> Unit,
+  error: Boolean = false,
+  errorContent: @Composable () -> Unit = {},
+  content: @Composable () -> Unit
 ) {
-    when {
-        loading -> loadingContent()
-        error -> errorContent()
-        else -> content()
-    }
+  when {
+    loading -> loadingContent()
+    error -> errorContent()
+    else -> content()
+  }
 }

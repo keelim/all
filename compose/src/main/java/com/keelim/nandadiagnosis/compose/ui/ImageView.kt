@@ -1,5 +1,5 @@
 /*
- * Designed and developed by 2021 keelim (Jaehyun Kim)
+ * Designed and developed by 2020 keelim (Jaehyun Kim)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,29 +29,29 @@ import com.keelim.nandadiagnosis.compose.R
 @OptIn(ExperimentalCoilApi::class)
 @Composable
 fun ProfileImageView(
-    imageUrl: String,
-    stateColor: Color,
-    modifier: Modifier = Modifier,
-    builder: ImageRequest.Builder.() -> Unit = {
-        crossfade(true)
-        placeholder(R.drawable.sample)
-        error(R.drawable.sample)
-    },
+  imageUrl: String,
+  stateColor: Color,
+  modifier: Modifier = Modifier,
+  builder: ImageRequest.Builder.() -> Unit = {
+    crossfade(true)
+    placeholder(R.drawable.sample)
+    error(R.drawable.sample)
+  },
 ) {
-    val painter = rememberImagePainter(
-        data = imageUrl,
-        builder = builder,
-    )
+  val painter = rememberImagePainter(
+    data = imageUrl,
+    builder = builder,
+  )
 
-    val filter = when (painter.state) {
-        is ImagePainter.State.Success -> null
-        else -> ColorFilter.tint(stateColor)
-    }
+  val filter = when (painter.state) {
+    is ImagePainter.State.Success -> null
+    else -> ColorFilter.tint(stateColor)
+  }
 
-    Image(
-        modifier = modifier,
-        painter = painter,
-        colorFilter = filter,
-        contentDescription = null,
-    )
+  Image(
+    modifier = modifier,
+    painter = painter,
+    colorFilter = filter,
+    contentDescription = null,
+  )
 }

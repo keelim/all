@@ -30,8 +30,8 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.ui.main.Main2Activity
-import java.util.*
 import timber.log.Timber
+import java.util.Date
 
 class FirebaseMessagingService : FirebaseMessagingService() {
 

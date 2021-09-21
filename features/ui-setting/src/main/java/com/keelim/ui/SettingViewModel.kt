@@ -1,5 +1,5 @@
 /*
- * Designed and developed by 2021 keelim (Jaehyun Kim)
+ * Designed and developed by 2020 keelim (Jaehyun Kim)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.ui_setting.ui
+package com.keelim.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
@@ -25,10 +25,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SettingViewModel @Inject constructor(
-    private val getDevelopers: GetDevelopersUseCase
+  private val getDevelopers: GetDevelopersUseCase
 ) : ViewModel() {
-    val developers = liveData {
-        emit(UiState.loading())
-        emit(getDevelopers().toUiState())
-    }
+  val developers = liveData {
+    emit(UiState.loading())
+    emit(getDevelopers().toUiState())
+  }
 }

@@ -1,5 +1,5 @@
 /*
- * Designed and developed by 2021 keelim (Jaehyun Kim)
+ * Designed and developed by 2020 keelim (Jaehyun Kim)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,31 +16,31 @@
 package com.keelim.nandadiagnosis.compose.ui
 
 data class UiState<T>(
-    val loading: Boolean = false,
-    val exception: Throwable? = null,
-    val data: T? = null
+  val loading: Boolean = false,
+  val exception: Throwable? = null,
+  val data: T? = null
 ) {
-    val hasError: Boolean
-        get() = exception != null
+  val hasError: Boolean
+    get() = exception != null
 
-    val initialLoad: Boolean
-        get() = data == null && loading && !hasError
+  val initialLoad: Boolean
+    get() = data == null && loading && !hasError
 
-    @Suppress("UNCHECKED_CAST")
-    fun <T> getOrThrow(): T {
-        throwOnFailure()
-        return data as T
-    }
+  @Suppress("UNCHECKED_CAST")
+  fun <T> getOrThrow(): T {
+    throwOnFailure()
+    return data as T
+  }
 
-    private fun throwOnFailure() {
-        if (hasError) throw exception!!
-    }
+  private fun throwOnFailure() {
+    if (hasError) throw exception!!
+  }
 
-    companion object {
-        fun <T> loading(): UiState<T> = UiState(loading = true)
+  companion object {
+    fun <T> loading(): UiState<T> = UiState(loading = true)
 
-        fun <T> success(value: T): UiState<T> = UiState(data = value)
+    fun <T> success(value: T): UiState<T> = UiState(data = value)
 
-        fun <T> failure(exception: Throwable): UiState<T> = UiState(exception = exception)
-    }
+    fun <T> failure(exception: Throwable): UiState<T> = UiState(exception = exception)
+  }
 }

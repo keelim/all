@@ -25,6 +25,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.keelim.SettingActivity
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.data.repository.theme.AppTheme
 import com.keelim.nandadiagnosis.databinding.FragmentMainBottomBinding
@@ -33,7 +34,6 @@ import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.negativeButton
 import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.positiveButton
 import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.singleChoiceItems
 import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.title
-import com.keelim.ui_setting.SettingActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

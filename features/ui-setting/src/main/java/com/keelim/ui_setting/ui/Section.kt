@@ -1,5 +1,5 @@
 /*
- * Designed and developed by 2020 keelim (Jaehyun Kim)
+ * Designed and developed by 2021 keelim (Jaehyun Kim)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,18 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.initialize
+package com.keelim.ui_setting.ui
 
-import android.content.Context
-import androidx.startup.Initializer
-import com.mocklets.pluto.Pluto
-
-class PlutoInitializer : Initializer<Unit> {
-  override fun create(context: Context) {
-    Pluto.initialize(context)
-  }
-
-  override fun dependencies(): List<Class<out Initializer<*>>> {
-    return emptyList()
-  }
+internal enum class Section {
+    // 같은 모듈에서만 사용 가능
+    Developer
 }

@@ -3,25 +3,19 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        maven("https://jitpack.io")
         maven("https://plugins.gradle.org/m2/")
+        maven("https://jitpack.io")
     }
 }
-
+rootProject.name = "nandaDiagnosis"
 include(
     ":app",
     ":data",
     ":common",
     ":compose",
     ":domain",
-    ":ui-reference-search",
-    ":ui-category"
+    ":features:ui-category",
+    ":features:ui-billing",
+    ":features:ui-setting"
 )
-
-arrayOf(
-    ":ui-reference-search",
-    ":ui-category"
-).forEach { name ->
-    project(name).projectDir = File(rootDir, "features/${name.substring(startIndex = 1)}")
-}
 

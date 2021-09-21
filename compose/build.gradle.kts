@@ -5,17 +5,18 @@ plugins {
 }
 
 listOf(
-        "android.gradle",
+    "android.gradle",
 ).forEach { file ->
     apply(from = "${rootDir}/gradle/${file}")
 }
 
 android {
+
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.0.1"
+        kotlinCompilerExtensionVersion = "1.1.0-alpha03"
     }
 }
 
@@ -27,8 +28,15 @@ dependencies {
     implementation(Compose.compose_icon)
     implementation(Compose.expand_icon)
     implementation(Compose.runtime_livedata)
+    implementation(Compose.themeAdapter)
+    implementation(Coil.coil)
+    implementation(Coil.compose)
     androidTestImplementation(Compose.compose_junit)
+
+    implementation(Dep2.AndroidX.Activity.compose)
+
 }
+
 kapt {
     useBuildCache = true
 }

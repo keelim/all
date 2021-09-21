@@ -1,19 +1,22 @@
+
 android {
     compileSdkVersion ProjectConfigurations.compileSdk
-    buildToolsVersion ProjectConfigurations.buildTools
 
     defaultConfig {
         minSdk ProjectConfigurations.minSdk
+        targetSdk ProjectConfigurations.targetSdk
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-    buildFeatures {
-        viewBinding = true
-        dataBinding = true
-    }
+
     buildTypes {
         release {
+            minifyEnabled true
             consumerProguardFiles 'proguard-rules.pro'
         }
+    }
+
+    buildFeatures{
+        viewBinding true
     }
 
     compileOptions {
@@ -22,23 +25,13 @@ android {
     }
 
     kotlinOptions {
-        useIR = true
         jvmTarget = '11'
+        useIR = true
     }
 
     lintOptions{
         abortOnError false
     }
 }
+
 apply from: "$rootDir/spotless.gradle"
-
-dependencies {
-    testImplementation AppTest.junit
-    androidTestImplementation AppTest.androidJunit
-    androidTestImplementation AppTest.espressoCore
-
-    implementation ("com.google.dagger:hilt-android:2.38")
-    kapt ("com.google.dagger:hilt-compiler:2.38")
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.1")
-
-}

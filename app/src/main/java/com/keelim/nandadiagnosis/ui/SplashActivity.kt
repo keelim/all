@@ -22,6 +22,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.LoadAdError
@@ -30,7 +31,6 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.keelim.common.toast
 import com.keelim.nandadiagnosis.BuildConfig
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.base.SimpleBaseActivity
 import com.keelim.nandadiagnosis.databinding.ActivitySplashBinding
 import com.keelim.nandadiagnosis.ui.main.Main2Activity
 import com.keelim.nandadiagnosis.utils.MaterialDialog
@@ -46,15 +46,16 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
-class SplashActivity : SimpleBaseActivity() {
+class SplashActivity : AppCompatActivity() {
   private var mInterstitialAd: InterstitialAd? = null
-  private val binding: ActivitySplashBinding by binding(R.layout.activity_splash)
+  private val binding by lazy { ActivitySplashBinding.inflate(layoutInflater) }
   private val test = "ca-app-pub-3940256099942544/1033173712"
   private infix fun String.or(that: String): String = if (BuildConfig.DEBUG) this else that
   private val scope = MainScope()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    setContentView(binding.root)
     initSplash()
   }
 

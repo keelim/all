@@ -14,6 +14,8 @@ listOf(
 
 dependencies {
     implementation(project(":data"))
+    implementation(project(":common"))
+
     implementation(AndroidX.core_ktx)
     implementation(Hilt.android)
     kapt(Hilt.hilt_compiler)
@@ -26,4 +28,8 @@ dependencies {
     androidTestImplementation(AppTest.androidJunit)
     androidTestImplementation(AppTest.espressoCore)
     androidTestImplementation(Coroutines.test)
+}
+
+kapt {
+    useBuildCache = true
 }

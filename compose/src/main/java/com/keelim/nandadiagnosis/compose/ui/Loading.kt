@@ -1,5 +1,5 @@
 /*
- * Designed and developed by 2020 keelim (Jaehyun Kim)
+ * Designed and developed by 2021 keelim (Jaehyun Kim)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,19 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.reference_search
+package com.keelim.nandadiagnosis.compose.ui
 
-import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.Query
+import androidx.compose.runtime.Composable
 
-interface ReferenceService {
-
-  @GET("v1/search/book.json")
-  fun getReference(
-    @Header("X-Naver-Client-Id") clientId: String,
-    @Header("X-Naver-Client-Secret") clientPw: String,
-    @Query("query") keyword: String
-  ): Call<Reference>
+@Composable
+fun Loading(
+    loading: Boolean,
+    loadingContent: @Composable () -> Unit,
+    error: Boolean = false,
+    errorContent: @Composable () -> Unit = {},
+    content: @Composable () -> Unit
+) {
+    when {
+        loading -> loadingContent()
+        error -> errorContent()
+        else -> content()
+    }
 }

@@ -33,6 +33,7 @@ import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.negativeButton
 import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.positiveButton
 import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.singleChoiceItems
 import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.title
+import com.keelim.ui_setting.SettingActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -116,6 +117,7 @@ class MainBottomFragment : BottomSheetDialogFragment() {
       dismiss()
       mainViewModel.loadingOn()
       findNavController().navigate(R.id.categoryFragment)
+      requireContext().startActivity(Intent(requireContext(), SettingActivity::class.java))
     }
   }
 

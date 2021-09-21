@@ -116,7 +116,6 @@ class MainBottomFragment : BottomSheetDialogFragment() {
     binding.labFeature.setOnClickListener {
       dismiss()
       mainViewModel.loadingOn()
-      findNavController().navigate(R.id.categoryFragment)
       requireContext().startActivity(Intent(requireContext(), SettingActivity::class.java))
     }
   }

@@ -1,5 +1,5 @@
 /*
- * Designed and developed by 2021 keelim (Jaehyun Kim)
+ * Designed and developed by 2020 keelim (Jaehyun Kim)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,29 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.ui_setting
+package com.keelim
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.keelim.nandadiagnosis.compose.ui.setThemeContent
-import com.keelim.ui_setting.ui.Navigation
-import com.keelim.ui_setting.ui.Section
+import com.keelim.ui.Navigation
+import com.keelim.ui.Section
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SettingActivity : AppCompatActivity() {
 
-    private val type by lazy {
-        (intent.extras?.get("type") as Section?) ?: Section.Developer
-    }
+  private val type by lazy {
+    (intent.extras?.get("type") as Section?) ?: Section.Developer
+  }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setThemeContent {
-            Navigation(
-                path = type,
-                onBackAction = { onBackPressed() }
-            )
-        }
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setThemeContent {
+      Navigation(
+        path = type,
+        onBackAction = { onBackPressed() }
+      )
     }
+  }
 }

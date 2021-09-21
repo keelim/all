@@ -25,8 +25,8 @@ import com.keelim.nandadiagnosis.di.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 import timber.log.Timber
+import javax.inject.Inject
 
 class IORepositoryImpl @Inject constructor(
   private val nandaService: NandaService,

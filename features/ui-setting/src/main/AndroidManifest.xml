@@ -3,6 +3,6 @@
     package="com.keelim.ui_setting">
 
     <application>
-        <activity android:name=".SettingActivity" />
+        <activity android:name="com.keelim.SettingActivity" />
     </application>
 </manifest>

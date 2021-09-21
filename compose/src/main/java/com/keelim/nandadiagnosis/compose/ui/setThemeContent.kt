@@ -1,5 +1,5 @@
 /*
- * Designed and developed by 2021 keelim (Jaehyun Kim)
+ * Designed and developed by 2020 keelim (Jaehyun Kim)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,20 +24,20 @@ import com.google.android.material.composethemeadapter.MdcTheme
 
 @Suppress("NOTHING_TO_INLINE")
 inline fun ComponentActivity.setThemeContent(
-    noinline content: @Composable () -> Unit
+  noinline content: @Composable () -> Unit
 ) = setContent {
-    MdcTheme {
-        content()
-    }
+  MdcTheme {
+    content()
+  }
 }
 
 @Suppress("NOTHING_TO_INLINE")
 inline fun Fragment.setThemeContent(
-    noinline content: @Composable () -> Unit
+  noinline content: @Composable () -> Unit
 ) = ComposeView(requireContext()).apply {
-    setContent {
-        MdcTheme {
-            content()
-        }
+  setContent {
+    MdcTheme {
+      content()
     }
+  }
 }

@@ -18,7 +18,6 @@ package com.keelim.nandadiagnosis.data.db
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.keelim.nandadiagnosis.data.db.dao.DataDaoV2
-import com.keelim.nandadiagnosis.data.db.dao.HistoryDao
 import com.keelim.nandadiagnosis.data.db.entity.History
 import com.keelim.nandadiagnosis.data.db.entity.NandaEntity
 

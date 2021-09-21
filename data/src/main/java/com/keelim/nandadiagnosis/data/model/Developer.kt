@@ -1,5 +1,5 @@
 /*
- * Designed and developed by 2021 keelim (Jaehyun Kim)
+ * Designed and developed by 2020 keelim (Jaehyun Kim)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,8 +19,8 @@ import android.os.Parcelable
 
 @kotlinx.parcelize.Parcelize
 data class Developer(
-    val name: String,
-    val photoUrl: String,
-    val companyName: String? = null,
-    val snsLink: String? = null
+  val name: String,
+  val photoUrl: String,
+  val companyName: String? = null,
+  val snsLink: String? = null
 ) : Parcelable

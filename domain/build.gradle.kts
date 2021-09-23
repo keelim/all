@@ -13,8 +13,8 @@ listOf(
 }
 
 dependencies {
-    implementation(project(":data"))
-    implementation(project(":common"))
+    implementation(projects.data)
+    implementation(projects.common)
     implementation(AndroidX.core_ktx)
     implementation(Hilt.android)
     kapt(Hilt.hilt_compiler)

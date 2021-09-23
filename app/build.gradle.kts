@@ -67,12 +67,12 @@ android {
 }
 
 dependencies {
-    implementation(project(":data"))
-    implementation(project(":domain"))
-    implementation(project(":compose"))
-    implementation(project(":common"))
-    implementation(project(":features:ui-map"))
-    implementation(project(":features:ui-setting"))
+    implementation(projects.data)
+    implementation(projects.domain)
+    implementation(projects.compose)
+    implementation(projects.common)
+    implementation(projects.features.uiMap)
+    implementation(projects.features.uiSetting)
 
     implementation(platform("com.google.firebase:firebase-bom:28.2.0"))
     implementation("com.google.firebase:firebase-core")

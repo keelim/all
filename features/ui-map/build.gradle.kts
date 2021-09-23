@@ -13,10 +13,10 @@ listOf(
 }
 
 dependencies {
-    implementation(project(":data"))
-    implementation(project(":compose"))
-    implementation(project(":domain"))
-    implementation(project(":common"))
+    implementation(projects.data)
+    implementation(projects.compose)
+    implementation(projects.domain)
+    implementation(projects.common)
     implementation(AndroidX.core_ktx)
     implementation(AndroidX.appcompat)
     implementation(AndroidX.activity_ktx)

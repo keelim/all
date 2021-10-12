@@ -50,7 +50,7 @@ internal fun DeveloperScreen(
     developer: List<Developer>,
 ) {
     LazyVerticalGrid(
-        cells = GridCells.Fixed(1),
+        cells = GridCells.Fixed(2),
         modifier = modifier,
         contentPadding = PaddingValues(10.dp)
     ) {
@@ -93,7 +93,7 @@ private fun Profile(
                 Text(
                     text = person.name,
                     color = Color(android.graphics.Color.parseColor("#FFFFFF")),
-                    fontSize = 16.sp,
+                    fontSize = 8.sp,
                     fontWeight = FontWeight.Bold,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
@@ -103,7 +103,7 @@ private fun Profile(
                 Text(
                     text = person.companyName.orEmpty(),
                     color = Color(android.graphics.Color.parseColor("#9A9A9A")),
-                    fontSize = 12.sp,
+                    fontSize = 18.sp,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )

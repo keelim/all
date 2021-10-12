@@ -4,5 +4,8 @@
 
     <application>
         <activity android:name=".SettingActivity" />
+        <activity
+            android:name=".ClockActivity"
+            android:exported="true" />
     </application>
 </manifest>

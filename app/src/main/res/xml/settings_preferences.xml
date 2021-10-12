@@ -3,7 +3,6 @@
         <Preference
             app:key="content"
             app:title="공지사항" />
-
         <Preference
             app:key="homepage"
             app:title="홈페이지" />
@@ -14,7 +13,6 @@
         <Preference
             app:key="update"
             app:title="업데이트" />
-
         <Preference
             app:key="theme"
             app:title="테마 설정"/>
@@ -27,7 +25,9 @@
         <Preference
             app:key="opensource"
             app:title="오픈소스 라이선스" />
-
+        <Preference
+            app:key="clock"
+            app:title="실험 기능" />
         <Preference
             app:key="developer"
             app:title="개발자 소개" />

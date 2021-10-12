@@ -57,7 +57,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.0.1"
+        kotlinCompilerExtensionVersion = "1.1.0-alpha04"
     }
 
     kapt {
@@ -113,6 +113,10 @@ dependencies {
     implementation(Compose.runtime_livedata)
     androidTestImplementation(Compose.compose_junit)
     implementation("com.jakewharton.threetenabp:threetenabp:1.3.1")
+
+    implementation("androidx.core:core-splashscreen:1.0.0-alpha02")
+    implementation("com.tbuonomo:dotsindicator:4.2")
+    implementation("androidx.viewpager2:viewpager2:1.0.0")
 }
 
 apply(from = "$rootDir/spotless.gradle")

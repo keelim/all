@@ -57,7 +57,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.0.1"
+        kotlinCompilerExtensionVersion = "1.1.0-alpha04"
     }
 
     kapt {
@@ -67,12 +67,12 @@ android {
 }
 
 dependencies {
-    implementation(project(":data"))
-    implementation(project(":domain"))
-    implementation(project(":compose"))
-    implementation(project(":common"))
-    implementation(project(":features:ui-map"))
-    implementation(project(":features:ui-setting"))
+    implementation(projects.data)
+    implementation(projects.domain)
+    implementation(projects.compose)
+    implementation(projects.common)
+    implementation(projects.features.uiMap)
+    implementation(projects.features.uiSetting)
 
     implementation(platform("com.google.firebase:firebase-bom:28.2.0"))
     implementation("com.google.firebase:firebase-core")
@@ -113,6 +113,10 @@ dependencies {
     implementation(Compose.runtime_livedata)
     androidTestImplementation(Compose.compose_junit)
     implementation("com.jakewharton.threetenabp:threetenabp:1.3.1")
+
+    implementation("androidx.core:core-splashscreen:1.0.0-alpha02")
+    implementation("com.tbuonomo:dotsindicator:4.2")
+    implementation("androidx.viewpager2:viewpager2:1.0.0")
 }
 
 apply(from = "$rootDir/spotless.gradle")

@@ -62,20 +62,25 @@ class MapsActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
             val responsePermissions = permissions.entries.filter {
                 it.key == Manifest.permission.ACCESS_FINE_LOCATION ||
-                    it.key == Manifest.permission.ACCESS_COARSE_LOCATION
+                        it.key == Manifest.permission.ACCESS_COARSE_LOCATION
             }
             if (responsePermissions.filter { it.value == true }.size == locationPermissions.size) {
                 setMyLocationListener()
             } else {
-//                with(binding.locationTitleTextView) {
-//                    text = "위치를 확인해주세요"
-//                    setOnClickListener {
-//                        getMyLocation()
-//                    }
-//                }
                 toast("권한이 없습니다. 확인해주세요")
             }
         }
+
+//    private val mapsAdapter by lazy { MapsAdapter{ position ->
+//        lifecycleScope.launchWhenCreated {
+//            val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+//            val googleMap = mapFragment.awaitMap()
+//            val cameraUpdate = CameraUpdateFactory.newLatLngZoom(locationList[position], 17f)
+//            googleMap.apply {
+//                animateCamera(cameraUpdate)
+//            }
+//        }
+//    }}
 
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -95,6 +100,16 @@ class MapsActivity : AppCompatActivity() {
                     snippet(snippetHandling(index))
                 }
             }
+            googleMap.setOnMarkerClickListener {
+                BottomSheetDialog(
+                    it.title,
+                    it.snippet,
+                    it.position.toString()
+                ).apply {
+                    show(supportFragmentManager, tag)
+                }
+                return@setOnMarkerClickListener false
+            }
 
             val cameraUpdate = if (location == -1) {
                 CameraUpdateFactory.newLatLngZoom(locationList[0], 17f)
@@ -107,7 +122,6 @@ class MapsActivity : AppCompatActivity() {
                 uiSettings.isMyLocationButtonEnabled = true
             }
         }
-
         initViews()
     }
 
@@ -184,6 +198,12 @@ class MapsActivity : AppCompatActivity() {
     }
 
     private fun initViews() = with(binding) {
+        /*
+        recyclerMaps.adapter = mapsAdapter.apply {
+            submitList(locationList.map {
+                LocationList(it)
+            })
+        }*/
     }
 
     private fun removeLocationListener() {

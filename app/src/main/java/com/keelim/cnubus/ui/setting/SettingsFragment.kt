@@ -15,6 +15,7 @@
  */
 package com.keelim.cnubus.ui.setting
 
+import com.keelim.ui_setting.ClockActivity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -90,6 +91,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
             "developer" -> startActivity(Intent(requireContext(), SettingActivity::class.java))
 
             "theme" -> selectTheme()
+
+            "clock" -> startActivity(Intent(requireContext(), ClockActivity::class.java))
         }
         return super.onPreferenceTreeClick(preference)
     }

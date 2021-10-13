@@ -33,7 +33,8 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3115620439518585~7951570697" />
 
-        <activity android:name=".ui.content.Content2Activity" />
+        <activity android:name=".ui.content.Content2Activity"
+            android:exported="true"/>
 
 
         <activity
@@ -46,7 +47,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.onBoarding.OnBoardingActivity" />
+        <activity android:name=".ui.onBoarding.OnBoardingActivity"
+            android:exported="true"
+            />
 
         <meta-data
             android:name="firebase_performance_logcat_enabled"

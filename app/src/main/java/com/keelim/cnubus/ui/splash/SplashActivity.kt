@@ -19,14 +19,11 @@ import android.animation.AnimatorSet
 import android.animation.ValueAnimator
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.view.ViewTreeObserver
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
-import androidx.preference.PreferenceManager
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
@@ -35,15 +32,10 @@ import com.keelim.cnubus.BuildConfig
 import com.keelim.cnubus.databinding.ActivitySplashBinding
 import com.keelim.cnubus.di.MyPreference
 import com.keelim.cnubus.ui.main.MainActivity
-import com.keelim.cnubus.ui.onBoarding.OnBoardingActivity
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import timber.log.Timber
-import java.lang.Boolean.getBoolean
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
@@ -96,18 +88,18 @@ class SplashActivity : AppCompatActivity() {
             }
         )
 
-        if(myPreference.getFirstOpen()){
+        if (myPreference.getFirstOpen()) {
             startActivity(Intent(this@SplashActivity, MainActivity::class.java))
-        } else{
+        } else {
 //            startActivity(Intent(this@SplashActivity, OnBoardingActivity::class.java))
 //            myPreference.setFirstOpen()
             startActivity(Intent(this@SplashActivity, MainActivity::class.java))
         }
         finish()
     }
-    private fun splash(){
+    private fun splash() {
         val splashScreen = installSplashScreen()
-        splashScreen.setOnExitAnimationListener{ view->
+        splashScreen.setOnExitAnimationListener { view ->
             view.iconView.let { icon ->
                 val animator = ValueAnimator
                     .ofInt(icon.height, 0)

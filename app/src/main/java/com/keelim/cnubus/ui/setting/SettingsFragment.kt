@@ -15,7 +15,6 @@
  */
 package com.keelim.cnubus.ui.setting
 
-import com.keelim.ui_setting.ClockActivity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -37,6 +36,7 @@ import com.keelim.cnubus.utils.MaterialDialog.Companion.negativeButton
 import com.keelim.cnubus.utils.MaterialDialog.Companion.positiveButton
 import com.keelim.cnubus.utils.MaterialDialog.Companion.singleChoiceItems
 import com.keelim.cnubus.utils.MaterialDialog.Companion.title
+import com.keelim.ui_setting.ClockActivity
 import com.keelim.ui_setting.SettingActivity
 import dagger.hilt.android.AndroidEntryPoint
 

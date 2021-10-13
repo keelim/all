@@ -62,7 +62,7 @@ class MapsActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
             val responsePermissions = permissions.entries.filter {
                 it.key == Manifest.permission.ACCESS_FINE_LOCATION ||
-                        it.key == Manifest.permission.ACCESS_COARSE_LOCATION
+                    it.key == Manifest.permission.ACCESS_COARSE_LOCATION
             }
             if (responsePermissions.filter { it.value == true }.size == locationPermissions.size) {
                 setMyLocationListener()

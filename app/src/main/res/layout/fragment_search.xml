@@ -12,7 +12,9 @@
         android:hint="@string/input_hint"
         app:layout_constraintEnd_toStartOf="@id/search_btn"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:inputType="text"
+        android:autofillHints="텍스트를 적어주세요" />
 
     <Button
         android:id="@+id/search_btn"

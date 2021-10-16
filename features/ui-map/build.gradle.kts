@@ -41,6 +41,8 @@ dependencies {
     implementation(Play.play_location)
     implementation(Play.play_map)
     implementation(Play.maps_sdk)
+
+    implementation(Coil.coil)
 }
 
 kapt {

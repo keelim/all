@@ -7,6 +7,9 @@
             app:key="homepage"
             app:title="홈페이지" />
 
+        <Preference
+            app:key="map"
+           app:title="맵 바로가기" />
     </PreferenceCategory>
 
     <PreferenceCategory app:title="기능">

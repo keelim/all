@@ -19,13 +19,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import coil.load
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.keelim.cnubus.feature.map.databinding.FragmentMapBottomSheetBinding
+import com.keelim.common.toast
 
 class BottomSheetDialog(
     private val map_title: String,
     private val map_description: String,
     private val map_position: String,
+    private val url: String,
 ) : BottomSheetDialogFragment() {
     private var _binding: FragmentMapBottomSheetBinding? = null
     private val binding get() = _binding!!
@@ -53,5 +56,10 @@ class BottomSheetDialog(
         title.text = map_title
         description.text = map_description
         position.text = map_position
+        image.load(url) {
+            listener(onError = { request, throwable ->
+                requireContext().toast("이미지 준비중 입니다.")
+            })
+        }
     }
 }

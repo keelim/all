@@ -17,7 +17,18 @@ package com.keelim.nandadiagnosis.data
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import com.keelim.nandadiagnosis.data.db.AppDatabaseV2
+import com.keelim.nandadiagnosis.data.db.entity.NandaEntity
+import com.keelim.nandadiagnosis.data.db.entity.NandaEntity2
+import dagger.hilt.android.HiltAndroidApp
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
+import javax.inject.Inject
+import kotlinx.coroutines.test.runBlockingTest
+import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -26,12 +37,31 @@ import org.junit.runner.RunWith
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
+@HiltAndroidTest
 @RunWith(AndroidJUnit4::class)
 class ExampleInstrumentedTest {
+  @get:Rule
+  var hiltRule = HiltAndroidRule(this)
+
+  @Inject
+  lateinit var appDatabaseV2: AppDatabaseV2
+
+  @Before
+  fun init(){
+    hiltRule.inject()
+  }
+
   @Test
-  fun useAppContext() {
-    // Context of the app under test.
-    val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-    assertEquals("com.keelim.nandadiagnosis.data.test", appContext.packageName)
+  fun roomTest() = runBlockingTest {
+    val schema = NandaEntity(10001, "", "", "", "", 0, 0)
+    appDatabaseV2.dataDao().insertNanda(schema)
+
+    var resultSchema = appDatabaseV2.dataDao().getAll()[0]
+    assertDbEquals(schema, resultSchema)
+  }
+
+  private fun assertDbEquals(expected: NandaEntity, actual: NandaEntity) {
+    // id 는 자동생성되므로, 검증을 위해서 id의 동일성은 무시하자.
+    assertEquals(expected.copy(nanda_id = 0), actual.copy(nanda_id = 0))
   }
 }

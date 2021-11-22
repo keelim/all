@@ -29,6 +29,9 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.selection.Selection
 import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
@@ -40,8 +43,7 @@ import com.keelim.nandadiagnosis.ui.main.search.history.HistoryAdapter
 import com.keelim.nandadiagnosis.ui.main.search.selection.MyItemDetailsLookup
 import com.keelim.nandadiagnosis.ui.main.search.selection.MyItemKeyProvider
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -51,8 +53,6 @@ class SearchFragment : Fragment() {
 
   private var _binding: FragmentSearchBinding? = null
   private val binding get() = _binding!!
-
-  private val scope = MainScope()
 
   private val viewModel: SearchViewModel by viewModels()
 
@@ -80,30 +80,33 @@ class SearchFragment : Fragment() {
   override fun onDestroyView() {
     super.onDestroyView()
     _binding = null
-    scope.cancel()
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     setHasOptionsMenu(true)
     initViews()
-    viewModel.fetchData()
-    observeData()
     observeFlow()
   }
 
-  private fun observeData() = viewModel.searchListState.observe(viewLifecycleOwner) {
-    when (it) {
-      is SearchListState.Error -> Unit
-      is SearchListState.Loading -> requireContext().toast("데이터 로딩 중")
-      is SearchListState.Searching -> handleSuccess(it)
-      is SearchListState.Success -> Unit
-      is SearchListState.UnInitialized -> requireActivity().toast("데이터 설정 중입니다.")
+  private fun observeFlow() = viewLifecycleOwner.lifecycleScope.launch {
+    viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+      viewModel.state.collect {
+        when (it) {
+          is SearchListState.UnInitialized -> requireActivity().toast("데이터 설정 중입니다.")
+          is SearchListState.Loading -> requireContext().toast("데이터 로딩 중")
+          is SearchListState.Searching -> {
+            handleSuccess(it)
+          }
+          is SearchListState.Error -> Unit
+          is SearchListState.Success -> Unit
+        }
+      }
+      viewModel.history.collect {
+        historyAdapter.submitList(it)
+        binding.historyRecycler.isVisible = true
+      }
     }
-  }
-
-  private fun observeFlow() = viewModel.searchResult.observe(viewLifecycleOwner) {
-//    searchRecyclerViewAdapter2.submitList(it)
   }
 
   private fun initViews() = with(binding) {
@@ -133,13 +136,10 @@ class SearchFragment : Fragment() {
         override fun onQueryTextSubmit(query: String): Boolean {
           saveSearchKeyword(query)
           Timber.d("데이터베이스 $query")
-          viewModel.search(query.replace("\\s", ""))
+          viewModel.search2(query.replace("\\s", ""))
           return true
         }
-        override fun onQueryTextChange(newText: String): Boolean {
-//          viewModel.searchQuery.value = newText
-          return true
-        }
+        override fun onQueryTextChange(newText: String): Boolean = true
       })
     }
 
@@ -202,15 +202,8 @@ class SearchFragment : Fragment() {
     viewModel.favoriteUpdate(favorite, id)
   }
 
-  private fun showHistoryView() {
-    scope.launch {
-      viewModel.getAllHistories()
-      val keywords = viewModel.historyList.value
-      Timber.d("데이터베이스 $keywords")
-      binding.historyRecycler.isVisible = true
-      historyAdapter.submitList(keywords)
-    }
-    binding.historyRecycler.isVisible = true
+  private fun showHistoryView() = lifecycleScope.launch {
+    viewModel.getAllHistories()
   }
 
   private fun hideHistoryView() {

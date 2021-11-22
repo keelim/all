@@ -38,6 +38,7 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore-ktx")
 
     implementation(AndroidX.core_ktx)
+    implementation(LifeCycle.runtime)
 
     implementation(Hilt.android)
     implementation("androidx.appcompat:appcompat:1.3.1")
@@ -61,6 +62,7 @@ dependencies {
     implementation(Kotlin.stdlibJvm)
 
     testImplementation(AppTest.junit)
+    androidTestImplementation(Hilt.testing)
     androidTestImplementation(Room.testing)
     androidTestImplementation(AppTest.androidJunit)
     androidTestImplementation(AppTest.espressoCore)

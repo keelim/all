@@ -18,81 +18,56 @@ package com.keelim.nandadiagnosis.ui.main.search
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.keelim.nandadiagnosis.data.db.entity.History
 import com.keelim.nandadiagnosis.domain.GetSearchListUseCase
+import com.keelim.nandadiagnosis.domain.HistoryUseCase
 import com.keelim.nandadiagnosis.domain.favorite.FavoriteUpdateUseCase
-import com.keelim.nandadiagnosis.domain.history.DeleteHistoryUseCase
-import com.keelim.nandadiagnosis.domain.history.GetAllHistoryUseCase
-import com.keelim.nandadiagnosis.domain.history.SaveHistoryUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
   private val getSearchListUseCase: GetSearchListUseCase,
-  private val deleteHistoryUseCase: DeleteHistoryUseCase,
-  private val saveHistoryUseCase: SaveHistoryUseCase,
-  private val getAllHistoryUseCase: GetAllHistoryUseCase,
   private val favoriteUpdateUseCase: FavoriteUpdateUseCase,
+  private val historyUseCase: HistoryUseCase,
 ) : ViewModel() {
-  private val _searchListState = MutableLiveData<SearchListState>(SearchListState.UnInitialized)
-  val searchListState: LiveData<SearchListState> get() = _searchListState
+  private val _state: MutableStateFlow<SearchListState> = MutableStateFlow(SearchListState.UnInitialized)
+  val state: StateFlow<SearchListState> = _state
 
   private val _historyList = MutableLiveData<List<History>>(listOf())
   val historyList: LiveData<List<History>> get() = _historyList
 
-  val searchQuery = MutableStateFlow("")
+  private val _history: MutableStateFlow<List<History>> = MutableStateFlow(emptyList())
+  val history: StateFlow<List<History>> = _history
 
-  private val searchFlow = searchQuery.flatMapLatest {
-    getSearchListUseCase.getFlowData(it)
-  }
-
-  val searchResult = searchFlow.asLiveData()
-
-  fun fetchData(): Job = viewModelScope.launch {
-    setState(
-      SearchListState.Loading
-    )
-  }
-
-  fun search(keyword: String?): Job = viewModelScope.launch {
-    try {
-      setState(
-        SearchListState.Loading
-      )
-      val result = getSearchListUseCase.invoke(keyword.orEmpty())
-      setState(
-        SearchListState.Searching(
-          result
-        )
-      )
-    } catch (e: Exception) {
-      setState(
-        SearchListState.Error
-      )
+  fun search2(keyword: String?) = viewModelScope.launch {
+    _state.emit(SearchListState.Loading)
+    runCatching {
+      getSearchListUseCase(keyword.orEmpty())
+    }.onSuccess {
+      _state.emit(SearchListState.Searching(it))
+    }.onFailure {
+      _state.emit(SearchListState.Error)
     }
   }
 
   fun deleteHistory(keyword: String?) = viewModelScope.launch {
-    deleteHistoryUseCase.invoke(keyword)
+    historyUseCase.deleteHistory(keyword.orEmpty())
   }
 
   fun saveHistory(keyword: String?) = viewModelScope.launch {
-    saveHistoryUseCase.invoke(keyword)
+    keyword?.let {
+      historyUseCase.saveHistory(it)
+    }
   }
 
   fun getAllHistories() = viewModelScope.launch {
-    _historyList.postValue(getAllHistoryUseCase.invoke())
-  }
-
-  private fun setState(state: SearchListState) {
-    _searchListState.postValue(state)
+    _historyList.postValue(historyUseCase.getAllHistory())
+    _history.value = historyUseCase.getAllHistory()
   }
 
   fun favoriteUpdate(favorite: Int, id: Int) = viewModelScope.launch {

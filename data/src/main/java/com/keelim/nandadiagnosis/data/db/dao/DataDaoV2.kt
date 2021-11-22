@@ -16,6 +16,7 @@
 package com.keelim.nandadiagnosis.data.db.dao
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -43,8 +44,8 @@ DataDaoV2 {
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   suspend fun insertNanda(nanda: NandaEntity)
 
-  @Query("DELETE  FROM nanda WHERE reason ==:keyword")
-  suspend fun delete(keyword: String?)
+  @Delete
+  suspend fun delete(nanda: NandaEntity)
 
   @Query("UPDATE nanda SET favorite=:favorite WHERE nanda_id = :id")
   suspend fun favoriteUpdate(favorite: Int, id: Int)

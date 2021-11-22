@@ -13,16 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.domain.history
+package com.keelim.nandadiagnosis.domain
 
+import com.keelim.nandadiagnosis.data.db.entity.History
 import com.keelim.nandadiagnosis.data.repository.IORepository
 import javax.inject.Inject
 
-class GetAllHistoryUseCase @Inject constructor(
-  private val ioRepository: IORepository,
+class HistoryUseCase @Inject constructor(
+  private val ioRepository: IORepository
 ) {
-
-  suspend operator fun invoke(): List<com.keelim.nandadiagnosis.data.db.entity.History> {
+  suspend fun getAllHistory(): List<History> {
     return ioRepository.getHistories()
+  }
+
+  suspend fun saveHistory(keyword: String) {
+    ioRepository.saveHistory(keyword)
+  }
+
+  suspend fun deleteHistory(keyword: String) {
+    ioRepository.deleteHistory(keyword)
   }
 }

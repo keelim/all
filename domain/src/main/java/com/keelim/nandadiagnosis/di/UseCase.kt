@@ -22,10 +22,8 @@ import com.keelim.nandadiagnosis.domain.GetFavoriteListUseCase
 import com.keelim.nandadiagnosis.domain.GetNandaListUseCase
 import com.keelim.nandadiagnosis.domain.GetNandaUseCase
 import com.keelim.nandadiagnosis.domain.GetSearchListUseCase
+import com.keelim.nandadiagnosis.domain.HistoryUseCase
 import com.keelim.nandadiagnosis.domain.SetAppThemeUseCase
-import com.keelim.nandadiagnosis.domain.history.DeleteHistoryUseCase
-import com.keelim.nandadiagnosis.domain.history.GetAllHistoryUseCase
-import com.keelim.nandadiagnosis.domain.history.SaveHistoryUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -61,13 +59,5 @@ object UseCase {
 
   @Provides
   @ViewModelScoped
-  fun provideGetAllHistoryUseCase(ioRepository: IORepository) = GetAllHistoryUseCase(ioRepository)
-
-  @Provides
-  @ViewModelScoped
-  fun provideSaveHistoryUseCase(ioRepository: IORepository) = SaveHistoryUseCase(ioRepository)
-
-  @Provides
-  @ViewModelScoped
-  fun provideDeleteHistoryUseCase(ioRepository: IORepository) = DeleteHistoryUseCase(ioRepository)
+  fun provideHistoryUseCase(ioRepository: IORepository) = HistoryUseCase(ioRepository)
 }

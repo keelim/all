@@ -90,9 +90,9 @@ class SearchFragment : Fragment() {
   }
 
   private fun observeFlow() = viewLifecycleOwner.lifecycleScope.launch {
-    viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+    viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
       viewModel.state.collect {
-        when(it){
+        when (it) {
           is SearchListState.UnInitialized -> requireActivity().toast("데이터 설정 중입니다.")
           is SearchListState.Loading -> requireContext().toast("데이터 로딩 중")
           is SearchListState.Searching -> {
@@ -101,6 +101,10 @@ class SearchFragment : Fragment() {
           is SearchListState.Error -> Unit
           is SearchListState.Success -> Unit
         }
+      }
+      viewModel.history.collect {
+        historyAdapter.submitList(it)
+        binding.historyRecycler.isVisible = true
       }
     }
   }
@@ -198,13 +202,8 @@ class SearchFragment : Fragment() {
     viewModel.favoriteUpdate(favorite, id)
   }
 
-  private fun showHistoryView() = lifecycleScope.launch{
-      viewModel.getAllHistories()
-      val keywords = viewModel.historyList.value
-      Timber.d("데이터베이스 $keywords")
-      binding.historyRecycler.isVisible = true
-      historyAdapter.submitList(keywords)
-      binding.historyRecycler.isVisible = true
+  private fun showHistoryView() = lifecycleScope.launch {
+    viewModel.getAllHistories()
   }
 
   private fun hideHistoryView() {

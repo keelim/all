@@ -53,7 +53,7 @@ object Room {
 }
 
 object LifeCycle {
-    private const val lifecycleVersion = "2.3.1"
+    private const val lifecycleVersion = "2.4.0"
     const val viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
     const val livedata = "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
     const val runtime = "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"

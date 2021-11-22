@@ -16,21 +16,17 @@
 package com.keelim.nandadiagnosis.data
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.platform.app.InstrumentationRegistry
 import com.keelim.nandadiagnosis.data.db.AppDatabaseV2
 import com.keelim.nandadiagnosis.data.db.entity.NandaEntity
-import com.keelim.nandadiagnosis.data.db.entity.NandaEntity2
-import dagger.hilt.android.HiltAndroidApp
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
-import javax.inject.Inject
 import kotlinx.coroutines.test.runBlockingTest
-import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import javax.inject.Inject
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -47,7 +43,7 @@ class ExampleInstrumentedTest {
   lateinit var appDatabaseV2: AppDatabaseV2
 
   @Before
-  fun init(){
+  fun init() {
     hiltRule.inject()
   }
 

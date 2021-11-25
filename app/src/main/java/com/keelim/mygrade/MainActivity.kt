@@ -30,6 +30,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViews() = with(binding) {
+        if (BuildConfig.DEBUG.not()) {
+            adView.adUnitId = BuildConfig.key
+        } else {
+            adView.adUnitId = "ca-app-pub-3940256099942544/6300978111"
+        }
         val adRequest = AdRequest.Builder().build()
         adView.loadAd(adRequest)
         oss.setOnClickListener {

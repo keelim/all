@@ -66,25 +66,31 @@ class MainActivity : AppCompatActivity() {
                         Snackbar.make(binding.root, "잠시만 기다려주세요", Snackbar.LENGTH_SHORT).show()
                     }
                     is MainState.Success -> {
-                        val grade = when {
-                            it.value < 30 -> "A"
-                            it.value < 60 -> "B"
-                            it.value < 80 -> "C"
-                            it.value < 100 -> "D"
-                            else -> "F"
-                        }
+                        if (validation()) {
+                            val grade = when {
+                                it.value < 30 -> "A"
+                                it.value < 60 -> "B"
+                                it.value < 80 -> "C"
+                                it.value < 100 -> "D"
+                                else -> "F"
+                            }
 
-                        startActivity(Intent(this@MainActivity, GradeActivity::class.java).apply {
-                            putExtra(
-                                "data", Result(
-                                    grade,
-                                    getLevel(
-                                        (it.value * binding.valueStudent.text.toString()
-                                            .toInt()) / 100
+                            startActivity(
+                                Intent(
+                                    this@MainActivity,
+                                    GradeActivity::class.java
+                                ).apply {
+                                    putExtra(
+                                        "data", Result(
+                                            grade,
+                                            getLevel(
+                                                (it.value * binding.valueStudent.text.toString()
+                                                    .toInt()) / 100
+                                            )
+                                        )
                                     )
-                                )
-                            )
-                        })
+                                })
+                        }
                     }
                     is MainState.Error -> Snackbar.make(
                         binding.root,
@@ -96,5 +102,29 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
     private fun getLevel(level: Int): String = level.toString() + " / " + binding.valueStudent.text
+    private fun validation(): Boolean {
+        var flag = true
+        if (binding.valueOrigin.text.toString().isEmpty()) {
+            binding.valueOrigin.error = "원 점수를 입력해주세요"
+            flag = false
+        }
+
+        if (binding.valueAverage.text.toString().isEmpty()) {
+            binding.valueAverage.error = "평균 값을 입력해주세요"
+            flag = false
+        }
+
+        if (binding.valueNumber.text.toString().isEmpty()) {
+            binding.valueAverage.error = "표준 편차를 입력해주세요"
+            flag = false
+        }
+
+        if (binding.valueStudent.text.toString().isEmpty()) {
+            binding.valueAverage.error = "학생 수를 입력해주세요"
+            flag = false
+        }
+        return flag
+    }
 }

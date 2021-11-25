@@ -8,6 +8,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.material.snackbar.Snackbar
 import com.keelim.mygrade.databinding.ActivityMainBinding
@@ -30,13 +32,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViews() = with(binding) {
-        if (BuildConfig.DEBUG.not()) {
-            adView.adUnitId = BuildConfig.key
-        } else {
-            adView.adUnitId = "ca-app-pub-3940256099942544/6300978111"
+        val ad = AdView(this@MainActivity).apply {
+            adSize = AdSize.BANNER
+            adUnitId = if (BuildConfig.DEBUG.not()) {
+                BuildConfig.key
+            } else {
+                "ca-app-pub-3940256099942544/6300978111"
+            }
         }
+        adView.addView(ad)
         val adRequest = AdRequest.Builder().build()
-        adView.loadAd(adRequest)
+        ad.loadAd(adRequest)
         oss.setOnClickListener {
             startActivity((Intent(this@MainActivity, OssLicensesMenuActivity::class.java)))
         }

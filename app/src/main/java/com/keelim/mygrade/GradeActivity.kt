@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
 import com.keelim.mygrade.databinding.ActivityGradeBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,14 +27,17 @@ class GradeActivity : AppCompatActivity() {
     private fun initViews()  = with(binding){
         grade.text = data?.grade.orEmpty()
         level.text = data?.point.orEmpty()
-        if (BuildConfig.DEBUG.not()) {
-            adView.adUnitId = BuildConfig.key
-        } else {
-            adView.adUnitId = "ca-app-pub-3940256099942544/6300978111"
+        val ad = AdView(this@GradeActivity).apply {
+            adSize = AdSize.BANNER
+            adUnitId = if (BuildConfig.DEBUG.not()) {
+                BuildConfig.key
+            } else {
+                "ca-app-pub-3940256099942544/6300978111"
+            }
         }
+        adView.addView(ad)
         val adRequest = AdRequest.Builder().build()
-        adView.loadAd(adRequest)
-
+        ad.loadAd(adRequest)
     }
 
     override fun onBackPressed() {

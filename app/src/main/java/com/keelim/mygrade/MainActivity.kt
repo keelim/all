@@ -47,13 +47,15 @@ class MainActivity : AppCompatActivity() {
             startActivity((Intent(this@MainActivity, OssLicensesMenuActivity::class.java)))
         }
         btnSubmit.setOnClickListener {
-            viewModel.submit(
-                valueOrigin.text.toString().toFloat(),
-                valueAverage.text.toString().toFloat(),
-                valueNumber.text.toString().toFloat(),
-                valueStudent.text.toString().toInt(),
-                true
-            )
+            if(validation()){
+                viewModel.submit(
+                    valueOrigin.text.toString().toFloat(),
+                    valueAverage.text.toString().toFloat(),
+                    valueNumber.text.toString().toFloat(),
+                    valueStudent.text.toString().toInt(),
+                    true
+                )
+            }
         }
     }
 
@@ -117,12 +119,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         if (binding.valueNumber.text.toString().isEmpty()) {
-            binding.valueAverage.error = "표준 편차를 입력해주세요"
+            binding.valueNumber.error = "표준 편차를 입력해주세요"
             flag = false
         }
 
         if (binding.valueStudent.text.toString().isEmpty()) {
-            binding.valueAverage.error = "학생 수를 입력해주세요"
+            binding.valueStudent.error = "학생 수를 입력해주세요"
             flag = false
         }
         return flag

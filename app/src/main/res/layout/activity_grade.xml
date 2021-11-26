@@ -76,21 +76,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/level_container"
         android:layout_margin="10dp"
+        android:textSize="18sp"
         android:text="+ 은 교수님 재량입니다."
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="공유하기"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/description" />
 
 
     <LinearLayout

@@ -9,6 +9,7 @@ import com.google.android.gms.ads.AdView
 import com.keelim.mygrade.databinding.ActivityGradeBinding
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
 class GradeActivity : AppCompatActivity() {
     private val data: Result? by lazy { intent.getParcelableExtra("data") }
@@ -25,6 +26,7 @@ class GradeActivity : AppCompatActivity() {
 
 
     private fun initViews()  = with(binding){
+        val result  =data?.grade.orEmpty() + data?.point.orEmpty()
         grade.text = data?.grade.orEmpty()
         level.text = data?.point.orEmpty()
         val ad = AdView(this@GradeActivity).apply {

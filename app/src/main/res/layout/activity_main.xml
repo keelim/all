@@ -5,11 +5,19 @@
     android:layout_height="match_parent">
 
     <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="MyGrade"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/oss"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:text="OSS"
-        android:textColor="@color/black"
         android:layout_margin="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         android:textSize="24sp"
@@ -33,7 +41,6 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:text="원점수"
-            android:textColor="@color/black"
             android:textSize="24sp" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -69,7 +76,6 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:text="과목 평균"
-            android:textColor="@color/black"
             android:textSize="24sp" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -106,7 +112,6 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:text="표준편차"
-            android:textColor="@color/black"
             android:textSize="24sp" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -143,7 +148,6 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:text="학생 수"
-            android:textColor="@color/black"
             android:textSize="24sp" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -189,4 +193,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:orientation="horizontal" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_change"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:src="@drawable/ic_baseline_change_circle_24"
+        app:layout_constraintBottom_toTopOf="@id/adView"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,7 +15,9 @@ import com.google.android.material.snackbar.Snackbar
 import com.keelim.mygrade.BuildConfig
 import com.keelim.mygrade.data.Result
 import com.keelim.mygrade.databinding.ActivityMainBinding
+import com.keelim.mygrade.utils.ThemeManager
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -25,6 +27,9 @@ class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
+
+    @Inject
+    lateinit var themeManager: ThemeManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +54,7 @@ class MainActivity : AppCompatActivity() {
             startActivity((Intent(this@MainActivity, OssLicensesMenuActivity::class.java)))
         }
         btnSubmit.setOnClickListener {
-            if(validation()){
+            if (validation()) {
                 viewModel.submit(
                     valueOrigin.text.toString().toFloat(),
                     valueAverage.text.toString().toFloat(),
@@ -57,6 +62,15 @@ class MainActivity : AppCompatActivity() {
                     valueStudent.text.toString().toInt(),
                     true
                 )
+            }
+        }
+        btnChange.setOnClickListener {
+            if (themeManager.state == ThemeManager.ThemeMode.DARK) {
+                themeManager.applyTheme(ThemeManager.ThemeMode.LIGHT)
+                themeManager.state = ThemeManager.ThemeMode.LIGHT
+            } else {
+                themeManager.applyTheme(ThemeManager.ThemeMode.DARK)
+                themeManager.state = ThemeManager.ThemeMode.DARK
             }
         }
     }

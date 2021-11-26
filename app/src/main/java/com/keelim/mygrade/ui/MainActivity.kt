@@ -105,9 +105,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
-
+    
     private fun getLevel(level: Int): String = level.toString() + " / " + binding.valueStudent.text
+    
     private fun validation(): Boolean {
         var flag = true
         if (binding.valueOrigin.text.toString().isEmpty()) {

@@ -122,25 +122,22 @@ class MainActivity : AppCompatActivity() {
     
     private fun getLevel(level: Int): String = level.toString() + " / " + binding.valueStudent.text
     
-    private fun validation(): Boolean {
+    private fun validation(): Boolean = with(binding){
         var flag = true
-        if (binding.valueOrigin.text.toString().isEmpty()) {
-            binding.valueOrigin.error = "원 점수를 입력해주세요"
+        if (valueOrigin.text.toString().isEmpty()) {
+            valueOrigin.error = "원 점수를 입력해주세요"
             flag = false
         }
-
-        if (binding.valueAverage.text.toString().isEmpty()) {
-            binding.valueAverage.error = "평균 값을 입력해주세요"
+        if (valueAverage.text.toString().isEmpty()) {
+            valueAverage.error = "평균 값을 입력해주세요"
             flag = false
         }
-
-        if (binding.valueNumber.text.toString().isEmpty()) {
-            binding.valueNumber.error = "표준 편차를 입력해주세요"
+        if (valueNumber.text.toString().isEmpty()) {
+            valueNumber.error = "표준 편차를 입력해주세요"
             flag = false
         }
-
-        if (binding.valueStudent.text.toString().isEmpty()) {
-            binding.valueStudent.error = "학생 수를 입력해주세요"
+        if (valueStudent.text.toString().isEmpty()) {
+            valueStudent.error = "학생 수를 입력해주세요"
             flag = false
         }
         return flag

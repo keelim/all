@@ -1,4 +1,4 @@
-package com.keelim.mygrade
+package com.keelim.mygrade.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,6 +12,8 @@ import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.material.snackbar.Snackbar
+import com.keelim.mygrade.BuildConfig
+import com.keelim.mygrade.data.Result
 import com.keelim.mygrade.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect

@@ -1,4 +1,4 @@
-package com.keelim.mygrade
+package com.keelim.mygrade.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
+import com.keelim.mygrade.BuildConfig
+import com.keelim.mygrade.data.Result
 import com.keelim.mygrade.databinding.ActivityGradeBinding
 import dagger.hilt.android.AndroidEntryPoint
 

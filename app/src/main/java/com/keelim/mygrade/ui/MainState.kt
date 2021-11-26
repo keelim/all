@@ -1,4 +1,4 @@
-package com.keelim.mygrade
+package com.keelim.mygrade.ui
 
 sealed class MainState {
     object UnInitialized : MainState()

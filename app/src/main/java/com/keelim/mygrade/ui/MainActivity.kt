@@ -16,6 +16,7 @@ import com.keelim.mygrade.BuildConfig
 import com.keelim.mygrade.data.Result
 import com.keelim.mygrade.databinding.ActivityMainBinding
 import com.keelim.mygrade.utils.ThemeManager
+import com.keelim.mygrade.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import kotlinx.coroutines.flow.collect
@@ -72,6 +73,9 @@ class MainActivity : AppCompatActivity() {
                 themeManager.applyTheme(ThemeManager.ThemeMode.DARK)
                 themeManager.state = ThemeManager.ThemeMode.DARK
             }
+        }
+        noAd.setOnClickListener {
+            toast("아직 기능을 준비합니다.")
         }
     }
 

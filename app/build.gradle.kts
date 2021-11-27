@@ -75,4 +75,7 @@ dependencies {
     val nav_version = "2.3.5"
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+
+    val billing_version = "4.0.0"
+    implementation("com.android.billingclient:billing-ktx:$billing_version")
 }

@@ -37,7 +37,7 @@ class FavoriteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         observeData()
-        viewModel.fetchData()
+
     }
 
     private fun observeData() = viewModel.favoriteState.observe(this) {
@@ -58,7 +58,5 @@ class FavoriteActivity : AppCompatActivity() {
     }
 
     private fun handleSuccess(state: FavoriteState.Success) {
-        favoriteAdapter.submitList(viewModel.favoriteList.value)
-//    favoriteAdapter.submitList(state.data)
     }
 }

@@ -20,6 +20,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.keelim.comssa.data.db.AppDatabase
 import com.keelim.comssa.data.db.entity.Search
+import com.keelim.comssa.data.paging.FavoritePagingSource
 import com.keelim.comssa.data.paging.SearchPagingSource
 import com.keelim.comssa.di.IoDispatcher
 import javax.inject.Inject
@@ -47,10 +48,17 @@ class IoRepositoryImpl @Inject constructor(
   override val favoriteFlow: Flow<List<Search>>
     get() = db.searchDao.getFavorite2()
 
-  override fun getTodoContentItemsByPaging(query:String): Flow<PagingData<Search>> {
+  override fun getContentItemsByPaging(query:String): Flow<PagingData<Search>> {
     return Pager(
       config = PagingConfig(pageSize = 10),
       pagingSourceFactory = { SearchPagingSource(db.searchDao, query) }
+    ).flow
+  }
+
+  override fun getFavoriteItemsByPaging(): Flow<PagingData<Search>> {
+    return Pager(
+      config = PagingConfig(pageSize = 10),
+      pagingSourceFactory = { FavoritePagingSource(db.searchDao) }
     ).flow
   }
 }

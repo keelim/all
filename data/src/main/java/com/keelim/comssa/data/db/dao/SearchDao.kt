@@ -42,5 +42,8 @@ interface SearchDao {
   fun getSearchDistinctUntilChanged(keyword: String) = getSearch2(keyword).distinctUntilChanged()
 
   @Query("SELECT * FROM Search WHERE title like '%'|| :keyword || '%' LIMIT :loadSize OFFSET (:page-1) * :loadSize")
-  suspend fun getSearchContentsByPaging(keyword:String, page: Int, loadSize: Int): List<Search>
+  suspend fun getSearchContentsByPaging(keyword: String, page: Int, loadSize: Int): List<Search>
+
+  @Query("SELECT * FROM Search WHERE favorite == 1 LIMIT :loadSize OFFSET (:page-1) * :loadSize")
+  suspend fun getFavoriteByPaging(page: Int, loadSize: Int): List<Search>
 }

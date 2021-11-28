@@ -1,7 +1,5 @@
 android {
-    compileSdkVersion ProjectConfigurations.compileSdk
-    buildToolsVersion ProjectConfigurations.buildTools
-
+    compileSdk ProjectConfigurations.compileSdk
     defaultConfig {
         minSdk ProjectConfigurations.minSdk
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

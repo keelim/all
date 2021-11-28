@@ -18,31 +18,37 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.Comssa">
 
-        <activity android:name=".ui.main.MainActivity"
+        <activity
+            android:name=".ui.main.MainActivity"
             android:launchMode="singleTask"
-            >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
             </intent-filter>
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
 
-        <activity android:name=".ui.SplashActivity">
+        <activity
+            android:name=".ui.SplashActivity"
+            android:exported="true">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.favorite.FavoriteActivity" />
+        <activity
+            android:name=".ui.favorite.FavoriteActivity"
+            android:exported="true" />
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3115620439518585~1693877275"/>
+            android:value="ca-app-pub-3115620439518585~1693877275" />
 
-        <provider android:name=".provides.SuggestionProvider"
+        <provider
+            android:name=".provides.SuggestionProvider"
             android:authorities="com.keelim.comssa.provides.SuggestionProvider" />
     </application>
 

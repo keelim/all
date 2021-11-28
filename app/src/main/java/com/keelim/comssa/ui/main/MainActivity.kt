@@ -28,6 +28,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
 import com.keelim.comssa.R
 import com.keelim.comssa.data.db.entity.Search
 import com.keelim.comssa.databinding.ActivityMainBinding
@@ -104,10 +105,7 @@ class MainActivity : AppCompatActivity() {
             setIconifiedByDefault(false)
             setOnQueryTextListener(object :
                 androidx.appcompat.widget.SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String): Boolean {
-                    return true
-                }
-
+                override fun onQueryTextSubmit(query: String): Boolean = true
                 override fun onQueryTextChange(query: String): Boolean  {
                     search2(query.replace("\\s", ""))
                     return true
@@ -125,15 +123,21 @@ class MainActivity : AppCompatActivity() {
                     .saveRecentQuery(query, null)
             }
         }
+        val snap = LinearSnapHelper()
         recycler.apply {
             adapter = itemAdapter
             layoutManager = LinearLayoutManager(this@MainActivity)
+        }
+        snap.attachToRecyclerView(recycler)
+        
+        bottomButton.setOnClickListener { 
+            val bottomSheet = BottomSheetDialog()
+            bottomSheet.show(supportFragmentManager, bottomSheet.tag)
         }
     }
 
     private fun fileChecking() {
         val check = File(getExternalFilesDir(null), "comssa.db")
-
         if (check.exists().not())
             databaseDownloadAlertDialog()
         else

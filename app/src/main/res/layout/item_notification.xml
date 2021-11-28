@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Subtitle"
-            android:fontFamily="@font/pretendard_bold"
+            android:fontFamily="@font/pretendard"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             tools:text="version: 0.0.1" />

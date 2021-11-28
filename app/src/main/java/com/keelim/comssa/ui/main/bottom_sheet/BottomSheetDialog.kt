@@ -57,7 +57,6 @@ class BottomSheetDialog : BottomSheetDialogFragment() {
 
     private fun initViews() = with(binding) {
         downloadButton.setOnClickListener {
-//            databaseDownloadAlertDialog()
             startActivity(Intent(requireActivity(), FavoriteActivity::class.java))
         }
 

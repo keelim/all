@@ -40,7 +40,6 @@ import java.io.File
 import javax.inject.Inject
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -96,7 +95,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleError() {
         toast("에러가 발생하였습니다. 재접속을 해주세요")
-        Timber.e("에러 발생 지점")
     }
 
     private fun initViews() = with(binding) {
@@ -107,11 +105,13 @@ class MainActivity : AppCompatActivity() {
             setOnQueryTextListener(object :
                 androidx.appcompat.widget.SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String): Boolean {
-                    search2(query.replace("\\s", ""))
                     return true
                 }
 
-                override fun onQueryTextChange(newText: String): Boolean = true
+                override fun onQueryTextChange(query: String): Boolean  {
+                    search2(query.replace("\\s", ""))
+                    return true
+                }
             })
         }
 

@@ -21,22 +21,22 @@ import com.keelim.comssa.data.repository.ReviewRepository
 import javax.inject.Inject
 
 class GetRandomFeatureDataUseCase @Inject constructor(
-  private val dataRepository: DataRepository,
-  private val reviewRepository: ReviewRepository,
+    private val dataRepository: DataRepository,
+    private val reviewRepository: ReviewRepository,
 ) {
-  suspend operator fun invoke(): FeaturedData? {
-    val featuredDatas = dataRepository.getAllDatas()
-      .filter { it.id.isNullOrBlank().not() }
-      .filter { it.isFeatured == true }
+    suspend operator fun invoke(): FeaturedData? {
+        val featuredDatas = dataRepository.getAllDatas()
+            .filter { it.id.isNullOrBlank().not() }
+            .filter { it.isFeatured == true }
 
-    if (featuredDatas.isNullOrEmpty()) {
-      return null
+        if (featuredDatas.isNullOrEmpty()) {
+            return null
+        }
+
+        return featuredDatas.random()
+            .let { data ->
+                val latestReview = reviewRepository.getLatestReview(data.id!!)
+                FeaturedData(data, latestReview)
+            }
     }
-
-    return featuredDatas.random()
-      .let { data ->
-        val latestReview = reviewRepository.getLatestReview(data.id!!)
-        FeaturedData(data, latestReview)
-      }
-  }
 }

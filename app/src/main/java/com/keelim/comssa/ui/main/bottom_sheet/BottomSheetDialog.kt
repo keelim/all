@@ -30,39 +30,39 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class BottomSheetDialog : BottomSheetDialogFragment() {
-  private var _binding: BottomSheetDialogBinding? = null
-  private val binding get() = _binding!!
+    private var _binding: BottomSheetDialogBinding? = null
+    private val binding get() = _binding!!
 
-  @Inject
-  lateinit var recevier: DownloadReceiver
+    @Inject
+    lateinit var recevier: DownloadReceiver
 
-  override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
-  ): View {
-    _binding = BottomSheetDialogBinding.inflate(layoutInflater)
-    return binding.root
-  }
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = BottomSheetDialogBinding.inflate(layoutInflater)
+        return binding.root
+    }
 
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-    initViews()
-  }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initViews()
+    }
 
-  override fun onDestroy() {
-    super.onDestroy()
-    _binding = null
-  }
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 
-  private fun initViews() = with(binding) {
-    downloadButton.setOnClickListener {
+    private fun initViews() = with(binding) {
+        downloadButton.setOnClickListener {
 //            databaseDownloadAlertDialog()
-      startActivity(Intent(requireActivity(), FavoriteActivity::class.java))
-    }
+            startActivity(Intent(requireActivity(), FavoriteActivity::class.java))
+        }
 
-    opensource.setOnClickListener {
-      startActivity(Intent(requireContext(), OssLicensesMenuActivity::class.java))
+        opensource.setOnClickListener {
+            startActivity(Intent(requireContext(), OssLicensesMenuActivity::class.java))
+        }
     }
-  }
 }

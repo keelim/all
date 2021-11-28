@@ -22,34 +22,31 @@ import androidx.lifecycle.viewModelScope
 import com.keelim.comssa.data.model.Data
 import com.keelim.comssa.data.model.DataReviews
 import com.keelim.comssa.data.model.Review
-import com.keelim.comssa.domain.DeleteReviewUseCase
-import com.keelim.comssa.domain.GetAllDataReviewsUseCase
-import com.keelim.comssa.domain.SubmitReviewUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 @HiltViewModel
 class ReviewViewModel @Inject constructor(
-  private val submitReviewUseCase: com.keelim.comssa.domain.SubmitReviewUseCase,
-  private val deleteReviewUseCase: com.keelim.comssa.domain.DeleteReviewUseCase,
-  private val getAllDataReviewsUseCase: com.keelim.comssa.domain.GetAllDataReviewsUseCase
+    private val submitReviewUseCase: com.keelim.comssa.domain.SubmitReviewUseCase,
+    private val deleteReviewUseCase: com.keelim.comssa.domain.DeleteReviewUseCase,
+    private val getAllDataReviewsUseCase: com.keelim.comssa.domain.GetAllDataReviewsUseCase
 ) : ViewModel() {
-  private val _review = MutableLiveData<Review>(Review())
-  val review: LiveData<Review> get() = _review
+    private val _review = MutableLiveData<Review>(Review())
+    val review: LiveData<Review> get() = _review
 
-  private val _reviewList = MutableLiveData<DataReviews>(DataReviews(null, listOf()))
-  val reviewList: LiveData<DataReviews> get() = _reviewList
+    private val _reviewList = MutableLiveData<DataReviews>(DataReviews(null, listOf()))
+    val reviewList: LiveData<DataReviews> get() = _reviewList
 
-  fun submitReview(data: Data, content: String, score: Float) = viewModelScope.launch {
-    _review.value = submitReviewUseCase.invoke(data, content, score)
-  }
+    fun submitReview(data: Data, content: String, score: Float) = viewModelScope.launch {
+        _review.value = submitReviewUseCase.invoke(data, content, score)
+    }
 
-  fun deleteReview(review: Review) = viewModelScope.launch {
-    deleteReviewUseCase.invoke(review)
-  }
+    fun deleteReview(review: Review) = viewModelScope.launch {
+        deleteReviewUseCase.invoke(review)
+    }
 
-  fun getAllReview(dataId: String) = viewModelScope.launch {
-    _reviewList.value = getAllDataReviewsUseCase.invoke(dataId)
-  }
+    fun getAllReview(dataId: String) = viewModelScope.launch {
+        _reviewList.value = getAllDataReviewsUseCase.invoke(dataId)
+    }
 }

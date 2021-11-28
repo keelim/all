@@ -21,12 +21,12 @@ import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 
 class GetFavoriteUseCase @Inject constructor(
-  private val ioRepository: IoRepository,
+    private val ioRepository: IoRepository,
 ) {
 
-  suspend operator fun invoke(): List<Search> {
-    return ioRepository.getFavorite()
-  }
+    suspend operator fun invoke(): List<Search> {
+        return ioRepository.getFavorite()
+    }
 
-  fun getFavorite(): Flow<List<Search>> = ioRepository.favoriteFlow
+    fun getFavorite(): Flow<List<Search>> = ioRepository.favoriteFlow
 }

@@ -20,10 +20,10 @@ import com.keelim.comssa.data.repository.IoRepository
 import javax.inject.Inject
 
 class SearchUseCase @Inject constructor(
-  private val ioRepository: IoRepository,
+    private val ioRepository: IoRepository,
 ) {
 
-  suspend operator fun invoke(keyword: String?): List<Search> {
-    return ioRepository.getSearch(keyword.orEmpty())
-  }
+    suspend operator fun invoke(keyword: String?): List<Search> {
+        return ioRepository.getSearch(keyword.orEmpty())
+    }
 }

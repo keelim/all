@@ -22,21 +22,21 @@ import com.keelim.comssa.data.repository.UserRepository
 import javax.inject.Inject
 
 class GetAllDataReviewsUseCase @Inject constructor(
-  private val userRepository: UserRepository,
-  private val reviewRepository: ReviewRepository,
+    private val userRepository: UserRepository,
+    private val reviewRepository: ReviewRepository,
 ) {
-  suspend operator fun invoke(dataId: String): DataReviews {
-    val reviews = reviewRepository.getAllReviews(dataId)
-    val user = userRepository.getUser()
+    suspend operator fun invoke(dataId: String): DataReviews {
+        val reviews = reviewRepository.getAllReviews(dataId)
+        val user = userRepository.getUser()
 
-    user ?: kotlin.run {
-      userRepository.saveUser(User())
-      return DataReviews(null, reviews)
+        user ?: kotlin.run {
+            userRepository.saveUser(User())
+            return DataReviews(null, reviews)
+        }
+
+        return DataReviews(
+            reviews.find { it.userId == user.id },
+            reviews.filter { it.userId != user.id }
+        )
     }
-
-    return DataReviews(
-      reviews.find { it.userId == user.id },
-      reviews.filter { it.userId != user.id }
-    )
-  }
 }

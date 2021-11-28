@@ -39,105 +39,105 @@ import timber.log.Timber
 
 @AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
-  private var mInterstitialAd: InterstitialAd? = null
-  private val binding by lazy { ActivitySplashBinding.inflate(layoutInflater) }
+    private var mInterstitialAd: InterstitialAd? = null
+    private val binding by lazy { ActivitySplashBinding.inflate(layoutInflater) }
 
-  private val test = "ca-app-pub-3940256099942544/1033173712"
+    private val test = "ca-app-pub-3940256099942544/1033173712"
 
-  private infix fun String.or(that: String): String = if (BuildConfig.DEBUG) this else that
-  private val scope = MainScope()
+    private infix fun String.or(that: String): String = if (BuildConfig.DEBUG) this else that
+    private val scope = MainScope()
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    initSplash()
-  }
-
-  private fun initSplash() {
-    val permissions = arrayOf(
-      Manifest.permission.WRITE_EXTERNAL_STORAGE,
-      Manifest.permission.READ_EXTERNAL_STORAGE
-    )
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-      permissions.plus(Manifest.permission.FOREGROUND_SERVICE)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initSplash()
     }
-    if (hasPermissions(permissions)) { // 권한이 있는 경우
-      showAd()
-    } else {
-      ActivityCompat.requestPermissions(this, permissions, MULTIPLE_PERMISSIONS)
-    }
-  }
 
-  override fun onDestroy() {
-    super.onDestroy()
-    scope.cancel()
-  }
-
-  private fun showAd() {
-    val adRequest = AdRequest.Builder().build()
-    InterstitialAd.load(
-      this,
-      test or "ca-app-pub-3115620439518585/4013096159",
-      adRequest,
-      object : InterstitialAdLoadCallback() {
-        override fun onAdFailedToLoad(adError: LoadAdError) {
-          super.onAdFailedToLoad(adError)
-          Timber.d(adError.message)
-          mInterstitialAd = null
-          goNext()
+    private fun initSplash() {
+        val permissions = arrayOf(
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        )
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            permissions.plus(Manifest.permission.FOREGROUND_SERVICE)
         }
-
-        override fun onAdLoaded(interstitialAd: InterstitialAd) {
-          super.onAdLoaded(interstitialAd)
-          Timber.d("Ad was loaded.")
-          mInterstitialAd = interstitialAd
-          mInterstitialAd!!.show(this@SplashActivity)
-          goNext()
+        if (hasPermissions(permissions)) { // 권한이 있는 경우
+            showAd()
+        } else {
+            ActivityCompat.requestPermissions(this, permissions, MULTIPLE_PERMISSIONS)
         }
-      }
-    )
-  }
-
-  private fun hasPermissions(permissions: Array<String>): Boolean {
-    permissions.forEach { permission ->
-      if (ActivityCompat.checkSelfPermission(
-          this,
-          permission
-        ) != PackageManager.PERMISSION_GRANTED
-      )
-        return false
     }
-    return true
-  }
 
-  // 권한 요청에 대한 결과 처리
-  override fun onRequestPermissionsResult(
-    requestCode: Int,
-    permissions: Array<out String>,
-    grantResults: IntArray
-  ) {
-    super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    override fun onDestroy() {
+        super.onDestroy()
+        scope.cancel()
+    }
 
-    when (requestCode) {
-      MULTIPLE_PERMISSIONS -> {
-        if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-          Snackbar.make(binding.root, "모든 권한이 승인 되었습니다.", Snackbar.LENGTH_SHORT).show()
-          initSplash()
+    private fun showAd() {
+        val adRequest = AdRequest.Builder().build()
+        InterstitialAd.load(
+            this,
+            test or "ca-app-pub-3115620439518585/4013096159",
+            adRequest,
+            object : InterstitialAdLoadCallback() {
+                override fun onAdFailedToLoad(adError: LoadAdError) {
+                    super.onAdFailedToLoad(adError)
+                    Timber.d(adError.message)
+                    mInterstitialAd = null
+                    goNext()
+                }
+
+                override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                    super.onAdLoaded(interstitialAd)
+                    Timber.d("Ad was loaded.")
+                    mInterstitialAd = interstitialAd
+                    mInterstitialAd!!.show(this@SplashActivity)
+                    goNext()
+                }
+            }
+        )
+    }
+
+    private fun hasPermissions(permissions: Array<String>): Boolean {
+        permissions.forEach { permission ->
+            if (ActivityCompat.checkSelfPermission(
+                    this,
+                    permission
+                ) != PackageManager.PERMISSION_GRANTED
+            )
+                return false
         }
-      }
+        return true
     }
-  }
 
-  private fun goNext() {
-    scope.launch {
-      delay(1500)
-      startActivity(Intent(this@SplashActivity, MainActivity::class.java))
-      finish()
+    // 권한 요청에 대한 결과 처리
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        when (requestCode) {
+            MULTIPLE_PERMISSIONS -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Snackbar.make(binding.root, "모든 권한이 승인 되었습니다.", Snackbar.LENGTH_SHORT).show()
+                    initSplash()
+                }
+            }
+        }
     }
-  }
 
-  override fun onBackPressed() {}
+    private fun goNext() {
+        scope.launch {
+            delay(1500)
+            startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+            finish()
+        }
+    }
 
-  companion object {
-    const val MULTIPLE_PERMISSIONS = 8888
-  }
+    override fun onBackPressed() {}
+
+    companion object {
+        const val MULTIPLE_PERMISSIONS = 8888
+    }
 }

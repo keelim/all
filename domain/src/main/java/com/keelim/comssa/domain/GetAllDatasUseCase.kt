@@ -20,7 +20,7 @@ import com.keelim.comssa.data.repository.DataRepository
 import javax.inject.Inject
 
 class GetAllDatasUseCase @Inject constructor(
-  private val dataRepository: DataRepository,
+    private val dataRepository: DataRepository,
 ) {
-  suspend operator fun invoke(): List<Data> = dataRepository.getAllDatas()
+    suspend operator fun invoke(): List<Data> = dataRepository.getAllDatas()
 }

@@ -27,7 +27,7 @@ import timber.log.Timber;
 
 public class AppOpenManager implements LifecycleObserver, Application.ActivityLifecycleCallbacks {
     private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/3419835294";
-    private static final String AD_REAL_ID ="ca-app-pub-3115620439518585/1875756399";
+    private static final String AD_REAL_ID = "ca-app-pub-3115620439518585/1875756399";
     private static boolean isShowingAd = false;
     private final MyApplication myApplication;
     private long loadTime = 0;
@@ -41,7 +41,7 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
     }
 
     @OnLifecycleEvent(ON_CREATE)
-    public void onCreate(){
+    public void onCreate() {
         showAdIfAvailable();
         Timber.d("onCreate");
     }
@@ -52,9 +52,10 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
         Timber.d("onStart");
     }
 
-    /** Request an ad
+    /**
+     * Request an ad
      * Have unused ad, no need to fetch another.
-     * */
+     */
     public void fetchAd() {
         if (isAdAvailable()) {
             return;
@@ -96,11 +97,11 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
 
         };
         AdRequest request = getAdRequest();
-        if(BuildConfig.DEBUG){
+        if (BuildConfig.DEBUG) {
             AppOpenAd.load(
                     myApplication, AD_UNIT_ID, request,
                     AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT, loadCallback);
-        } else{
+        } else {
             AppOpenAd.load(
                     myApplication, AD_REAL_ID, request,
                     AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT, loadCallback);
@@ -149,8 +150,8 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
     }
 
     /**
-     *Only show ad if there is not already an app open ad currently showing
-     *and an ad is available.
+     * Only show ad if there is not already an app open ad currently showing
+     * and an ad is available.
      */
     public void showAdIfAvailable() {
 
@@ -161,21 +162,21 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
                  * Set the reference to null so isAdAvailable() returns false.
                  */
                 @Override
-                        public void onAdDismissedFullScreenContent() {
-                            AppOpenManager.this.appOpenAd = null;
-                            isShowingAd = false;
-                            fetchAd();
-                        }
+                public void onAdDismissedFullScreenContent() {
+                    AppOpenManager.this.appOpenAd = null;
+                    isShowingAd = false;
+                    fetchAd();
+                }
 
-                        @Override
-                        public void onAdFailedToShowFullScreenContent(AdError adError) {
-                        }
+                @Override
+                public void onAdFailedToShowFullScreenContent(AdError adError) {
+                }
 
-                        @Override
-                        public void onAdShowedFullScreenContent() {
-                            isShowingAd = true;
-                        }
-                    };
+                @Override
+                public void onAdShowedFullScreenContent() {
+                    isShowingAd = true;
+                }
+            };
 
             appOpenAd.setFullScreenContentCallback(fullScreenContentCallback);
             appOpenAd.show(currentActivity);

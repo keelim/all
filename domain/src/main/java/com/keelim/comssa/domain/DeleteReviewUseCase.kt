@@ -20,8 +20,8 @@ import com.keelim.comssa.data.repository.ReviewRepository
 import javax.inject.Inject
 
 class DeleteReviewUseCase @Inject constructor(
-  private val reviewRepository: ReviewRepository
+    private val reviewRepository: ReviewRepository
 ) {
-  suspend operator fun invoke(review: Review) =
-    reviewRepository.removeReview(review)
+    suspend operator fun invoke(review: Review) =
+        reviewRepository.removeReview(review)
 }

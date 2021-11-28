@@ -19,12 +19,12 @@ import com.keelim.comssa.data.repository.IoRepository
 import javax.inject.Inject
 
 class UpdateFavoriteUseCase @Inject constructor(
-  private val ioRepository: IoRepository,
+    private val ioRepository: IoRepository,
 ) {
 
-  suspend operator fun invoke(favorite: Int, id: Int) {
-    ioRepository.updateFavorite(favorite, id)
-  }
+    suspend operator fun invoke(favorite: Int, id: Int) {
+        ioRepository.updateFavorite(favorite, id)
+    }
 
 
 }

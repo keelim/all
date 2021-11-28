@@ -39,113 +39,113 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object UseCase {
-  @Provides
-  @Singleton
-  fun provideSearchUseCase(
-    ioRepository: IoRepository,
-  ): SearchUseCase {
-    return SearchUseCase(
-      ioRepository = ioRepository
-    )
-  }
+    @Provides
+    @Singleton
+    fun provideSearchUseCase(
+        ioRepository: IoRepository,
+    ): SearchUseCase {
+        return SearchUseCase(
+            ioRepository = ioRepository
+        )
+    }
 
-  @Provides
-  @Singleton
-  fun provideUpdateFavorite(
-    ioRepository: IoRepository,
-  ): UpdateFavoriteUseCase {
-    return UpdateFavoriteUseCase(
-      ioRepository = ioRepository
-    )
-  }
+    @Provides
+    @Singleton
+    fun provideUpdateFavorite(
+        ioRepository: IoRepository,
+    ): UpdateFavoriteUseCase {
+        return UpdateFavoriteUseCase(
+            ioRepository = ioRepository
+        )
+    }
 
-  @Provides
-  @Singleton
-  fun getFavorite(
-    ioRepository: IoRepository,
-  ): GetFavoriteUseCase {
-    return GetFavoriteUseCase(
-      ioRepository = ioRepository
-    )
-  }
+    @Provides
+    @Singleton
+    fun getFavorite(
+        ioRepository: IoRepository,
+    ): GetFavoriteUseCase {
+        return GetFavoriteUseCase(
+            ioRepository = ioRepository
+        )
+    }
 
-  @Provides
-  @Singleton
-  fun provideGetAllDatasUseCase(
-    dataRepository: DataRepository,
-  ): GetAllDatasUseCase {
-    return GetAllDatasUseCase(
-      dataRepository = dataRepository
-    )
-  }
+    @Provides
+    @Singleton
+    fun provideGetAllDatasUseCase(
+        dataRepository: DataRepository,
+    ): GetAllDatasUseCase {
+        return GetAllDatasUseCase(
+            dataRepository = dataRepository
+        )
+    }
 
-  @Provides
-  @Singleton
-  fun provideGetRandomFeatureDataUseCase(
-    dataRepository: DataRepository,
-    reviewRepository: ReviewRepository,
-  ): GetRandomFeatureDataUseCase {
-    return GetRandomFeatureDataUseCase(
-      dataRepository = dataRepository,
-      reviewRepository = reviewRepository
-    )
-  }
+    @Provides
+    @Singleton
+    fun provideGetRandomFeatureDataUseCase(
+        dataRepository: DataRepository,
+        reviewRepository: ReviewRepository,
+    ): GetRandomFeatureDataUseCase {
+        return GetRandomFeatureDataUseCase(
+            dataRepository = dataRepository,
+            reviewRepository = reviewRepository
+        )
+    }
 
-  @Provides
-  @Singleton
-  fun provideGetAllReviewUseCase(
-    reviewRepository: ReviewRepository,
-  ): GetAllReviewsUseCase {
-    return GetAllReviewsUseCase(
-      reviewRepository = reviewRepository
-    )
-  }
+    @Provides
+    @Singleton
+    fun provideGetAllReviewUseCase(
+        reviewRepository: ReviewRepository,
+    ): GetAllReviewsUseCase {
+        return GetAllReviewsUseCase(
+            reviewRepository = reviewRepository
+        )
+    }
 
-  @Provides
-  @Singleton
-  fun provideGetUserReviewedDataUseCase(
-    userRepository: UserRepository,
-    dataRepository: DataRepository,
-    reviewRepository: ReviewRepository,
-  ): GetUserReviewedDataUseCase {
-    return GetUserReviewedDataUseCase(
-      userRepository = userRepository,
-      reviewRepository = reviewRepository,
-      dataRepository = dataRepository,
-    )
-  }
+    @Provides
+    @Singleton
+    fun provideGetUserReviewedDataUseCase(
+        userRepository: UserRepository,
+        dataRepository: DataRepository,
+        reviewRepository: ReviewRepository,
+    ): GetUserReviewedDataUseCase {
+        return GetUserReviewedDataUseCase(
+            userRepository = userRepository,
+            reviewRepository = reviewRepository,
+            dataRepository = dataRepository,
+        )
+    }
 
-  @Provides
-  @Singleton
-  fun provideDeleteReviewUseCase(
-    reviewRepository: ReviewRepository,
-  ): DeleteReviewUseCase {
-    return DeleteReviewUseCase(
-      reviewRepository = reviewRepository
-    )
-  }
+    @Provides
+    @Singleton
+    fun provideDeleteReviewUseCase(
+        reviewRepository: ReviewRepository,
+    ): DeleteReviewUseCase {
+        return DeleteReviewUseCase(
+            reviewRepository = reviewRepository
+        )
+    }
 
-  @Provides
-  @Singleton
-  fun provideSubmitReviewUseCase(
-    userRepository: UserRepository,
-    reviewRepository: ReviewRepository,
-  ): SubmitReviewUseCase {
-    return SubmitReviewUseCase(
-      userRepository = userRepository,
-      reviewRepository = reviewRepository
-    )
-  }
+    @Provides
+    @Singleton
+    fun provideSubmitReviewUseCase(
+        userRepository: UserRepository,
+        reviewRepository: ReviewRepository,
+    ): SubmitReviewUseCase {
+        return SubmitReviewUseCase(
+            userRepository = userRepository,
+            reviewRepository = reviewRepository
+        )
+    }
 
-  @Provides
-  @Singleton
-  fun provideGetAllDataReviewsUseCase(
-    userRepository: UserRepository,
-    reviewRepository: ReviewRepository
-  ): GetAllDataReviewsUseCase {
-    return GetAllDataReviewsUseCase(
-      userRepository = userRepository,
-      reviewRepository = reviewRepository
-    )
-  }
+    @Provides
+    @Singleton
+    fun provideGetAllDataReviewsUseCase(
+        userRepository: UserRepository,
+        reviewRepository: ReviewRepository
+    ): GetAllDataReviewsUseCase {
+        return GetAllDataReviewsUseCase(
+            userRepository = userRepository,
+            reviewRepository = reviewRepository
+        )
+    }
 }

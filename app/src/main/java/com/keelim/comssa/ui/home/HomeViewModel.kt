@@ -21,25 +21,23 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.keelim.comssa.data.model.Data
 import com.keelim.comssa.data.model.FeaturedData
-import com.keelim.comssa.domain.GetAllDatasUseCase
-import com.keelim.comssa.domain.GetRandomFeatureDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-  private val getRandomFeatureDataUseCase: com.keelim.comssa.domain.GetRandomFeatureDataUseCase,
-  private val getAllDatasUseCase: com.keelim.comssa.domain.GetAllDatasUseCase,
+    private val getRandomFeatureDataUseCase: com.keelim.comssa.domain.GetRandomFeatureDataUseCase,
+    private val getAllDatasUseCase: com.keelim.comssa.domain.GetAllDatasUseCase,
 ) : ViewModel() {
-  private val _randomData = MutableLiveData<FeaturedData>()
-  val randomData: LiveData<FeaturedData> get() = _randomData
+    private val _randomData = MutableLiveData<FeaturedData>()
+    val randomData: LiveData<FeaturedData> get() = _randomData
 
-  private val _allData = MutableLiveData<List<Data>>(listOf())
-  val allData: LiveData<List<Data>> get() = _allData
+    private val _allData = MutableLiveData<List<Data>>(listOf())
+    val allData: LiveData<List<Data>> get() = _allData
 
-  fun fetchData() = viewModelScope.launch {
-    _randomData.value = getRandomFeatureDataUseCase.invoke()
-    _allData.value = getAllDatasUseCase.invoke()
-  }
+    fun fetchData() = viewModelScope.launch {
+        _randomData.value = getRandomFeatureDataUseCase.invoke()
+        _allData.value = getAllDatasUseCase.invoke()
+    }
 }

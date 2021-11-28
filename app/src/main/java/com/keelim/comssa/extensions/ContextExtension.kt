@@ -21,11 +21,11 @@ import androidx.annotation.Px
 import androidx.annotation.StringRes
 
 fun Context.toast(message: String) {
-  Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 }
 
 fun Context.toast(@StringRes message: Int) {
-  Toast.makeText(this, resources.getText(message), Toast.LENGTH_SHORT).show()
+    Toast.makeText(this, resources.getText(message), Toast.LENGTH_SHORT).show()
 }
 
 @Px

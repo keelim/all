@@ -22,9 +22,9 @@ import androidx.annotation.Px
 fun View.dip(dipValue: Float) = context.dip(dipValue)
 
 fun View.toVisible() {
-  visibility = View.VISIBLE
+    visibility = View.VISIBLE
 }
 
 fun View.toGone() {
-  visibility = View.GONE
+    visibility = View.GONE
 }

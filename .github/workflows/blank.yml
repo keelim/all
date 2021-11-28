@@ -1,8 +1,6 @@
 on:
-  push:
-    branches: [ master, develop]
   pull_request:
-    branches: [ master, develop ]
+    branches: [ master ]
 
 jobs:
   build:
@@ -15,7 +13,12 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 11.0.3
-      
+
+    - name: Access GOOGLE_SERVICES_JSON
+      env:
+        APOD_API_KEY: ${{ secrets.MAPS_API_KEY }}
+      run: echo '${{ secrets.GOOGLE_SERVICES_JSON }}' > ./app/google-services.json
+
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
@@ -29,32 +32,3 @@ jobs:
     - name: Build Release AAB
       id: buildRelease
       run: ./gradlew bundleRelease
-
-#     - name: Sign AAB
-#       id: sign
-#       uses: r0adkll/sign-android-release@v1
-#       with:
-#         releaseDirectory: app/build/outputs/bundle/release
-#         signingKeyBase64: ${{ secrets.SIGNING_KEY }}
-#         alias: ${{ secrets.ALIAS }}
-#         keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
-#         keyPassword: ${{ secrets.KEY_PASSWORD }}
-
-#     - name: Upload AAB
-#       id: uploadArtifact
-#       uses: actions/upload-artifact@v1
-#       with:
-#         name: app
-#         path: app/build/outputs/bundle/release/app-release.aab
-
-#     - name: Create service_account.json
-#       id: createServiceAccount
-#       run: echo '${{ secrets.SERVICE_ACCOUNT_JSON }}' > service_account.json
-
-#     - name: Deploy to Play Store (BETA)
-#       id: deploy
-#       uses: r0adkll/upload-google-play@v1
-#       with:
-#         serviceAccountJson: service_account.json
-#         packageName: com.keelim.nandadiagnosis
-#         releaseFiles: app/build/outputs/bundle/release/app-release.aab

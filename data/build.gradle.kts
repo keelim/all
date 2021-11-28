@@ -40,6 +40,7 @@ dependencies {
     implementation(AndroidX.core_ktx)
 
     implementation(Hilt.android)
+    implementation("androidx.paging:paging-common-ktx:3.1.0")
     kapt(Hilt.hilt_compiler)
 
     implementation(Room.runtime)

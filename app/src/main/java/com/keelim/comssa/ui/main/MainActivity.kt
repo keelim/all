@@ -26,6 +26,7 @@ import android.provider.SearchRecentSuggestions
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.keelim.comssa.R
 import com.keelim.comssa.data.db.entity.Search
@@ -37,13 +38,15 @@ import com.keelim.comssa.utils.DownloadReceiver
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import javax.inject.Inject
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val viewModel: MainViewModel by viewModels()
-    private val itemAdapter = MainAdapter(
+    private val itemAdapter = MainAdapter2(
         favoriteListener = { favorite, id ->
             viewModel.favorite(favorite, id)
             toast("관심 목록에 등록을 하였습니다.")
@@ -59,19 +62,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         initViews()
-        observeData()
-        viewModel.fetchData()
+//        observeData()
         fileChecking()
     }
 
-    private fun observeData() = viewModel.mainListState.observe(this) {
-        when (it) {
-            is MainListState.Error -> handleError()
-            is MainListState.Loading -> handleLoading()
-            is MainListState.Success -> handleSuccess(it.searchList)
-            is MainListState.UnInitialized -> handleUnInitialized()
-        }
-    }
+//    private fun observeData() = viewModel.mainListState.observe(this) {
+//        when (it) {
+//            is MainListState.Error -> handleError()
+//            is MainListState.Loading -> handleLoading()
+//            is MainListState.Success -> handleSuccess(it.searchList)
+//            is MainListState.UnInitialized -> handleUnInitialized()
+//        }
+//    }
 
     private fun handleUnInitialized() {
         toast("데이터 로드 중입니다.")
@@ -85,7 +87,7 @@ class MainActivity : AppCompatActivity() {
         if (data.isEmpty()) {
             toast("데이터 로드 중입니다.")
         }
-        itemAdapter.submitList(data)
+//        itemAdapter.submitList(data)
     }
 
     private fun handleLoading() {
@@ -105,13 +107,11 @@ class MainActivity : AppCompatActivity() {
             setOnQueryTextListener(object :
                 androidx.appcompat.widget.SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String): Boolean {
-                    viewModel.search(query.replace("\\s", ""))
+                    search2(query.replace("\\s", ""))
                     return true
                 }
 
-                override fun onQueryTextChange(newText: String): Boolean {
-                    return true
-                }
+                override fun onQueryTextChange(newText: String): Boolean = true
             })
         }
 
@@ -168,5 +168,11 @@ class MainActivity : AppCompatActivity() {
                 .setAllowedOverMetered(true)
                 .setAllowedOverRoaming(true)
         )
+    }
+
+    private fun search2(query: String) = lifecycleScope.launch {
+        viewModel.getContent(query).collectLatest {
+            itemAdapter.submitData(it)
+        }
     }
 }

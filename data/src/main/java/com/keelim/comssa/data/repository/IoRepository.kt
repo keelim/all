@@ -15,6 +15,7 @@
  */
 package com.keelim.comssa.data.repository
 
+import androidx.paging.PagingData
 import com.keelim.comssa.data.db.entity.Search
 import kotlinx.coroutines.flow.Flow
 
@@ -26,7 +27,7 @@ interface IoRepository {
 
     suspend fun getFavorite(): List<Search>
 
-
-
     val favoriteFlow: Flow<List<Search>>
+
+    fun getTodoContentItemsByPaging(query:String): Flow<PagingData<Search>>
 }

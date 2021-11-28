@@ -25,13 +25,11 @@ class GradeActivity : AppCompatActivity() {
         ActivityGradeBinding.inflate(layoutInflater)
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         initViews()
     }
-
 
     private fun initViews()  = with(binding){
         grade.text = data?.grade.orEmpty()

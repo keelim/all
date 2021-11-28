@@ -72,7 +72,7 @@ class GradeActivity : AppCompatActivity() {
             val newFile = File(cachePath, "image.png")
             FileProvider.getUriForFile(
                 applicationContext,
-                "com.example.test.fileprovider", newFile
+                "com.keelim.fileprovider", newFile
             )
         }.onSuccess {
             startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).apply {

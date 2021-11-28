@@ -15,9 +15,11 @@
  */
 package com.keelim.comssa.domain
 
+import androidx.paging.PagingData
 import com.keelim.comssa.data.db.entity.Search
 import com.keelim.comssa.data.repository.IoRepository
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
 
 class SearchUseCase @Inject constructor(
     private val ioRepository: IoRepository,
@@ -25,5 +27,9 @@ class SearchUseCase @Inject constructor(
 
     suspend operator fun invoke(keyword: String?): List<Search> {
         return ioRepository.getSearch(keyword.orEmpty())
+    }
+
+    fun getContent(query:String = ""): Flow<PagingData<Search>> {
+        return ioRepository.getTodoContentItemsByPaging(query)
     }
 }

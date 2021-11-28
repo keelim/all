@@ -29,5 +29,7 @@ interface IoRepository {
 
     val favoriteFlow: Flow<List<Search>>
 
-    fun getTodoContentItemsByPaging(query:String): Flow<PagingData<Search>>
+    fun getContentItemsByPaging(query:String): Flow<PagingData<Search>>
+
+    fun getFavoriteItemsByPaging():Flow<PagingData<Search>>
 }

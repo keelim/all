@@ -15,40 +15,25 @@
  */
 package com.keelim.comssa.ui.favorite
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import com.keelim.comssa.data.db.entity.Search
+import com.keelim.comssa.domain.GetFavoriteUseCase
+import com.keelim.comssa.domain.SearchUseCase
+import com.keelim.comssa.domain.UpdateFavoriteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 @HiltViewModel
 class FavoriteViewModel @Inject constructor(
-    private val updateFavoriteUseCase: com.keelim.comssa.domain.UpdateFavoriteUseCase,
-    private val getFavoriteUseCase: com.keelim.comssa.domain.GetFavoriteUseCase,
+    private val updateFavoriteUseCase: UpdateFavoriteUseCase,
+    private val getFavoriteUseCase: GetFavoriteUseCase,
+    private val searchUseCase: SearchUseCase
 ) : ViewModel() {
-    private val _favoriteState = MutableLiveData<FavoriteState>(FavoriteState.UnInitialized)
-    val favoriteState: LiveData<FavoriteState> get() = _favoriteState
-
-    val favoriteList
-        get() = getFavoriteUseCase
-            .getFavorite()
-            .asLiveData()
-
-    fun fetchData() = viewModelScope.launch {
-        setState(
-            FavoriteState.Loading
-        )
-
-        setState(
-            FavoriteState.Success(
-                getFavoriteUseCase.invoke()
-            )
-        )
-    }
-
     fun favorite(favorite: Int, id: Int) = viewModelScope.launch {
         when (favorite) {
             1 -> updateFavoriteUseCase.invoke(0, id)
@@ -56,7 +41,8 @@ class FavoriteViewModel @Inject constructor(
         }
     }
 
-    private fun setState(state: FavoriteState) {
-        _favoriteState.postValue(state)
+    fun getFavorite(): Flow<PagingData<Search>> {
+        return searchUseCase.getFavorite()
+            .cachedIn(viewModelScope)
     }
 }

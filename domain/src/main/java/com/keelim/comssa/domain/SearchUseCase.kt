@@ -30,6 +30,10 @@ class SearchUseCase @Inject constructor(
     }
 
     fun getContent(query:String = ""): Flow<PagingData<Search>> {
-        return ioRepository.getTodoContentItemsByPaging(query)
+        return ioRepository.getContentItemsByPaging(query)
+    }
+
+    fun getFavorite(): Flow<PagingData<Search>>{
+        return ioRepository.getFavoriteItemsByPaging()
     }
 }

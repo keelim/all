@@ -28,12 +28,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
 import com.keelim.comssa.R
-import com.keelim.comssa.data.db.entity.Search
 import com.keelim.comssa.databinding.ActivityMainBinding
 import com.keelim.comssa.extensions.toast
 import com.keelim.comssa.provides.SuggestionProvider
-import com.keelim.comssa.ui.main.bottom_sheet.BottomSheetDialog
 import com.keelim.comssa.utils.DownloadReceiver
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
@@ -61,40 +60,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         initViews()
-//        observeData()
         fileChecking()
-    }
-
-//    private fun observeData() = viewModel.mainListState.observe(this) {
-//        when (it) {
-//            is MainListState.Error -> handleError()
-//            is MainListState.Loading -> handleLoading()
-//            is MainListState.Success -> handleSuccess(it.searchList)
-//            is MainListState.UnInitialized -> handleUnInitialized()
-//        }
-//    }
-
-    private fun handleUnInitialized() {
-        toast("데이터 로드 중입니다.")
-        binding.bottomButton.setOnClickListener {
-            val bottomSheet = BottomSheetDialog()
-            bottomSheet.show(supportFragmentManager, bottomSheet.tag)
-        }
-    }
-
-    private fun handleSuccess(data: List<Search>) {
-        if (data.isEmpty()) {
-            toast("데이터 로드 중입니다.")
-        }
-//        itemAdapter.submitList(data)
-    }
-
-    private fun handleLoading() {
-        toast("로딩 중 입니다.")
-    }
-
-    private fun handleError() {
-        toast("에러가 발생하였습니다. 재접속을 해주세요")
     }
 
     private fun initViews() = with(binding) {
@@ -104,10 +70,7 @@ class MainActivity : AppCompatActivity() {
             setIconifiedByDefault(false)
             setOnQueryTextListener(object :
                 androidx.appcompat.widget.SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String): Boolean {
-                    return true
-                }
-
+                override fun onQueryTextSubmit(query: String): Boolean = true
                 override fun onQueryTextChange(query: String): Boolean  {
                     search2(query.replace("\\s", ""))
                     return true
@@ -125,15 +88,20 @@ class MainActivity : AppCompatActivity() {
                     .saveRecentQuery(query, null)
             }
         }
+        val snap = LinearSnapHelper()
         recycler.apply {
             adapter = itemAdapter
             layoutManager = LinearLayoutManager(this@MainActivity)
+        }
+        snap.attachToRecyclerView(recycler)
+        
+        bottomButton.setOnClickListener {
+            toast("기능 준비중 입니다. 조금만 기다려주세요.")
         }
     }
 
     private fun fileChecking() {
         val check = File(getExternalFilesDir(null), "comssa.db")
-
         if (check.exists().not())
             databaseDownloadAlertDialog()
         else

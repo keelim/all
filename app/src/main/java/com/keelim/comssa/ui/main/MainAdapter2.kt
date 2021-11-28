@@ -16,6 +16,7 @@
 package com.keelim.comssa.ui.main
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -24,17 +25,24 @@ import com.keelim.comssa.data.db.entity.Search
 import com.keelim.comssa.databinding.ItemSearchBinding
 
 class MainAdapter2(
-    private val favoriteListener: (Int, Int) -> Unit,
+    private val favoriteListener: (Int, Int) -> Unit
 ) : PagingDataAdapter<Search, MainAdapter2.ViewHolder>(diffUtil) {
 
     inner class ViewHolder(private val binding: ItemSearchBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Search) = with(binding) {
             title.text = item.title
-            description.text = item.description
+            description.text = if(item.description.isNullOrEmpty()){
+                "아직 설명 자료가 없네요."
+            } else{
+                item.description
+            }
             favoriteSwitch.isChecked = item.favorite == 1
             favoriteSwitch.setOnClickListener {
                 favoriteListener.invoke(item.favorite, item.id)
+            }
+            root.setOnClickListener {
+                description.visibility = View.VISIBLE
             }
         }
     }

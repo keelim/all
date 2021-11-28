@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:context=".MainActivity"
+        tools:context=".ui.MainActivity"
         tools:layout_editor_absoluteY="73dp">
 
         <com.google.android.material.textview.MaterialTextView
@@ -25,7 +25,6 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:text="예상 학점"
-            android:textColor="@color/black"
             android:textSize="24sp" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -34,7 +33,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="A+"
-            android:textColor="@color/black"
             android:textSize="36sp" />
 
     </LinearLayout>
@@ -48,7 +46,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/grade_container"
-        tools:context=".MainActivity">
+        tools:context=".ui.MainActivity">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/level_text"
@@ -56,7 +54,6 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:text="예상 등수"
-            android:textColor="@color/black"
             android:textSize="24sp" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -65,7 +62,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="1 / 30"
-            android:textColor="@color/black"
             android:textSize="36sp" />
 
     </LinearLayout>
@@ -76,21 +72,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/level_container"
         android:layout_margin="10dp"
+        android:textSize="18sp"
         android:text="+ 은 교수님 재량입니다."
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="공유하기"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/description" />
 
 
     <LinearLayout
@@ -101,4 +86,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:orientation="horizontal" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/description">
+
+        <ImageView
+            android:id="@+id/btn_copy"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_baseline_content_copy_24" />
+
+    </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

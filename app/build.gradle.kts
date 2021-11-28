@@ -8,6 +8,7 @@ plugins {
     id("kotlin-kapt")
     id("kotlin-parcelize")
     id("dagger.hilt.android.plugin")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -16,8 +17,8 @@ android {
         applicationId = "com.keelim.mygrade"
         minSdk = 24
         targetSdk = 31
-        versionCode = 1
-        versionName = "0.0.1"
+        versionCode = 2
+        versionName = "0.0.2"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     val key: String = gradleLocalProperties(rootDir).getProperty("UNIT")
@@ -58,6 +59,7 @@ dependencies {
 
     implementation(platform("com.google.firebase:firebase-bom:29.0.0"))
     implementation("com.google.firebase:firebase-analytics-ktx")
+    implementation("com.google.firebase:firebase-crashlytics-ktx")
     implementation("com.google.android.gms:play-services-ads:20.5.0")
     implementation("com.google.android.gms:play-services-oss-licenses:17.0.0")
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
@@ -69,4 +71,11 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
 
     implementation("org.apache.commons:commons-math3:3.6.1")
+
+    val nav_version = "2.3.5"
+    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+
+    val billing_version = "4.0.0"
+    implementation("com.android.billingclient:billing-ktx:$billing_version")
 }

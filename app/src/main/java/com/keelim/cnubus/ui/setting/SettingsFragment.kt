@@ -69,7 +69,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     )
                 )
             }
-            "map" ->{
+            "map" -> {
                 startActivity(Intent(requireActivity(), MapsActivity::class.java))
             }
 

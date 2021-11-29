@@ -19,28 +19,6 @@ buildscript {
     }
 }
 
-allprojects {
-    tasks.withType<JavaCompile> {
-        sourceCompatibility = ProjectConfigurations.javaVer.majorVersion
-        targetCompatibility = ProjectConfigurations.javaVer.majorVersion
-    }
-
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions {
-            useIR = true
-
-            freeCompilerArgs = freeCompilerArgs + listOf(
-                    "-Xskip-prerelease-check",
-                    "-Xopt-in=kotlin.RequiresOptIn",
-                    "-Xopt-in=kotlin.Experimental"
-            )
-
-            // Set JVM target to Java 11
-            jvmTarget = ProjectConfigurations.javaVer.majorVersion
-        }
-    }
-}
-
 task("clean", Delete::class) {
     delete(rootProject.buildDir)
 }

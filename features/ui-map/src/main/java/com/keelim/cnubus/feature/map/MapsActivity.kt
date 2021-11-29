@@ -24,7 +24,6 @@ import android.location.LocationManager
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.DialogFragment.STYLE_NORMAL
 import androidx.lifecycle.coroutineScope
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback

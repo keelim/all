@@ -32,6 +32,9 @@
             app:key="clock"
             app:title="실험 기능" />
         <Preference
+            app:key="lab"
+            app:title="근처 지하철" />
+        <Preference
             app:key="developer"
             app:title="개발자 소개" />
     </PreferenceCategory>

@@ -11,6 +11,7 @@
         android:layout_height="45dp"
         android:gravity="center"
         android:layout_margin="10dp"
+        android:backgroundTint="@android:color/holo_blue_dark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

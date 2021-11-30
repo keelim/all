@@ -9,10 +9,12 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.keelim.cnubus.R
 import com.keelim.cnubus.data.repository.theme.AppTheme
 import com.keelim.cnubus.feature.map.MapsActivity
+import com.keelim.cnubus.ui.content.Content2Activity
 import com.keelim.cnubus.ui.main.MainViewModel
 import com.keelim.cnubus.ui.setting.compose.ScreenAction
 import com.keelim.cnubus.ui.setting.compose.SettingScreen
@@ -24,6 +26,7 @@ import com.keelim.cnubus.utils.MaterialDialog.Companion.singleChoiceItems
 import com.keelim.cnubus.utils.MaterialDialog.Companion.title
 import com.keelim.compose.ui.setThemeContent
 import com.keelim.ui_setting.ClockActivity
+import com.keelim.ui_setting.ui.SettingActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -38,6 +41,7 @@ class SettingFragment2 : Fragment() {
         return setThemeContent {
             SettingScreen { action ->
                 when (action) {
+                    ScreenAction.Content -> startActivity(Intent(requireContext(), Content2Activity::class.java))
                     ScreenAction.Homepage -> startActivity(
                             Intent(
                                 Intent.ACTION_VIEW,

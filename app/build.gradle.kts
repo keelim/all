@@ -47,7 +47,6 @@ android {
 
     kotlinOptions {
         jvmTarget = "11"
-        useIR = true
     }
 
     buildFeatures {
@@ -117,6 +116,9 @@ dependencies {
     implementation("androidx.core:core-splashscreen:1.0.0-alpha02")
     implementation("com.tbuonomo:dotsindicator:4.2")
     implementation("androidx.viewpager2:viewpager2:1.0.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
+
+    implementation(SquareUp.retrofit)
 }
 
 apply(from = "$rootDir/spotless.gradle")

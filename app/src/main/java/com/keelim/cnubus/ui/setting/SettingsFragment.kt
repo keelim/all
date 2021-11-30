@@ -29,8 +29,10 @@ import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.keelim.cnubus.R
 import com.keelim.cnubus.data.repository.theme.AppTheme.Companion.THEME_ARRAY
+import com.keelim.cnubus.feature.map.MapsActivity
 import com.keelim.cnubus.ui.content.Content2Activity
 import com.keelim.cnubus.ui.main.MainViewModel
+import com.keelim.cnubus.ui.subway.SubwayActivity
 import com.keelim.cnubus.utils.MaterialDialog
 import com.keelim.cnubus.utils.MaterialDialog.Companion.negativeButton
 import com.keelim.cnubus.utils.MaterialDialog.Companion.positiveButton
@@ -68,6 +70,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     )
                 )
             }
+            "map" -> {
+                startActivity(Intent(requireActivity(), MapsActivity::class.java))
+            }
 
             "homepage" -> {
                 startActivity(
@@ -93,6 +98,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
             "theme" -> selectTheme()
 
             "clock" -> startActivity(Intent(requireContext(), ClockActivity::class.java))
+            "lab" -> {
+                startActivity(Intent(requireContext(), SubwayActivity::class.java))
+            }
         }
         return super.onPreferenceTreeClick(preference)
     }

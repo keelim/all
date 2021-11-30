@@ -15,7 +15,7 @@
  */
 package com.keelim.cnubus.di
 
-import com.keelim.cnubus.data.api.RoadService
+import com.keelim.cnubus.data.api.StationArrivalsApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,11 +30,10 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-
     private const val CONNECT_TIMEOUT = 10L
     private const val WRITE_TIMEOUT = 1L
     private const val READ_TIMEOUT = 20L
-    private const val BASE_URL = "http://service.url/"
+    private const val BASE_URL = "http://swopenapi.seoul.go.kr/"
 
     @Provides
     @Singleton
@@ -64,7 +63,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideHarryPotterService(retrofit: Retrofit): RoadService {
-        return retrofit.create(RoadService::class.java)
+    fun provideStationArrivalService(retrofit: Retrofit): StationArrivalsApi{
+        return retrofit.create(StationArrivalsApi::class.java)
     }
 }

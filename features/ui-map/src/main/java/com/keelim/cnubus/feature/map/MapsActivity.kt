@@ -57,6 +57,7 @@ class MapsActivity : AppCompatActivity() {
 
     private lateinit var locationManager: LocationManager
     private lateinit var myLocationListener: MyLocationListener
+    private lateinit var urls: Map<String, String>
 
     private val locationPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
@@ -94,17 +95,22 @@ class MapsActivity : AppCompatActivity() {
         lifecycle.coroutineScope.launchWhenCreated {
             val googleMap = mapFragment.awaitMap()
             locationList.mapIndexed { index, latLng ->
-                googleMap.addMarker {
-                    position(latLng)
-                    title(markerHandling(index))
-                    snippet(snippetHandling(index))
+                googleMap.apply {
+                    addMarker {
+                        position(latLng)
+                        title(markerHandling(index))
+                        snippet(snippetHandling(index))
+                    }
                 }
             }
             googleMap.setOnMarkerClickListener {
+                var url = urls[it.title] ?: ""
+                Timber.d("URLS $url")
                 BottomSheetDialog(
                     it.title,
                     it.snippet,
-                    it.position.toString()
+                    it.position.toString(),
+                    url
                 ).apply {
                     show(supportFragmentManager, tag)
                 }
@@ -195,6 +201,10 @@ class MapsActivity : AppCompatActivity() {
     private fun intentControl() {
         val stringLocation = intent.getStringExtra("location")
         location = stringLocation?.toInt() ?: -1
+
+        urls = resources.getStringArray(R.array.stations).toList().zip(
+            resources.getStringArray(R.array.images).toList()
+        ).toMap()
     }
 
     private fun initViews() = with(binding) {

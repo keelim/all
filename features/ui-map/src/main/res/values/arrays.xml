@@ -41,7 +41,7 @@
         <item>산학연교육연구관앞</item>
         <item>정심화국제문화회관</item>
 
-        0//정삼화
+        0//정심화
         1//한누리관 뒤
         2// 서문
         3// 음대
@@ -109,28 +109,28 @@
     </string-array>
 
     <string-array name="stations">
-        <item>정삼화"</item>
-        <item>한누리관 뒤"</item>
-        <item>서문"</item>
-        <item>음대"</item>
-        <item>공동 동물"</item>
-        <item>체육관 입구"</item>
-        <item>예술대학앞"</item>
-        <item>도서관앞"</item>
-        <item>농업생명과학대학"</item>
-        <item>동문"</item>
-        <item>생활관"</item>
-        <item>도서관앞"</item>
-        <item>공과대학앞"</item>
-        <item>산학협력관"</item>
-        <item>경상대학"</item>
+        <item>정심화</item>
+        <item>한누리관 뒤</item>
+        <item>서문</item>
+        <item>음대</item>
+        <item>공동실험실습관</item>
+        <item>체육관 입구</item>
+        <item>예술대학앞</item>
+        <item>도서관앞</item>
+        <item>농업생명과학대학</item>
+        <item>동문</item>
+        <item>생활관</item>
+        <item>도서관앞</item>
+        <item>공과대학앞</item>
+        <item>산학협력관</item>
+        <item>경상대학</item>
     </string-array>
     <string-array name="station_info">
-        <item>이곳은 정삼화 홀 입니다</item>
+        <item>이곳은 정심화 홀 입니다</item>
         <item>이곳은 한누리관(동아리 건물) 뒤 입니다.</item>
         <item>이곳은 서문 입니다</item>
         <item>이곳은 음대 입니다</item>
-        <item>이곳은 공동 동물 입니다</item>
+        <item>이곳은 공동실험실습관 입니다</item>
         <item>이곳은 체육관 입구 입니다</item>
         <item>이곳은 예술대학앞 입니다</item>
         <item>이곳은 도서관 앞 입니다</item>
@@ -142,7 +142,27 @@
         <item>이곳은 산학 협력관 입니다</item>
         <item>이곳은 경상대학 입니다</item>
     </string-array>
-    <string-array name="night_intent_array">1</string-array>
+    <string-array name="night_intent_array">
+        <item>노선 준비 중입니다.</item>
+    </string-array>
+
+    <string-array name="images">
+        <item>https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_39/2.jpg</item>
+        <item>https://plus.cnu.ac.kr/images/cyber/thumbnails/280/48.jpg</item>
+        <item>서문</item>
+        <item>https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_30/1.jpg</item>
+        <item>https://plus.cnu.ac.kr/images/cyber/thumbnails/280/07.jpg</item>
+        <item>https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_23/2.jpg</item>
+        <item>https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_28/1.jpg</item>
+        <item>https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_14/1.jpg</item>
+        <item>https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_11/1.jpg</item>
+        <item>동문</item>
+        <item>https://plus.cnu.ac.kr/images/cyber/thumbnails/280/47.jpg</item>
+        <item>https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_14/1.jpg</item>
+        <item>https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_03/1.jpg</item>
+        <item>https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_19/1.jpg</item>
+        <item>https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_01/1.jpg</item>
+    </string-array>
 
 
     <string-array name="themeListArray">

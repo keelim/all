@@ -6,6 +6,7 @@ dependencyResolutionManagement {
         mavenCentral()
         maven("https://plugins.gradle.org/m2/")
         maven("https://jitpack.io")
+        maven("https://naver.jfrog.io/artifactory/maven/")
     }
 }
 rootProject.name = "cnubus"
@@ -17,10 +18,4 @@ include(
     ":compose",
     ":features:ui-map",
     ":features:ui-setting",
-    )
-//arrayOf(
-//    ":features:ui-map",
-//    ":features:ui-setting",
-//).forEach { name ->
-//    project(name).projectDir = File(rootDir, "features/${name.substring(startIndex = 1)}")
-//}
+)

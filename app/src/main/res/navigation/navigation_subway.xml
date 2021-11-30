@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_main"
+    app:startDestination="@id/stations_dest">
+
+    <fragment
+        android:id="@+id/stations_dest"
+        android:name="com.keelim.cnubus.ui.subway.stations.StationsFragment"
+        tools:layout="@layout/fragment_stations">
+
+        <action
+            android:id="@+id/action_stations_dest_to_station_arrivals_dest"
+            app:destination="@id/station_arrivals_dest" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/station_arrivals_dest"
+        android:name="com.keelim.cnubus.ui.subway.stationarrivals.StationArrivalsFragment"
+        tools:layout="@layout/fragment_station_arrivals">
+
+        <argument
+            android:name="station"
+            app:argType="com.keelim.cnubus.data.model.Station" />
+    </fragment>
+
+</navigation>

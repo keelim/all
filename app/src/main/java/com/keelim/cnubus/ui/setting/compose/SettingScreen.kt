@@ -40,6 +40,15 @@ internal fun SettingScreen(
         }
     ) { innerPadding ->
         Column(Modifier.padding(innerPadding)) {
+            CellItem(text = "공지사항") {
+                onScreenAction(ScreenAction.Content)
+            }
+            Divider(
+                color = "#EFEFEF".toColor(),
+                modifier = Modifier
+                    .padding(horizontal = 24.dp)
+                    .height(1.dp)
+            )
             CellItem(text = "홈페이지") {
                 onScreenAction(ScreenAction.Homepage)
             }

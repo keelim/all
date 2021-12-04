@@ -23,6 +23,7 @@ import android.content.IntentFilter
 import android.net.Uri
 import android.os.Bundle
 import android.provider.SearchRecentSuggestions
+import android.webkit.URLUtil
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -38,6 +39,7 @@ import com.keelim.comssa.utils.DownloadReceiver
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import javax.inject.Inject
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -62,6 +64,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         initViews()
         fileChecking()
+        observeDownloadLink()
     }
 
     private fun initViews() = with(binding) {
@@ -119,6 +122,7 @@ class MainActivity : AppCompatActivity() {
                 if(itemPassword.password.text.toString() == getString(R.string.password)){
                     toast("서버로부터 데이터 베이스를 요청 합니다.")
                     downloadDatabase()
+//                    viewModel.getDownloadLink(itemPassword.password.text.toString())
                 } else{
                     toast("비밀번호를 확인해주세요.")
                 }
@@ -145,9 +149,35 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+    private fun downloadDatabase2(link:String) {
+        downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+        registerReceiver(recevier,  IntentFilter().apply {
+            addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
+            addAction(DownloadManager.ACTION_NOTIFICATION_CLICKED)
+        })
+
+        downloadManager.enqueue(
+            DownloadManager.Request(Uri.parse(link))
+                .setTitle("Downloading")
+                .setDescription("Downloading Database file")
+                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                .setDestinationUri(Uri.fromFile(File(getExternalFilesDir(null), "comssa.db")))
+                .setAllowedOverMetered(true)
+                .setAllowedOverRoaming(true)
+        )
+    }
+
     private fun search2(query: String) = lifecycleScope.launch {
         viewModel.getContent(query).collectLatest {
             itemAdapter.submitData(it)
+        }
+    }
+
+    private fun observeDownloadLink() = lifecycleScope.launchWhenStarted {
+        viewModel.downloadLink.collect {
+            if(it.isNotBlank() && URLUtil.isValidUrl(it)){
+                downloadDatabase2(it)
+            }
         }
     }
 }

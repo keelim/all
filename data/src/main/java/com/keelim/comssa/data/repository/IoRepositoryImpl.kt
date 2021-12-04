@@ -18,8 +18,10 @@ package com.keelim.comssa.data.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.keelim.comssa.data.api.ApiRequestFactory
 import com.keelim.comssa.data.db.AppDatabase
 import com.keelim.comssa.data.db.entity.Search
+import com.keelim.comssa.data.model.PasswordResult
 import com.keelim.comssa.data.paging.FavoritePagingSource
 import com.keelim.comssa.data.paging.SearchPagingSource
 import com.keelim.comssa.di.IoDispatcher
@@ -31,6 +33,7 @@ import kotlinx.coroutines.withContext
 class IoRepositoryImpl @Inject constructor(
   @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
   private val db: AppDatabase,
+  private val apiRequestFactory: ApiRequestFactory
 ) : IoRepository {
   override suspend fun getSearch(keyword: String): List<Search> = withContext(ioDispatcher) {
     return@withContext db.searchDao.getSearch(keyword)
@@ -59,5 +62,18 @@ class IoRepositoryImpl @Inject constructor(
       config = PagingConfig(pageSize = 10),
       pagingSourceFactory = { FavoritePagingSource(db.searchDao) }
     ).flow
+  }
+
+  override suspend fun getDownloadLink(path: String): PasswordResult = withContext(ioDispatcher) {
+    try {
+      val response = apiRequestFactory.retrofit.getData()
+      if (response.isNotEmpty()) {
+        return@withContext PasswordResult(response, response, true)
+      } else {
+        return@withContext PasswordResult("", "", false)
+      }
+    } catch (e: Exception) {
+      return@withContext PasswordResult("", "", false)
+    }
   }
 }

@@ -31,7 +31,6 @@ import kotlinx.coroutines.withContext
 class IoRepositoryImpl @Inject constructor(
   @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
   private val db: AppDatabase,
-
 ) : IoRepository {
   override suspend fun getSearch(keyword: String): List<Search> = withContext(ioDispatcher) {
     return@withContext db.searchDao.getSearch(keyword)

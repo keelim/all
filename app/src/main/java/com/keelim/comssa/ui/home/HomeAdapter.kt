@@ -23,7 +23,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import coil.load
+import com.keelim.comssa.R
 import com.keelim.comssa.data.model.Data
 import com.keelim.comssa.data.model.FeaturedData
 import com.keelim.comssa.databinding.ItemDataBinding
@@ -115,10 +116,11 @@ class HomeAdapter(
 
         @SuppressLint("SetTextI18n")
         fun bind(item: FeaturedData) = with(binding) {
-            Glide.with(root)
-                .load(item.data.posterUrl)
-                .into(posterImageView)
-
+            posterImageView
+                .load(item.data.posterUrl) {
+                    crossfade(true)
+                    placeholder(R.drawable.ic_launcher_foreground)
+                }
             scoreCountTextView.text = item.data.numberOfScore?.toAbbreviatedString()
             averageScoreTextView.text = item.data.averageScore?.toDecimalFormatString("0.0")
 
@@ -154,9 +156,10 @@ class HomeAdapter(
 
         @SuppressLint("SetTextI18n")
         fun bind(data: Data) = with(binding) {
-            Glide.with(root)
-                .load(data.posterUrl)
-                .into(posterImageView)
+            posterImageView.load(data.posterUrl){
+                crossfade(true)
+                placeholder(R.drawable.ic_launcher_foreground)
+            }
 
             data.let {
                 titleTextView.text = it.title

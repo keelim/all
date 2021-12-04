@@ -79,9 +79,9 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.5.2")
 
-    implementation(Glide.core)
-    kapt(Glide.compiler)
+    implementation(Coil.coil)
 
     implementation("com.google.android.gms:play-services-oss-licenses:17.0.0")
+    implementation("androidx.startup:startup-runtime:1.1.0")
 }
 apply(from = "$rootDir/spotless.gradle")

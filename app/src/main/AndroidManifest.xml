@@ -51,6 +51,13 @@
         <provider
             android:name=".provides.SuggestionProvider"
             android:authorities="com.keelim.comssa.provides.SuggestionProvider" />
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data  android:name="com.keelim.comssa.initialize.TimberInitializer"
+                android:value="androidx.startup" />
+        </provider>
     </application>
-
 </manifest>

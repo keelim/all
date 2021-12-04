@@ -31,6 +31,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.keelim.comssa.R
 import com.keelim.comssa.databinding.ActivityMainBinding
+import com.keelim.comssa.databinding.ItemPasswordBinding
 import com.keelim.comssa.extensions.toast
 import com.keelim.comssa.provides.SuggestionProvider
 import com.keelim.comssa.utils.DownloadReceiver
@@ -109,12 +110,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun databaseDownloadAlertDialog() {
+        val itemPassword = ItemPasswordBinding.inflate(layoutInflater)
         AlertDialog.Builder(this)
             .setTitle("다운로드 요청")
+            .setView(itemPassword.root)
             .setMessage("어플리케이션 사용을 위해 데이터베이스를 다운로드 합니다.")
-            .setPositiveButton("ok") { _, _ ->
-                toast("서버로부터 데이터 베이스를 요청 합니다. ")
-                downloadDatabase()
+            .setPositiveButton("ok") { dialog, which ->
+                if(itemPassword.password.text.toString() == getString(R.string.password)){
+                    toast("서버로부터 데이터 베이스를 요청 합니다.")
+                    downloadDatabase()
+                } else{
+                    toast("비밀번호를 확인해주세요.")
+                }
             }
             .show()
     }

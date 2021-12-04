@@ -21,7 +21,6 @@ import com.keelim.comssa.utils.AppOpenManager
 import com.keelim.comssa.utils.ComponentLogger
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
-import timber.log.Timber
 
 @HiltAndroidApp
 class MyApplication : Application() {
@@ -30,7 +29,6 @@ class MyApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        Timber.plant(Timber.DebugTree())
         componentLogger.initialize(this)
         MobileAds.initialize(this) {}
         val appOpenManager = AppOpenManager(this)

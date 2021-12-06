@@ -121,43 +121,24 @@ class MainActivity : AppCompatActivity() {
             .setPositiveButton("ok") { dialog, which ->
                 if(itemPassword.password.text.toString() == getString(R.string.password)){
                     toast("서버로부터 데이터 베이스를 요청 합니다.")
-                    downloadDatabase()
-//                    viewModel.getDownloadLink(itemPassword.password.text.toString())
+                    downloadDatabase(itemPassword.password.text.toString())
                 } else{
-                    toast("비밀번호를 확인해주세요.")
+                    toast("디폴트 데이터베이스를 다운로드 받습니다.")
+                    downloadDatabase()
                 }
             }
             .show()
     }
 
-    private fun downloadDatabase() {
+    private fun downloadDatabase(link: String? = null) {
         downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-        val intentFilter: IntentFilter = IntentFilter().apply {
-            addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
-            addAction(DownloadManager.ACTION_NOTIFICATION_CLICKED)
-        }
-        registerReceiver(recevier, intentFilter)
-
-        downloadManager.enqueue(
-            DownloadManager.Request(Uri.parse(getString(R.string.db_path)))
-                .setTitle("Downloading")
-                .setDescription("Downloading Database file")
-                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-                .setDestinationUri(Uri.fromFile(File(getExternalFilesDir(null), "comssa.db")))
-                .setAllowedOverMetered(true)
-                .setAllowedOverRoaming(true)
-        )
-    }
-
-    private fun downloadDatabase2(link:String) {
-        downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-        registerReceiver(recevier,  IntentFilter().apply {
+        registerReceiver(recevier, IntentFilter().apply {
             addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
             addAction(DownloadManager.ACTION_NOTIFICATION_CLICKED)
         })
 
         downloadManager.enqueue(
-            DownloadManager.Request(Uri.parse(link))
+            DownloadManager.Request(Uri.parse(link ?: getString(R.string.db_path)))
                 .setTitle("Downloading")
                 .setDescription("Downloading Database file")
                 .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
@@ -176,7 +157,7 @@ class MainActivity : AppCompatActivity() {
     private fun observeDownloadLink() = lifecycleScope.launchWhenStarted {
         viewModel.downloadLink.collect {
             if(it.isNotBlank() && URLUtil.isValidUrl(it)){
-                downloadDatabase2(it)
+                downloadDatabase(it)
             }
         }
     }

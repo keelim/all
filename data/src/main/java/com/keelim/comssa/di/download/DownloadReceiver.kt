@@ -5,9 +5,8 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import dagger.hilt.android.qualifiers.ApplicationContext
-import javax.inject.Inject
 
-class DownloadReceiver @Inject constructor(
+class DownloadReceiver(
     @ApplicationContext val context: Context
 ) : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {

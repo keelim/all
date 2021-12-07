@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
     <item
-        android:id="@+id/home_dest"
-        android:icon="@drawable/ic_movies_black_24"
-        android:title="홈" />
-
+        android:id="@+id/menu_feed"
+        android:icon="@drawable/ic_feed"
+        android:iconTint="@color/black"
+        android:title="@string/menu_feed"/>
     <item
-        android:id="@+id/my_page_dest"
-        android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="마이 페이지" />
-
+        android:id="@+id/menu_recommend"
+        android:icon="@drawable/ic_recommend"
+        android:iconTint="@color/black"
+        android:title="@string/menu_recommend"/>
+    <item
+        android:id="@+id/menu_write"
+        android:iconTint="@color/white"
+        android:title="@string/menu_write"/>
+    <item
+        android:id="@+id/menu_alarm"
+        android:icon="@drawable/ic_alarm"
+        android:iconTint="@color/black"
+        android:title="@string/menu_alarm"/>
+    <item
+        android:id="@+id/menu_profile"
+        android:icon="@drawable/ic_profile"
+        android:iconTint="@color/black"
+        android:title="@string/menu_profile"/>
 </menu>

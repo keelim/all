@@ -1,5 +1,6 @@
 object Coil {
     const val coil = "io.coil-kt:coil:1.2.1"
+    const val coilGif ="io.coil-kt:coil-gif:1.4.0"
 }
 
 object DataStore {
@@ -32,8 +33,7 @@ object SquareUp {
     const val urlconnection = "com.squareup.okhttp3:okhttp-urlconnection:$version"
     const val retrofit = "com.squareup.retrofit2:retrofit:$rversion"
     const val retrofit_gson = "com.squareup.retrofit2:converter-gson:$rversion"
-
-
+    const val retrofit_moshi = "com.squareup.retrofit2:converter-moshi:$rversion"
 }
 
 object Room {
@@ -81,6 +81,8 @@ object AndroidX {
 
     const val navigation_fragment = "androidx.navigation:navigation-fragment-ktx:2.3.5"
     const val navigation_ui = "androidx.navigation:navigation-ui-ktx:2.3.5"
+
+    const val startup = "androidx.startup:startup-runtime:1.1.0"
 }
 
 object UI {
@@ -155,5 +157,7 @@ object Glide {
         const val jsoup = "org.jsoup:jsoup:1.13.1"
     }
 
-
+    const val moshi = "com.squareup.moshi:moshi:1.12.0"
+    const val moshi_kotlin = "com.squareup.moshi:moshi-kotlin:1.12.0"
+    const val moshi_codegen = "com.squareup.moshi:moshi-kotlin-codegen:1.12.0"
 }

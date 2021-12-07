@@ -15,10 +15,6 @@
  */
 package com.keelim.comssa.di
 
-import com.keelim.comssa.data.api.ReviewApi
-import com.keelim.comssa.data.api.UserApi
-import com.keelim.comssa.data.db.AppDatabase
-import com.keelim.comssa.data.preference.PreferenceManager
 import com.keelim.comssa.data.repository.DataRepository
 import com.keelim.comssa.data.repository.DataRepositoryImpl
 import com.keelim.comssa.data.repository.IoRepository
@@ -27,64 +23,20 @@ import com.keelim.comssa.data.repository.ReviewRepository
 import com.keelim.comssa.data.repository.ReviewRepositoryImpl
 import com.keelim.comssa.data.repository.UserRepository
 import com.keelim.comssa.data.repository.UserRepositoryImpl
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
-import kotlinx.coroutines.CoroutineDispatcher
 
 @Module
 @InstallIn(SingletonComponent::class)
-object RepositoryModule {
-
-  @Provides
-  @Singleton
-  fun provideIoRepository(
-    @IoDispatcher ioDispatcher: CoroutineDispatcher,
-    db: AppDatabase,
-  ): IoRepository {
-    return IoRepositoryImpl(
-      ioDispatcher = ioDispatcher,
-      db = db
-    )
-  }
-
-  @Provides
-  @Singleton
-  fun provideDataRepository(
-    @IoDispatcher ioDispatcher: CoroutineDispatcher,
-    dataApi: com.keelim.comssa.data.api.DataApi,
-  ): DataRepository {
-    return DataRepositoryImpl(
-      dataApi = dataApi,
-      ioDispatcher = ioDispatcher
-    )
-  }
-
-  @Provides
-  @Singleton
-  fun provideReviewRepository(
-    @IoDispatcher ioDispatcher: CoroutineDispatcher,
-    reviewApi: ReviewApi,
-  ): ReviewRepository {
-    return ReviewRepositoryImpl(
-      reviewApi = reviewApi,
-      ioDispatcher = ioDispatcher
-    )
-  }
-
-  @Provides
-  @Singleton
-  fun provideUserRepository(
-    userApi: UserApi,
-    preferenceManager: PreferenceManager,
-    @IoDispatcher ioDispatcher: CoroutineDispatcher,
-  ): UserRepository {
-    return UserRepositoryImpl(
-      userApi = userApi,
-      preferenceManager = preferenceManager,
-      dispatcher = ioDispatcher
-    )
-  }
+abstract class RepositoryModule {
+  @Binds
+  abstract fun bindsIoRepository(repository: IoRepositoryImpl): IoRepository
+  @Binds
+  abstract fun bindsDataRepository(repository: DataRepositoryImpl): DataRepository
+  @Binds
+  abstract fun bindsReviewRepository(repository: ReviewRepositoryImpl): ReviewRepository
+  @Binds
+  abstract fun bindsUserRepository(repository: UserRepositoryImpl): UserRepository
 }

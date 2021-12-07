@@ -16,48 +16,41 @@
 package com.keelim.comssa.ui.main
 
 import android.app.DownloadManager
-import android.app.SearchManager
 import android.content.Context
-import android.content.Intent
 import android.content.IntentFilter
-import android.net.Uri
 import android.os.Bundle
-import android.provider.SearchRecentSuggestions
 import android.webkit.URLUtil
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearSnapHelper
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.keelim.comssa.R
 import com.keelim.comssa.databinding.ActivityMainBinding
 import com.keelim.comssa.databinding.ItemPasswordBinding
+import com.keelim.comssa.di.download.DownloadReceiver
+import com.keelim.comssa.di.download.DownloadRequest
 import com.keelim.comssa.extensions.toast
-import com.keelim.comssa.provides.SuggestionProvider
-import com.keelim.comssa.utils.DownloadReceiver
+import com.keelim.comssa.ui.main.search.SearchFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import javax.inject.Inject
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val viewModel: MainViewModel by viewModels()
-    private val itemAdapter = MainAdapter2(
-        favoriteListener = { favorite, id ->
-            viewModel.favorite(favorite, id)
-            toast("관심 목록에 등록을 하였습니다.")
-        }
-    )
-
+    private val viewPagerAdapter by lazy {
+        MainViewPagerAdapter(this)
+    }
     @Inject
     lateinit var recevier: DownloadReceiver
-
-    private lateinit var downloadManager: DownloadManager
+    @Inject
+    lateinit var downloadRequest: DownloadRequest
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,40 +61,39 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViews() = with(binding) {
-        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        searchSection.apply {
-            setSearchableInfo(searchManager.getSearchableInfo(componentName))
-            setIconifiedByDefault(false)
-            setOnQueryTextListener(object :
-                androidx.appcompat.widget.SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String): Boolean = true
-                override fun onQueryTextChange(query: String): Boolean  {
-                    search2(query.replace("\\s", ""))
-                    return true
-                }
-            })
+        val fragmentList = listOf(
+            SearchFragment(),
+            SearchFragment(),
+            SearchFragment(),
+            SearchFragment(),
+            SearchFragment()
+        )
+        viewPagerAdapter.fragmentList.addAll(fragmentList)
+        viewpagerMain.adapter = viewPagerAdapter
+
+        viewpagerMain.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                binding.bottomNavigationMain.menu.getItem(position).isChecked = true
+            }
+        })
+
+        binding.bottomNavigationMain.setOnItemSelectedListener {
+            binding.viewpagerMain.currentItem = when (it.itemId) {
+                R.id.menu_feed -> FEED_FRAGMENT
+                R.id.menu_recommend -> RECOMMEND_FRAGMENT
+                R.id.menu_write -> WRITE_FRAGMENT
+                R.id.menu_alarm -> ALARM_FRAGMENT
+                else -> PROFILE_FRAGMENT
+            }
+            return@setOnItemSelectedListener true
         }
 
-        if (Intent.ACTION_SEARCH == intent.action) {
-            intent.getStringExtra(SearchManager.QUERY)?.also { query ->
-                SearchRecentSuggestions(
-                    this@MainActivity,
-                    SuggestionProvider.AUTHORITY,
-                    SuggestionProvider.MODE
-                )
-                    .saveRecentQuery(query, null)
-            }
+        imageviewMainWrite.setOnClickListener {
+            viewpagerMain.currentItem = WRITE_FRAGMENT
         }
-        val snap = LinearSnapHelper()
-        recycler.apply {
-            adapter = itemAdapter
-            layoutManager = LinearLayoutManager(this@MainActivity)
-        }
-        snap.attachToRecyclerView(recycler)
-        
-        bottomButton.setOnClickListener {
-            toast("기능 준비중 입니다. 조금만 기다려주세요.")
-        }
+
+        bottomNavigationMain.itemIconTintList = null
     }
 
     private fun fileChecking() {
@@ -121,7 +113,7 @@ class MainActivity : AppCompatActivity() {
             .setPositiveButton("ok") { dialog, which ->
                 if(itemPassword.password.text.toString() == getString(R.string.password)){
                     toast("서버로부터 데이터 베이스를 요청 합니다.")
-                    downloadDatabase(itemPassword.password.text.toString())
+                    downloadDatabase()
                 } else{
                     toast("디폴트 데이터베이스를 다운로드 받습니다.")
                     downloadDatabase()
@@ -131,34 +123,35 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun downloadDatabase(link: String? = null) {
-        downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+        val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
         registerReceiver(recevier, IntentFilter().apply {
             addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
             addAction(DownloadManager.ACTION_NOTIFICATION_CLICKED)
         })
-
         downloadManager.enqueue(
-            DownloadManager.Request(Uri.parse(link ?: getString(R.string.db_path)))
-                .setTitle("Downloading")
-                .setDescription("Downloading Database file")
-                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-                .setDestinationUri(Uri.fromFile(File(getExternalFilesDir(null), "comssa.db")))
-                .setAllowedOverMetered(true)
-                .setAllowedOverRoaming(true)
+            downloadRequest.provideDownloadRequest(link)
         )
-    }
-
-    private fun search2(query: String) = lifecycleScope.launch {
-        viewModel.getContent(query).collectLatest {
-            itemAdapter.submitData(it)
-        }
     }
 
     private fun observeDownloadLink() = lifecycleScope.launchWhenStarted {
         viewModel.downloadLink.collect {
-            if(it.isNotBlank() && URLUtil.isValidUrl(it)){
+            if (it.isNotBlank() && URLUtil.isValidUrl(it)) {
                 downloadDatabase(it)
             }
         }
+    }
+
+    private companion object {
+        const val FEED_FRAGMENT = 0
+        const val RECOMMEND_FRAGMENT = 1
+        const val WRITE_FRAGMENT = 2
+        const val ALARM_FRAGMENT = 3
+        const val PROFILE_FRAGMENT = 4
+    }
+
+    inner class MainViewPagerAdapter(fragmentActivity: FragmentActivity): FragmentStateAdapter(fragmentActivity) {
+        val fragmentList:MutableList<Fragment> = mutableListOf()
+        override fun getItemCount(): Int = fragmentList.size
+        override fun createFragment(position: Int) = fragmentList[position]
     }
 }

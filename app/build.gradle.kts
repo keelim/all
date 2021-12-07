@@ -67,6 +67,7 @@ dependencies {
     implementation(Kotlin.stdlibJvm)
 
     implementation("com.jakewharton.timber:timber:5.0.1")
+
     implementation("com.google.android.gms:play-services-ads:20.5.0")
 
     implementation(Hilt.android)

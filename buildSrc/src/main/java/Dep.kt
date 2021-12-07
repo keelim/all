@@ -1,5 +1,6 @@
 object Coil {
     const val coil = "io.coil-kt:coil:1.2.1"
+    const val coilGif ="io.coil-kt:coil-gif:1.4.0"
 }
 
 object DataStore {
@@ -80,6 +81,8 @@ object AndroidX {
 
     const val navigation_fragment = "androidx.navigation:navigation-fragment-ktx:2.3.5"
     const val navigation_ui = "androidx.navigation:navigation-ui-ktx:2.3.5"
+
+    const val startup = "androidx.startup:startup-runtime:1.1.0"
 }
 
 object UI {

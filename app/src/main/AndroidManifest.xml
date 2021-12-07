@@ -58,6 +58,8 @@
             tools:node="merge">
             <meta-data  android:name="com.keelim.comssa.initialize.TimberInitializer"
                 android:value="androidx.startup" />
+            <meta-data  android:name="com.keelim.comssa.initialize.CoilInitializer"
+                android:value="androidx.startup" />
         </provider>
     </application>
 </manifest>

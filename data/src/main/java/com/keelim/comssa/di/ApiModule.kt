@@ -21,30 +21,18 @@ import com.keelim.comssa.data.api.ReviewApi
 import com.keelim.comssa.data.api.ReviewApiImpl
 import com.keelim.comssa.data.api.UserApi
 import com.keelim.comssa.data.api.UserApiImpl
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object ApiModule {
-  @Provides
-  @Singleton
-  fun provideDataApi(): DataApi {
-    return DataApiImpl()
-  }
-
-  @Provides
-  @Singleton
-  fun provideReviewApi(): ReviewApi {
-    return ReviewApiImpl()
-  }
-
-  @Provides
-  @Singleton
-  fun provideUserApi(): UserApi {
-    return UserApiImpl()
-  }
+abstract class ApiModule {
+  @Binds
+  abstract fun bindsDataApi(dataApiImpl: DataApiImpl): DataApi
+  @Binds
+  abstract fun bindsReviewApi(reviewApiImpl: ReviewApiImpl): ReviewApi
+  @Binds
+  abstract fun bindsUserApi(userApiImpl: UserApiImpl): UserApi
 }

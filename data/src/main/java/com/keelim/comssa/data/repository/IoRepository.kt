@@ -17,6 +17,7 @@ package com.keelim.comssa.data.repository
 
 import androidx.paging.PagingData
 import com.keelim.comssa.data.db.entity.Search
+import com.keelim.comssa.data.model.PasswordResult
 import kotlinx.coroutines.flow.Flow
 
 interface IoRepository {
@@ -29,7 +30,9 @@ interface IoRepository {
 
     val favoriteFlow: Flow<List<Search>>
 
-    fun getContentItemsByPaging(query:String): Flow<PagingData<Search>>
+    fun getContentItemsByPaging(query: String): Flow<PagingData<Search>>
 
-    fun getFavoriteItemsByPaging():Flow<PagingData<Search>>
+    fun getFavoriteItemsByPaging(): Flow<PagingData<Search>>
+
+    suspend fun getDownloadLink(path: String): PasswordResult
 }

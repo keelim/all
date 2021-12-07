@@ -20,8 +20,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import coil.load
 import com.google.android.material.chip.Chip
+import com.keelim.comssa.R
 import com.keelim.comssa.data.model.Data
 import com.keelim.comssa.data.model.Review
 import com.keelim.comssa.databinding.ItemDataInformationBinding
@@ -103,9 +104,10 @@ class ReviewsAdapter(
 
         @SuppressLint("SetTextI18n")
         fun bind(item: Data) {
-            Glide.with(binding.root)
-                .load(item.posterUrl)
-                .into(binding.posterImageView)
+            binding.posterImageView.load(item.posterUrl){
+                crossfade(true)
+                placeholder(R.drawable.ic_launcher_foreground)
+            }
 
             item.let {
                 binding.averageScoreTextView.text =

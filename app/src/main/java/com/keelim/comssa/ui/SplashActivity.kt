@@ -26,7 +26,6 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
-import com.google.android.material.snackbar.Snackbar
 import com.keelim.comssa.BuildConfig
 import com.keelim.comssa.databinding.ActivitySplashBinding
 import com.keelim.comssa.ui.main.MainActivity
@@ -120,7 +119,6 @@ class SplashActivity : AppCompatActivity() {
         when (requestCode) {
             MULTIPLE_PERMISSIONS -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Snackbar.make(binding.root, "모든 권한이 승인 되었습니다.", Snackbar.LENGTH_SHORT).show()
                     initSplash()
                 }
             }

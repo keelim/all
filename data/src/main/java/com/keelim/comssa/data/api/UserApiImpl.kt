@@ -18,9 +18,12 @@ package com.keelim.comssa.data.api
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.keelim.comssa.data.model.User
+import javax.inject.Inject
 import kotlinx.coroutines.tasks.await
 
-class UserApiImpl : UserApi {
+class UserApiImpl @Inject constructor(
+
+) : UserApi {
   private val fireStore = Firebase.firestore
   override suspend fun saveUser(user: User): User {
     return fireStore.collection("users")

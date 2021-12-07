@@ -20,9 +20,10 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.keelim.comssa.data.model.Data
+import javax.inject.Inject
 import kotlinx.coroutines.tasks.await
 
-class DataApiImpl() : DataApi {
+class DataApiImpl @Inject constructor() : DataApi {
   private val fireStore = Firebase.firestore
 
   override suspend fun getAllData(): List<Data> {

@@ -19,7 +19,8 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import coil.load
+import com.keelim.comssa.R
 import com.keelim.comssa.data.model.Data
 import com.keelim.comssa.data.model.ReviewedData
 import com.keelim.comssa.databinding.ItemReviewedDataBinding
@@ -51,12 +52,12 @@ class MyPageAdapter(
         }
 
         @SuppressLint("SetTextI18n")
-        fun bind(item: ReviewedData) {
-            Glide.with(binding.root)
-                .load(item.data.posterUrl)
-                .into(binding.posterImageView)
-
-            binding.myScoreTextView.text = item.review.score?.toDecimalFormatString("0.0")
+        fun bind(item: ReviewedData) = with(binding){
+            posterImageView.load(item.data.posterUrl){
+                crossfade(true)
+                placeholder(R.drawable.ic_launcher_foreground)
+            }
+            myScoreTextView.text = item.review.score?.toDecimalFormatString("0.0")
         }
     }
 }

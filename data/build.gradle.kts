@@ -1,3 +1,8 @@
+import Glide.moshi
+import Glide.moshi_codegen
+import Glide.moshi_kotlin
+import SquareUp.retrofit_moshi
+
 plugins {
     id("com.android.library")
     kotlin("android")
@@ -58,4 +63,14 @@ dependencies {
     androidTestImplementation(AppTest.androidJunit)
     androidTestImplementation(AppTest.espressoCore)
     androidTestImplementation(Kotlin.Coroutines.test)
+
+    implementation(SquareUp.core)
+    implementation(SquareUp.loggingInterceptor)
+    implementation(SquareUp.urlconnection)
+    implementation(SquareUp.retrofit)
+    implementation(SquareUp.retrofit_gson)
+    implementation(retrofit_moshi)
+    implementation(moshi)
+    implementation(moshi_kotlin)
+    implementation(moshi_codegen)
 }

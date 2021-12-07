@@ -6,7 +6,7 @@ plugins {
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
     id("dagger.hilt.android.plugin")
-    id("androidx.navigation.safeargs.kotlin")
+    id("androidx.navigation.safeargs")
     id("com.google.android.gms.oss-licenses-plugin")
 }
 
@@ -43,13 +43,9 @@ dependencies {
     implementation("androidx.core:core-ktx:1.6.0")
     implementation("androidx.appcompat:appcompat:1.3.0")
     implementation("com.google.android.material:material:1.4.0")
-    implementation("androidx.activity:activity-ktx:1.2.3")
-    implementation("androidx.fragment:fragment-ktx:1.3.5")
-    implementation("de.hdodenhof:circleimageview:3.1.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
-    implementation("androidx.navigation:navigation-runtime-ktx:2.3.5")
+    implementation("androidx.activity:activity-ktx:1.4.0")
+    implementation("androidx.fragment:fragment-ktx:1.4.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.0")
     implementation("androidx.navigation:navigation-fragment-ktx:2.3.5")
     implementation("androidx.navigation:navigation-ui-ktx:2.3.5")
     implementation("androidx.lifecycle:lifecycle-process:2.3.1")
@@ -70,18 +66,20 @@ dependencies {
 
     implementation(Kotlin.stdlibJvm)
 
-    implementation("com.jakewharton.timber:timber:4.7.1")
-    implementation("com.google.android.gms:play-services-ads:20.2.0")
+    implementation("com.jakewharton.timber:timber:5.0.1")
+
+    implementation("com.google.android.gms:play-services-ads:20.5.0")
 
     implementation(Hilt.android)
     kapt(Hilt.hilt_compiler)
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.5.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.5.2")
 
-    implementation(Glide.core)
-    kapt(Glide.compiler)
+    implementation(Coil.coil)
+    implementation(Coil.coilGif)
 
     implementation("com.google.android.gms:play-services-oss-licenses:17.0.0")
+    implementation(AndroidX.startup)
 }
 apply(from = "$rootDir/spotless.gradle")

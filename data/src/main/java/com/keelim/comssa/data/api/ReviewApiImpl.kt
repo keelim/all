@@ -22,9 +22,11 @@ import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.keelim.comssa.data.model.Data
 import com.keelim.comssa.data.model.Review
+import javax.inject.Inject
 import kotlinx.coroutines.tasks.await
+class ReviewApiImpl @Inject constructor(
 
-class ReviewApiImpl : ReviewApi {
+) : ReviewApi {
   private val fireStore = Firebase.firestore
 
   override suspend fun getLatestReview(dataId: String): Review? {
@@ -120,3 +122,4 @@ class ReviewApiImpl : ReviewApi {
     }.await()
   }
 }
+

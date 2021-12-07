@@ -2,5 +2,10 @@
     <string name="app_name">Comssa</string>
     <string name="app_label">Comssa</string>
     <string name="search_hint">검색어를 입력해주세요</string>
-    <string name="db_path">https://github.com/keelim/Keelim.github.io/raw/master/assets/comssa.db</string>
+    <string name="password">0811</string>
+    <string name="menu_feed">Feed</string>
+    <string name="menu_recommend">Recommed</string>
+    <string name="menu_write">Write</string>
+    <string name="menu_alarm">Alarm</string>
+    <string name="menu_profile">Profile</string>
 </resources>

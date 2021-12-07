@@ -10,7 +10,7 @@ import retrofit2.create
 
 class ApiRequestFactory @Inject constructor(
 ) {
-    private val baseUrl = ""
+    private val baseUrl = "https://sample.com"
     private val moshi = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())
         .build()

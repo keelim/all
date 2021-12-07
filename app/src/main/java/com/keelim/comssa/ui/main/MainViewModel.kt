@@ -18,7 +18,6 @@ package com.keelim.comssa.ui.main
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.keelim.comssa.domain.SearchUseCase
-import com.keelim.comssa.domain.UpdateFavoriteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,7 +26,6 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val searchUseCase: SearchUseCase,
-    private val updateFavoriteUseCase: UpdateFavoriteUseCase,
 ) : ViewModel() {
     val downloadLink:MutableStateFlow<String> = MutableStateFlow("")
 

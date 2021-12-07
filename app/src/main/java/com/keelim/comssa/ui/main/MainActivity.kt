@@ -34,6 +34,7 @@ import com.keelim.comssa.databinding.ItemPasswordBinding
 import com.keelim.comssa.di.download.DownloadReceiver
 import com.keelim.comssa.di.download.DownloadRequest
 import com.keelim.comssa.extensions.toast
+import com.keelim.comssa.ui.feed.FeedFragment
 import com.keelim.comssa.ui.main.search.SearchFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
@@ -63,7 +64,7 @@ class MainActivity : AppCompatActivity() {
     private fun initViews() = with(binding) {
         val fragmentList = listOf(
             SearchFragment(),
-            SearchFragment(),
+            FeedFragment(),
             SearchFragment(),
             SearchFragment(),
             SearchFragment()

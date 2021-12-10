@@ -1,4 +1,4 @@
-package com.keelim.mygrade.ui
+package com.keelim.mygrade.ui.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

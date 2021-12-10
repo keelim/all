@@ -1,4 +1,4 @@
-package com.keelim.mygrade.ui
+package com.keelim.mygrade.ui.main
 
 import android.content.Intent
 import android.os.Bundle
@@ -15,6 +15,8 @@ import com.google.android.material.snackbar.Snackbar
 import com.keelim.mygrade.BuildConfig
 import com.keelim.mygrade.data.Result
 import com.keelim.mygrade.databinding.ActivityMainBinding
+import com.keelim.mygrade.ui.GradeActivity
+import com.keelim.mygrade.ui.center.CenterActivity
 import com.keelim.mygrade.utils.ThemeManager
 import com.keelim.mygrade.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
@@ -76,6 +78,9 @@ class MainActivity : AppCompatActivity() {
         }
         noAd.setOnClickListener {
             toast("아직 기능을 준비합니다.")
+        }
+        notification.setOnClickListener{
+            startActivity(Intent(this@MainActivity, CenterActivity::class.java))
         }
     }
 
@@ -146,4 +151,6 @@ class MainActivity : AppCompatActivity() {
         }
         return flag
     }
+
+
 }

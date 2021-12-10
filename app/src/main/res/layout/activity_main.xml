@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.google.android.material.textview.MaterialTextView
@@ -25,12 +25,21 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/oss"
-        android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:text="OSS"
+        android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="OSS"
         android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@id/notification"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/notification"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="20dp"
+        android:src="@drawable/bell"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout xmlns:tools="http://schemas.android.com/tools"
@@ -43,7 +52,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/oss"
-        tools:context=".ui.MainActivity">
+        tools:context=".ui.main.MainActivity">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/origin_text"
@@ -78,7 +87,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/origin_container"
-        tools:context=".ui.MainActivity">
+        tools:context=".ui.main.MainActivity">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/average_text"
@@ -114,7 +123,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/average_container"
-        tools:context=".ui.MainActivity">
+        tools:context=".ui.main.MainActivity">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/number_text"
@@ -150,7 +159,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/number_container"
-        tools:context=".ui.MainActivity">
+        tools:context=".ui.main.MainActivity">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/student_text"
@@ -199,10 +208,10 @@
         android:id="@+id/adView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:orientation="horizontal" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_change"
@@ -212,4 +221,5 @@
         android:src="@drawable/ic_baseline_change_circle_24"
         app:layout_constraintBottom_toTopOf="@id/adView"
         app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

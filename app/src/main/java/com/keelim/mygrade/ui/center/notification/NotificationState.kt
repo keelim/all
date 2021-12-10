@@ -1,4 +1,4 @@
-package com.keelim.mygrade.ui.notification
+package com.keelim.mygrade.ui.center.notification
 
 import com.keelim.mygrade.data.Release
 

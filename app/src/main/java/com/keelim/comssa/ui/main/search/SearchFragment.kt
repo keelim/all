@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.LinearSnapHelper
 import com.keelim.comssa.databinding.FragmentSearchBinding
 import com.keelim.comssa.extensions.toast
 import com.keelim.comssa.provides.SuggestionProvider
-import com.keelim.comssa.ui.main.MainAdapter2
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -26,12 +25,12 @@ class SearchFragment: Fragment() {
     private var _binding: FragmentSearchBinding? =null
     private val binding get() = _binding!!
     private val viewModel:SearchViewModel by viewModels()
-    private val itemAdapter = MainAdapter2(
-        favoriteListener = { favorite, id ->
+    private val itemAdapter = SearchAdapter {
+         favorite, id ->
             viewModel.favorite(favorite, id)
             requireContext().toast("관심 목록에 등록을 하였습니다.")
-        }
-    )
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -76,6 +75,7 @@ class SearchFragment: Fragment() {
                     .saveRecentQuery(query, null)
             }
         }
+
         val snap = LinearSnapHelper()
         recycler.apply {
             adapter = itemAdapter

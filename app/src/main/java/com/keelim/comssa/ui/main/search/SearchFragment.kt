@@ -1,13 +1,13 @@
 package com.keelim.comssa.ui.main.search
 
 import android.app.SearchManager
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.provider.SearchRecentSuggestions
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -25,11 +25,9 @@ class SearchFragment: Fragment() {
     private var _binding: FragmentSearchBinding? =null
     private val binding get() = _binding!!
     private val viewModel:SearchViewModel by viewModels()
-    private val itemAdapter = SearchAdapter {
-         favorite, id ->
+    private val itemAdapter = SearchAdapter { favorite, id ->
             viewModel.favorite(favorite, id)
             requireContext().toast("관심 목록에 등록을 하였습니다.")
-
     }
 
     override fun onCreateView(
@@ -52,11 +50,8 @@ class SearchFragment: Fragment() {
     }
 
     private fun initViews() = with(binding){
-        val searchManager = requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
         searchSection.apply {
-            setIconifiedByDefault(false)
-            setOnQueryTextListener(object :
-                androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String): Boolean = true
                 override fun onQueryTextChange(query: String): Boolean  {
                     search2(query.replace("\\s", ""))
@@ -86,7 +81,7 @@ class SearchFragment: Fragment() {
         bottomButton.setOnClickListener {
             requireContext().toast("기능 준비중 입니다. 조금만 기다려주세요.")
         }
-
+        viewModel.init()
     }
 
     private fun search2(query: String) = lifecycleScope.launch {

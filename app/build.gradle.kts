@@ -65,7 +65,7 @@ dependencies {
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
     implementation("com.google.dagger:hilt-android:2.40.5")
-    kapt("com.google.dagger:hilt-android-compiler:2.40.4")
+    kapt("com.google.dagger:hilt-android-compiler:2.40.5")
 
     implementation("androidx.activity:activity-ktx:1.4.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")

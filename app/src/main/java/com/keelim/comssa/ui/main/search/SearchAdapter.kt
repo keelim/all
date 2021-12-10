@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.comssa.ui.main
+package com.keelim.comssa.ui.main.search
 
 import android.view.LayoutInflater
 import android.view.View
@@ -24,9 +24,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.keelim.comssa.data.db.entity.Search
 import com.keelim.comssa.databinding.ItemSearchBinding
 
-class MainAdapter2(
+class SearchAdapter(
     private val favoriteListener: (Int, Int) -> Unit
-) : PagingDataAdapter<Search, MainAdapter2.ViewHolder>(diffUtil) {
+) : PagingDataAdapter<Search, SearchAdapter.ViewHolder>(diffUtil) {
 
     inner class ViewHolder(private val binding: ItemSearchBinding) :
         RecyclerView.ViewHolder(binding.root) {

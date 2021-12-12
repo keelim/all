@@ -3,9 +3,9 @@ import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
     id("com.google.gms.google-services")
     id("com.google.android.gms.oss-licenses-plugin")
-    id("kotlin-kapt")
     id("kotlin-parcelize")
     id("dagger.hilt.android.plugin")
     id("com.google.firebase.crashlytics")
@@ -69,7 +69,6 @@ dependencies {
 
     implementation("androidx.activity:activity-ktx:1.4.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
-
     implementation("org.apache.commons:commons-math3:3.6.1")
 
     val nav_version = "2.3.5"
@@ -78,4 +77,5 @@ dependencies {
 
     val billing_version = "4.0.0"
     implementation("com.android.billingclient:billing-ktx:$billing_version")
+
 }

@@ -151,6 +151,4 @@ class MainActivity : AppCompatActivity() {
         }
         return flag
     }
-
-
 }

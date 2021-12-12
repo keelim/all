@@ -52,7 +52,9 @@ class NotificationFragment : Fragment() {
         repeatOnLifecycle(Lifecycle.State.STARTED) {
             viewModel.state.collect {
                 when (it) {
-                    is NotificationState.UnInitialized -> Unit
+                    is NotificationState.UnInitialized -> {
+                        binding.tvNoData.visibility = View.VISIBLE
+                    }
                     is NotificationState.Loading -> Unit
                     is NotificationState.Success -> handleSuccess(it.data)
                     is NotificationState.Error -> handleError(it.message)
@@ -70,6 +72,7 @@ class NotificationFragment : Fragment() {
             }
         }
         snapHelper.attachToRecyclerView(notificationRecycler)
+
     }
 
     private fun handleSuccess(data: List<Release>) {

@@ -13,13 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.data.repository
+package com.keelim.nandadiagnosis.data.repository.io
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import com.keelim.nandadiagnosis.data.api.ApiRequestFactory
 import com.keelim.nandadiagnosis.data.db.AppDatabaseV2
 import com.keelim.nandadiagnosis.data.db.entity.History
 import com.keelim.nandadiagnosis.data.db.entity.NandaEntity
 import com.keelim.nandadiagnosis.data.db.entity.NandaEntity2
+import com.keelim.nandadiagnosis.data.dto.VideoDto
 import com.keelim.nandadiagnosis.data.network.NandaService
+import com.keelim.nandadiagnosis.data.repository.paging.DBPagingSource
 import com.keelim.nandadiagnosis.di.DefaultDispatcher
 import com.keelim.nandadiagnosis.di.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
@@ -33,6 +39,7 @@ class IORepositoryImpl @Inject constructor(
   @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
   @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher,
   private val db: AppDatabaseV2,
+  private val apiRequestFactory: ApiRequestFactory
 ) : IORepository {
 
   override suspend fun getNandaList(): List<NandaEntity2> = withContext(ioDispatcher) {
@@ -103,5 +110,26 @@ class IORepositoryImpl @Inject constructor(
 
   override fun getSearchFlow(query: String): Flow<List<NandaEntity>> {
     return db.dataDao().getSearchFlow(query)
+  }
+
+  override fun getTodoContentItemsByPaging(query: String): Flow<PagingData<NandaEntity>> {
+    return Pager(
+      config = PagingConfig(pageSize = 10),
+      pagingSourceFactory = { DBPagingSource(db.dataDao(), query) }
+    ).flow
+  }
+
+  override suspend fun getVideoList(): VideoDto  = withContext(ioDispatcher){
+    try {
+      val response = apiRequestFactory.retrofit.listVideos()
+      val result = response.body()!!
+      Timber.d("성공한 데이터 $result")
+      return@withContext result
+    } catch (e: Exception) {
+      Timber.e(e)
+    }
+    Timber.d("성공하지 않는 데이터")
+    return@withContext VideoDto(emptyList())
+
   }
 }

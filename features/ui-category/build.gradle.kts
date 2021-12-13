@@ -4,7 +4,6 @@ plugins {
     kotlin("kapt")
     id("kotlin-parcelize")
 //    id("dagger.hilt.android.plugin")
-    id("androidx.navigation.safeargs.kotlin")
 }
 
 listOf(
@@ -14,7 +13,8 @@ listOf(
 }
 
 dependencies {
-    implementation(project(":data"))
+    implementation(projects.data)
+    implementation(projects.domain)
 }
 
 kapt {

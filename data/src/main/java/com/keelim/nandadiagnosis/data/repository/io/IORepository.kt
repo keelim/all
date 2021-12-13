@@ -13,11 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.data.repository
+package com.keelim.nandadiagnosis.data.repository.io
 
+import androidx.paging.PagingData
 import com.keelim.nandadiagnosis.data.db.entity.History
 import com.keelim.nandadiagnosis.data.db.entity.NandaEntity
 import com.keelim.nandadiagnosis.data.db.entity.NandaEntity2
+import com.keelim.nandadiagnosis.data.dto.VideoDto
 import kotlinx.coroutines.flow.Flow
 
 interface IORepository {
@@ -52,4 +54,8 @@ interface IORepository {
   suspend fun updateFavorite(favorite: Int, id: Int)
 
   fun getSearchFlow(query: String): Flow<List<NandaEntity>>
+
+  fun getTodoContentItemsByPaging(query:String): Flow<PagingData<NandaEntity>>
+
+  suspend fun getVideoList(): VideoDto
 }

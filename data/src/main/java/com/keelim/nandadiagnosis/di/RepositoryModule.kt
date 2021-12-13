@@ -15,8 +15,8 @@
  */
 package com.keelim.nandadiagnosis.di
 
-import com.keelim.nandadiagnosis.data.repository.IORepository
-import com.keelim.nandadiagnosis.data.repository.IORepositoryImpl
+import com.keelim.nandadiagnosis.data.repository.io.IORepository
+import com.keelim.nandadiagnosis.data.repository.io.IORepositoryImpl
 import com.keelim.nandadiagnosis.data.repository.setting.DeveloperRepository
 import com.keelim.nandadiagnosis.data.repository.setting.DeveloperRepositoryImpl
 import dagger.Binds
@@ -28,7 +28,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
-@Module(includes = [RepositoryModule.IoModule::class])
+@Module
 internal abstract class RepositoryModule {
 
   @Binds
@@ -36,23 +36,9 @@ internal abstract class RepositoryModule {
     repository: DeveloperRepositoryImpl,
   ): DeveloperRepository
 
-  @InstallIn(SingletonComponent::class)
-  @Module
-  internal object IoModule {
-    @Provides
-    @Singleton
-    fun providerIORepository(
-      nandaService: com.keelim.nandadiagnosis.data.network.NandaService,
-      @IoDispatcher ioDispatcher: CoroutineDispatcher,
-      @DefaultDispatcher defaultDispatcher: CoroutineDispatcher,
-      db: com.keelim.nandadiagnosis.data.db.AppDatabaseV2,
-    ): IORepository {
-      return IORepositoryImpl(
-        nandaService = nandaService,
-        ioDispatcher = ioDispatcher,
-        defaultDispatcher = defaultDispatcher,
-        db = db,
-      )
-    }
-  }
+  @Binds
+  abstract  fun bindsIoRepository(
+    repository: IORepositoryImpl,
+  ): IORepository
+
 }

@@ -69,7 +69,7 @@ dependencies {
     androidTestImplementation(AppTest.espressoCore)
     androidTestImplementation(Coroutines.test)
 
-    implementation("androidx.hilt:hilt-work:1.0.0-alpha01")
+    implementation("androidx.hilt:hilt-work:1.0.0")
     androidTestImplementation("androidx.work:work-testing:2.4.0")
 }
 

@@ -30,10 +30,6 @@ class SearchRecyclerViewAdapter3(
   PagingDataAdapter<NandaEntity, SearchRecyclerViewAdapter3.ViewHolder>(diffUtil) {
   var tracker: SelectionTracker<Long>? = null
 
-  init {
-    setHasStableIds(true) // 고유 id 를 설정
-  }
-
   inner class ViewHolder(private val binding: ItemListviewBinding) :
     RecyclerView.ViewHolder(binding.root) {
 

@@ -32,6 +32,7 @@ import androidx.work.Constraints
 import androidx.work.ExistingWorkPolicy
 import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequest
+import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import com.google.firebase.auth.ktx.auth
@@ -141,7 +142,7 @@ class Main2Activity : AppCompatActivity() {
       message("어플리케이션 사용을 위해 데이터베이스를 다운로드 합니다.")
       positiveButton(getString(R.string.ok)) {
         toast("서버로부터 데이터 베이스를 요청 합니다. ")
-        downloadDatabase()
+        downloadDatabase2()
       }
       negativeButton(getString(R.string.cancel))
     }.show()
@@ -173,10 +174,11 @@ class Main2Activity : AppCompatActivity() {
       .setRequiresBatteryNotLow(true)
       .build()
 
-    val downloadWorker = OneTimeWorkRequest.Builder(DownloadWorker::class.java)
+    val downloadWorker = OneTimeWorkRequestBuilder<DownloadWorker>()
       .setConstraints(constraints)
       .addTag("downloadWork")
       .build()
+
     // 2
     workManager.enqueueUniqueWork(
       "oneTimeDownload",

@@ -55,7 +55,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.1.0-alpha03"
+        kotlinCompilerExtensionVersion = "1.1.0-alpha05"
     }
     namespace = "com.keelim.nandadiagnosis"
 }
@@ -104,6 +104,7 @@ dependencies {
     implementation(SquareUp.timber)
 
     implementation(Hilt.android)
+    implementation("androidx.paging:paging-runtime-ktx:3.1.0")
     kapt(Hilt.hilt_compiler)
     implementation(Play.play_auth)
 
@@ -120,9 +121,6 @@ dependencies {
     implementation(SquareUp.retrofit_gson)
     implementation(SquareUp.timber)
 
-    implementation(DataStore.preferences)
-
-    implementation(Glide.core)
     implementation(Kotlin.stdlibJvm)
 
     implementation(Compose.compose_ui)
@@ -135,7 +133,9 @@ dependencies {
     androidTestImplementation(Compose.compose_junit)
 
     implementation("androidx.startup:startup-runtime:1.1.0")
-    implementation("androidx.hilt:hilt-work:1.0.0-alpha01")
+    implementation("androidx.hilt:hilt-work:1.0.0")
+    implementation("android.arch.work:work-runtime-ktx:1.0.1")
+    implementation("androidx.paging:paging-common-ktx:3.1.0")
 }
 apply(from = "$rootDir/spotless.gradle")
 

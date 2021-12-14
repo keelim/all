@@ -34,6 +34,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -42,6 +43,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
+import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.data.entity.Recent
 import com.keelim.nandadiagnosis.databinding.FragmentCategoryBinding
 import com.keelim.nandadiagnosis.ui.main.MainViewModel
@@ -141,9 +143,13 @@ class CategoryFragment : Fragment() {
       .setAction("ok") {
         mainViewModel.loadingOn()
         findNavController().navigate(
-          CategoryFragmentDirections.actionNavigationCategoryToDiagnosisFragment(num)
+          R.id.diagnosisFragment,
+          bundleOf(
+            "num" to num
+          )
         )
       }
       .show()
+    mainViewModel.loadingOff()
   }
 }

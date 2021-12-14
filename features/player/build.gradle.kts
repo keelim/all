@@ -26,6 +26,7 @@ dependencies {
     kapt(Hilt.hilt_compiler)
 
     implementation(AndroidX.activity_ktx)
+    implementation("com.google.android.exoplayer:exoplayer:2.16.1")
 }
 
 kapt {

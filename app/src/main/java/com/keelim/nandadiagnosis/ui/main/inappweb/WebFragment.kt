@@ -38,7 +38,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class WebFragment : Fragment() {
   private var _binding: FragmentInappwebBinding? = null
   private val binding get() = _binding!!
-  private val args by navArgs<WebFragmentArgs>()
+  private val args by lazy { requireArguments() }
 
   @SuppressLint("SetJavaScriptEnabled")
   override fun onCreateView(
@@ -54,7 +54,7 @@ class WebFragment : Fragment() {
       webViewClient = WebViewClient()
       webChromeClient = WebChromeClient()
       settings.javaScriptEnabled = true
-      loadUrl(args.url)
+      loadUrl(args.getString("web")!!)
     }
 
     initEvent()
@@ -100,7 +100,7 @@ class WebFragment : Fragment() {
     }
 
     binding.homeButton.setOnClickListener {
-      binding.webview.loadUrl(args.url)
+      binding.webview.loadUrl(args.getString("web")!!)
     }
 
     binding.refreshLayout.setOnRefreshListener {

@@ -9,13 +9,18 @@ import coil.load
 import com.keelim.nandadiagnosis.data.model.Video
 import com.keelim.player.databinding.ItemVideoBinding
 
-class VideoAdapter: ListAdapter<Video, VideoAdapter.ViewHolder>(diffUtil) {
+class VideoAdapter(
+    private val click: (String, String) -> Unit
+): ListAdapter<Video, VideoAdapter.ViewHolder>(diffUtil) {
     inner class ViewHolder(private val binding: ItemVideoBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(item:Video) = with(binding){
             titleTextView.text = item.title
             subTitleTextView.text = item.subtitle
             thumbnailImageView.load(item.thumb){
                 crossfade(true)
+            }
+            root.setOnClickListener {
+                click.invoke(item.sources, item.title)
             }
         }
     }

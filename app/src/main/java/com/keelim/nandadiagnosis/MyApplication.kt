@@ -17,6 +17,10 @@ package com.keelim.nandadiagnosis
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.hilt.work.HiltWorkerFactory
+import androidx.work.Configuration
+import androidx.work.DelegatingWorkerFactory
+import androidx.work.WorkManager
 import com.keelim.nandadiagnosis.data.repository.theme.ThemeRepository
 import com.keelim.nandadiagnosis.utils.AppOpenManager
 import com.keelim.nandadiagnosis.utils.ComponentLogger
@@ -33,9 +37,10 @@ class MyApplication : Application() {
 
   @Inject
   lateinit var themeRepository: ThemeRepository
-
   @Inject
   lateinit var componentLogger: ComponentLogger
+  @Inject
+  lateinit var workerFactory: HiltWorkerFactory
 
   private val appCoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
@@ -43,10 +48,11 @@ class MyApplication : Application() {
 
   override fun onCreate() {
     super.onCreate()
-
     appOpenManager = AppOpenManager(this) // 콜드 부팅에서 복귀시 ad
     componentLogger.initialize(this)
-
+    WorkManager.initialize(this, Configuration.Builder()
+      .setWorkerFactory(workerFactory)
+      .build())
     appCoroutineScope.launch {
       AppCompatDelegate.setDefaultNightMode(
         themeRepository.getUserTheme().firstOrNull() ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM

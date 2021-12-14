@@ -43,6 +43,7 @@ dependencies {
     implementation(Hilt.android)
     implementation("androidx.appcompat:appcompat:1.3.1")
     implementation("androidx.paging:paging-common-ktx:3.1.0")
+    implementation("androidx.work:work-runtime-ktx:2.5.0")
     kapt(Hilt.hilt_compiler)
 
     implementation(Room.runtime)
@@ -68,6 +69,8 @@ dependencies {
     androidTestImplementation(AppTest.espressoCore)
     androidTestImplementation(Coroutines.test)
 
+    implementation("androidx.hilt:hilt-work:1.0.0-alpha01")
+    androidTestImplementation("androidx.work:work-testing:2.4.0")
 }
 
 kapt {

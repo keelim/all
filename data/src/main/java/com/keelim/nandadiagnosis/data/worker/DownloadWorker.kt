@@ -9,23 +9,25 @@ import android.net.Uri
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
-import androidx.hilt.Assisted
-import androidx.hilt.work.WorkerInject
+import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
 import com.keelim.nandadiagnosis.data.R
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import java.io.File
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 
-
-class DownloadWorker @WorkerInject constructor(
+@HiltWorker
+class DownloadWorker @AssistedInject constructor(
     @Assisted context: Context,
     @Assisted workerParameters: WorkerParameters,
     ): CoroutineWorker(context, workerParameters){
-    override suspend fun doWork(): Result {
+    override suspend fun doWork(): Result  = with(Dispatchers.IO){
         setForeground(createForegroundInfo())
         delay(500)
         val downloadManager = applicationContext.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager

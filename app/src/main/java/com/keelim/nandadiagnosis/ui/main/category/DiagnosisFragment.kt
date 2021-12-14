@@ -19,6 +19,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -32,16 +33,19 @@ class DiagnosisFragment : Fragment() {
   private var _binding: FragmentDiagnosisBinding? = null
   private val binding get() = _binding!!
   private val data: ArrayList<DiagnosisItem> by lazy { ArrayList() }
-  private val args by navArgs<DiagnosisFragmentArgs>()
   private var nav: Int = 0
   private val mainViewModel: MainViewModel by activityViewModels()
+  private val args by lazy { requireArguments() }
   private val diagnosisAdapter = DiagnosisRecyclerViewAdapter(
     listener = { position ->
       mainViewModel.loadingOn()
       findNavController().navigate(
-        DiagnosisFragmentDirections
-          .actionDiagnosisFragmentToWebFragment("https://keelim.github.io/nandaDiagnosis/${nav + position + 1}.html")
+        R.id.webFragment,
+        bundleOf(
+          "web" to "https://keelim.github.io/nandaDiagnosis/${nav + position + 1}.html"
+        )
       )
+      mainViewModel.loadingOff()
     }
   )
 
@@ -70,7 +74,7 @@ class DiagnosisFragment : Fragment() {
 
   private fun initArray() {
 
-    when (args.navigation) {
+    when (args.getString("num")) {
       "1" -> {
         nav = 0
         customAdd(nav, 11) // ok 1~12

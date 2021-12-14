@@ -135,6 +135,7 @@ dependencies {
     androidTestImplementation(Compose.compose_junit)
 
     implementation("androidx.startup:startup-runtime:1.1.0")
+    implementation("androidx.hilt:hilt-work:1.0.0-alpha01")
 }
 apply(from = "$rootDir/spotless.gradle")
 

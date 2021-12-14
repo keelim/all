@@ -20,6 +20,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -27,11 +28,18 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.getValue
 import androidx.navigation.findNavController
+import androidx.work.Constraints
+import androidx.work.ExistingWorkPolicy
+import androidx.work.NetworkType
+import androidx.work.OneTimeWorkRequest
+import androidx.work.WorkInfo
+import androidx.work.WorkManager
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.keelim.common.toast
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.compose.ui.CircularIndeterminateProgressBar
+import com.keelim.nandadiagnosis.data.worker.DownloadWorker
 import com.keelim.nandadiagnosis.databinding.ActivityMain2Binding
 import com.keelim.nandadiagnosis.service.TerminateService
 import com.keelim.nandadiagnosis.utils.DownloadReceiver
@@ -42,6 +50,7 @@ import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.positiveButton
 import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.title
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
+import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -55,6 +64,10 @@ class Main2Activity : AppCompatActivity() {
 
   @Inject
   lateinit var recevier: DownloadReceiver
+
+  private val workManager by lazy {
+    WorkManager.getInstance(applicationContext)
+  }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -92,11 +105,13 @@ class Main2Activity : AppCompatActivity() {
     searchButton.setOnClickListener {
       mainViewModel.loadingOn()
       navController().navigate(R.id.navigation_search)
+      mainViewModel.loadingOff()
     }
 
     bottomAppBar.setNavigationOnClickListener {
       mainViewModel.loadingOn()
       showMenu()
+      mainViewModel.loadingOff()
     }
 
     bottomAppBar.setOnMenuItemClickListener {
@@ -140,15 +155,53 @@ class Main2Activity : AppCompatActivity() {
     }
     registerReceiver(recevier, intentFilter)
 
-    downloadManager.enqueue(
-      DownloadManager.Request(Uri.parse(getString(R.string.db_path)))
-        .setTitle("Downloading")
-        .setDescription("Downloading Database file")
-        .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-        .setDestinationUri(Uri.fromFile(File(getExternalFilesDir(null), "nanda.db")))
-        .setAllowedOverMetered(true)
-        .setAllowedOverRoaming(true)
+      downloadManager.enqueue(
+        DownloadManager.Request(Uri.parse(getString(R.string.db_path)))
+          .setTitle("Downloading")
+          .setDescription("Downloading Database file")
+          .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+          .setDestinationUri(Uri.fromFile(File(getExternalFilesDir(null), "nanda.db")))
+          .setAllowedOverMetered(true)
+          .setAllowedOverRoaming(true)
+      )
+  }
+
+  private fun downloadDatabase2(){
+    val constraints = Constraints.Builder()
+      .setRequiredNetworkType(NetworkType.CONNECTED)
+      .setRequiresStorageNotLow(true)
+      .setRequiresBatteryNotLow(true)
+      .build()
+
+    val downloadWorker = OneTimeWorkRequest.Builder(DownloadWorker::class.java)
+      .setConstraints(constraints)
+      .addTag("downloadWork")
+      .build()
+    // 2
+    workManager.enqueueUniqueWork(
+      "oneTimeDownload",
+      ExistingWorkPolicy.KEEP,
+      downloadWorker
     )
+    observeWork(downloadWorker.id)
+  }
+
+  private fun observeWork(id: UUID) {
+    // 1
+    workManager.getWorkInfoByIdLiveData(id)
+      .observe(this) { info ->
+        // 2
+        info?.let{
+          when(it.state){
+            WorkInfo.State.ENQUEUED -> toast("다운로드를 시작합니다.")
+            WorkInfo.State.RUNNING -> mainViewModel.loadingOn()
+            WorkInfo.State.SUCCEEDED -> mainViewModel.loadingOff()
+            WorkInfo.State.FAILED -> toast("다운로드를 완료하지 못했습니다..")
+            WorkInfo.State.BLOCKED -> toast("다운로드를 완료하지 못했습니다..")
+            WorkInfo.State.CANCELLED -> toast("다운로드를 완료하지 못했습니다..")
+          }
+        }
+      }
   }
 
   private fun loginCheck() {
@@ -165,24 +218,12 @@ class Main2Activity : AppCompatActivity() {
   private fun showMenu() = navController().navigate(R.id.menuBottomSheetDialogFragment)
 
   private fun observeLoading() = mainViewModel.loading.observe(this) {
-    when (it) {
-      true -> binding.composeView.apply {
-        bringToFront()
-
-        setContent {
-          CircularIndeterminateProgressBar(
-            isDisplayed = true
-          )
-        }
-      }
-      false -> binding.composeView.apply {
-        bringToFront()
-
-        setContent {
-          CircularIndeterminateProgressBar(
-            isDisplayed = false
-          )
-        }
+    binding.composeView.apply {
+      bringToFront()
+      setContent {
+        CircularIndeterminateProgressBar(
+          isDisplayed = it
+        )
       }
     }
   }

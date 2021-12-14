@@ -1,6 +1,6 @@
 package com.keelim.nandadiagnosis.data.worker
 
-import androidx.test.InstrumentationRegistry.getTargetContext
+import androidx.test.platform.app.InstrumentationRegistry
 import androidx.work.testing.TestListenableWorkerBuilder
 import junit.framework.Assert.assertNotNull
 import kotlinx.coroutines.runBlocking
@@ -11,7 +11,7 @@ class DownloadWorkerTest{
     @Test
     fun testDownloadWork() {
         // Create Work Request
-        val context = getTargetContext()
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
         val work = TestListenableWorkerBuilder<DownloadWorker>(context).build()
         runBlocking {
             val result = work.doWork()

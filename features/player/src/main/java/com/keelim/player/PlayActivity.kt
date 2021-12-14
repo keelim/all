@@ -19,7 +19,12 @@ class PlayActivity: AppCompatActivity() {
     private val binding by lazy { ActivityPlayBinding.inflate(layoutInflater)}
     private val viewModel: PlayViewModel by viewModels()
     private val videoAdapter by lazy {
-        VideoAdapter()
+        VideoAdapter(click = { url, title ->
+            supportFragmentManager.fragments.find { it is PlayerFragment }?.let {
+                (it as PlayerFragment).play(url, title)
+            }
+
+        })
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,5 +62,4 @@ class PlayActivity: AppCompatActivity() {
             }
         }
     }
-
 }

@@ -32,7 +32,7 @@ class PlayerFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentPlayBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -111,7 +111,7 @@ class PlayerFragment : Fragment() {
             player?.play()
         }
 
-        binding?.let {
+        binding.let {
             it.playerMotionLayout.transitionToEnd()
             it.bottomTitleTextView.text = title
 

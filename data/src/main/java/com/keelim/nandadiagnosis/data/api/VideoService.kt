@@ -1,7 +1,6 @@
 package com.keelim.nandadiagnosis.data.api
 
 import com.keelim.nandadiagnosis.data.dto.VideoDto
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.GET
 

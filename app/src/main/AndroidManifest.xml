@@ -92,6 +92,9 @@
             <meta-data
                 android:name="com.keelim.nandadiagnosis.initialize.CoilInitializer"
                 android:value="androidx.startup" />
+            <meta-data
+                android:name="com.keelim.nandadiagnosis.initialize.WorkManager"
+                android:value="androidx.startup" />
         </provider>
 
         <provider

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.compose.ui
+package com.keelim.common
 
 /**
  * A generic class that holds a value with its loading status.
@@ -68,3 +68,12 @@ inline fun <R, T> Result<T>.mapCatching(transform: (T) -> R): Result<R> {
     Result.Loading -> Result.Loading
   }
 }
+
+fun <T> Result<T>.toUiState(): UiState<T> {
+  return when (this) {
+    is Result.Error -> UiState(exception = this.exception)
+    Result.Loading -> UiState.loading()
+    is Result.Success -> UiState.success(value = this.data)
+  }
+}
+

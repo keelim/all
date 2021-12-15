@@ -9,7 +9,11 @@ import android.app.Application;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleEventObserver;
 import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.OnLifecycleEvent;
 import androidx.lifecycle.ProcessLifecycleOwner;
 
@@ -25,7 +29,7 @@ import java.util.Date;
 
 import timber.log.Timber;
 
-public class AppOpenManager implements LifecycleObserver, Application.ActivityLifecycleCallbacks {
+public class AppOpenManager implements LifecycleEventObserver, Application.ActivityLifecycleCallbacks {
     private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/3419835294";
     private static final String AD_REAL_ID ="ca-app-pub-3115620439518585/2318260160";
     private static boolean isShowingAd = false;
@@ -38,18 +42,6 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
         this.myApplication = myApplication;
         this.myApplication.registerActivityLifecycleCallbacks(this);
         ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
-    }
-
-    @OnLifecycleEvent(ON_CREATE)
-    public void onCreate(){
-        showAdIfAvailable();
-        Timber.d("onCreate");
-    }
-
-    @OnLifecycleEvent(ON_START)
-    public void onStart() {
-        showAdIfAvailable();
-        Timber.d("onStart");
     }
 
     /** Request an ad
@@ -90,7 +82,7 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
              * Handle the error.
              */
             @Override
-            public void onAdFailedToLoad(LoadAdError loadAdError) {
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
 
             }
 
@@ -106,6 +98,23 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
                     AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT, loadCallback);
         }
 
+    }
+
+    @Override
+    public void onStateChanged(@NonNull LifecycleOwner source, @NonNull Lifecycle.Event event) { }
+
+    @Override
+    public void onActivityPreCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {
+        Application.ActivityLifecycleCallbacks.super.onActivityPreCreated(activity, savedInstanceState);
+        showAdIfAvailable();
+        Timber.d("onCreate");
+    }
+
+    @Override
+    public void onActivityPreStarted(@NonNull Activity activity) {
+        Application.ActivityLifecycleCallbacks.super.onActivityPreStarted(activity);
+        showAdIfAvailable();
+        Timber.d("onStart");
     }
 
     @NonNull
@@ -168,7 +177,7 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
                         }
 
                         @Override
-                        public void onAdFailedToShowFullScreenContent(AdError adError) {
+                        public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
                         }
 
                         @Override

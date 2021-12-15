@@ -21,11 +21,8 @@ import com.keelim.nandadiagnosis.data.repository.setting.DeveloperRepository
 import com.keelim.nandadiagnosis.data.repository.setting.DeveloperRepositoryImpl
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.CoroutineDispatcher
-import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module

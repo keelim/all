@@ -67,7 +67,7 @@ class IORepositoryImpl @Inject constructor(
     TODO("Not yet implemented")
   }
 
-  override suspend fun getNandaItem(uid: Long): NandaEntity2? = withContext(ioDispatcher) {
+  override suspend fun getNandaItem(uid: Long): NandaEntity2 = withContext(ioDispatcher) {
     TODO("Not yet implemented")
   }
 

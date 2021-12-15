@@ -19,7 +19,7 @@ import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
-class RecyclerViewDecoration(private val divWidth: Int, private val divHeight: Int) : RecyclerView.ItemDecoration() {
+class RecyclerViewDecoration(divWidth: Int, divHeight: Int) : RecyclerView.ItemDecoration() {
   private var height: Int = divHeight
   private var width: Int = divWidth
 

@@ -16,20 +16,10 @@
 package com.keelim.nandadiagnosis
 
 import android.app.Application
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.hilt.work.HiltWorkerFactory
-import androidx.work.Configuration
-import androidx.work.WorkManager
-import com.keelim.nandadiagnosis.data.repository.theme.ThemeRepository
 import com.keelim.nandadiagnosis.utils.AppOpenManager
 import com.keelim.nandadiagnosis.utils.ComponentLogger
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.launch
 
 @HiltAndroidApp
 class MyApplication : Application() {

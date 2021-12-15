@@ -32,6 +32,9 @@ import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.model.AppUpdateType
+import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.keelim.common.toast
@@ -55,10 +58,9 @@ import javax.inject.Inject
 class Main2Activity : AppCompatActivity() {
   private lateinit var downloadManager: DownloadManager
   private val binding: ActivityMain2Binding by lazy { ActivityMain2Binding.inflate(layoutInflater) }
-
   private val mainViewModel: MainViewModel by viewModels()
-
   private val auth by lazy { Firebase.auth }
+  private val appUpdateManager by lazy {AppUpdateManagerFactory.create(this)}
 
   @Inject
   lateinit var recevier: DownloadReceiver
@@ -71,6 +73,7 @@ class Main2Activity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     setContentView(binding.root)
     startService(Intent(this, TerminateService::class.java))
+    updateCheck()
     initNavigation()
     initBottomAppBar()
     observeLoading()
@@ -82,6 +85,27 @@ class Main2Activity : AppCompatActivity() {
     super.onDestroy()
     stopService(Intent(this, TerminateService::class.java))
     unregisterReceiver(recevier)
+  }
+
+  private fun updateCheck(){
+    val appUpdateInfoTask = appUpdateManager.appUpdateInfo
+
+    appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
+      if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+        && appUpdateInfo.updatePriority() >= 4 /* high priority */
+        && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
+        // Request an immediate update.
+        appUpdateManager.startUpdateFlowForResult(
+          // Pass the intent that is returned by 'getAppUpdateInfo()'.
+          appUpdateInfo,
+          // Or 'AppUpdateType.FLEXIBLE' for flexible updates.
+          AppUpdateType.IMMEDIATE,
+          // The current activity making the update request.
+          this,
+          // Include a request code to later monitor this update request.
+          IN_APP_UPDATE_CODE)
+      }
+    }
   }
 
   private fun initNavigation() {
@@ -225,5 +249,10 @@ class Main2Activity : AppCompatActivity() {
         )
       }
     }
+  }
+
+
+  companion object{
+    const val IN_APP_UPDATE_CODE = 1
   }
 }

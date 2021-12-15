@@ -23,14 +23,10 @@ import androidx.work.WorkManager
 import javax.inject.Inject
 
 class WorkManager : Initializer<WorkManager> {
-  @Inject
-  lateinit var workerFactory: HiltWorkerFactory
-
   override fun create(context: Context): WorkManager {
     WorkManager.initialize(
       context,
       Configuration.Builder()
-        .setWorkerFactory(workerFactory)
         .build()
     )
     return WorkManager.getInstance(context)

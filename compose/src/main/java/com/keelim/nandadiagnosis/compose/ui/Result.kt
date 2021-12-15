@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.common
+package com.keelim.nandadiagnosis.compose.ui
 
 /**
  * A generic class that holds a value with its loading status.

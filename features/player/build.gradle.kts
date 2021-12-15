@@ -15,6 +15,7 @@ listOf(
 dependencies {
     implementation(projects.data)
     implementation(projects.domain)
+    implementation(projects.common)
     implementation(Billing.billing_ktx)
     implementation(AndroidX.appcompat)
     implementation(UI.material)

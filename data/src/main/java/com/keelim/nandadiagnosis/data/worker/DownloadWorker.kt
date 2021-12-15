@@ -30,16 +30,17 @@ class DownloadWorker @AssistedInject constructor(
     override suspend fun doWork(): Result  = with(Dispatchers.IO){
         setForeground(createForegroundInfo())
         delay(500)
-        val downloadManager = applicationContext.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-        downloadManager.enqueue(
-            DownloadManager.Request(Uri.parse(applicationContext.getString(R.string.db_path)))
-                .setTitle("Downloading")
-                .setDescription("Downloading Database file")
-                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-                .setDestinationUri(Uri.fromFile(File(applicationContext.getExternalFilesDir(null), "nanda.db")))
-                .setAllowedOverMetered(true)
-                .setAllowedOverRoaming(true)
-        )
+        (applicationContext.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager).run {
+            enqueue(
+                DownloadManager.Request(Uri.parse(applicationContext.getString(R.string.db_path)))
+                    .setTitle("Downloading")
+                    .setDescription("Downloading Database file")
+                    .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                    .setDestinationUri(Uri.fromFile(File(applicationContext.getExternalFilesDir(null), "nanda.db")))
+                    .setAllowedOverMetered(true)
+                    .setAllowedOverRoaming(true)
+            )
+        }
         return Result.success(workDataOf(
             "db" to File(applicationContext.getExternalFilesDir(null), "nanda.db").toString()
         ))

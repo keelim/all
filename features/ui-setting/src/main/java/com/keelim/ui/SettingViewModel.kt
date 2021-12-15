@@ -17,8 +17,8 @@ package com.keelim.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
+import com.keelim.common.UiState
 import com.keelim.common.toUiState
-import com.keelim.nandadiagnosis.compose.ui.UiState
 import com.keelim.nandadiagnosis.domain.GetDevelopersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

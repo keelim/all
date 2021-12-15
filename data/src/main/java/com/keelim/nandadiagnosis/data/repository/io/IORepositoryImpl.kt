@@ -119,7 +119,7 @@ class IORepositoryImpl @Inject constructor(
     ).flow
   }
 
-  override suspend fun getVideoList(): VideoDto  = withContext(ioDispatcher){
+  override suspend fun getVideoList(): VideoDto = withContext(ioDispatcher) {
     try {
       val response = apiRequestFactory.retrofit.listVideos()
       val result = response.body()!!
@@ -130,6 +130,5 @@ class IORepositoryImpl @Inject constructor(
     }
     Timber.d("성공하지 않는 데이터")
     return@withContext VideoDto(emptyList())
-
   }
 }

@@ -55,7 +55,7 @@ interface IORepository {
 
   fun getSearchFlow(query: String): Flow<List<NandaEntity>>
 
-  fun getTodoContentItemsByPaging(query:String): Flow<PagingData<NandaEntity>>
+  fun getTodoContentItemsByPaging(query: String): Flow<PagingData<NandaEntity>>
 
   suspend fun getVideoList(): VideoDto
 }

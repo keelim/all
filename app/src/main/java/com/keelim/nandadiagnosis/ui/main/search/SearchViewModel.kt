@@ -27,11 +27,11 @@ import com.keelim.nandadiagnosis.domain.GetSearchListUseCase
 import com.keelim.nandadiagnosis.domain.HistoryUseCase
 import com.keelim.nandadiagnosis.domain.favorite.FavoriteUpdateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlinx.coroutines.flow.Flow
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
@@ -78,7 +78,7 @@ class SearchViewModel @Inject constructor(
     favoriteUpdateUseCase.invoke(favorite, id)
   }
 
-  fun getContent(query:String = ""): Flow<PagingData<NandaEntity>> {
+  fun getContent(query: String = ""): Flow<PagingData<NandaEntity>> {
     return getSearchListUseCase.getSearchFlow(query)
       .cachedIn(viewModelScope)
   }

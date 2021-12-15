@@ -34,8 +34,7 @@ internal abstract class RepositoryModule {
   ): DeveloperRepository
 
   @Binds
-  abstract  fun bindsIoRepository(
+  abstract fun bindsIoRepository(
     repository: IORepositoryImpl,
   ): IORepository
-
 }

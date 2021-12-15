@@ -205,7 +205,7 @@ class SearchFragment : Fragment() {
     }
   }
 
-  private fun search(query:String) = viewLifecycleOwner.lifecycleScope.launch {
+  private fun search(query: String) = viewLifecycleOwner.lifecycleScope.launch {
     viewModel.getContent(query).collectLatest {
       searchRecyclerViewAdapter3.submitData(it)
     }

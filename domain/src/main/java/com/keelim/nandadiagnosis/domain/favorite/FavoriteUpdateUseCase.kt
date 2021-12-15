@@ -19,7 +19,7 @@ import com.keelim.nandadiagnosis.data.repository.io.IORepository
 import javax.inject.Inject
 
 class FavoriteUpdateUseCase @Inject constructor(
-    private val ioRepository: IORepository,
+  private val ioRepository: IORepository,
 ) {
 
   suspend operator fun invoke(favorite: Int, id: Int) {

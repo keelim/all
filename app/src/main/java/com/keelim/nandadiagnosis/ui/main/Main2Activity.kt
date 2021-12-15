@@ -48,7 +48,7 @@ import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.positiveButton
 import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.title
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
-import java.util.*
+import java.util.UUID
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -153,18 +153,18 @@ class Main2Activity : AppCompatActivity() {
     }
     registerReceiver(recevier, intentFilter)
 
-      downloadManager.enqueue(
-        DownloadManager.Request(Uri.parse(getString(R.string.db_path)))
-          .setTitle("Downloading")
-          .setDescription("Downloading Database file")
-          .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-          .setDestinationUri(Uri.fromFile(File(getExternalFilesDir(null), "nanda.db")))
-          .setAllowedOverMetered(true)
-          .setAllowedOverRoaming(true)
-      )
+    downloadManager.enqueue(
+      DownloadManager.Request(Uri.parse(getString(R.string.db_path)))
+        .setTitle("Downloading")
+        .setDescription("Downloading Database file")
+        .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+        .setDestinationUri(Uri.fromFile(File(getExternalFilesDir(null), "nanda.db")))
+        .setAllowedOverMetered(true)
+        .setAllowedOverRoaming(true)
+    )
   }
 
-  private fun downloadDatabase2(){
+  private fun downloadDatabase2() {
     val constraints = Constraints.Builder()
       .setRequiredNetworkType(NetworkType.CONNECTED)
       .setRequiresStorageNotLow(true)
@@ -190,8 +190,8 @@ class Main2Activity : AppCompatActivity() {
     workManager.getWorkInfoByIdLiveData(id)
       .observe(this) { info ->
         // 2
-        info?.let{
-          when(it.state){
+        info?.let {
+          when (it.state) {
             WorkInfo.State.ENQUEUED -> toast("다운로드를 시작합니다.")
             WorkInfo.State.RUNNING -> mainViewModel.loadingOn()
             WorkInfo.State.SUCCEEDED -> mainViewModel.loadingOff()

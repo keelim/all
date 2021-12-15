@@ -32,3 +32,4 @@ inline fun <reified T : Any> ComponentActivity.extraNotNull(
   val value = intent.extras?.get(key)
   requireNotNull(if (value is T) value else default) { key }
 }
+

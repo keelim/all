@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.compose.ui
+package com.keelim.common
 
 data class UiState<T>(
   val loading: Boolean = false,

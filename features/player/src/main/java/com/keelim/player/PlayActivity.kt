@@ -22,6 +22,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.keelim.common.repeatCallDefaultOnStarted
 import com.keelim.player.databinding.ActivityPlayBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -64,15 +65,13 @@ class PlayActivity : AppCompatActivity() {
     viewModel.getVideo()
   }
 
-  private fun observeState() = lifecycleScope.launch {
-    repeatOnLifecycle(Lifecycle.State.STARTED) {
+  private fun observeState() = repeatCallDefaultOnStarted {
       viewModel.state.collect {
         when (it) {
           is PlayState.Error -> Unit
           is PlayState.Loading -> Unit
           is PlayState.Success -> videoAdapter.submitList(it.data)
           is PlayState.UnInitialized -> Unit
-        }
       }
     }
   }

@@ -15,7 +15,7 @@
  */
 package com.keelim.nandadiagnosis.di
 
-import com.keelim.nandadiagnosis.data.repository.IORepository
+import com.keelim.nandadiagnosis.data.repository.io.IORepository
 import com.keelim.nandadiagnosis.data.repository.theme.ThemeRepository
 import com.keelim.nandadiagnosis.domain.GetAppThemeUseCase
 import com.keelim.nandadiagnosis.domain.GetFavoriteListUseCase
@@ -24,6 +24,7 @@ import com.keelim.nandadiagnosis.domain.GetNandaUseCase
 import com.keelim.nandadiagnosis.domain.GetSearchListUseCase
 import com.keelim.nandadiagnosis.domain.HistoryUseCase
 import com.keelim.nandadiagnosis.domain.SetAppThemeUseCase
+import com.keelim.nandadiagnosis.domain.video.VideoUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -60,4 +61,8 @@ object UseCase {
   @Provides
   @ViewModelScoped
   fun provideHistoryUseCase(ioRepository: IORepository) = HistoryUseCase(ioRepository)
+
+  @Provides
+  @ViewModelScoped
+  fun provideVideoUseCase(ioRepository: IORepository) = VideoUseCase(ioRepository)
 }

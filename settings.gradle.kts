@@ -1,3 +1,12 @@
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -15,7 +24,7 @@ include(
     ":compose",
     ":domain",
     ":features:ui-category",
-    ":features:ui-billing",
+    ":features:player",
     ":features:ui-setting"
 )
 

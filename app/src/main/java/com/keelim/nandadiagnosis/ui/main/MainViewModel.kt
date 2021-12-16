@@ -46,4 +46,8 @@ class MainViewModel @Inject constructor(
     delay(1000)
     _loading.value = false
   }
+
+  fun loadingOff() = viewModelScope.launch {
+    _loading.value = false
+  }
 }

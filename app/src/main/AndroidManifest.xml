@@ -70,11 +70,11 @@
             android:exported="false"
             android:stopWithTask="false" />
 
-        <service android:name=".service.notification.FirebaseMessagingService"
-            android:exported="false"
-            >
+        <service
+            android:name=".service.notification.FirebaseMessagingService"
+            android:exported="false">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
@@ -92,7 +92,17 @@
             <meta-data
                 android:name="com.keelim.nandadiagnosis.initialize.CoilInitializer"
                 android:value="androidx.startup" />
+            <meta-data
+                android:name="com.keelim.nandadiagnosis.initialize.WorkManager"
+                android:value="androidx.startup" />
         </provider>
+
+        <provider
+            android:name="androidx.work.impl.WorkManagerInitializer"
+            android:authorities="${applicationId}.workmanager-init"
+            android:exported="false"
+            tools:node="remove" />
+
     </application>
 </manifest>
 

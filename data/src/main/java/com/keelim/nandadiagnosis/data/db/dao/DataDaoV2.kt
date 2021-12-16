@@ -52,4 +52,7 @@ DataDaoV2 {
 
   @Query("SELECT * FROM nanda WHERE reason LIKE  '%' || :query || '%'")
   fun getSearchFlow(query: String): Flow<List<NandaEntity>>
+
+  @Query("SELECT * FROM nanda WHERE reason LIKE  '%' || :query || '%'  LIMIT :loadSize OFFSET (:page-1) * :loadSize")
+  suspend fun getQueryContentsByPaging(query: String, page: Int, loadSize: Int): List<NandaEntity>
 }

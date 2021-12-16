@@ -48,6 +48,12 @@ internal abstract class RepositoryModule {
         api: StationApiImpl,
     ): StationApi
 
+    @Binds
+    abstract fun bindsStationRepository(
+        repository: StationRepositoryImpl,
+    ): StationRepository
+
+
     @InstallIn(SingletonComponent::class)
     @Module
     internal object ThemeModule {
@@ -58,28 +64,6 @@ internal abstract class RepositoryModule {
         ): ThemeRepository {
             return ThemeRepository(
                 context
-            )
-        }
-    }
-
-    @InstallIn(SingletonComponent::class)
-    @Module
-    internal object StationModule {
-        @Provides
-        @Singleton
-        fun provideStationRepository(
-            stationArrivalsApi: StationArrivalsApi,
-            stationApi: StationApi,
-            appDatabase: AppDatabase,
-            preferenceManager: SharedPreferenceManager,
-            @IoDispatcher dispatcher: CoroutineDispatcher,
-        ): StationRepository {
-            return StationRepositoryImpl(
-                stationArrivalsApi,
-                stationApi,
-                appDatabase.dao(),
-                preferenceManager,
-                dispatcher
             )
         }
     }

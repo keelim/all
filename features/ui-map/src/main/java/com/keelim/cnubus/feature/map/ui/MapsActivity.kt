@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.cnubus.feature.map
+package com.keelim.cnubus.feature.map.ui
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -23,8 +23,12 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.coroutineScope
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -36,10 +40,13 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.ktx.addMarker
 import com.google.maps.android.ktx.awaitMap
 import com.keelim.cnubus.data.model.gps.locationList
+import com.keelim.cnubus.feature.map.R
 import com.keelim.cnubus.feature.map.databinding.ActivityMapsBinding
 import com.keelim.common.toast
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import timber.log.Timber
+import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
 class MapsActivity : AppCompatActivity() {
@@ -72,17 +79,7 @@ class MapsActivity : AppCompatActivity() {
             }
         }
 
-//    private val mapsAdapter by lazy { MapsAdapter{ position ->
-//        lifecycleScope.launchWhenCreated {
-//            val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-//            val googleMap = mapFragment.awaitMap()
-//            val cameraUpdate = CameraUpdateFactory.newLatLngZoom(locationList[position], 17f)
-//            googleMap.apply {
-//                animateCamera(cameraUpdate)
-//            }
-//        }
-//    }}
-
+    private val viewModel: MapsViewModel by viewModels()
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,7 +91,7 @@ class MapsActivity : AppCompatActivity() {
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         lifecycle.coroutineScope.launchWhenCreated {
             val googleMap = mapFragment.awaitMap()
-            locationList.mapIndexed { index, latLng ->
+            viewModel.data.mapIndexed { index, latLng ->
                 googleMap.apply {
                     addMarker {
                         position(latLng)
@@ -118,7 +115,7 @@ class MapsActivity : AppCompatActivity() {
             }
 
             val cameraUpdate = if (location == -1) {
-                CameraUpdateFactory.newLatLngZoom(locationList[0], 17f)
+                CameraUpdateFactory.newLatLngZoom(viewModel.data[0], 17f)
             } else {
                 CameraUpdateFactory.newLatLngZoom(locationList[location], 17f)
             }
@@ -208,12 +205,6 @@ class MapsActivity : AppCompatActivity() {
     }
 
     private fun initViews() = with(binding) {
-        /*
-        recyclerMaps.adapter = mapsAdapter.apply {
-            submitList(locationList.map {
-                LocationList(it)
-            })
-        }*/
     }
 
     private fun removeLocationListener() {

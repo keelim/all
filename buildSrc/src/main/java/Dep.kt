@@ -93,6 +93,8 @@ object AndroidX {
     const val browser = "androidx.browser:browser:1.3.0"
     private const val fragmentVersion = "1.4.0-alpha07"
     const val fragment_ktx = "androidx.fragment:fragment-ktx:1.3.0"
+
+    const val work = "androidx.work:work-runtime-ktx:2.7.1"
 }
 
 object UI {

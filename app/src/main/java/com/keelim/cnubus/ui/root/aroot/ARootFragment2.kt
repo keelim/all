@@ -23,7 +23,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.FragmentARootBinding
-import com.keelim.cnubus.feature.map.MapsActivity
+import com.keelim.cnubus.feature.map.ui.MapsActivity
 import com.keelim.common.toast
 
 class ARootFragment2 : Fragment() {

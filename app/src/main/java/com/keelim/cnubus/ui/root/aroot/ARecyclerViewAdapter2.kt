@@ -37,12 +37,12 @@ class ARecyclerViewAdapter2(
 
     inner class ViewHolder(private val binding: ItemListBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: String, position: Int) = with(binding) {
-            binding.text.text = item
-            binding.root.setOnClickListener {
+            text.text = item
+            root.setOnClickListener {
                 shortClickListener.invoke(position)
             }
 
-            binding.root.setOnLongClickListener {
+            root.setOnLongClickListener {
                 longClickListener.invoke(position)
                 return@setOnLongClickListener true
             }

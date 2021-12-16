@@ -1,13 +1,16 @@
 package com.keelim.cnubus.data.repository.station
 
 import com.keelim.cnubus.data.api.StationArrivalsApi
+import com.keelim.cnubus.data.api.response.HouseDto
 import com.keelim.cnubus.data.api.response.mapper.toArrivalInformation
+import com.keelim.cnubus.data.db.AppDatabase
 import com.keelim.cnubus.data.db.SharedPreferenceManager
 import com.keelim.cnubus.data.db.dao.StationDao
 import com.keelim.cnubus.data.db.entity.mapper.toStationEntity
 import com.keelim.cnubus.data.db.entity.mapper.toStations
 import com.keelim.cnubus.data.model.ArrivalInformation
 import com.keelim.cnubus.data.model.Station
+import com.keelim.cnubus.di.IoDispatcher
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
@@ -19,12 +22,12 @@ import kotlinx.coroutines.withContext
 class StationRepositoryImpl @Inject constructor(
     private val stationArrivalsApi: StationArrivalsApi,
     private val stationApi: StationApi,
-    private val stationDao: StationDao,
+    private val db: AppDatabase,
     private val preferenceManager: SharedPreferenceManager,
-    private val dispatcher: CoroutineDispatcher
+    @IoDispatcher private val dispatcher: CoroutineDispatcher
 ): StationRepository {
     override val stations: Flow<List<Station>> =
-        stationDao.getStationWithSubways()
+        db.dao().getStationWithSubways()
             .distinctUntilChanged()
             .map { stations -> stations.toStations().sortedByDescending { it.isFavorited } }
             .flowOn(dispatcher)
@@ -34,7 +37,7 @@ class StationRepositoryImpl @Inject constructor(
         val lastDatabaseUpdatedTimeMillis = preferenceManager.getLong(KEY_LAST_DATABASE_UPDATED_TIME_MILLIS)
 
         if (lastDatabaseUpdatedTimeMillis == null || fileUpdatedTimeMillis > lastDatabaseUpdatedTimeMillis) {
-            stationDao.insertStationSubways(stationApi.getStationSubways())
+            db.dao().insertStationSubways(stationApi.getStationSubways())
             preferenceManager.putLong(KEY_LAST_DATABASE_UPDATED_TIME_MILLIS, fileUpdatedTimeMillis)
         }
     }
@@ -50,7 +53,11 @@ class StationRepositoryImpl @Inject constructor(
     }
 
     override suspend fun updateStation(station: Station) = withContext(dispatcher) {
-        stationDao.updateStation(station.toStationEntity())
+        db.dao().updateStation(station.toStationEntity())
+    }
+
+    override suspend fun getLocation(): HouseDto  = with(dispatcher){
+        stationArrivalsApi.getLocationList().body() ?: throw RuntimeException("목적지를 불러오는 데에 실패했습니다.")
     }
 
     companion object {

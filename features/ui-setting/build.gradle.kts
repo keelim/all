@@ -17,15 +17,16 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.1.0-alpha03"
+        kotlinCompilerExtensionVersion = "1.1.0-alpha05"
     }
 }
 
 dependencies {
-    implementation(project(":data"))
-    implementation(project(":common"))
-    implementation(project(":domain"))
-    implementation(project(":compose"))
+    implementation(projects.data)
+    implementation(projects.domain)
+    implementation(projects.compose)
+    implementation(projects.common)
+
 
     implementation(Dep2.AndroidX.Lifecycle.livedata)
     implementation(Dep2.AndroidX.Lifecycle.viewModelCompose)
@@ -40,7 +41,7 @@ dependencies {
 
     implementation(Hilt.android)
     kapt(Hilt.hilt_compiler)
-    
+
     implementation(Dep2.timber)
 
     testImplementation(Dep2.Test.junit)

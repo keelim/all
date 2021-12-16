@@ -15,8 +15,9 @@
  */
 package com.keelim.nandadiagnosis.domain
 
+import androidx.paging.PagingData
 import com.keelim.nandadiagnosis.data.db.entity.NandaEntity
-import com.keelim.nandadiagnosis.data.repository.IORepository
+import com.keelim.nandadiagnosis.data.repository.io.IORepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -30,5 +31,9 @@ class GetSearchListUseCase @Inject constructor(
 
   fun getFlowData(query: String): Flow<List<NandaEntity>> {
     return ioRepository.getSearchFlow(query)
+  }
+
+  fun getSearchFlow(query: String): Flow<PagingData<NandaEntity>> {
+    return ioRepository.getTodoContentItemsByPaging(query)
   }
 }

@@ -20,6 +20,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.keelim.nandadiagnosis.R
@@ -65,7 +66,10 @@ class AboutFragment : Fragment() {
     github.setOnClickListener {
       Intent(Intent.ACTION_VIEW).apply {
         findNavController().navigate(
-          AboutFragmentDirections.actionAboutFragmentToWebFragment(getString(R.string.github))
+          R.id.webFragment,
+          bundleOf(
+            "web" to getString(R.string.github)
+          )
         )
       }
     }

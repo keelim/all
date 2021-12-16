@@ -16,41 +16,21 @@
 package com.keelim.nandadiagnosis
 
 import android.app.Application
-import androidx.appcompat.app.AppCompatDelegate
-import com.keelim.nandadiagnosis.data.repository.theme.ThemeRepository
 import com.keelim.nandadiagnosis.utils.AppOpenManager
 import com.keelim.nandadiagnosis.utils.ComponentLogger
 import dagger.hilt.android.HiltAndroidApp
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltAndroidApp
 class MyApplication : Application() {
-
-  @Inject
-  lateinit var themeRepository: ThemeRepository
-
   @Inject
   lateinit var componentLogger: ComponentLogger
-
-  private val appCoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
   private lateinit var appOpenManager: AppOpenManager
 
   override fun onCreate() {
     super.onCreate()
-
     appOpenManager = AppOpenManager(this) // 콜드 부팅에서 복귀시 ad
     componentLogger.initialize(this)
-
-    appCoroutineScope.launch {
-      AppCompatDelegate.setDefaultNightMode(
-        themeRepository.getUserTheme().firstOrNull() ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-      )
-    }
   }
 }

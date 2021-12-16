@@ -3,9 +3,11 @@
     package="com.keelim.ui_setting">
 
     <application>
-        <activity android:name=".SettingActivity" />
         <activity
             android:name=".ClockActivity"
             android:exported="true" />
+        <activity
+            android:name=".ui.SettingActivity"
+            android:exported="false" />
     </application>
 </manifest>

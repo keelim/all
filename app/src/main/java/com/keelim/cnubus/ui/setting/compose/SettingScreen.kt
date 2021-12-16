@@ -32,7 +32,11 @@ internal fun SettingScreen(
                     .padding(24.dp)) {
                 Text(
                     text = "설정",
-                    color = "#2F2E32".toColor(),
+                    color = if (isSystemInDarkTheme()) {
+                        Color.White
+                    } else {
+                        Color.Black
+                    },
                     fontSize = 32.sp,
                     fontWeight = FontWeight.Bold
                 )

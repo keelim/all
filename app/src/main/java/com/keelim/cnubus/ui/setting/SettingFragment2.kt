@@ -9,11 +9,10 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.keelim.cnubus.R
 import com.keelim.cnubus.data.repository.theme.AppTheme
-import com.keelim.cnubus.feature.map.MapsActivity
+import com.keelim.cnubus.feature.map.ui.MapsActivity
 import com.keelim.cnubus.ui.content.Content2Activity
 import com.keelim.cnubus.ui.main.MainViewModel
 import com.keelim.cnubus.ui.setting.compose.ScreenAction

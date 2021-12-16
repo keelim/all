@@ -1,6 +1,7 @@
 import org.gradle.api.JavaVersion
 
-object ProjectConfigurations {
+object
+ProjectConfigurations {
     const val applicationId = "com.keelim.cnubus"
     const val compileSdk = 31
     const val minSdk = 24
@@ -11,4 +12,6 @@ object ProjectConfigurations {
 
     val javaVer = JavaVersion.VERSION_11
     const val javaVerString = "11"
+
+    val composeCompiler = "1.1.0-beta03"
 }

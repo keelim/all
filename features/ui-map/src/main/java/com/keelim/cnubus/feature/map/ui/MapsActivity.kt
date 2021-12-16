@@ -18,6 +18,8 @@ package com.keelim.cnubus.feature.map.ui
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
+import android.graphics.Color
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
@@ -25,43 +27,51 @@ import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.coroutineScope
-import androidx.work.ExistingPeriodicWorkPolicy
-import androidx.work.PeriodicWorkRequestBuilder
-import androidx.work.WorkManager
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.ktx.addMarker
 import com.google.maps.android.ktx.awaitMap
+import com.google.maps.android.ktx.awaitMapLoad
+import com.keelim.cnubus.data.model.MapEvent
 import com.keelim.cnubus.data.model.gps.locationList
+import com.keelim.cnubus.data.model.maps.House
 import com.keelim.cnubus.feature.map.R
 import com.keelim.cnubus.feature.map.databinding.ActivityMapsBinding
+import com.keelim.cnubus.feature.map.databinding.BottomSheetBinding
+import com.keelim.cnubus.feature.map.ui.map3.LocationAdapter
+import com.keelim.cnubus.feature.map.ui.map3.LocationPagerAdapter
+import com.keelim.common.repeatCallDefaultOnStarted
 import com.keelim.common.toast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import timber.log.Timber
-import java.util.concurrent.TimeUnit
 
+@SuppressLint("MissingPermission")
 @AndroidEntryPoint
 class MapsActivity : AppCompatActivity() {
+    private val binding by lazy { ActivityMapsBinding.inflate(layoutInflater) }
+    private val bottomBinding by lazy { BottomSheetBinding.bind(binding.bottom.root) }
+
     private lateinit var fusedLocationProvider: FusedLocationProviderClient
     private lateinit var locationRequest: LocationRequest
     private lateinit var locationCallback: LocationCallback
     private var current: LatLng? = null
     private var location = 0
-
-    private val binding by lazy { ActivityMapsBinding.inflate(layoutInflater) }
-    private val locationPermissions = arrayOf(
+    private val permissions = arrayOf(
         Manifest.permission.ACCESS_FINE_LOCATION,
         Manifest.permission.ACCESS_COARSE_LOCATION,
     )
-
     private lateinit var locationManager: LocationManager
     private lateinit var myLocationListener: MyLocationListener
     private lateinit var urls: Map<String, String>
@@ -70,9 +80,9 @@ class MapsActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
             val responsePermissions = permissions.entries.filter {
                 it.key == Manifest.permission.ACCESS_FINE_LOCATION ||
-                    it.key == Manifest.permission.ACCESS_COARSE_LOCATION
+                        it.key == Manifest.permission.ACCESS_COARSE_LOCATION
             }
-            if (responsePermissions.filter { it.value == true }.size == locationPermissions.size) {
+            if (responsePermissions.filter { it.value == true }.size == this.permissions.size) {
                 setMyLocationListener()
             } else {
                 toast("권한이 없습니다. 확인해주세요")
@@ -80,55 +90,47 @@ class MapsActivity : AppCompatActivity() {
         }
 
     private val viewModel: MapsViewModel by viewModels()
-    @SuppressLint("MissingPermission")
+    private lateinit var googleMap: GoogleMap
+    private val mapFragment by lazy {
+        supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+    }
+
+    private val viewPagerAdapter by lazy {
+        LocationPagerAdapter(itemClicked = {
+            val intent = Intent()
+                .apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(
+                        Intent.EXTRA_TEXT,
+                        "[지금 이 가격에 예약하세요!!] ${it.title} ${it.price} 사진보기 : ${it.imgUrl}"
+                    )
+                    type = "text/plain"
+                }
+            startActivity(Intent.createChooser(intent, null))
+        })
+    }
+
+    private val recyclerAdapter by lazy {
+        LocationAdapter()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         getMyLocation()
         myPositionInit()
         intentControl()
-
-        val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-        lifecycle.coroutineScope.launchWhenCreated {
-            val googleMap = mapFragment.awaitMap()
-            viewModel.data.mapIndexed { index, latLng ->
-                googleMap.apply {
-                    addMarker {
-                        position(latLng)
-                        title(markerHandling(index))
-                        snippet(snippetHandling(index))
-                    }
-                }
-            }
-            googleMap.setOnMarkerClickListener {
-                var url = urls[it.title] ?: ""
-                Timber.d("URLS $url")
-                BottomSheetDialog(
-                    it.title,
-                    it.snippet,
-                    it.position.toString(),
-                    url
-                ).apply {
-                    show(supportFragmentManager, tag)
-                }
-                return@setOnMarkerClickListener false
-            }
-
-            val cameraUpdate = if (location == -1) {
-                CameraUpdateFactory.newLatLngZoom(viewModel.data[0], 17f)
-            } else {
-                CameraUpdateFactory.newLatLngZoom(locationList[location], 17f)
-            }
-            googleMap.apply {
-                animateCamera(cameraUpdate)
-                isMyLocationEnabled = true
-                uiSettings.isMyLocationButtonEnabled = true
-            }
-        }
+        observeState()
         initViews()
+        googleMapSetting()
     }
 
-    @SuppressLint("MissingPermission")
+    override fun onPause() {
+        super.onPause()
+        removeLocationListener()
+    }
+
+
     private fun setMyLocationListener() {
         val minTime: Long = 1500
         val minDistance = 100f
@@ -159,13 +161,8 @@ class MapsActivity : AppCompatActivity() {
         }
         val isGpsEnable = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
         if (isGpsEnable) {
-            locationPermissionLauncher.launch(locationPermissions)
+            locationPermissionLauncher.launch(permissions)
         }
-    }
-
-    override fun onPause() {
-        super.onPause()
-        removeLocationListener()
     }
 
     private fun myPositionInit() {
@@ -205,7 +202,99 @@ class MapsActivity : AppCompatActivity() {
     }
 
     private fun initViews() = with(binding) {
+        houseViewPager.adapter = viewPagerAdapter
+        bottomBinding.recyclerView.adapter = recyclerAdapter
+
+        houseViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                val selectedHouseModel = viewPagerAdapter.currentList[position]
+                CameraUpdateFactory.newLatLngZoom(
+                    LatLng(
+                        selectedHouseModel.lat,
+                        selectedHouseModel.lng
+                    ), 17f
+                )
+            }
+
+        })
     }
+
+    private fun googleMapSetting() = lifecycleScope.launch {
+        googleMap = mapFragment.awaitMap()
+        googleMap.setOnMarkerClickListener { marker ->
+//            val url = urls[it.title ?: ""]
+//            BottomSheetDialog(
+//                it.title ?: "서버에서 관리 중입니다.",
+//                it.snippet ?: "서버에서 관리 중입니다.",
+//                it.position.toString(),
+//                url.orEmpty()
+//            ).apply {
+//                show(supportFragmentManager, tag)
+//            }
+            val selectedModel = viewPagerAdapter.currentList.firstOrNull {
+                it.id == marker.snippet ?: "0".toInt()
+            }
+            selectedModel?.let {
+                val position = viewPagerAdapter.currentList.indexOf(it)
+                binding.houseViewPager.currentItem = position
+            }
+
+            return@setOnMarkerClickListener false
+        }
+    }
+
+    private fun observeState() {
+        repeatCallDefaultOnStarted(state = Lifecycle.State.CREATED) {
+            googleMap = mapFragment.awaitMap()
+            viewModel.data.mapIndexed { index, latLng ->
+                googleMap.apply {
+                    addMarker {
+                        position(latLng)
+                        title(markerHandling(index))
+                        snippet(snippetHandling(index))
+                    }
+                }
+            }
+//            val cameraUpdate = if (location == -1) {
+//                CameraUpdateFactory.newLatLngZoom(viewModel.data[0], 17f)
+//            } else {
+//                CameraUpdateFactory.newLatLngZoom(locationList[location], 17f)
+//            }
+            val cameraUpdate = CameraUpdateFactory.newLatLngZoom(LatLng(37.497885, 127.027512), 17f)
+            googleMap.apply {
+                animateCamera(cameraUpdate)
+                isMyLocationEnabled = true
+                uiSettings.isMyLocationButtonEnabled = true
+            }
+        }
+        repeatCallDefaultOnStarted {
+            viewModel.state.collect {
+                when (it) {
+                    is MapEvent.UnInitialized -> toast("초기화 중입니다.")
+                    is MapEvent.Loading -> Unit
+                    is MapEvent.Success -> {
+                        updateMarker(it.data.items)
+                         viewPagerAdapter.submitList(it.data.items)
+                         recyclerAdapter.submitList(it.data.items)
+                         bottomBinding.bottomSheetTitleTextView.text = "${it.data.items.size}개의 숙소"
+                    }
+                    is MapEvent.Error -> toast(it.message)
+                }
+            }
+        }
+    }
+
+    private fun updateMarker(houses: List<House>) {
+        houses.forEach { house ->
+            googleMap.addMarker {
+                position(LatLng(house.lat, house.lng))
+                title(house.id.toString())
+                snippet(house.id.toString())
+            }
+        }
+    }
+
 
     private fun removeLocationListener() {
         if (::locationManager.isInitialized && ::myLocationListener.isInitialized) {
@@ -220,3 +309,4 @@ class MapsActivity : AppCompatActivity() {
         }
     }
 }
+

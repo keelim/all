@@ -25,13 +25,22 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.runtime.getValue
 import androidx.navigation.findNavController
+import androidx.work.Constraints
+import androidx.work.ExistingWorkPolicy
+import androidx.work.NetworkType
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkInfo
+import androidx.work.WorkManager
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.model.AppUpdateType
+import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.keelim.common.toast
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.compose.ui.CircularIndeterminateProgressBar
+import com.keelim.nandadiagnosis.data.worker.DownloadWorker
 import com.keelim.nandadiagnosis.databinding.ActivityMain2Binding
 import com.keelim.nandadiagnosis.service.TerminateService
 import com.keelim.nandadiagnosis.utils.DownloadReceiver
@@ -42,24 +51,29 @@ import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.positiveButton
 import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.title
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
+import java.util.UUID
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class Main2Activity : AppCompatActivity() {
   private lateinit var downloadManager: DownloadManager
   private val binding: ActivityMain2Binding by lazy { ActivityMain2Binding.inflate(layoutInflater) }
-
   private val mainViewModel: MainViewModel by viewModels()
-
   private val auth by lazy { Firebase.auth }
+  private val appUpdateManager by lazy {AppUpdateManagerFactory.create(this)}
 
   @Inject
   lateinit var recevier: DownloadReceiver
+
+  private val workManager by lazy {
+    WorkManager.getInstance(applicationContext)
+  }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(binding.root)
     startService(Intent(this, TerminateService::class.java))
+    updateCheck()
     initNavigation()
     initBottomAppBar()
     observeLoading()
@@ -71,6 +85,27 @@ class Main2Activity : AppCompatActivity() {
     super.onDestroy()
     stopService(Intent(this, TerminateService::class.java))
     unregisterReceiver(recevier)
+  }
+
+  private fun updateCheck(){
+    val appUpdateInfoTask = appUpdateManager.appUpdateInfo
+
+    appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
+      if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+        && appUpdateInfo.updatePriority() >= 4 /* high priority */
+        && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
+        // Request an immediate update.
+        appUpdateManager.startUpdateFlowForResult(
+          // Pass the intent that is returned by 'getAppUpdateInfo()'.
+          appUpdateInfo,
+          // Or 'AppUpdateType.FLEXIBLE' for flexible updates.
+          AppUpdateType.IMMEDIATE,
+          // The current activity making the update request.
+          this,
+          // Include a request code to later monitor this update request.
+          IN_APP_UPDATE_CODE)
+      }
+    }
   }
 
   private fun initNavigation() {
@@ -92,11 +127,13 @@ class Main2Activity : AppCompatActivity() {
     searchButton.setOnClickListener {
       mainViewModel.loadingOn()
       navController().navigate(R.id.navigation_search)
+      mainViewModel.loadingOff()
     }
 
     bottomAppBar.setNavigationOnClickListener {
       mainViewModel.loadingOn()
       showMenu()
+      mainViewModel.loadingOff()
     }
 
     bottomAppBar.setOnMenuItemClickListener {
@@ -126,7 +163,7 @@ class Main2Activity : AppCompatActivity() {
       message("어플리케이션 사용을 위해 데이터베이스를 다운로드 합니다.")
       positiveButton(getString(R.string.ok)) {
         toast("서버로부터 데이터 베이스를 요청 합니다. ")
-        downloadDatabase()
+        downloadDatabase2()
       }
       negativeButton(getString(R.string.cancel))
     }.show()
@@ -151,6 +188,45 @@ class Main2Activity : AppCompatActivity() {
     )
   }
 
+  private fun downloadDatabase2() {
+    val constraints = Constraints.Builder()
+      .setRequiredNetworkType(NetworkType.CONNECTED)
+      .setRequiresStorageNotLow(true)
+      .setRequiresBatteryNotLow(true)
+      .build()
+
+    val downloadWorker = OneTimeWorkRequestBuilder<DownloadWorker>()
+      .setConstraints(constraints)
+      .addTag("downloadWork")
+      .build()
+
+    // 2
+    workManager.enqueueUniqueWork(
+      "oneTimeDownload",
+      ExistingWorkPolicy.KEEP,
+      downloadWorker
+    )
+    observeWork(downloadWorker.id)
+  }
+
+  private fun observeWork(id: UUID) {
+    // 1
+    workManager.getWorkInfoByIdLiveData(id)
+      .observe(this) { info ->
+        // 2
+        info?.let {
+          when (it.state) {
+            WorkInfo.State.ENQUEUED -> toast("다운로드를 시작합니다.")
+            WorkInfo.State.RUNNING -> mainViewModel.loadingOn()
+            WorkInfo.State.SUCCEEDED -> mainViewModel.loadingOff()
+            WorkInfo.State.FAILED -> toast("다운로드를 완료하지 못했습니다..")
+            WorkInfo.State.BLOCKED -> toast("다운로드를 완료하지 못했습니다..")
+            WorkInfo.State.CANCELLED -> toast("다운로드를 완료하지 못했습니다..")
+          }
+        }
+      }
+  }
+
   private fun loginCheck() {
     auth.currentUser ?: toast("Login 을 하시면 더 많은 서비스를 확인할 수 있습니다. ")
     if (auth.currentUser == null) {
@@ -165,25 +241,18 @@ class Main2Activity : AppCompatActivity() {
   private fun showMenu() = navController().navigate(R.id.menuBottomSheetDialogFragment)
 
   private fun observeLoading() = mainViewModel.loading.observe(this) {
-    when (it) {
-      true -> binding.composeView.apply {
-        bringToFront()
-
-        setContent {
-          CircularIndeterminateProgressBar(
-            isDisplayed = true
-          )
-        }
-      }
-      false -> binding.composeView.apply {
-        bringToFront()
-
-        setContent {
-          CircularIndeterminateProgressBar(
-            isDisplayed = false
-          )
-        }
+    binding.composeView.apply {
+      bringToFront()
+      setContent {
+        CircularIndeterminateProgressBar(
+          isDisplayed = it
+        )
       }
     }
+  }
+
+
+  companion object{
+    const val IN_APP_UPDATE_CODE = 1
   }
 }

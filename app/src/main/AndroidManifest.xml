@@ -47,9 +47,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.onBoarding.OnBoardingActivity"
-            android:exported="true" />
-        <activity
             android:name=".ui.subway.SubwayActivity"
             android:exported="true" />
 
@@ -74,5 +71,18 @@
                 android:name="com.keelim.cnubus.initialize.CoilInitializer"
                 android:value="androidx.startup" />
         </provider>
+
+        <receiver
+            android:name="com.keelim.compose.ui.widget.ProjectGlanceWidgetReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/first_glance_widget_info" />
+        </receiver>
     </application>
 </manifest>

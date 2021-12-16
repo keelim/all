@@ -16,9 +16,6 @@
 package com.keelim.cnubus.di
 
 import android.content.Context
-import com.keelim.cnubus.data.api.StationArrivalsApi
-import com.keelim.cnubus.data.db.AppDatabase
-import com.keelim.cnubus.data.db.SharedPreferenceManager
 import com.keelim.cnubus.data.repository.setting.DeveloperRepository
 import com.keelim.cnubus.data.repository.setting.DeveloperRepositoryImpl
 import com.keelim.cnubus.data.repository.station.StationApi
@@ -33,7 +30,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
-import kotlinx.coroutines.CoroutineDispatcher
 
 @InstallIn(SingletonComponent::class)
 @Module(includes = [RepositoryModule.ThemeModule::class])
@@ -52,7 +48,6 @@ internal abstract class RepositoryModule {
     abstract fun bindsStationRepository(
         repository: StationRepositoryImpl,
     ): StationRepository
-
 
     @InstallIn(SingletonComponent::class)
     @Module

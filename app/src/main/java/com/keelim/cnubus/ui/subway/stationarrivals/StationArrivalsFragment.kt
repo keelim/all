@@ -2,12 +2,8 @@ package com.keelim.cnubus.ui.subway.stationarrivals
 
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,12 +11,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.keelim.cnubus.R
 import com.keelim.cnubus.data.model.ArrivalInformation
 import com.keelim.cnubus.databinding.FragmentStationArrivalsBinding
-import com.keelim.cnubus.ui.subway.stations.StationState
 import com.keelim.cnubus.utils.toGone
 import com.keelim.cnubus.utils.toVisible
+import com.keelim.common.repeatCallDefaultOnStarted
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class StationArrivalsFragment : Fragment() {
@@ -118,17 +113,15 @@ class StationArrivalsFragment : Fragment() {
         }
     }
 
-    private fun observeState() = viewLifecycleOwner.lifecycleScope.launch {
-        repeatOnLifecycle(Lifecycle.State.STARTED){
-            viewModel.state.collect {
-                when(it){
-                    is ArrivalState.HideLoading -> hideLoadingIndicator()
-                    is ArrivalState.ShowLoading -> showLoadingIndicator()
-                    is ArrivalState. ShowStationArrivals-> showStationArrivals(it.data)
-                    is ArrivalState.UnInitialized -> Unit
-                    is ArrivalState.Error -> {
-                        showErrorDescription(it.message)
-                    }
+    private fun observeState() = viewLifecycleOwner.repeatCallDefaultOnStarted {
+        viewModel.state.collect {
+            when(it){
+                is ArrivalState.HideLoading -> hideLoadingIndicator()
+                is ArrivalState.ShowLoading -> showLoadingIndicator()
+                is ArrivalState. ShowStationArrivals-> showStationArrivals(it.data)
+                is ArrivalState.UnInitialized -> Unit
+                is ArrivalState.Error -> {
+                    showErrorDescription(it.message)
                 }
             }
         }

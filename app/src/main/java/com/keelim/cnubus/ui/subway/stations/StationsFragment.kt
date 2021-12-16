@@ -9,23 +9,18 @@ import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.keelim.cnubus.R
 import com.keelim.cnubus.data.model.Station
 import com.keelim.cnubus.databinding.FragmentStationsBinding
 import com.keelim.cnubus.utils.toGone
 import com.keelim.cnubus.utils.toVisible
+import com.keelim.common.repeatCallDefaultOnStarted
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class StationsFragment : Fragment() {
@@ -99,15 +94,13 @@ class StationsFragment : Fragment() {
         inputMethodManager.hideSoftInputFromWindow(activity?.currentFocus?.windowToken, 0)
     }
 
-    private fun observeState() = viewLifecycleOwner.lifecycleScope.launch {
-        repeatOnLifecycle(Lifecycle.State.STARTED){
-            viewModel.state.collect {
-                when(it){
-                    is StationState.HideLoading -> hideLoadingIndicator()
-                    is StationState.ShowLoading -> showLoadingIndicator()
-                    is StationState.ShowStation -> showStations(it.data)
-                    is StationState.UnInitialized -> Unit
-                }
+    private fun observeState() = viewLifecycleOwner.repeatCallDefaultOnStarted {
+        viewModel.state.collect {
+            when(it){
+                is StationState.HideLoading -> hideLoadingIndicator()
+                is StationState.ShowLoading -> showLoadingIndicator()
+                is StationState.ShowStation -> showStations(it.data)
+                is StationState.UnInitialized -> Unit
             }
         }
     }

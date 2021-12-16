@@ -22,6 +22,7 @@ android {
         targetSdk = ProjectConfigurations.targetSdk
         versionCode = ProjectConfigurations.versionCode
         versionName = ProjectConfigurations.versionName
+        
     }
 
     buildTypes {
@@ -56,7 +57,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.1.0-alpha04"
+        kotlinCompilerExtensionVersion = ProjectConfigurations.composeCompiler
     }
 
     kapt {

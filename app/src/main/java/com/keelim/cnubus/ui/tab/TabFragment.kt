@@ -21,12 +21,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.keelim.cnubus.databinding.FragmentTabBinding
 import com.keelim.cnubus.ui.main.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.math.abs
 
 @AndroidEntryPoint
 class TabFragment : Fragment() {

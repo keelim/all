@@ -19,7 +19,6 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
@@ -41,9 +40,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.ktx.addMarker
 import com.google.maps.android.ktx.awaitMap
-import com.google.maps.android.ktx.awaitMapLoad
 import com.keelim.cnubus.data.model.MapEvent
-import com.keelim.cnubus.data.model.gps.locationList
 import com.keelim.cnubus.data.model.maps.House
 import com.keelim.cnubus.feature.map.R
 import com.keelim.cnubus.feature.map.databinding.ActivityMapsBinding
@@ -80,7 +77,7 @@ class MapsActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
             val responsePermissions = permissions.entries.filter {
                 it.key == Manifest.permission.ACCESS_FINE_LOCATION ||
-                        it.key == Manifest.permission.ACCESS_COARSE_LOCATION
+                    it.key == Manifest.permission.ACCESS_COARSE_LOCATION
             }
             if (responsePermissions.filter { it.value == true }.size == this.permissions.size) {
                 setMyLocationListener()
@@ -96,18 +93,20 @@ class MapsActivity : AppCompatActivity() {
     }
 
     private val viewPagerAdapter by lazy {
-        LocationPagerAdapter(itemClicked = {
-            val intent = Intent()
-                .apply {
-                    action = Intent.ACTION_SEND
-                    putExtra(
-                        Intent.EXTRA_TEXT,
-                        "[지금 이 가격에 예약하세요!!] ${it.title} ${it.price} 사진보기 : ${it.imgUrl}"
-                    )
-                    type = "text/plain"
-                }
-            startActivity(Intent.createChooser(intent, null))
-        })
+        LocationPagerAdapter(
+            itemClicked = {
+                val intent = Intent()
+                    .apply {
+                        action = Intent.ACTION_SEND
+                        putExtra(
+                            Intent.EXTRA_TEXT,
+                            "[지금 이 가격에 예약하세요!!] ${it.title} ${it.price} 사진보기 : ${it.imgUrl}"
+                        )
+                        type = "text/plain"
+                    }
+                startActivity(Intent.createChooser(intent, null))
+            }
+        )
     }
 
     private val recyclerAdapter by lazy {
@@ -129,7 +128,6 @@ class MapsActivity : AppCompatActivity() {
         super.onPause()
         removeLocationListener()
     }
-
 
     private fun setMyLocationListener() {
         val minTime: Long = 1500
@@ -213,10 +211,10 @@ class MapsActivity : AppCompatActivity() {
                     LatLng(
                         selectedHouseModel.lat,
                         selectedHouseModel.lng
-                    ), 17f
+                    ),
+                    17f
                 )
             }
-
         })
     }
 
@@ -275,9 +273,9 @@ class MapsActivity : AppCompatActivity() {
                     is MapEvent.Loading -> Unit
                     is MapEvent.Success -> {
                         updateMarker(it.data.items)
-                         viewPagerAdapter.submitList(it.data.items)
-                         recyclerAdapter.submitList(it.data.items)
-                         bottomBinding.bottomSheetTitleTextView.text = "${it.data.items.size}개의 숙소"
+                        viewPagerAdapter.submitList(it.data.items)
+                        recyclerAdapter.submitList(it.data.items)
+                        bottomBinding.bottomSheetTitleTextView.text = "${it.data.items.size}개의 숙소"
                     }
                     is MapEvent.Error -> toast(it.message)
                 }
@@ -295,7 +293,6 @@ class MapsActivity : AppCompatActivity() {
         }
     }
 
-
     private fun removeLocationListener() {
         if (::locationManager.isInitialized && ::myLocationListener.isInitialized) {
             locationManager.removeUpdates(myLocationListener)
@@ -309,4 +306,3 @@ class MapsActivity : AppCompatActivity() {
         }
     }
 }
-

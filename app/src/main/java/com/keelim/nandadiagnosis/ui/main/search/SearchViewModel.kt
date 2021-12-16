@@ -19,11 +19,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.keelim.nandadiagnosis.data.db.entity.History
+import com.keelim.nandadiagnosis.data.db.entity.NandaEntity
 import com.keelim.nandadiagnosis.domain.GetSearchListUseCase
 import com.keelim.nandadiagnosis.domain.HistoryUseCase
 import com.keelim.nandadiagnosis.domain.favorite.FavoriteUpdateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -72,5 +76,10 @@ class SearchViewModel @Inject constructor(
 
   fun favoriteUpdate(favorite: Int, id: Int) = viewModelScope.launch {
     favoriteUpdateUseCase.invoke(favorite, id)
+  }
+
+  fun getContent(query: String = ""): Flow<PagingData<NandaEntity>> {
+    return getSearchListUseCase.getSearchFlow(query)
+      .cachedIn(viewModelScope)
   }
 }

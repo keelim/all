@@ -34,6 +34,7 @@ import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.negativeButton
 import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.positiveButton
 import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.singleChoiceItems
 import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.title
+import com.keelim.player.PlayActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -84,12 +85,14 @@ class MainBottomFragment : BottomSheetDialogFragment() {
       dismiss()
       mainViewModel.loadingOn()
       findNavController().navigate(R.id.aboutFragment)
+      mainViewModel.loadingOff()
     }
 
     binding.openSourceLicensesButton.setOnClickListener {
       dismiss()
       mainViewModel.loadingOn()
       findNavController().navigate(R.id.openSource)
+      mainViewModel.loadingOff()
     }
 
     binding.update.setOnClickListener {
@@ -99,24 +102,34 @@ class MainBottomFragment : BottomSheetDialogFragment() {
         data = Uri.parse(getString(R.string.urinanda))
         startActivity(this)
       }
+      mainViewModel.loadingOff()
     }
 
     binding.blog.setOnClickListener {
       dismiss()
       mainViewModel.loadingOn()
       findNavController().navigate(R.id.inAppWebFragment)
+      mainViewModel.loadingOff()
     }
 
     binding.login.setOnClickListener {
       dismiss()
       mainViewModel.loadingOn()
       findNavController().navigate(R.id.profileFragment)
+      mainViewModel.loadingOff()
     }
 
     binding.labFeature.setOnClickListener {
       dismiss()
       mainViewModel.loadingOn()
-      requireContext().startActivity(Intent(requireContext(), SettingActivity::class.java))
+      startActivity(Intent(requireContext(), SettingActivity::class.java))
+      mainViewModel.loadingOff()
+    }
+
+    binding.labFeature2.setOnClickListener{
+      dismiss()
+      mainViewModel.loadingOn()
+      startActivity(Intent(requireContext(), PlayActivity::class.java))
     }
   }
 

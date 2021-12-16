@@ -36,8 +36,8 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -45,7 +45,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.keelim.nandadiagnosis.compose.ui.Loading
-import com.keelim.nandadiagnosis.compose.ui.UiState
+import com.keelim.common.UiState
 
 @Composable
 internal fun Navigation(
@@ -68,10 +68,10 @@ internal fun Navigation(
 
 @Composable
 private fun NavigationScreen(
-  uiState: UiState<out Any>,
-  title: String,
-  onBackAction: () -> Unit,
-  content: @Composable (PaddingValues) -> Unit
+    uiState: UiState<out Any>,
+    title: String,
+    onBackAction: () -> Unit,
+    content: @Composable (PaddingValues) -> Unit
 ) {
   Container(uiState) {
     Scaffold(
@@ -104,8 +104,8 @@ private fun NavigationScreen(
 
 @Composable
 private fun <T> Container(
-  result: UiState<T>,
-  content: @Composable () -> Unit,
+    result: UiState<T>,
+    content: @Composable () -> Unit,
 ) {
   val scrollState = rememberScrollState()
 

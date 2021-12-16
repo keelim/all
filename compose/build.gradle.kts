@@ -16,7 +16,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.1.0-alpha04"
+        kotlinCompilerExtensionVersion = ProjectConfigurations.composeCompiler
     }
 }
 
@@ -34,6 +34,7 @@ dependencies {
 
     implementation(Dep2.AndroidX.Activity.compose)
     implementation(Dep2.Compose.themeAdapter)
+    implementation("androidx.glance:glance-appwidget:1.0.0-SNAPSHOT")
 }
 
 kapt {

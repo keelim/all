@@ -1,5 +1,5 @@
 /*
- * Designed and developed by 2020 keelim (Jaehyun Kim)
+ * Designed and developed by 2021 keelim (Jaehyun Kim)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.cnubus.di;
+package com.keelim.cnubus.di
 
 import dagger.Module
 import dagger.Provides
@@ -26,17 +26,17 @@ import javax.inject.Qualifier
 @InstallIn(SingletonComponent::class)
 @Module
 object DispatcherModule {
-  @DefaultDispatcher
-  @Provides
-  fun providesDefaultDispatcher(): CoroutineDispatcher = Dispatchers.Default
+    @DefaultDispatcher
+    @Provides
+    fun providesDefaultDispatcher(): CoroutineDispatcher = Dispatchers.Default
 
-  @IoDispatcher
-  @Provides
-  fun providesIoDispatcher(): CoroutineDispatcher = Dispatchers.IO
+    @IoDispatcher
+    @Provides
+    fun providesIoDispatcher(): CoroutineDispatcher = Dispatchers.IO
 
-  @MainDispatcher
-  @Provides
-  fun providesMainDispatcher(): CoroutineDispatcher = Dispatchers.Main
+    @MainDispatcher
+    @Provides
+    fun providesMainDispatcher(): CoroutineDispatcher = Dispatchers.Main
 }
 
 @Retention(AnnotationRetention.BINARY)

@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -13,6 +15,10 @@ plugins {
     id ("com.google.secrets_gradle_plugin") version("0.5")
 }
 
+
+val key: String = gradleLocalProperties(rootDir).getProperty("APPCENTER_KEY")
+
+
 android {
     compileSdk = ProjectConfigurations.compileSdk
 
@@ -24,15 +30,18 @@ android {
         versionName = ProjectConfigurations.versionName
         
     }
+
     lint {
         checkDependencies = true
     }
 
     buildTypes {
+
         debug{
             firebaseAppDistribution {
                 testers = "kimh00335@gmail.com"
             }
+            buildConfigField("String", "APPCENTER_KEY", key)
         }
         release{
             isMinifyEnabled = false
@@ -41,6 +50,7 @@ android {
             firebaseAppDistribution {
                 testers = "kimh00335@gmail.com"
             }
+            buildConfigField("String", "APPCENTER_KEY", key)
         }
     }
 
@@ -122,7 +132,11 @@ dependencies {
     implementation("androidx.viewpager2:viewpager2:1.0.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
 
+
     implementation(SquareUp.retrofit)
+    val appCenterSdkVersion = "4.3.1"
+    implementation("com.microsoft.appcenter:appcenter-analytics:${appCenterSdkVersion}")
+    implementation("com.microsoft.appcenter:appcenter-crashes:${appCenterSdkVersion}")
 }
 
 apply(from = "$rootDir/spotless.gradle")

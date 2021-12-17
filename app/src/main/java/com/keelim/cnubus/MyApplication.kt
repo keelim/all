@@ -18,9 +18,13 @@ package com.keelim.cnubus
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import com.jakewharton.threetenabp.AndroidThreeTen
+import com.keelim.cnubus.data.repository.theme.ThemeRepository
 import com.keelim.cnubus.data.repository.theme.ThemeRepositoryImpl
 import com.keelim.cnubus.utils.AppOpenManager
 import com.keelim.cnubus.utils.ComponentLogger
+import com.microsoft.appcenter.AppCenter
+import com.microsoft.appcenter.analytics.Analytics
+import com.microsoft.appcenter.crashes.Crashes
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -29,10 +33,11 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+
 @HiltAndroidApp
 class MyApplication : Application() {
     @Inject
-    lateinit var themeRepositoryImpl: ThemeRepositoryImpl
+    lateinit var themeRepository: ThemeRepository
     @Inject
     lateinit var componentLogger: ComponentLogger
 
@@ -48,8 +53,13 @@ class MyApplication : Application() {
 
         appCoroutineScope.launch {
             AppCompatDelegate.setDefaultNightMode(
-                themeRepositoryImpl.getUserTheme().firstOrNull() ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+                themeRepository.getUserTheme().firstOrNull() ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
             )
         }
+        AppCenter.start(
+            this,
+            BuildConfig.APPCENTER_KEY,
+            Analytics::class.java, Crashes::class.java
+        )
     }
 }

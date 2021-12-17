@@ -15,11 +15,11 @@
  */
 package com.keelim.cnubus.domain
 
-import com.keelim.cnubus.data.repository.theme.ThemeRepository
+import com.keelim.cnubus.data.repository.theme.ThemeRepositoryImpl
 
 class SetAppThemeUseCase(
-    private val themeRepository: ThemeRepository
+    private val themeRepositoryImpl: ThemeRepositoryImpl
 ) {
 
-    suspend operator fun invoke(theme: Int) = themeRepository.setUserTheme(theme)
+    suspend operator fun invoke(theme: Int) = themeRepositoryImpl.setUserTheme(theme)
 }

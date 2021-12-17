@@ -17,10 +17,12 @@ package com.keelim.cnubus.feature.map.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.keelim.cnubus.data.model.Location
 import com.keelim.cnubus.data.model.MapEvent
 import com.keelim.cnubus.data.model.gps.locationList
 import com.keelim.cnubus.data.repository.station.StationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -30,7 +32,7 @@ import javax.inject.Inject
 class MapsViewModel @Inject constructor(
     private val stationRepository: StationRepository,
 ) : ViewModel() {
-    val data = locationList
+    val data:Flow<Location> = locationList
     private val _state: MutableStateFlow<MapEvent> = MutableStateFlow(MapEvent.UnInitialized)
     val state: StateFlow<MapEvent> get() = _state
 

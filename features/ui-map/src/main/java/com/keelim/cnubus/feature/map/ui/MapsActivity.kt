@@ -51,6 +51,7 @@ import com.keelim.common.repeatCallDefaultOnStarted
 import com.keelim.common.toast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -77,7 +78,7 @@ class MapsActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
             val responsePermissions = permissions.entries.filter {
                 it.key == Manifest.permission.ACCESS_FINE_LOCATION ||
-                    it.key == Manifest.permission.ACCESS_COARSE_LOCATION
+                        it.key == Manifest.permission.ACCESS_COARSE_LOCATION
             }
             if (responsePermissions.filter { it.value == true }.size == this.permissions.size) {
                 setMyLocationListener()
@@ -245,21 +246,21 @@ class MapsActivity : AppCompatActivity() {
     private fun observeState() {
         repeatCallDefaultOnStarted(state = Lifecycle.State.CREATED) {
             googleMap = mapFragment.awaitMap()
-            viewModel.data.mapIndexed { index, latLng ->
+            val locations = viewModel.data.toList()
+            locations.mapIndexed { index, location ->
                 googleMap.apply {
                     addMarker {
-                        position(latLng)
+                        position(location.latLng)
                         title(markerHandling(index))
                         snippet(snippetHandling(index))
                     }
                 }
             }
-//            val cameraUpdate = if (location == -1) {
-//                CameraUpdateFactory.newLatLngZoom(viewModel.data[0], 17f)
-//            } else {
-//                CameraUpdateFactory.newLatLngZoom(locationList[location], 17f)
-//            }
-            val cameraUpdate = CameraUpdateFactory.newLatLngZoom(LatLng(37.497885, 127.027512), 17f)
+            val cameraUpdate = if (location == -1) {
+                CameraUpdateFactory.newLatLngZoom(locations[0].latLng, 17f)
+            } else {
+                CameraUpdateFactory.newLatLngZoom(locations[location].latLng, 17f)
+            }
             googleMap.apply {
                 animateCamera(cameraUpdate)
                 isMyLocationEnabled = true
@@ -275,7 +276,7 @@ class MapsActivity : AppCompatActivity() {
                         updateMarker(it.data.items)
                         viewPagerAdapter.submitList(it.data.items)
                         recyclerAdapter.submitList(it.data.items)
-                        bottomBinding.bottomSheetTitleTextView.text = "${it.data.items.size}개의 숙소"
+                        bottomBinding.bottomSheetTitleTextView.text = "${it.data.items.size} 주변 장소"
                     }
                     is MapEvent.Error -> toast(it.message)
                 }

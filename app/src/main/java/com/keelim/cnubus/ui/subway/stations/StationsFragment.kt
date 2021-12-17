@@ -40,15 +40,17 @@ import kotlinx.coroutines.flow.collect
 @AndroidEntryPoint
 class StationsFragment : Fragment() {
     private var _binding: FragmentStationsBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: StationViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = FragmentStationsBinding.inflate(inflater, container, false)
-        .also { _binding = it }
-        .root
+    ): View {
+        _binding = FragmentStationsBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -64,23 +66,23 @@ class StationsFragment : Fragment() {
         _binding = null
     }
 
-    fun showLoadingIndicator() {
-        _binding?.progressBar?.toVisible()
+    private fun showLoadingIndicator() {
+        binding.progressBar.toVisible()
     }
 
-    fun hideLoadingIndicator() {
-        _binding?.progressBar?.toGone()
+    private fun hideLoadingIndicator() {
+        binding.progressBar.toGone()
     }
 
     fun showStations(stations: List<Station>) {
-        (_binding?.recyclerView?.adapter as? StationsAdapter)?.run {
+        (binding.recyclerView.adapter as? StationsAdapter)?.run {
             this.data = stations
             notifyDataSetChanged()
         }
     }
 
     private fun initViews() {
-        _binding?.recyclerView?.apply {
+        binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             adapter = StationsAdapter()
             itemAnimator = DefaultItemAnimator()
@@ -89,11 +91,11 @@ class StationsFragment : Fragment() {
     }
 
     private fun bindViews() {
-        _binding?.searchEditText?.addTextChangedListener { editable ->
+        binding.searchEditText.addTextChangedListener { editable ->
             viewModel.filterStations(editable.toString())
         }
 
-        (_binding?.recyclerView?.adapter as? StationsAdapter)?.apply {
+        (binding.recyclerView.adapter as? StationsAdapter)?.apply {
             onItemClickListener = { station ->
                 val action = StationsFragmentDirections.actionStationsDestToStationArrivalsDest(station)
                 findNavController().navigate(action)

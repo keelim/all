@@ -12,6 +12,17 @@
 
 ![preview](previews/preview.PNG)
 
+---
+## Change logs
+
+![image](https://user-images.githubusercontent.com/26667456/146470677-ca9320cf-f572-499f-acec-16424bfaa094.png)
+이동화면 변경
+
+![image](https://user-images.githubusercontent.com/26667456/146470734-aa168477-a4e9-4f80-a178-01f6a92db5e1.png)
+설정 화면 변경
+
+
+
 ## Tech stack & Open-source libraries
 - Minimum SDK level 24
 - [Kotlin](https://kotlinlang.org/) based, [introducing Coroutines](https://github.com/Kotlin/kotlinx.coroutines) 

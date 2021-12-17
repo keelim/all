@@ -24,14 +24,17 @@ android {
         versionName = ProjectConfigurations.versionName
         
     }
+    lint {
+        checkDependencies = true
+    }
 
     buildTypes {
-        getByName("debug") {
+        debug{
             firebaseAppDistribution {
                 testers = "kimh00335@gmail.com"
             }
         }
-        getByName("release") {
+        release{
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro")
@@ -123,6 +126,5 @@ dependencies {
 }
 
 apply(from = "$rootDir/spotless.gradle")
-
 
 

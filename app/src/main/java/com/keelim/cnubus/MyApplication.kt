@@ -18,7 +18,7 @@ package com.keelim.cnubus
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import com.jakewharton.threetenabp.AndroidThreeTen
-import com.keelim.cnubus.data.repository.theme.ThemeRepository
+import com.keelim.cnubus.data.repository.theme.ThemeRepositoryImpl
 import com.keelim.cnubus.utils.AppOpenManager
 import com.keelim.cnubus.utils.ComponentLogger
 import dagger.hilt.android.HiltAndroidApp
@@ -32,7 +32,7 @@ import javax.inject.Inject
 @HiltAndroidApp
 class MyApplication : Application() {
     @Inject
-    lateinit var themeRepository: ThemeRepository
+    lateinit var themeRepositoryImpl: ThemeRepositoryImpl
     @Inject
     lateinit var componentLogger: ComponentLogger
 
@@ -48,7 +48,7 @@ class MyApplication : Application() {
 
         appCoroutineScope.launch {
             AppCompatDelegate.setDefaultNightMode(
-                themeRepository.getUserTheme().firstOrNull() ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+                themeRepositoryImpl.getUserTheme().firstOrNull() ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
             )
         }
     }

@@ -15,7 +15,7 @@
  */
 package com.keelim.cnubus.di
 
-import com.keelim.cnubus.data.repository.theme.ThemeRepository
+import com.keelim.cnubus.data.repository.theme.ThemeRepositoryImpl
 import com.keelim.cnubus.domain.GetAppThemeUseCase
 import com.keelim.cnubus.domain.SetAppThemeUseCase
 import dagger.Module
@@ -29,13 +29,13 @@ import dagger.hilt.android.scopes.ViewModelScoped
 object UseCase {
     @Provides
     @ViewModelScoped
-    fun provideAppThemeUseCase(themeRepository: ThemeRepository): GetAppThemeUseCase {
-        return GetAppThemeUseCase(themeRepository)
+    fun provideAppThemeUseCase(themeRepositoryImpl: ThemeRepositoryImpl): GetAppThemeUseCase {
+        return GetAppThemeUseCase(themeRepositoryImpl)
     }
 
     @Provides
     @ViewModelScoped
-    fun provideSetAppThemeUseCase(themeRepository: ThemeRepository): SetAppThemeUseCase {
-        return SetAppThemeUseCase(themeRepository)
+    fun provideSetAppThemeUseCase(themeRepositoryImpl: ThemeRepositoryImpl): SetAppThemeUseCase {
+        return SetAppThemeUseCase(themeRepositoryImpl)
     }
 }

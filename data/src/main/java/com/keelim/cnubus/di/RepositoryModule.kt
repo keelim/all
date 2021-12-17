@@ -15,7 +15,6 @@
  */
 package com.keelim.cnubus.di
 
-import android.content.Context
 import com.keelim.cnubus.data.repository.setting.DeveloperRepository
 import com.keelim.cnubus.data.repository.setting.DeveloperRepositoryImpl
 import com.keelim.cnubus.data.repository.station.StationApi
@@ -23,16 +22,14 @@ import com.keelim.cnubus.data.repository.station.StationApiImpl
 import com.keelim.cnubus.data.repository.station.StationRepository
 import com.keelim.cnubus.data.repository.station.StationRepositoryImpl
 import com.keelim.cnubus.data.repository.theme.ThemeRepository
+import com.keelim.cnubus.data.repository.theme.ThemeRepositoryImpl
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
-@Module(includes = [RepositoryModule.ThemeModule::class])
+@Module
 internal abstract class RepositoryModule {
     @Binds
     abstract fun bindsDeveloperRepository(
@@ -49,17 +46,8 @@ internal abstract class RepositoryModule {
         repository: StationRepositoryImpl,
     ): StationRepository
 
-    @InstallIn(SingletonComponent::class)
-    @Module
-    internal object ThemeModule {
-        @Provides
-        @Singleton
-        fun provideThemeRepository(
-            @ApplicationContext context: Context,
-        ): ThemeRepository {
-            return ThemeRepository(
-                context
-            )
-        }
-    }
+    @Binds
+    abstract fun bindsThemeRepository(
+        repository: ThemeRepositoryImpl
+    ): ThemeRepository
 }

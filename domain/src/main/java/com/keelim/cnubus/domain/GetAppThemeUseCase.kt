@@ -15,11 +15,11 @@
  */
 package com.keelim.cnubus.domain
 
-import com.keelim.cnubus.data.repository.theme.ThemeRepository
+import com.keelim.cnubus.data.repository.theme.ThemeRepositoryImpl
 import kotlinx.coroutines.flow.Flow
 
 class GetAppThemeUseCase(
-    themeRepository: ThemeRepository
+    themeRepositoryImpl: ThemeRepositoryImpl
 ) {
-    val appTheme: Flow<Int> = themeRepository.getUserTheme()
+    val appTheme: Flow<Int> = themeRepositoryImpl.getUserTheme()
 }

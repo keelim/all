@@ -34,7 +34,7 @@ dependencies {
 
     implementation(Dep2.AndroidX.Activity.compose)
     implementation(Dep2.Compose.themeAdapter)
-    implementation("androidx.glance:glance-appwidget:1.0.0-SNAPSHOT")
+    implementation("androidx.glance:glance-appwidget:1.0.0-alpha01")
 }
 
 kapt {

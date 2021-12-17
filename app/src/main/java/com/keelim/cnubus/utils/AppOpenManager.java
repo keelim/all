@@ -22,6 +22,7 @@ import com.keelim.cnubus.MyApplication;
 
 import java.util.Date;
 
+import dagger.hilt.android.qualifiers.ApplicationContext;
 import timber.log.Timber;
 
 public class AppOpenManager implements LifecycleObserver, Application.ActivityLifecycleCallbacks {

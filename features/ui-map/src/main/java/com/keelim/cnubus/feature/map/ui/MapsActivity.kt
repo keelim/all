@@ -19,14 +19,12 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -40,8 +38,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.ktx.addMarker
 import com.google.maps.android.ktx.awaitMap
-import com.keelim.cnubus.data.model.MapEvent
-import com.keelim.cnubus.data.model.maps.House
+import com.keelim.cnubus.data.model.gps.Location
 import com.keelim.cnubus.feature.map.R
 import com.keelim.cnubus.feature.map.databinding.ActivityMapsBinding
 import com.keelim.cnubus.feature.map.databinding.BottomSheetBinding
@@ -51,7 +48,6 @@ import com.keelim.common.repeatCallDefaultOnStarted
 import com.keelim.common.toast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -101,7 +97,7 @@ class MapsActivity : AppCompatActivity() {
                         action = Intent.ACTION_SEND
                         putExtra(
                             Intent.EXTRA_TEXT,
-                            "[확인] ${it.title} 사진보기 : ${it.imgUrl}"
+                            "[확인] ${it.name} 사진보기 : ${it.imgUrl}"
                         )
                         type = "text/plain"
                     }
@@ -185,12 +181,6 @@ class MapsActivity : AppCompatActivity() {
         }
     }
 
-    private fun markerHandling(index: Int): String =
-        resources.getStringArray(R.array.stations)[index]
-
-    private fun snippetHandling(index: Int): String =
-        resources.getStringArray(R.array.station_info)[index]
-
     private fun intentControl() {
         val stringLocation = intent.getStringExtra("location")
         location = stringLocation?.toInt() ?: -1
@@ -201,18 +191,14 @@ class MapsActivity : AppCompatActivity() {
     }
 
     private fun initViews() = with(binding) {
-        houseViewPager.adapter = viewPagerAdapter
         bottomBinding.recyclerView.adapter = recyclerAdapter
-
+        houseViewPager.adapter = viewPagerAdapter
         houseViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 val selectedHouseModel = viewPagerAdapter.currentList[position]
                 CameraUpdateFactory.newLatLngZoom(
-                    LatLng(
-                        selectedHouseModel.lat,
-                        selectedHouseModel.lng
-                    ),
+                    selectedHouseModel.latLng,
                     17f
                 )
             }
@@ -222,17 +208,8 @@ class MapsActivity : AppCompatActivity() {
     private fun googleMapSetting() = lifecycleScope.launch {
         googleMap = mapFragment.awaitMap()
         googleMap.setOnMarkerClickListener { marker ->
-//            val url = urls[it.title ?: ""]
-//            BottomSheetDialog(
-//                it.title ?: "서버에서 관리 중입니다.",
-//                it.snippet ?: "서버에서 관리 중입니다.",
-//                it.position.toString(),
-//                url.orEmpty()
-//            ).apply {
-//                show(supportFragmentManager, tag)
-//            }
             val selectedModel = viewPagerAdapter.currentList.firstOrNull {
-                it.id == marker.snippet ?: "0".toInt()
+                it.name == marker.snippet ?: "0".toInt()
             }
             selectedModel?.let {
                 val position = viewPagerAdapter.currentList.indexOf(it)
@@ -244,52 +221,41 @@ class MapsActivity : AppCompatActivity() {
     }
 
     private fun observeState() {
-        repeatCallDefaultOnStarted(state = Lifecycle.State.CREATED) {
-            googleMap = mapFragment.awaitMap()
-            val locations = viewModel.data.toList()
-            locations.mapIndexed { index, location ->
-                googleMap.apply {
-                    addMarker {
-                        position(location.latLng)
-                        title(markerHandling(index))
-                        snippet(snippetHandling(index))
-                    }
-                }
-            }
-            val cameraUpdate = if (location == -1) {
-                CameraUpdateFactory.newLatLngZoom(locations[0].latLng, 17f)
-            } else {
-                CameraUpdateFactory.newLatLngZoom(locations[location].latLng, 17f)
-            }
-            googleMap.apply {
-                animateCamera(cameraUpdate)
-                isMyLocationEnabled = true
-                uiSettings.isMyLocationButtonEnabled = true
-            }
-        }
         repeatCallDefaultOnStarted {
             viewModel.state.collect {
                 when (it) {
                     is MapEvent.UnInitialized -> toast("초기화 중입니다.")
                     is MapEvent.Loading -> Unit
-                    is MapEvent.Success -> {
-                        updateMarker(it.data.items)
-                        viewPagerAdapter.submitList(it.data.items)
-                        recyclerAdapter.submitList(it.data.items)
-                        bottomBinding.bottomSheetTitleTextView.text = "${it.data.items.size} 주변 장소"
-                    }
                     is MapEvent.Error -> toast(it.message)
+                    is MapEvent.MigrateSuccess -> {
+                        googleMap = mapFragment.awaitMap()
+                        updateMarker(it.data)
+                        val cameraUpdate = if (location == -1) {
+                            CameraUpdateFactory.newLatLngZoom(it.data[0].latLng, 17f)
+                        } else {
+                            CameraUpdateFactory.newLatLngZoom(it.data[location].latLng, 17f)
+                        }
+                        googleMap.apply {
+                            animateCamera(cameraUpdate)
+                            isMyLocationEnabled = true
+                            uiSettings.isMyLocationButtonEnabled = true
+                        }
+                        viewPagerAdapter.submitList(it.data)
+                        recyclerAdapter.submitList(it.data)
+                        bottomBinding.bottomSheetTitleTextView.text = "${it.data.size} 주변 장소"
+                        binding.houseViewPager.currentItem = location
+                    }
                 }
             }
         }
     }
 
-    private fun updateMarker(houses: List<House>) {
-        houses.forEach { house ->
+    private fun updateMarker(locations: List<Location>) {
+        locations.forEach { location ->
             googleMap.addMarker {
-                position(LatLng(house.lat, house.lng))
-                title(house.id.toString())
-                snippet(house.id.toString())
+                position(location.latLng)
+                title(location.name)
+                snippet(location.name)
             }
         }
     }
@@ -302,7 +268,7 @@ class MapsActivity : AppCompatActivity() {
     }
 
     inner class MyLocationListener : LocationListener {
-        override fun onLocationChanged(location: Location) {
+        override fun onLocationChanged(location: android.location.Location) {
             removeLocationListener()
         }
     }

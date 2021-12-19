@@ -32,7 +32,7 @@ import javax.inject.Inject
 class MapsViewModel @Inject constructor(
     private val stationRepository: StationRepository,
 ) : ViewModel() {
-    val data:Flow<Location> = locationList
+    val data: Flow<Location> = locationList
     private val _state: MutableStateFlow<MapEvent> = MutableStateFlow(MapEvent.UnInitialized)
     val state: StateFlow<MapEvent> get() = _state
 

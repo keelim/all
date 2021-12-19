@@ -70,8 +70,8 @@ class StationRepositoryImpl @Inject constructor(
         db.dao().updateStation(station.toStationEntity())
     }
 
-    override suspend fun getLocation(): HouseDto = with(dispatcher) {
-        stationArrivalsApi.getLocationList().body() ?: throw RuntimeException("목적지를 불러오는 데에 실패했습니다.")
+    override suspend fun getLocation(): HouseDto {
+        return stationArrivalsApi.getLocationList().body() ?: throw RuntimeException("목적지를 불러오는 데에 실패했습니다.")
     }
 
     companion object {

@@ -13,5 +13,5 @@ ProjectConfigurations {
     val javaVer = JavaVersion.VERSION_11
     const val javaVerString = "11"
 
-    val composeCompiler = "1.1.0-beta03"
+    const val composeCompiler = "1.1.0-beta03"
 }

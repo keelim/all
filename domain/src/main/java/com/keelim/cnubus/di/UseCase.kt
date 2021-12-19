@@ -30,7 +30,7 @@ object UseCase {
     @ViewModelScoped
     fun provideThemeUseCase(
         themeRepository: ThemeRepository
-    ): ThemeUseCase{
+    ): ThemeUseCase {
         return ThemeUseCase(
             themeRepository
         )

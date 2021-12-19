@@ -37,7 +37,7 @@ class BottomSheetDialog(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         _binding = FragmentMapBottomSheetBinding.inflate(inflater, container, false)
         return binding.root
     }

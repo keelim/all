@@ -17,7 +17,6 @@ package com.keelim.cnubus.ui.tab
 
 import android.view.View
 import androidx.viewpager2.widget.ViewPager2
-import java.lang.Math.abs
 
 class DepthPageTransformer : ViewPager2.PageTransformer {
     private val MIN_SCALE = 0.75f

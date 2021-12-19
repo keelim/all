@@ -28,7 +28,7 @@ import javax.inject.Inject
 
 class ThemeRepositoryImpl @Inject constructor(
     @ApplicationContext private val ctx: Context,
-): ThemeRepository {
+) : ThemeRepository {
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = STORE_NAME)
 
     override fun getUserTheme() = ctx.dataStore.data.map { preferences ->

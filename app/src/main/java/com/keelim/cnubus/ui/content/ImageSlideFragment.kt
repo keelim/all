@@ -27,7 +27,7 @@ import coil.load
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.FragmentImageSliderBinding
 
-class ImageSlideFragment() : Fragment() {
+class ImageSlideFragment : Fragment() {
     private val image: Int? by lazy { arguments?.getInt("image") }
     override fun onCreateView(
         inflater: LayoutInflater,

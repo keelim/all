@@ -28,6 +28,7 @@ import com.microsoft.appcenter.crashes.Crashes
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
@@ -42,18 +43,17 @@ class MyApplication : Application() {
     lateinit var componentLogger: ComponentLogger
 
     private lateinit var appOpenManager: AppOpenManager
-    private val appCoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
+    private val applicationScope by lazy { MainScope() }
 
     override fun onCreate() {
         super.onCreate()
-
         appOpenManager = AppOpenManager(this) // 콜드 부팅에서 복귀시 ad
         componentLogger.initialize(this)
-        AndroidThreeTen.init(this)
 
-        appCoroutineScope.launch {
+        applicationScope.launch {
             AppCompatDelegate.setDefaultNightMode(
-                themeRepository.getUserTheme().firstOrNull() ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+                themeRepository.getUserTheme().firstOrNull()
+                    ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
             )
         }
         AppCenter.start(

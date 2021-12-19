@@ -35,7 +35,6 @@
         <activity android:name=".ui.content.Content2Activity"
             android:exported="true"/>
 
-
         <activity
             android:name=".ui.splash.SplashActivity"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"

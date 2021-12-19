@@ -24,10 +24,14 @@ import com.keelim.cnubus.data.db.entity.mapper.toStationEntity
 import com.keelim.cnubus.data.db.entity.mapper.toStations
 import com.keelim.cnubus.data.model.ArrivalInformation
 import com.keelim.cnubus.data.model.Station
+import com.keelim.cnubus.data.model.gps.Location
+import com.keelim.cnubus.data.model.gps.locationList
 import com.keelim.cnubus.di.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
@@ -38,13 +42,19 @@ class StationRepositoryImpl @Inject constructor(
     private val stationApi: StationApi,
     private val db: AppDatabase,
     private val preferenceManager: SharedPreferenceManager,
-    @IoDispatcher private val dispatcher: CoroutineDispatcher
+    @IoDispatcher private val dispatcher: CoroutineDispatcher,
 ) : StationRepository {
     override val stations: Flow<List<Station>> =
         db.dao().getStationWithSubways()
             .distinctUntilChanged()
             .map { stations -> stations.toStations().sortedByDescending { it.isFavorited } }
             .flowOn(dispatcher)
+    override val locations: Flow<List<Location>> = flow{
+        while(true){
+            emit(locationList)
+            delay(5000)
+        }
+    }
 
     override suspend fun refreshStations() = withContext(dispatcher) {
         val fileUpdatedTimeMillis = stationApi.getStationDataUpdatedTimeMillis()

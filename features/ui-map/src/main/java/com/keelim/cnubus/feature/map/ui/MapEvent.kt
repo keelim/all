@@ -13,11 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.cnubus.data.model.search
+package com.keelim.cnubus.feature.map.ui
 
-data class SearchPoiInfo(
-    val totalCount: String,
-    val count: String,
-    val page: String,
-    val pois: Pois
-)
+import com.keelim.cnubus.data.model.gps.Location
+
+sealed class MapEvent {
+    object UnInitialized : MapEvent()
+    object Loading : MapEvent()
+    data class MigrateSuccess(val data: List<Location>): MapEvent()
+    data class Error(val message: String = "에러가 발생하였습니다.") : MapEvent()
+}

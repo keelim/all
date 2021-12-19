@@ -18,15 +18,14 @@ package com.keelim.cnubus.data.repository.station
 import com.keelim.cnubus.data.api.response.HouseDto
 import com.keelim.cnubus.data.model.ArrivalInformation
 import com.keelim.cnubus.data.model.Station
+import com.keelim.cnubus.data.model.gps.Location
 import kotlinx.coroutines.flow.Flow
 
 interface StationRepository {
     val stations: Flow<List<Station>>
+    val locations: Flow<List<Location>>
     suspend fun refreshStations()
-
     suspend fun getStationArrivals(stationName: String): List<ArrivalInformation>
-
     suspend fun updateStation(station: Station)
-
     suspend fun getLocation(): HouseDto
 }

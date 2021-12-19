@@ -21,18 +21,19 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.keelim.cnubus.data.model.gps.Location
 import com.keelim.cnubus.data.model.maps.House
 import com.keelim.cnubus.feature.map.databinding.ItemHouseDetailForViewpagerBinding
 
 class LocationPagerAdapter(
-    val itemClicked: (House) -> Unit
-) : ListAdapter<House, LocationPagerAdapter.ItemViewHolder>(diffUtil) {
+    val itemClicked: (Location) -> Unit
+) : ListAdapter<Location, LocationPagerAdapter.ItemViewHolder>(diffUtil) {
 
     inner class ItemViewHolder(val binding: ItemHouseDetailForViewpagerBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: House) = with(binding) {
-            titleTextView.text = item.title
-            priceTextView.text = item.price
+        fun bind(item: Location) = with(binding) {
+            titleTextView.text = item.name
+            priceTextView.text = item.name
 
             root.setOnClickListener {
                 itemClicked(item)
@@ -53,12 +54,12 @@ class LocationPagerAdapter(
 
     companion object {
 
-        val diffUtil = object : DiffUtil.ItemCallback<House>() {
-            override fun areItemsTheSame(oldItem: House, newItem: House): Boolean {
-                return oldItem.id == newItem.id
+        val diffUtil = object : DiffUtil.ItemCallback<Location>() {
+            override fun areItemsTheSame(oldItem: Location, newItem: Location): Boolean {
+                return oldItem == newItem
             }
 
-            override fun areContentsTheSame(oldItem: House, newItem: House): Boolean {
+            override fun areContentsTheSame(oldItem: Location, newItem: Location): Boolean {
                 return oldItem == newItem
             }
         }

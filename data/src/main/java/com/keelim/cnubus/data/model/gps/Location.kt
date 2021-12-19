@@ -24,25 +24,26 @@ data class Location(
     val roota: Int,
     val rootb: Int,
     val name: String,
-    val rootc: Int = -1
+    val rootc: Int = -1,
+    val imgUrl:String = ""
 )
 
 val locationList = listOf(
-    Location(LatLng(36.363876, 127.345119), 1, 1, "정심화국제문화회관"), // 정삼화
-    Location(LatLng(36.367262, 127.342408), 13, 2, "사회과학대학입구(한누리회관뒤)"), // 한누리관 뒤
+    Location(LatLng(36.363876, 127.345119), 1, 1, "정심화국제문화회관", 999, "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_39/2.jpg"), // 정삼화
+    Location(LatLng(36.367262, 127.342408), 13, 2, "사회과학대학입구(한누리회관뒤)", 999, "https://plus.cnu.ac.kr/images/cyber/thumbnails/280/48.jpg"), // 한누리관 뒤
     Location(LatLng(36.368622, 127.341531), 12, 3, "서문(공동실험실습관앞)"), // 서문
-    Location(LatLng(36.374241, 127.343924), 9, 4, "임시정차)예술대학 앞"), // 음대
-    Location(LatLng(36.376406, 127.344168), 10, 5, "음악2호관앞"), // 공동 동물
+    Location(LatLng(36.374241, 127.343924), 9, 4, "임시정차)예술대학 앞", 999, "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_30/1.jpg"), // 음대
+    Location(LatLng(36.376406, 127.344168), 10, 5, "음악2호관앞", 999, "https://plus.cnu.ac.kr/images/cyber/thumbnails/280/07.jpg"), // 공동 동물
     Location(
-        LatLng(36.372513, 127.343118), 11, 6, "체육관입구"
+        LatLng(36.372513, 127.343118), 11, 6, "체육관입구", 999, "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_23/2.jpg"
     ), // 체육관 입구
-    Location(LatLng(36.370587, 127.343520), 8, 7, "예술대학앞"), // 예술대학앞
-    Location(LatLng(36.369522, 127.346725), 3, 8, "도서관앞(대학본부옆농대방향)"), // 도서관앞
-    Location(LatLng(36.369119, 127.351884), 5, 9, "농업생명과학대학 앞"), // 농업생명과학대학
+    Location(LatLng(36.370587, 127.343520), 8, 7, "예술대학앞", 999, "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_28/1.jpg"), // 예술대학앞
+    Location(LatLng(36.369522, 127.346725), 3, 8, "도서관앞(대학본부옆농대방향)", 999, "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_14/1.jpg"), // 도서관앞
+    Location(LatLng(36.369119, 127.351884), 5, 9, "농업생명과학대학 앞", 999, "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_11/1.jpg"), // 농업생명과학대학
     Location(LatLng(36.367465, 127.352190), 6, 10, "동문주차장"), // 동문
-    Location(LatLng(36.372480, 127.346155), 4, 11, "학생생활관3거리"), // 생활관
-    Location(LatLng(36.369780, 127.346901), 7, 12, "도서관앞"), // 도서관앞
-    Location(LatLng(36.367404, 127.345517), 999999, 13, "공과대학앞"), // 공과대학앞
-    Location(LatLng(36.365505, 127.345159), 14, 14, "산학연교육연구관앞"), // 산학협력관
-    Location(LatLng(36.367564, 127.345800), 2, 999999, "정심화국제문화회관"), // 경상대학
-).asFlow()
+    Location(LatLng(36.372480, 127.346155), 4, 11, "학생생활관3거리", 999, "https://plus.cnu.ac.kr/images/cyber/thumbnails/280/47.jpg"), // 생활관
+    Location(LatLng(36.369780, 127.346901), 7, 12, "도서관앞", 999, "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_14/1.jpg"), // 도서관앞
+    Location(LatLng(36.367404, 127.345517), 999999, 13, "공과대학앞", 999, "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_03/1.jpg"), // 공과대학앞
+    Location(LatLng(36.365505, 127.345159), 14, 14, "산학연교육연구관앞", 999, "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_19/1.jpg"), // 산학협력관
+    Location(LatLng(36.367564, 127.345800), 2, 999999, "정심화국제문화회관", 999, "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_01/1.jpg"), // 경상대학
+)

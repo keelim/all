@@ -23,7 +23,6 @@ import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 class StationApiImpl @Inject constructor() : StationApi {
-
     private val sheetReference = Firebase.storage.reference.child(STATION_DATA_FILE_NAME)
 
     override suspend fun getStationDataUpdatedTimeMillis(): Long =

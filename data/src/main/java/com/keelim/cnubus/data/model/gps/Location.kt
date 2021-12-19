@@ -16,8 +16,16 @@
 package com.keelim.cnubus.data.model.gps
 
 import com.google.android.gms.maps.model.LatLng
-import com.keelim.cnubus.data.model.Location
+import com.keelim.cnubus.data.model.gps.Location
 import kotlinx.coroutines.flow.asFlow
+
+data class Location(
+    val latLng: LatLng,
+    val roota: Int,
+    val rootb: Int,
+    val name: String,
+    val rootc: Int = -1
+)
 
 val locationList = listOf(
     Location(LatLng(36.363876, 127.345119), 1, 1, "정심화국제문화회관"), // 정삼화

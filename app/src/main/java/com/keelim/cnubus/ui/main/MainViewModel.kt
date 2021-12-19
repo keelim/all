@@ -20,8 +20,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.keelim.cnubus.domain.GetAppThemeUseCase
-import com.keelim.cnubus.domain.SetAppThemeUseCase
+import com.keelim.cnubus.domain.ThemeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -29,13 +28,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    getTheme: GetAppThemeUseCase,
-    private val setTheme: SetAppThemeUseCase,
+    private val themeUseCase: ThemeUseCase,
 ) : ViewModel() {
-    val theme: LiveData<Int> = getTheme.appTheme.asLiveData()
+    val theme: LiveData<Int> = themeUseCase.appTheme.asLiveData()
 
     fun setAppTheme(theme: Int) = viewModelScope.launch {
-        setTheme.invoke(theme)
+        themeUseCase.setUserTheme(theme)
     }
 
     private val _loading = MutableLiveData(false)

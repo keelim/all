@@ -17,11 +17,10 @@ package com.keelim.cnubus.ui.tab
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.keelim.cnubus.ui.root.aroot.ARootFragment2
-import com.keelim.cnubus.ui.root.broot.BRootFragment
+import com.keelim.cnubus.ui.root.RootFragment
 import com.keelim.cnubus.ui.root.croot.CRootFragment
 import com.keelim.cnubus.ui.root.night.NightRootFragment
-import com.keelim.cnubus.ui.setting.SettingsFragment
+import com.keelim.cnubus.ui.setting.SettingFragment2
 
 class ViewPager2Adapter(fa: Fragment) : FragmentStateAdapter(fa) {
     private var fragments = ArrayList<Fragment>()
@@ -31,11 +30,11 @@ class ViewPager2Adapter(fa: Fragment) : FragmentStateAdapter(fa) {
 
     init {
         fragments.apply {
-            add(ARootFragment2())
-            add(BRootFragment())
+            add(RootFragment.newInstance("a"))
+            add(RootFragment.newInstance("b"))
             add(CRootFragment())
             add(NightRootFragment())
-            add(SettingsFragment())
+            add(SettingFragment2())
         }
     }
 }

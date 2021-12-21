@@ -6,7 +6,7 @@
         >
         <activity
             android:exported="true"
-            android:name=".MapsActivity"
+            android:name=".ui.MapsActivity"
             android:label="maps" />
     </application>
 </manifest>

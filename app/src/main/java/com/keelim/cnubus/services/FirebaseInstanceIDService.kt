@@ -31,10 +31,6 @@ import com.keelim.cnubus.ui.main.MainActivity
 
 class FirebaseInstanceIDService : FirebaseMessagingService() {
 
-    override fun onNewToken(p0: String) {
-        super.onNewToken(p0)
-    }
-
     override fun onMessageReceived(remoteMessage: RemoteMessage) { // 메시지 수신 시 실행되는 메소드
         sendNotification(remoteMessage)
     }

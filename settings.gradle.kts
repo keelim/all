@@ -6,7 +6,7 @@ dependencyResolutionManagement {
         mavenCentral()
         maven("https://plugins.gradle.org/m2/")
         maven("https://jitpack.io")
-        maven("https://naver.jfrog.io/artifactory/maven/")
+        maven("https://androidx.dev/snapshots/latest/artifacts/repository")
     }
 }
 rootProject.name = "cnubus"

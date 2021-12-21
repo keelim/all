@@ -1,8 +1,6 @@
 package com.keelim.cnubus.utils;
 
 
-
-
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
@@ -34,8 +32,6 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
 
     private final MyApplication myApplication;
     private Activity currentActivity;
-
-    private final long loadTime = 0;
 
     /**
      * Constructor
@@ -164,7 +160,8 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
      * Utility method to check if ad was loaded more than n hours ago.
      */
     private boolean wasLoadTimeLessThanNHoursAgo(long numHours) {
-        long dateDifference = (new Date()).getTime() - this.loadTime;
+        long loadTime = 0;
+        long dateDifference = (new Date()).getTime() - loadTime;
         long numMilliSecondsPerHour = 3600000;
         return (dateDifference < (numMilliSecondsPerHour * numHours));
     }

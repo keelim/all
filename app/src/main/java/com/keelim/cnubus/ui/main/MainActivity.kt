@@ -15,7 +15,7 @@
  */
 package com.keelim.cnubus.ui.main
 
-import android.Manifest
+import android.Manifest.permission
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
@@ -23,26 +23,29 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.keelim.cnubus.databinding.ActivityMainBinding
 import com.keelim.cnubus.services.TerminateService
+import com.keelim.common.repeatCallDefaultOnStarted
 import com.keelim.common.toast
 import com.keelim.compose.ui.CircularIndeterminateProgressBar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val viewModel: MainViewModel by viewModels()
     private val locationPermissions = arrayOf(
-        Manifest.permission.ACCESS_FINE_LOCATION,
-        Manifest.permission.ACCESS_COARSE_LOCATION,
+        permission.ACCESS_FINE_LOCATION,
+        permission.ACCESS_COARSE_LOCATION,
     )
 
     private val locationPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
             val responsePermissions = permissions.entries.filter {
-                it.key == Manifest.permission.ACCESS_FINE_LOCATION ||
-                    it.key == Manifest.permission.ACCESS_COARSE_LOCATION
+                it.key == permission.ACCESS_FINE_LOCATION ||
+                        it.key == permission.ACCESS_COARSE_LOCATION
             }
-            if (responsePermissions.filter { it.value == true }.size == locationPermissions.size) {
+            if (responsePermissions.filter { it.value == true }
+                    .size == locationPermissions.size) {
                 toast("권한이 확인되었습니다.")
             }
         }
@@ -51,8 +54,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         startService(Intent(this, TerminateService::class.java))
-        observeLoading()
         locationPermissionLauncher.launch(locationPermissions)
+        observeLoading()
     }
 
     override fun onDestroy() {
@@ -60,18 +63,12 @@ class MainActivity : AppCompatActivity() {
         stopService(Intent(this, TerminateService::class.java))
     }
 
-    private fun observeLoading() = viewModel.loading.observe(this) {
-        when (it) {
-            true -> binding.composeView.apply {
+    private fun observeLoading() = repeatCallDefaultOnStarted {
+        viewModel.loading.collect {
+            binding.composeView.apply {
                 bringToFront()
                 setContent {
-                    CircularIndeterminateProgressBar(true)
-                }
-            }
-            false -> binding.composeView.apply {
-                bringToFront()
-                setContent {
-                    CircularIndeterminateProgressBar(false)
+                    CircularIndeterminateProgressBar(it)
                 }
             }
         }

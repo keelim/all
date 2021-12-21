@@ -21,6 +21,8 @@ dependencies {
     implementation(AndroidX.appcompat)
     implementation(AndroidX.activity_ktx)
     implementation(AndroidX.fragment_ktx)
+    implementation(AndroidX.work)
+
 
     implementation(UI.constraintLayout)
     implementation(UI.recyclerview)
@@ -45,6 +47,3 @@ dependencies {
     implementation(Coil.coil)
 }
 
-kapt {
-    useBuildCache = true
-}

@@ -27,7 +27,8 @@ class GetDevelopersUseCase @Inject constructor(
     @IoDispatcher dispatcher: CoroutineDispatcher,
 ) : NonParamCoroutineUseCase<List<Developer>>(dispatcher) {
     override suspend fun execute(): List<Developer> {
-        return conferenceRepository.getDeveloper()
+        return conferenceRepository
+            .getDeveloper()
             .sortedBy { it.name }
     }
 }

@@ -29,6 +29,3 @@ dependencies {
     androidTestImplementation(Coroutines.test)
 }
 
-kapt {
-    useBuildCache = true
-}

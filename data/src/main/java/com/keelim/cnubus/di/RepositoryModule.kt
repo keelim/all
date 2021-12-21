@@ -15,10 +15,6 @@
  */
 package com.keelim.cnubus.di
 
-import android.content.Context
-import com.keelim.cnubus.data.api.StationArrivalsApi
-import com.keelim.cnubus.data.db.AppDatabase
-import com.keelim.cnubus.data.db.SharedPreferenceManager
 import com.keelim.cnubus.data.repository.setting.DeveloperRepository
 import com.keelim.cnubus.data.repository.setting.DeveloperRepositoryImpl
 import com.keelim.cnubus.data.repository.station.StationApi
@@ -26,61 +22,36 @@ import com.keelim.cnubus.data.repository.station.StationApiImpl
 import com.keelim.cnubus.data.repository.station.StationRepository
 import com.keelim.cnubus.data.repository.station.StationRepositoryImpl
 import com.keelim.cnubus.data.repository.theme.ThemeRepository
+import com.keelim.cnubus.data.repository.theme.ThemeRepositoryImpl
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
-import kotlinx.coroutines.CoroutineDispatcher
 
 @InstallIn(SingletonComponent::class)
-@Module(includes = [RepositoryModule.ThemeModule::class])
+@Module
 internal abstract class RepositoryModule {
     @Binds
+    @Singleton
     abstract fun bindsDeveloperRepository(
         repository: DeveloperRepositoryImpl,
     ): DeveloperRepository
 
     @Binds
+    @Singleton
     abstract fun bindsStationApiRepository(
         api: StationApiImpl,
     ): StationApi
 
-    @InstallIn(SingletonComponent::class)
-    @Module
-    internal object ThemeModule {
-        @Provides
-        @Singleton
-        fun provideThemeRepository(
-            @ApplicationContext context: Context,
-        ): ThemeRepository {
-            return ThemeRepository(
-                context
-            )
-        }
-    }
+    @Binds
+    @Singleton
+    abstract fun bindsStationRepository(
+        repository: StationRepositoryImpl,
+    ): StationRepository
 
-    @InstallIn(SingletonComponent::class)
-    @Module
-    internal object StationModule {
-        @Provides
-        @Singleton
-        fun provideStationRepository(
-            stationArrivalsApi: StationArrivalsApi,
-            stationApi: StationApi,
-            appDatabase: AppDatabase,
-            preferenceManager: SharedPreferenceManager,
-            @IoDispatcher dispatcher: CoroutineDispatcher,
-        ): StationRepository {
-            return StationRepositoryImpl(
-                stationArrivalsApi,
-                stationApi,
-                appDatabase.dao(),
-                preferenceManager,
-                dispatcher
-            )
-        }
-    }
+    @Binds
+    abstract fun bindsThemeRepository(
+        repository: ThemeRepositoryImpl
+    ): ThemeRepository
 }

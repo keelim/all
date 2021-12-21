@@ -63,7 +63,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideStationArrivalService(retrofit: Retrofit): StationArrivalsApi{
+    fun provideStationArrivalService(retrofit: Retrofit): StationArrivalsApi {
         return retrofit.create(StationArrivalsApi::class.java)
     }
 }

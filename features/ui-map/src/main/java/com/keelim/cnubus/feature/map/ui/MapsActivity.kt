@@ -200,10 +200,12 @@ class MapsActivity : AppCompatActivity() {
                 it.name == marker.snippet ?: "0".toInt()
             }
             selectedModel?.let {
-                val position = viewPagerAdapter.currentList.indexOf(it)
-                binding.houseViewPager.currentItem = position
+                with(binding){
+                    val position = viewPagerAdapter.currentList.indexOf(it)
+                    houseViewPager.currentItem = position
+                    tvTitle.text = it.name
+                }
             }
-
             return@setOnMarkerClickListener false
         }
     }

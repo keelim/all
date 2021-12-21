@@ -37,6 +37,3 @@ dependencies {
     implementation("androidx.glance:glance-appwidget:1.0.0-alpha01")
 }
 
-kapt {
-    useBuildCache = true
-}

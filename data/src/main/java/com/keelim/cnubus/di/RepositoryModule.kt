@@ -27,21 +27,25 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
 internal abstract class RepositoryModule {
     @Binds
+    @Singleton
     abstract fun bindsDeveloperRepository(
         repository: DeveloperRepositoryImpl,
     ): DeveloperRepository
 
     @Binds
+    @Singleton
     abstract fun bindsStationApiRepository(
         api: StationApiImpl,
     ): StationApi
 
     @Binds
+    @Singleton
     abstract fun bindsStationRepository(
         repository: StationRepositoryImpl,
     ): StationRepository

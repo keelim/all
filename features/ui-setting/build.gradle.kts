@@ -17,7 +17,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.1.0-alpha04"
+        kotlinCompilerExtensionVersion = ProjectConfigurations.composeCompiler
     }
 }
 
@@ -27,8 +27,8 @@ dependencies {
     implementation(projects.domain)
     implementation(projects.common)
 
-    implementation(Dep2.AndroidX.Lifecycle.livedata)
-    implementation(Dep2.AndroidX.Lifecycle.viewModelCompose)
+    implementation(LifeCycle.livedata)
+    implementation(LifeCycle.viewModelCompose)
 
     implementation(Dep2.Compose.ui)
     implementation(Dep2.Compose.material)

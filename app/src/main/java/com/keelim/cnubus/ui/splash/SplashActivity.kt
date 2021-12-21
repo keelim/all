@@ -15,14 +15,10 @@
  */
 package com.keelim.cnubus.ui.splash
 
-import android.animation.AnimatorSet
-import android.animation.ValueAnimator
 import android.content.Intent
 import android.os.Bundle
-import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.LoadAdError
@@ -50,14 +46,15 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        splash()
         setContentView(binding.root)
         observeData()
     }
 
     private fun observeData() = lifecycleScope.launchWhenCreated {
         splashViewModel.loading.collect {
-            if (it) { showAd() }
+            if (it) {
+                showAd()
+            }
         }
     }
 
@@ -88,37 +85,8 @@ class SplashActivity : AppCompatActivity() {
             }
         )
 
-        if (myPreference.getFirstOpen()) {
-            startActivity(Intent(this@SplashActivity, MainActivity::class.java))
-        } else {
-//            startActivity(Intent(this@SplashActivity, OnBoardingActivity::class.java))
-//            myPreference.setFirstOpen()
-            startActivity(Intent(this@SplashActivity, MainActivity::class.java))
-        }
+        startActivity(Intent(this@SplashActivity, MainActivity::class.java))
         finish()
-    }
-    private fun splash() {
-        val splashScreen = installSplashScreen()
-        splashScreen.setOnExitAnimationListener { view ->
-            view.iconView.let { icon ->
-                val animator = ValueAnimator
-                    .ofInt(icon.height, 0)
-                    .setDuration(2000)
-                animator.addUpdateListener {
-                    val value = it.animatedValue as Int
-                    icon.layoutParams.width = value
-                    icon.layoutParams.height = value
-                    icon.requestLayout()
-                    if (value == 0) {
-                        view.remove()
-                    }
-                }
-                val animationSet = AnimatorSet()
-                animationSet.interpolator = AccelerateDecelerateInterpolator()
-                animationSet.play(animator)
-                animationSet.start()
-            }
-        }
     }
 
     override fun onBackPressed() {}

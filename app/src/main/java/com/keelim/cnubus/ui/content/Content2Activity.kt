@@ -50,6 +50,7 @@ class Content2Activity : AppCompatActivity() {
                 }
             }
         }
+        setContentView(binding.root)
     }
 
     private val images = arrayOf(
@@ -58,18 +59,7 @@ class Content2Activity : AppCompatActivity() {
     )
 
     inner class ScreenSliderPagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
-        override fun getItemCount(): Int = NUMS_PAGE
-
-        override fun createFragment(position: Int): Fragment {
-            return when (position) {
-                0 -> ImageSlideFragment(images[position])
-                1 -> ImageSlideFragment(images[position])
-                else -> ImageSlideFragment(images[0])
-            }
-        }
-    }
-
-    companion object {
-        const val NUMS_PAGE = 2
+        override fun getItemCount(): Int = 2
+        override fun createFragment(position: Int): Fragment = ImageSlideFragment.getInstance(images[position])
     }
 }

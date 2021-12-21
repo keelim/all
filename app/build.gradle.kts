@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -13,6 +15,10 @@ plugins {
     id ("com.google.secrets_gradle_plugin") version("0.5")
 }
 
+
+val key: String = gradleLocalProperties(rootDir).getProperty("APPCENTER_KEY")
+
+
 android {
     compileSdk = ProjectConfigurations.compileSdk
 
@@ -22,21 +28,29 @@ android {
         targetSdk = ProjectConfigurations.targetSdk
         versionCode = ProjectConfigurations.versionCode
         versionName = ProjectConfigurations.versionName
+        
+    }
+
+    lint {
+        checkDependencies = true
     }
 
     buildTypes {
-        getByName("debug") {
+
+        debug{
             firebaseAppDistribution {
                 testers = "kimh00335@gmail.com"
             }
+            buildConfigField("String", "APPCENTER_KEY", key)
         }
-        getByName("release") {
+        release{
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro")
             firebaseAppDistribution {
                 testers = "kimh00335@gmail.com"
             }
+            buildConfigField("String", "APPCENTER_KEY", key)
         }
     }
 
@@ -56,7 +70,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.1.0-alpha04"
+        kotlinCompilerExtensionVersion = ProjectConfigurations.composeCompiler
     }
 
     kapt {
@@ -111,17 +125,21 @@ dependencies {
     implementation(Compose.expand_icon)
     implementation(Compose.runtime_livedata)
     androidTestImplementation(Compose.compose_junit)
-    implementation("com.jakewharton.threetenabp:threetenabp:1.3.1")
 
     implementation("androidx.core:core-splashscreen:1.0.0-alpha02")
-    implementation("com.tbuonomo:dotsindicator:4.2")
     implementation("androidx.viewpager2:viewpager2:1.0.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
 
+
     implementation(SquareUp.retrofit)
+    val appCenterSdkVersion = "4.3.1"
+    implementation("com.microsoft.appcenter:appcenter-analytics:${appCenterSdkVersion}")
+    implementation("com.microsoft.appcenter:appcenter-crashes:${appCenterSdkVersion}")
 }
 
 apply(from = "$rootDir/spotless.gradle")
-
+kapt {
+    correctErrorTypes = true
+}
 
 

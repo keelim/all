@@ -47,6 +47,3 @@ dependencies {
     implementation(Coil.coil)
 }
 
-kapt {
-    useBuildCache = true
-}

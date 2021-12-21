@@ -24,6 +24,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.keelim.cnubus.R
 import com.keelim.cnubus.data.repository.theme.AppTheme
@@ -38,10 +39,14 @@ import com.keelim.cnubus.utils.MaterialDialog.Companion.negativeButton
 import com.keelim.cnubus.utils.MaterialDialog.Companion.positiveButton
 import com.keelim.cnubus.utils.MaterialDialog.Companion.singleChoiceItems
 import com.keelim.cnubus.utils.MaterialDialog.Companion.title
+import com.keelim.common.repeatCallDefaultOnStarted
 import com.keelim.compose.ui.setThemeContent
 import com.keelim.ui_setting.ClockActivity
 import com.keelim.ui_setting.ui.SettingActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.last
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SettingFragment2 : Fragment() {
@@ -84,16 +89,16 @@ class SettingFragment2 : Fragment() {
         initAppThemeObserver()
     }
 
-    private fun initAppThemeObserver() {
-        mainViewModel.theme.observe(viewLifecycleOwner) { theme ->
+    private fun initAppThemeObserver() = viewLifecycleOwner.repeatCallDefaultOnStarted {
+        mainViewModel.theme.collect { theme ->
             val nextTheme = AppTheme.THEME_ARRAY.firstOrNull {
                 it.modeNight == theme
             }
         }
     }
 
-    private fun selectTheme() {
-        val currentTheme = mainViewModel.theme.value
+    private fun selectTheme() = viewLifecycleOwner.lifecycleScope.launch {
+        val currentTheme = mainViewModel.theme.last()
         var checkedItem = AppTheme.THEME_ARRAY.indexOfFirst { it.modeNight == currentTheme }
         if (checkedItem >= 0) {
             val items = AppTheme.THEME_ARRAY.map { theme -> getText(theme.modeNameRes) }.toTypedArray()

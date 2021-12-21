@@ -61,14 +61,15 @@ class MapsActivity : AppCompatActivity() {
     private lateinit var locationRequest: LocationRequest
     private lateinit var locationCallback: LocationCallback
     private var current: LatLng? = null
-    private var location = 0
+    private val location by lazy {
+        intent.getStringExtra("location")?.toInt() ?: -1
+    }
     private val permissions = arrayOf(
         Manifest.permission.ACCESS_FINE_LOCATION,
         Manifest.permission.ACCESS_COARSE_LOCATION,
     )
     private lateinit var locationManager: LocationManager
     private lateinit var myLocationListener: MyLocationListener
-    private lateinit var urls: Map<String, String>
 
     private val locationPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
@@ -115,7 +116,6 @@ class MapsActivity : AppCompatActivity() {
         setContentView(binding.root)
         getMyLocation()
         myPositionInit()
-        intentControl()
         observeState()
         initViews()
         googleMapSetting()
@@ -165,10 +165,7 @@ class MapsActivity : AppCompatActivity() {
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
                 super.onLocationResult(locationResult)
-
-                val location = locationResult.lastLocation
-
-                location.run {
+                    locationResult.lastLocation.run {
                     current = LatLng(latitude, longitude)
                     Timber.d("위도 $latitude 경도 $longitude")
                 }
@@ -179,15 +176,6 @@ class MapsActivity : AppCompatActivity() {
             interval = 10000
             fastestInterval = 5000
         }
-    }
-
-    private fun intentControl() {
-        val stringLocation = intent.getStringExtra("location")
-        location = stringLocation?.toInt() ?: -1
-
-        urls = resources.getStringArray(R.array.stations).toList().zip(
-            resources.getStringArray(R.array.images).toList()
-        ).toMap()
     }
 
     private fun initViews() = with(binding) {

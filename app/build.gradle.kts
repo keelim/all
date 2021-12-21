@@ -138,5 +138,8 @@ dependencies {
 }
 
 apply(from = "$rootDir/spotless.gradle")
+kapt {
+    correctErrorTypes = true
+}
 
 

@@ -31,7 +31,7 @@ class TabFragment : Fragment() {
     private var _binding: FragmentTabBinding? = null
     private val binding get() = _binding!!
     private val viewModel: MainViewModel by activityViewModels()
-
+    private val pagerAdapter by lazy { ViewPager2Adapter(this) }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -48,12 +48,15 @@ class TabFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initViews()
+    }
 
-        binding.viewpager.apply {
-            adapter = ViewPager2Adapter(this@TabFragment)
+    private fun initViews() = with(binding) {
+        viewpager.apply {
+            adapter = pagerAdapter
             setPageTransformer(DepthPageTransformer())
         }
-        TabLayoutMediator(binding.tabLayout, binding.viewpager) { tab, position ->
+        TabLayoutMediator(tabLayout, viewpager) { tab, position ->
             when (position) {
                 0 -> tab.text = "A노선"
                 1 -> tab.text = "B노선"

@@ -17,6 +17,7 @@ package com.keelim.cnubus.ui.tab
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.keelim.cnubus.ui.root.RootFragment
 import com.keelim.cnubus.ui.root.aroot.ARootFragment2
 import com.keelim.cnubus.ui.root.broot.BRootFragment
 import com.keelim.cnubus.ui.root.croot.CRootFragment
@@ -31,8 +32,8 @@ class ViewPager2Adapter(fa: Fragment) : FragmentStateAdapter(fa) {
 
     init {
         fragments.apply {
-            add(ARootFragment2())
-            add(BRootFragment())
+            add(RootFragment.newInstance("a"))
+            add(RootFragment.newInstance("b"))
             add(CRootFragment())
             add(NightRootFragment())
             add(SettingFragment2())

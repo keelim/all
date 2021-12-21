@@ -32,8 +32,8 @@ val locationList = listOf(
     Location(LatLng(36.363876, 127.345119), 1, 1, "정심화국제문화회관", 999, "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_39/2.jpg"), // 정삼화
     Location(LatLng(36.367262, 127.342408), 13, 2, "사회과학대학입구(한누리회관뒤)", 999, "https://plus.cnu.ac.kr/images/cyber/thumbnails/280/48.jpg"), // 한누리관 뒤
     Location(LatLng(36.368622, 127.341531), 12, 3, "서문(공동실험실습관앞)"), // 서문
-    Location(LatLng(36.374241, 127.343924), 9, 4, "임시정차)예술대학 앞", 999, "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_30/1.jpg"), // 음대
-    Location(LatLng(36.376406, 127.344168), 10, 5, "음악2호관앞", 999, "https://plus.cnu.ac.kr/images/cyber/thumbnails/280/07.jpg"), // 공동 동물
+    Location(LatLng(36.374241, 127.343924), 9, 4, "음악2호관앞", 999, "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_30/1.jpg"), // 음대
+    Location(LatLng(36.376406, 127.344168), 10, 5, "생명과학대학", 999, "https://plus.cnu.ac.kr/images/cyber/thumbnails/280/07.jpg"), // 공동 동물
     Location(
         LatLng(36.372513, 127.343118), 11, 6, "체육관입구", 999, "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_23/2.jpg"
     ), // 체육관 입구
@@ -46,4 +46,12 @@ val locationList = listOf(
     Location(LatLng(36.367404, 127.345517), 999, 13, "공과대학앞", 999, "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_03/1.jpg"), // 공과대학앞
     Location(LatLng(36.365505, 127.345159), 14, 14, "산학연교육연구관앞", 999, "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_19/1.jpg"), // 산학협력관
     Location(LatLng(36.367564, 127.345800), 2, 999, "경상대학교", 999, "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_01/1.jpg"), // 경상대학
+    Location(LatLng(36.367564, 127.345800), 999, 999, "골프장", 1, "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_01/1.jpg"), // 골프장
+    Location(LatLng(36.367564, 127.345800), 999, 999, "도서관앞", 2, "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_01/1.jpg"), // 도서관앞
+    Location(LatLng(36.367564, 127.345800), 999, 999, "산학 연구관", 3, "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_01/1.jpg"), // 산학 연구관
+    Location(LatLng(36.367564, 127.345800), 999, 999, "GS 주유소", 4, "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_01/1.jpg"), // GS 주유소
+    Location(LatLng(36.367564, 127.345800), 999, 999, "유성온천역 4번", 5, "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_01/1.jpg"), // 유성온천역 4번
+    Location(LatLng(36.367564, 127.345800), 999, 999, "정심화 국제", 6, "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_01/1.jpg"), // 정심화 국제
+    Location(LatLng(36.367564, 127.345800), 999, 999, "도서관", 7, "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_01/1.jpg"), // 도서관
+    Location(LatLng(36.367564, 127.345800), 999, 999, "골프장", 8, "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_01/1.jpg"), // 골프장
 )

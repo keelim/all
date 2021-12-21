@@ -43,7 +43,7 @@ val locationList = listOf(
     Location(LatLng(36.367465, 127.352190), 6, 10, "동문주차장"), // 동문
     Location(LatLng(36.372480, 127.346155), 4, 11, "학생생활관3거리", 999, "https://plus.cnu.ac.kr/images/cyber/thumbnails/280/47.jpg"), // 생활관
     Location(LatLng(36.369780, 127.346901), 7, 12, "도서관앞", 999, "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_14/1.jpg"), // 도서관앞
-    Location(LatLng(36.367404, 127.345517), 999999, 13, "공과대학앞", 999, "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_03/1.jpg"), // 공과대학앞
+    Location(LatLng(36.367404, 127.345517), 999, 13, "공과대학앞", 999, "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_03/1.jpg"), // 공과대학앞
     Location(LatLng(36.365505, 127.345159), 14, 14, "산학연교육연구관앞", 999, "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_19/1.jpg"), // 산학협력관
-    Location(LatLng(36.367564, 127.345800), 2, 999999, "정심화국제문화회관", 999, "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_01/1.jpg"), // 경상대학
+    Location(LatLng(36.367564, 127.345800), 2, 999, "경상대학교", 999, "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_01/1.jpg"), // 경상대학
 )

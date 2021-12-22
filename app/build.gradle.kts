@@ -1,22 +1,18 @@
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
+    id("application-setting-plugin")
+    kotlin("kapt")
     id("com.google.gms.google-services")
     id("com.google.android.gms.oss-licenses-plugin")
     id("kotlin-parcelize")
-    id("dagger.hilt.android.plugin")
     id("com.google.firebase.crashlytics")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
-    compileSdk = 31
     defaultConfig {
         applicationId = "com.keelim.mygrade"
-        minSdk = 24
-        targetSdk = 31
         versionCode = 2
         versionName = "0.0.2"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -27,25 +23,9 @@ android {
         defaultConfig{
             buildConfigField("String", "key", key)
         }
-        release {
-            isMinifyEnabled = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
     }
-    buildFeatures {
-        dataBinding = true
-        viewBinding = true
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
+
+    useLibrary("android.test.mock")
 }
 
 dependencies {
@@ -79,3 +59,7 @@ dependencies {
     implementation("com.android.billingclient:billing-ktx:$billing_version")
 
 }
+
+
+
+

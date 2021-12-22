@@ -1,21 +1,6 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
-}
-android{
-    compileSdk = 31
-    defaultConfig{
-        targetSdk = 31
-        minSdk = 24
-    }
-    buildFeatures{
-        viewBinding = true
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.1.0-alpha05"
-    }
+    id("library-setting-plugin")
+    id("compose-plugin")
 }
 
 dependencies {

@@ -1,4 +1,4 @@
-package com.keelim.mygrade.data
+package com.keelim.data.model
 
 data class Release(
     var date: String, // 2021-11-04

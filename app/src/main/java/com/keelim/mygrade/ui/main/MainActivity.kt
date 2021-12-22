@@ -13,7 +13,7 @@ import com.google.android.gms.ads.AdView
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.material.snackbar.Snackbar
 import com.keelim.mygrade.BuildConfig
-import com.keelim.mygrade.data.Result
+import com.keelim.data.model.Result
 import com.keelim.mygrade.databinding.ActivityMainBinding
 import com.keelim.mygrade.ui.GradeActivity
 import com.keelim.mygrade.ui.center.CenterActivity
@@ -101,7 +101,17 @@ class MainActivity : AppCompatActivity() {
                                 it.value < 100 -> "D"
                                 else -> "F"
                             }
-
+                            viewModel.save(
+                                binding.valueOrigin.text.toString().toFloat(),
+                                binding.valueAverage.text.toString().toFloat(),
+                                binding.valueNumber.text.toString().toFloat(),
+                                binding.valueStudent.text.toString().toInt(),
+                                grade,
+                                getLevel(
+                                    (it.value * binding.valueStudent.text.toString()
+                                        .toInt()) / 100
+                                )
+                            )
                             startActivity(
                                 Intent(
                                     this@MainActivity,

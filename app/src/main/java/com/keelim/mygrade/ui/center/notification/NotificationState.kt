@@ -1,6 +1,6 @@
 package com.keelim.mygrade.ui.center.notification
 
-import com.keelim.mygrade.data.Release
+import com.keelim.data.model.Release
 
 
 sealed class NotificationState {

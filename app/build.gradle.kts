@@ -5,7 +5,6 @@ plugins {
     kotlin("kapt")
     id("com.google.gms.google-services")
     id("com.google.android.gms.oss-licenses-plugin")
-    id("kotlin-parcelize")
     id("com.google.firebase.crashlytics")
     id("dagger.hilt.android.plugin")
 }
@@ -29,6 +28,7 @@ android {
 }
 
 dependencies {
+    implementation(projects.data)
     implementation("androidx.core:core-ktx:1.7.0")
     implementation("androidx.appcompat:appcompat:1.4.0")
     implementation("com.google.android.material:material:1.4.0")

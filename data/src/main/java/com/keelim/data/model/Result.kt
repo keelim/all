@@ -1,4 +1,4 @@
-package com.keelim.mygrade.data
+package com.keelim.data.model
 
 import android.os.Parcelable
 

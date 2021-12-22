@@ -11,7 +11,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearSnapHelper
-import com.keelim.mygrade.data.Release
+import com.keelim.data.model.Release
 import com.keelim.mygrade.databinding.FragmentNotificationBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect

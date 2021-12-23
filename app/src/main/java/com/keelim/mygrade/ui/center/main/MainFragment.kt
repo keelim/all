@@ -1,48 +1,63 @@
-package com.keelim.mygrade.ui.main
+package com.keelim.mygrade.ui.center.main
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.material.snackbar.Snackbar
-import com.keelim.mygrade.BuildConfig
 import com.keelim.data.model.Result
-import com.keelim.mygrade.databinding.ActivityMainBinding
+import com.keelim.mygrade.BuildConfig
+import com.keelim.mygrade.R
+import com.keelim.mygrade.databinding.FragmentMainBinding
 import com.keelim.mygrade.ui.GradeActivity
-import com.keelim.mygrade.ui.center.CenterActivity
 import com.keelim.mygrade.utils.ThemeManager
 import com.keelim.mygrade.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
-    private val viewModel: MainViewModel by viewModels()
-    private val binding: ActivityMainBinding by lazy {
-        ActivityMainBinding.inflate(layoutInflater)
-    }
-
+class MainFragment : Fragment() {
     @Inject
     lateinit var themeManager: ThemeManager
+    private var _binding: FragmentMainBinding? = null
+    private val binding get() = _binding!!
+    private val viewModel: MainViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(binding.root)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentMainBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initViews()
         observeState()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun initViews() = with(binding) {
-        val ad = AdView(this@MainActivity).apply {
+        val ad = AdView(requireContext()).apply {
             adSize = AdSize.BANNER
             adUnitId = if (BuildConfig.DEBUG.not()) {
                 BuildConfig.key
@@ -54,7 +69,7 @@ class MainActivity : AppCompatActivity() {
         val adRequest = AdRequest.Builder().build()
         ad.loadAd(adRequest)
         oss.setOnClickListener {
-            startActivity((Intent(this@MainActivity, OssLicensesMenuActivity::class.java)))
+            startActivity((Intent(requireContext(), OssLicensesMenuActivity::class.java)))
         }
         btnSubmit.setOnClickListener {
             if (validation()) {
@@ -77,15 +92,15 @@ class MainActivity : AppCompatActivity() {
             }
         }
         noAd.setOnClickListener {
-            toast("아직 기능을 준비합니다.")
+            requireContext().toast("아직 기능을 준비합니다.")
         }
         notification.setOnClickListener{
-            startActivity(Intent(this@MainActivity, CenterActivity::class.java))
+            findNavController().navigate(R.id.notificationFragment)
         }
     }
 
-    private fun observeState() = lifecycleScope.launch {
-        repeatOnLifecycle(Lifecycle.State.STARTED) {
+    private fun observeState() = viewLifecycleOwner.lifecycleScope.launch {
+        viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
             viewModel.state.collect {
                 when (it) {
                     is MainState.UnInitialized -> Unit
@@ -114,7 +129,7 @@ class MainActivity : AppCompatActivity() {
                             )
                             startActivity(
                                 Intent(
-                                    this@MainActivity,
+                                    requireContext(),
                                     GradeActivity::class.java
                                 ).apply {
                                     putExtra(
@@ -138,9 +153,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-    
+
     private fun getLevel(level: Int): String = level.toString() + " / " + binding.valueStudent.text
-    
+
     private fun validation(): Boolean = with(binding){
         var flag = true
         if (valueOrigin.text.toString().isEmpty()) {

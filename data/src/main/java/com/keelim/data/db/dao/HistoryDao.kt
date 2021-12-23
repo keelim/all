@@ -28,4 +28,7 @@ interface HistoryDao {
 
     @Query("SELECT * FROM history")
     fun getAll(): Flow<List<History>>
+
+    @Query("SELECT * FROM history LIMIT :loadSize OFFSET (:page-1)*:loadSize")
+    suspend fun getPagingAll(page:Int, loadSize:Int): List<History>
 }

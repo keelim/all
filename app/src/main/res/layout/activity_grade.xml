@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:context=".ui.main.MainActivity"
+        tools:context=".ui.center.main.MainActivity"
         tools:layout_editor_absoluteY="73dp">
 
         <com.google.android.material.textview.MaterialTextView
@@ -46,7 +46,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/grade_container"
-        tools:context=".ui.main.MainActivity">
+        tools:context=".ui.center.main.MainActivity">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/level_text"

@@ -1,7 +1,12 @@
 package com.keelim.data.repository
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.PagingSource
 import com.keelim.data.db.AppDatabase
 import com.keelim.data.db.entity.History
+import com.keelim.data.db.paging.DBPagingSource
 import com.keelim.data.di.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
@@ -11,7 +16,8 @@ import javax.inject.Inject
 
 class IoRepositoryImpl @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
-    private val db: AppDatabase
+    private val db: AppDatabase,
+    private val historySource: PagingSource<Int, History>
 ) : IoRepository {
     override suspend fun insertHistories(history: History) = withContext(ioDispatcher) {
         db.historyDao().insertHistories(history)
@@ -40,4 +46,14 @@ class IoRepositoryImpl @Inject constructor(
         .historyDao()
         .getAll()
         .distinctUntilChanged()
+
+    override fun getAllPaging(): Flow<PagingData<History>> {
+        return Pager(
+            config = PagingConfig(pageSize = 10),
+            pagingSourceFactory = {
+                historySource
+            }
+        ).flow
+            .distinctUntilChanged()
+    }
 }

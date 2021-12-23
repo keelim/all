@@ -1,5 +1,6 @@
 package com.keelim.data.repository
 
+import androidx.paging.PagingData
 import com.keelim.data.db.entity.History
 import kotlinx.coroutines.flow.Flow
 
@@ -16,4 +17,6 @@ interface IoRepository {
     fun loadHistoriesBySubjects(subject: String): Flow<List<History>>
 
     val all: Flow<List<History>>
+
+    fun getAllPaging(): Flow<PagingData<History>>
 }

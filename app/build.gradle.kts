@@ -21,6 +21,10 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    lint {
+        checkDependencies = true
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = BuildTypeRelease.isMinifyEnabled
@@ -32,12 +36,14 @@ android {
                 testers = "kimh00335@gmail.com"
             }
         }
+
         debug {
             firebaseAppDistribution {
                 testers = "kimh00335@gmail.com"
             }
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -55,8 +61,9 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.1.0-alpha05"
+        kotlinCompilerExtensionVersion = ProjectConfigurations.composeCompiler
     }
+
     namespace = "com.keelim.nandadiagnosis"
 }
 

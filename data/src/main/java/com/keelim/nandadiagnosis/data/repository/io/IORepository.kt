@@ -23,7 +23,6 @@ import com.keelim.nandadiagnosis.data.dto.VideoDto
 import kotlinx.coroutines.flow.Flow
 
 interface IORepository {
-
   suspend fun getNandaList(): List<NandaEntity2>
 
   suspend fun getLocalNandaList(): List<NandaEntity2>
@@ -41,6 +40,8 @@ interface IORepository {
   suspend fun deleteNandaItem(uid: Long)
 
   // production =>
+  val searchData: Flow<List<NandaEntity>>
+
   suspend fun getFavoriteList(): List<NandaEntity>
 
   suspend fun getSearchList(keyword: String?): List<NandaEntity>

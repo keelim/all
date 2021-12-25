@@ -97,6 +97,10 @@ class MainFragment : Fragment() {
         notification.setOnClickListener{
             findNavController().navigate(R.id.notificationFragment)
         }
+        
+        history.setOnClickListener{
+            findNavController().navigate(R.id.historyFragment)
+        }
     }
 
     private fun observeState() = viewLifecycleOwner.lifecycleScope.launch {

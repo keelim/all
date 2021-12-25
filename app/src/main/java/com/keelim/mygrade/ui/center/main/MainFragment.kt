@@ -91,9 +91,6 @@ class MainFragment : Fragment() {
                 themeManager.state = ThemeManager.ThemeMode.DARK
             }
         }
-        noAd.setOnClickListener {
-            requireContext().toast("아직 기능을 준비합니다.")
-        }
         notification.setOnClickListener{
             findNavController().navigate(R.id.notificationFragment)
         }

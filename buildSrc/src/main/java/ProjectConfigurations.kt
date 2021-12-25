@@ -7,4 +7,5 @@ object ProjectConfigurations {
     const val buildTools = "30.0.3"
     const val versionCode = 51
     const val versionName = "1.0.51"
+    const val composeCompiler = "1.1.0-beta03"
 }

@@ -20,6 +20,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import com.keelim.nandadiagnosis.data.db.entity.NandaEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -55,4 +56,8 @@ DataDaoV2 {
 
   @Query("SELECT * FROM nanda WHERE reason LIKE  '%' || :query || '%'  LIMIT :loadSize OFFSET (:page-1) * :loadSize")
   suspend fun getQueryContentsByPaging(query: String, page: Int, loadSize: Int): List<NandaEntity>
+
+  @Transaction
+  @Query("SELECT * FROM nanda")
+  fun getSearchData(): Flow<List<NandaEntity>>
 }

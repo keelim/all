@@ -11,7 +11,7 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 import com.keelim.mygrade.BuildConfig
-import com.keelim.mygrade.data.Result
+import com.keelim.data.model.Result
 import com.keelim.mygrade.databinding.ActivityGradeBinding
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
@@ -67,10 +67,9 @@ class GradeActivity : AppCompatActivity() {
                 FileOutputStream("$cachePath/image.png") // overwrites this image every time
             screenBitmap!!.compress(Bitmap.CompressFormat.PNG, 100, stream)
             stream.close()
-            val newFile = File(cachePath, "image.png")
             FileProvider.getUriForFile(
                 applicationContext,
-                "com.keelim.fileprovider", newFile
+                "com.keelim.fileprovider", File(cachePath, "image.png")
             )
         }.onSuccess {
             startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).apply {

@@ -10,23 +10,19 @@ plugins {
 
 configure<BaseExtension> {
     buildFeatures.viewBinding = true
-    signingConfigs {
-        getByName("debug") {
-        }
-    }
+
     val pw: String = gradleLocalProperties(rootDir).getProperty("pw")
     val alias: String = gradleLocalProperties(rootDir).getProperty("alias")
+    signingConfigs {
+        getByName("release") {
+            storeFile = project.rootProject.file("keystore.jks")
+            storePassword = pw
+            keyAlias = alias
+            keyPassword = pw
+        }
+    }
 
     buildTypes {
-        signingConfigs {
-            getByName("release") {
-                storeFile = project.rootProject.file("keystore.jks")
-                storePassword = pw
-                keyAlias = alias
-                keyPassword = pw
-            }
-        }
-
         getByName("release") {
             signingConfig = signingConfigs.getByName("release")
             isMinifyEnabled = true

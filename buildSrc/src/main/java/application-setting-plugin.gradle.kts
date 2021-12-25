@@ -26,10 +26,9 @@ configure<BaseExtension> {
                 keyPassword = pw
             }
         }
-        getByName("debug") {
-        }
 
         getByName("release") {
+            signingConfig = signingConfigs.getByName("release")
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android.txt"))
             proguardFiles(file("proguard-rules.pro"))

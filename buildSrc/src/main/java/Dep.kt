@@ -86,6 +86,7 @@ object Dep {
         object Hilt {
             const val android = "com.google.dagger:hilt-android:$version"
             const val compiler = "com.google.dagger:hilt-compiler:$version"
+            const val worker = "androidx.hilt:hilt-work:1.0.0-alpha01"
         }
     }
 

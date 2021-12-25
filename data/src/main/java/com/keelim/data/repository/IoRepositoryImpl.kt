@@ -17,7 +17,6 @@ import javax.inject.Inject
 class IoRepositoryImpl @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
     private val db: AppDatabase,
-    private val historySource: PagingSource<Int, History>
 ) : IoRepository {
     override suspend fun insertHistories(history: History) = withContext(ioDispatcher) {
         db.historyDao().insertHistories(history)
@@ -51,7 +50,7 @@ class IoRepositoryImpl @Inject constructor(
         return Pager(
             config = PagingConfig(pageSize = 10),
             pagingSourceFactory = {
-                historySource
+                DBPagingSource(db)
             }
         ).flow
             .distinctUntilChanged()

@@ -33,9 +33,7 @@ jobs:
       run: echo '${{ secrets.LOCAL_PROPERTIES }}' > local.properties
 
     - name: Access KeyStore
-      run: |
-      echo '${{ secrets.SIGNING_KEY }}' > keystore.b64
-      base64 -d -i keystore.b64 > keystore.jks
+      run: echo '${{ secrets.SIGNING_KEY }}' > keystore.b64 && base64 -d -i keystore.b64 > keystore.jks
 
 
     - name: Build with Gradle

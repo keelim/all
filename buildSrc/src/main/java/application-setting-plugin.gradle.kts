@@ -1,4 +1,5 @@
 import com.android.build.gradle.BaseExtension
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 
 plugins {
     id("com.android.application")
@@ -13,8 +14,18 @@ configure<BaseExtension> {
         getByName("debug") {
         }
     }
+    val pw: String = gradleLocalProperties(rootDir).getProperty("pw")
+    val alias: String = gradleLocalProperties(rootDir).getProperty("alias")
 
     buildTypes {
+        signingConfigs {
+            getByName("release") {
+                storeFile = project.rootProject.file("keystore.jks")
+                storePassword = pw
+                keyAlias = alias
+                keyPassword = pw
+            }
+        }
         getByName("debug") {
         }
 

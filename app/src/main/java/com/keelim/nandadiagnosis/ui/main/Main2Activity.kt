@@ -53,6 +53,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.util.UUID
 import javax.inject.Inject
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 
 @AndroidEntryPoint
 class Main2Activity : AppCompatActivity() {
@@ -84,7 +87,6 @@ class Main2Activity : AppCompatActivity() {
   override fun onDestroy() {
     super.onDestroy()
     stopService(Intent(this, TerminateService::class.java))
-    unregisterReceiver(recevier)
   }
 
   private fun updateCheck(){
@@ -167,25 +169,6 @@ class Main2Activity : AppCompatActivity() {
       }
       negativeButton(getString(R.string.cancel))
     }.show()
-  }
-
-  private fun downloadDatabase() {
-    downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-    val intentFilter: IntentFilter = IntentFilter().apply {
-      addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
-      addAction(DownloadManager.ACTION_NOTIFICATION_CLICKED)
-    }
-    registerReceiver(recevier, intentFilter)
-
-    downloadManager.enqueue(
-      DownloadManager.Request(Uri.parse(getString(R.string.db_path)))
-        .setTitle("Downloading")
-        .setDescription("Downloading Database file")
-        .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-        .setDestinationUri(Uri.fromFile(File(getExternalFilesDir(null), "nanda.db")))
-        .setAllowedOverMetered(true)
-        .setAllowedOverRoaming(true)
-    )
   }
 
   private fun downloadDatabase2() {

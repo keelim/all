@@ -11,9 +11,9 @@ plugins {
 
 android {
     defaultConfig {
-        applicationId = "com.keelim.mygrade"
-        versionCode = 2
-        versionName = "0.0.2"
+        applicationId = ProjectConfigurations.applicationID
+        versionCode = ProjectConfigurations.versionCode
+        versionName = ProjectConfigurations.versionName
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     val key: String = gradleLocalProperties(rootDir).getProperty("UNIT")

@@ -17,10 +17,24 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     val key: String = gradleLocalProperties(rootDir).getProperty("UNIT")
+    val pw: String = gradleLocalProperties(rootDir).getProperty("pw")
+    val alias: String = gradleLocalProperties(rootDir).getProperty("alias")
+
+    signingConfigs {
+        getByName("release") {
+            storeFile = project.rootProject.file("keystore.jks")
+            storePassword = pw
+            keyAlias = alias
+            keyPassword = pw
+        }
+    }
 
     buildTypes {
         defaultConfig{
             buildConfigField("String", "key", key)
+        }
+        getByName("release"){
+            signingConfig = signingConfigs.getByName("release")
         }
     }
 

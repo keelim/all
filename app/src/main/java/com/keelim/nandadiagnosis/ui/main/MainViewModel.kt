@@ -26,28 +26,30 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
   getTheme: GetAppThemeUseCase,
   private val setTheme: SetAppThemeUseCase,
 ) : ViewModel() {
-  val theme: LiveData<Int> = getTheme.appTheme.asLiveData()
+  private var _loading:MutableStateFlow<Boolean> = MutableStateFlow(false)
+  val loading:StateFlow<Boolean>
+    get() = _loading
 
+  val theme: LiveData<Int> = getTheme.appTheme.asLiveData()
   fun setAppTheme(theme: Int) = viewModelScope.launch {
     setTheme.invoke(theme)
   }
 
-  private val _loading = MutableLiveData(false)
-  val loading: LiveData<Boolean> = _loading
-
   fun loadingOn() = viewModelScope.launch {
-    _loading.value = true
+    _loading.emit(true)
     delay(1000)
-    _loading.value = false
+    _loading.emit(false)
   }
 
   fun loadingOff() = viewModelScope.launch {
-    _loading.value = false
+    _loading.emit(false)
   }
 }

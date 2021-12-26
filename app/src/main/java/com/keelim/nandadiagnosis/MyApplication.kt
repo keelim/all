@@ -16,6 +16,7 @@
 package com.keelim.nandadiagnosis
 
 import android.app.Application
+import com.keelim.nandadiagnosis.notification.NotificationChannels
 import com.keelim.nandadiagnosis.utils.AppOpenManager
 import com.keelim.nandadiagnosis.utils.ComponentLogger
 import dagger.hilt.android.HiltAndroidApp
@@ -32,5 +33,6 @@ class MyApplication : Application() {
     super.onCreate()
     appOpenManager = AppOpenManager(this) // 콜드 부팅에서 복귀시 ad
     componentLogger.initialize(this)
+    NotificationChannels.initialize(this)
   }
 }

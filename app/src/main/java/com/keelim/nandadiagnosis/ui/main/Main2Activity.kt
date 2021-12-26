@@ -16,31 +16,22 @@
 package com.keelim.nandadiagnosis.ui.main
 
 import android.app.DownloadManager
-import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
-import androidx.work.Constraints
-import androidx.work.ExistingWorkPolicy
-import androidx.work.NetworkType
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkInfo
-import androidx.work.WorkManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
-import com.google.android.play.core.install.model.AppUpdateType
-import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.keelim.common.toast
+import com.keelim.common.util.repeatCallDefaultOnStarted
+import com.keelim.common.util.toast
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.compose.ui.CircularIndeterminateProgressBar
-import com.keelim.nandadiagnosis.data.worker.DownloadWorker
 import com.keelim.nandadiagnosis.databinding.ActivityMain2Binding
 import com.keelim.nandadiagnosis.service.TerminateService
 import com.keelim.nandadiagnosis.utils.DownloadReceiver
@@ -49,39 +40,31 @@ import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.message
 import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.negativeButton
 import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.positiveButton
 import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.title
+import com.keelim.nandadiagnosis.worker.DownloadWorker
+import com.keelim.nandadiagnosis.worker.MainWorker
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
-import java.util.UUID
 import javax.inject.Inject
-import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class Main2Activity : AppCompatActivity() {
-  private lateinit var downloadManager: DownloadManager
   private val binding: ActivityMain2Binding by lazy { ActivityMain2Binding.inflate(layoutInflater) }
   private val mainViewModel: MainViewModel by viewModels()
   private val auth by lazy { Firebase.auth }
-  private val appUpdateManager by lazy {AppUpdateManagerFactory.create(this)}
 
   @Inject
   lateinit var recevier: DownloadReceiver
-
-  private val workManager by lazy {
-    WorkManager.getInstance(applicationContext)
-  }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(binding.root)
     startService(Intent(this, TerminateService::class.java))
-    updateCheck()
-    initNavigation()
-    initBottomAppBar()
+    initViews()
     observeLoading()
     fileChecking()
     loginCheck()
+    handleAppLink()
   }
 
   override fun onDestroy() {
@@ -89,28 +72,7 @@ class Main2Activity : AppCompatActivity() {
     stopService(Intent(this, TerminateService::class.java))
   }
 
-  private fun updateCheck(){
-    val appUpdateInfoTask = appUpdateManager.appUpdateInfo
-
-    appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
-      if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
-        && appUpdateInfo.updatePriority() >= 4 /* high priority */
-        && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
-        // Request an immediate update.
-        appUpdateManager.startUpdateFlowForResult(
-          // Pass the intent that is returned by 'getAppUpdateInfo()'.
-          appUpdateInfo,
-          // Or 'AppUpdateType.FLEXIBLE' for flexible updates.
-          AppUpdateType.IMMEDIATE,
-          // The current activity making the update request.
-          this,
-          // Include a request code to later monitor this update request.
-          IN_APP_UPDATE_CODE)
-      }
-    }
-  }
-
-  private fun initNavigation() {
+  private fun initViews() = with(binding) {
     navController().addOnDestinationChangedListener { _, destination, _ ->
       when (destination.id) {
         R.id.navigation_category -> {
@@ -123,9 +85,6 @@ class Main2Activity : AppCompatActivity() {
         }
       }
     }
-  }
-
-  private fun initBottomAppBar() = with(binding) {
     searchButton.setOnClickListener {
       mainViewModel.loadingOn()
       navController().navigate(R.id.navigation_search)
@@ -172,42 +131,14 @@ class Main2Activity : AppCompatActivity() {
   }
 
   private fun downloadDatabase2() {
-    val constraints = Constraints.Builder()
-      .setRequiredNetworkType(NetworkType.CONNECTED)
-      .setRequiresStorageNotLow(true)
-      .setRequiresBatteryNotLow(true)
-      .build()
-
-    val downloadWorker = OneTimeWorkRequestBuilder<DownloadWorker>()
-      .setConstraints(constraints)
-      .addTag("downloadWork")
-      .build()
-
-    // 2
-    workManager.enqueueUniqueWork(
-      "oneTimeDownload",
-      ExistingWorkPolicy.KEEP,
-      downloadWorker
-    )
-    observeWork(downloadWorker.id)
-  }
-
-  private fun observeWork(id: UUID) {
-    // 1
-    workManager.getWorkInfoByIdLiveData(id)
-      .observe(this) { info ->
-        // 2
-        info?.let {
-          when (it.state) {
-            WorkInfo.State.ENQUEUED -> toast("다운로드를 시작합니다.")
-            WorkInfo.State.RUNNING -> mainViewModel.loadingOn()
-            WorkInfo.State.SUCCEEDED -> mainViewModel.loadingOff()
-            WorkInfo.State.FAILED -> toast("다운로드를 완료하지 못했습니다..")
-            WorkInfo.State.BLOCKED -> toast("다운로드를 완료하지 못했습니다..")
-            WorkInfo.State.CANCELLED -> toast("다운로드를 완료하지 못했습니다..")
-          }
-        }
-      }
+    registerReceiver(
+      recevier,
+      IntentFilter().apply {
+      addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
+      addAction(DownloadManager.ACTION_NOTIFICATION_CLICKED)
+    })
+    DownloadWorker.enqueueWork(this, this)
+    MainWorker.enqueueWork(this)
   }
 
   private fun loginCheck() {
@@ -217,25 +148,35 @@ class Main2Activity : AppCompatActivity() {
     }
   }
 
+  private fun observeLoading() = repeatCallDefaultOnStarted {
+    mainViewModel.loading.collect {
+      binding.composeView.apply {
+        bringToFront()
+        setContent {
+          CircularIndeterminateProgressBar(
+            isDisplayed = it
+          )
+        }
+      }
+    }
+  }
+
+  private fun handleAppLink(){
+    val appLinkAction = intent.action
+    val appLinkData = intent.data
+    if (appLinkAction != null && appLinkAction == "android.intent.action.VIEW" ) {
+      findNavController(R.id.nav_host_fragment).navigate(
+        R.id.diagnosisFragment,
+        bundleOf(
+          "num" to appLinkData?.lastPathSegment
+        )
+      )
+    }
+  }
+
   private fun navController() = findNavController(R.id.nav_host_fragment)
 
   private fun showMoreOptions() = navController().navigate(R.id.moreBottomSheetDialog)
 
   private fun showMenu() = navController().navigate(R.id.menuBottomSheetDialogFragment)
-
-  private fun observeLoading() = mainViewModel.loading.observe(this) {
-    binding.composeView.apply {
-      bringToFront()
-      setContent {
-        CircularIndeterminateProgressBar(
-          isDisplayed = it
-        )
-      }
-    }
-  }
-
-
-  companion object{
-    const val IN_APP_UPDATE_CODE = 1
-  }
 }

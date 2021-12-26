@@ -28,7 +28,7 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
-import com.keelim.common.toast
+import com.keelim.common.util.toast
 import com.keelim.nandadiagnosis.BuildConfig
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.ActivitySplashBinding

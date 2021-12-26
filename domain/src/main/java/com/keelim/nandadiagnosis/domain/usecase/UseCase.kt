@@ -15,7 +15,7 @@
  */
 package com.keelim.nandadiagnosis.domain.usecase
 
-import com.keelim.common.Result
+import com.keelim.common.util.Result
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import timber.log.Timber

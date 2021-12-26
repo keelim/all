@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.common
+package com.keelim.common.util
 
 /**
  * A generic class that holds a value with its loading status.
@@ -59,9 +59,9 @@ inline fun <R, T> Result<T>.mapCatching(transform: (T) -> R): Result<R> {
   return when (this) {
     is Result.Success -> {
       try {
-        Result.Success(transform(data))
+          Result.Success(transform(data))
       } catch (e: Throwable) {
-        Result.Error(e)
+          Result.Error(e)
       }
     }
     is Result.Error -> Result.Error(exception)

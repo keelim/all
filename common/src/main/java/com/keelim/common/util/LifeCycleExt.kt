@@ -1,4 +1,4 @@
-package com.keelim.common
+package com.keelim.common.util
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner

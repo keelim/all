@@ -32,8 +32,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
-import com.keelim.common.repeatCallDefaultOnStarted
-import com.keelim.common.toast
+import com.keelim.common.util.repeatCallDefaultOnStarted
+import com.keelim.common.util.toast
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.FragmentSearchBinding
 import com.keelim.nandadiagnosis.ui.main.search.history.HistoryAdapter

@@ -63,20 +63,20 @@
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:scheme="https"
+                    android:host="keelim.github.io" />
+            </intent-filter>
         </activity>
 
         <service
             android:name=".service.TerminateService"
             android:exported="false"
             android:stopWithTask="false" />
-
-        <service
-            android:name=".service.notification.FirebaseMessagingService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
 
         <provider
             android:name="androidx.startup.InitializationProvider"

@@ -21,7 +21,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.platform.LocalContext
 import androidx.fragment.app.Fragment
-import com.keelim.common.startActivity
+import com.keelim.common.util.startActivity
 import com.keelim.nandadiagnosis.compose.ui.setThemeContent
 import com.keelim.ui.Section
 import com.keelim.ui.SettingScreen

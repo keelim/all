@@ -30,7 +30,7 @@ class MaterialDialog {
     ): AlertDialog {
       val builder = MaterialAlertDialogBuilder(
         context,
-        R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog_Centered
+        android.R.style.ThemeOverlay_Material
       ).setTitle(" ")
       builder.dialogBuilder()
       return builder.create()

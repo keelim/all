@@ -4,28 +4,22 @@ import Glide.moshi_kotlin
 import SquareUp.retrofit_moshi
 
 plugins {
-    id("com.android.library")
-    kotlin("android")
-    kotlin("kapt")
+    id("library-setting-plugin")
+    id("com.google.devtools.ksp")
+    id("kotlin-kapt")
     id("kotlin-parcelize")
     id("dagger.hilt.android.plugin")
-}
-
-listOf(
-    "android.gradle",
-).forEach { file ->
-    apply(from = "${rootDir}/gradle/${file}")
 }
 
 android {
     defaultConfig {
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments += mapOf(
+                arguments.plus(mapOf(
                     "room.schemaLocation" to "$projectDir/schemas",
                     "room.incremental" to "true",
                     "room.expandProjection" to "true"
-                )
+                ))
             }
         }
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -72,5 +66,5 @@ dependencies {
     implementation(retrofit_moshi)
     implementation(moshi)
     implementation(moshi_kotlin)
-    implementation(moshi_codegen)
+    kapt(moshi_codegen)
 }

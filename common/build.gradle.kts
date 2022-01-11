@@ -9,4 +9,5 @@ dependencies {
     implementation(projects.compose)
     implementation(AndroidX.LifeCycle.runtime)
     implementation(AndroidX.activity_ktx)
+    implementation(AndroidX.fragment_ktx)
 }

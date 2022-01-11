@@ -18,11 +18,10 @@ import timber.log.Timber
 class AppOpenManager @Inject constructor() : LifecycleObserver {
     private lateinit var myApplication: Application
     private var loadTime: Long = 0
-    private var appOpenAd: AppOpenAd? = null˚
+    private var appOpenAd: AppOpenAd? = null
     private var currentActivity: Activity? = null
     private var isShowingAd = false
-    private val adRequest: AdRequest
-        get() = AdRequest.Builder().build()
+    private val adRequest by lazy { AdRequest.Builder().build() }
     private val isAdAvailable: Boolean
         get() = appOpenAd != null && wasLoadTimeLessThanNHoursAgo()
 

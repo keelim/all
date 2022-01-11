@@ -1,6 +1,5 @@
 plugins {
-    id("com.android.application")
-    id("kotlin-android")
+    id("application-setting-plugin")
     id("kotlin-kapt")
     id("kotlin-parcelize")
     id("com.google.gms.google-services")
@@ -11,35 +10,24 @@ plugins {
 }
 
 android {
-    compileSdk = ProjectConfigurations.compileSdk
-
     defaultConfig {
         applicationId = ProjectConfigurations.applicationId
-        minSdk = ProjectConfigurations.minSdk
-        targetSdk = ProjectConfigurations.targetSdk
         versionCode = ProjectConfigurations.versionCode
         versionName = ProjectConfigurations.versionName
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
-        release {
-            isMinifyEnabled = BuildTypeRelease.isMinifyEnabled
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+        defaultConfig {
         }
-    }
-    buildFeatures {
-        dataBinding = true
-        viewBinding = true
+        getByName("release") {
+        }
     }
 }
 
 dependencies {
-    implementation(project(":data"))
-    implementation(project(":domain"))
+    implementation(projects.data)
+    implementation(projects.domain)
     implementation("androidx.core:core-ktx:1.6.0")
     implementation("androidx.appcompat:appcompat:1.3.0")
     implementation("com.google.android.material:material:1.4.0")
@@ -82,4 +70,4 @@ dependencies {
     implementation("com.google.android.gms:play-services-oss-licenses:17.0.0")
     implementation(AndroidX.startup)
 }
-apply(from = "$rootDir/spotless.gradle")
+//apply(from = "$rootDir/spotless.gradle")

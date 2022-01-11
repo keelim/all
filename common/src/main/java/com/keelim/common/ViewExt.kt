@@ -13,13 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.cnubus.utils
+package com.keelim.common
 
 import android.view.View
 import androidx.annotation.Px
 
 @Px
 fun View.dip(dipValue: Float) = context.dip(dipValue)
+
+fun View.toInvisible(){
+    visibility = View.INVISIBLE
+}
 
 fun View.toVisible() {
     visibility = View.VISIBLE

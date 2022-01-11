@@ -16,10 +16,16 @@
 package com.keelim.common
 
 import android.app.Activity
+
 import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
+import android.widget.Toast
+import androidx.annotation.Px
+import androidx.annotation.StringRes
+import androidx.core.app.FrameMetricsAggregator
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 
 inline fun <reified T : Activity> Context.buildIntent(
     vararg argument: Pair<String, Any?>
@@ -33,4 +39,23 @@ inline fun <reified T : Activity> Context.startActivity(
     startActivity(buildIntent<T>(*argument))
 }
 
+fun Context.toast(message:String){
+    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+}
+
+fun Context.toast(@StringRes message:Int){
+    Toast.makeText(this, getString(message), Toast.LENGTH_SHORT).show()
+}
+
+fun Fragment.toast(message:String){
+    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+}
+
+fun Fragment.toast(@StringRes message:Int){
+    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+}
+
 fun Int.dp2px() = (this * Resources.getSystem().displayMetrics.density).toInt()
+
+@Px
+fun Context.dip(dipValue: Float) = (dipValue * resources.displayMetrics.density).toInt()

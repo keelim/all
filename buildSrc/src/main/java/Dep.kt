@@ -1,10 +1,17 @@
+object AppCenter {
+    private const val appCenterSdkVersion = "4.3.1"
+    const val analytics = "com.microsoft.appcenter:appcenter-analytics:${appCenterSdkVersion}"
+    const val crashes = "com.microsoft.appcenter:appcenter-crashes:${appCenterSdkVersion}"
+}
+
 object Play {
     const val play_location = "com.google.android.gms:play-services-location:18.0.0"
     const val play_map = "com.google.android.gms:play-services-maps:17.0.1"
     const val play_ads = "com.google.android.gms:play-services-ads:20.2.0"
     const val play_core = "com.google.android.play:core:1.10.0"
     const val maps_sdk = "com.google.maps.android:maps-ktx:3.0.1"
-    const val play_auth = "com.google.android.gms:play-services-auth:19.2.0"
+    const val play_auth = "com.google.android.gms:play-services-auth:19.2"
+    const val oss = "com.google.android.gms:play-services-oss-licenses:17.0.0"
 }
 
 object Coil {
@@ -20,16 +27,18 @@ object Rx {
 }
 
 object Kotlin {
-    const val version = "1.5.21"
-    const val stdlibJvm = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$version"
+    const val version = "1.5.32"
+    const val stdlibJvm = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$version"
     const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.0"
 }
 
 object Coroutines {
-    private const val coroutinesVersion = "1.5.0"
+    private const val coroutinesVersion = "1.6.0"
     const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
     const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
     const val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
+    const val play = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$coroutinesVersion"
+
 }
 
 object SquareUp {
@@ -45,22 +54,13 @@ object SquareUp {
 }
 
 object Room {
-    private const val roomVersion = "2.3.0-alpha02"
+    private const val roomVersion = "2.4.0"
     const val runtime = "androidx.room:room-runtime:$roomVersion"
     const val compiler = "androidx.room:room-compiler:$roomVersion"
     const val ktx = "androidx.room:room-ktx:$roomVersion"
     const val testing = "androidx.room:room-testing:$roomVersion"
 }
 
-object LifeCycle {
-    private const val lifecycleVersion = "2.4.0-alpha01"
-    const val viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
-    const val livedata = "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
-    const val runtime = "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
-    const val extensions = "androidx.lifecycle:lifecycle-extensions:2.2.0"
-    const val services = "androidx.lifecycle:lifecycle-services:$lifecycleVersion"
-    const val viewModelCompose = "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07"
-}
 
 object DataStore {
     const val dataStorePreferences = "1.0.0"
@@ -96,6 +96,16 @@ object AndroidX {
     const val fragment_ktx = "androidx.fragment:fragment-ktx:1.3.0"
 
     const val work = "androidx.work:work-runtime-ktx:2.7.1"
+
+    object LifeCycle {
+        private const val lifecycleVersion = "2.4.0"
+        const val viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+        const val livedata = "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
+        const val runtime = "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
+        const val extensions = "androidx.lifecycle:lifecycle-extensions:2.2.0"
+        const val services = "androidx.lifecycle:lifecycle-services:$lifecycleVersion"
+        const val viewModelCompose = "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07"
+    }
 }
 
 object UI {
@@ -112,17 +122,37 @@ object UI {
     const val recycler_selection = "androidx.recyclerview:recyclerview-selection:1.1.0"
 }
 
-object Compose {
-    private const val compose_version = "1.0.1"
-    const val compose_ui = "androidx.compose.ui:ui:$compose_version"
-    const val compose_material = "androidx.compose.material:material:$compose_version"
-    const val compose_ui_tooling = "androidx.compose.ui:ui-tooling:$compose_version"
-    const val foundation = "androidx.compose.foundation:foundation:$compose_version"
-    const val compose_icon = "androidx.compose.material:material-icons-core:$compose_version"
-    const val expand_icon = "androidx.compose.material:material-icons-extended:$compose_version"
-    const val runtime_livedata = "androidx.compose.runtime:runtime-livedata:$compose_version"
-    const val compose_junit = "androidx.compose.ui:ui-test-junit4:$compose_version"
+object Activity {
+    const val activityVersion = "1.4.0"
+    const val activity = "androidx.activity:activity:$activityVersion"
+    const val ktx = "androidx.activity:activity-ktx:$activityVersion"
 }
+
+object lifecycle {
+    const val lifecycleVersion = "2.4.0"
+    const val viewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+    const val runtimeTesting = "androidx.lifecycle:lifecycle-runtime-testing:$lifecycleVersion"
+}
+
+object Dep {
+    object Compose {
+        const val version = "1.0.5"
+        const val runtime = "androidx.compose.runtime:runtime:$version"
+        const val ui = "androidx.compose.ui:ui:${version}"
+        const val material = "androidx.compose.material:material:${version}"
+        const val materialAdapter = "com.google.android.material:compose-theme-adapter:${version}"
+        const val tooling = "androidx.compose.ui:ui-tooling:${version}"
+        const val livedata = "androidx.compose.runtime:runtime-livedata:$version"
+        const val animation = "androidx.compose.animation:animation:$version"
+
+        const val activity = "androidx.activity:activity-compose:${Activity.activityVersion}"
+        const val constraintLayout = "androidx.constraintlayout:constraintlayout-compose:1.0.0-rc02"
+        const val viewModel =
+            "androidx.lifecycle:lifecycle-viewmodel-compose:${lifecycle.lifecycleVersion}"
+        const val glance = "androidx.glance:glance-appwidget:1.0.0-alpha01"
+    }
+}
+
 
 object AppTest {
     const val junit = "junit:junit:4.13.2"
@@ -144,11 +174,13 @@ object Dep2 {
     object AndroidX {
         const val core = "androidx.core:core-ktx:1.6.0"
         const val appcompat = "androidx.appcompat:appcompat:1.3.0"
+
         object Activity {
             private const val version = "1.3.1"
             const val activity = "androidx.activity:activity-ktx:$version"
             const val compose = "androidx.activity:activity-compose:$version"
         }
+
         const val fragment = "androidx.fragment:fragment-ktx:1.3.5"
         const val material = "com.google.android.material:material:1.4.0"
         const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.0.4"
@@ -162,7 +194,8 @@ object Dep2 {
             const val runtime = "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
             const val extensions = "androidx.lifecycle:lifecycle-extensions:2.2.0"
             const val services = "androidx.lifecycle:lifecycle-services:$lifecycleVersion"
-            const val viewModelCompose = "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07"
+            const val viewModelCompose =
+                "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07"
         }
 
         object Navigation {
@@ -193,9 +226,12 @@ object Dep2 {
         const val serializationPlugin = "org.jetbrains.kotlin:kotlin-serialization:$version"
 
         object Test {
-            const val coroutineTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutineVersion"
-            const val coroutineCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion"
-            const val coroutineAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineVersion"
+            const val coroutineTest =
+                "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutineVersion"
+            const val coroutineCore =
+                "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion"
+            const val coroutineAndroid =
+                "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineVersion"
         }
     }
 

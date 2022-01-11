@@ -7,11 +7,11 @@ ProjectConfigurations {
     const val minSdk = 24
     const val targetSdk = 31
     const val buildTools = "30.0.3"
-    const val versionCode = 58
-    const val versionName = "2.0.58"
+    const val versionCode = 2103
+    const val versionName = "2.1.03"
 
     val javaVer = JavaVersion.VERSION_11
     const val javaVerString = "11"
 
-    const val composeCompiler = "1.1.0-beta03"
+    const val composeCompiler = "1.0.5"
 }

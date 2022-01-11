@@ -1,25 +1,10 @@
 plugins {
-    id("com.android.library")
-    kotlin("android")
-    kotlin("kapt")
+    id("library-setting-plugin")
+    id("kotlin-kapt")
+    id("compose-setting-plugin")
     id("dagger.hilt.android.plugin")
 }
 
-listOf(
-    "android.gradle",
-).forEach { file ->
-    apply(from = "${rootDir}/gradle/${file}")
-}
-
-
-android {
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = ProjectConfigurations.composeCompiler
-    }
-}
 
 dependencies {
     implementation(projects.data)
@@ -27,14 +12,13 @@ dependencies {
     implementation(projects.domain)
     implementation(projects.common)
 
-    implementation(LifeCycle.livedata)
-    implementation(LifeCycle.viewModelCompose)
-
     implementation(Dep2.Compose.ui)
     implementation(Dep2.Compose.material)
     implementation(Dep2.Compose.tooling)
     implementation(Dep2.Compose.themeAdapter)
     implementation(Dep2.Compose.liveData)
+    implementation(Dep.Compose.viewModel)
+    implementation(AndroidX.LifeCycle.livedata)
 
     implementation(Dep2.Coil.compose)
 

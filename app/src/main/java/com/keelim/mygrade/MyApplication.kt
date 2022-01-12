@@ -2,6 +2,7 @@ package com.keelim.mygrade
 
 import android.app.Application
 import com.google.android.gms.ads.MobileAds
+import com.google.android.material.color.DynamicColors
 import com.keelim.mygrade.notification.NotificationChannels
 import dagger.hilt.android.HiltAndroidApp
 
@@ -11,5 +12,6 @@ class MyApplication: Application() {
         super.onCreate()
         MobileAds.initialize(this)
         NotificationChannels.initialize(this)
+        DynamicColors.applyToActivitiesIfAvailable(this)
     }
 }

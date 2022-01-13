@@ -33,14 +33,19 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 import javax.inject.Inject
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flowOn
 
 class IORepositoryImpl @Inject constructor(
   private val nandaService: NandaService,
   @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
-  @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher,
   private val db: AppDatabaseV2,
   private val apiRequestFactory: ApiRequestFactory
 ) : IORepository {
+  override val searchData: Flow<List<NandaEntity>> =
+    db.dataDao().getSearchData()
+      .distinctUntilChanged()
+      .flowOn(ioDispatcher)
 
   override suspend fun getNandaList(): List<NandaEntity2> = withContext(ioDispatcher) {
     val response = nandaService.getNandas()
@@ -72,11 +77,9 @@ class IORepositoryImpl @Inject constructor(
   }
 
   override suspend fun deleteAll() = withContext(ioDispatcher) {
-    TODO("Not yet implemented")
   }
 
   override suspend fun deleteNandaItem(uid: Long) = withContext(ioDispatcher) {
-    TODO("Not yet implemented")
   }
 
   override suspend fun getFavoriteList(): List<NandaEntity> = withContext(ioDispatcher) {
@@ -90,18 +93,13 @@ class IORepositoryImpl @Inject constructor(
   }
 
   override suspend fun getHistories(): List<History> = withContext(ioDispatcher) {
-//    db.historyDao().getAll().reversed()
     emptyList()
   }
 
   override suspend fun saveHistory(keyword: String) = withContext(ioDispatcher) {
-//    db.historyDao().insertHistory(History(null, keyword))
-//    emptyList()
   }
 
   override suspend fun deleteHistory(keyword: String) = withContext(ioDispatcher) {
-//    db.historyDao().delete(keyword)
-//    emptyList()
   }
 
   override suspend fun updateFavorite(favorite: Int, id: Int) = withContext(ioDispatcher) {
@@ -120,15 +118,14 @@ class IORepositoryImpl @Inject constructor(
   }
 
   override suspend fun getVideoList(): VideoDto = withContext(ioDispatcher) {
-    try {
+    return@withContext try {
       val response = apiRequestFactory.retrofit.listVideos()
       val result = response.body()!!
       Timber.d("성공한 데이터 $result")
-      return@withContext result
+      result
     } catch (e: Exception) {
       Timber.e(e)
+      VideoDto(emptyList())
     }
-    Timber.d("성공하지 않는 데이터")
-    return@withContext VideoDto(emptyList())
   }
 }

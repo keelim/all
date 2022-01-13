@@ -36,4 +36,6 @@ class GetSearchListUseCase @Inject constructor(
   fun getSearchFlow(query: String): Flow<PagingData<NandaEntity>> {
     return ioRepository.getTodoContentItemsByPaging(query)
   }
+
+  val searchData:Flow<List<NandaEntity>> = ioRepository.searchData
 }

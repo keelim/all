@@ -1,22 +1,10 @@
 plugins {
-    id("com.android.library")
-    id("kotlin-android")
+    id("library-setting-plugin")
     id("kotlin-kapt")
 }
 
-listOf(
-        "android.gradle",
-).forEach { file ->
-    apply(from = "${rootDir}/gradle/${file}")
-}
-
-
 dependencies {
-    implementation(LifeCycle.runtime)
-    implementation(UI.material)
-    implementation(AndroidX.activity_ktx)
-}
-
-kapt {
-    useBuildCache = true
+    implementation(Dep.AndroidX.lifecycle.runtime)
+    implementation(Dep.AndroidX.UI.material)
+    implementation(Dep.AndroidX.activity.ktx)
 }

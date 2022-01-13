@@ -7,22 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.material.snackbar.Snackbar
+import com.keelim.common.repeatCallDefaultOnStarted
 import com.keelim.data.model.Result
 import com.keelim.mygrade.BuildConfig
 import com.keelim.mygrade.R
 import com.keelim.mygrade.databinding.FragmentMainBinding
 import com.keelim.mygrade.ui.GradeActivity
 import com.keelim.mygrade.utils.ThemeManager
-import com.keelim.mygrade.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -101,7 +99,7 @@ class MainFragment : Fragment() {
     }
 
     private fun observeState() = viewLifecycleOwner.lifecycleScope.launch {
-        viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+        repeatCallDefaultOnStarted {
             viewModel.state.collect {
                 when (it) {
                     is MainState.UnInitialized -> Unit

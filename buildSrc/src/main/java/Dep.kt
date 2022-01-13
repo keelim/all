@@ -35,6 +35,7 @@ object Dep {
             const val viewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
             const val runtimeTesting = "androidx.lifecycle:lifecycle-runtime-testing:$lifecycleVersion"
             const val runtime = "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
+            const val process = "androidx.lifecycle:lifecycle-process:$lifecycleVersion"
         }
 
         object room {

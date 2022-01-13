@@ -11,7 +11,7 @@ pluginManagement {
     plugins {
         id("com.android.application") version agpVersion
         id("com.android.library") version agpVersion
-        id("org.jetbrains.kotlin.android") version kotlinVersion
+        id("org.jetbrains.kotlin.android") version "1.6.10"
         id("org.jetbrains.kotlin.jvm") version kotlinVersion
         id("org.jetbrains.kotlin.kapt") version kotlinVersion
         id("org.jetbrains.kotlin.parcelize") version kotlinVersion
@@ -26,17 +26,22 @@ pluginManagement {
         }
     }
 }
-
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        maven("https://jitpack.io")
+    }
+}
 rootProject.name = "nandaDiagnosis"
 include(
     ":app",
+    ":compose",
     ":data",
     ":common",
-    ":compose",
     ":domain",
-    ":features:ui-category",
     ":features:player",
+    ":features:ui-category",
     ":features:ui-setting"
 )
-
-include(":features:dynamic_vitamin")

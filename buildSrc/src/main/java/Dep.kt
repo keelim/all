@@ -153,6 +153,20 @@ object Dep {
         const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:$version"
     }
 
+    object Network{
+        object Retrofit{
+            const val rversion = "2.9.0"
+            const val retrofit = "com.squareup.retrofit2:retrofit:$rversion"
+            const val retrofit_gson = "com.squareup.retrofit2:converter-gson:$rversion"
+            const val retrofit_moshi = "com.squareup.retrofit2:converter-moshi:$rversion"
+        }
+        object Moshi{
+            const val moshi = "com.squareup.moshi:moshi:1.12.0"
+            const val moshi_kotlin = "com.squareup.moshi:moshi-kotlin:1.12.0"
+            const val moshi_codegen = "com.squareup.moshi:moshi-kotlin-codegen:1.12.0"
+        }
+    }
+
     const val timber = "com.jakewharton.timber:timber:5.0.1"
     const val leakCanary = "com.squareup.leakcanary:leakcanary-android:2.7"
 

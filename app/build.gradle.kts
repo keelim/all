@@ -15,9 +15,13 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     val applicationID:String = gradleLocalProperties(rootDir).getProperty("APPLICATION_ID")
+    val open:String = gradleLocalProperties(rootDir).getProperty("AD_OPEN_ID")
+    val splash:String = gradleLocalProperties(rootDir).getProperty("SPLASH")
     buildTypes {
         defaultConfig{
             manifestPlaceholders["applicationID"] = applicationID
+            buildConfigField("String", "AD_OPEN_ID", open)
+            buildConfigField("String", "SPLASH", splash)
         }
     }
     useLibrary("android.test.mock")

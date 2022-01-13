@@ -30,6 +30,7 @@ android {
 
 dependencies {
     implementation(projects.data)
+    implementation(projects.common)
     implementation(Dep.AndroidX.coreKtx)
     implementation(Dep.AndroidX.appcompat)
     implementation(Dep.AndroidX.activity.ktx)

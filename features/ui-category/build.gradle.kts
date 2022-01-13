@@ -1,23 +1,13 @@
 plugins {
-    id("com.android.library")
-    kotlin("android")
-    kotlin("kapt")
+    id("library-setting-plugin")
+    id("kotlin-kapt")
     id("kotlin-parcelize")
-//    id("dagger.hilt.android.plugin")
-}
-
-listOf(
-    "android.gradle",
-).forEach { file ->
-    apply(from = "${rootDir}/gradle/${file}")
+    id("dagger.hilt.android.plugin")
 }
 
 dependencies {
     implementation(projects.data)
     implementation(projects.domain)
+    implementation(Dep.Dagger.Hilt.android)
+    kapt(Dep.Dagger.Hilt.compiler)
 }
-
-kapt {
-    useBuildCache = true
-}
-

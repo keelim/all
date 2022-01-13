@@ -1,3 +1,4 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -11,13 +12,14 @@ plugins {
 
 android {
     compileSdk =  ProjectConfigurations.compileSdk
+    val applicationID:String = gradleLocalProperties(rootDir).getProperty("APPLICATION_ID")
     defaultConfig {
         applicationId = ProjectConfigurations.applicationId
         minSdk = ProjectConfigurations.minSdk
         targetSdk = ProjectConfigurations.targetSdk
         versionCode = ProjectConfigurations.versionCode
         versionName = ProjectConfigurations.versionName
-
+        manifestPlaceholders["applicationID"] = applicationID
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -49,11 +51,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
-    kotlinOptions {
-        jvmTarget = "11"
-        useIR = true
-    }
-
     buildFeatures {
         dataBinding = true
         viewBinding = true
@@ -65,6 +62,7 @@ android {
     }
 
     namespace = "com.keelim.nandadiagnosis"
+    dynamicFeatures += setOf(":features:dynamic_vitamin")
 }
 
 dependencies {

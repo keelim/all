@@ -21,7 +21,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.keelim.common.toast
+import com.keelim.common.util.toast
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.FragmentMenuBottomSheetDialogBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -47,6 +47,10 @@ class MenuBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    initViews()
+  }
+
+  private fun initViews() = with(binding){
     with(binding) {
       move.setOnClickListener {
         dismiss()

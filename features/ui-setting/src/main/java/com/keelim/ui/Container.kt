@@ -45,7 +45,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.keelim.nandadiagnosis.compose.ui.Loading
-import com.keelim.common.UiState
+import com.keelim.common.util.UiState
 
 @Composable
 internal fun Navigation(

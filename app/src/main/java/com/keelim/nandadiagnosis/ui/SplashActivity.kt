@@ -24,23 +24,17 @@ import android.os.Bundle
 import android.provider.Settings
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
-import com.keelim.common.toast
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.keelim.common.util.toast
 import com.keelim.nandadiagnosis.BuildConfig
-import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.ActivitySplashBinding
 import com.keelim.nandadiagnosis.ui.main.Main2Activity
-import com.keelim.nandadiagnosis.utils.MaterialDialog
-import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.message
-import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.negativeButton
-import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.positiveButton
-import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.title
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -51,7 +45,6 @@ class SplashActivity : AppCompatActivity() {
   private val binding by lazy { ActivitySplashBinding.inflate(layoutInflater) }
   private val test = "ca-app-pub-3940256099942544/1033173712"
   private infix fun String.or(that: String): String = if (BuildConfig.DEBUG) this else that
-  private val scope = MainScope()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -74,15 +67,10 @@ class SplashActivity : AppCompatActivity() {
     }
   }
 
-  override fun onDestroy() {
-    super.onDestroy()
-    scope.cancel()
-  }
-
   private fun showAd() {
     val adRequest = AdRequest.Builder().build()
     InterstitialAd.load(
-      this, test or "ca-app-pub-3115620439518585/4013096159", adRequest,
+      this, test or BuildConfig.SPLASH, adRequest,
       object : InterstitialAdLoadCallback() {
         override fun onAdFailedToLoad(adError: LoadAdError) {
           Timber.d(adError.message)
@@ -123,7 +111,6 @@ class SplashActivity : AppCompatActivity() {
     grantResults: IntArray
   ) {
     super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
     when (requestCode) {
       MULTIPLE_PERMISSIONS -> {
         if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -131,30 +118,31 @@ class SplashActivity : AppCompatActivity() {
           showAd()
           goNext()
         } else {
-          // 하나라도 거부한다면.
-          MaterialDialog.createDialog(this) {
-            title("앱 권한")
-            message("해당 앱의 원할한 기능을 이용하시려면 애플리케이션 정보>권한> 에서 모든 권한을 허용해 주십시오")
-            positiveButton("권한설정") {
-              startActivity(
-                Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
-                  data = Uri.parse("package:" + applicationContext.packageName)
-                }
-              )
-            }
-            negativeButton(getString(R.string.cancel))
-          }.show()
+          callDialog()
         }
       }
     }
   }
 
-  private fun goNext() {
-    scope.launch {
-      delay(1500)
-      startActivity(Intent(this@SplashActivity, Main2Activity::class.java))
-      finish()
-    }
+  private fun goNext() = lifecycleScope.launch {
+    delay(1500)
+    startActivity(Intent(this@SplashActivity, Main2Activity::class.java))
+    finish()
+  }
+
+  private fun callDialog(){
+    MaterialAlertDialogBuilder(this)
+      .setTitle("앱 권한")
+      .setMessage("해당 앱의 원할한 기능을 이용하시려면 애플리케이션 정보>권한> 에서 모든 권한을 허용해 주십시오")
+      .setPositiveButton("권한 설정") { _, _ ->
+        startActivity(
+          Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+            data = Uri.parse("package:" + applicationContext.packageName)
+          }
+        )
+      }
+      .setNegativeButton("취소"){ _, _ -> }
+      .show()
   }
 
   override fun onBackPressed() {}

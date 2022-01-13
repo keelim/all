@@ -16,8 +16,10 @@
 package com.keelim.nandadiagnosis.ui.main
 
 import android.app.DownloadManager
+import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
@@ -27,17 +29,15 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.keelim.common.util.toast
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.ActivityMain2Binding
+import com.keelim.nandadiagnosis.di.DownloadReceiver
 import com.keelim.nandadiagnosis.service.TerminateService
-import com.keelim.nandadiagnosis.utils.DownloadReceiver
-import com.keelim.nandadiagnosis.worker.DownloadWorker
-import com.keelim.nandadiagnosis.worker.MainWorker
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class Main2Activity : AppCompatActivity() {
-  private val binding: ActivityMain2Binding by lazy { ActivityMain2Binding.inflate(layoutInflater) }
+  private val binding by lazy { ActivityMain2Binding.inflate(layoutInflater) }
   private val mainViewModel: MainViewModel by viewModels()
 
   @Inject
@@ -54,31 +54,28 @@ class Main2Activity : AppCompatActivity() {
   override fun onDestroy() {
     super.onDestroy()
     stopService(Intent(this, TerminateService::class.java))
+    unregisterReceiver(receiver)
   }
 
   private fun initViews() = with(binding) {
     navController().addOnDestinationChangedListener { _, destination, _ ->
       when (destination.id) {
         R.id.navigation_category -> {
-          binding.bottomAppBar.visibility = View.VISIBLE
-          binding.searchButton.show()
+          bottomAppBar.visibility = View.VISIBLE
+          searchButton.show()
         }
         else -> {
-          binding.bottomAppBar.visibility = View.GONE
-          binding.searchButton.hide()
+          bottomAppBar.visibility = View.GONE
+          searchButton.hide()
         }
       }
     }
     searchButton.setOnClickListener {
-      mainViewModel.loadingOn()
       navController().navigate(R.id.navigation_search)
-      mainViewModel.loadingOff()
     }
 
     bottomAppBar.setNavigationOnClickListener {
-      mainViewModel.loadingOn()
       showMenu()
-      mainViewModel.loadingOff()
     }
 
     bottomAppBar.setOnMenuItemClickListener {
@@ -115,14 +112,23 @@ class Main2Activity : AppCompatActivity() {
   }
 
   private fun downloadDatabase2() {
+    val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
     registerReceiver(
       receiver,
       IntentFilter().apply {
       addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
       addAction(DownloadManager.ACTION_NOTIFICATION_CLICKED)
     })
-    DownloadWorker.enqueueWork(this, this)
-    MainWorker.enqueueWork(this)
+
+    val request = DownloadManager.Request(Uri.parse(applicationContext.getString(com.keelim.nandadiagnosis.data.R.string.db_path)))
+      .setTitle("Downloading")
+      .setDescription("Downloading Database file")
+      .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+      .setDestinationUri(Uri.fromFile(File(applicationContext.getExternalFilesDir(null), "nanda.db")))
+      .setAllowedOverMetered(true)
+      .setAllowedOverRoaming(true)
+
+    downloadManager.enqueue(request)
   }
 
   private fun navController() = findNavController(R.id.nav_host_fragment)

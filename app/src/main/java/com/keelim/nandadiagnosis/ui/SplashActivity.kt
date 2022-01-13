@@ -32,17 +32,9 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.keelim.common.util.toast
 import com.keelim.nandadiagnosis.BuildConfig
-import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.ActivitySplashBinding
 import com.keelim.nandadiagnosis.ui.main.Main2Activity
-import com.keelim.nandadiagnosis.utils.MaterialDialog
-import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.message
-import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.negativeButton
-import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.positiveButton
-import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.title
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber

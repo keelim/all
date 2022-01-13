@@ -37,10 +37,6 @@
         android:id="@+id/inAppWebFragment"
         android:name="com.keelim.nandadiagnosis.ui.main.inappweb.InAppWebFragment"
         android:label="InAppWebFragment" />
-    <fragment
-        android:id="@+id/openSource"
-        android:name="com.keelim.nandadiagnosis.ui.OpenSourceFragment"
-        android:label="OpenSourceFragment" />
     <dialog
         android:id="@+id/menuBottomSheetDialogFragment"
         android:name="com.keelim.nandadiagnosis.ui.main.MenuBottomSheetDialogFragment"

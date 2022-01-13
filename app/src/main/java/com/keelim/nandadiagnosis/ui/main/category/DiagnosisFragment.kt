@@ -37,14 +37,14 @@ class DiagnosisFragment : Fragment() {
   private val args by lazy { requireArguments() }
   private val diagnosisAdapter = DiagnosisRecyclerViewAdapter(
     listener = { position ->
-      mainViewModel.loadingOn()
+      
       findNavController().navigate(
         R.id.webFragment,
         bundleOf(
           "web" to "https://keelim.github.io/nandaDiagnosis/${nav + position + 1}.html"
         )
       )
-      mainViewModel.loadingOff()
+      
     }
   )
 

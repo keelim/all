@@ -1,24 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.Material3.CardView.Elevated"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/main_bg_color"
     android:clickable="true"
+    android:elevation="8dp"
     android:focusable="true"
-    app:cardCornerRadius="20dp"
-    app:cardElevation="5dp"
-    app:cardUseCompatPadding="true">
+    app:cardCornerRadius="16dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/item_backgroud"
         android:padding="20dp">
 
-
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/diagnosis_item"
             style="@style/tv_style"
             android:textSize="24sp"
@@ -27,7 +24,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/diagnosis_des"
             style="@style/tv_style"
             android:textSize="18sp"
@@ -36,7 +33,7 @@
             app:layout_constraintTop_toBottomOf="@id/diagnosis_item"
             tools:layout_editor_absoluteY="32dp" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/class_name"
             style="@style/tv_style"
             android:textSize="12sp"
@@ -44,7 +41,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/diagnosis_des" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/domain_name"
             style="@style/tv_style"
             android:textSize="12sp"
@@ -52,17 +49,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/class_name" />
 
-        <View
-            android:id="@+id/view"
+        <com.google.android.material.divider.MaterialDivider
             android:layout_width="0dp"
             android:layout_height="2dp"
-            android:background="#121212"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/domain_name" />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

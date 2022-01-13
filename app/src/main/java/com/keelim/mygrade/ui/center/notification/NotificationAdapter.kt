@@ -5,18 +5,18 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.keelim.data.model.Release
+import com.keelim.data.model.notification.Notification
 import com.keelim.mygrade.databinding.ItemNotificationBinding
 
 class NotificationAdapter(
-) : ListAdapter<Release, NotificationAdapter.ViewHolder>(diffUtil) {
+) : ListAdapter<Notification, NotificationAdapter.ViewHolder>(diffUtil) {
 
     inner class ViewHolder(val binding: ItemNotificationBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Release) = with(binding) {
-            title.text = item.title
-            description.text = item.description
-            date.text = item.date
+        fun bind(item: Notification) = with(binding) {
+            title.text = item.version
+            description.text = item.desc
+            date.text = item.desc
             version.text = "version: ${item.version}"
         }
     }
@@ -36,12 +36,12 @@ class NotificationAdapter(
     }
 
     companion object {
-        val diffUtil = object : DiffUtil.ItemCallback<Release>() {
-            override fun areItemsTheSame(oldItem: Release, newItem: Release): Boolean {
+        val diffUtil = object : DiffUtil.ItemCallback<Notification>() {
+            override fun areItemsTheSame(oldItem: Notification, newItem: Notification): Boolean {
                 return oldItem == newItem
             }
 
-            override fun areContentsTheSame(oldItem: Release, newItem: Release): Boolean {
+            override fun areContentsTheSame(oldItem: Notification, newItem: Notification): Boolean {
                 return oldItem == newItem
             }
         }

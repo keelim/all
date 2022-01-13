@@ -2,6 +2,7 @@ package com.keelim.data.repository
 
 import androidx.paging.PagingData
 import com.keelim.data.db.entity.History
+import com.keelim.data.model.notification.Notification
 import kotlinx.coroutines.flow.Flow
 
 interface IoRepository {
@@ -12,6 +13,8 @@ interface IoRepository {
 
     suspend fun deleteHistories(history: History)
 
+    suspend fun getAllHistories(): List<History>
+
     fun loadHistoriesById(uid: Int): Flow<History>
 
     fun loadHistoriesBySubjects(subject: String): Flow<List<History>>
@@ -19,4 +22,5 @@ interface IoRepository {
     val all: Flow<List<History>>
 
     fun getAllPaging(): Flow<PagingData<History>>
+    suspend fun getNotification(): List<Notification>
 }

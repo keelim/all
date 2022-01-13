@@ -11,7 +11,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="180dp"
         android:orientation="horizontal"
-
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,15 +20,16 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/origin_text"
+            style="@style/TextAppearance.Material3.TitleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:text="예상 학점"
-            android:textSize="24sp" />
+            />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/grade"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/TextAppearance.Material3.HeadlineSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="A+"
@@ -43,6 +43,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="16dp"
+        style="@style/TextAppearance.Material3.TitleLarge"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/grade_container"
@@ -50,15 +51,16 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/level_text"
+            style="@style/TextAppearance.Material3.TitleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:text="예상 등수"
-            android:textSize="24sp" />
+             />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/level"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/TextAppearance.Material3.HeadlineSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="1 / 30"
@@ -72,7 +74,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/level_container"
         android:layout_margin="10dp"
-        android:textSize="18sp"
+        style="@style/TextAppearance.Material3.BodyLarge"
         android:text="+ 은 교수님 재량입니다."
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
@@ -91,18 +93,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
+        style="@style/Widget.Material3.CardView.Elevated"
         android:clickable="true"
+        android:padding="4dp"
         android:focusable="true"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/description">
 
         <ImageView
             android:id="@+id/btn_copy"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_gravity="center"
             android:src="@drawable/ic_baseline_content_copy_24" />
 

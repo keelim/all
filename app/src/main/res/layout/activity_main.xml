@@ -104,7 +104,6 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/value_average"
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="과목 평균을 입력해주세요"
@@ -190,6 +189,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
+        style="@style/Widget.Material3.Button.TonalButton"
         android:text="Submit"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -216,6 +216,7 @@
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_change"
         android:layout_width="wrap_content"
+        style="@style/Widget.Material3.FloatingActionButton.Tertiary"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:src="@drawable/ic_baseline_change_circle_24"

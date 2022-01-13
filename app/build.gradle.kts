@@ -17,10 +17,12 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     val key: String = gradleLocalProperties(rootDir).getProperty("UNIT")
+    val open: String = gradleLocalProperties(rootDir).getProperty("OPEN")
 
     buildTypes {
         defaultConfig{
             buildConfigField("String", "key", key)
+            buildConfigField("String", "AD_OPEN_ID", open)
         }
     }
     useLibrary("android.test.mock")
@@ -48,9 +50,13 @@ dependencies {
 
     implementation(Dep.other.math)
     implementation(Dep.AndroidX.lifecycle.runtime)
+    implementation(Dep.AndroidX.lifecycle.process)
+
 
     implementation(Dep.AndroidX.navigation.ui)
     implementation(Dep.AndroidX.navigation.fragment)
+
+    implementation(Dep.timber)
 
     testImplementation(Dep.Test.junit)
     androidTestImplementation(Dep.Test.androidJunit)

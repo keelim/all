@@ -115,17 +115,6 @@ class MainFragment : Fragment() {
                                 it.value < 100 -> "D"
                                 else -> "F"
                             }
-                            viewModel.save(
-                                binding.valueOrigin.text.toString().toFloat(),
-                                binding.valueAverage.text.toString().toFloat(),
-                                binding.valueNumber.text.toString().toFloat(),
-                                binding.valueStudent.text.toString().toInt(),
-                                grade,
-                                getLevel(
-                                    (it.value * binding.valueStudent.text.toString()
-                                        .toInt()) / 100
-                                )
-                            )
                             startActivity(
                                 Intent(
                                     requireContext(),

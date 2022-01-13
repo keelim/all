@@ -34,6 +34,14 @@ class IoRepositoryImpl @Inject constructor(
         db.historyDao().updateHistories(history)
     }
 
+    override suspend fun getAllHistories(): List<History> = withContext(ioDispatcher) {
+        return@withContext try {
+            db.historyDao().getAllHistory()
+        } catch (e: Exception){
+            emptyList()
+        }
+    }
+
     override fun loadHistoriesById(uid: Int): Flow<History> = db
         .historyDao()
         .loadHistoriesById(uid)

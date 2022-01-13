@@ -13,6 +13,8 @@ interface IoRepository {
 
     suspend fun deleteHistories(history: History)
 
+    suspend fun getAllHistories(): List<History>
+
     fun loadHistoriesById(uid: Int): Flow<History>
 
     fun loadHistoriesBySubjects(subject: String): Flow<List<History>>

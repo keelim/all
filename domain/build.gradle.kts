@@ -1,36 +1,27 @@
 plugins {
-    id("com.android.library")
-    kotlin("android")
-    kotlin("kapt")
+    id("library-setting-plugin")
+    id("kotlin-kapt")
     id("kotlin-parcelize")
     id("dagger.hilt.android.plugin")
-}
-
-listOf(
-        "android.gradle",
-).forEach { file ->
-    apply(from = "${rootDir}/gradle/${file}")
 }
 
 dependencies {
     implementation(projects.data)
     implementation(projects.common)
 
-    implementation(AndroidX.core_ktx)
-    implementation(Hilt.android)
-    implementation("androidx.paging:paging-common-ktx:3.1.0")
-    kapt(Hilt.hilt_compiler)
+    implementation(Dep.AndroidX.coreKtx)
+    implementation(Dep.AndroidX.paging.common)
+    implementation(Dep.Dagger.Hilt.android)
+    kapt(Dep.Dagger.Hilt.compiler)
 
-    implementation(SquareUp.timber)
-    implementation(Coroutines.android)
 
-    implementation(Kotlin.stdlibJvm)
-    testImplementation(AppTest.junit)
-    androidTestImplementation(AppTest.androidJunit)
-    androidTestImplementation(AppTest.espressoCore)
-    androidTestImplementation(Coroutines.test)
-}
+    implementation(Dep.Kotlin.stdlibJvm)
+    implementation(Dep.Kotlin.coroutines.core)
+    implementation(Dep.Kotlin.coroutines.android)
 
-kapt {
-    useBuildCache = true
+    implementation(Dep.timber)
+
+    testImplementation(Dep.Test.junit)
+    androidTestImplementation(Dep.Test.androidJunit)
+    androidTestImplementation(Dep.Test.espressoCore)
 }

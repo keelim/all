@@ -4,64 +4,26 @@ plugins {
     id("kotlin-kapt")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
-    id("com.google.firebase.appdistribution")
     id("dagger.hilt.android.plugin")
 }
 
-
 android {
-    compileSdk =  ProjectConfigurations.compileSdk
-    val applicationID:String = gradleLocalProperties(rootDir).getProperty("APPLICATION_ID")
     defaultConfig {
         applicationId = ProjectConfigurations.applicationId
-        minSdk = ProjectConfigurations.minSdk
-        targetSdk = ProjectConfigurations.targetSdk
         versionCode = ProjectConfigurations.versionCode
         versionName = ProjectConfigurations.versionName
-        manifestPlaceholders["applicationID"] = applicationID
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-
-    lint {
-        checkDependencies = true
-    }
-
+    val applicationID:String = gradleLocalProperties(rootDir).getProperty("APPLICATION_ID")
     buildTypes {
-        release {
-            isMinifyEnabled = BuildTypeRelease.isMinifyEnabled
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-            firebaseAppDistribution {
-                testers = "kimh00335@gmail.com"
-            }
-        }
-
-        debug {
-            firebaseAppDistribution {
-                testers = "kimh00335@gmail.com"
-            }
+        defaultConfig{
+            manifestPlaceholders["applicationID"] = applicationID
         }
     }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-
-    buildFeatures {
+    useLibrary("android.test.mock")
+    buildFeatures{
         dataBinding = true
-        viewBinding = true
-        compose = true
     }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = ProjectConfigurations.composeCompiler
-    }
-
-    namespace = "com.keelim.nandadiagnosis"
-    dynamicFeatures += setOf(":features:dynamic_vitamin")
 }
 
 dependencies {
@@ -73,7 +35,7 @@ dependencies {
     implementation(projects.features.uiSetting)
     implementation(projects.features.player)
 
-    implementation(platform("com.google.firebase:firebase-bom:28.3.1"))
+    implementation(platform(Dep.Firebase.platform))
     implementation("com.google.firebase:firebase-core")
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-database-ktx")
@@ -83,66 +45,53 @@ dependencies {
     implementation("com.google.firebase:firebase-inappmessaging-display-ktx")
     implementation("com.google.firebase:firebase-config-ktx")
 
-    implementation(AndroidX.activity_ktx)
-    implementation(AndroidX.fragment_ktx)
-    implementation(AndroidX.core_ktx)
-    implementation(AndroidX.navigation_ui)
-    implementation(AndroidX.navigation_fragment)
+    implementation(Dep.AndroidX.activity.ktx)
+    implementation(Dep.AndroidX.fragment.ktx)
+    implementation(Dep.AndroidX.coreKtx)
+    implementation(Dep.AndroidX.navigation.ui)
+    implementation(Dep.AndroidX.navigation.fragment)
 
-    implementation(LifeCycle.viewmodel)
-    implementation(LifeCycle.livedata)
-    implementation(LifeCycle.runtime)
+    implementation(Dep.AndroidX.lifecycle.runtime)
+    implementation(Dep.AndroidX.lifecycle.livedata)
 
-    implementation(UI.constraintLayout)
-    implementation(UI.recycler_selection)
-    implementation(UI.recyclerview)
-    implementation(UI.preference_ktx)
-    implementation(UI.material)
-    implementation(UI.swiperefreshlayout)
+    implementation(Dep.AndroidX.UI.material)
+    implementation(Dep.AndroidX.UI.recyclerview)
+    implementation(Dep.AndroidX.UI.preference)
+    implementation(Dep.AndroidX.UI.recycler_selection)
+    implementation(Dep.AndroidX.UI.swiperefreshlayout)
 
-    implementation(Play.play_core)
-    implementation(Play.play_ads)
+    implementation(Dep.Play.ad)
 
-    implementation(SquareUp.retrofit)
-    implementation(SquareUp.retrofit_gson)
-    implementation(SquareUp.timber)
+    implementation(Dep.Dagger.Hilt.android)
+    kapt(Dep.Dagger.Hilt.compiler)
 
-    implementation(Hilt.android)
-    implementation("androidx.paging:paging-runtime-ktx:3.1.0")
-    kapt(Hilt.hilt_compiler)
-    implementation(Play.play_auth)
+    implementation(Dep.AndroidX.paging.runtime)
+    implementation(Dep.AndroidX.paging.common)
+    implementation(Dep.Play.ad)
+    implementation(Dep.Play.core)
+    implementation(Dep.Play.oss)
+    implementation(Dep.Play.play_auth)
 
-    testImplementation(AppTest.junit)
-    androidTestImplementation(AppTest.androidJunit)
-    androidTestImplementation(AppTest.espressoCore)
+    implementation(Dep.Network.Retrofit.retrofit)
 
-    implementation(Coil.coil)
 
-    implementation(SquareUp.core)
-    implementation(SquareUp.loggingInterceptor)
-    implementation(SquareUp.urlconnection)
-    implementation(SquareUp.retrofit)
-    implementation(SquareUp.retrofit_gson)
-    implementation(SquareUp.timber)
+    implementation(Dep.Coil.core)
 
-    implementation(Kotlin.stdlibJvm)
+    // Compose
+    implementation(Dep.AndroidX.Compose.material)
+    implementation(Dep.AndroidX.Compose.tooling)
+    implementation(Dep.AndroidX.Compose.activity)
 
-    implementation(Compose.compose_ui)
-    implementation(Compose.compose_ui_tooling)
-    implementation(Compose.foundation)
-    implementation(Compose.compose_material)
-    implementation(Compose.compose_icon)
-    implementation(Compose.expand_icon)
-    implementation(Compose.runtime_livedata)
-    androidTestImplementation(Compose.compose_junit)
+    implementation(Dep.AndroidX.hilt.work)
+    implementation(Dep.AndroidX.hilt.common)
+    implementation(Dep.AndroidX.WorkManager.work)
 
-    implementation("androidx.startup:startup-runtime:1.1.0")
-    implementation("androidx.hilt:hilt-work:1.0.0")
-    implementation("android.arch.work:work-runtime-ktx:1.0.1")
-    implementation("androidx.paging:paging-common-ktx:3.1.0")
-}
-apply(from = "$rootDir/spotless.gradle")
+    implementation(Dep.AndroidX.startup.runtime)
 
-kapt {
-    useBuildCache = true
+
+    implementation(Dep.timber)
+
+    testImplementation(Dep.Test.junit)
+    androidTestImplementation(Dep.Test.androidJunit)
+    androidTestImplementation(Dep.Test.espressoCore)
 }

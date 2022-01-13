@@ -23,6 +23,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.oss.licenses.OssLicensesActivity
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.FragmentAboutBinding
 
@@ -75,7 +76,7 @@ class AboutFragment : Fragment() {
     }
 
     openSourceLicensesCard.setOnClickListener {
-      findNavController().navigate(R.id.openSource)
+      startActivity(Intent(requireContext(), OssLicensesActivity::class.java))
     }
   }
 }

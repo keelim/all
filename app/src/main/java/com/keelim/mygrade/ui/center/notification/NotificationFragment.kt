@@ -11,7 +11,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearSnapHelper
+import com.keelim.common.repeatCallDefaultOnStarted
+import com.keelim.common.toGone
+import com.keelim.common.toVisible
+import com.keelim.common.toast
 import com.keelim.data.model.Release
+import com.keelim.data.model.notification.Notification
 import com.keelim.mygrade.databinding.FragmentNotificationBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -48,43 +53,48 @@ class NotificationFragment : Fragment() {
         _binding = null
     }
 
-    private fun observeState() = lifecycleScope.launch {
-        repeatOnLifecycle(Lifecycle.State.STARTED) {
+    private fun observeState() = viewLifecycleOwner.lifecycleScope.launch {
+        repeatCallDefaultOnStarted {
             viewModel.state.collect {
                 when (it) {
                     is NotificationState.UnInitialized -> {
-                        binding.tvNoData.visibility = View.VISIBLE
+                        binding.loading.toVisible()
                     }
-                    is NotificationState.Loading -> Unit
-                    is NotificationState.Success -> handleSuccess(it.data)
-                    is NotificationState.Error -> handleError(it.message)
+                    is NotificationState.Loading -> {
+                        binding.loading.toVisible()
+                    }
+                    is NotificationState.Success ->{
+                        handleSuccess(it.data)
+                    }
+                    is NotificationState.Error -> {
+                        binding.loading.toGone()
+                        binding.tvNoData.toVisible()
+                        toast(it.message)
+                    }
                 }
             }
         }
     }
 
     private fun initViews() = with(binding) {
-        val snapHelper = LinearSnapHelper()
+
         notificationRecycler.apply {
+            val snapHelper = LinearSnapHelper()
             adapter = notificationAdapter.apply {
                 doOnNextLayout {
                 }
             }
+            snapHelper.attachToRecyclerView(this)
         }
-        snapHelper.attachToRecyclerView(notificationRecycler)
-
     }
 
-    private fun handleSuccess(data: List<Release>) {
+    private fun handleSuccess(data: List<Notification>) {
+        binding.loading.toGone()
         if (data.isEmpty()) {
-            binding.tvNoData.visibility = View.VISIBLE
+            binding.tvNoData.toVisible()
         } else {
-            binding.tvNoData.visibility = View.INVISIBLE
+            binding.tvNoData.toGone()
         }
         notificationAdapter.submitList(data)
-    }
-
-    private fun handleError(message: String) {
-        binding.tvNoData.visibility = View.VISIBLE
     }
 }

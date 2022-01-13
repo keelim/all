@@ -1,6 +1,6 @@
 package com.keelim.mygrade.ui.center.notification
 
-import com.keelim.data.model.Release
+import com.keelim.data.model.notification.Notification
 
 
 sealed class NotificationState {
@@ -10,6 +10,6 @@ sealed class NotificationState {
         val message: String
     ) : NotificationState()
     data class Success(
-        val data: List<Release>
+        val data: List<Notification>
     ) : NotificationState()
 }

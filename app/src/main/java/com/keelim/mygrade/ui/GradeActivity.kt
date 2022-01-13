@@ -31,7 +31,7 @@ class GradeActivity : AppCompatActivity() {
         initViews()
     }
 
-    private fun initViews()  = with(binding){
+    private fun initViews() = with(binding) {
         grade.text = data?.grade.orEmpty()
         level.text = data?.point.orEmpty()
         val ad = AdView(this@GradeActivity).apply {
@@ -61,10 +61,10 @@ class GradeActivity : AppCompatActivity() {
         val screenBitmap = getBitmapFromView(view)
 
         runCatching {
-            val cachePath = File(applicationContext.cacheDir, "images")
-            cachePath.mkdirs() // don't forget to make the directory
-            val stream =
-                FileOutputStream("$cachePath/image.png") // overwrites this image every time
+            val cachePath = File(applicationContext.cacheDir, "images").apply {
+                mkdirs()
+            }
+            val stream = FileOutputStream("$cachePath/image.png")
             screenBitmap!!.compress(Bitmap.CompressFormat.PNG, 100, stream)
             stream.close()
             FileProvider.getUriForFile(

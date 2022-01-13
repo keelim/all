@@ -1,26 +1,20 @@
 plugins {
-    id("com.android.library")
-    kotlin("android")
-    kotlin("kapt")
+    id("library-setting-plugin")
+    id("kotlin-kapt")
     id("kotlin-parcelize")
     id("dagger.hilt.android.plugin")
-}
-
-listOf(
-    "android.gradle",
-).forEach { file ->
-    apply(from = "${rootDir}/gradle/${file}")
 }
 
 android {
     defaultConfig {
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments += mapOf(
+                arguments.plus(
+                    mapOf(
                     "room.schemaLocation" to "$projectDir/schemas",
                     "room.incremental" to "true",
                     "room.expandProjection" to "true"
-                )
+                ))
             }
         }
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -32,47 +26,42 @@ android {
 }
 
 dependencies {
-    implementation(platform("com.google.firebase:firebase-bom:28.1.0"))
+    implementation(platform(Dep.Firebase.platform))
     implementation("com.google.firebase:firebase-storage-ktx")
     implementation("com.google.firebase:firebase-database-ktx")
     implementation("com.google.firebase:firebase-firestore-ktx")
 
-    implementation(AndroidX.core_ktx)
-    implementation(LifeCycle.runtime)
+    implementation(Dep.AndroidX.activity.ktx)
+    implementation(Dep.AndroidX.lifecycle.runtime)
 
-    implementation(Hilt.android)
-    implementation("androidx.appcompat:appcompat:1.3.1")
-    implementation("androidx.paging:paging-common-ktx:3.1.0")
-    implementation("androidx.work:work-runtime-ktx:2.5.0")
-    kapt(Hilt.hilt_compiler)
+    implementation(Dep.Dagger.Hilt.android)
+    implementation(Dep.AndroidX.datastore.core)
+    implementation(Dep.AndroidX.datastore.preference)
+    kapt(Dep.Dagger.Hilt.compiler)
+    implementation(Dep.AndroidX.hilt.work)
 
-    implementation(Room.runtime)
-    implementation(Room.ktx)
-    kapt(Room.compiler)
+    implementation(Dep.AndroidX.paging.common)
+    implementation(Dep.AndroidX.WorkManager.work)
 
-    implementation(SquareUp.timber)
-    implementation(Coroutines.android)
+    implementation(Dep.AndroidX.room.runtime)
+    implementation(Dep.AndroidX.room.ktx)
+    kapt(Dep.AndroidX.room.compiler)
 
-    implementation(SquareUp.core)
-    implementation(SquareUp.loggingInterceptor)
-    implementation(SquareUp.urlconnection)
-    implementation(SquareUp.retrofit)
-    implementation(SquareUp.retrofit_gson)
+    implementation(Dep.Kotlin.coroutines.android)
+    kapt(Dep.Kotlin.coroutines.core)
 
-    implementation(DataStore.preferences)
+    implementation(Dep.OkHttp.core)
+    implementation(Dep.OkHttp.loggingInterceptor)
+    implementation(Dep.Network.Retrofit.retrofit)
+    implementation(Dep.Network.Retrofit.retrofit_moshi)
+    implementation(Dep.Network.Retrofit.retrofit_gson)
+    implementation(Dep.timber)
+    implementation(Dep.AndroidX.appcompat)
 
-    implementation(Kotlin.stdlibJvm)
 
-    testImplementation(AppTest.junit)
-    androidTestImplementation(Room.testing)
-    androidTestImplementation(AppTest.androidJunit)
-    androidTestImplementation(AppTest.espressoCore)
-    androidTestImplementation(Coroutines.test)
+    implementation(Dep.Kotlin.stdlibJvm)
 
-    implementation("androidx.hilt:hilt-work:1.0.0")
-    androidTestImplementation("androidx.work:work-testing:2.4.0")
-}
-
-kapt {
-    useBuildCache = true
+    testImplementation(Dep.Test.junit)
+    androidTestImplementation(Dep.Test.androidJunit)
+    androidTestImplementation(Dep.Test.espressoCore)
 }

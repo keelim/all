@@ -1,4 +1,4 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -7,14 +7,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/recent_text"
+            style="@style/TextAppearance.Material3.TitleLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
             android:text="현재 검색 순위"
-            android:textSize="16sp"
-            android:textStyle="bold|italic"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -23,11 +22,13 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
-            android:layout_height="95dp"
+            android:layout_height="100dp"
+            android:padding="8dp"
+            app:layout_constraintBottom_toTopOf="@id/mainGrid"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/recent_text"
-            tools:layout="@layout/item_recent" />
+            tools:listitem="@layout/item_recent" />
 
         <GridLayout
             android:id="@+id/mainGrid"
@@ -38,16 +39,15 @@
             android:alignmentMode="alignMargins"
             android:columnCount="2"
             android:columnOrderPreserved="false"
-            android:padding="4dp"
-            android:rowCount="3"
+            android:padding="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/recycler">
 
             <!-- Row 1 -->
             <!-- Column 1 -->
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card1"
                 style="@style/card_style"
                 app:cardCornerRadius="8dp"
@@ -55,16 +55,16 @@
 
                 <LinearLayout style="@style/card_style_3">
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
                         style="@style/card_style_2"
                         android:text="건강증진" />
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
             <!-- Column 2 -->
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card2"
                 style="@style/card_style"
                 app:cardCornerRadius="8dp"
@@ -72,18 +72,17 @@
 
                 <LinearLayout style="@style/card_style_3">
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
                         style="@style/card_style_2"
                         android:text="영양" />
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
 
             <!-- Row 2 -->
-
             <!-- Column 1 -->
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card3"
                 style="@style/card_style"
                 app:cardCornerRadius="8dp"
@@ -91,16 +90,16 @@
 
                 <LinearLayout style="@style/card_style_3">
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
                         style="@style/card_style_2"
                         android:text="배설/교환" />
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
             <!-- Column 2 -->
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card4"
                 style="@style/card_style"
                 app:cardCornerRadius="8dp"
@@ -108,19 +107,19 @@
 
                 <LinearLayout style="@style/card_style_3">
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
                         style="@style/card_style_2"
                         android:text="활동/휴식" />
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
 
             <!-- Row 2 -->
 
             <!-- Column 1 -->
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card5"
                 style="@style/card_style"
                 app:cardCornerRadius="8dp"
@@ -128,16 +127,16 @@
 
                 <LinearLayout style="@style/card_style_3">
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
                         style="@style/card_style_2"
                         android:text="지각/인식" />
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
             <!-- Column 2 -->
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card6"
                 style="@style/card_style"
                 app:cardCornerRadius="8dp"
@@ -145,14 +144,14 @@
 
                 <LinearLayout style="@style/card_style_3">
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
                         style="@style/card_style_2"
                         android:text="자아지각" />
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card7"
                 style="@style/card_style"
                 app:cardCornerRadius="8dp"
@@ -160,15 +159,15 @@
 
                 <LinearLayout style="@style/card_style_3">
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
                         style="@style/card_style_2"
                         android:text="역할 관계" />
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card8"
                 style="@style/card_style"
                 app:cardCornerRadius="8dp"
@@ -176,15 +175,15 @@
 
                 <LinearLayout style="@style/card_style_3">
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
                         style="@style/card_style_2"
                         android:text="성" />
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card9"
                 style="@style/card_style"
                 app:cardCornerRadius="8dp"
@@ -197,10 +196,10 @@
                     android:layout_margin="6dp"
                     android:orientation="vertical">
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="대처/스트레스 \n내성"
+                        android:text="대처/스트레스 내성"
                         android:textAlignment="center"
                         android:textColor="@color/main_text_color"
                         android:textSize="20sp"
@@ -208,9 +207,9 @@
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card10"
                 style="@style/card_style"
                 app:cardCornerRadius="8dp"
@@ -218,15 +217,15 @@
 
                 <LinearLayout style="@style/card_style_3">
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
                         style="@style/card_style_2"
                         android:text="삶의 원칙" />
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card11"
                 style="@style/card_style"
                 app:cardCornerRadius="8dp"
@@ -234,15 +233,15 @@
 
                 <LinearLayout style="@style/card_style_3">
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
                         style="@style/card_style_2"
                         android:text="안전/보호" />
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card12"
                 style="@style/card_style"
                 app:cardCornerRadius="8dp"
@@ -250,15 +249,15 @@
 
                 <LinearLayout style="@style/card_style_3">
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
                         style="@style/card_style_2"
                         android:text="안위" />
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card13"
                 style="@style/card_style"
                 app:cardCornerRadius="8dp"
@@ -266,17 +265,17 @@
 
                 <LinearLayout style="@style/card_style_3">
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
                         style="@style/card_style_2"
                         android:text="성장/발달" />
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
         </GridLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

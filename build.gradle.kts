@@ -4,16 +4,10 @@ buildscript {
         mavenCentral()
         maven("https://jitpack.io")
     }
-
     dependencies {
-        classpath("com.android.tools.build:gradle:7.2.0-alpha05")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.30")
         classpath("com.google.gms:google-services:4.3.10")
-        classpath("com.google.firebase:firebase-crashlytics-gradle:2.7.1")
-        classpath("com.google.dagger:hilt-android-gradle-plugin:2.39.1")
-        classpath("com.diffplug.spotless:spotless-plugin-gradle:5.14.3")
-        classpath("com.google.firebase:firebase-appdistribution-gradle:2.1.3")
-        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.4.0-beta02")
+        classpath("com.google.firebase:firebase-crashlytics-gradle:2.8.1")
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.4.0-rc01")
         classpath("com.google.android.gms:oss-licenses-plugin:0.10.4")
     }
 }

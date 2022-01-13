@@ -16,38 +16,23 @@
 package com.keelim.nandadiagnosis.ui.main
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.keelim.nandadiagnosis.domain.GetAppThemeUseCase
 import com.keelim.nandadiagnosis.domain.SetAppThemeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
   getTheme: GetAppThemeUseCase,
   private val setTheme: SetAppThemeUseCase,
 ) : ViewModel() {
-  val theme: LiveData<Int> = getTheme.appTheme.asLiveData()
 
+  val theme: LiveData<Int> = getTheme.appTheme.asLiveData()
   fun setAppTheme(theme: Int) = viewModelScope.launch {
     setTheme.invoke(theme)
-  }
-
-  private val _loading = MutableLiveData(false)
-  val loading: LiveData<Boolean> = _loading
-
-  fun loadingOn() = viewModelScope.launch {
-    _loading.value = true
-    delay(1000)
-    _loading.value = false
-  }
-
-  fun loadingOff() = viewModelScope.launch {
-    _loading.value = false
   }
 }

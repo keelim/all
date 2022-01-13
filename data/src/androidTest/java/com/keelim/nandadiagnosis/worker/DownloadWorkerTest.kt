@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.data.worker
+package com.keelim.nandadiagnosis.worker
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.work.testing.TestListenableWorkerBuilder
@@ -27,7 +27,7 @@ class DownloadWorkerTest {
   fun testDownloadWork() {
     // Create Work Request
     val context = InstrumentationRegistry.getInstrumentation().targetContext
-    val work = TestListenableWorkerBuilder<DownloadWorker>(context).build()
+    val work = TestListenableWorkerBuilder<com.keelim.nandadiagnosis.worker.DownloadWorker>(context).build()
     runBlocking {
       val result = work.doWork()
       // Assert

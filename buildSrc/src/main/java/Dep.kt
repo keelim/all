@@ -94,6 +94,39 @@ object AndroidX {
     private const val fragmentVersion = "1.4.0-alpha07"
     const val fragment_ktx = "androidx.fragment:fragment-ktx:1.3.0"
 }
+object Dep{
+    object AndroidX{
+        object activity {
+            const val activityVersion = "1.4.0"
+            const val activity = "androidx.activity:activity:$activityVersion"
+            const val ktx = "androidx.activity:activity-ktx:$activityVersion"
+        }
+
+        object lifecycle {
+            const val lifecycleVersion = "2.4.0"
+            const val viewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+            const val runtimeTesting = "androidx.lifecycle:lifecycle-runtime-testing:$lifecycleVersion"
+            const val runtime = "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
+            const val process = "androidx.lifecycle:lifecycle-process:$lifecycleVersion"
+        }
+
+        object Compose {
+            const val version = "1.0.5"
+
+            const val runtime = "androidx.compose.runtime:runtime:$version"
+            const val ui = "androidx.compose.ui:ui:${version}"
+            const val material = "androidx.compose.material:material:${version}"
+            const val materialAdapter = "com.google.android.material:compose-theme-adapter:${version}"
+            const val tooling = "androidx.compose.ui:ui-tooling:${version}"
+            const val livedata = "androidx.compose.runtime:runtime-livedata:$version"
+            const val animation = "androidx.compose.animation:animation:$version"
+
+            const val activity = "androidx.activity:activity-compose:${AndroidX.activity.activityVersion}"
+            const val constraintLayout = "androidx.constraintlayout:constraintlayout-compose:1.0.0-rc02"
+            const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-compose:${AndroidX.lifecycle.lifecycleVersion}"
+        }
+    }
+}
 
 object UI {
     const val browser = "androidx.browser:browser:1.3.0-alpha06"

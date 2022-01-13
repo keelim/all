@@ -2,7 +2,7 @@
 
 object Dep {
     object GradlePlugin {
-        const val androidStudioGradlePluginVersion = "7.0.3"
+        const val androidStudioGradlePluginVersion = "7.0.4"
         const val android = "com.android.tools.build:gradle:$androidStudioGradlePluginVersion"
         const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Kotlin.version}"
         const val kotlinSerialization = "org.jetbrains.kotlin:kotlin-serialization:${Kotlin.version}"
@@ -34,6 +34,7 @@ object Dep {
             const val lifecycleVersion = "2.4.0"
             const val viewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
             const val runtimeTesting = "androidx.lifecycle:lifecycle-runtime-testing:$lifecycleVersion"
+            const val runtime = "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
         }
 
         object room {
@@ -42,6 +43,22 @@ object Dep {
             const val compiler = "androidx.room:room-compiler:$roomVersion"
             const val ktx = "androidx.room:room-ktx:$roomVersion"
             const val testing = "androidx.room:room-testing:$roomVersion"
+        }
+
+        object paging{
+            const val version = "3.1.0"
+            const val common = "androidx.paging:paging-common-ktx:$version"
+        }
+
+        object WorkManager{
+            const val version = "2.7.1"
+            const val work ="androidx.work:work-runtime-ktx:$version"
+        }
+
+        object navigation {
+            const val version = "2.3.5"
+            const val ui = "androidx.navigation:navigation-ui-ktx:$version"
+            const val fragment = "androidx.navigation:navigation-fragment-ktx:$version"
         }
 
         object UI {
@@ -68,8 +85,25 @@ object Dep {
             const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-compose:${AndroidX.lifecycle.lifecycleVersion}"
         }
 
+        object hilt{
+            const val version = "1.0.0"
+            const val common = "androidx.hilt:hilt-common:$version"
+            const val work = "androidx.hilt:hilt-work:$version"
+        }
+
         const val viewBinding =
             "androidx.databinding:viewbinding:${GradlePlugin.androidStudioGradlePluginVersion}"
+    }
+
+    object Play{
+        const val ad = "com.google.android.gms:play-services-ads:20.5.0"
+        const val oss = "com.google.android.gms:play-services-oss-licenses:17.0.0"
+    }
+
+    object Firebase{
+        const val platform = "com.google.firebase:firebase-bom:29.0.3"
+        const val analytics = "com.google.firebase:firebase-analytics-ktx"
+        const val crashlytics = "com.google.firebase:firebase-crashlytics-ktx"
     }
 
     object Accompanist {
@@ -86,7 +120,6 @@ object Dep {
         object Hilt {
             const val android = "com.google.dagger:hilt-android:$version"
             const val compiler = "com.google.dagger:hilt-compiler:$version"
-            const val worker = "androidx.hilt:hilt-work:1.0.0-alpha01"
         }
     }
 
@@ -128,5 +161,9 @@ object Dep {
         const val mockito = "org.mockito:mockito-core:3.12.4"
         const val androidJunit = "androidx.test.ext:junit:1.1.3"
         const val espressoCore = "androidx.test.espresso:espresso-core:3.4.0"
+    }
+
+    object other{
+        const val math = "org.apache.commons:commons-math3:3.6.1"
     }
 }

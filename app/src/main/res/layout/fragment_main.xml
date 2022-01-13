@@ -190,7 +190,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:text="Submit"
-        android:textSize="16sp"
+        style="@style/Widget.Material3.Button.TonalButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/student_container" />
 
@@ -217,6 +217,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
+        style="@style/Widget.Material3.FloatingActionButton.Surface"
         android:src="@drawable/ic_baseline_change_circle_24"
         app:layout_constraintBottom_toTopOf="@id/adView"
         app:layout_constraintEnd_toEndOf="parent" />

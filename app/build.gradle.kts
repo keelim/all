@@ -2,7 +2,7 @@ import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 
 plugins {
     id("application-setting-plugin")
-    kotlin("kapt")
+    id("kotlin-kapt")
     id("com.google.gms.google-services")
     id("com.google.android.gms.oss-licenses-plugin")
     id("com.google.firebase.crashlytics")
@@ -17,63 +17,44 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     val key: String = gradleLocalProperties(rootDir).getProperty("UNIT")
-    val pw: String = gradleLocalProperties(rootDir).getProperty("pw")
-    val alias: String = gradleLocalProperties(rootDir).getProperty("alias")
-
-    signingConfigs {
-        getByName("release") {
-            storeFile = project.rootProject.file("keystore.jks")
-            storePassword = pw
-            keyAlias = alias
-            keyPassword = pw
-        }
-    }
 
     buildTypes {
         defaultConfig{
             buildConfigField("String", "key", key)
         }
-        getByName("release"){
-            signingConfig = signingConfigs.getByName("release")
-        }
     }
-
     useLibrary("android.test.mock")
 }
 
 dependencies {
     implementation(projects.data)
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.appcompat:appcompat:1.4.0")
-    implementation("com.google.android.material:material:1.4.0")
-    implementation("androidx.work:work-runtime-ktx:2.7.1")
-    implementation("androidx.hilt:hilt-common:1.0.0")
-    implementation("androidx.hilt:hilt-work:1.0.0")
+    implementation(Dep.AndroidX.coreKtx)
+    implementation(Dep.AndroidX.appcompat)
+    implementation(Dep.AndroidX.activity.ktx)
+    implementation(Dep.AndroidX.UI.material)
+    implementation(Dep.AndroidX.WorkManager.work)
+    implementation(Dep.AndroidX.hilt.common)
+    implementation(Dep.AndroidX.hilt.work)
 
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    implementation(platform(Dep.Firebase.platform))
+    implementation(Dep.Firebase.analytics)
+    implementation(Dep.Firebase.crashlytics)
 
-    implementation(platform("com.google.firebase:firebase-bom:29.0.0"))
-    implementation("com.google.firebase:firebase-analytics-ktx")
-    implementation("com.google.firebase:firebase-crashlytics-ktx")
-    implementation("com.google.android.gms:play-services-ads:20.5.0")
-    implementation("com.google.android.gms:play-services-oss-licenses:17.0.0")
-    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    implementation(Dep.Play.ad)
+    implementation(Dep.Play.oss)
 
-    implementation("com.google.dagger:hilt-android:2.40.5")
-    kapt("com.google.dagger:hilt-android-compiler:2.40.5")
+    implementation(Dep.Dagger.Hilt.android)
+    kapt(Dep.Dagger.Hilt.compiler)
 
-    implementation("androidx.activity:activity-ktx:1.4.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
-    implementation("org.apache.commons:commons-math3:3.6.1")
+    implementation(Dep.other.math)
+    implementation(Dep.AndroidX.lifecycle.runtime)
 
-    val nav_version = "2.3.5"
-    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
-    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+    implementation(Dep.AndroidX.navigation.ui)
+    implementation(Dep.AndroidX.navigation.fragment)
 
-    val billing_version = "4.0.0"
-    implementation("com.android.billingclient:billing-ktx:$billing_version")
+    testImplementation(Dep.Test.junit)
+    androidTestImplementation(Dep.Test.androidJunit)
+    androidTestImplementation(Dep.Test.espressoCore)
 }
 
 

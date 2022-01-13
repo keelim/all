@@ -18,7 +18,7 @@
 
         <ImageView
             android:id="@+id/logo"
-            android:layout_width="76dp"
+            android:layout_width="0dp"
             android:layout_height="76dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -29,8 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:text="공지사항"
-            android:textSize="18sp"
-            android:textStyle="bold"
+            style="@style/TextAppearance.Material3.TitleLarge"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/logo"
             app:layout_constraintTop_toTopOf="parent" />
@@ -49,12 +48,12 @@
         app:layout_constraintTop_toBottomOf="@id/top_container"
         tools:listitem="@layout/item_notification" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_no_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="현재 온 알림이 없습니다. (*￣3￣)╭"
-        android:textSize="18sp"
+        style="@style/TextAppearance.Material3.TitleLarge"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

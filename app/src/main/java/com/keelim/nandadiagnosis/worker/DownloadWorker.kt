@@ -40,7 +40,7 @@ import androidx.work.WorkerParameters
 import androidx.work.workDataOf
 import com.keelim.common.util.toast
 import com.keelim.nandadiagnosis.data.R
-import com.keelim.nandadiagnosis.utils.DownloadReceiver
+import com.keelim.nandadiagnosis.di.DownloadReceiver
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.delay
@@ -50,9 +50,9 @@ import java.util.concurrent.TimeUnit
 
 @HiltWorker
 class DownloadWorker @AssistedInject constructor(
-  @Assisted val context: Context,
-  @Assisted workerParameters: WorkerParameters,
-  val receiver: DownloadReceiver,
+    @Assisted val context: Context,
+    @Assisted workerParameters: WorkerParameters,
+    val receiver: DownloadReceiver,
 ) : CoroutineWorker(context, workerParameters) {
   override suspend fun doWork(): Result  {
 

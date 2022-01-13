@@ -32,6 +32,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
+import androidx.recyclerview.widget.LinearSnapHelper
 import com.keelim.common.util.repeatCallDefaultOnStarted
 import com.keelim.common.util.toast
 import com.keelim.nandadiagnosis.R
@@ -41,7 +42,6 @@ import com.keelim.nandadiagnosis.ui.main.search.selection.MyItemDetailsLookup
 import com.keelim.nandadiagnosis.ui.main.search.selection.MyItemKeyProvider
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -60,7 +60,7 @@ class SearchFragment : Fragment() {
     },
     textSelectListener = {},
   )
-  private val searchRecyclerViewAdapter3 = SearchRecyclerViewAdapter3(
+  private val searchRecyclerViewAdapter2 = SearchRecyclerViewAdapter2(
     favoriteListener = { favorite, id ->
       favoriteUpdate(favorite, id)
     }
@@ -84,33 +84,43 @@ class SearchFragment : Fragment() {
     super.onViewCreated(view, savedInstanceState)
     setHasOptionsMenu(true)
     initViews()
-    observeFlow()
+    observeState()
   }
 
-  private fun observeFlow() = viewLifecycleOwner.repeatCallDefaultOnStarted {
-    viewModel.state.collect {
-      when (it) {
-        is SearchListState.UnInitialized -> requireActivity().toast("데이터 설정 중입니다.")
-        is SearchListState.Loading -> requireContext().toast("데이터 로딩 중")
-        is SearchListState.Searching -> {
-          handleSuccess(it)
+  private fun observeState() = viewLifecycleOwner.lifecycleScope.launch{
+    repeatCallDefaultOnStarted {
+      viewModel.state.collect {
+        when (it) {
+          is SearchListState.UnInitialized -> requireActivity().toast("데이터 설정 중입니다.")
+          is SearchListState.Loading -> requireContext().toast("데이터 로딩 중")
+          is SearchListState.Searching -> {
+            handleSuccess(it)
+          }
+          is SearchListState.Error -> Unit
+          is SearchListState.Success -> Unit
         }
-        is SearchListState.Error -> Unit
-        is SearchListState.Success -> Unit
       }
-    }
-    viewModel.history.collect {
-      historyAdapter.submitList(it)
-      binding.historyRecycler.isVisible = true
+      viewModel.history.collect {
+        historyAdapter.submitList(it)
+        binding.historyRecycler.isVisible = true
+      }
     }
   }
 
   private fun initViews() = with(binding) {
-    historyRecycler.adapter = historyAdapter
+    historyRecycler.apply {
+      val snap = LinearSnapHelper()
+      setHasFixedSize(true)
+      adapter = historyAdapter
+      snap.attachToRecyclerView(this)
+    }
+
     recyclerView.apply {
+      val snap = LinearSnapHelper()
       setHasFixedSize(true)
       addItemDecoration(RecyclerViewDecoration(0, 10))
-      adapter = searchRecyclerViewAdapter3
+      adapter = searchRecyclerViewAdapter2
+      snap.attachToRecyclerView(this)
     }
     initTracker()
   }
@@ -133,13 +143,11 @@ class SearchFragment : Fragment() {
           saveSearchKeyword(query)
           Timber.d("데이터베이스 $query")
           viewModel.search2(query.replace("\\s", ""))
-          search(query.replace("\\s", ""))
           return true
         }
         override fun onQueryTextChange(newText: String): Boolean = true
       })
     }
-
     super.onCreateOptionsMenu(menu, inflater)
   }
 
@@ -154,7 +162,7 @@ class SearchFragment : Fragment() {
       .withSelectionPredicate(SelectionPredicates.createSelectAnything())
       .build()
 
-    searchRecyclerViewAdapter3.tracker = trackers
+    searchRecyclerViewAdapter2.tracker = trackers
     binding.floating.setOnClickListener {
 //      multiSelection(trackers?.selection!!)
     }
@@ -198,13 +206,7 @@ class SearchFragment : Fragment() {
     if (state.searchList.isEmpty()) {
       Timber.d("결과 값이 비어 있습니다.")
     } else {
-//      searchRecyclerViewAdapter2.submitList(state.searchList)
-    }
-  }
-
-  private fun search(query: String) = viewLifecycleOwner.lifecycleScope.launch {
-    viewModel.getContent(query).collectLatest {
-      searchRecyclerViewAdapter3.submitData(it)
+      searchRecyclerViewAdapter2.submitList(state.searchList)
     }
   }
 }

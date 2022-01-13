@@ -141,7 +141,7 @@ class CategoryFragment : Fragment() {
   private fun goNext(num: String) { // 데이터를 사용하는 페이지 이니 조심하라는 문구
     Snackbar.make(binding.root, "이 기능은 데이터를 사용할 수 있습니다.", Snackbar.LENGTH_LONG)
       .setAction("ok") {
-        mainViewModel.loadingOn()
+        
         findNavController().navigate(
           R.id.diagnosisFragment,
           bundleOf(
@@ -150,6 +150,6 @@ class CategoryFragment : Fragment() {
         )
       }
       .show()
-    mainViewModel.loadingOff()
+    
   }
 }

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.utils
+package com.keelim.nandadiagnosis.di
 
 import android.app.DownloadManager
 import android.content.BroadcastReceiver

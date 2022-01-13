@@ -24,16 +24,13 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.oss.licenses.OssLicensesActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.keelim.SettingActivity
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.data.repository.theme.AppTheme
 import com.keelim.nandadiagnosis.databinding.FragmentMainBottomBinding
-import com.keelim.nandadiagnosis.utils.MaterialDialog
-import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.negativeButton
-import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.positiveButton
-import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.singleChoiceItems
-import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.title
 import com.keelim.player.PlayActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -61,7 +58,7 @@ class MainBottomFragment : BottomSheetDialogFragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     initAppThemeObserver()
-    setClickListeners()
+    initViews()
   }
 
   private fun initAppThemeObserver() {
@@ -70,65 +67,49 @@ class MainBottomFragment : BottomSheetDialogFragment() {
     ) { currentTheme ->
       val appTheme = AppTheme.THEME_ARRAY.firstOrNull { it.modeNight == currentTheme }
       appTheme?.let {
-        binding.themeIcon.setImageResource(it.themeIconRes)
+        binding.themeIcon.setIconResource(it.themeIconRes)
         binding.themeDescription.text = getString(it.modeNameRes)
       }
     }
   }
 
-  private fun setClickListeners() {
-    binding.themeOption.setOnClickListener {
+  private fun initViews() = with(binding) {
+    themeOption.setOnClickListener {
       chooseThemeClick()
     }
 
-    binding.aboutButton.setOnClickListener {
+    aboutButton.setOnClickListener {
       dismiss()
-      mainViewModel.loadingOn()
       findNavController().navigate(R.id.aboutFragment)
-      mainViewModel.loadingOff()
     }
 
-    binding.openSourceLicensesButton.setOnClickListener {
+    openSourceLicensesButton.setOnClickListener {
       dismiss()
-      mainViewModel.loadingOn()
-      findNavController().navigate(R.id.openSource)
-      mainViewModel.loadingOff()
+      startActivity(Intent(requireContext(), OssLicensesActivity::class.java))
     }
 
-    binding.update.setOnClickListener {
+    update.setOnClickListener {
       dismiss()
-      mainViewModel.loadingOn()
-      Intent(Intent.ACTION_VIEW).apply {
-        data = Uri.parse(getString(R.string.urinanda))
-        startActivity(this)
-      }
-      mainViewModel.loadingOff()
+      startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.urinanda))))
     }
 
-    binding.blog.setOnClickListener {
+    blog.setOnClickListener {
       dismiss()
-      mainViewModel.loadingOn()
       findNavController().navigate(R.id.inAppWebFragment)
-      mainViewModel.loadingOff()
     }
 
-    binding.login.setOnClickListener {
+    login.setOnClickListener {
       dismiss()
-      mainViewModel.loadingOn()
       findNavController().navigate(R.id.profileFragment)
-      mainViewModel.loadingOff()
     }
 
     binding.labFeature.setOnClickListener {
       dismiss()
-      mainViewModel.loadingOn()
       startActivity(Intent(requireContext(), SettingActivity::class.java))
-      mainViewModel.loadingOff()
     }
 
     binding.labFeature2.setOnClickListener{
       dismiss()
-      mainViewModel.loadingOn()
       startActivity(Intent(requireContext(), PlayActivity::class.java))
     }
   }
@@ -140,20 +121,25 @@ class MainBottomFragment : BottomSheetDialogFragment() {
       val items = AppTheme.THEME_ARRAY.map {
         getText(it.modeNameRes)
       }.toTypedArray()
-      MaterialDialog.createDialog(requireContext()) {
-        title(R.string.choose_theme)
-        singleChoiceItems(items, checkedItem) {
-          checkedItem = it
-        }
-        positiveButton(getString(R.string.ok)) {
-          val mode = AppTheme.THEME_ARRAY[checkedItem].modeNight
-          AppCompatDelegate.setDefaultNightMode(mode)
-          mainViewModel.setAppTheme(mode)
-          // Update theme description TextView
-          binding.themeDescription.text = getString(AppTheme.THEME_ARRAY[checkedItem].modeNameRes)
-        }
-        negativeButton(getString(R.string.cancel))
-      }.show()
+      callDialog(items, checkedItem)
     }
+  }
+
+  private fun callDialog(items: Array<CharSequence>, checkedItem: Int) {
+    var checkedItem1 = checkedItem
+    MaterialAlertDialogBuilder(requireContext())
+      .setTitle(R.string.choose_theme)
+      .setSingleChoiceItems(items, checkedItem1) { _, value ->
+        checkedItem1 = value
+      }
+      .setPositiveButton(R.string.ok) { _, _ ->
+        val mode = AppTheme.THEME_ARRAY[checkedItem1].modeNight
+        AppCompatDelegate.setDefaultNightMode(mode)
+        mainViewModel.setAppTheme(mode)
+        // Update theme description TextView
+        binding.themeDescription.text = getString(AppTheme.THEME_ARRAY[checkedItem1].modeNameRes)
+      }.setNegativeButton(R.string.cancel) { _, _ -> }
+      .create()
+      .show()
   }
 }

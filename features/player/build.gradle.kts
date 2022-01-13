@@ -1,37 +1,25 @@
 plugins {
-    id("com.android.library")
-    kotlin("android")
-    kotlin("kapt")
+    id("library-setting-plugin")
+    id("kotlin-kapt")
     id("kotlin-parcelize")
     id("dagger.hilt.android.plugin")
-}
-
-listOf(
-    "android.gradle",
-).forEach { file ->
-    apply(from = "${rootDir}/gradle/${file}")
 }
 
 dependencies {
     implementation(projects.data)
     implementation(projects.domain)
     implementation(projects.common)
-    implementation(Billing.billing_ktx)
-    implementation(AndroidX.appcompat)
-    implementation(UI.material)
-    implementation(UI.constraintLayout)
 
-    implementation(Coil.coil)
+    implementation(Dep.AndroidX.appcompat)
+    implementation(Dep.AndroidX.UI.material)
 
-    implementation(Hilt.android)
-    kapt(Hilt.hilt_compiler)
+    implementation(Dep.Coil.core)
 
-    implementation(AndroidX.activity_ktx)
-    implementation("com.google.android.exoplayer:exoplayer:2.16.1")
-}
+    implementation(Dep.Dagger.Hilt.android)
+    kapt(Dep.Dagger.Hilt.compiler)
 
-kapt {
-    useBuildCache = true
+    implementation(Dep.AndroidX.activity.ktx)
+    implementation(Dep.Player.exoplayer)
 }
 
 

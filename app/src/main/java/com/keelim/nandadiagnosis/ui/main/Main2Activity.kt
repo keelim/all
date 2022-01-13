@@ -22,118 +22,60 @@ import android.content.IntentFilter
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
-import androidx.work.Constraints
-import androidx.work.ExistingWorkPolicy
-import androidx.work.NetworkType
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkInfo
-import androidx.work.WorkManager
-import com.google.android.play.core.appupdate.AppUpdateManagerFactory
-import com.google.android.play.core.install.model.AppUpdateType
-import com.google.android.play.core.install.model.UpdateAvailability
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
-import com.keelim.common.toast
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.keelim.common.util.toast
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.compose.ui.CircularIndeterminateProgressBar
-import com.keelim.nandadiagnosis.data.worker.DownloadWorker
 import com.keelim.nandadiagnosis.databinding.ActivityMain2Binding
+import com.keelim.nandadiagnosis.di.DownloadReceiver
 import com.keelim.nandadiagnosis.service.TerminateService
-import com.keelim.nandadiagnosis.utils.DownloadReceiver
-import com.keelim.nandadiagnosis.utils.MaterialDialog
-import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.message
-import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.negativeButton
-import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.positiveButton
-import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.title
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
-import java.util.UUID
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class Main2Activity : AppCompatActivity() {
-  private lateinit var downloadManager: DownloadManager
-  private val binding: ActivityMain2Binding by lazy { ActivityMain2Binding.inflate(layoutInflater) }
+  private val binding by lazy { ActivityMain2Binding.inflate(layoutInflater) }
   private val mainViewModel: MainViewModel by viewModels()
-  private val auth by lazy { Firebase.auth }
-  private val appUpdateManager by lazy {AppUpdateManagerFactory.create(this)}
 
   @Inject
-  lateinit var recevier: DownloadReceiver
-
-  private val workManager by lazy {
-    WorkManager.getInstance(applicationContext)
-  }
+  lateinit var receiver: DownloadReceiver
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(binding.root)
     startService(Intent(this, TerminateService::class.java))
-    updateCheck()
-    initNavigation()
-    initBottomAppBar()
-    observeLoading()
+    initViews()
     fileChecking()
-    loginCheck()
   }
 
   override fun onDestroy() {
     super.onDestroy()
     stopService(Intent(this, TerminateService::class.java))
-    unregisterReceiver(recevier)
+    unregisterReceiver(receiver)
   }
 
-  private fun updateCheck(){
-    val appUpdateInfoTask = appUpdateManager.appUpdateInfo
-
-    appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
-      if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
-        && appUpdateInfo.updatePriority() >= 4 /* high priority */
-        && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
-        // Request an immediate update.
-        appUpdateManager.startUpdateFlowForResult(
-          // Pass the intent that is returned by 'getAppUpdateInfo()'.
-          appUpdateInfo,
-          // Or 'AppUpdateType.FLEXIBLE' for flexible updates.
-          AppUpdateType.IMMEDIATE,
-          // The current activity making the update request.
-          this,
-          // Include a request code to later monitor this update request.
-          IN_APP_UPDATE_CODE)
-      }
-    }
-  }
-
-  private fun initNavigation() {
+  private fun initViews() = with(binding) {
     navController().addOnDestinationChangedListener { _, destination, _ ->
       when (destination.id) {
         R.id.navigation_category -> {
-          binding.bottomAppBar.visibility = View.VISIBLE
-          binding.searchButton.show()
+          bottomAppBar.visibility = View.VISIBLE
+          searchButton.show()
         }
         else -> {
-          binding.bottomAppBar.visibility = View.GONE
-          binding.searchButton.hide()
+          bottomAppBar.visibility = View.GONE
+          searchButton.hide()
         }
       }
     }
-  }
-
-  private fun initBottomAppBar() = with(binding) {
     searchButton.setOnClickListener {
-      mainViewModel.loadingOn()
       navController().navigate(R.id.navigation_search)
-      mainViewModel.loadingOff()
     }
 
     bottomAppBar.setNavigationOnClickListener {
-      mainViewModel.loadingOn()
       showMenu()
-      mainViewModel.loadingOff()
     }
 
     bottomAppBar.setOnMenuItemClickListener {
@@ -158,80 +100,35 @@ class Main2Activity : AppCompatActivity() {
   }
 
   private fun databaseDownloadAlertDialog() {
-    MaterialDialog.createDialog(this) {
-      title("다운로드 요청")
-      message("어플리케이션 사용을 위해 데이터베이스를 다운로드 합니다.")
-      positiveButton(getString(R.string.ok)) {
-        toast("서버로부터 데이터 베이스를 요청 합니다. ")
+    MaterialAlertDialogBuilder(this)
+      .setTitle("다운로드 요청")
+      .setMessage("어플 사용을 위해 데이터베이스를 다운로드 합니다.")
+      .setPositiveButton("확인") { _, _ ->
+        toast("서버로부터 데이터베이스를 요청합니다.")
         downloadDatabase2()
       }
-      negativeButton(getString(R.string.cancel))
-    }.show()
-  }
-
-  private fun downloadDatabase() {
-    downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-    val intentFilter: IntentFilter = IntentFilter().apply {
-      addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
-      addAction(DownloadManager.ACTION_NOTIFICATION_CLICKED)
-    }
-    registerReceiver(recevier, intentFilter)
-
-    downloadManager.enqueue(
-      DownloadManager.Request(Uri.parse(getString(R.string.db_path)))
-        .setTitle("Downloading")
-        .setDescription("Downloading Database file")
-        .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-        .setDestinationUri(Uri.fromFile(File(getExternalFilesDir(null), "nanda.db")))
-        .setAllowedOverMetered(true)
-        .setAllowedOverRoaming(true)
-    )
+      .create()
+      .show()
   }
 
   private fun downloadDatabase2() {
-    val constraints = Constraints.Builder()
-      .setRequiredNetworkType(NetworkType.CONNECTED)
-      .setRequiresStorageNotLow(true)
-      .setRequiresBatteryNotLow(true)
-      .build()
+    val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+    registerReceiver(
+      receiver,
+      IntentFilter().apply {
+      addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
+      addAction(DownloadManager.ACTION_NOTIFICATION_CLICKED)
+    })
 
-    val downloadWorker = OneTimeWorkRequestBuilder<DownloadWorker>()
-      .setConstraints(constraints)
-      .addTag("downloadWork")
-      .build()
+    val request = DownloadManager.Request(Uri.parse(applicationContext.getString(com.keelim.nandadiagnosis.data.R.string.db_path)))
+      .setTitle("Downloading")
+      .setDescription("Downloading Database file")
+      .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+      .setDestinationUri(Uri.fromFile(File(applicationContext.getExternalFilesDir(null), "nanda.db")))
+      .setAllowedOverMetered(true)
+      .setAllowedOverRoaming(true)
 
-    // 2
-    workManager.enqueueUniqueWork(
-      "oneTimeDownload",
-      ExistingWorkPolicy.KEEP,
-      downloadWorker
-    )
-    observeWork(downloadWorker.id)
-  }
-
-  private fun observeWork(id: UUID) {
-    // 1
-    workManager.getWorkInfoByIdLiveData(id)
-      .observe(this) { info ->
-        // 2
-        info?.let {
-          when (it.state) {
-            WorkInfo.State.ENQUEUED -> toast("다운로드를 시작합니다.")
-            WorkInfo.State.RUNNING -> mainViewModel.loadingOn()
-            WorkInfo.State.SUCCEEDED -> mainViewModel.loadingOff()
-            WorkInfo.State.FAILED -> toast("다운로드를 완료하지 못했습니다..")
-            WorkInfo.State.BLOCKED -> toast("다운로드를 완료하지 못했습니다..")
-            WorkInfo.State.CANCELLED -> toast("다운로드를 완료하지 못했습니다..")
-          }
-        }
-      }
-  }
-
-  private fun loginCheck() {
-    auth.currentUser ?: toast("Login 을 하시면 더 많은 서비스를 확인할 수 있습니다. ")
-    if (auth.currentUser == null) {
-      Toast.makeText(this, "Login 을 하시면 더 많은 서비스를 확인할 수 있습니다. ", Toast.LENGTH_SHORT).show()
-    }
+    downloadManager.enqueue(request)
   }
 
   private fun navController() = findNavController(R.id.nav_host_fragment)
@@ -239,20 +136,4 @@ class Main2Activity : AppCompatActivity() {
   private fun showMoreOptions() = navController().navigate(R.id.moreBottomSheetDialog)
 
   private fun showMenu() = navController().navigate(R.id.menuBottomSheetDialogFragment)
-
-  private fun observeLoading() = mainViewModel.loading.observe(this) {
-    binding.composeView.apply {
-      bringToFront()
-      setContent {
-        CircularIndeterminateProgressBar(
-          isDisplayed = it
-        )
-      }
-    }
-  }
-
-
-  companion object{
-    const val IN_APP_UPDATE_CODE = 1
-  }
 }

@@ -25,15 +25,11 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.keelim.SettingActivity
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.data.repository.theme.AppTheme
 import com.keelim.nandadiagnosis.databinding.FragmentMainBottomBinding
-import com.keelim.nandadiagnosis.utils.MaterialDialog
-import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.negativeButton
-import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.positiveButton
-import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.singleChoiceItems
-import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.title
 import com.keelim.player.PlayActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -140,20 +136,22 @@ class MainBottomFragment : BottomSheetDialogFragment() {
       val items = AppTheme.THEME_ARRAY.map {
         getText(it.modeNameRes)
       }.toTypedArray()
-      MaterialDialog.createDialog(requireContext()) {
-        title(R.string.choose_theme)
-        singleChoiceItems(items, checkedItem) {
-          checkedItem = it
+      MaterialAlertDialogBuilder(requireContext())
+        .setTitle(R.string.choose_theme)
+        .setSingleChoiceItems(items, checkedItem) { _, value ->
+          checkedItem = value
         }
-        positiveButton(getString(R.string.ok)) {
+        .setPositiveButton(R.string.ok){ _, _ ->
           val mode = AppTheme.THEME_ARRAY[checkedItem].modeNight
           AppCompatDelegate.setDefaultNightMode(mode)
           mainViewModel.setAppTheme(mode)
           // Update theme description TextView
           binding.themeDescription.text = getString(AppTheme.THEME_ARRAY[checkedItem].modeNameRes)
+        }.setNegativeButton(R.string.cancel){ _, _ ->
+
         }
-        negativeButton(getString(R.string.cancel))
-      }.show()
+        .create()
+        .show()
     }
   }
 }

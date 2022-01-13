@@ -20,51 +20,35 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
-import com.google.android.play.core.appupdate.AppUpdateManagerFactory
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
-import com.keelim.common.util.repeatCallDefaultOnStarted
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.keelim.common.util.toast
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.compose.ui.CircularIndeterminateProgressBar
 import com.keelim.nandadiagnosis.databinding.ActivityMain2Binding
 import com.keelim.nandadiagnosis.service.TerminateService
 import com.keelim.nandadiagnosis.utils.DownloadReceiver
-import com.keelim.nandadiagnosis.utils.MaterialDialog
-import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.message
-import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.negativeButton
-import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.positiveButton
-import com.keelim.nandadiagnosis.utils.MaterialDialog.Companion.title
 import com.keelim.nandadiagnosis.worker.DownloadWorker
 import com.keelim.nandadiagnosis.worker.MainWorker
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import javax.inject.Inject
-import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class Main2Activity : AppCompatActivity() {
   private val binding: ActivityMain2Binding by lazy { ActivityMain2Binding.inflate(layoutInflater) }
   private val mainViewModel: MainViewModel by viewModels()
-  private val auth by lazy { Firebase.auth }
 
   @Inject
-  lateinit var recevier: DownloadReceiver
+  lateinit var receiver: DownloadReceiver
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(binding.root)
     startService(Intent(this, TerminateService::class.java))
     initViews()
-    observeLoading()
     fileChecking()
-    loginCheck()
-    handleAppLink()
   }
 
   override fun onDestroy() {
@@ -119,59 +103,26 @@ class Main2Activity : AppCompatActivity() {
   }
 
   private fun databaseDownloadAlertDialog() {
-    MaterialDialog.createDialog(this) {
-      title("다운로드 요청")
-      message("어플리케이션 사용을 위해 데이터베이스를 다운로드 합니다.")
-      positiveButton(getString(R.string.ok)) {
-        toast("서버로부터 데이터 베이스를 요청 합니다. ")
+    MaterialAlertDialogBuilder(this)
+      .setTitle("다운로드 요청")
+      .setMessage("어플 사용을 위해 데이터베이스를 다운로드 합니다.")
+      .setPositiveButton("확인") { _, _ ->
+        toast("서버로부터 데이터베이스를 요청합니다.")
         downloadDatabase2()
       }
-      negativeButton(getString(R.string.cancel))
-    }.show()
+      .create()
+      .show()
   }
 
   private fun downloadDatabase2() {
     registerReceiver(
-      recevier,
+      receiver,
       IntentFilter().apply {
       addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
       addAction(DownloadManager.ACTION_NOTIFICATION_CLICKED)
     })
     DownloadWorker.enqueueWork(this, this)
     MainWorker.enqueueWork(this)
-  }
-
-  private fun loginCheck() {
-    auth.currentUser ?: toast("Login 을 하시면 더 많은 서비스를 확인할 수 있습니다. ")
-    if (auth.currentUser == null) {
-      Toast.makeText(this, "Login 을 하시면 더 많은 서비스를 확인할 수 있습니다. ", Toast.LENGTH_SHORT).show()
-    }
-  }
-
-  private fun observeLoading() = repeatCallDefaultOnStarted {
-    mainViewModel.loading.collect {
-      binding.composeView.apply {
-        bringToFront()
-        setContent {
-          CircularIndeterminateProgressBar(
-            isDisplayed = it
-          )
-        }
-      }
-    }
-  }
-
-  private fun handleAppLink(){
-    val appLinkAction = intent.action
-    val appLinkData = intent.data
-    if (appLinkAction != null && appLinkAction == "android.intent.action.VIEW" ) {
-      findNavController(R.id.nav_host_fragment).navigate(
-        R.id.diagnosisFragment,
-        bundleOf(
-          "num" to appLinkData?.lastPathSegment
-        )
-      )
-    }
   }
 
   private fun navController() = findNavController(R.id.nav_host_fragment)

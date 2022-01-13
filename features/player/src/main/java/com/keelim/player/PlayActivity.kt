@@ -18,15 +18,11 @@ package com.keelim.player
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.keelim.common.repeatCallDefaultOnStarted
+import com.keelim.common.util.repeatCallDefaultOnStarted
 import com.keelim.player.databinding.ActivityPlayBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class PlayActivity : AppCompatActivity() {

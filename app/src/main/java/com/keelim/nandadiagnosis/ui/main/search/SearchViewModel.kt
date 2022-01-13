@@ -32,6 +32,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.onStart
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
@@ -47,6 +52,11 @@ class SearchViewModel @Inject constructor(
 
   private val _history: MutableStateFlow<List<History>> = MutableStateFlow(emptyList())
   val history: StateFlow<List<History>> = _history
+
+  private val query:MutableStateFlow<String> = MutableStateFlow("")
+  init{
+    observeSearchState()
+  }
 
   fun search2(keyword: String?) = viewModelScope.launch {
     _state.emit(SearchListState.Loading)
@@ -81,5 +91,28 @@ class SearchViewModel @Inject constructor(
   fun getContent(query: String = ""): Flow<PagingData<NandaEntity>> {
     return getSearchListUseCase.getSearchFlow(query)
       .cachedIn(viewModelScope)
+  }
+
+  fun queryFilter(value:String) = viewModelScope.launch {
+    query.emit(value)
+  }
+
+  private fun observeSearchState() {
+    getSearchListUseCase
+      .searchData
+      .combine(query) { data, queryString ->
+        if(queryString.isNotBlank()){
+          data.filter { nandaEntity -> nandaEntity.domain_name.contains(queryString) }
+        } else{
+          data
+        }
+      }.onStart {
+        _state.emit(SearchListState.Loading)
+      }.onEach {
+        _state.emit(SearchListState.Success(it))
+      }.catch {
+        it.printStackTrace()
+        _state.emit(SearchListState.Error)
+      }.launchIn(viewModelScope)
   }
 }

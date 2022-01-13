@@ -8,25 +8,24 @@
         android:id="@+id/toolbar"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/light_gray"
-        android:elevation="4dp"
+        android:elevation="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/home_button"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="?attr/selectableItemBackground"
-            android:src="@drawable/ic_baseline_home_24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.Material3.Button.IconButton"
+            app:icon="@drawable/ic_baseline_home_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription" />
+            />
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/address_bar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -44,23 +43,23 @@
             tools:ignore="LabelFor" />
 
 
-        <ImageButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/back_button"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="?attr/selectableItemBackground"
-            android:src="@drawable/ic_baseline_arrow_back_ios_24"
+            style="@style/Widget.Material3.Button.IconButton"
+            app:icon="@drawable/ic_baseline_arrow_back_ios_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toStartOf="@id/forward_button"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/forward_button"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="?attr/selectableItemBackground"
-            android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+            style="@style/Widget.Material3.Button.IconButton"
+            app:icon="@drawable/ic_baseline_arrow_forward_ios_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"

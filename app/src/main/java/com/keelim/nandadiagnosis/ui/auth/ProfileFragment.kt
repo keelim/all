@@ -33,7 +33,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.keelim.common.toast
+import com.keelim.common.util.toast
 import com.keelim.nandadiagnosis.databinding.FragmentProfileBinding
 import com.keelim.nandadiagnosis.ui.main.favorite.FavoriteAdapter
 import dagger.hilt.android.AndroidEntryPoint

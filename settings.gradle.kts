@@ -28,3 +28,4 @@ include(
     ":features:ui-setting"
 )
 
+include(":features:dynamic_vitamin")

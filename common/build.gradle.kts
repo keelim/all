@@ -7,6 +7,7 @@ plugins {
 dependencies {
     implementation(projects.data)
     implementation(projects.compose)
-    implementation(AndroidX.LifeCycle.runtime)
-    implementation(AndroidX.activity_ktx)
+    implementation(Dep.AndroidX.lifecycle.runtime)
+    implementation(Dep.AndroidX.activity.ktx)
+    implementation(Dep.AndroidX.fragment.ktx)
 }

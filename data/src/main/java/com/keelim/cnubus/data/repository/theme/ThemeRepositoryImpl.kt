@@ -29,7 +29,7 @@ import javax.inject.Inject
 class ThemeRepositoryImpl @Inject constructor(
     @ApplicationContext private val ctx: Context,
 ) : ThemeRepository {
-    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = STORE_NAME)
+
 
     override fun getUserTheme() = ctx.dataStore.data.map { preferences ->
         preferences[USER_THEME] ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
@@ -42,8 +42,9 @@ class ThemeRepositoryImpl @Inject constructor(
     }
 
     companion object {
-        const val STORE_NAME = "preferences"
-        const val USER_THEME_KEY = "user_theme"
+        private const val STORE_NAME = "preferences"
+        private const val USER_THEME_KEY = "user_theme"
         val USER_THEME = intPreferencesKey(USER_THEME_KEY)
+        private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = STORE_NAME)
     }
 }

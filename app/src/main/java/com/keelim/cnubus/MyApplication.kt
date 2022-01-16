@@ -17,6 +17,7 @@ package com.keelim.cnubus
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
+import com.google.android.material.color.DynamicColors
 import com.keelim.cnubus.data.repository.theme.ThemeRepository
 import com.keelim.cnubus.utils.AppOpenManager
 import com.keelim.cnubus.utils.ComponentLogger
@@ -35,16 +36,16 @@ class MyApplication : Application() {
     lateinit var themeRepository: ThemeRepository
     @Inject
     lateinit var componentLogger: ComponentLogger
-
-    private lateinit var appOpenManager: AppOpenManager
-    private val applicationScope by lazy { MainScope() }
+    @Inject
+    lateinit var appOpenManager: AppOpenManager
+    private val scope by lazy { MainScope() }
 
     override fun onCreate() {
         super.onCreate()
-        appOpenManager = AppOpenManager(this) // 콜드 부팅에서 복귀시 ad
+        appOpenManager.initialize(this)
         componentLogger.initialize(this)
 
-        applicationScope.launch {
+        scope.launch {
             AppCompatDelegate.setDefaultNightMode(
                 themeRepository.getUserTheme().firstOrNull()
                     ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
@@ -55,5 +56,6 @@ class MyApplication : Application() {
             BuildConfig.APPCENTER_KEY,
             Analytics::class.java, Crashes::class.java
         )
+        DynamicColors.applyToActivitiesIfAvailable(this)
     }
 }

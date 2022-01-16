@@ -16,30 +16,26 @@ plugins {
 }
 
 val key: String = gradleLocalProperties(rootDir).getProperty("APPCENTER_KEY")
+val unit:String = gradleLocalProperties(rootDir).getProperty("UNIT")
 
 android {
-
+    defaultConfig {
+        applicationId = ProjectConfigurations.applicationId
+        versionCode = ProjectConfigurations.versionCode
+        versionName = ProjectConfigurations.versionName
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
     buildTypes {
-
-        getByName("debug") {
+        defaultConfig {
             firebaseAppDistribution {
                 testers = "kimh00335@gmail.com"
             }
             buildConfigField("String", "APPCENTER_KEY", key)
-        }
-        getByName("release") {
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro")
-            firebaseAppDistribution {
-                testers = "kimh00335@gmail.com"
-            }
-            buildConfigField("String", "APPCENTER_KEY", key)
+            buildConfigField("String", "UNIT", unit)
         }
     }
-
     buildFeatures {
         dataBinding = true
-        viewBinding = true
     }
 }
 
@@ -51,7 +47,7 @@ dependencies {
     implementation(projects.features.uiMap)
     implementation(projects.features.uiSetting)
 
-    implementation(platform("com.google.firebase:firebase-bom:28.2.0"))
+    implementation(platform(Dep.Firebase.platform))
     implementation("com.google.firebase:firebase-core")
     implementation("com.google.firebase:firebase-crashlytics-ktx")
     implementation("com.google.firebase:firebase-perf-ktx")
@@ -59,48 +55,41 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-inappmessaging-display-ktx")
 
-    implementation(AndroidX.navigation_ui)
-    implementation(AndroidX.navigation_fragment)
-    implementation(AndroidX.activity_ktx)
-    implementation(AndroidX.core_ktx)
-    implementation(AndroidX.appcompat)
+    implementation(Dep.AndroidX.navigation.ui)
+    implementation(Dep.AndroidX.navigation.fragment)
+    implementation(Dep.AndroidX.appcompat)
+    implementation(Dep.AndroidX.coreKtx)
 
-    implementation(UI.constraintLayout)
-    implementation(UI.material)
-    implementation(UI.preference_ktx)
-    implementation(UI.recyclerview)
-    implementation(UI.viewPager)
+    implementation(Dep.AndroidX.UI.material)
+    implementation(Dep.AndroidX.UI.recyclerview)
+    implementation(Dep.AndroidX.UI.preference)
+    implementation(Dep.AndroidX.UI.viewPager)
 
-    implementation(Play.play_core)
-    implementation(Play.play_ads)
-    implementation(Play.play_location)
-    implementation(Play.oss)
+    implementation(Dep.Play.core)
+    implementation(Dep.Play.ad)
+    implementation(Dep.Play.oss)
+    implementation(Dep.Play.location)
 
-    implementation(SquareUp.timber)
+    implementation(Dep.timber)
 
-    implementation(Hilt.android)
-    kapt(Hilt.hilt_compiler)
+    implementation(Dep.Dagger.Hilt.android)
+    kapt(Dep.Dagger.Hilt.compiler)
 
-    implementation(Coil.coil)
+    implementation(Dep.Coil.core)
+    implementation(Dep.AndroidX.datastore.preference)
 
-    implementation(DataStore.preferences)
+    implementation(Dep.AndroidX.lifecycle.viewModelKtx)
+    implementation(Dep.AndroidX.lifecycle.runtime)
+    implementation(Dep.AndroidX.Compose.ui)
+    implementation(Dep.AndroidX.Compose.material)
+    implementation(Dep.AndroidX.Compose.tooling)
+    implementation(Dep.AndroidX.Compose.livedata)
 
-    implementation(AndroidX.LifeCycle.viewmodel)
-    implementation(AndroidX.LifeCycle.runtime)
+    implementation(Dep.AppCenter.analytics)
+    implementation(Dep.AppCenter.crashes)
+    implementation(Dep.Network.Retrofit.retrofit)
 
-    implementation(Dep2.Compose.ui)
-    implementation(Dep2.Compose.material)
-    implementation(Dep2.Compose.tooling)
-    implementation(Dep2.Compose.themeAdapter)
-    implementation(Dep2.Compose.liveData)
-
-    implementation(AppCenter.analytics)
-    implementation(AppCenter.crashes)
-
-    testImplementation(AppTest.junit)
-    androidTestImplementation(AppTest.androidJunit)
-    androidTestImplementation(AppTest.espressoCore)
-
-    implementation(SquareUp.retrofit)
-    implementation(SquareUp.core)
+    testImplementation(Dep.Test.junit)
+    androidTestImplementation(Dep.Test.androidJunit)
+    androidTestImplementation(Dep.Test.espressoCore)
 }

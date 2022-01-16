@@ -5,15 +5,14 @@ plugins {
 }
 
 dependencies {
-    implementation(Dep2.Compose.ui)
-    implementation(Dep2.Compose.material)
-    implementation(Dep2.Compose.tooling)
-    implementation(Dep2.Compose.themeAdapter)
-    implementation(Dep2.Compose.liveData)
-    implementation(Coil.coil)
-    implementation(Coil.compose)
-    implementation(Dep2.AndroidX.Activity.compose)
-    implementation(Dep2.Compose.themeAdapter)
-    implementation(Dep.Compose.glance)
+    implementation(Dep.AndroidX.Compose.ui)
+    implementation(Dep.AndroidX.Compose.material)
+    implementation(Dep.AndroidX.Compose.tooling)
+    implementation(Dep.AndroidX.Compose.livedata)
+    implementation(Dep.Coil.core)
+    implementation(Dep.Coil.compose)
+    implementation(Dep.AndroidX.Compose.activity)
+    implementation(Dep.AndroidX.Compose.materialAdapter)
+    implementation(Dep.AndroidX.Compose.glance)
 }
 

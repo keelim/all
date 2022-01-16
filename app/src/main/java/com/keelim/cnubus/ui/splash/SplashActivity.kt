@@ -26,18 +26,13 @@ import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.keelim.cnubus.BuildConfig
 import com.keelim.cnubus.databinding.ActivitySplashBinding
-import com.keelim.cnubus.di.MyPreference
 import com.keelim.cnubus.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import timber.log.Timber
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
-    @Inject
-    lateinit var myPreference: MyPreference
-
     private infix fun String.or(that: String): String = if (BuildConfig.DEBUG) this else that
     private var mInterstitialAd: InterstitialAd? = null
     private val binding by lazy { ActivitySplashBinding.inflate(layoutInflater) }
@@ -51,7 +46,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun observeData() = lifecycleScope.launchWhenCreated {
-        splashViewModel.loading.collect {
+        splashViewModel.loading.collect{
             if (it) {
                 showAd()
             }

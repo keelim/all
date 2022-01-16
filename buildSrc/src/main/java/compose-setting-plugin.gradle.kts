@@ -4,6 +4,6 @@ configure<BaseExtension> {
     buildFeatures.compose = true
 
     composeOptions {
-        kotlinCompilerExtensionVersion = Dep.Compose.version
+        kotlinCompilerExtensionVersion = Dep.AndroidX.Compose.version
     }
 }

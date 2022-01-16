@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.keelim.cnubus.data.model.Station
 import com.keelim.cnubus.databinding.ItemStationBinding
 import com.keelim.cnubus.ui.custom.Badge
-import com.keelim.cnubus.utils.dip
+import com.keelim.common.dip
 
 class StationsAdapter : RecyclerView.Adapter<StationsAdapter.ViewHolder>() {
 

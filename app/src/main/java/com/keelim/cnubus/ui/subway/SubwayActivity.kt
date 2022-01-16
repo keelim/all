@@ -21,9 +21,8 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.ActivitySubwayBinding
-import com.keelim.cnubus.ui.subway.stationarrivals.StationArrivalsFragmentArgs
-import com.keelim.cnubus.utils.toGone
-import com.keelim.cnubus.utils.toVisible
+import com.keelim.common.toGone
+import com.keelim.common.toVisible
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -47,7 +46,6 @@ class SubwayActivity : AppCompatActivity() {
         setupActionBarWithNavController(navigationController)
         navigationController.addOnDestinationChangedListener { _, destination, argument ->
             if (destination.id == R.id.station_arrivals_dest) {
-                title = StationArrivalsFragmentArgs.fromBundle(argument!!).station.name
                 toolbar.toVisible()
             } else {
                 toolbar.toGone()

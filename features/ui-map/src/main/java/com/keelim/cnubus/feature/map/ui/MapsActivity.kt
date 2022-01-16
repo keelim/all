@@ -22,6 +22,7 @@ import android.content.Intent
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
+import android.os.Looper
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -146,7 +147,7 @@ class MapsActivity : AppCompatActivity() {
         fusedLocationProvider.requestLocationUpdates(
             locationRequest,
             locationCallback,
-            null
+            Looper.myLooper()!!
         )
     }
 

@@ -8,19 +8,18 @@ plugins {
 dependencies {
     implementation(projects.data)
     implementation(projects.common)
-    implementation(AndroidX.core_ktx)
+    implementation(Dep.AndroidX.coreKtx)
 
-    implementation(Hilt.android)
-    kapt(Hilt.hilt_compiler)
+    implementation(Dep.Dagger.Hilt.android)
+    kapt(Dep.Dagger.Hilt.compiler)
 
-    implementation(SquareUp.timber)
-    implementation(Kotlin.stdlibJvm)
-    implementation(Coroutines.android)
-    implementation(Coroutines.core)
+    implementation(Dep.timber)
+    implementation(Dep.Kotlin.stdlibJvm)
+    implementation(Dep.Kotlin.coroutines.android)
+    implementation(Dep.Kotlin.coroutines.core)
 
-    testImplementation(AppTest.junit)
-    androidTestImplementation(AppTest.androidJunit)
-    androidTestImplementation(AppTest.espressoCore)
-    androidTestImplementation(Coroutines.test)
+    testImplementation(Dep.Test.junit)
+    androidTestImplementation(Dep.Test.androidJunit)
+    androidTestImplementation(Dep.Test.espressoCore)
 }
 

@@ -1,7 +1,0 @@
-<resources>
-<style name="AppTheme.AppBarOverlay" parent="AppTheme">
-    <item name="android:textColorPrimary">@color/white</item>
-    <item name="android:textColorSecondary">@color/black</item>
-</style>
-
-</resources>

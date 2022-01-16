@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
                 it.key == permission.ACCESS_FINE_LOCATION ||
                         it.key == permission.ACCESS_COARSE_LOCATION
             }
-            if (responsePermissions.filter { it.value == true }
+            if (responsePermissions.filter { it.value }
                     .size == locationPermissions.size) {
                 toast("권한이 확인되었습니다.")
             }

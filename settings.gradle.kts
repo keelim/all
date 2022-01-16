@@ -9,7 +9,7 @@ pluginManagement {
         mavenCentral()
     }
     plugins {
-        id("com.android.application") version "7.0.4"
+        id("com.android.application") version agpVersion
         id("com.android.library") version agpVersion
         id("org.jetbrains.kotlin.android") version kotlinVersion
         id("org.jetbrains.kotlin.jvm") version kotlinVersion

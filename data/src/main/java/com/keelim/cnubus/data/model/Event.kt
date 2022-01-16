@@ -16,7 +16,7 @@
 package com.keelim.cnubus.data.model
 
 open class Event<out T>(private val content: T) {
-    var hasBeenHandled = false
+    private var hasBeenHandled = false
         private set
 
     fun getContentIfNotHandled(): T? {

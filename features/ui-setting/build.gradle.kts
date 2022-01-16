@@ -12,22 +12,24 @@ dependencies {
     implementation(projects.domain)
     implementation(projects.common)
 
-    implementation(Dep2.Compose.ui)
-    implementation(Dep2.Compose.material)
-    implementation(Dep2.Compose.tooling)
-    implementation(Dep2.Compose.themeAdapter)
-    implementation(Dep2.Compose.liveData)
-    implementation(Dep.Compose.viewModel)
-    implementation(AndroidX.LifeCycle.livedata)
+    implementation(Dep.AndroidX.Compose.ui)
+    implementation(Dep.AndroidX.Compose.material)
+    implementation(Dep.AndroidX.Compose.tooling)
+    implementation(Dep.AndroidX.Compose.materialAdapter)
+    implementation(Dep.AndroidX.Compose.livedata)
+    implementation(Dep.AndroidX.Compose.viewModel)
 
-    implementation(Dep2.Coil.compose)
+    implementation(Dep.AndroidX.lifecycle.livedata)
 
-    implementation(Hilt.android)
-    kapt(Hilt.hilt_compiler)
-    
-    implementation(Dep2.timber)
+    implementation(Dep.Coil.compose)
+    implementation(Dep.Coil.core)
 
-    testImplementation(Dep2.Test.junit)
-    androidTestImplementation(Dep2.Test.junitExt)
-    androidTestImplementation(Dep2.Test.espresso)
+    implementation(Dep.Dagger.Hilt.android)
+    kapt(Dep.Dagger.Hilt.compiler)
+
+    implementation(Dep.timber)
+
+    testImplementation(Dep.Test.junit)
+    androidTestImplementation(Dep.Test.androidJunit)
+    androidTestImplementation(Dep.Test.espressoCore)
 }

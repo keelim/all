@@ -21,21 +21,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.keelim.cnubus.R
 import com.keelim.cnubus.data.model.Station
 import com.keelim.cnubus.databinding.FragmentStationsBinding
-import com.keelim.cnubus.utils.toGone
-import com.keelim.cnubus.utils.toVisible
+import com.keelim.common.toGone
+import com.keelim.common.toVisible
 import com.keelim.common.repeatCallDefaultOnStarted
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class StationsFragment : Fragment() {
@@ -74,7 +78,7 @@ class StationsFragment : Fragment() {
         binding.progressBar.toGone()
     }
 
-    fun showStations(stations: List<Station>) {
+    private fun showStations(stations: List<Station>) {
         (binding.recyclerView.adapter as? StationsAdapter)?.run {
             this.data = stations
             notifyDataSetChanged()
@@ -97,8 +101,9 @@ class StationsFragment : Fragment() {
 
         (binding.recyclerView.adapter as? StationsAdapter)?.apply {
             onItemClickListener = { station ->
-                val action = StationsFragmentDirections.actionStationsDestToStationArrivalsDest(station)
-                findNavController().navigate(action)
+                findNavController().navigate(R.id.stations_dest, bundleOf(
+                    "station" to station
+                ))
             }
             onFavoriteClickListener = { station ->
                 viewModel.toggleStationFavorite(station)
@@ -111,13 +116,15 @@ class StationsFragment : Fragment() {
         inputMethodManager.hideSoftInputFromWindow(activity?.currentFocus?.windowToken, 0)
     }
 
-    private fun observeState() = viewLifecycleOwner.repeatCallDefaultOnStarted {
-        viewModel.state.collect {
-            when (it) {
-                is StationState.HideLoading -> hideLoadingIndicator()
-                is StationState.ShowLoading -> showLoadingIndicator()
-                is StationState.ShowStation -> showStations(it.data)
-                is StationState.UnInitialized -> Unit
+    private fun observeState() = viewLifecycleOwner.lifecycleScope.launch {
+        repeatCallDefaultOnStarted {
+            viewModel.state.collect{
+                when (it) {
+                    is StationState.HideLoading -> hideLoadingIndicator()
+                    is StationState.ShowLoading -> showLoadingIndicator()
+                    is StationState.ShowStation -> showStations(it.data)
+                    is StationState.UnInitialized -> Unit
+                }
             }
         }
     }

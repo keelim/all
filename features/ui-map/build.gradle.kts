@@ -5,45 +5,35 @@ plugins {
     id("dagger.hilt.android.plugin")
 }
 
-android{
-    buildFeatures{
-        viewBinding = true
-    }
-}
-
 dependencies {
     implementation(projects.data)
     implementation(projects.compose)
     implementation(projects.domain)
     implementation(projects.common)
 
-    implementation(AndroidX.core_ktx)
-    implementation(AndroidX.appcompat)
-    implementation(AndroidX.activity_ktx)
-    implementation(AndroidX.fragment_ktx)
-    implementation(AndroidX.work)
-    implementation(Dep2.Compose.liveData)
+    implementation(Dep.AndroidX.appcompat)
+    implementation(Dep.AndroidX.coreKtx)
+    implementation(Dep.AndroidX.activity.ktx)
+    implementation(Dep.AndroidX.fragment.ktx)
 
-    implementation(UI.constraintLayout)
-    implementation(UI.recyclerview)
-    implementation(UI.material)
+    implementation(Dep.AndroidX.UI.recyclerview)
+    implementation(Dep.AndroidX.UI.material)
 
+    implementation(Dep.Dagger.Hilt.android)
+    kapt(Dep.Dagger.Hilt.compiler)
 
-    implementation(Hilt.android)
-    kapt(Hilt.hilt_compiler)
+    implementation(Dep.timber)
 
-    implementation(SquareUp.timber)
+    implementation(Dep.Coil.core)
 
-    implementation(Coil.coil)
+    implementation(Dep.Play.location)
+    implementation(Dep.Play.play_map)
+    implementation(Dep.Play.maps_sdk)
 
-    implementation(Play.play_location)
-    implementation(Play.play_map)
-    implementation(Play.maps_sdk)
+    implementation(Dep.Kotlin.stdlibJvm)
 
-    implementation(Kotlin.stdlibJvm)
-    testImplementation(AppTest.junit)
-    androidTestImplementation(AppTest.androidJunit)
-    androidTestImplementation(AppTest.espressoCore)
-    androidTestImplementation(Coroutines.test)
+    testImplementation(Dep.Test.junit)
+    androidTestImplementation(Dep.Test.androidJunit)
+    androidTestImplementation(Dep.Test.espressoCore)
 }
 

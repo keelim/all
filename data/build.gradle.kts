@@ -6,36 +6,37 @@ plugins {
 }
 
 dependencies {
-    implementation(AndroidX.core_ktx)
-    implementation(AndroidX.appcompat)
-    implementation(DataStore.preferences)
+    implementation(Dep.AndroidX.coreKtx)
+    implementation(Dep.AndroidX.appcompat)
+    implementation(Dep.AndroidX.datastore.preference)
 
-    implementation(Hilt.android)
-    kapt(Hilt.hilt_compiler)
+    implementation(Dep.Dagger.Hilt.android)
+    kapt(Dep.Dagger.Hilt.compiler)
 
-    implementation(SquareUp.core)
-    implementation(SquareUp.loggingInterceptor)
-    implementation(SquareUp.urlconnection)
-    implementation(SquareUp.retrofit)
-    implementation(SquareUp.retrofit_gson)
-    implementation(SquareUp.timber)
+    implementation(Dep.OkHttp.core)
+    implementation(Dep.OkHttp.loggingInterceptor)
 
-    implementation(Kotlin.stdlibJvm)
+    implementation(Dep.Network.Retrofit.retrofit)
+    implementation(Dep.Network.Retrofit.retrofit_gson)
+    implementation(Dep.Network.Retrofit.retrofit_moshi)
 
-    implementation(Play.maps_sdk)
+    implementation(Dep.timber)
 
-    implementation(Room.runtime)
-    implementation(Room.ktx)
-    kapt(Room.compiler)
+    implementation(Dep.Play.maps_sdk)
 
-    implementation(platform("com.google.firebase:firebase-bom:28.2.0"))
+    implementation(Dep.AndroidX.room.runtime)
+    implementation(Dep.AndroidX.room.ktx)
+    kapt(Dep.AndroidX.room.compiler)
+
+    implementation(Dep.Kotlin.stdlibJvm)
+    implementation(Dep.Kotlin.coroutines.play)
+
+    implementation(platform(Dep.Firebase.platform))
     implementation("com.google.firebase:firebase-storage-ktx")
 
 
-    implementation(Coroutines.play)
-    testImplementation(AppTest.junit)
-    androidTestImplementation(AppTest.androidJunit)
-    androidTestImplementation(AppTest.espressoCore)
-    androidTestImplementation(Coroutines.test)
+    testImplementation(Dep.Test.junit)
+    androidTestImplementation(Dep.Test.androidJunit)
+    androidTestImplementation(Dep.Test.espressoCore)
 }
 

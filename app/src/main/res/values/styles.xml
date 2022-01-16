@@ -9,6 +9,13 @@
         <item name="android:textColor">@color/main_text_color</item>
     </style>
 
+    <style name="AppTheme.material3" parent="ThemeOverlay.Material3.DynamicColors.DayNight">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorOnPrimary">@color/colorAccent</item>
+        <item name="colorPrimaryContainer">@color/error</item>
+        <item name="colorOnPrimaryContainer">@color/colorPrimaryDark</item>
+    </style>
+
     <style name="Theme.JetpackSplashScreenDemo" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>

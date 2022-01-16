@@ -24,27 +24,29 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.keelim.cnubus.R
 import com.keelim.cnubus.data.model.ArrivalInformation
+import com.keelim.cnubus.data.model.Station
 import com.keelim.cnubus.databinding.FragmentStationArrivalsBinding
-import com.keelim.cnubus.utils.toGone
-import com.keelim.cnubus.utils.toVisible
+import com.keelim.common.toGone
+import com.keelim.common.toVisible
 import com.keelim.common.repeatCallDefaultOnStarted
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class StationArrivalsFragment : Fragment() {
 
     private var _binding: FragmentStationArrivalsBinding? = null
     private val binding get() = _binding!!
-    private val arguments: StationArrivalsFragmentArgs by navArgs()
     private val viewModel: StationArrivalsViewModel by viewModels()
-
+    private val station: Station? by lazy { requireArguments().getParcelable("station") }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -58,7 +60,7 @@ class StationArrivalsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.fetchStationArrivals()
-        viewModel.setStation(arguments.station)
+        viewModel.setStation(station!!)
         initViews()
         observeState()
     }
@@ -72,13 +74,13 @@ class StationArrivalsFragment : Fragment() {
         inflater.inflate(R.menu.menu_station_arrivals, menu)
         menu.findItem(R.id.favoriteAction).apply {
             setIcon(
-                if (arguments.station.isFavorited) {
+                if (station!!.isFavorited) {
                     R.drawable.ic_star
                 } else {
                     R.drawable.ic_star_empty
                 }
             )
-            isChecked = arguments.station.isFavorited
+            isChecked = station!!.isFavorited
         }
     }
 
@@ -133,15 +135,17 @@ class StationArrivalsFragment : Fragment() {
         }
     }
 
-    private fun observeState() = viewLifecycleOwner.repeatCallDefaultOnStarted {
-        viewModel.state.collect {
-            when (it) {
-                is ArrivalState.HideLoading -> hideLoadingIndicator()
-                is ArrivalState.ShowLoading -> showLoadingIndicator()
-                is ArrivalState.ShowStationArrivals -> showStationArrivals(it.data)
-                is ArrivalState.UnInitialized -> Unit
-                is ArrivalState.Error -> {
-                    showErrorDescription(it.message)
+    private fun observeState() = viewLifecycleOwner.lifecycleScope.launch {
+        repeatCallDefaultOnStarted {
+            viewModel.state.collect {
+                when (it) {
+                    is ArrivalState.HideLoading -> hideLoadingIndicator()
+                    is ArrivalState.ShowLoading -> showLoadingIndicator()
+                    is ArrivalState.ShowStationArrivals -> showStationArrivals(it.data)
+                    is ArrivalState.UnInitialized -> Unit
+                    is ArrivalState.Error -> {
+                        showErrorDescription(it.message)
+                    }
                 }
             }
         }

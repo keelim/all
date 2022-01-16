@@ -28,16 +28,11 @@ import com.keelim.cnubus.databinding.ActivityContent2Binding
 
 class Content2Activity : AppCompatActivity() {
     private val binding by lazy { ActivityContent2Binding.inflate(layoutInflater) }
-    private val viewModel by viewModels<Content2ViewModel>()
+    private val viewModel: Content2ViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        binding.apply {
-            vm = viewModel
-            lifecycleOwner = this@Content2Activity
-            pager.adapter = ScreenSliderPagerAdapter(this@Content2Activity)
-        }
-
+        setContentView(binding.root)
+        initViews()
         viewModel.viewEvent.observe(this) {
             it.getContentIfNotHandled()?.let { event ->
                 when (event) {
@@ -50,7 +45,12 @@ class Content2Activity : AppCompatActivity() {
                 }
             }
         }
-        setContentView(binding.root)
+    }
+
+    private fun initViews() = with(binding) {
+        vm = viewModel
+        lifecycleOwner = this@Content2Activity
+        pager.adapter = ScreenSliderPagerAdapter(this@Content2Activity)
     }
 
     private val images = arrayOf(
@@ -60,6 +60,7 @@ class Content2Activity : AppCompatActivity() {
 
     inner class ScreenSliderPagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
         override fun getItemCount(): Int = 2
-        override fun createFragment(position: Int): Fragment = ImageSlideFragment.getInstance(images[position])
+        override fun createFragment(position: Int): Fragment =
+            ImageSlideFragment.getInstance(images[position])
     }
 }

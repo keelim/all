@@ -26,6 +26,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.keelim.cnubus.R
 import com.keelim.cnubus.data.repository.theme.AppTheme
 import com.keelim.cnubus.feature.map.ui.MapsActivity
@@ -34,11 +35,6 @@ import com.keelim.cnubus.ui.main.MainViewModel
 import com.keelim.cnubus.ui.setting.compose.ScreenAction
 import com.keelim.cnubus.ui.setting.compose.SettingScreen
 import com.keelim.cnubus.ui.subway.SubwayActivity
-import com.keelim.cnubus.utils.MaterialDialog
-import com.keelim.cnubus.utils.MaterialDialog.Companion.negativeButton
-import com.keelim.cnubus.utils.MaterialDialog.Companion.positiveButton
-import com.keelim.cnubus.utils.MaterialDialog.Companion.singleChoiceItems
-import com.keelim.cnubus.utils.MaterialDialog.Companion.title
 import com.keelim.common.repeatCallDefaultOnStarted
 import com.keelim.compose.ui.setThemeContent
 import com.keelim.ui_setting.ClockActivity
@@ -60,7 +56,12 @@ class SettingFragment2 : Fragment() {
         return setThemeContent {
             SettingScreen { action ->
                 when (action) {
-                    ScreenAction.Content -> startActivity(Intent(requireContext(), Content2Activity::class.java))
+                    ScreenAction.Content -> startActivity(
+                        Intent(
+                            requireContext(),
+                            Content2Activity::class.java
+                        )
+                    )
                     ScreenAction.Homepage -> startActivity(
                         Intent(
                             Intent.ACTION_VIEW,
@@ -68,17 +69,42 @@ class SettingFragment2 : Fragment() {
                         )
                     )
 
-                    ScreenAction.Map -> startActivity(Intent(requireActivity(), MapsActivity::class.java))
+                    ScreenAction.Map -> startActivity(
+                        Intent(
+                            requireActivity(),
+                            MapsActivity::class.java
+                        )
+                    )
                     ScreenAction.Update -> startActivity(
                         Intent(Intent.ACTION_VIEW).apply {
                             data = Uri.parse(getString(R.string.updateLink))
                         }
                     )
                     ScreenAction.Theme -> selectTheme()
-                    ScreenAction.OpenSource -> startActivity(Intent(requireContext(), OssLicensesMenuActivity::class.java))
-                    ScreenAction.Lab -> startActivity(Intent(requireContext(), ClockActivity::class.java))
-                    ScreenAction.Developer -> startActivity(Intent(requireContext(), SettingActivity::class.java))
-                    ScreenAction.Subway -> startActivity(Intent(requireContext(), SubwayActivity::class.java))
+                    ScreenAction.OpenSource -> startActivity(
+                        Intent(
+                            requireContext(),
+                            OssLicensesMenuActivity::class.java
+                        )
+                    )
+                    ScreenAction.Lab -> startActivity(
+                        Intent(
+                            requireContext(),
+                            ClockActivity::class.java
+                        )
+                    )
+                    ScreenAction.Developer -> startActivity(
+                        Intent(
+                            requireContext(),
+                            SettingActivity::class.java
+                        )
+                    )
+                    ScreenAction.Subway -> startActivity(
+                        Intent(
+                            requireContext(),
+                            SubwayActivity::class.java
+                        )
+                    )
                 }
             }
         }
@@ -89,10 +115,12 @@ class SettingFragment2 : Fragment() {
         initAppThemeObserver()
     }
 
-    private fun initAppThemeObserver() = viewLifecycleOwner.repeatCallDefaultOnStarted {
-        mainViewModel.theme.collect { theme ->
-            val nextTheme = AppTheme.THEME_ARRAY.firstOrNull {
-                it.modeNight == theme
+    private fun initAppThemeObserver() = viewLifecycleOwner.lifecycleScope.launch {
+        repeatCallDefaultOnStarted {
+            mainViewModel.theme.collect { theme ->
+                val nextTheme = AppTheme.THEME_ARRAY.firstOrNull {
+                    it.modeNight == theme
+                }
             }
         }
     }
@@ -101,20 +129,22 @@ class SettingFragment2 : Fragment() {
         val currentTheme = mainViewModel.theme.last()
         var checkedItem = AppTheme.THEME_ARRAY.indexOfFirst { it.modeNight == currentTheme }
         if (checkedItem >= 0) {
-            val items = AppTheme.THEME_ARRAY.map { theme -> getText(theme.modeNameRes) }.toTypedArray()
+            val items =
+                AppTheme.THEME_ARRAY.map { theme -> getText(theme.modeNameRes) }.toTypedArray()
 
-            MaterialDialog.createDialog(requireContext()) {
-                title(R.string.choose_theme)
-                singleChoiceItems(items, checkedItem) {
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle(R.string.choose_theme)
+                .setSingleChoiceItems(items, checkedItem) { _, it ->
                     checkedItem = it
                 }
-                positiveButton(getString(R.string.ok)) {
+                .setPositiveButton(R.string.ok) { _, _ ->
                     val mode = AppTheme.THEME_ARRAY[checkedItem].modeNight
                     AppCompatDelegate.setDefaultNightMode(mode)
                     mainViewModel.setAppTheme(mode)
+                }.setNegativeButton(R.string.cancel) { _, _ ->
+
                 }
-                negativeButton(getString(R.string.cancel))
-            }.show()
+                .show()
         }
     }
 }

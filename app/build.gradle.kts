@@ -1,8 +1,8 @@
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 
 plugins {
-    id("com.android.application")
-    id("kotlin-android")
+    id("application-setting-plugin")
+    id("compose-setting-plugin")
     id("kotlin-kapt")
     id("kotlin-parcelize")
     id("com.google.gms.google-services")
@@ -15,67 +15,27 @@ plugins {
     id ("com.google.secrets_gradle_plugin") version("0.5")
 }
 
-
 val key: String = gradleLocalProperties(rootDir).getProperty("APPCENTER_KEY")
-
+val unit:String = gradleLocalProperties(rootDir).getProperty("UNIT")
 
 android {
-    compileSdk = ProjectConfigurations.compileSdk
-
     defaultConfig {
         applicationId = ProjectConfigurations.applicationId
-        minSdk = ProjectConfigurations.minSdk
-        targetSdk = ProjectConfigurations.targetSdk
         versionCode = ProjectConfigurations.versionCode
         versionName = ProjectConfigurations.versionName
-        
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-
-    lint {
-        checkDependencies = true
-    }
-
     buildTypes {
-
-        debug{
+        defaultConfig {
             firebaseAppDistribution {
                 testers = "kimh00335@gmail.com"
             }
             buildConfigField("String", "APPCENTER_KEY", key)
-        }
-        release{
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro")
-            firebaseAppDistribution {
-                testers = "kimh00335@gmail.com"
-            }
-            buildConfigField("String", "APPCENTER_KEY", key)
+            buildConfigField("String", "UNIT", unit)
         }
     }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-
-    kotlinOptions {
-        jvmTarget = "11"
-    }
-
     buildFeatures {
         dataBinding = true
-        viewBinding = true
-        compose = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = ProjectConfigurations.composeCompiler
-    }
-
-    kapt {
-        correctErrorTypes = true
-        useBuildCache = true
     }
 }
 
@@ -87,59 +47,49 @@ dependencies {
     implementation(projects.features.uiMap)
     implementation(projects.features.uiSetting)
 
-    implementation(platform("com.google.firebase:firebase-bom:28.2.0"))
+    implementation(platform(Dep.Firebase.platform))
     implementation("com.google.firebase:firebase-core")
     implementation("com.google.firebase:firebase-crashlytics-ktx")
     implementation("com.google.firebase:firebase-perf-ktx")
     implementation("com.google.firebase:firebase-messaging-ktx")
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-inappmessaging-display-ktx")
-    implementation(AndroidX.navigation_ui)
-    implementation(AndroidX.navigation_fragment)
-    implementation(AndroidX.activity_ktx)
-    implementation(AndroidX.core_ktx)
-    implementation(AndroidX.appcompat)
-    implementation(UI.constraintLayout)
-    implementation(UI.material)
-    implementation(UI.preference_ktx)
-    implementation(UI.recyclerview)
-    implementation(Play.play_core)
-    implementation(Play.play_ads)
-    implementation(Play.play_location)
-    testImplementation(AppTest.junit)
-    androidTestImplementation(AppTest.androidJunit)
-    androidTestImplementation(AppTest.espressoCore)
-    implementation(SquareUp.timber)
-    implementation(Hilt.android)
-    kapt(Hilt.hilt_compiler)
-    implementation(Coil.coil)
-    implementation(DataStore.preferences)
-    implementation(LifeCycle.viewmodel)
-    implementation(LifeCycle.livedata)
-    implementation("com.google.android.gms:play-services-oss-licenses:17.0.0")
-    implementation(Compose.compose_ui)
-    implementation(Compose.compose_ui_tooling)
-    implementation(Compose.foundation)
-    implementation(Compose.compose_material)
-    implementation(Compose.compose_icon)
-    implementation(Compose.expand_icon)
-    implementation(Compose.runtime_livedata)
-    androidTestImplementation(Compose.compose_junit)
 
-    implementation("androidx.core:core-splashscreen:1.0.0-alpha02")
-    implementation("androidx.viewpager2:viewpager2:1.0.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
+    implementation(Dep.AndroidX.navigation.ui)
+    implementation(Dep.AndroidX.navigation.fragment)
+    implementation(Dep.AndroidX.appcompat)
+    implementation(Dep.AndroidX.coreKtx)
 
+    implementation(Dep.AndroidX.UI.material)
+    implementation(Dep.AndroidX.UI.recyclerview)
+    implementation(Dep.AndroidX.UI.preference)
+    implementation(Dep.AndroidX.UI.viewPager)
 
-    implementation(SquareUp.retrofit)
-    val appCenterSdkVersion = "4.3.1"
-    implementation("com.microsoft.appcenter:appcenter-analytics:${appCenterSdkVersion}")
-    implementation("com.microsoft.appcenter:appcenter-crashes:${appCenterSdkVersion}")
+    implementation(Dep.Play.core)
+    implementation(Dep.Play.ad)
+    implementation(Dep.Play.oss)
+    implementation(Dep.Play.location)
+
+    implementation(Dep.timber)
+
+    implementation(Dep.Dagger.Hilt.android)
+    kapt(Dep.Dagger.Hilt.compiler)
+
+    implementation(Dep.Coil.core)
+    implementation(Dep.AndroidX.datastore.preference)
+
+    implementation(Dep.AndroidX.lifecycle.viewModelKtx)
+    implementation(Dep.AndroidX.lifecycle.runtime)
+    implementation(Dep.AndroidX.Compose.ui)
+    implementation(Dep.AndroidX.Compose.material)
+    implementation(Dep.AndroidX.Compose.tooling)
+    implementation(Dep.AndroidX.Compose.livedata)
+
+    implementation(Dep.AppCenter.analytics)
+    implementation(Dep.AppCenter.crashes)
+    implementation(Dep.Network.Retrofit.retrofit)
+
+    testImplementation(Dep.Test.junit)
+    androidTestImplementation(Dep.Test.androidJunit)
+    androidTestImplementation(Dep.Test.espressoCore)
 }
-
-apply(from = "$rootDir/spotless.gradle")
-kapt {
-    correctErrorTypes = true
-}
-
-

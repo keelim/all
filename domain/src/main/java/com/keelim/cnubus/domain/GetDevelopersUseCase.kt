@@ -17,8 +17,8 @@ package com.keelim.cnubus.domain
 
 import com.keelim.cnubus.data.model.Developer
 import com.keelim.cnubus.data.repository.setting.DeveloperRepository
+import com.keelim.cnubus.di.IoDispatcher
 import com.keelim.cnubus.domain.usecase.NonParamCoroutineUseCase
-import com.keelim.common.di.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
 

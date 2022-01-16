@@ -1,15 +1,8 @@
 plugins {
-    id("com.android.library")
-    kotlin("android")
-    kotlin("kapt")
+    id("library-setting-plugin")
+    id("kotlin-kapt")
     id("kotlin-parcelize")
     id("dagger.hilt.android.plugin")
-}
-
-listOf(
-    "android.gradle",
-).forEach { file ->
-    apply(from = "${rootDir}/gradle/${file}")
 }
 
 dependencies {
@@ -17,33 +10,30 @@ dependencies {
     implementation(projects.compose)
     implementation(projects.domain)
     implementation(projects.common)
-    implementation(AndroidX.core_ktx)
-    implementation(AndroidX.appcompat)
-    implementation(AndroidX.activity_ktx)
-    implementation(AndroidX.fragment_ktx)
-    implementation(AndroidX.work)
 
+    implementation(Dep.AndroidX.appcompat)
+    implementation(Dep.AndroidX.coreKtx)
+    implementation(Dep.AndroidX.activity.ktx)
+    implementation(Dep.AndroidX.fragment.ktx)
 
-    implementation(UI.constraintLayout)
-    implementation(UI.recyclerview)
-    implementation(UI.material)
+    implementation(Dep.AndroidX.UI.recyclerview)
+    implementation(Dep.AndroidX.UI.material)
 
-    implementation(Hilt.android)
-    kapt(Hilt.hilt_compiler)
+    implementation(Dep.Dagger.Hilt.android)
+    kapt(Dep.Dagger.Hilt.compiler)
 
-    implementation(SquareUp.timber)
-    implementation(Coroutines.android)
+    implementation(Dep.timber)
 
-    implementation(Kotlin.stdlibJvm)
-    testImplementation(AppTest.junit)
-    androidTestImplementation(AppTest.androidJunit)
-    androidTestImplementation(AppTest.espressoCore)
-    androidTestImplementation(Coroutines.test)
+    implementation(Dep.Coil.core)
 
-    implementation(Play.play_location)
-    implementation(Play.play_map)
-    implementation(Play.maps_sdk)
+    implementation(Dep.Play.location)
+    implementation(Dep.Play.play_map)
+    implementation(Dep.Play.maps_sdk)
 
-    implementation(Coil.coil)
+    implementation(Dep.Kotlin.stdlibJvm)
+
+    testImplementation(Dep.Test.junit)
+    androidTestImplementation(Dep.Test.androidJunit)
+    androidTestImplementation(Dep.Test.espressoCore)
 }
 

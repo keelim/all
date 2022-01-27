@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.ui_setting.ui
+package com.keelim.ui_setting.ui.components
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.LinearOutSlowInEasing
@@ -32,7 +32,6 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -47,8 +46,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import kotlinx.coroutines.delay
+import com.keelim.ui_setting.ui.theme.Pink80
+import com.keelim.ui_setting.ui.theme.Purple80
 import java.util.Calendar
+import kotlinx.coroutines.delay
 
 data class Time(val hours: Int, val minutes: Int, val seconds: Int)
 
@@ -136,7 +137,7 @@ fun NumberColumn(
 @Composable
 fun Number(active: Boolean, value: Int, modifier: Modifier = Modifier) {
     val backgroundColor by animateColorAsState(
-        if (active) MaterialTheme.colors.primary else MaterialTheme.colors.primaryVariant,
+        if (active) Purple80 else Pink80,
     )
 
     Box(

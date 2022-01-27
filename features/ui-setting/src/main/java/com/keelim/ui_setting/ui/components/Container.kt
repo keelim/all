@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.ui_setting.ui
+package com.keelim.ui_setting.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -46,6 +46,8 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.keelim.compose.ui.Loading
 import com.keelim.compose.ui.UiState
+import com.keelim.ui_setting.ui.Section
+import com.keelim.ui_setting.ui.SettingViewModel
 
 @Composable
 internal fun Navigation(

@@ -16,12 +16,16 @@
 package com.keelim.ui_setting.ui
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.ComponentActivity
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
 import com.keelim.compose.ui.setThemeContent
+import com.keelim.ui_setting.ui.components.Navigation
+import com.keelim.ui_setting.ui.theme.CnubusTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SettingActivity : AppCompatActivity() {
+class SettingActivity : ComponentActivity() {
 
     private val type by lazy {
         (intent.extras?.get("type") as Section?) ?: Section.Developer
@@ -29,11 +33,24 @@ class SettingActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setThemeContent {
-            Navigation(
-                path = type,
-                onBackAction = { onBackPressed() }
-            )
+        setThemeContent{
+            CnubusTheme {
+                Navigation(
+                    path = type,
+                    onBackAction = { onBackPressed() }
+                )
+            }
         }
+    }
+}
+
+@Preview
+@Composable
+fun PreviewSettingActivity(){
+    CnubusTheme {
+        Navigation(
+            path = Section.Developer,
+            onBackAction = { },
+        )
     }
 }

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.keelim.cnubus.feature.map">
-    <application
-        android:theme="@style/AppTheme"
-        >
+    <application>
         <activity
+            android:theme="@style/AppTheme"
             android:exported="true"
             android:name=".ui.MapsActivity"
             android:label="maps" />

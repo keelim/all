@@ -52,7 +52,6 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-@SuppressLint("MissingPermission")
 @AndroidEntryPoint
 class MapsActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMapsBinding.inflate(layoutInflater) }
@@ -94,16 +93,11 @@ class MapsActivity : AppCompatActivity() {
     private val viewPagerAdapter by lazy {
         LocationPagerAdapter(
             itemClicked = {
-                val intent = Intent()
-                    .apply {
-                        action = Intent.ACTION_SEND
-                        putExtra(
-                            Intent.EXTRA_TEXT,
-                            "[확인] ${it.name} 사진보기 : ${it.imgUrl}"
-                        )
-                        type = "text/plain"
-                    }
-                startActivity(Intent.createChooser(intent, null))
+                startActivity(Intent.createChooser(Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, "[확인] ${it.name} 사진보기 : ${it.imgUrl}")
+                    type = "text/plain"
+                }, null))
             }
         )
     }
@@ -221,11 +215,15 @@ class MapsActivity : AppCompatActivity() {
                     is MapEvent.MigrateSuccess -> {
                         googleMap = mapFragment.awaitMap()
                         updateMarker(it.data)
-                        val cameraUpdate = if (location == -1) {
-                            CameraUpdateFactory.newLatLngZoom(it.data[0].latLng, 17f)
-                        } else {
-                            CameraUpdateFactory.newLatLngZoom(it.data[location].latLng, 17f)
-                        }
+                        val cameraUpdate = CameraUpdateFactory
+                            .newLatLngZoom(
+                                if(location==-1){
+                                    it.data[0].latLng
+                                } else{
+                                    it.data[location].latLng
+                                },
+                                17f
+                            )
                         googleMap.apply {
                             animateCamera(cameraUpdate)
                             isMyLocationEnabled = true

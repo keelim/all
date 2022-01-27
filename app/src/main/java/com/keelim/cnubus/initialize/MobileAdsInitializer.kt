@@ -26,6 +26,8 @@ class MobileAdsInitializer : Initializer<Unit> {
     }
 
     override fun dependencies(): List<Class<out Initializer<*>>> {
-        return emptyList()
+        return listOf(
+            MobileAdsInitializer::class.java
+        )
     }
 }

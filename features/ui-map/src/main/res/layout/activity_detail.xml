@@ -24,32 +24,24 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:maxLines="1"
-        app:layout_constraintBottom_toTopOf="@id/card_image"
+        app:layout_constraintBottom_toTopOf="@id/image_detail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/title"
         app:layout_constraintTop_toTopOf="@id/title"
         tools:text="@tools:sample/lorem/random" />
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card_image"
+
+    <ImageView
+        android:id="@+id/image_detail"
         style="@style/Widget.Material3.CardView.Outlined"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toTopOf="@id/recycler_comment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title">
-
-        <ImageView
-            android:id="@+id/image_detail"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitXY"
-            tools:src="@tools:sample/avatars" />
-
-    </com.google.android.material.card.MaterialCardView>
+        app:layout_constraintTop_toBottomOf="@id/title"
+        tools:src="@tools:sample/avatars" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_comment"
@@ -58,7 +50,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/card_image"
+        app:layout_constraintTop_toBottomOf="@id/image_detail"
         tools:listitem="@layout/item_comment" />
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
@@ -70,6 +62,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/card_image" />
+        app:layout_constraintTop_toBottomOf="@id/image_detail" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

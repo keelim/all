@@ -5,9 +5,8 @@ plugins {
     id("kotlin-kapt")
     id("kotlin-parcelize")
     id("dagger.hilt.android.plugin")
-    id("com.google.devtools.ksp")
-
 }
+
 val DATA_BASE_URL = gradleLocalProperties(rootDir).getProperty("DATA_BASE_URL")
 
 android{
@@ -39,7 +38,7 @@ dependencies {
 
     implementation(Dep.AndroidX.room.runtime)
     implementation(Dep.AndroidX.room.ktx)
-    ksp(Dep.AndroidX.room.compiler)
+    kapt(Dep.AndroidX.room.compiler)
 
     implementation(Dep.Kotlin.stdlibJvm)
     implementation(Dep.Kotlin.coroutines.play)
@@ -50,7 +49,7 @@ dependencies {
 
     implementation(Dep.Network.Retrofit.retrofit_moshi)
     implementation(Dep.Network.Moshi.moshi_kotlin)
-    ksp(Dep.Network.Moshi.moshi_codegen)
+    kapt(Dep.Network.Moshi.moshi_codegen)
 
     testImplementation(Dep.Test.junit)
     androidTestImplementation(Dep.Test.androidJunit)

@@ -6,11 +6,14 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.keelim.cnubus.data.model.gps.Location
-import com.keelim.cnubus.feature.map.R
 import com.keelim.cnubus.feature.map.databinding.ActivityDetailBinding
 import com.keelim.common.loadAsync
 import com.keelim.common.repeatCallDefaultOnStarted
+import com.keelim.common.snak
+import com.keelim.common.toGone
+import com.keelim.common.toVisible
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -42,7 +45,25 @@ class DetailActivity : AppCompatActivity() {
 
     private fun observeState() = lifecycleScope.launch {
         repeatCallDefaultOnStarted {
-
+            viewModel.state.collect {
+                when (it) {
+                    is DetailState.Error -> {}
+                    is DetailState.Loading -> {
+                        binding.loading.toVisible()
+                    }
+                    is DetailState.Success -> {
+                        binding.loading.toGone()
+                        binding.root.snak(
+                            if (it.data.isEmpty()) {
+                                "데이터가 비어있습니다."
+                            } else {
+                                "현재 업데이트 준비 구간입니다."
+                            }
+                        )
+                    }
+                    is DetailState.UnInitialized -> {}
+                }
+            }
         }
     }
 }

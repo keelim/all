@@ -11,5 +11,5 @@ dependencies {
     implementation(Dep.AndroidX.activity.ktx)
     implementation(Dep.AndroidX.fragment.ktx)
     implementation(Dep.Coil.core)
-
+    implementation(Dep.AndroidX.UI.material)
 }

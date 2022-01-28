@@ -32,10 +32,8 @@ import com.keelim.cnubus.data.db.entity.SubwayEntity
         StationSubwayCrossRefEntity::class,
         Comment::class
     ],
-    autoMigrations = [
-        AutoMigration(from = 1, to = 2)
-    ],
-    version = 2,
+    version = 1,
+    exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun daoStation(): StationDao

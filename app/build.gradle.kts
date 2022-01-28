@@ -88,6 +88,7 @@ dependencies {
     implementation(Dep.AppCenter.analytics)
     implementation(Dep.AppCenter.crashes)
     implementation(Dep.Network.Retrofit.retrofit)
+    implementation(Dep.Network.Moshi.moshi_kotlin)
 
     testImplementation(Dep.Test.junit)
     androidTestImplementation(Dep.Test.androidJunit)

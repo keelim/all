@@ -76,7 +76,7 @@ object Dep {
 
         object UI {
             const val browser = "androidx.browser:browser:1.4.0"
-            const val material = "com.google.android.material:material:1.5.0-alpha04"
+            const val material = "com.google.android.material:material:1.5.0"
             const val palette = "androidx.palette:palette:1.0.0"
             const val preference = "androidx.preference:preference-ktx:1.1.1"
             const val recyclerview = "androidx.recyclerview:recyclerview:1.2.1"
@@ -92,6 +92,7 @@ object Dep {
             const val ui = "androidx.compose.ui:ui:${version}"
             const val material = "androidx.compose.material:material:${version}"
             const val materialAdapter = "com.google.android.material:compose-theme-adapter:${version}"
+            const val material3 = "androidx.compose.material3:material3:1.0.0-alpha04"
             const val tooling = "androidx.compose.ui:ui-tooling:${version}"
             const val livedata = "androidx.compose.runtime:runtime-livedata:$version"
             const val animation = "androidx.compose.animation:animation:$version"

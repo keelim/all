@@ -56,14 +56,12 @@ class LocationAdapter : ListAdapter<Location, LocationAdapter.ItemViewHolder>(di
     }
 
     companion object {
-
         val diffUtil = object : DiffUtil.ItemCallback<Location>() {
             override fun areItemsTheSame(oldItem: Location, newItem: Location): Boolean {
                 return oldItem == newItem
             }
-
             override fun areContentsTheSame(oldItem: Location, newItem: Location): Boolean {
-                return oldItem == newItem
+                return oldItem.imgUrl == newItem.imgUrl
             }
         }
     }

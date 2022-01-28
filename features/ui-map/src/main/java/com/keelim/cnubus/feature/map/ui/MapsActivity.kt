@@ -16,7 +16,6 @@
 package com.keelim.cnubus.feature.map.ui
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.location.LocationListener
@@ -45,14 +44,15 @@ import com.keelim.cnubus.feature.map.databinding.ActivityMapsBinding
 import com.keelim.cnubus.feature.map.databinding.BottomSheetBinding
 import com.keelim.cnubus.feature.map.ui.map3.LocationAdapter
 import com.keelim.cnubus.feature.map.ui.map3.LocationPagerAdapter
+import com.keelim.cnubus.feature.map.ui.map3.detail.DetailActivity
 import com.keelim.common.repeatCallDefaultOnStarted
+import com.keelim.common.startActivity
 import com.keelim.common.toast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-@SuppressLint("MissingPermission")
 @AndroidEntryPoint
 class MapsActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMapsBinding.inflate(layoutInflater) }
@@ -93,17 +93,17 @@ class MapsActivity : AppCompatActivity() {
 
     private val viewPagerAdapter by lazy {
         LocationPagerAdapter(
-            itemClicked = {
-                val intent = Intent()
-                    .apply {
-                        action = Intent.ACTION_SEND
-                        putExtra(
-                            Intent.EXTRA_TEXT,
-                            "[확인] ${it.name} 사진보기 : ${it.imgUrl}"
-                        )
-                        type = "text/plain"
-                    }
-                startActivity(Intent.createChooser(intent, null))
+            clicked =  {
+                startActivity(Intent(this@MapsActivity, DetailActivity::class.java).apply {
+                    putExtra("item", it)
+                })
+            },
+            longClicked = {
+                startActivity(Intent.createChooser(Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, "[확인] ${it.name} 사진보기 : ${it.imgUrl}")
+                    type = "text/plain"
+                }, null))
             }
         )
     }
@@ -221,11 +221,15 @@ class MapsActivity : AppCompatActivity() {
                     is MapEvent.MigrateSuccess -> {
                         googleMap = mapFragment.awaitMap()
                         updateMarker(it.data)
-                        val cameraUpdate = if (location == -1) {
-                            CameraUpdateFactory.newLatLngZoom(it.data[0].latLng, 17f)
-                        } else {
-                            CameraUpdateFactory.newLatLngZoom(it.data[location].latLng, 17f)
-                        }
+                        val cameraUpdate = CameraUpdateFactory
+                            .newLatLngZoom(
+                                if(location==-1){
+                                    it.data[0].latLng
+                                } else{
+                                    it.data[location].latLng
+                                },
+                                17f
+                            )
                         googleMap.apply {
                             animateCamera(cameraUpdate)
                             isMyLocationEnabled = true

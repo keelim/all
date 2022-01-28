@@ -13,8 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.ui_setting.ui
+package com.keelim.ui_setting.ui.components
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -28,6 +30,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -35,6 +38,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -63,22 +67,34 @@ internal fun DeveloperScreen(
     }
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun Profile(
     modifier: Modifier = Modifier,
     person: Developer,
 ) {
+    val ctx = LocalContext.current
     Card(
         modifier = modifier.aspectRatio(0.75f),
         shape = RoundedCornerShape(8.dp),
-        elevation = 4.dp
+        elevation = 4.dp,
+        onClick = {
+            ctx.startActivity(
+                Intent(
+                    Intent.ACTION_VIEW, Uri.parse(
+                        "https://www.github.com/keelim"
+                    )
+                )
+            )
+        }
     ) {
         Column(
             modifier = Modifier.padding(12.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             ProfileImageView(
-                imageUrl = person.photoUrl,
+//                imageUrl = person.photoUrl,
+                imageUrl = "",
                 stateColor = Color(android.graphics.Color.parseColor("#43B1B3")),
                 modifier = Modifier
                     .weight(1f)

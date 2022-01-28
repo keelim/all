@@ -8,12 +8,11 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/top_container"
+        style="@style/Widget.Material3.CardView.Elevated"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_marginHorizontal="60dp"
-        android:layout_marginTop="10dp"
-        android:elevation="30dp"
-        app:cardCornerRadius="30dp">
+        android:layout_marginTop="10dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -21,6 +20,7 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_title"
+                style="@style/Widget.Material3.CardView.Elevated"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:lines="1"

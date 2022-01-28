@@ -54,7 +54,8 @@ class MyApplication : Application() {
         AppCenter.start(
             this,
             BuildConfig.APPCENTER_KEY,
-            Analytics::class.java, Crashes::class.java
+            Analytics::class.java,
+            Crashes::class.java
         )
         DynamicColors.applyToActivitiesIfAvailable(this)
     }

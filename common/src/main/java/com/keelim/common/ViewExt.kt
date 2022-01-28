@@ -17,11 +17,13 @@ package com.keelim.common
 
 import android.view.View
 import androidx.annotation.Px
+import androidx.annotation.StringRes
+import com.google.android.material.snackbar.Snackbar
 
 @Px
 fun View.dip(dipValue: Float) = context.dip(dipValue)
 
-fun View.toInvisible(){
+fun View.toInvisible() {
     visibility = View.INVISIBLE
 }
 
@@ -31,4 +33,12 @@ fun View.toVisible() {
 
 fun View.toGone() {
     visibility = View.GONE
+}
+
+fun View.snak(message: String, duration: Int = Snackbar.LENGTH_SHORT) {
+    Snackbar.make(this, message, duration).show()
+}
+
+fun View.snak(@StringRes message: Int, duration: Int = Snackbar.LENGTH_SHORT) {
+    Snackbar.make(this, message, duration).show()
 }

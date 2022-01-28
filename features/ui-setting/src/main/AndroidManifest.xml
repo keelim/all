@@ -4,10 +4,16 @@
 
     <application>
         <activity
+            android:name=".ui.MainActivity"
+            android:exported="false"
+            android:label="@string/title_activity_main"
+            android:theme="@style/Theme.Cnubus" />
+        <activity
             android:name=".ClockActivity"
             android:exported="true" />
         <activity
             android:name=".ui.SettingActivity"
             android:exported="false" />
     </application>
+
 </manifest>

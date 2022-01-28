@@ -15,17 +15,27 @@
  */
 package com.keelim.cnubus.data.db
 
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.keelim.cnubus.data.db.dao.CommentDao
 import com.keelim.cnubus.data.db.dao.StationDao
+import com.keelim.cnubus.data.db.entity.Comment
 import com.keelim.cnubus.data.db.entity.StationEntity
 import com.keelim.cnubus.data.db.entity.StationSubwayCrossRefEntity
 import com.keelim.cnubus.data.db.entity.SubwayEntity
 
 @Database(
-    entities = [StationEntity::class, SubwayEntity::class, StationSubwayCrossRefEntity::class],
+    entities = [
+        StationEntity::class,
+        SubwayEntity::class,
+        StationSubwayCrossRefEntity::class,
+        Comment::class
+    ],
     version = 1,
+    exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun dao(): StationDao
+    abstract fun daoStation(): StationDao
+    abstract fun daoComment(): CommentDao
 }

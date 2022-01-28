@@ -45,7 +45,7 @@ class StationRepositoryImpl @Inject constructor(
     @IoDispatcher private val dispatcher: CoroutineDispatcher,
 ) : StationRepository {
     override val stations: Flow<List<Station>> =
-        db.dao().getStationWithSubways()
+        db.daoStation().getStationWithSubways()
             .distinctUntilChanged()
             .map { stations -> stations.toStations().sortedByDescending { it.isFavorited } }
             .flowOn(dispatcher)
@@ -61,7 +61,7 @@ class StationRepositoryImpl @Inject constructor(
         val lastDatabaseUpdatedTimeMillis = preferenceManager.getLong(KEY_LAST_DATABASE_UPDATED_TIME_MILLIS)
 
         if (lastDatabaseUpdatedTimeMillis == null || fileUpdatedTimeMillis > lastDatabaseUpdatedTimeMillis) {
-            db.dao().insertStationSubways(stationApi.getStationSubways())
+            db.daoStation().insertStationSubways(stationApi.getStationSubways())
             preferenceManager.putLong(KEY_LAST_DATABASE_UPDATED_TIME_MILLIS, fileUpdatedTimeMillis)
         }
     }
@@ -77,7 +77,7 @@ class StationRepositoryImpl @Inject constructor(
     }
 
     override suspend fun updateStation(station: Station) = withContext(dispatcher) {
-        db.dao().updateStation(station.toStationEntity())
+        db.daoStation().updateStation(station.toStationEntity())
     }
 
     override suspend fun getLocation(): HouseDto {

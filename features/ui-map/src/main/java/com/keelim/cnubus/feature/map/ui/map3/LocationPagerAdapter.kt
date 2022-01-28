@@ -22,11 +22,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.keelim.cnubus.data.model.gps.Location
-import com.keelim.cnubus.data.model.maps.House
 import com.keelim.cnubus.feature.map.databinding.ItemHouseDetailForViewpagerBinding
 
 class LocationPagerAdapter(
-    val itemClicked: (Location) -> Unit
+    val clicked: (Location) -> Unit,
+    val longClicked: (Location) -> Unit
 ) : ListAdapter<Location, LocationPagerAdapter.ItemViewHolder>(diffUtil) {
 
     inner class ItemViewHolder(val binding: ItemHouseDetailForViewpagerBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -35,8 +35,12 @@ class LocationPagerAdapter(
             titleTextView.text = item.name
             priceTextView.text = item.name
 
+            root.setOnLongClickListener {
+                longClicked(item)
+                return@setOnLongClickListener true
+            }
             root.setOnClickListener {
-                itemClicked(item)
+                clicked(item)
             }
             thumbnailIamgeView.load(item.imgUrl) {
                 crossfade(true)

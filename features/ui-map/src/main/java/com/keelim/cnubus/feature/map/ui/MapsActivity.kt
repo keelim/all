@@ -16,7 +16,6 @@
 package com.keelim.cnubus.feature.map.ui
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.location.LocationListener
@@ -45,7 +44,9 @@ import com.keelim.cnubus.feature.map.databinding.ActivityMapsBinding
 import com.keelim.cnubus.feature.map.databinding.BottomSheetBinding
 import com.keelim.cnubus.feature.map.ui.map3.LocationAdapter
 import com.keelim.cnubus.feature.map.ui.map3.LocationPagerAdapter
+import com.keelim.cnubus.feature.map.ui.map3.detail.DetailActivity
 import com.keelim.common.repeatCallDefaultOnStarted
+import com.keelim.common.startActivity
 import com.keelim.common.toast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -92,7 +93,12 @@ class MapsActivity : AppCompatActivity() {
 
     private val viewPagerAdapter by lazy {
         LocationPagerAdapter(
-            itemClicked = {
+            clicked =  {
+                startActivity(Intent(this@MapsActivity, DetailActivity::class.java).apply {
+                    putExtra("item", it)
+                })
+            },
+            longClicked = {
                 startActivity(Intent.createChooser(Intent().apply {
                     action = Intent.ACTION_SEND
                     putExtra(Intent.EXTRA_TEXT, "[확인] ${it.name} 사진보기 : ${it.imgUrl}")

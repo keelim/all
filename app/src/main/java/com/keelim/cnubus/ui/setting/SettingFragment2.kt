@@ -35,7 +35,7 @@ import com.keelim.cnubus.ui.main.MainViewModel
 import com.keelim.cnubus.ui.setting.compose.ScreenAction
 import com.keelim.cnubus.ui.setting.compose.SettingScreen
 import com.keelim.cnubus.ui.subway.SubwayActivity
-import com.keelim.common.repeatCallDefaultOnStarted
+import com.keelim.common.extensions.repeatCallDefaultOnStarted
 import com.keelim.compose.ui.setThemeContent
 import com.keelim.ui_setting.ClockActivity
 import com.keelim.ui_setting.ui.SettingActivity

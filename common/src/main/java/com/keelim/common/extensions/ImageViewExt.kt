@@ -1,4 +1,4 @@
-package com.keelim.common
+package com.keelim.common.extensions
 
 import android.net.Uri
 import android.widget.ImageView

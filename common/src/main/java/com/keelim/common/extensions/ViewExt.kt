@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.common
+package com.keelim.common.extensions
 
 import android.view.View
 import androidx.annotation.Px

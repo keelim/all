@@ -25,7 +25,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -33,9 +32,9 @@ import com.keelim.cnubus.R
 import com.keelim.cnubus.data.model.ArrivalInformation
 import com.keelim.cnubus.data.model.Station
 import com.keelim.cnubus.databinding.FragmentStationArrivalsBinding
-import com.keelim.common.toGone
-import com.keelim.common.toVisible
-import com.keelim.common.repeatCallDefaultOnStarted
+import com.keelim.common.extensions.toGone
+import com.keelim.common.extensions.toVisible
+import com.keelim.common.extensions.repeatCallDefaultOnStarted
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

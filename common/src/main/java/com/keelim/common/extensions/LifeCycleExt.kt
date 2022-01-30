@@ -13,22 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.common
+package com.keelim.common.extensions
 
-import androidx.activity.ComponentActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
-inline fun <reified T : Any> ComponentActivity.extra(
-    key: String,
-    default: T? = null
-) = lazy {
-    val value = intent.extras?.get(key)
-    if (value is String) value else default
-}
-
-inline fun <reified T : Any> ComponentActivity.extraNotNull(
-    key: String,
-    default: T? = null
-) = lazy {
-    val value = intent.extras?.get(key)
-    requireNotNull(if (value is T) value else default) { key }
+fun LifecycleOwner.repeatCallDefaultOnStarted(state: Lifecycle.State = Lifecycle.State.STARTED, block: suspend CoroutineScope.() -> Unit) {
+    lifecycleScope.launch {
+        lifecycle.repeatOnLifecycle(state, block)
+    }
 }

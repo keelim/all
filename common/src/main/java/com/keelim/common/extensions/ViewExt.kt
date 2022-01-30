@@ -16,6 +16,7 @@
 package com.keelim.common.extensions
 
 import android.view.View
+import android.view.ViewGroup
 import androidx.annotation.Px
 import androidx.annotation.StringRes
 import com.google.android.material.snackbar.Snackbar
@@ -35,10 +36,30 @@ fun View.toGone() {
     visibility = View.GONE
 }
 
+fun View.toggleVisibility(){
+    if(visibility == View.INVISIBLE){
+        toVisible()
+    } else{
+        toInvisible()
+    }
+}
+
 fun View.snak(message: String, duration: Int = Snackbar.LENGTH_SHORT) {
     Snackbar.make(this, message, duration).show()
 }
 
 fun View.snak(@StringRes message: Int, duration: Int = Snackbar.LENGTH_SHORT) {
     Snackbar.make(this, message, duration).show()
+}
+
+fun ViewGroup.allDisableChildEnable(flag: Boolean) {
+    (0..childCount).forEach { i ->
+        val childView = getChildAt(i)
+        childView.isEnabled = flag
+        if(childView is ViewGroup){
+            childView.allDisableChildEnable(
+                flag
+            )
+        }
+    }
 }

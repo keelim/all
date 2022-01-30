@@ -23,8 +23,8 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.keelim.cnubus.databinding.ActivityMainBinding
 import com.keelim.cnubus.services.TerminateService
-import com.keelim.common.repeatCallDefaultOnStarted
-import com.keelim.common.toast
+import com.keelim.common.extensions.repeatCallDefaultOnStarted
+import com.keelim.common.extensions.toast
 import com.keelim.compose.ui.CircularIndeterminateProgressBar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect

@@ -13,14 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.common
+package com.keelim.common.extensions
 
-import com.keelim.compose.ui.UiState
+import androidx.activity.ComponentActivity
 
-fun <T> Result<T>.toUiState(): UiState<T> {
-    return when (this) {
-        is Result.Error -> UiState(exception = this.exception)
-        Result.Loading -> UiState.loading()
-        is Result.Success -> UiState.success(value = this.data)
-    }
+inline fun <reified T : Any> ComponentActivity.extra(
+    key: String,
+    default: T? = null
+) = lazy {
+    val value = intent.extras?.get(key)
+    if (value is String) value else default
+}
+
+inline fun <reified T : Any> ComponentActivity.extraNotNull(
+    key: String,
+    default: T? = null
+) = lazy {
+    val value = intent.extras?.get(key)
+    requireNotNull(if (value is T) value else default) { key }
 }

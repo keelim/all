@@ -45,9 +45,9 @@ import com.keelim.cnubus.feature.map.databinding.BottomSheetBinding
 import com.keelim.cnubus.feature.map.ui.map3.LocationAdapter
 import com.keelim.cnubus.feature.map.ui.map3.LocationPagerAdapter
 import com.keelim.cnubus.feature.map.ui.map3.detail.DetailActivity
-import com.keelim.common.repeatCallDefaultOnStarted
-import com.keelim.common.startActivity
-import com.keelim.common.toast
+import com.keelim.common.extensions.repeatCallDefaultOnStarted
+import com.keelim.common.extensions.startActivity
+import com.keelim.common.extensions.toast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

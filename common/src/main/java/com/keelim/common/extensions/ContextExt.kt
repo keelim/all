@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.common
+package com.keelim.common.extensions
 
 import android.app.Activity
 
@@ -23,7 +23,6 @@ import android.content.res.Resources
 import android.widget.Toast
 import androidx.annotation.Px
 import androidx.annotation.StringRes
-import androidx.core.app.FrameMetricsAggregator
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 

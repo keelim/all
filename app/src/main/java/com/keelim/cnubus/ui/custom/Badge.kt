@@ -22,7 +22,7 @@ import android.graphics.Paint
 import android.graphics.Typeface
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
-import com.keelim.common.dip
+import com.keelim.common.extensions.dip
 
 class Badge constructor(
     context: Context,

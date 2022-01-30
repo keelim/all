@@ -7,11 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.keelim.cnubus.data.model.gps.Location
 import com.keelim.cnubus.feature.map.databinding.ActivityDetailBinding
-import com.keelim.common.loadAsync
-import com.keelim.common.repeatCallDefaultOnStarted
-import com.keelim.common.snak
-import com.keelim.common.toGone
-import com.keelim.common.toVisible
+import com.keelim.common.extensions.loadAsync
+import com.keelim.common.extensions.repeatCallDefaultOnStarted
+import com.keelim.common.extensions.snak
+import com.keelim.common.extensions.toGone
+import com.keelim.common.extensions.toVisible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

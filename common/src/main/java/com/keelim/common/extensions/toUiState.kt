@@ -13,17 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.common
+package com.keelim.common.extensions
 
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
+import com.keelim.compose.ui.UiState
 
-fun LifecycleOwner.repeatCallDefaultOnStarted(state: Lifecycle.State = Lifecycle.State.STARTED, block: suspend CoroutineScope.() -> Unit) {
-    lifecycleScope.launch {
-        lifecycle.repeatOnLifecycle(state, block)
+fun <T> Result<T>.toUiState(): UiState<T> {
+    return when (this) {
+        is Result.Error -> UiState(exception = this.exception)
+        Result.Loading -> UiState.loading()
+        is Result.Success -> UiState.success(value = this.data)
     }
 }

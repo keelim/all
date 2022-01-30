@@ -21,8 +21,8 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.ActivitySubwayBinding
-import com.keelim.common.toGone
-import com.keelim.common.toVisible
+import com.keelim.common.extensions.toGone
+import com.keelim.common.extensions.toVisible
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

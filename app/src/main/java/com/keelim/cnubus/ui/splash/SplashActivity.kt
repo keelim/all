@@ -25,64 +25,38 @@ import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.keelim.cnubus.BuildConfig
+import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.ActivitySplashBinding
 import com.keelim.cnubus.ui.main.MainActivity
+import com.keelim.common.base.BaseActivity
+import com.keelim.common.base.BaseVBActivity
+import com.keelim.common.extensions.repeatCallDefaultOnStarted
+import com.keelim.common.extensions.startActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
-class SplashActivity : AppCompatActivity() {
-    private infix fun String.or(that: String): String = if (BuildConfig.DEBUG) this else that
-    private var mInterstitialAd: InterstitialAd? = null
-    private val binding by lazy { ActivitySplashBinding.inflate(layoutInflater) }
-    private val test = "ca -app-pub-3940256099942544/1033173712"
-    private val splashViewModel: SplashViewModel by viewModels()
+class SplashActivity : BaseVBActivity<ActivitySplashBinding, SplashViewModel>(
+    ActivitySplashBinding::inflate
+) {
+    override val layoutResourceId: Int = R.layout.activity_splash
+    override val viewModel: SplashViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(binding.root)
+    override fun initBeforeBinding() = Unit
+    override fun initDataBinding() {
         observeData()
     }
-
-    private fun observeData() = lifecycleScope.launchWhenCreated {
-        splashViewModel.loading.collect{
-            if (it) {
-                showAd()
+    override fun initAfterBinding()  = Unit
+    private fun observeData() = lifecycleScope.launch {
+        repeatCallDefaultOnStarted {
+            viewModel.loading.collect{
+                if (it) {
+                    startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+                }
             }
         }
     }
-
-    private fun showAd() {
-        val adRequest = AdRequest.Builder()
-            .build()
-
-        InterstitialAd.load(
-            this,
-            test or "ca-app-pub-3115620439518585/4013096159",
-            adRequest,
-            object : InterstitialAdLoadCallback() {
-                override fun onAdFailedToLoad(adError: LoadAdError) {
-                    Timber.d(adError.message)
-                    mInterstitialAd = null
-                }
-
-                override fun onAdLoaded(interstitialAd: InterstitialAd) {
-                    Timber.d("Ad was loaded.")
-                    mInterstitialAd = interstitialAd
-
-                    if (mInterstitialAd != null) {
-                        mInterstitialAd!!.show(this@SplashActivity)
-                    } else {
-                        Timber.d("The interstitial ad wasn't ready yet.")
-                    }
-                }
-            }
-        )
-
-        startActivity(Intent(this@SplashActivity, MainActivity::class.java))
-        finish()
-    }
-
     override fun onBackPressed() {}
 }

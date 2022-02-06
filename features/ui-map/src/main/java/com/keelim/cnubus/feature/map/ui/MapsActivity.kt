@@ -25,6 +25,7 @@ import android.os.Looper
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -36,6 +37,8 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.TileOverlayOptions
+import com.google.android.gms.maps.model.UrlTileProvider
 import com.google.maps.android.ktx.addMarker
 import com.google.maps.android.ktx.awaitMap
 import com.keelim.cnubus.data.model.gps.Location
@@ -46,9 +49,10 @@ import com.keelim.cnubus.feature.map.ui.map3.LocationAdapter
 import com.keelim.cnubus.feature.map.ui.map3.LocationPagerAdapter
 import com.keelim.cnubus.feature.map.ui.map3.detail.DetailActivity
 import com.keelim.common.extensions.repeatCallDefaultOnStarted
-import com.keelim.common.extensions.startActivity
 import com.keelim.common.extensions.toast
 import dagger.hilt.android.AndroidEntryPoint
+import java.net.MalformedURLException
+import java.net.URL
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -76,9 +80,9 @@ class MapsActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
             val responsePermissions = permissions.entries.filter {
                 it.key == Manifest.permission.ACCESS_FINE_LOCATION ||
-                    it.key == Manifest.permission.ACCESS_COARSE_LOCATION
+                        it.key == Manifest.permission.ACCESS_COARSE_LOCATION
             }
-            if (responsePermissions.filter { it.value == true }.size == this.permissions.size) {
+            if (responsePermissions.filter { it.value }.size == this.permissions.size) {
                 setMyLocationListener()
             } else {
                 toast("권한이 없습니다. 확인해주세요")
@@ -93,7 +97,7 @@ class MapsActivity : AppCompatActivity() {
 
     private val viewPagerAdapter by lazy {
         LocationPagerAdapter(
-            clicked =  {
+            clicked = {
                 startActivity(Intent(this@MapsActivity, DetailActivity::class.java).apply {
                     putExtra("item", it)
                 })
@@ -112,6 +116,25 @@ class MapsActivity : AppCompatActivity() {
         LocationAdapter()
     }
 
+    private var tileProvider = object : UrlTileProvider(64, 64) {
+        override fun getTileUrl(x: Int, y: Int, zoom: Int): URL? {
+            val url = "http://my.image.server/images/$zoom/$x/$y.png"
+            return if (!checkTileExists(x, y, zoom)) {
+                null
+            } else try {
+                URL(url)
+            } catch (e: MalformedURLException) {
+                throw AssertionError(e)
+            }
+        }
+
+        private fun checkTileExists(x: Int, y: Int, zoom: Int): Boolean {
+            val minZoom = 12
+            val maxZoom = 16
+            return zoom in minZoom..maxZoom
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -122,13 +145,8 @@ class MapsActivity : AppCompatActivity() {
         googleMapSetting()
     }
 
-    override fun onPause() {
-        super.onPause()
-        removeLocationListener()
-    }
-
     private fun setMyLocationListener() {
-        val minTime: Long = 1500
+        val minTime = 1500L
         val minDistance = 100f
         if (::myLocationListener.isInitialized.not()) {
             myLocationListener = MyLocationListener()
@@ -155,8 +173,7 @@ class MapsActivity : AppCompatActivity() {
         if (::locationManager.isInitialized.not()) {
             locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         }
-        val isGpsEnable = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-        if (isGpsEnable) {
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             locationPermissionLauncher.launch(permissions)
         }
     }
@@ -166,16 +183,15 @@ class MapsActivity : AppCompatActivity() {
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
                 super.onLocationResult(locationResult)
-                    locationResult.lastLocation.run {
+                locationResult.lastLocation.run {
                     current = LatLng(latitude, longitude)
-                    Timber.d("위도 $latitude 경도 $longitude")
                 }
             }
         }
         locationRequest = LocationRequest.create().apply {
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-            interval = 10000
-            fastestInterval = 5000
+            interval = REQUEST_INTERVAL
+            fastestInterval = REQUEST_FAST_INTERVAL
         }
     }
 
@@ -188,26 +204,30 @@ class MapsActivity : AppCompatActivity() {
                 val selectedHouseModel = viewPagerAdapter.currentList[position]
                 CameraUpdateFactory.newLatLngZoom(
                     selectedHouseModel.latLng,
-                    17f
+                    NORMAL_ZOOM
                 )
             }
         })
     }
 
     private fun googleMapSetting() = lifecycleScope.launch {
-        googleMap = mapFragment.awaitMap()
-        googleMap.setOnMarkerClickListener { marker ->
-            val selectedModel = viewPagerAdapter.currentList.firstOrNull {
-                it.name == marker.snippet ?: "0".toInt()
-            }
-            selectedModel?.let {
-                with(binding){
-                    val position = viewPagerAdapter.currentList.indexOf(it)
-                    houseViewPager.currentItem = position
-                    tvTitle.text = it.name
+        googleMap = mapFragment.awaitMap().apply {
+            setOnMarkerClickListener { marker ->
+                val selectedModel = viewPagerAdapter.currentList.firstOrNull {
+                    it.name == marker.snippet ?: "0".toInt()
                 }
+                selectedModel?.let {
+                    with(binding) {
+                        val position = viewPagerAdapter.currentList.indexOf(it)
+                        houseViewPager.currentItem = position
+                        tvTitle.text = it.name
+                    }
+                }
+                return@setOnMarkerClickListener false
             }
-            return@setOnMarkerClickListener false
+            addTileOverlay(
+                TileOverlayOptions().tileProvider(tileProvider)
+            )
         }
     }
 
@@ -223,12 +243,12 @@ class MapsActivity : AppCompatActivity() {
                         updateMarker(it.data)
                         val cameraUpdate = CameraUpdateFactory
                             .newLatLngZoom(
-                                if(location==-1){
+                                if (location == -1) {
                                     it.data[0].latLng
-                                } else{
+                                } else {
                                     it.data[location].latLng
                                 },
-                                17f
+                                NORMAL_ZOOM
                             )
                         googleMap.apply {
                             animateCamera(cameraUpdate)
@@ -242,6 +262,9 @@ class MapsActivity : AppCompatActivity() {
                     }
                 }
             }
+        }
+        repeatCallDefaultOnStarted(Lifecycle.State.DESTROYED){
+            removeLocationListener()
         }
     }
 
@@ -266,5 +289,11 @@ class MapsActivity : AppCompatActivity() {
         override fun onLocationChanged(location: android.location.Location) {
             removeLocationListener()
         }
+    }
+
+    companion object{
+        const val NORMAL_ZOOM = 17f
+        const val REQUEST_INTERVAL = 10000L
+        const val REQUEST_FAST_INTERVAL = 5000L
     }
 }

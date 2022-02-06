@@ -80,8 +80,7 @@ class StationsFragment : Fragment() {
 
     private fun showStations(stations: List<Station>) {
         (binding.recyclerView.adapter as? StationsAdapter)?.run {
-            this.data = stations
-            notifyDataSetChanged()
+            submitList(stations)
         }
     }
 

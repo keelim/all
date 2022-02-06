@@ -11,6 +11,9 @@
         <action
             android:id="@+id/action_tabFragment_to_stationsFragment"
             app:destination="@id/stationsFragment" />
+        <action
+            android:id="@+id/action_tabFragment_to_content3Fragment"
+            app:destination="@id/content3Fragment" />
     </fragment>
     <fragment
         android:id="@+id/stationArrivalsFragment"
@@ -29,6 +32,14 @@
             app:destination="@id/stationArrivalsFragment" />
         <action
             android:id="@+id/action_stationsFragment_to_tabFragment"
+            app:destination="@id/tabFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/content3Fragment"
+        android:name="com.keelim.cnubus.ui.content.Content3Fragment"
+        android:label="Content3Fragment" >
+        <action
+            android:id="@+id/action_content3Fragment_to_tabFragment2"
             app:destination="@id/tabFragment" />
     </fragment>
 </navigation>

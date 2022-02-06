@@ -21,9 +21,14 @@ import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupActionBarWithNavController
+import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.ActivityMainBinding
 import com.keelim.cnubus.services.TerminateService
 import com.keelim.common.extensions.repeatCallDefaultOnStarted
+import com.keelim.common.extensions.toGone
+import com.keelim.common.extensions.toVisible
 import com.keelim.common.extensions.toast
 import com.keelim.compose.ui.CircularIndeterminateProgressBar
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,12 +55,28 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+    private val navigationController by lazy {
+        (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment).navController
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         startService(Intent(this, TerminateService::class.java))
         locationPermissionLauncher.launch(locationPermissions)
         observeLoading()
+        initViews()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navigationController.navigateUp() || super.onSupportNavigateUp()
+    }
+
+    private fun initViews() = with(binding) {
+        navigationController.addOnDestinationChangedListener { _, destination, argument ->
+            if (destination.id == R.id.stationArrivalsFragment) {
+            }
+        }
     }
 
     override fun onDestroy() {

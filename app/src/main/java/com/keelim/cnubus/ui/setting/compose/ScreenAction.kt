@@ -16,6 +16,7 @@
 package com.keelim.cnubus.ui.setting.compose
 
 internal enum class ScreenAction {
+    MYPAGE,
     Content,
     Homepage,
     Map,

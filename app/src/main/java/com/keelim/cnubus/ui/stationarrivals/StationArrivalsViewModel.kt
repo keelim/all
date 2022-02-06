@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.cnubus.ui.subway.stationarrivals
+package com.keelim.cnubus.ui.stationarrivals
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -39,7 +39,13 @@ class StationArrivalsViewModel @Inject constructor(
     fun fetchStationArrivals() = viewModelScope.launch {
         try {
             _state.emit(ArrivalState.ShowLoading)
-            _state.emit(ArrivalState.ShowStationArrivals(stationRepository.getStationArrivals(station.value.name)))
+            _state.emit(
+                ArrivalState.ShowStationArrivals(
+                    stationRepository.getStationArrivals(
+                        station.value.name
+                    )
+                )
+            )
         } catch (exception: Exception) {
             exception.printStackTrace()
             _state.emit(ArrivalState.Error(exception.message ?: "알 수 없는 문제가 발생했어요 😢"))

@@ -49,6 +49,7 @@ dependencies {
 
     implementation(platform(Dep.Firebase.platform))
     implementation("com.google.firebase:firebase-core")
+    implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-crashlytics-ktx")
     implementation("com.google.firebase:firebase-perf-ktx")
     implementation("com.google.firebase:firebase-messaging-ktx")
@@ -79,6 +80,7 @@ dependencies {
     implementation(Dep.AndroidX.datastore.preference)
 
     implementation(Dep.AndroidX.lifecycle.viewModelKtx)
+    implementation(Dep.AndroidX.lifecycle.service)
     implementation(Dep.AndroidX.lifecycle.runtime)
     implementation(Dep.AndroidX.Compose.ui)
     implementation(Dep.AndroidX.Compose.material)

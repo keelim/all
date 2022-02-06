@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.cnubus.ui.subway.stations
+package com.keelim.cnubus.ui.stations
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

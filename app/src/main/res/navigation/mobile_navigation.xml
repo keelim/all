@@ -7,5 +7,28 @@
     <fragment
         android:id="@+id/tabFragment"
         android:name="com.keelim.cnubus.ui.tab.TabFragment"
-        android:label="TabFragment" />
+        android:label="TabFragment" >
+        <action
+            android:id="@+id/action_tabFragment_to_stationsFragment"
+            app:destination="@id/stationsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/stationArrivalsFragment"
+        android:name="com.keelim.cnubus.ui.stationarrivals.StationArrivalsFragment"
+        android:label="StationArrivalsFragment" >
+        <action
+            android:id="@+id/action_stationArrivalsFragment_to_stationsFragment"
+            app:destination="@id/stationsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/stationsFragment"
+        android:name="com.keelim.cnubus.ui.stations.StationsFragment"
+        android:label="StationsFragment" >
+        <action
+            android:id="@+id/action_stationsFragment_to_stationArrivalsFragment"
+            app:destination="@id/stationArrivalsFragment" />
+        <action
+            android:id="@+id/action_stationsFragment_to_tabFragment"
+            app:destination="@id/tabFragment" />
+    </fragment>
 </navigation>

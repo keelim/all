@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.cnubus.ui.subway.stations
+package com.keelim.cnubus.ui.stations
 
 import android.app.Activity
 import android.os.Bundle
@@ -100,7 +100,7 @@ class StationsFragment : Fragment() {
 
         (binding.recyclerView.adapter as? StationsAdapter)?.apply {
             onItemClickListener = { station ->
-                findNavController().navigate(R.id.stations_dest, bundleOf(
+                findNavController().navigate(R.id.stationArrivalsFragment, bundleOf(
                     "station" to station
                 ))
             }

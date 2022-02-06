@@ -31,7 +31,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.keelim.cnubus.R
 import com.keelim.cnubus.data.repository.theme.AppTheme
 import com.keelim.cnubus.feature.map.ui.MapsActivity
-import com.keelim.cnubus.ui.content.Content2Activity
 import com.keelim.cnubus.ui.main.MainViewModel
 import com.keelim.cnubus.ui.setting.compose.ScreenAction
 import com.keelim.cnubus.ui.setting.compose.SettingScreen
@@ -57,12 +56,7 @@ class SettingFragment2 : Fragment() {
             SettingScreen { action ->
                 when (action) {
                     ScreenAction.MYPAGE -> Unit
-                    ScreenAction.Content -> startActivity(
-                        Intent(
-                            requireContext(),
-                            Content2Activity::class.java
-                        )
-                    )
+                    ScreenAction.Content -> findNavController().navigate(R.id.content3Fragment)
                     ScreenAction.Homepage -> startActivity(
                         Intent(
                             Intent.ACTION_VIEW,

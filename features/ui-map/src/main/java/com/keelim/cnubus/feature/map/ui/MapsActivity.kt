@@ -212,6 +212,13 @@ class MapsActivity : AppCompatActivity() {
 
     private fun googleMapSetting() = lifecycleScope.launch {
         googleMap = mapFragment.awaitMap().apply {
+            with(uiSettings){
+                isZoomControlsEnabled = true
+                isCompassEnabled = true
+                isMyLocationButtonEnabled = true
+                isIndoorLevelPickerEnabled = true
+                isMapToolbarEnabled = true
+            }
             setOnMarkerClickListener { marker ->
                 val selectedModel = viewPagerAdapter.currentList.firstOrNull {
                     it.name == marker.snippet ?: "0".toInt()

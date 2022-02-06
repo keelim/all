@@ -28,10 +28,7 @@
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3115620439518585~7951570697" />
-
-        <activity android:name=".ui.content.Content2Activity"
-            android:exported="false"/>
+            android:value="${APPLICATION_ID}" />
 
         <activity
             android:name=".ui.splash.SplashActivity"

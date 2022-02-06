@@ -16,26 +16,14 @@
 package com.keelim.cnubus.ui.splash
 
 import android.content.Intent
-import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.LoadAdError
-import com.google.android.gms.ads.interstitial.InterstitialAd
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
-import com.keelim.cnubus.BuildConfig
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.ActivitySplashBinding
 import com.keelim.cnubus.ui.main.MainActivity
-import com.keelim.common.base.BaseActivity
 import com.keelim.common.base.BaseVBActivity
 import com.keelim.common.extensions.repeatCallDefaultOnStarted
-import com.keelim.common.extensions.startActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @AndroidEntryPoint
 class SplashActivity : BaseVBActivity<ActivitySplashBinding, SplashViewModel>(
@@ -48,15 +36,15 @@ class SplashActivity : BaseVBActivity<ActivitySplashBinding, SplashViewModel>(
     override fun initDataBinding() {
         observeData()
     }
-    override fun initAfterBinding()  = Unit
-    private fun observeData() = lifecycleScope.launch {
-        repeatCallDefaultOnStarted {
-            viewModel.loading.collect{
-                if (it) {
-                    startActivity(Intent(this@SplashActivity, MainActivity::class.java))
-                }
+
+    override fun initAfterBinding() = Unit
+    private fun observeData() = repeatCallDefaultOnStarted {
+        viewModel.loading.collect {
+            if (it) {
+                startActivity(Intent(this@SplashActivity, MainActivity::class.java))
             }
         }
     }
+    
     override fun onBackPressed() {}
 }

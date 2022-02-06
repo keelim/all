@@ -18,45 +18,41 @@ package com.keelim.cnubus.ui.subway.stations
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.keelim.cnubus.data.model.Station
 import com.keelim.cnubus.databinding.ItemStationBinding
 import com.keelim.cnubus.ui.custom.Badge
 import com.keelim.common.extensions.dip
 
-class StationsAdapter : RecyclerView.Adapter<StationsAdapter.ViewHolder>() {
-
-    var data: List<Station> = emptyList()
-
-    var onItemClickListener: ((Station) -> Unit)? = null
+class StationsAdapter(
+    var onItemClickListener: ((Station) -> Unit)? = null,
     var onFavoriteClickListener: ((Station) -> Unit)? = null
+) : ListAdapter<Station, StationsAdapter.ViewHolder>(diffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder(ItemStationBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(data[position])
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(currentList[position])
 
-    override fun getItemCount(): Int = data.size
 
     inner class ViewHolder(private val binding: ItemStationBinding) : RecyclerView.ViewHolder(binding.root) {
-
-        init {
-            binding.root.setOnClickListener {
-                onItemClickListener?.invoke(data[adapterPosition])
+        fun bind(station: Station) = with(binding){
+            root.setOnClickListener {
+                onItemClickListener?.invoke(station)
             }
 
-            binding.favorite.setOnClickListener {
-                onFavoriteClickListener?.invoke(data[adapterPosition])
+            favorite.setOnClickListener {
+                onFavoriteClickListener?.invoke(station)
             }
-        }
 
-        fun bind(station: Station) {
-            binding.badgeContainer.removeAllViews()
+            badgeContainer.removeAllViews()
 
             station.connectedSubways
                 .forEach { subway ->
-                    binding.badgeContainer.addView(
-                        Badge(binding.root.context).apply {
+                    badgeContainer.addView(
+                        Badge(root.context).apply {
                             badgeColor = subway.color
                             text = subway.label
                             layoutParams =
@@ -69,8 +65,20 @@ class StationsAdapter : RecyclerView.Adapter<StationsAdapter.ViewHolder>() {
                         }
                     )
                 }
-            binding.stationNameTextView.text = station.name
-            binding.favorite.isChecked = station.isFavorited
+            stationNameTextView.text = station.name
+            favorite.isChecked = station.isFavorited
+        }
+    }
+
+    companion object{
+        val diffUtil = object: DiffUtil.ItemCallback<Station>(){
+            override fun areItemsTheSame(oldItem: Station, newItem: Station): Boolean {
+                return oldItem == newItem
+            }
+
+            override fun areContentsTheSame(oldItem: Station, newItem: Station): Boolean {
+                return oldItem == newItem
+            }
         }
     }
 }

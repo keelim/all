@@ -25,6 +25,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.keelim.cnubus.R
@@ -34,7 +35,6 @@ import com.keelim.cnubus.ui.content.Content2Activity
 import com.keelim.cnubus.ui.main.MainViewModel
 import com.keelim.cnubus.ui.setting.compose.ScreenAction
 import com.keelim.cnubus.ui.setting.compose.SettingScreen
-import com.keelim.cnubus.ui.subway.SubwayActivity
 import com.keelim.common.extensions.repeatCallDefaultOnStarted
 import com.keelim.compose.ui.setThemeContent
 import com.keelim.ui_setting.ClockActivity
@@ -56,6 +56,7 @@ class SettingFragment2 : Fragment() {
         return setThemeContent {
             SettingScreen { action ->
                 when (action) {
+                    ScreenAction.MYPAGE -> Unit
                     ScreenAction.Content -> startActivity(
                         Intent(
                             requireContext(),
@@ -99,12 +100,7 @@ class SettingFragment2 : Fragment() {
                             SettingActivity::class.java
                         )
                     )
-                    ScreenAction.Subway -> startActivity(
-                        Intent(
-                            requireContext(),
-                            SubwayActivity::class.java
-                        )
-                    )
+                    ScreenAction.Subway -> findNavController().navigate(R.id.stationsFragment)
                 }
             }
         }

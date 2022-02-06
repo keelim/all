@@ -17,10 +17,10 @@ package com.keelim.cnubus.ui.content
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.keelim.cnubus.data.model.Event
+import com.keelim.common.base.BaseViewModel
 
-class Content2ViewModel : ViewModel() {
+class Content3ViewModel : BaseViewModel() {
     private val _viewEvent = MutableLiveData<Event<Any>>()
     val viewEvent: LiveData<Event<Any>> get() = _viewEvent
 

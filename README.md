@@ -15,6 +15,8 @@
 ---
 ## Change logs
 
+![image](previews/2105.png)
+
 ![image](https://user-images.githubusercontent.com/26667456/146470677-ca9320cf-f572-499f-acec-16424bfaa094.png)
 이동화면 변경
 

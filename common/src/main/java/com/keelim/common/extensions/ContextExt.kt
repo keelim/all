@@ -16,7 +16,6 @@
 package com.keelim.common.extensions
 
 import android.app.Activity
-
 import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
@@ -38,19 +37,19 @@ inline fun <reified T : Activity> Context.startActivity(
     startActivity(buildIntent<T>(*argument))
 }
 
-fun Context.toast(message:String){
+fun Context.toast(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 }
 
-fun Context.toast(@StringRes message:Int){
+fun Context.toast(@StringRes message: Int) {
     Toast.makeText(this, getString(message), Toast.LENGTH_SHORT).show()
 }
 
-fun Fragment.toast(message:String){
+fun Fragment.toast(message: String) {
     Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
 }
 
-fun Fragment.toast(@StringRes message:Int){
+fun Fragment.toast(@StringRes message: Int) {
     Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
 }
 

@@ -36,10 +36,10 @@ fun View.toGone() {
     visibility = View.GONE
 }
 
-fun View.toggleVisibility(){
-    if(visibility == View.INVISIBLE){
+fun View.toggleVisibility() {
+    if (visibility == View.INVISIBLE) {
         toVisible()
-    } else{
+    } else {
         toInvisible()
     }
 }
@@ -56,7 +56,7 @@ fun ViewGroup.allDisableChildEnable(flag: Boolean) {
     (0..childCount).forEach { i ->
         val childView = getChildAt(i)
         childView.isEnabled = flag
-        if(childView is ViewGroup){
+        if (childView is ViewGroup) {
             childView.allDisableChildEnable(
                 flag
             )

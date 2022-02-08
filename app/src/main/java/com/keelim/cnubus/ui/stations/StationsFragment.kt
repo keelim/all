@@ -34,9 +34,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.keelim.cnubus.R
 import com.keelim.cnubus.data.model.Station
 import com.keelim.cnubus.databinding.FragmentStationsBinding
+import com.keelim.common.extensions.repeatCallDefaultOnStarted
 import com.keelim.common.extensions.toGone
 import com.keelim.common.extensions.toVisible
-import com.keelim.common.extensions.repeatCallDefaultOnStarted
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -100,9 +100,12 @@ class StationsFragment : Fragment() {
 
         (binding.recyclerView.adapter as? StationsAdapter)?.apply {
             onItemClickListener = { station ->
-                findNavController().navigate(R.id.stationArrivalsFragment, bundleOf(
-                    "station" to station
-                ))
+                findNavController().navigate(
+                    R.id.stationArrivalsFragment,
+                    bundleOf(
+                        "station" to station
+                    )
+                )
             }
             onFavoriteClickListener = { station ->
                 viewModel.toggleStationFavorite(station)
@@ -117,7 +120,7 @@ class StationsFragment : Fragment() {
 
     private fun observeState() = viewLifecycleOwner.lifecycleScope.launch {
         repeatCallDefaultOnStarted {
-            viewModel.state.collect{
+            viewModel.state.collect {
                 when (it) {
                     is StationState.HideLoading -> hideLoadingIndicator()
                     is StationState.ShowLoading -> showLoadingIndicator()

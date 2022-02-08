@@ -132,7 +132,6 @@ class SettingFragment2 : Fragment() {
                     AppCompatDelegate.setDefaultNightMode(mode)
                     mainViewModel.setAppTheme(mode)
                 }.setNegativeButton(R.string.cancel) { _, _ ->
-
                 }
                 .show()
         }

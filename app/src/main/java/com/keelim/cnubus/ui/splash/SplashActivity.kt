@@ -45,6 +45,6 @@ class SplashActivity : BaseVBActivity<ActivitySplashBinding, SplashViewModel>(
             }
         }
     }
-    
+
     override fun onBackPressed() {}
 }

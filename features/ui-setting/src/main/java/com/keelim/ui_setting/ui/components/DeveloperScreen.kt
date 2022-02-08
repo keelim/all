@@ -81,7 +81,8 @@ private fun Profile(
         onClick = {
             ctx.startActivity(
                 Intent(
-                    Intent.ACTION_VIEW, Uri.parse(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(
                         "https://www.github.com/keelim"
                     )
                 )

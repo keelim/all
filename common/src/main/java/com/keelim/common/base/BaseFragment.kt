@@ -1,3 +1,18 @@
+/*
+ * Designed and developed by 2021 keelim (Jaehyun Kim)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.keelim.common.base
 
 import android.os.Bundle
@@ -33,9 +48,9 @@ abstract class BaseFragment<T : ViewDataBinding, R : BaseViewModel> : Fragment()
 
     abstract val viewModel: R
 
-    abstract fun initBeforeBinding() //뷰나 액티비티의 속성 등을 초기화.
+    abstract fun initBeforeBinding() // 뷰나 액티비티의 속성 등을 초기화.
     abstract fun initBinding() // 바인딩 설정
-    abstract fun initAfterBinding() //리스너 설정
+    abstract fun initAfterBinding() // 리스너 설정
 
     override fun onCreateView(
         inflater: LayoutInflater,

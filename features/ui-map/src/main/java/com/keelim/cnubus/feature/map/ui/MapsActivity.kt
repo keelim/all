@@ -15,14 +15,12 @@
  */
 package com.keelim.cnubus.feature.map.ui
 
-import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
@@ -55,7 +53,6 @@ import java.net.MalformedURLException
 import java.net.URL
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @AndroidEntryPoint
 class MapsActivity : AppCompatActivity() {
@@ -69,25 +66,9 @@ class MapsActivity : AppCompatActivity() {
     private val location by lazy {
         intent.getStringExtra("location")?.toInt() ?: -1
     }
-    private val permissions = arrayOf(
-        Manifest.permission.ACCESS_FINE_LOCATION,
-        Manifest.permission.ACCESS_COARSE_LOCATION,
-    )
-    private lateinit var locationManager: LocationManager
-    private lateinit var myLocationListener: MyLocationListener
 
-    private val locationPermissionLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-            val responsePermissions = permissions.entries.filter {
-                it.key == Manifest.permission.ACCESS_FINE_LOCATION ||
-                        it.key == Manifest.permission.ACCESS_COARSE_LOCATION
-            }
-            if (responsePermissions.filter { it.value }.size == this.permissions.size) {
-                setMyLocationListener()
-            } else {
-                toast("권한이 없습니다. 확인해주세요")
-            }
-        }
+    private val locationManager by lazy { getSystemService(Context.LOCATION_SERVICE) as LocationManager }
+    private lateinit var myLocationListener: MyLocationListener
 
     private val viewModel: MapsViewModel by viewModels()
     private lateinit var googleMap: GoogleMap
@@ -138,7 +119,7 @@ class MapsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        getMyLocation()
+        setMyLocationListener()
         myPositionInit()
         observeState()
         initViews()
@@ -167,15 +148,6 @@ class MapsActivity : AppCompatActivity() {
             locationCallback,
             Looper.myLooper()!!
         )
-    }
-
-    private fun getMyLocation() {
-        if (::locationManager.isInitialized.not()) {
-            locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        }
-        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            locationPermissionLauncher.launch(permissions)
-        }
     }
 
     private fun myPositionInit() {
@@ -212,7 +184,7 @@ class MapsActivity : AppCompatActivity() {
 
     private fun googleMapSetting() = lifecycleScope.launch {
         googleMap = mapFragment.awaitMap().apply {
-            with(uiSettings){
+            with(uiSettings) {
                 isZoomControlsEnabled = true
                 isCompassEnabled = true
                 isMyLocationButtonEnabled = true
@@ -270,7 +242,7 @@ class MapsActivity : AppCompatActivity() {
                 }
             }
         }
-        repeatCallDefaultOnStarted(Lifecycle.State.DESTROYED){
+        repeatCallDefaultOnStarted(Lifecycle.State.DESTROYED) {
             removeLocationListener()
         }
     }
@@ -286,7 +258,7 @@ class MapsActivity : AppCompatActivity() {
     }
 
     private fun removeLocationListener() {
-        if (::locationManager.isInitialized && ::myLocationListener.isInitialized) {
+        if (::myLocationListener.isInitialized) {
             locationManager.removeUpdates(myLocationListener)
         }
         fusedLocationProvider.removeLocationUpdates(locationCallback)
@@ -298,7 +270,7 @@ class MapsActivity : AppCompatActivity() {
         }
     }
 
-    companion object{
+    companion object {
         const val NORMAL_ZOOM = 17f
         const val REQUEST_INTERVAL = 10000L
         const val REQUEST_FAST_INTERVAL = 5000L

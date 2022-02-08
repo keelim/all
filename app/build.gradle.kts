@@ -1,5 +1,3 @@
-import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
-
 plugins {
     id("application-setting-plugin")
     id("compose-setting-plugin")
@@ -15,9 +13,6 @@ plugins {
     id ("com.google.secrets_gradle_plugin") version("0.5")
 }
 
-val key: String = gradleLocalProperties(rootDir).getProperty("APPCENTER_KEY")
-val unit:String = gradleLocalProperties(rootDir).getProperty("UNIT")
-
 android {
     defaultConfig {
         applicationId = ProjectConfigurations.applicationId
@@ -30,8 +25,6 @@ android {
             firebaseAppDistribution {
                 testers = "kimh00335@gmail.com"
             }
-            buildConfigField("String", "APPCENTER_KEY", key)
-            buildConfigField("String", "UNIT", unit)
         }
     }
     buildFeatures {

@@ -24,7 +24,6 @@ import android.os.Looper
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
@@ -52,30 +51,26 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.net.MalformedURLException
 import java.net.URL
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MapsActivity : AppCompatActivity() {
-    private val binding by lazy { ActivityMapsBinding.inflate(layoutInflater) }
-    private val bottomBinding by lazy { BottomSheetBinding.bind(binding.bottom.root) }
+    private var current: LatLng? = null
 
     private lateinit var fusedLocationProvider: FusedLocationProviderClient
     private lateinit var locationRequest: LocationRequest
     private lateinit var locationCallback: LocationCallback
-    private var current: LatLng? = null
+    private lateinit var googleMap: GoogleMap
+    private lateinit var myLocationListener: MyLocationListener
+
+    private val binding by lazy { ActivityMapsBinding.inflate(layoutInflater) }
+    private val bottomBinding by lazy { BottomSheetBinding.bind(binding.bottom.root) }
+    private val locationManager by lazy { getSystemService(Context.LOCATION_SERVICE) as LocationManager }
     private val location by lazy {
         intent.getStringExtra("location")?.toInt() ?: -1
     }
-
-    private val locationManager by lazy { getSystemService(Context.LOCATION_SERVICE) as LocationManager }
-    private lateinit var myLocationListener: MyLocationListener
-
-    private val viewModel: MapsViewModel by viewModels()
-    private lateinit var googleMap: GoogleMap
     private val mapFragment by lazy {
         supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
     }
-
     private val viewPagerAdapter by lazy {
         LocationPagerAdapter(
             clicked = {
@@ -92,10 +87,11 @@ class MapsActivity : AppCompatActivity() {
             }
         )
     }
-
     private val recyclerAdapter by lazy {
         LocationAdapter()
     }
+
+    private val viewModel: MapsViewModel by viewModels()
 
     private var tileProvider = object : UrlTileProvider(64, 64) {
         override fun getTileUrl(x: Int, y: Int, zoom: Int): URL? {
@@ -142,16 +138,17 @@ class MapsActivity : AppCompatActivity() {
                 minTime, minDistance, myLocationListener
             )
         }
-
+        if (::fusedLocationProvider.isInitialized.not()) {
+            fusedLocationProvider = LocationServices.getFusedLocationProviderClient(this)
+        }
         fusedLocationProvider.requestLocationUpdates(
             locationRequest,
             locationCallback,
-            Looper.myLooper()!!
+            Looper.getMainLooper()
         )
     }
 
     private fun myPositionInit() {
-        fusedLocationProvider = LocationServices.getFusedLocationProviderClient(this)
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
                 super.onLocationResult(locationResult)
@@ -182,7 +179,7 @@ class MapsActivity : AppCompatActivity() {
         })
     }
 
-    private fun googleMapSetting() = lifecycleScope.launch {
+    private fun googleMapSetting() = repeatCallDefaultOnStarted {
         googleMap = mapFragment.awaitMap().apply {
             with(uiSettings) {
                 isZoomControlsEnabled = true
@@ -210,6 +207,7 @@ class MapsActivity : AppCompatActivity() {
         }
     }
 
+
     private fun observeState() {
         repeatCallDefaultOnStarted {
             viewModel.state.collect {
@@ -232,7 +230,7 @@ class MapsActivity : AppCompatActivity() {
                         googleMap.apply {
                             animateCamera(cameraUpdate)
                             isMyLocationEnabled = true
-                            uiSettings.isMyLocationButtonEnabled = true
+
                         }
                         viewPagerAdapter.submitList(it.data)
                         recyclerAdapter.submitList(it.data)
@@ -261,7 +259,9 @@ class MapsActivity : AppCompatActivity() {
         if (::myLocationListener.isInitialized) {
             locationManager.removeUpdates(myLocationListener)
         }
-        fusedLocationProvider.removeLocationUpdates(locationCallback)
+        if (::fusedLocationProvider.isInitialized) {
+            fusedLocationProvider.removeLocationUpdates(locationCallback)
+        }
     }
 
     inner class MyLocationListener : LocationListener {

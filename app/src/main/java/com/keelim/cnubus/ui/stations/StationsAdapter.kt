@@ -36,9 +36,8 @@ class StationsAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(currentList[position])
 
-
     inner class ViewHolder(private val binding: ItemStationBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(station: Station) = with(binding){
+        fun bind(station: Station) = with(binding) {
             root.setOnClickListener {
                 onItemClickListener?.invoke(station)
             }
@@ -70,8 +69,8 @@ class StationsAdapter(
         }
     }
 
-    companion object{
-        val diffUtil = object: DiffUtil.ItemCallback<Station>(){
+    companion object {
+        val diffUtil = object : DiffUtil.ItemCallback<Station>() {
             override fun areItemsTheSame(oldItem: Station, newItem: Station): Boolean {
                 return oldItem == newItem
             }

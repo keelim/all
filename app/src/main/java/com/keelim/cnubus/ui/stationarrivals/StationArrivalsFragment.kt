@@ -32,9 +32,9 @@ import com.keelim.cnubus.R
 import com.keelim.cnubus.data.model.ArrivalInformation
 import com.keelim.cnubus.data.model.Station
 import com.keelim.cnubus.databinding.FragmentStationArrivalsBinding
+import com.keelim.common.extensions.repeatCallDefaultOnStarted
 import com.keelim.common.extensions.toGone
 import com.keelim.common.extensions.toVisible
-import com.keelim.common.extensions.repeatCallDefaultOnStarted
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

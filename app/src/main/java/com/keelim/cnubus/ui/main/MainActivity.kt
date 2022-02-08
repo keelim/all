@@ -22,13 +22,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupActionBarWithNavController
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.ActivityMainBinding
 import com.keelim.cnubus.services.TerminateService
 import com.keelim.common.extensions.repeatCallDefaultOnStarted
-import com.keelim.common.extensions.toGone
-import com.keelim.common.extensions.toVisible
 import com.keelim.common.extensions.toast
 import com.keelim.compose.ui.CircularIndeterminateProgressBar
 import dagger.hilt.android.AndroidEntryPoint
@@ -47,10 +44,11 @@ class MainActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
             val responsePermissions = permissions.entries.filter {
                 it.key == permission.ACCESS_FINE_LOCATION ||
-                        it.key == permission.ACCESS_COARSE_LOCATION
+                    it.key == permission.ACCESS_COARSE_LOCATION
             }
             if (responsePermissions.filter { it.value }
-                    .size == locationPermissions.size) {
+                .size == locationPermissions.size
+            ) {
                 toast("권한이 확인되었습니다.")
             }
         }

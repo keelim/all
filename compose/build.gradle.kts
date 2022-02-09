@@ -12,7 +12,6 @@ dependencies {
     implementation(Dep.Coil.core)
     implementation(Dep.Coil.compose)
     implementation(Dep.AndroidX.Compose.activity)
-    implementation(Dep.AndroidX.Compose.materialAdapter)
     implementation(Dep.AndroidX.Compose.glance)
 }
 

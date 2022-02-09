@@ -40,7 +40,13 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(): OkHttpClient {
+    fun provideCacheInterceptor(): CacheInterceptor = CacheInterceptor()
+
+    @Provides
+    @Singleton
+    fun provideOkHttpClient(
+        cacheInterceptor: CacheInterceptor
+    ): OkHttpClient {
         return OkHttpClient.Builder().apply {
             connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
             writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
@@ -51,6 +57,7 @@ object NetworkModule {
                     level = HttpLoggingInterceptor.Level.BODY
                 }
             )
+            addInterceptor(cacheInterceptor)
         }.build()
     }
 

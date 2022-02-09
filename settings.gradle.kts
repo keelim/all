@@ -1,7 +1,7 @@
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 pluginManagement {
-    val agpVersion = "7.0.4"
-    val kotlinVersion = "1.5.31"
+    val agpVersion = "7.2.0-beta01"
+    val kotlinVersion = "1.6.10"
 
     repositories {
         gradlePluginPortal()
@@ -11,11 +11,10 @@ pluginManagement {
     plugins {
         id("com.android.application") version agpVersion
         id("com.android.library") version agpVersion
-        id("org.jetbrains.kotlin.android") version "1.6.10"
+        id("org.jetbrains.kotlin.android") version kotlinVersion
         id("org.jetbrains.kotlin.jvm") version kotlinVersion
         id("org.jetbrains.kotlin.kapt") version kotlinVersion
-        id("org.jetbrains.kotlin.parcelize") version kotlinVersion
-        id("com.google.devtools.ksp") version "${kotlinVersion}-1.0.0"
+        id("com.google.devtools.ksp") version "${kotlinVersion}-1.0.2"
     }
     resolutionStrategy {
         eachPlugin {
@@ -29,7 +28,12 @@ pluginManagement {
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-        google()
+        google {
+            content {
+                includeGroupByRegex("com.android.*")
+                includeGroupByRegex("androidx.*")
+            }
+        }
         mavenCentral()
         maven("https://jitpack.io")
     }

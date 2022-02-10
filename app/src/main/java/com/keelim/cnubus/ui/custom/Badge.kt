@@ -22,7 +22,7 @@ import android.graphics.Paint
 import android.graphics.Typeface
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
-import com.keelim.common.dip
+import com.keelim.common.extensions.dip
 
 class Badge constructor(
     context: Context,
@@ -35,7 +35,10 @@ class Badge constructor(
             invalidate()
         }
 
-    private val paint: Paint = Paint(Paint.ANTI_ALIAS_FLAG)
+    private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        strokeWidth = LINE_WIDTH
+        strokeCap = Paint.Cap.ROUND
+    }
 
     init {
         val verticalPadding = dip(4f)
@@ -53,8 +56,8 @@ class Badge constructor(
     }
 
     override fun onDraw(canvas: Canvas?) {
+        super.onDraw(canvas)
         canvas ?: return
-
         canvas.drawRoundRect(
             0f,
             0f,
@@ -63,7 +66,11 @@ class Badge constructor(
             height / 2f, height / 2f,
             paint.apply { color = badgeColor }
         )
+    }
 
-        super.onDraw(canvas)
+    companion object {
+        private const val LINE_WIDTH = 10F
+        private const val LINE_SPACE = 15F
+        private const val ACTION_INTERVAL = 20L
     }
 }

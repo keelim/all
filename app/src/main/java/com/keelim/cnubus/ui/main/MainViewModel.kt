@@ -35,8 +35,8 @@ class MainViewModel @Inject constructor(
         themeUseCase.setUserTheme(theme)
     }
 
-    private val _loading:MutableStateFlow<Boolean> = MutableStateFlow(false)
-    val loading:StateFlow<Boolean> get() = _loading
+    private val _loading: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val loading: StateFlow<Boolean> get() = _loading
 
     fun loadingOn() = viewModelScope.launch {
         _loading.emit(true)

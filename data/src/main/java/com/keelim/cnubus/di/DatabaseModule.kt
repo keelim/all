@@ -19,6 +19,7 @@ import android.app.Activity
 import android.content.Context
 import androidx.room.Room
 import com.keelim.cnubus.data.db.AppDatabase
+import com.keelim.cnubus.data.db.DataStoreManager
 import com.keelim.cnubus.data.db.SharedPreferenceManager
 import dagger.Module
 import dagger.Provides
@@ -50,5 +51,13 @@ object DatabaseModule {
         @ApplicationContext ctx: Context
     ): SharedPreferenceManager {
         return SharedPreferenceManager(ctx.getSharedPreferences("preference", Activity.MODE_PRIVATE))
+    }
+
+    @Provides
+    @Singleton
+    fun provideDataStoreManger(
+        @ApplicationContext ctx: Context
+    ): DataStoreManager{
+        return DataStoreManager(ctx)
     }
 }

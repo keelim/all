@@ -1,3 +1,18 @@
+/*
+ * Designed and developed by 2021 keelim (Jaehyun Kim)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.keelim.cnubus.utils
 
 import android.app.Activity
@@ -11,9 +26,9 @@ import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.appopen.AppOpenAd
 import com.keelim.cnubus.BuildConfig
+import timber.log.Timber
 import java.util.Date
 import javax.inject.Inject
-import timber.log.Timber
 
 class AppOpenManager @Inject constructor() : LifecycleObserver {
     private lateinit var myApplication: Application
@@ -27,7 +42,7 @@ class AppOpenManager @Inject constructor() : LifecycleObserver {
 
     fun initialize(application: Application) {
         this.myApplication = application
-        this.myApplication.registerActivityLifecycleCallbacks(object :Application.ActivityLifecycleCallbacks{
+        this.myApplication.registerActivityLifecycleCallbacks(object : Application.ActivityLifecycleCallbacks {
             override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {}
             override fun onActivityStarted(activity: Activity) {
                 currentActivity = activity
@@ -53,9 +68,9 @@ class AppOpenManager @Inject constructor() : LifecycleObserver {
         }
         AppOpenAd.load(
             myApplication,
-            if(BuildConfig.DEBUG){
+            if (BuildConfig.DEBUG) {
                 AD_UNIT_ID
-            } else{
+            } else {
                 BuildConfig.UNIT
             },
             adRequest,
@@ -84,7 +99,7 @@ class AppOpenManager @Inject constructor() : LifecycleObserver {
                     isShowingAd = true
                 }
             })
-            if(appOpenAd!= null && currentActivity != null){
+            if (appOpenAd != null && currentActivity != null) {
                 appOpenAd!!.show(currentActivity!!)
             }
         } else {

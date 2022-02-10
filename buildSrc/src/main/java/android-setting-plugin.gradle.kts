@@ -26,3 +26,4 @@ configure<BaseExtension> {
         targetCompatibility = ProjectConfigurations.javaVer
     }
 }
+apply(from = "$rootDir/spotless.gradle")

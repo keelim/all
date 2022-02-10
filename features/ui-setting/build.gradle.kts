@@ -16,10 +16,8 @@ dependencies {
     implementation(Dep.AndroidX.Compose.material3)
     implementation(Dep.AndroidX.Compose.material)
     implementation(Dep.AndroidX.Compose.tooling)
-    implementation(Dep.AndroidX.Compose.materialAdapter)
     implementation(Dep.AndroidX.Compose.livedata)
     implementation(Dep.AndroidX.Compose.viewModel)
-
     implementation(Dep.AndroidX.lifecycle.livedata)
     implementation(Dep.AndroidX.lifecycle.runtime)
     implementation(Dep.AndroidX.Compose.activity)

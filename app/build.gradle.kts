@@ -1,5 +1,3 @@
-import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
-
 plugins {
     id("application-setting-plugin")
     id("compose-setting-plugin")
@@ -15,9 +13,6 @@ plugins {
     id ("com.google.secrets_gradle_plugin") version("0.5")
 }
 
-val key: String = gradleLocalProperties(rootDir).getProperty("APPCENTER_KEY")
-val unit:String = gradleLocalProperties(rootDir).getProperty("UNIT")
-
 android {
     defaultConfig {
         applicationId = ProjectConfigurations.applicationId
@@ -30,8 +25,6 @@ android {
             firebaseAppDistribution {
                 testers = "kimh00335@gmail.com"
             }
-            buildConfigField("String", "APPCENTER_KEY", key)
-            buildConfigField("String", "UNIT", unit)
         }
     }
     buildFeatures {
@@ -49,6 +42,7 @@ dependencies {
 
     implementation(platform(Dep.Firebase.platform))
     implementation("com.google.firebase:firebase-core")
+    implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-crashlytics-ktx")
     implementation("com.google.firebase:firebase-perf-ktx")
     implementation("com.google.firebase:firebase-messaging-ktx")
@@ -79,6 +73,7 @@ dependencies {
     implementation(Dep.AndroidX.datastore.preference)
 
     implementation(Dep.AndroidX.lifecycle.viewModelKtx)
+    implementation(Dep.AndroidX.lifecycle.service)
     implementation(Dep.AndroidX.lifecycle.runtime)
     implementation(Dep.AndroidX.Compose.ui)
     implementation(Dep.AndroidX.Compose.material)

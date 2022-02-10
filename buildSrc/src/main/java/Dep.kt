@@ -87,15 +87,15 @@ object Dep {
         }
 
         object Compose {
-            const val version = "1.2.0-alpha02"
-            const val material3 = "androidx.compose.material3:material3:1.0.0-alpha04"
+            const val version = "1.0.5"
+
             const val runtime = "androidx.compose.runtime:runtime:$version"
             const val ui = "androidx.compose.ui:ui:${version}"
-            const val material = "androidx.compose.material3:material3:1.0.0-alpha04"
-            const val livedata = "androidx.compose.runtime:runtime-livedata:$version"
-            const val foundation = "androidx.compose.foundation:foundation:$version"
+            const val material = "androidx.compose.material:material:${version}"
+            const val materialAdapter = "com.google.android.material:compose-theme-adapter:${version}"
+            const val material3 = "androidx.compose.material3:material3:1.0.0-alpha04"
             const val tooling = "androidx.compose.ui:ui-tooling:${version}"
-            const val toolingPreview = "androidx.compose.ui:ui-tooling-preview:${version}"
+            const val livedata = "androidx.compose.runtime:runtime-livedata:$version"
             const val animation = "androidx.compose.animation:animation:$version"
 
             const val activity = "androidx.activity:activity-compose:${AndroidX.activity.activityVersion}"

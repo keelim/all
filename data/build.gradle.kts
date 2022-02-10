@@ -27,6 +27,8 @@ dependencies {
 
     implementation(Dep.OkHttp.core)
     implementation(Dep.OkHttp.loggingInterceptor)
+    implementation(Dep.AndroidX.datastore.core)
+    implementation(Dep.AndroidX.datastore.preference)
 
     implementation(Dep.Network.Retrofit.retrofit)
     implementation(Dep.Network.Retrofit.retrofit_gson)

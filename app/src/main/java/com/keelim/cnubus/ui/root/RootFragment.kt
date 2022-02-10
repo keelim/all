@@ -23,67 +23,39 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DefaultItemAnimator
+import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.FragmentRootBinding
 import com.keelim.cnubus.feature.map.ui.MapEvent
 import com.keelim.cnubus.feature.map.ui.MapsActivity
+import com.keelim.common.base.BaseFragment
 import com.keelim.common.extensions.repeatCallDefaultOnStarted
 import com.keelim.common.extensions.toast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
-class RootFragment : Fragment() {
-    private var _binding: FragmentRootBinding? = null
-    private val binding get() = _binding!!
-    private val viewModel: RootViewModel by viewModels()
-    private val mode by lazy {
-        requireArguments().getString("mode")
-    }
+class RootFragment : BaseFragment<FragmentRootBinding, RootViewModel>() {
+    override val layoutResourceId: Int = R.layout.fragment_root
+    override val viewModel: RootViewModel by viewModels()
+
+    private val mode by lazy { requireArguments().getString("mode") }
+
     private val rootAdapter by lazy {
         RootAdapter(
             click = { position ->
-                when (mode) {
-                    "a" -> startActivity(
-                        Intent(requireContext(), MapsActivity::class.java).apply {
-                            putExtra("location", viewModel.data.value[position].roota)
-                        }
-                    )
-                    "b" -> startActivity(
-                        Intent(requireContext(), MapsActivity::class.java).apply {
-                            putExtra("location", viewModel.data.value[position].rootb)
-                        }
-                    )
-                    "c" -> startActivity(
-                        Intent(requireContext(), MapsActivity::class.java).apply {
-                            putExtra("location", viewModel.data.value[position].rootc)
-                        }
-                    )
-                    else -> {
-                        requireActivity().toast("노선 준비 중입니다. ")
+                startActivity(
+                    Intent(requireContext(), MapsActivity::class.java).apply {
+                        putExtra("location", when(mode){
+                            "a" -> viewModel.data.value[position].roota
+                            "b" -> viewModel.data.value[position].rootb
+                            "c" -> viewModel.data.value[position].rootc
+                            else -> ""
+                        })
                     }
-                }
+                )
             }
         )
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentRootBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        modeSetting()
-        initViews()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     private fun modeSetting() {
@@ -91,8 +63,11 @@ class RootFragment : Fragment() {
     }
 
     private fun initViews() = with(binding) {
-        lvAroot.setHasFixedSize(true)
-        lvAroot.adapter = rootAdapter
+        lvAroot.run {
+            setHasFixedSize(true)
+            adapter = rootAdapter
+            itemAnimator = DefaultItemAnimator()
+        }
         viewLifecycleOwner.repeatCallDefaultOnStarted {
             viewModel.state.collect {
                 when (it) {
@@ -114,4 +89,14 @@ class RootFragment : Fragment() {
             }
         }
     }
+
+    override fun initBeforeBinding() {
+        modeSetting()
+    }
+
+    override fun initBinding() {
+        initViews()
+    }
+
+    override fun initAfterBinding() = Unit
 }

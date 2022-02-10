@@ -30,7 +30,6 @@ class ThemeRepositoryImpl @Inject constructor(
     @ApplicationContext private val ctx: Context,
 ) : ThemeRepository {
 
-
     override fun getUserTheme() = ctx.dataStore.data.map { preferences ->
         preferences[USER_THEME] ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
     }

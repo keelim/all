@@ -21,10 +21,12 @@ import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.NavHostFragment
+import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.ActivityMainBinding
 import com.keelim.cnubus.services.TerminateService
-import com.keelim.common.repeatCallDefaultOnStarted
-import com.keelim.common.toast
+import com.keelim.common.extensions.repeatCallDefaultOnStarted
+import com.keelim.common.extensions.toast
 import com.keelim.compose.ui.CircularIndeterminateProgressBar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -42,13 +44,18 @@ class MainActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
             val responsePermissions = permissions.entries.filter {
                 it.key == permission.ACCESS_FINE_LOCATION ||
-                        it.key == permission.ACCESS_COARSE_LOCATION
+                    it.key == permission.ACCESS_COARSE_LOCATION
             }
             if (responsePermissions.filter { it.value }
-                    .size == locationPermissions.size) {
+                .size == locationPermissions.size
+            ) {
                 toast("권한이 확인되었습니다.")
             }
         }
+
+    private val navigationController by lazy {
+        (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment).navController
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +63,18 @@ class MainActivity : AppCompatActivity() {
         startService(Intent(this, TerminateService::class.java))
         locationPermissionLauncher.launch(locationPermissions)
         observeLoading()
+        initViews()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navigationController.navigateUp() || super.onSupportNavigateUp()
+    }
+
+    private fun initViews() = with(binding) {
+        navigationController.addOnDestinationChangedListener { _, destination, argument ->
+            if (destination.id == R.id.stationArrivalsFragment) {
+            }
+        }
     }
 
     override fun onDestroy() {

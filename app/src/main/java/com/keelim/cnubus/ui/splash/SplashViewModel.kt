@@ -15,8 +15,8 @@
  */
 package com.keelim.cnubus.ui.splash
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.keelim.common.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,14 +25,14 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SplashViewModel @Inject constructor() : ViewModel() {
+class SplashViewModel @Inject constructor() : BaseViewModel() {
     private val _loading = MutableStateFlow(false)
     val loading: StateFlow<Boolean> get() = _loading
 
     init {
         viewModelScope.launch {
-            delay(1_000L)
-            _loading.value = true
+            delay(1500)
+            _loading.emit(true)
         }
     }
 }

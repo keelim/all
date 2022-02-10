@@ -17,19 +17,15 @@ package com.keelim.cnubus.feature.map.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.keelim.cnubus.data.model.Station
 import com.keelim.cnubus.data.model.gps.Location
-import com.keelim.cnubus.data.model.gps.locationList
 import com.keelim.cnubus.data.repository.station.StationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -44,7 +40,7 @@ class MapsViewModel @Inject constructor(
         observeLocation()
     }
 
-    private fun observeLocation(){
+    private fun observeLocation() {
         stationRepository.locations
             .onStart {
                 _state.emit(MapEvent.Loading)

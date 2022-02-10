@@ -15,7 +15,6 @@
  */
 package com.keelim.cnubus.data.db
 
-import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.keelim.cnubus.data.db.dao.CommentDao

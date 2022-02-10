@@ -4,6 +4,12 @@ plugins {
     id("kotlin-parcelize")
 }
 
+android{
+    buildFeatures {
+        dataBinding = true
+    }
+}
+
 dependencies {
     implementation(projects.data)
     implementation(projects.compose)

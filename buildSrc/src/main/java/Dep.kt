@@ -32,6 +32,7 @@ object Dep {
         object lifecycle {
             const val lifecycleVersion = "2.4.0"
             const val viewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+            const val service = "androidx.lifecycle:lifecycle-service:$lifecycleVersion"
             const val runtimeTesting = "androidx.lifecycle:lifecycle-runtime-testing:$lifecycleVersion"
             const val runtime = "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
             const val livedata  = "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"

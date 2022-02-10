@@ -33,7 +33,7 @@ class SettingActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setThemeContent{
+        setThemeContent {
             CnubusTheme {
                 Navigation(
                     path = type,
@@ -46,7 +46,7 @@ class SettingActivity : ComponentActivity() {
 
 @Preview
 @Composable
-fun PreviewSettingActivity(){
+fun PreviewSettingActivity() {
     CnubusTheme {
         Navigation(
             path = Section.Developer,

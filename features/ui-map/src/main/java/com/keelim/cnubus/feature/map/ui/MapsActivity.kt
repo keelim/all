@@ -24,6 +24,7 @@ import android.os.Looper
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
@@ -48,57 +49,53 @@ import com.keelim.cnubus.feature.map.ui.map3.detail.DetailActivity
 import com.keelim.common.extensions.repeatCallDefaultOnStarted
 import com.keelim.common.extensions.toast
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import java.net.MalformedURLException
 import java.net.URL
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MapsActivity : AppCompatActivity() {
-    private var current: LatLng? = null
+    private val binding by lazy { ActivityMapsBinding.inflate(layoutInflater) }
+    private val bottomBinding by lazy { BottomSheetBinding.bind(binding.bottom.root) }
 
     private lateinit var fusedLocationProvider: FusedLocationProviderClient
     private lateinit var locationRequest: LocationRequest
     private lateinit var locationCallback: LocationCallback
-    private lateinit var googleMap: GoogleMap
-    private lateinit var myLocationListener: MyLocationListener
-
-    private val binding by lazy { ActivityMapsBinding.inflate(layoutInflater) }
-    private val bottomBinding by lazy { BottomSheetBinding.bind(binding.bottom.root) }
-    private val locationManager by lazy { getSystemService(Context.LOCATION_SERVICE) as LocationManager }
+    private var current: LatLng? = null
     private val location by lazy {
         intent.getStringExtra("location")?.toInt() ?: -1
     }
+
+    private val locationManager by lazy { getSystemService(Context.LOCATION_SERVICE) as LocationManager }
+    private lateinit var myLocationListener: MyLocationListener
+
+    private val viewModel: MapsViewModel by viewModels()
+    private lateinit var googleMap: GoogleMap
     private val mapFragment by lazy {
         supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
     }
+
     private val viewPagerAdapter by lazy {
         LocationPagerAdapter(
             clicked = {
-                startActivity(
-                    Intent(this@MapsActivity, DetailActivity::class.java).apply {
-                        putExtra("item", it)
-                    }
-                )
+                startActivity(Intent(this@MapsActivity, DetailActivity::class.java).apply {
+                    putExtra("item", it)
+                })
             },
             longClicked = {
-                startActivity(
-                    Intent.createChooser(
-                        Intent().apply {
-                            action = Intent.ACTION_SEND
-                            putExtra(Intent.EXTRA_TEXT, "[확인] ${it.name} 사진보기 : ${it.imgUrl}")
-                            type = "text/plain"
-                        },
-                        null
-                    )
-                )
+                startActivity(Intent.createChooser(Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, "[확인] ${it.name} 사진보기 : ${it.imgUrl}")
+                    type = "text/plain"
+                }, null))
             }
         )
     }
+
     private val recyclerAdapter by lazy {
         LocationAdapter()
     }
-
-    private val viewModel: MapsViewModel by viewModels()
 
     private var tileProvider = object : UrlTileProvider(64, 64) {
         override fun getTileUrl(x: Int, y: Int, zoom: Int): URL? {
@@ -123,7 +120,6 @@ class MapsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         setMyLocationListener()
-        myPositionInit()
         observeState()
         initViews()
         googleMapSetting()
@@ -145,17 +141,10 @@ class MapsActivity : AppCompatActivity() {
                 minTime, minDistance, myLocationListener
             )
         }
-        if (::fusedLocationProvider.isInitialized.not()) {
+        if(::fusedLocationProvider.isInitialized.not()){
             fusedLocationProvider = LocationServices.getFusedLocationProviderClient(this)
         }
-        fusedLocationProvider.requestLocationUpdates(
-            locationRequest,
-            locationCallback,
-            Looper.getMainLooper()
-        )
-    }
 
-    private fun myPositionInit() {
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
                 super.onLocationResult(locationResult)
@@ -169,6 +158,12 @@ class MapsActivity : AppCompatActivity() {
             interval = REQUEST_INTERVAL
             fastestInterval = REQUEST_FAST_INTERVAL
         }
+
+        fusedLocationProvider.requestLocationUpdates(
+            locationRequest,
+            locationCallback,
+            Looper.myLooper()!!
+        )
     }
 
     private fun initViews() = with(binding) {
@@ -186,7 +181,7 @@ class MapsActivity : AppCompatActivity() {
         })
     }
 
-    private fun googleMapSetting() = repeatCallDefaultOnStarted {
+    private fun googleMapSetting() = lifecycleScope.launch {
         googleMap = mapFragment.awaitMap().apply {
             with(uiSettings) {
                 isZoomControlsEnabled = true
@@ -236,6 +231,7 @@ class MapsActivity : AppCompatActivity() {
                         googleMap.apply {
                             animateCamera(cameraUpdate)
                             isMyLocationEnabled = true
+                            uiSettings.isMyLocationButtonEnabled = true
                         }
                         viewPagerAdapter.submitList(it.data)
                         recyclerAdapter.submitList(it.data)
@@ -264,9 +260,7 @@ class MapsActivity : AppCompatActivity() {
         if (::myLocationListener.isInitialized) {
             locationManager.removeUpdates(myLocationListener)
         }
-        if (::fusedLocationProvider.isInitialized) {
-            fusedLocationProvider.removeLocationUpdates(locationCallback)
-        }
+        fusedLocationProvider.removeLocationUpdates(locationCallback)
     }
 
     inner class MyLocationListener : LocationListener {

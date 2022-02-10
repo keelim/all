@@ -49,8 +49,8 @@ class StationRepositoryImpl @Inject constructor(
             .distinctUntilChanged()
             .map { stations -> stations.toStations().sortedByDescending { it.isFavorited } }
             .flowOn(dispatcher)
-    override val locations: Flow<List<Location>> = flow{
-        while(true){
+    override val locations: Flow<List<Location>> = flow {
+        while (true) {
             emit(locationList)
             delay(5000)
         }

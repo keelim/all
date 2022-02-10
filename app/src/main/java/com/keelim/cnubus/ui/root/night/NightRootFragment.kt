@@ -23,7 +23,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.FragmentNightRootBinding
-import com.keelim.common.toast
+import com.keelim.common.extensions.toast
 
 class NightRootFragment : Fragment(R.layout.fragment_night_root) {
     private val rootList by lazy { resources.getStringArray(R.array.night_intent_array).toList() }

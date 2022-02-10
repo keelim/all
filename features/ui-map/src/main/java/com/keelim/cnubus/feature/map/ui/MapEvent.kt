@@ -20,6 +20,6 @@ import com.keelim.cnubus.data.model.gps.Location
 sealed class MapEvent {
     object UnInitialized : MapEvent()
     object Loading : MapEvent()
-    data class MigrateSuccess(val data: List<Location>): MapEvent()
+    data class MigrateSuccess(val data: List<Location>) : MapEvent()
     data class Error(val message: String = "에러가 발생하였습니다.") : MapEvent()
 }

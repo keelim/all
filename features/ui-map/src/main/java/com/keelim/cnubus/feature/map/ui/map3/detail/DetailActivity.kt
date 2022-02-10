@@ -1,3 +1,18 @@
+/*
+ * Designed and developed by 2021 keelim (Jaehyun Kim)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.keelim.cnubus.feature.map.ui.map3.detail
 
 import android.content.Intent
@@ -7,11 +22,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.keelim.cnubus.data.model.gps.Location
 import com.keelim.cnubus.feature.map.databinding.ActivityDetailBinding
-import com.keelim.common.loadAsync
-import com.keelim.common.repeatCallDefaultOnStarted
-import com.keelim.common.snak
-import com.keelim.common.toGone
-import com.keelim.common.toVisible
+import com.keelim.common.extensions.loadAsync
+import com.keelim.common.extensions.repeatCallDefaultOnStarted
+import com.keelim.common.extensions.snak
+import com.keelim.common.extensions.toGone
+import com.keelim.common.extensions.toVisible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

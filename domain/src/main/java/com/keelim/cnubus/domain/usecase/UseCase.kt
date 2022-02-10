@@ -15,7 +15,7 @@
  */
 package com.keelim.cnubus.domain.usecase
 
-import com.keelim.common.Result
+import com.keelim.common.extensions.Result
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import timber.log.Timber

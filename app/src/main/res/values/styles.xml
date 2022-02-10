@@ -9,7 +9,7 @@
         <item name="android:textColor">@color/main_text_color</item>
     </style>
 
-    <style name="AppTheme.material3" parent="ThemeOverlay.Material3.DynamicColors.DayNight">
+    <style name="AppTheme.material3" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorOnPrimary">@color/colorAccent</item>
         <item name="colorPrimaryContainer">@color/error</item>

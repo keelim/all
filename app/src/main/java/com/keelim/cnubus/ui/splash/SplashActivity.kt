@@ -42,6 +42,7 @@ class SplashActivity : BaseVBActivity<ActivitySplashBinding, SplashViewModel>(
         viewModel.loading.collect {
             if (it) {
                 startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+                finish()
             }
         }
     }

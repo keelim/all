@@ -9,20 +9,16 @@
         android:name="com.keelim.cnubus.ui.tab.TabFragment"
         android:label="TabFragment" >
         <action
-            android:id="@+id/action_tabFragment_to_stationsFragment"
-            app:destination="@id/stationsFragment" />
-        <action
             android:id="@+id/action_tabFragment_to_content3Fragment"
             app:destination="@id/content3Fragment" />
+        <action
+            android:id="@+id/action_tabFragment_to_stationsFragment"
+            app:destination="@id/stationsFragment" />
     </fragment>
     <fragment
         android:id="@+id/stationArrivalsFragment"
         android:name="com.keelim.cnubus.ui.stationarrivals.StationArrivalsFragment"
-        android:label="StationArrivalsFragment" >
-        <action
-            android:id="@+id/action_stationArrivalsFragment_to_stationsFragment"
-            app:destination="@id/stationsFragment" />
-    </fragment>
+        android:label="StationArrivalsFragment" />
     <fragment
         android:id="@+id/stationsFragment"
         android:name="com.keelim.cnubus.ui.stations.StationsFragment"
@@ -30,16 +26,9 @@
         <action
             android:id="@+id/action_stationsFragment_to_stationArrivalsFragment"
             app:destination="@id/stationArrivalsFragment" />
-        <action
-            android:id="@+id/action_stationsFragment_to_tabFragment"
-            app:destination="@id/tabFragment" />
     </fragment>
     <fragment
         android:id="@+id/content3Fragment"
         android:name="com.keelim.cnubus.ui.content.Content3Fragment"
-        android:label="Content3Fragment" >
-        <action
-            android:id="@+id/action_content3Fragment_to_tabFragment2"
-            app:destination="@id/tabFragment" />
-    </fragment>
+        android:label="Content3Fragment" />
 </navigation>

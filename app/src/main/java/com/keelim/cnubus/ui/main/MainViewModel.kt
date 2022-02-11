@@ -15,20 +15,20 @@
  */
 package com.keelim.cnubus.ui.main
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.keelim.cnubus.domain.ThemeUseCase
+import com.keelim.common.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val themeUseCase: ThemeUseCase,
-) : ViewModel() {
+) : BaseViewModel() {
     val theme = themeUseCase.appTheme
 
     fun setAppTheme(theme: Int) = viewModelScope.launch {

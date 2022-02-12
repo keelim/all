@@ -86,6 +86,8 @@ dependencies {
     implementation(Dep.Network.Moshi.moshi_kotlin)
 
     testImplementation(Dep.Test.junit)
+    testImplementation(Dep.Kotlin.coroutines.test)
     androidTestImplementation(Dep.Test.androidJunit)
     androidTestImplementation(Dep.Test.espressoCore)
+
 }

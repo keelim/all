@@ -1,58 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.MapsActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/top_container"
-        style="@style/Widget.Material3.CardView.Elevated"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginHorizontal="60dp"
-        android:layout_marginTop="10dp">
+    <data>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    </data>
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_title"
-                style="@style/Widget.Material3.CardView.Elevated"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:lines="1"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="충남대학교" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="80dp" />
+        tools:context=".ui.MapsActivity">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/top_container"
+            style="@style/Widget.Material3.CardView.Elevated"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginHorizontal="60dp"
+            android:layout_marginTop="10dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_title"
+                    style="@style/Widget.Material3.CardView.Elevated"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:lines="1"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="충남대학교" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="80dp" />
 
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/houseViewPager"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="120dp"
-        android:orientation="horizontal" />
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/houseViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="120dp"
+            android:orientation="horizontal" />
 
-    <include
-        android:id="@+id/bottom"
-        layout="@layout/bottom_sheet" />
+        <include
+            android:id="@+id/bottom"
+            layout="@layout/bottom_sheet" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_fab_a"
+            android:layout_width="40dp"
+            android:translationY="5dp"
+            android:layout_height="40dp"
+            android:text="A"
+            android:layout_gravity="start|top"
+            android:layout_margin="10dp" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_fab_b"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="start|bottom"
+            android:layout_margin="10dp"
+            android:text="B"
+            android:translationY="10dp"
+            app:layout_anchor="@id/btn_fab_a"
+            app:layout_anchorGravity="bottom" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_fab_c"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:translationY="10dp"
+            android:text="C"
+            android:layout_gravity="start|bottom"
+            android:layout_margin="10dp"
+            app:layout_anchor="@id/btn_fab_b"
+            app:layout_anchorGravity="bottom" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_fab_all"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:translationY="10dp"
+            android:text="ALL"
+            android:layout_gravity="start|bottom"
+            android:layout_margin="10dp"
+            app:layout_anchor="@id/btn_fab_c"
+            app:layout_anchorGravity="bottom" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

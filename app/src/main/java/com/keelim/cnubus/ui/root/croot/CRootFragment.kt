@@ -20,45 +20,36 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DefaultItemAnimator
 import com.google.android.material.snackbar.Snackbar
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.FragmentCRootBinding
+import com.keelim.cnubus.ui.main.MainViewModel
+import com.keelim.common.base.BaseFragment
+import com.keelim.common.extensions.snak
 
-class CRootFragment : Fragment() {
-    private var _binding: FragmentCRootBinding? = null
-    private val binding get() = _binding!!
+class CRootFragment : BaseFragment<FragmentCRootBinding, MainViewModel>() {
     private val rootList by lazy { resources.getStringArray(R.array.croot).toList() }
-    private val cRecyclerViewAdapter = CRecyclerViewAdapter(
-        {
-            Snackbar.make(binding.root, "C 노선 지도 업데이트 준비 중입니다. ", Snackbar.LENGTH_LONG).show()
-        },
-        {
-        }
-    )
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentCRootBinding.inflate(inflater, container, false)
-        return binding.root
+    private val cRecyclerViewAdapter = CRecyclerViewAdapter {
+        binding.root.snak("C 노선 지도 업데이트 준비 중입니다.")
     }
+    override val layoutResourceId: Int = R.layout.fragment_c_root
+    override val viewModel: MainViewModel by viewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initBeforeBinding() = Unit
+    override fun initBinding() {
         initViews()
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+    override fun initAfterBinding() = Unit
 
     private fun initViews() = with(binding) {
-        lvCroot.setHasFixedSize(true)
-        lvCroot.adapter = cRecyclerViewAdapter.apply {
-            submitList(rootList)
+        lvCroot.run {
+            setHasFixedSize(true)
+            adapter = cRecyclerViewAdapter.apply {
+                submitList(rootList)
+            }
+            itemAnimator = DefaultItemAnimator()
         }
     }
 }

@@ -22,6 +22,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.ActivityMainBinding
 import com.keelim.cnubus.services.TerminateService
@@ -66,6 +67,11 @@ class MainActivity : AppCompatActivity() {
         initViews()
     }
 
+    override fun onStop() {
+        super.onStop()
+        stopService(Intent(this, TerminateService::class.java))
+    }
+
     override fun onSupportNavigateUp(): Boolean {
         return navigationController.navigateUp() || super.onSupportNavigateUp()
     }
@@ -77,11 +83,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        stopService(Intent(this, TerminateService::class.java))
-    }
-
     private fun observeLoading() = repeatCallDefaultOnStarted {
         viewModel.loading.collect {
             binding.composeView.apply {
@@ -90,6 +91,22 @@ class MainActivity : AppCompatActivity() {
                     CircularIndeterminateProgressBar(it)
                 }
             }
+        }
+    }
+
+    override fun onBackPressed() {
+        if(navigationController.currentDestination?.id == R.id.tabFragment){
+            MaterialAlertDialogBuilder(this)
+                .setTitle("종료하시겠습니까?")
+                .setCancelable(true)
+                .setPositiveButton("Yes") { dialog, which ->
+                    super.onBackPressed()
+                }
+                .setNegativeButton("Nope"){ dialog, which -> }
+                .create()
+                .show()
+        } else{
+            navigationController.navigateUp()
         }
     }
 }

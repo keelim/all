@@ -15,45 +15,27 @@
  */
 package com.keelim.cnubus.ui.tab
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.tabs.TabLayoutMediator
+import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.FragmentTabBinding
 import com.keelim.cnubus.ui.main.MainViewModel
+import com.keelim.common.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class TabFragment : Fragment() {
-    private var _binding: FragmentTabBinding? = null
-    private val binding get() = _binding!!
-    private val viewModel: MainViewModel by activityViewModels()
-    private val pagerAdapter by lazy { ViewPager2Adapter(this) }
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentTabBinding.inflate(layoutInflater, container, false)
-        return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+class TabFragment : BaseFragment<FragmentTabBinding, MainViewModel>() {
+    override val layoutResourceId: Int = R.layout.fragment_tab
+    override val viewModel: MainViewModel by activityViewModels()
+    override fun initBeforeBinding() = Unit
+    override fun initBinding() {
         initViews()
     }
 
+    override fun initAfterBinding() = Unit
     private fun initViews() = with(binding) {
         viewpager.apply {
-            adapter = pagerAdapter
+            adapter = ViewPager2Adapter(this@TabFragment)
             setPageTransformer(DepthPageTransformer())
         }
         TabLayoutMediator(tabLayout, viewpager) { tab, position ->

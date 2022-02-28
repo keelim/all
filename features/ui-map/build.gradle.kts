@@ -6,6 +6,12 @@ plugins {
     id("org.jetbrains.kotlin.android")
 }
 
+android{
+    buildFeatures{
+        dataBinding = true
+    }
+}
+
 dependencies {
     implementation(projects.data)
     implementation(projects.compose)

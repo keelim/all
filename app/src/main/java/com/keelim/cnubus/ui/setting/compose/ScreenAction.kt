@@ -25,5 +25,6 @@ internal enum class ScreenAction {
     OpenSource,
     Lab,
     Developer,
-    Subway
+    Subway,
+    Lab2,
 }

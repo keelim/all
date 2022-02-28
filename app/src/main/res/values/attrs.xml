@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ContentBox">
+        <attr name="contents" format="string" />
+        <attr name="picture" format="reference|integer" />
+    </declare-styleable>
+
+    <declare-styleable name="RatingView">
+        <attr name="selected" format="integer" />
+    </declare-styleable>
+</resources>

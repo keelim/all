@@ -22,7 +22,6 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
@@ -46,32 +45,48 @@ import com.keelim.cnubus.feature.map.databinding.BottomSheetBinding
 import com.keelim.cnubus.feature.map.ui.map3.LocationAdapter
 import com.keelim.cnubus.feature.map.ui.map3.LocationPagerAdapter
 import com.keelim.cnubus.feature.map.ui.map3.detail.DetailActivity
+import com.keelim.common.base.BaseActivity
 import com.keelim.common.extensions.repeatCallDefaultOnStarted
 import com.keelim.common.extensions.toast
 import dagger.hilt.android.AndroidEntryPoint
 import java.net.MalformedURLException
 import java.net.URL
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MapsActivity : AppCompatActivity() {
-    private val binding by lazy { ActivityMapsBinding.inflate(layoutInflater) }
-    private val bottomBinding by lazy { BottomSheetBinding.bind(binding.bottom.root) }
-
+class MapsActivity : BaseActivity<ActivityMapsBinding, MapsViewModel>() {
     private lateinit var fusedLocationProvider: FusedLocationProviderClient
     private lateinit var locationRequest: LocationRequest
     private lateinit var locationCallback: LocationCallback
+    private lateinit var myLocationListener: MyLocationListener
+    private lateinit var googleMap: GoogleMap
+
+    private val bottomBinding by lazy { BottomSheetBinding.bind(binding.bottom.root) }
+
     private var current: LatLng? = null
+    private var tileProvider = object : UrlTileProvider(64, 64) {
+        override fun getTileUrl(x: Int, y: Int, zoom: Int): URL? {
+            val url = "http://my.image.server/images/$zoom/$x/$y.png"
+            return if (!checkTileExists(x, y, zoom)) {
+                null
+            } else try {
+                URL(url)
+            } catch (e: MalformedURLException) {
+                throw AssertionError(e)
+            }
+        }
+
+        private fun checkTileExists(x: Int, y: Int, zoom: Int): Boolean {
+            val minZoom = 12
+            val maxZoom = 16
+            return zoom in minZoom..maxZoom
+        }
+    }
+
     private val location by lazy {
         intent.getStringExtra("location")?.toInt() ?: -1
     }
-
     private val locationManager by lazy { getSystemService(Context.LOCATION_SERVICE) as LocationManager }
-    private lateinit var myLocationListener: MyLocationListener
-
-    private val viewModel: MapsViewModel by viewModels()
-    private lateinit var googleMap: GoogleMap
     private val mapFragment by lazy {
         supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
     }
@@ -97,37 +112,27 @@ class MapsActivity : AppCompatActivity() {
         LocationAdapter()
     }
 
-    private var tileProvider = object : UrlTileProvider(64, 64) {
-        override fun getTileUrl(x: Int, y: Int, zoom: Int): URL? {
-            val url = "http://my.image.server/images/$zoom/$x/$y.png"
-            return if (!checkTileExists(x, y, zoom)) {
-                null
-            } else try {
-                URL(url)
-            } catch (e: MalformedURLException) {
-                throw AssertionError(e)
-            }
-        }
+    override val layoutResourceId: Int = R.layout.activity_maps
+    override val viewModel: MapsViewModel by viewModels()
+    override fun initBeforeBinding() {
+        initViews()
+        googleMapSetting()
+    }
 
-        private fun checkTileExists(x: Int, y: Int, zoom: Int): Boolean {
-            val minZoom = 12
-            val maxZoom = 16
-            return zoom in minZoom..maxZoom
-        }
+    override fun initDataBinding() {
+        observeState()
+    }
+
+    override fun initAfterBinding() {
+        setMyLocationListener()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        setMyLocationListener()
-        observeState()
-        initViews()
-        googleMapSetting()
     }
 
     private fun setMyLocationListener() {
-        val minTime = 1500L
-        val minDistance = 100f
         if (::myLocationListener.isInitialized.not()) {
             myLocationListener = MyLocationListener()
         }
@@ -141,7 +146,7 @@ class MapsActivity : AppCompatActivity() {
                 minTime, minDistance, myLocationListener
             )
         }
-        if(::fusedLocationProvider.isInitialized.not()){
+        if (::fusedLocationProvider.isInitialized.not()) {
             fusedLocationProvider = LocationServices.getFusedLocationProviderClient(this)
         }
 
@@ -273,5 +278,7 @@ class MapsActivity : AppCompatActivity() {
         const val NORMAL_ZOOM = 17f
         const val REQUEST_INTERVAL = 10000L
         const val REQUEST_FAST_INTERVAL = 5000L
+        const val minTime = 1500L
+        const val minDistance = 100f
     }
 }

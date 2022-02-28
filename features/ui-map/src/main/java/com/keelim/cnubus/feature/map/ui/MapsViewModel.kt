@@ -15,23 +15,23 @@
  */
 package com.keelim.cnubus.feature.map.ui
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.keelim.cnubus.data.model.gps.Location
 import com.keelim.cnubus.data.repository.station.StationRepository
+import com.keelim.common.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
-import javax.inject.Inject
 
 @HiltViewModel
 class MapsViewModel @Inject constructor(
     private val stationRepository: StationRepository,
-) : ViewModel() {
+) : BaseViewModel() {
     private val _state: MutableStateFlow<MapEvent> = MutableStateFlow(MapEvent.UnInitialized)
     val state: StateFlow<MapEvent> get() = _state
     private val data: MutableStateFlow<List<Location>> = MutableStateFlow(emptyList())

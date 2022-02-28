@@ -21,6 +21,7 @@ import androidx.fragment.app.viewModels
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.FragmentContentBinding
 import com.keelim.common.base.BaseFragment
+import com.keelim.common.extensions.repeatCallDefaultOnStarted
 
 class Content3Fragment : BaseFragment<FragmentContentBinding, Content3ViewModel>() {
     override val layoutResourceId: Int = R.layout.fragment_content
@@ -33,7 +34,13 @@ class Content3Fragment : BaseFragment<FragmentContentBinding, Content3ViewModel>
     }
 
     override fun initBinding() {
-        viewModel.viewEvent.observe(this) {
+        observeEvent()
+    }
+
+    override fun initAfterBinding() = Unit
+
+    private fun observeEvent() = repeatCallDefaultOnStarted {
+        viewModel.viewEvent.collect {
             it.getContentIfNotHandled()?.let { event ->
                 when (event) {
                     Content3ViewModel.VIEW_1 -> startActivity(
@@ -46,6 +53,4 @@ class Content3Fragment : BaseFragment<FragmentContentBinding, Content3ViewModel>
             }
         }
     }
-
-    override fun initAfterBinding() = Unit
 }

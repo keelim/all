@@ -17,6 +17,13 @@ package com.keelim.cnubus.di
 
 import android.app.Activity
 import android.content.Context
+import androidx.datastore.core.DataStore
+import androidx.datastore.core.handlers.ReplaceFileCorruptionHandler
+import androidx.datastore.preferences.SharedPreferencesMigration
+import androidx.datastore.preferences.core.PreferenceDataStoreFactory
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.emptyPreferences
+import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.room.Room
 import com.keelim.cnubus.data.db.AppDatabase
 import com.keelim.cnubus.data.db.DataStoreManager
@@ -27,6 +34,10 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -55,9 +66,19 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideDataStoreManger(
-        @ApplicationContext ctx: Context
-    ): DataStoreManager{
-        return DataStoreManager(ctx)
-    }
+    fun providePreferenceDataStore(
+        @ApplicationContext ctx:Context,
+        @IoDispatcher io: CoroutineDispatcher
+    ): DataStore<Preferences> = PreferenceDataStoreFactory.create(
+        corruptionHandler = ReplaceFileCorruptionHandler { emptyPreferences() },
+        migrations = listOf(SharedPreferencesMigration(ctx,"preference")),
+        scope = CoroutineScope(io + SupervisorJob()),
+        produceFile = {ctx.preferencesDataStoreFile("preference")}
+    )
+
+    @Provides
+    @Singleton
+    fun providePreferenceDataStoreManager(
+        dataStore:DataStore<Preferences>
+    ): DataStoreManager = DataStoreManager(dataStore)
 }

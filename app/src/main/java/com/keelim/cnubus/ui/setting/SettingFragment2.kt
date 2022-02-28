@@ -39,7 +39,6 @@ import com.keelim.compose.ui.setThemeContent
 import com.keelim.ui_setting.ClockActivity
 import com.keelim.ui_setting.ui.SettingActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.launch
 
@@ -55,7 +54,6 @@ class SettingFragment2 : Fragment() {
         return setThemeContent {
             SettingScreen { action ->
                 when (action) {
-                    ScreenAction.MYPAGE -> Unit
                     ScreenAction.Content -> findNavController().navigate(R.id.content3Fragment)
                     ScreenAction.Homepage -> startActivity(
                         Intent(
@@ -82,12 +80,6 @@ class SettingFragment2 : Fragment() {
                             OssLicensesMenuActivity::class.java
                         )
                     )
-                    ScreenAction.Lab -> startActivity(
-                        Intent(
-                            requireContext(),
-                            ClockActivity::class.java
-                        )
-                    )
                     ScreenAction.Developer -> startActivity(
                         Intent(
                             requireContext(),
@@ -95,6 +87,19 @@ class SettingFragment2 : Fragment() {
                         )
                     )
                     ScreenAction.Subway -> findNavController().navigate(R.id.stationsFragment)
+                    ScreenAction.MYPAGE -> Unit
+                    ScreenAction.Lab -> startActivity(
+                        Intent(
+                            requireContext(),
+                            ClockActivity::class.java
+                        )
+                    )
+                    ScreenAction.Lab2 -> startActivity(
+                        Intent(
+                            requireContext(),
+                            LabActivity::class.java
+                        )
+                    )
                 }
             }
         }
@@ -118,22 +123,20 @@ class SettingFragment2 : Fragment() {
     private fun selectTheme() = viewLifecycleOwner.lifecycleScope.launch {
         val currentTheme = mainViewModel.theme.last()
         var checkedItem = AppTheme.THEME_ARRAY.indexOfFirst { it.modeNight == currentTheme }
-        if (checkedItem >= 0) {
-            val items =
-                AppTheme.THEME_ARRAY.map { theme -> getText(theme.modeNameRes) }.toTypedArray()
+        val items =
+            AppTheme.THEME_ARRAY.map { theme -> getText(theme.modeNameRes) }.toTypedArray()
 
-            MaterialAlertDialogBuilder(requireContext())
-                .setTitle(R.string.choose_theme)
-                .setSingleChoiceItems(items, checkedItem) { _, it ->
-                    checkedItem = it
-                }
-                .setPositiveButton(R.string.ok) { _, _ ->
-                    val mode = AppTheme.THEME_ARRAY[checkedItem].modeNight
-                    AppCompatDelegate.setDefaultNightMode(mode)
-                    mainViewModel.setAppTheme(mode)
-                }.setNegativeButton(R.string.cancel) { _, _ ->
-                }
-                .show()
-        }
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(R.string.choose_theme)
+            .setSingleChoiceItems(items, checkedItem) { _, it ->
+                checkedItem = it
+            }
+            .setPositiveButton(R.string.ok) { _, _ ->
+                val mode = AppTheme.THEME_ARRAY[checkedItem].modeNight
+                AppCompatDelegate.setDefaultNightMode(mode)
+                mainViewModel.setAppTheme(mode)
+            }.setNegativeButton(R.string.cancel) { _, _ ->
+            }
+            .show()
     }
 }

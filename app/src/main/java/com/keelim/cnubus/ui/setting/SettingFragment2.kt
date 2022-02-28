@@ -55,7 +55,6 @@ class SettingFragment2 : Fragment() {
         return setThemeContent {
             SettingScreen { action ->
                 when (action) {
-                    ScreenAction.MYPAGE -> Unit
                     ScreenAction.Content -> findNavController().navigate(R.id.content3Fragment)
                     ScreenAction.Homepage -> startActivity(
                         Intent(
@@ -82,12 +81,6 @@ class SettingFragment2 : Fragment() {
                             OssLicensesMenuActivity::class.java
                         )
                     )
-                    ScreenAction.Lab -> startActivity(
-                        Intent(
-                            requireContext(),
-                            ClockActivity::class.java
-                        )
-                    )
                     ScreenAction.Developer -> startActivity(
                         Intent(
                             requireContext(),
@@ -95,6 +88,13 @@ class SettingFragment2 : Fragment() {
                         )
                     )
                     ScreenAction.Subway -> findNavController().navigate(R.id.stationsFragment)
+                    ScreenAction.MYPAGE -> Unit
+                    ScreenAction.Lab -> startActivity(
+                        Intent(
+                            requireContext(),
+                            ClockActivity::class.java
+                        )
+                    )
                     ScreenAction.Lab2 -> startActivity(Intent(requireContext(), LabActivity::class.java))
                 }
             }

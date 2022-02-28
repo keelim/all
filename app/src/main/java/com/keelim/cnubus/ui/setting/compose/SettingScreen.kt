@@ -33,6 +33,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.keelim.cnubus.BuildConfig
 import com.keelim.cnubus.utils.toColor
 
 @Composable
@@ -114,15 +115,6 @@ internal fun SettingScreen(
                     .padding(horizontal = 24.dp)
                     .height(1.dp)
             )
-            CellItem(text = "실험 기능") {
-                onScreenAction(ScreenAction.Lab)
-            }
-            Divider(
-                color = "#EFEFEF".toColor(),
-                modifier = Modifier
-                    .padding(horizontal = 24.dp)
-                    .height(1.dp)
-            )
             CellItem(text = "근처 지하철") {
                 onScreenAction(ScreenAction.Subway)
             }
@@ -141,15 +133,26 @@ internal fun SettingScreen(
                     .padding(horizontal = 24.dp)
                     .height(1.dp)
             )
-            CellItem(text = "실험 기능2") {
-                onScreenAction(ScreenAction.Lab2)
+            if(BuildConfig.DEBUG){
+                CellItem(text = "실험 기능") {
+                    onScreenAction(ScreenAction.Lab)
+                }
+                Divider(
+                    color = "#EFEFEF".toColor(),
+                    modifier = Modifier
+                        .padding(horizontal = 24.dp)
+                        .height(1.dp)
+                )
+                CellItem(text = "실험 기능2") {
+                    onScreenAction(ScreenAction.Lab2)
+                }
+                Divider(
+                    color = "#EFEFEF".toColor(),
+                    modifier = Modifier
+                        .padding(horizontal = 24.dp)
+                        .height(1.dp)
+                )
             }
-            Divider(
-                color = "#EFEFEF".toColor(),
-                modifier = Modifier
-                    .padding(horizontal = 24.dp)
-                    .height(1.dp)
-            )
         }
     }
 }

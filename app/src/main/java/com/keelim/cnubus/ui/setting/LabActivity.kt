@@ -1,6 +1,8 @@
 package com.keelim.cnubus.ui.setting
 
+import android.content.Intent
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.appcompat.app.AppCompatActivity
 import com.keelim.cnubus.databinding.ActivityLabBinding
 
@@ -13,7 +15,7 @@ class LabActivity() : AppCompatActivity() {
     }
 
     private fun initViews() = with(binding) {
-        binding.root.setOnClickListener {
+        root.setOnClickListener {
             binding.ratingView.upTheRating()
         }
     }

@@ -95,6 +95,7 @@ class SettingFragment2 : Fragment() {
                         )
                     )
                     ScreenAction.Subway -> findNavController().navigate(R.id.stationsFragment)
+                    ScreenAction.Lab2 -> startActivity(Intent(requireContext(), LabActivity::class.java))
                 }
             }
         }

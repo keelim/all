@@ -141,6 +141,15 @@ internal fun SettingScreen(
                     .padding(horizontal = 24.dp)
                     .height(1.dp)
             )
+            CellItem(text = "실험 기능2") {
+                onScreenAction(ScreenAction.Lab2)
+            }
+            Divider(
+                color = "#EFEFEF".toColor(),
+                modifier = Modifier
+                    .padding(horizontal = 24.dp)
+                    .height(1.dp)
+            )
         }
     }
 }

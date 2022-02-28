@@ -15,22 +15,22 @@
  */
 package com.keelim.cnubus.ui.content
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.keelim.cnubus.data.model.Event
 import com.keelim.common.base.BaseViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 class Content3ViewModel : BaseViewModel() {
-    private val _viewEvent = MutableLiveData<Event<Any>>()
-    val viewEvent: LiveData<Event<Any>> get() = _viewEvent
+    private val _viewEvent: MutableStateFlow<Event<String>> = MutableStateFlow(Event(""))
+    val viewEvent: StateFlow<Event<String>> get() = _viewEvent
 
-    private fun viewEvent(content: Any) {
-        _viewEvent.value = Event(content)
+    fun start1() = viewModelScope.launch {
+        _viewEvent.emit(Event(VIEW_1))
     }
 
-    companion object {
+    companion object{
         const val VIEW_1 = "homepage"
     }
-
-    fun start1() = viewEvent(VIEW_1)
 }

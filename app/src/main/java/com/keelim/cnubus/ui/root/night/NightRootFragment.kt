@@ -15,50 +15,38 @@
  */
 package com.keelim.cnubus.ui.root.night
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DefaultItemAnimator
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.FragmentNightRootBinding
+import com.keelim.cnubus.ui.main.MainViewModel
+import com.keelim.common.base.BaseFragment
 import com.keelim.common.extensions.toast
 
-class NightRootFragment : Fragment(R.layout.fragment_night_root) {
+class NightRootFragment : BaseFragment<FragmentNightRootBinding, MainViewModel>() {
     private val rootList by lazy { resources.getStringArray(R.array.night_intent_array).toList() }
-    private var _binding: FragmentNightRootBinding? = null
-    private val binding get() = _binding!!
     private val nightRecyclerViewAdapter = NightRecyclerViewAdapter(
         click = {
             requireActivity().toast("노선 준비 중입니다. ")
         }
     )
+    override val layoutResourceId: Int = R.layout.fragment_night_root
+    override val viewModel: MainViewModel by viewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentNightRootBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initBeforeBinding() = Unit
+    override fun initBinding() {
         initViews()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+    override fun initAfterBinding() = Unit
 
     private fun initViews() = with(binding) {
-        lvNightroot.setHasFixedSize(true)
-        lvNightroot.layoutManager = LinearLayoutManager(requireContext())
-        lvNightroot.adapter = nightRecyclerViewAdapter.apply {
-            submitList(rootList)
+        lvNightroot.run {
+            setHasFixedSize(true)
+            adapter = nightRecyclerViewAdapter.apply {
+                submitList(rootList)
+            }
+            itemAnimator = DefaultItemAnimator()
         }
     }
 }

@@ -19,6 +19,7 @@ import com.keelim.cnubus.data.api.StationArrivalsApi
 import com.keelim.cnubus.data.api.response.HouseDto
 import com.keelim.cnubus.data.api.response.mapper.toArrivalInformation
 import com.keelim.cnubus.data.db.AppDatabase
+import com.keelim.cnubus.data.db.DataStoreManager
 import com.keelim.cnubus.data.db.SharedPreferenceManager
 import com.keelim.cnubus.data.db.entity.mapper.toStationEntity
 import com.keelim.cnubus.data.db.entity.mapper.toStations
@@ -42,6 +43,7 @@ class StationRepositoryImpl @Inject constructor(
     private val stationApi: StationApi,
     private val db: AppDatabase,
     private val preferenceManager: SharedPreferenceManager,
+    private val dataStoreManager: DataStoreManager,
     @IoDispatcher private val dispatcher: CoroutineDispatcher,
 ) : StationRepository {
     override val stations: Flow<List<Station>> =
@@ -59,10 +61,12 @@ class StationRepositoryImpl @Inject constructor(
     override suspend fun refreshStations() = withContext(dispatcher) {
         val fileUpdatedTimeMillis = stationApi.getStationDataUpdatedTimeMillis()
         val lastDatabaseUpdatedTimeMillis = preferenceManager.getLong(KEY_LAST_DATABASE_UPDATED_TIME_MILLIS)
+        val tempDatabaseUpdatedTimeMills = dataStoreManager.getLong(KEY_LAST_DATABASE_UPDATED_TIME_MILLIS)
 
         if (lastDatabaseUpdatedTimeMillis == null || fileUpdatedTimeMillis > lastDatabaseUpdatedTimeMillis) {
             db.daoStation().insertStationSubways(stationApi.getStationSubways())
             preferenceManager.putLong(KEY_LAST_DATABASE_UPDATED_TIME_MILLIS, fileUpdatedTimeMillis)
+            dataStoreManager.setLong(KEY_LAST_DATABASE_UPDATED_TIME_MILLIS, fileUpdatedTimeMillis)
         }
     }
 

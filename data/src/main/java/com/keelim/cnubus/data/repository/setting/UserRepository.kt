@@ -5,4 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {
     suspend fun getUserInformation(): Flow<User>
+    suspend fun setUserInformation(name:String)
 }

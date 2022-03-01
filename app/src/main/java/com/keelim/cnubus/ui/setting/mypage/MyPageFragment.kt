@@ -15,27 +15,37 @@
  */
 package com.keelim.cnubus.ui.setting.mypage
 
-import androidx.activity.viewModels
-import androidx.lifecycle.LifecycleOwner
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.keelim.cnubus.R
-import com.keelim.cnubus.databinding.ActivityMyPageBinding
-import com.keelim.common.base.BaseActivity
+import com.keelim.cnubus.databinding.FragmentMyPageBinding
+import com.keelim.common.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MyPageActivity : BaseActivity<ActivityMyPageBinding, MyPageViewModel>(
+class MyPageFragment : BaseFragment<FragmentMyPageBinding, MyPageViewModel>(
 ) {
-    override val layoutResourceId: Int = R.layout.activity_my_page
+    override val layoutResourceId: Int = R.layout.fragment_my_page
     override val viewModel: MyPageViewModel by viewModels()
 
-    override fun initBeforeBinding() = Unit
-    override fun initDataBinding() {
+    override fun initBeforeBinding() {
         initData()
+        initViews()
     }
+
+    override fun initBinding() {
+    }
+
     override fun initAfterBinding() = Unit
 
-    private fun initData(){
+    private fun initData() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+    }
+
+    private fun initViews() = with(binding) {
+        ivEditBtn.setOnClickListener {
+            findNavController().navigate(R.id.userEditDialog)
+        }
     }
 }

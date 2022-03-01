@@ -34,7 +34,6 @@ import com.keelim.cnubus.feature.map.ui.MapsActivity
 import com.keelim.cnubus.ui.main.MainViewModel
 import com.keelim.cnubus.ui.setting.compose.ScreenAction
 import com.keelim.cnubus.ui.setting.compose.SettingScreen
-import com.keelim.cnubus.ui.setting.mypage.MyPageActivity
 import com.keelim.common.extensions.repeatCallDefaultOnStarted
 import com.keelim.compose.ui.setThemeContent
 import com.keelim.ui_setting.ClockActivity
@@ -88,12 +87,7 @@ class SettingFragment2 : Fragment() {
                         )
                     )
                     ScreenAction.Subway -> findNavController().navigate(R.id.stationsFragment)
-                    ScreenAction.MYPAGE -> startActivity(
-                        Intent(
-                            requireContext(),
-                            MyPageActivity::class.java
-                        )
-                    )
+                    ScreenAction.MYPAGE -> findNavController().navigate(R.id.myPageFragment)
                     ScreenAction.Lab -> startActivity(
                         Intent(
                             requireContext(),

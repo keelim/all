@@ -25,4 +25,9 @@ internal class UserRepositoryImpl @Inject constructor(
             }
         }
     }
+
+    override suspend fun setUserInformation(name: String) {
+        dataStoreManager.setUserId("id", name)
+    }
+
 }

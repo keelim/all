@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.keelim.cnubus.ui.setting.mypage.MyPageViewModel" />
@@ -285,8 +286,8 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="24sp"
                         android:text="@{viewModel.userName}"
+                        android:textSize="24sp"
                         tools:text="id" />
 
                     <com.google.android.material.textview.MaterialTextView
@@ -298,12 +299,13 @@
                 </LinearLayout>
 
                 <ImageView
+                    android:id="@+id/iv_edit_btn"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="8dp"
-                    app:tint="@color/white" />
+                    app:srcCompat="@drawable/ic_baseline_more_vert_24" />
             </RelativeLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -331,6 +333,11 @@
                 android:gravity="end" />
         </RelativeLayout>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/logoutButton"
             android:layout_width="match_parent"
@@ -338,6 +345,7 @@
             android:layout_marginHorizontal="24dp"
             android:layout_marginTop="64dp"
             android:layout_marginBottom="56dp"
+
             android:text="로그아웃"
             android:textColor="@color/white" />
     </LinearLayout>

@@ -15,6 +15,31 @@
  */
 package com.keelim.cnubus.ui.setting.mypage
 
+import androidx.lifecycle.viewModelScope
+import com.keelim.cnubus.domain.UserUseCase
 import com.keelim.common.base.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
-class MyPageViewModel : BaseViewModel()
+@HiltViewModel
+class MyPageViewModel @Inject constructor(
+    private val getUserUseCase: UserUseCase
+) : BaseViewModel() {
+    val userName = MutableStateFlow("id: 아직 로그인 중이 아닙니다.")
+    val userFollowerCount = MutableStateFlow(0)
+    val userFollowingCount = MutableStateFlow(0)
+
+    init {
+        init()
+    }
+
+    private fun init() = viewModelScope.launch {
+        getUserUseCase.getUserName()
+            .collectLatest {
+                userName.emit(it.id)
+            }
+    }
+}

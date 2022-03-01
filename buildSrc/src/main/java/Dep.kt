@@ -211,6 +211,13 @@ object Dep {
         const val math = "org.apache.commons:commons-math3:3.6.1"
     }
 
+    object Rx {
+        const val rxAndroid ="io.reactivex.rxjava3:rxandroid:3.0.0"
+        const val rxJava = "io.reactivex.rxjava3:rxjava:3.0.0"
+        const val rxKotlin = "io.reactivex.rxjava3:rxkotlin:3.0.0"
+        const val binding = "com.jakewharton.rxbinding4:rxbinding:4.0.0"
+    }
+
     object AppCenter {
         private const val appCenterSdkVersion = "4.3.1"
         const val analytics = "com.microsoft.appcenter:appcenter-analytics:${appCenterSdkVersion}"

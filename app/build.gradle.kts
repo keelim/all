@@ -85,6 +85,11 @@ dependencies {
     implementation(Dep.Network.Retrofit.retrofit)
     implementation(Dep.Network.Moshi.moshi_kotlin)
 
+    implementation(Dep.Rx.rxJava)
+    implementation(Dep.Rx.rxAndroid)
+    implementation(Dep.Rx.rxKotlin)
+    implementation(Dep.Rx.binding)
+
     testImplementation(Dep.Test.junit)
     testImplementation(Dep.Kotlin.coroutines.test)
     androidTestImplementation(Dep.Test.androidJunit)

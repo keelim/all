@@ -16,25 +16,26 @@
 package com.keelim.cnubus.ui.setting.mypage
 
 import androidx.activity.viewModels
+import androidx.lifecycle.LifecycleOwner
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.ActivityMyPageBinding
 import com.keelim.common.base.BaseActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MyPageActivity : BaseActivity<ActivityMyPageBinding, MyPageViewModel>(
 ) {
     override val layoutResourceId: Int = R.layout.activity_my_page
-
     override val viewModel: MyPageViewModel by viewModels()
 
-    override fun initBeforeBinding() {
-        TODO("Not yet implemented")
-    }
-
+    override fun initBeforeBinding() = Unit
     override fun initDataBinding() {
-        TODO("Not yet implemented")
+        initData()
     }
+    override fun initAfterBinding() = Unit
 
-    override fun initAfterBinding() {
-        TODO("Not yet implemented")
+    private fun initData(){
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
     }
 }

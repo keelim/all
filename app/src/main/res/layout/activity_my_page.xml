@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.keelim.cnubus.ui.setting.mypage.MyPageViewModel" />
     </data>
 
     <LinearLayout
@@ -38,7 +41,8 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="24dp"
             android:layout_marginTop="32dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <FrameLayout
                 android:id="@+id/main_profile_layout"
@@ -101,7 +105,7 @@
                     android:id="@+id/tv_follow_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.userFollowerCount}" />
+                    android:text="@{String.valueOf(viewModel.userFollowerCount)}" />
 
 
                 <com.google.android.material.textview.MaterialTextView
@@ -114,20 +118,9 @@
                     android:id="@+id/tv_following_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.userFollowingCount}" />
+                    android:text="@{String.valueOf(viewModel.userFollowingCount)}" />
 
             </LinearLayout>
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_user_instruction"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/linear_main_follow"
-                android:layout_marginTop="12dp"
-                android:text="@{viewModel.userIntroduce}"
-
-                android:textSize="14sp" />
-
         </RelativeLayout>
 
 
@@ -240,7 +233,7 @@
                     android:id="@+id/userFollowerCountTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.userFollowerCount}" />
+                    android:text="@{String.valueOf(viewModel.userFollowerCount)}" />
 
 
                 <com.google.android.material.textview.MaterialTextView
@@ -253,20 +246,9 @@
                     android:id="@+id/userFollowingCountTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.userFollowingCount}" />
+                    android:text="@{String.valueOf(viewModel.userFollowingCount)}" />
 
             </LinearLayout>
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/userIntroductionTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/followLayout"
-                android:layout_marginTop="12dp"
-                android:text="@{viewModel.userIntroduce}"
-
-                android:textSize="14sp" />
-
         </RelativeLayout>
 
         <com.google.android.material.textview.MaterialTextView
@@ -275,7 +257,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="24dp"
             android:layout_marginTop="32dp"
-            android:text="포지션" />
+            android:text="내 정보" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/libraryButton"
@@ -303,17 +285,15 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="라이브러리"
-                        android:textColor="@color/white"
-                        android:textSize="24sp" />
+                        android:textSize="24sp"
+                        android:text="@{viewModel.userName}"
+                        tools:text="id" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-
-                        android:text="각 곡 별로 자신이 연주한 파트를 저장합니다"
-                        android:textColor="@color/white"
+                        android:text="자세한 정보는 업데이트를 준비 중입니다."
                         android:textSize="14sp" />
                 </LinearLayout>
 
@@ -324,9 +304,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="8dp"
                     app:tint="@color/white" />
-
             </RelativeLayout>
-
         </com.google.android.material.card.MaterialCardView>
 
         <RelativeLayout
@@ -342,7 +320,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:gravity="center_vertical"
-                android:text="커버 히스토리" />
+                android:text="히스토리" />
 
             <ImageView
                 android:id="@+id/coverHistoryDetailButton"
@@ -353,7 +331,6 @@
                 android:gravity="end" />
         </RelativeLayout>
 
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/logoutButton"
             android:layout_width="match_parent"
@@ -361,6 +338,7 @@
             android:layout_marginHorizontal="24dp"
             android:layout_marginTop="64dp"
             android:layout_marginBottom="56dp"
-            android:text="로그아웃" />
+            android:text="로그아웃"
+            android:textColor="@color/white" />
     </LinearLayout>
 </layout>

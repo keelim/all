@@ -18,10 +18,9 @@ package com.keelim.cnubus.ui.setting.mypage
 import androidx.activity.viewModels
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.ActivityMyPageBinding
-import com.keelim.common.base.BaseVBActivity
+import com.keelim.common.base.BaseActivity
 
-class MyPageActivity : BaseVBActivity<ActivityMyPageBinding, MyPageViewModel>(
-    ActivityMyPageBinding::inflate
+class MyPageActivity : BaseActivity<ActivityMyPageBinding, MyPageViewModel>(
 ) {
     override val layoutResourceId: Int = R.layout.activity_my_page
 

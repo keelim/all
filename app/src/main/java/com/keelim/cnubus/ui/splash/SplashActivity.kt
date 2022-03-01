@@ -20,15 +20,12 @@ import androidx.activity.viewModels
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.ActivitySplashBinding
 import com.keelim.cnubus.ui.main.MainActivity
-import com.keelim.common.base.BaseVBActivity
+import com.keelim.common.base.BaseActivity
 import com.keelim.common.extensions.repeatCallDefaultOnStarted
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
-class SplashActivity : BaseVBActivity<ActivitySplashBinding, SplashViewModel>(
-    ActivitySplashBinding::inflate
-) {
+class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
     override val layoutResourceId: Int = R.layout.activity_splash
     override val viewModel: SplashViewModel by viewModels()
 

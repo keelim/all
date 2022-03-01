@@ -15,8 +15,10 @@
  */
 package com.keelim.cnubus.di
 
+import com.keelim.cnubus.data.repository.setting.UserRepository
 import com.keelim.cnubus.data.repository.theme.ThemeRepository
 import com.keelim.cnubus.domain.ThemeUseCase
+import com.keelim.cnubus.domain.UserUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,9 +32,12 @@ object UseCase {
     @ViewModelScoped
     fun provideThemeUseCase(
         themeRepository: ThemeRepository
-    ): ThemeUseCase {
-        return ThemeUseCase(
-            themeRepository
-        )
-    }
+    ): ThemeUseCase = ThemeUseCase(themeRepository)
+    
+
+    @Provides
+    @ViewModelScoped
+    fun provideUserUseCase(
+        userRepository: UserRepository
+    ): UserUseCase = UserUseCase(userRepository)
 }

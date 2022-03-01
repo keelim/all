@@ -11,4 +11,8 @@ class UserUseCase(
     suspend fun getUserName(): Flow<User> = userRepository
         .getUserInformation()
         .distinctUntilChanged()
+
+    suspend fun setUserName(name: String) {
+        userRepository.setUserInformation(name)
+    }
 }

@@ -36,7 +36,16 @@ class MyPageViewModel @Inject constructor(
         init()
     }
 
-    private fun init() = viewModelScope.launch {
+    private fun init() {
+        getUserId()
+    }
+
+    fun changeUserId(change: String) = viewModelScope.launch {
+        getUserUseCase.setUserName(change)
+        getUserId()
+    }
+
+    fun getUserId() = viewModelScope.launch {
         getUserUseCase.getUserName()
             .collectLatest {
                 userName.emit(it.id)

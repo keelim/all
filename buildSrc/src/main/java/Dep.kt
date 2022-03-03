@@ -120,8 +120,9 @@ object Dep {
         const val play_auth = "com.google.android.gms:play-services-auth:19.2.0"
         const val core = "com.google.android.play:core-ktx:1.8.1"
         const val location = "com.google.android.gms:play-services-location:19.0.1"
-        const val play_map = "com.google.android.gms:play-services-maps:17.0.1"
-        const val maps_sdk = "com.google.maps.android:maps-ktx:3.0.1"
+        const val play_map = "com.google.android.gms:play-services-maps:18.0.2"
+        const val maps_sdk = "com.google.maps.android:maps-ktx:3.3.0"
+        const val maps_utils = "com.google.maps.android:maps-utils-ktx:3.3.0"
     }
 
     object Firebase{

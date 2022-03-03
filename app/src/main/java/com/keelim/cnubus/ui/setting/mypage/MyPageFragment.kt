@@ -18,6 +18,8 @@ package com.keelim.cnubus.ui.setting.mypage
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.FragmentMyPageBinding
 import com.keelim.common.base.BaseFragment
@@ -34,6 +36,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding, MyPageViewModel>(
     private val historyAdapter by lazy {
         MyPageHistoryAdapter { history ->
             viewModel.deleteHistory(history)
+            viewModel.init()
         }
     }
 
@@ -60,7 +63,17 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding, MyPageViewModel>(
         recyclerHistory.run {
             setHasFixedSize(true)
             adapter = historyAdapter
+            layoutManager = LinearLayoutManager(requireContext())
             itemAnimator = DefaultItemAnimator()
+        }
+        coverHistoryDetailButton.setOnClickListener {
+            Snackbar.make(binding.root, "전부 지우기겠습니까?", Snackbar.LENGTH_SHORT).run {
+                setAction("Ok") {
+                    viewModel!!.deleteHistoryAll()
+                    viewModel!!.init()
+                }
+                show()
+            }
         }
     }
 

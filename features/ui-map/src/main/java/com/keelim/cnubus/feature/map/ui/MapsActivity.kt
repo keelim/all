@@ -34,8 +34,6 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.TileOverlayOptions
-import com.google.android.gms.maps.model.UrlTileProvider
 import com.google.maps.android.ktx.addMarker
 import com.google.maps.android.ktx.awaitMap
 import com.keelim.cnubus.data.model.gps.Location
@@ -49,8 +47,6 @@ import com.keelim.common.base.BaseActivity
 import com.keelim.common.extensions.repeatCallDefaultOnStarted
 import com.keelim.common.extensions.toast
 import dagger.hilt.android.AndroidEntryPoint
-import java.net.MalformedURLException
-import java.net.URL
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -64,24 +60,6 @@ class MapsActivity : BaseActivity<ActivityMapsBinding, MapsViewModel>() {
     private val bottomBinding by lazy { BottomSheetBinding.bind(binding.bottom.root) }
 
     private var current: LatLng? = null
-    private var tileProvider = object : UrlTileProvider(64, 64) {
-        override fun getTileUrl(x: Int, y: Int, zoom: Int): URL? {
-            val url = "http://my.image.server/images/$zoom/$x/$y.png"
-            return if (!checkTileExists(x, y, zoom)) {
-                null
-            } else try {
-                URL(url)
-            } catch (e: MalformedURLException) {
-                throw AssertionError(e)
-            }
-        }
-
-        private fun checkTileExists(x: Int, y: Int, zoom: Int): Boolean {
-            val minZoom = 12
-            val maxZoom = 16
-            return zoom in minZoom..maxZoom
-        }
-    }
 
     private val location by lazy {
         intent.getStringExtra("location")?.toInt() ?: -1
@@ -197,7 +175,7 @@ class MapsActivity : BaseActivity<ActivityMapsBinding, MapsViewModel>() {
             }
             setOnMarkerClickListener { marker ->
                 val selectedModel = viewPagerAdapter.currentList.firstOrNull {
-                    it.name == marker.snippet ?: "0".toInt()
+                    it.name == (marker.snippet ?: 0)
                 }
                 selectedModel?.let {
                     with(binding) {
@@ -208,9 +186,6 @@ class MapsActivity : BaseActivity<ActivityMapsBinding, MapsViewModel>() {
                 }
                 return@setOnMarkerClickListener false
             }
-            addTileOverlay(
-                TileOverlayOptions().tileProvider(tileProvider)
-            )
         }
     }
 

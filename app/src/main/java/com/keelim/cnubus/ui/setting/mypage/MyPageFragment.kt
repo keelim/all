@@ -17,9 +17,12 @@ package com.keelim.cnubus.ui.setting.mypage
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DefaultItemAnimator
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.FragmentMyPageBinding
 import com.keelim.common.base.BaseFragment
+import com.keelim.common.extensions.repeatCallDefaultOnStarted
+import com.keelim.common.extensions.snak
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -28,12 +31,19 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding, MyPageViewModel>(
     override val layoutResourceId: Int = R.layout.fragment_my_page
     override val viewModel: MyPageViewModel by viewModels()
 
+    private val historyAdapter by lazy {
+        MyPageHistoryAdapter { history ->
+            viewModel.deleteHistory(history)
+        }
+    }
+
     override fun initBeforeBinding() {
         initData()
         initViews()
     }
 
     override fun initBinding() {
+        observeState()
     }
 
     override fun initAfterBinding() = Unit
@@ -46,6 +56,20 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding, MyPageViewModel>(
     private fun initViews() = with(binding) {
         ivEditBtn.setOnClickListener {
             findNavController().navigate(R.id.userEditDialog)
+        }
+        recyclerHistory.run {
+            setHasFixedSize(true)
+            adapter = historyAdapter
+            itemAnimator = DefaultItemAnimator()
+        }
+    }
+
+    private fun observeState() = repeatCallDefaultOnStarted {
+        viewModel.histories.collect {
+            if (it.isEmpty()) {
+                binding.root.snak("저장된 기록이 없습니다.")
+            }
+            historyAdapter.submitList(it)
         }
     }
 }

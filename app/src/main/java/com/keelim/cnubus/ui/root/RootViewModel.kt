@@ -16,8 +16,10 @@
 package com.keelim.cnubus.ui.root
 
 import androidx.lifecycle.viewModelScope
+import com.keelim.cnubus.data.db.entity.History
 import com.keelim.cnubus.data.model.gps.Location
 import com.keelim.cnubus.data.repository.station.StationRepository
+import com.keelim.cnubus.domain.UserUseCase
 import com.keelim.cnubus.feature.map.ui.MapEvent
 import com.keelim.common.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -34,7 +36,8 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class RootViewModel @Inject constructor(
-    private val stationRepository: StationRepository
+    private val stationRepository: StationRepository,
+    private val userUseCase: UserUseCase,
 ) : BaseViewModel() {
     private val _state: MutableStateFlow<MapEvent> = MutableStateFlow(MapEvent.UnInitialized)
     val state: StateFlow<MapEvent> get() = _state
@@ -78,5 +81,10 @@ class RootViewModel @Inject constructor(
             "c" -> modes.emit("c")
             "night" -> modes.emit("night")
         }
+    }
+
+    fun insertHistory(position: Int) = viewModelScope.launch {
+        val location = data.value.getOrNull(position) ?: Location.defaultLocation()
+        userUseCase.insertHistory(History(location.name))
     }
 }

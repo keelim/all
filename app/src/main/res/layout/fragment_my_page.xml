@@ -330,22 +330,24 @@
                 android:layout_height="25dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:gravity="end" />
+                android:gravity="end"
+                app:srcCompat="@drawable/ic_baseline_more_vert_24" />
         </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_history"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone" />
+            android:layout_height="314dp"
+            android:layout_margin="8dp"
+            android:visibility="gone"
+            tools:listitem="@layout/item_history"
+            tools:visibility="visible" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/logoutButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="64dp"
-            android:layout_marginBottom="56dp"
-
             android:text="로그아웃"
             android:textColor="@color/white" />
     </LinearLayout>

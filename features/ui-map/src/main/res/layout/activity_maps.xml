@@ -61,47 +61,5 @@
             android:id="@+id/bottom"
             layout="@layout/bottom_sheet" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btn_fab_a"
-            android:layout_width="40dp"
-            android:translationY="5dp"
-            android:layout_height="40dp"
-            android:text="A"
-            android:layout_gravity="start|top"
-            android:layout_margin="10dp" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btn_fab_b"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="start|bottom"
-            android:layout_margin="10dp"
-            android:text="B"
-            android:translationY="10dp"
-            app:layout_anchor="@id/btn_fab_a"
-            app:layout_anchorGravity="bottom" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btn_fab_c"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:translationY="10dp"
-            android:text="C"
-            android:layout_gravity="start|bottom"
-            android:layout_margin="10dp"
-            app:layout_anchor="@id/btn_fab_b"
-            app:layout_anchorGravity="bottom" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btn_fab_all"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:translationY="10dp"
-            android:text="ALL"
-            android:layout_gravity="start|bottom"
-            android:layout_margin="10dp"
-            app:layout_anchor="@id/btn_fab_c"
-            app:layout_anchorGravity="bottom" />
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

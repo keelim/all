@@ -16,12 +16,7 @@
 package com.keelim.cnubus.ui.root
 
 import android.content.Intent
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.keelim.cnubus.R
@@ -32,7 +27,6 @@ import com.keelim.common.base.BaseFragment
 import com.keelim.common.extensions.repeatCallDefaultOnStarted
 import com.keelim.common.extensions.toast
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class RootFragment : BaseFragment<FragmentRootBinding, RootViewModel>() {
@@ -44,6 +38,7 @@ class RootFragment : BaseFragment<FragmentRootBinding, RootViewModel>() {
     private val rootAdapter by lazy {
         RootAdapter(
             click = { position ->
+                viewModel.insertHistory(position)
                 when (mode) {
                     "a" -> {
                         startActivity(

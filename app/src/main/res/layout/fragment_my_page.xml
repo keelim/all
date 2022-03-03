@@ -339,7 +339,7 @@
             android:layout_width="match_parent"
             android:layout_height="314dp"
             android:layout_margin="8dp"
-            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_history"
             tools:visibility="visible" />
 

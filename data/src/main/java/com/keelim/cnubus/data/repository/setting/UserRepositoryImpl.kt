@@ -1,5 +1,6 @@
 package com.keelim.cnubus.data.repository.setting
 
+import androidx.room.withTransaction
 import com.keelim.cnubus.data.db.AppDatabase
 import com.keelim.cnubus.data.db.DataStoreManager
 import com.keelim.cnubus.data.db.entity.History
@@ -7,9 +8,11 @@ import com.keelim.cnubus.data.model.User
 import com.keelim.cnubus.di.IoDispatcher
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 internal class UserRepositoryImpl @Inject constructor(
@@ -39,11 +42,18 @@ internal class UserRepositoryImpl @Inject constructor(
             .distinctUntilChanged()
     }
 
-    override suspend fun insertHistory(history: History) = withContext(io) {
+    override suspend fun getUserRawHistory(): List<History> = db.withTransaction {
+        db.daoHistory().getHistoryRawAll()
+    }
+    override suspend fun insertHistory(history: History) = db.withTransaction {
         db.daoHistory().insertHistory(history)
     }
 
-    override suspend fun deleteHistory(history: History) = withContext(io) {
+    override suspend fun deleteHistory(history: History) = db.withTransaction {
         db.daoHistory().deleteHistory(history)
+    }
+
+    override suspend fun deleteHistoryAll() = db.withTransaction{
+        db.daoHistory().deleteAll()
     }
 }

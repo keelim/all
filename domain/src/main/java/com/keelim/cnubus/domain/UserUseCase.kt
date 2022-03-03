@@ -18,6 +18,8 @@ class UserUseCase(
     }
 
     fun getAllHistories(): Flow<List<History>> = userRepository.getUserHistory()
+    suspend fun getAllRawHistories() = userRepository.getUserRawHistory()
     suspend fun insertHistory(history: History) = userRepository.insertHistory(history)
     suspend fun deleteHistory(history: History) = userRepository.deleteHistory(history)
+    suspend fun deleteHistoryAll() = userRepository.deleteHistoryAll()
 }

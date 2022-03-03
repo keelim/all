@@ -45,21 +45,27 @@ class RootFragment : BaseFragment<FragmentRootBinding, RootViewModel>() {
         RootAdapter(
             click = { position ->
                 when (mode) {
-                    "a" -> startActivity(
-                        Intent(requireContext(), MapsActivity::class.java).apply {
-                            putExtra("location", viewModel.data.value[position].roota)
-                        }
-                    )
-                    "b" -> startActivity(
-                        Intent(requireContext(), MapsActivity::class.java).apply {
-                            putExtra("location", viewModel.data.value[position].rootb)
-                        }
-                    )
-                    "c" -> startActivity(
-                        Intent(requireContext(), MapsActivity::class.java).apply {
-                            putExtra("location", viewModel.data.value[position].rootc)
-                        }
-                    )
+                    "a" -> {
+                        startActivity(
+                            Intent(requireContext(), MapsActivity::class.java).apply {
+                                putExtra("location", viewModel.data.value[position].roota)
+                            }
+                        )
+                    }
+                    "b" -> {
+                        startActivity(
+                            Intent(requireContext(), MapsActivity::class.java).apply {
+                                putExtra("location", viewModel.data.value[position].rootb)
+                            }
+                        )
+                    }
+                    "c" -> {
+                        startActivity(
+                            Intent(requireContext(), MapsActivity::class.java).apply {
+                                putExtra("location", viewModel.data.value[position].rootc)
+                            }
+                        )
+                    }
                     else -> {
                         requireActivity().toast("노선 준비 중입니다. ")
                     }

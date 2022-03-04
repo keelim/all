@@ -83,8 +83,11 @@ class RootViewModel @Inject constructor(
         }
     }
 
-    fun insertHistory(position: Int) = viewModelScope.launch {
+    fun insertHistory(position: Int, mode:String?) = viewModelScope.launch {
         val location = data.value.getOrNull(position) ?: Location.defaultLocation()
-        userUseCase.insertHistory(History(location.name))
+        userUseCase.insertHistory(History(
+            destination = location.name,
+            root = mode ?: "Empty"
+        ))
     }
 }

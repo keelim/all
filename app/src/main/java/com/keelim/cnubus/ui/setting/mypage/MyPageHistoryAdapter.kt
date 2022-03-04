@@ -18,14 +18,18 @@ class MyPageHistoryAdapter(
     inner class HistoryViewHolder(val binding: ItemHistoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: History) {
-            binding.ivHistoryView.load(R.mipmap.ic_launcher_round) {
-                crossfade(true)
-                placeholder(R.mipmap.ic_launcher_round)
-                transformations(CircleCropTransformation())
-            }
-            binding.tvHistoryView.text = item.destination
-            binding.btnDelete.setOnClickListener {
-                itemDelete.invoke(item)
+            binding.run {
+                ivHistoryView.load(R.mipmap.ic_launcher_round) {
+                    crossfade(true)
+                    placeholder(R.mipmap.ic_launcher_round)
+                    transformations(CircleCropTransformation())
+                }
+                tvHistoryView.text = item.destination
+                val root = "Root"
+                tvRootView.text = root + item.root
+                btnDelete.setOnClickListener {
+                    itemDelete.invoke(item)
+                }
             }
         }
     }

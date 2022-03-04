@@ -34,8 +34,8 @@ import com.keelim.cnubus.data.db.entity.SubwayEntity
         Comment::class,
         History::class,
     ],
-    version = 1,
-    exportSchema = false
+    version = 2,
+    exportSchema = false,
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun daoStation(): StationDao

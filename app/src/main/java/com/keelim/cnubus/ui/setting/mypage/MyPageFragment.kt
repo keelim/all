@@ -39,6 +39,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding, MyPageViewModel>(
         MyPageHistoryAdapter { history ->
             viewModel.deleteHistory(history)
             viewModel.init()
+            viewModel.getAllHistories()
         }
     }
 
@@ -73,7 +74,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding, MyPageViewModel>(
                 setAction("Ok") {
                     viewModel?.let {
                         it.deleteHistoryAll()
-                        it.init()
+                        it.getAllHistories()
                     }
                 }
                 show()

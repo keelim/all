@@ -10,7 +10,7 @@ plugins {
     id("dagger.hilt.android.plugin")
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.android.gms.oss-licenses-plugin")
-    id ("com.google.secrets_gradle_plugin") version("0.5")
+    id ("com.google.secrets_gradle_plugin") version("0.6.1")
 }
 
 android {

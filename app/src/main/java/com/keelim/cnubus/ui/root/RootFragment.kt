@@ -38,7 +38,7 @@ class RootFragment : BaseFragment<FragmentRootBinding, RootViewModel>() {
     private val rootAdapter by lazy {
         RootAdapter(
             click = { position ->
-                viewModel.insertHistory(position)
+                viewModel.insertHistory(position, mode)
                 when (mode) {
                     "a" -> {
                         startActivity(

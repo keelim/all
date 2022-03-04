@@ -39,7 +39,6 @@ internal class UserRepositoryImpl @Inject constructor(
 
     override fun getUserHistory(): Flow<List<History>> {
         return db.daoHistory().getHistoryAll()
-            .distinctUntilChanged()
     }
 
     override suspend fun getUserRawHistory(): List<History> = db.withTransaction {

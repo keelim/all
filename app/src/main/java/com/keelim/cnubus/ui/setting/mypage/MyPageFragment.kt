@@ -16,6 +16,7 @@
 package com.keelim.cnubus.ui.setting.mypage
 
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,6 +27,7 @@ import com.keelim.common.base.BaseFragment
 import com.keelim.common.extensions.repeatCallDefaultOnStarted
 import com.keelim.common.extensions.snak
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MyPageFragment : BaseFragment<FragmentMyPageBinding, MyPageViewModel>(
@@ -69,20 +71,25 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding, MyPageViewModel>(
         coverHistoryDetailButton.setOnClickListener {
             Snackbar.make(binding.root, "전부 지우기겠습니까?", Snackbar.LENGTH_SHORT).run {
                 setAction("Ok") {
-                    viewModel!!.deleteHistoryAll()
-                    viewModel!!.init()
+                    viewModel?.let {
+                        it.deleteHistoryAll()
+                        it.init()
+                    }
                 }
                 show()
             }
         }
     }
 
-    private fun observeState() = repeatCallDefaultOnStarted {
-        viewModel.histories.collect {
-            if (it.isEmpty()) {
-                binding.root.snak("저장된 기록이 없습니다.")
+    private fun observeState() = lifecycleScope.launch {
+        repeatCallDefaultOnStarted {
+            viewModel.getAllHistories().collect{
+                if (it.isEmpty()) {
+                    binding.root.snak("저장된 기록이 없습니다.")
+                } else{
+                    historyAdapter.submitList(it)
+                }
             }
-            historyAdapter.submitList(it)
         }
     }
 }

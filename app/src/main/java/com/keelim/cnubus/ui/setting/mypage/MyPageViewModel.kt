@@ -22,7 +22,9 @@ import com.keelim.common.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 @HiltViewModel
@@ -33,25 +35,12 @@ class MyPageViewModel @Inject constructor(
     val userFollowerCount = MutableStateFlow(0)
     val userFollowingCount = MutableStateFlow(0)
 
-    /*
-    val histories: StateFlow<List<History>> = userUseCase
-        .getAllHistories()
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.Lazily,
-            initialValue = emptyList()
-        )
-        */
-    val histories: MutableStateFlow<List<History>> = MutableStateFlow(emptyList())
-
     init {
         init()
     }
 
     fun init() = viewModelScope.launch {
         getUserId()
-        val value = userUseCase.getAllRawHistories()
-        histories.emit(value)
     }
 
     fun changeUserId(change: String) = viewModelScope.launch {
@@ -73,4 +62,11 @@ class MyPageViewModel @Inject constructor(
     fun deleteHistoryAll() = viewModelScope.launch {
         userUseCase.deleteHistoryAll()
     }
+
+    fun getAllHistories() = userUseCase.getAllHistories()
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = emptyList()
+        )
 }

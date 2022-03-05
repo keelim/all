@@ -90,6 +90,8 @@ dependencies {
     implementation(Dep.Rx.rxKotlin)
     implementation(Dep.Rx.binding)
 
+    implementation("com.jakewharton:process-phoenix:2.1.2")
+
     testImplementation(Dep.Test.junit)
     testImplementation(Dep.Kotlin.coroutines.test)
     androidTestImplementation(Dep.Test.androidJunit)

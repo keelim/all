@@ -31,7 +31,7 @@ class SplashViewModel @Inject constructor() : BaseViewModel() {
 
     init {
         viewModelScope.launch {
-            delay(1500)
+            delay(1000)
             _loading.emit(true)
         }
     }

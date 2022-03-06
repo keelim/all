@@ -17,6 +17,8 @@ package com.keelim.cnubus.di
 
 import com.keelim.cnubus.data.repository.setting.DeveloperRepository
 import com.keelim.cnubus.data.repository.setting.DeveloperRepositoryImpl
+import com.keelim.cnubus.data.repository.setting.UserRepository
+import com.keelim.cnubus.data.repository.setting.UserRepositoryImpl
 import com.keelim.cnubus.data.repository.station.StationApi
 import com.keelim.cnubus.data.repository.station.StationApiImpl
 import com.keelim.cnubus.data.repository.station.StationRepository
@@ -51,7 +53,14 @@ internal abstract class RepositoryModule {
     ): StationRepository
 
     @Binds
+    @Singleton
     abstract fun bindsThemeRepository(
         repository: ThemeRepositoryImpl
     ): ThemeRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindsUserRepository(
+        repository: UserRepositoryImpl
+    ): UserRepository
 }

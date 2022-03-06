@@ -120,8 +120,9 @@ object Dep {
         const val play_auth = "com.google.android.gms:play-services-auth:19.2.0"
         const val core = "com.google.android.play:core-ktx:1.8.1"
         const val location = "com.google.android.gms:play-services-location:19.0.1"
-        const val play_map = "com.google.android.gms:play-services-maps:17.0.1"
-        const val maps_sdk = "com.google.maps.android:maps-ktx:3.0.1"
+        const val play_map = "com.google.android.gms:play-services-maps:18.0.2"
+        const val maps_sdk = "com.google.maps.android:maps-ktx:3.3.0"
+        const val maps_utils = "com.google.maps.android:maps-utils-ktx:3.3.0"
     }
 
     object Firebase{
@@ -209,6 +210,13 @@ object Dep {
 
     object other{
         const val math = "org.apache.commons:commons-math3:3.6.1"
+    }
+
+    object Rx {
+        const val rxAndroid ="io.reactivex.rxjava3:rxandroid:3.0.0"
+        const val rxJava = "io.reactivex.rxjava3:rxjava:3.0.0"
+        const val rxKotlin = "io.reactivex.rxjava3:rxkotlin:3.0.0"
+        const val binding = "com.jakewharton.rxbinding4:rxbinding:4.0.0"
     }
 
     object AppCenter {

@@ -19,16 +19,16 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.keelim.cnubus.data.model.gps.Location
 import com.keelim.cnubus.feature.map.databinding.ActivityDetailBinding
 import com.keelim.common.extensions.loadAsync
-import com.keelim.common.extensions.repeatCallDefaultOnStarted
-import com.keelim.common.extensions.snak
+import com.keelim.common.extensions.snack
 import com.keelim.common.extensions.toGone
 import com.keelim.common.extensions.toVisible
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -59,17 +59,21 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun observeState() = lifecycleScope.launch {
-        repeatCallDefaultOnStarted {
-            viewModel.state.collect {
-                when (it) {
+        /**
+         * flowWithLifecycle 가 여러 개를 가지고 싶을 때는 어떻게 해야 하는가?
+         */
+        viewModel.state
+            .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+            .collect { state ->
+                when (state) {
                     is DetailState.Error -> {}
                     is DetailState.Loading -> {
                         binding.loading.toVisible()
                     }
                     is DetailState.Success -> {
                         binding.loading.toGone()
-                        binding.root.snak(
-                            if (it.data.isEmpty()) {
+                        binding.root.snack(
+                            if (state.data.isEmpty()) {
                                 "데이터가 비어있습니다."
                             } else {
                                 "현재 업데이트 준비 구간입니다."
@@ -79,6 +83,5 @@ class DetailActivity : AppCompatActivity() {
                     is DetailState.UnInitialized -> {}
                 }
             }
-        }
     }
 }

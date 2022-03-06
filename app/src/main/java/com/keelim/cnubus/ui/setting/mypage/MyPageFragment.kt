@@ -31,8 +31,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MyPageFragment : BaseFragment<FragmentMyPageBinding, MyPageViewModel>(
-) {
+class MyPageFragment : BaseFragment<FragmentMyPageBinding, MyPageViewModel>() {
     override val layoutResourceId: Int = R.layout.fragment_my_page
     override val viewModel: MyPageViewModel by viewModels()
 

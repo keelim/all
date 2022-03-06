@@ -30,7 +30,7 @@ class Content3ViewModel : BaseViewModel() {
         _viewEvent.emit(Event(VIEW_1))
     }
 
-    companion object{
+    companion object {
         const val VIEW_1 = "homepage"
     }
 }

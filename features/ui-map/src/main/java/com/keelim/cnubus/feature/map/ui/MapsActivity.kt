@@ -50,9 +50,9 @@ import com.keelim.cnubus.feature.map.ui.map3.detail.DetailActivity
 import com.keelim.common.extensions.repeatCallDefaultOnStarted
 import com.keelim.common.extensions.toast
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import java.net.MalformedURLException
 import java.net.URL
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MapsActivity : AppCompatActivity() {
@@ -79,16 +79,23 @@ class MapsActivity : AppCompatActivity() {
     private val viewPagerAdapter by lazy {
         LocationPagerAdapter(
             clicked = {
-                startActivity(Intent(this@MapsActivity, DetailActivity::class.java).apply {
-                    putExtra("item", it)
-                })
+                startActivity(
+                    Intent(this@MapsActivity, DetailActivity::class.java).apply {
+                        putExtra("item", it)
+                    }
+                )
             },
             longClicked = {
-                startActivity(Intent.createChooser(Intent().apply {
-                    action = Intent.ACTION_SEND
-                    putExtra(Intent.EXTRA_TEXT, "[확인] ${it.name} 사진보기 : ${it.imgUrl}")
-                    type = "text/plain"
-                }, null))
+                startActivity(
+                    Intent.createChooser(
+                        Intent().apply {
+                            action = Intent.ACTION_SEND
+                            putExtra(Intent.EXTRA_TEXT, "[확인] ${it.name} 사진보기 : ${it.imgUrl}")
+                            type = "text/plain"
+                        },
+                        null
+                    )
+                )
             }
         )
     }

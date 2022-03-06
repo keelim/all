@@ -27,8 +27,8 @@ import com.keelim.cnubus.ui.main.MainActivity
 import com.keelim.cnubus.utils.VerificationUtils
 import com.keelim.common.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {

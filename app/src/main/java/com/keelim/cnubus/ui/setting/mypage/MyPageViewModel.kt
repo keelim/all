@@ -15,6 +15,58 @@
  */
 package com.keelim.cnubus.ui.setting.mypage
 
+import androidx.lifecycle.viewModelScope
+import com.keelim.cnubus.data.db.entity.History
+import com.keelim.cnubus.domain.UserUseCase
 import com.keelim.common.base.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
-class MyPageViewModel : BaseViewModel()
+@HiltViewModel
+class MyPageViewModel @Inject constructor(
+    private val userUseCase: UserUseCase
+) : BaseViewModel() {
+    val userName = MutableStateFlow("id: 아직 로그인 중이 아닙니다.")
+    val userFollowerCount = MutableStateFlow(0)
+    val userFollowingCount = MutableStateFlow(0)
+
+    init {
+        init()
+    }
+
+    fun init() = viewModelScope.launch {
+        getUserId()
+    }
+
+    fun changeUserId(change: String) = viewModelScope.launch {
+        userUseCase.setUserName(change)
+        getUserId()
+    }
+
+    fun getUserId() = viewModelScope.launch {
+        userUseCase.getUserName()
+            .collectLatest {
+                userName.emit(it.id)
+            }
+    }
+
+    fun deleteHistory(history: History) = viewModelScope.launch {
+        userUseCase.deleteHistory(history)
+    }
+
+    fun deleteHistoryAll() = viewModelScope.launch {
+        userUseCase.deleteHistoryAll()
+    }
+
+    fun getAllHistories() = userUseCase.getAllHistories()
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = emptyList()
+        )
+}

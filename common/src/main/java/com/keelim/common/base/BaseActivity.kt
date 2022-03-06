@@ -27,15 +27,17 @@ import androidx.databinding.ViewDataBinding
 import com.keelim.common.extensions.allDisableChildEnable
 import com.keelim.common.extensions.toggleVisibility
 import com.keelim.common.extensions.transparentStatusBar
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.Disposable
 
 abstract class BaseActivity<T : ViewDataBinding, R : BaseViewModel> : AppCompatActivity() {
-    /* Rx 사용시
-    * private val compositeDisposable = CompositeDisposable()
+
+    private val compositeDisposable = CompositeDisposable()
 
     fun addDisposable(disposable: Disposable) {
         compositeDisposable.add(disposable)
     }
-    * */
+
     var transparentPoint = 0
 
     lateinit var binding: T

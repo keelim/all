@@ -33,7 +33,7 @@ class RootAdapter(
         fun bind(item: Location, position: Int) = with(binding) {
             data = item.name
             container.setOnClickListener {
-                click(position)
+                click.invoke(position)
             }
             executePendingBindings()
         }

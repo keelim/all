@@ -47,5 +47,6 @@ class TabFragment : BaseFragment<FragmentTabBinding, MainViewModel>() {
                 4 -> tab.text = "설정"
             }
         }.attach()
+        animationView.playAnimation()
     }
 }

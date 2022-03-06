@@ -79,7 +79,7 @@ internal fun SettingScreen(
                     .padding(horizontal = 24.dp)
                     .height(1.dp)
             )
-            CellItem(text = "맵 바로가기") {
+            CellItem(text = "맵바로가기") {
                 onScreenAction(ScreenAction.Map)
             }
             Divider(
@@ -97,7 +97,7 @@ internal fun SettingScreen(
                     .padding(horizontal = 24.dp)
                     .height(1.dp)
             )
-            CellItem(text = "테마 설정") {
+            CellItem(text = "테마설정") {
                 onScreenAction(ScreenAction.Theme)
             }
             Divider(
@@ -106,7 +106,7 @@ internal fun SettingScreen(
                     .padding(horizontal = 24.dp)
                     .height(1.dp)
             )
-            CellItem(text = "오픈소스 라이선스") {
+            CellItem(text = "오픈소스라이선스") {
                 onScreenAction(ScreenAction.OpenSource)
             }
             Divider(
@@ -115,7 +115,7 @@ internal fun SettingScreen(
                     .padding(horizontal = 24.dp)
                     .height(1.dp)
             )
-            CellItem(text = "근처 지하철") {
+            CellItem(text = "근처지하철") {
                 onScreenAction(ScreenAction.Subway)
             }
             Divider(
@@ -124,7 +124,7 @@ internal fun SettingScreen(
                     .padding(horizontal = 24.dp)
                     .height(1.dp)
             )
-            CellItem(text = "개발자 소개") {
+            CellItem(text = "개발자소개") {
                 onScreenAction(ScreenAction.Developer)
             }
             Divider(
@@ -134,7 +134,16 @@ internal fun SettingScreen(
                     .height(1.dp)
             )
             if(BuildConfig.DEBUG){
-                CellItem(text = "실험 기능") {
+                CellItem(text = "마이페이지") {
+                    onScreenAction(ScreenAction.MYPAGE)
+                }
+                Divider(
+                    color = "#EFEFEF".toColor(),
+                    modifier = Modifier
+                        .padding(horizontal = 24.dp)
+                        .height(1.dp)
+                )
+                CellItem(text = "실험기능") {
                     onScreenAction(ScreenAction.Lab)
                 }
                 Divider(
@@ -143,7 +152,7 @@ internal fun SettingScreen(
                         .padding(horizontal = 24.dp)
                         .height(1.dp)
                 )
-                CellItem(text = "실험 기능2") {
+                CellItem(text = "실험기능2") {
                     onScreenAction(ScreenAction.Lab2)
                 }
                 Divider(

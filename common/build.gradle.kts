@@ -18,4 +18,9 @@ dependencies {
     implementation(Dep.AndroidX.fragment.ktx)
     implementation(Dep.Coil.core)
     implementation(Dep.AndroidX.UI.material)
+
+    implementation(Dep.Rx.rxJava)
+    implementation(Dep.Rx.rxAndroid)
+    implementation(Dep.Rx.rxKotlin)
+    implementation(Dep.Rx.binding)
 }

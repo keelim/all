@@ -27,7 +27,18 @@ data class Location(
     val name: String,
     val rootc: Int = -1,
     val imgUrl: String = ""
-) : Parcelable
+) : Parcelable{
+    companion object{
+        fun defaultLocation():Location = Location(
+            LatLng(36.363876, 127.345119),
+            1,
+            1,
+            "정심화국제문화회관",
+            999,
+            "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_39/2.jpg"
+        )
+    }
+}
 
 val locationList = listOf(
     Location(

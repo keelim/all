@@ -18,8 +18,10 @@ package com.keelim.cnubus.data.db
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.keelim.cnubus.data.db.dao.CommentDao
+import com.keelim.cnubus.data.db.dao.HistoryDao
 import com.keelim.cnubus.data.db.dao.StationDao
 import com.keelim.cnubus.data.db.entity.Comment
+import com.keelim.cnubus.data.db.entity.History
 import com.keelim.cnubus.data.db.entity.StationEntity
 import com.keelim.cnubus.data.db.entity.StationSubwayCrossRefEntity
 import com.keelim.cnubus.data.db.entity.SubwayEntity
@@ -29,12 +31,14 @@ import com.keelim.cnubus.data.db.entity.SubwayEntity
         StationEntity::class,
         SubwayEntity::class,
         StationSubwayCrossRefEntity::class,
-        Comment::class
+        Comment::class,
+        History::class,
     ],
-    version = 1,
-    exportSchema = false
+    version = 2,
+    exportSchema = false,
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun daoStation(): StationDao
     abstract fun daoComment(): CommentDao
+    abstract fun daoHistory(): HistoryDao
 }

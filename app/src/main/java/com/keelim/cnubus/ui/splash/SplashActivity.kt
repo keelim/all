@@ -17,20 +17,25 @@ package com.keelim.cnubus.ui.splash
 
 import android.content.Intent
 import androidx.activity.viewModels
+import com.jakewharton.processphoenix.ProcessPhoenix
+import com.keelim.cnubus.BuildConfig
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.ActivitySplashBinding
 import com.keelim.cnubus.ui.main.MainActivity
-import com.keelim.common.base.BaseVBActivity
+import com.keelim.cnubus.utils.VerificationUtils
+import com.keelim.common.base.BaseActivity
 import com.keelim.common.extensions.repeatCallDefaultOnStarted
+import com.keelim.common.extensions.toast
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class SplashActivity : BaseVBActivity<ActivitySplashBinding, SplashViewModel>(
-    ActivitySplashBinding::inflate
-) {
+class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
     override val layoutResourceId: Int = R.layout.activity_splash
     override val viewModel: SplashViewModel by viewModels()
+
+    @Inject
+    lateinit var verificationUtils: VerificationUtils
 
     override fun initBeforeBinding() = Unit
     override fun initDataBinding() {
@@ -41,7 +46,14 @@ class SplashActivity : BaseVBActivity<ActivitySplashBinding, SplashViewModel>(
     private fun observeData() = repeatCallDefaultOnStarted {
         viewModel.loading.collect {
             if (it) {
-                startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+                val isNotVerifiedApplication = if(BuildConfig.DEBUG){
+                    verificationUtils.isVerifiedDebug()
+                } else{
+                    verificationUtils.isVerifiedRelease()
+                }
+                if(isNotVerifiedApplication.not()){
+                    startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+                }
                 finish()
             }
         }

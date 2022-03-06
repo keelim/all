@@ -18,15 +18,23 @@ package com.keelim.cnubus.ui.setting.compose
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CornerSize
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
 import androidx.compose.material.Divider
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -36,10 +44,65 @@ import androidx.compose.ui.unit.sp
 import com.keelim.cnubus.BuildConfig
 import com.keelim.cnubus.utils.toColor
 
+private val settings by lazy {
+  val data = listOf(
+      Setting(
+          text = "마이페이지",
+          action = ScreenAction.MYPAGE
+      ),
+      Setting(
+          text = "공지사항",
+          action = ScreenAction.Content
+      ),
+      Setting(
+          text = "홈페이지",
+          action = ScreenAction.Homepage
+      ),
+      Setting(
+          text = "맵 바로가기",
+          action = ScreenAction.Map
+      ),
+      Setting(
+          text = "업데이트",
+          action = ScreenAction.Update
+      ),
+      Setting(
+          text = "테마설정",
+          action = ScreenAction.Theme
+      ),
+      Setting(
+          text = "오픈소스 라이센스",
+          action = ScreenAction.OpenSource
+      ),
+      Setting(
+          text = "근처 지하철",
+          action = ScreenAction.Subway
+      ),
+      Setting(
+          text = "개발자 소개",
+          action = ScreenAction.Developer
+      ),
+      Setting(
+          text = "실험기능1",
+          action = ScreenAction.Lab
+      ),
+      Setting(
+          text = "실험기능2",
+          action = ScreenAction.Lab2
+      ),
+      Setting(
+          text = "실험기능3",
+          action = ScreenAction.Lab3
+      ),
+  )
+    data
+}
+
 @Composable
 internal fun SettingScreen(
     onScreenAction: (ScreenAction) -> Unit,
 ) {
+
     Scaffold(
         topBar = {
             Column(
@@ -60,100 +123,47 @@ internal fun SettingScreen(
             }
         }
     ) { innerPadding ->
-        Column(Modifier.padding(innerPadding)) {
-            CellItem(text = "공지사항") {
-                onScreenAction(ScreenAction.Content)
-            }
-            Divider(
-                color = "#EFEFEF".toColor(),
-                modifier = Modifier
-                    .padding(horizontal = 24.dp)
-                    .height(1.dp)
-            )
-            CellItem(text = "홈페이지") {
-                onScreenAction(ScreenAction.Homepage)
-            }
-            Divider(
-                color = "#EFEFEF".toColor(),
-                modifier = Modifier
-                    .padding(horizontal = 24.dp)
-                    .height(1.dp)
-            )
-            CellItem(text = "맵바로가기") {
-                onScreenAction(ScreenAction.Map)
-            }
-            Divider(
-                color = "#EFEFEF".toColor(),
-                modifier = Modifier
-                    .padding(horizontal = 24.dp)
-                    .height(1.dp)
-            )
-            CellItem(text = "업데이트") {
-                onScreenAction(ScreenAction.Update)
-            }
-            Divider(
-                color = "#EFEFEF".toColor(),
-                modifier = Modifier
-                    .padding(horizontal = 24.dp)
-                    .height(1.dp)
-            )
-            CellItem(text = "테마설정") {
-                onScreenAction(ScreenAction.Theme)
-            }
-            Divider(
-                color = "#EFEFEF".toColor(),
-                modifier = Modifier
-                    .padding(horizontal = 24.dp)
-                    .height(1.dp)
-            )
-            CellItem(text = "오픈소스라이선스") {
-                onScreenAction(ScreenAction.OpenSource)
-            }
-            Divider(
-                color = "#EFEFEF".toColor(),
-                modifier = Modifier
-                    .padding(horizontal = 24.dp)
-                    .height(1.dp)
-            )
-            CellItem(text = "근처지하철") {
-                onScreenAction(ScreenAction.Subway)
-            }
-            Divider(
-                color = "#EFEFEF".toColor(),
-                modifier = Modifier
-                    .padding(horizontal = 24.dp)
-                    .height(1.dp)
-            )
-            CellItem(text = "개발자소개") {
-                onScreenAction(ScreenAction.Developer)
-            }
-            Divider(
-                color = "#EFEFEF".toColor(),
-                modifier = Modifier
-                    .padding(horizontal = 24.dp)
-                    .height(1.dp)
-            )
-            if (BuildConfig.DEBUG) {
-                CellItem(text = "마이페이지") {
-                    onScreenAction(ScreenAction.MYPAGE)
+        val data = remember { settings }
+        LazyColumn(
+            modifier = Modifier.padding(innerPadding)
+        ) {
+            items(
+                items = data,
+                itemContent = {
+                    SettingItem(item = it, onScreenAction)
                 }
-                Divider(
-                    color = "#EFEFEF".toColor(),
-                    modifier = Modifier
-                        .padding(horizontal = 24.dp)
-                        .height(1.dp)
-                )
-                CellItem(text = "실험기능") {
-                    onScreenAction(ScreenAction.Lab)
-                }
-                Divider(
-                    color = "#EFEFEF".toColor(),
-                    modifier = Modifier
-                        .padding(horizontal = 24.dp)
-                        .height(1.dp)
-                )
-                CellItem(text = "실험기능2") {
-                    onScreenAction(ScreenAction.Lab2)
+            )
+        }
+    }
+}
+
+data class Setting(
+    val text: String,
+    val action: ScreenAction,
+)
+
+@Composable
+fun SettingItem(item: Setting, onScreenAction: (ScreenAction) -> Unit) {
+    Card(
+        modifier = Modifier
+            .padding(
+                horizontal = 8.dp,
+                vertical = 8.dp
+            )
+            .fillMaxWidth(),
+        elevation = 2.dp,
+        backgroundColor = Color.White,
+        shape = RoundedCornerShape(corner = CornerSize(16.dp))
+    ) {
+        Row {
+            Column(
+                modifier = Modifier
+                    .padding(16.dp)
+                    .fillMaxWidth()
+                    .align(Alignment.CenterVertically)
+            ) {
+                CellItem(text = item.text) {
+                    onScreenAction(item.action)
                 }
                 Divider(
                     color = "#EFEFEF".toColor(),
@@ -165,6 +175,7 @@ internal fun SettingScreen(
         }
     }
 }
+
 
 @Composable
 private fun CellItem(

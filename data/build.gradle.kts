@@ -5,16 +5,7 @@ plugins {
     id("kotlin-kapt")
     id("kotlin-parcelize")
     id("dagger.hilt.android.plugin")
-}
-
-val DATA_BASE_URL = gradleLocalProperties(rootDir).getProperty("DATA_BASE_URL")
-
-android{
-    buildTypes {
-        defaultConfig {
-            buildConfigField("String", "DATA_BASE_URL", DATA_BASE_URL)
-        }
-    }
+    id ("com.google.secrets_gradle_plugin") version("0.6.1")
 }
 
 dependencies {

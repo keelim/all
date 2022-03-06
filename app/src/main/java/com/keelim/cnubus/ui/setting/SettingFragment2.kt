@@ -87,7 +87,7 @@ class SettingFragment2 : Fragment() {
                         )
                     )
                     ScreenAction.Subway -> findNavController().navigate(R.id.stationsFragment)
-                    ScreenAction.MYPAGE -> Unit
+                    ScreenAction.MYPAGE -> findNavController().navigate(R.id.myPageFragment)
                     ScreenAction.Lab -> startActivity(
                         Intent(
                             requireContext(),

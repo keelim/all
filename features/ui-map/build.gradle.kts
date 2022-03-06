@@ -27,9 +27,6 @@ dependencies {
     implementation(Dep.AndroidX.UI.material)
 
     implementation(Dep.Dagger.Hilt.android)
-    implementation("androidx.appcompat:appcompat:1.4.1")
-    implementation("com.google.android.material:material:1.4.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.3")
     kapt(Dep.Dagger.Hilt.compiler)
 
     implementation(Dep.timber)
@@ -39,6 +36,7 @@ dependencies {
     implementation(Dep.Play.location)
     implementation(Dep.Play.play_map)
     implementation(Dep.Play.maps_sdk)
+    implementation(Dep.Play.maps_utils)
 
     implementation(Dep.Kotlin.stdlibJvm)
 

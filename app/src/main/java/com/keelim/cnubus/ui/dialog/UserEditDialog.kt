@@ -1,0 +1,77 @@
+package com.keelim.cnubus.ui.dialog
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.jakewharton.rxbinding4.view.clicks
+import com.jakewharton.rxbinding4.widget.textChanges
+import com.keelim.cnubus.databinding.DialogUserEditBinding
+import com.keelim.cnubus.ui.setting.mypage.MyPageViewModel
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.kotlin.subscribeBy
+import java.util.concurrent.TimeUnit
+import timber.log.Timber
+
+class UserEditDialog : BottomSheetDialogFragment() {
+    private var _binding: DialogUserEditBinding? = null
+    private val binding get() = _binding!!
+
+    private val viewModel: MyPageViewModel by activityViewModels()
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = DialogUserEditBinding.inflate(inflater)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initViews()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun initViews() = with(binding) {
+        editId.textChanges()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                val value = it.toString()
+                if (value.length > 10) {
+                    binding.editId.error = "아이디 길이는 10 이하입니다."
+                    binding.btnSubmit.isEnabled = false
+                } else if (value.isEmpty()) {
+                    binding.editId.error = "아이디가 있어야 합니다."
+                    binding.btnSubmit.isEnabled = false
+                } else {
+                    binding.editId.error = null
+                    binding.btnSubmit.isEnabled = true
+                }
+            }
+
+        btnSubmit.clicks()
+            .throttleFirst(1000, TimeUnit.MILLISECONDS)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(onNext = {
+                viewModel.changeUserId(binding.editId.text.toString())
+                findNavController().navigateUp()
+            },
+                onComplete = {
+                    binding.btnSubmit.isEnabled = false
+                    binding.editId.setText("")
+                },
+                onError = {
+                    Timber.e("RX ERROR ${it.message}")
+                })
+    }
+}

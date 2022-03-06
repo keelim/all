@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:startDestination="@id/tabFragment"
-    android:id="@+id/mobile_navigation">
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/tabFragment">
 
     <fragment
         android:id="@+id/tabFragment"
         android:name="com.keelim.cnubus.ui.tab.TabFragment"
-        android:label="TabFragment" >
+        android:label="TabFragment">
         <action
             android:id="@+id/action_tabFragment_to_content3Fragment"
             app:destination="@id/content3Fragment" />
         <action
             android:id="@+id/action_tabFragment_to_stationsFragment"
             app:destination="@id/stationsFragment" />
+        <action
+            android:id="@+id/action_tabFragment_to_myPageFragment"
+            app:destination="@id/myPageFragment" />
     </fragment>
     <fragment
         android:id="@+id/stationArrivalsFragment"
@@ -22,7 +25,7 @@
     <fragment
         android:id="@+id/stationsFragment"
         android:name="com.keelim.cnubus.ui.stations.StationsFragment"
-        android:label="StationsFragment" >
+        android:label="StationsFragment">
         <action
             android:id="@+id/action_stationsFragment_to_stationArrivalsFragment"
             app:destination="@id/stationArrivalsFragment" />
@@ -31,4 +34,16 @@
         android:id="@+id/content3Fragment"
         android:name="com.keelim.cnubus.ui.content.Content3Fragment"
         android:label="Content3Fragment" />
+    <fragment
+        android:id="@+id/myPageFragment"
+        android:name="com.keelim.cnubus.ui.setting.mypage.MyPageFragment"
+        android:label="MyPageFragment">
+        <action
+            android:id="@+id/action_myPageFragment_to_userEditDialog"
+            app:destination="@id/userEditDialog" />
+    </fragment>
+    <dialog
+        android:id="@+id/userEditDialog"
+        android:name="com.keelim.cnubus.ui.dialog.UserEditDialog"
+        android:label="UserEditDialog" />
 </navigation>

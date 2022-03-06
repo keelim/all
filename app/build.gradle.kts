@@ -10,7 +10,7 @@ plugins {
     id("dagger.hilt.android.plugin")
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.android.gms.oss-licenses-plugin")
-    id ("com.google.secrets_gradle_plugin") version("0.5")
+    id ("com.google.secrets_gradle_plugin") version("0.6.1")
 }
 
 android {
@@ -85,6 +85,13 @@ dependencies {
     implementation(Dep.Network.Retrofit.retrofit)
     implementation(Dep.Network.Moshi.moshi_kotlin)
 
+    implementation(Dep.Rx.rxJava)
+    implementation(Dep.Rx.rxAndroid)
+    implementation(Dep.Rx.rxKotlin)
+    implementation(Dep.Rx.binding)
+
+    implementation("com.jakewharton:process-phoenix:2.1.2")
+    implementation("com.airbnb.android:lottie:3.4.0")
     testImplementation(Dep.Test.junit)
     testImplementation(Dep.Kotlin.coroutines.test)
     androidTestImplementation(Dep.Test.androidJunit)

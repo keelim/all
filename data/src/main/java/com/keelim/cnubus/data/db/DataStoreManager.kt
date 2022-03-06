@@ -4,6 +4,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.longPreferencesKey
+import androidx.datastore.preferences.core.stringPreferencesKey
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -21,6 +22,18 @@ class DataStoreManager @Inject constructor(
         val key = longPreferencesKey(keyStone)
         dataStore.edit { preferences ->
             preferences[key] = time
+        }
+    }
+
+    fun getUserId(keyStone: String): Flow<String> = dataStore.data.map { preferences ->
+        val key = stringPreferencesKey(keyStone)
+        preferences[key] ?: "None"
+    }
+
+    suspend fun setUserId(keyStone: String, id: String) {
+        val key = stringPreferencesKey(keyStone)
+        dataStore.edit { preferences ->
+            preferences[key] = id
         }
     }
 }

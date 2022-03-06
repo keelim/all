@@ -133,7 +133,7 @@ internal fun SettingScreen(
                     .padding(horizontal = 24.dp)
                     .height(1.dp)
             )
-            if(BuildConfig.DEBUG){
+            if (BuildConfig.DEBUG) {
                 CellItem(text = "마이페이지") {
                     onScreenAction(ScreenAction.MYPAGE)
                 }

@@ -48,10 +48,10 @@ class MainActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
             val responsePermissions = permissions.entries.filter {
                 it.key == permission.ACCESS_FINE_LOCATION ||
-                        it.key == permission.ACCESS_COARSE_LOCATION
+                    it.key == permission.ACCESS_COARSE_LOCATION
             }
             if (responsePermissions.filter { it.value }
-                    .size == locationPermissions.size
+                .size == locationPermissions.size
             ) {
                 toast("권한이 확인되었습니다.")
             }

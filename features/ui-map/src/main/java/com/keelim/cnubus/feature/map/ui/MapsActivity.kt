@@ -132,6 +132,11 @@ class MapsActivity : AppCompatActivity() {
         googleMapSetting()
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+    }
+
     private fun setMyLocationListener() {
         val minTime = 1500L
         val minDistance = 100f

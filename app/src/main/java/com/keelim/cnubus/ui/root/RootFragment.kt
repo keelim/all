@@ -42,32 +42,19 @@ class RootFragment : BaseFragment<FragmentRootBinding, RootViewModel>() {
         RootAdapter(
             click = { position ->
                 viewModel.insertHistory(position, mode)
-                when (mode) {
-                    "a" -> {
-                        startActivity(
-                            Intent(requireContext(), MapsActivity::class.java).apply {
-                                putExtra("location", viewModel.data.value[position].roota)
-                            }
-                        )
-                    }
-                    "b" -> {
-                        startActivity(
-                            Intent(requireContext(), MapsActivity::class.java).apply {
-                                putExtra("location", viewModel.data.value[position].rootb)
-                            }
-                        )
-                    }
-                    "c" -> {
-                        startActivity(
-                            Intent(requireContext(), MapsActivity::class.java).apply {
-                                putExtra("location", viewModel.data.value[position].rootc)
-                            }
-                        )
-                    }
-                    else -> {
-                        requireActivity().toast("노선 준비 중입니다. ")
-                    }
+                val data = when (mode) {
+                    "a" -> viewModel.data.value[position].roota
+                    "b" -> viewModel.data.value[position].rootb
+                    "c" -> viewModel.data.value[position].rootc
+                    else -> null
                 }
+                data?.let { value ->
+                    startActivity(
+                        Intent(requireContext(), MapsActivity::class.java).apply {
+                            putExtra("location", value)
+                        }
+                    )
+                } ?: requireActivity().toast("노선 준비 중입니다. ")
             }
         )
     }

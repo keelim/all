@@ -17,6 +17,7 @@ package com.keelim.cnubus.ui.main
 
 import android.Manifest.permission
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -39,20 +40,23 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val viewModel: MainViewModel by viewModels()
-    private val locationPermissions = arrayOf(
-        permission.ACCESS_FINE_LOCATION,
-        permission.ACCESS_COARSE_LOCATION,
-    )
+    private val appPermissions: Array<String> by lazy {
+        val data = arrayOf(
+            permission.ACCESS_FINE_LOCATION,
+            permission.ACCESS_COARSE_LOCATION,
+            permission.READ_EXTERNAL_STORAGE,
+            permission.CAMERA
+        )
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            data.plus(permission.WRITE_EXTERNAL_STORAGE)
+        }
+        data
+    }
 
-    private val locationPermissionLauncher =
+    private val permissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-            val responsePermissions = permissions.entries.filter {
-                it.key == permission.ACCESS_FINE_LOCATION ||
-                    it.key == permission.ACCESS_COARSE_LOCATION
-            }
-            if (responsePermissions.filter { it.value }
-                .size == locationPermissions.size
-            ) {
+            val responsePermissions = permissions.entries.filter { appPermissions.contains(it.key) }
+            if (responsePermissions.filter { it.value }.size == appPermissions.size) {
                 toast("권한이 확인되었습니다.")
             }
         }
@@ -65,7 +69,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         startService(Intent(this, TerminateService::class.java))
-        locationPermissionLauncher.launch(locationPermissions)
+        permissionLauncher.launch(appPermissions)
         initViews()
         observeState()
     }

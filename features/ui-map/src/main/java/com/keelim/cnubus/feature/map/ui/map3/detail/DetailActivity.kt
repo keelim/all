@@ -23,7 +23,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.keelim.cnubus.data.model.gps.Location
+import com.keelim.cnubus.feature.map.R
 import com.keelim.cnubus.feature.map.databinding.ActivityDetailBinding
+import com.keelim.common.base.BaseActivity
 import com.keelim.common.extensions.loadAsync
 import com.keelim.common.extensions.snack
 import com.keelim.common.extensions.toGone
@@ -32,15 +34,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class DetailActivity : AppCompatActivity() {
-    private val binding by lazy { ActivityDetailBinding.inflate(layoutInflater) }
-    private val viewModel: DetailViewModel by viewModels()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(binding.root)
-        handleIntent(intent)
-        observeState()
-    }
+class DetailActivity : BaseActivity<ActivityDetailBinding, DetailViewModel>() {
+    override val layoutResourceId: Int = R.layout.activity_detail
+    override val viewModel: DetailViewModel by viewModels()
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
@@ -48,6 +44,16 @@ class DetailActivity : AppCompatActivity() {
             handleIntent(intent)
         }
     }
+
+    override fun initBeforeBinding() {
+        handleIntent(intent)
+    }
+
+    override fun initDataBinding() {
+        observeState()
+    }
+
+    override fun initAfterBinding() = Unit
 
     private fun handleIntent(intent: Intent) = with(binding) {
         val location: Location? by lazy { intent.getParcelableExtra("item") }

@@ -18,15 +18,18 @@ package com.keelim.cnubus.ui.root
 import android.content.Intent
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.FragmentRootBinding
 import com.keelim.cnubus.feature.map.ui.MapEvent
 import com.keelim.cnubus.feature.map.ui.MapsActivity
 import com.keelim.common.base.BaseFragment
-import com.keelim.common.extensions.repeatCallDefaultOnStarted
 import com.keelim.common.extensions.toast
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class RootFragment : BaseFragment<FragmentRootBinding, RootViewModel>() {
@@ -69,6 +72,17 @@ class RootFragment : BaseFragment<FragmentRootBinding, RootViewModel>() {
         )
     }
 
+    override fun initBeforeBinding() {
+        modeSetting()
+        initViews()
+    }
+
+    override fun initBinding() {
+        observeState()
+    }
+
+    override fun initAfterBinding() = Unit
+
     private fun modeSetting() {
         viewModel.rootChange(mode ?: "")
     }
@@ -79,16 +93,19 @@ class RootFragment : BaseFragment<FragmentRootBinding, RootViewModel>() {
             adapter = rootAdapter
             itemAnimator = DefaultItemAnimator()
         }
-        viewLifecycleOwner.repeatCallDefaultOnStarted {
-            viewModel.state.collect {
-                when (it) {
+    }
+
+    private fun observeState() = lifecycleScope.launch {
+        viewModel.state
+            .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+            .collect { event ->
+                when (event) {
                     is MapEvent.UnInitialized -> Unit
                     is MapEvent.Loading -> Unit
-                    is MapEvent.MigrateSuccess -> rootAdapter.submitList(it.data)
-                    is MapEvent.Error -> requireContext().toast(it.message)
+                    is MapEvent.MigrateSuccess -> rootAdapter.submitList(event.data)
+                    is MapEvent.Error -> requireContext().toast(event.message)
                 }
             }
-        }
     }
 
     companion object {
@@ -100,14 +117,4 @@ class RootFragment : BaseFragment<FragmentRootBinding, RootViewModel>() {
             }
         }
     }
-
-    override fun initBeforeBinding() {
-        modeSetting()
-    }
-
-    override fun initBinding() {
-        initViews()
-    }
-
-    override fun initAfterBinding() = Unit
 }

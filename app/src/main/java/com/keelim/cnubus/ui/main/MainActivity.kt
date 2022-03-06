@@ -21,16 +21,19 @@ import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.ActivityMainBinding
 import com.keelim.cnubus.services.TerminateService
-import com.keelim.common.extensions.repeatCallDefaultOnStarted
 import com.keelim.common.extensions.toast
 import com.keelim.compose.ui.CircularIndeterminateProgressBar
+import com.keelim.ui_setting.ui.theme.CnubusTheme
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -45,10 +48,10 @@ class MainActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
             val responsePermissions = permissions.entries.filter {
                 it.key == permission.ACCESS_FINE_LOCATION ||
-                    it.key == permission.ACCESS_COARSE_LOCATION
+                        it.key == permission.ACCESS_COARSE_LOCATION
             }
             if (responsePermissions.filter { it.value }
-                .size == locationPermissions.size
+                    .size == locationPermissions.size
             ) {
                 toast("권한이 확인되었습니다.")
             }
@@ -63,8 +66,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         startService(Intent(this, TerminateService::class.java))
         locationPermissionLauncher.launch(locationPermissions)
-        observeLoading()
         initViews()
+        observeState()
     }
 
     override fun onStop() {
@@ -83,29 +86,33 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun observeLoading() = repeatCallDefaultOnStarted {
-        viewModel.loading.collect {
-            binding.composeView.apply {
-                bringToFront()
-                setContent {
-                    CircularIndeterminateProgressBar(it)
+    private fun observeState() = lifecycleScope.launch {
+        viewModel.loading
+            .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+            .collect {
+                binding.composeView.run {
+                    bringToFront()
+                    setContent {
+                        CnubusTheme {
+                            CircularIndeterminateProgressBar(it)
+                        }
+                    }
                 }
             }
-        }
     }
 
     override fun onBackPressed() {
-        if(navigationController.currentDestination?.id == R.id.tabFragment){
+        if (navigationController.currentDestination?.id == R.id.tabFragment) {
             MaterialAlertDialogBuilder(this)
                 .setTitle("종료하시겠습니까?")
                 .setCancelable(true)
                 .setPositiveButton("Yes") { dialog, which ->
                     super.onBackPressed()
                 }
-                .setNegativeButton("Nope"){ dialog, which -> }
+                .setNegativeButton("Nope") { dialog, which -> }
                 .create()
                 .show()
-        } else{
+        } else {
             navigationController.navigateUp()
         }
     }

@@ -39,6 +39,7 @@ dependencies {
     implementation(projects.common)
     implementation(projects.features.uiMap)
     implementation(projects.features.uiSetting)
+    implementation(projects.features.labs)
 
     implementation(platform(Dep.Firebase.platform))
     implementation("com.google.firebase:firebase-core")

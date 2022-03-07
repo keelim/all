@@ -146,6 +146,7 @@ class SettingFragment2 : Fragment() {
                 mainViewModel.setAppTheme(mode)
             }.setNegativeButton(R.string.cancel) { _, _ ->
             }
+            .create()
             .show()
     }
 }

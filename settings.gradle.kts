@@ -42,4 +42,5 @@ include(
     ":compose",
     ":features:ui-map",
     ":features:ui-setting",
+    ":features:labs",
 )

@@ -13,7 +13,7 @@
             android:exported="true"
             android:label="maps" />
         <activity
-            android:name=".ui.capture.CaptureActivity"
+            android:name="com.keelim.labs.capture.CaptureActivity"
             android:exported="false"
             android:label="maps" />
     </application>

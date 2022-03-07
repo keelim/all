@@ -33,11 +33,11 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.keelim.cnubus.R
 import com.keelim.cnubus.data.repository.theme.AppTheme
 import com.keelim.cnubus.feature.map.ui.MapsActivity
-import com.keelim.cnubus.feature.map.ui.capture.CaptureActivity
 import com.keelim.cnubus.ui.main.MainViewModel
 import com.keelim.cnubus.ui.setting.compose.ScreenAction
 import com.keelim.cnubus.ui.setting.compose.SettingScreen
 import com.keelim.compose.ui.setThemeContent
+import com.keelim.labs.capture.CaptureActivity
 import com.keelim.ui_setting.ClockActivity
 import com.keelim.ui_setting.ui.SettingActivity
 import dagger.hilt.android.AndroidEntryPoint

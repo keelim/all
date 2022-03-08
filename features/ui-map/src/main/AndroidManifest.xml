@@ -12,9 +12,6 @@
             android:name=".ui.MapsActivity"
             android:exported="true"
             android:label="maps" />
-        <activity
-            android:name="com.keelim.labs.capture.CaptureActivity"
-            android:exported="false"
-            android:label="maps" />
+
     </application>
 </manifest>

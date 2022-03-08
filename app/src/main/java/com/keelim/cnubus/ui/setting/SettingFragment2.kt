@@ -37,7 +37,7 @@ import com.keelim.cnubus.ui.main.MainViewModel
 import com.keelim.cnubus.ui.setting.compose.ScreenAction
 import com.keelim.cnubus.ui.setting.compose.SettingScreen
 import com.keelim.compose.ui.setThemeContent
-import com.keelim.labs.capture.CaptureActivity
+import com.keelim.labs.ui.capture.CaptureActivity
 import com.keelim.ui_setting.ClockActivity
 import com.keelim.ui_setting.ui.SettingActivity
 import dagger.hilt.android.AndroidEntryPoint

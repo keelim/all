@@ -1,4 +1,4 @@
-package com.keelim.labs.motion
+package com.keelim.labs.ui.motion
 
 import android.os.Bundle
 import android.view.MotionEvent

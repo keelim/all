@@ -18,6 +18,7 @@ package com.keelim.cnubus
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.material.color.DynamicColors
+import com.google.android.material.textview.MaterialTextView
 import com.keelim.cnubus.data.repository.theme.ThemeRepository
 import com.keelim.cnubus.utils.AppOpenManager
 import com.keelim.cnubus.utils.ComponentLogger

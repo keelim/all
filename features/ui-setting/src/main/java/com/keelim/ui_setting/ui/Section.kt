@@ -15,6 +15,7 @@
  */
 package com.keelim.ui_setting.ui
 
-internal enum class Section {
-    Developer
+enum class Section {
+    Developer,
+    Lab
 }

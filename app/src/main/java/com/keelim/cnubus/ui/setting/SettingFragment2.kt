@@ -39,7 +39,7 @@ import com.keelim.cnubus.ui.setting.compose.ScreenAction
 import com.keelim.cnubus.ui.setting.compose.SettingScreen
 import com.keelim.compose.ui.setThemeContent
 import com.keelim.labs.ui.capture.CaptureActivity
-import com.keelim.ui_setting.ClockActivity
+import com.keelim.ui_setting.ui.Section
 import com.keelim.ui_setting.ui.SettingActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.last
@@ -84,20 +84,22 @@ class SettingFragment2 : Fragment() {
                             OssLicensesMenuActivity::class.java
                         )
                     )
-                    ScreenAction.Developer -> startActivity(
-                        Intent(
-                            requireContext(),
-                            SettingActivity::class.java
+                    ScreenAction.Developer, ScreenAction.Lab -> {
+                        startActivity(
+                            Intent(
+                                requireContext(),
+                                SettingActivity::class.java
+                            ).apply {
+                                putExtra("type", when (action) {
+                                    ScreenAction.Developer -> Section.Developer
+                                    ScreenAction.Lab -> Section.Lab
+                                    else -> null
+                                })
+                            }
                         )
-                    )
+                    }
                     ScreenAction.Subway -> findNavController().navigate(R.id.stationsFragment)
                     ScreenAction.MYPAGE -> findNavController().navigate(R.id.myPageFragment)
-                    ScreenAction.Lab -> startActivity(
-                        Intent(
-                            requireContext(),
-                            ClockActivity::class.java
-                        )
-                    )
                     ScreenAction.Lab2 -> startActivity(
                         Intent(
                             requireContext(),

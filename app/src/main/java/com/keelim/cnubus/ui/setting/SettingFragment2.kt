@@ -22,6 +22,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -148,5 +149,14 @@ class SettingFragment2 : Fragment() {
             }
             .create()
             .show()
+    }
+    companion object{
+        fun newInstance(): SettingFragment2 {
+            return SettingFragment2().apply {
+                arguments = bundleOf(
+
+                )
+            }
+        }
     }
 }

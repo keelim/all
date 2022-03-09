@@ -98,4 +98,7 @@ dependencies {
     androidTestImplementation(Dep.Test.androidJunit)
     androidTestImplementation(Dep.Test.espressoCore)
 
+    //
+    implementation("com.github.Zardozz:fixedheadertablelayout:0.0.0.5")
+
 }

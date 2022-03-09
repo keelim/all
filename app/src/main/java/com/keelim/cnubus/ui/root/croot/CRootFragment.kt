@@ -15,6 +15,7 @@
  */
 package com.keelim.cnubus.ui.root.croot
 
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.keelim.cnubus.R
@@ -44,6 +45,16 @@ class CRootFragment : BaseFragment<FragmentCRootBinding, MainViewModel>() {
                 submitList(rootList)
             }
             itemAnimator = DefaultItemAnimator()
+        }
+    }
+
+    companion object{
+        fun newInstance(): CRootFragment {
+            return CRootFragment().apply {
+                arguments = bundleOf(
+
+                )
+            }
         }
     }
 }

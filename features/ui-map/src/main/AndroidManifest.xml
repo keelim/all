@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.keelim.cnubus.feature.map">
+
     <application>
         <activity
             android:name=".ui.map3.detail.DetailActivity"
@@ -11,5 +12,6 @@
             android:name=".ui.MapsActivity"
             android:exported="true"
             android:label="maps" />
+
     </application>
 </manifest>

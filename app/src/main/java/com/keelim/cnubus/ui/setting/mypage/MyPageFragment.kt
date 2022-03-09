@@ -16,6 +16,8 @@
 package com.keelim.cnubus.ui.setting.mypage
 
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -24,14 +26,12 @@ import com.google.android.material.snackbar.Snackbar
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.FragmentMyPageBinding
 import com.keelim.common.base.BaseFragment
-import com.keelim.common.extensions.repeatCallDefaultOnStarted
-import com.keelim.common.extensions.snak
+import com.keelim.common.extensions.snack
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MyPageFragment : BaseFragment<FragmentMyPageBinding, MyPageViewModel>(
-) {
+class MyPageFragment : BaseFragment<FragmentMyPageBinding, MyPageViewModel>() {
     override val layoutResourceId: Int = R.layout.fragment_my_page
     override val viewModel: MyPageViewModel by viewModels()
 
@@ -83,14 +83,14 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding, MyPageViewModel>(
     }
 
     private fun observeState() = lifecycleScope.launch {
-        repeatCallDefaultOnStarted {
-            viewModel.getAllHistories().collect{
-                if (it.isEmpty()) {
-                    binding.root.snak("저장된 기록이 없습니다.")
-                } else{
-                    historyAdapter.submitList(it)
+        viewModel.getAllHistories()
+            .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+            .collect { histories ->
+                if (histories.isEmpty()) {
+                    binding.root.snack("저장된 기록이 없습니다.")
+                } else {
+                    historyAdapter.submitList(histories)
                 }
             }
-        }
     }
 }

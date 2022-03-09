@@ -15,6 +15,7 @@
  */
 package com.keelim.cnubus.ui.root.night
 
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.keelim.cnubus.R
@@ -47,6 +48,16 @@ class NightRootFragment : BaseFragment<FragmentNightRootBinding, MainViewModel>(
                 submitList(rootList)
             }
             itemAnimator = DefaultItemAnimator()
+        }
+    }
+
+    companion object{
+        fun newInstance():NightRootFragment {
+            return NightRootFragment().apply {
+                arguments = bundleOf(
+
+                )
+            }
         }
     }
 }

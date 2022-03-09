@@ -18,15 +18,18 @@ package com.keelim.cnubus.ui.root
 import android.content.Intent
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.FragmentRootBinding
 import com.keelim.cnubus.feature.map.ui.MapEvent
 import com.keelim.cnubus.feature.map.ui.MapsActivity
 import com.keelim.common.base.BaseFragment
-import com.keelim.common.extensions.repeatCallDefaultOnStarted
 import com.keelim.common.extensions.toast
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class RootFragment : BaseFragment<FragmentRootBinding, RootViewModel>() {
@@ -39,35 +42,33 @@ class RootFragment : BaseFragment<FragmentRootBinding, RootViewModel>() {
         RootAdapter(
             click = { position ->
                 viewModel.insertHistory(position, mode)
-                when (mode) {
-                    "a" -> {
-                        startActivity(
-                            Intent(requireContext(), MapsActivity::class.java).apply {
-                                putExtra("location", viewModel.data.value[position].roota)
-                            }
-                        )
-                    }
-                    "b" -> {
-                        startActivity(
-                            Intent(requireContext(), MapsActivity::class.java).apply {
-                                putExtra("location", viewModel.data.value[position].rootb)
-                            }
-                        )
-                    }
-                    "c" -> {
-                        startActivity(
-                            Intent(requireContext(), MapsActivity::class.java).apply {
-                                putExtra("location", viewModel.data.value[position].rootc)
-                            }
-                        )
-                    }
-                    else -> {
-                        requireActivity().toast("노선 준비 중입니다. ")
-                    }
+                val data = when (mode) {
+                    "a" -> viewModel.data.value[position].roota
+                    "b" -> viewModel.data.value[position].rootb
+                    "c" -> viewModel.data.value[position].rootc
+                    else -> null
                 }
+                data?.let { value ->
+                    startActivity(
+                        Intent(requireContext(), MapsActivity::class.java).apply {
+                            putExtra("location", value)
+                        }
+                    )
+                } ?: requireActivity().toast("노선 준비 중입니다. ")
             }
         )
     }
+
+    override fun initBeforeBinding() {
+        modeSetting()
+        initViews()
+    }
+
+    override fun initBinding() {
+        observeState()
+    }
+
+    override fun initAfterBinding() = Unit
 
     private fun modeSetting() {
         viewModel.rootChange(mode ?: "")
@@ -79,16 +80,19 @@ class RootFragment : BaseFragment<FragmentRootBinding, RootViewModel>() {
             adapter = rootAdapter
             itemAnimator = DefaultItemAnimator()
         }
-        viewLifecycleOwner.repeatCallDefaultOnStarted {
-            viewModel.state.collect {
-                when (it) {
+    }
+
+    private fun observeState() = lifecycleScope.launch {
+        viewModel.state
+            .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+            .collect { event ->
+                when (event) {
                     is MapEvent.UnInitialized -> Unit
                     is MapEvent.Loading -> Unit
-                    is MapEvent.MigrateSuccess -> rootAdapter.submitList(it.data)
-                    is MapEvent.Error -> requireContext().toast(it.message)
+                    is MapEvent.MigrateSuccess -> rootAdapter.submitList(event.data)
+                    is MapEvent.Error -> requireContext().toast(event.message)
                 }
             }
-        }
     }
 
     companion object {
@@ -100,14 +104,4 @@ class RootFragment : BaseFragment<FragmentRootBinding, RootViewModel>() {
             }
         }
     }
-
-    override fun initBeforeBinding() {
-        modeSetting()
-    }
-
-    override fun initBinding() {
-        initViews()
-    }
-
-    override fun initAfterBinding() = Unit
 }

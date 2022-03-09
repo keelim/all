@@ -22,8 +22,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
@@ -34,13 +37,14 @@ import com.keelim.cnubus.feature.map.ui.MapsActivity
 import com.keelim.cnubus.ui.main.MainViewModel
 import com.keelim.cnubus.ui.setting.compose.ScreenAction
 import com.keelim.cnubus.ui.setting.compose.SettingScreen
-import com.keelim.common.extensions.repeatCallDefaultOnStarted
 import com.keelim.compose.ui.setThemeContent
+import com.keelim.labs.ui.capture.CaptureActivity
 import com.keelim.ui_setting.ClockActivity
 import com.keelim.ui_setting.ui.SettingActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @AndroidEntryPoint
 class SettingFragment2 : Fragment() {
@@ -100,6 +104,12 @@ class SettingFragment2 : Fragment() {
                             LabActivity::class.java
                         )
                     )
+                    ScreenAction.Lab3 -> startActivity(
+                        Intent(
+                            requireContext(),
+                            CaptureActivity::class.java
+                        )
+                    )
                 }
             }
         }
@@ -107,17 +117,17 @@ class SettingFragment2 : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initAppThemeObserver()
+        observeTheme()
     }
 
-    private fun initAppThemeObserver() = viewLifecycleOwner.lifecycleScope.launch {
-        repeatCallDefaultOnStarted {
-            mainViewModel.theme.collect { theme ->
-                val nextTheme = AppTheme.THEME_ARRAY.firstOrNull {
-                    it.modeNight == theme
-                }
+    private fun observeTheme() = viewLifecycleOwner.lifecycleScope.launch {
+        mainViewModel.theme
+            .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+            .collect { theme ->
+                Timber.d("Current Theme is $theme")
+                val nextTheme = AppTheme.THEME_ARRAY.firstOrNull { it.modeNight == theme }
+                Timber.d("Next Theme is $nextTheme")
             }
-        }
     }
 
     private fun selectTheme() = viewLifecycleOwner.lifecycleScope.launch {
@@ -137,6 +147,16 @@ class SettingFragment2 : Fragment() {
                 mainViewModel.setAppTheme(mode)
             }.setNegativeButton(R.string.cancel) { _, _ ->
             }
+            .create()
             .show()
+    }
+    companion object{
+        fun newInstance(): SettingFragment2 {
+            return SettingFragment2().apply {
+                arguments = bundleOf(
+
+                )
+            }
+        }
     }
 }

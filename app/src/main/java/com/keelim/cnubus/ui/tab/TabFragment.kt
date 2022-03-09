@@ -45,8 +45,7 @@ class TabFragment : BaseFragment<FragmentTabBinding, MainViewModel>() {
                 1 -> tab.text = "B노선"
                 2 -> tab.text = "C노선"
                 3 -> tab.text = "야간노선"
-                4 -> tab.text = "시간표"
-                5 -> tab.text = "설정"
+                4 -> tab.text = "설정"
             }
         }.attach()
         animationView.playAnimation()

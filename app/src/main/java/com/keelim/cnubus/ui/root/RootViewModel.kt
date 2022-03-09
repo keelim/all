@@ -55,10 +55,10 @@ class RootViewModel @Inject constructor(
             .distinctUntilChanged()
             .combine(modes) { locations, mode ->
                 when (mode) {
-                    "a" -> locations.filter { it.roota != 999999 }.sortedBy { it.roota }
-                    "b" -> locations.filter { it.rootb != 999999 }.sortedBy { it.rootb }
-                    "c" -> locations.filter { it.rootc != 999999 }.sortedBy { it.rootc }
-                    else -> locations.filter { it.rootc != 999999 }.sortedBy { it.rootc }
+                    "a" -> locations.filter { it.roota != Location.EX_NUMBER }.sortedBy { it.roota }
+                    "b" -> locations.filter { it.rootb != Location.EX_NUMBER }.sortedBy { it.rootb }
+                    "c" -> locations.filter { it.rootc != Location.EX_NUMBER }.sortedBy { it.rootc }
+                    else -> locations.filter { it.rootc != Location.EX_NUMBER }.sortedBy { it.rootc }
                 }
             }
             .onStart {

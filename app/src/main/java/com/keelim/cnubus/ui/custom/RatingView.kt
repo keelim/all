@@ -1,3 +1,18 @@
+/*
+ * Designed and developed by 2021 keelim (Jaehyun Kim)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.keelim.cnubus.ui.custom
 
 import android.content.Context
@@ -7,7 +22,7 @@ import android.widget.LinearLayout
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.CustomRatingViewBinding
 
-class RatingView: LinearLayout {
+class RatingView : LinearLayout {
     private var mSelected = 0
     private lateinit var binding: CustomRatingViewBinding
 
@@ -44,7 +59,7 @@ class RatingView: LinearLayout {
     private fun initializeViews(context: Context, attrs: AttributeSet?) {
         binding = CustomRatingViewBinding.inflate(LayoutInflater.from(context), this)
         if (attrs != null) {
-            //attrs.xml에 정의한 스타일을 가져온다
+            // attrs.xml에 정의한 스타일을 가져온다
             val a = context.obtainStyledAttributes(attrs, R.styleable.RatingView)
             mSelected = a.getInteger(0, 0)
             a.recycle() // 이용이 끝났으면 recycle() 호출
@@ -91,9 +106,9 @@ class RatingView: LinearLayout {
      */
     var selected: Int = mSelected
 
-    fun upTheRating(){
+    fun upTheRating() {
         selected += 1
-        if (selected >= 3){
+        if (selected >= 3) {
             selected = 0
         }
     }

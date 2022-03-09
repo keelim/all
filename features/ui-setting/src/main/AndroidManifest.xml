@@ -1,19 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.keelim.ui_setting">
-
     <application>
-        <activity
-            android:name=".ui.MainActivity"
-            android:exported="false"
-            android:label="@string/title_activity_main"
-            android:theme="@style/Theme.Cnubus" />
-        <activity
-            android:name=".ClockActivity"
-            android:exported="true" />
         <activity
             android:name=".ui.SettingActivity"
             android:exported="false" />
     </application>
-
 </manifest>

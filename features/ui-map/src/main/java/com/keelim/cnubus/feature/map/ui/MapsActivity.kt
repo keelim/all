@@ -24,6 +24,7 @@ import android.os.Looper
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -49,10 +50,9 @@ import com.keelim.cnubus.feature.map.ui.map3.detail.DetailActivity
 import com.keelim.common.extensions.repeatCallDefaultOnStarted
 import com.keelim.common.extensions.toast
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import java.net.MalformedURLException
 import java.net.URL
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MapsActivity : AppCompatActivity() {
@@ -68,7 +68,7 @@ class MapsActivity : AppCompatActivity() {
     }
 
     private val locationManager by lazy { getSystemService(Context.LOCATION_SERVICE) as LocationManager }
-    private lateinit var myLocationListener: MyLocationListener
+    private lateinit var myLocationListener: LocationListener
 
     private val viewModel: MapsViewModel by viewModels()
     private lateinit var googleMap: GoogleMap
@@ -79,16 +79,23 @@ class MapsActivity : AppCompatActivity() {
     private val viewPagerAdapter by lazy {
         LocationPagerAdapter(
             clicked = {
-                startActivity(Intent(this@MapsActivity, DetailActivity::class.java).apply {
-                    putExtra("item", it)
-                })
+                startActivity(
+                    Intent(this@MapsActivity, DetailActivity::class.java).apply {
+                        putExtra("item", it)
+                    }
+                )
             },
             longClicked = {
-                startActivity(Intent.createChooser(Intent().apply {
-                    action = Intent.ACTION_SEND
-                    putExtra(Intent.EXTRA_TEXT, "[확인] ${it.name} 사진보기 : ${it.imgUrl}")
-                    type = "text/plain"
-                }, null))
+                startActivity(
+                    Intent.createChooser(
+                        Intent().apply {
+                            action = Intent.ACTION_SEND
+                            putExtra(Intent.EXTRA_TEXT, "[확인] ${it.name} 사진보기 : ${it.imgUrl}")
+                            type = "text/plain"
+                        },
+                        null
+                    )
+                )
             }
         )
     }
@@ -125,11 +132,18 @@ class MapsActivity : AppCompatActivity() {
         googleMapSetting()
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+    }
+
     private fun setMyLocationListener() {
         val minTime = 1500L
         val minDistance = 100f
         if (::myLocationListener.isInitialized.not()) {
-            myLocationListener = MyLocationListener()
+            myLocationListener = LocationListener {
+                removeLocationListener()
+            }
         }
         with(locationManager) {
             requestLocationUpdates(
@@ -141,7 +155,7 @@ class MapsActivity : AppCompatActivity() {
                 minTime, minDistance, myLocationListener
             )
         }
-        if(::fusedLocationProvider.isInitialized.not()){
+        if (::fusedLocationProvider.isInitialized.not()) {
             fusedLocationProvider = LocationServices.getFusedLocationProviderClient(this)
         }
 
@@ -209,38 +223,38 @@ class MapsActivity : AppCompatActivity() {
         }
     }
 
-    private fun observeState() {
-        repeatCallDefaultOnStarted {
-            viewModel.state.collect {
-                when (it) {
+    private fun observeState() = lifecycleScope.launch {
+        viewModel.state
+            .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+            .collect { state ->
+                when (state) {
                     is MapEvent.UnInitialized -> toast("초기화 중입니다.")
                     is MapEvent.Loading -> Unit
-                    is MapEvent.Error -> toast(it.message)
+                    is MapEvent.Error -> toast(state.message)
                     is MapEvent.MigrateSuccess -> {
                         googleMap = mapFragment.awaitMap()
-                        updateMarker(it.data)
+                        updateMarker(state.data)
                         val cameraUpdate = CameraUpdateFactory
                             .newLatLngZoom(
                                 if (location == -1) {
-                                    it.data[0].latLng
+                                    state.data[0].latLng
                                 } else {
-                                    it.data[location].latLng
+                                    state.data[location].latLng
                                 },
                                 NORMAL_ZOOM
                             )
-                        googleMap.apply {
+                        googleMap.run {
                             animateCamera(cameraUpdate)
                             isMyLocationEnabled = true
                             uiSettings.isMyLocationButtonEnabled = true
                         }
-                        viewPagerAdapter.submitList(it.data)
-                        recyclerAdapter.submitList(it.data)
-                        bottomBinding.bottomSheetTitleTextView.text = "${it.data.size} 주변 장소"
+                        viewPagerAdapter.submitList(state.data)
+                        recyclerAdapter.submitList(state.data)
+                        bottomBinding.bottomSheetTitleTextView.text = "${state.data.size} 주변 장소"
                         binding.houseViewPager.currentItem = location
                     }
                 }
             }
-        }
         repeatCallDefaultOnStarted(Lifecycle.State.DESTROYED) {
             removeLocationListener()
         }
@@ -260,12 +274,8 @@ class MapsActivity : AppCompatActivity() {
         if (::myLocationListener.isInitialized) {
             locationManager.removeUpdates(myLocationListener)
         }
-        fusedLocationProvider.removeLocationUpdates(locationCallback)
-    }
-
-    inner class MyLocationListener : LocationListener {
-        override fun onLocationChanged(location: android.location.Location) {
-            removeLocationListener()
+        if (::fusedLocationProvider.isInitialized) {
+            fusedLocationProvider.removeLocationUpdates(locationCallback)
         }
     }
 

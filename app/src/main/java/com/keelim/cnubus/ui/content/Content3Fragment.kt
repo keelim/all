@@ -18,10 +18,13 @@ package com.keelim.cnubus.ui.content
 import android.content.Intent
 import android.net.Uri
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.FragmentContentBinding
 import com.keelim.common.base.BaseFragment
-import com.keelim.common.extensions.repeatCallDefaultOnStarted
+import kotlinx.coroutines.launch
 
 class Content3Fragment : BaseFragment<FragmentContentBinding, Content3ViewModel>() {
     override val layoutResourceId: Int = R.layout.fragment_content
@@ -34,23 +37,25 @@ class Content3Fragment : BaseFragment<FragmentContentBinding, Content3ViewModel>
     }
 
     override fun initBinding() {
-        observeEvent()
+        observeState()
     }
 
     override fun initAfterBinding() = Unit
 
-    private fun observeEvent() = repeatCallDefaultOnStarted {
-        viewModel.viewEvent.collect {
-            it.getContentIfNotHandled()?.let { event ->
-                when (event) {
-                    Content3ViewModel.VIEW_1 -> startActivity(
-                        Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse(getString(R.string.notification_uri))
+    private fun observeState() = viewLifecycleOwner.lifecycleScope.launch {
+        viewModel.viewEvent
+            .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+            .collect {
+                it.getContentIfNotHandled()?.let { event ->
+                    when (event) {
+                        Content3ViewModel.VIEW_1 -> startActivity(
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse(getString(R.string.notification_uri))
+                            )
                         )
-                    )
+                    }
                 }
             }
-        }
     }
 }

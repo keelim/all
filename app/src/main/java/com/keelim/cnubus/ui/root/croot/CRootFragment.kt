@@ -15,24 +15,19 @@
  */
 package com.keelim.cnubus.ui.root.croot
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
-import com.google.android.material.snackbar.Snackbar
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.FragmentCRootBinding
 import com.keelim.cnubus.ui.main.MainViewModel
 import com.keelim.common.base.BaseFragment
-import com.keelim.common.extensions.snak
+import com.keelim.common.extensions.snack
 
 class CRootFragment : BaseFragment<FragmentCRootBinding, MainViewModel>() {
     private val rootList by lazy { resources.getStringArray(R.array.croot).toList() }
     private val cRecyclerViewAdapter = CRecyclerViewAdapter {
-        binding.root.snak("C 노선 지도 업데이트 준비 중입니다.")
+        binding.root.snack("C 노선 지도 업데이트 준비 중입니다.")
     }
     override val layoutResourceId: Int = R.layout.fragment_c_root
     override val viewModel: MainViewModel by viewModels()
@@ -50,6 +45,16 @@ class CRootFragment : BaseFragment<FragmentCRootBinding, MainViewModel>() {
                 submitList(rootList)
             }
             itemAnimator = DefaultItemAnimator()
+        }
+    }
+
+    companion object{
+        fun newInstance(): CRootFragment {
+            return CRootFragment().apply {
+                arguments = bundleOf(
+
+                )
+            }
         }
     }
 }

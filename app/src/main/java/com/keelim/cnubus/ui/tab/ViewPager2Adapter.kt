@@ -21,6 +21,7 @@ import com.keelim.cnubus.ui.root.RootFragment
 import com.keelim.cnubus.ui.root.croot.CRootFragment
 import com.keelim.cnubus.ui.root.night.NightRootFragment
 import com.keelim.cnubus.ui.setting.SettingFragment2
+import com.keelim.cnubus.ui.table.TableFragment
 
 class ViewPager2Adapter(fa: Fragment) : FragmentStateAdapter(fa) {
     private var fragments = ArrayList<Fragment>()
@@ -32,9 +33,10 @@ class ViewPager2Adapter(fa: Fragment) : FragmentStateAdapter(fa) {
         fragments.apply {
             add(RootFragment.newInstance("a"))
             add(RootFragment.newInstance("b"))
-            add(CRootFragment())
-            add(NightRootFragment())
-            add(SettingFragment2())
+            add(CRootFragment.newInstance())
+            add(NightRootFragment.newInstance())
+//            add(TableFragment.newInstance())
+            add(SettingFragment2.newInstance())
         }
     }
 }

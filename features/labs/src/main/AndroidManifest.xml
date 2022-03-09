@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.keelim.cnubus.labs">
+
+    <application>
+        <activity
+            android:name="com.keelim.labs.ui.capture.CaptureActivity"
+            android:exported="false"
+            android:label="maps" />
+        <activity
+            android:name="com.keelim.labs.ui.motion.MotionActivity"
+            android:exported="false"
+            android:label="maps" />
+
+        <service
+            android:name="com.keelim.labs.services.LabBoundService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name="com.keelim.labs.services.LabBoundService2"
+            android:process=":my_process"
+            android:enabled="true"
+            android:exported="true" />
+    </application>
+</manifest>

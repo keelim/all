@@ -13,7 +13,7 @@ buildscript {
         classpath("com.diffplug.spotless:spotless-plugin-gradle:6.2.2")
         classpath("com.google.firebase:firebase-appdistribution-gradle:2.1.3")
         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.4.0-alpha09")
-        classpath("com.google.android.gms:oss-licenses-plugin:0.10.5")
+        classpath("com.google.android.gms:oss-licenses-plugin:0.10.4")
     }
 }
 

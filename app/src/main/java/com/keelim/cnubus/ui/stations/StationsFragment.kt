@@ -25,6 +25,8 @@ import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -34,11 +36,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.keelim.cnubus.R
 import com.keelim.cnubus.data.model.Station
 import com.keelim.cnubus.databinding.FragmentStationsBinding
-import com.keelim.common.extensions.repeatCallDefaultOnStarted
 import com.keelim.common.extensions.toGone
 import com.keelim.common.extensions.toVisible
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -50,7 +50,7 @@ class StationsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentStationsBinding.inflate(inflater, container, false)
         return binding.root
@@ -114,20 +114,21 @@ class StationsFragment : Fragment() {
     }
 
     private fun hideKeyboard() {
-        val inputMethodManager = context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputMethodManager =
+            context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(activity?.currentFocus?.windowToken, 0)
     }
 
     private fun observeState() = viewLifecycleOwner.lifecycleScope.launch {
-        repeatCallDefaultOnStarted {
-            viewModel.state.collect {
-                when (it) {
+        viewModel.state
+            .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+            .collect { state ->
+                when (state) {
                     is StationState.HideLoading -> hideLoadingIndicator()
                     is StationState.ShowLoading -> showLoadingIndicator()
-                    is StationState.ShowStation -> showStations(it.data)
+                    is StationState.ShowStation -> showStations(state.data)
                     is StationState.UnInitialized -> Unit
                 }
             }
-        }
     }
 }

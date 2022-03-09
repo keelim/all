@@ -17,16 +17,17 @@ package com.keelim.cnubus.ui.splash
 
 import android.content.Intent
 import androidx.activity.viewModels
-import com.jakewharton.processphoenix.ProcessPhoenix
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import com.keelim.cnubus.BuildConfig
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.ActivitySplashBinding
 import com.keelim.cnubus.ui.main.MainActivity
 import com.keelim.cnubus.utils.VerificationUtils
 import com.keelim.common.base.BaseActivity
-import com.keelim.common.extensions.repeatCallDefaultOnStarted
-import com.keelim.common.extensions.toast
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -39,24 +40,27 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
 
     override fun initBeforeBinding() = Unit
     override fun initDataBinding() {
-        observeData()
+        observeState()
     }
 
     override fun initAfterBinding() = Unit
-    private fun observeData() = repeatCallDefaultOnStarted {
-        viewModel.loading.collect {
-            if (it) {
-                val isNotVerifiedApplication = if(BuildConfig.DEBUG){
-                    verificationUtils.isVerifiedDebug()
-                } else{
-                    verificationUtils.isVerifiedRelease()
+
+    private fun observeState() = lifecycleScope.launch {
+        viewModel.loading
+            .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+            .collect {
+                if (it) {
+                    val isNotVerifiedApplication = if (BuildConfig.DEBUG) {
+                        verificationUtils.isVerifiedDebug()
+                    } else {
+                        verificationUtils.isVerifiedRelease()
+                    }
+                    if (isNotVerifiedApplication.not()) {
+                        startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+                    }
+                    finish()
                 }
-                if(isNotVerifiedApplication.not()){
-                    startActivity(Intent(this@SplashActivity, MainActivity::class.java))
-                }
-                finish()
             }
-        }
     }
 
     override fun onBackPressed() {}

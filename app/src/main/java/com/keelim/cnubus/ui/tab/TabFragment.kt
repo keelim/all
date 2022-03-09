@@ -16,6 +16,7 @@
 package com.keelim.cnubus.ui.tab
 
 import androidx.fragment.app.activityViewModels
+import com.airbnb.lottie.LottieDrawable
 import com.google.android.material.tabs.TabLayoutMediator
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.FragmentTabBinding
@@ -48,5 +49,6 @@ class TabFragment : BaseFragment<FragmentTabBinding, MainViewModel>() {
             }
         }.attach()
         animationView.playAnimation()
+        animationView.repeatCount = LottieDrawable.INFINITE
     }
 }

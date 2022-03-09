@@ -23,7 +23,6 @@ import com.keelim.cnubus.domain.UserUseCase
 import com.keelim.cnubus.feature.map.ui.MapEvent
 import com.keelim.common.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -33,6 +32,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class RootViewModel @Inject constructor(
@@ -55,10 +55,10 @@ class RootViewModel @Inject constructor(
             .distinctUntilChanged()
             .combine(modes) { locations, mode ->
                 when (mode) {
-                    "a" -> locations.filter { it.roota != 999999 }.sortedBy { it.roota }
-                    "b" -> locations.filter { it.rootb != 999999 }.sortedBy { it.rootb }
-                    "c" -> locations.filter { it.rootc != 999999 }.sortedBy { it.rootc }
-                    else -> locations.filter { it.rootc != 999999 }.sortedBy { it.rootc }
+                    "a" -> locations.filter { it.roota != Location.EX_NUMBER }.sortedBy { it.roota }
+                    "b" -> locations.filter { it.rootb != Location.EX_NUMBER }.sortedBy { it.rootb }
+                    "c" -> locations.filter { it.rootc != Location.EX_NUMBER }.sortedBy { it.rootc }
+                    else -> locations.filter { it.rootc != Location.EX_NUMBER }.sortedBy { it.rootc }
                 }
             }
             .onStart {
@@ -83,11 +83,13 @@ class RootViewModel @Inject constructor(
         }
     }
 
-    fun insertHistory(position: Int, mode:String?) = viewModelScope.launch {
+    fun insertHistory(position: Int, mode: String?) = viewModelScope.launch {
         val location = data.value.getOrNull(position) ?: Location.defaultLocation()
-        userUseCase.insertHistory(History(
-            destination = location.name,
-            root = mode ?: "Empty"
-        ))
+        userUseCase.insertHistory(
+            History(
+                destination = location.name,
+                root = mode ?: "Empty"
+            )
+        )
     }
 }

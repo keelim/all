@@ -33,11 +33,10 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -67,18 +66,18 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun providePreferenceDataStore(
-        @ApplicationContext ctx:Context,
+        @ApplicationContext ctx: Context,
         @IoDispatcher io: CoroutineDispatcher
     ): DataStore<Preferences> = PreferenceDataStoreFactory.create(
         corruptionHandler = ReplaceFileCorruptionHandler { emptyPreferences() },
-        migrations = listOf(SharedPreferencesMigration(ctx,"preference")),
+        migrations = listOf(SharedPreferencesMigration(ctx, "preference")),
         scope = CoroutineScope(io + SupervisorJob()),
-        produceFile = {ctx.preferencesDataStoreFile("preference")}
+        produceFile = { ctx.preferencesDataStoreFile("preference") }
     )
 
     @Provides
     @Singleton
     fun providePreferenceDataStoreManager(
-        dataStore:DataStore<Preferences>
+        dataStore: DataStore<Preferences>
     ): DataStoreManager = DataStoreManager(dataStore)
 }

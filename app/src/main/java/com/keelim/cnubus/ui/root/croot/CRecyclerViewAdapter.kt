@@ -33,7 +33,6 @@ class CRecyclerViewAdapter(
             binding.root.setOnClickListener {
                 shortClickListener.invoke(position)
             }
-
         }
     }
 
@@ -63,5 +62,3 @@ class CRecyclerViewAdapter(
         }
     }
 }
-
-

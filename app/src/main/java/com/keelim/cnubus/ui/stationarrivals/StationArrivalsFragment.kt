@@ -24,6 +24,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,11 +34,9 @@ import com.keelim.cnubus.R
 import com.keelim.cnubus.data.model.ArrivalInformation
 import com.keelim.cnubus.data.model.Station
 import com.keelim.cnubus.databinding.FragmentStationArrivalsBinding
-import com.keelim.common.extensions.repeatCallDefaultOnStarted
 import com.keelim.common.extensions.toGone
 import com.keelim.common.extensions.toVisible
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -49,7 +49,7 @@ class StationArrivalsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         setHasOptionsMenu(true)
         _binding = FragmentStationArrivalsBinding.inflate(inflater, container, false)
@@ -135,18 +135,18 @@ class StationArrivalsFragment : Fragment() {
     }
 
     private fun observeState() = viewLifecycleOwner.lifecycleScope.launch {
-        repeatCallDefaultOnStarted {
-            viewModel.state.collect {
-                when (it) {
+        viewModel.state
+            .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+            .collect { state ->
+                when (state) {
                     is ArrivalState.HideLoading -> hideLoadingIndicator()
                     is ArrivalState.ShowLoading -> showLoadingIndicator()
-                    is ArrivalState.ShowStationArrivals -> showStationArrivals(it.data)
+                    is ArrivalState.ShowStationArrivals -> showStationArrivals(state.data)
                     is ArrivalState.UnInitialized -> Unit
                     is ArrivalState.Error -> {
-                        showErrorDescription(it.message)
+                        showErrorDescription(state.message)
                     }
                 }
             }
-        }
     }
 }

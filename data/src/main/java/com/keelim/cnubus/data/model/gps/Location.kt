@@ -29,6 +29,7 @@ data class Location(
     val imgUrl: String = ""
 ) : Parcelable {
     companion object {
+        const val EX_NUMBER = 999
         fun defaultLocation(): Location = Location(
             LatLng(36.363876, 127.345119),
             1,

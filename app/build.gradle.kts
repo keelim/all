@@ -92,7 +92,7 @@ dependencies {
     implementation(Dep.Rx.binding)
 
     implementation("com.jakewharton:process-phoenix:2.1.2")
-    implementation("com.airbnb.android:lottie:3.4.0")
+    implementation("com.airbnb.android:lottie:5.0.3")
     testImplementation(Dep.Test.junit)
     testImplementation(Dep.Kotlin.coroutines.test)
     androidTestImplementation(Dep.Test.androidJunit)

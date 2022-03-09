@@ -17,18 +17,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:text="버스 시간표"
-            app:layout_constraintBottom_toTopOf="@id/FixedHeaderTableLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <com.github.zardozz.FixedHeaderTableLayout.FixedHeaderTableLayout
-            android:id="@+id/FixedHeaderTableLayout"
-            android:layout_width="425dp"
-            android:layout_height="670dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -35,7 +35,7 @@ class ViewPager2Adapter(fa: Fragment) : FragmentStateAdapter(fa) {
             add(RootFragment.newInstance("b"))
             add(CRootFragment.newInstance())
             add(NightRootFragment.newInstance())
-            add(TableFragment.newInstance())
+//            add(TableFragment.newInstance())
             add(SettingFragment2.newInstance())
         }
     }

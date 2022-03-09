@@ -53,27 +53,32 @@ import com.keelim.ui_setting.ui.SettingViewModel
 internal fun Navigation(
     viewModel: SettingViewModel = viewModel(),
     path: Section,
-    onBackAction: () -> Unit
+    onBackAction: () -> Unit,
 ) {
     when (path) {
         Section.Developer -> {
             val result by viewModel.developers.observeAsState(UiState.loading())
-            NavigationScreen(uiState = result, title = "Developer", onBackAction) {
+            NavigationScreenWithUiState(uiState = result, title = "Developer", onBackAction) {
                 DeveloperScreen(
                     Modifier.padding(it),
                     result.getOrThrow()
                 )
             }
         }
+        Section.Lab -> {
+            NavigationScreen(title = "실험 기능1", onBackAction = onBackAction) {
+                ClockScreen()
+            }
+        }
     }
 }
 
 @Composable
-private fun NavigationScreen(
+private fun NavigationScreenWithUiState(
     uiState: UiState<out Any>,
     title: String,
     onBackAction: () -> Unit,
-    content: @Composable (PaddingValues) -> Unit
+    content: @Composable (PaddingValues) -> Unit,
 ) {
     Container(uiState) {
         Scaffold(
@@ -103,6 +108,40 @@ private fun NavigationScreen(
         }
     }
 }
+
+@Composable
+private fun NavigationScreen(
+    title: String,
+    onBackAction: () -> Unit,
+    content: @Composable (PaddingValues) -> Unit,
+) {
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(
+                        text = title,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                },
+                navigationIcon = {
+                    IconButton(onBackAction) {
+                        Icon(
+                            imageVector = Icons.Filled.ArrowBack,
+                            contentDescription = null
+                        )
+                    }
+                },
+                backgroundColor = Color.White,
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+    ) { innerPadding ->
+        content(innerPadding)
+    }
+}
+
 
 @Composable
 private fun <T> Container(

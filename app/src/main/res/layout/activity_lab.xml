@@ -15,12 +15,12 @@
         app:selected="1" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_photo_test"
+        android:id="@+id/btn_star"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/rating_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

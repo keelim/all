@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="앱 설정">
+        <Preference
+            android:key="앱설정"
+            android:summary="앱 정보를 초기화 하세요"
+            android:title="앱 초기화" />
+        <Preference
+            android:key="버전"
+            android:title="Version" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="고객 센터">
+        <Preference
+            android:key="문의"
+            android:summary="개발자에게 메일을 보내보세요"
+            android:title="문의하기" />
+    </PreferenceCategory>
+</PreferenceScreen>

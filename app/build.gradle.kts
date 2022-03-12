@@ -97,5 +97,4 @@ dependencies {
     testImplementation(Dep.Kotlin.coroutines.test)
     androidTestImplementation(Dep.Test.androidJunit)
     androidTestImplementation(Dep.Test.espressoCore)
-
 }

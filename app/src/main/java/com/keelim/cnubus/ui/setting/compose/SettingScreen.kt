@@ -71,10 +71,6 @@ private val settings by lazy {
           action = ScreenAction.Theme
       ),
       Setting(
-          text = "오픈소스 라이센스",
-          action = ScreenAction.OpenSource
-      ),
-      Setting(
           text = "근처 지하철",
           action = ScreenAction.Subway
       ),
@@ -89,14 +85,6 @@ private val settings by lazy {
       Setting(
           text = "실험기능1",
           action = ScreenAction.Lab
-      ),
-      Setting(
-          text = "실험기능2",
-          action = ScreenAction.Lab2
-      ),
-      Setting(
-          text = "실험기능3",
-          action = ScreenAction.Lab3
       ),
   )
     data

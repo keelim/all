@@ -6,8 +6,21 @@
             android:summary="앱 정보를 초기화 하세요"
             android:title="앱 초기화" />
         <Preference
+            android:key="권한"
+            android:summary="권한 재설정"
+            android:title="권한" />
+        <Preference
+            android:key="오픈소스"
+            android:title="오픈소스" />
+        <Preference
             android:key="버전"
             android:title="Version" />
+        <Preference
+            android:key="lab1"
+            android:title="lab1" />
+        <Preference
+            android:key="lab2"
+            android:title="lab2" />
     </PreferenceCategory>
     <PreferenceCategory android:title="고객 센터">
         <Preference

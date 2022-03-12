@@ -1,21 +1,43 @@
 package com.keelim.cnubus.ui.setting.appsetting
 
+import android.Manifest
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Parcelable
 import android.provider.Settings
-import androidx.core.os.bundleOf
-import androidx.navigation.fragment.findNavController
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.keelim.cnubus.BuildConfig
 import com.keelim.cnubus.R
-import kotlinx.parcelize.Parcelize
+import com.keelim.cnubus.ui.setting.LabActivity
+import com.keelim.common.extensions.toast
+import com.keelim.labs.ui.capture.CaptureActivity
 
 
 class AppSettingFragment : PreferenceFragmentCompat() {
+    private val appPermissions: Array<String> by lazy {
+        val data = arrayOf(
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA
+        )
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            data.plus(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        }
+        data
+    }
+
+    private val permissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+            val responsePermissions = permissions.entries.filter { appPermissions.contains(it.key) }
+            if (responsePermissions.filter { it.value }.size == appPermissions.size) {
+                toast("권한이 확인되었습니다.")
+            }
+        }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.preference_setting)
@@ -31,6 +53,25 @@ class AppSettingFragment : PreferenceFragmentCompat() {
                 })
             }
             "문의" -> sendEmailToAdmin()
+            "권한" -> permissionLauncher.launch(appPermissions)
+            "오픈소스" -> startActivity(
+                Intent(
+                    requireContext(),
+                    OssLicensesMenuActivity::class.java
+                )
+            )
+            "lab1" -> startActivity(
+                Intent(
+                    requireContext(),
+                    LabActivity::class.java
+                )
+            )
+            "lab2" -> startActivity(
+                Intent(
+                    requireContext(),
+                    CaptureActivity::class.java
+                )
+            )
         }
         return true
     }

@@ -78,12 +78,6 @@ class SettingFragment2 : Fragment() {
                         }
                     )
                     ScreenAction.Theme -> selectTheme()
-                    ScreenAction.OpenSource -> startActivity(
-                        Intent(
-                            requireContext(),
-                            OssLicensesMenuActivity::class.java
-                        )
-                    )
                     ScreenAction.Developer, ScreenAction.Lab -> {
                         startActivity(
                             Intent(
@@ -100,18 +94,6 @@ class SettingFragment2 : Fragment() {
                     }
                     ScreenAction.Subway -> findNavController().navigate(R.id.stationsFragment)
                     ScreenAction.MYPAGE -> findNavController().navigate(R.id.myPageFragment)
-                    ScreenAction.Lab2 -> startActivity(
-                        Intent(
-                            requireContext(),
-                            LabActivity::class.java
-                        )
-                    )
-                    ScreenAction.Lab3 -> startActivity(
-                        Intent(
-                            requireContext(),
-                            CaptureActivity::class.java
-                        )
-                    )
                     ScreenAction.AppSetting -> findNavController().navigate(R.id.open_setting_fragment)
                 }
             }

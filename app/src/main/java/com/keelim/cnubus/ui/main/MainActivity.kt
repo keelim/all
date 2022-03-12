@@ -19,6 +19,7 @@ import android.Manifest.permission
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -29,6 +30,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.ActivityMainBinding
+import com.keelim.cnubus.databinding.DialogEventBinding
 import com.keelim.cnubus.services.TerminateService
 import com.keelim.common.extensions.toast
 import com.keelim.compose.ui.CircularIndeterminateProgressBar
@@ -58,6 +60,7 @@ class MainActivity : AppCompatActivity() {
             val responsePermissions = permissions.entries.filter { appPermissions.contains(it.key) }
             if (responsePermissions.filter { it.value }.size == appPermissions.size) {
                 toast("권한이 확인되었습니다.")
+                eventDialog()
             }
         }
 
@@ -103,6 +106,20 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
+    }
+
+    private fun eventDialog() {
+        val dialogBinding = DialogEventBinding.inflate(LayoutInflater.from(this))
+        val dialog = MaterialAlertDialogBuilder(this)
+            .setView(dialogBinding.root)
+            .create()
+        dialogBinding.btnSubmit.also { btn ->
+            btn.text = "okay!!"
+            btn.setOnClickListener {
+                dialog.dismiss()
+            }
+        }
+        dialog.show()
     }
 
     override fun onBackPressed() {

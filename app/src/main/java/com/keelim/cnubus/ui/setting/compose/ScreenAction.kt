@@ -16,6 +16,7 @@
 package com.keelim.cnubus.ui.setting.compose
 
 enum class ScreenAction {
+    AppSetting,
     Content,
     Developer,
     Homepage,

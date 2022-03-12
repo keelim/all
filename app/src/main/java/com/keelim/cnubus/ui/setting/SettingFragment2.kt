@@ -112,6 +112,7 @@ class SettingFragment2 : Fragment() {
                             CaptureActivity::class.java
                         )
                     )
+                    ScreenAction.AppSetting -> findNavController().navigate(R.id.open_setting_fragment)
                 }
             }
         }
@@ -152,7 +153,8 @@ class SettingFragment2 : Fragment() {
             .create()
             .show()
     }
-    companion object{
+
+    companion object {
         fun newInstance(): SettingFragment2 {
             return SettingFragment2().apply {
                 arguments = bundleOf(

@@ -79,6 +79,10 @@ private val settings by lazy {
           action = ScreenAction.Subway
       ),
       Setting(
+          text = "앱 설정",
+          action = ScreenAction.AppSetting
+      ),
+      Setting(
           text = "개발자 소개",
           action = ScreenAction.Developer
       ),

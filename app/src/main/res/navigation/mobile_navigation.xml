@@ -46,4 +46,17 @@
         android:id="@+id/userEditDialog"
         android:name="com.keelim.cnubus.ui.dialog.UserEditDialog"
         android:label="UserEditDialog" />
+<!--    https://stackoverflow.com/questions/53029821/navigating-to-preference-fragment-using-navigation-component-->
+    <fragment
+        android:id="@+id/appSettingFragment"
+        android:name="com.keelim.cnubus.ui.setting.appsetting.AppSettingFragment"
+        android:label="AppSettingFragment">
+        <action
+            android:id="@+id/action_appSettingFragment_self"
+            app:destination="@id/appSettingFragment" />
+    </fragment>
+    <action
+        android:id="@+id/open_setting_fragment"
+        app:destination="@id/appSettingFragment"
+        />
 </navigation>

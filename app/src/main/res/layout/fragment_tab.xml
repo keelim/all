@@ -26,12 +26,12 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             android:layout_width="0dp"
-            tools:background="@color/black"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@id/viewpager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/animation_view"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="@color/black" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewpager"

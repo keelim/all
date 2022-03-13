@@ -20,6 +20,7 @@ import android.view.ViewGroup
 import androidx.annotation.Px
 import androidx.annotation.StringRes
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.flow.callbackFlow
 
 @Px
 fun View.dip(dipValue: Float) = context.dip(dipValue)
@@ -62,4 +63,8 @@ fun ViewGroup.allDisableChildEnable(flag: Boolean) {
             )
         }
     }
+}
+
+fun View.clicks() = callbackFlow<View> {
+
 }

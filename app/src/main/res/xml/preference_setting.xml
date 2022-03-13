@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="앱 설정">
+        <Preference
+            android:key="앱설정"
+            android:summary="앱 정보를 초기화 하세요"
+            android:title="앱 초기화" />
+        <Preference
+            android:key="권한"
+            android:summary="권한 재설정"
+            android:title="권한" />
+        <Preference
+            android:key="오픈소스"
+            android:title="오픈소스" />
+        <Preference
+            android:key="버전"
+            android:title="Version" />
+        <Preference
+            android:key="lab1"
+            android:title="lab1" />
+        <Preference
+            android:key="lab2"
+            android:title="lab2" />
+        <Preference
+            android:key="lab3"
+            android:title="lab3" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="고객 센터">
+        <Preference
+            android:key="문의"
+            android:summary="개발자에게 메일을 보내보세요"
+            android:title="문의하기" />
+    </PreferenceCategory>
+</PreferenceScreen>

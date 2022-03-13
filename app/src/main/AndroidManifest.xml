@@ -52,9 +52,8 @@
             android:name=".ui.setting.LabActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.setting.mypage.MyPageActivity"
+            android:name=".ui.compose.Lab3Activity"
             android:exported="false" />
-
         <service android:name=".services.TerminateService" />
 
         <provider
@@ -62,6 +61,10 @@
             android:authorities="${applicationId}.androidx-startup"
             android:exported="false"
             tools:node="merge">
+            <meta-data
+                android:name="androidx.work.WorkManagerInitializer"
+                android:value="androidx.startup"
+                tools:node="remove" />
             <meta-data
                 android:name="com.keelim.cnubus.initialize.TimberInitializer"
                 android:value="androidx.startup" />

@@ -16,15 +16,13 @@
 package com.keelim.cnubus.ui.setting.compose
 
 enum class ScreenAction {
+    AppSetting,
     Content,
     Developer,
     Homepage,
     Lab,
-    Lab2,
-    Lab3,
     Map,
     MYPAGE,
-    OpenSource,
     Subway,
     Theme,
     Update,

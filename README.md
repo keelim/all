@@ -57,7 +57,11 @@ MVVM architecture
 
 ![architecture](https://user-images.githubusercontent.com/24237865/77502018-f7d36000-6e9c-11ea-92b0-1097240c8689.png)
 
-# License
+## UPDATE LOG
+- 2022.03.13
+  - Preference page update (setting)
+  - WorkManager Issue update
+## License
 ```xml
 Designed and developed by 2019 keelim (Jaehyun Kim)
 

@@ -17,9 +17,10 @@ package com.keelim.cnubus.ui.setting
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.ActivityLabBinding
 
-class LabActivity() : AppCompatActivity() {
+class LabActivity : AppCompatActivity() {
     private val binding by lazy { ActivityLabBinding.inflate(layoutInflater) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,8 +29,6 @@ class LabActivity() : AppCompatActivity() {
     }
 
     private fun initViews() = with(binding) {
-        root.setOnClickListener {
-            binding.ratingView.upTheRating()
-        }
+        contentBox.setText("이것은 커스텀 뷰 입니다.")
     }
 }

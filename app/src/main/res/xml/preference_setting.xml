@@ -21,6 +21,9 @@
         <Preference
             android:key="lab2"
             android:title="lab2" />
+        <Preference
+            android:key="lab3"
+            android:title="lab3" />
     </PreferenceCategory>
     <PreferenceCategory android:title="고객 센터">
         <Preference

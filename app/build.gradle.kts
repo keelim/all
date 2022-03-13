@@ -10,7 +10,7 @@ plugins {
     id("dagger.hilt.android.plugin")
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.android.gms.oss-licenses-plugin")
-    id ("com.google.secrets_gradle_plugin") version("0.6.1")
+    id("com.google.secrets_gradle_plugin") version ("0.6.1")
 }
 
 android {
@@ -91,8 +91,14 @@ dependencies {
     implementation(Dep.Rx.rxKotlin)
     implementation(Dep.Rx.binding)
 
+    implementation(Dep.Kotlin.stdlibJvm)
     implementation("com.jakewharton:process-phoenix:2.1.2")
     implementation("com.airbnb.android:lottie:5.0.3")
+
+    implementation(Dep.AndroidX.WorkManager.work)
+    implementation("androidx.hilt:hilt-work:1.0.0")
+    kapt("androidx.hilt:hilt-compiler:1.0.0")
+
     testImplementation(Dep.Test.junit)
     testImplementation(Dep.Kotlin.coroutines.test)
     androidTestImplementation(Dep.Test.androidJunit)

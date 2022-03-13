@@ -12,6 +12,7 @@ import androidx.preference.PreferenceFragmentCompat
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.keelim.cnubus.BuildConfig
 import com.keelim.cnubus.R
+import com.keelim.cnubus.ui.compose.Lab3Activity
 import com.keelim.cnubus.ui.setting.LabActivity
 import com.keelim.common.extensions.toast
 import com.keelim.labs.ui.capture.CaptureActivity
@@ -70,6 +71,12 @@ class AppSettingFragment : PreferenceFragmentCompat() {
                 Intent(
                     requireContext(),
                     CaptureActivity::class.java
+                )
+            )
+            "lab3" -> startActivity(
+                Intent(
+                    requireContext(),
+                    Lab3Activity::class.java
                 )
             )
         }

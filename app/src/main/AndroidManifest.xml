@@ -51,7 +51,9 @@
         <activity
             android:name=".ui.setting.LabActivity"
             android:exported="false" />
-
+        <activity
+            android:name=".ui.compose.Lab3Activity"
+            android:exported="false" />
         <service android:name=".services.TerminateService" />
 
         <provider

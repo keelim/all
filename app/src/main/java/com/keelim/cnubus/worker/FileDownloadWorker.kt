@@ -30,9 +30,9 @@ class FileDownloadWorker @AssistedInject constructor(
 ) : CoroutineWorker(appContext, workerParams) {
     override suspend fun doWork(): Result {
 
-        val fileUrl = inputData.getString(FileParams.KEY_FILE_URL) ?: ""
-        val fileName = inputData.getString(FileParams.KEY_FILE_NAME) ?: ""
-        val fileType = inputData.getString(FileParams.KEY_FILE_TYPE) ?: ""
+        val fileUrl = inputData.getString(KEY_FILE_URL) ?: ""
+        val fileName = inputData.getString(KEY_FILE_NAME) ?: ""
+        val fileType = inputData.getString(KEY_FILE_TYPE) ?: ""
 
         Timber.d("TAG", "doWork: $fileUrl | $fileName | $fileType")
 
@@ -76,7 +76,7 @@ class FileDownloadWorker @AssistedInject constructor(
         NotificationManagerCompat.from(appContext).cancel(NotificationConstants.NOTIFICATION_ID)
         return if (uri != null){
             Result.success(workDataOf(
-                FileParams.KEY_FILE_URI to uri.toString()
+                KEY_FILE_URI to uri.toString()
             ))
         }else{
             Result.failure()
@@ -131,13 +131,12 @@ class FileDownloadWorker @AssistedInject constructor(
             }
         }
     }
-}
-
-object FileParams {
-    const val KEY_FILE_URL = "key_file_url"
-    const val KEY_FILE_TYPE = "key_file_type"
-    const val KEY_FILE_NAME = "key_file_name"
-    const val KEY_FILE_URI = "key_file_uri"
+    companion object{
+        const val KEY_FILE_URL = "key_file_url"
+        const val KEY_FILE_TYPE = "key_file_type"
+        const val KEY_FILE_NAME = "key_file_name"
+        const val KEY_FILE_URI = "key_file_uri"
+    }
 }
 
 object NotificationConstants {

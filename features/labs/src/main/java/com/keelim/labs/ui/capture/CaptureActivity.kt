@@ -53,6 +53,41 @@ class CaptureActivity : AppCompatActivity() {
         }
     }
 
+    /*private val takePhotoFromAlbumIntent =
+        Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI).apply {
+            type = "image/*"
+            action = Intent.ACTION_GET_CONTENT
+            putExtra(
+                Intent.EXTRA_MIME_TYPES,
+                arrayOf("image/jpeg", "image/png", "image/bmp", "image/webp")
+            )
+            putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false)
+        }
+
+    val takePhotoFromCameraLauncher = // 카메라로 사진 찍어서 가져오기
+        rememberLauncherForActivityResult(ActivityResultContracts.TakePicturePreview()) { takenPhoto ->
+            if (takenPhoto != null) {
+                onPhotoChanged(takenPhoto)
+            } else {
+                toast(context, StringAsset.Toast.ErrorTakenPhoto)
+            }
+        }
+
+    val takePhotoFromAlbumLauncher = // 갤러리에서 사진 가져오기
+        rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                result.data?.data?.let { uri ->
+                    onPhotoChanged(uri.parseBitmap(context))
+                } ?: run {
+                    toast(context, StringAsset.Toast.ErrorTakenPhoto)
+                }
+            } else if (result.resultCode != Activity.RESULT_CANCELED) {
+                toast(context, StringAsset.Toast.ErrorTakenPhoto)
+            }
+        }
+        */
+     */
+
     private val myConnection by lazy {
         object : ServiceConnection {
             override fun onServiceConnected(className: ComponentName?, service: IBinder?) {

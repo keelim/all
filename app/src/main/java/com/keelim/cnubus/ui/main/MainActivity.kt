@@ -149,7 +149,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun startWork() {
+    private fun startWork(start: Int = 10) {
         val loopRequest = PeriodicWorkRequest
             .Builder(BusWorker::class.java, 1, TimeUnit.HOURS)
             .setConstraints(
@@ -157,7 +157,7 @@ class MainActivity : AppCompatActivity() {
             )
             .setInputData(
                 workDataOf(
-                    BusWorker.START to 10
+                    BusWorker.START to start
                 )
             )
             .build()

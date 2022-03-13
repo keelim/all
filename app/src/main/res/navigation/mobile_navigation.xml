@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
     app:startDestination="@id/tabFragment">
 
     <fragment
         android:id="@+id/tabFragment"
         android:name="com.keelim.cnubus.ui.tab.TabFragment"
-        android:label="TabFragment">
+        android:label="TabFragment"
+        tools:layout="@layout/fragment_tab">
         <action
             android:id="@+id/action_tabFragment_to_content3Fragment"
             app:destination="@id/content3Fragment" />
@@ -21,11 +23,13 @@
     <fragment
         android:id="@+id/stationArrivalsFragment"
         android:name="com.keelim.cnubus.ui.stationarrivals.StationArrivalsFragment"
-        android:label="StationArrivalsFragment" />
+        android:label="StationArrivalsFragment"
+        tools:layout="@layout/fragment_station_arrivals" />
     <fragment
         android:id="@+id/stationsFragment"
         android:name="com.keelim.cnubus.ui.stations.StationsFragment"
-        android:label="StationsFragment">
+        android:label="StationsFragment"
+        tools:layout="@layout/fragment_stations">
         <action
             android:id="@+id/action_stationsFragment_to_stationArrivalsFragment"
             app:destination="@id/stationArrivalsFragment" />
@@ -33,11 +37,13 @@
     <fragment
         android:id="@+id/content3Fragment"
         android:name="com.keelim.cnubus.ui.content.Content3Fragment"
-        android:label="Content3Fragment" />
+        android:label="Content3Fragment"
+        tools:layout="@layout/fragment_content" />
     <fragment
         android:id="@+id/myPageFragment"
         android:name="com.keelim.cnubus.ui.setting.mypage.MyPageFragment"
-        android:label="MyPageFragment">
+        android:label="MyPageFragment"
+        tools:layout="@layout/fragment_my_page">
         <action
             android:id="@+id/action_myPageFragment_to_userEditDialog"
             app:destination="@id/userEditDialog" />
@@ -45,18 +51,14 @@
     <dialog
         android:id="@+id/userEditDialog"
         android:name="com.keelim.cnubus.ui.dialog.UserEditDialog"
-        android:label="UserEditDialog" />
-<!--    https://stackoverflow.com/questions/53029821/navigating-to-preference-fragment-using-navigation-component-->
+        android:label="UserEditDialog"
+        tools:layout="@layout/dialog_user_edit" />
+    <!--    https://stackoverflow.com/questions/53029821/navigating-to-preference-fragment-using-navigation-component-->
     <fragment
         android:id="@+id/appSettingFragment"
         android:name="com.keelim.cnubus.ui.setting.appsetting.AppSettingFragment"
-        android:label="AppSettingFragment">
-        <action
-            android:id="@+id/action_appSettingFragment_self"
-            app:destination="@id/appSettingFragment" />
-    </fragment>
+        android:label="AppSettingFragment" />
     <action
         android:id="@+id/open_setting_fragment"
-        app:destination="@id/appSettingFragment"
-        />
+        app:destination="@id/appSettingFragment" />
 </navigation>

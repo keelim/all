@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.keelim.cnubus">
 
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -27,11 +28,9 @@
         <meta-data
             android:name="firebase_performance_logcat_enabled"
             android:value="true" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${MAPS_API_KEY}" />
-
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="${APPLICATION_ID}" />
@@ -42,9 +41,15 @@
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.setting.Lab4Activity"
+            android:exported="false"
+            android:label="@string/title_activity_lab4"
+            android:theme="@style/AppTheme.material3.NoActionBar" />
         <activity
             android:name=".ui.main.MainActivity"
             android:exported="false" />
@@ -54,7 +59,13 @@
         <activity
             android:name=".ui.compose.Lab3Activity"
             android:exported="false" />
-        <service android:name=".services.TerminateService" />
+        <activity
+            android:name=".ui.setting.Lab4Activity"
+            android:exported="false" />
+
+        <service
+            android:name=".services.TerminateService"
+            android:exported="false" />
 
         <provider
             android:name="androidx.startup.InitializationProvider"
@@ -82,9 +93,11 @@
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
+
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_info" />
         </receiver>
     </application>
+
 </manifest>

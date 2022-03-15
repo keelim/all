@@ -41,27 +41,26 @@
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.main.MainActivity"
+            android:label="@string/title_activity_main"
+            android:exported="false" />
+        <activity
+            android:name=".ui.setting.LabActivity"
+            android:label="@string/title_activity_lab1"
+            android:exported="false" />
+        <activity
+            android:name=".ui.compose.Lab3Activity"
+            android:label="@string/title_activity_lab3"
+            android:exported="false" />
         <activity
             android:name=".ui.setting.Lab4Activity"
             android:exported="false"
             android:label="@string/title_activity_lab4"
             android:theme="@style/AppTheme.material3.NoActionBar" />
-        <activity
-            android:name=".ui.main.MainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.setting.LabActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.compose.Lab3Activity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.setting.Lab4Activity"
-            android:exported="false" />
 
         <service
             android:name=".services.TerminateService"

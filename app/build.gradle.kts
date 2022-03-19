@@ -11,6 +11,7 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.android.gms.oss-licenses-plugin")
     id("com.google.secrets_gradle_plugin") version ("0.6.1")
+    id("org.jetbrains.kotlin.android")
 }
 
 android {
@@ -29,6 +30,7 @@ android {
     }
     buildFeatures {
         dataBinding = true
+        viewBinding = true
     }
 }
 
@@ -68,6 +70,9 @@ dependencies {
     implementation(Dep.timber)
 
     implementation(Dep.Dagger.Hilt.android)
+    implementation("androidx.appcompat:appcompat:1.4.1")
+    implementation("com.google.android.material:material:1.5.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.3")
     kapt(Dep.Dagger.Hilt.compiler)
 
     implementation(Dep.Coil.core)

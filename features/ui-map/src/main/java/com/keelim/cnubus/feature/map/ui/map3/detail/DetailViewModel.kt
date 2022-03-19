@@ -34,7 +34,7 @@ class DetailViewModel @Inject constructor() : BaseViewModel() {
         init()
     }
 
-    fun init() = viewModelScope.launch {
+    fun init() = viewModelScope.launch(dispatcher) {
         _state.emit(DetailState.Loading)
         delay(3000)
         _state.emit(

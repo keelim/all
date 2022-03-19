@@ -17,11 +17,24 @@ package com.keelim.common.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 open class BaseViewModel : ViewModel() {
+    private val exceptionHandler = CoroutineExceptionHandler { context, throwable ->
+        // 1. Trigger event to prompt error dialog
+        // 2. Log to tracking system for observability
+        throwable.printStackTrace()
+        errorHandling(throwable)
+    }
+    private val job = SupervisorJob()
+    val dispatcher = Dispatchers.Main + job + exceptionHandler
+
     // 현재 ViewModel에서 진행하고 있는 작업이 있는지에 대한 여부
     private val _shouldUIinProgress = MutableStateFlow(false)
     val shouldUIinProgress: StateFlow<Boolean>
@@ -45,5 +58,9 @@ open class BaseViewModel : ViewModel() {
     private fun syncProgress() = viewModelScope.launch {
         registeredWorks.values.removeAll { !it }
         _shouldUIinProgress.emit(registeredWorks.isNotEmpty())
+    }
+
+    private fun errorHandling(throwable: Throwable) {
+        Timber.e(throwable.toString())
     }
 }

@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
@@ -61,24 +62,7 @@ class AppSettingFragment : PreferenceFragmentCompat() {
                     OssLicensesMenuActivity::class.java
                 )
             )
-            "lab1" -> startActivity(
-                Intent(
-                    requireContext(),
-                    LabActivity::class.java
-                )
-            )
-            "lab2" -> startActivity(
-                Intent(
-                    requireContext(),
-                    CaptureActivity::class.java
-                )
-            )
-            "lab3" -> startActivity(
-                Intent(
-                    requireContext(),
-                    Lab3Activity::class.java
-                )
-            )
+            "lab" -> findNavController().navigate(R.id.open_lab_fragment)
         }
         return true
     }

@@ -16,10 +16,14 @@
 package com.keelim.common.base
 
 import android.graphics.Rect
+import android.os.Build
 import android.os.Bundle
+import android.transition.Slide
+import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -53,6 +57,11 @@ abstract class BaseActivity<T : ViewDataBinding, R : BaseViewModel> : AppCompatA
     abstract fun initAfterBinding() // 리스너 설정
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        with(window) {
+            requestFeature(Window.FEATURE_CONTENT_TRANSITIONS)
+            enterTransition = Slide(Gravity.END)
+            exitTransition = Slide(Gravity.START)
+        }
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, layoutResourceId)
         transparentStatusBar()

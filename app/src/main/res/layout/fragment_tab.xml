@@ -34,15 +34,6 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:lottie_rawRes="@raw/bus_ticket" />
 
-                <!-- pin: 스크롤 시 고정 -->
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/toolbar"
-                    style="@style/TextAppearance.Material3.HeadlineLarge"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:gravity="center_vertical"
-                    android:text="루트 별 정류장"
-                    app:layout_collapseMode="parallax" />
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 
             <com.google.android.material.tabs.TabLayout

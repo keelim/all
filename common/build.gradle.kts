@@ -23,4 +23,6 @@ dependencies {
     implementation(Dep.Rx.rxAndroid)
     implementation(Dep.Rx.rxKotlin)
     implementation(Dep.Rx.binding)
+
+    implementation(Dep.timber)
 }

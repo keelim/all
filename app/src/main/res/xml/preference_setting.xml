@@ -16,14 +16,8 @@
             android:key="버전"
             android:title="Version" />
         <Preference
-            android:key="lab1"
-            android:title="lab1" />
-        <Preference
-            android:key="lab2"
-            android:title="lab2" />
-        <Preference
-            android:key="lab3"
-            android:title="lab3" />
+            android:key="lab"
+            android:title="실험" />
     </PreferenceCategory>
     <PreferenceCategory android:title="고객 센터">
         <Preference

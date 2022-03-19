@@ -6,7 +6,6 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.keelim.cnubus.R
 import com.keelim.cnubus.ui.compose.Lab3Activity
-import com.keelim.cnubus.ui.setting.Lab4Activity
 import com.keelim.cnubus.ui.setting.LabActivity
 import com.keelim.labs.ui.capture.CaptureActivity
 
@@ -34,12 +33,6 @@ class LabFragment : PreferenceFragmentCompat() {
                 Intent(
                     requireContext(),
                     Lab3Activity::class.java
-                )
-            )
-            "lab4" -> startActivity(
-                Intent(
-                    requireContext(),
-                    Lab4Activity::class.java
                 )
             )
         }

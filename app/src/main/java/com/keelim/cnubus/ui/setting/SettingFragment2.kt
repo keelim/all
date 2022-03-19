@@ -15,6 +15,7 @@
  */
 package com.keelim.cnubus.ui.setting
 
+import android.app.ActivityOptions
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -63,19 +64,22 @@ class SettingFragment2 : Fragment() {
                         Intent(
                             Intent.ACTION_VIEW,
                             Uri.parse(getString(R.string.notification_uri))
-                        )
+                        ),
+                        ActivityOptions.makeSceneTransitionAnimation(requireActivity()).toBundle()
                     )
 
                     ScreenAction.Map -> startActivity(
                         Intent(
                             requireActivity(),
                             MapsActivity::class.java
-                        )
+                        ),
+                        ActivityOptions.makeSceneTransitionAnimation(requireActivity()).toBundle()
                     )
                     ScreenAction.Update -> startActivity(
                         Intent(Intent.ACTION_VIEW).apply {
                             data = Uri.parse(getString(R.string.updateLink))
-                        }
+                        },
+                        ActivityOptions.makeSceneTransitionAnimation(requireActivity()).toBundle()
                     )
                     ScreenAction.Theme -> selectTheme()
                     ScreenAction.Developer, ScreenAction.Lab -> {
@@ -89,7 +93,8 @@ class SettingFragment2 : Fragment() {
                                     ScreenAction.Lab -> Section.Lab
                                     else -> null
                                 })
-                            }
+                            },
+                            ActivityOptions.makeSceneTransitionAnimation(requireActivity()).toBundle()
                         )
                     }
                     ScreenAction.Subway -> findNavController().navigate(R.id.stationsFragment)

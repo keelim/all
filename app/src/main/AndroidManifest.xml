@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.keelim.cnubus">
-
     <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -13,7 +12,6 @@
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28"
         tools:ignore="ScopedStorage" />
-
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -56,16 +54,9 @@
             android:name=".ui.compose.Lab3Activity"
             android:label="@string/title_activity_lab3"
             android:exported="false" />
-        <activity
-            android:name=".ui.setting.Lab4Activity"
-            android:exported="false"
-            android:label="@string/title_activity_lab4"
-            android:theme="@style/AppTheme.material3.NoActionBar" />
-
         <service
             android:name=".services.TerminateService"
             android:exported="false" />
-
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"
@@ -85,18 +76,15 @@
                 android:name="com.keelim.cnubus.initialize.CoilInitializer"
                 android:value="androidx.startup" />
         </provider>
-
         <receiver
             android:name=".widget.StationWidgetProvider"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
-
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_info" />
         </receiver>
     </application>
-
 </manifest>

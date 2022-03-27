@@ -56,26 +56,21 @@ import java.net.URL
 
 @AndroidEntryPoint
 class MapsActivity : AppCompatActivity() {
+    companion object {
+        const val NORMAL_ZOOM = 17f
+        const val REQUEST_INTERVAL = 10000L
+        const val REQUEST_FAST_INTERVAL = 5000L
+    }
     private val binding by lazy { ActivityMapsBinding.inflate(layoutInflater) }
     private val bottomBinding by lazy { BottomSheetBinding.bind(binding.bottom.root) }
-
-    private lateinit var fusedLocationProvider: FusedLocationProviderClient
-    private lateinit var locationRequest: LocationRequest
-    private lateinit var locationCallback: LocationCallback
-    private var current: LatLng? = null
     private val location by lazy {
         intent.getStringExtra("location")?.toInt() ?: -1
     }
-
     private val locationManager by lazy { getSystemService(Context.LOCATION_SERVICE) as LocationManager }
-    private lateinit var myLocationListener: LocationListener
-
     private val viewModel: MapsViewModel by viewModels()
-    private lateinit var googleMap: GoogleMap
     private val mapFragment by lazy {
         supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
     }
-
     private val viewPagerAdapter by lazy {
         LocationPagerAdapter(
             clicked = {
@@ -99,12 +94,10 @@ class MapsActivity : AppCompatActivity() {
             }
         )
     }
-
     private val recyclerAdapter by lazy {
         LocationAdapter()
     }
-
-    private var tileProvider = object : UrlTileProvider(64, 64) {
+    private val tileProvider = object : UrlTileProvider(64, 64) {
         override fun getTileUrl(x: Int, y: Int, zoom: Int): URL? {
             val url = "http://my.image.server/images/$zoom/$x/$y.png"
             return if (!checkTileExists(x, y, zoom)) {
@@ -122,13 +115,19 @@ class MapsActivity : AppCompatActivity() {
             return zoom in minZoom..maxZoom
         }
     }
+    private lateinit var fusedLocationProvider: FusedLocationProviderClient
+    private lateinit var locationRequest: LocationRequest
+    private lateinit var locationCallback: LocationCallback
+    private lateinit var myLocationListener: LocationListener
+    private lateinit var googleMap: GoogleMap
+    private var current: LatLng? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        initViews()
         setMyLocationListener()
         observeState()
-        initViews()
         googleMapSetting()
     }
 
@@ -271,17 +270,8 @@ class MapsActivity : AppCompatActivity() {
     }
 
     private fun removeLocationListener() {
-        if (::myLocationListener.isInitialized) {
-            locationManager.removeUpdates(myLocationListener)
-        }
-        if (::fusedLocationProvider.isInitialized) {
-            fusedLocationProvider.removeLocationUpdates(locationCallback)
-        }
-    }
+        if (::myLocationListener.isInitialized) locationManager.removeUpdates(myLocationListener)
 
-    companion object {
-        const val NORMAL_ZOOM = 17f
-        const val REQUEST_INTERVAL = 10000L
-        const val REQUEST_FAST_INTERVAL = 5000L
+        if (::fusedLocationProvider.isInitialized) fusedLocationProvider.removeLocationUpdates(locationCallback)
     }
 }

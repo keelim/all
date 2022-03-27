@@ -54,7 +54,7 @@ class StationRepositoryImpl @Inject constructor(
     override val locations: Flow<List<Location>> = flow {
         while (true) {
             emit(locationList)
-            delay(5000)
+            delay(200000000)
         }
     }
 

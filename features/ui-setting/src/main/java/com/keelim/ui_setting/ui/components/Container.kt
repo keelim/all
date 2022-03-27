@@ -142,7 +142,6 @@ private fun NavigationScreen(
     }
 }
 
-
 @Composable
 private fun <T> Container(
     result: UiState<T>,

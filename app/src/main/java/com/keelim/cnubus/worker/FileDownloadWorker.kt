@@ -1,3 +1,18 @@
+/*
+ * Designed and developed by 2021 keelim (Jaehyun Kim)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.keelim.cnubus.worker
 
 import android.app.NotificationChannel
@@ -18,10 +33,10 @@ import androidx.work.workDataOf
 import com.keelim.cnubus.R
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
+import timber.log.Timber
 import java.io.File
 import java.io.FileOutputStream
 import java.net.URL
-import timber.log.Timber
 
 @HiltWorker
 class FileDownloadWorker @AssistedInject constructor(
@@ -36,35 +51,33 @@ class FileDownloadWorker @AssistedInject constructor(
 
         Timber.d("TAG", "doWork: $fileUrl | $fileName | $fileType")
 
-
-        if (fileName.isEmpty()
-            || fileType.isEmpty()
-            || fileUrl.isEmpty()
-        ){
+        if (fileName.isEmpty() ||
+            fileType.isEmpty() ||
+            fileUrl.isEmpty()
+        ) {
             Result.failure()
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
             val name = NotificationConstants.CHANNEL_NAME
             val description = NotificationConstants.CHANNEL_DESCRIPTION
             val importance = NotificationManager.IMPORTANCE_HIGH
-            val channel = NotificationChannel(NotificationConstants.CHANNEL_ID,name,importance)
+            val channel = NotificationChannel(NotificationConstants.CHANNEL_ID, name, importance)
             channel.description = description
 
             val notificationManager = appContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager?
 
             notificationManager?.createNotificationChannel(channel)
-
         }
 
-        val builder = NotificationCompat.Builder(appContext,NotificationConstants.CHANNEL_ID)
+        val builder = NotificationCompat.Builder(appContext, NotificationConstants.CHANNEL_ID)
             .setSmallIcon(R.mipmap.ic_launcher_foreground)
             .setContentTitle("Downloading your file...")
             .setOngoing(true)
-            .setProgress(0,0,true)
+            .setProgress(0, 0, true)
 
-        NotificationManagerCompat.from(appContext).notify(NotificationConstants.NOTIFICATION_ID,builder.build())
+        NotificationManagerCompat.from(appContext).notify(NotificationConstants.NOTIFICATION_ID, builder.build())
 
         val uri = getSavedFileUri(
             fileName = fileName,
@@ -74,11 +87,13 @@ class FileDownloadWorker @AssistedInject constructor(
         )
 
         NotificationManagerCompat.from(appContext).cancel(NotificationConstants.NOTIFICATION_ID)
-        return if (uri != null){
-            Result.success(workDataOf(
-                KEY_FILE_URI to uri.toString()
-            ))
-        }else{
+        return if (uri != null) {
+            Result.success(
+                workDataOf(
+                    KEY_FILE_URI to uri.toString()
+                )
+            )
+        } else {
             Result.failure()
         }
     }
@@ -131,7 +146,7 @@ class FileDownloadWorker @AssistedInject constructor(
             }
         }
     }
-    companion object{
+    companion object {
         const val KEY_FILE_URL = "key_file_url"
         const val KEY_FILE_TYPE = "key_file_type"
         const val KEY_FILE_NAME = "key_file_name"

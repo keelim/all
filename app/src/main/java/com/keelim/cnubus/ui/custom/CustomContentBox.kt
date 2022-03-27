@@ -19,8 +19,6 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.core.content.withStyledAttributes
@@ -34,15 +32,15 @@ class CustomContentBox @JvmOverloads constructor(
 ) : FrameLayout(context, attrs, defStyleAttr) {
     private val binding = CustomContentBoxBinding.inflate(LayoutInflater.from(context), this)
     init {
-        with(binding){
-            context.withStyledAttributes(attrs, R.styleable.ContentBox){
+        with(binding) {
+            context.withStyledAttributes(attrs, R.styleable.ContentBox) {
                 ivContentPicture.setImageResource(getResourceId(R.styleable.ContentBox_picture, R.drawable.content1))
                 tvContentText.text = getString(R.styleable.ContentBox_contents)
             }
         }
     }
 
-    fun setImageResource(@DrawableRes resource: Int){
+    fun setImageResource(@DrawableRes resource: Int) {
         binding.ivContentPicture.setImageResource(resource)
     }
 
@@ -50,7 +48,7 @@ class CustomContentBox @JvmOverloads constructor(
         binding.tvContentText.text = message
     }
 
-    fun setText(@StringRes message:Int){
+    fun setText(@StringRes message: Int) {
         binding.tvContentText.text = context.getString(message)
     }
 }

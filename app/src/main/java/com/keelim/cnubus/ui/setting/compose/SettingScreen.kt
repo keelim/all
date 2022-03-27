@@ -41,52 +41,51 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.keelim.cnubus.BuildConfig
 import com.keelim.cnubus.utils.toColor
 
 private val settings by lazy {
-  val data = listOf(
-      Setting(
-          text = "마이페이지",
-          action = ScreenAction.MYPAGE
-      ),
-      Setting(
-          text = "공지사항",
-          action = ScreenAction.Content
-      ),
-      Setting(
-          text = "홈페이지",
-          action = ScreenAction.Homepage
-      ),
-      Setting(
-          text = "맵 바로가기",
-          action = ScreenAction.Map
-      ),
-      Setting(
-          text = "업데이트",
-          action = ScreenAction.Update
-      ),
-      Setting(
-          text = "테마설정",
-          action = ScreenAction.Theme
-      ),
-      Setting(
-          text = "근처 지하철",
-          action = ScreenAction.Subway
-      ),
-      Setting(
-          text = "앱 설정",
-          action = ScreenAction.AppSetting
-      ),
-      Setting(
-          text = "개발자 소개",
-          action = ScreenAction.Developer
-      ),
-      Setting(
-          text = "실험기능1",
-          action = ScreenAction.Lab
-      ),
-  )
+    val data = listOf(
+        Setting(
+            text = "마이페이지",
+            action = ScreenAction.MYPAGE
+        ),
+        Setting(
+            text = "공지사항",
+            action = ScreenAction.Content
+        ),
+        Setting(
+            text = "홈페이지",
+            action = ScreenAction.Homepage
+        ),
+        Setting(
+            text = "맵 바로가기",
+            action = ScreenAction.Map
+        ),
+        Setting(
+            text = "업데이트",
+            action = ScreenAction.Update
+        ),
+        Setting(
+            text = "테마설정",
+            action = ScreenAction.Theme
+        ),
+        Setting(
+            text = "근처 지하철",
+            action = ScreenAction.Subway
+        ),
+        Setting(
+            text = "앱 설정",
+            action = ScreenAction.AppSetting
+        ),
+        Setting(
+            text = "개발자 소개",
+            action = ScreenAction.Developer
+        ),
+        Setting(
+            text = "실험기능1",
+            action = ScreenAction.Lab
+        ),
+    )
     data
 }
 
@@ -167,7 +166,6 @@ fun SettingItem(item: Setting, onScreenAction: (ScreenAction) -> Unit) {
         }
     }
 }
-
 
 @Composable
 private fun CellItem(

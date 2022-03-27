@@ -149,7 +149,7 @@ val locationList = listOf(
         "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_01/1.jpg"
     ), // 경상대학
     Location(
-        LatLng(36.367564, 127.345800),
+        LatLng(36.370397, 127.347331),
         999,
         999,
         "골프장",
@@ -157,7 +157,7 @@ val locationList = listOf(
         "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_01/1.jpg"
     ), // 골프장
     Location(
-        LatLng(36.367564, 127.345800),
+        LatLng(36.369780, 127.346901),
         999,
         999,
         "도서관앞",
@@ -165,7 +165,7 @@ val locationList = listOf(
         "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_01/1.jpg"
     ), // 도서관앞
     Location(
-        LatLng(36.367564, 127.345800),
+        LatLng(36.365505, 127.345159),
         999,
         999,
         "산학 연구관",
@@ -173,23 +173,23 @@ val locationList = listOf(
         "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_01/1.jpg"
     ), // 산학 연구관
     Location(
-        LatLng(36.367564, 127.345800),
+        LatLng(36.352368611951015, 127.34041874632953),
         999,
         999,
-        "GS 주유소",
+        "유성 온천역 GS 주유소",
         4,
         "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_01/1.jpg"
     ), // GS 주유소
     Location(
-        LatLng(36.367564, 127.345800),
+        LatLng(36.35369631319269, 127.34101029632413),
         999,
         999,
-        "유성온천역 4번",
+        "유성온천역 4번 출구",
         5,
         "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_01/1.jpg"
     ), // 유성온천역 4번
     Location(
-        LatLng(36.367564, 127.345800),
+        LatLng(36.363876, 127.345119),
         999,
         999,
         "정심화 국제",
@@ -197,7 +197,7 @@ val locationList = listOf(
         "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_01/1.jpg"
     ), // 정심화 국제
     Location(
-        LatLng(36.367564, 127.345800),
+        LatLng(36.369780, 127.346901),
         999,
         999,
         "도서관",
@@ -205,7 +205,7 @@ val locationList = listOf(
         "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_01/1.jpg"
     ), // 도서관
     Location(
-        LatLng(36.367564, 127.345800),
+        LatLng(36.369780, 127.346901),
         999,
         999,
         "골프장",

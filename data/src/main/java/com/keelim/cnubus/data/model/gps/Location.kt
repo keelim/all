@@ -58,7 +58,7 @@ val locationList = listOf(
         999,
         "https://plus.cnu.ac.kr/images/cyber/thumbnails/280/48.jpg"
     ), // 한누리관 뒤
-    Location(LatLng(36.368622, 127.341531), 12, 3, "서문(공동실험실습관앞)"), // 서문
+    Location(LatLng(36.368622, 127.341531), 12, 3, "서문(공동실험실습관앞)", 999), // 서문
     Location(
         LatLng(36.374241, 127.343924),
         9,
@@ -107,7 +107,7 @@ val locationList = listOf(
         999,
         "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_11/1.jpg"
     ), // 농업생명과학대학
-    Location(LatLng(36.367465, 127.352190), 6, 10, "동문주차장"), // 동문
+    Location(LatLng(36.367465, 127.352190), 6, 10, "동문주차장", 999), // 동문
     Location(
         LatLng(36.372480, 127.346155),
         4,

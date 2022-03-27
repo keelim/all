@@ -51,12 +51,10 @@ class NightRootFragment : BaseFragment<FragmentNightRootBinding, MainViewModel>(
         }
     }
 
-    companion object{
-        fun newInstance():NightRootFragment {
+    companion object {
+        fun newInstance(): NightRootFragment {
             return NightRootFragment().apply {
-                arguments = bundleOf(
-
-                )
+                arguments = bundleOf()
             }
         }
     }

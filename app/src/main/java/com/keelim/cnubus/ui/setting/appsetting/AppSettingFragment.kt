@@ -1,3 +1,18 @@
+/*
+ * Designed and developed by 2021 keelim (Jaehyun Kim)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.keelim.cnubus.ui.setting.appsetting
 
 import android.Manifest
@@ -13,11 +28,7 @@ import androidx.preference.PreferenceFragmentCompat
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.keelim.cnubus.BuildConfig
 import com.keelim.cnubus.R
-import com.keelim.cnubus.ui.compose.Lab3Activity
-import com.keelim.cnubus.ui.setting.LabActivity
 import com.keelim.common.extensions.toast
-import com.keelim.labs.ui.capture.CaptureActivity
-
 
 class AppSettingFragment : PreferenceFragmentCompat() {
     private val appPermissions: Array<String> by lazy {
@@ -50,9 +61,11 @@ class AppSettingFragment : PreferenceFragmentCompat() {
         preference ?: return false
         when (preference.key) {
             "앱설정" -> {
-                startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
-                    data = Uri.parse("package:com.keelim.cnubus")
-                })
+                startActivity(
+                    Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+                        data = Uri.parse("package:com.keelim.cnubus")
+                    }
+                )
             }
             "문의" -> sendEmailToAdmin()
             "권한" -> permissionLauncher.launch(appPermissions)
@@ -77,16 +90,22 @@ class AppSettingFragment : PreferenceFragmentCompat() {
         title: String = "CNUBUS에 대한 문의",
         receivers: Array<String> = arrayOf("kimh00335@gmail.com"),
     ) {
-        requireContext().startActivity(Intent(Intent.ACTION_SEND).apply {
-            putExtra(Intent.EXTRA_SUBJECT, title)
-            putExtra(Intent.EXTRA_EMAIL, receivers)
-            putExtra(Intent.EXTRA_TEXT,
-                String.format("App Version : %s\nDevice : %s\nAndroid(SDK) : %d(%s)\n내용 : ",
-                    BuildConfig.VERSION_NAME,
-                    Build.MODEL,
-                    Build.VERSION.SDK_INT,
-                    Build.VERSION.RELEASE))
-            type = "message/rfc822"
-        })
+        requireContext().startActivity(
+            Intent(Intent.ACTION_SEND).apply {
+                putExtra(Intent.EXTRA_SUBJECT, title)
+                putExtra(Intent.EXTRA_EMAIL, receivers)
+                putExtra(
+                    Intent.EXTRA_TEXT,
+                    String.format(
+                        "App Version : %s\nDevice : %s\nAndroid(SDK) : %d(%s)\n내용 : ",
+                        BuildConfig.VERSION_NAME,
+                        Build.MODEL,
+                        Build.VERSION.SDK_INT,
+                        Build.VERSION.RELEASE
+                    )
+                )
+                type = "message/rfc822"
+            }
+        )
     }
 }

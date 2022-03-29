@@ -50,9 +50,9 @@ import com.keelim.cnubus.feature.map.ui.map3.detail.DetailActivity
 import com.keelim.common.extensions.repeatCallDefaultOnStarted
 import com.keelim.common.extensions.toast
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import java.net.MalformedURLException
 import java.net.URL
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MapsActivity : AppCompatActivity() {
@@ -63,9 +63,8 @@ class MapsActivity : AppCompatActivity() {
     }
     private val binding by lazy { ActivityMapsBinding.inflate(layoutInflater) }
     private val bottomBinding by lazy { BottomSheetBinding.bind(binding.bottom.root) }
-    private val location by lazy {
-        intent.getStringExtra("location")?.toInt() ?: -1
-    }
+    private val location by lazy { intent.getIntExtra("location", -1) }
+    private val mode by lazy { intent.getStringExtra("mode") ?: "" }
     private val locationManager by lazy { getSystemService(Context.LOCATION_SERVICE) as LocationManager }
     private val viewModel: MapsViewModel by viewModels()
     private val mapFragment by lazy {
@@ -129,6 +128,7 @@ class MapsActivity : AppCompatActivity() {
         setMyLocationListener()
         observeState()
         googleMapSetting()
+        viewModel.loadLocation(mode)
     }
 
     override fun onBackPressed() {
@@ -272,6 +272,7 @@ class MapsActivity : AppCompatActivity() {
     private fun removeLocationListener() {
         if (::myLocationListener.isInitialized) locationManager.removeUpdates(myLocationListener)
 
-        if (::fusedLocationProvider.isInitialized) fusedLocationProvider.removeLocationUpdates(locationCallback)
+        if (::fusedLocationProvider.isInitialized) fusedLocationProvider.removeLocationUpdates(
+            locationCallback)
     }
 }

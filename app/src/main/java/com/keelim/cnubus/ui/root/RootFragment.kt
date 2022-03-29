@@ -51,7 +51,8 @@ class RootFragment : BaseFragment<FragmentRootBinding, RootViewModel>() {
                 data?.let { value ->
                     startActivity(
                         Intent(requireContext(), MapsActivity::class.java).apply {
-                            putExtra("location", value)
+                            putExtra("location", value-1)
+                            putExtra("mode", mode)
                         }
                     )
                 } ?: requireActivity().toast("노선 준비 중입니다. ")

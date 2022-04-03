@@ -61,6 +61,7 @@ class MapsActivity : AppCompatActivity() {
         const val REQUEST_INTERVAL = 10000L
         const val REQUEST_FAST_INTERVAL = 5000L
     }
+
     private val binding by lazy { ActivityMapsBinding.inflate(layoutInflater) }
     private val bottomBinding by lazy { BottomSheetBinding.bind(binding.bottom.root) }
     private val location by lazy { intent.getIntExtra("location", -1) }
@@ -181,6 +182,7 @@ class MapsActivity : AppCompatActivity() {
 
     private fun initViews() = with(binding) {
         bottomBinding.recyclerView.adapter = recyclerAdapter
+        bottomBinding.recyclerView.itemAnimator = null
         houseViewPager.adapter = viewPagerAdapter
         houseViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
@@ -233,19 +235,19 @@ class MapsActivity : AppCompatActivity() {
                     is MapEvent.MigrateSuccess -> {
                         googleMap = mapFragment.awaitMap()
                         updateMarker(state.data)
-                        val cameraUpdate = CameraUpdateFactory
-                            .newLatLngZoom(
-                                if (location == -1) {
-                                    state.data[0].latLng
-                                } else {
-                                    state.data[location].latLng
-                                },
-                                NORMAL_ZOOM
-                            )
-                        googleMap.run {
-                            animateCamera(cameraUpdate)
-                            isMyLocationEnabled = true
-                            uiSettings.isMyLocationButtonEnabled = true
+                        CameraUpdateFactory.newLatLngZoom(
+                            if (location == -1) {
+                                state.data[0].latLng
+                            } else {
+                                state.data[location].latLng
+                            },
+                            NORMAL_ZOOM
+                        ).also { cameraUpdate ->
+                            googleMap.run {
+                                animateCamera(cameraUpdate)
+                                isMyLocationEnabled = true
+                                uiSettings.isMyLocationButtonEnabled = true
+                            }
                         }
                         viewPagerAdapter.submitList(state.data)
                         recyclerAdapter.submitList(state.data)

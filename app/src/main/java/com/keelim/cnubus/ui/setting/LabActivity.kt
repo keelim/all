@@ -17,7 +17,6 @@ package com.keelim.cnubus.ui.setting
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.ActivityLabBinding
 
 class LabActivity : AppCompatActivity() {

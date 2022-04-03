@@ -16,9 +16,7 @@
 package com.keelim.cnubus.feature.map.ui.map3.detail
 
 import android.content.Intent
-import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope

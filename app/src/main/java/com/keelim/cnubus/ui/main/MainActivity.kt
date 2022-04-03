@@ -43,8 +43,8 @@ import com.keelim.common.extensions.toast
 import com.keelim.compose.ui.CircularIndeterminateProgressBar
 import com.keelim.ui_setting.ui.theme.CnubusTheme
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.launch
+import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

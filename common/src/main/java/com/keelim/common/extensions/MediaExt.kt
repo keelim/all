@@ -1,3 +1,18 @@
+/*
+ * Designed and developed by 2021 keelim (Jaehyun Kim)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.keelim.common.extensions
 
 import android.content.ContentValues
@@ -18,7 +33,6 @@ import java.io.OutputStream
 
 private const val IMAGE_JPEG_SUFFIX = ".jpg"
 private const val IMAGE_MIME_TYPE = "image/jpeg"
-
 
 fun Bitmap.saveToGallery(context: Context): Uri? {
     val imageOutputStream: OutputStream
@@ -68,8 +82,10 @@ fun Bitmap.saveToGallery(context: Context): Uri? {
 fun Context.getMediaUri(): Uri {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
         val contentValues = ContentValues().apply {
-            put(MediaStore.MediaColumns.DISPLAY_NAME,
-                "${System.currentTimeMillis()}$IMAGE_JPEG_SUFFIX")
+            put(
+                MediaStore.MediaColumns.DISPLAY_NAME,
+                "${System.currentTimeMillis()}$IMAGE_JPEG_SUFFIX"
+            )
             put(MediaStore.MediaColumns.MIME_TYPE, IMAGE_MIME_TYPE)
             put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
         }
@@ -83,9 +99,11 @@ fun Context.getMediaUri(): Uri {
         if (!directory.exists()) {
             directory.mkdir()
         }
-        val file = File.createTempFile("${System.currentTimeMillis()}",
+        val file = File.createTempFile(
+            "${System.currentTimeMillis()}",
             IMAGE_JPEG_SUFFIX,
-            directory)
+            directory
+        )
         FileProvider.getUriForFile(
             this,
             this.applicationContext.packageName + ".provider",
@@ -153,4 +171,3 @@ fun calculateExif(path: String): Float {
         else -> 0f
     }
 }
-

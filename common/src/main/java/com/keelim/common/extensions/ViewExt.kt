@@ -66,5 +66,4 @@ fun ViewGroup.allDisableChildEnable(flag: Boolean) {
 }
 
 fun View.clicks() = callbackFlow<View> {
-
 }

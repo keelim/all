@@ -16,7 +16,6 @@
 package com.keelim.common.base
 
 import android.graphics.Rect
-import android.os.Build
 import android.os.Bundle
 import android.transition.Slide
 import android.view.Gravity

@@ -24,9 +24,10 @@ data class Location(
     val latLng: LatLng,
     val roota: Int,
     val rootb: Int,
-    val name: String,
+    var name: String,
     val rootc: Int = -1,
-    val imgUrl: String = ""
+    val imgUrl: String = "",
+    val root_night: Int = EX_NUMBER,
 ) : Parcelable {
     companion object {
         const val EX_NUMBER = 999

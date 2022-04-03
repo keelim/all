@@ -41,7 +41,6 @@ class RootViewModel @Inject constructor(
 ) : BaseViewModel() {
     private val _state: MutableStateFlow<MapEvent> = MutableStateFlow(MapEvent.UnInitialized)
     val state: StateFlow<MapEvent> get() = _state
-
     val data: MutableStateFlow<List<Location>> = MutableStateFlow(emptyList())
     val modes: MutableStateFlow<String> = MutableStateFlow("")
 
@@ -58,6 +57,7 @@ class RootViewModel @Inject constructor(
                     "a" -> locations.filter { it.roota != Location.EX_NUMBER }.sortedBy { it.roota }
                     "b" -> locations.filter { it.rootb != Location.EX_NUMBER }.sortedBy { it.rootb }
                     "c" -> locations.filter { it.rootc != Location.EX_NUMBER }.sortedBy { it.rootc }
+                    "night" -> locations.filter {it.root_night != Location.EX_NUMBER}.sortedBy { it.root_night }
                     else -> locations.filter { it.rootc != Location.EX_NUMBER }.sortedBy { it.rootc }
                 }
             }

@@ -30,7 +30,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.keelim.cnubus.R
 import com.keelim.cnubus.data.repository.theme.AppTheme
@@ -39,7 +38,6 @@ import com.keelim.cnubus.ui.main.MainViewModel
 import com.keelim.cnubus.ui.setting.compose.ScreenAction
 import com.keelim.cnubus.ui.setting.compose.SettingScreen
 import com.keelim.compose.ui.setThemeContent
-import com.keelim.labs.ui.capture.CaptureActivity
 import com.keelim.ui_setting.ui.Section
 import com.keelim.ui_setting.ui.SettingActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -88,11 +86,14 @@ class SettingFragment2 : Fragment() {
                                 requireContext(),
                                 SettingActivity::class.java
                             ).apply {
-                                putExtra("type", when (action) {
-                                    ScreenAction.Developer -> Section.Developer
-                                    ScreenAction.Lab -> Section.Lab
-                                    else -> null
-                                })
+                                putExtra(
+                                    "type",
+                                    when (action) {
+                                        ScreenAction.Developer -> Section.Developer
+                                        ScreenAction.Lab -> Section.Lab
+                                        else -> null
+                                    }
+                                )
                             },
                             ActivityOptions.makeSceneTransitionAnimation(requireActivity()).toBundle()
                         )
@@ -144,9 +145,7 @@ class SettingFragment2 : Fragment() {
     companion object {
         fun newInstance(): SettingFragment2 {
             return SettingFragment2().apply {
-                arguments = bundleOf(
-
-                )
+                arguments = bundleOf()
             }
         }
     }

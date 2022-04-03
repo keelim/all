@@ -23,6 +23,7 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.keelim.cnubus.R
+import com.keelim.cnubus.data.model.gps.Location
 import com.keelim.cnubus.databinding.FragmentRootBinding
 import com.keelim.cnubus.feature.map.ui.MapEvent
 import com.keelim.cnubus.feature.map.ui.MapsActivity
@@ -51,7 +52,8 @@ class RootFragment : BaseFragment<FragmentRootBinding, RootViewModel>() {
                 data?.let { value ->
                     startActivity(
                         Intent(requireContext(), MapsActivity::class.java).apply {
-                            putExtra("location", value)
+                            putExtra("location", value - 1)
+                            putExtra("mode", mode)
                         }
                     )
                 } ?: requireActivity().toast("노선 준비 중입니다. ")
@@ -89,7 +91,15 @@ class RootFragment : BaseFragment<FragmentRootBinding, RootViewModel>() {
                 when (event) {
                     is MapEvent.UnInitialized -> Unit
                     is MapEvent.Loading -> Unit
-                    is MapEvent.MigrateSuccess -> rootAdapter.submitList(event.data)
+                    is MapEvent.MigrateSuccess -> {
+                        if (event.data.isEmpty()) {
+                            rootAdapter.submitList(listOf(Location.defaultLocation().apply {
+                               name = "아직 지원하는 노선이 없습니다."
+                            }))
+                        } else {
+                            rootAdapter.submitList(event.data)
+                        }
+                    }
                     is MapEvent.Error -> requireContext().toast(event.message)
                 }
             }

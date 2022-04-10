@@ -18,22 +18,16 @@ package com.keelim.cnubus.ui.tab
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.keelim.cnubus.ui.root.RootFragment
-import com.keelim.cnubus.ui.root.night.NightRootFragment
 import com.keelim.cnubus.ui.setting.SettingFragment2
 
 class ViewPager2Adapter(fa: Fragment) : FragmentStateAdapter(fa) {
-    private var fragments = ArrayList<Fragment>()
+    private var fragments = listOf(
+        RootFragment.newInstance("a"),
+        RootFragment.newInstance("b"),
+        RootFragment.newInstance("c"),
+        RootFragment.newInstance("night"),
+        SettingFragment2.newInstance()
+    )
     override fun getItemCount(): Int = fragments.size
-
     override fun createFragment(position: Int): Fragment = fragments[position]
-
-    init {
-        fragments.apply {
-            add(RootFragment.newInstance("a"))
-            add(RootFragment.newInstance("b"))
-            add(RootFragment.newInstance("c"))
-            add(RootFragment.newInstance("night"))
-            add(SettingFragment2.newInstance())
-        }
-    }
 }

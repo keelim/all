@@ -81,10 +81,10 @@ private val settings by lazy {
             text = "개발자 소개",
             action = ScreenAction.Developer
         ),
-        Setting(
-            text = "실험기능1",
-            action = ScreenAction.Lab
-        ),
+//        Setting(
+//            text = "실험기능1",
+//            action = ScreenAction.Lab
+//        ),
     )
     data
 }

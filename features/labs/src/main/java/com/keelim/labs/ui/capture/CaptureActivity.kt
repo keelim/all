@@ -196,7 +196,7 @@ class CaptureActivity : AppCompatActivity() {
         )
         msg.data = bundle
         runCatching {
-            myService?.send(msg)
+            myService.send(msg)
         }.onFailure {
             it.printStackTrace()
         }

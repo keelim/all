@@ -88,17 +88,18 @@ class AppOpenManager @Inject constructor() : LifecycleObserver {
     private fun showAdIfAvailable() {
         if (!isShowingAd && isAdAvailable) {
             Timber.d("Will show ad.")
-            appOpenAd!!.setFullScreenContentCallback(object : FullScreenContentCallback() {
+            appOpenAd!!.fullScreenContentCallback = object : FullScreenContentCallback() {
                 override fun onAdDismissedFullScreenContent() {
                     appOpenAd = null
                     isShowingAd = false
                     fetchAd()
                 }
+
                 override fun onAdFailedToShowFullScreenContent(adError: AdError) {}
                 override fun onAdShowedFullScreenContent() {
                     isShowingAd = true
                 }
-            })
+            }
             if (appOpenAd != null && currentActivity != null) {
                 appOpenAd!!.show(currentActivity!!)
             }

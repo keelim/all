@@ -36,7 +36,7 @@ object NetworkModule {
     private const val CONNECT_TIMEOUT = 10L
     private const val WRITE_TIMEOUT = 1L
     private const val READ_TIMEOUT = 20L
-    private const val BASE_URL = BuildConfig.DATA_BASE_URL
+    private const val BASE_URL = "http://swopenapi.seoul.go.kr/"
 
     @Provides
     @Singleton

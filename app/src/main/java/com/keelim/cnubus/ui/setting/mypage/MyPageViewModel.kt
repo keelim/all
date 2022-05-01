@@ -20,12 +20,17 @@ import com.keelim.cnubus.data.db.entity.History
 import com.keelim.cnubus.domain.UserUseCase
 import com.keelim.common.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import javax.inject.Inject
+import timber.log.Timber
 
 @HiltViewModel
 class MyPageViewModel @Inject constructor(
@@ -34,32 +39,41 @@ class MyPageViewModel @Inject constructor(
     val userName = MutableStateFlow("id: 아직 로그인 중이 아닙니다.")
     val userFollowerCount = MutableStateFlow(0)
     val userFollowingCount = MutableStateFlow(0)
+    private val _viewEvent = MutableSharedFlow<ViewEvent>()
+    val viewEvent: SharedFlow<ViewEvent> = _viewEvent.asSharedFlow()
+    private val errorHandler = CoroutineExceptionHandler { _, exception ->
+        exception.printStackTrace()
+        Timber.e(exception)
+        viewModelScope.launch {
+            _viewEvent.emit(ViewEvent.ShowToast(exception.toString()))
+        }
+    }
 
     init {
         init()
     }
 
-    fun init() = viewModelScope.launch {
+    fun init() = viewModelScope.launch(errorHandler) {
         getUserId()
     }
 
-    fun changeUserId(change: String) = viewModelScope.launch {
+    fun changeUserId(change: String) = viewModelScope.launch(errorHandler) {
         userUseCase.setUserName(change)
         getUserId()
     }
 
-    fun getUserId() = viewModelScope.launch {
+    fun getUserId() = viewModelScope.launch(errorHandler) {
         userUseCase.getUserName()
             .collectLatest {
                 userName.emit(it.id)
             }
     }
 
-    fun deleteHistory(history: History) = viewModelScope.launch {
+    fun deleteHistory(history: History) = viewModelScope.launch(errorHandler) {
         userUseCase.deleteHistory(history)
     }
 
-    fun deleteHistoryAll() = viewModelScope.launch {
+    fun deleteHistoryAll() = viewModelScope.launch(errorHandler) {
         userUseCase.deleteHistoryAll()
     }
 
@@ -69,4 +83,8 @@ class MyPageViewModel @Inject constructor(
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = emptyList()
         )
+
+    sealed class ViewEvent {
+        data class ShowToast(val message: String) : ViewEvent()
+    }
 }

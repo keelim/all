@@ -22,12 +22,14 @@ import com.keelim.common.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -39,7 +41,7 @@ class MyPageViewModel @Inject constructor(
     val userName = MutableStateFlow("id: 아직 로그인 중이 아닙니다.")
     val userFollowerCount = MutableStateFlow(0)
     val userFollowingCount = MutableStateFlow(0)
-    private val _viewEvent = MutableSharedFlow<ViewEvent>()
+    private val _viewEvent = MutableSharedFlow<ViewEvent>(extraBufferCapacity = 16)
     val viewEvent: SharedFlow<ViewEvent> = _viewEvent.asSharedFlow()
     private val errorHandler = CoroutineExceptionHandler { _, exception ->
         exception.printStackTrace()

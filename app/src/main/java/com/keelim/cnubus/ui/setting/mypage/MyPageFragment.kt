@@ -15,31 +15,52 @@
  */
 package com.keelim.cnubus.ui.setting.mypage
 
+import android.app.Activity.RESULT_OK
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.firebase.ui.auth.AuthUI
+import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.FragmentMyPageBinding
 import com.keelim.common.base.BaseFragment
 import com.keelim.common.extensions.snack
+import com.keelim.common.extensions.toInvisible
+import com.keelim.common.extensions.toast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @AndroidEntryPoint
 class MyPageFragment : BaseFragment<FragmentMyPageBinding, MyPageViewModel>() {
     override val layoutResourceId: Int = R.layout.fragment_my_page
-    override val viewModel: MyPageViewModel by viewModels()
+    override val viewModel by viewModels<MyPageViewModel>()
 
     private val historyAdapter by lazy {
         MyPageHistoryAdapter { history ->
             viewModel.deleteHistory(history)
             viewModel.init()
             viewModel.getAllHistories()
+        }
+    }
+
+    private val signInLauncher = registerForActivityResult(
+        FirebaseAuthUIActivityResultContract()
+    ) { result ->
+        val response = result.idpResponse
+        if (result.resultCode == RESULT_OK) {
+            FirebaseAuth.getInstance().currentUser
+                ?.let { user ->
+                    binding.btnGoogleLogin.toInvisible()
+                }
+
+        } else {
+            Timber.e("로그인의 실패하였습니다.")
+            toast("로그인의 실패하였습니다.")
         }
     }
 
@@ -66,8 +87,6 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding, MyPageViewModel>() {
         recyclerHistory.run {
             setHasFixedSize(true)
             adapter = historyAdapter
-            layoutManager = LinearLayoutManager(requireContext())
-            itemAnimator = DefaultItemAnimator()
         }
         coverHistoryDetailButton.setOnClickListener {
             Snackbar.make(binding.root, "전부 지우기겠습니까?", Snackbar.LENGTH_SHORT).run {
@@ -80,6 +99,16 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding, MyPageViewModel>() {
                 show()
             }
         }
+        btnGoogleLogin.setOnClickListener {
+            val providers = arrayListOf(
+                AuthUI.IdpConfig.GoogleBuilder().build()
+            )
+            val signInIntent = AuthUI.getInstance()
+                .createSignInIntentBuilder()
+                .setAvailableProviders(providers)
+                .build()
+            signInLauncher.launch(signInIntent)
+        }
     }
 
     private fun observeState() = lifecycleScope.launch {
@@ -90,6 +119,13 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding, MyPageViewModel>() {
                     binding.root.snack("저장된 기록이 없습니다.")
                 } else {
                     historyAdapter.submitList(histories)
+                }
+            }
+        viewModel.viewEvent
+            .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+            .collect { viewEvent ->
+                when (viewEvent) {
+                    is MyPageViewModel.ViewEvent.ShowToast -> toast(viewEvent.message)
                 }
             }
     }

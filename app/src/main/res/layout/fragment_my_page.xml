@@ -252,6 +252,15 @@
             </LinearLayout>
         </RelativeLayout>
 
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/btn_google_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginTop="8dp"
+            android:text="구글 로그인"
+            android:textColor="@color/white" />
+
         <com.google.android.material.textview.MaterialTextView
             style="@style/TextAppearance.Material3.HeadlineSmall"
             android:layout_width="wrap_content"

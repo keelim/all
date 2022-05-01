@@ -100,7 +100,7 @@ dependencies {
 
     implementation(Dep.Kotlin.stdlibJvm)
     implementation("com.jakewharton:process-phoenix:2.1.2")
-    implementation("com.airbnb.android:lottie:5.0.3")
+    implementation("com.airbnb.android:lottie:5.1.1")
 
     implementation(Dep.AndroidX.WorkManager.work)
     implementation("androidx.hilt:hilt-work:1.0.0")

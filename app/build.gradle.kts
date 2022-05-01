@@ -51,6 +51,7 @@ dependencies {
     implementation("com.google.firebase:firebase-messaging-ktx")
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-inappmessaging-display-ktx")
+    implementation("com.firebaseui:firebase-ui-auth:7.2.0")
 
     implementation(Dep.AndroidX.navigation.ui)
     implementation(Dep.AndroidX.navigation.fragment)
@@ -66,6 +67,7 @@ dependencies {
     implementation(Dep.Play.ad)
     implementation(Dep.Play.oss)
     implementation(Dep.Play.location)
+    implementation(Dep.Play.play_auth)
 
     implementation(Dep.timber)
 

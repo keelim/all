@@ -117,7 +117,7 @@ object Dep {
     object Play{
         const val ad = "com.google.android.gms:play-services-ads:20.5.0"
         const val oss = "com.google.android.gms:play-services-oss-licenses:17.0.0"
-        const val play_auth = "com.google.android.gms:play-services-auth:19.2.0"
+        const val play_auth = "com.google.android.gms:play-services-auth:20.1.0"
         const val core = "com.google.android.play:core-ktx:1.8.1"
         const val location = "com.google.android.gms:play-services-location:19.0.1"
         const val play_map = "com.google.android.gms:play-services-maps:18.0.2"

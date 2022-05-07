@@ -14,5 +14,11 @@ dependencies {
     implementation(Dep.AndroidX.Compose.activity)
     implementation(Dep.AndroidX.Compose.materialAdapter)
     implementation(Dep.AndroidX.Compose.glance)
+
+    testImplementation(Dep.Test.junit)
+    testImplementation(Dep.Kotlin.coroutines.test)
+    androidTestImplementation(Dep.Test.androidJunit)
+    androidTestImplementation(Dep.Test.espressoCore)
+    androidTestImplementation(Dep.AndroidX.Compose.test)
 }
 

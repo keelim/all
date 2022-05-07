@@ -102,6 +102,7 @@ object Dep {
             const val constraintLayout = "androidx.constraintlayout:constraintlayout-compose:1.0.0-rc02"
             const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-compose:${AndroidX.lifecycle.lifecycleVersion}"
             const val glance = "androidx.glance:glance-appwidget:1.0.0-alpha01"
+            const val test = "androidx.compose.ui:ui-test-junit4:$version"
         }
 
         object hilt{

@@ -20,6 +20,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 
 private val DarkColorPalette = darkColors(
     primary = Purple200,
@@ -41,22 +42,39 @@ private val LightColorPalette = lightColors(
     onSurface = Color.Black,
     */
 )
+val Red700 = Color(0xffdd0d3c)
+val Red800 = Color(0xffd00036)
+val Red900 = Color(0xffc20029)
+val Red200 = Color(0xfff297a2)
+val Red300 = Color(0xffea6d7e)
+
+private val LightColors = lightColors(
+    primary = Red700,
+    primaryVariant = Red900,
+    onPrimary = Color.White,
+    secondary = Red700,
+    secondaryVariant = Red900,
+    onSecondary = Color.White,
+    error = Red800
+)
+
+private val DarkColors = darkColors(
+    primary = Red300,
+    primaryVariant = Red700,
+    onPrimary = Color.Black,
+    secondary = Red300,
+    onSecondary = Color.Black,
+    error = Red200
+)
 
 @Composable
-fun NandaDiagnosisTheme(
+fun CnuBusTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    val colors = if (darkTheme) {
-        DarkColorPalette
-    } else {
-        LightColorPalette
-    }
-
     MaterialTheme(
-        colors = colors,
-        typography = Typography,
-        shapes = Shapes,
-        content = content
+        content = content,
+        colors = if(darkTheme) DarkColors else LightColors,
+        shapes = CnuBusShapes
     )
 }

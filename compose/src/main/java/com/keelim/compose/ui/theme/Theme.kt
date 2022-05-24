@@ -74,7 +74,7 @@ fun CnuBusTheme(
 ) {
     MaterialTheme(
         content = content,
-        colors = if(darkTheme) DarkColors else LightColors,
+        colors = if (darkTheme) DarkColors else LightColors,
         shapes = CnuBusShapes
     )
 }

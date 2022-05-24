@@ -1,6 +1,20 @@
+/*
+ * Designed and developed by 2021 keelim (Jaehyun Kim)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.keelim.compose.ui.screen
 
-import android.widget.Spinner
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.spring
@@ -44,9 +58,10 @@ private fun Greeting(name: String) {
         modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp)
     ) {
         Row(modifier = Modifier.padding(24.dp)) {
-            Column(modifier = Modifier
-                .weight(1f)
-                .padding(bottom = extraPadding.coerceAtLeast(0.dp))
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(bottom = extraPadding.coerceAtLeast(0.dp))
             ) {
                 Text(text = "Hello, ")
                 Text(text = name)
@@ -56,13 +71,12 @@ private fun Greeting(name: String) {
             ) {
                 Text(if (expanded) "Show less" else "Show more")
             }
-
         }
     }
 }
 
 @Composable
-private fun Greetings(names: List<String> = List(1000) { "$it" } ) {
+private fun Greetings(names: List<String> = List(1000) { "$it" }) {
     LazyColumn(modifier = Modifier.padding(vertical = 4.dp)) {
         items(items = names) { name ->
             Greeting(name = name)
@@ -94,7 +108,8 @@ fun OnBoarding() {
             Text("Welcome to the basic Codelab!")
             Button(
                 modifier = Modifier.padding(vertical = 24.dp),
-                onClick = { shouldShowOnBoarding = false }) {
+                onClick = { shouldShowOnBoarding = false }
+            ) {
                 Text(text = "Continue")
             }
         }

@@ -57,7 +57,7 @@ class RootViewModel @Inject constructor(
                     "a" -> locations.filter { it.roota != Location.EX_NUMBER }.sortedBy { it.roota }
                     "b" -> locations.filter { it.rootb != Location.EX_NUMBER }.sortedBy { it.rootb }
                     "c" -> locations.filter { it.rootc != Location.EX_NUMBER }.sortedBy { it.rootc }
-                    "night" -> locations.filter {it.root_night != Location.EX_NUMBER}.sortedBy { it.root_night }
+                    "night" -> locations.filter { it.root_night != Location.EX_NUMBER }.sortedBy { it.root_night }
                     else -> locations.filter { it.rootc != Location.EX_NUMBER }.sortedBy { it.rootc }
                 }
             }

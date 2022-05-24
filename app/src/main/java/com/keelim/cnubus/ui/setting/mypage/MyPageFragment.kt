@@ -57,7 +57,6 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding, MyPageViewModel>() {
                 ?.let { user ->
                     binding.btnGoogleLogin.toInvisible()
                 }
-
         } else {
             Timber.e("로그인의 실패하였습니다.")
             toast("로그인의 실패하였습니다.")

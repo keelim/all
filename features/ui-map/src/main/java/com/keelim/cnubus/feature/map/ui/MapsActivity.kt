@@ -54,6 +54,7 @@ import kotlinx.coroutines.launch
 import java.net.MalformedURLException
 import java.net.URL
 
+@SuppressWarnings("MissingPermission")
 @AndroidEntryPoint
 class MapsActivity : AppCompatActivity() {
     companion object {
@@ -137,7 +138,6 @@ class MapsActivity : AppCompatActivity() {
         finish()
     }
 
-    @SuppressWarnings("MissingPermission")
     private fun setMyLocationListener() {
         val minTime = 1500L
         val minDistance = 100f

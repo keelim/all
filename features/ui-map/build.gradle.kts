@@ -10,6 +10,10 @@ android{
     buildFeatures{
         dataBinding = true
     }
+    lintOptions {
+        checkReleaseBuilds = false
+        abortOnError = false
+    }
 }
 
 dependencies {

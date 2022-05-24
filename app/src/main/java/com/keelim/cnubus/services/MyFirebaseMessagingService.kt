@@ -94,7 +94,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     private fun createNotificationChannel(notificationManager: NotificationManager) {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
-                resources.getString(1),
+                "id",
                 "CHATTING",
                 IMPORTANCE_HIGH
             )

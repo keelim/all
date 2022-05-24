@@ -1,6 +1,20 @@
+/*
+ * Designed and developed by 2021 keelim (Jaehyun Kim)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.keelim.compose.ui.screen
 
-import android.content.res.Configuration
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
@@ -31,7 +45,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.keelim.compose.R
 
-
 data class Message(
     val author: String,
     val body: String,
@@ -57,7 +70,7 @@ fun MessageCard(msg: Message) {
 
         var isExpanded by remember { mutableStateOf(false) }
         val surfaceColor by animateColorAsState(
-            if(isExpanded) MaterialTheme.colors.primary else MaterialTheme.colors.primaryVariant
+            if (isExpanded) MaterialTheme.colors.primary else MaterialTheme.colors.primaryVariant
         )
         Spacer(modifier = Modifier.width(8.dp))
         Column(
@@ -72,7 +85,6 @@ fun MessageCard(msg: Message) {
             )
             Spacer(modifier = Modifier.height(4.dp))
 
-
             Surface(
                 shape = MaterialTheme.shapes.medium,
                 elevation = 1.dp,
@@ -82,7 +94,7 @@ fun MessageCard(msg: Message) {
                 Text(
                     text = msg.body,
                     modifier = Modifier.padding(all = 4.dp),
-                    maxLines = if(isExpanded) Int.MAX_VALUE else 1,
+                    maxLines = if (isExpanded) Int.MAX_VALUE else 1,
                     style = MaterialTheme.typography.body2
                 )
             }
@@ -102,7 +114,7 @@ fun PreviewMessageCard() {
 
 @Composable
 fun Conversation(messages: List<Message>) {
-    LazyColumn{
+    LazyColumn {
         items(messages) { message ->
             MessageCard(msg = message)
         }

@@ -93,9 +93,13 @@ class RootFragment : BaseFragment<FragmentRootBinding, RootViewModel>() {
                     is MapEvent.Loading -> Unit
                     is MapEvent.MigrateSuccess -> {
                         if (event.data.isEmpty()) {
-                            rootAdapter.submitList(listOf(Location.defaultLocation().apply {
-                               name = "아직 지원하는 노선이 없습니다."
-                            }))
+                            rootAdapter.submitList(
+                                listOf(
+                                    Location.defaultLocation().apply {
+                                        name = "아직 지원하는 노선이 없습니다."
+                                    }
+                                )
+                            )
                         } else {
                             rootAdapter.submitList(event.data)
                         }

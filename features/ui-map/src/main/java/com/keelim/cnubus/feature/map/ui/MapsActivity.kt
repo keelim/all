@@ -50,9 +50,9 @@ import com.keelim.cnubus.feature.map.ui.map3.detail.DetailActivity
 import com.keelim.common.extensions.repeatCallDefaultOnStarted
 import com.keelim.common.extensions.toast
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import java.net.MalformedURLException
 import java.net.URL
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MapsActivity : AppCompatActivity() {
@@ -275,6 +275,7 @@ class MapsActivity : AppCompatActivity() {
         if (::myLocationListener.isInitialized) locationManager.removeUpdates(myLocationListener)
 
         if (::fusedLocationProvider.isInitialized) fusedLocationProvider.removeLocationUpdates(
-            locationCallback)
+            locationCallback
+        )
     }
 }

@@ -15,6 +15,7 @@
  */
 package com.keelim.cnubus.feature.map.ui
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.location.LocationListener
@@ -54,7 +55,7 @@ import kotlinx.coroutines.launch
 import java.net.MalformedURLException
 import java.net.URL
 
-@SuppressWarnings("MissingPermission")
+@SuppressLint("all")
 @AndroidEntryPoint
 class MapsActivity : AppCompatActivity() {
     companion object {

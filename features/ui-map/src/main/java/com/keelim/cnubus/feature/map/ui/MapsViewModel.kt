@@ -20,7 +20,6 @@ import com.keelim.cnubus.data.model.gps.Location
 import com.keelim.cnubus.data.repository.station.StationRepository
 import com.keelim.common.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -29,6 +28,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
+import javax.inject.Inject
 
 @HiltViewModel
 class MapsViewModel @Inject constructor(
@@ -47,8 +47,9 @@ class MapsViewModel @Inject constructor(
                     "a" -> locations.filter { it.roota != Location.EX_NUMBER }.sortedBy { it.roota }
                     "b" -> locations.filter { it.rootb != Location.EX_NUMBER }.sortedBy { it.rootb }
                     "c" -> locations.filter { it.rootc != Location.EX_NUMBER }.sortedBy { it.rootc }
-                    else -> locations.filter { it.rootc != Location.EX_NUMBER }
-                        .sortedBy { it.rootc }
+                    else ->
+                        locations.filter { it.rootc != Location.EX_NUMBER }
+                            .sortedBy { it.rootc }
                 }
             }
             .onStart {

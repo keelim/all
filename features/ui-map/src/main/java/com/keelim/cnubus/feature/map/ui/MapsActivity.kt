@@ -137,6 +137,7 @@ class MapsActivity : AppCompatActivity() {
         finish()
     }
 
+    @SuppressWarnings("MissingPermission")
     private fun setMyLocationListener() {
         val minTime = 1500L
         val minDistance = 100f

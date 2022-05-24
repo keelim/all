@@ -117,7 +117,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     ): NotificationCompat.Builder {
         return NotificationCompat.Builder(
             this,
-            resources.getString(1)
+            "id"
         )
             .setContentTitle(title)
             .setContentText(content)

@@ -21,7 +21,7 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
-    - name: Access MAPS_API_KEY
+    - name: ADD Google-Services.json
       env:
         APOD_API_KEY: ${{ secrets.MAPS_API_KEY }}
       run: echo '${{ secrets.GOOGLE_SERVICES_JSON }}' > ./app/google-services.json
@@ -64,5 +64,5 @@ jobs:
       uses: r0adkll/upload-google-play@v1.0.15
       with:
         serviceAccountJson: service_account.json
-        packageName: com.keelim.cnubus
+        packageName: com.keelim.mygrade
         releaseFiles: app/build/outputs/bundle/release/app-release.aab

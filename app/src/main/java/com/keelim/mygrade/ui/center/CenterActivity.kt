@@ -2,6 +2,7 @@ package com.keelim.mygrade.ui.center
 
 import android.app.PendingIntent
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -45,7 +46,7 @@ class CenterActivity : AppCompatActivity() {
             this,
             0,
             resultIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
         val icon = IconCompat.createWithResource(this@CenterActivity,
@@ -58,7 +59,7 @@ class CenterActivity : AppCompatActivity() {
             .addRemoteInput(remoteInput)
             .build()
 
-        notificationBuilder.showNotification(replyAction)
+//        notificationBuilder.showNotification(replyAction)
     }
 
     private fun handleIntent(){

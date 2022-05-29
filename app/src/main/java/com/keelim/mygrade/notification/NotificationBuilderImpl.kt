@@ -1,6 +1,5 @@
 package com.keelim.mygrade.notification
 
-import android.app.Notification
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
@@ -35,6 +34,9 @@ class NotificationBuilderImpl @Inject constructor(
 
     private fun Context.createLauncherIntent(): PendingIntent {
         val intent = Intent(this, CenterActivity::class.java)
-        return PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)
+        return PendingIntent.getActivity(this,
+            0,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
     }
 }

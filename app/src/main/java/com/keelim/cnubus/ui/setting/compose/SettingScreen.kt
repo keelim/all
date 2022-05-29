@@ -66,10 +66,6 @@ private val settings by lazy {
             action = ScreenAction.Update
         ),
         Setting(
-            text = "테마설정",
-            action = ScreenAction.Theme
-        ),
-        Setting(
             text = "근처 지하철",
             action = ScreenAction.Subway
         ),

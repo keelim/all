@@ -26,6 +26,11 @@ android {
             buildConfigField("String", "key", key)
             buildConfigField("String", "AD_OPEN_ID", open)
         }
+        create("benchmark") {
+            signingConfig = signingConfigs.getByName("debug")
+            matchingFallbacks += listOf("release")
+            isDebuggable = false
+        }
     }
     useLibrary("android.test.mock")
 }

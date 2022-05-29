@@ -1,3 +1,4 @@
+import ProjectConfigurations.versionCode
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 
 plugins {
@@ -29,8 +30,8 @@ android {
 }
 
 dependencies {
-    implementation(projects.data)
-    implementation(projects.common)
+    implementation(project(":data"))
+    implementation(project(":common"))
     implementation(Dep.AndroidX.coreKtx)
     implementation(Dep.AndroidX.appcompat)
     implementation(Dep.AndroidX.activity.ktx)

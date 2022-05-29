@@ -37,7 +37,7 @@ class GradeActivity : AppCompatActivity() {
         val ad = AdView(this@GradeActivity).apply {
             adSize = AdSize.BANNER
             adUnitId = if (BuildConfig.DEBUG.not()) {
-                BuildConfig.key
+                BuildConfig.UNIT
             } else {
                 "ca-app-pub-3940256099942544/6300978111"
             }

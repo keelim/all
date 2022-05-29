@@ -1,20 +1,10 @@
-import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
-
 plugins {
     id("library-setting-plugin")
     id("kotlin-kapt")
     id("kotlin-parcelize")
     id("dagger.hilt.android.plugin")
     id("com.google.devtools.ksp")
-}
-
-android {
-    val version: String = gradleLocalProperties(rootDir).getProperty("VERSION")
-    buildTypes {
-        defaultConfig{
-            buildConfigField("String", "VERSION", version)
-        }
-    }
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 dependencies {

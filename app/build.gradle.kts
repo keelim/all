@@ -35,13 +35,13 @@ android {
 }
 
 dependencies {
-    implementation(projects.data)
-    implementation(projects.domain)
-    implementation(projects.compose)
-    implementation(projects.common)
-    implementation(projects.features.uiMap)
-    implementation(projects.features.uiSetting)
-    implementation(projects.features.labs)
+    implementation(project(":data"))
+    implementation(project(":domain"))
+    implementation(project(":compose"))
+    implementation(project(":common"))
+    implementation(project(":features:ui-map"))
+    implementation(project(":features:ui-setting"))
+    implementation(project(":features:labs"))
 
     implementation(platform(Dep.Firebase.platform))
     implementation("com.google.firebase:firebase-core")

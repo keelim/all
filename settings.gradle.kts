@@ -1,7 +1,6 @@
-enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 pluginManagement {
-    val agpVersion = "7.2.0-beta01"
-    val kotlinVersion = "1.5.31"
+    val agpVersion = "7.2.0"
+    val kotlinVersion = "1.6.10"
 
     repositories {
         gradlePluginPortal()
@@ -15,11 +14,12 @@ pluginManagement {
         id("org.jetbrains.kotlin.jvm") version kotlinVersion
         id("org.jetbrains.kotlin.kapt") version kotlinVersion
         id("com.google.devtools.ksp") version "${kotlinVersion}-1.0.0"
+        id("com.android.test") version "7.1.2"
     }
     resolutionStrategy {
         eachPlugin {
             when (val id = requested.id.id) {
-                "dagger.hilt.android.plugin" -> useModule("com.google.dagger:hilt-android-gradle-plugin:2.40.1")
+                "dagger.hilt.android.plugin" -> useModule("com.google.dagger:hilt-android-gradle-plugin:2.42")
                 "org.jetbrains.kotlin.plugin.serialization" -> useModule("${id}:${id}.gradle.plugin:${kotlinVersion}")
             }
         }
@@ -36,6 +36,7 @@ dependencyResolutionManagement {
 rootProject.name = "cnubus"
 include(
     ":app",
+    ":benchmark",
     ":common",
     ":domain",
     ":data",

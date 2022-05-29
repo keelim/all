@@ -1,3 +1,7 @@
+import ProjectConfigurations.applicationId
+import ProjectConfigurations.versionCode
+import ProjectConfigurations.versionName
+
 plugins {
     id("application-setting-plugin")
     id("compose-setting-plugin")
@@ -27,6 +31,11 @@ android {
                 testers = "kimh00335@gmail.com"
             }
         }
+        create("benchmark") {
+            signingConfig = signingConfigs.getByName("debug")
+            matchingFallbacks += listOf("release")
+            isDebuggable = false
+        }
     }
     buildFeatures {
         dataBinding = true
@@ -35,13 +44,13 @@ android {
 }
 
 dependencies {
-    implementation(projects.data)
-    implementation(projects.domain)
-    implementation(projects.compose)
-    implementation(projects.common)
-    implementation(projects.features.uiMap)
-    implementation(projects.features.uiSetting)
-    implementation(projects.features.labs)
+    implementation(project(":data"))
+    implementation(project(":domain"))
+    implementation(project(":compose"))
+    implementation(project(":common"))
+    implementation(project(":features:ui-map"))
+    implementation(project(":features:ui-setting"))
+    implementation(project(":features:labs"))
 
     implementation(platform(Dep.Firebase.platform))
     implementation("com.google.firebase:firebase-core")
@@ -110,4 +119,6 @@ dependencies {
     testImplementation(Dep.Kotlin.coroutines.test)
     androidTestImplementation(Dep.Test.androidJunit)
     androidTestImplementation(Dep.Test.espressoCore)
+
+    implementation("androidx.profileinstaller:profileinstaller:1.2.0-beta01")
 }

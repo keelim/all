@@ -11,8 +11,8 @@ android{
 }
 
 dependencies {
-    implementation(projects.data)
-    implementation(projects.compose)
+    implementation(project(":data"))
+    implementation(project(":compose"))
     implementation(Dep.AndroidX.lifecycle.runtime)
     implementation(Dep.AndroidX.activity.ktx)
     implementation(Dep.AndroidX.fragment.ktx)

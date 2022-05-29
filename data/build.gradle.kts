@@ -5,34 +5,15 @@ plugins {
     id("kotlin-kapt")
     id("kotlin-parcelize")
     id("dagger.hilt.android.plugin")
+    id("com.google.devtools.ksp")
 }
 
 android {
-    defaultConfig {
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments.plus(
-                    mapOf(
-                        "room.schemaLocation" to "$projectDir/schemas",
-                        "room.incremental" to "true",
-                        "room.expandProjection" to "true"
-                    )
-                )
-            }
-        }
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-
     val version: String = gradleLocalProperties(rootDir).getProperty("VERSION")
-
     buildTypes {
         defaultConfig{
             buildConfigField("String", "VERSION", version)
         }
-    }
-
-    sourceSets {
-        getByName("androidTest").assets.srcDirs("$projectDir/schemas")
     }
 }
 
@@ -53,7 +34,7 @@ dependencies {
     implementation(Dep.Network.Retrofit.retrofit)
     implementation(Dep.Network.Retrofit.retrofit_moshi)
     implementation(Dep.Network.Moshi.moshi_kotlin)
-    kapt(Dep.Network.Moshi.moshi_codegen)
+    ksp(Dep.Network.Moshi.moshi_codegen)
 
     // Dagger Hilt
     implementation(Dep.Dagger.Hilt.android)

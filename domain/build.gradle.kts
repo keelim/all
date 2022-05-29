@@ -6,8 +6,8 @@ plugins {
 }
 
 dependencies {
-    implementation(projects.data)
-    implementation(projects.common)
+    implementation(project(":data"))
+    implementation(project(":common"))
     implementation(Dep.AndroidX.coreKtx)
 
     implementation(Dep.Dagger.Hilt.android)

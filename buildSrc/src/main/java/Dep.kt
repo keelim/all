@@ -87,7 +87,7 @@ object Dep {
         }
 
         object Compose {
-            const val version = "1.0.5"
+            const val version = "1.1.0"
 
             const val runtime = "androidx.compose.runtime:runtime:$version"
             const val ui = "androidx.compose.ui:ui:${version}"
@@ -143,7 +143,7 @@ object Dep {
     }
 
     object Dagger {
-        const val version = "2.40.1"
+        const val version = "2.42"
         const val dagger = "com.google.dagger:dagger:$version"
         const val compiler = "com.google.dagger:dagger-compiler:$version"
 

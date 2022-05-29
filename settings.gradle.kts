@@ -14,6 +14,7 @@ pluginManagement {
         id("org.jetbrains.kotlin.jvm") version kotlinVersion
         id("org.jetbrains.kotlin.kapt") version kotlinVersion
         id("com.google.devtools.ksp") version "${kotlinVersion}-1.0.0"
+        id("com.android.test") version "7.1.2"
     }
     resolutionStrategy {
         eachPlugin {
@@ -35,6 +36,7 @@ dependencyResolutionManagement {
 rootProject.name = "cnubus"
 include(
     ":app",
+    ":benchmark",
     ":common",
     ":domain",
     ":data",

@@ -31,6 +31,11 @@ android {
                 testers = "kimh00335@gmail.com"
             }
         }
+        create("benchmark") {
+            signingConfig = signingConfigs.getByName("debug")
+            matchingFallbacks += listOf("release")
+            isDebuggable = false
+        }
     }
     buildFeatures {
         dataBinding = true

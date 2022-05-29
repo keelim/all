@@ -87,7 +87,7 @@ object Dep {
         }
 
         object Compose {
-            const val version = "1.0.5"
+            const val version = "1.1.0"
 
             const val runtime = "androidx.compose.runtime:runtime:$version"
             const val ui = "androidx.compose.ui:ui:${version}"

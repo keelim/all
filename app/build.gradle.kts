@@ -1,3 +1,7 @@
+import ProjectConfigurations.applicationId
+import ProjectConfigurations.versionCode
+import ProjectConfigurations.versionName
+
 plugins {
     id("application-setting-plugin")
     id("compose-setting-plugin")
@@ -110,4 +114,6 @@ dependencies {
     testImplementation(Dep.Kotlin.coroutines.test)
     androidTestImplementation(Dep.Test.androidJunit)
     androidTestImplementation(Dep.Test.espressoCore)
+
+    implementation("androidx.profileinstaller:profileinstaller:1.2.0-beta01")
 }

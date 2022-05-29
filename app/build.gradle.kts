@@ -1,6 +1,5 @@
 import ProjectConfigurations.versionCode
 import ProjectConfigurations.versionName
-import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 
 plugins {
     id("application-setting-plugin")
@@ -8,6 +7,7 @@ plugins {
     id("com.google.gms.google-services")
     id("com.google.android.gms.oss-licenses-plugin")
     id("com.google.firebase.crashlytics")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
     id("dagger.hilt.android.plugin")
 }
 
@@ -18,14 +18,7 @@ android {
         versionName = ProjectConfigurations.versionName
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-    val key: String = gradleLocalProperties(rootDir).getProperty("UNIT")
-    val open: String = gradleLocalProperties(rootDir).getProperty("OPEN")
-
     buildTypes {
-        defaultConfig{
-            buildConfigField("String", "key", key)
-            buildConfigField("String", "AD_OPEN_ID", open)
-        }
         create("benchmark") {
             signingConfig = signingConfigs.getByName("debug")
             matchingFallbacks += listOf("release")

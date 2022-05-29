@@ -8,6 +8,7 @@ buildscript {
         classpath("com.google.gms:google-services:4.3.10")
         classpath("com.google.android.gms:oss-licenses-plugin:0.10.5")
         classpath("com.google.firebase:firebase-crashlytics-gradle:2.9.0")
+        classpath("com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin:2.0.1")
     }
 }
 

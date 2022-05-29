@@ -1,4 +1,5 @@
 import ProjectConfigurations.versionCode
+import ProjectConfigurations.versionName
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 
 plugins {
@@ -63,6 +64,8 @@ dependencies {
     testImplementation(Dep.Test.junit)
     androidTestImplementation(Dep.Test.androidJunit)
     androidTestImplementation(Dep.Test.espressoCore)
+
+    implementation("androidx.profileinstaller:profileinstaller:1.2.0-beta01")
 }
 
 

@@ -7,10 +7,10 @@ plugins {
 
 
 dependencies {
-    implementation(projects.data)
-    implementation(projects.compose)
-    implementation(projects.domain)
-    implementation(projects.common)
+    implementation(project(":data"))
+    implementation(project(":compose"))
+    implementation(project(":domain"))
+    implementation(project(":common"))
 
     implementation(Dep.AndroidX.Compose.ui)
     implementation(Dep.AndroidX.Compose.material3)

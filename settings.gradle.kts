@@ -15,6 +15,7 @@ pluginManagement {
         id("org.jetbrains.kotlin.kapt") version kotlinVersion
         id("org.jetbrains.kotlin.parcelize") version kotlinVersion
 //        id("com.google.devtools.ksp") version "${kotlinVersion}-1.0.0"
+        id("com.google.devtools.ksp") version "$kotlinVersion-1.0.4"
     }
     resolutionStrategy {
         eachPlugin {

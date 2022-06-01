@@ -12,6 +12,6 @@
             android:title="lab3" />
         <Preference
             android:key="lab4"
-            android:title="lab4" />
+            android:title="lab4(새로운 레이아웃으로 가기)" />
     </PreferenceCategory>
 </PreferenceScreen>

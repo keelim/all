@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.cnubus.ui.root
+package com.keelim.cnubus.ui.root.basic
 
 import androidx.lifecycle.viewModelScope
 import com.keelim.cnubus.data.db.entity.History

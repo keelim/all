@@ -17,7 +17,7 @@ package com.keelim.cnubus.ui.tab
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.keelim.cnubus.ui.root.RootFragment
+import com.keelim.cnubus.ui.root.basic.RootFragment
 import com.keelim.cnubus.ui.setting.SettingFragment2
 
 class ViewPager2Adapter(fa: Fragment) : FragmentStateAdapter(fa) {

@@ -27,15 +27,16 @@ import com.keelim.cnubus.data.model.gps.Location
 import com.keelim.cnubus.databinding.FragmentRootBinding
 import com.keelim.cnubus.feature.map.ui.MapEvent
 import com.keelim.cnubus.feature.map.ui.MapsActivity
+import com.keelim.cnubus.ui.root.RootCommonViewModel
 import com.keelim.common.base.BaseFragment
 import com.keelim.common.extensions.toast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class RootFragment : BaseFragment<FragmentRootBinding, RootViewModel>() {
+class RootFragment : BaseFragment<FragmentRootBinding, RootCommonViewModel>() {
     override val layoutResourceId: Int = R.layout.fragment_root
-    override val viewModel: RootViewModel by viewModels()
+    override val viewModel: RootCommonViewModel by viewModels()
 
     private val mode by lazy { requireArguments().getString("mode") }
 
@@ -80,7 +81,6 @@ class RootFragment : BaseFragment<FragmentRootBinding, RootViewModel>() {
         lvAroot.run {
             setHasFixedSize(true)
             adapter = rootAdapter
-            itemAnimator = DefaultItemAnimator()
         }
     }
 

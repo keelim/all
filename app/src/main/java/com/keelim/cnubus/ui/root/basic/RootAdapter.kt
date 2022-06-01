@@ -24,44 +24,37 @@ import com.keelim.cnubus.data.model.gps.Location
 import com.keelim.cnubus.databinding.ItemRootBinding
 
 class RootAdapter(
-    val click: (Int) -> Unit
+    val click: (Int) -> Unit,
 ) :
-    ListAdapter<Location, RootAdapter.ViewHolder>(diffUtil) {
-    inner class ViewHolder(
-        private val binding: ItemRootBinding
-    ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Location, position: Int) = with(binding) {
-            data = item.name
-            container.setOnClickListener {
-                click.invoke(position)
-            }
-            executePendingBindings()
-        }
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
-            ItemRootBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
+    ListAdapter<Location, RootViewHolder>(diffUtil) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = RootViewHolder(
+        ItemRootBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
         )
-    }
+    )
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(currentList[position], position)
+    override fun onBindViewHolder(holder: RootViewHolder, position: Int) {
+        holder.bind(currentList[position], position, click)
     }
 
     companion object {
         val diffUtil = object : DiffUtil.ItemCallback<Location>() {
-            override fun areItemsTheSame(oldItem: Location, newItem: Location): Boolean {
-                return oldItem == newItem
-            }
-
-            override fun areContentsTheSame(oldItem: Location, newItem: Location): Boolean {
-                return oldItem == newItem
-            }
+            override fun areItemsTheSame(oldItem: Location, newItem: Location) = oldItem == newItem
+            override fun areContentsTheSame(oldItem: Location, newItem: Location) =
+                oldItem == newItem
         }
     }
 }
+
+class RootViewHolder(
+    private val binding: ItemRootBinding,
+) : RecyclerView.ViewHolder(binding.root) {
+    fun bind(item: Location, position: Int, click: (Int) -> Unit) = with(binding) {
+        data = item.name
+        container.setOnClickListener { click.invoke(position) }
+        executePendingBindings()
+    }
+}
+

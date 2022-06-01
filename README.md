@@ -10,6 +10,9 @@
 - 현재 프로젝트 종료로 IOS, Server 서비스 종료로 Firebase 를 이용한 서버리스 서비스 개선 중
 </p>
 
+## 챙기면 좋은 코드 룰
+- Domain Layer 가 무조건 좋은 것은 아니다. (repository 로 가능하다면 굳이 도입하지 말자) update: 22.06.01
+
 ![preview](previews/preview.PNG)
 
 ---

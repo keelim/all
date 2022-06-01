@@ -22,8 +22,10 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -37,12 +39,10 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.TileOverlayOptions
-import com.google.android.gms.maps.model.UrlTileProvider
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.maps.android.ktx.addMarker
 import com.google.maps.android.ktx.awaitMap
 import com.keelim.cnubus.data.model.gps.Location
-import com.keelim.cnubus.feature.map.R
 import com.keelim.cnubus.feature.map.databinding.ActivityMapsBinding
 import com.keelim.cnubus.feature.map.databinding.BottomSheetBinding
 import com.keelim.cnubus.feature.map.ui.map3.LocationAdapter
@@ -52,8 +52,6 @@ import com.keelim.common.extensions.repeatCallDefaultOnStarted
 import com.keelim.common.extensions.toast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import java.net.MalformedURLException
-import java.net.URL
 
 @SuppressLint("all")
 @AndroidEntryPoint
@@ -66,13 +64,29 @@ class MapsActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityMapsBinding.inflate(layoutInflater) }
     private val bottomBinding by lazy { BottomSheetBinding.bind(binding.bottom.root) }
-    private val location by lazy { intent.getIntExtra("location", -1) }
-    private val mode by lazy { intent.getStringExtra("mode") ?: "" }
-    private val locationManager by lazy { getSystemService(Context.LOCATION_SERVICE) as LocationManager }
-    private val viewModel: MapsViewModel by viewModels()
-    private val mapFragment by lazy {
-        supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+    private val location by lazy {
+        intent.getIntExtra("location", -1)
+            .let { value ->
+                if (value == -1) {
+                    toast("알수 없는 에러가 발생했습니다.")
+                    finish()
+                }
+                value
+            }
     }
+    private val mode by lazy {
+        intent.getStringExtra("mode") ?: ""
+            .let { value ->
+                if(value.isEmpty()){
+                    toast("알수 없는 에러가 발생했습니다.")
+                    finish()
+                }
+                value
+            }
+    }
+    private val locationManager by lazy { getSystemService(Context.LOCATION_SERVICE) as LocationManager }
+    private val viewModel by viewModels<MapsViewModel>()
+    private val mapFragment by lazy { supportFragmentManager.findFragmentById(binding.map.id) as SupportMapFragment }
     private val viewPagerAdapter by lazy {
         LocationPagerAdapter(
             clicked = {
@@ -96,32 +110,12 @@ class MapsActivity : AppCompatActivity() {
             }
         )
     }
-    private val recyclerAdapter by lazy {
-        LocationAdapter()
-    }
-    private val tileProvider = object : UrlTileProvider(64, 64) {
-        override fun getTileUrl(x: Int, y: Int, zoom: Int): URL? {
-            val url = "http://my.image.server/images/$zoom/$x/$y.png"
-            return if (!checkTileExists(x, y, zoom)) {
-                null
-            } else try {
-                URL(url)
-            } catch (e: MalformedURLException) {
-                throw AssertionError(e)
-            }
-        }
+    private val recyclerAdapter by lazy { LocationAdapter() }
 
-        private fun checkTileExists(x: Int, y: Int, zoom: Int): Boolean {
-            val minZoom = 12
-            val maxZoom = 16
-            return zoom in minZoom..maxZoom
-        }
-    }
     private lateinit var fusedLocationProvider: FusedLocationProviderClient
     private lateinit var locationRequest: LocationRequest
     private lateinit var locationCallback: LocationCallback
     private lateinit var myLocationListener: LocationListener
-    private lateinit var googleMap: GoogleMap
     private var current: LatLng? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -129,14 +123,18 @@ class MapsActivity : AppCompatActivity() {
         setContentView(binding.root)
         initViews()
         setMyLocationListener()
-        observeState()
+        initFlow()
         googleMapSetting()
         viewModel.loadLocation(mode)
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
-        finish()
+        val behavior = BottomSheetBehavior.from(bottomBinding.root)
+        if(behavior.state == BottomSheetBehavior.STATE_EXPANDED){
+            behavior.state = BottomSheetBehavior.STATE_COLLAPSED
+        } else {
+            super.onBackPressed()
+        }
     }
 
     private fun setMyLocationListener() {
@@ -183,23 +181,34 @@ class MapsActivity : AppCompatActivity() {
     }
 
     private fun initViews() = with(binding) {
-        bottomBinding.recyclerView.adapter = recyclerAdapter
-        bottomBinding.recyclerView.itemAnimator = null
-        houseViewPager.adapter = viewPagerAdapter
-        houseViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                val selectedHouseModel = viewPagerAdapter.currentList[position]
-                CameraUpdateFactory.newLatLngZoom(
-                    selectedHouseModel.latLng,
-                    NORMAL_ZOOM
-                )
-            }
-        })
+        with(bottomBinding) {
+            recyclerView.adapter = recyclerAdapter
+            recyclerView.itemAnimator = null
+            val behavior = BottomSheetBehavior.from(root)
+            behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+                override fun onStateChanged(bottomSheet: View, newState: Int) {
+                    binding.topContainer.isVisible = (newState == BottomSheetBehavior.STATE_EXPANDED).not()
+                }
+                override fun onSlide(bottomSheet: View, slideOffset: Float) = Unit
+            })
+        }
+        with(houseViewPager) {
+            adapter = viewPagerAdapter
+            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    CameraUpdateFactory.newLatLngZoom(
+                        viewPagerAdapter.currentList[position].latLng,
+                        NORMAL_ZOOM
+                    )
+                }
+            })
+        }
     }
 
     private fun googleMapSetting() = lifecycleScope.launch {
-        googleMap = mapFragment.awaitMap().apply {
+        mapFragment.awaitMap()
+            .apply {
             with(uiSettings) {
                 isZoomControlsEnabled = true
                 isCompassEnabled = true
@@ -209,7 +218,7 @@ class MapsActivity : AppCompatActivity() {
             }
             setOnMarkerClickListener { marker ->
                 val selectedModel = viewPagerAdapter.currentList.firstOrNull {
-                    it.name == marker.snippet ?: "0".toInt()
+                    it.name == (marker.snippet ?: "0".toInt())
                 }
                 selectedModel?.let {
                     with(binding) {
@@ -220,50 +229,50 @@ class MapsActivity : AppCompatActivity() {
                 }
                 return@setOnMarkerClickListener false
             }
-            addTileOverlay(
-                TileOverlayOptions().tileProvider(tileProvider)
-            )
         }
     }
 
-    private fun observeState() = lifecycleScope.launch {
-        viewModel.state
-            .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
-            .collect { state ->
-                when (state) {
-                    is MapEvent.UnInitialized -> toast("초기화 중입니다.")
-                    is MapEvent.Loading -> Unit
-                    is MapEvent.Error -> toast(state.message)
-                    is MapEvent.MigrateSuccess -> {
-                        googleMap = mapFragment.awaitMap()
-                        updateMarker(state.data)
-                        CameraUpdateFactory.newLatLngZoom(
-                            if (location == -1) {
-                                state.data[0].latLng
-                            } else {
-                                state.data[location].latLng
-                            },
-                            NORMAL_ZOOM
-                        ).also { cameraUpdate ->
-                            googleMap.run {
-                                animateCamera(cameraUpdate)
-                                isMyLocationEnabled = true
-                                uiSettings.isMyLocationButtonEnabled = true
-                            }
+    private fun initFlow() {
+        lifecycleScope.launch {
+            viewModel.state
+                .flowWithLifecycle(lifecycle)
+                .collect { state ->
+                    when (state) {
+                        is MapEvent.UnInitialized -> toast("초기화 중입니다.")
+                        is MapEvent.Loading -> Unit
+                        is MapEvent.Error -> toast(state.message)
+                        is MapEvent.MigrateSuccess -> {
+                            mapFragment
+                                .awaitMap()
+                                .run {
+                                    updateMarker(state.data, this)
+                                    CameraUpdateFactory.newLatLngZoom(
+                                        if (location == -1) {
+                                            state.data[0].latLng
+                                        } else {
+                                            state.data[location].latLng
+                                        },
+                                        NORMAL_ZOOM
+                                    ).also { cameraUpdate ->
+                                        animateCamera(cameraUpdate)
+                                        isMyLocationEnabled = true
+                                        uiSettings.isMyLocationButtonEnabled = true
+                                    }
+                                }
+                            viewPagerAdapter.submitList(state.data)
+                            recyclerAdapter.submitList(state.data)
+                            bottomBinding.bottomSheetTitleTextView.text = "${state.data.size} 주변 장소"
+                            binding.houseViewPager.currentItem = location
                         }
-                        viewPagerAdapter.submitList(state.data)
-                        recyclerAdapter.submitList(state.data)
-                        bottomBinding.bottomSheetTitleTextView.text = "${state.data.size} 주변 장소"
-                        binding.houseViewPager.currentItem = location
                     }
                 }
-            }
+        }
         repeatCallDefaultOnStarted(Lifecycle.State.DESTROYED) {
             removeLocationListener()
         }
     }
 
-    private fun updateMarker(locations: List<Location>) {
+    private fun updateMarker(locations: List<Location>, googleMap: GoogleMap) {
         locations.forEach { location ->
             googleMap.addMarker {
                 position(location.latLng)

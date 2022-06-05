@@ -15,7 +15,7 @@ class BaselineProfileGenerator {
 
     @Test
     fun startup() =
-        baselineProfileRule.collectBaselineProfile(packageName = "com.keelim.cnubus") {
+        baselineProfileRule.collectBaselineProfile(packageName = "com.keelim.mygrade") {
             pressHome()
             // This block defines the app's critical user journey. Here we are interested in
             // optimizing for app startup. But you can also navigate and scroll

@@ -8,7 +8,7 @@ import com.keelim.data.db.entity.History
 @Database(
     entities = [History::class],
     version = 1,
-    exportSchema = true
+    exportSchema = false
 )
 abstract class AppDatabase: RoomDatabase()  {
     abstract fun historyDao(): HistoryDao

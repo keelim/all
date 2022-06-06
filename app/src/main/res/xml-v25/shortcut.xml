@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <shortcut
+        android:shortcutId="mainShortcut"
+        android:enabled="true"
+        android:shortcutShortLabel="@string/app_name">
+
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.keelim.mygrade"
+            android:targetClass="com.keelim.mygrade.ui.center.CenterActivity">
+<!--            <extra android:name="content_key" android:value="Msg from shortcut" />-->
+        </intent>
+    </shortcut>
+</shortcuts>

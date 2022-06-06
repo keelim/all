@@ -8,32 +8,23 @@ plugins {
 }
 
 dependencies {
-    implementation(Dep.Kotlin.stdlibJvm)
-    implementation(Dep.Kotlin.coroutines.android)
+    implementation(libs.androidx.paging.common)
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
 
-    implementation(Dep.AndroidX.room.runtime)
-    implementation(Dep.AndroidX.paging.common)
-    kapt(Dep.AndroidX.room.compiler)
-    implementation(Dep.AndroidX.room.ktx)
-    implementation(Dep.AndroidX.UI.preference)
+    implementation(libs.kotlinx.coroutines.android)
 
-    // OkHttp
-    implementation(Dep.OkHttp.core)
-    implementation(Dep.OkHttp.loggingInterceptor)
+    implementation(libs.okhttp.logging)
+    implementation(libs.retrofit.core)
 
-    implementation(Dep.Network.Retrofit.retrofit)
-    implementation(Dep.Network.Retrofit.retrofit_moshi)
-    implementation(Dep.Network.Moshi.moshi_kotlin)
-    ksp(Dep.Network.Moshi.moshi_codegen)
+    implementation(libs.retrofit.moshi)
+    implementation(libs.moshi.kotlin)
+    ksp(libs.moshi.codegen)
 
     // Dagger Hilt
-    implementation(Dep.Dagger.Hilt.android)
-    kapt(Dep.Dagger.Hilt.compiler)
-
-    testImplementation(Dep.Test.junit)
-    androidTestImplementation(Dep.AndroidX.room.testing)
-    androidTestImplementation(Dep.Test.androidJunit)
-    androidTestImplementation(Dep.Test.espressoCore)
-    androidTestImplementation(Dep.Kotlin.coroutines.test)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
+    kapt(libs.hilt.ext.compiler)
 }
 

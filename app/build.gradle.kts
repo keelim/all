@@ -1,6 +1,3 @@
-import ProjectConfigurations.versionCode
-import ProjectConfigurations.versionName
-
 plugins {
     id("application-setting-plugin")
     id("kotlin-kapt")
@@ -31,39 +28,35 @@ android {
 dependencies {
     implementation(project(":data"))
     implementation(project(":common"))
-    implementation(Dep.AndroidX.coreKtx)
-    implementation(Dep.AndroidX.appcompat)
-    implementation(Dep.AndroidX.activity.ktx)
-    implementation(Dep.AndroidX.UI.material)
-    implementation(Dep.AndroidX.WorkManager.work)
-    implementation(Dep.AndroidX.hilt.common)
-    implementation(Dep.AndroidX.hilt.work)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.activity.ktx)
+    implementation(libs.material3)
+    implementation(libs.androidx.work.ktx)
+    implementation(libs.hilt.ext.work)
 
-    implementation(platform(Dep.Firebase.platform))
-    implementation(Dep.Firebase.analytics)
-    implementation(Dep.Firebase.crashlytics)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
+    kapt(libs.hilt.ext.compiler)
 
-    implementation(Dep.Play.ad)
-    implementation(Dep.Play.oss)
+    implementation(libs.androidx.lifecycle.rutime)
+    implementation(libs.androidx.lifecycle.process)
 
-    implementation(Dep.Dagger.Hilt.android)
-    kapt(Dep.Dagger.Hilt.compiler)
+    implementation(libs.androidx.profileinstaller)
 
-    implementation(Dep.other.math)
-    implementation(Dep.AndroidX.lifecycle.runtime)
-    implementation(Dep.AndroidX.lifecycle.process)
+    implementation(libs.play.services.ad)
+    implementation(libs.play.services.oss)
+
+    implementation(libs.timber)
+    implementation(libs.apache.math)
 
 
-    implementation(Dep.AndroidX.navigation.ui)
-    implementation(Dep.AndroidX.navigation.fragment)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.crashlytics)
 
-    implementation(Dep.timber)
-
-    testImplementation(Dep.Test.junit)
-    androidTestImplementation(Dep.Test.androidJunit)
-    androidTestImplementation(Dep.Test.espressoCore)
-
-    implementation("androidx.profileinstaller:profileinstaller:1.2.0-beta01")
+    implementation(libs.androidx.navigation.ui)
+    implementation(libs.androidx.navigation.fragment)
 }
 
 

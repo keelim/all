@@ -6,6 +6,7 @@ plugins {
     id("com.google.firebase.crashlytics")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
     id("dagger.hilt.android.plugin")
+    id("com.google.firebase.firebase-perf")
 }
 
 android {
@@ -54,6 +55,7 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.performances)
 
     implementation(libs.androidx.navigation.ui)
     implementation(libs.androidx.navigation.fragment)

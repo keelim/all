@@ -4,7 +4,6 @@ plugins {
 }
 
 dependencies {
-    implementation(Dep.AndroidX.lifecycle.runtime)
-    implementation(Dep.AndroidX.fragment.ktx)
-    implementation(Dep.AndroidX.lifecycle.runtime)
+    implementation(libs.androidx.lifecycle.rutime)
+    implementation(libs.fragment.ktx)
 }

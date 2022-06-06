@@ -1,5 +1,4 @@
-import ProjectConfigurations.compileSdk
-import ProjectConfigurations.minSdk
+
 
 plugins {
     id("com.android.test")
@@ -33,14 +32,18 @@ android {
 }
 
 dependencies {
-    implementation("androidx.test.ext:junit:1.1.3")
-    implementation("androidx.test.espresso:espresso-core:3.4.0")
-    implementation("androidx.test.uiautomator:uiautomator:2.2.0")
-    implementation("androidx.benchmark:benchmark-macro-junit4:1.1.0-rc02")
+    implementation(libs.androidx.test.core)
+    implementation(libs.androidx.test.espresso.core)
+    implementation(libs.androidx.test.ext)
+    implementation(libs.androidx.test.runner)
+    implementation(libs.androidx.test.rules)
+    implementation(libs.androidx.test.uiautomator)
+    implementation(libs.androidx.benchmark.macro)
+    implementation(libs.androidx.profileinstaller)
 }
 
 androidComponents {
-    beforeVariants(selector().all()) {
-        it.enabled = it.buildType == "benchmark"
+    beforeVariants {
+        it.enable = it.buildType == "benchmark"
     }
 }

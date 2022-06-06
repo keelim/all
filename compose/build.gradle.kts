@@ -4,15 +4,11 @@ plugins {
 }
 
 dependencies {
-    implementation(Dep.Kotlin.stdlibJvm)
-
-    // AndroidX
-    implementation(Dep.AndroidX.coreKtx)
-    implementation(Dep.AndroidX.UI.preference)
-
-    // Compose
-    implementation(Dep.AndroidX.Compose.material)
-    implementation(Dep.AndroidX.Compose.tooling)
-    implementation(Dep.AndroidX.Compose.activity)
-
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.preferences)
+    implementation(libs.material3)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.ui.tooling)
+    implementation(libs.androidx.compose.foundation)
 }

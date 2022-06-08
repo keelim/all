@@ -1,9 +1,10 @@
 plugins {
-    id("library-setting-plugin")
-    id("kotlin-kapt")
-    id("kotlin-parcelize")
+    id("keelim.android.library")
+    kotlin("kapt")
+    kotlin("plugin.parcelize")
+    id("kotlinx-serialization")
+    alias(libs.plugins.ksp)
     id("dagger.hilt.android.plugin")
-    id("com.google.devtools.ksp")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
@@ -18,9 +19,8 @@ dependencies {
     implementation(libs.okhttp.logging)
     implementation(libs.retrofit.core)
 
-    implementation(libs.retrofit.moshi)
-    implementation(libs.moshi.kotlin)
-    ksp(libs.moshi.codegen)
+    implementation(libs.retrofit.kotlin.serialization)
+    implementation(libs.kotlinx.serialization.json)
 
     // Dagger Hilt
     implementation(libs.hilt.android)

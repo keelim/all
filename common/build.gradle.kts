@@ -1,6 +1,6 @@
 plugins {
-    id("library-setting-plugin")
-    id("kotlin-kapt")
+    id("keelim.android.library")
+    kotlin("kapt")
 }
 
 dependencies {

@@ -1,6 +1,6 @@
 plugins {
-    id("application-setting-plugin")
-    id("kotlin-kapt")
+    id("keelim.android.application")
+    kotlin("kapt")
     id("com.google.gms.google-services")
     id("com.google.android.gms.oss-licenses-plugin")
     id("com.google.firebase.crashlytics")
@@ -11,10 +11,7 @@ plugins {
 
 android {
     defaultConfig {
-        applicationId = ProjectConfigurations.applicationID
-        versionCode = ProjectConfigurations.versionCode
-        versionName = ProjectConfigurations.versionName
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
     }
     buildTypes {
         create("benchmark") {

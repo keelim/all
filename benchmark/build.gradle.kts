@@ -1,20 +1,11 @@
 
 
 plugins {
-    id("com.android.test")
-    id("org.jetbrains.kotlin.android")
+    id("keelim.android.test")
 }
 
 android {
     namespace = "com.keelim.benchmark"
-    compileSdk = ProjectConfigurations.compileSdk
-
-    defaultConfig {
-        minSdk = ProjectConfigurations.minSdk
-        targetSdk = ProjectConfigurations.targetSdk
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
 
     buildTypes {
         // This benchmark buildType is used for benchmarking, and should function like your

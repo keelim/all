@@ -10,6 +10,11 @@ buildscript {
         classpath("com.google.firebase:firebase-crashlytics-gradle:2.9.0")
         classpath("com.google.firebase:perf-plugin:1.4.1")
         classpath("com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin:2.0.1")
+        classpath(libs.android.gradlePlugin)
+        classpath(libs.kotlin.gradlePlugin)
+        classpath(libs.kotlin.serializationPlugin)
+        classpath(libs.hilt.gradlePlugin)
+        classpath(libs.secrets.gradlePlugin)
     }
 }
 

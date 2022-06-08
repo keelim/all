@@ -1,6 +1,7 @@
 plugins {
-    id("library-setting-plugin")
-    id("compose-plugin")
+    id("keelim.android.library")
+    id("keelim.android.library.compose")
+    id("kotlinx-serialization")
 }
 
 dependencies {

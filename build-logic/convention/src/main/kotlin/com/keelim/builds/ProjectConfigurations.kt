@@ -1,3 +1,5 @@
+package com.keelim.builds
+
 import org.gradle.api.JavaVersion
 
 object ProjectConfigurations {

@@ -5,7 +5,7 @@ import ProjectConfigurations.versionName
 plugins {
     id("application-setting-plugin")
     id("compose-setting-plugin")
-    id("kotlin-kapt")
+    kotlin("kapt")
     id("kotlin-parcelize")
     id("com.google.gms.google-services")
     id("com.google.firebase.firebase-perf")

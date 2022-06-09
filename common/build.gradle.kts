@@ -1,6 +1,6 @@
 plugins {
     id("library-setting-plugin")
-    id("kotlin-kapt")
+    kotlin("kapt")
     id("kotlin-parcelize")
 }
 

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.ads.AdRequest
@@ -14,7 +15,6 @@ import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.material.snackbar.Snackbar
-import com.keelim.common.repeatCallDefaultOnStarted
 import com.keelim.data.model.Result
 import com.keelim.mygrade.BuildConfig
 import com.keelim.mygrade.R
@@ -22,9 +22,9 @@ import com.keelim.mygrade.databinding.FragmentMainBinding
 import com.keelim.mygrade.ui.GradeActivity
 import com.keelim.mygrade.utils.ThemeManager
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
@@ -45,8 +45,8 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initFlow()
         initViews()
-        observeState()
     }
 
     override fun onDestroyView() {
@@ -55,52 +55,40 @@ class MainFragment : Fragment() {
     }
 
     private fun initViews() = with(binding) {
-        val ad = AdView(requireContext()).apply {
+        AdView(requireContext()).apply {
             adSize = AdSize.BANNER
             adUnitId = if (BuildConfig.DEBUG.not()) {
                 BuildConfig.UNIT
             } else {
                 "ca-app-pub-3940256099942544/6300978111"
             }
+            loadAd(AdRequest.Builder().build())
+        }.also { ad ->
+            adView.addView(ad)
         }
-        adView.addView(ad)
-        val adRequest = AdRequest.Builder().build()
-        ad.loadAd(adRequest)
+
         oss.setOnClickListener {
             startActivity((Intent(requireContext(), OssLicensesMenuActivity::class.java)))
         }
         btnSubmit.setOnClickListener {
-            if (validation()) {
-                viewModel.submit(
-                    valueOrigin.text.toString().toFloat(),
-                    valueAverage.text.toString().toFloat(),
-                    valueNumber.text.toString().toFloat(),
-                    valueStudent.text.toString().toInt(),
-                    true
-                )
-            }
+            if (validation().not()) return@setOnClickListener
+            viewModel.submit(
+                valueOrigin.text.toString().toFloat(),
+                valueAverage.text.toString().toFloat(),
+                valueNumber.text.toString().toFloat(),
+                valueStudent.text.toString().toInt(),
+                true
+            )
         }
-        btnChange.setOnClickListener {
-            if (themeManager.state == ThemeManager.ThemeMode.DARK) {
-                themeManager.applyTheme(ThemeManager.ThemeMode.LIGHT)
-                themeManager.state = ThemeManager.ThemeMode.LIGHT
-            } else {
-                themeManager.applyTheme(ThemeManager.ThemeMode.DARK)
-                themeManager.state = ThemeManager.ThemeMode.DARK
-            }
-        }
-        notification.setOnClickListener{
-            findNavController().navigate(R.id.notificationFragment)
-        }
-        
-        history.setOnClickListener{
-            findNavController().navigate(R.id.historyFragment)
-        }
+        notification.setOnClickListener { findNavController().navigate(R.id.notificationFragment) }
+
+        history.setOnClickListener { findNavController().navigate(R.id.historyFragment) }
     }
 
-    private fun observeState() = viewLifecycleOwner.lifecycleScope.launch {
-        repeatCallDefaultOnStarted {
-            viewModel.state.collect {
+    private fun initFlow() = with(viewLifecycleOwner) {
+        viewModel.state
+            .flowWithLifecycle(lifecycle)
+            .onEach {
                 when (it) {
                     is MainState.UnInitialized -> Unit
                     is MainState.Loading -> {
@@ -138,10 +126,8 @@ class MainFragment : Fragment() {
                         Snackbar.LENGTH_SHORT
                     ).show()
                 }
-            }
-        }
+            }.launchIn(lifecycleScope)
     }
-
     private fun getLevel(level: Int): String = level.toString() + " / " + binding.valueStudent.text
 
     private fun validation(): Boolean = with(binding){

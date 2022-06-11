@@ -14,7 +14,7 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
-import com.google.android.material.snackbar.Snackbar
+import com.keelim.common.snack
 import com.keelim.data.model.Result
 import com.keelim.mygrade.BuildConfig
 import com.keelim.mygrade.R
@@ -92,7 +92,7 @@ class MainFragment : Fragment() {
                 when (it) {
                     is MainState.UnInitialized -> Unit
                     is MainState.Loading -> {
-                        Snackbar.make(binding.root, "잠시만 기다려주세요", Snackbar.LENGTH_SHORT).show()
+                        requireContext().snack(binding.root, "잠시만 기다려주세요")
                     }
                     is MainState.Success -> {
                         if (validation()) {
@@ -120,11 +120,7 @@ class MainFragment : Fragment() {
                                 })
                         }
                     }
-                    is MainState.Error -> Snackbar.make(
-                        binding.root,
-                        "오류가 발생했습니다",
-                        Snackbar.LENGTH_SHORT
-                    ).show()
+                    is MainState.Error -> requireContext().snack(binding.root, "오류가 발생했습니다")
                 }
             }.launchIn(lifecycleScope)
     }

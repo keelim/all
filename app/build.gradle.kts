@@ -21,6 +21,9 @@ android {
         }
     }
     useLibrary("android.test.mock")
+    buildFeatures {
+        dataBinding = true
+    }
 }
 
 dependencies {

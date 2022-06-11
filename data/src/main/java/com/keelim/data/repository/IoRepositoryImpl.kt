@@ -3,19 +3,20 @@ package com.keelim.data.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import androidx.paging.PagingSource
+import androidx.room.withTransaction
 import com.keelim.data.api.ApiRequestFactory
 import com.keelim.data.db.AppDatabase
 import com.keelim.data.db.entity.History
+import com.keelim.data.db.entity.SimpleHistory
 import com.keelim.data.db.paging.DBPagingSource
 import com.keelim.data.di.IoDispatcher
 import com.keelim.data.model.notification.Notification
 import com.keelim.data.model.notification.mapepr.toNotification
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
 class IoRepositoryImpl @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
@@ -69,15 +70,23 @@ class IoRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getNotification(): List<Notification>  = withContext(ioDispatcher){
-        return@withContext try{
+        return@withContext try {
             val response = apiRequestFactory.retrofit.getNotification()
-            if(response.isSuccessful && response.body() != null){
+            if (response.isSuccessful && response.body() != null) {
                 response.body()?.toNotification() ?: emptyList()
-            } else{
+            } else {
                 emptyList()
             }
-        } catch (e: Exception){
+        } catch (e: Exception) {
             throw Exception(e)
         }
+    }
+
+    override suspend fun insertSimpleHistories(history: SimpleHistory) = db.withTransaction {
+        db.simpleHistoryDao().insertHistories(history)
+    }
+
+    override suspend fun getAllSimpleHistories(history: SimpleHistory) = db.withTransaction{
+        db.simpleHistoryDao().getAllSimpleHistory()
     }
 }

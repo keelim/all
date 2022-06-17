@@ -20,6 +20,6 @@ include(
     ":app",
     ":compose",
     ":data",
-    ":common",
+    ":core-common",
     "benchmark"
 )

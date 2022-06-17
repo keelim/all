@@ -4,12 +4,13 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.room.withTransaction
+import com.keelim.common.Dispatcher
+import com.keelim.common.KeelimDispatchers.IO
 import com.keelim.data.api.ApiRequestFactory
 import com.keelim.data.db.AppDatabase
 import com.keelim.data.db.entity.History
 import com.keelim.data.db.entity.SimpleHistory
 import com.keelim.data.db.paging.DBPagingSource
-import com.keelim.data.di.IoDispatcher
 import com.keelim.data.model.notification.Notification
 import com.keelim.data.model.notification.mapepr.toNotification
 import javax.inject.Inject
@@ -19,7 +20,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.withContext
 
 class IoRepositoryImpl @Inject constructor(
-    @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
+    @Dispatcher(IO) private val ioDispatcher: CoroutineDispatcher,
     private val apiRequestFactory: ApiRequestFactory,
     private val db: AppDatabase,
 ) : IoRepository {

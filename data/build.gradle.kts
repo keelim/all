@@ -9,7 +9,7 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":core-common"))
+    implementation(project(":common"))
     implementation(libs.androidx.paging.common)
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)

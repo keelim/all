@@ -9,10 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearSnapHelper
-import com.keelim.common.repeatCallDefaultOnStarted
-import com.keelim.common.exetensions.toGone
-import com.keelim.common.exetensions.toVisible
-import com.keelim.common.toast
+import com.keelim.common.extensions.repeatCallDefaultOnStarted
+import com.keelim.common.extensions.toGone
+import com.keelim.common.extensions.toVisible
+import com.keelim.common.extensions.toast
 import com.keelim.data.model.notification.Notification
 import com.keelim.mygrade.databinding.FragmentNotificationBinding
 import dagger.hilt.android.AndroidEntryPoint

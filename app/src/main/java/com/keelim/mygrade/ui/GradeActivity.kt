@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
-import com.keelim.common.exetensions.snack
+import com.keelim.common.extensions.snack
 import com.keelim.data.db.entity.SimpleHistory
 import com.keelim.data.model.Result
 import com.keelim.data.repository.IoRepository

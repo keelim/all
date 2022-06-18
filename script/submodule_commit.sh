@@ -5,4 +5,5 @@ git submodule foreach git checkout master
 git submodule foreach git merge newfeature
 git submodule foreach git push
 git submodule foreach git branch -d newfeature
+cd ..
 git commit -m "update sub module"

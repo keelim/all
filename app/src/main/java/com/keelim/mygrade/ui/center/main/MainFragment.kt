@@ -14,7 +14,7 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
-import com.keelim.common.snack
+import com.keelim.common.exetensions.snack
 import com.keelim.data.model.Result
 import com.keelim.mygrade.BuildConfig
 import com.keelim.mygrade.R

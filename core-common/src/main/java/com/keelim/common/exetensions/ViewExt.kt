@@ -1,4 +1,4 @@
-package com.keelim.common
+package com.keelim.common.exetensions
 
 import android.content.Context
 import android.view.View
@@ -24,3 +24,5 @@ fun Context.snack(view:View, message:String) {
 fun Context.snack(view:View, @StringRes message:Int) {
     Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show()
 }
+
+

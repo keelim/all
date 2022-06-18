@@ -8,12 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.keelim.common.repeatCallDefaultOnStarted
-import com.keelim.common.toGone
-import com.keelim.common.toVisible
+import com.keelim.common.exetensions.toGone
+import com.keelim.common.exetensions.toVisible
 import com.keelim.common.toast
 import com.keelim.mygrade.databinding.FragmentHistoryBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint

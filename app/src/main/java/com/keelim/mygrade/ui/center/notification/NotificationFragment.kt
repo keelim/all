@@ -7,19 +7,15 @@ import android.view.ViewGroup
 import androidx.core.view.doOnNextLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.keelim.common.repeatCallDefaultOnStarted
-import com.keelim.common.toGone
-import com.keelim.common.toVisible
+import com.keelim.common.exetensions.toGone
+import com.keelim.common.exetensions.toVisible
 import com.keelim.common.toast
-import com.keelim.data.model.Release
 import com.keelim.data.model.notification.Notification
 import com.keelim.mygrade.databinding.FragmentNotificationBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint

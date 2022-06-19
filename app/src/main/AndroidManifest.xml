@@ -24,6 +24,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/AppTheme.material3"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".SwipeActivity"
+            android:exported="false" />
+
         <profileable
             android:shell="true"
             tools:targetApi="q" />

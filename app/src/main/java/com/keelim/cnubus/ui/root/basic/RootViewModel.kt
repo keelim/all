@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.cnubus.ui.root
+package com.keelim.cnubus.ui.root.basic
 
 import androidx.lifecycle.viewModelScope
 import com.keelim.cnubus.data.db.entity.History
@@ -23,8 +23,10 @@ import com.keelim.cnubus.domain.UserUseCase
 import com.keelim.cnubus.feature.map.ui.MapEvent
 import com.keelim.common.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -32,21 +34,19 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class RootViewModel @Inject constructor(
     private val stationRepository: StationRepository,
     private val userUseCase: UserUseCase,
 ) : BaseViewModel() {
-    private val _state: MutableStateFlow<MapEvent> = MutableStateFlow(MapEvent.UnInitialized)
-    val state: StateFlow<MapEvent> get() = _state
-    val data: MutableStateFlow<List<Location>> = MutableStateFlow(emptyList())
-    val modes: MutableStateFlow<String> = MutableStateFlow("")
+    private val _state = MutableStateFlow<MapEvent>(MapEvent.UnInitialized)
+    val state: StateFlow<MapEvent> = _state.asStateFlow()
+    private val _data = MutableStateFlow<List<Location>>(emptyList())
+    val data: StateFlow<List<Location>> = _data.asStateFlow()
+    val modes = MutableStateFlow("")
 
-    init {
-        observeLocation()
-    }
+    init { observeLocation() }
 
     private fun observeLocation() {
         stationRepository
@@ -64,7 +64,7 @@ class RootViewModel @Inject constructor(
             .onStart {
                 _state.emit(MapEvent.Loading)
             }.onEach { locations ->
-                data.value = locations
+                _data.value = locations
                 _state.emit(MapEvent.MigrateSuccess(locations))
             }
             .catch {

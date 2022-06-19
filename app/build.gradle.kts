@@ -5,7 +5,7 @@ import ProjectConfigurations.versionName
 plugins {
     id("application-setting-plugin")
     id("compose-setting-plugin")
-    id("kotlin-kapt")
+    kotlin("kapt")
     id("kotlin-parcelize")
     id("com.google.gms.google-services")
     id("com.google.firebase.firebase-perf")
@@ -109,7 +109,7 @@ dependencies {
 
     implementation(Dep.Kotlin.stdlibJvm)
     implementation("com.jakewharton:process-phoenix:2.1.2")
-    implementation("com.airbnb.android:lottie:5.1.1")
+    implementation("com.airbnb.android:lottie:5.2.0")
 
     implementation(Dep.AndroidX.WorkManager.work)
     implementation("androidx.hilt:hilt-work:1.0.0")

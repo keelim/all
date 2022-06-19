@@ -2,7 +2,7 @@ import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 
 plugins {
     id("library-setting-plugin")
-    id("kotlin-kapt")
+    kotlin("kapt")
     id("kotlin-parcelize")
     id("dagger.hilt.android.plugin")
     id ("com.google.secrets_gradle_plugin") version("0.6.1")

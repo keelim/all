@@ -1,7 +1,7 @@
 plugins {
     id("library-setting-plugin")
     id("compose-setting-plugin")
-    id("kotlin-kapt")
+    kotlin("kapt")
 }
 
 dependencies {

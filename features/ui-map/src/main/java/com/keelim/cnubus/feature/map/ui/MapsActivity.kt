@@ -77,7 +77,7 @@ class MapsActivity : AppCompatActivity() {
     private val mode by lazy {
         intent.getStringExtra("mode") ?: ""
             .let { value ->
-                if(value.isEmpty()){
+                if (value.isEmpty()) {
                     toast("알수 없는 에러가 발생했습니다.")
                     finish()
                 }
@@ -130,7 +130,7 @@ class MapsActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         val behavior = BottomSheetBehavior.from(bottomBinding.root)
-        if(behavior.state == BottomSheetBehavior.STATE_EXPANDED){
+        if (behavior.state == BottomSheetBehavior.STATE_EXPANDED) {
             behavior.state = BottomSheetBehavior.STATE_COLLAPSED
         } else {
             super.onBackPressed()
@@ -209,27 +209,27 @@ class MapsActivity : AppCompatActivity() {
     private fun googleMapSetting() = lifecycleScope.launch {
         mapFragment.awaitMap()
             .apply {
-            with(uiSettings) {
-                isZoomControlsEnabled = true
-                isCompassEnabled = true
-                isMyLocationButtonEnabled = true
-                isIndoorLevelPickerEnabled = true
-                isMapToolbarEnabled = true
-            }
-            setOnMarkerClickListener { marker ->
-                val selectedModel = viewPagerAdapter.currentList.firstOrNull {
-                    it.name == (marker.snippet ?: "0".toInt())
+                with(uiSettings) {
+                    isZoomControlsEnabled = true
+                    isCompassEnabled = true
+                    isMyLocationButtonEnabled = true
+                    isIndoorLevelPickerEnabled = true
+                    isMapToolbarEnabled = true
                 }
-                selectedModel?.let {
-                    with(binding) {
-                        val position = viewPagerAdapter.currentList.indexOf(it)
-                        houseViewPager.currentItem = position
-                        tvTitle.text = it.name
+                setOnMarkerClickListener { marker ->
+                    val selectedModel = viewPagerAdapter.currentList.firstOrNull {
+                        it.name == (marker.snippet ?: "0".toInt())
                     }
+                    selectedModel?.let {
+                        with(binding) {
+                            val position = viewPagerAdapter.currentList.indexOf(it)
+                            houseViewPager.currentItem = position
+                            tvTitle.text = it.name
+                        }
+                    }
+                    return@setOnMarkerClickListener false
                 }
-                return@setOnMarkerClickListener false
             }
-        }
     }
 
     private fun initFlow() {

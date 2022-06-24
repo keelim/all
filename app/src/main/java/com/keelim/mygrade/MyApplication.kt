@@ -14,9 +14,9 @@ class MyApplication: Application() {
     lateinit var appOpenManager: AppOpenManager
     override fun onCreate() {
         super.onCreate()
-        MobileAds.initialize(this)
+//        MobileAds.initialize(this)
+//        appOpenManager.initialize(this)
         NotificationChannels.initialize(this)
-        appOpenManager.initialize(this)
         DynamicColors.applyToActivitiesIfAvailable(this)
     }
 }

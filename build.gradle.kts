@@ -5,7 +5,7 @@ buildscript {
         maven("https://jitpack.io")
     }
     dependencies {
-        classpath("com.google.gms:google-services:4.3.10")
+        classpath("com.google.gms:google-services:4.3.13")
         classpath("com.google.android.gms:oss-licenses-plugin:0.10.5")
         classpath("com.google.firebase:firebase-crashlytics-gradle:2.9.0")
         classpath("com.google.firebase:perf-plugin:1.4.1")

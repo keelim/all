@@ -1,16 +1,23 @@
 package com.keelim.mygrade.ui.center
 
+import android.app.Activity
 import android.app.PendingIntent
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.RemoteInput
 import androidx.core.graphics.drawable.IconCompat
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.model.AppUpdateType
+import com.google.android.play.core.install.model.UpdateAvailability
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.keelim.mygrade.databinding.ActivityCenterBinding
 import com.keelim.mygrade.notification.NotificationBuilder
+import com.keelim.mygrade.utils.Keys
+import com.keelim.mygrade.utils.Keys.IN_APP_UPDATE_REQUEST_CODE
 import com.keelim.mygrade.work.MainWorker
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -26,8 +33,19 @@ class CenterActivity : AppCompatActivity() {
             layoutInflater
         )
     }
+    private var _forceUpdate: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        with(Firebase.remoteConfig) {
+            getBoolean("forceUpdate").also { forceUpdate ->
+                _forceUpdate = forceUpdate
+                fetchAndActivate().addOnSuccessListener {
+                    if (forceUpdate) {
+                        checkInAppUpdate()
+                    }
+                }
+            }
+        }
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         MainWorker.enqueueWork(this)
@@ -35,7 +53,7 @@ class CenterActivity : AppCompatActivity() {
         handleIntent()
     }
 
-    private fun sendNotification(){
+    private fun sendNotification() {
         val replyLabel = "Enter your reply here"
         val remoteInput = RemoteInput.Builder(KEY_TEXT_REPLY)
             .setLabel(replyLabel)
@@ -62,15 +80,49 @@ class CenterActivity : AppCompatActivity() {
 //        notificationBuilder.showNotification(replyAction)
     }
 
-    private fun handleIntent(){
+    private fun handleIntent() {
         val remoteInput = RemoteInput.getResultsFromIntent(intent)
-        remoteInput?.let{
+        remoteInput?.let {
             val inputString = it.getCharSequence(KEY_TEXT_REPLY).toString()
             viewModel.saveHistory(inputString)
         }
     }
 
-    companion object{
+    private fun checkInAppUpdate() {
+        val appUpdateManager = AppUpdateManagerFactory.create(this)
+        val appUpdateInfo = appUpdateManager.appUpdateInfo
+        appUpdateInfo.addOnSuccessListener { appUpdateInfo ->
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                && appUpdateInfo.updatePriority() >= 4 /* high priority */
+                && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
+            ) {
+                appUpdateManager.startUpdateFlowForResult(
+                    appUpdateInfo,
+                    AppUpdateType.IMMEDIATE,
+                    this,
+                    Keys.IN_APP_UPDATE_REQUEST_CODE)
+            }
+        }
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            IN_APP_UPDATE_REQUEST_CODE -> {
+                when (resultCode) {
+                    Activity.RESULT_CANCELED -> {
+                        if (_forceUpdate) {
+                            finishAffinity()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    companion object {
         const val notificationId = 101
         const val KEY_TEXT_REPLY = "key_text_reply"
     }

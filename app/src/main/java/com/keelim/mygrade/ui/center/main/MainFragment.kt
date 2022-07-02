@@ -55,17 +55,17 @@ class MainFragment : Fragment() {
     }
 
     private fun initViews() = with(binding) {
-        AdView(requireContext()).apply {
-            adSize = AdSize.BANNER
-            adUnitId = if (BuildConfig.DEBUG.not()) {
-                BuildConfig.UNIT
-            } else {
-                "ca-app-pub-3940256099942544/6300978111"
-            }
-            loadAd(AdRequest.Builder().build())
-        }.also { ad ->
-            adView.addView(ad)
-        }
+//        AdView(requireContext()).apply {
+//            adSize = AdSize.BANNER
+//            adUnitId = if (BuildConfig.DEBUG.not()) {
+//                BuildConfig.UNIT
+//            } else {
+//                "ca-app-pub-3940256099942544/6300978111"
+//            }
+//            loadAd(AdRequest.Builder().build())
+//        }.also { ad ->
+//            adView.addView(ad)
+//        }
 
         oss.setOnClickListener {
             startActivity((Intent(requireContext(), OssLicensesMenuActivity::class.java)))

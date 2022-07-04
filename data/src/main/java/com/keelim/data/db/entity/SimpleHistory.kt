@@ -6,6 +6,7 @@ import java.util.Calendar
 
 @Entity(tableName = "simple_history")
 data class SimpleHistory(
+    val name:String,
     val date: String = Calendar.getInstance().time.toString(),
     val grade: String,
     val rank: String,

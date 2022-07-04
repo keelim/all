@@ -21,6 +21,7 @@ interface IoRepository {
     fun loadHistoriesBySubjects(subject: String): Flow<List<History>>
 
     val all: Flow<List<History>>
+    val simpleAll: Flow<List<SimpleHistory>>
 
     fun getAllPaging(): Flow<PagingData<History>>
     suspend fun getNotification(): List<Notification>

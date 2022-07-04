@@ -41,6 +41,7 @@ class GradeViewModel @Inject constructor(
     fun saveSimpleHistory(grade: String, rank: String) = viewModelScope.launch {
         ioRepository.insertSimpleHistories(
             SimpleHistory(
+                name = "",
                 grade = grade,
                 rank = rank
             ))

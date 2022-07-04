@@ -6,23 +6,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.keelim.data.db.entity.History
+import com.keelim.data.db.entity.SimpleHistory
 import com.keelim.mygrade.databinding.ItemNotificationBinding
 
 class HistoryAdapter(
-) : ListAdapter<History, HistoryAdapter.ViewHolder>(diffUtil) {
-
-    inner class ViewHolder(val binding: ItemNotificationBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: History) = with(binding) {
-            title.text = item.subject
-            description.text = item.subject
-            date.text = item.subject
-            version.text = "version: ${item.grade}"
-        }
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
+) : ListAdapter<SimpleHistory, HistoryViewHolder>(diffUtil) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder {
+        return HistoryViewHolder(
             ItemNotificationBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -31,19 +21,28 @@ class HistoryAdapter(
         )
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
         holder.bind(currentList[position])
     }
 
     companion object {
-        val diffUtil = object : DiffUtil.ItemCallback<History>() {
-            override fun areItemsTheSame(oldItem: History, newItem: History): Boolean {
+        val diffUtil = object : DiffUtil.ItemCallback<SimpleHistory>() {
+            override fun areItemsTheSame(oldItem: SimpleHistory, newItem: SimpleHistory): Boolean {
                 return oldItem == newItem
             }
 
-            override fun areContentsTheSame(oldItem: History, newItem: History): Boolean {
+            override fun areContentsTheSame(oldItem: SimpleHistory, newItem: SimpleHistory): Boolean {
                 return oldItem == newItem
             }
         }
+    }
+}
+
+class HistoryViewHolder(val binding: ItemNotificationBinding) :
+    RecyclerView.ViewHolder(binding.root) {
+    fun bind(item: SimpleHistory) = with(binding) {
+        title.text = item.name
+        date.text = item.date
+        version.text = "version: ${item.grade}"
     }
 }

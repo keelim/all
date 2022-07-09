@@ -9,18 +9,33 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.RemoteInput
 import androidx.core.graphics.drawable.IconCompat
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
+import com.keelim.data.db.entity.History
+import com.keelim.data.repository.IoRepository
 import com.keelim.mygrade.databinding.ActivityCenterBinding
 import com.keelim.mygrade.notification.NotificationBuilder
 import com.keelim.mygrade.utils.Keys
 import com.keelim.mygrade.utils.Keys.IN_APP_UPDATE_REQUEST_CODE
 import com.keelim.mygrade.work.MainWorker
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.launch
+
+@HiltViewModel
+class CenterViewModel @Inject constructor(
+    private val ioRepository: IoRepository,
+) : ViewModel() {
+    fun saveHistory(query: String) = viewModelScope.launch {
+        ioRepository.insertHistories(History("", 0, 0f, 0f, 0, 0f, "1"))
+    }
+}
 
 @AndroidEntryPoint
 class CenterActivity : AppCompatActivity() {
@@ -28,11 +43,7 @@ class CenterActivity : AppCompatActivity() {
     lateinit var notificationBuilder: NotificationBuilder
 
     private val viewModel: CenterViewModel by viewModels()
-    private val binding: ActivityCenterBinding by lazy {
-        ActivityCenterBinding.inflate(
-            layoutInflater
-        )
-    }
+    private lateinit var binding: ActivityCenterBinding
     private var _forceUpdate: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,6 +58,7 @@ class CenterActivity : AppCompatActivity() {
             }
         }
         super.onCreate(savedInstanceState)
+        binding = ActivityCenterBinding.inflate(layoutInflater)
         setContentView(binding.root)
         MainWorker.enqueueWork(this)
         sendNotification()
@@ -55,27 +67,19 @@ class CenterActivity : AppCompatActivity() {
 
     private fun sendNotification() {
         val replyLabel = "Enter your reply here"
-        val remoteInput = RemoteInput.Builder(KEY_TEXT_REPLY)
-            .setLabel(replyLabel)
-            .build()
+        val remoteInput = RemoteInput.Builder(KEY_TEXT_REPLY).setLabel(replyLabel).build()
 
         val resultIntent = Intent(this, CenterActivity::class.java)
-        val resultPendingIntent = PendingIntent.getActivity(
-            this,
+        val resultPendingIntent = PendingIntent.getActivity(this,
             0,
             resultIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-        )
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
 
-        val icon = IconCompat.createWithResource(this@CenterActivity,
-            android.R.drawable.ic_dialog_info
-        )
+        val icon =
+            IconCompat.createWithResource(this@CenterActivity, android.R.drawable.ic_dialog_info)
 
-        val replyAction = NotificationCompat.Action.Builder(
-            icon,
-            "Reply", resultPendingIntent)
-            .addRemoteInput(remoteInput)
-            .build()
+        val replyAction = NotificationCompat.Action.Builder(icon, "Reply", resultPendingIntent)
+            .addRemoteInput(remoteInput).build()
 
 //        notificationBuilder.showNotification(replyAction)
     }
@@ -92,12 +96,10 @@ class CenterActivity : AppCompatActivity() {
         val appUpdateManager = AppUpdateManagerFactory.create(this)
         val appUpdateInfo = appUpdateManager.appUpdateInfo
         appUpdateInfo.addOnSuccessListener { appUpdateInfo ->
-            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
-                && appUpdateInfo.updatePriority() >= 4 /* high priority */
-                && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE && appUpdateInfo.updatePriority() >= 4 /* high priority */ && appUpdateInfo.isUpdateTypeAllowed(
+                    AppUpdateType.IMMEDIATE)
             ) {
-                appUpdateManager.startUpdateFlowForResult(
-                    appUpdateInfo,
+                appUpdateManager.startUpdateFlowForResult(appUpdateInfo,
                     AppUpdateType.IMMEDIATE,
                     this,
                     Keys.IN_APP_UPDATE_REQUEST_CODE)

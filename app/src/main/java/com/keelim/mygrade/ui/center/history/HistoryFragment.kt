@@ -54,7 +54,7 @@ class HistoryViewModel @Inject constructor(
 class HistoryFragment : Fragment() {
     private var _binding: FragmentHistoryBinding? = null
     private val viewModel: HistoryViewModel by viewModels()
-    private val binding get() = _binding!!
+    private val binding get() = checkNotNull(_binding)
     private val historyAdapter = HistoryAdapter()
 
     override fun onCreateView(

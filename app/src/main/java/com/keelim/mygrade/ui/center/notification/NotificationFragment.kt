@@ -29,17 +29,20 @@ import kotlinx.coroutines.launch
 class NotificationViewModel @Inject constructor(
     private val ioRepository: IoRepository,
 ) : ViewModel() {
-    private var _state: MutableStateFlow<NotificationState> = MutableStateFlow(NotificationState.UnInitialized)
+    private var _state: MutableStateFlow<NotificationState> =
+        MutableStateFlow(NotificationState.UnInitialized)
     val state: StateFlow<NotificationState> = _state
 
-    fun fetchRelease() = viewModelScope.launch {
-        _state.emit(NotificationState.Loading)
-        runCatching {
-            ioRepository.getNotification()
-        }.onSuccess {
-            _state.emit(NotificationState.Success(it))
-        }.onFailure {
-            _state.emit(NotificationState.Error("에러가 발생하였습니다. 다시 시도해주세요."))
+    init {
+        viewModelScope.launch {
+            _state.emit(NotificationState.Loading)
+            runCatching {
+                ioRepository.getNotification()
+            }.onSuccess {
+                _state.emit(NotificationState.Success(it))
+            }.onFailure {
+                _state.emit(NotificationState.Error("에러가 발생하였습니다. 다시 시도해주세요."))
+            }
         }
     }
 }
@@ -47,27 +50,30 @@ class NotificationViewModel @Inject constructor(
 @AndroidEntryPoint
 class NotificationFragment : Fragment() {
     private var _binding: FragmentNotificationBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = checkNotNull(_binding)
     private val viewModel by viewModels<NotificationViewModel>()
-
-    private val notificationAdapter by lazy {
-        NotificationAdapter()
-    }
+    private val notificationAdapter by lazy { NotificationAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentNotificationBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+        savedInstanceState: Bundle?,
+    ): View = FragmentNotificationBinding.inflate(inflater, container, false)
+        .apply {
+            notificationRecycler.apply {
+                val snapHelper = LinearSnapHelper()
+                adapter = notificationAdapter.apply {
+                    doOnNextLayout {}
+                }
+                snapHelper.attachToRecyclerView(this)
+            }
+        }.also {
+            _binding = it
+        }.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initViews()
-        viewModel.fetchRelease()
-        observeState()
+        initFlow()
     }
 
     override fun onDestroyView() {
@@ -75,7 +81,7 @@ class NotificationFragment : Fragment() {
         _binding = null
     }
 
-    private fun observeState() = viewLifecycleOwner.lifecycleScope.launch {
+    private fun initFlow() = viewLifecycleOwner.lifecycleScope.launch {
         repeatCallDefaultOnStarted {
             viewModel.state.collect {
                 when (it) {
@@ -85,7 +91,7 @@ class NotificationFragment : Fragment() {
                     is NotificationState.Loading -> {
                         binding.loading.toVisible()
                     }
-                    is NotificationState.Success ->{
+                    is NotificationState.Success -> {
                         handleSuccess(it.data)
                     }
                     is NotificationState.Error -> {
@@ -95,18 +101,6 @@ class NotificationFragment : Fragment() {
                     }
                 }
             }
-        }
-    }
-
-    private fun initViews() = with(binding) {
-
-        notificationRecycler.apply {
-            val snapHelper = LinearSnapHelper()
-            adapter = notificationAdapter.apply {
-                doOnNextLayout {
-                }
-            }
-            snapHelper.attachToRecyclerView(this)
         }
     }
 
@@ -121,13 +115,15 @@ class NotificationFragment : Fragment() {
     }
 }
 
+
 sealed class NotificationState {
     object UnInitialized : NotificationState()
     object Loading : NotificationState()
     data class Error(
-        val message: String
+        val message: String,
     ) : NotificationState()
+
     data class Success(
-        val data: List<Notification>
+        val data: List<Notification>,
     ) : NotificationState()
 }

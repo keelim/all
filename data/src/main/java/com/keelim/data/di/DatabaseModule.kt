@@ -21,9 +21,6 @@ object DatabaseModule {
     ): AppDatabase = Room.databaseBuilder(
         ctx,
         AppDatabase::class.java,
-        "nanda"
-    )
-        .createFromFile(File(ctx.getExternalFilesDir(null), "grade.db"))
-        .allowMainThreadQueries()
-        .build()
+        "mygrade"
+    ).build()
 }

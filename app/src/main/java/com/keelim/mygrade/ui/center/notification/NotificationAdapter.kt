@@ -9,29 +9,15 @@ import com.keelim.data.model.notification.Notification
 import com.keelim.mygrade.databinding.ItemNotificationBinding
 
 class NotificationAdapter(
-) : ListAdapter<Notification, NotificationAdapter.ViewHolder>(diffUtil) {
+) : ListAdapter<Notification, NotificationViewHolder>(diffUtil) {
 
-    inner class ViewHolder(val binding: ItemNotificationBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Notification) = with(binding) {
-            title.text = item.version
-            description.text = item.desc
-            date.text = item.desc
-            version.text = "version: ${item.version}"
-        }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotificationViewHolder {
+        return NotificationViewHolder(ItemNotificationBinding.inflate(LayoutInflater.from(parent.context),
+            parent,
+            false))
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
-            ItemNotificationBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: NotificationViewHolder, position: Int) {
         holder.bind(currentList[position])
     }
 
@@ -45,5 +31,15 @@ class NotificationAdapter(
                 return oldItem == newItem
             }
         }
+    }
+}
+
+class NotificationViewHolder(val binding: ItemNotificationBinding) :
+    RecyclerView.ViewHolder(binding.root) {
+    fun bind(item: Notification) = with(binding) {
+        title.text = item.version
+        description.text = item.desc
+        date.text = item.desc
+        version.text = "version: ${item.version}"
     }
 }

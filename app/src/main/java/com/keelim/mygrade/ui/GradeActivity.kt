@@ -23,9 +23,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import java.io.File
 import java.io.FileOutputStream
 import javax.inject.Inject
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
@@ -77,6 +79,9 @@ class GradeActivity : AppCompatActivity() {
                 viewModel.saveSimpleHistory(_grade, _level)
                 viewModel.changeSaveAction(true)
             }
+            toolbar.setOnClickListener {
+                onBackPressed()
+            }
         }.also {
             binding = it
         }
@@ -91,18 +96,17 @@ class GradeActivity : AppCompatActivity() {
                     snack(binding.root, "저장이 완료되었습니다. ")
                 }
             }
+            .flowOn(Dispatchers.Main.immediate)
             .launchIn(lifecycleScope)
     }
 
     private fun saveAndCopy() {
-        val screenBitmap = window.decorView.rootView.drawToBitmap()
         runCatching {
-            val cachePath = File(applicationContext.cacheDir, "images").apply {
-                mkdirs()
+            val screenBitmap = window.decorView.rootView.drawToBitmap()
+            val cachePath = File(cacheDir, "images").apply { mkdirs() }
+            FileOutputStream("$cachePath/image.png").use {
+                screenBitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
             }
-            val stream = FileOutputStream("$cachePath/image.png")
-            screenBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
-            stream.close()
             FileProvider.getUriForFile(
                 applicationContext,
                 "com.keelim.fileprovider", File(cachePath, "image.png")

@@ -96,9 +96,6 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View = FragmentMainBinding.inflate(inflater, container, false)
         .apply {
-            oss.setOnClickListener {
-                startActivity((Intent(requireContext(), OssLicensesMenuActivity::class.java)))
-            }
             btnSubmit.setOnClickListener {
                 if (validation().not()) return@setOnClickListener
                 viewModel.submit(valueOrigin.text.toString().toFloat(),
@@ -109,6 +106,10 @@ class MainFragment : Fragment() {
             }
             notification.setOnClickListener { findNavController().navigate(R.id.notificationFragment) }
             history.setOnClickListener { findNavController().navigate(R.id.historyFragment) }
+            footer.setOnLongClickListener {
+                startActivity(Intent(requireContext(), OssLicensesMenuActivity::class.java))
+                return@setOnLongClickListener true
+            }
         }.also {
             _binding = it
         }.root

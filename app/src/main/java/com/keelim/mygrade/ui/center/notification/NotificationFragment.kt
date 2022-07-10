@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.keelim.common.extensions.repeatCallDefaultOnStarted
 import com.keelim.common.extensions.toGone
@@ -61,11 +62,13 @@ class NotificationFragment : Fragment() {
     ): View = FragmentNotificationBinding.inflate(inflater, container, false)
         .apply {
             notificationRecycler.apply {
-                val snapHelper = LinearSnapHelper()
                 adapter = notificationAdapter.apply {
                     doOnNextLayout {}
                 }
-                snapHelper.attachToRecyclerView(this)
+                LinearSnapHelper().attachToRecyclerView(this)
+            }
+            imageviewBack.setOnClickListener {
+                findNavController().navigateUp()
             }
         }.also {
             _binding = it

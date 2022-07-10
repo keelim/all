@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
     <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/textview_app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
@@ -40,6 +41,7 @@
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textview_app_name"
         tools:context=".ui.center.main.MainActivity"
         tools:layout_editor_absoluteY="73dp">
 
@@ -176,21 +178,12 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_submit"
+        style="@style/Widget.Material3.Button.TonalButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:text="Submit"
-        style="@style/Widget.Material3.Button.TonalButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/student_container" />
-
-    <ProgressBar
-        android:id="@+id/progressbar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/adView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/student_container" />
 
     <LinearLayout
@@ -202,15 +195,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/btn_change"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_margin="20dp"-->
-<!--        style="@style/Widget.Material3.FloatingActionButton.Surface"-->
-<!--        android:src="@drawable/ic_baseline_change_circle_24"-->
-<!--        app:layout_constraintBottom_toTopOf="@id/adView"-->
-<!--        app:layout_constraintEnd_toEndOf="parent" />-->
+    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+    <!--        android:id="@+id/btn_change"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_margin="20dp"-->
+    <!--        style="@style/Widget.Material3.FloatingActionButton.Surface"-->
+    <!--        android:src="@drawable/ic_baseline_change_circle_24"-->
+    <!--        app:layout_constraintBottom_toTopOf="@id/adView"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent" />-->
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/footer"

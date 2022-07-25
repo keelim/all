@@ -21,7 +21,6 @@
             app:destination="@id/gradeFragment"/>
     </fragment>
 
-
     <fragment
         android:id="@+id/notificationFragment"
         android:name="com.keelim.mygrade.ui.center.notification.NotificationFragment"

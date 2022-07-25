@@ -90,7 +90,7 @@ class GradeFragment : Fragment() {
             viewModel.saveSimpleHistory(_grade, _level)
             viewModel.changeSaveAction(true)
         }
-        toolbar.setOnClickListener {
+        imageviewBack.setOnClickListener {
             findNavController().navigateUp()
         }
     }.also {

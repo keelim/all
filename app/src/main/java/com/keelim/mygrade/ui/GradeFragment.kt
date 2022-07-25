@@ -3,21 +3,26 @@ package com.keelim.mygrade.ui
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.core.content.FileProvider
 import androidx.core.view.drawToBitmap
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.fragment.findNavController
 import com.keelim.common.extensions.snack
 import com.keelim.data.db.entity.SimpleHistory
 import com.keelim.data.model.Result
 import com.keelim.data.repository.IoRepository
 import com.keelim.mygrade.R
-import com.keelim.mygrade.databinding.ActivityGradeBinding
+import com.keelim.mygrade.databinding.FragmentGradeBinding
+import com.keelim.mygrade.utils.Keys
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.io.File
@@ -58,34 +63,48 @@ class GradeViewModel @Inject constructor(
 }
 
 @AndroidEntryPoint
-class GradeActivity : AppCompatActivity() {
-    private val data: Result? by lazy { intent.getParcelableExtra("data") }
-    private lateinit var binding: ActivityGradeBinding
+class GradeFragment : Fragment() {
+    private val data: Result? by lazy { requireArguments().getParcelable(Keys.MAIN_TO_GRADE) }
     private val viewModel by viewModels<GradeViewModel>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        DataBindingUtil.setContentView<ActivityGradeBinding>(
-            this,
-            R.layout.activity_grade
-        ).apply {
-            val (_grade, _level) = data?.grade.orEmpty() to data?.point.orEmpty()
-            grade.text = _grade
-            level.text = _level
-            btnCopy.setOnClickListener {
-                saveAndCopy()
-            }
-            btnSave.setOnClickListener {
-                viewModel.saveSimpleHistory(_grade, _level)
-                viewModel.changeSaveAction(true)
-            }
-            toolbar.setOnClickListener {
-                onBackPressed()
-            }
-        }.also {
-            binding = it
+    private var _binding: FragmentGradeBinding? = null
+    private val binding get() = checkNotNull(_binding)
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View = DataBindingUtil.inflate<FragmentGradeBinding>(
+        inflater,
+        R.layout.fragment_grade,
+        container,
+        false
+    ).apply{
+        val (_grade, _level) = data?.grade.orEmpty() to data?.point.orEmpty()
+        grade.text = _grade
+        level.text = _level
+        btnCopy.setOnClickListener {
+            saveAndCopy()
         }
+        btnSave.setOnClickListener {
+            viewModel.saveSimpleHistory(_grade, _level)
+            viewModel.changeSaveAction(true)
+        }
+        toolbar.setOnClickListener {
+            findNavController().navigateUp()
+        }
+    }.also {
+        _binding = it
+    }.root
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initFlow()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun initFlow(){
@@ -93,7 +112,7 @@ class GradeActivity : AppCompatActivity() {
             .flowWithLifecycle(lifecycle)
             .onEach { state ->
                 if(state.isSave){
-                    snack(binding.root, "저장이 완료되었습니다. ")
+                    requireActivity().snack(binding.root, "저장이 완료되었습니다. ")
                 }
             }
             .flowOn(Dispatchers.Main.immediate)
@@ -102,13 +121,13 @@ class GradeActivity : AppCompatActivity() {
 
     private fun saveAndCopy() {
         runCatching {
-            val screenBitmap = window.decorView.rootView.drawToBitmap()
-            val cachePath = File(cacheDir, "images").apply { mkdirs() }
+            val screenBitmap = requireActivity().window.decorView.rootView.drawToBitmap()
+            val cachePath = File(requireActivity().cacheDir, "images").apply { mkdirs() }
             FileOutputStream("$cachePath/image.png").use {
                 screenBitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
             }
             FileProvider.getUriForFile(
-                applicationContext,
+                requireContext(),
                 "com.keelim.fileprovider", File(cachePath, "image.png")
             )
         }.onSuccess {

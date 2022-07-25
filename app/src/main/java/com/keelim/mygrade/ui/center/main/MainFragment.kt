@@ -19,7 +19,7 @@ import com.keelim.data.model.Result
 import com.keelim.data.repository.IoRepository
 import com.keelim.mygrade.R
 import com.keelim.mygrade.databinding.FragmentMainBinding
-import com.keelim.mygrade.ui.GradeActivity
+import com.keelim.mygrade.utils.Keys
 import com.keelim.mygrade.utils.ThemeManager
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -46,10 +46,12 @@ class MainViewModel @Inject constructor(
             runCatching {
                 true
             }.onSuccess {
-                _state.emit(MainState.Success(
-                    it,
-                    getNormalProbabilityAtZ(((origin - average) / number).toDouble()),
-                ))
+                _state.emit(
+                    MainState.Success(
+                        it,
+                        getNormalProbabilityAtZ(((origin - average) / number).toDouble()),
+                    )
+                )
             }.onFailure {
                 _state.emit(MainState.Error("실패"))
             }
@@ -72,13 +74,17 @@ class MainViewModel @Inject constructor(
         grade: String,
         level: String,
     ) = viewModelScope.launch {
-        ioRepository.insertHistories(History(Date().time.toString(),
-            origin.toInt(),
-            average,
-            number,
-            student,
-            grade.toFloat(),
-            level))
+        ioRepository.insertHistories(
+            History(
+                Date().time.toString(),
+                origin.toInt(),
+                average,
+                number,
+                student,
+                grade.toFloat(),
+                level
+            )
+        )
     }
 }
 
@@ -98,11 +104,13 @@ class MainFragment : Fragment() {
         .apply {
             btnSubmit.setOnClickListener {
                 if (validation().not()) return@setOnClickListener
-                viewModel.submit(valueOrigin.text.toString().toFloat(),
+                viewModel.submit(
+                    valueOrigin.text.toString().toFloat(),
                     valueAverage.text.toString().toFloat(),
                     valueNumber.text.toString().toFloat(),
                     valueStudent.text.toString().toInt(),
-                    true)
+                    true
+                )
             }
             notification.setOnClickListener { findNavController().navigate(R.id.notificationFragment) }
             history.setOnClickListener { findNavController().navigate(R.id.historyFragment) }
@@ -142,12 +150,16 @@ class MainFragment : Fragment() {
                                 it.value < 100 -> "D"
                                 else -> "F"
                             }
-                            startActivity(Intent(requireContext(),
-                                GradeActivity::class.java).apply {
-                                putExtra("data",
-                                    Result(grade,
-                                        getLevel((it.value * binding.valueStudent.text.toString()
-                                            .toInt()) / 100)))
+                            findNavController().navigate(R.id.gradeFragment, Bundle().apply {
+                                putParcelable(
+                                    Keys.MAIN_TO_GRADE, Result(
+                                        grade,
+                                        getLevel(
+                                            (it.value * binding.valueStudent.text.toString()
+                                                .toInt()) / 100
+                                        )
+                                    )
+                                )
                             })
                         }
                     }
@@ -187,5 +199,6 @@ sealed class MainState {
         val flag: Boolean,
         val value: Int,
     ) : MainState()
+
     data class Error(val message: String) : MainState()
 }

@@ -62,6 +62,8 @@ dependencies {
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.inapp.update)
     implementation(libs.mp.chart)
+    implementation(libs.coil.kt)
+    implementation(libs.coil.kt.svg)
 }
 
 

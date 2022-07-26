@@ -21,5 +21,6 @@ include(
     ":compose",
     ":data",
     ":common",
-    "benchmark"
+    ":design",
+    ":benchmark"
 )

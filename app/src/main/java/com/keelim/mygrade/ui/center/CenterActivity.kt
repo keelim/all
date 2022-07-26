@@ -9,8 +9,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.RemoteInput
 import androidx.core.graphics.drawable.IconCompat
+import androidx.core.view.WindowCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.metrics.performance.JankStats
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
@@ -41,6 +43,8 @@ class CenterViewModel @Inject constructor(
 class CenterActivity : AppCompatActivity() {
     @Inject
     lateinit var notificationBuilder: NotificationBuilder
+    @Inject
+    lateinit var lazyStats: dagger.Lazy<JankStats>
 
     private val viewModel: CenterViewModel by viewModels()
     private lateinit var binding: ActivityCenterBinding
@@ -57,6 +61,7 @@ class CenterActivity : AppCompatActivity() {
                 }
             }
         }
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
         binding = ActivityCenterBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -121,6 +126,16 @@ class CenterActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        lazyStats.get().isTrackingEnabled = true
+    }
+
+    override fun onPause() {
+        super.onPause()
+        lazyStats.get().isTrackingEnabled = false
     }
 
 

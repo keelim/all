@@ -11,7 +11,9 @@ plugins {
 
 android {
     defaultConfig {
-
+        vectorDrawables {
+            useSupportLibrary = true
+        }
     }
     buildTypes {
         create("benchmark") {
@@ -64,6 +66,7 @@ dependencies {
     implementation(libs.mp.chart)
     implementation(libs.coil.kt)
     implementation(libs.coil.kt.svg)
+    implementation(libs.androidx.metrics)
 }
 
 

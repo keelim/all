@@ -118,6 +118,9 @@ class MainFragment : Fragment() {
                 startActivity(Intent(requireContext(), OssLicensesMenuActivity::class.java))
                 return@setOnLongClickListener true
             }
+            floatingActionButton.setOnClickListener {
+                findNavController().navigate(R.id.simpleAddBottomSheet)
+            }
         }.also {
             _binding = it
         }.root

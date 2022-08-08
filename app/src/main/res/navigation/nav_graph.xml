@@ -18,7 +18,10 @@
             app:destination="@id/historyFragment" />
         <action
             android:id="@+id/action_main_to_grade"
-            app:destination="@id/gradeFragment"/>
+            app:destination="@id/gradeFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_simpleAddBottomSheet"
+            app:destination="@id/simpleAddBottomSheet" />
     </fragment>
 
     <fragment
@@ -35,9 +38,14 @@
         android:id="@+id/gradeFragment"
         android:name="com.keelim.mygrade.ui.GradeFragment"
         android:label="GradeFragment"
-        tools:layout="@layout/fragment_grade" >
+        tools:layout="@layout/fragment_grade">
         <argument
             android:name="mainToGrade"
             app:argType="com.keelim.data.model.Result" />
     </fragment>
+    <dialog
+        android:id="@+id/simpleAddBottomSheet"
+        android:name="com.keelim.mygrade.ui.center.simple.SimpleAddBottomSheet"
+        android:label="SimpleAddBottomSheet"
+        tools:layout="@layout/bottomsheet_simple_add" />
 </navigation>

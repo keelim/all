@@ -10,16 +10,20 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.RemoteInput
 import androidx.core.graphics.drawable.IconCompat
 import androidx.core.view.WindowCompat
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.metrics.performance.JankStats
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
+import com.keelim.common.extensions.showAsBottomSheet
 import com.keelim.data.db.entity.History
 import com.keelim.data.repository.IoRepository
+import com.keelim.mygrade.R
 import com.keelim.mygrade.databinding.ActivityCenterBinding
 import com.keelim.mygrade.notification.NotificationBuilder
 import com.keelim.mygrade.utils.Keys
@@ -43,8 +47,8 @@ class CenterViewModel @Inject constructor(
 class CenterActivity : AppCompatActivity() {
     @Inject
     lateinit var notificationBuilder: NotificationBuilder
-    @Inject
-    lateinit var lazyStats: dagger.Lazy<JankStats>
+//    @Inject
+//    lateinit var lazyStats: dagger.Lazy<JankStats>
 
     private val viewModel: CenterViewModel by viewModels()
     private lateinit var binding: ActivityCenterBinding
@@ -61,10 +65,15 @@ class CenterActivity : AppCompatActivity() {
                 }
             }
         }
-        WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
-        binding = ActivityCenterBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        DataBindingUtil.setContentView<ActivityCenterBinding>(
+            this,
+            R.layout.activity_center
+        ).apply {
+
+        }.also {
+            binding = it
+        }
         MainWorker.enqueueWork(this)
         sendNotification()
         handleIntent()
@@ -128,15 +137,15 @@ class CenterActivity : AppCompatActivity() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        lazyStats.get().isTrackingEnabled = true
-    }
-
-    override fun onPause() {
-        super.onPause()
-        lazyStats.get().isTrackingEnabled = false
-    }
+//    override fun onResume() {
+//        super.onResume()
+//        lazyStats.get().isTrackingEnabled = true
+//    }
+//
+//    override fun onPause() {
+//        super.onPause()
+//        lazyStats.get().isTrackingEnabled = false
+//    }
 
 
     companion object {

@@ -47,5 +47,9 @@
         android:id="@+id/simpleAddBottomSheet"
         android:name="com.keelim.mygrade.ui.center.simple.SimpleAddBottomSheet"
         android:label="SimpleAddBottomSheet"
-        tools:layout="@layout/bottomsheet_simple_add" />
+        tools:layout="@layout/bottomsheet_simple_add" >
+        <action
+            android:id="@+id/action_simple_to_grade"
+            app:destination="@id/gradeFragment" />
+    </dialog>
 </navigation>

@@ -50,6 +50,7 @@ class MainViewModel @Inject constructor(
                     MainState.Success(
                         it,
                         getNormalProbabilityAtZ(((origin - average) / number).toDouble()),
+                        student
                     )
                 )
             }.onFailure {
@@ -201,6 +202,7 @@ sealed class MainState {
     data class Success(
         val flag: Boolean,
         val value: Int,
+        val temp: Int = 0
     ) : MainState()
 
     data class Error(val message: String) : MainState()

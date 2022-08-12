@@ -64,7 +64,7 @@ class GradeViewModel @Inject constructor(
 
 @AndroidEntryPoint
 class GradeFragment : Fragment() {
-    private val data: Result? by lazy { requireArguments().getParcelable(Keys.MAIN_TO_GRADE) }
+    private val data: Result? by lazy { requireArguments().getParcelable(Keys.MAIN_TO_GRADE, Result::class.java) }
     private val viewModel by viewModels<GradeViewModel>()
 
     private var _binding: FragmentGradeBinding? = null

@@ -27,6 +27,7 @@ import java.util.Date
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -37,7 +38,7 @@ class MainViewModel @Inject constructor(
     private val ioRepository: IoRepository,
 ) : ViewModel() {
     private val _state: MutableStateFlow<MainState> = MutableStateFlow(MainState.UnInitialized)
-    val state: StateFlow<MainState> = _state
+    val state: StateFlow<MainState> = _state.asStateFlow()
 
     fun submit(origin: Float, average: Float, number: Float, student: Int, flag: Boolean = false) =
         viewModelScope.launch {

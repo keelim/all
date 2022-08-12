@@ -16,6 +16,7 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
+import com.keelim.common.extensions.getParcel
 import com.keelim.common.extensions.snack
 import com.keelim.data.db.entity.SimpleHistory
 import com.keelim.data.model.Result
@@ -52,9 +53,10 @@ class GradeViewModel @Inject constructor(
                 grade = grade,
                 rank = rank
             ))
+        changeSaveAction(isSave = true)
     }
 
-    fun changeSaveAction(isSave: Boolean) {
+    private fun changeSaveAction(isSave: Boolean) {
         _uiState.update { it.copy(isSave = isSave) }
     }
     data class GradeUiState(
@@ -64,8 +66,8 @@ class GradeViewModel @Inject constructor(
 
 @AndroidEntryPoint
 class GradeFragment : Fragment() {
-    private val data: Result? by lazy { requireArguments().getParcelable(Keys.MAIN_TO_GRADE, Result::class.java) }
     private val viewModel by viewModels<GradeViewModel>()
+    private val data: Result? by lazy { requireArguments().getParcel(Keys.MAIN_TO_GRADE, Result::class.java) }
 
     private var _binding: FragmentGradeBinding? = null
     private val binding get() = checkNotNull(_binding)
@@ -88,7 +90,6 @@ class GradeFragment : Fragment() {
         }
         btnSave.setOnClickListener {
             viewModel.saveSimpleHistory(_grade, _level)
-            viewModel.changeSaveAction(true)
         }
         imageviewBack.setOnClickListener {
             findNavController().navigateUp()

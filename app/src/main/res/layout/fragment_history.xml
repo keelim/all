@@ -26,11 +26,13 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_name"
-            style="@style/TextAppearance.Material3.TitleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:text="히스토리 기록"
+            style="@style/TextAppearance.Material3.TitleLarge"
+            android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/imageview_back"
             app:layout_constraintTop_toTopOf="parent" />

@@ -2,6 +2,7 @@ package com.keelim.mygrade.ui
 
 import android.content.Intent
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,10 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
+import com.google.modernstorage.permissions.RequestAccess
+import com.google.modernstorage.permissions.StoragePermissions
+import com.google.modernstorage.photopicker.PhotoPicker
+import com.google.modernstorage.storage.AndroidFileSystem
 import com.keelim.common.extensions.getParcel
 import com.keelim.common.extensions.snack
 import com.keelim.data.db.entity.SimpleHistory
@@ -72,6 +77,16 @@ class GradeFragment : Fragment() {
     private var _binding: FragmentGradeBinding? = null
     private val binding get() = checkNotNull(_binding)
 
+    private val photoPicker = registerForActivityResult(PhotoPicker()) { uris ->
+        startActivity(Intent.createChooser(
+            Intent().apply {
+                action = Intent.ACTION_SEND_MULTIPLE
+                putParcelableArrayListExtra(Intent.EXTRA_STREAM, ArrayList(uris))
+                type = "image/*"
+            }, "선택 이미지 공유")
+        )
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -93,6 +108,9 @@ class GradeFragment : Fragment() {
         }
         imageviewBack.setOnClickListener {
             findNavController().navigateUp()
+        }
+        btnShare.setOnClickListener {
+            photoPicker.launch(PhotoPicker.Args(PhotoPicker.Type.IMAGES_ONLY, 1))
         }
     }.also {
         _binding = it
@@ -120,9 +138,26 @@ class GradeFragment : Fragment() {
             .launchIn(lifecycleScope)
     }
 
+    private val requestAccess = registerForActivityResult(RequestAccess()) { hasAccess ->
+        if (hasAccess) {
+            saveAndCopyInternal()
+        } else {
+            requireActivity().snack(binding.root, "권한이 필요합니다. 다시 한번 시도해주세요")
+        }
+    }
     private fun saveAndCopy() {
+        requestAccess.launch(
+            RequestAccess.Args(
+            action = StoragePermissions.Action.READ_AND_WRITE,
+            types = listOf(StoragePermissions.FileType.Image, StoragePermissions.FileType.Document),
+            createdBy = StoragePermissions.CreatedBy.Self
+        ))
+    }
+    private fun saveAndCopyInternal() {
         runCatching {
             val screenBitmap = requireActivity().window.decorView.rootView.drawToBitmap()
+            val fileSystem = AndroidFileSystem(requireContext())
+
             val cachePath = File(requireActivity().cacheDir, "images").apply { mkdirs() }
             FileOutputStream("$cachePath/image.png").use {
                 screenBitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
@@ -132,10 +167,7 @@ class GradeFragment : Fragment() {
                 "com.keelim.fileprovider", File(cachePath, "image.png")
             )
         }.onSuccess {
-            startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).apply {
-                type = "image/png"
-                putExtra(Intent.EXTRA_STREAM, it)
-            }, "Share Capture Image"))
+            photoPicker.launch(PhotoPicker.Args(PhotoPicker.Type.IMAGES_ONLY, 1))
         }.onFailure {
             it.printStackTrace()
         }

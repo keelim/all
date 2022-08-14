@@ -19,8 +19,10 @@ import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.remoteconfig.ktx.get
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.keelim.common.extensions.showAsBottomSheet
+import com.keelim.common.extensions.toast
 import com.keelim.data.db.entity.History
 import com.keelim.data.repository.IoRepository
 import com.keelim.mygrade.R
@@ -63,6 +65,15 @@ class CenterActivity : AppCompatActivity() {
                         checkInAppUpdate()
                     }
                 }
+            }
+            get("newUpdate").also { newUpdate ->
+                toast(
+                    when {
+                        (newUpdate.asLong().toInt()) > 16 -> "새로운 업데이트가 있습니다. 확인해주세요"
+                        (newUpdate.asLong().toInt()) == 16 -> "올바른 버전 입니다."
+                        else -> "버전 확인이 완료되었습니다."
+                    }
+                )
             }
         }
         super.onCreate(savedInstanceState)

@@ -1,8 +1,12 @@
 # MyGrade
 
+## 최소한 디자인은 잡고 가자
+- 아이콘 (30*30)
+- 툴바
+  - 타이틀 (style="@style/TextAppearance.Material3.TitleLarge")
 ## Todo
 - 기본적으로 필요한 것들
-  - 아바타
+  - 아바타ㅌ
   - 배지
   - 버튼
   - 카드

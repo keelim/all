@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.fragment.findNavController
 import com.keelim.common.extensions.toGone
 import com.keelim.common.extensions.toVisible
 import com.keelim.common.extensions.toast
@@ -30,11 +31,11 @@ import kotlinx.coroutines.flow.stateIn
 
 @HiltViewModel
 class HistoryViewModel @Inject constructor(
-    private val ioRepository: IoRepository
+    private val ioRepository: IoRepository,
 ) : ViewModel() {
     val state: StateFlow<HistoryState> = ioRepository.simpleAll
         .map { items ->
-            if(items.isEmpty()){
+            if (items.isEmpty()) {
                 HistoryState.Loading
             } else {
                 HistoryState.Success(items)
@@ -61,11 +62,15 @@ class HistoryFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View = FragmentHistoryBinding.inflate(inflater, container, false).apply {
-        historyRecycler.adapter = historyAdapter
-    }.also {
-        _binding = it
-    }.root
+    ): View = FragmentHistoryBinding.inflate(inflater, container, false)
+        .apply {
+            historyRecycler.adapter = historyAdapter
+            imageviewBack.setOnClickListener {
+                findNavController().navigateUp()
+            }
+        }.also {
+            _binding = it
+        }.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -106,9 +111,10 @@ sealed class HistoryState {
     object UnInitialized : HistoryState()
     object Loading : HistoryState()
     data class Error(
-        val message: String
+        val message: String,
     ) : HistoryState()
+
     data class Success(
-        val data: List<SimpleHistory>
+        val data: List<SimpleHistory>,
     ) : HistoryState()
 }

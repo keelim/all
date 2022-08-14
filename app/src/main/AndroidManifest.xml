@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.keelim.mygrade">
 
-    <uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".MyApplication"
@@ -20,10 +21,14 @@
         <profileable
             android:shell="true"
             tools:targetApi="q" />
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="${APPLICATION_ID}" />
+
         <activity
             android:name=".ui.center.CenterActivity"
-            android:exported="true"
-            android:launchMode="singleInstance">
+            android:windowSoftInputMode="adjustResize"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,13 +38,6 @@
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcut" />
         </activity>
-        <activity
-            android:name=".ui.GradeActivity"
-            android:exported="true" />
-
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="${APPLICATION_ID}"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -62,5 +60,4 @@
                 tools:node="remove" />
         </provider>
     </application>
-
 </manifest>

@@ -1,5 +1,6 @@
 package com.keelim.data.repository
 
+import ReleaseNote
 import androidx.paging.PagingData
 import com.keelim.data.db.entity.History
 import com.keelim.data.db.entity.SimpleHistory
@@ -24,7 +25,7 @@ interface IoRepository {
     val simpleAll: Flow<List<SimpleHistory>>
 
     fun getAllPaging(): Flow<PagingData<History>>
-    suspend fun getNotification(): List<Notification>
+    fun getNotification(): Flow<List<Notification>>
     // simpleHistory
 
     suspend fun insertSimpleHistories(history: SimpleHistory)

@@ -69,8 +69,8 @@ class CenterActivity : AppCompatActivity() {
             get("newUpdate").also { newUpdate ->
                 toast(
                     when {
-                        (newUpdate.asLong().toInt()) > 16 -> "새로운 업데이트가 있습니다. 확인해주세요"
-                        (newUpdate.asLong().toInt()) == 16 -> "올바른 버전 입니다."
+                        (newUpdate.asLong().toInt()) > 17 -> "새로운 업데이트가 있습니다. 확인해주세요"
+                        (newUpdate.asLong().toInt()) == 17 -> "올바른 버전 입니다."
                         else -> "버전 확인이 완료되었습니다."
                     }
                 )

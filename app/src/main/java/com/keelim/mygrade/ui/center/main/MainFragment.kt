@@ -14,6 +14,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.keelim.common.extensions.snack
+import com.keelim.common.extensions.toast
 import com.keelim.data.db.entity.History
 import com.keelim.data.model.Result
 import com.keelim.data.repository.IoRepository
@@ -114,14 +115,25 @@ class MainFragment : Fragment() {
                     true
                 )
             }
-            notification.setOnClickListener { findNavController().navigate(R.id.notificationFragment) }
-            history.setOnClickListener { findNavController().navigate(R.id.historyFragment) }
-            footer.setOnLongClickListener {
-                startActivity(Intent(requireContext(), OssLicensesMenuActivity::class.java))
-                return@setOnLongClickListener true
-            }
             floatingActionButton.setOnClickListener {
                 findNavController().navigate(R.id.simpleAddBottomSheet)
+            }
+            bottomAppBar.setNavigationOnClickListener {
+                toast("현재 메뉴 준비 중입니다.")
+                startActivity(Intent(requireContext(), OssLicensesMenuActivity::class.java))
+            }
+            bottomAppBar.setOnMenuItemClickListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.menu_notification -> {
+                        findNavController().navigate(R.id.notificationFragment)
+                        true
+                    }
+                    R.id.menu_history -> {
+                        findNavController().navigate(R.id.historyFragment)
+                        true
+                    }
+                    else -> false
+                }
             }
         }.also {
             _binding = it

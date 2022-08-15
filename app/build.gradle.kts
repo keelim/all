@@ -21,6 +21,11 @@ android {
             matchingFallbacks += listOf("release")
             isDebuggable = false
         }
+        getByName("debug") {
+            extra["enableCrashlytics"] = false
+            extra["alwaysUpdateBuildId"] = false
+            isCrunchPngs = false
+        }
     }
     useLibrary("android.test.mock")
     buildFeatures {

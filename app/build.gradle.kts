@@ -7,6 +7,7 @@ plugins {
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
     id("dagger.hilt.android.plugin")
     id("com.google.firebase.firebase-perf")
+    id("keelim.spotless.lint")
 }
 
 android {

@@ -1,4 +1,5 @@
 package com.keelim.data.api
+
 import ReleaseNote
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.keelim.data.BuildConfig
@@ -35,7 +36,7 @@ class ApiRequestFactory @Inject constructor(
         .create()
 }
 
-class NotionInterceptor: Interceptor {
+class NotionInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): okhttp3.Response {
         val request = chain.request()
         return chain.proceed(
@@ -50,7 +51,8 @@ class NotionInterceptor: Interceptor {
 
 interface ApiService {
     @GET
-    suspend fun getNotification(@Url rul:String = BuildConfig.VERSION): Response<ResponseNotification>
+    suspend fun getNotification(@Url rul: String = BuildConfig.VERSION): Response<ResponseNotification>
+
     @GET
-    suspend fun getReleaseNotes(@Url rul:String = BuildConfig.BASE_NOTION): Response<ReleaseNote>
+    suspend fun getReleaseNotes(@Url rul: String = BuildConfig.BASE_NOTION): Response<ReleaseNote>
 }

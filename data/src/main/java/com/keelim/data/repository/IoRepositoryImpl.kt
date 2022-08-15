@@ -1,6 +1,5 @@
 package com.keelim.data.repository
 
-import ReleaseNote
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -79,7 +78,7 @@ class IoRepositoryImpl @Inject constructor(
                     it.body()?.toNotification() ?: emptyList()
                 )
             } ?: run {
-                emit(emptyList())
-            }
+            emit(emptyList())
+        }
     }
 }

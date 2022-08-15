@@ -1,7 +1,6 @@
-
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-import kotlinx.serialization.SerialName
 @Serializable
 data class ReleaseNote(
     @SerialName("archived")
@@ -33,7 +32,7 @@ data class ReleaseNote(
     @SerialName("title")
     val title: List<TitleX>,
     @SerialName("url")
-    val url: String // https://www.notion.so/17100f6ba057402ab5ec0cf0123c0207
+    val url: String, // https://www.notion.so/17100f6ba057402ab5ec0cf0123c0207
 )
 
 @Serializable
@@ -41,7 +40,7 @@ data class CreatedBy(
     @SerialName("id")
     val id: String, // 761cccfd-0a33-4774-8689-fd544502b79e
     @SerialName("object")
-    val objectX: String // user
+    val objectX: String, // user
 )
 
 @Serializable
@@ -49,7 +48,7 @@ data class LastEditedBy(
     @SerialName("id")
     val id: String, // 761cccfd-0a33-4774-8689-fd544502b79e
     @SerialName("object")
-    val objectX: String // user
+    val objectX: String, // user
 )
 
 @Serializable
@@ -57,7 +56,7 @@ data class Parent(
     @SerialName("type")
     val type: String, // workspace
     @SerialName("workspace")
-    val workspace: Boolean // true
+    val workspace: Boolean, // true
 )
 
 @Serializable
@@ -65,7 +64,7 @@ data class Properties(
     @SerialName("이름")
     val 이름: 이름,
     @SerialName("태그")
-    val 태그: 태그
+    val 태그: 태그,
 )
 
 @Serializable
@@ -79,7 +78,7 @@ data class TitleX(
     @SerialName("text")
     val text: Text,
     @SerialName("type")
-    val type: String // text
+    val type: String, // text
 )
 
 @Serializable
@@ -91,7 +90,7 @@ data class 이름(
     @SerialName("title")
     val title: Title,
     @SerialName("type")
-    val type: String // title
+    val type: String, // title
 )
 
 @Serializable
@@ -103,7 +102,7 @@ data class 태그(
     @SerialName("name")
     val name: String, // 태그
     @SerialName("type")
-    val type: String // multi_select
+    val type: String, // multi_select
 )
 
 @Serializable
@@ -112,7 +111,7 @@ class Title
 @Serializable
 data class MultiSelect(
     @SerialName("options")
-    val options: List<Option>
+    val options: List<Option>,
 )
 
 @Serializable
@@ -122,7 +121,7 @@ data class Option(
     @SerialName("id")
     val id: String, // 74b15b36-523b-4e2f-af5a-5bafd5123ff8
     @SerialName("name")
-    val name: String // heelo
+    val name: String, // heelo
 )
 
 @Serializable
@@ -138,7 +137,7 @@ data class Annotations(
     @SerialName("strikethrough")
     val strikethrough: Boolean, // false
     @SerialName("underline")
-    val underline: Boolean // false
+    val underline: Boolean, // false
 )
 
 @Serializable
@@ -146,5 +145,5 @@ data class Text(
     @SerialName("content")
     val content: String, // MyGrade
     @SerialName("link")
-    val link: String // null
+    val link: String, // null
 )

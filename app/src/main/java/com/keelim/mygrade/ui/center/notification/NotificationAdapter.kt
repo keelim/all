@@ -12,9 +12,13 @@ class NotificationAdapter(
 ) : ListAdapter<Notification, NotificationViewHolder>(diffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotificationViewHolder {
-        return NotificationViewHolder(ItemNotificationBinding.inflate(LayoutInflater.from(parent.context),
-            parent,
-            false))
+        return NotificationViewHolder(
+            ItemNotificationBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: NotificationViewHolder, position: Int) {

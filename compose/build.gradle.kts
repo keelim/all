@@ -2,6 +2,7 @@ plugins {
     id("keelim.android.library")
     id("keelim.android.library.compose")
     id("kotlinx-serialization")
+    id("keelim.spotless.lint")
 }
 
 dependencies {

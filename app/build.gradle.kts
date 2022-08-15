@@ -7,6 +7,7 @@ plugins {
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
     id("dagger.hilt.android.plugin")
     id("com.google.firebase.firebase-perf")
+    id("keelim.spotless.lint")
 }
 
 android {
@@ -20,6 +21,11 @@ android {
             signingConfig = signingConfigs.getByName("debug")
             matchingFallbacks += listOf("release")
             isDebuggable = false
+        }
+        getByName("debug") {
+            extra["enableCrashlytics"] = false
+            extra["alwaysUpdateBuildId"] = false
+            isCrunchPngs = false
         }
     }
     useLibrary("android.test.mock")

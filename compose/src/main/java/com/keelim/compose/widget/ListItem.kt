@@ -47,37 +47,47 @@ fun ListItem(
     backgroundColor: Color,
     onItemClick: ((Int) -> Unit)? = null,
 ) {
-    Row(modifier = Modifier
-        .fillMaxWidth()
-        .height(60.dp)
-        .background(backgroundColor)
-        .clickable {
-            onItemClick?.invoke(item.id)
-        },
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(60.dp)
+            .background(backgroundColor)
+            .clickable {
+                onItemClick?.invoke(item.id)
+            },
         horizontalArrangement = Arrangement.Start,
-        verticalAlignment = Alignment.CenterVertically) {
-        Text(modifier = Modifier
-            .weight(1f)
-            .padding(horizontal = 16.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            modifier = Modifier
+                .weight(1f)
+                .padding(horizontal = 16.dp),
             text = item.message,
-            style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.SemiBold))
+            style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.SemiBold)
+        )
         Box(modifier = Modifier.size(60.dp), contentAlignment = Alignment.Center) {
             when (val state = item.state) {
                 ItemState.Visible, ItemState.Finish -> {
-                    Icon(imageVector = if (state is ItemState.Visible) {
-                        Icons.Default.PlayArrow
-                    } else {
-                        Icons.Default.Check
-                    }, contentDescription = "State Icon", tint = if (state is ItemState.Visible) {
-                        Color.Gray
-                    } else {
-                        Color.Blue
-                    })
+                    Icon(
+                        imageVector = if (state is ItemState.Visible) {
+                            Icons.Default.PlayArrow
+                        } else {
+                            Icons.Default.Check
+                        },
+                        contentDescription = "State Icon",
+                        tint = if (state is ItemState.Visible) {
+                            Color.Gray
+                        } else {
+                            Color.Blue
+                        }
+                    )
                 }
                 ItemState.Progress -> {
-                    CircularProgressIndicator(modifier = Modifier.size(30.dp),
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(30.dp),
                         strokeWidth = 3.dp,
-                        color = Color.Magenta)
+                        color = Color.Magenta
+                    )
                 }
             }
         }
@@ -88,9 +98,11 @@ fun ListItem(
 @Composable
 fun PreviewListItem(
     mockItems: List<AppItem> = (0..20).map { index ->
-        AppItem(id = index,
+        AppItem(
+            id = index,
             message = "index $index",
-            state = if (index % 2 == 0) ItemState.Visible else ItemState.Progress)
+            state = if (index % 2 == 0) ItemState.Visible else ItemState.Progress
+        )
     },
 ) {
     LazyColumn(
@@ -98,7 +110,7 @@ fun PreviewListItem(
             .fillMaxSize()
             .background(Color.White),
         verticalArrangement = Arrangement.Top
-    ){
+    ) {
         items(
             items = mockItems,
             key = { it.id }
@@ -106,8 +118,8 @@ fun PreviewListItem(
             ListItem(
                 item = item,
                 backgroundColor =
-                    if(item.id %2 == 0) Color.LightGray
-                    else Color.White,
+                if (item.id % 2 == 0) Color.LightGray
+                else Color.White,
                 onItemClick = {
                     Log.d("[COMPOSE]", "Compose ListItem clicked")
                 }

@@ -22,7 +22,7 @@ class MainWorker @AssistedInject constructor(
     @Assisted ctx: Context,
     @Assisted params: WorkerParameters,
     private val notificationBuilder: NotificationBuilder,
-): CoroutineWorker(ctx, params) {
+) : CoroutineWorker(ctx, params) {
     override suspend fun doWork(): Result {
         return try {
             notificationBuilder.showNotification(null)
@@ -35,6 +35,7 @@ class MainWorker @AssistedInject constructor(
             }
         }
     }
+
     companion object {
 
         private const val DEBUG = false

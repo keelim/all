@@ -2,7 +2,6 @@ package com.keelim.mygrade.ui
 
 import android.content.Intent
 import android.graphics.Bitmap
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -57,13 +56,15 @@ class GradeViewModel @Inject constructor(
                 name = "",
                 grade = grade,
                 rank = rank
-            ))
+            )
+        )
         changeSaveAction(isSave = true)
     }
 
     private fun changeSaveAction(isSave: Boolean) {
         _uiState.update { it.copy(isSave = isSave) }
     }
+
     data class GradeUiState(
         val isSave: Boolean = false,
     )
@@ -72,31 +73,38 @@ class GradeViewModel @Inject constructor(
 @AndroidEntryPoint
 class GradeFragment : Fragment() {
     private val viewModel by viewModels<GradeViewModel>()
-    private val data: Result? by lazy { requireArguments().getParcel(Keys.MAIN_TO_GRADE, Result::class.java) }
+    private val data: Result? by lazy {
+        requireArguments().getParcel(
+            Keys.MAIN_TO_GRADE,
+            Result::class.java
+        )
+    }
 
     private var _binding: FragmentGradeBinding? = null
     private val binding get() = checkNotNull(_binding)
 
     private val photoPicker = registerForActivityResult(PhotoPicker()) { uris ->
-        startActivity(Intent.createChooser(
-            Intent().apply {
-                action = Intent.ACTION_SEND_MULTIPLE
-                putParcelableArrayListExtra(Intent.EXTRA_STREAM, ArrayList(uris))
-                type = "image/*"
-            }, "선택 이미지 공유")
+        startActivity(
+            Intent.createChooser(
+                Intent().apply {
+                    action = Intent.ACTION_SEND_MULTIPLE
+                    putParcelableArrayListExtra(Intent.EXTRA_STREAM, ArrayList(uris))
+                    type = "image/*"
+                }, "선택 이미지 공유"
+            )
         )
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View = DataBindingUtil.inflate<FragmentGradeBinding>(
         inflater,
         R.layout.fragment_grade,
         container,
         false
-    ).apply{
+    ).apply {
         val (_grade, _level) = data?.grade.orEmpty() to data?.point.orEmpty()
         grade.text = _grade
         level.text = _level
@@ -126,11 +134,11 @@ class GradeFragment : Fragment() {
         _binding = null
     }
 
-    private fun initFlow(){
+    private fun initFlow() {
         viewModel.uiState
             .flowWithLifecycle(lifecycle)
             .onEach { state ->
-                if(state.isSave){
+                if (state.isSave) {
                     requireActivity().snack(binding.root, "저장이 완료되었습니다. ")
                 }
             }
@@ -145,14 +153,20 @@ class GradeFragment : Fragment() {
             requireActivity().snack(binding.root, "권한이 필요합니다. 다시 한번 시도해주세요")
         }
     }
+
     private fun saveAndCopy() {
         requestAccess.launch(
             RequestAccess.Args(
-            action = StoragePermissions.Action.READ_AND_WRITE,
-            types = listOf(StoragePermissions.FileType.Image, StoragePermissions.FileType.Document),
-            createdBy = StoragePermissions.CreatedBy.Self
-        ))
+                action = StoragePermissions.Action.READ_AND_WRITE,
+                types = listOf(
+                    StoragePermissions.FileType.Image,
+                    StoragePermissions.FileType.Document
+                ),
+                createdBy = StoragePermissions.CreatedBy.Self
+            )
+        )
     }
+
     private fun saveAndCopyInternal() {
         runCatching {
             val screenBitmap = requireActivity().window.decorView.rootView.drawToBitmap()

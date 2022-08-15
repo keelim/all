@@ -27,7 +27,7 @@ interface SimpleHistoryDao {
     fun getAll(): Flow<List<SimpleHistory>>
 
     @Query("SELECT * FROM simple_history LIMIT :loadSize OFFSET (:page-1)*:loadSize")
-    suspend fun getPagingAll(page:Int, loadSize:Int): List<SimpleHistory>
+    suspend fun getPagingAll(page: Int, loadSize: Int): List<SimpleHistory>
 
     @Query("SELECT * FROM simple_history")
     suspend fun getAllSimpleHistory(): List<SimpleHistory>

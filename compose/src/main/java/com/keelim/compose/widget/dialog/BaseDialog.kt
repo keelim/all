@@ -13,7 +13,7 @@ import androidx.compose.ui.window.DialogProperties
 
 @Composable
 fun BaseDialog(
-    onDismissRequest: () ->Unit,
+    onDismissRequest: () -> Unit,
     properties: DialogProperties = DialogProperties(),
     content: @Composable () -> Unit,
 ) {
@@ -29,16 +29,16 @@ fun SampleDialog(
     isVisible: Boolean,
     onDismissRequest: () -> Unit,
 ) {
-    if(isVisible){
+    if (isVisible) {
         BaseDialog(
             onDismissRequest = onDismissRequest,
             content = {
                 Column {
                     Text(
-                       modifier = Modifier
-                           .padding(top = 24.dp)
-                           .padding(horizontal = 12.dp)
-                           .clickable { onDismissRequest.invoke() },
+                        modifier = Modifier
+                            .padding(top = 24.dp)
+                            .padding(horizontal = 12.dp)
+                            .clickable { onDismissRequest.invoke() },
                         text = "안녕하세요",
                     )
                 }

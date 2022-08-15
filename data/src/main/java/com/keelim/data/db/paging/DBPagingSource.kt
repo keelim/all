@@ -2,13 +2,12 @@ package com.keelim.data.db.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.keelim.data.db.AppDatabase
 import com.keelim.data.db.dao.HistoryDao
 import com.keelim.data.db.entity.History
 import javax.inject.Inject
 
 class DBPagingSource @Inject constructor(
-    private val historyDao: HistoryDao
+    private val historyDao: HistoryDao,
 ) : PagingSource<Int, History>() {
     override fun getRefreshKey(state: PagingState<Int, History>): Int? {
         return state.anchorPosition?.let { anchorPosition ->

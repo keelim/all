@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.keelim.data.db.entity.History
 import com.keelim.data.db.entity.SimpleHistory
 import com.keelim.mygrade.databinding.ItemNotificationBinding
 
@@ -31,7 +30,10 @@ class HistoryAdapter(
                 return oldItem == newItem
             }
 
-            override fun areContentsTheSame(oldItem: SimpleHistory, newItem: SimpleHistory): Boolean {
+            override fun areContentsTheSame(
+                oldItem: SimpleHistory,
+                newItem: SimpleHistory,
+            ): Boolean {
                 return oldItem == newItem
             }
         }

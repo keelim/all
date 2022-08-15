@@ -15,3 +15,13 @@ dependencies {
     implementation(libs.kotlin.gradlePlugin)
     implementation(libs.spotless.gradlePlugin)
 }
+
+gradlePlugin {
+    plugins {
+        register("spotless") {
+            id = "keelim.spotless.lint"
+            implementationClass = "SpotlessConventionPlugin"
+        }
+    }
+}
+

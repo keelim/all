@@ -9,19 +9,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.RemoteInput
 import androidx.core.graphics.drawable.IconCompat
-import androidx.core.view.WindowCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.metrics.performance.JankStats
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.get
 import com.google.firebase.remoteconfig.ktx.remoteConfig
-import com.keelim.common.extensions.showAsBottomSheet
 import com.keelim.common.extensions.toast
 import com.keelim.data.db.entity.History
 import com.keelim.data.repository.IoRepository
@@ -95,10 +91,12 @@ class CenterActivity : AppCompatActivity() {
         val remoteInput = RemoteInput.Builder(KEY_TEXT_REPLY).setLabel(replyLabel).build()
 
         val resultIntent = Intent(this, CenterActivity::class.java)
-        val resultPendingIntent = PendingIntent.getActivity(this,
+        val resultPendingIntent = PendingIntent.getActivity(
+            this,
             0,
             resultIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
 
         val icon =
             IconCompat.createWithResource(this@CenterActivity, android.R.drawable.ic_dialog_info)
@@ -122,12 +120,15 @@ class CenterActivity : AppCompatActivity() {
         val appUpdateInfo = appUpdateManager.appUpdateInfo
         appUpdateInfo.addOnSuccessListener { appUpdateInfo ->
             if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE && appUpdateInfo.updatePriority() >= 4 /* high priority */ && appUpdateInfo.isUpdateTypeAllowed(
-                    AppUpdateType.IMMEDIATE)
+                    AppUpdateType.IMMEDIATE
+                )
             ) {
-                appUpdateManager.startUpdateFlowForResult(appUpdateInfo,
+                appUpdateManager.startUpdateFlowForResult(
+                    appUpdateInfo,
                     AppUpdateType.IMMEDIATE,
                     this,
-                    Keys.IN_APP_UPDATE_REQUEST_CODE)
+                    Keys.IN_APP_UPDATE_REQUEST_CODE
+                )
             }
         }
     }

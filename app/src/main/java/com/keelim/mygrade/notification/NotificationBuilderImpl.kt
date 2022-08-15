@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 
 class NotificationBuilderImpl @Inject constructor(
-    @ApplicationContext ctx: Context
+    @ApplicationContext ctx: Context,
 ) : NotificationBuilder {
 
     private val applicationContext = ctx.applicationContext
@@ -25,7 +25,7 @@ class NotificationBuilderImpl @Inject constructor(
             setContentTitle(buildSpannedString { bold { append("성적을 확인해보아요") } })
             setContentText("안녕하세요 마이그레이드 입니다.")
             setAutoCancel(true)
-            action?.let{
+            action?.let {
                 addAction(it)
             }
             setContentIntent(createLauncherIntent())
@@ -34,9 +34,11 @@ class NotificationBuilderImpl @Inject constructor(
 
     private fun Context.createLauncherIntent(): PendingIntent {
         val intent = Intent(this, CenterActivity::class.java)
-        return PendingIntent.getActivity(this,
+        return PendingIntent.getActivity(
+            this,
             0,
             intent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
     }
 }

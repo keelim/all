@@ -1,6 +1,5 @@
 package com.keelim.data.repository
 
-import ReleaseNote
 import androidx.paging.PagingData
 import com.keelim.data.db.entity.History
 import com.keelim.data.db.entity.SimpleHistory

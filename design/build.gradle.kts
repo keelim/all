@@ -1,5 +1,6 @@
 plugins {
     id("keelim.android.library")
+    id("keelim.spotless.lint")
 }
 
 android {

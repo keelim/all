@@ -15,7 +15,7 @@ import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 
 @HiltAndroidApp
-class MyApplication: Application(), ImageLoaderFactory {
+class MyApplication : Application(), ImageLoaderFactory {
     @Inject
     lateinit var appOpenManager: AppOpenManager
     override fun onCreate() {

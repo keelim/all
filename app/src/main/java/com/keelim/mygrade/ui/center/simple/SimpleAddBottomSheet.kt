@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.constraintlayout.motion.widget.TransitionBuilder.validate
-import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
@@ -23,7 +21,6 @@ import com.keelim.mygrade.utils.Keys
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import okhttp3.internal.platform.android.AndroidLogHandler.getLevel
 
 @AndroidEntryPoint
 class SimpleAddBottomSheet : BottomSheetDialogFragment() {
@@ -55,21 +52,21 @@ class SimpleAddBottomSheet : BottomSheetDialogFragment() {
     }
 
     private fun BottomsheetSimpleAddBinding.validate() {
-        if(valueAverage.text.toString().count {it == ','} != 3) {
+        if (valueAverage.text.toString().count { it == ',' } != 3) {
             valueAverage.error = "올바른 양식으로 입력해주세요."
         } else {
             valueAverage.text.toString()
                 .let { shortCut ->
                     val data = shortCut.split(",")
                     runCatching {
-                        require(data.size ==  4) {
+                        require(data.size == 4) {
                             "data length is always 4"
                         }
                         data
                     }.getOrElse {
                         emptyList()
                     }.let { items ->
-                        if(items.isNotEmpty()) {
+                        if (items.isNotEmpty()) {
                             viewModel.submit(
                                 items[0].toFloat(),
                                 items[1].toFloat(),

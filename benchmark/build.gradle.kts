@@ -2,6 +2,7 @@
 
 plugins {
     id("keelim.android.test")
+    id("keelim.spotless.lint")
 }
 
 android {

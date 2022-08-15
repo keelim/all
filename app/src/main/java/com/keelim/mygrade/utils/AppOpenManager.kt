@@ -17,7 +17,7 @@ import java.util.Date
 import javax.inject.Inject
 import timber.log.Timber
 
-class AppOpenManager @Inject constructor(): LifecycleObserver {
+class AppOpenManager @Inject constructor() : LifecycleObserver {
     private var appOpenAd: AppOpenAd? = null
     private var currentActivity: Activity? = null
     private val AD_UNIT_ID = "ca-app-pub-3940256099942544/3419835294"
@@ -28,24 +28,31 @@ class AppOpenManager @Inject constructor(): LifecycleObserver {
         get() = appOpenAd != null && wasLoadTimeLessThanNHoursAgo()
     private var loadTime: Long = 0
 
-    fun initialize(application: Application){
+    fun initialize(application: Application) {
         this.application = application
 
-        application.registerActivityLifecycleCallbacks(object: ActivityLifecycleCallbacks{
+        application.registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
             override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {}
             override fun onActivityStarted(activity: Activity) {
                 currentActivity = activity
                 showAdIfAvailable()
                 Timber.d("onStart")
             }
-            override fun onActivityResumed(activity: Activity) { currentActivity = activity }
+
+            override fun onActivityResumed(activity: Activity) {
+                currentActivity = activity
+            }
+
             override fun onActivityStopped(activity: Activity) {}
             override fun onActivityPaused(activity: Activity) {}
             override fun onActivitySaveInstanceState(activity: Activity, bundle: Bundle) {}
-            override fun onActivityDestroyed(activity: Activity) { currentActivity = null }
+            override fun onActivityDestroyed(activity: Activity) {
+                currentActivity = null
+            }
         })
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)
     }
+
     /**
      * Request an ad
      * Have unused ad, no need to fetch another.
@@ -72,6 +79,7 @@ class AppOpenManager @Inject constructor(): LifecycleObserver {
                 appOpenAd = ad
                 loadTime = Date().time
             }
+
             /**
              * Called when an app open ad has failed to load.
              * @param loadAdError the error.
@@ -81,9 +89,9 @@ class AppOpenManager @Inject constructor(): LifecycleObserver {
         }
         AppOpenAd.load(
             application,
-            if(BuildConfig.DEBUG){
+            if (BuildConfig.DEBUG) {
                 AD_UNIT_ID
-            } else{
+            } else {
                 BuildConfig.AD_OPEN_ID
             },
             adRequest,
@@ -91,6 +99,7 @@ class AppOpenManager @Inject constructor(): LifecycleObserver {
             loadCallback
         )
     }
+
     /**
      * Only show ad if there is not already an app open ad currently showing
      * and an ad is available.

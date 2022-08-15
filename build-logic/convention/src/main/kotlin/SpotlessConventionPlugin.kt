@@ -35,7 +35,7 @@ class SpotlessConventionPlugin : Plugin<Project> {
                     ktlint(libs.findVersion("ktlint").get().toString())
                         .setUseExperimental(true)
                         .userData(mapOf("android" to "true"))
-                    
+
                     licenseHeaderFile(rootProject.file("lint/copyright.kt"))
                 }
             }

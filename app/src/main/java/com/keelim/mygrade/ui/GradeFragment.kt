@@ -20,7 +20,6 @@ import com.google.modernstorage.permissions.RequestAccess
 import com.google.modernstorage.permissions.StoragePermissions
 import com.google.modernstorage.photopicker.PhotoPicker
 import com.google.modernstorage.storage.AndroidFileSystem
-import com.keelim.common.extensions.getParcel
 import com.keelim.common.extensions.snack
 import com.keelim.data.db.entity.SimpleHistory
 import com.keelim.data.model.Result
@@ -74,9 +73,8 @@ class GradeViewModel @Inject constructor(
 class GradeFragment : Fragment() {
     private val viewModel by viewModels<GradeViewModel>()
     private val data: Result? by lazy {
-        requireArguments().getParcel(
-            Keys.MAIN_TO_GRADE,
-            Result::class.java
+        requireArguments().getParcelable(
+            Keys.MAIN_TO_GRADE
         )
     }
 

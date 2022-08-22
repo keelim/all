@@ -1,10 +1,16 @@
 package com.keelim.mygrade.ui.center.history
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.doOnAttach
+import androidx.core.view.doOnDetach
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.keelim.common.extensions.ViewHolderLifecycleInitializer
 import com.keelim.data.db.entity.SimpleHistory
 import com.keelim.mygrade.databinding.ItemNotificationBinding
 
@@ -41,7 +47,11 @@ class HistoryAdapter(
 }
 
 class HistoryViewHolder(val binding: ItemNotificationBinding) :
-    RecyclerView.ViewHolder(binding.root) {
+    RecyclerView.ViewHolder(binding.root), ViewHolderLifecycleInitializer {
+    override var lifecycleOwner: LifecycleOwner? = null
+    init {
+        initialize(itemView)
+    }
     fun bind(item: SimpleHistory) = with(binding) {
         title.text = item.name
         date.text = item.date

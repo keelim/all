@@ -1,0 +1,7 @@
+local.properties
+gitignore
+/build
+/.gradle
+/.idea
+app/build.gradle.kts
+app/google-services.json

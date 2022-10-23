@@ -23,6 +23,33 @@ android {
         getByName("release") {
         }
     }
+    flavorDimensions("versionCode")
+    productFlavors {
+        create("economy") {
+            applicationIdSuffix = ".economy"
+            versionCode = 1
+            versionName = "0.0.1"
+            manifestPlaceholders["app_name"] = "Comssa Economy"
+        }
+        create("politics") {
+            applicationIdSuffix = ".politics"
+            versionCode = 1
+            versionName = "0.0.1"
+            manifestPlaceholders["app_name"] = "Comssa politics"
+        }
+        create("coin") {
+            applicationIdSuffix = ".coin"
+            versionCode = 1
+            versionName = "0.0.1"
+            manifestPlaceholders["app_name"] = "Comssa coin"
+        }
+        create("computer_science") {
+            applicationIdSuffix = ".computer_science"
+            versionCode = 1
+            versionName = "0.0.1"
+            manifestPlaceholders["app_name"] = "Comssa computer science"
+        }
+    }
 }
 
 dependencies {

@@ -43,7 +43,6 @@ dependencies {
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-crashlytics-ktx")
     implementation("com.google.firebase:firebase-perf-ktx")
-    implementation("com.google.firebase:firebase-firestore-ktx")
     implementation("androidx.paging:paging-common-ktx:3.1.0")
     implementation("androidx.paging:paging-runtime-ktx:3.1.0")
 

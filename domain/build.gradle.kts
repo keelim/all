@@ -5,6 +5,10 @@ plugins {
     id("dagger.hilt.android.plugin")
 }
 
+android {
+    namespace = "com.keelim.comssa.domain"
+}
+
 dependencies {
     implementation(projects.data)
     implementation(AndroidX.core_ktx)

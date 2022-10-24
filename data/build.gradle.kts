@@ -27,6 +27,7 @@ android {
     sourceSets {
         getByName("androidTest").assets.srcDirs("$projectDir/schemas")
     }
+    namespace = "com.keelim.comssa.data"
 }
 
 dependencies {

@@ -21,13 +21,13 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SearchFragment: Fragment() {
-    private var _binding: FragmentSearchBinding? =null
+class SearchFragment : Fragment() {
+    private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
-    private val viewModel:SearchViewModel by viewModels()
+    private val viewModel: SearchViewModel by viewModels()
     private val itemAdapter = SearchAdapter { favorite, id ->
-            viewModel.favorite(favorite, id)
-            requireContext().toast("관심 목록에 등록을 하였습니다.")
+        viewModel.favorite(favorite, id)
+        requireContext().toast("관심 목록에 등록을 하였습니다.")
     }
 
     override fun onCreateView(
@@ -49,11 +49,11 @@ class SearchFragment: Fragment() {
         _binding = null
     }
 
-    private fun initViews() = with(binding){
+    private fun initViews() = with(binding) {
         searchSection.apply {
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String): Boolean = true
-                override fun onQueryTextChange(query: String): Boolean  {
+                override fun onQueryTextChange(query: String): Boolean {
                     search2(query.replace("\\s", ""))
                     return true
                 }
@@ -81,7 +81,6 @@ class SearchFragment: Fragment() {
         bottomButton.setOnClickListener {
             requireContext().toast("기능 준비중 입니다. 조금만 기다려주세요.")
         }
-        viewModel.init()
     }
 
     private fun search2(query: String) = lifecycleScope.launch {

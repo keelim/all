@@ -21,14 +21,12 @@ import com.keelim.comssa.data.model.User
 import javax.inject.Inject
 import kotlinx.coroutines.tasks.await
 
-class UserApiImpl @Inject constructor(
-
-) : UserApi {
-  private val fireStore = Firebase.firestore
-  override suspend fun saveUser(user: User): User {
-    return fireStore.collection("users")
-      .add(user)
-      .await()
-      .let { User(it.id) }
-  }
+class UserApiImpl @Inject constructor() : UserApi {
+    private val fireStore = Firebase.firestore
+    override suspend fun saveUser(user: User): User {
+        return fireStore.collection("users")
+            .add(user)
+            .await()
+            .let { User(it.id) }
+    }
 }

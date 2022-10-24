@@ -38,7 +38,6 @@ import com.keelim.comssa.ui.main.search.SearchFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import javax.inject.Inject
-import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -47,8 +46,10 @@ class MainActivity : AppCompatActivity() {
     private val viewPagerAdapter by lazy {
         MainViewPagerAdapter(this)
     }
+
     @Inject
     lateinit var recevier: DownloadReceiver
+
     @Inject
     lateinit var downloadRequest: DownloadRequest
 
@@ -62,17 +63,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun initViews() = with(binding) {
         val fragmentList = listOf(
-            SearchFragment(),
-            SearchFragment(),
-            SearchFragment(),
-            SearchFragment(),
-            SearchFragment()
+            SearchFragment(), SearchFragment(), SearchFragment(), SearchFragment(), SearchFragment()
         )
         viewPagerAdapter.fragmentList.addAll(fragmentList)
         viewpagerMain.adapter = viewPagerAdapter
 
-        viewpagerMain.registerOnPageChangeCallback(object :
-            ViewPager2.OnPageChangeCallback() {
+        viewpagerMain.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 binding.bottomNavigationMain.menu.getItem(position).isChecked = true
             }
@@ -98,36 +94,34 @@ class MainActivity : AppCompatActivity() {
 
     private fun fileChecking() {
         val check = File(getExternalFilesDir(null), "comssa.db")
-        if (check.exists().not())
-            databaseDownloadAlertDialog()
-        else
-            toast("데이터베이스가 존재합니다. 그대로 진행 합니다")
+        if (check.exists().not()) databaseDownloadAlertDialog()
+        else toast("데이터베이스가 존재합니다. 그대로 진행 합니다")
     }
 
     private fun databaseDownloadAlertDialog() {
         val itemPassword = ItemPasswordBinding.inflate(layoutInflater)
-        AlertDialog.Builder(this)
-            .setTitle("다운로드 요청")
-            .setView(itemPassword.root)
+        AlertDialog.Builder(this).setTitle("다운로드 요청").setView(itemPassword.root)
             .setMessage("어플리케이션 사용을 위해 데이터베이스를 다운로드 합니다.")
             .setPositiveButton("ok") { dialog, which ->
-                if(itemPassword.password.text.toString() == getString(R.string.password)){
+                if (itemPassword.password.text.toString() == getString(R.string.password)) {
                     toast("서버로부터 데이터 베이스를 요청 합니다.")
                     downloadDatabase()
-                } else{
+                } else {
                     toast("디폴트 데이터베이스를 다운로드 받습니다.")
                     downloadDatabase()
                 }
-            }
-            .show()
+            }.show()
     }
 
     private fun downloadDatabase(link: String? = null) {
         val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-        registerReceiver(recevier, IntentFilter().apply {
-            addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
-            addAction(DownloadManager.ACTION_NOTIFICATION_CLICKED)
-        })
+        registerReceiver(
+            recevier,
+            IntentFilter().apply {
+                addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
+                addAction(DownloadManager.ACTION_NOTIFICATION_CLICKED)
+            }
+        )
         downloadManager.enqueue(
             downloadRequest.provideDownloadRequest(link)
         )
@@ -149,8 +143,9 @@ class MainActivity : AppCompatActivity() {
         const val PROFILE_FRAGMENT = 4
     }
 
-    inner class MainViewPagerAdapter(fragmentActivity: FragmentActivity): FragmentStateAdapter(fragmentActivity) {
-        val fragmentList:MutableList<Fragment> = mutableListOf()
+    inner class MainViewPagerAdapter(fragmentActivity: FragmentActivity) :
+        FragmentStateAdapter(fragmentActivity) {
+        val fragmentList: MutableList<Fragment> = mutableListOf()
         override fun getItemCount(): Int = fragmentList.size
         override fun createFragment(position: Int) = fragmentList[position]
     }

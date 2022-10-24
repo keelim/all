@@ -25,6 +25,4 @@ class UpdateFavoriteUseCase @Inject constructor(
     suspend operator fun invoke(favorite: Int, id: Int) {
         ioRepository.updateFavorite(favorite, id)
     }
-
-
 }

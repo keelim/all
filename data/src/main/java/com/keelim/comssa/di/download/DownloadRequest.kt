@@ -9,8 +9,8 @@ import java.io.File
 
 class DownloadRequest(
     @ApplicationContext private val ctx: Context
-){
-    fun provideDownloadRequest(link:String? = null): DownloadManager.Request{
+) {
+    fun provideDownloadRequest(link: String? = null): DownloadManager.Request {
         return DownloadManager.Request(Uri.parse(link ?: ctx.getString(R.string.db_path)))
             .setTitle("Downloading")
             .setDescription("Downloading Database file")

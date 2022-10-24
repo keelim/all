@@ -11,17 +11,17 @@ import com.keelim.comssa.data.model.Feed
 import com.keelim.comssa.databinding.FragmentFeedBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class FeedFragment @Inject constructor() : Fragment() {
-    private var _binding:FragmentFeedBinding? = null
+    private var _binding: FragmentFeedBinding? = null
     private val binding get() = _binding!!
-    private val viewModel:FeedViewModel by viewModels()
-    private val feedAdapter by lazy{ FeedAdapter {
-
-    } }
+    private val viewModel: FeedViewModel by viewModels()
+    private val feedAdapter by lazy {
+        FeedAdapter {
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,27 +43,28 @@ class FeedFragment @Inject constructor() : Fragment() {
         _binding = null
     }
 
-    private fun initViews() = with(binding){
+    private fun initViews() = with(binding) {
         binding.recyclerviewFeed.adapter = feedAdapter
         feedAdapter.submitList(
             listOf(
-                Feed(0, 0,"title", "contnet","date",false,true,6, 6),
-                Feed(1, 1,"title1", "contnet1","date1",false,true,7, 8),
-                Feed(2, 2,"title2", "contnet2","date2",false,true,6, 6)
+                Feed(0, 0, "title", "contnet", "date", false, true, 6, 6),
+                Feed(1, 1, "title1", "contnet1", "date1", false, true, 7, 8),
+                Feed(2, 2, "title2", "contnet2", "date2", false, true, 6, 6)
             )
         )
         feedAdapter.notifyDataSetChanged()
     }
 
-    private fun observeFeedState() = viewLifecycleOwner.lifecycleScope.launch{
+    private fun observeFeedState() = viewLifecycleOwner.lifecycleScope.launch {
         viewModel.state.collect {
             when (it) {
                 is FeedState.Success -> {
                     feedAdapter.submitList(it.data)
                 }
-                is FeedState.Error -> {
 
+                is FeedState.Error -> {
                 }
+
                 else -> Unit
             }
         }

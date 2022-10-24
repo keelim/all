@@ -50,10 +50,12 @@ class GridSpacingItemDecoration(
                 outRect.left = spacing
                 outRect.right = (itemHorizontalSpacing - spacing).toInt()
             }
+
             (spanCount - 1) -> {
                 outRect.left = (itemHorizontalSpacing - spacing).toInt()
                 outRect.right = spacing
             }
+
             else -> {
                 outRect.left = (itemHorizontalSpacing / 2).toInt()
                 outRect.right = (itemHorizontalSpacing / 2).toInt()

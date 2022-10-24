@@ -49,21 +49,25 @@ class ReviewsAdapter(
                         .inflate(LayoutInflater.from(parent.context), parent, false)
                 )
             }
+
             ITEM_VIEW_TYPE_ITEM -> {
                 ReviewViewHolder(parent)
             }
+
             ITEM_VIEW_TYPE_REVIEW_FORM -> {
                 ReviewFormViewHolder(
                     ItemReviewFormBinding
                         .inflate(LayoutInflater.from(parent.context), parent, false)
                 )
             }
+
             ITEM_VIEW_TYPE_MY_REVIEW -> {
                 MyReviewViewHolder(
                     ItemMyReviewBinding
                         .inflate(LayoutInflater.from(parent.context), parent, false)
                 )
             }
+
             else -> throw RuntimeException("알 수 없는 ViewType 입니다.")
         }
 
@@ -74,13 +78,16 @@ class ReviewsAdapter(
             is MovieInformationViewHolder -> {
                 holder.bind(movie)
             }
+
             is ReviewViewHolder -> {
                 holder.bind(reviews[position - 2])
             }
+
             is MyReviewViewHolder -> {
                 myReview ?: return
                 holder.bind(myReview!!)
             }
+
             is ReviewFormViewHolder -> Unit
             else -> throw RuntimeException("알 수 없는 ViewHolder 입니다.")
         }
@@ -96,6 +103,7 @@ class ReviewsAdapter(
                     ITEM_VIEW_TYPE_MY_REVIEW
                 }
             }
+
             else -> ITEM_VIEW_TYPE_ITEM
         }
 
@@ -104,14 +112,15 @@ class ReviewsAdapter(
 
         @SuppressLint("SetTextI18n")
         fun bind(item: Data) {
-            binding.posterImageView.load(item.posterUrl){
+            binding.posterImageView.load(item.posterUrl) {
                 crossfade(true)
                 placeholder(R.drawable.ic_launcher_foreground)
             }
 
             item.let {
                 binding.averageScoreTextView.text =
-                    "평점 ${it.averageScore?.toDecimalFormatString("0.0")} (${it.numberOfScore?.toAbbreviatedString()})"
+                    "평점 ${it.averageScore?.toDecimalFormatString("0.0")} " +
+                    "(${it.numberOfScore?.toAbbreviatedString()})"
                 binding.titleTextView.text = it.title
                 binding.additionalInformationTextView.text = "${it.releaseYear}·${it.country}"
                 binding.relationsTextView.text = "감독: ${it.director}\n출연진: ${it.actors}"

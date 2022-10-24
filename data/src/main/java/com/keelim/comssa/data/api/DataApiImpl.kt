@@ -24,20 +24,20 @@ import javax.inject.Inject
 import kotlinx.coroutines.tasks.await
 
 class DataApiImpl @Inject constructor() : DataApi {
-  private val fireStore = Firebase.firestore
+    private val fireStore = Firebase.firestore
 
-  override suspend fun getAllData(): List<Data> {
-    return fireStore.collection("datas")
-      .get()
-      .await()
-      .map { it.toObject<Data>() }
-  }
+    override suspend fun getAllData(): List<Data> {
+        return fireStore.collection("datas")
+            .get()
+            .await()
+            .map { it.toObject<Data>() }
+    }
 
-  override suspend fun getDatas(dataIds: List<String>): List<Data> {
-    return fireStore.collection("datas")
-      .whereIn(FieldPath.documentId(), dataIds)
-      .get()
-      .await()
-      .map { it.toObject<Data>() }
-  }
+    override suspend fun getDatas(dataIds: List<String>): List<Data> {
+        return fireStore.collection("datas")
+            .whereIn(FieldPath.documentId(), dataIds)
+            .get()
+            .await()
+            .map { it.toObject<Data>() }
+    }
 }

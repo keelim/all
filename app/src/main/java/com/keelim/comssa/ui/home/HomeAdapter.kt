@@ -44,18 +44,21 @@ class HomeAdapter(
             ITEM_VIEW_TYPE_SECTION_HEADER -> {
                 TitleItemViewHolder(parent.context)
             }
+
             ITEM_VIEW_TYPE_FEATURED -> {
                 FeaturedDataItemViewHolder(
                     ItemFeaturedDataBinding
                         .inflate(LayoutInflater.from(parent.context), parent, false)
                 )
             }
+
             ITEM_VIEW_TYPE_ITEM -> {
                 DataItemViewHolder(
                     ItemDataBinding
                         .inflate(LayoutInflater.from(parent.context), parent, false)
                 )
             }
+
             else -> throw RuntimeException("알 수 없는 ViewType 입니다.")
         }
 
@@ -67,12 +70,15 @@ class HomeAdapter(
             holder is TitleItemViewHolder && itemValue is String -> {
                 holder.bind(itemValue)
             }
+
             holder is FeaturedDataItemViewHolder && itemValue is FeaturedData -> {
                 holder.bind(itemValue)
             }
+
             holder is DataItemViewHolder && itemValue is Data -> {
                 holder.bind(itemValue)
             }
+
             else -> throw RuntimeException("알 수 없는 ViewHolder 입니다.")
         }
     }
@@ -156,7 +162,7 @@ class HomeAdapter(
 
         @SuppressLint("SetTextI18n")
         fun bind(data: Data) = with(binding) {
-            posterImageView.load(data.posterUrl){
+            posterImageView.load(data.posterUrl) {
                 crossfade(true)
                 placeholder(R.drawable.ic_launcher_foreground)
             }

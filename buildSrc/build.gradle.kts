@@ -2,6 +2,13 @@ plugins {
     `kotlin-dsl`
 }
 
+group = "com.keelim.buildSrc"
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
 repositories {
     google()
     mavenCentral()

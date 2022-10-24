@@ -10,7 +10,6 @@ import coil.decode.ImageDecoderDecoder
 import coil.util.CoilUtils
 import okhttp3.OkHttpClient
 
-
 class CoilInitializer : Initializer<Unit> {
 
     override fun create(context: Context) {

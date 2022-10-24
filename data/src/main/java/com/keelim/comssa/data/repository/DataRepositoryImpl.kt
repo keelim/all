@@ -26,11 +26,11 @@ class DataRepositoryImpl @Inject constructor(
     private val dataApi: DataApi,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) : DataRepository {
-  override suspend fun getAllDatas(): List<Data> = withContext(ioDispatcher) {
-    return@withContext dataApi.getAllData()
-  }
+    override suspend fun getAllDatas(): List<Data> = withContext(ioDispatcher) {
+        return@withContext dataApi.getAllData()
+    }
 
-  override suspend fun getData(dataIds: List<String>): List<Data> = withContext(ioDispatcher) {
-    return@withContext dataApi.getDatas(dataIds)
-  }
+    override suspend fun getData(dataIds: List<String>): List<Data> = withContext(ioDispatcher) {
+        return@withContext dataApi.getDatas(dataIds)
+    }
 }

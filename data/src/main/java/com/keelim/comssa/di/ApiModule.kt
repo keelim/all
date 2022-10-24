@@ -29,10 +29,12 @@ import dagger.hilt.components.SingletonComponent
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class ApiModule {
-  @Binds
-  abstract fun bindsDataApi(dataApiImpl: DataApiImpl): DataApi
-  @Binds
-  abstract fun bindsReviewApi(reviewApiImpl: ReviewApiImpl): ReviewApi
-  @Binds
-  abstract fun bindsUserApi(userApiImpl: UserApiImpl): UserApi
+    @Binds
+    abstract fun bindsDataApi(dataApiImpl: DataApiImpl): DataApi
+
+    @Binds
+    abstract fun bindsReviewApi(reviewApiImpl: ReviewApiImpl): ReviewApi
+
+    @Binds
+    abstract fun bindsUserApi(userApiImpl: UserApiImpl): UserApi
 }

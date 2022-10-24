@@ -26,15 +26,15 @@ class SearchUseCase @Inject constructor(
     private val ioRepository: IoRepository,
 ) {
 
-    operator fun invoke(query:String = ""): Flow<PagingData<Search>> {
+    operator fun invoke(query: String = ""): Flow<PagingData<Search>> {
         return ioRepository.getContentItemsByPaging(query)
     }
 
-    fun getFavorite(): Flow<PagingData<Search>>{
+    fun getFavorite(): Flow<PagingData<Search>> {
         return ioRepository.getFavoriteItemsByPaging()
     }
-    
-    suspend fun getDownloadLink(password:String): PasswordResult{
+
+    suspend fun getDownloadLink(password: String): PasswordResult {
         return ioRepository.getDownloadLink(password)
     }
 }

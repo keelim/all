@@ -26,11 +26,7 @@ class SearchUseCase @Inject constructor(
     private val ioRepository: IoRepository,
 ) {
 
-    suspend operator fun invoke(keyword: String?): List<Search> {
-        return ioRepository.getSearch(keyword.orEmpty())
-    }
-
-    fun getContent(query:String = ""): Flow<PagingData<Search>> {
+    operator fun invoke(query:String = ""): Flow<PagingData<Search>> {
         return ioRepository.getContentItemsByPaging(query)
     }
 

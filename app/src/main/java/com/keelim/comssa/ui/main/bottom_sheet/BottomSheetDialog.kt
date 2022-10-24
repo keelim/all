@@ -20,12 +20,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.keelim.comssa.databinding.BottomSheetDialogBinding
+import com.keelim.comssa.di.download.DownloadReceiver
 import com.keelim.comssa.extensions.toast
 import com.keelim.comssa.ui.favorite.FavoriteActivity
-import com.keelim.comssa.di.download.DownloadReceiver
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -59,10 +58,6 @@ class BottomSheetDialog : BottomSheetDialogFragment() {
     private fun initViews() = with(binding) {
         downloadButton.setOnClickListener {
             requireActivity().toast("기능 준비중입니다.")
-        }
-
-        opensource.setOnClickListener {
-            startActivity(Intent(requireContext(), OssLicensesMenuActivity::class.java))
         }
 
         btnFavorite.setOnClickListener {

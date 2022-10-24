@@ -16,47 +16,44 @@
 package com.keelim.comssa.ui.mypage
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.keelim.comssa.R
 import com.keelim.comssa.data.model.ReviewedData
 import com.keelim.comssa.databinding.FragmentMyPageBinding
 import com.keelim.comssa.extensions.dip
 import com.keelim.comssa.extensions.toGone
 import com.keelim.comssa.extensions.toVisible
 import com.keelim.comssa.ui.home.GridSpacingItemDecoration
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
-class MyPageFragment : Fragment() {
-    private var _binding: FragmentMyPageBinding? = null
-    private val binding get() = _binding!!
-    private val myPageAdapter = MyPageAdapter(
-        onDataClickListener = {
-            val action = MyPageFragmentDirections.actionMyPageFragmentToReviewsFragment(it)
-            findNavController().navigate(action)
-        }
-    )
-
-    private val viewModel: MyPageViewModel by viewModels()
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentMyPageBinding.inflate(inflater, container, false)
-        return binding.root
+class MyPageFragment : Fragment(R.layout.fragment_my_page) {
+    private lateinit var binding: FragmentMyPageBinding
+    private val navController by lazy {
+        findNavController()
     }
+
+    private val myPageAdapter = MyPageAdapter(onDataClickListener = {
+        navController.navigate(
+            MyPageFragmentDirections.actionMyPageFragmentToReviewsFragment(it)
+        )
+    })
+
+    private val viewModel by viewModels<MyPageViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding = FragmentMyPageBinding.bind(view)
         initViews()
-        observeReviewedData()
-        viewModel.fetchReviewedData()
+        initFlow()
     }
 
     private fun showLoadingIndicator() {
@@ -79,9 +76,9 @@ class MyPageFragment : Fragment() {
         binding.descriptionTextView.text = message
     }
 
-    private fun showReviewedDatas(reviewedDatas: List<ReviewedData>) {
+    private fun showReviewedData(reviewedData: List<ReviewedData>) {
         myPageAdapter.apply {
-            this.reviewedDatas = reviewedDatas
+            this.reviewedDatas = reviewedData
             notifyDataSetChanged()
         }
     }
@@ -101,22 +98,19 @@ class MyPageFragment : Fragment() {
         }
     }
 
-    private fun observeReviewedData() = viewModel.reviewedData.observe(
-        viewLifecycleOwner,
-        {
-            try {
-                showLoadingIndicator()
-                if (it.isNullOrEmpty()) {
-                    showNoDataDescription("아직 리뷰한 영화가 없어요.\n홈 탭을 눌러 영화를 리뷰해보세요 🙌")
-                } else {
-                    showReviewedDatas(it)
+    private fun initFlow() = lifecycleScope.launch {
+        repeatOnLifecycle(Lifecycle.State.STARTED) {
+            launch {
+                viewModel.reviewedData.collectLatest {
+                    showLoadingIndicator()
+                    if (it.isEmpty()) {
+                        showNoDataDescription("아직 리뷰한 영화가 없어요.\n홈 탭을 눌러 영화를 리뷰해보세요 🙌")
+                    } else {
+                        showReviewedData(it)
+                        hideLoadingIndicator()
+                    }
                 }
-            } catch (exception: Exception) {
-                exception.printStackTrace()
-                showErrorDescription("에러가 발생했어요 😢")
-            } finally {
-                hideLoadingIndicator()
             }
         }
-    )
+    }
 }

@@ -15,23 +15,30 @@
  */
 package com.keelim.comssa.ui.mypage
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.keelim.comssa.data.model.ReviewedData
+import com.keelim.comssa.domain.GetUserReviewedDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 @HiltViewModel
 class MyPageViewModel @Inject constructor(
-    private val getUserReviewedDataUseCase: com.keelim.comssa.domain.GetUserReviewedDataUseCase
+    private val getUserReviewedDataUseCase: GetUserReviewedDataUseCase
 ) : ViewModel() {
-    private val _reviewedData = MutableLiveData<List<ReviewedData>>(listOf())
-    val reviewedData: LiveData<List<ReviewedData>> get() = _reviewedData
+    private val _reviewedData = MutableStateFlow<List<ReviewedData>>(listOf())
+    val reviewedData: Flow<List<ReviewedData>> = _reviewedData.asStateFlow()
 
+    init {
+        fetchReviewedData()
+    }
     fun fetchReviewedData() = viewModelScope.launch {
-        _reviewedData.value = getUserReviewedDataUseCase.invoke()
+        _reviewedData.emit(
+            getUserReviewedDataUseCase()
+        )
     }
 }

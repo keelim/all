@@ -33,7 +33,7 @@ class SearchViewModel @Inject constructor(
     private val searchUseCase: SearchUseCase,
     private val updateFavoriteUseCase: UpdateFavoriteUseCase,
 ) : ViewModel() {
-    val downloadLink:MutableStateFlow<String> = MutableStateFlow("")
+    private val downloadLink = MutableStateFlow("")
     fun favorite(favorite: Int, id: Int) = viewModelScope.launch {
         when (favorite) {
             0 -> updateFavoriteUseCase.invoke(1, id)
@@ -41,16 +41,15 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    fun getContent(query:String = ""): Flow<PagingData<Search>> {
-        return searchUseCase.getContent(query)
+    fun getContent(query: String = ""): Flow<PagingData<Search>> =
+        searchUseCase(query)
             .cachedIn(viewModelScope)
-    }
 
-    fun getDownloadLink(password:String) = viewModelScope.launch{
+    fun getDownloadLink(password: String) = viewModelScope.launch {
         runCatching {
             searchUseCase.getDownloadLink(password)
         }.onSuccess {
-            if(it.flag){
+            if (it.flag) {
                 downloadLink.emit(it.password)
             }
         }

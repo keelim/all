@@ -5,7 +5,6 @@ import SquareUp.retrofit_moshi
 
 plugins {
     id("library-setting-plugin")
-    id("com.google.devtools.ksp")
     id("kotlin-kapt")
     id("kotlin-parcelize")
     id("dagger.hilt.android.plugin")

@@ -20,6 +20,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.keelim.comssa.data.api.ApiRequestFactory
 import com.keelim.comssa.data.db.AppDatabase
+import com.keelim.comssa.data.db.dao.SearchDao
 import com.keelim.comssa.data.db.entity.Search
 import com.keelim.comssa.data.model.PasswordResult
 import com.keelim.comssa.data.paging.FavoritePagingSource
@@ -32,35 +33,35 @@ import kotlinx.coroutines.withContext
 
 class IoRepositoryImpl @Inject constructor(
   @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
-  private val db: AppDatabase,
+  private val searchDao: SearchDao,
   private val apiRequestFactory: ApiRequestFactory
 ) : IoRepository {
   override suspend fun getSearch(keyword: String): List<Search> = withContext(ioDispatcher) {
-    return@withContext db.searchDao.getSearch(keyword)
+    return@withContext searchDao.getSearch(keyword)
   }
 
   override suspend fun updateFavorite(favorite: Int, id: Int) = withContext(ioDispatcher) {
-    return@withContext db.searchDao.favoriteUpdate(favorite, id)
+    return@withContext searchDao.favoriteUpdate(favorite, id)
   }
 
   override suspend fun getFavorite(): List<Search> = withContext(ioDispatcher) {
-    return@withContext db.searchDao.getFavorite()
+    return@withContext searchDao.getFavorite()
   }
 
   override val favoriteFlow: Flow<List<Search>>
-    get() = db.searchDao.getFavorite2()
+    get() = searchDao.getFavorite2()
 
   override fun getContentItemsByPaging(query:String): Flow<PagingData<Search>> {
     return Pager(
       config = PagingConfig(pageSize = 10),
-      pagingSourceFactory = { SearchPagingSource(db.searchDao, query) }
+      pagingSourceFactory = { SearchPagingSource(searchDao, query) }
     ).flow
   }
 
   override fun getFavoriteItemsByPaging(): Flow<PagingData<Search>> {
     return Pager(
       config = PagingConfig(pageSize = 10),
-      pagingSourceFactory = { FavoritePagingSource(db.searchDao) }
+      pagingSourceFactory = { FavoritePagingSource(searchDao) }
     ).flow
   }
 

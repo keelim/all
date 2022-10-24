@@ -25,7 +25,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.keelim.comssa.R
@@ -38,6 +40,7 @@ import com.keelim.comssa.ui.main.search.SearchFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -100,16 +103,19 @@ class MainActivity : AppCompatActivity() {
 
     private fun databaseDownloadAlertDialog() {
         val itemPassword = ItemPasswordBinding.inflate(layoutInflater)
-        AlertDialog.Builder(this).setTitle("다운로드 요청").setView(itemPassword.root)
-            .setMessage("어플리케이션 사용을 위해 데이터베이스를 다운로드 합니다.")
+        AlertDialog.Builder(this)
+            .setTitle("다운로드 요청")
+            .setView(itemPassword.root)
+            .setMessage("어플리케이션 사용전 데이터베이스를 다운로드합니다.")
             .setPositiveButton("ok") { dialog, which ->
-                if (itemPassword.password.text.toString() == getString(R.string.password)) {
-                    toast("서버로부터 데이터 베이스를 요청 합니다.")
-                    downloadDatabase()
-                } else {
-                    toast("디폴트 데이터베이스를 다운로드 받습니다.")
-                    downloadDatabase()
-                }
+                toast(
+                    if (itemPassword.password.text.toString() == getString(R.string.password)) {
+                        "서버로부터 데이터베이스를 요청 합니다."
+                    } else {
+                        "디폴트 데이터베이스를 다운로드받습니다."
+                    }
+                )
+                downloadDatabase()
             }.show()
     }
 
@@ -127,10 +133,14 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    private fun observeDownloadLink() = lifecycleScope.launchWhenStarted {
-        viewModel.downloadLink.collect {
-            if (it.isNotBlank() && URLUtil.isValidUrl(it)) {
-                downloadDatabase(it)
+    private fun observeDownloadLink() = lifecycleScope.launch {
+        repeatOnLifecycle(Lifecycle.State.STARTED) {
+            launch {
+                viewModel.downloadLink.collect {
+                    if (it.isNotBlank() && URLUtil.isValidUrl(it)) {
+                        downloadDatabase(it)
+                    }
+                }
             }
         }
     }

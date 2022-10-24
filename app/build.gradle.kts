@@ -6,7 +6,6 @@ plugins {
     id("com.google.firebase.crashlytics")
     id("dagger.hilt.android.plugin")
     id("androidx.navigation.safeargs")
-    id("com.google.android.gms.oss-licenses-plugin")
 }
 
 android {
@@ -66,8 +65,6 @@ dependencies {
 
     implementation(Coil.coil)
     implementation(Coil.coilGif)
-
-    implementation("com.google.android.gms:play-services-oss-licenses:17.0.0")
     implementation(AndroidX.startup)
 }
 //apply(from = "$rootDir/spotless.gradle")

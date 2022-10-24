@@ -23,22 +23,22 @@ import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 
 class UserRepositoryImpl @Inject constructor(
-  private val userApi: UserApi,
-  private val preferenceManager: PreferenceManager,
-  @IoDispatcher private val dispatcher: CoroutineDispatcher,
+    private val userApi: UserApi,
+    private val preferenceManager: PreferenceManager,
+    @IoDispatcher private val dispatcher: CoroutineDispatcher,
 ) : UserRepository {
-  override suspend fun getUser(): User? {
-    return preferenceManager.getString(KEY_USER_ID)?.let {
-      User(it)
+    override suspend fun getUser(): User? {
+        return preferenceManager.getString(KEY_USER_ID)?.let {
+            User(it)
+        }
     }
-  }
 
-  override suspend fun saveUser(user: User) {
-    val newvie = userApi.saveUser(user)
-    preferenceManager.putString(KEY_USER_ID, newvie.id!!)
-  }
+    override suspend fun saveUser(user: User) {
+        val newvie = userApi.saveUser(user)
+        preferenceManager.putString(KEY_USER_ID, newvie.id!!)
+    }
 
-  companion object {
-    private const val KEY_USER_ID = "KEY_USER_ID"
-  }
+    companion object {
+        private const val KEY_USER_ID = "KEY_USER_ID"
+    }
 }

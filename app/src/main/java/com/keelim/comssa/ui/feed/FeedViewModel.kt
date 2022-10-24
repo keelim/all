@@ -7,21 +7,19 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class FeedViewModel @Inject constructor(
-
-): ViewModel() {
+class FeedViewModel @Inject constructor() : ViewModel() {
     private val _state: MutableStateFlow<FeedState> = MutableStateFlow(FeedState.UnInitialized)
     val state: StateFlow<FeedState> get() = _state
 
-    init{
+    init {
         init()
     }
 
-    private fun init() = viewModelScope.launch{
+    private fun init() = viewModelScope.launch {
         _state.emit(FeedState.Loading)
         runCatching {
 //            feedUseCase.getFeed()
-        }.onSuccess{
+        }.onSuccess {
             _state.emit(FeedState.Success(emptyList()))
         }.onFailure {
             _state.emit(FeedState.Error)

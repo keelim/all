@@ -29,7 +29,6 @@ import com.keelim.comssa.domain.GetUserReviewedDataUseCase
 import com.keelim.comssa.domain.SearchUseCase
 import com.keelim.comssa.domain.SubmitReviewUseCase
 import com.keelim.comssa.domain.UpdateFavoriteUseCase
-
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

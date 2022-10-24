@@ -7,8 +7,8 @@ import com.keelim.comssa.data.db.entity.Search
 
 class SearchPagingSource(
     private val dao: SearchDao,
-    private val query:String,
-): PagingSource<Int, Search>() {
+    private val query: String,
+) : PagingSource<Int, Search>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Search> {
         val page = params.key ?: 1
@@ -23,7 +23,7 @@ class SearchPagingSource(
             return LoadResult.Error(e)
         }
     }
-    
+
     override fun getRefreshKey(state: PagingState<Int, Search>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)

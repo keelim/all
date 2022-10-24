@@ -20,11 +20,11 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "Search")
 data class Search(
-  @PrimaryKey
-  val id: Int,
-  val category: String?,
-  val title: String?,
-  val description: String?,
-  val favorite: Int,
-  var relation: String?,
+    @PrimaryKey
+    val id: Int,
+    val category: String?,
+    val title: String?,
+    val description: String?,
+    val favorite: Int,
+    var relation: String?,
 )

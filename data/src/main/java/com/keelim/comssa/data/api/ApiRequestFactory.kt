@@ -1,4 +1,5 @@
 package com.keelim.comssa.data.api
+
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import javax.inject.Inject
@@ -8,8 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.create
 
-class ApiRequestFactory @Inject constructor(
-) {
+class ApiRequestFactory @Inject constructor() {
     private val baseUrl = "https://sample.com"
     private val moshi = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())

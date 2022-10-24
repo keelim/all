@@ -24,26 +24,29 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 @Dao
 interface SearchDao {
 
-  @Query("SELECT * FROM Search WHERE title like '%'|| :keyword || '%'")
-  fun getSearch(keyword: String): List<Search>
+    @Query("SELECT * FROM Search WHERE title like '%'|| :keyword || '%'")
+    fun getSearch(keyword: String): List<Search>
 
-  @Query("UPDATE Search SET favorite=:favorite WHERE id = :id")
-  fun favoriteUpdate(favorite: Int, id: Int)
+    @Query("UPDATE Search SET favorite=:favorite WHERE id = :id")
+    fun favoriteUpdate(favorite: Int, id: Int)
 
-  @Query("SELECT * FROM Search WHERE favorite == 1")
-  fun getFavorite(): List<Search>
+    @Query("SELECT * FROM Search WHERE favorite == 1")
+    fun getFavorite(): List<Search>
 
-  @Query("SELECT * FROM Search WHERE title like '%'|| :keyword || '%'")
-  fun getSearch2(keyword: String): Flow<List<Search>>
+    @Query("SELECT * FROM Search WHERE title like '%'|| :keyword || '%'")
+    fun getSearch2(keyword: String): Flow<List<Search>>
 
-  @Query("SELECT * FROM Search WHERE favorite == 1")
-  fun getFavorite2(): Flow<List<Search>>
+    @Query("SELECT * FROM Search WHERE favorite == 1")
+    fun getFavorite2(): Flow<List<Search>>
 
-  fun getSearchDistinctUntilChanged(keyword: String) = getSearch2(keyword).distinctUntilChanged()
+    fun getSearchDistinctUntilChanged(keyword: String) = getSearch2(keyword).distinctUntilChanged()
 
-  @Query("SELECT * FROM Search WHERE title like '%'|| :keyword || '%' LIMIT :loadSize OFFSET (:page-1) * :loadSize")
-  suspend fun getSearchContentsByPaging(keyword: String, page: Int, loadSize: Int): List<Search>
+    @Query(
+        "SELECT * FROM Search WHERE title like '%'|| :keyword || '%' " +
+            "LIMIT :loadSize OFFSET (:page-1) * :loadSize"
+    )
+    suspend fun getSearchContentsByPaging(keyword: String, page: Int, loadSize: Int): List<Search>
 
-  @Query("SELECT * FROM Search WHERE favorite == 1 LIMIT :loadSize OFFSET (:page-1) * :loadSize")
-  suspend fun getFavoriteByPaging(page: Int, loadSize: Int): List<Search>
+    @Query("SELECT * FROM Search WHERE favorite == 1 LIMIT :loadSize OFFSET (:page-1) * :loadSize")
+    suspend fun getFavoriteByPaging(page: Int, loadSize: Int): List<Search>
 }

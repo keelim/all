@@ -1,4 +1,4 @@
-package com.keelim.comssa.initialize;
+package com.keelim.comssa.initialize
 
 import android.content.Context
 import androidx.startup.Initializer

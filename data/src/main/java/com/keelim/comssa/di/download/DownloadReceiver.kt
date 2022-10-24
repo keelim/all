@@ -23,8 +23,8 @@ class DownloadReceiver(
                 val columnIndex = cursor.getColumnIndex(DownloadManager.COLUMN_STATUS)
 
                 when (cursor.getInt(columnIndex)) {
-                    DownloadManager.STATUS_SUCCESSFUL ->Unit
-                    DownloadManager.STATUS_FAILED ->Unit
+                    DownloadManager.STATUS_SUCCESSFUL -> Unit
+                    DownloadManager.STATUS_FAILED -> Unit
                     DownloadManager.STATUS_PAUSED -> Unit
                     else -> Unit
                 }

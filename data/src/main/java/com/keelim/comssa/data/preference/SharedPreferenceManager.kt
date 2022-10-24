@@ -22,13 +22,15 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class SharedPreferenceManager @Inject constructor(
-  @ApplicationContext context: Context,
+    @ApplicationContext context: Context,
 ) : PreferenceManager {
-  private val sharedPreferences = context.getSharedPreferences("preference", Activity.MODE_PRIVATE)
-  override fun getString(key: String): String? =
-    sharedPreferences.getString(key, null)
+    private val sharedPreferences =
+        context.getSharedPreferences("preference", Activity.MODE_PRIVATE)
 
-  override fun putString(key: String, value: String) {
-    sharedPreferences.edit { putString(key, value) }
-  }
+    override fun getString(key: String): String? =
+        sharedPreferences.getString(key, null)
+
+    override fun putString(key: String, value: String) {
+        sharedPreferences.edit { putString(key, value) }
+    }
 }

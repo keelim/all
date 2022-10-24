@@ -52,8 +52,8 @@ class MyPageAdapter(
         }
 
         @SuppressLint("SetTextI18n")
-        fun bind(item: ReviewedData) = with(binding){
-            posterImageView.load(item.data.posterUrl){
+        fun bind(item: ReviewedData) = with(binding) {
+            posterImageView.load(item.data.posterUrl) {
                 crossfade(true)
                 placeholder(R.drawable.ic_launcher_foreground)
             }

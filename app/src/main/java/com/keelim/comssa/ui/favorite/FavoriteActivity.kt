@@ -29,7 +29,7 @@ class FavoriteActivity : AppCompatActivity() {
     private val binding by lazy { ActivityFavoriteBinding.inflate(layoutInflater) }
 
     private val viewModel: FavoriteViewModel by viewModels()
-    private val favoriteAdapter:FavoriteAdapter by lazy{
+    private val favoriteAdapter: FavoriteAdapter by lazy {
         FavoriteAdapter(
             favoriteListener = { favorite, id ->
                 viewModel.favorite(favorite, id)

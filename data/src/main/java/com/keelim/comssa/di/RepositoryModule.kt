@@ -31,12 +31,15 @@ import dagger.hilt.components.SingletonComponent
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class RepositoryModule {
-  @Binds
-  abstract fun bindsIoRepository(repository: IoRepositoryImpl): IoRepository
-  @Binds
-  abstract fun bindsDataRepository(repository: DataRepositoryImpl): DataRepository
-  @Binds
-  abstract fun bindsReviewRepository(repository: ReviewRepositoryImpl): ReviewRepository
-  @Binds
-  abstract fun bindsUserRepository(repository: UserRepositoryImpl): UserRepository
+    @Binds
+    abstract fun bindsIoRepository(repository: IoRepositoryImpl): IoRepository
+
+    @Binds
+    abstract fun bindsDataRepository(repository: DataRepositoryImpl): DataRepository
+
+    @Binds
+    abstract fun bindsReviewRepository(repository: ReviewRepositoryImpl): ReviewRepository
+
+    @Binds
+    abstract fun bindsUserRepository(repository: UserRepositoryImpl): UserRepository
 }

@@ -22,6 +22,9 @@ android {
         getByName("release") {
         }
     }
+    lint {
+        abortOnError = false
+    }
     namespace = "com.keelim.comssa"
 }
 

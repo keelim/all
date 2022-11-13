@@ -17,6 +17,8 @@ package com.keelim.comssa.di
 
 import com.keelim.comssa.data.repository.DataRepository
 import com.keelim.comssa.data.repository.DataRepositoryImpl
+import com.keelim.comssa.data.repository.DataStoreRepository
+import com.keelim.comssa.data.repository.DataStoreRepositoryImpl
 import com.keelim.comssa.data.repository.IoRepository
 import com.keelim.comssa.data.repository.IoRepositoryImpl
 import com.keelim.comssa.data.repository.ReviewRepository
@@ -42,4 +44,7 @@ abstract class RepositoryModule {
 
     @Binds
     abstract fun bindsUserRepository(repository: UserRepositoryImpl): UserRepository
+
+    @Binds
+    abstract fun bindsDataStoreRepository(repository: DataStoreRepositoryImpl): DataStoreRepository
 }

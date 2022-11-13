@@ -5,3 +5,5 @@ gitignore
 /.idea
 app/build.gradle.kts
 app/google-services.json
+
+app/

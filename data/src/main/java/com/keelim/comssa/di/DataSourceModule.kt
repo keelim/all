@@ -16,6 +16,11 @@
 package com.keelim.comssa.di
 
 import android.content.Context
+import android.preference.PreferenceDataStore
+import androidx.datastore.core.handlers.ReplaceFileCorruptionHandler
+import androidx.datastore.preferences.core.PreferenceDataStoreFactory
+import androidx.datastore.preferences.core.emptyPreferences
+import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.room.Room
 import com.keelim.comssa.data.db.AppDatabase
 import com.keelim.comssa.data.preference.PreferenceManager
@@ -30,7 +35,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object DatabaseModule {
+object DataSourceModule {
     @Provides
     @Singleton
     fun provideAppDataBase(
@@ -43,11 +48,24 @@ object DatabaseModule {
         .allowMainThreadQueries()
         .build()
 
+
+
     @Provides
     @Singleton
     fun providePreferenceManager(
         @ApplicationContext context: Context
     ): PreferenceManager = SharedPreferenceManager(
         context = context
+    )
+
+    @Provides
+    @Singleton
+    fun provideDataStore(
+        @ApplicationContext context: Context
+    ) = PreferenceDataStoreFactory.create(
+        corruptionHandler = ReplaceFileCorruptionHandler(
+            produceNewData = { emptyPreferences() }
+        ),
+        produceFile = { context.preferencesDataStoreFile("comssa")}
     )
 }

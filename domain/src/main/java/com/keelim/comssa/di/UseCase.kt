@@ -22,7 +22,6 @@ import com.keelim.comssa.data.repository.UserRepository
 import com.keelim.comssa.domain.DeleteReviewUseCase
 import com.keelim.comssa.domain.GetAllDataReviewsUseCase
 import com.keelim.comssa.domain.GetAllDatasUseCase
-import com.keelim.comssa.domain.GetAllReviewsUseCase
 import com.keelim.comssa.domain.GetFavoriteUseCase
 import com.keelim.comssa.domain.GetRandomFeatureDataUseCase
 import com.keelim.comssa.domain.GetUserReviewedDataUseCase
@@ -86,16 +85,6 @@ object UseCase {
     ): GetRandomFeatureDataUseCase {
         return GetRandomFeatureDataUseCase(
             dataRepository = dataRepository,
-            reviewRepository = reviewRepository
-        )
-    }
-
-    @Provides
-    @Singleton
-    fun provideGetAllReviewUseCase(
-        reviewRepository: ReviewRepository,
-    ): GetAllReviewsUseCase {
-        return GetAllReviewsUseCase(
             reviewRepository = reviewRepository
         )
     }

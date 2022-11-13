@@ -67,7 +67,4 @@ dependencies {
     implementation(moshi)
     implementation(moshi_kotlin)
     kapt(moshi_codegen)
-
-    // datastore
-    implementation("androidx.datastore:datastore-preferences:1.0.0")
 }

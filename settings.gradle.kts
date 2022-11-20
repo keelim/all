@@ -21,7 +21,8 @@ pluginManagement {
             when (val id = requested.id.id) {
                 "dagger.hilt.android.plugin" -> useModule("com.google.dagger:hilt-android-gradle-plugin:2.42")
                 "org.jetbrains.kotlin.plugin.serialization" -> useModule("${id}:${id}.gradle.plugin:${kotlinVersion}")
-                "com.google.android.gms.oss-licenses-plugin" -> useModule("com.google.android.gms:oss-licenses-plugin:0.10.5")
+                "com.google.android.gms.oss-licenses-plugin" ->
+                    useModule("com.google.android.gms:oss-licenses-plugin:0.10.5")
             }
         }
     }

@@ -3,14 +3,14 @@ plugins {
     id("compose-setting-plugin")
     kotlin("kapt")
     id("kotlin-parcelize")
-    id("com.google.gms.google-services")
-    id("com.google.firebase.firebase-perf")
-    id("com.google.firebase.crashlytics")
-    id("com.google.firebase.appdistribution")
+    id("com.google.gms.google-services") version("4.3.14")
+    id("com.google.firebase.firebase-perf") version("1.4.1")
+    id("com.google.firebase.crashlytics") version("2.9.0")
+    id("com.google.firebase.appdistribution") version("3.0.2")
     id("dagger.hilt.android.plugin")
-    id("androidx.navigation.safeargs.kotlin")
+    id("androidx.navigation.safeargs.kotlin") version("2.4.2")
     id("com.google.android.gms.oss-licenses-plugin")
-    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin") version("2.0.1")
 }
 
 android {

@@ -116,5 +116,5 @@ dependencies {
     androidTestImplementation(Dep.Test.androidJunit)
     androidTestImplementation(Dep.Test.espressoCore)
 
-    implementation("androidx.profileinstaller:profileinstaller:1.2.0-beta01")
+    implementation("androidx.profileinstaller:profileinstaller:1.2.0")
 }

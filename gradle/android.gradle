@@ -29,8 +29,3 @@ android {
         useIR = true
     }
 }
-
-apply from: "$rootDir/spotless.gradle"
-kapt {
-    correctErrorTypes = true
-}

@@ -1,7 +1,3 @@
-import ProjectConfigurations.applicationId
-import ProjectConfigurations.versionCode
-import ProjectConfigurations.versionName
-
 plugins {
     id("application-setting-plugin")
     id("compose-setting-plugin")
@@ -14,8 +10,7 @@ plugins {
     id("dagger.hilt.android.plugin")
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.android.gms.oss-licenses-plugin")
-    id("com.google.secrets_gradle_plugin") version ("0.6.1")
-    id("org.jetbrains.kotlin.android")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
@@ -41,6 +36,7 @@ android {
         dataBinding = true
         viewBinding = true
     }
+    namespace = "com.keelim.cnubus"
 }
 
 dependencies {

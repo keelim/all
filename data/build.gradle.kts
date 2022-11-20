@@ -1,11 +1,9 @@
-import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
-
 plugins {
     id("library-setting-plugin")
     kotlin("kapt")
     id("kotlin-parcelize")
     id("dagger.hilt.android.plugin")
-    id ("com.google.secrets_gradle_plugin") version("0.6.1")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 dependencies {
@@ -48,5 +46,8 @@ dependencies {
     androidTestImplementation(Dep.Test.androidJunit)
     androidTestImplementation(Dep.Test.espressoCore)
     androidTestImplementation(Dep.Dagger.Hilt.test)
+}
+android {
+    namespace = "com.keelim.cnubus.data"
 }
 

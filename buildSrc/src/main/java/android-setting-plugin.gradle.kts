@@ -22,7 +22,8 @@ configure<BaseExtension> {
         }
     }
     compileOptions {
-        sourceCompatibility = ProjectConfigurations.javaVer
-        targetCompatibility = ProjectConfigurations.javaVer
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+        isCoreLibraryDesugaringEnabled = true
     }
 }

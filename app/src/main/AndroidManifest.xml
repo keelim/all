@@ -83,6 +83,9 @@
             <meta-data
                 android:name="com.keelim.cnubus.initialize.CoilInitializer"
                 android:value="androidx.startup" />
+            <meta-data
+                android:name="com.keelim.cnubus.initialize.ComposeInitializer"
+                android:value="androidx.startup" />
         </provider>
 
         <receiver

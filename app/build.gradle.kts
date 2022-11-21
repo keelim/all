@@ -117,4 +117,5 @@ dependencies {
     androidTestImplementation(Dep.Test.espressoCore)
 
     implementation("androidx.profileinstaller:profileinstaller:1.2.0")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.2.0")
 }

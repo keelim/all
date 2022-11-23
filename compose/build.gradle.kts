@@ -21,4 +21,7 @@ dependencies {
     androidTestImplementation(Dep.Test.espressoCore)
     androidTestImplementation(Dep.AndroidX.Compose.test)
 }
+android {
+    namespace = "com.keelim.compose"
+}
 

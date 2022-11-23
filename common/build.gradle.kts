@@ -8,6 +8,7 @@ android{
     buildFeatures {
         dataBinding = true
     }
+    namespace = "com.keelim.common"
 }
 
 dependencies {

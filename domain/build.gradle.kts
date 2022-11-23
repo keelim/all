@@ -22,4 +22,7 @@ dependencies {
     androidTestImplementation(Dep.Test.androidJunit)
     androidTestImplementation(Dep.Test.espressoCore)
 }
+android {
+    namespace = "com.keelim.cnubus.domain"
+}
 

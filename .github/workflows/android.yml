@@ -13,7 +13,7 @@ jobs:
       uses: actions/checkout@v3
       
     - name: set up JDK 11
-      uses: actions/setup-java@v3.3.0
+      uses: actions/setup-java@v3.6.0
       with:
         distribution: 'zulu' # See 'Supported distributions' for available options
         java-version: '11'
@@ -61,8 +61,10 @@ jobs:
 
     - name: Deploy to Play Store (BETA)
       id: deploy
-      uses: r0adkll/upload-google-play@v1.0.15
+      uses: r0adkll/upload-google-play@v1.0.19
       with:
         serviceAccountJson: service_account.json
         packageName: com.keelim.cnubus
         releaseFiles: app/build/outputs/bundle/release/app-release.aab
+        track: production
+        status: completed

@@ -9,6 +9,7 @@ import androidx.compose.material3.Surface
 import androidx.fragment.app.Fragment
 import com.keelim.comssa.R
 import com.keelim.comssa.databinding.FragmentComposeViewBinding
+import timber.log.Timber
 
 class MyPageFragment2 : Fragment(R.layout.fragment_compose_view) {
   private lateinit var binding: FragmentComposeViewBinding
@@ -21,11 +22,13 @@ class MyPageFragment2 : Fragment(R.layout.fragment_compose_view) {
         Surface {
           MyPageScreen(
             sectionClick = { packageName ->
+              Timber.d("packageName: $packageName")
               runCatching {
                   requireActivity()
                     .packageManager
                     .getLaunchIntentForPackage(packageName)
                     ?.let(::startActivity)
+                    ?: throw Exception("앱을 찾을 수 없습니다.")
                 }
                 .onFailure {
                   startActivity(

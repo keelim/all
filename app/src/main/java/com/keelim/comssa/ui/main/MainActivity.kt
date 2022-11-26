@@ -37,6 +37,7 @@ import com.keelim.comssa.di.download.DownloadReceiver
 import com.keelim.comssa.di.download.DownloadRequest
 import com.keelim.comssa.extensions.toast
 import com.keelim.comssa.ui.main.search.SearchFragment
+import com.keelim.comssa.ui.mypage.MyPageFragment2
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import javax.inject.Inject
@@ -44,119 +45,121 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
-    private val viewModel: MainViewModel by viewModels()
-    private val viewPagerAdapter by lazy {
-        MainViewPagerAdapter(this)
-    }
+  private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+  private val viewModel: MainViewModel by viewModels()
+  private val viewPagerAdapter by lazy { MainViewPagerAdapter(this) }
 
-    @Inject
-    lateinit var recevier: DownloadReceiver
+  @Inject lateinit var recevier: DownloadReceiver
 
-    @Inject
-    lateinit var downloadRequest: DownloadRequest
+  @Inject lateinit var downloadRequest: DownloadRequest
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(binding.root)
-        initViews()
-        fileChecking()
-        observeDownloadLink()
-    }
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(binding.root)
+    initViews()
+    fileChecking()
+    observeDownloadLink()
+  }
 
-    private fun initViews() = with(binding) {
-        val fragmentList = listOf(
-            SearchFragment(), SearchFragment(), SearchFragment(), SearchFragment(), SearchFragment()
-        )
-        viewPagerAdapter.fragmentList.addAll(fragmentList)
-        viewpagerMain.adapter = viewPagerAdapter
+  private fun initViews() {
+    val fragmentList =
+      listOf(
+        SearchFragment(),
+        SearchFragment(),
+        SearchFragment(),
+        SearchFragment(),
+        MyPageFragment2()
+      )
+    with(binding.viewpagerMain) {
+      adapter = viewPagerAdapter.also { it.fragmentList.addAll(fragmentList) }
 
-        viewpagerMain.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                binding.bottomNavigationMain.menu.getItem(position).isChecked = true
-            }
-        })
-
-        binding.bottomNavigationMain.setOnItemSelectedListener {
-            binding.viewpagerMain.currentItem = when (it.itemId) {
-                R.id.menu_feed -> FEED_FRAGMENT
-                R.id.menu_recommend -> RECOMMEND_FRAGMENT
-                R.id.menu_write -> WRITE_FRAGMENT
-                R.id.menu_alarm -> ALARM_FRAGMENT
-                else -> PROFILE_FRAGMENT
-            }
-            return@setOnItemSelectedListener true
+      registerOnPageChangeCallback(
+        object : ViewPager2.OnPageChangeCallback() {
+          override fun onPageSelected(position: Int) {
+            binding.bottomNavigationMain.menu.getItem(position).isChecked = true
+          }
         }
+      )
+    }
 
-        imageviewMainWrite.setOnClickListener {
-            viewpagerMain.currentItem = WRITE_FRAGMENT
+    binding.bottomNavigationMain.setOnItemSelectedListener {
+      binding.viewpagerMain.currentItem =
+        when (it.itemId) {
+          R.id.menu_feed -> FEED_FRAGMENT
+          R.id.menu_recommend -> RECOMMEND_FRAGMENT
+          R.id.menu_write -> WRITE_FRAGMENT
+          R.id.menu_alarm -> ALARM_FRAGMENT
+          else -> PROFILE_FRAGMENT
         }
-
-        bottomNavigationMain.itemIconTintList = null
+      return@setOnItemSelectedListener true
     }
-
-    private fun fileChecking() {
-        val check = File(getExternalFilesDir(null), "comssa.db")
-        if (check.exists().not()) databaseDownloadAlertDialog()
-        else toast("데이터베이스가 존재합니다. 그대로 진행 합니다")
+    with(binding.imageviewMainWrite) {
+      setOnClickListener { binding.viewpagerMain.currentItem = WRITE_FRAGMENT }
     }
+    with(binding.bottomNavigationMain) { itemIconTintList = null }
+  }
 
-    private fun databaseDownloadAlertDialog() {
-        val itemPassword = ItemPasswordBinding.inflate(layoutInflater)
-        AlertDialog.Builder(this)
-            .setTitle("다운로드 요청")
-            .setView(itemPassword.root)
-            .setMessage("어플리케이션 사용전 데이터베이스를 다운로드합니다.")
-            .setPositiveButton("ok") { dialog, which ->
-                toast(
-                    if (itemPassword.password.text.toString() == getString(R.string.password)) {
-                        "서버로부터 데이터베이스를 요청 합니다."
-                    } else {
-                        "디폴트 데이터베이스를 다운로드받습니다."
-                    }
-                )
-                downloadDatabase()
-            }.show()
-    }
+  private fun fileChecking() {
+    File(getExternalFilesDir(null), "comssa.db")
+      .takeUnless { file -> file.exists() }
+      .also { databaseDownloadAlertDialog() }
+  }
 
-    private fun downloadDatabase(link: String? = null) {
-        val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-        registerReceiver(
-            recevier,
-            IntentFilter().apply {
-                addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
-                addAction(DownloadManager.ACTION_NOTIFICATION_CLICKED)
-            }
+  private fun databaseDownloadAlertDialog() {
+    val itemPassword = ItemPasswordBinding.inflate(layoutInflater)
+    AlertDialog.Builder(this)
+      .setTitle("다운로드 요청")
+      .setView(itemPassword.root)
+      .setMessage("어플리케이션 사용전 데이터베이스를 다운로드합니다.")
+      .setPositiveButton("ok") { dialog, which ->
+        toast(
+          if (itemPassword.password.text.toString() == getString(R.string.password)) {
+            "서버로부터 데이터베이스를 요청 합니다."
+          } else {
+            "디폴트 데이터베이스를 다운로드받습니다."
+          }
         )
-        downloadManager.enqueue(
-            downloadRequest.provideDownloadRequest(link)
-        )
-    }
+        downloadDatabase()
+      }
+      .show()
+  }
 
-    private fun observeDownloadLink() = lifecycleScope.launch {
-        repeatOnLifecycle(Lifecycle.State.STARTED) {
-            launch {
-                viewModel.downloadLink.collect {
-                    if (it.isNotBlank() && URLUtil.isValidUrl(it)) {
-                        downloadDatabase(it)
-                    }
-                }
-            }
+  private fun downloadDatabase(link: String? = null) {
+    val downloadManager =
+      registerReceiver(
+        recevier,
+        IntentFilter().apply {
+          addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
+          addAction(DownloadManager.ACTION_NOTIFICATION_CLICKED)
         }
+      )
+    (getSystemService(Context.DOWNLOAD_SERVICE) as? DownloadManager)?.enqueue(
+      downloadRequest.provideDownloadRequest(link)
+    )
+  }
+
+  private fun observeDownloadLink() =
+    lifecycleScope.launch {
+      repeatOnLifecycle(Lifecycle.State.STARTED) {
+        launch {
+          viewModel.downloadLink.collect {
+            it.takeIf { URLUtil.isValidUrl(it) }?.let { url -> downloadDatabase(url) }
+          }
+        }
+      }
     }
 
-    private companion object {
-        const val FEED_FRAGMENT = 0
-        const val RECOMMEND_FRAGMENT = 1
-        const val WRITE_FRAGMENT = 2
-        const val ALARM_FRAGMENT = 3
-        const val PROFILE_FRAGMENT = 4
-    }
-
-    inner class MainViewPagerAdapter(fragmentActivity: FragmentActivity) :
-        FragmentStateAdapter(fragmentActivity) {
-        val fragmentList: MutableList<Fragment> = mutableListOf()
-        override fun getItemCount(): Int = fragmentList.size
-        override fun createFragment(position: Int) = fragmentList[position]
-    }
+  companion object {
+    const val FEED_FRAGMENT = 0
+    const val RECOMMEND_FRAGMENT = 1
+    const val WRITE_FRAGMENT = 2
+    const val ALARM_FRAGMENT = 3
+    const val PROFILE_FRAGMENT = 4
+  }
+  inner class MainViewPagerAdapter(fragmentActivity: FragmentActivity) :
+    FragmentStateAdapter(fragmentActivity) {
+    val fragmentList: MutableList<Fragment> = mutableListOf()
+    override fun getItemCount(): Int = fragmentList.size
+    override fun createFragment(position: Int) = fragmentList[position]
+  }
 }

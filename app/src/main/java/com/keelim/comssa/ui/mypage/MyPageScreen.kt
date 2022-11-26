@@ -1,6 +1,5 @@
 package com.keelim.comssa.ui.mypage
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -10,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MyPageScreen(modifier: Modifier = Modifier, sectionClick: ((String) -> Unit)? = null) {
 
@@ -26,8 +27,11 @@ fun MyPageScreen(modifier: Modifier = Modifier, sectionClick: ((String) -> Unit)
       style = MaterialTheme.typography.headlineSmall,
     )
     Spacer(modifier = Modifier.height(24.dp))
-    Row(modifier = Modifier.clickable { sectionClick?.invoke("com.keelim.cnubus") }) {
-      Card(Modifier.height(56.dp).fillMaxWidth()) {
+    Row {
+      Card(
+        onClick = { sectionClick?.invoke("com.keelim.cnubus") },
+        modifier = Modifier.height(56.dp).fillMaxWidth()
+      ) {
         Text(
           text = "CnuBus",
           style = MaterialTheme.typography.headlineMedium,
@@ -38,8 +42,11 @@ fun MyPageScreen(modifier: Modifier = Modifier, sectionClick: ((String) -> Unit)
     Spacer(modifier = Modifier.height(8.dp))
     Divider()
     Spacer(modifier = Modifier.height(8.dp))
-      Row(modifier = Modifier.clickable { sectionClick?.invoke("com.keelim.mygrade") }) {
-      Card(Modifier.height(56.dp).fillMaxWidth()) {
+    Row {
+      Card(
+        onClick = { sectionClick?.invoke("com.keelim.cnubus") },
+        modifier = Modifier.height(56.dp).fillMaxWidth()
+      ) {
         Text(
           text = "MyGrade",
           style = MaterialTheme.typography.headlineMedium,
@@ -50,8 +57,11 @@ fun MyPageScreen(modifier: Modifier = Modifier, sectionClick: ((String) -> Unit)
     Spacer(modifier = Modifier.height(8.dp))
     Divider()
     Spacer(modifier = Modifier.height(8.dp))
-      Row(modifier = Modifier.clickable { sectionClick?.invoke("com.keelim.comssa") }) {
-      Card(Modifier.height(56.dp).fillMaxWidth()) {
+    Row {
+      Card(
+        onClick = { sectionClick?.invoke("com.keelim.cnubus") },
+        modifier = Modifier.height(56.dp).fillMaxWidth()
+      ) {
         Text(
           text = "Comssa",
           style = MaterialTheme.typography.headlineMedium,

@@ -45,7 +45,7 @@
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3115620439518585~1693877275" />
+            android:value="${APPLICATION_ID}" />
 
         <provider
             android:name=".provides.SuggestionProvider"
@@ -56,9 +56,11 @@
             android:authorities="${applicationId}.androidx-startup"
             android:exported="false"
             tools:node="merge">
-            <meta-data  android:name="com.keelim.comssa.initialize.TimberInitializer"
+            <meta-data
+                android:name="com.keelim.comssa.initialize.TimberInitializer"
                 android:value="androidx.startup" />
-            <meta-data  android:name="com.keelim.comssa.initialize.CoilInitializer"
+            <meta-data
+                android:name="com.keelim.comssa.initialize.CoilInitializer"
                 android:value="androidx.startup" />
         </provider>
     </application>

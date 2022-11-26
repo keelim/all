@@ -27,7 +27,6 @@ import timber.log.Timber;
 
 public class AppOpenManager implements LifecycleObserver, Application.ActivityLifecycleCallbacks {
     private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/3419835294";
-    private static final String AD_REAL_ID = "ca-app-pub-3115620439518585/1875756399";
     private static boolean isShowingAd = false;
     private final MyApplication myApplication;
     private long loadTime = 0;
@@ -99,12 +98,12 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
         AdRequest request = getAdRequest();
         if (BuildConfig.DEBUG) {
             AppOpenAd.load(
-                    myApplication, AD_UNIT_ID, request,
-                    AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT, loadCallback);
+                myApplication, AD_UNIT_ID, request,
+                AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT, loadCallback);
         } else {
             AppOpenAd.load(
-                    myApplication, AD_REAL_ID, request,
-                    AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT, loadCallback);
+                myApplication, BuildConfig.UNIT2, request,
+                AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT, loadCallback);
         }
 
     }

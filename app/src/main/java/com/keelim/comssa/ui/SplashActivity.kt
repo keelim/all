@@ -29,6 +29,7 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.keelim.comssa.BuildConfig
 import com.keelim.comssa.databinding.ActivitySplashBinding
 import com.keelim.comssa.ui.main.MainActivity
+import com.keelim.comssa.utils.or
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
@@ -42,8 +43,6 @@ class SplashActivity : AppCompatActivity() {
     private val binding by lazy { ActivitySplashBinding.inflate(layoutInflater) }
 
     private val test = "ca-app-pub-3940256099942544/1033173712"
-
-    private infix fun String.or(that: String): String = if (BuildConfig.DEBUG) this else that
     private val scope = MainScope()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,7 +73,7 @@ class SplashActivity : AppCompatActivity() {
         val adRequest = AdRequest.Builder().build()
         InterstitialAd.load(
             this,
-            test or "ca-app-pub-3115620439518585/4013096159",
+            test or BuildConfig.UNIT,
             adRequest,
             object : InterstitialAdLoadCallback() {
                 override fun onAdFailedToLoad(adError: LoadAdError) {

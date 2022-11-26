@@ -1,3 +1,4 @@
+import BuildTypeRelease.isMinifyEnabled
 import com.android.build.gradle.BaseExtension
 
 plugins {
@@ -9,8 +10,7 @@ plugins {
 
 configure<BaseExtension> {
     buildFeatures.viewBinding = true
-
-
+    buildFeatures.compose = true
 
     buildTypes {
         getByName("release") {

@@ -35,8 +35,8 @@ dependencies {
     implementation("androidx.activity:activity-ktx:1.6.0")
     implementation("androidx.fragment:fragment-ktx:1.5.3")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.0")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.3.5")
-    implementation("androidx.navigation:navigation-ui-ktx:2.3.5")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
+    implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
     implementation("androidx.lifecycle:lifecycle-process:2.3.1")
     implementation("com.google.android.play:core-ktx:1.8.1")
 

@@ -21,9 +21,9 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun MyPageScreen(modifier: Modifier = Modifier, sectionClick: ((String) -> Unit)? = null) {
 
-  Column(modifier = modifier.fillMaxSize().padding(horizontal = 8.dp)) {
+  Column(modifier = modifier.fillMaxSize().padding(horizontal = 8.dp, vertical = 16.dp)) {
     Text(
-      text = "Applications made by keelim",
+      text = "Applications\nmade by keelim",
       style = MaterialTheme.typography.headlineSmall,
     )
     Spacer(modifier = Modifier.height(24.dp))

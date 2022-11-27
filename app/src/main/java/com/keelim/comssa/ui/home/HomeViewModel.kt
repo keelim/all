@@ -15,29 +15,34 @@
  */
 package com.keelim.comssa.ui.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.keelim.comssa.data.model.Data
 import com.keelim.comssa.data.model.FeaturedData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.stateIn
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
-    private val getRandomFeatureDataUseCase: com.keelim.comssa.domain.GetRandomFeatureDataUseCase,
-    private val getAllDatasUseCase: com.keelim.comssa.domain.GetAllDatasUseCase,
+class HomeViewModel
+@Inject
+constructor(
+  private val getRandomFeatureDataUseCase: com.keelim.comssa.domain.GetRandomFeatureDataUseCase,
+  private val getAllDatasUseCase: com.keelim.comssa.domain.GetAllDatasUseCase,
 ) : ViewModel() {
-    private val _randomData = MutableLiveData<FeaturedData>()
-    val randomData: LiveData<FeaturedData> get() = _randomData
+  val randomData: StateFlow<FeaturedData?> =
+    suspend { getRandomFeatureDataUseCase.invoke() }
+      .asFlow()
+      .catch {}
+      .stateIn(viewModelScope, SharingStarted.Lazily, null)
 
-    private val _allData = MutableLiveData<List<Data>>(listOf())
-    val allData: LiveData<List<Data>> get() = _allData
-
-    fun fetchData() = viewModelScope.launch {
-        _randomData.value = getRandomFeatureDataUseCase.invoke()
-        _allData.value = getAllDatasUseCase.invoke()
-    }
+  val allData: StateFlow<List<Data>> =
+    suspend { getAllDatasUseCase.invoke() }
+      .asFlow()
+      .catch {}
+      .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
 }

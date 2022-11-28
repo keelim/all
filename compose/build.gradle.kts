@@ -18,3 +18,6 @@ dependencies {
     implementation(Dep.AndroidX.Compose.tooling)
     implementation(Dep.AndroidX.Compose.activity)
 }
+android {
+    namespace = "com.keelim.nandadiagnosis.compose"
+}

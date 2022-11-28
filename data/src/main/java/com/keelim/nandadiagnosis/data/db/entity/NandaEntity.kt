@@ -20,23 +20,15 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "nanda")
 data class NandaEntity(
-  @PrimaryKey
-  val nanda_id: Int,
-
-  val reason: String,
-
-  val diagnosis: String,
-
-  val class_name: String,
-
-  val domain_name: String,
-
-  val category: Int,
-
-  val favorite: Int,
-
+    @PrimaryKey val nanda_id: Int,
+    val reason: String,
+    val diagnosis: String,
+    val class_name: String,
+    val domain_name: String,
+    val category: Int,
+    val favorite: Int,
 ) {
-  override fun toString(): String {
-    return "$nanda_id \n $reason \n $diagnosis \n $class_name \n $domain_name \n $category"
-  }
+    override fun toString(): String {
+        return "$nanda_id \n $reason \n $diagnosis \n $class_name \n $domain_name \n $category"
+    }
 }

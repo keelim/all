@@ -11,7 +11,6 @@ import com.keelim.nandadiagnosis.ui.main.Main2Activity
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-
 class NotificationBuilderImpl @Inject constructor(
     @ApplicationContext ctx: Context
 ) : NotificationBuilder {
@@ -25,7 +24,7 @@ class NotificationBuilderImpl @Inject constructor(
             setContentTitle(buildSpannedString { bold { append("성적을 확인해보아요") } })
             setContentText("안녕하세요 마이그레이드 입니다.")
             setAutoCancel(true)
-            action?.let{
+            action?.let {
                 addAction(it)
             }
             setContentIntent(createLauncherIntent())

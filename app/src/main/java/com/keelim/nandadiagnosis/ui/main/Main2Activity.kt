@@ -37,103 +37,104 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class Main2Activity : AppCompatActivity() {
-  private val binding by lazy { ActivityMain2Binding.inflate(layoutInflater) }
-  private val mainViewModel: MainViewModel by viewModels()
+    private val binding by lazy { ActivityMain2Binding.inflate(layoutInflater) }
+    private val mainViewModel: MainViewModel by viewModels()
 
-  @Inject
-  lateinit var receiver: DownloadReceiver
+    @Inject
+    lateinit var receiver: DownloadReceiver
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    setContentView(binding.root)
-    startService(Intent(this, TerminateService::class.java))
-    initViews()
-    fileChecking()
-  }
-
-  override fun onDestroy() {
-    super.onDestroy()
-    stopService(Intent(this, TerminateService::class.java))
-    unregisterReceiver(receiver)
-  }
-
-  private fun initViews() = with(binding) {
-    navController().addOnDestinationChangedListener { _, destination, _ ->
-      when (destination.id) {
-        R.id.navigation_category -> {
-          bottomAppBar.visibility = View.VISIBLE
-          searchButton.show()
-        }
-        else -> {
-          bottomAppBar.visibility = View.GONE
-          searchButton.hide()
-        }
-      }
-    }
-    searchButton.setOnClickListener {
-      navController().navigate(R.id.navigation_search)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(binding.root)
+        startService(Intent(this, TerminateService::class.java))
+        initViews()
+        fileChecking()
     }
 
-    bottomAppBar.setNavigationOnClickListener {
-      showMenu()
+    override fun onDestroy() {
+        super.onDestroy()
+        stopService(Intent(this, TerminateService::class.java))
+        unregisterReceiver(receiver)
     }
 
-    bottomAppBar.setOnMenuItemClickListener {
-      when (it.itemId) {
-        R.id.more -> {
-          showMoreOptions()
-          true
+    private fun initViews() = with(binding) {
+        navController().addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.navigation_category -> {
+                    bottomAppBar.visibility = View.VISIBLE
+                    searchButton.show()
+                }
+                else -> {
+                    bottomAppBar.visibility = View.GONE
+                    searchButton.hide()
+                }
+            }
         }
-        else -> {
-          false
+        searchButton.setOnClickListener {
+            navController().navigate(R.id.navigation_search)
         }
-      }
+
+        bottomAppBar.setNavigationOnClickListener {
+            showMenu()
+        }
+
+        bottomAppBar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.more -> {
+                    showMoreOptions()
+                    true
+                }
+                else -> {
+                    false
+                }
+            }
+        }
     }
-  }
 
-  private fun fileChecking() {
-    val check = File(getExternalFilesDir(null), "nanda.db")
-    if (check.exists().not())
-      databaseDownloadAlertDialog()
-    else
-      toast("데이터베이스가 존재합니다. 그대로 진행 합니다")
-  }
+    private fun fileChecking() {
+        val check = File(getExternalFilesDir(null), "nanda.db")
+        if (check.exists().not())
+            databaseDownloadAlertDialog()
+        else
+            toast("데이터베이스가 존재합니다. 그대로 진행 합니다")
+    }
 
-  private fun databaseDownloadAlertDialog() {
-    MaterialAlertDialogBuilder(this)
-      .setTitle("다운로드 요청")
-      .setMessage("어플 사용을 위해 데이터베이스를 다운로드 합니다.")
-      .setPositiveButton("확인") { _, _ ->
-        toast("서버로부터 데이터베이스를 요청합니다.")
-        downloadDatabase2()
-      }
-      .create()
-      .show()
-  }
+    private fun databaseDownloadAlertDialog() {
+        MaterialAlertDialogBuilder(this)
+            .setTitle("다운로드 요청")
+            .setMessage("어플 사용을 위해 데이터베이스를 다운로드 합니다.")
+            .setPositiveButton("확인") { _, _ ->
+                toast("서버로부터 데이터베이스를 요청합니다.")
+                downloadDatabase2()
+            }
+            .create()
+            .show()
+    }
 
-  private fun downloadDatabase2() {
-    val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-    registerReceiver(
-      receiver,
-      IntentFilter().apply {
-      addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
-      addAction(DownloadManager.ACTION_NOTIFICATION_CLICKED)
-    })
+    private fun downloadDatabase2() {
+        val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+        registerReceiver(
+            receiver,
+            IntentFilter().apply {
+                addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
+                addAction(DownloadManager.ACTION_NOTIFICATION_CLICKED)
+            }
+        )
 
-    val request = DownloadManager.Request(Uri.parse(applicationContext.getString(com.keelim.nandadiagnosis.data.R.string.db_path)))
-      .setTitle("Downloading")
-      .setDescription("Downloading Database file")
-      .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-      .setDestinationUri(Uri.fromFile(File(applicationContext.getExternalFilesDir(null), "nanda.db")))
-      .setAllowedOverMetered(true)
-      .setAllowedOverRoaming(true)
+        val request = DownloadManager.Request(Uri.parse(applicationContext.getString(com.keelim.nandadiagnosis.data.R.string.db_path)))
+            .setTitle("Downloading")
+            .setDescription("Downloading Database file")
+            .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+            .setDestinationUri(Uri.fromFile(File(applicationContext.getExternalFilesDir(null), "nanda.db")))
+            .setAllowedOverMetered(true)
+            .setAllowedOverRoaming(true)
 
-    downloadManager.enqueue(request)
-  }
+        downloadManager.enqueue(request)
+    }
 
-  private fun navController() = findNavController(R.id.nav_host_fragment)
+    private fun navController() = findNavController(R.id.nav_host_fragment)
 
-  private fun showMoreOptions() = navController().navigate(R.id.moreBottomSheetDialog)
+    private fun showMoreOptions() = navController().navigate(R.id.moreBottomSheetDialog)
 
-  private fun showMenu() = navController().navigate(R.id.menuBottomSheetDialogFragment)
+    private fun showMenu() = navController().navigate(R.id.menuBottomSheetDialogFragment)
 }

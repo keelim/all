@@ -25,39 +25,39 @@ import com.keelim.nandadiagnosis.R
 
 class TerminateService : LifecycleService() {
 
-  override fun onCreate() {
-    super.onCreate()
-    createChannelIfNeed()
-    startForeground(
-      NOTIFICATION_ID,
-      createNotification()
-    )
-  }
-
-  override fun onDestroy() {
-    super.onDestroy()
-    stopForeground(true)
-  }
-
-  private fun createChannelIfNeed() {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-      (getSystemService(NOTIFICATION_SERVICE) as? NotificationManager)
-        ?.createNotificationChannel(
-          NotificationChannel(
-            CHANNEL_ID,
-            "채널 이름",
-            NotificationManager.IMPORTANCE_LOW
-          )
+    override fun onCreate() {
+        super.onCreate()
+        createChannelIfNeed()
+        startForeground(
+            NOTIFICATION_ID,
+            createNotification()
         )
     }
-  }
-  private fun createNotification(): Notification =
-    NotificationCompat.Builder(this, CHANNEL_ID)
-      .setSmallIcon(R.mipmap.ic_launcher)
-      .build()
 
-  companion object {
-    private const val CHANNEL_ID = "CHANNEL_ID"
-    private const val NOTIFICATION_ID = 777
-  }
+    override fun onDestroy() {
+        super.onDestroy()
+        stopForeground(true)
+    }
+
+    private fun createChannelIfNeed() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            (getSystemService(NOTIFICATION_SERVICE) as? NotificationManager)
+                ?.createNotificationChannel(
+                    NotificationChannel(
+                        CHANNEL_ID,
+                        "채널 이름",
+                        NotificationManager.IMPORTANCE_LOW
+                    )
+                )
+        }
+    }
+    private fun createNotification(): Notification =
+        NotificationCompat.Builder(this, CHANNEL_ID)
+            .setSmallIcon(R.mipmap.ic_launcher)
+            .build()
+
+    companion object {
+        private const val CHANNEL_ID = "CHANNEL_ID"
+        private const val NOTIFICATION_ID = 777
+    }
 }

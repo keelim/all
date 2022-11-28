@@ -23,40 +23,40 @@ import com.keelim.nandadiagnosis.data.dto.VideoDto
 import kotlinx.coroutines.flow.Flow
 
 interface IORepository {
-  suspend fun getNandaList(): List<NandaEntity2>
+    suspend fun getNandaList(): List<NandaEntity2>
 
-  suspend fun getLocalNandaList(): List<NandaEntity2>
+    suspend fun getLocalNandaList(): List<NandaEntity2>
 
-  suspend fun insertNandaItem(nanda: NandaEntity2): Long
+    suspend fun insertNandaItem(nanda: NandaEntity2): Long
 
-  suspend fun insertNandaList(nanda: List<NandaEntity2>)
+    suspend fun insertNandaList(nanda: List<NandaEntity2>)
 
-  suspend fun updateNanda(nanda: NandaEntity2)
+    suspend fun updateNanda(nanda: NandaEntity2)
 
-  suspend fun getNandaItem(uid: Long): NandaEntity2?
+    suspend fun getNandaItem(uid: Long): NandaEntity2?
 
-  suspend fun deleteAll()
+    suspend fun deleteAll()
 
-  suspend fun deleteNandaItem(uid: Long)
+    suspend fun deleteNandaItem(uid: Long)
 
-  // production =>
-  val searchData: Flow<List<NandaEntity>>
+    // production =>
+    val searchData: Flow<List<NandaEntity>>
 
-  suspend fun getFavoriteList(): List<NandaEntity>
+    suspend fun getFavoriteList(): List<NandaEntity>
 
-  suspend fun getSearchList(keyword: String?): List<NandaEntity>
+    suspend fun getSearchList(keyword: String?): List<NandaEntity>
 
-  suspend fun getHistories(): List<History>
+    suspend fun getHistories(): List<History>
 
-  suspend fun saveHistory(keyword: String)
+    suspend fun saveHistory(keyword: String)
 
-  suspend fun deleteHistory(keyword: String)
+    suspend fun deleteHistory(keyword: String)
 
-  suspend fun updateFavorite(favorite: Int, id: Int)
+    suspend fun updateFavorite(favorite: Int, id: Int)
 
-  fun getSearchFlow(query: String): Flow<List<NandaEntity>>
+    fun getSearchFlow(query: String): Flow<List<NandaEntity>>
 
-  fun getTodoContentItemsByPaging(query: String): Flow<PagingData<NandaEntity>>
+    fun getTodoContentItemsByPaging(query: String): Flow<PagingData<NandaEntity>>
 
-  suspend fun getVideoList(): VideoDto
+    suspend fun getVideoList(): VideoDto
 }

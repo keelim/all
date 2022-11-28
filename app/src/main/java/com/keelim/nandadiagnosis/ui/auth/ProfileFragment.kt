@@ -41,132 +41,132 @@ import timber.log.Timber
 
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
-  private var _binding: FragmentProfileBinding? = null
-  private val binding get() = _binding!!
-  private val viewModel: ProfileViewModel by viewModels()
+    private var _binding: FragmentProfileBinding? = null
+    private val binding get() = _binding!!
+    private val viewModel: ProfileViewModel by viewModels()
 
-  private val gso by lazy {
-    GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+    private val gso by lazy {
+        GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
 //      .requestIdToken(getString(R.string.d))
-      .requestEmail()
-      .build()
-  }
-  private val gsc by lazy { GoogleSignIn.getClient(requireActivity(), gso) }
-  private val adapter = FavoriteAdapter()
-  private val auth by lazy { Firebase.auth }
+            .requestEmail()
+            .build()
+    }
+    private val gsc by lazy { GoogleSignIn.getClient(requireActivity(), gso) }
+    private val adapter = FavoriteAdapter()
+    private val auth by lazy { Firebase.auth }
 
-  private val loginLauncher =
-    registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-      if (result.resultCode == Activity.RESULT_OK) {
-        val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+    private val loginLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
 
-        try {
-          task.getResult(ApiException::class.java)?.let { account ->
-            Timber.d("firebase with google ${account.id}")
-            viewModel.saveToken(account.idToken ?: throw Exception())
-          } ?: throw Exception()
-        } catch (e: Exception) {
-          e.printStackTrace()
+                try {
+                    task.getResult(ApiException::class.java)?.let { account ->
+                        Timber.d("firebase with google ${account.id}")
+                        viewModel.saveToken(account.idToken ?: throw Exception())
+                    } ?: throw Exception()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
         }
-      }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentProfileBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-  override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
-  ): View {
-    _binding = FragmentProfileBinding.inflate(inflater, container, false)
-    return binding.root
-  }
-
-  override fun onDestroyView() {
-    super.onDestroyView()
-    _binding = null
-  }
-
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-    observeData()
-    viewModel.fetchData()
-  }
-
-  private fun observeData() = viewModel.profileState.observe(viewLifecycleOwner) {
-    when (it) {
-      is ProfileState.UnInitialized -> initViews()
-      is ProfileState.Loading -> handleLoading()
-      is ProfileState.Login -> handleLogin(it)
-      is ProfileState.Success -> handleSuccess(it)
-      is ProfileState.Error -> handleError()
-    }
-  }
-
-  private fun initViews() = with(binding) {
-    profileRecycler.adapter = adapter
-    profileRecycler.layoutManager = LinearLayoutManager(requireContext())
-    loginButton.setOnClickListener {
-      signInGoogle()
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
-    logoutButton.setOnClickListener {
-      viewModel.signOut()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        observeData()
+        viewModel.fetchData()
     }
-  }
 
-  private fun signInGoogle() {
-    val signInIntent = gsc.signInIntent
-    loginLauncher.launch(signInIntent)
-  }
-
-  private fun handleLoading() = with(binding) {
-    progressBar.isVisible = true
-    loginRequiredGroup.isGone = true
-  }
-
-  private fun handleSuccess(state: ProfileState.Success) = with(binding) {
-    progressBar.isGone = true
-    when (state) {
-      is ProfileState.Success.Registered -> {
-        handleRegister(state)
-      }
-
-      is ProfileState.Success.NotRegistered -> {
-        profileGroup.isGone = true
-        loginRequiredGroup.isVisible = true
-      }
+    private fun observeData() = viewModel.profileState.observe(viewLifecycleOwner) {
+        when (it) {
+            is ProfileState.UnInitialized -> initViews()
+            is ProfileState.Loading -> handleLoading()
+            is ProfileState.Login -> handleLogin(it)
+            is ProfileState.Success -> handleSuccess(it)
+            is ProfileState.Error -> handleError()
+        }
     }
-  }
 
-  private fun handleLogin(state: ProfileState.Login) = with(binding) {
-    progressBar.isVisible = true
-    val credential = GoogleAuthProvider.getCredential(state.token, null)
-    auth.signInWithCredential(credential)
-      .addOnCompleteListener(requireActivity()) { task ->
-        if (task.isSuccessful) {
-          val user = auth.currentUser
-          viewModel.setUser(user)
+    private fun initViews() = with(binding) {
+        profileRecycler.adapter = adapter
+        profileRecycler.layoutManager = LinearLayoutManager(requireContext())
+        loginButton.setOnClickListener {
+            signInGoogle()
+        }
+
+        logoutButton.setOnClickListener {
+            viewModel.signOut()
+        }
+    }
+
+    private fun signInGoogle() {
+        val signInIntent = gsc.signInIntent
+        loginLauncher.launch(signInIntent)
+    }
+
+    private fun handleLoading() = with(binding) {
+        progressBar.isVisible = true
+        loginRequiredGroup.isGone = true
+    }
+
+    private fun handleSuccess(state: ProfileState.Success) = with(binding) {
+        progressBar.isGone = true
+        when (state) {
+            is ProfileState.Success.Registered -> {
+                handleRegister(state)
+            }
+
+            is ProfileState.Success.NotRegistered -> {
+                profileGroup.isGone = true
+                loginRequiredGroup.isVisible = true
+            }
+        }
+    }
+
+    private fun handleLogin(state: ProfileState.Login) = with(binding) {
+        progressBar.isVisible = true
+        val credential = GoogleAuthProvider.getCredential(state.token, null)
+        auth.signInWithCredential(credential)
+            .addOnCompleteListener(requireActivity()) { task ->
+                if (task.isSuccessful) {
+                    val user = auth.currentUser
+                    viewModel.setUser(user)
+                } else {
+                    viewModel.setUser(null)
+                }
+            }
+    }
+
+    private fun handleRegister(state: ProfileState.Success.Registered) = with(binding) {
+        Timber.w("값 $state")
+        profileGroup.isVisible = true
+        loginRequiredGroup.isGone = true
+        imageView.load(state.profileImage.toString())
+        userId.text = state.userName
+
+        if (state.favoriteList.isEmpty()) {
+            noText.isGone = false
         } else {
-          viewModel.setUser(null)
+            noText.isGone = true
+            adapter.submitList(state.favoriteList)
         }
-      }
-  }
-
-  private fun handleRegister(state: ProfileState.Success.Registered) = with(binding) {
-    Timber.w("값 $state")
-    profileGroup.isVisible = true
-    loginRequiredGroup.isGone = true
-    imageView.load(state.profileImage.toString())
-    userId.text = state.userName
-
-    if (state.favoriteList.isEmpty()) {
-      noText.isGone = false
-    } else {
-      noText.isGone = true
-      adapter.submitList(state.favoriteList)
     }
-  }
 
-  private fun handleError() {
-    requireActivity().toast("에러가 발생했습니다.")
-  }
+    private fun handleError() {
+        requireActivity().toast("에러가 발생했습니다.")
+    }
 }

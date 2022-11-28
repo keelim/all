@@ -24,40 +24,40 @@ import com.keelim.nandadiagnosis.data.entity.DiagnosisItem
 import com.keelim.nandadiagnosis.databinding.ItemListviewBinding
 
 class DiagnosisRecyclerViewAdapter(
-  var listener: (Int) -> Unit,
+    var listener: (Int) -> Unit,
 ) : ListAdapter<DiagnosisItem, DiagnosisRecyclerViewAdapter.ViewHolder>(
-  diffUtil
+    diffUtil
 ) {
 
-  inner class ViewHolder(private val binding: ItemListviewBinding) :
-    RecyclerView.ViewHolder(binding.root) {
-    fun bind(item: DiagnosisItem, position: Int) = with(binding) {
-      diagnosisItem.text = item.diagnosis
-      diagnosisDes.text = item.diagnosis_description
+    inner class ViewHolder(private val binding: ItemListviewBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: DiagnosisItem, position: Int) = with(binding) {
+            diagnosisItem.text = item.diagnosis
+            diagnosisDes.text = item.diagnosis_description
 
-      root.setOnClickListener {
-        listener.invoke(position)
-      }
+            root.setOnClickListener {
+                listener.invoke(position)
+            }
+        }
     }
-  }
 
-  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-    return ViewHolder(ItemListviewBinding.inflate(LayoutInflater.from(parent.context), parent, false))
-  }
-
-  override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-    holder.bind(currentList[position], position)
-  }
-
-  companion object {
-    val diffUtil = object : DiffUtil.ItemCallback<DiagnosisItem>() {
-      override fun areItemsTheSame(oldItem: DiagnosisItem, newItem: DiagnosisItem): Boolean {
-        return oldItem == newItem
-      }
-
-      override fun areContentsTheSame(oldItem: DiagnosisItem, newItem: DiagnosisItem): Boolean {
-        return oldItem.diagnosis == newItem.diagnosis
-      }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder(ItemListviewBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
-  }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(currentList[position], position)
+    }
+
+    companion object {
+        val diffUtil = object : DiffUtil.ItemCallback<DiagnosisItem>() {
+            override fun areItemsTheSame(oldItem: DiagnosisItem, newItem: DiagnosisItem): Boolean {
+                return oldItem == newItem
+            }
+
+            override fun areContentsTheSame(oldItem: DiagnosisItem, newItem: DiagnosisItem): Boolean {
+                return oldItem.diagnosis == newItem.diagnosis
+            }
+        }
+    }
 }

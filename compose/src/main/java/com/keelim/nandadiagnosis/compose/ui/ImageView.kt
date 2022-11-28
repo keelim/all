@@ -29,29 +29,31 @@ import com.keelim.nandadiagnosis.compose.R
 @OptIn(ExperimentalCoilApi::class)
 @Composable
 fun ProfileImageView(
-  imageUrl: String,
-  stateColor: Color,
-  modifier: Modifier = Modifier,
-  builder: ImageRequest.Builder.() -> Unit = {
-    crossfade(true)
-    placeholder(R.drawable.sample)
-    error(R.drawable.sample)
-  },
+    imageUrl: String,
+    stateColor: Color,
+    modifier: Modifier = Modifier,
+    builder: ImageRequest.Builder.() -> Unit = {
+        crossfade(true)
+        placeholder(R.drawable.sample)
+        error(R.drawable.sample)
+    },
 ) {
-  val painter = rememberImagePainter(
-    data = imageUrl,
-    builder = builder,
-  )
+    val painter =
+        rememberImagePainter(
+            data = imageUrl,
+            builder = builder,
+        )
 
-  val filter = when (painter.state) {
-    is ImagePainter.State.Success -> null
-    else -> ColorFilter.tint(stateColor)
-  }
+    val filter =
+        when (painter.state) {
+            is ImagePainter.State.Success -> null
+            else -> ColorFilter.tint(stateColor)
+        }
 
-  Image(
-    modifier = modifier,
-    painter = painter,
-    colorFilter = filter,
-    contentDescription = null,
-  )
+    Image(
+        modifier = modifier,
+        painter = painter,
+        colorFilter = filter,
+        contentDescription = null,
+    )
 }

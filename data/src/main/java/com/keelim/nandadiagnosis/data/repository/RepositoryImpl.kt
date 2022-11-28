@@ -19,9 +19,9 @@ import com.keelim.nandadiagnosis.data.db.entity.NandaEntity2
 import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(
-  private val remoteDataSource: RemoteDataSource
+    private val remoteDataSource: RemoteDataSource
 ) : Repository {
-  override suspend fun getNandaInformation(type: String): List<NandaEntity2> {
-    return remoteDataSource.getNandaInformation(type)
-  }
+    override suspend fun getNandaInformation(type: String): List<NandaEntity2> {
+        return remoteDataSource.getNandaInformation(type)
+    }
 }

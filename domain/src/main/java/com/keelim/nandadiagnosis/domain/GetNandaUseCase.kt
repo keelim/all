@@ -19,10 +19,10 @@ import com.keelim.nandadiagnosis.data.repository.io.IORepository
 import javax.inject.Inject
 
 class GetNandaUseCase @Inject constructor(
-  private val ioRepository: IORepository
+    private val ioRepository: IORepository
 ) {
 
-  suspend operator fun invoke(uid: Long): com.keelim.nandadiagnosis.data.db.entity.NandaEntity2? {
-    return ioRepository.getNandaItem(uid)
-  }
+    suspend operator fun invoke(uid: Long): com.keelim.nandadiagnosis.data.db.entity.NandaEntity2? {
+        return ioRepository.getNandaItem(uid)
+    }
 }

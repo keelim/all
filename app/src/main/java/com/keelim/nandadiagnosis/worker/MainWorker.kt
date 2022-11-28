@@ -1,7 +1,7 @@
 package com.keelim.nandadiagnosis.worker
 
-import androidx.hilt.work.HiltWorker
 import android.content.Context
+import androidx.hilt.work.HiltWorker
 import androidx.work.BackoffPolicy
 import androidx.work.Constraints
 import androidx.work.CoroutineWorker
@@ -12,7 +12,6 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import com.keelim.nandadiagnosis.notification.NotificationBuilder
-
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import java.util.concurrent.TimeUnit
@@ -22,7 +21,7 @@ class MainWorker @AssistedInject constructor(
     @Assisted ctx: Context,
     @Assisted params: WorkerParameters,
     private val notificationBuilder: NotificationBuilder,
-): CoroutineWorker(ctx, params) {
+) : CoroutineWorker(ctx, params) {
     override suspend fun doWork(): Result {
         return try {
             notificationBuilder.showNotification(null)

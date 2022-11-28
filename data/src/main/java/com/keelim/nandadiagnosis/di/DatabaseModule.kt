@@ -33,24 +33,24 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object DatabaseModule {
 
-  @Provides
-  @Singleton
-  fun provideAppDatabase(
-    @ApplicationContext context: Context,
-  ): AppDatabaseV2 {
-    return Room.databaseBuilder(
-      context.applicationContext,
-      AppDatabaseV2::class.java,
-      "nanda"
-    )
-      .createFromFile(File(context.getExternalFilesDir(null), "nanda.db"))
-      .allowMainThreadQueries()
-      .build()
-  }
+    @Provides
+    @Singleton
+    fun provideAppDatabase(
+        @ApplicationContext context: Context,
+    ): AppDatabaseV2 {
+        return Room.databaseBuilder(
+            context.applicationContext,
+            AppDatabaseV2::class.java,
+            "nanda"
+        )
+            .createFromFile(File(context.getExternalFilesDir(null), "nanda.db"))
+            .allowMainThreadQueries()
+            .build()
+    }
 
-  @Provides
-  @Singleton
-  fun provideRemoteDataSource(nandaService: NandaService): RemoteDataSource {
-    return RemoteDataSourceImpl(nandaService)
-  }
+    @Provides
+    @Singleton
+    fun provideRemoteDataSource(nandaService: NandaService): RemoteDataSource {
+        return RemoteDataSourceImpl(nandaService)
+    }
 }

@@ -19,12 +19,12 @@ import com.keelim.nandadiagnosis.data.repository.theme.ThemeRepository
 import kotlinx.coroutines.flow.Flow
 
 class GetAppThemeUseCase(
-  themeRepository: ThemeRepository
+    themeRepository: ThemeRepository
 ) {
 
-  /**
-   * Retrieves the current selected [AppTheme] in user preferences
-   * every time it changes.
-   */
-  val appTheme: Flow<Int> = themeRepository.getUserTheme()
+    /**
+     * Retrieves the current selected [AppTheme] in user preferences
+     * every time it changes.
+     */
+    val appTheme: Flow<Int?> = themeRepository.getUserTheme()
 }

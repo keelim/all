@@ -21,5 +21,8 @@ dependencies {
     implementation(Dep.AndroidX.activity.ktx)
     implementation(Dep.Player.exoplayer)
 }
+android {
+    namespace = "com.keelim.player"
+}
 
 

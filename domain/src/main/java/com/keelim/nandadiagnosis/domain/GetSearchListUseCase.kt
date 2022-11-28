@@ -18,24 +18,24 @@ package com.keelim.nandadiagnosis.domain
 import androidx.paging.PagingData
 import com.keelim.nandadiagnosis.data.db.entity.NandaEntity
 import com.keelim.nandadiagnosis.data.repository.io.IORepository
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
 
 class GetSearchListUseCase @Inject constructor(
-  private val ioRepository: IORepository,
+    private val ioRepository: IORepository,
 ) {
 
-  suspend operator fun invoke(query: String?): List<NandaEntity> {
-    return ioRepository.getSearchList(query)
-  }
+    suspend operator fun invoke(query: String?): List<NandaEntity> {
+        return ioRepository.getSearchList(query)
+    }
 
-  fun getFlowData(query: String): Flow<List<NandaEntity>> {
-    return ioRepository.getSearchFlow(query)
-  }
+    fun getFlowData(query: String): Flow<List<NandaEntity>> {
+        return ioRepository.getSearchFlow(query)
+    }
 
-  fun getSearchFlow(query: String): Flow<PagingData<NandaEntity>> {
-    return ioRepository.getTodoContentItemsByPaging(query)
-  }
+    fun getSearchFlow(query: String): Flow<PagingData<NandaEntity>> {
+        return ioRepository.getTodoContentItemsByPaging(query)
+    }
 
-  val searchData:Flow<List<NandaEntity>> = ioRepository.searchData
+    val searchData: Flow<List<NandaEntity>> = ioRepository.searchData
 }

@@ -24,23 +24,23 @@ import androidx.annotation.StringRes
 import androidx.core.os.bundleOf
 
 inline fun <reified T : Activity> Context.buildIntent(
-  vararg argument: Pair<String, Any?>
+    vararg argument: Pair<String, Any?>
 ): Intent = Intent(this, T::class.java).apply {
-  putExtras(bundleOf(*argument))
+    putExtras(bundleOf(*argument))
 }
 
 inline fun <reified T : Activity> Context.startActivity(
-  vararg argument: Pair<String, Any?>
+    vararg argument: Pair<String, Any?>
 ) {
-  startActivity(buildIntent<T>(*argument))
+    startActivity(buildIntent<T>(*argument))
 }
 
 fun Int.dp2px() = (this * Resources.getSystem().displayMetrics.density).toInt()
 
 fun Context.toast(message: String, length: Int = Toast.LENGTH_SHORT) {
-  Toast.makeText(this, message, length).show()
+    Toast.makeText(this, message, length).show()
 }
 
 fun Context.toast(@StringRes message: Int, length: Int = Toast.LENGTH_SHORT) {
-  Toast.makeText(this, message, length).show()
+    Toast.makeText(this, message, length).show()
 }

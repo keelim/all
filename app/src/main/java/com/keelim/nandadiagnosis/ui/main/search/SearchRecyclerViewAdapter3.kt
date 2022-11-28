@@ -25,54 +25,54 @@ import com.keelim.nandadiagnosis.data.db.entity.NandaEntity
 import com.keelim.nandadiagnosis.databinding.ItemListviewBinding
 
 class SearchRecyclerViewAdapter3(
-  val favoriteListener: (Int, Int) -> Unit,
+    val favoriteListener: (Int, Int) -> Unit,
 ) :
-  PagingDataAdapter<NandaEntity, SearchRecyclerViewAdapter3.ViewHolder>(diffUtil) {
-  var tracker: SelectionTracker<Long>? = null
+    PagingDataAdapter<NandaEntity, SearchRecyclerViewAdapter3.ViewHolder>(diffUtil) {
+    var tracker: SelectionTracker<Long>? = null
 
-  inner class ViewHolder(private val binding: ItemListviewBinding) :
-    RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: ItemListviewBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(item: NandaEntity, isActivated: Boolean = false) {
-      itemView.isActivated = isActivated
+        fun bind(item: NandaEntity, isActivated: Boolean = false) {
+            itemView.isActivated = isActivated
 
-      binding.diagnosisItem.text = item.diagnosis
-      binding.diagnosisDes.text = item.reason
-      binding.className.text = item.class_name
-      binding.domainName.text = item.domain_name
-      binding.searchSwitch.isChecked = item.favorite == 1
+            binding.diagnosisItem.text = item.diagnosis
+            binding.diagnosisDes.text = item.reason
+            binding.className.text = item.class_name
+            binding.domainName.text = item.domain_name
+            binding.searchSwitch.isChecked = item.favorite == 1
 
-      binding.searchSwitch.setOnClickListener {
-        favoriteListener(item.favorite, item.nanda_id)
-      }
+            binding.searchSwitch.setOnClickListener {
+                favoriteListener(item.favorite, item.nanda_id)
+            }
+        }
     }
-  }
 
-  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-    return ViewHolder(
-      ItemListviewBinding.inflate(
-        LayoutInflater.from(parent.context),
-        parent,
-        false
-      )
-    )
-  }
-
-  override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-    tracker?.let {
-      getItem(position)?.let { holder.bind(it) }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder(
+            ItemListviewBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
-  }
 
-  companion object {
-    val diffUtil = object : DiffUtil.ItemCallback<NandaEntity>() {
-      override fun areItemsTheSame(oldItem: NandaEntity, newItem: NandaEntity): Boolean {
-        return oldItem == newItem
-      }
-
-      override fun areContentsTheSame(oldItem: NandaEntity, newItem: NandaEntity): Boolean {
-        return oldItem.diagnosis == newItem.diagnosis
-      }
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        tracker?.let {
+            getItem(position)?.let { holder.bind(it) }
+        }
     }
-  }
+
+    companion object {
+        val diffUtil = object : DiffUtil.ItemCallback<NandaEntity>() {
+            override fun areItemsTheSame(oldItem: NandaEntity, newItem: NandaEntity): Boolean {
+                return oldItem == newItem
+            }
+
+            override fun areContentsTheSame(oldItem: NandaEntity, newItem: NandaEntity): Boolean {
+                return oldItem.diagnosis == newItem.diagnosis
+            }
+        }
+    }
 }

@@ -27,23 +27,23 @@ import com.keelim.ui.Section
 import com.keelim.ui.SettingScreen
 
 class SettingFragment : Fragment() {
-  override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
-  ): View {
-    return setThemeContent {
-      val context = LocalContext.current
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        return setThemeContent {
+            val context = LocalContext.current
 
-      SettingScreen { action ->
-        val route = when (action) {
-          Section.Developer -> Section.Developer
+            SettingScreen { action ->
+                val route = when (action) {
+                    Section.Developer -> Section.Developer
+                }
+
+                context.startActivity<SettingActivity>(
+                    "type" to route
+                )
+            }
         }
-
-        context.startActivity<SettingActivity>(
-          "type" to route
-        )
-      }
     }
-  }
 }

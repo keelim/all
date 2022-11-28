@@ -16,8 +16,8 @@
 package com.keelim.nandadiagnosis.data.entity
 
 data class Recent(
-  val reason: String,
-  val domain: String,
-  val class_name: String,
-  val category: String,
+    val reason: String,
+    val domain: String,
+    val class_name: String,
+    val category: String,
 )

@@ -8,3 +8,6 @@ dependencies {
     implementation(Dep.AndroidX.UI.material)
     implementation(Dep.AndroidX.activity.ktx)
 }
+android {
+    namespace = "com.keelim.common"
+}

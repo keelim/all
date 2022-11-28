@@ -6,7 +6,6 @@ import android.app.NotificationManager
 import android.os.Build
 import com.keelim.nandadiagnosis.R
 
-
 object NotificationChannels {
     const val NOTICE = "NOTIFICATION"
 

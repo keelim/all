@@ -18,8 +18,8 @@ package com.keelim.nandadiagnosis.domain
 import com.keelim.nandadiagnosis.data.repository.theme.ThemeRepository
 
 class SetAppThemeUseCase(
-  private val themeRepository: ThemeRepository
+    private val themeRepository: ThemeRepository
 ) {
 
-  suspend operator fun invoke(theme: Int) = themeRepository.setUserTheme(theme)
+    suspend operator fun invoke(theme: Int) = themeRepository.setUserTheme(theme)
 }

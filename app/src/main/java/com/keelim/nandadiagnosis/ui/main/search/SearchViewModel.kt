@@ -15,8 +15,6 @@
  */
 package com.keelim.nandadiagnosis.ui.main.search
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -27,92 +25,86 @@ import com.keelim.nandadiagnosis.domain.GetSearchListUseCase
 import com.keelim.nandadiagnosis.domain.HistoryUseCase
 import com.keelim.nandadiagnosis.domain.favorite.FavoriteUpdateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
-import javax.inject.Inject
+import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @HiltViewModel
-class SearchViewModel @Inject constructor(
-  private val getSearchListUseCase: GetSearchListUseCase,
-  private val favoriteUpdateUseCase: FavoriteUpdateUseCase,
-  private val historyUseCase: HistoryUseCase,
+class SearchViewModel
+@Inject
+constructor(
+    private val getSearchListUseCase: GetSearchListUseCase,
+    private val favoriteUpdateUseCase: FavoriteUpdateUseCase,
+    private val historyUseCase: HistoryUseCase,
 ) : ViewModel() {
-  private val _state: MutableStateFlow<SearchListState> = MutableStateFlow(SearchListState.UnInitialized)
+  private val _state: MutableStateFlow<SearchListState> =
+      MutableStateFlow(SearchListState.UnInitialized)
   val state: StateFlow<SearchListState> = _state
 
-  private val _historyList = MutableLiveData<List<History>>(listOf())
-  val historyList: LiveData<List<History>> get() = _historyList
+  val history: StateFlow<List<History>> =
+      suspend { historyUseCase.getAllHistory() }
+          .asFlow()
+          .catch {
+            Timber.e(it)
+            emptyFlow<List<History>>()
+          }
+          .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
 
-  private val _history: MutableStateFlow<List<History>> = MutableStateFlow(emptyList())
-  val history: StateFlow<List<History>> = _history
-
-  private val query:MutableStateFlow<String> = MutableStateFlow("")
-  init{
+  private val query: MutableStateFlow<String> = MutableStateFlow("")
+  init {
     observeSearchState()
   }
 
-  fun search2(keyword: String?) = viewModelScope.launch {
-    _state.emit(SearchListState.Loading)
-    runCatching {
-      getSearchListUseCase(keyword.orEmpty())
-    }.onSuccess {
-      _state.emit(SearchListState.Searching(it))
-    }.onFailure {
-      _state.emit(SearchListState.Error)
-    }
-  }
+  fun search2(keyword: String?) =
+      viewModelScope.launch {
+        _state.emit(SearchListState.Loading)
+        runCatching { getSearchListUseCase(keyword.orEmpty()) }
+            .onSuccess { _state.emit(SearchListState.Searching(it)) }
+            .onFailure { _state.emit(SearchListState.Error) }
+      }
 
-  fun deleteHistory(keyword: String?) = viewModelScope.launch {
-    historyUseCase.deleteHistory(keyword.orEmpty())
-  }
+  fun deleteHistory(keyword: String?) =
+      viewModelScope.launch { historyUseCase.deleteHistory(keyword.orEmpty()) }
 
-  fun saveHistory(keyword: String?) = viewModelScope.launch {
-    keyword?.let {
-      historyUseCase.saveHistory(it)
-    }
-  }
+  fun saveHistory(keyword: String?) =
+      viewModelScope.launch { keyword?.let { historyUseCase.saveHistory(it) } }
 
-  fun getAllHistories() = viewModelScope.launch {
-    _historyList.postValue(historyUseCase.getAllHistory())
-    _history.value = historyUseCase.getAllHistory()
-  }
-
-  fun favoriteUpdate(favorite: Int, id: Int) = viewModelScope.launch {
-    favoriteUpdateUseCase.invoke(favorite, id)
-  }
+  fun favoriteUpdate(favorite: Int, id: Int) =
+      viewModelScope.launch { favoriteUpdateUseCase.invoke(favorite, id) }
 
   fun getContent(query: String = ""): Flow<PagingData<NandaEntity>> {
-    return getSearchListUseCase.getSearchFlow(query)
-      .cachedIn(viewModelScope)
+    return getSearchListUseCase.getSearchFlow(query).cachedIn(viewModelScope)
   }
 
-  fun queryFilter(value:String) = viewModelScope.launch {
-    query.emit(value)
-  }
+  fun queryFilter(value: String) = viewModelScope.launch { query.emit(value) }
 
   private fun observeSearchState() {
-    getSearchListUseCase
-      .searchData
-      .combine(query) { data, queryString ->
-        if(queryString.isNotBlank()){
-          data.filter { nandaEntity -> nandaEntity.domain_name.contains(queryString) }
-        } else{
-          data
+    getSearchListUseCase.searchData
+        .combine(query) { data, queryString ->
+          if (queryString.isNotBlank()) {
+            data.filter { nandaEntity -> nandaEntity.domain_name.contains(queryString) }
+          } else {
+            data
+          }
         }
-      }.onStart {
-        _state.emit(SearchListState.Loading)
-      }.onEach {
-        _state.emit(SearchListState.Success(it))
-      }.catch {
-        it.printStackTrace()
-        _state.emit(SearchListState.Error)
-      }.launchIn(viewModelScope)
+        .onStart { _state.emit(SearchListState.Loading) }
+        .onEach { _state.emit(SearchListState.Success(it)) }
+        .catch {
+          it.printStackTrace()
+          _state.emit(SearchListState.Error)
+        }
+        .launchIn(viewModelScope)
   }
 }

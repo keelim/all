@@ -34,53 +34,53 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 internal fun SettingScreen(
-  onScreenAction: (Section) -> Unit,
+    onScreenAction: (Section) -> Unit,
 ) {
-  Scaffold(
-    topBar = {
-      Column(
-        Modifier
-          .fillMaxWidth()
-          .padding(24.dp)
-      ) {
-        Text(
-          text = "설정",
-          color = Color.Black,
-          fontSize = 20.sp,
-          fontWeight = FontWeight.Bold
-        )
-      }
+    Scaffold(
+        topBar = {
+            Column(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(24.dp)
+            ) {
+                Text(
+                    text = "설정",
+                    color = Color.Black,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+        }
+    ) { innerPadding ->
+        Column(Modifier.padding(innerPadding)) {
+            CellItem("Speaker") {
+                onScreenAction(Section.Developer)
+            }
+            Divider(
+                color = Color.Black,
+                modifier = Modifier
+                    .padding(horizontal = 24.dp)
+                    .height(1.dp)
+            )
+        }
     }
-  ) { innerPadding ->
-    Column(Modifier.padding(innerPadding)) {
-      CellItem("Speaker") {
-        onScreenAction(Section.Developer)
-      }
-      Divider(
-        color = Color.Black,
-        modifier = Modifier
-          .padding(horizontal = 24.dp)
-          .height(1.dp)
-      )
-    }
-  }
 }
 
 @Composable
 private fun CellItem(
-  text: String,
-  onClicked: () -> Unit
+    text: String,
+    onClicked: () -> Unit
 ) {
-  Text(
-    text = text,
-    color = Color.Black,
-    fontSize = 16.sp,
-    fontWeight = FontWeight.Bold,
-    modifier = Modifier
-      .fillMaxWidth()
-      .heightIn(min = 62.dp)
-      .clickable { onClicked() }
-      .padding(horizontal = 24.dp)
-      .wrapContentHeight()
-  )
+    Text(
+        text = text,
+        color = Color.Black,
+        fontSize = 16.sp,
+        fontWeight = FontWeight.Bold,
+        modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(min = 62.dp)
+            .clickable { onClicked() }
+            .padding(horizontal = 24.dp)
+            .wrapContentHeight()
+    )
 }

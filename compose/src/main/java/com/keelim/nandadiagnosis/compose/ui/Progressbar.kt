@@ -26,20 +26,20 @@ import androidx.compose.ui.unit.dp
 @Preview
 @Composable
 private fun PreviewProgress() {
-  CircularIndeterminateProgressBar(
-    isDisplayed = true
-  )
+    CircularIndeterminateProgressBar(
+        isDisplayed = true
+    )
 }
 
 @Composable
 fun CircularIndeterminateProgressBar(
-  isDisplayed: Boolean,
+    isDisplayed: Boolean,
 ) {
-  if (isDisplayed) {
-    CircularProgressIndicator(
-      modifier = Modifier.padding(8.dp),
-      color = Color.Yellow,
-      strokeWidth = 10.dp
-    )
-  }
+    if (isDisplayed) {
+        CircularProgressIndicator(
+            modifier = Modifier.padding(8.dp),
+            color = Color.Yellow,
+            strokeWidth = 10.dp
+        )
+    }
 }

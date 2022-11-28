@@ -22,12 +22,12 @@ import com.keelim.nandadiagnosis.data.db.entity.History
 
 @Dao
 interface HistoryDao {
-  @Query("select * from history")
-  suspend fun getAll(): List<History>
+    @Query("select * from history")
+    suspend fun getAll(): List<History>
 
-  @Insert
-  suspend fun insertHistory(history: History)
+    @Insert
+    suspend fun insertHistory(history: History)
 
-  @Query("delete from history where keyword==:keyword")
-  suspend fun delete(keyword: String)
+    @Query("delete from history where keyword==:keyword")
+    suspend fun delete(keyword: String)
 }

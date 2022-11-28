@@ -6,8 +6,8 @@ import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
-import timber.log.Timber
 import kotlin.coroutines.suspendCoroutine
+import timber.log.Timber
 
 class InAppUpdateManagerImpl @Inject constructor(
     @ApplicationContext ctx: Context

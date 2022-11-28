@@ -19,21 +19,20 @@ import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
 import androidx.recyclerview.widget.LinearSnapHelper
-import com.keelim.common.util.repeatCallDefaultOnStarted
 import com.keelim.common.util.toast
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.FragmentSearchBinding
@@ -41,89 +40,75 @@ import com.keelim.nandadiagnosis.ui.main.search.history.HistoryAdapter
 import com.keelim.nandadiagnosis.ui.main.search.selection.MyItemDetailsLookup
 import com.keelim.nandadiagnosis.ui.main.search.selection.MyItemKeyProvider
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
-class SearchFragment : Fragment() {
+class SearchFragment : Fragment(R.layout.fragment_search) {
+  private lateinit var binding: FragmentSearchBinding
   private var trackers: SelectionTracker<Long>? = null
-
-  private var _binding: FragmentSearchBinding? = null
-  private val binding get() = _binding!!
 
   private val viewModel: SearchViewModel by viewModels()
 
-  private val historyAdapter = HistoryAdapter(
-    historyDeleteListener = {
-      deleteSearch(it)
-    },
-    textSelectListener = {},
-  )
-  private val searchRecyclerViewAdapter2 = SearchRecyclerViewAdapter2(
-    favoriteListener = { favorite, id ->
-      favoriteUpdate(favorite, id)
-    }
-  )
-
-  override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
-  ): View {
-    _binding = FragmentSearchBinding.inflate(layoutInflater, container, false)
-    return binding.root
-  }
-
-  override fun onDestroyView() {
-    super.onDestroyView()
-    _binding = null
-  }
+  private val historyAdapter =
+      HistoryAdapter(
+          historyDeleteListener = { deleteSearch(it) },
+          textSelectListener = {},
+      )
+  private val searchRecyclerViewAdapter2 =
+      SearchRecyclerViewAdapter2(
+          favoriteListener = { favorite, id -> favoriteUpdate(favorite, id) })
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    binding = FragmentSearchBinding.bind(view)
     setHasOptionsMenu(true)
     initViews()
     observeState()
   }
 
-  private fun observeState() = viewLifecycleOwner.lifecycleScope.launch{
-    repeatCallDefaultOnStarted {
-      viewModel.state.collect {
-        when (it) {
-          is SearchListState.UnInitialized -> requireActivity().toast("데이터 설정 중입니다.")
-          is SearchListState.Loading -> requireContext().toast("데이터 로딩 중")
-          is SearchListState.Searching -> {
-            handleSuccess(it)
+  private fun observeState() =
+      viewLifecycleOwner.lifecycleScope.launch {
+        viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+          viewModel.state.collect {
+            when (it) {
+              is SearchListState.UnInitialized -> requireActivity().toast("데이터 설정 중입니다.")
+              is SearchListState.Loading -> requireContext().toast("데이터 로딩 중")
+              is SearchListState.Searching -> {
+                handleSuccess(it)
+              }
+              is SearchListState.Error -> Unit
+              is SearchListState.Success -> Unit
+            }
           }
-          is SearchListState.Error -> Unit
-          is SearchListState.Success -> Unit
+        }
+        viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+          viewModel.history.collectLatest {
+            historyAdapter.submitList(it)
+            binding.historyRecycler.isVisible = true
+          }
         }
       }
-      viewModel.history.collect {
-        historyAdapter.submitList(it)
-        binding.historyRecycler.isVisible = true
+
+  private fun initViews() =
+      with(binding) {
+        historyRecycler.apply {
+          val snap = LinearSnapHelper()
+          setHasFixedSize(true)
+          adapter = historyAdapter
+          snap.attachToRecyclerView(this)
+        }
+
+        recyclerView.apply {
+          val snap = LinearSnapHelper()
+          setHasFixedSize(true)
+          addItemDecoration(RecyclerViewDecoration(0, 10))
+          adapter = searchRecyclerViewAdapter2
+          snap.attachToRecyclerView(this)
+        }
+        initTracker()
       }
-    }
-  }
-
-  private fun initViews() = with(binding) {
-    historyRecycler.apply {
-      val snap = LinearSnapHelper()
-      setHasFixedSize(true)
-      adapter = historyAdapter
-      snap.attachToRecyclerView(this)
-    }
-
-    recyclerView.apply {
-      val snap = LinearSnapHelper()
-      setHasFixedSize(true)
-      addItemDecoration(RecyclerViewDecoration(0, 10))
-      adapter = searchRecyclerViewAdapter2
-      snap.attachToRecyclerView(this)
-    }
-    initTracker()
-  }
 
   override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
     inflater.inflate(R.menu.search_menu, menu)
@@ -131,53 +116,52 @@ class SearchFragment : Fragment() {
 
     val searchManager = requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
     val searchView = item.actionView as SearchView
-    showHistoryView()
 
     searchView.apply {
       setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
       isSubmitButtonEnabled = true
       isQueryRefinementEnabled = true
 
-      setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-        override fun onQueryTextSubmit(query: String): Boolean {
-          saveSearchKeyword(query)
-          Timber.d("데이터베이스 $query")
-          viewModel.search2(query.replace("\\s", ""))
-          return true
-        }
-        override fun onQueryTextChange(newText: String): Boolean = true
-      })
+      setOnQueryTextListener(
+          object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+              saveSearchKeyword(query)
+              Timber.d("데이터베이스 $query")
+              viewModel.search2(query.replace("\\s", ""))
+              return true
+            }
+            override fun onQueryTextChange(newText: String): Boolean = true
+          })
     }
     super.onCreateOptionsMenu(menu, inflater)
   }
 
   private fun initTracker() {
-    trackers = SelectionTracker.Builder(
-      "mySelection",
-      binding.recyclerView,
-      MyItemKeyProvider(binding.recyclerView),
-      MyItemDetailsLookup(binding.recyclerView),
-      StorageStrategy.createLongStorage()
-    )
-      .withSelectionPredicate(SelectionPredicates.createSelectAnything())
-      .build()
+    trackers =
+        SelectionTracker.Builder(
+                "mySelection",
+                binding.recyclerView,
+                MyItemKeyProvider(binding.recyclerView),
+                MyItemDetailsLookup(binding.recyclerView),
+                StorageStrategy.createLongStorage())
+            .withSelectionPredicate(SelectionPredicates.createSelectAnything())
+            .build()
 
     searchRecyclerViewAdapter2.tracker = trackers
     binding.floating.setOnClickListener {
-//      multiSelection(trackers?.selection!!)
+      //      multiSelection(trackers?.selection!!)
     }
   }
 
   private fun shareInformation(s: String) {
-    requireActivity().startActivity(
-      Intent.createChooser(
-        Intent(Intent.ACTION_SEND).apply {
-          type = "text/plain"
-          putExtra(Intent.EXTRA_TEXT, s)
-        },
-        "내용 공유하기"
-      )
-    )
+    requireActivity()
+        .startActivity(
+            Intent.createChooser(
+                Intent(Intent.ACTION_SEND).apply {
+                  type = "text/plain"
+                  putExtra(Intent.EXTRA_TEXT, s)
+                },
+                "내용 공유하기"))
   }
 
   private fun saveSearchKeyword(keyword: String) {
@@ -186,15 +170,10 @@ class SearchFragment : Fragment() {
 
   private fun deleteSearch(keyword: String) {
     viewModel.deleteHistory(keyword)
-    showHistoryView()
   }
 
   private fun favoriteUpdate(favorite: Int, id: Int) {
     viewModel.favoriteUpdate(favorite, id)
-  }
-
-  private fun showHistoryView() = lifecycleScope.launch {
-    viewModel.getAllHistories()
   }
 
   private fun hideHistoryView() {

@@ -11,8 +11,8 @@ dependencies {
 
     implementation(Dep.AndroidX.coreKtx)
     implementation(Dep.AndroidX.paging.common)
-    implementation(Dep.Dagger.Hilt.android)
-    kapt(Dep.Dagger.Hilt.compiler)
+    implementation(Dep.Hilt.android)
+    kapt(Dep.Hilt.hilt_compiler)
 
 
     implementation(Dep.Kotlin.stdlibJvm)
@@ -24,4 +24,7 @@ dependencies {
     testImplementation(Dep.Test.junit)
     androidTestImplementation(Dep.Test.androidJunit)
     androidTestImplementation(Dep.Test.espressoCore)
+}
+android {
+    namespace = "com.keelim.nandadiagnosis.domain"
 }

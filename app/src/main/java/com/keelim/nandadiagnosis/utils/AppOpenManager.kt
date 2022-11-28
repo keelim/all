@@ -17,7 +17,7 @@ import java.util.Date
 import javax.inject.Inject
 import timber.log.Timber
 
-class AppOpenManager @Inject constructor(): LifecycleObserver {
+class AppOpenManager @Inject constructor() : LifecycleObserver {
     private var appOpenAd: AppOpenAd? = null
     private var currentActivity: Activity? = null
     private val AD_UNIT_ID = "ca-app-pub-3940256099942544/3419835294"
@@ -28,10 +28,10 @@ class AppOpenManager @Inject constructor(): LifecycleObserver {
         get() = appOpenAd != null && wasLoadTimeLessThanNHoursAgo()
     private var loadTime: Long = 0
 
-    fun initialize(application: Application){
+    fun initialize(application: Application) {
         this.application = application
 
-        application.registerActivityLifecycleCallbacks(object: ActivityLifecycleCallbacks{
+        application.registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
             override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {}
             override fun onActivityStarted(activity: Activity) {
                 currentActivity = activity
@@ -81,9 +81,9 @@ class AppOpenManager @Inject constructor(): LifecycleObserver {
         }
         AppOpenAd.load(
             application,
-            if(BuildConfig.DEBUG){
+            if (BuildConfig.DEBUG) {
                 AD_UNIT_ID
-            } else{
+            } else {
                 BuildConfig.AD_OPEN_ID
             },
             adRequest,

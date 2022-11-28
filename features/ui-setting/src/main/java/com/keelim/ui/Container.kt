@@ -36,34 +36,34 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.keelim.nandadiagnosis.compose.ui.Loading
 import com.keelim.common.util.UiState
+import com.keelim.nandadiagnosis.compose.ui.Loading
 
 @Composable
 internal fun Navigation(
-  viewModel: SettingViewModel = viewModel(),
-  path: Section,
-  onBackAction: () -> Unit
+    viewModel: SettingViewModel = viewModel(),
+    path: Section,
+    onBackAction: () -> Unit
 ) {
-  when (path) {
-    Section.Developer -> {
-      val result by viewModel.developers.observeAsState(UiState.loading())
-      NavigationScreen(uiState = result, title = "Developer", onBackAction) {
-        DeveloperScreen(
-          Modifier.padding(it),
-          result.getOrThrow()
-        )
-      }
+    when (path) {
+        Section.Developer -> {
+            val result by viewModel.developers.observeAsState(UiState.loading())
+            NavigationScreen(uiState = result, title = "Developer", onBackAction) {
+                DeveloperScreen(
+                    Modifier.padding(it),
+                    result.getOrThrow()
+                )
+            }
+        }
     }
-  }
 }
 
 @Composable
@@ -73,33 +73,33 @@ private fun NavigationScreen(
     onBackAction: () -> Unit,
     content: @Composable (PaddingValues) -> Unit
 ) {
-  Container(uiState) {
-    Scaffold(
-      topBar = {
-        TopAppBar(
-          title = {
-            Text(
-              text = title,
-              fontSize = 20.sp,
-              fontWeight = FontWeight.Bold
-            )
-          },
-          navigationIcon = {
-            IconButton(onBackAction) {
-              Icon(
-                imageVector = Icons.Filled.ArrowBack,
-                contentDescription = null
-              )
+    Container(uiState) {
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = {
+                        Text(
+                            text = title,
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    },
+                    navigationIcon = {
+                        IconButton(onBackAction) {
+                            Icon(
+                                imageVector = Icons.Filled.ArrowBack,
+                                contentDescription = null
+                            )
+                        }
+                    },
+                    backgroundColor = Color.White,
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
-          },
-          backgroundColor = Color.White,
-          modifier = Modifier.fillMaxWidth()
-        )
-      }
-    ) { innerPadding ->
-      content(innerPadding)
+        ) { innerPadding ->
+            content(innerPadding)
+        }
     }
-  }
 }
 
 @Composable
@@ -107,33 +107,33 @@ private fun <T> Container(
     result: UiState<T>,
     content: @Composable () -> Unit,
 ) {
-  val scrollState = rememberScrollState()
+    val scrollState = rememberScrollState()
 
-  Loading(
-    loading = result.initialLoad,
-    loadingContent = { },
-    error = result.hasError,
-    errorContent = {
-      Column(
-        modifier = Modifier
-          .fillMaxSize()
-          .verticalScroll(scrollState)
-          .padding(24.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-      ) {
-        Icon(
-          imageVector = Icons.Filled.Warning,
-          modifier = Modifier.size(64.dp),
-          contentDescription = null
-        )
-        Spacer(modifier = Modifier.height(10.dp))
-        Text(
-          text = result.exception?.stackTraceToString().orEmpty(),
-          modifier = Modifier.fillMaxWidth()
-        )
-      }
-    },
-    content = content
-  )
+    Loading(
+        loading = result.initialLoad,
+        loadingContent = { },
+        error = result.hasError,
+        errorContent = {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .verticalScroll(scrollState)
+                    .padding(24.dp),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.Warning,
+                    modifier = Modifier.size(64.dp),
+                    contentDescription = null
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+                Text(
+                    text = result.exception?.stackTraceToString().orEmpty(),
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+        },
+        content = content
+    )
 }

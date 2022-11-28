@@ -23,15 +23,15 @@ import org.junit.Test
 
 class DownloadWorkerTest {
 
-  @Test
-  fun testDownloadWork() {
-    // Create Work Request
-    val context = InstrumentationRegistry.getInstrumentation().targetContext
-    val work = TestListenableWorkerBuilder<com.keelim.nandadiagnosis.worker.DownloadWorker>(context).build()
-    runBlocking {
-      val result = work.doWork()
-      // Assert
-      assertNotNull(result)
+    @Test
+    fun testDownloadWork() {
+        // Create Work Request
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val work = TestListenableWorkerBuilder<com.keelim.nandadiagnosis.worker.DownloadWorker>(context).build()
+        runBlocking {
+            val result = work.doWork()
+            // Assert
+            assertNotNull(result)
+        }
     }
-  }
 }

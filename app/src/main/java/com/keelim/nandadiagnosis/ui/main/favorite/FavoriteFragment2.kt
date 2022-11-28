@@ -32,62 +32,62 @@ import timber.log.Timber
 
 @AndroidEntryPoint
 class FavoriteFragment2 : Fragment() {
-  private val favoriteAdapter = FavoriteAdapter()
-  private val viewModel: FavoriteViewModel by viewModels()
-  private var _binding: FragmentFavoriteBinding? = null
-  private val binding get() = _binding!!
+    private val favoriteAdapter = FavoriteAdapter()
+    private val viewModel: FavoriteViewModel by viewModels()
+    private var _binding: FragmentFavoriteBinding? = null
+    private val binding get() = _binding!!
 
-  override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
-  ): View {
-    _binding = FragmentFavoriteBinding.inflate(layoutInflater)
-    return binding.root
-  }
-
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-    viewModel.fetchData()
-    observeData()
-  }
-
-  private fun observeData() = lifecycleScope.launch {
-    viewModel.favoriteState.collect {
-      when (it) {
-        is FavoriteListState.UnInitialized -> {
-          initViews(binding)
-        }
-        is FavoriteListState.Success -> {
-          handleSuccess(it)
-        }
-        is FavoriteListState.Loading -> {
-          handleLoading()
-        }
-        is FavoriteListState.Error -> {
-          handleError()
-        }
-      }
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentFavoriteBinding.inflate(layoutInflater)
+        return binding.root
     }
-  }
 
-  private fun handleError() {
-    requireActivity().toast("Error 로딩 화면에 에러가 표시 됩니다.")
-  }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.fetchData()
+        observeData()
+    }
 
-  private fun handleSuccess(state: FavoriteListState.Success) {
-    requireActivity().toast("$state")
-    Timber.d(" 데이터 화면 넘어가기 $state")
-    favoriteAdapter.submitList(state.favoriteList)
-  }
+    private fun observeData() = lifecycleScope.launch {
+        viewModel.favoriteState.collect {
+            when (it) {
+                is FavoriteListState.UnInitialized -> {
+                    initViews(binding)
+                }
+                is FavoriteListState.Success -> {
+                    handleSuccess(it)
+                }
+                is FavoriteListState.Loading -> {
+                    handleLoading()
+                }
+                is FavoriteListState.Error -> {
+                    handleError()
+                }
+            }
+        }
+    }
 
-  private fun handleLoading() {
-    requireActivity().toast("현재 데이터를 불러오는 중입니다.")
-  }
+    private fun handleError() {
+        requireActivity().toast("Error 로딩 화면에 에러가 표시 됩니다.")
+    }
 
-  private fun initViews(binding: FragmentFavoriteBinding) = with(binding) {
-    favoriteRecycler.layoutManager = LinearLayoutManager(requireContext())
-    favoriteRecycler.adapter = favoriteAdapter
-    viewModel.fetchData()
-  }
+    private fun handleSuccess(state: FavoriteListState.Success) {
+        requireActivity().toast("$state")
+        Timber.d(" 데이터 화면 넘어가기 $state")
+        favoriteAdapter.submitList(state.favoriteList)
+    }
+
+    private fun handleLoading() {
+        requireActivity().toast("현재 데이터를 불러오는 중입니다.")
+    }
+
+    private fun initViews(binding: FragmentFavoriteBinding) = with(binding) {
+        favoriteRecycler.layoutManager = LinearLayoutManager(requireContext())
+        favoriteRecycler.adapter = favoriteAdapter
+        viewModel.fetchData()
+    }
 }

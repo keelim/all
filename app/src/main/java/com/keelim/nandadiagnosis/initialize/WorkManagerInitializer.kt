@@ -23,20 +23,20 @@ import androidx.work.WorkManager
 import javax.inject.Inject
 
 class WorkManagerInitializer : Initializer<WorkManager> {
-  @Inject
-  lateinit var workerFactory: HiltWorkerFactory
+    @Inject
+    lateinit var workerFactory: HiltWorkerFactory
 
-  override fun create(context: Context): WorkManager {
-    WorkManager.initialize(
-      context,
-      Configuration.Builder()
-        .setWorkerFactory(workerFactory)
-        .build()
-    )
-    return WorkManager.getInstance(context)
-  }
+    override fun create(context: Context): WorkManager {
+        WorkManager.initialize(
+            context,
+            Configuration.Builder()
+                .setWorkerFactory(workerFactory)
+                .build()
+        )
+        return WorkManager.getInstance(context)
+    }
 
-  override fun dependencies(): List<Class<out Initializer<*>>> {
-    return listOf()
-  }
+    override fun dependencies(): List<Class<out Initializer<*>>> {
+        return listOf()
+    }
 }

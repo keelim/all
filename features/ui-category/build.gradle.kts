@@ -11,3 +11,6 @@ dependencies {
     implementation(Dep.Dagger.Hilt.android)
     kapt(Dep.Dagger.Hilt.compiler)
 }
+android {
+    namespace = "com.keelim.ui_category"
+}

@@ -24,62 +24,62 @@ import com.keelim.nandadiagnosis.di.IoDispatcher
 import com.keelim.nandadiagnosis.di.PreferenceManager
 import com.keelim.nandadiagnosis.domain.favorite.GetFavoriteListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
-import javax.inject.Inject
 
 @HiltViewModel
 internal class ProfileViewModel @Inject constructor(
-  private val preferenceManager: PreferenceManager,
-  private val getFavoriteListUseCase: GetFavoriteListUseCase,
-  @IoDispatcher private val dispatcher: CoroutineDispatcher,
+    private val preferenceManager: PreferenceManager,
+    private val getFavoriteListUseCase: GetFavoriteListUseCase,
+    @IoDispatcher private val dispatcher: CoroutineDispatcher,
 ) : ViewModel() {
-  private var _profileState = MutableLiveData<ProfileState>(ProfileState.UnInitialized)
-  val profileState: LiveData<ProfileState> get() = _profileState
+    private var _profileState = MutableLiveData<ProfileState>(ProfileState.UnInitialized)
+    val profileState: LiveData<ProfileState> get() = _profileState
 
-  fun fetchData() = viewModelScope.launch {
-    setState(ProfileState.Loading)
-    preferenceManager.getIdToken()?.let {
-      setState(ProfileState.Login(it))
-    } ?: kotlin.run {
-      setState(ProfileState.Success.NotRegistered)
+    fun fetchData() = viewModelScope.launch {
+        setState(ProfileState.Loading)
+        preferenceManager.getIdToken()?.let {
+            setState(ProfileState.Login(it))
+        } ?: kotlin.run {
+            setState(ProfileState.Success.NotRegistered)
+        }
     }
-  }
 
-  private fun setState(state: ProfileState) {
-    _profileState.postValue(state)
-  }
-
-  fun saveToken(idToken: String) = viewModelScope.launch {
-    withContext(dispatcher) {
-      preferenceManager.putIdToken(idToken)
-      fetchData()
+    private fun setState(state: ProfileState) {
+        _profileState.postValue(state)
     }
-  }
 
-  fun setUser(user: FirebaseUser?) = viewModelScope.launch {
-    user?.let { user ->
-      Timber.d("유저 값 $user")
-      setState(
-        ProfileState.Success.Registered(
-          user.displayName ?: "익명",
-          user.photoUrl,
-          getFavoriteListUseCase()
-        )
-      )
-    } ?: kotlin.run {
-      setState(
-        ProfileState.Success.NotRegistered
-      )
+    fun saveToken(idToken: String) = viewModelScope.launch {
+        withContext(dispatcher) {
+            preferenceManager.putIdToken(idToken)
+            fetchData()
+        }
     }
-  }
 
-  fun signOut() = viewModelScope.launch {
-    withContext(dispatcher) {
-      preferenceManager.removedToken()
+    fun setUser(user: FirebaseUser?) = viewModelScope.launch {
+        user?.let { user ->
+            Timber.d("유저 값 $user")
+            setState(
+                ProfileState.Success.Registered(
+                    user.displayName ?: "익명",
+                    user.photoUrl,
+                    getFavoriteListUseCase()
+                )
+            )
+        } ?: kotlin.run {
+            setState(
+                ProfileState.Success.NotRegistered
+            )
+        }
     }
-    fetchData()
-  }
+
+    fun signOut() = viewModelScope.launch {
+        withContext(dispatcher) {
+            preferenceManager.removedToken()
+        }
+        fetchData()
+    }
 }

@@ -26,68 +26,68 @@ import com.keelim.nandadiagnosis.data.db.entity.NandaEntity
 import com.keelim.nandadiagnosis.databinding.ItemListviewBinding
 
 class SearchRecyclerViewAdapter2(
-  val favoriteListener: (Int, Int) -> Unit,
+    val favoriteListener: (Int, Int) -> Unit,
 ) :
-  ListAdapter<NandaEntity, SearchRecyclerViewAdapter2.ViewHolder>(diffUtil) {
-  var tracker: SelectionTracker<Long>? = null
+    ListAdapter<NandaEntity, SearchRecyclerViewAdapter2.ViewHolder>(diffUtil) {
+    var tracker: SelectionTracker<Long>? = null
 
-  init {
-    setHasStableIds(true) // 고유 id 를 설정
-  }
-
-  override fun getItemId(position: Int): Long = position.toLong()
-
-  public override fun getItem(position: Int): NandaEntity = currentList[position]
-
-  inner class ViewHolder(private val binding: ItemListviewBinding) :
-    RecyclerView.ViewHolder(binding.root) {
-
-    fun bind(item: NandaEntity, isActivated: Boolean = false) {
-      itemView.isActivated = isActivated
-
-      binding.diagnosisItem.text = item.diagnosis
-      binding.diagnosisDes.text = item.reason
-      binding.className.text = item.class_name
-      binding.domainName.text = item.domain_name
-      binding.searchSwitch.isChecked = item.favorite == 1
-
-      binding.searchSwitch.setOnClickListener {
-        favoriteListener(item.favorite, item.nanda_id)
-      }
+    init {
+        setHasStableIds(true) // 고유 id 를 설정
     }
 
-    fun getItemDetails(): ItemDetailsLookup.ItemDetails<Long> =
-      object : ItemDetailsLookup.ItemDetails<Long>() {
-        override fun getPosition(): Int = bindingAdapterPosition
-        override fun getSelectionKey(): Long = itemId
-      }
-  }
+    override fun getItemId(position: Int): Long = position.toLong()
 
-  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-    return ViewHolder(
-      ItemListviewBinding.inflate(
-        LayoutInflater.from(parent.context),
-        parent,
-        false
-      )
-    )
-  }
+    public override fun getItem(position: Int): NandaEntity = currentList[position]
 
-  override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-    tracker?.let {
-      holder.bind(currentList[position], it.isSelected(position.toLong()))
+    inner class ViewHolder(private val binding: ItemListviewBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(item: NandaEntity, isActivated: Boolean = false) {
+            itemView.isActivated = isActivated
+
+            binding.diagnosisItem.text = item.diagnosis
+            binding.diagnosisDes.text = item.reason
+            binding.className.text = item.class_name
+            binding.domainName.text = item.domain_name
+            binding.searchSwitch.isChecked = item.favorite == 1
+
+            binding.searchSwitch.setOnClickListener {
+                favoriteListener(item.favorite, item.nanda_id)
+            }
+        }
+
+        fun getItemDetails(): ItemDetailsLookup.ItemDetails<Long> =
+            object : ItemDetailsLookup.ItemDetails<Long>() {
+                override fun getPosition(): Int = bindingAdapterPosition
+                override fun getSelectionKey(): Long = itemId
+            }
     }
-  }
 
-  companion object {
-    val diffUtil = object : DiffUtil.ItemCallback<NandaEntity>() {
-      override fun areItemsTheSame(oldItem: NandaEntity, newItem: NandaEntity): Boolean {
-        return oldItem == newItem
-      }
-
-      override fun areContentsTheSame(oldItem: NandaEntity, newItem: NandaEntity): Boolean {
-        return oldItem.diagnosis == newItem.diagnosis
-      }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder(
+            ItemListviewBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
-  }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        tracker?.let {
+            holder.bind(currentList[position], it.isSelected(position.toLong()))
+        }
+    }
+
+    companion object {
+        val diffUtil = object : DiffUtil.ItemCallback<NandaEntity>() {
+            override fun areItemsTheSame(oldItem: NandaEntity, newItem: NandaEntity): Boolean {
+                return oldItem == newItem
+            }
+
+            override fun areContentsTheSame(oldItem: NandaEntity, newItem: NandaEntity): Boolean {
+                return oldItem.diagnosis == newItem.diagnosis
+            }
+        }
+    }
 }

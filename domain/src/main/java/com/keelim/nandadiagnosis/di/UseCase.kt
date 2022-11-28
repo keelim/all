@@ -34,35 +34,35 @@ import dagger.hilt.android.scopes.ViewModelScoped
 @Module
 @InstallIn(ViewModelComponent::class)
 object UseCase {
-  @Provides
-  @ViewModelScoped
-  fun provideAppThemeUseCase(themeRepository: ThemeRepository) = GetAppThemeUseCase(themeRepository)
+    @Provides
+    @ViewModelScoped
+    fun provideAppThemeUseCase(themeRepository: ThemeRepository) = GetAppThemeUseCase(themeRepository)
 
-  @Provides
-  @ViewModelScoped
-  fun provideSetAppThemeUseCase(themeRepository: ThemeRepository) = SetAppThemeUseCase(themeRepository)
+    @Provides
+    @ViewModelScoped
+    fun provideSetAppThemeUseCase(themeRepository: ThemeRepository) = SetAppThemeUseCase(themeRepository)
 
-  @Provides
-  @ViewModelScoped
-  fun provideGetNandaUseCase(ioRepository: IORepository) = GetNandaUseCase(ioRepository)
+    @Provides
+    @ViewModelScoped
+    fun provideGetNandaUseCase(ioRepository: IORepository) = GetNandaUseCase(ioRepository)
 
-  @Provides
-  @ViewModelScoped
-  fun provideGetNandaListUseCase(ioRepository: IORepository) = GetNandaListUseCase(ioRepository)
+    @Provides
+    @ViewModelScoped
+    fun provideGetNandaListUseCase(ioRepository: IORepository) = GetNandaListUseCase(ioRepository)
 
-  @Provides
-  @ViewModelScoped
-  fun provideGetFavoriteListUseCase(ioRepository: IORepository) = GetFavoriteListUseCase(ioRepository)
+    @Provides
+    @ViewModelScoped
+    fun provideGetFavoriteListUseCase(ioRepository: IORepository) = GetFavoriteListUseCase(ioRepository)
 
-  @Provides
-  @ViewModelScoped
-  fun provideGetSearchListUseCase(ioRepository: IORepository) = GetSearchListUseCase(ioRepository)
+    @Provides
+    @ViewModelScoped
+    fun provideGetSearchListUseCase(ioRepository: IORepository) = GetSearchListUseCase(ioRepository)
 
-  @Provides
-  @ViewModelScoped
-  fun provideHistoryUseCase(ioRepository: IORepository) = HistoryUseCase(ioRepository)
+    @Provides
+    @ViewModelScoped
+    fun provideHistoryUseCase(ioRepository: IORepository) = HistoryUseCase(ioRepository)
 
-  @Provides
-  @ViewModelScoped
-  fun provideVideoUseCase(ioRepository: IORepository) = VideoUseCase(ioRepository)
+    @Provides
+    @ViewModelScoped
+    fun provideVideoUseCase(ioRepository: IORepository) = VideoUseCase(ioRepository)
 }

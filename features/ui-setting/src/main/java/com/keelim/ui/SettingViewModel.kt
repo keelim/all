@@ -25,10 +25,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SettingViewModel @Inject constructor(
-  private val getDevelopers: GetDevelopersUseCase
+    private val getDevelopers: GetDevelopersUseCase
 ) : ViewModel() {
-  val developers = liveData {
-    emit(UiState.loading())
-    emit(getDevelopers().toUiState())
-  }
+    val developers = liveData {
+        emit(UiState.loading())
+        emit(getDevelopers().toUiState())
+    }
 }

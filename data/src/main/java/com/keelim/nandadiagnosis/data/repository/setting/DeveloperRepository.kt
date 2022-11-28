@@ -18,5 +18,5 @@ package com.keelim.nandadiagnosis.data.repository.setting
 import com.keelim.nandadiagnosis.data.model.Developer
 
 interface DeveloperRepository {
-  suspend fun getDeveloper(): List<Developer>
+    suspend fun getDeveloper(): List<Developer>
 }

@@ -24,20 +24,20 @@ import com.google.android.material.composethemeadapter.MdcTheme
 
 @Suppress("NOTHING_TO_INLINE")
 inline fun ComponentActivity.setThemeContent(
-  noinline content: @Composable () -> Unit
+    noinline content: @Composable () -> Unit
 ) = setContent {
-  MdcTheme {
-    content()
-  }
+    MdcTheme {
+        content()
+    }
 }
 
 @Suppress("NOTHING_TO_INLINE")
 inline fun Fragment.setThemeContent(
-  noinline content: @Composable () -> Unit
+    noinline content: @Composable () -> Unit
 ) = ComposeView(requireContext()).apply {
-  setContent {
-    MdcTheme {
-      content()
+    setContent {
+        MdcTheme {
+            content()
+        }
     }
-  }
 }

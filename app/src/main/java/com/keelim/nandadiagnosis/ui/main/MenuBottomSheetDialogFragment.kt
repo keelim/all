@@ -28,43 +28,43 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MenuBottomSheetDialogFragment : BottomSheetDialogFragment() {
-  private var _binding: FragmentMenuBottomSheetDialogBinding? = null
-  private val binding get() = _binding!!
+    private var _binding: FragmentMenuBottomSheetDialogBinding? = null
+    private val binding get() = _binding!!
 
-  override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
-  ): View {
-    _binding = FragmentMenuBottomSheetDialogBinding.inflate(inflater, container, false)
-    return binding.root
-  }
-
-  override fun onDestroyView() {
-    super.onDestroyView()
-    _binding = null
-  }
-
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-    initViews()
-  }
-
-  private fun initViews() = with(binding){
-    with(binding) {
-      move.setOnClickListener {
-        dismiss()
-        findNavController().navigate(R.id.inAppWebFragment)
-      }
-      moveFavorite.setOnClickListener {
-        dismiss()
-        findNavController().navigate(R.id.favoriteFragment2)
-      }
-
-      moveProfile.setOnClickListener {
-        dismiss()
-        requireContext().toast("버전 준비 중입니다.")
-      }
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentMenuBottomSheetDialogBinding.inflate(inflater, container, false)
+        return binding.root
     }
-  }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initViews()
+    }
+
+    private fun initViews() = with(binding) {
+        with(binding) {
+            move.setOnClickListener {
+                dismiss()
+                findNavController().navigate(R.id.inAppWebFragment)
+            }
+            moveFavorite.setOnClickListener {
+                dismiss()
+                findNavController().navigate(R.id.favoriteFragment2)
+            }
+
+            moveProfile.setOnClickListener {
+                dismiss()
+                requireContext().toast("버전 준비 중입니다.")
+            }
+        }
+    }
 }

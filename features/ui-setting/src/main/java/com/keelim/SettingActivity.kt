@@ -25,17 +25,17 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SettingActivity : AppCompatActivity() {
 
-  private val type by lazy {
-    (intent.extras?.get("type") as Section?) ?: Section.Developer
-  }
-
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    setThemeContent {
-      Navigation(
-        path = type,
-        onBackAction = { onBackPressed() }
-      )
+    private val type by lazy {
+        (intent.extras?.get("type") as Section?) ?: Section.Developer
     }
-  }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setThemeContent {
+            Navigation(
+                path = type,
+                onBackAction = { onBackPressed() }
+            )
+        }
+    }
 }

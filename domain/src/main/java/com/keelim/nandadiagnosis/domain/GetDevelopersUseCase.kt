@@ -19,15 +19,15 @@ import com.keelim.nandadiagnosis.data.model.Developer
 import com.keelim.nandadiagnosis.data.repository.setting.DeveloperRepository
 import com.keelim.nandadiagnosis.di.IoDispatcher
 import com.keelim.nandadiagnosis.domain.usecase.NonParamCoroutineUseCase
-import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
+import kotlinx.coroutines.CoroutineDispatcher
 
 class GetDevelopersUseCase @Inject constructor(
-  private val conferenceRepository: DeveloperRepository,
-  @IoDispatcher dispatcher: CoroutineDispatcher,
+    private val conferenceRepository: DeveloperRepository,
+    @IoDispatcher dispatcher: CoroutineDispatcher,
 ) : NonParamCoroutineUseCase<List<Developer>>(dispatcher) {
-  override suspend fun execute(): List<Developer> {
-    return conferenceRepository.getDeveloper()
-      .sortedBy { it.name }
-  }
+    override suspend fun execute(): List<Developer> {
+        return conferenceRepository.getDeveloper()
+            .sortedBy { it.name }
+    }
 }

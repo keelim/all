@@ -20,17 +20,17 @@ import com.keelim.nandadiagnosis.data.repository.io.IORepository
 import javax.inject.Inject
 
 class HistoryUseCase @Inject constructor(
-  private val ioRepository: IORepository
+    private val ioRepository: IORepository
 ) {
-  suspend fun getAllHistory(): List<History> {
-    return ioRepository.getHistories()
-  }
+    suspend fun getAllHistory(): List<History> {
+        return ioRepository.getHistories()
+    }
 
-  suspend fun saveHistory(keyword: String) {
-    ioRepository.saveHistory(keyword)
-  }
+    suspend fun saveHistory(keyword: String) {
+        ioRepository.saveHistory(keyword)
+    }
 
-  suspend fun deleteHistory(keyword: String) {
-    ioRepository.deleteHistory(keyword)
-  }
+    suspend fun deleteHistory(keyword: String) {
+        ioRepository.deleteHistory(keyword)
+    }
 }

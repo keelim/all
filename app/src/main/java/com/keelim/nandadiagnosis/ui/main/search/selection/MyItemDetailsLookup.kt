@@ -21,9 +21,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.keelim.nandadiagnosis.ui.main.search.SearchRecyclerViewAdapter2
 
 class MyItemDetailsLookup(private val recyclerView: RecyclerView) : ItemDetailsLookup<Long>() {
-  override fun getItemDetails(event: MotionEvent): ItemDetails<Long>? {
-    val view = recyclerView.findChildViewUnder(event.x, event.y)
-    view ?: return null
-    return (recyclerView.getChildViewHolder(view) as SearchRecyclerViewAdapter2.ViewHolder).getItemDetails()
-  }
+    override fun getItemDetails(event: MotionEvent): ItemDetails<Long>? {
+        val view = recyclerView.findChildViewUnder(event.x, event.y)
+        view ?: return null
+        return (recyclerView.getChildViewHolder(view) as SearchRecyclerViewAdapter2.ViewHolder).getItemDetails()
+    }
 }

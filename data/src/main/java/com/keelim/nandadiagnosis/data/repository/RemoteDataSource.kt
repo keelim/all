@@ -18,5 +18,5 @@ package com.keelim.nandadiagnosis.data.repository
 import com.keelim.nandadiagnosis.data.db.entity.NandaEntity2
 
 interface RemoteDataSource {
-  suspend fun getNandaInformation(type: String): List<NandaEntity2>
+    suspend fun getNandaInformation(type: String): List<NandaEntity2>
 }

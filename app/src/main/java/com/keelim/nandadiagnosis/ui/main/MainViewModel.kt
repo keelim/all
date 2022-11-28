@@ -27,12 +27,12 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-  getTheme: GetAppThemeUseCase,
-  private val setTheme: SetAppThemeUseCase,
+    getTheme: GetAppThemeUseCase,
+    private val setTheme: SetAppThemeUseCase,
 ) : ViewModel() {
 
-  val theme: LiveData<Int> = getTheme.appTheme.asLiveData()
-  fun setAppTheme(theme: Int) = viewModelScope.launch {
-    setTheme.invoke(theme)
-  }
+    val theme: LiveData<Int?> = getTheme.appTheme.asLiveData()
+    fun setAppTheme(theme: Int) = viewModelScope.launch {
+        setTheme.invoke(theme)
+    }
 }

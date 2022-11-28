@@ -28,55 +28,55 @@ import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.FragmentAboutBinding
 
 class AboutFragment : Fragment() {
-  private var _binding: FragmentAboutBinding? = null
-  private val binding get() = _binding!!
+    private var _binding: FragmentAboutBinding? = null
+    private val binding get() = _binding!!
 
-  override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
-  ): View {
-    _binding = FragmentAboutBinding.inflate(layoutInflater, container, false)
-    return binding.root
-  }
-
-  override fun onDestroyView() {
-    super.onDestroyView()
-    _binding = null
-  }
-
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-    initViews()
-  }
-
-  private fun initViews() = with(binding) {
-    activity?.packageName?.let {
-      val packageInfo = context?.packageManager?.getPackageInfo(it, 0)
-      val versionName = packageInfo?.versionName
-      versionNumberTextView.text = versionName
-      if (versionName?.contains(getString(R.string.beta)) == true) {
-        releaseChannelTextView.visibility = View.VISIBLE
-        releaseChannelTextView.text = getString(R.string.beta)
-      }
-      if (versionName?.contains(getString(R.string.alpha)) == true) {
-        releaseChannelTextView.visibility = View.VISIBLE
-        releaseChannelTextView.text = getString(R.string.alpha)
-      }
-    }
-    github.setOnClickListener {
-      Intent(Intent.ACTION_VIEW).apply {
-        findNavController().navigate(
-          R.id.webFragment,
-          bundleOf(
-            "web" to getString(R.string.github)
-          )
-        )
-      }
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentAboutBinding.inflate(layoutInflater, container, false)
+        return binding.root
     }
 
-    openSourceLicensesCard.setOnClickListener {
-      startActivity(Intent(requireContext(), OssLicensesActivity::class.java))
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
-  }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initViews()
+    }
+
+    private fun initViews() = with(binding) {
+        activity?.packageName?.let {
+            val packageInfo = context?.packageManager?.getPackageInfo(it, 0)
+            val versionName = packageInfo?.versionName
+            versionNumberTextView.text = versionName
+            if (versionName?.contains(getString(R.string.beta)) == true) {
+                releaseChannelTextView.visibility = View.VISIBLE
+                releaseChannelTextView.text = getString(R.string.beta)
+            }
+            if (versionName?.contains(getString(R.string.alpha)) == true) {
+                releaseChannelTextView.visibility = View.VISIBLE
+                releaseChannelTextView.text = getString(R.string.alpha)
+            }
+        }
+        github.setOnClickListener {
+            Intent(Intent.ACTION_VIEW).apply {
+                findNavController().navigate(
+                    R.id.webFragment,
+                    bundleOf(
+                        "web" to getString(R.string.github)
+                    )
+                )
+            }
+        }
+
+        openSourceLicensesCard.setOnClickListener {
+            startActivity(Intent(requireContext(), OssLicensesActivity::class.java))
+        }
+    }
 }

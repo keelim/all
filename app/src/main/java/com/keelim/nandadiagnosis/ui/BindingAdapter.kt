@@ -21,5 +21,5 @@ import coil.load
 
 @BindingAdapter("loadUrl")
 fun ImageView.loadUrl(url: String) {
-  this.load(url)
+    this.load(url)
 }

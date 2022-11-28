@@ -23,27 +23,27 @@ import com.keelim.nandadiagnosis.databinding.ItemRecentBinding
 
 class RecentAdapter(private val recents: List<Recent>) : RecyclerView.Adapter<RecentAdapter.ViewHolder>() {
 
-  inner class ViewHolder(val binding: ItemRecentBinding) :
-    RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(val binding: ItemRecentBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(item: Recent) = with(binding) {
-      itemCategory.text = item.category
-      itemClass.text = item.class_name
-      itemDomain.text = item.domain
-      itemReason.text = item.reason
+        fun bind(item: Recent) = with(binding) {
+            itemCategory.text = item.category
+            itemClass.text = item.class_name
+            itemDomain.text = item.domain
+            itemReason.text = item.reason
+        }
     }
-  }
 
-  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-    return ViewHolder(
-      ItemRecentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-    )
-  }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder(
+            ItemRecentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        )
+    }
 
-  override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-    val actualPosition = position % recents.size
-    holder.bind(recents[actualPosition])
-  }
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val actualPosition = position % recents.size
+        holder.bind(recents[actualPosition])
+    }
 
-  override fun getItemCount(): Int = Int.MAX_VALUE
+    override fun getItemCount(): Int = Int.MAX_VALUE
 }

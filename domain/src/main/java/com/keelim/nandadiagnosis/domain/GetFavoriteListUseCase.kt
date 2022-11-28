@@ -20,10 +20,10 @@ import com.keelim.nandadiagnosis.data.repository.io.IORepository
 import javax.inject.Inject
 
 class GetFavoriteListUseCase @Inject constructor(
-  private val ioRepository: IORepository,
+    private val ioRepository: IORepository,
 ) {
 
-  suspend operator fun invoke(): List<NandaEntity> {
-    return ioRepository.getFavoriteList()
-  }
+    suspend operator fun invoke(): List<NandaEntity> {
+        return ioRepository.getFavoriteList()
+    }
 }

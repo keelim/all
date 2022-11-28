@@ -21,59 +21,58 @@ package com.keelim.common.util
  */
 sealed class Result<out R> {
 
-  data class Success<out T>(val data: T) : Result<T>()
-  data class Error(val exception: Throwable) : Result<Nothing>()
-  object Loading : Result<Nothing>()
+    data class Success<out T>(val data: T) : Result<T>()
+    data class Error(val exception: Throwable) : Result<Nothing>()
+    object Loading : Result<Nothing>()
 
-  override fun toString(): String {
-    return when (this) {
-      is Success<*> -> "Success[data=$data]"
-      is Error -> "Error[exception=$exception]"
-      Loading -> "Loading"
+    override fun toString(): String {
+        return when (this) {
+            is Success<*> -> "Success[data=$data]"
+            is Error -> "Error[exception=$exception]"
+            Loading -> "Loading"
+        }
     }
-  }
 }
 
 /**
  * `true` if [Result] is of type [Success] & holds non-null [Success.data].
  */
 val Result<*>.succeeded
-  get() = this is Result.Success && data != null
+    get() = this is Result.Success && data != null
 
 fun <T> Result<T>.successOr(fallback: T): T {
-  return (this as? Result.Success<T>)?.data ?: fallback
+    return (this as? Result.Success<T>)?.data ?: fallback
 }
 
 val <T> Result<T>.data: T?
-  get() = (this as? Result.Success)?.data
+    get() = (this as? Result.Success)?.data
 
 inline fun <R, T> Result<T>.map(transform: (T) -> R): Result<R> {
-  return when (this) {
-    is Result.Success -> Result.Success(transform(data))
-    is Result.Error -> Result.Error(exception)
-    Result.Loading -> Result.Loading
-  }
+    return when (this) {
+        is Result.Success -> Result.Success(transform(data))
+        is Result.Error -> Result.Error(exception)
+        Result.Loading -> Result.Loading
+    }
 }
 
 inline fun <R, T> Result<T>.mapCatching(transform: (T) -> R): Result<R> {
-  return when (this) {
-    is Result.Success -> {
-      try {
-          Result.Success(transform(data))
-      } catch (e: Throwable) {
-          Result.Error(e)
-      }
+    return when (this) {
+        is Result.Success -> {
+            try {
+                Result.Success(transform(data))
+            } catch (e: Throwable) {
+                Result.Error(e)
+            }
+        }
+        is Result.Error -> Result.Error(exception)
+        Result.Loading -> Result.Loading
     }
-    is Result.Error -> Result.Error(exception)
-    Result.Loading -> Result.Loading
-  }
 }
 
 fun <T> Result<T>.toUiState(): UiState<T> {
-  return when (this) {
-    is Result.Error -> UiState(exception = this.exception)
-    Result.Loading -> UiState.loading()
-    is Result.Success -> UiState.success(value = this.data)
-  }
+    return when (this) {
+        is Result.Error -> UiState(exception = this.exception)
+        Result.Loading -> UiState.loading()
+        is Result.Success -> UiState.success(value = this.data)
+    }
 }
-

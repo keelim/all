@@ -24,45 +24,45 @@ import com.keelim.nandadiagnosis.data.db.entity.History
 import com.keelim.nandadiagnosis.databinding.ItemHistoryBinding
 
 class HistoryAdapter(
-  val historyDeleteListener: (String) -> Unit,
-  val textSelectListener: (String) -> Unit,
+    val historyDeleteListener: (String) -> Unit,
+    val textSelectListener: (String) -> Unit,
 ) :
-  ListAdapter<History, HistoryAdapter.ViewHolder>(diffUtil) {
+    ListAdapter<History, HistoryAdapter.ViewHolder>(diffUtil) {
 
-  inner class ViewHolder(private val binding: ItemHistoryBinding) :
-    RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: ItemHistoryBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(item: History) = with(binding) {
-      historyKeywordTv.text = item.keyword
-      historyDeleteButton.setOnClickListener {
-        historyDeleteListener(item.keyword.orEmpty())
-      }
+        fun bind(item: History) = with(binding) {
+            historyKeywordTv.text = item.keyword
+            historyDeleteButton.setOnClickListener {
+                historyDeleteListener(item.keyword.orEmpty())
+            }
 
-      historyKeywordTv.setOnClickListener {
-        textSelectListener(item.keyword.orEmpty())
-      }
+            historyKeywordTv.setOnClickListener {
+                textSelectListener(item.keyword.orEmpty())
+            }
+        }
     }
-  }
 
-  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-    return ViewHolder(
-      ItemHistoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-    )
-  }
-
-  override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-    holder.bind(currentList[position])
-  }
-
-  companion object {
-    val diffUtil = object : DiffUtil.ItemCallback<History>() {
-      override fun areItemsTheSame(oldItem: History, newItem: History): Boolean {
-        return oldItem == newItem
-      }
-
-      override fun areContentsTheSame(oldItem: History, newItem: History): Boolean {
-        return oldItem.keyword == newItem.keyword
-      }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder(
+            ItemHistoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        )
     }
-  }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(currentList[position])
+    }
+
+    companion object {
+        val diffUtil = object : DiffUtil.ItemCallback<History>() {
+            override fun areItemsTheSame(oldItem: History, newItem: History): Boolean {
+                return oldItem == newItem
+            }
+
+            override fun areContentsTheSame(oldItem: History, newItem: History): Boolean {
+                return oldItem.keyword == newItem.keyword
+            }
+        }
+    }
 }

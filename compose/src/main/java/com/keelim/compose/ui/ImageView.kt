@@ -34,8 +34,8 @@ fun ProfileImageView(
     modifier: Modifier = Modifier,
     builder: ImageRequest.Builder.() -> Unit = {
         crossfade(true)
-        placeholder(R.drawable.sample)
-        error(R.drawable.sample)
+        placeholder(android.R.drawable.sym_def_app_icon)
+        error(android.R.drawable.sym_def_app_icon)
     },
 ) {
     val painter = rememberImagePainter(
@@ -43,10 +43,8 @@ fun ProfileImageView(
         builder = builder,
     )
 
-    val filter = when (painter.state) {
-        is ImagePainter.State.Success -> null
-        else -> ColorFilter.tint(stateColor)
-    }
+    // TODO:  
+    val filter = ColorFilter.tint(stateColor)
 
     Image(
         modifier = modifier,

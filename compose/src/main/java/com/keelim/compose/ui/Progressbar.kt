@@ -16,7 +16,7 @@
 package com.keelim.compose.ui
 
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -35,11 +35,5 @@ private fun PreviewProgress() {
 fun CircularIndeterminateProgressBar(
     isDisplayed: Boolean,
 ) {
-    if (isDisplayed) {
-        CircularProgressIndicator(
-            modifier = Modifier.padding(50.dp),
-            color = Color.Blue,
-            strokeWidth = 10.dp
-        )
-    }
+
 }

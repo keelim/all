@@ -11,6 +11,9 @@ plugins {
 
 android {
     defaultConfig {
+        applicationId = "com.keelim.mygrade"
+        versionCode = 20
+        versionName = "0.0.20"
         vectorDrawables {
             useSupportLibrary = true
         }

@@ -10,7 +10,7 @@ import com.keelim.data.db.dao.HistoryDao
 import com.keelim.data.db.dao.SimpleHistoryDao
 import com.keelim.data.db.entity.History
 import com.keelim.data.db.entity.SimpleHistory
-import com.keelim.data.db.paging.DBPagingSource
+import com.keelim.data.paging.DBPagingSource
 import com.keelim.data.model.notification.Notification
 import com.keelim.data.model.notification.mapepr.toNotification
 import javax.inject.Inject

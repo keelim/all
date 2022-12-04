@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import com.keelim.builds.ProjectConfigurations
+import com.keelim.builds.ProjectConfiguration
 import com.keelim.builds.configureKotlinAndroid
 
 plugins {
@@ -26,7 +26,7 @@ android {
     configureKotlinAndroid(this)
 
     defaultConfig {
-        targetSdk = ProjectConfigurations.targetSdk
+        targetSdk = ProjectConfiguration.targetSdk
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 }

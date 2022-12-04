@@ -16,6 +16,7 @@ dependencyResolutionManagement {
 }
 rootProject.name = "all"
 include(
+    ":app-cnubus",
     ":app-comssa",
     ":app-my-grade",
     ":app-nanda",
@@ -27,4 +28,7 @@ include(
     ":features:player",
     ":features:ui-category",
     ":features:ui-setting",
+    ":features:ui-map",
+    ":features:cnu-ui-setting",
+    ":features:labs"
 )

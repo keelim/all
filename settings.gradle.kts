@@ -28,6 +28,5 @@ include(
     ":features:ui-category",
     ":features:ui-setting",
     ":features:ui-map",
-    ":features:cnu-ui-setting",
     ":features:labs"
 )

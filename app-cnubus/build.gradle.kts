@@ -33,7 +33,7 @@ dependencies {
     implementation(project(":compose"))
     implementation(project(":common"))
     implementation(project(":features:ui-map"))
-    implementation(project(":features:cnu-ui-setting"))
+    implementation(project(":features:ui-setting"))
     implementation(project(":features:labs"))
 
     implementation(platform(libs.firebase.bom))

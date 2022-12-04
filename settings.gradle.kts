@@ -17,7 +17,13 @@ dependencyResolutionManagement {
 rootProject.name = "all"
 include(
     ":app-my-grade",
+    ":app-nanda",
     ":common",
     ":data",
-    ":compose"
+    ":domain",
+    ":compose",
+    ":design",
+    ":features:player",
+    ":features:ui-category",
+    ":features:ui-setting",
 )

@@ -16,6 +16,7 @@ dependencyResolutionManagement {
 }
 rootProject.name = "all"
 include(
+    ":app-comssa",
     ":app-my-grade",
     ":app-nanda",
     ":common",

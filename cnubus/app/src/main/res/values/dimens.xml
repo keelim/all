@@ -1,0 +1,17 @@
+<resources>
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    <dimen name="pageMargin">20dp</dimen>
+    <dimen name="offset">20dp</dimen>
+    <dimen name="pageMarginAndOffset">40dp</dimen>
+    <dimen name="frameSize">320dp</dimen>
+    <dimen name="menu_row_height">64dp</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="menu_title_text_size">20sp</dimen>
+    <dimen name="menu_title_margin_bottom">12dp</dimen>
+    <dimen name="page_title_text_size">20sp</dimen>
+    <dimen name="page_title_margin_top">56dp</dimen>
+    <dimen name="custom_icon_size">38dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+</resources>

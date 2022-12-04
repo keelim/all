@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextAppearance.Bus.Caption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="fontFamily">@font/jetbrainsmono_regular</item>
+    </style>
+</resources>

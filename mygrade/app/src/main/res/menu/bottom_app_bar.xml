@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_notification"
+        android:contentDescription="menu item notification"
+        android:icon="@drawable/bell"
+        android:title="Notification"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/menu_history"
+        android:contentDescription="menu item history"
+        android:icon="@drawable/history"
+        android:title="history"
+        app:showAsAction="always" />
+
+</menu>

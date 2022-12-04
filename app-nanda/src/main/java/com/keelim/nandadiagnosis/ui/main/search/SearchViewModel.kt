@@ -17,16 +17,12 @@ package com.keelim.nandadiagnosis.ui.main.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
-import androidx.paging.cachedIn
-import com.keelim.data.db.entity.NandaEntity
 import com.keelim.data.db.entity.NandaHistory
+import com.keelim.domain.nandadiagnosis.FavoriteUpdateUseCase
 import com.keelim.domain.nandadiagnosis.GetSearchListUseCase
 import com.keelim.domain.nandadiagnosis.HistoryUseCase
-import com.keelim.domain.nandadiagnosis.FavoriteUpdateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -83,7 +79,6 @@ constructor(
 
     fun favoriteUpdate(favorite: Int, id: Int) =
         viewModelScope.launch { favoriteUpdateUseCase.invoke(favorite, id) }
-
 
     fun queryFilter(value: String) = viewModelScope.launch { query.emit(value) }
 

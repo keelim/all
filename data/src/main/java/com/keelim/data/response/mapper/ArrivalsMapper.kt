@@ -15,9 +15,9 @@
  */
 package com.keelim.data.response.mapper
 
-import com.keelim.data.response.RealtimeArrival
 import com.keelim.data.model.ArrivalInformation
 import com.keelim.data.model.Subway
+import com.keelim.data.response.RealtimeArrival
 import java.text.SimpleDateFormat
 import java.util.Locale
 

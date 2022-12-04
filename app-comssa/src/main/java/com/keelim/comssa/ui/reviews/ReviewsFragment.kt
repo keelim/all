@@ -29,10 +29,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.keelim.comssa.databinding.FragmentReviewBinding
 import com.keelim.data.model.Data
 import com.keelim.data.model.DataReviews
 import com.keelim.data.model.Review
-import com.keelim.comssa.databinding.FragmentReviewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

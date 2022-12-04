@@ -15,7 +15,6 @@
  */
 package com.keelim.data.repository
 
-import androidx.paging.PagingData
 import com.keelim.data.db.entity.NandaEntity
 import com.keelim.data.db.entity.NandaEntity2
 import com.keelim.data.db.entity.NandaHistory

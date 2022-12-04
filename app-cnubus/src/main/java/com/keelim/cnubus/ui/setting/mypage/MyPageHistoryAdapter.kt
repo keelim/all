@@ -23,8 +23,8 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.keelim.cnubus.R
-import com.keelim.data.db.entity.CnuHistory
 import com.keelim.cnubus.databinding.ItemHistoryBinding
+import com.keelim.data.db.entity.CnuHistory
 
 class MyPageHistoryAdapter(
     val itemDelete: (CnuHistory) -> Unit

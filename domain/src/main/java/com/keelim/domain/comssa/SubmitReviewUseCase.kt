@@ -15,11 +15,9 @@
  */
 package com.keelim.domain.comssa
 
-import com.keelim.comssa.data.model.Data
-import com.keelim.comssa.data.model.Review
-import com.keelim.comssa.data.model.User
-import com.keelim.comssa.data.repository.ReviewRepository
-import com.keelim.comssa.data.repository.UserRepository
+import com.keelim.data.model.Data
+import com.keelim.data.model.Review
+import com.keelim.data.model.User
 import javax.inject.Inject
 
 class SubmitReviewUseCase @Inject constructor(

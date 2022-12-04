@@ -16,21 +16,21 @@
 package com.keelim.domain.nandadiagnosis
 
 import com.keelim.data.db.entity.NandaHistory
-import com.keelim.data.repository.io.IORepository
+import com.keelim.data.repository.NandaIORepository
 import javax.inject.Inject
 
 class HistoryUseCase @Inject constructor(
-    private val ioRepository: IORepository
+    private val nandaIoRepository: NandaIORepository
 ) {
     suspend fun getAllHistory(): List<NandaHistory> {
-        return ioRepository.getHistories()
+        return nandaIoRepository.getHistories()
     }
 
     suspend fun saveHistory(keyword: String) {
-        ioRepository.saveHistory(keyword)
+        nandaIoRepository.saveHistory(keyword)
     }
 
     suspend fun deleteHistory(keyword: String) {
-        ioRepository.deleteHistory(keyword)
+        nandaIoRepository.deleteHistory(keyword)
     }
 }

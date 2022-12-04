@@ -15,11 +15,8 @@
  */
 package com.keelim.domain.di
 
-import com.keelim.comssa.data.repository.DataRepository
-import com.keelim.comssa.data.repository.IoRepository
-import com.keelim.comssa.data.repository.ReviewRepository
-import com.keelim.comssa.data.repository.UserRepository
-import com.keelim.data.repository.io.IORepository
+import com.keelim.data.repository.NandaIORepository
+import com.keelim.data.repository.theme.ThemeRepository
 import com.keelim.domain.theme.ThemeUseCase
 import com.keelim.domain.setting.UserUseCase
 import com.keelim.domain.comssa.DeleteReviewUseCase
@@ -36,7 +33,6 @@ import com.keelim.domain.nandadiagnosis.GetNandaListUseCase
 import com.keelim.domain.nandadiagnosis.GetNandaUseCase
 import com.keelim.domain.nandadiagnosis.GetSearchListUseCase
 import com.keelim.domain.nandadiagnosis.HistoryUseCase
-import com.keelim.domain.nandadiagnosis.VideoUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -49,56 +45,52 @@ object UseCaseModule {
 
     @Provides
     @ViewModelScoped
-    fun provideGetNandaUseCase(ioRepository: IORepository) = GetNandaUseCase(ioRepository)
+    fun provideGetNandaUseCase(nandaIoRepository: NandaIORepository) = GetNandaUseCase(nandaIoRepository)
 
     @Provides
     @ViewModelScoped
-    fun provideGetNandaListUseCase(ioRepository: IORepository) = GetNandaListUseCase(ioRepository)
+    fun provideGetNandaListUseCase(nandaIoRepository: NandaIORepository) = GetNandaListUseCase(nandaIoRepository)
 
     @Provides
     @ViewModelScoped
-    fun provideGetFavoriteListUseCase(ioRepository: IORepository) =
-        GetFavoriteListUseCase(ioRepository)
+    fun provideGetFavoriteListUseCase(nandaIoRepository: NandaIORepository) =
+        GetFavoriteListUseCase(nandaIoRepository)
 
     @Provides
     @ViewModelScoped
-    fun provideGetSearchListUseCase(ioRepository: IORepository) = GetSearchListUseCase(ioRepository)
+    fun provideGetSearchListUseCase(nandaIoRepository: NandaIORepository) = GetSearchListUseCase(nandaIoRepository)
 
     @Provides
     @ViewModelScoped
-    fun provideHistoryUseCase(ioRepository: IORepository) = HistoryUseCase(ioRepository)
-
-    @Provides
-    @ViewModelScoped
-    fun provideVideoUseCase(ioRepository: IORepository) = VideoUseCase(ioRepository)
+    fun provideHistoryUseCase(nandaIoRepository: NandaIORepository) = HistoryUseCase(nandaIoRepository)
 
     @Provides
     @ViewModelScoped
     fun provideSearchUseCase(
-        ioRepository: IoRepository,
+        comssaIoRepository: ComssaIoRepository,
     ): SearchUseCase {
         return SearchUseCase(
-            ioRepository = ioRepository
+            comssaIoRepository = comssaIoRepository
         )
     }
 
     @Provides
     @ViewModelScoped
     fun provideUpdateFavorite(
-        ioRepository: IoRepository,
+        comssaIoRepository: ComssaIoRepository,
     ): UpdateFavoriteUseCase {
         return UpdateFavoriteUseCase(
-            ioRepository = ioRepository
+            comssaIoRepository = comssaIoRepository
         )
     }
 
     @Provides
     @ViewModelScoped
     fun getFavorite(
-        ioRepository: IoRepository,
+        comssaIoRepository: ComssaIoRepository,
     ): GetFavoriteUseCase {
         return GetFavoriteUseCase(
-            ioRepository = ioRepository
+            comssaIoRepository = comssaIoRepository
         )
     }
 
@@ -175,12 +167,12 @@ object UseCaseModule {
     @Provides
     @ViewModelScoped
     fun provideThemeUseCase(
-        themeRepository: com.keelim.cnubus.data.repository.theme.ThemeRepository
+        themeRepository: ThemeRepository
     ): ThemeUseCase = ThemeUseCase(themeRepository)
 
     @Provides
     @ViewModelScoped
     fun provideUserUseCase(
-        userRepository: com.keelim.cnubus.data.repository.setting.UserRepository
+        userRepository: UserRepository
     ): UserUseCase = UserUseCase(userRepository)
 }

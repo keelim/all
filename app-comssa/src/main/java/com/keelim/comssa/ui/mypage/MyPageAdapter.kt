@@ -21,8 +21,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.keelim.comssa.R
-import com.keelim.comssa.data.model.Data
-import com.keelim.comssa.data.model.ReviewedData
+import com.keelim.data.model.Data
+import com.keelim.data.model.ReviewedData
 import com.keelim.comssa.databinding.ItemReviewedDataBinding
 import com.keelim.comssa.extensions.toDecimalFormatString
 

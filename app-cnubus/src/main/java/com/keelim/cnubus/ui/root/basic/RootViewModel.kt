@@ -16,8 +16,8 @@
 package com.keelim.cnubus.ui.root.basic
 
 import androidx.lifecycle.viewModelScope
-import com.keelim.cnubus.data.db.entity.History
-import com.keelim.cnubus.data.model.gps.Location
+import com.keelim.data.db.entity.CnuHistory
+import com.keelim.data.model.gps.Location
 import com.keelim.cnubus.data.repository.station.StationRepository
 import com.keelim.domain.setting.UserUseCase
 import com.keelim.cnubus.feature.map.ui.MapEvent
@@ -86,7 +86,7 @@ class RootViewModel @Inject constructor(
     fun insertHistory(position: Int, mode: String?) = viewModelScope.launch {
         val location = data.value.getOrNull(position) ?: Location.defaultLocation()
         userUseCase.insertHistory(
-            History(
+            CnuHistory(
                 destination = location.name,
                 root = mode ?: "Empty"
             )

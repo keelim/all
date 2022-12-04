@@ -19,9 +19,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.keelim.comssa.data.model.Data
-import com.keelim.comssa.data.model.DataReviews
-import com.keelim.comssa.data.model.Review
+import com.keelim.data.model.Data
+import com.keelim.data.model.DataReviews
+import com.keelim.data.model.Review
 import com.keelim.domain.comssa.DeleteReviewUseCase
 import com.keelim.domain.comssa.GetAllDataReviewsUseCase
 import com.keelim.domain.comssa.SubmitReviewUseCase

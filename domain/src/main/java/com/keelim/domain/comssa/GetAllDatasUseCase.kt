@@ -15,8 +15,7 @@
  */
 package com.keelim.domain.comssa
 
-import com.keelim.comssa.data.model.Data
-import com.keelim.comssa.data.repository.DataRepository
+import com.keelim.data.model.Data
 import javax.inject.Inject
 
 class GetAllDatasUseCase @Inject constructor(

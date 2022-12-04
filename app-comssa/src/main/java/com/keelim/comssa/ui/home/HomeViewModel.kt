@@ -17,8 +17,8 @@ package com.keelim.comssa.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.keelim.comssa.data.model.Data
-import com.keelim.comssa.data.model.FeaturedData
+import com.keelim.data.model.Data
+import com.keelim.data.model.FeaturedData
 import com.keelim.domain.comssa.GetAllDatasUseCase
 import com.keelim.domain.comssa.GetRandomFeatureDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

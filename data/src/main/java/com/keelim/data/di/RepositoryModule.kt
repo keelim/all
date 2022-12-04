@@ -2,8 +2,8 @@ package com.keelim.data.di
 
 import com.keelim.data.repository.IoRepository
 import com.keelim.data.repository.IoRepositoryImpl
-import com.keelim.data.repository.io.IORepository
-import com.keelim.data.repository.io.IORepositoryImpl
+import com.keelim.data.repository.NandaIORepository
+import com.keelim.data.repository.NandaIORepositoryImpl
 import com.keelim.data.repository.setting.DeveloperRepository
 import com.keelim.data.repository.setting.DeveloperRepositoryImpl
 import dagger.Binds
@@ -11,9 +11,9 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 
-@InstallIn(SingletonComponent::class)
 @Module
-internal abstract class RepositoryModule {
+@InstallIn(SingletonComponent::class)
+abstract class RepositoryModule {
     @Binds
     abstract fun bindsIoRepository(
         repository: IoRepositoryImpl,
@@ -25,7 +25,7 @@ internal abstract class RepositoryModule {
     ): DeveloperRepository
 
     @Binds
-    abstract fun bindsIoRepository(
-        repository: IORepositoryImpl,
-    ): IORepository
+    abstract fun bindsNandaIoRepository(
+        repository: NandaIORepositoryImpl,
+    ): NandaIORepository
 }

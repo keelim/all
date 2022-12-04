@@ -40,3 +40,8 @@ data class NandaResponse(
             created_at = Date(createdAt)
         )
 }
+
+data class NandasResponse(
+    val items: List<NandaResponse>,
+    val count: Int
+)

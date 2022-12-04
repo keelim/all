@@ -32,7 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.keelim.cnubus.data.model.File
+import com.keelim.data.model.File
 
 @Composable
 fun ItemFile(

@@ -26,7 +26,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.keelim.comssa.R
-import com.keelim.comssa.data.model.ReviewedData
+import com.keelim.data.model.ReviewedData
 import com.keelim.comssa.databinding.FragmentMyPageBinding
 import com.keelim.comssa.extensions.dip
 import com.keelim.comssa.extensions.toGone

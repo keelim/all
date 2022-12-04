@@ -18,7 +18,9 @@ package com.keelim.data.repository.setting
 import com.keelim.data.model.Developer
 import javax.inject.Inject
 
-internal class DeveloperRepositoryImpl @Inject constructor() : DeveloperRepository {
+class DeveloperRepositoryImpl @Inject constructor(
+
+)  : DeveloperRepository {
     override suspend fun getDeveloper(): List<Developer> {
         return runCatching {
             listOf(

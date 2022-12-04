@@ -15,7 +15,7 @@
  */
 package com.keelim.cnubus.ui.stations
 
-import com.keelim.cnubus.data.model.Station
+import com.keelim.data.model.Station
 
 sealed class StationState {
     object UnInitialized : StationState()

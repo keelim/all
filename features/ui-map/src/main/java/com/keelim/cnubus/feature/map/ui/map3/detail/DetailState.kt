@@ -15,7 +15,7 @@
  */
 package com.keelim.cnubus.feature.map.ui.map3.detail
 
-import com.keelim.cnubus.data.db.entity.Comment
+import com.keelim.data.db.entity.Comment
 
 sealed class DetailState {
     object UnInitialized : DetailState()

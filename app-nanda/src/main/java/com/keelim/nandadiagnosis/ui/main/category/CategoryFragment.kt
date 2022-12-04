@@ -43,7 +43,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
-import com.keelim.data.entity.Recent
+import com.keelim.data.db.entity.Recent
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.FragmentCategoryBinding
 import com.keelim.nandadiagnosis.ui.main.MainViewModel

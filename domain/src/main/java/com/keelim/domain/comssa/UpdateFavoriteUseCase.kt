@@ -15,14 +15,13 @@
  */
 package com.keelim.domain.comssa
 
-import com.keelim.comssa.data.repository.IoRepository
 import javax.inject.Inject
 
 class UpdateFavoriteUseCase @Inject constructor(
-    private val ioRepository: IoRepository,
+    private val comssaIoRepository: ComssaIoRepository,
 ) {
 
     suspend operator fun invoke(favorite: Int, id: Int) {
-        ioRepository.updateFavorite(favorite, id)
+        comssaIoRepository.updateFavorite(favorite, id)
     }
 }

@@ -34,7 +34,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.keelim.cnubus.R
-import com.keelim.cnubus.data.model.Station
+import com.keelim.data.model.Station
 import com.keelim.cnubus.databinding.FragmentStationsBinding
 import com.keelim.common.extensions.toGone
 import com.keelim.common.extensions.toVisible

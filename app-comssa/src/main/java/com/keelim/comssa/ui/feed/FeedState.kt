@@ -15,7 +15,7 @@
  */
 package com.keelim.comssa.ui.feed
 
-import com.keelim.comssa.data.model.Feed
+import com.keelim.data.model.Feed
 
 sealed class FeedState {
     object UnInitialized : FeedState()

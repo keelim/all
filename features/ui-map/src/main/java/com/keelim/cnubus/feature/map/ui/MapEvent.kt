@@ -15,7 +15,7 @@
  */
 package com.keelim.cnubus.feature.map.ui
 
-import com.keelim.cnubus.data.model.gps.Location
+import com.keelim.data.model.gps.Location
 
 sealed class MapEvent {
     object UnInitialized : MapEvent()

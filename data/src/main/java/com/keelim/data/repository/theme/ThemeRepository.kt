@@ -24,7 +24,6 @@ import androidx.datastore.preferences.preferencesDataStore
 import com.keelim.data.repository.theme.ThemeRepository.Companion.STORE_NAME
 import com.keelim.data.repository.theme.ThemeRepository.PreferencesKeys.USER_THEME
 import dagger.hilt.android.qualifiers.ApplicationContext
-import java.util.prefs.Preferences
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.flow.map

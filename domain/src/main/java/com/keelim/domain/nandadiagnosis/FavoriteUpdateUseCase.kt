@@ -15,17 +15,17 @@
  */
 package com.keelim.domain.nandadiagnosis
 
-import com.keelim.data.repository.io.IORepository
+import com.keelim.data.repository.NandaIORepository
 import javax.inject.Inject
 
 class FavoriteUpdateUseCase @Inject constructor(
-    private val ioRepository: IORepository,
+    private val nandaIoRepository: NandaIORepository,
 ) {
 
     suspend operator fun invoke(favorite: Int, id: Int) {
         when (favorite) {
-            1 -> ioRepository.updateFavorite(0, id)
-            0 -> ioRepository.updateFavorite(1, id)
+            1 -> nandaIoRepository.updateFavorite(0, id)
+            0 -> nandaIoRepository.updateFavorite(1, id)
             else -> Unit
         }
     }

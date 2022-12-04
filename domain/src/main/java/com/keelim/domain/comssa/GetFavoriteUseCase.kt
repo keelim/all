@@ -16,17 +16,16 @@
 package com.keelim.domain.comssa
 
 import com.keelim.comssa.data.db.entity.Search
-import com.keelim.comssa.data.repository.IoRepository
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 
 class GetFavoriteUseCase @Inject constructor(
-    private val ioRepository: IoRepository,
+    private val comssaIoRepository: ComssaIoRepository,
 ) {
 
     suspend operator fun invoke(): List<Search> {
-        return ioRepository.getFavorite()
+        return comssaIoRepository.getFavorite()
     }
 
-    fun getFavorite(): Flow<List<Search>> = ioRepository.favoriteFlow
+    fun getFavorite(): Flow<List<Search>> = comssaIoRepository.favoriteFlow
 }

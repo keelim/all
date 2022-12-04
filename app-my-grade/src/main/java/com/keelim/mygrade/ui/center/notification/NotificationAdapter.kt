@@ -8,8 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.keelim.data.model.notification.Notification
 import com.keelim.mygrade.databinding.ItemNotificationBinding
 
-class NotificationAdapter(
-) : ListAdapter<Notification, NotificationViewHolder>(diffUtil) {
+class NotificationAdapter() : ListAdapter<Notification, NotificationViewHolder>(diffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotificationViewHolder {
         return NotificationViewHolder(

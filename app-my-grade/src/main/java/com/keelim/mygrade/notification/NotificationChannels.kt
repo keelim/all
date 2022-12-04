@@ -6,7 +6,6 @@ import android.app.NotificationManager
 import android.os.Build
 import com.keelim.mygrade.R
 
-
 object NotificationChannels {
 
     const val NOTICE = "NTC"

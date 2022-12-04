@@ -167,17 +167,23 @@ class MainFragment : Fragment() {
                                 it.value < 100 -> "D"
                                 else -> "F"
                             }
-                            findNavController().navigate(R.id.gradeFragment, Bundle().apply {
-                                putParcelable(
-                                    Keys.MAIN_TO_GRADE, Result(
-                                        grade,
-                                        getLevel(
-                                            (it.value * binding.valueStudent.text.toString()
-                                                .toInt()) / 100
+                            findNavController().navigate(
+                                R.id.gradeFragment,
+                                Bundle().apply {
+                                    putParcelable(
+                                        Keys.MAIN_TO_GRADE,
+                                        Result(
+                                            grade,
+                                            getLevel(
+                                                (
+                                                    it.value * binding.valueStudent.text.toString()
+                                                        .toInt()
+                                                    ) / 100
+                                            )
                                         )
                                     )
-                                )
-                            })
+                                }
+                            )
                         }
                     }
                     is MainState.Error -> requireContext().snack(binding.root, "오류가 발생했습니다")

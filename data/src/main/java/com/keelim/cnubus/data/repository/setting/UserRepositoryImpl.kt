@@ -21,11 +21,11 @@ import com.keelim.cnubus.data.db.DataStoreManager
 import com.keelim.cnubus.data.db.entity.History
 import com.keelim.cnubus.data.model.User
 import com.keelim.cnubus.di.IoDispatcher
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
 internal class UserRepositoryImpl @Inject constructor(
     @IoDispatcher val io: CoroutineDispatcher,

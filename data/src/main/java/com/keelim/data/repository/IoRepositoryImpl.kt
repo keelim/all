@@ -10,9 +10,9 @@ import com.keelim.data.db.dao.HistoryDao
 import com.keelim.data.db.dao.SimpleHistoryDao
 import com.keelim.data.db.entity.History
 import com.keelim.data.db.entity.SimpleHistory
-import com.keelim.data.paging.DBPagingSource
 import com.keelim.data.model.notification.Notification
 import com.keelim.data.model.notification.mapepr.toNotification
+import com.keelim.data.paging.DBPagingSource
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
@@ -52,14 +52,15 @@ class IoRepositoryImpl @Inject constructor(
     override fun loadHistoriesBySubjects(subject: String): Flow<List<History>> =
         historyDao.loadHistoriesBySubjects(subject).distinctUntilChanged()
 
-
     override val all: Flow<List<History>> = historyDao.getAll().distinctUntilChanged()
 
     override val simpleAll: Flow<List<SimpleHistory>> = simpleHistoryDao.getAll()
 
     override fun getAllPaging(): Flow<PagingData<History>> {
-        return Pager(config = PagingConfig(pageSize = 10),
-            pagingSourceFactory = { DBPagingSource(historyDao) }).flow.distinctUntilChanged()
+        return Pager(
+            config = PagingConfig(pageSize = 10),
+            pagingSourceFactory = { DBPagingSource(historyDao) }
+        ).flow.distinctUntilChanged()
     }
 
     override suspend fun insertSimpleHistories(history: SimpleHistory) = withContext(ioDispatcher) {

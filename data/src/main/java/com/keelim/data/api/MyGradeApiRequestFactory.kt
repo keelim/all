@@ -1,8 +1,8 @@
 package com.keelim.data.api
 
-import com.keelim.data.response.ReleaseNote
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.keelim.data.BuildConfig
+import com.keelim.data.response.ReleaseNote
 import com.keelim.data.response.ResponseNotification
 import javax.inject.Inject
 import kotlinx.serialization.json.Json
@@ -16,8 +16,7 @@ import retrofit2.create
 import retrofit2.http.GET
 import retrofit2.http.Url
 
-class ApiRequestFactory @Inject constructor(
-) {
+class ApiRequestFactory @Inject constructor() {
     private val baseUrl = "https://api.github.com/"
 
     val retrofit: ApiService = Retrofit.Builder()

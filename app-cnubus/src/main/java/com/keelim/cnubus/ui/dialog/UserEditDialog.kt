@@ -28,8 +28,8 @@ import com.keelim.cnubus.databinding.DialogUserEditBinding
 import com.keelim.cnubus.ui.setting.mypage.MyPageViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.kotlin.subscribeBy
-import timber.log.Timber
 import java.util.concurrent.TimeUnit
+import timber.log.Timber
 
 class UserEditDialog : BottomSheetDialogFragment() {
     private var _binding: DialogUserEditBinding? = null

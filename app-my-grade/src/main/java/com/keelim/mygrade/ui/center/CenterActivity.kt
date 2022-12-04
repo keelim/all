@@ -77,7 +77,6 @@ class CenterActivity : AppCompatActivity() {
             this,
             R.layout.activity_center
         ).apply {
-
         }.also {
             binding = it
         }
@@ -119,9 +118,11 @@ class CenterActivity : AppCompatActivity() {
         val appUpdateManager = AppUpdateManagerFactory.create(this)
         val appUpdateInfo = appUpdateManager.appUpdateInfo
         appUpdateInfo.addOnSuccessListener { appUpdateInfo ->
-            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE && appUpdateInfo.updatePriority() >= 4 /* high priority */ && appUpdateInfo.isUpdateTypeAllowed(
-                    AppUpdateType.IMMEDIATE
-                )
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE && appUpdateInfo.updatePriority() >= 4 &&
+                /* high priority */
+                appUpdateInfo.isUpdateTypeAllowed(
+                        AppUpdateType.IMMEDIATE
+                    )
             ) {
                 appUpdateManager.startUpdateFlowForResult(
                     appUpdateInfo,
@@ -158,7 +159,6 @@ class CenterActivity : AppCompatActivity() {
 //        super.onPause()
 //        lazyStats.get().isTrackingEnabled = false
 //    }
-
 
     companion object {
         const val notificationId = 101

@@ -78,7 +78,7 @@ class CustomMotionLayout(ctx: Context, attributeSet: AttributeSet? = null) : Mot
     override fun onInterceptTouchEvent(event: MotionEvent?): Boolean {
         return if (event == null) {
             false
-        } else{
+        } else {
             gestureDetector.onTouchEvent(event)
         }
     }

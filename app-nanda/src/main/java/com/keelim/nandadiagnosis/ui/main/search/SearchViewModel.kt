@@ -19,8 +19,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.keelim.data.db.entity.NandaHistory
 import com.keelim.data.db.entity.NandaEntity
+import com.keelim.data.db.entity.NandaHistory
 import com.keelim.nandadiagnosis.domain.GetSearchListUseCase
 import com.keelim.nandadiagnosis.domain.HistoryUseCase
 import com.keelim.nandadiagnosis.domain.favorite.FavoriteUpdateUseCase
@@ -49,62 +49,62 @@ constructor(
     private val favoriteUpdateUseCase: FavoriteUpdateUseCase,
     private val historyUseCase: HistoryUseCase,
 ) : ViewModel() {
-  private val _state: MutableStateFlow<SearchListState> =
-      MutableStateFlow(SearchListState.UnInitialized)
-  val state: StateFlow<SearchListState> = _state
+    private val _state: MutableStateFlow<SearchListState> =
+        MutableStateFlow(SearchListState.UnInitialized)
+    val state: StateFlow<SearchListState> = _state
 
-  val history: StateFlow<List<NandaHistory>> =
-      suspend { historyUseCase.getAllHistory() }
-          .asFlow()
-          .catch {
-            Timber.e(it)
-            emptyFlow<List<NandaHistory>>()
-          }
-          .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
+    val history: StateFlow<List<NandaHistory>> =
+        suspend { historyUseCase.getAllHistory() }
+            .asFlow()
+            .catch {
+                Timber.e(it)
+                emptyFlow<List<NandaHistory>>()
+            }
+            .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
 
-  private val query: MutableStateFlow<String> = MutableStateFlow("")
-  init {
-    observeSearchState()
-  }
+    private val query: MutableStateFlow<String> = MutableStateFlow("")
+    init {
+        observeSearchState()
+    }
 
-  fun search2(keyword: String?) =
-      viewModelScope.launch {
-        _state.emit(SearchListState.Loading)
-        runCatching { getSearchListUseCase(keyword.orEmpty()) }
-            .onSuccess { _state.emit(SearchListState.Searching(it)) }
-            .onFailure { _state.emit(SearchListState.Error) }
-      }
-
-  fun deleteHistory(keyword: String?) =
-      viewModelScope.launch { historyUseCase.deleteHistory(keyword.orEmpty()) }
-
-  fun saveHistory(keyword: String?) =
-      viewModelScope.launch { keyword?.let { historyUseCase.saveHistory(it) } }
-
-  fun favoriteUpdate(favorite: Int, id: Int) =
-      viewModelScope.launch { favoriteUpdateUseCase.invoke(favorite, id) }
-
-  fun getContent(query: String = ""): Flow<PagingData<NandaEntity>> {
-    return getSearchListUseCase.getSearchFlow(query).cachedIn(viewModelScope)
-  }
-
-  fun queryFilter(value: String) = viewModelScope.launch { query.emit(value) }
-
-  private fun observeSearchState() {
-    getSearchListUseCase.searchData
-        .combine(query) { data, queryString ->
-          if (queryString.isNotBlank()) {
-            data.filter { nandaEntity -> nandaEntity.domain_name.contains(queryString) }
-          } else {
-            data
-          }
+    fun search2(keyword: String?) =
+        viewModelScope.launch {
+            _state.emit(SearchListState.Loading)
+            runCatching { getSearchListUseCase(keyword.orEmpty()) }
+                .onSuccess { _state.emit(SearchListState.Searching(it)) }
+                .onFailure { _state.emit(SearchListState.Error) }
         }
-        .onStart { _state.emit(SearchListState.Loading) }
-        .onEach { _state.emit(SearchListState.Success(it)) }
-        .catch {
-          it.printStackTrace()
-          _state.emit(SearchListState.Error)
-        }
-        .launchIn(viewModelScope)
-  }
+
+    fun deleteHistory(keyword: String?) =
+        viewModelScope.launch { historyUseCase.deleteHistory(keyword.orEmpty()) }
+
+    fun saveHistory(keyword: String?) =
+        viewModelScope.launch { keyword?.let { historyUseCase.saveHistory(it) } }
+
+    fun favoriteUpdate(favorite: Int, id: Int) =
+        viewModelScope.launch { favoriteUpdateUseCase.invoke(favorite, id) }
+
+    fun getContent(query: String = ""): Flow<PagingData<NandaEntity>> {
+        return getSearchListUseCase.getSearchFlow(query).cachedIn(viewModelScope)
+    }
+
+    fun queryFilter(value: String) = viewModelScope.launch { query.emit(value) }
+
+    private fun observeSearchState() {
+        getSearchListUseCase.searchData
+            .combine(query) { data, queryString ->
+                if (queryString.isNotBlank()) {
+                    data.filter { nandaEntity -> nandaEntity.domain_name.contains(queryString) }
+                } else {
+                    data
+                }
+            }
+            .onStart { _state.emit(SearchListState.Loading) }
+            .onEach { _state.emit(SearchListState.Success(it)) }
+            .catch {
+                it.printStackTrace()
+                _state.emit(SearchListState.Error)
+            }
+            .launchIn(viewModelScope)
+    }
 }

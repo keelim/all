@@ -12,33 +12,33 @@ import com.keelim.comssa.databinding.FragmentComposeViewBinding
 import timber.log.Timber
 
 class MyPageFragment2 : Fragment(R.layout.fragment_compose_view) {
-  private lateinit var binding: FragmentComposeViewBinding
+    private lateinit var binding: FragmentComposeViewBinding
 
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-    binding = FragmentComposeViewBinding.bind(view)
-    binding.composeView.setContent {
-      MaterialTheme {
-        Surface {
-          MyPageScreen(
-            sectionClick = { packageName ->
-              Timber.d("packageName: $packageName")
-              runCatching {
-                  requireActivity()
-                    .packageManager
-                    .getLaunchIntentForPackage(packageName)
-                    ?.let(::startActivity)
-                    ?: throw Exception("앱을 찾을 수 없습니다.")
-                }
-                .onFailure {
-                  startActivity(
-                    Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$packageName"))
-                  )
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentComposeViewBinding.bind(view)
+        binding.composeView.setContent {
+            MaterialTheme {
+                Surface {
+                    MyPageScreen(
+                        sectionClick = { packageName ->
+                            Timber.d("packageName: $packageName")
+                            runCatching {
+                                requireActivity()
+                                    .packageManager
+                                    .getLaunchIntentForPackage(packageName)
+                                    ?.let(::startActivity)
+                                    ?: throw Exception("앱을 찾을 수 없습니다.")
+                            }
+                                .onFailure {
+                                    startActivity(
+                                        Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$packageName"))
+                                    )
+                                }
+                        }
+                    )
                 }
             }
-          )
         }
-      }
     }
-  }
 }

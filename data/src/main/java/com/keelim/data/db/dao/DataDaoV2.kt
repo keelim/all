@@ -26,31 +26,32 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface DataDaoV2 {
-  @Query("SELECT * FROM nanda WHERE reason LIKE  '%' || :keyword || '%'")
-  suspend fun search(keyword: String?): List<NandaEntity>
+    @Query("SELECT * FROM nanda WHERE reason LIKE  '%' || :keyword || '%'")
+    suspend fun search(keyword: String?): List<NandaEntity>
 
-  @Query("SELECT * FROM nanda WHERE favorite = 1") suspend fun favorites(): List<NandaEntity>
+    @Query("SELECT * FROM nanda WHERE favorite = 1") suspend fun favorites(): List<NandaEntity>
 
-  @Query("SELECT * FROM nanda WHERE category = :number")
-  suspend fun get(number: Int?): List<NandaEntity>
+    @Query("SELECT * FROM nanda WHERE category = :number")
+    suspend fun get(number: Int?): List<NandaEntity>
 
-  @Query("SELECT * FROM nanda ORDER BY nanda_id DESC") suspend fun getNanda(): NandaEntity?
+    @Query("SELECT * FROM nanda ORDER BY nanda_id DESC") suspend fun getNanda(): NandaEntity?
 
-  @Query("SELECT * FROM nanda") suspend fun getAll(): List<NandaEntity>
+    @Query("SELECT * FROM nanda") suspend fun getAll(): List<NandaEntity>
 
-  @Insert(onConflict = OnConflictStrategy.REPLACE) suspend fun insertNanda(nanda: NandaEntity)
+    @Insert(onConflict = OnConflictStrategy.REPLACE) suspend fun insertNanda(nanda: NandaEntity)
 
-  @Delete suspend fun delete(nanda: NandaEntity)
+    @Delete suspend fun delete(nanda: NandaEntity)
 
-  @Query("UPDATE nanda SET favorite=:favorite WHERE nanda_id = :id")
-  suspend fun favoriteUpdate(favorite: Int, id: Int)
+    @Query("UPDATE nanda SET favorite=:favorite WHERE nanda_id = :id")
+    suspend fun favoriteUpdate(favorite: Int, id: Int)
 
-  @Query("SELECT * FROM nanda WHERE reason LIKE  '%' || :query || '%'")
-  fun getSearchFlow(query: String): Flow<List<NandaEntity>>
+    @Query("SELECT * FROM nanda WHERE reason LIKE  '%' || :query || '%'")
+    fun getSearchFlow(query: String): Flow<List<NandaEntity>>
 
-  @Query(
-      "SELECT * FROM nanda WHERE reason LIKE  '%' || :query || '%'  LIMIT :loadSize OFFSET (:page-1) * :loadSize")
-  suspend fun getQueryContentsByPaging(query: String, page: Int, loadSize: Int): List<NandaEntity>
+    @Query(
+        "SELECT * FROM nanda WHERE reason LIKE  '%' || :query || '%'  LIMIT :loadSize OFFSET (:page-1) * :loadSize"
+    )
+    suspend fun getQueryContentsByPaging(query: String, page: Int, loadSize: Int): List<NandaEntity>
 
-  @Transaction @Query("SELECT * FROM nanda") fun getSearchData(): Flow<List<NandaEntity>>
+    @Transaction @Query("SELECT * FROM nanda") fun getSearchData(): Flow<List<NandaEntity>>
 }

@@ -28,5 +28,6 @@ data class SimpleHistory(
 
 @Entity
 data class NandaHistory(
-    @PrimaryKey val uid: Int?, @ColumnInfo(name = "keyword") val keyword: String?
+    @PrimaryKey val uid: Int?,
+    @ColumnInfo(name = "keyword") val keyword: String?
 )

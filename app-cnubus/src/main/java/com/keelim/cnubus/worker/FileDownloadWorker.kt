@@ -33,10 +33,10 @@ import androidx.work.workDataOf
 import com.keelim.cnubus.R
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
-import timber.log.Timber
 import java.io.File
 import java.io.FileOutputStream
 import java.net.URL
+import timber.log.Timber
 
 @HiltWorker
 class FileDownloadWorker @AssistedInject constructor(

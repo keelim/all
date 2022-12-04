@@ -19,8 +19,8 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.keelim.cnubus.data.db.entity.StationEntity
 import com.keelim.cnubus.data.db.entity.SubwayEntity
-import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
+import kotlinx.coroutines.tasks.await
 
 class StationApiImpl @Inject constructor() : StationApi {
     private val sheetReference = Firebase.storage.reference.child(STATION_DATA_FILE_NAME)

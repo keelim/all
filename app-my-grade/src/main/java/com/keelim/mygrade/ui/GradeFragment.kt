@@ -88,7 +88,8 @@ class GradeFragment : Fragment() {
                     action = Intent.ACTION_SEND_MULTIPLE
                     putParcelableArrayListExtra(Intent.EXTRA_STREAM, ArrayList(uris))
                     type = "image/*"
-                }, "선택 이미지 공유"
+                },
+                "선택 이미지 공유"
             )
         )
     }

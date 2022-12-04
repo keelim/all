@@ -45,121 +45,121 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-  private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
-  private val viewModel: MainViewModel by viewModels()
-  private val viewPagerAdapter by lazy { MainViewPagerAdapter(this) }
+    private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+    private val viewModel: MainViewModel by viewModels()
+    private val viewPagerAdapter by lazy { MainViewPagerAdapter(this) }
 
-  @Inject lateinit var recevier: DownloadReceiver
+    @Inject lateinit var recevier: DownloadReceiver
 
-  @Inject lateinit var downloadRequest: DownloadRequest
+    @Inject lateinit var downloadRequest: DownloadRequest
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    setContentView(binding.root)
-    initViews()
-    fileChecking()
-    observeDownloadLink()
-  }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(binding.root)
+        initViews()
+        fileChecking()
+        observeDownloadLink()
+    }
 
-  private fun initViews() {
-    val fragmentList =
-      listOf(
-        SearchFragment(),
-        SearchFragment(),
-        SearchFragment(),
-        SearchFragment(),
-        MyPageFragment2()
-      )
-    with(binding.viewpagerMain) {
-      adapter = viewPagerAdapter.also { it.fragmentList.addAll(fragmentList) }
+    private fun initViews() {
+        val fragmentList =
+            listOf(
+                SearchFragment(),
+                SearchFragment(),
+                SearchFragment(),
+                SearchFragment(),
+                MyPageFragment2()
+            )
+        with(binding.viewpagerMain) {
+            adapter = viewPagerAdapter.also { it.fragmentList.addAll(fragmentList) }
 
-      registerOnPageChangeCallback(
-        object : ViewPager2.OnPageChangeCallback() {
-          override fun onPageSelected(position: Int) {
-            binding.bottomNavigationMain.menu.getItem(position).isChecked = true
-          }
+            registerOnPageChangeCallback(
+                object : ViewPager2.OnPageChangeCallback() {
+                    override fun onPageSelected(position: Int) {
+                        binding.bottomNavigationMain.menu.getItem(position).isChecked = true
+                    }
+                }
+            )
         }
-      )
-    }
 
-    binding.bottomNavigationMain.setOnItemSelectedListener {
-      binding.viewpagerMain.currentItem =
-        when (it.itemId) {
-          R.id.menu_feed -> FEED_FRAGMENT
-          R.id.menu_recommend -> RECOMMEND_FRAGMENT
-          R.id.menu_write -> WRITE_FRAGMENT
-          R.id.menu_alarm -> ALARM_FRAGMENT
-          else -> PROFILE_FRAGMENT
+        binding.bottomNavigationMain.setOnItemSelectedListener {
+            binding.viewpagerMain.currentItem =
+                when (it.itemId) {
+                    R.id.menu_feed -> FEED_FRAGMENT
+                    R.id.menu_recommend -> RECOMMEND_FRAGMENT
+                    R.id.menu_write -> WRITE_FRAGMENT
+                    R.id.menu_alarm -> ALARM_FRAGMENT
+                    else -> PROFILE_FRAGMENT
+                }
+            return@setOnItemSelectedListener true
         }
-      return@setOnItemSelectedListener true
+        with(binding.imageviewMainWrite) {
+            setOnClickListener { binding.viewpagerMain.currentItem = WRITE_FRAGMENT }
+        }
+        with(binding.bottomNavigationMain) { itemIconTintList = null }
     }
-    with(binding.imageviewMainWrite) {
-      setOnClickListener { binding.viewpagerMain.currentItem = WRITE_FRAGMENT }
+
+    private fun fileChecking() {
+        File(getExternalFilesDir(null), "comssa.db")
+            .takeUnless { file -> file.exists() }
+            .also { databaseDownloadAlertDialog() }
     }
-    with(binding.bottomNavigationMain) { itemIconTintList = null }
-  }
 
-  private fun fileChecking() {
-    File(getExternalFilesDir(null), "comssa.db")
-      .takeUnless { file -> file.exists() }
-      .also { databaseDownloadAlertDialog() }
-  }
+    private fun databaseDownloadAlertDialog() {
+        val itemPassword = ItemPasswordBinding.inflate(layoutInflater)
+        AlertDialog.Builder(this)
+            .setTitle("다운로드 요청")
+            .setView(itemPassword.root)
+            .setMessage("어플리케이션 사용전 데이터베이스를 다운로드합니다.")
+            .setPositiveButton("ok") { dialog, which ->
+                toast(
+                    if (itemPassword.password.text.toString() == getString(R.string.password)) {
+                        "서버로부터 데이터베이스를 요청 합니다."
+                    } else {
+                        "디폴트 데이터베이스를 다운로드받습니다."
+                    }
+                )
+                downloadDatabase()
+            }
+            .show()
+    }
 
-  private fun databaseDownloadAlertDialog() {
-    val itemPassword = ItemPasswordBinding.inflate(layoutInflater)
-    AlertDialog.Builder(this)
-      .setTitle("다운로드 요청")
-      .setView(itemPassword.root)
-      .setMessage("어플리케이션 사용전 데이터베이스를 다운로드합니다.")
-      .setPositiveButton("ok") { dialog, which ->
-        toast(
-          if (itemPassword.password.text.toString() == getString(R.string.password)) {
-            "서버로부터 데이터베이스를 요청 합니다."
-          } else {
-            "디폴트 데이터베이스를 다운로드받습니다."
-          }
+    private fun downloadDatabase(link: String? = null) {
+        val downloadManager =
+            registerReceiver(
+                recevier,
+                IntentFilter().apply {
+                    addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
+                    addAction(DownloadManager.ACTION_NOTIFICATION_CLICKED)
+                }
+            )
+        (getSystemService(Context.DOWNLOAD_SERVICE) as? DownloadManager)?.enqueue(
+            downloadRequest.provideDownloadRequest(link)
         )
-        downloadDatabase()
-      }
-      .show()
-  }
-
-  private fun downloadDatabase(link: String? = null) {
-    val downloadManager =
-      registerReceiver(
-        recevier,
-        IntentFilter().apply {
-          addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
-          addAction(DownloadManager.ACTION_NOTIFICATION_CLICKED)
-        }
-      )
-    (getSystemService(Context.DOWNLOAD_SERVICE) as? DownloadManager)?.enqueue(
-      downloadRequest.provideDownloadRequest(link)
-    )
-  }
-
-  private fun observeDownloadLink() =
-    lifecycleScope.launch {
-      repeatOnLifecycle(Lifecycle.State.STARTED) {
-        launch {
-          viewModel.downloadLink.collect {
-            it.takeIf { URLUtil.isValidUrl(it) }?.let { url -> downloadDatabase(url) }
-          }
-        }
-      }
     }
 
-  companion object {
-    const val FEED_FRAGMENT = 0
-    const val RECOMMEND_FRAGMENT = 1
-    const val WRITE_FRAGMENT = 2
-    const val ALARM_FRAGMENT = 3
-    const val PROFILE_FRAGMENT = 4
-  }
-  inner class MainViewPagerAdapter(fragmentActivity: FragmentActivity) :
-    FragmentStateAdapter(fragmentActivity) {
-    val fragmentList: MutableList<Fragment> = mutableListOf()
-    override fun getItemCount(): Int = fragmentList.size
-    override fun createFragment(position: Int) = fragmentList[position]
-  }
+    private fun observeDownloadLink() =
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    viewModel.downloadLink.collect {
+                        it.takeIf { URLUtil.isValidUrl(it) }?.let { url -> downloadDatabase(url) }
+                    }
+                }
+            }
+        }
+
+    companion object {
+        const val FEED_FRAGMENT = 0
+        const val RECOMMEND_FRAGMENT = 1
+        const val WRITE_FRAGMENT = 2
+        const val ALARM_FRAGMENT = 3
+        const val PROFILE_FRAGMENT = 4
+    }
+    inner class MainViewPagerAdapter(fragmentActivity: FragmentActivity) :
+        FragmentStateAdapter(fragmentActivity) {
+        val fragmentList: MutableList<Fragment> = mutableListOf()
+        override fun getItemCount(): Int = fragmentList.size
+        override fun createFragment(position: Int) = fragmentList[position]
+    }
 }

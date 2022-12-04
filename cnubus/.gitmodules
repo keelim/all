@@ -1,4 +1,0 @@
-[submodule "core-common"]
-	path = core-common
-	url = https://github.com/keelim/common
-	branch = master

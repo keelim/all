@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim
+package com.keelim.setting
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -23,8 +23,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.fragment.app.Fragment
 import com.keelim.common.util.startActivity
 import com.keelim.nandadiagnosis.compose.ui.setThemeContent
-import com.keelim.ui.Section
-import com.keelim.ui.SettingScreen
+import com.keelim.setting.ui.Section
+import com.keelim.setting.ui.SettingScreen
 
 class SettingFragment : Fragment() {
     override fun onCreateView(

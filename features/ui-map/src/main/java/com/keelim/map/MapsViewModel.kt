@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.cnubus.feature.map.ui
+package com.keelim.map
 
 import androidx.lifecycle.viewModelScope
 import com.keelim.cnubus.data.repository.station.StationRepository

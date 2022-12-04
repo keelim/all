@@ -13,18 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.cnubus.feature.map.ui.map3.detail
+package com.keelim.map
 
-import com.keelim.data.db.entity.Comment
+import com.keelim.data.model.gps.Location
 
-sealed class DetailState {
-    object UnInitialized : DetailState()
-    object Loading : DetailState()
-    data class Success(
-        val data: List<Comment>
-    ) : DetailState()
-
-    data class Error(
-        val message: String
-    ) : DetailState()
+sealed class MapEvent {
+    object UnInitialized : MapEvent()
+    object Loading : MapEvent()
+    data class MigrateSuccess(val data: List<Location>) : MapEvent()
+    data class Error(val message: String = "에러가 발생하였습니다.") : MapEvent()
 }

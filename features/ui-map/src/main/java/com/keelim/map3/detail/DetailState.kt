@@ -1,5 +1,5 @@
 /*
- * Designed and developed by 2020 keelim (Jaehyun Kim)
+ * Designed and developed by 2021 keelim (Jaehyun Kim)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,9 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.ui
+package com.keelim.map.ui.map3.detail
 
-internal enum class Section {
-    // 같은 모듈에서만 사용 가능
-    Developer
+import com.keelim.data.db.entity.Comment
+
+sealed class DetailState {
+    object UnInitialized : DetailState()
+    object Loading : DetailState()
+    data class Success(
+        val data: List<Comment>
+    ) : DetailState()
+
+    data class Error(
+        val message: String
+    ) : DetailState()
 }

@@ -10,7 +10,7 @@ android{
     buildFeatures{
         dataBinding = true
     }
-    namespace = "com.keelim.cnubus.labs"
+    namespace = "com.keelim.labs"
 }
 
 dependencies {

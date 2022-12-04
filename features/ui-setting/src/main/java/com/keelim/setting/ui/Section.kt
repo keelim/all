@@ -1,5 +1,5 @@
 /*
- * Designed and developed by 2021 keelim (Jaehyun Kim)
+ * Designed and developed by 2020 keelim (Jaehyun Kim)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,13 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.cnubus.feature.map.ui
+package com.keelim.setting.ui
 
-import com.keelim.data.model.gps.Location
-
-sealed class MapEvent {
-    object UnInitialized : MapEvent()
-    object Loading : MapEvent()
-    data class MigrateSuccess(val data: List<Location>) : MapEvent()
-    data class Error(val message: String = "에러가 발생하였습니다.") : MapEvent()
+internal enum class Section {
+    // 같은 모듈에서만 사용 가능
+    Developer
 }

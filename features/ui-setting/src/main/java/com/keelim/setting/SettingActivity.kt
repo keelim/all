@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim
+package com.keelim.setting
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.keelim.nandadiagnosis.compose.ui.setThemeContent
 import com.keelim.ui.Navigation
-import com.keelim.ui.Section
+import com.keelim.setting.ui.Section
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

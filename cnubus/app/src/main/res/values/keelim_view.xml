@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MyCustomView">
+        <attr name="mcv_name" format="string" />
+        <attr name="mcv_name_color" format="reference" />
+        <attr name="mcv_age" format="integer" />
+        <attr name="mcv_number" format="string" />
+        <attr name="mcv_icon" format="reference" />
+    </declare-styleable>
+</resources>

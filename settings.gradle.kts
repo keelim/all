@@ -24,8 +24,6 @@ include(
     ":data",
     ":domain",
     ":compose",
-    ":features:player",
-    ":features:ui-category",
     ":features:ui-setting",
     ":features:ui-map",
     ":features:labs"

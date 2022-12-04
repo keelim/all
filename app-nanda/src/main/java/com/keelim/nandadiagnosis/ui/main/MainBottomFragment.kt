@@ -107,11 +107,6 @@ class MainBottomFragment : BottomSheetDialogFragment() {
             dismiss()
             startActivity(Intent(requireContext(), SettingActivity::class.java))
         }
-
-        binding.labFeature2.setOnClickListener {
-            dismiss()
-            startActivity(Intent(requireContext(), PlayActivity::class.java))
-        }
     }
 
     private fun chooseThemeClick() {

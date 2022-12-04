@@ -4,9 +4,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
 import javax.inject.Inject
 
-class ThemeManager @Inject constructor(
-
-) {
+class ThemeManager @Inject constructor() {
     enum class ThemeMode { LIGHT, DARK, DEFAULT }
 
     var state = ThemeMode.LIGHT

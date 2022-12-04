@@ -49,7 +49,6 @@ class NotificationViewModel @Inject constructor(
         )
 }
 
-
 @AndroidEntryPoint
 class NotificationFragment : Fragment() {
     private var _binding: FragmentNotificationBinding? = null
@@ -119,7 +118,6 @@ class NotificationFragment : Fragment() {
         notificationAdapter.submitList(data)
     }
 }
-
 
 sealed class NotificationState {
     object UnInitialized : NotificationState()

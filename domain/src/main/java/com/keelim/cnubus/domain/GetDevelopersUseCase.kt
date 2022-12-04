@@ -19,8 +19,8 @@ import com.keelim.cnubus.data.model.Developer
 import com.keelim.cnubus.data.repository.setting.DeveloperRepository
 import com.keelim.cnubus.di.IoDispatcher
 import com.keelim.cnubus.domain.usecase.NonParamCoroutineUseCase
-import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
+import kotlinx.coroutines.CoroutineDispatcher
 
 class GetDevelopersUseCase @Inject constructor(
     private val conferenceRepository: DeveloperRepository,

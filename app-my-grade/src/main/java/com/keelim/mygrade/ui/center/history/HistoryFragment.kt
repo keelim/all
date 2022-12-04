@@ -1,6 +1,5 @@
 package com.keelim.mygrade.ui.center.history
 
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View

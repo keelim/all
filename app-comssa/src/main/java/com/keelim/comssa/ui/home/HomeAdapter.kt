@@ -25,8 +25,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.keelim.comssa.R
-import com.keelim.comssa.data.model.Data
-import com.keelim.comssa.data.model.FeaturedData
+import com.keelim.data.model.Data
+import com.keelim.data.model.FeaturedData
 import com.keelim.comssa.databinding.ItemDataBinding
 import com.keelim.comssa.databinding.ItemFeaturedDataBinding
 import com.keelim.comssa.extensions.dip

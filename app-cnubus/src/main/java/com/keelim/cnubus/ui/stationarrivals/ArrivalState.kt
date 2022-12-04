@@ -15,7 +15,7 @@
  */
 package com.keelim.cnubus.ui.stationarrivals
 
-import com.keelim.cnubus.data.model.ArrivalInformation
+import com.keelim.data.model.ArrivalInformation
 
 sealed class ArrivalState {
     object UnInitialized : ArrivalState()

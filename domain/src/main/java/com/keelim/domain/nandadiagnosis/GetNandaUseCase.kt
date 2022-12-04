@@ -16,14 +16,14 @@
 package com.keelim.domain.nandadiagnosis
 
 import com.keelim.data.db.entity.NandaEntity2
-import com.keelim.data.repository.io.IORepository
+import com.keelim.data.repository.NandaIORepository
 import javax.inject.Inject
 
 class GetNandaUseCase @Inject constructor(
-    private val ioRepository: IORepository
+    private val nandaIoRepository: NandaIORepository
 ) {
 
     suspend operator fun invoke(uid: Long): NandaEntity2? {
-        return ioRepository.getNandaItem(uid)
+        return nandaIoRepository.getNandaItem(uid)
     }
 }

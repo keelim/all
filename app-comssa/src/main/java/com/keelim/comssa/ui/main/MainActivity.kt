@@ -33,8 +33,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.keelim.comssa.R
 import com.keelim.comssa.databinding.ActivityMainBinding
 import com.keelim.comssa.databinding.ItemPasswordBinding
-import com.keelim.comssa.di.download.DownloadReceiver
-import com.keelim.comssa.di.download.DownloadRequest
+import com.keelim.data.di.download.DownloadReceiver
+import com.keelim.data.di.download.DownloadRequest
 import com.keelim.comssa.extensions.toast
 import com.keelim.comssa.ui.main.search.SearchFragment
 import com.keelim.comssa.ui.mypage.MyPageFragment2
@@ -119,12 +119,12 @@ class MainActivity : AppCompatActivity() {
                         "디폴트 데이터베이스를 다운로드받습니다."
                     }
                 )
-                downloadDatabase()
+                downloadDatabase("")
             }
             .show()
     }
 
-    private fun downloadDatabase(link: String? = null) {
+    private fun downloadDatabase(link: String) {
         val downloadManager =
             registerReceiver(
                 recevier,

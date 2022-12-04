@@ -21,7 +21,7 @@ import android.widget.LinearLayout
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.keelim.cnubus.data.model.Station
+import com.keelim.data.model.Station
 import com.keelim.cnubus.databinding.ItemStationBinding
 import com.keelim.cnubus.ui.custom.Badge
 import com.keelim.common.extensions.dip

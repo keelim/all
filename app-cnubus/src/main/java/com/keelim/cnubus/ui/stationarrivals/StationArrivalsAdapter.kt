@@ -20,7 +20,7 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.keelim.cnubus.data.model.ArrivalInformation
+import com.keelim.data.model.ArrivalInformation
 import com.keelim.cnubus.databinding.ItemArrivalBinding
 
 class StationArrivalsAdapter : RecyclerView.Adapter<StationArrivalsAdapter.ViewHolder>() {

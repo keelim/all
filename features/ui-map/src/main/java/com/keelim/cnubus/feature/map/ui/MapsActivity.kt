@@ -42,7 +42,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.maps.android.ktx.addMarker
 import com.google.maps.android.ktx.awaitMap
-import com.keelim.cnubus.data.model.gps.Location
+import com.keelim.data.model.gps.Location
 import com.keelim.cnubus.feature.map.databinding.ActivityMapsBinding
 import com.keelim.cnubus.feature.map.databinding.BottomSheetBinding
 import com.keelim.cnubus.feature.map.ui.map3.LocationAdapter

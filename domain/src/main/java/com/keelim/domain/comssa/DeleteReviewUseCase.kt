@@ -15,8 +15,7 @@
  */
 package com.keelim.domain.comssa
 
-import com.keelim.comssa.data.model.Review
-import com.keelim.comssa.data.repository.ReviewRepository
+import com.keelim.data.model.Review
 import javax.inject.Inject
 
 class DeleteReviewUseCase @Inject constructor(

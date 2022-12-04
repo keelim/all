@@ -22,7 +22,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.keelim.comssa.databinding.BottomSheetDialogBinding
-import com.keelim.comssa.di.download.DownloadReceiver
+import com.keelim.data.di.download.DownloadReceiver
 import com.keelim.comssa.extensions.toast
 import com.keelim.comssa.ui.favorite.FavoriteActivity
 import dagger.hilt.android.AndroidEntryPoint

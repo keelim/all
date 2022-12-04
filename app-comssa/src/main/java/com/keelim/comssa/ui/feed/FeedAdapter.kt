@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.keelim.comssa.R
-import com.keelim.comssa.data.model.Feed
+import com.keelim.data.model.Feed
 import com.keelim.comssa.databinding.ItemFeedListBinding
 
 class FeedAdapter(

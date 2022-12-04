@@ -22,7 +22,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.keelim.cnubus.R
-import com.keelim.cnubus.data.model.gps.Location
+import com.keelim.data.model.gps.Location
 import com.keelim.cnubus.databinding.FragmentRootBinding
 import com.keelim.cnubus.feature.map.ui.MapEvent
 import com.keelim.cnubus.feature.map.ui.MapsActivity

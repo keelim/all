@@ -5,24 +5,19 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.keelim.common.Dispatcher
 import com.keelim.common.KeelimDispatchers.IO
-import com.keelim.data.api.ApiRequestFactory
 import com.keelim.data.db.dao.HistoryDao
 import com.keelim.data.db.dao.SimpleHistoryDao
 import com.keelim.data.db.entity.History
 import com.keelim.data.db.entity.SimpleHistory
-import com.keelim.data.model.notification.Notification
-import com.keelim.data.model.notification.mapepr.toNotification
 import com.keelim.data.paging.DBPagingSource
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
 
 class IoRepositoryImpl @Inject constructor(
     @Dispatcher(IO) private val ioDispatcher: CoroutineDispatcher,
-    private val apiRequestFactory: ApiRequestFactory,
     private val historyDao: HistoryDao,
     private val simpleHistoryDao: SimpleHistoryDao,
 ) : IoRepository {
@@ -69,17 +64,5 @@ class IoRepositoryImpl @Inject constructor(
 
     override suspend fun getAllSimpleHistories(history: SimpleHistory) = withContext(ioDispatcher) {
         simpleHistoryDao.getAllSimpleHistory()
-    }
-
-    override fun getNotification(): Flow<List<Notification>> = flow {
-        apiRequestFactory.retrofit.getNotification()
-            .takeIf { it.isSuccessful && it.body() != null }
-            ?.let {
-                emit(
-                    it.body()?.toNotification() ?: emptyList()
-                )
-            } ?: run {
-            emit(emptyList())
-        }
     }
 }

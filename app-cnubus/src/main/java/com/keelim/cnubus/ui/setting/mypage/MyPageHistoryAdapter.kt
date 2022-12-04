@@ -23,16 +23,16 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.keelim.cnubus.R
-import com.keelim.cnubus.data.db.entity.History
+import com.keelim.data.db.entity.CnuHistory
 import com.keelim.cnubus.databinding.ItemHistoryBinding
 
 class MyPageHistoryAdapter(
-    val itemDelete: (History) -> Unit
+    val itemDelete: (CnuHistory) -> Unit
 ) :
-    ListAdapter<History, MyPageHistoryAdapter.HistoryViewHolder>(diffUtil) {
+    ListAdapter<CnuHistory, MyPageHistoryAdapter.HistoryViewHolder>(diffUtil) {
     inner class HistoryViewHolder(val binding: ItemHistoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: History) {
+        fun bind(item: CnuHistory) {
             binding.run {
                 ivHistoryView.load(R.mipmap.ic_launcher_round) {
                     crossfade(true)
@@ -64,12 +64,12 @@ class MyPageHistoryAdapter(
     }
 
     companion object {
-        val diffUtil = object : DiffUtil.ItemCallback<History>() {
-            override fun areItemsTheSame(oldItem: History, newItem: History): Boolean {
+        val diffUtil = object : DiffUtil.ItemCallback<CnuHistory>() {
+            override fun areItemsTheSame(oldItem: CnuHistory, newItem: CnuHistory): Boolean {
                 return oldItem == newItem
             }
 
-            override fun areContentsTheSame(oldItem: History, newItem: History): Boolean {
+            override fun areContentsTheSame(oldItem: CnuHistory, newItem: CnuHistory): Boolean {
                 return oldItem.uid == newItem.uid
             }
         }

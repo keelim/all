@@ -15,6 +15,7 @@
  */
 package com.keelim.data.di
 
+import com.keelim.data.network.CacheInterceptor
 import com.keelim.data.network.NandaService
 import dagger.Module
 import dagger.Provides
@@ -25,7 +26,6 @@ import javax.inject.Singleton
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -37,7 +37,9 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(): OkHttpClient {
+    fun provideOkHttpClient(
+        cacheInterceptor: CacheInterceptor
+    ): OkHttpClient {
         return OkHttpClient.Builder().apply {
             connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
             writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
@@ -48,6 +50,12 @@ object NetworkModule {
                     level = HttpLoggingInterceptor.Level.BODY
                 }
             )
+            addInterceptor(
+                HttpLoggingInterceptor().apply {
+                    level = HttpLoggingInterceptor.Level.BODY
+                }
+            )
+            addInterceptor(cacheInterceptor)
         }.build()
     }
 
@@ -57,7 +65,6 @@ object NetworkModule {
         return Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 
@@ -66,4 +73,5 @@ object NetworkModule {
     fun provideNandaService(retrofit: Retrofit): NandaService {
         return retrofit.create(NandaService::class.java)
     }
+
 }

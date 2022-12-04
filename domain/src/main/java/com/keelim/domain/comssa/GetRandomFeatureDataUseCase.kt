@@ -15,9 +15,7 @@
  */
 package com.keelim.domain.comssa
 
-import com.keelim.comssa.data.model.FeaturedData
-import com.keelim.comssa.data.repository.DataRepository
-import com.keelim.comssa.data.repository.ReviewRepository
+import com.keelim.data.model.FeaturedData
 import javax.inject.Inject
 
 class GetRandomFeatureDataUseCase @Inject constructor(

@@ -15,8 +15,8 @@
  */
 package com.keelim.domain.setting
 
-import com.keelim.cnubus.data.db.entity.History
-import com.keelim.cnubus.data.model.User
+import com.keelim.data.db.entity.CnuHistory
+import com.keelim.data.model.User
 import com.keelim.cnubus.data.repository.setting.UserRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -32,9 +32,9 @@ class UserUseCase(
         userRepository.setUserInformation(name)
     }
 
-    fun getAllHistories(): Flow<List<History>> = userRepository.getUserHistory()
+    fun getAllHistories(): Flow<List<CnuHistory>> = userRepository.getUserHistory()
     suspend fun getAllRawHistories() = userRepository.getUserRawHistory()
-    suspend fun insertHistory(history: History) = userRepository.insertHistory(history)
-    suspend fun deleteHistory(history: History) = userRepository.deleteHistory(history)
+    suspend fun insertHistory(cnuHistory: CnuHistory) = userRepository.insertHistory(cnuHistory)
+    suspend fun deleteHistory(cnuHistory: CnuHistory) = userRepository.deleteHistory(cnuHistory)
     suspend fun deleteHistoryAll() = userRepository.deleteHistoryAll()
 }

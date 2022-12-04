@@ -60,7 +60,6 @@ themeAdapter = "1.0.5"
 firebase-ui="8.0.1"
 bio="1.1.0"
 in-app-update="2.0.0"
-mp-chart="3.1.0.9"
 
 [libraries]
 accompanist-flowlayout = { group = "com.google.accompanist", name = "accompanist-flowlayout", version.ref = "accompanist" }
@@ -175,8 +174,6 @@ firebase-ui-storage = { group = "com.firebaseui", name = "firebase-ui-storage", 
 androidx-bio = { group = "androidx.biometric", name = "biometric", version.ref = "bio" }
 #
 inapp-update = { group = "com.google.android.play", name = "app-update-ktx", version.ref = "in-app-update" }
-#
-mp-chart = { group = "com.github.AppDevNext", name = "MPAndroidChart", version.ref = "mp-chart" }
 [plugins]
 protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

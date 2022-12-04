@@ -4,10 +4,9 @@ plugins {
     id("com.google.gms.google-services")
     id("com.google.android.gms.oss-licenses-plugin")
     id("com.google.firebase.crashlytics")
-    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
     id("dagger.hilt.android.plugin")
     id("com.google.firebase.firebase-perf")
-    id("keelim.spotless.lint")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
@@ -17,11 +16,6 @@ android {
         }
     }
     buildTypes {
-        create("benchmark") {
-            signingConfig = signingConfigs.getByName("debug")
-            matchingFallbacks += listOf("release")
-            isDebuggable = false
-        }
         getByName("debug") {
             extra["enableCrashlytics"] = false
             extra["alwaysUpdateBuildId"] = false
@@ -69,7 +63,6 @@ dependencies {
     implementation(libs.androidx.navigation.ui)
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.inapp.update)
-    implementation(libs.mp.chart)
     implementation(libs.coil.kt)
     implementation(libs.coil.kt.svg)
     implementation(libs.androidx.metrics)

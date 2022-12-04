@@ -44,12 +44,12 @@ import com.google.maps.android.ktx.addMarker
 import com.google.maps.android.ktx.awaitMap
 import com.keelim.cnubus.feature.map.databinding.ActivityMapsBinding
 import com.keelim.cnubus.feature.map.databinding.BottomSheetBinding
-import com.keelim.map.ui.map3.LocationAdapter
-import com.keelim.map.ui.map3.LocationPagerAdapter
-import com.keelim.map.ui.map3.detail.DetailActivity
 import com.keelim.common.extensions.repeatCallDefaultOnStarted
 import com.keelim.common.extensions.toast
 import com.keelim.data.model.gps.Location
+import com.keelim.map.ui.map3.LocationAdapter
+import com.keelim.map.ui.map3.LocationPagerAdapter
+import com.keelim.map.ui.map3.detail.DetailActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

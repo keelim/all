@@ -17,3 +17,6 @@ dependencies {
     implementation(libs.androidx.compose.glance)
     implementation(libs.material.themAdapter)
 }
+android {
+    namespace = "com.keelim.compose"
+}

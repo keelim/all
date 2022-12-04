@@ -29,6 +29,7 @@ android {
     buildFeatures {
         dataBinding = true
     }
+    namespace = "com.keelim.mygrade"
 }
 
 dependencies {

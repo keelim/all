@@ -38,4 +38,7 @@ dependencies {
 
     implementation(libs.play.services.maps)
 }
+android {
+    namespace = "com.keelim.data"
+}
 

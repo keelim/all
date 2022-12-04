@@ -16,7 +16,6 @@
 package com.keelim.data.response
 
 import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 data class RealtimeStationArrivals(
     @SerialName("errorMessage")

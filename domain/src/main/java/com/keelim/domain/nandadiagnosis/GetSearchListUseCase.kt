@@ -15,7 +15,6 @@
  */
 package com.keelim.domain.nandadiagnosis
 
-import androidx.paging.PagingData
 import com.keelim.data.db.entity.NandaEntity
 import com.keelim.data.repository.NandaIORepository
 import javax.inject.Inject

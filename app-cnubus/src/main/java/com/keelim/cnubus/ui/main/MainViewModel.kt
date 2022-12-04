@@ -16,8 +16,8 @@
 package com.keelim.cnubus.ui.main
 
 import androidx.lifecycle.viewModelScope
-import com.keelim.domain.theme.ThemeUseCase
 import com.keelim.common.base.BaseViewModel
+import com.keelim.domain.theme.ThemeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.delay

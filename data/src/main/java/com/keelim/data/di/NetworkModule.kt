@@ -73,5 +73,4 @@ object NetworkModule {
     fun provideNandaService(retrofit: Retrofit): NandaService {
         return retrofit.create(NandaService::class.java)
     }
-
 }

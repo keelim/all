@@ -16,11 +16,11 @@
 package com.keelim.cnubus.ui.root.basic
 
 import androidx.lifecycle.viewModelScope
-import com.keelim.data.db.entity.CnuHistory
-import com.keelim.data.model.gps.Location
 import com.keelim.cnubus.data.repository.station.StationRepository
 import com.keelim.cnubus.feature.map.ui.MapEvent
 import com.keelim.common.base.BaseViewModel
+import com.keelim.data.db.entity.CnuHistory
+import com.keelim.data.model.gps.Location
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow

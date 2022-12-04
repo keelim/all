@@ -25,13 +25,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.keelim.comssa.R
-import com.keelim.data.model.Data
-import com.keelim.data.model.FeaturedData
 import com.keelim.comssa.databinding.ItemDataBinding
 import com.keelim.comssa.databinding.ItemFeaturedDataBinding
 import com.keelim.comssa.extensions.dip
 import com.keelim.comssa.extensions.toAbbreviatedString
 import com.keelim.comssa.extensions.toDecimalFormatString
+import com.keelim.data.model.Data
+import com.keelim.data.model.FeaturedData
 
 class HomeAdapter(
     val onDataClickListener: (Data) -> Unit

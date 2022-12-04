@@ -21,7 +21,7 @@ import javax.inject.Inject
 
 class DevelopersUseCase @Inject constructor(
     private val developerRepository: DeveloperRepository,
-)  {
+) {
     suspend operator fun invoke(): List<Developer> {
         return developerRepository
             .getDeveloper()

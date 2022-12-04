@@ -3,7 +3,6 @@ package com.keelim.data.repository
 import androidx.paging.PagingData
 import com.keelim.data.db.entity.History
 import com.keelim.data.db.entity.SimpleHistory
-import com.keelim.data.model.notification.Notification
 import kotlinx.coroutines.flow.Flow
 
 interface IoRepository {

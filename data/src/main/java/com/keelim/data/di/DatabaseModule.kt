@@ -1,6 +1,5 @@
 package com.keelim.data.di
 
-import android.app.Activity
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.core.handlers.ReplaceFileCorruptionHandler
@@ -10,11 +9,11 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.room.Room
-import com.keelim.data.db.DataStoreManager
-import com.keelim.data.db.PreferenceManager
-import com.keelim.data.db.MyGradeAppDatabase
 import com.keelim.data.db.CnuAppDatabase
+import com.keelim.data.db.DataStoreManager
+import com.keelim.data.db.MyGradeAppDatabase
 import com.keelim.data.db.NandaAppDatabase
+import com.keelim.data.db.PreferenceManager
 import com.keelim.data.db.SharedPreferenceManager
 import dagger.Module
 import dagger.Provides

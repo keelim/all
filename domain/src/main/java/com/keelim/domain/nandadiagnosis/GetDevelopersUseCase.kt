@@ -15,15 +15,13 @@
  */
 package com.keelim.domain.nandadiagnosis
 
-import com.keelim.data.di.IoDispatcher
 import com.keelim.data.model.Developer
 import com.keelim.data.repository.setting.DeveloperRepository
 import javax.inject.Inject
-import kotlinx.coroutines.CoroutineDispatcher
 
 class GetDevelopersUseCase @Inject constructor(
     private val conferenceRepository: DeveloperRepository
-){
+) {
     suspend operator fun invoke(): List<Developer> {
         return conferenceRepository.getDeveloper()
             .sortedBy { it.name }

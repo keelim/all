@@ -1,0 +1,498 @@
+<resources>
+    <string name="app_name">난다진단</string>
+    <string name="title_category">CATEGORY</string>
+    <string name="title_search">SEARCH</string>
+    <string name="title_my">SETTING</string>
+    <string name="real_ad">ca-app-pub-3115620439518585/7104801924</string>
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="four">4</string>
+    <string name="five">5</string>
+    <string name="six">6</string>
+    <string name="seven">7</string>
+    <string name="eight">8</string>
+    <string name="nine">9</string>
+    <string name="ten">10</string>
+    <string name="eleven">11</string>
+    <string name="twelve">12</string>
+    <string name="thirteen">13</string>
+
+    <string-array name="diagnosis1">
+        <item>여가 활동 부족</item>
+        <item>비활동적 생활양식</item>
+        <item>허약노인증후군</item>
+        <item>허약노인증후군의 위험</item>
+        <item>지역사회 건강 부족</item>
+        <item>위험성 있는 건강 행위</item>
+        <item>비효과적 건강유지</item>
+        <item>비효과적 건강관리</item>
+        <item>건강관리 향상을 위한 준비</item>
+        <item>비효과적 가족 건강관리</item>
+        <item>불이행</item>
+        <item>비효과적보호</item>
+        <item>불충분한 모유</item>
+        <item>비효과적 모유수유</item>
+        <item>모유수유 중단</item>
+        <item>모유수유 향상을 위한 준비</item>
+        <item>비효과적 영아수유 양상</item>
+        <item>영양 불균형</item>
+        <item>영양 향상을 위한 준비</item>
+        <item>비만</item>
+        <item>과체중</item>
+        <item>과체중의 위험</item>
+        <item>연하장애</item>
+        <item>불안정한 혈당수치의 위험</item>
+        <item>신생아의 황달</item>
+        <item>신생아의 황달의 위험</item>
+        <item>간기능 장애의 위험</item>
+        <item>전해질 불균형의 위험</item>
+        <item>체액 균형 향상을 위한 준비</item>
+        <item>체액 부족</item>
+        <item>체액 부족의 위험</item>
+        <item>체액 과다</item>
+        <item>체액 불균형의 위험</item>
+        <item>배뇨장애</item>
+        <item>배뇨 향상을 위한 준비</item>
+        <item>기능적 요실금</item>
+        <item>익류성 요실금</item>
+        <item>반사성 요실금</item>
+        <item>긴장성 요실금</item>
+        <item>긴박성 요실금</item>
+        <item>긴박성 요실금의 위험</item>
+        <item>요정체</item>
+        <item>변비</item>
+        <item>변비의 위험</item>
+        <item>만성 기능성 변비</item>
+        <item>만성 기능성 변비의 위험</item>
+        <item>지각된 변비</item>
+        <item>설사</item>
+        <item>기능장애성 위장관 운동</item>
+        <item>기능장애성 위장관 운동의 위험</item>
+        <item>변실금</item>
+        <item>가스교환 장애</item>
+        <item>불면증</item>
+        <item>수면 박탈</item>
+        <item>수면 향상을 위한 준비</item>
+        <item>수면 양상 장애</item>
+        <item>비사용 증후군의 위험</item>
+        <item>침상 기동성 장애</item>
+        <item>신체 기동성 장애</item>
+        <item>휠체어 기동성 장애</item>
+        <item>좌위수행 장애</item>
+        <item>기립수행 장애</item>
+        <item>이동 장애</item>
+        <item>보행 장애</item>
+        <item>피로</item>
+        <item>배회</item>
+        <item>활동 지속성 장애</item>
+        <item>활동 지속성 장애의 위험</item>
+        <item>비효과적 호흡 양상</item>
+        <item>심박출량 감소</item>
+        <item>심박출량 감소의 위험</item>
+        <item>심혈관기능 손상의 위험</item>
+        <item>비효과적 위장관 관류의 위험</item>
+        <item>비효과적 신장 관류의 위험</item>
+        <item>자발적 환기장애</item>
+        <item>심장조직 관류 감소의 위험</item>
+        <item>비효과적 뇌조직 관류의 위험</item>
+        <item>비효과적 말초조직 관류</item>
+        <item>비효과적 말초조직 관류의 위험</item>
+        <item>호흡기 이탈 반응 장애</item>
+        <item>가정 유지 장애</item>
+        <item>목욕 자기돌봄 결핍</item>
+        <item>옷 입기 자기돌봄 결핍</item>
+        <item>음식 섭취 자기돌봄 결핍</item>
+        <item>용변 자기돌봄 결핍</item>
+        <item>자기돌봄을 향상을 위한 준비</item>
+        <item>자기무시</item>
+        <item>편측성 지각이상</item>
+        <item>급성 혼동</item>
+        <item>급성 혼동의 위험</item>
+        <item>만성 혼동</item>
+        <item>불안정한 정서 조절</item>
+        <item>비효과적 충동 조절</item>
+        <item>지식 부족</item>
+        <item>지식 향상을 위한 준비</item>
+        <item>기억장애</item>
+        <item>의사소통 향상을 위한 준비</item>
+        <item>언어적 의사소통 장애</item>
+        <item>희망 향상을 위한 준비</item>
+        <item>절망감</item>
+        <item>인간 존엄성 혼란 위험</item>
+        <item>자아정체성 혼란</item>
+        <item>자아정체성 혼란의 위험</item>
+        <item>자아개념 향상을 위한 준비</item>
+        <item>만성적 자존감 저하</item>
+        <item>만성적 자존감 저하의 위험</item>
+        <item>상황적 자존감 저하</item>
+        <item>상황적 자존감 저하의 위험</item>
+        <item>신체상 혼란</item>
+        <item>돌봄제공자의 역할 긴장</item>
+        <item>돌봄제공자의 역할 긴장의 위험</item>
+        <item>부모 역할 장애</item>
+        <item>부모 역할 향상을 위한 준비</item>
+        <item>부모 역할 장애의 위험</item>
+        <item>애착장애 위험</item>
+        <item>가족과정 기능장애</item>
+        <item>가족과정 손상</item>
+        <item>가족과정 향상을 위한 준비</item>
+        <item>비효과적 관계</item>
+        <item>관계 향상을 위한 준비</item>
+        <item>비효과적 관계의 위험</item>
+        <item>부모 역할 갈등</item>
+        <item>비효과적 역할 수행</item>
+        <item>사회적 상호작용 장애</item>
+        <item>start 성기능 장애</item>
+        <item>비효과적 성적 양상</item>
+        <item>비효과적 임신과 출산과정</item>
+        <item>임신과 출산과정 향상을 위한 준비</item>
+        <item>비효과적 임신과 출산과정의 위험</item>
+        <item>모아관계 장애의 위험 end</item>
+        <item>start 외상후 증후군</item>
+        <item>외상후 증후군의 위험</item>
+        <item>강간 상해 증후군</item>
+        <item>환경변화 스트레스 증후군</item>
+        <item>환경변화 스트레스 증후군의 위험</item>
+        <item>비효과적 활동계획</item>
+        <item>비효과적 활동계획의 위험</item>
+        <item>불안</item>
+        <item>방어적 대처</item>
+        <item>비효과적 대처</item>
+        <item>대처 향상을 위한 준비</item>
+        <item>비효과적 지역사회 대처</item>
+        <item>지역사회 대처 향상을 위한 준비</item>
+        <item>손상된 가족 대처</item>
+        <item>가족 대처 불능</item>
+        <item>가족 대처 향상을 위한 준비</item>
+        <item>죽음 불안</item>
+        <item>비효과적 부정</item>
+        <item>두려움</item>
+        <item>슬픔</item>
+        <item>기능이상을 유발하는 슬픔</item>
+        <item>기능이상을 유발하는 슬픔의 위험</item>
+        <item>기분 조절장애</item>
+        <item>파워 향상을 위한 준비</item>
+        <item>무력감</item>
+        <item>무력감의 위험</item>
+        <item>극복력 장애</item>
+        <item>극복력 향상을 위한 준비</item>
+        <item>극복력 장애의 위험</item>
+        <item>만성비탄</item>
+        <item>스트레스 과다</item>
+        <item>두 개 내 적용능력 감소</item>
+        <item>자율적 반사장애</item>
+        <item>자율적 반사장애의 위험</item>
+        <item>비조직적 영아행동</item>
+        <item>조직적 영아행동 향상을 위한 준비</item>
+        <item>비조직적 영아행동의 위험 </item>
+        <item>영적 안녕 향상을 위한 준비end</item>
+        <item>start 의사결정 향상을 위한 준비</item>
+        <item>의사결정 갈등</item>
+        <item>자주적 의사결정 장애</item>
+        <item>자주적 의사결정 향상을 위한 준비</item>
+        <item>자주적 의사결정 장애의 위험</item>
+        <item>도덕적 고뇌</item>
+        <item>손상된 신앙심</item>
+        <item>신앙심 향상을 위한 준비</item>
+        <item>신앙심 손상의 위험</item>
+        <item>영적 고뇌</item>
+        <item>영적 고뇌의 위험 end</item>
+        <item>감염의 위험</item>
+        <item>비효과적 기도 청결</item>
+        <item>흡인의 위험</item>
+        <item>출혈의 위험</item>
+        <item>안구건조의 위험</item>
+        <item>낙상의 위험</item>
+        <item>상해의 위험</item>
+        <item>각막손상의 위험</item>
+        <item>수술 중 체위와 관련된 상해의 위험</item>
+        <item>열손상의 위험</item>
+        <item>요로손상의 위험</item>
+        <item>치열장애</item>
+        <item>구강점막 손상</item>
+        <item>구강점막 손상의 위험</item>
+        <item>말초신경 혈관 기능이상의 위험</item>
+        <item>욕창의 위험</item>
+        <item>쇼크의 위험</item>
+        <item>피부 통합성 장애</item>
+        <item>피부 통합성 장애의 위험</item>
+        <item>영아 급사증후군의 위험</item>
+        <item>질식의 위험</item>
+        <item>수술 후 회복 지연</item>
+        <item>수술 후 회복 지연의 위험</item>
+        <item>조직 통합성 장애</item>
+        <item>조직 통합성 장애의 위험</item>
+        <item>외상의 위험</item>
+        <item>혈관 손상의 위험 end</item>
+        <item>타인에 대한 폭력의 위험</item>
+        <item>자신에 대한 폭력의 위험</item>
+        <item>자해</item>
+        <item>자해의 위험</item>
+        <item>자살의 위험</item>
+        <item>오염</item>
+        <item>오염의 위험</item>
+        <item>중독의 위험</item>
+        <item>요오드성 조영제 부작용의 위험</item>
+        <item>알레르기 반응의 위험</item>
+        <item>라텍스 알레르기 반응</item>
+        <item>라텍스 알레르기 반응의 위험</item>
+        <item>체온 불균형의 위험</item>
+        <item>고체온</item>
+        <item>저체온</item>
+        <item>저체온의 위험</item>
+        <item>수술 중 저체온의 위험</item>
+        <item>비효과적 체온조절 end </item>
+        <item>start 안위 손상</item>
+        <item>안위 향상을 위한 준비</item>
+        <item>오심</item>
+        <item>급성 통증</item>
+        <item>만성 통증</item>
+        <item>분만 통증</item>
+        <item>만성 통증 증후군</item>
+        <item>외로움의 위험</item>
+        <item>사회적 고립 end </item>
+        <item>start 불균형적 성장의 위험</item>
+        <item>발달지연의 위험</item>
+        <item>손상된 에너지 end</item>
+    </string-array>
+    <string name="large_text">                                 Apache License
+                           Version 2.0, January 2004
+                        http://www.apache.org/licenses/
+
+   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+   1. Definitions.
+
+      "License" shall mean the terms and conditions for use, reproduction,
+      and distribution as defined by Sections 1 through 9 of this document.
+
+      "Licensor" shall mean the copyright owner or entity authorized by
+      the copyright owner that is granting the License.
+
+      "Legal Entity" shall mean the union of the acting entity and all
+      other entities that control, are controlled by, or are under common
+      control with that entity. For the purposes of this definition,
+      "control" means (i) the power, direct or indirect, to cause the
+      direction or management of such entity, whether by contract or
+      otherwise, or (ii) ownership of fifty percent (50%) or more of the
+      outstanding shares, or (iii) beneficial ownership of such entity.
+
+      "You" (or "Your") shall mean an individual or Legal Entity
+      exercising permissions granted by this License.
+
+      "Source" form shall mean the preferred form for making modifications,
+      including but not limited to software source code, documentation
+      source, and configuration files.
+
+      "Object" form shall mean any form resulting from mechanical
+      transformation or translation of a Source form, including but
+      not limited to compiled object code, generated documentation,
+      and conversions to other media types.
+
+      "Work" shall mean the work of authorship, whether in Source or
+      Object form, made available under the License, as indicated by a
+      copyright notice that is included in or attached to the work
+      (an example is provided in the Appendix below).
+
+      "Derivative Works" shall mean any work, whether in Source or Object
+      form, that is based on (or derived from) the Work and for which the
+      editorial revisions, annotations, elaborations, or other modifications
+      represent, as a whole, an original work of authorship. For the purposes
+      of this License, Derivative Works shall not include works that remain
+      separable from, or merely link (or bind by name) to the interfaces of,
+      the Work and Derivative Works thereof.
+
+      "Contribution" shall mean any work of authorship, including
+      the original version of the Work and any modifications or additions
+      to that Work or Derivative Works thereof, that is intentionally
+      submitted to Licensor for inclusion in the Work by the copyright owner
+      or by an individual or Legal Entity authorized to submit on behalf of
+      the copyright owner. For the purposes of this definition, "submitted"
+      means any form of electronic, verbal, or written communication sent
+      to the Licensor or its representatives, including but not limited to
+      communication on electronic mailing lists, source code control systems,
+      and issue tracking systems that are managed by, or on behalf of, the
+      Licensor for the purpose of discussing and improving the Work, but
+      excluding communication that is conspicuously marked or otherwise
+      designated in writing by the copyright owner as "Not a Contribution."
+
+      "Contributor" shall mean Licensor and any individual or Legal Entity
+      on behalf of whom a Contribution has been received by Licensor and
+      subsequently incorporated within the Work.
+
+   2. Grant of Copyright License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      copyright license to reproduce, prepare Derivative Works of,
+      publicly display, publicly perform, sublicense, and distribute the
+      Work and such Derivative Works in Source or Object form.
+
+   3. Grant of Patent License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      (except as stated in this section) patent license to make, have made,
+      use, offer to sell, sell, import, and otherwise transfer the Work,
+      where such license applies only to those patent claims licensable
+      by such Contributor that are necessarily infringed by their
+      Contribution(s) alone or by combination of their Contribution(s)
+      with the Work to which such Contribution(s) was submitted. If You
+      institute patent litigation against any entity (including a
+      cross-claim or counterclaim in a lawsuit) alleging that the Work
+      or a Contribution incorporated within the Work constitutes direct
+      or contributory patent infringement, then any patent licenses
+      granted to You under this License for that Work shall terminate
+      as of the date such litigation is filed.
+
+   4. Redistribution. You may reproduce and distribute copies of the
+      Work or Derivative Works thereof in any medium, with or without
+      modifications, and in Source or Object form, provided that You
+      meet the following conditions:
+
+      (a) You must give any other recipients of the Work or
+          Derivative Works a copy of this License; and
+
+      (b) You must cause any modified files to carry prominent notices
+          stating that You changed the files; and
+
+      © You must retain, in the Source form of any Derivative Works
+          that You distribute, all copyright, patent, trademark, and
+          attribution notices from the Source form of the Work,
+          excluding those notices that do not pertain to any part of
+          the Derivative Works; and
+
+      (d) If the Work includes a "NOTICE" text file as part of its
+          distribution, then any Derivative Works that You distribute must
+          include a readable copy of the attribution notices contained
+          within such NOTICE file, excluding those notices that do not
+          pertain to any part of the Derivative Works, in at least one
+          of the following places: within a NOTICE text file distributed
+          as part of the Derivative Works; within the Source form or
+          documentation, if provided along with the Derivative Works; or,
+          within a display generated by the Derivative Works, if and
+          wherever such third-party notices normally appear. The contents
+          of the NOTICE file are for informational purposes only and
+          do not modify the License. You may add Your own attribution
+          notices within Derivative Works that You distribute, alongside
+          or as an addendum to the NOTICE text from the Work, provided
+          that such additional attribution notices cannot be construed
+          as modifying the License.
+
+      You may add Your own copyright statement to Your modifications and
+      may provide additional or different license terms and conditions
+      for use, reproduction, or distribution of Your modifications, or
+      for any such Derivative Works as a whole, provided Your use,
+      reproduction, and distribution of the Work otherwise complies with
+      the conditions stated in this License.
+
+   5. Submission of Contributions. Unless You explicitly state otherwise,
+      any Contribution intentionally submitted for inclusion in the Work
+      by You to the Licensor shall be under the terms and conditions of
+      this License, without any additional terms or conditions.
+      Notwithstanding the above, nothing herein shall supersede or modify
+      the terms of any separate license agreement you may have executed
+      with Licensor regarding such Contributions.
+
+   6. Trademarks. This License does not grant permission to use the trade
+      names, trademarks, service marks, or product names of the Licensor,
+      except as required for reasonable and customary use in describing the
+      origin of the Work and reproducing the content of the NOTICE file.
+
+   7. Disclaimer of Warranty. Unless required by applicable law or
+      agreed to in writing, Licensor provides the Work (and each
+      Contributor provides its Contributions) on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+      implied, including, without limitation, any warranties or conditions
+      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+      PARTICULAR PURPOSE. You are solely responsible for determining the
+      appropriateness of using or redistributing the Work and assume any
+      risks associated with Your exercise of permissions under this License.
+
+   8. Limitation of Liability. In no event and under no legal theory,
+      whether in tort (including negligence), contract, or otherwise,
+      unless required by applicable law (such as deliberate and grossly
+      negligent acts) or agreed to in writing, shall any Contributor be
+      liable to You for damages, including any direct, indirect, special,
+      incidental, or consequential damages of any character arising as a
+      result of this License or out of the use or inability to use the
+      Work (including but not limited to damages for loss of goodwill,
+      work stoppage, computer failure or malfunction, or any and all
+      other commercial damages or losses), even if such Contributor
+      has been advised of the possibility of such damages.
+
+   9. Accepting Warranty or Additional Liability. While redistributing
+      the Work or Derivative Works thereof, You may choose to offer,
+      and charge a fee for, acceptance of support, warranty, indemnity,
+      or other liability obligations and/or rights consistent with this
+      License. However, in accepting such obligations, You may act only
+      on Your own behalf and on Your sole responsibility, not on behalf
+      of any other Contributor, and only if You agree to indemnify,
+      defend, and hold each Contributor harmless for any liability
+      incurred by, or claims asserted against, such Contributor by reason
+      of your accepting any such warranty or additional liability.
+
+   END OF TERMS AND CONDITIONS
+
+   APPENDIX: How to apply the Apache License to your work.
+
+      To apply the Apache License to your work, attach the following
+      boilerplate notice, with the fields enclosed by brackets "[]"
+      replaced with your own identifying information. (Don\'t include
+      the brackets!)  The text should be enclosed in the appropriate
+      comment syntax for the file format. We also recommend that a
+      file or class name and description of purpose be included on the
+      same "printed page" as the copyright notice for easier
+      identification within third-party archives.
+
+   Copyright [2020] [keelim of copyright owner]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+</string>
+
+    <string name="db_path">https://github.com/keelim/Keelim.github.io/raw/master/assets/nanda.db</string>
+    <string name="title_activity_open_source">오픈소스</string>
+    <string name="blog_url">https://blog.naver.com/cjhdori</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="title_nandadiagnosis">db</string>
+    <string name="my_notification_channel_id">987654321</string>
+    <string name="urinanda">https://play.google.com/store/apps/details?id=com.keelim.nandadiagnosis</string>
+    <string name="github">https:www.github.com/keelim/nandaDiagnosis</string>
+    <string name="share_the_multiple_selection">share the multiple selection</string>
+    <string name="title_activity_splash">Splash</string>
+
+    <string name="cancel">취소</string>
+    <string name="ok">확인</string>
+    <string name="choose_theme">테마 선택</string>
+    <string name="more_option">More option</string>
+    <string name="theme">Theme Change</string>
+    <string name="open_source_licenses">opensource license</string>
+    <string name="about">About</string>
+    <string name="terms_and_conditions">Terms and conditions</string>
+    <string name="beta">beta</string>
+    <string name="alpha">alpha</string>
+    <string name="search">search</string>
+    <string name="update">업데이트</string>
+    <string name="facebook_app_id">966700797412686</string>
+    <string name="fb_login_protocol_scheme">fb966700797412686</string>
+    <string name="notification_channel_notice">NOTIFICATION</string>
+    <string name="title_dynamic_vitamin">vitamin</string>
+
+</resources>

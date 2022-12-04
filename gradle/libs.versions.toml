@@ -60,6 +60,7 @@ themeAdapter = "1.0.5"
 firebase-ui="8.0.1"
 bio="1.1.0"
 in-app-update="2.0.0"
+play-services-maps="18.1.0"
 
 [libraries]
 accompanist-flowlayout = { group = "com.google.accompanist", name = "accompanist-flowlayout", version.ref = "accompanist" }
@@ -143,6 +144,7 @@ androidx-paging-common = { group = "androidx.paging", name = "paging-common-ktx"
 play-services-ad = { group = "com.google.android.gms", name = "play-services-ads", version.ref = "playad" }
 play-services-oss = { group = "com.google.android.gms", name = "play-services-oss-licenses", version.ref = "playoss" }
 play-services-oss-plugin = { group = "com.google.android.gms", name = "oss-licenses-plugin", version.ref = "playoss-plugin" }
+play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "play-services-maps" }
 #
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timbers" }
 apache-math = { group = "org.apache.commons", name = "commons-math3", version.ref = "math3" }

@@ -2,8 +2,9 @@ package com.keelim.data.response
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import kotlinx.serialization.Serializable
 
-@kotlinx.serialization.Serializable
+@Serializable
 @Parcelize
 data class ResponseNotification(
     var majorDimension: String?, // ROWS

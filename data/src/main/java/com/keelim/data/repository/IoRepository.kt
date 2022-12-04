@@ -24,9 +24,6 @@ interface IoRepository {
     val simpleAll: Flow<List<SimpleHistory>>
 
     fun getAllPaging(): Flow<PagingData<History>>
-    fun getNotification(): Flow<List<Notification>>
-    // simpleHistory
-
     suspend fun insertSimpleHistories(history: SimpleHistory)
     suspend fun getAllSimpleHistories(history: SimpleHistory): List<SimpleHistory>
 }

@@ -17,24 +17,23 @@ package com.keelim.domain.comssa
 
 import androidx.paging.PagingData
 import com.keelim.comssa.data.db.entity.Search
-import com.keelim.comssa.data.model.PasswordResult
-import com.keelim.comssa.data.repository.IoRepository
+import com.keelim.data.model.PasswordResult
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 
 class SearchUseCase @Inject constructor(
-    private val ioRepository: IoRepository,
+    private val comssaIoRepository: ComssaIoRepository,
 ) {
 
     operator fun invoke(query: String = ""): Flow<PagingData<Search>> {
-        return ioRepository.getContentItemsByPaging(query)
+        return comssaIoRepository.getContentItemsByPaging(query)
     }
 
     fun getFavorite(): Flow<PagingData<Search>> {
-        return ioRepository.getFavoriteItemsByPaging()
+        return comssaIoRepository.getFavoriteItemsByPaging()
     }
 
     suspend fun getDownloadLink(password: String): PasswordResult {
-        return ioRepository.getDownloadLink(password)
+        return comssaIoRepository.getDownloadLink(password)
     }
 }

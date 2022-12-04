@@ -15,7 +15,7 @@
  */
 package com.keelim.domain.setting
 
-import com.keelim.cnubus.data.model.Developer
+import com.keelim.data.model.Developer
 import com.keelim.cnubus.data.repository.setting.DeveloperRepository
 import javax.inject.Inject
 

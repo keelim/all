@@ -16,7 +16,7 @@
 package com.keelim.cnubus.ui.content
 
 import androidx.lifecycle.viewModelScope
-import com.keelim.cnubus.data.model.Event
+import com.keelim.data.model.Event
 import com.keelim.common.base.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

@@ -84,9 +84,6 @@ constructor(
     fun favoriteUpdate(favorite: Int, id: Int) =
         viewModelScope.launch { favoriteUpdateUseCase.invoke(favorite, id) }
 
-    fun getContent(query: String = ""): Flow<PagingData<NandaEntity>> {
-        return getSearchListUseCase.getSearchFlow(query).cachedIn(viewModelScope)
-    }
 
     fun queryFilter(value: String) = viewModelScope.launch { query.emit(value) }
 

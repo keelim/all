@@ -16,14 +16,14 @@
 package com.keelim.domain.nandadiagnosis
 
 import com.keelim.data.db.entity.NandaEntity
-import com.keelim.data.repository.io.IORepository
+import com.keelim.data.repository.NandaIORepository
 import javax.inject.Inject
 
 class GetFavoriteListUseCase @Inject constructor(
-    private val ioRepository: IORepository,
+    private val nandaIoRepository: NandaIORepository,
 ) {
 
     suspend operator fun invoke(): List<NandaEntity> {
-        return ioRepository.getFavoriteList()
+        return nandaIoRepository.getFavoriteList()
     }
 }

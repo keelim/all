@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.map.ui.map3
+package com.keelim.map3
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -22,8 +22,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
-import com.keelim.cnubus.feature.map.databinding.ItemHouseBinding
 import com.keelim.data.model.gps.Location
+import com.keelim.map.databinding.ItemHouseBinding
 
 class LocationAdapter : ListAdapter<Location, LocationAdapter.ItemViewHolder>(diffUtil) {
 

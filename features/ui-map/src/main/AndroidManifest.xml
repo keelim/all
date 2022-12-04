@@ -3,7 +3,7 @@
 
     <application>
         <activity
-            android:name="com.keelim.map.ui.map3.detail.DetailActivity"
+            android:name="com.keelim.map3.detail.DetailActivity"
             android:exported="false"
             android:label="detail"
             android:launchMode="singleTop" />

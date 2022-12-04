@@ -23,11 +23,11 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.FragmentRootBinding
-import com.keelim.map.MapEvent
-import com.keelim.map.MapsActivity
 import com.keelim.common.base.BaseFragment
 import com.keelim.common.extensions.toast
 import com.keelim.data.model.gps.Location
+import com.keelim.map.MapEvent
+import com.keelim.map.MapsActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

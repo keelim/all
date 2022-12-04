@@ -5,11 +5,15 @@ plugins {
 }
 
 dependencies {
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.preferences)
+    // coil
+    implementation(libs.coil.kt)
+    implementation(libs.coil.kt.compose)
+    // compose
     implementation(libs.material3)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.ui.tooling)
     implementation(libs.androidx.compose.foundation)
+    implementation(libs.androidx.compose.glance)
+    implementation(libs.material.themAdapter)
 }

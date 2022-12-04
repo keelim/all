@@ -34,11 +34,13 @@ import androidx.work.WorkManager
 import androidx.work.WorkRequest
 import androidx.work.workDataOf
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.ActivityMainBinding
 import com.keelim.cnubus.databinding.DialogEventBinding
 import com.keelim.cnubus.services.TerminateService
 import com.keelim.cnubus.worker.BusWorker
+import com.keelim.common.extensions.dp
 import com.keelim.common.extensions.toast
 import com.keelim.compose.ui.CircularIndeterminateProgressBar
 import com.keelim.ui_setting.ui.theme.CnubusTheme
@@ -112,7 +114,13 @@ class MainActivity : AppCompatActivity() {
                     bringToFront()
                     setContent {
                         CnubusTheme {
-                            CircularIndeterminateProgressBar(it)
+                            if(it) {
+                                CircularProgressIndicator(
+                                    modifier = Modifier.padding(8.dp),
+                                    color = Color.Yellow,
+                                    strokeWidth = 10.dp
+                                )
+                            }
                         }
                     }
                 }

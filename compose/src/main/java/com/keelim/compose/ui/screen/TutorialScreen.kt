@@ -30,9 +30,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -63,14 +63,14 @@ fun MessageCard(msg: Message) {
                 .clip(CircleShape)
                 .border(
                     1.5.dp,
-                    MaterialTheme.colors.secondary,
+                    MaterialTheme.colorScheme.secondary,
                     CircleShape
                 )
         )
 
         var isExpanded by remember { mutableStateOf(false) }
         val surfaceColor by animateColorAsState(
-            if (isExpanded) MaterialTheme.colors.primary else MaterialTheme.colors.primaryVariant
+            if (isExpanded) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.primaryContainer
         )
         Spacer(modifier = Modifier.width(8.dp))
         Column(
@@ -80,14 +80,15 @@ fun MessageCard(msg: Message) {
         ) {
             Text(
                 text = msg.author,
-                color = MaterialTheme.colors.secondaryVariant,
-                style = MaterialTheme.typography.subtitle2
+                color = MaterialTheme.colorScheme.secondary,
+                style = MaterialTheme.typography.titleLarge
             )
             Spacer(modifier = Modifier.height(4.dp))
 
             Surface(
                 shape = MaterialTheme.shapes.medium,
-                elevation = 1.dp,
+                tonalElevation = 1.dp,
+                shadowElevation = 1.dp,
                 color = surfaceColor,
                 modifier = Modifier.animateContentSize().padding(1.dp)
             ) {
@@ -95,7 +96,7 @@ fun MessageCard(msg: Message) {
                     text = msg.body,
                     modifier = Modifier.padding(all = 4.dp),
                     maxLines = if (isExpanded) Int.MAX_VALUE else 1,
-                    style = MaterialTheme.typography.body2
+                    style = MaterialTheme.typography.bodyLarge
                 )
             }
         }

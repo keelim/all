@@ -13,34 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.map.ui.map3.detail
+package com.keelim.map3.detail
 
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.keelim.common.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.stateIn
 
 @HiltViewModel
-class DetailViewModel @Inject constructor() : BaseViewModel() {
-    private val _state: MutableStateFlow<DetailState> = MutableStateFlow(DetailState.UnInitialized)
-    val state: StateFlow<DetailState>
-        get() = _state
-
-    init {
-        init()
-    }
-
-    fun init() = viewModelScope.launch(dispatcher) {
-        _state.emit(DetailState.Loading)
+class DetailViewModel @Inject constructor() : ViewModel() {
+    val state: StateFlow<DetailState> = flow<DetailState> {
+        emit(DetailState.Loading)
         delay(3000)
-        _state.emit(
+        emit(
             DetailState.Success(
                 emptyList()
             )
         )
-    }
+    }.catch {
+        DetailState.Error(
+            message = "Error 가 발생하였습니다. "
+        )
+    }.stateIn(viewModelScope, SharingStarted.Lazily, DetailState.UnInitialized)
 }

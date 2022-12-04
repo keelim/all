@@ -16,7 +16,6 @@
 package com.keelim.map
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.location.LocationListener
 import android.location.LocationManager
@@ -42,16 +41,22 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.maps.android.ktx.addMarker
 import com.google.maps.android.ktx.awaitMap
-import com.keelim.cnubus.feature.map.databinding.ActivityMapsBinding
-import com.keelim.cnubus.feature.map.databinding.BottomSheetBinding
 import com.keelim.common.extensions.repeatCallDefaultOnStarted
 import com.keelim.common.extensions.toast
 import com.keelim.data.model.gps.Location
-import com.keelim.map.ui.map3.LocationAdapter
-import com.keelim.map.ui.map3.LocationPagerAdapter
-import com.keelim.map.ui.map3.detail.DetailActivity
+import com.keelim.map.databinding.ActivityMapsBinding
+import com.keelim.map.databinding.BottomSheetBinding
+import com.keelim.map3.LocationAdapter
+import com.keelim.map3.LocationPagerAdapter
+import com.keelim.map3.detail.DetailActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+sealed class MapEvent {
+    object UnInitialized : MapEvent()
+    object Loading : MapEvent()
+    data class MigrateSuccess(val data: List<Location>) : MapEvent()
+    data class Error(val message: String = "에러가 발생하였습니다.") : MapEvent()
+}
 
 @SuppressLint("all")
 @AndroidEntryPoint
@@ -84,7 +89,7 @@ class MapsActivity : AppCompatActivity() {
                 value
             }
     }
-    private val locationManager by lazy { getSystemService(Context.LOCATION_SERVICE) as LocationManager }
+    private val locationManager by lazy { getSystemService(LOCATION_SERVICE) as LocationManager }
     private val viewModel by viewModels<MapsViewModel>()
     private val mapFragment by lazy { supportFragmentManager.findFragmentById(binding.map.id) as SupportMapFragment }
     private val viewPagerAdapter by lazy {
@@ -125,7 +130,6 @@ class MapsActivity : AppCompatActivity() {
         setMyLocationListener()
         initFlow()
         googleMapSetting()
-        viewModel.loadLocation(mode)
     }
 
     override fun onBackPressed() {
@@ -138,7 +142,7 @@ class MapsActivity : AppCompatActivity() {
     }
 
     private fun setMyLocationListener() {
-        val minTime = 1500L
+        val minTime: Long = 1500L
         val minDistance = 100f
         if (::myLocationListener.isInitialized.not()) {
             myLocationListener = LocationListener {
@@ -148,11 +152,13 @@ class MapsActivity : AppCompatActivity() {
         with(locationManager) {
             requestLocationUpdates(
                 LocationManager.GPS_PROVIDER,
-                minTime, minDistance, myLocationListener
+                minTime,
+                minDistance, myLocationListener,
             )
             requestLocationUpdates(
                 LocationManager.NETWORK_PROVIDER,
-                minTime, minDistance, myLocationListener
+                minTime,
+                minDistance, myLocationListener
             )
         }
         if (::fusedLocationProvider.isInitialized.not()) {
@@ -162,7 +168,7 @@ class MapsActivity : AppCompatActivity() {
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
                 super.onLocationResult(locationResult)
-                locationResult.lastLocation.run {
+                locationResult.lastLocation?.run {
                     current = LatLng(latitude, longitude)
                 }
             }

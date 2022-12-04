@@ -13,28 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.map.ui.map3.detail
+package com.keelim.map3.detail
 
 import android.content.Intent
+import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import com.keelim.cnubus.feature.map.R
-import com.keelim.cnubus.feature.map.databinding.ActivityDetailBinding
-import com.keelim.common.base.BaseActivity
+import com.google.android.material.snackbar.Snackbar
 import com.keelim.common.extensions.loadAsync
-import com.keelim.common.extensions.snack
 import com.keelim.common.extensions.toGone
 import com.keelim.common.extensions.toVisible
 import com.keelim.data.model.gps.Location
+import com.keelim.map.R
+import com.keelim.map.databinding.ActivityDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class DetailActivity : BaseActivity<ActivityDetailBinding, DetailViewModel>() {
-    override val layoutResourceId: Int = R.layout.activity_detail
-    override val viewModel: DetailViewModel by viewModels()
+class DetailActivity : AppCompatActivity(R.layout.activity_detail) {
+    private val viewModel: DetailViewModel by viewModels()
+    private lateinit var binding: ActivityDetailBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        handleIntent(intent)
+        observeState()
+    }
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
@@ -42,16 +49,6 @@ class DetailActivity : BaseActivity<ActivityDetailBinding, DetailViewModel>() {
             handleIntent(intent)
         }
     }
-
-    override fun initBeforeBinding() {
-        handleIntent(intent)
-    }
-
-    override fun initDataBinding() {
-        observeState()
-    }
-
-    override fun initAfterBinding() = Unit
 
     private fun handleIntent(intent: Intent) = with(binding) {
         val location: Location? by lazy { intent.getParcelableExtra("item") }
@@ -76,15 +73,18 @@ class DetailActivity : BaseActivity<ActivityDetailBinding, DetailViewModel>() {
                     }
                     is DetailState.Success -> {
                         binding.loading.toGone()
-                        binding.root.snack(
+                        Snackbar.make(
+                            binding.root,
                             if (state.data.isEmpty()) {
                                 "데이터가 비어있습니다."
                             } else {
                                 "현재 업데이트 준비 구간입니다."
-                            }
-                        )
+                            },
+                            Snackbar.LENGTH_SHORT
+                        ).show()
                     }
                     is DetailState.UnInitialized -> {}
+                    else -> {}
                 }
             }
     }

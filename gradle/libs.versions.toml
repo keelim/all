@@ -61,10 +61,11 @@ firebase-ui="8.0.1"
 bio="1.1.0"
 in-app-update="2.0.0"
 play-services-maps="18.1.0"
+play-services-location="21.0.1"
 glance = "1.0.0-alpha05"
+maps = "3.2.1"
 
 #view system
-constraintlayout = "2.1.4"
 material3 = "1.6.1"
 
 [libraries]
@@ -153,7 +154,10 @@ play-services-ad = { group = "com.google.android.gms", name = "play-services-ads
 play-services-oss = { group = "com.google.android.gms", name = "play-services-oss-licenses", version.ref = "playoss" }
 play-services-oss-plugin = { group = "com.google.android.gms", name = "oss-licenses-plugin", version.ref = "playoss-plugin" }
 play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "play-services-maps" }
-#
+play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "play-services-location" }
+maps-ktx = { group = "com.google.maps.android", name = "maps-ktx", version.ref = "maps" }
+maps-utils-ktx = { group = "com.google.maps.android", name = "maps-utils-ktx", version.ref = "maps" }
+
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timbers" }
 apache-math = { group = "org.apache.commons", name = "commons-math3", version.ref = "math3" }
 #
@@ -186,7 +190,6 @@ androidx-bio = { group = "androidx.biometric", name = "biometric", version.ref =
 #
 inapp-update = { group = "com.google.android.play", name = "app-update-ktx", version.ref = "in-app-update" }
 # view system
-androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 androidx-compose-glance = { group = "androidx.glance", name = "glance-appwidget", version.ref = "glance" }
 
 [plugins]

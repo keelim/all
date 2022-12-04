@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="system">System default</string>
+    <string name="light_theme">Light</string>
+    <string name="dark_theme">Dark</string>
+    <string name="db_path">https://github.com/keelim/Keelim.github.io/raw/master/assets/nanda.db</string>
+</resources>

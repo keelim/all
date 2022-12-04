@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MyGrade</string>
+    <string name="notification_channel_notice">notice</string>
+    <string name="notification_channel_event">event</string>
+</resources>

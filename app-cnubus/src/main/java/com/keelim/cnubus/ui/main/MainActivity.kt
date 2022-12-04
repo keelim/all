@@ -42,7 +42,6 @@ import com.keelim.cnubus.services.TerminateService
 import com.keelim.cnubus.worker.BusWorker
 import com.keelim.common.extensions.dp
 import com.keelim.common.extensions.toast
-import com.keelim.compose.ui.CircularIndeterminateProgressBar
 import com.keelim.ui_setting.ui.theme.CnubusTheme
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit
@@ -114,7 +113,7 @@ class MainActivity : AppCompatActivity() {
                     bringToFront()
                     setContent {
                         CnubusTheme {
-                            if(it) {
+                            if (it) {
                                 CircularProgressIndicator(
                                     modifier = Modifier.padding(8.dp),
                                     color = Color.Yellow,

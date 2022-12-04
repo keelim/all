@@ -18,8 +18,8 @@ package com.keelim.setting
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.keelim.nandadiagnosis.compose.ui.setThemeContent
-import com.keelim.ui.Navigation
 import com.keelim.setting.ui.Section
+import com.keelim.ui.Navigation
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

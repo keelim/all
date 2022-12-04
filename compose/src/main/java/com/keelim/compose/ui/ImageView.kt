@@ -21,7 +21,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import coil.annotation.ExperimentalCoilApi
-import coil.compose.ImagePainter
 import coil.compose.rememberImagePainter
 import coil.request.ImageRequest
 import com.keelim.compose.R
@@ -43,7 +42,7 @@ fun ProfileImageView(
         builder = builder,
     )
 
-    // TODO:  
+    // TODO:
     val filter = ColorFilter.tint(stateColor)
 
     Image(

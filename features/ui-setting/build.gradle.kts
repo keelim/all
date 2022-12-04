@@ -8,13 +8,23 @@ plugins {
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
+android {
+    namespace = "com.keelim.setting"
+}
+
 dependencies {
     implementation(project(":data"))
+    implementation(project(":domain"))
     implementation(project(":common"))
+    implementation(project(":compose"))
 
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
-}
-android {
-    namespace = "com.keelim.setting"
+
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.ui.tooling)
+    implementation(libs.androidx.compose.foundation)
+    implementation(libs.androidx.compose.glance)
+    implementation(libs.material.themAdapter)
 }

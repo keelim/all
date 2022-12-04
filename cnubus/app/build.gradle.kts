@@ -15,9 +15,9 @@ plugins {
 
 android {
     defaultConfig {
-        applicationId = ProjectConfigurations.applicationId
-        versionCode = ProjectConfigurations.versionCode
-        versionName = ProjectConfigurations.versionName
+        applicationId = "com.keelim.cnubus"
+        versionCode = 2118
+        versionName = "2.1.18"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

@@ -3,11 +3,13 @@ package com.keelim.data.di
 import android.content.Context
 import androidx.room.Room
 import com.keelim.data.db.AppDatabase
+import com.keelim.data.db.NandaAppDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import java.io.File
 import javax.inject.Singleton
 
 @Module
@@ -18,8 +20,17 @@ object DatabaseModule {
     fun provideAppDatabase(
         @ApplicationContext ctx: Context,
     ): AppDatabase = Room.databaseBuilder(
-        ctx,
-        AppDatabase::class.java,
-        "mygrade"
+        ctx, AppDatabase::class.java, "mygrade"
     ).build()
+
+    @Provides
+    @Singleton
+    fun provideNandaAppDatabase(
+        @ApplicationContext context: Context,
+    ): NandaAppDatabase {
+        return Room.databaseBuilder(
+            context.applicationContext, NandaAppDatabase::class.java, "nanda"
+        ).createFromFile(File(context.getExternalFilesDir(null), "nanda.db"))
+            .allowMainThreadQueries().build()
+    }
 }

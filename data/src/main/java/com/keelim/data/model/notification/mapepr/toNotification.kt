@@ -1,6 +1,6 @@
 package com.keelim.data.model.notification.mapepr
 
-import com.keelim.data.api.response.ResponseNotification
+import com.keelim.data.response.ResponseNotification
 import com.keelim.data.model.notification.Notification
 
 fun ResponseNotification.toNotification(): List<Notification> {

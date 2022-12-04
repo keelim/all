@@ -1,5 +1,5 @@
 
-import com.keelim.builds.ProjectConfigurations
+import com.keelim.builds.ProjectConfiguration
 import com.keelim.builds.configureKotlinAndroid
 
 plugins {
@@ -11,10 +11,7 @@ android {
     configureKotlinAndroid(this)
 
     defaultConfig {
-        targetSdk = ProjectConfigurations.targetSdk
-        applicationId = ProjectConfigurations.applicationID
-        versionCode = ProjectConfigurations.versionCode
-        versionName = ProjectConfigurations.versionName
+        targetSdk = ProjectConfiguration.targetSdk
     }
 
     buildFeatures.viewBinding = true

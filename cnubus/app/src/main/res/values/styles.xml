@@ -1,0 +1,72 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="@style/Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorError">@color/error</item>
+        <item name="android:textColor">@color/main_text_color</item>
+    </style>
+
+    <style name="AppTheme.material3" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorOnPrimary">@color/colorAccent</item>
+        <item name="colorPrimaryContainer">@color/error</item>
+        <item name="colorOnPrimaryContainer">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="Theme.JetpackSplashScreenDemo" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="card_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_rowWeight">1</item>
+        <item name="android:layout_columnWeight">1</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+    </style>
+
+    <style name="card_style_2">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/main_text_color</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="card_style_3">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal|center_vertical</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="tv_style">
+        <item name="android:textColor">@color/main_text_color</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="ShapeAppearance.Button.CutCorners" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">12dp</item>
+    </style>
+
+    <style name="MyToolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
+        <item name="titleTextColor">@color/main_bg_color</item>
+        <item name="backgroundColor">@color/main_bg_color</item>
+    </style>
+
+    <style name="Bus.Button.TextButton.Mini" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textAppearance">@style/TextAppearance.Bus.Caption</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
+</resources>

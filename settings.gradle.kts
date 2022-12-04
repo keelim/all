@@ -15,4 +15,9 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "all"
-include(":common")
+include(
+    ":app-my-grade",
+    ":common",
+    ":data",
+    ":compose"
+)

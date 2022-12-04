@@ -42,8 +42,6 @@ class NotionInterceptor : Interceptor {
         return chain.proceed(
             request.newBuilder()
                 .addHeader("Accept", "application/json")
-                .addHeader("Notion-Version", BuildConfig.NOTION_VERSION)
-                .addHeader("Authorization", "Bearer ${BuildConfig.NOTION_TOKEN}")
                 .build()
         )
     }

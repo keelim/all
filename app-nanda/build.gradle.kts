@@ -29,7 +29,6 @@ dependencies {
     implementation(project(":data"))
     implementation(project(":domain"))
     implementation(project(":features:ui-setting"))
-    implementation(project(":features:player"))
 
     implementation(platform(libs.firebase.bom))
     implementation("com.google.firebase:firebase-core")

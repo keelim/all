@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.keelim.comssa.R
-import com.keelim.data.model.Feed
 import com.keelim.comssa.databinding.ItemFeedListBinding
+import com.keelim.data.model.Feed
 
 class FeedAdapter(
     private val click: (Feed) -> Unit

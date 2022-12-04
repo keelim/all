@@ -17,8 +17,8 @@ package com.keelim.cnubus.ui.stationarrivals
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.keelim.data.model.Station
 import com.keelim.cnubus.data.repository.station.StationRepository
+import com.keelim.data.model.Station
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow

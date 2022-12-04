@@ -22,8 +22,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
-import com.keelim.data.model.gps.Location
 import com.keelim.cnubus.feature.map.databinding.ItemHouseBinding
+import com.keelim.data.model.gps.Location
 
 class LocationAdapter : ListAdapter<Location, LocationAdapter.ItemViewHolder>(diffUtil) {
 

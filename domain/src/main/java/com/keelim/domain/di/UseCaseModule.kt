@@ -17,12 +17,12 @@ package com.keelim.domain.di
 
 import com.keelim.data.repository.NandaIORepository
 import com.keelim.data.repository.theme.ThemeRepository
-import com.keelim.domain.theme.ThemeUseCase
 import com.keelim.domain.nandadiagnosis.GetFavoriteListUseCase
 import com.keelim.domain.nandadiagnosis.GetNandaListUseCase
 import com.keelim.domain.nandadiagnosis.GetNandaUseCase
 import com.keelim.domain.nandadiagnosis.GetSearchListUseCase
 import com.keelim.domain.nandadiagnosis.HistoryUseCase
+import com.keelim.domain.theme.ThemeUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

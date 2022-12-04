@@ -19,8 +19,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.keelim.cnubus.R
-import com.keelim.data.model.gps.Location
 import com.keelim.cnubus.databinding.ActivitySwipeBinding
+import com.keelim.data.model.gps.Location
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

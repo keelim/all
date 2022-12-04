@@ -17,7 +17,6 @@ package com.keelim.data.response
 
 import kotlinx.serialization.SerialName
 
-
 data class ErrorMessage(
     @SerialName("code")
     val code: String? = null,

@@ -23,14 +23,14 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.google.android.material.chip.Chip
 import com.keelim.comssa.R
-import com.keelim.data.model.Data
-import com.keelim.data.model.Review
 import com.keelim.comssa.databinding.ItemDataInformationBinding
 import com.keelim.comssa.databinding.ItemMyReviewBinding
 import com.keelim.comssa.databinding.ItemReviewBinding
 import com.keelim.comssa.databinding.ItemReviewFormBinding
 import com.keelim.comssa.extensions.toAbbreviatedString
 import com.keelim.comssa.extensions.toDecimalFormatString
+import com.keelim.data.model.Data
+import com.keelim.data.model.Review
 
 class ReviewsAdapter(
     private val movie: Data,

@@ -16,14 +16,14 @@
 package com.keelim.domain.setting
 
 import com.keelim.data.model.Developer
-import com.keelim.cnubus.data.repository.setting.DeveloperRepository
+import com.keelim.data.repository.setting.DeveloperRepository
 import javax.inject.Inject
 
 class DevelopersUseCase @Inject constructor(
-    private val conferenceRepository: DeveloperRepository,
+    private val developerRepository: DeveloperRepository,
 )  {
     suspend operator fun invoke(): List<Developer> {
-        return conferenceRepository
+        return developerRepository
             .getDeveloper()
             .sortedBy { it.name }
     }

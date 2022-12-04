@@ -16,19 +16,12 @@
 package com.keelim.setting.ui
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
-import com.keelim.common.util.UiState
-import com.keelim.common.util.toUiState
-import com.keelim.nandadiagnosis.domain.GetDevelopersUseCase
+import com.keelim.domain.nandadiagnosis.GetDevelopersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class SettingViewModel @Inject constructor(
-    private val getDevelopers: GetDevelopersUseCase
+    private val developersUseCase: GetDevelopersUseCase
 ) : ViewModel() {
-    val developers = liveData {
-        emit(UiState.loading())
-        emit(getDevelopers().toUiState())
-    }
 }

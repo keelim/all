@@ -34,7 +34,7 @@ dependencies {
     implementation(project(":common"))
     implementation(project(":features:ui-map"))
     implementation(project(":features:ui-setting"))
-    implementation(project(":features:labs"))
+    implementation(project(":features:ui-labs"))
 
     implementation(platform(libs.firebase.bom))
     implementation("com.google.firebase:firebase-core")

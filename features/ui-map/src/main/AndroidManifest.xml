@@ -3,12 +3,12 @@
 
     <application>
         <activity
-            android:name=".ui.map3.detail.DetailActivity"
+            android:name="com.keelim.map.ui.map3.detail.DetailActivity"
             android:exported="false"
             android:label="detail"
             android:launchMode="singleTop" />
         <activity
-            android:name=".ui.MapsActivity"
+            android:name="com.keelim.map.MapsActivity"
             android:exported="true"
             android:label="maps" />
 

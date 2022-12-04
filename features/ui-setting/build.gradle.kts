@@ -16,5 +16,5 @@ dependencies {
     kapt(libs.hilt.compiler)
 }
 android {
-    namespace = "com.keelim.ui_setting"
+    namespace = "com.keelim.setting"
 }

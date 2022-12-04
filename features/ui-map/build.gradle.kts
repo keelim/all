@@ -10,7 +10,7 @@ android{
     buildFeatures{
         dataBinding = true
     }
-    namespace = "com.keelim.cnubus.feature.map"
+    namespace = "com.keelim.map"
 }
 
 dependencies {

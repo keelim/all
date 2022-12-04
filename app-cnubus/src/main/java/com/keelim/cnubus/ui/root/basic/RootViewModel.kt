@@ -17,7 +17,7 @@ package com.keelim.cnubus.ui.root.basic
 
 import androidx.lifecycle.viewModelScope
 import com.keelim.cnubus.data.repository.station.StationRepository
-import com.keelim.cnubus.feature.map.ui.MapEvent
+import com.keelim.map.MapEvent
 import com.keelim.common.base.BaseViewModel
 import com.keelim.data.db.entity.CnuHistory
 import com.keelim.data.model.gps.Location

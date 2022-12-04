@@ -8,7 +8,7 @@ plugins {
 
 android{
     buildFeatures{
-        dataBinding = true
+        viewBinding = true
     }
     namespace = "com.keelim.labs"
 }
@@ -21,5 +21,10 @@ dependencies {
 
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
+
+    // activity
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material3)
+    implementation(libs.androidx.constraintlayout)
 }
 

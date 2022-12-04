@@ -18,9 +18,10 @@ package com.keelim.labs.ui.motion
 import android.os.Bundle
 import android.view.MotionEvent
 import androidx.appcompat.app.AppCompatActivity
-import com.keelim.cnubus.labs.databinding.ActivityMotionBinding
+import com.keelim.labs.R
+import com.keelim.labs.databinding.ActivityMotionBinding
 
-class MotionActivity : AppCompatActivity() {
+class MotionActivity : AppCompatActivity(R.layout.activity_motion) {
     private val binding by lazy { ActivityMotionBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {

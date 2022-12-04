@@ -57,7 +57,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/button_get_image_from_gallery" />
 
-    <com.google.android.material.textview.MaterialTextView
+    <TextView
         android:id="@+id/tv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.textview.MaterialTextView
+    <TextView
         android:id="@+id/tv_storage_access"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

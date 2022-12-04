@@ -63,6 +63,9 @@ in-app-update="2.0.0"
 play-services-maps="18.1.0"
 glance = "1.0.0-alpha05"
 
+#view system
+constraintlayout = "2.1.4"
+
 [libraries]
 accompanist-flowlayout = { group = "com.google.accompanist", name = "accompanist-flowlayout", version.ref = "accompanist" }
 android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
@@ -178,6 +181,9 @@ firebase-ui-storage = { group = "com.firebaseui", name = "firebase-ui-storage", 
 androidx-bio = { group = "androidx.biometric", name = "biometric", version.ref = "bio" }
 #
 inapp-update = { group = "com.google.android.play", name = "app-update-ktx", version.ref = "in-app-update" }
+# view system
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+
 [plugins]
 protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

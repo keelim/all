@@ -28,16 +28,16 @@ import android.os.Messenger
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
-import com.keelim.cnubus.labs.databinding.ActivityCaptureBinding
 import com.keelim.common.extensions.getMediaUri
 import com.keelim.common.extensions.saveToGallery
 import com.keelim.common.extensions.scanMediaToBitmap
+import com.keelim.labs.R
+import com.keelim.labs.databinding.ActivityCaptureBinding
 import com.keelim.labs.services.LabBoundService
 import com.keelim.labs.services.LabBoundService2
 import java.io.FileOutputStream
-import timber.log.Timber
 
-class CaptureActivity : AppCompatActivity() {
+class CaptureActivity : AppCompatActivity(R.layout.activity_capture) {
 
     private val binding by lazy { ActivityCaptureBinding.inflate(layoutInflater) }
 
@@ -136,7 +136,6 @@ class CaptureActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
         initViews()
         initServices()
         showTime()
@@ -184,7 +183,6 @@ class CaptureActivity : AppCompatActivity() {
     private fun showTime() {
         val value = labBoundService?.getCurrentTime()
         binding.tvTime.text = value
-        Timber.d("${this::class.java.classes} capture hello $value")
     }
 
     private fun sendMessage() {

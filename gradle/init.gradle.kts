@@ -1,8 +1,8 @@
-
+//./gradlew --init-script gradle/init.gradle.kts spotlessApply
 val ktlintVersion = "0.43.0"
 
 initscript {
-    val spotlessVersion = "6.11.0"
+    val spotlessVersion = "6.7.2"
 
     repositories {
         mavenCentral()
@@ -20,7 +20,11 @@ rootProject {
             kotlin {
                 target("**/*.kt")
                 targetExclude("**/build/**/*.kt")
-                ktlint(ktlintVersion).userData(mapOf("android" to "true"))
+                ktlint(ktlintVersion).userData(
+                    mapOf(
+                        "android" to "true", "max_line_length" to "150"
+                    )
+                )
             }
             format("kts") {
                 target("**/*.kts")

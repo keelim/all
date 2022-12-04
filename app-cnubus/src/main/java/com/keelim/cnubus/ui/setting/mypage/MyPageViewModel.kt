@@ -17,7 +17,7 @@ package com.keelim.cnubus.ui.setting.mypage
 
 import androidx.lifecycle.viewModelScope
 import com.keelim.cnubus.data.db.entity.History
-import com.keelim.cnubus.domain.UserUseCase
+import com.keelim.domain.setting.UserUseCase
 import com.keelim.common.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

@@ -18,7 +18,7 @@ package com.keelim.comssa.ui.mypage
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.keelim.comssa.data.model.ReviewedData
-import com.keelim.comssa.domain.GetUserReviewedDataUseCase
+import com.keelim.domain.comssa.GetUserReviewedDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow

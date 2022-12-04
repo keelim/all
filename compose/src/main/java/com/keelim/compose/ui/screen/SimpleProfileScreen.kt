@@ -13,6 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package com.keelim.compose.ui.screen
 
 import androidx.compose.foundation.BorderStroke
@@ -33,12 +35,14 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.Card
-import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -53,13 +57,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.keelim.compose.R
 
 @Composable
 fun ImageProfile(modifier: Modifier = Modifier) {
     Surface {
         Image(
-            painter = painterResource(id = R.drawable.sample),
+            painter = painterResource(id = android.R.drawable.sym_def_app_icon),
             contentDescription = "profile image",
             modifier = modifier.size(135.dp),
             contentScale = ContentScale.Crop
@@ -79,7 +82,7 @@ fun Info() {
         Text(
             color = Color.Blue,
             fontSize = 24.sp,
-            style = MaterialTheme.typography.h4,
+            style = MaterialTheme.typography.bodyLarge,
             text = "Keelim"
         )
 
@@ -91,7 +94,7 @@ fun Info() {
         Text(
             color = Color.Blue,
             fontSize = 24.sp,
-            style = MaterialTheme.typography.h4,
+            style = MaterialTheme.typography.bodyLarge,
             text = "Studying Compose",
             modifier = Modifier.padding(3.dp)
         )
@@ -118,8 +121,12 @@ fun ProfileCard() {
                 .height(390.dp)
                 .padding(12.dp),
             shape = RoundedCornerShape(corner = CornerSize(15.dp)),
-            backgroundColor = Color.White,
-            elevation = 4.dp
+            colors = CardDefaults.cardColors(
+                containerColor = Color.White
+            ),
+            elevation = CardDefaults.elevatedCardElevation(
+                defaultElevation = 4.dp
+            ),
         ) {
             Column(
                 modifier = Modifier.height(300.dp),
@@ -136,7 +143,7 @@ fun ProfileCard() {
                 ) {
                     Text(
                         text = "Portfolio",
-                        style = MaterialTheme.typography.button
+                        style = MaterialTheme.typography.titleSmall
                     )
                 }
                 if (isClicked.value) {
@@ -195,12 +202,14 @@ fun Portfolio(data: List<String>) {
                     .padding(13.dp)
                     .fillMaxWidth(),
                 shape = RectangleShape,
-                elevation = 4.dp
+                elevation = CardDefaults.elevatedCardElevation(
+                    defaultElevation = 4.dp
+                )
             ) {
                 Row(
                     modifier = Modifier
                         .padding(8.dp)
-                        .background(MaterialTheme.colors.surface)
+                        .background(MaterialTheme.colorScheme.surface)
                         .padding(7.dp)
                 ) {
                     ImageProfile(modifier = Modifier.size(50.dp))
@@ -210,7 +219,7 @@ fun Portfolio(data: List<String>) {
                             .align(alignment = CenterVertically)
                     ) {
                         Text(text = item, fontWeight = FontWeight.Bold)
-                        Text(text = "Good Project", style = MaterialTheme.typography.h2)
+                        Text(text = "Good Project", style = MaterialTheme.typography.titleMedium)
                     }
                 }
             }

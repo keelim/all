@@ -22,8 +22,6 @@ import androidx.lifecycle.viewModelScope
 import com.keelim.data.model.Data
 import com.keelim.data.model.DataReviews
 import com.keelim.data.model.Review
-import com.keelim.domain.comssa.DeleteReviewUseCase
-import com.keelim.domain.comssa.GetAllDataReviewsUseCase
 import com.keelim.domain.comssa.SubmitReviewUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

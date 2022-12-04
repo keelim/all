@@ -20,7 +20,6 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.keelim.comssa.data.db.entity.Search
-import com.keelim.domain.comssa.SearchUseCase
 import com.keelim.domain.comssa.UpdateFavoriteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

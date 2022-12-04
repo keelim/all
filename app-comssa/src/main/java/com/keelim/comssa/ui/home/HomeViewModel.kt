@@ -19,8 +19,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.keelim.data.model.Data
 import com.keelim.data.model.FeaturedData
-import com.keelim.domain.comssa.GetAllDatasUseCase
-import com.keelim.domain.comssa.GetRandomFeatureDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted

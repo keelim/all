@@ -39,18 +39,19 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.keelim.nandadiagnosis.compose.ui.ProfileImageView
 import com.keelim.data.model.Developer
+import com.keelim.nandadiagnosis.compose.ui.ProfileImageView
 
 @Composable
 internal fun DeveloperScreen(
     modifier: Modifier = Modifier,
     developer: List<Developer>,
 ) {
-  LazyVerticalGrid(
-      columns = GridCells.Fixed(1), modifier = modifier, contentPadding = PaddingValues(10.dp)) {
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(1), modifier = modifier, contentPadding = PaddingValues(10.dp)
+    ) {
         items(developer) { item -> Profile(modifier = Modifier.padding(10.dp), person = item) }
-      }
+    }
 }
 
 @Composable
@@ -58,46 +59,50 @@ private fun Profile(
     modifier: Modifier = Modifier,
     person: Developer,
 ) {
-  Card(modifier = modifier.aspectRatio(0.75f), shape = RoundedCornerShape(8.dp), elevation = 4.dp) {
-    Column(modifier = Modifier.padding(12.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-      ProfileImageView(
-          imageUrl = person.photoUrl,
-          stateColor = Color(android.graphics.Color.parseColor("#43B1B3")),
-          modifier = Modifier.weight(1f).aspectRatio(1f).clip(CircleShape))
+    Card(modifier = modifier.aspectRatio(0.75f), shape = RoundedCornerShape(8.dp), elevation = 4.dp) {
+        Column(modifier = Modifier.padding(12.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+            ProfileImageView(
+                imageUrl = person.photoUrl,
+                stateColor = Color(android.graphics.Color.parseColor("#43B1B3")),
+                modifier = Modifier.weight(1f).aspectRatio(1f).clip(CircleShape)
+            )
 
-      Column(
-          modifier = Modifier.padding(8.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(
-                text = person.name,
-                color = Color(android.graphics.Color.parseColor("#FFFFFF")),
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis)
-            Spacer(modifier = Modifier.height(8.dp))
+            Column(
+                modifier = Modifier.padding(8.dp), horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = person.name,
+                    color = Color(android.graphics.Color.parseColor("#FFFFFF")),
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+                Spacer(modifier = Modifier.height(8.dp))
 
-            Text(
-                text = person.companyName.orEmpty(),
-                color = Color(android.graphics.Color.parseColor("#9A9A9A")),
-                fontSize = 12.sp,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis)
-          }
+                Text(
+                    text = person.companyName.orEmpty(),
+                    color = Color(android.graphics.Color.parseColor("#9A9A9A")),
+                    fontSize = 12.sp,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
+        }
     }
-  }
 }
 
 @Preview(widthDp = 200)
 @Composable
 private fun ProfilePreview() {
-  Surface(Modifier.padding(10.dp)) {
-    Profile(
-        person =
+    Surface(Modifier.padding(10.dp)) {
+        Profile(
+            person =
             Developer(
                 "김재현",
                 photoUrl = "",
                 companyName = "",
             )
-    )
-  }
+        )
+    }
 }

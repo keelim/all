@@ -34,8 +34,8 @@ import com.keelim.common.extensions.saveToGallery
 import com.keelim.common.extensions.scanMediaToBitmap
 import com.keelim.labs.services.LabBoundService
 import com.keelim.labs.services.LabBoundService2
-import timber.log.Timber
 import java.io.FileOutputStream
+import timber.log.Timber
 
 class CaptureActivity : AppCompatActivity() {
 

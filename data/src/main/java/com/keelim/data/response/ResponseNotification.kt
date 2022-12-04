@@ -1,6 +1,5 @@
 package com.keelim.data.response
 
-
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 

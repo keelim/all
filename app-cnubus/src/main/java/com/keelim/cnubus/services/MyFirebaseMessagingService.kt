@@ -30,10 +30,10 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.keelim.cnubus.data.repository.setting.DeveloperRepository
 import com.keelim.cnubus.ui.main.MainActivity
-import kotlinx.coroutines.launch
-import timber.log.Timber
 import java.util.UUID
 import javax.inject.Inject
+import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
     @Inject

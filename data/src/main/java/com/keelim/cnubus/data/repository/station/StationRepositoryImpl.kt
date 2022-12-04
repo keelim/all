@@ -28,6 +28,7 @@ import com.keelim.cnubus.data.model.Station
 import com.keelim.cnubus.data.model.gps.Location
 import com.keelim.cnubus.data.model.gps.locationList
 import com.keelim.cnubus.di.IoDispatcher
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -36,7 +37,6 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
 class StationRepositoryImpl @Inject constructor(
     private val stationArrivalsApi: StationArrivalsApi,

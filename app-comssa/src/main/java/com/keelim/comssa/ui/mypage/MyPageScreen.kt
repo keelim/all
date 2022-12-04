@@ -21,59 +21,59 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun MyPageScreen(modifier: Modifier = Modifier, sectionClick: ((String) -> Unit)? = null) {
 
-  Column(modifier = modifier.fillMaxSize().padding(horizontal = 8.dp, vertical = 16.dp)) {
-    Text(
-      text = "Applications\nmade by keelim",
-      style = MaterialTheme.typography.headlineSmall,
-    )
-    Spacer(modifier = Modifier.height(24.dp))
-    Row {
-      Card(
-        onClick = { sectionClick?.invoke("com.keelim.cnubus") },
-        modifier = Modifier.height(56.dp).fillMaxWidth()
-      ) {
+    Column(modifier = modifier.fillMaxSize().padding(horizontal = 8.dp, vertical = 16.dp)) {
         Text(
-          text = "CnuBus",
-          style = MaterialTheme.typography.headlineMedium,
-          modifier = Modifier.padding(8.dp, 4.dp)
+            text = "Applications\nmade by keelim",
+            style = MaterialTheme.typography.headlineSmall,
         )
-      }
+        Spacer(modifier = Modifier.height(24.dp))
+        Row {
+            Card(
+                onClick = { sectionClick?.invoke("com.keelim.cnubus") },
+                modifier = Modifier.height(56.dp).fillMaxWidth()
+            ) {
+                Text(
+                    text = "CnuBus",
+                    style = MaterialTheme.typography.headlineMedium,
+                    modifier = Modifier.padding(8.dp, 4.dp)
+                )
+            }
+        }
+        Spacer(modifier = Modifier.height(8.dp))
+        Divider()
+        Spacer(modifier = Modifier.height(8.dp))
+        Row {
+            Card(
+                onClick = { sectionClick?.invoke("com.keelim.cnubus") },
+                modifier = Modifier.height(56.dp).fillMaxWidth()
+            ) {
+                Text(
+                    text = "MyGrade",
+                    style = MaterialTheme.typography.headlineMedium,
+                    modifier = Modifier.padding(8.dp, 4.dp)
+                )
+            }
+        }
+        Spacer(modifier = Modifier.height(8.dp))
+        Divider()
+        Spacer(modifier = Modifier.height(8.dp))
+        Row {
+            Card(
+                onClick = { sectionClick?.invoke("com.keelim.cnubus") },
+                modifier = Modifier.height(56.dp).fillMaxWidth()
+            ) {
+                Text(
+                    text = "Comssa",
+                    style = MaterialTheme.typography.headlineMedium,
+                    modifier = Modifier.padding(8.dp, 4.dp)
+                )
+            }
+        }
     }
-    Spacer(modifier = Modifier.height(8.dp))
-    Divider()
-    Spacer(modifier = Modifier.height(8.dp))
-    Row {
-      Card(
-        onClick = { sectionClick?.invoke("com.keelim.cnubus") },
-        modifier = Modifier.height(56.dp).fillMaxWidth()
-      ) {
-        Text(
-          text = "MyGrade",
-          style = MaterialTheme.typography.headlineMedium,
-          modifier = Modifier.padding(8.dp, 4.dp)
-        )
-      }
-    }
-    Spacer(modifier = Modifier.height(8.dp))
-    Divider()
-    Spacer(modifier = Modifier.height(8.dp))
-    Row {
-      Card(
-        onClick = { sectionClick?.invoke("com.keelim.cnubus") },
-        modifier = Modifier.height(56.dp).fillMaxWidth()
-      ) {
-        Text(
-          text = "Comssa",
-          style = MaterialTheme.typography.headlineMedium,
-          modifier = Modifier.padding(8.dp, 4.dp)
-        )
-      }
-    }
-  }
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun MyPageScreenPreview() {
-  MyPageScreen()
+    MyPageScreen()
 }

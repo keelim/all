@@ -11,7 +11,6 @@ import com.keelim.mygrade.ui.center.CenterActivity
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-
 class NotificationBuilderImpl @Inject constructor(
     @ApplicationContext ctx: Context,
 ) : NotificationBuilder {

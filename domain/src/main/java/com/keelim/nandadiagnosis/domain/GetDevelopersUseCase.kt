@@ -15,9 +15,9 @@
  */
 package com.keelim.nandadiagnosis.domain
 
+import com.keelim.data.di.IoDispatcher
 import com.keelim.data.model.Developer
 import com.keelim.data.repository.setting.DeveloperRepository
-import com.keelim.data.di.IoDispatcher
 import com.keelim.nandadiagnosis.domain.usecase.NonParamCoroutineUseCase
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher

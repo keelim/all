@@ -13,24 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.ui.main
+package com.keelim.domain.nandadiagnosis
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
-import com.keelim.domain.theme.ThemeUseCase
-import dagger.hilt.android.lifecycle.HiltViewModel
+import com.keelim.data.repository.io.IORepository
 import javax.inject.Inject
-import kotlinx.coroutines.launch
 
-@HiltViewModel
-class MainViewModel @Inject constructor(
-    private val themeUseCase: ThemeUseCase,
-) : ViewModel() {
+class FavoriteUpdateUseCase @Inject constructor(
+    private val ioRepository: IORepository,
+) {
 
-    val theme: LiveData<Int?> = themeUseCase.appTheme.asLiveData()
-    fun setAppTheme(theme: Int) = viewModelScope.launch {
-        themeUseCase.setUserTheme(theme)
+    suspend operator fun invoke(favorite: Int, id: Int) {
+        when (favorite) {
+            1 -> ioRepository.updateFavorite(0, id)
+            0 -> ioRepository.updateFavorite(1, id)
+            else -> Unit
+        }
     }
 }

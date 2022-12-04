@@ -21,9 +21,9 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.keelim.data.db.entity.NandaEntity
 import com.keelim.data.db.entity.NandaHistory
-import com.keelim.nandadiagnosis.domain.GetSearchListUseCase
-import com.keelim.nandadiagnosis.domain.HistoryUseCase
-import com.keelim.nandadiagnosis.domain.favorite.FavoriteUpdateUseCase
+import com.keelim.domain.nandadiagnosis.GetSearchListUseCase
+import com.keelim.domain.nandadiagnosis.HistoryUseCase
+import com.keelim.domain.nandadiagnosis.FavoriteUpdateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow

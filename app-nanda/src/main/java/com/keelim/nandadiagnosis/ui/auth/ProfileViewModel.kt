@@ -22,7 +22,6 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseUser
 import com.keelim.data.di.IoDispatcher
 import com.keelim.data.di.PreferenceManager
-import com.keelim.nandadiagnosis.domain.favorite.GetFavoriteListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher

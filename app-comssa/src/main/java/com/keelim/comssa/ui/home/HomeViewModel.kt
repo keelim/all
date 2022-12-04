@@ -19,6 +19,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.keelim.comssa.data.model.Data
 import com.keelim.comssa.data.model.FeaturedData
+import com.keelim.domain.comssa.GetAllDatasUseCase
+import com.keelim.domain.comssa.GetRandomFeatureDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
@@ -31,8 +33,8 @@ import kotlinx.coroutines.flow.stateIn
 class HomeViewModel
 @Inject
 constructor(
-    private val getRandomFeatureDataUseCase: com.keelim.comssa.domain.GetRandomFeatureDataUseCase,
-    private val getAllDatasUseCase: com.keelim.comssa.domain.GetAllDatasUseCase,
+    private val getRandomFeatureDataUseCase: GetRandomFeatureDataUseCase,
+    private val getAllDatasUseCase: GetAllDatasUseCase,
 ) : ViewModel() {
     val randomData: StateFlow<FeaturedData?> =
         suspend { getRandomFeatureDataUseCase.invoke() }

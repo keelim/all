@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.FileProvider
+import androidx.core.os.BuildCompat
 import androidx.core.view.drawToBitmap
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -69,6 +70,7 @@ class GradeViewModel @Inject constructor(
     )
 }
 
+@BuildCompat.PrereleaseSdkCheck
 @AndroidEntryPoint
 class GradeFragment : Fragment() {
     private val viewModel by viewModels<GradeViewModel>()
@@ -81,7 +83,9 @@ class GradeFragment : Fragment() {
     private var _binding: FragmentGradeBinding? = null
     private val binding get() = checkNotNull(_binding)
 
-    private val photoPicker = registerForActivityResult(PhotoPicker()) { uris ->
+    private val photoPicker = registerForActivityResult(
+        PhotoPicker()
+    ) { uris ->
         startActivity(
             Intent.createChooser(
                 Intent().apply {

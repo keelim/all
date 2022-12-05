@@ -5,7 +5,9 @@
     <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <uses-permission
@@ -30,7 +32,7 @@
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="${APPLICATION_ID}" />
+            android:value="${NANDA_APPLICATION_ID}" />
 
         <activity
             android:name="com.google.android.gms.ads.AdActivity"
@@ -61,11 +63,13 @@
                 android:resource="@xml/searchable" />
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
-                    android:scheme="https"
-                    android:host="keelim.github.io" />
+                    android:host="keelim.github.io"
+                    android:scheme="https" />
             </intent-filter>
         </activity>
 

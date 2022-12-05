@@ -30,7 +30,7 @@ import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.keelim.common.util.toast
+import com.keelim.common.extensions.toast
 import com.keelim.nandadiagnosis.BuildConfig
 import com.keelim.nandadiagnosis.databinding.ActivitySplashBinding
 import com.keelim.nandadiagnosis.ui.main.Main2Activity
@@ -70,7 +70,7 @@ class SplashActivity : AppCompatActivity() {
     private fun showAd() {
         val adRequest = AdRequest.Builder().build()
         InterstitialAd.load(
-            this, test or BuildConfig.SPLASH, adRequest,
+            this, test or BuildConfig.NANDA_SPLASH, adRequest,
             object : InterstitialAdLoadCallback() {
                 override fun onAdFailedToLoad(adError: LoadAdError) {
                     Timber.d(adError.message)

@@ -49,6 +49,9 @@ dependencies {
 
     implementation(libs.play.services.ad)
     implementation(libs.play.services.oss)
+    implementation(libs.play.services.auth)
+
+    implementation(libs.inapp.update)
 
     implementation(libs.androidx.work.ktx)
     implementation(libs.hilt.ext.work)

@@ -38,8 +38,8 @@ import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
-import com.keelim.common.util.toast
-import com.keelim.nandadiagnosis.data.R
+import com.keelim.common.extensions.toast
+import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.di.DownloadReceiver
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject

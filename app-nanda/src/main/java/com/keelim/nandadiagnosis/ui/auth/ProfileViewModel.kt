@@ -32,7 +32,6 @@ import timber.log.Timber
 @HiltViewModel
 internal class ProfileViewModel @Inject constructor(
     private val preferenceManager: PreferenceManager,
-    private val getFavoriteListUseCase: GetFavoriteListUseCase,
     @IoDispatcher private val dispatcher: CoroutineDispatcher,
 ) : ViewModel() {
     private var _profileState = MutableLiveData<ProfileState>(ProfileState.UnInitialized)
@@ -65,7 +64,6 @@ internal class ProfileViewModel @Inject constructor(
                 ProfileState.Success.Registered(
                     user.displayName ?: "익명",
                     user.photoUrl,
-                    getFavoriteListUseCase()
                 )
             )
         } ?: kotlin.run {

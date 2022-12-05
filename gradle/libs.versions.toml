@@ -51,6 +51,7 @@ preference = "1.1.1"
 playad = "20.5.0"
 playoss = "17.0.0"
 playoss-plugin = "0.10.5"
+play-services-auth = "20.4.0"
 timbers = "5.0.1"
 math3 = "3.6.1"
 firebase = "29.0.3"
@@ -155,6 +156,7 @@ play-services-oss = { group = "com.google.android.gms", name = "play-services-os
 play-services-oss-plugin = { group = "com.google.android.gms", name = "oss-licenses-plugin", version.ref = "playoss-plugin" }
 play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "play-services-maps" }
 play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "play-services-location" }
+play-services-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "play-services-auth" }
 maps-ktx = { group = "com.google.maps.android", name = "maps-ktx", version.ref = "maps" }
 maps-utils-ktx = { group = "com.google.maps.android", name = "maps-utils-ktx", version.ref = "maps" }
 

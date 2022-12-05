@@ -84,7 +84,7 @@ class AppOpenManager @Inject constructor() : LifecycleObserver {
             if (BuildConfig.DEBUG) {
                 AD_UNIT_ID
             } else {
-                BuildConfig.AD_OPEN_ID
+                BuildConfig.NANDA_AD_OPEN_ID
             },
             adRequest,
             AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT,

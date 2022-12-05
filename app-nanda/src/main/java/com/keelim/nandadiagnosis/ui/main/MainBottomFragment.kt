@@ -23,6 +23,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.oss.licenses.OssLicensesActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -30,8 +33,9 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.FragmentMainBottomBinding
 import com.keelim.nandadiagnosis.utils.AppTheme
-import com.keelim.setting.SettingActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainBottomFragment : BottomSheetDialogFragment() {
@@ -61,13 +65,15 @@ class MainBottomFragment : BottomSheetDialogFragment() {
     }
 
     private fun initAppThemeObserver() {
-        mainViewModel.theme.observe(
-            viewLifecycleOwner
-        ) { currentTheme ->
-            val appTheme = AppTheme.THEME_ARRAY.firstOrNull { it.modeNight == currentTheme }
-            appTheme?.let {
-                binding.themeIcon.setIconResource(it.themeIconRes)
-                binding.themeDescription.text = getString(it.modeNameRes)
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                mainViewModel.theme.collectLatest { currentTheme: Int? ->
+                    val appTheme = AppTheme.THEME_ARRAY.firstOrNull { it.modeNight == currentTheme }
+                    appTheme?.let {
+                        binding.themeIcon.setIconResource(it.themeIconRes)
+                        binding.themeDescription.text = getString(it.modeNameRes)
+                    }
+                }
             }
         }
     }
@@ -104,7 +110,6 @@ class MainBottomFragment : BottomSheetDialogFragment() {
 
         binding.labFeature.setOnClickListener {
             dismiss()
-            startActivity(Intent(requireContext(), SettingActivity::class.java))
         }
     }
 
@@ -131,7 +136,8 @@ class MainBottomFragment : BottomSheetDialogFragment() {
                 AppCompatDelegate.setDefaultNightMode(mode)
                 mainViewModel.setAppTheme(mode)
                 // Update theme description TextView
-                binding.themeDescription.text = getString(AppTheme.THEME_ARRAY[checkedItem1].modeNameRes)
+                binding.themeDescription.text =
+                    getString(AppTheme.THEME_ARRAY[checkedItem1].modeNameRes)
             }.setNegativeButton(R.string.cancel) { _, _ -> }
             .create()
             .show()

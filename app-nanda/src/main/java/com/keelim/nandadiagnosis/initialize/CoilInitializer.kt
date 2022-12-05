@@ -19,6 +19,7 @@ import android.content.Context
 import androidx.startup.Initializer
 import coil.Coil
 import coil.ImageLoader
+import coil.disk.DiskCache
 import coil.util.CoilUtils
 import okhttp3.OkHttpClient
 
@@ -26,9 +27,9 @@ class CoilInitializer : Initializer<Unit> {
 
     override fun create(context: Context) {
         val imageLoader = ImageLoader.Builder(context)
+            .diskCache(DiskCache.Builder().build())
             .okHttpClient {
                 OkHttpClient.Builder()
-                    .cache(CoilUtils.createDefaultCache(context))
                     .build()
             }
             .build()

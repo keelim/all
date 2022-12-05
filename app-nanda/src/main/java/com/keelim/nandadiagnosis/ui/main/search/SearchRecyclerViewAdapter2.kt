@@ -17,8 +17,6 @@ package com.keelim.nandadiagnosis.ui.main.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.selection.ItemDetailsLookup
-import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -29,7 +27,6 @@ class SearchRecyclerViewAdapter2(
     val favoriteListener: (Int, Int) -> Unit,
 ) :
     ListAdapter<NandaEntity, SearchRecyclerViewAdapter2.ViewHolder>(diffUtil) {
-    var tracker: SelectionTracker<Long>? = null
 
     init {
         setHasStableIds(true) // 고유 id 를 설정
@@ -55,13 +52,7 @@ class SearchRecyclerViewAdapter2(
                 favoriteListener(item.favorite, item.nanda_id)
             }
         }
-
-        fun getItemDetails(): ItemDetailsLookup.ItemDetails<Long> =
-            object : ItemDetailsLookup.ItemDetails<Long>() {
-                override fun getPosition(): Int = bindingAdapterPosition
-                override fun getSelectionKey(): Long = itemId
-            }
-    }
+        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -74,9 +65,7 @@ class SearchRecyclerViewAdapter2(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        tracker?.let {
-            holder.bind(currentList[position], it.isSelected(position.toLong()))
-        }
+        holder.bind(currentList[position])
     }
 
     companion object {

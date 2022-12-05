@@ -29,16 +29,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.recyclerview.selection.SelectionPredicates
-import androidx.recyclerview.selection.SelectionTracker
-import androidx.recyclerview.selection.StorageStrategy
 import androidx.recyclerview.widget.LinearSnapHelper
-import com.keelim.common.util.toast
+import com.keelim.common.extensions.toast
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.FragmentSearchBinding
 import com.keelim.nandadiagnosis.ui.main.search.history.HistoryAdapter
-import com.keelim.nandadiagnosis.ui.main.search.selection.MyItemDetailsLookup
-import com.keelim.nandadiagnosis.ui.main.search.selection.MyItemKeyProvider
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -47,7 +42,6 @@ import timber.log.Timber
 @AndroidEntryPoint
 class SearchFragment : Fragment(R.layout.fragment_search) {
     private lateinit var binding: FragmentSearchBinding
-    private var trackers: SelectionTracker<Long>? = null
 
     private val viewModel: SearchViewModel by viewModels()
 
@@ -108,7 +102,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 adapter = searchRecyclerViewAdapter2
                 snap.attachToRecyclerView(this)
             }
-            initTracker()
         }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -136,25 +129,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         }
         super.onCreateOptionsMenu(menu, inflater)
     }
-
-    private fun initTracker() {
-        trackers =
-            SelectionTracker.Builder(
-                "mySelection",
-                binding.recyclerView,
-                MyItemKeyProvider(binding.recyclerView),
-                MyItemDetailsLookup(binding.recyclerView),
-                StorageStrategy.createLongStorage()
-            )
-                .withSelectionPredicate(SelectionPredicates.createSelectAnything())
-                .build()
-
-        searchRecyclerViewAdapter2.tracker = trackers
-        binding.floating.setOnClickListener {
-            //      multiSelection(trackers?.selection!!)
-        }
-    }
-
     private fun shareInformation(s: String) {
         requireActivity()
             .startActivity(

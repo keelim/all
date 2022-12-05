@@ -21,7 +21,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.keelim.common.util.toast
+import com.keelim.common.extensions.toast
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.FragmentMenuBottomSheetDialogBinding
 import dagger.hilt.android.AndroidEntryPoint

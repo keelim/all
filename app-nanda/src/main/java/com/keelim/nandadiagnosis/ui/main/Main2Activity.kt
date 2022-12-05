@@ -26,7 +26,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.keelim.common.util.toast
+import com.keelim.common.extensions.toast
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.ActivityMain2Binding
 import com.keelim.nandadiagnosis.di.DownloadReceiver
@@ -121,7 +121,7 @@ class Main2Activity : AppCompatActivity() {
             }
         )
 
-        val request = DownloadManager.Request(Uri.parse(applicationContext.getString(com.keelim.nandadiagnosis.data.R.string.db_path)))
+        val request = DownloadManager.Request(Uri.parse(applicationContext.getString(R.string.db_path)))
             .setTitle("Downloading")
             .setDescription("Downloading Database file")
             .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)

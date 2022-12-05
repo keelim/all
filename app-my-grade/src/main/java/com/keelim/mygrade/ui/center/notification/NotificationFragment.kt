@@ -32,23 +32,7 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class NotificationViewModel @Inject constructor(
     private val ioRepository: IoRepository,
-) : ViewModel() {
-    val state: StateFlow<NotificationState> = ioRepository.getNotification()
-        .map {
-            if (it.isEmpty()) {
-                NotificationState.Loading
-            } else {
-                NotificationState.Success(it)
-            }
-        }.catch {
-            NotificationState.Error("에러가 발생했습니다. 잠시 후 다시 시도해주세요.")
-        }.stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000L),
-            initialValue = NotificationState.UnInitialized
-        )
-}
-
+) : ViewModel()
 @AndroidEntryPoint
 class NotificationFragment : Fragment() {
     private var _binding: FragmentNotificationBinding? = null
@@ -77,35 +61,11 @@ class NotificationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initFlow()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun initFlow() = viewLifecycleOwner.lifecycleScope.launch {
-        repeatCallDefaultOnStarted {
-            viewModel.state.collect {
-                when (it) {
-                    is NotificationState.UnInitialized -> {
-                        binding.loading.toVisible()
-                    }
-                    is NotificationState.Loading -> {
-                        binding.loading.toVisible()
-                    }
-                    is NotificationState.Success -> {
-                        handleSuccess(it.data)
-                    }
-                    is NotificationState.Error -> {
-                        binding.loading.toGone()
-                        binding.tvNoData.toVisible()
-                        toast(it.message)
-                    }
-                }
-            }
-        }
     }
 
     private fun handleSuccess(data: List<Notification>) {

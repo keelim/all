@@ -75,13 +75,13 @@
                 android:value="androidx.startup"
                 tools:node="remove" />
             <meta-data
-                android:name="com.keelim.cnubus.initialize.TimberInitializer"
-                android:value="androidx.startup" />
-            <meta-data
                 android:name="com.keelim.cnubus.initialize.MobileAdsInitializer"
                 android:value="androidx.startup" />
             <meta-data
-                android:name="com.keelim.cnubus.initialize.CoilInitializer"
+                android:name="com.keelim.common_android.initialize.TimberInitializer"
+                android:value="androidx.startup" />
+            <meta-data
+                android:name="com.keelim.common_android.initialize.CoilInitializer"
                 android:value="androidx.startup" />
             <meta-data
                 android:name="com.keelim.cnubus.initialize.ComposeInitializer"

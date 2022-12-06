@@ -21,6 +21,7 @@ include(
     ":app-my-grade",
     ":app-nanda",
     ":common",
+    ":common-android",
     ":data",
     ":domain",
     ":compose",

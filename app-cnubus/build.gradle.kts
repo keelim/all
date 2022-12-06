@@ -32,6 +32,7 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":compose"))
     implementation(project(":common"))
+    implementation(project(":common-android"))
     implementation(project(":features:ui-map"))
     implementation(project(":features:ui-setting"))
     implementation(project(":features:ui-labs"))

@@ -57,6 +57,12 @@
                 android:name="com.keelim.mygrade.initializer.WorkManagerInitializer"
                 android:value="androidx.startup"
                 tools:node="remove" />
+            <meta-data
+                android:name="com.keelim.common_android.initialize.TimberInitializer"
+                android:value="androidx.startup" />
+            <meta-data
+                android:name="com.keelim.common_android.initialize.CoilInitializer"
+                android:value="androidx.startup" />
         </provider>
     </application>
 </manifest>

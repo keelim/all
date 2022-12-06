@@ -1,8 +1,8 @@
-package com.keelim.comssa.initialize
+package com.keelim.common_android.initialize
 
 import android.content.Context
 import androidx.startup.Initializer
-import com.keelim.comssa.BuildConfig
+import com.keelim.common_android.BuildConfig
 import timber.log.Timber
 
 class TimberInitializer : Initializer<Unit> {

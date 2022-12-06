@@ -84,13 +84,13 @@
             android:exported="false"
             tools:node="merge">
             <meta-data
-                android:name="com.keelim.nandadiagnosis.initialize.TimberInitializer"
-                android:value="androidx.startup" />
-            <meta-data
                 android:name="com.keelim.nandadiagnosis.initialize.MobileAdsInitializer"
                 android:value="androidx.startup" />
             <meta-data
-                android:name="com.keelim.nandadiagnosis.initialize.CoilInitializer"
+                android:name="com.keelim.common_android.initialize.TimberInitializer"
+                android:value="androidx.startup" />
+            <meta-data
+                android:name="com.keelim.common_android.initialize.CoilInitializer"
                 android:value="androidx.startup" />
             <meta-data
                 android:name="com.keelim.nandadiagnosis.initialize.WorkManagerInitializer"

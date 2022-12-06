@@ -20,23 +20,6 @@ class MyPageFragment2 : Fragment(R.layout.fragment_compose_view) {
         binding.composeView.setContent {
             MaterialTheme {
                 Surface {
-                    MyPageScreen(
-                        sectionClick = { packageName ->
-                            Timber.d("packageName: $packageName")
-                            runCatching {
-                                requireActivity()
-                                    .packageManager
-                                    .getLaunchIntentForPackage(packageName)
-                                    ?.let(::startActivity)
-                                    ?: throw Exception("앱을 찾을 수 없습니다.")
-                            }
-                                .onFailure {
-                                    startActivity(
-                                        Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$packageName"))
-                                    )
-                                }
-                        }
-                    )
                 }
             }
         }

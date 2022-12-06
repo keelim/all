@@ -42,9 +42,7 @@ class MyPageFragment : Fragment(R.layout.fragment_my_page) {
     }
 
     private val myPageAdapter = MyPageAdapter(onDataClickListener = {
-        navController.navigate(
-            MyPageFragmentDirections.actionMyPageFragmentToReviewsFragment(it)
-        )
+
     })
 
     private val viewModel by viewModels<MyPageViewModel>()
@@ -92,8 +90,6 @@ class MyPageFragment : Fragment(R.layout.fragment_my_page) {
 
         (binding.recyclerView.adapter as? MyPageAdapter)?.apply {
             onDataClickListener = { data ->
-                val action = MyPageFragmentDirections.actionMyPageFragmentToReviewsFragment(data)
-                findNavController().navigate(action)
             }
         }
     }

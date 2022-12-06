@@ -24,17 +24,12 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val searchUseCase: SearchUseCase,
 ) : ViewModel() {
     val downloadLink: MutableStateFlow<String> = MutableStateFlow("")
 
     fun getDownloadLink(password: String) = viewModelScope.launch {
         runCatching {
-            searchUseCase.getDownloadLink(password)
         }.onSuccess {
-            if (it.flag) {
-                downloadLink.emit(it.password)
-            }
         }
     }
 }

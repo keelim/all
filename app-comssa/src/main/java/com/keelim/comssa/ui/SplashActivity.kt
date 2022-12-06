@@ -73,7 +73,7 @@ class SplashActivity : AppCompatActivity() {
         val adRequest = AdRequest.Builder().build()
         InterstitialAd.load(
             this,
-            test or BuildConfig.UNIT,
+            test or BuildConfig.COMSSA_UNIT,
             adRequest,
             object : InterstitialAdLoadCallback() {
                 override fun onAdFailedToLoad(adError: LoadAdError) {

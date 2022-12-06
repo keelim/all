@@ -102,7 +102,7 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
                 AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT, loadCallback);
         } else {
             AppOpenAd.load(
-                myApplication, BuildConfig.UNIT2, request,
+                myApplication, BuildConfig.COMSSA_UNIT2, request,
                 AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT, loadCallback);
         }
 

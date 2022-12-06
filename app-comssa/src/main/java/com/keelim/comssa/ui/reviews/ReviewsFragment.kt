@@ -41,7 +41,6 @@ class ReviewsFragment : Fragment() {
     private val arguments by navArgs<ReviewsFragmentArgs>()
     private var _binding: FragmentReviewBinding? = null
     private val binding get() = _binding!!
-    private val data by lazy { arguments.data }
     private val viewModel: ReviewViewModel by viewModels()
 
     override fun onCreateView(
@@ -61,7 +60,7 @@ class ReviewsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
-        showMovieInformation(data)
+        showMovieInformation(arguments.data)
         fetchReviews()
     }
 
@@ -131,7 +130,7 @@ class ReviewsFragment : Fragment() {
     private fun requestAddReview(content: String, score: Float) {
         try {
             showLoadingIndicator()
-            viewModel.submitReview(data, content, score)
+            viewModel.submitReview(arguments.data, content, score)
             showReviews(dataReviews.copy(myReview = viewModel.review.value))
         } catch (exception: Exception) {
             exception.printStackTrace()
@@ -157,7 +156,7 @@ class ReviewsFragment : Fragment() {
     private fun fetchReviews() {
         try {
             showLoadingIndicator()
-            viewModel.getAllReview(data.id!!)
+            viewModel.getAllReview(arguments.data.id!!)
             showReviews(viewModel.reviewList.value!!)
         } catch (exception: Exception) {
             exception.printStackTrace()

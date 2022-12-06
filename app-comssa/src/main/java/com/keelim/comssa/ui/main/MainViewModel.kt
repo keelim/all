@@ -23,8 +23,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
-) : ViewModel() {
+class MainViewModel @Inject constructor() : ViewModel() {
     val downloadLink: MutableStateFlow<String> = MutableStateFlow("")
 
     fun getDownloadLink(password: String) = viewModelScope.launch {

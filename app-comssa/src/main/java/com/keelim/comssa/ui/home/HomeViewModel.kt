@@ -16,20 +16,10 @@
 package com.keelim.comssa.ui.home
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.keelim.data.model.Data
-import com.keelim.data.model.FeaturedData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.stateIn
 
 @HiltViewModel
 class HomeViewModel
 @Inject
-constructor(
-) : ViewModel() {
-}
+constructor() : ViewModel()

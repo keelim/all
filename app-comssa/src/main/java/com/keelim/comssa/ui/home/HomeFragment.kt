@@ -31,7 +31,6 @@ import com.keelim.comssa.extensions.toVisible
 import com.keelim.comssa.ui.home.HomeAdapter.Companion.ITEM_VIEW_TYPE_FEATURED
 import com.keelim.comssa.ui.home.HomeAdapter.Companion.ITEM_VIEW_TYPE_SECTION_HEADER
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {

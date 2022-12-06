@@ -42,7 +42,6 @@ class MyPageFragment : Fragment(R.layout.fragment_my_page) {
     }
 
     private val myPageAdapter = MyPageAdapter(onDataClickListener = {
-
     })
 
     private val viewModel by viewModels<MyPageViewModel>()

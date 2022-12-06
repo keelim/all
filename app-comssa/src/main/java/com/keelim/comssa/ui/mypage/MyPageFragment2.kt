@@ -1,7 +1,5 @@
 package com.keelim.comssa.ui.mypage
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.compose.material3.MaterialTheme
@@ -9,7 +7,6 @@ import androidx.compose.material3.Surface
 import androidx.fragment.app.Fragment
 import com.keelim.comssa.R
 import com.keelim.comssa.databinding.FragmentComposeViewBinding
-import timber.log.Timber
 
 class MyPageFragment2 : Fragment(R.layout.fragment_compose_view) {
     private lateinit var binding: FragmentComposeViewBinding

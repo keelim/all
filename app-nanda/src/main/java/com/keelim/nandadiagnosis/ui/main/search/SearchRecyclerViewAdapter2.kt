@@ -52,7 +52,7 @@ class SearchRecyclerViewAdapter2(
                 favoriteListener(item.favorite, item.nanda_id)
             }
         }
-        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(

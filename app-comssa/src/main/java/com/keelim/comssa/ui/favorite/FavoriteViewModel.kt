@@ -18,7 +18,6 @@ package com.keelim.comssa.ui.favorite
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
-import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
@@ -26,14 +25,10 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 
 @HiltViewModel
-class FavoriteViewModel @Inject constructor(
-
-) : ViewModel() {
+class FavoriteViewModel @Inject constructor() : ViewModel() {
     fun favorite(favorite: Int, id: Int) = viewModelScope.launch {
-
     }
 
-    fun getFavorite(): Flow<PagingData<Search>>  = flow {
-
+    fun getFavorite(): Flow<PagingData<Search>> = flow {
     }
 }

@@ -19,28 +19,21 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.keelim.comssa.data.db.entity.Search
-import com.keelim.domain.comssa.UpdateFavoriteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 
 @HiltViewModel
 class FavoriteViewModel @Inject constructor(
-    private val updateFavoriteUseCase: UpdateFavoriteUseCase,
-    private val getFavoriteUseCase: GetFavoriteUseCase,
-    private val searchUseCase: SearchUseCase
+
 ) : ViewModel() {
     fun favorite(favorite: Int, id: Int) = viewModelScope.launch {
-        when (favorite) {
-            1 -> updateFavoriteUseCase.invoke(0, id)
-            0 -> updateFavoriteUseCase.invoke(1, id)
-        }
+
     }
 
-    fun getFavorite(): Flow<PagingData<Search>> {
-        return searchUseCase.getFavorite()
-            .cachedIn(viewModelScope)
+    fun getFavorite(): Flow<PagingData<Search>>  = flow {
+
     }
 }

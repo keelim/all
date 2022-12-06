@@ -31,18 +31,5 @@ import kotlinx.coroutines.flow.stateIn
 class HomeViewModel
 @Inject
 constructor(
-    private val getRandomFeatureDataUseCase: GetRandomFeatureDataUseCase,
-    private val getAllDatasUseCase: GetAllDatasUseCase,
 ) : ViewModel() {
-    val randomData: StateFlow<FeaturedData?> =
-        suspend { getRandomFeatureDataUseCase.invoke() }
-            .asFlow()
-            .catch {}
-            .stateIn(viewModelScope, SharingStarted.Lazily, null)
-
-    val allData: StateFlow<List<Data>> =
-        suspend { getAllDatasUseCase.invoke() }
-            .asFlow()
-            .catch {}
-            .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
 }

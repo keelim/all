@@ -19,38 +19,29 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.keelim.comssa.data.db.entity.Search
-import com.keelim.domain.comssa.UpdateFavoriteUseCase
+import com.keelim.comssa.ui.favorite.Search
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    private val searchUseCase: SearchUseCase,
-    private val updateFavoriteUseCase: UpdateFavoriteUseCase,
+
 ) : ViewModel() {
     private val downloadLink = MutableStateFlow("")
     fun favorite(favorite: Int, id: Int) = viewModelScope.launch {
         when (favorite) {
-            0 -> updateFavoriteUseCase.invoke(1, id)
-            1 -> updateFavoriteUseCase.invoke(0, id)
         }
     }
 
-    fun getContent(query: String = ""): Flow<PagingData<Search>> =
-        searchUseCase(query)
-            .cachedIn(viewModelScope)
+    fun getContent(query: String = ""): Flow<PagingData<Search>> = flow {
+
+    }
+
 
     fun getDownloadLink(password: String) = viewModelScope.launch {
-        runCatching {
-            searchUseCase.getDownloadLink(password)
-        }.onSuccess {
-            if (it.flag) {
-                downloadLink.emit(it.password)
-            }
-        }
     }
 }

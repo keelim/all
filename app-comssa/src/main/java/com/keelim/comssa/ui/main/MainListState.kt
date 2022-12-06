@@ -15,7 +15,8 @@
  */
 package com.keelim.comssa.ui.main
 
-import com.keelim.comssa.data.db.entity.Search
+import com.keelim.comssa.ui.favorite.Search
+
 
 sealed class MainListState {
     object UnInitialized : MainListState()

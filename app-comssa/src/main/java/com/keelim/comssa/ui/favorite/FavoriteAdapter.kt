@@ -20,9 +20,14 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.keelim.comssa.data.db.entity.Search
 import com.keelim.comssa.databinding.ItemSearchBinding
 
+data class Search(
+    val id: Int,
+    val title: String,
+    val description: String,
+    val favorite: Int,
+)
 class FavoriteAdapter(
     private val favoriteListener: (Int, Int) -> Unit,
 ) : PagingDataAdapter<Search, FavoriteAdapter.ViewHolder>(diffUtil) {

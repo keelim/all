@@ -27,7 +27,6 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class MyPageViewModel @Inject constructor(
-    private val getUserReviewedDataUseCase: GetUserReviewedDataUseCase
 ) : ViewModel() {
     private val _reviewedData = MutableStateFlow<List<ReviewedData>>(listOf())
     val reviewedData: Flow<List<ReviewedData>> = _reviewedData.asStateFlow()
@@ -36,8 +35,6 @@ class MyPageViewModel @Inject constructor(
         fetchReviewedData()
     }
     fun fetchReviewedData() = viewModelScope.launch {
-        _reviewedData.emit(
-            getUserReviewedDataUseCase()
-        )
+
     }
 }

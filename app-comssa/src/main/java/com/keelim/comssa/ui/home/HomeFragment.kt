@@ -81,8 +81,6 @@ class HomeFragment : Fragment() {
             recyclerView.toVisible()
             errorDescriptionTextView.toGone()
             homeAdapter.apply {
-                addData(viewModel.randomData.value, viewModel.allData.value.orEmpty())
-                notifyDataSetChanged()
             }
         }
 
@@ -98,8 +96,6 @@ class HomeFragment : Fragment() {
 
     private fun initFlow() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.allData.collectLatest { recyclerUpdate() }
-            viewModel.randomData.collectLatest { recyclerUpdate() }
         }
     }
 

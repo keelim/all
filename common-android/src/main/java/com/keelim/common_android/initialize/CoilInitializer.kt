@@ -1,5 +1,5 @@
 /*
- * Designed and developed by 2021 keelim (Jaehyun Kim)
+ * Designed and developed by 2020 keelim (Jaehyun Kim)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,25 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.cnubus.initialize
+package com.keelim.common_android.initialize
 
 import android.content.Context
 import androidx.startup.Initializer
-import com.keelim.cnubus.BuildConfig
-import com.keelim.cnubus.utils.CrashlyticsTree
-import timber.log.Timber
+import coil.Coil
+import coil.ImageLoader
+import coil.disk.DiskCache
+import okhttp3.OkHttpClient
 
-class TimberInitializer : Initializer<Unit> {
+class CoilInitializer : Initializer<Unit> {
 
     override fun create(context: Context) {
-        if (BuildConfig.DEBUG) {
-            Timber.plant(Timber.DebugTree())
-        } else {
-            Timber.plant(CrashlyticsTree())
-        }
+        val imageLoader = ImageLoader.Builder(context)
+            .diskCache(DiskCache.Builder().build())
+            .okHttpClient {
+                OkHttpClient.Builder()
+                    .build()
+            }
+            .build()
+        Coil.setImageLoader(imageLoader)
     }
 
     override fun dependencies(): List<Class<out Initializer<*>>> {
-        return emptyList()
+        return listOf(TimberInitializer::class.java)
     }
 }

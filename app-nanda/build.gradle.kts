@@ -25,6 +25,7 @@ android {
 
 dependencies {
     implementation(project(":common"))
+    implementation(project(":common-android"))
     implementation(project(":compose"))
     implementation(project(":data"))
     implementation(project(":domain"))

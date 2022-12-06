@@ -18,7 +18,6 @@ package com.keelim.comssa.ui.main.search
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
-import androidx.paging.cachedIn
 import com.keelim.comssa.ui.favorite.Search
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -28,9 +27,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 
 @HiltViewModel
-class SearchViewModel @Inject constructor(
-
-) : ViewModel() {
+class SearchViewModel @Inject constructor() : ViewModel() {
     private val downloadLink = MutableStateFlow("")
     fun favorite(favorite: Int, id: Int) = viewModelScope.launch {
         when (favorite) {
@@ -38,9 +35,7 @@ class SearchViewModel @Inject constructor(
     }
 
     fun getContent(query: String = ""): Flow<PagingData<Search>> = flow {
-
     }
-
 
     fun getDownloadLink(password: String) = viewModelScope.launch {
     }

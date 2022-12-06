@@ -23,10 +23,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 @HiltViewModel
-class MapsViewModel @Inject constructor(
-) : ViewModel() {
+class MapsViewModel @Inject constructor() : ViewModel() {
     private val _state: MutableStateFlow<MapEvent> = MutableStateFlow(MapEvent.UnInitialized)
     val state: StateFlow<MapEvent> get() = _state
     private val data: MutableStateFlow<List<Location>> = MutableStateFlow(emptyList())
-
 }

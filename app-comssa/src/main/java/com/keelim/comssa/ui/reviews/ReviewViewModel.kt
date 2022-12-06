@@ -27,8 +27,7 @@ import javax.inject.Inject
 import kotlinx.coroutines.launch
 
 @HiltViewModel
-class ReviewViewModel @Inject constructor(
-) : ViewModel() {
+class ReviewViewModel @Inject constructor() : ViewModel() {
     private val _review = MutableLiveData(Review())
     val review: LiveData<Review> get() = _review
 

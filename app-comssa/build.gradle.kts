@@ -64,6 +64,7 @@ dependencies {
     implementation("androidx.compose.ui:ui")
     implementation(composeBom)
     androidTestImplementation(composeBom)
+    implementation(libs.androidx.activity.compose)
 
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material:material")

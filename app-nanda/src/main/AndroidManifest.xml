@@ -73,6 +73,7 @@
                     android:scheme="https" />
             </intent-filter>
         </activity>
+        <activity android:name="com.keelim.nandadiagnosis.ui.setting.SettingActivity" />
 
         <service
             android:name=".service.TerminateService"

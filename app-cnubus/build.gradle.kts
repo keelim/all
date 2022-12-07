@@ -1,5 +1,6 @@
 plugins {
     id("keelim.android.application")
+    id("keelim.android.application.compose")
     kotlin("kapt")
     id("com.google.gms.google-services")
     id("com.google.android.gms.oss-licenses-plugin")
@@ -47,23 +48,26 @@ dependencies {
     implementation("com.google.firebase:firebase-inappmessaging-display-ktx")
     implementation("com.firebaseui:firebase-ui-auth:8.0.1")
 
-    implementation("androidx.appcompat:appcompat:1.4.1")
-    implementation("com.google.android.material:material:1.5.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.3")
-
-
-    implementation("com.jakewharton:process-phoenix:2.1.2")
     implementation("com.airbnb.android:lottie:5.2.0")
-
-    implementation("androidx.hilt:hilt-work:1.0.0")
-    kapt("androidx.hilt:hilt-compiler:1.0.0")
-
-    implementation("androidx.profileinstaller:profileinstaller:1.2.0")
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.2.0")
 
     implementation(libs.androidx.work.ktx)
     implementation(libs.hilt.ext.work)
     implementation(libs.hilt.android)
+    implementation("androidx.preference:preference-ktx:1.2.0")
     kapt(libs.hilt.compiler)
     kapt(libs.hilt.ext.compiler)
+
+    implementation(libs.play.services.ad)
+    implementation(libs.timber)
+
+    implementation(libs.androidx.navigation.fragment)
+    implementation(libs.androidx.navigation.ui)
+
+    implementation(libs.androidx.compose.bom)
+    implementation("androidx.compose.ui:ui:1.3.1")
+    implementation(libs.androidx.compose.runtime)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.ui.tooling)
+    implementation(libs.coil.kt)
 }

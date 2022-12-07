@@ -28,8 +28,8 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import com.keelim.cnubus.data.repository.setting.DeveloperRepository
 import com.keelim.cnubus.ui.main.MainActivity
+import com.keelim.data.repository.setting.DeveloperRepository
 import java.util.UUID
 import javax.inject.Inject
 import kotlinx.coroutines.launch

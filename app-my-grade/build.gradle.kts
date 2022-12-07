@@ -39,7 +39,7 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.activity.ktx)
-    implementation(libs.material3)
+    implementation(libs.material)
     implementation(libs.androidx.work.ktx)
     implementation(libs.hilt.ext.work)
 

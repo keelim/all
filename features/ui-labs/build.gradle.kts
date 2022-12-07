@@ -24,7 +24,7 @@ dependencies {
 
     // activity
     implementation(libs.androidx.appcompat)
-    implementation(libs.material3)
+    implementation(libs.material)
     implementation(libs.androidx.core.ktx)
 }
 

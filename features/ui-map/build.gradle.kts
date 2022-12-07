@@ -25,7 +25,7 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
     implementation(libs.activity.ktx)
-    implementation(libs.material3)
+    implementation(libs.material)
     implementation(libs.coil.kt)
 
     implementation(libs.play.services.maps)

@@ -20,12 +20,9 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
 import com.google.android.material.color.DynamicColors
-import com.keelim.cnubus.data.repository.theme.ThemeRepository
 import com.keelim.cnubus.utils.AppOpenManager
 import com.keelim.cnubus.utils.ComponentLogger
-import com.microsoft.appcenter.AppCenter
-import com.microsoft.appcenter.analytics.Analytics
-import com.microsoft.appcenter.crashes.Crashes
+import com.keelim.data.repository.theme.ThemeRepository
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 import kotlinx.coroutines.MainScope
@@ -56,12 +53,6 @@ class MyApplication : Application(), Configuration.Provider {
                     ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
             )
         }
-        AppCenter.start(
-            this,
-            BuildConfig.APPCENTER_KEY,
-            Analytics::class.java,
-            Crashes::class.java
-        )
         DynamicColors.applyToActivitiesIfAvailable(this)
     }
 

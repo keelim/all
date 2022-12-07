@@ -11,10 +11,10 @@ dependencies {
 
     implementation(libs.androidx.lifecycle.rutime)
     implementation(libs.fragment.ktx)
-    implementation(libs.material3)
+    implementation(libs.material)
 
     // compose
-    implementation(libs.material3)
+    implementation(libs.material)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.ui.tooling)
@@ -22,6 +22,7 @@ dependencies {
     implementation(libs.material.themAdapter)
 
     implementation(libs.coil.kt)
+    implementation(libs.play.services.oss)
 }
 android {
     namespace = "com.keelim.common"

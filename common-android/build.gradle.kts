@@ -4,6 +4,7 @@ plugins {
 }
 
 dependencies {
+    implementation(libs.androidx.appcompat)
     implementation(libs.androidx.startup)
     implementation(libs.coil.kt)
     implementation(libs.coil.kt.gif)

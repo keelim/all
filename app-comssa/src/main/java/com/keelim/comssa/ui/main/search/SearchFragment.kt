@@ -1,9 +1,6 @@
 package com.keelim.comssa.ui.main.search
 
-import android.app.SearchManager
-import android.content.Intent
 import android.os.Bundle
-import android.provider.SearchRecentSuggestions
 import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -16,7 +13,6 @@ import androidx.recyclerview.widget.LinearSnapHelper
 import com.keelim.comssa.R
 import com.keelim.comssa.databinding.FragmentSearchBinding
 import com.keelim.comssa.extensions.toast
-import com.keelim.comssa.provides.SuggestionProvider
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -45,16 +41,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                     return true
                 }
             })
-        }
-
-        if (Intent.ACTION_SEARCH == requireActivity().intent.action) {
-            requireActivity().intent.getStringExtra(SearchManager.QUERY)?.also { query ->
-                SearchRecentSuggestions(
-                    requireContext(),
-                    SuggestionProvider.AUTHORITY,
-                    SuggestionProvider.MODE
-                ).saveRecentQuery(query, null)
-            }
         }
 
         with(recycler) {

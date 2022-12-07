@@ -8,4 +8,6 @@
     <style name="AppTheme.material3.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.material3.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="AppTheme.material3" parent="android:Theme.Material.Light.NoActionBar" />
 </resources>

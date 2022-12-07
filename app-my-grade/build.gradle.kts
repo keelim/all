@@ -37,6 +37,8 @@ dependencies {
     implementation(project(":data"))
     implementation(project(":common"))
     implementation(project(":common-android"))
+    implementation(project(":compose"))
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.activity.ktx)

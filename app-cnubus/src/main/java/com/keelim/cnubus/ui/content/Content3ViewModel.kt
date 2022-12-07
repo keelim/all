@@ -15,14 +15,14 @@
  */
 package com.keelim.cnubus.ui.content
 
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.keelim.common.base.BaseViewModel
 import com.keelim.data.model.Event
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class Content3ViewModel : BaseViewModel() {
+class Content3ViewModel : ViewModel() {
     private val _viewEvent: MutableStateFlow<Event<String>> = MutableStateFlow(Event(""))
     val viewEvent: StateFlow<Event<String>> get() = _viewEvent
 

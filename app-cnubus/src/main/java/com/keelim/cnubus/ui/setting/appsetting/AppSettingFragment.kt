@@ -25,7 +25,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.keelim.cnubus.BuildConfig
 import com.keelim.cnubus.R
 import com.keelim.common.extensions.toast
@@ -57,8 +56,7 @@ class AppSettingFragment : PreferenceFragmentCompat() {
         initViews()
     }
 
-    override fun onPreferenceTreeClick(preference: Preference?): Boolean {
-        preference ?: return false
+    override fun onPreferenceTreeClick(preference: Preference): Boolean {
         when (preference.key) {
             "앱설정" -> {
                 startActivity(
@@ -69,12 +67,6 @@ class AppSettingFragment : PreferenceFragmentCompat() {
             }
             "문의" -> sendEmailToAdmin()
             "권한" -> permissionLauncher.launch(appPermissions)
-            "오픈소스" -> startActivity(
-                Intent(
-                    requireContext(),
-                    OssLicensesMenuActivity::class.java
-                )
-            )
             "lab" -> findNavController().navigate(R.id.open_lab_fragment)
         }
         return true

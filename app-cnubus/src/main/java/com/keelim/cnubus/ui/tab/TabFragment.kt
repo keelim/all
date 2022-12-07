@@ -15,25 +15,28 @@
  */
 package com.keelim.cnubus.ui.tab
 
+import android.os.Bundle
+import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.airbnb.lottie.LottieDrawable
 import com.google.android.material.tabs.TabLayoutMediator
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.FragmentTabBinding
 import com.keelim.cnubus.ui.main.MainViewModel
-import com.keelim.common.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class TabFragment : BaseFragment<FragmentTabBinding, MainViewModel>() {
-    override val layoutResourceId: Int = R.layout.fragment_tab
-    override val viewModel: MainViewModel by activityViewModels()
-    override fun initBeforeBinding() = Unit
-    override fun initBinding() {
+class TabFragment : Fragment(R.layout.fragment_tab) {
+    private lateinit var binding: FragmentTabBinding
+    private val viewModel: MainViewModel by activityViewModels()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentTabBinding.bind(view)
         initViews()
     }
 
-    override fun initAfterBinding() = Unit
     private fun initViews() = with(binding) {
         viewpager.apply {
             adapter = ViewPager2Adapter(this@TabFragment)

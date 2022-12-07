@@ -21,13 +21,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.keelim.cnubus.databinding.DialogUserEditBinding
 import com.keelim.cnubus.ui.setting.mypage.MyPageViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
-import java.util.concurrent.TimeUnit
-import timber.log.Timber
 
 class UserEditDialog : BottomSheetDialogFragment() {
     private var _binding: DialogUserEditBinding? = null

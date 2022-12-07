@@ -25,8 +25,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 @HiltViewModel
-class StationArrivalsViewModel @Inject constructor(
-) : ViewModel() {
+class StationArrivalsViewModel @Inject constructor() : ViewModel() {
     private val _station: MutableStateFlow<Station> =
         MutableStateFlow(Station("", false, emptyList()))
     val station: StateFlow<Station> = _station

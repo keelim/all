@@ -29,8 +29,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @HiltViewModel
-class MyPageViewModel @Inject constructor(
-) : ViewModel() {
+class MyPageViewModel @Inject constructor() : ViewModel() {
     val userName = MutableStateFlow("id: 아직 로그인 중이 아닙니다.")
     val userFollowerCount = MutableStateFlow(0)
     val userFollowingCount = MutableStateFlow(0)
@@ -57,7 +56,6 @@ class MyPageViewModel @Inject constructor(
     }
 
     fun getUserId() = viewModelScope.launch(errorHandler) {
-
     }
 
     fun deleteHistory(cnuHistory: CnuHistory) = viewModelScope.launch(errorHandler) {

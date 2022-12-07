@@ -78,8 +78,10 @@ class FileDownloadWorker @AssistedInject constructor(
             .setProgress(0, 0, true)
 
         NotificationManagerCompat.from(appContext)
-            .notify(NotificationConstants.NOTIFICATION_ID,
-                builder.build())
+            .notify(
+                NotificationConstants.NOTIFICATION_ID,
+                builder.build()
+            )
 
         val uri = getSavedFileUri(
             fileName = fileName,

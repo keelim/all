@@ -38,6 +38,7 @@
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcut" />
         </activity>
+        <activity android:name="com.keelim.nandadiagnosis.ui.setting.SettingActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

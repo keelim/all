@@ -17,31 +17,31 @@ package com.keelim.cnubus.ui.content
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
+import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.FragmentContentBinding
-import com.keelim.common.base.BaseFragment
 import kotlinx.coroutines.launch
 
-class Content3Fragment : BaseFragment<FragmentContentBinding, Content3ViewModel>() {
-    override val layoutResourceId: Int = R.layout.fragment_content
-    override val viewModel: Content3ViewModel by viewModels()
+class Content3Fragment : Fragment(R.layout.fragment_content) {
+    private lateinit var binding: FragmentContentBinding
+    private val viewModel: Content3ViewModel by viewModels()
 
-    override fun initBeforeBinding() = with(binding) {
-        vm = viewModel
-        lifecycleOwner = this@Content3Fragment
-        pager.adapter = ScreenSliderPagerAdapter(this@Content3Fragment)
-    }
-
-    override fun initBinding() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentContentBinding.bind(view)
+            .apply {
+                vm = viewModel
+                lifecycleOwner = this@Content3Fragment
+                pager.adapter = ScreenSliderPagerAdapter(this@Content3Fragment)
+            }
         observeState()
     }
-
-    override fun initAfterBinding() = Unit
-
     private fun observeState() = viewLifecycleOwner.lifecycleScope.launch {
         viewModel.viewEvent
             .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)

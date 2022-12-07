@@ -16,6 +16,9 @@
 package com.keelim.cnubus.ui.setting.mypage
 
 import android.app.Activity.RESULT_OK
+import android.os.Bundle
+import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
@@ -27,8 +30,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.FragmentMyPageBinding
-import com.keelim.common.base.BaseFragment
-import com.keelim.common.extensions.snack
 import com.keelim.common.extensions.toInvisible
 import com.keelim.common.extensions.toast
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,15 +37,14 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
-class MyPageFragment : BaseFragment<FragmentMyPageBinding, MyPageViewModel>() {
-    override val layoutResourceId: Int = R.layout.fragment_my_page
-    override val viewModel by viewModels<MyPageViewModel>()
+class MyPageFragment : Fragment(R.layout.fragment_my_page) {
+    private lateinit var binding: FragmentMyPageBinding
+    private val viewModel by viewModels<MyPageViewModel>()
 
     private val historyAdapter by lazy {
         MyPageHistoryAdapter { history ->
             viewModel.deleteHistory(history)
             viewModel.init()
-            viewModel.getAllHistories()
         }
     }
 
@@ -63,16 +63,13 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding, MyPageViewModel>() {
         }
     }
 
-    override fun initBeforeBinding() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentMyPageBinding.bind(view)
         initData()
         initViews()
-    }
-
-    override fun initBinding() {
         observeState()
     }
-
-    override fun initAfterBinding() = Unit
 
     private fun initData() {
         binding.viewModel = viewModel
@@ -92,7 +89,6 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding, MyPageViewModel>() {
                 setAction("Ok") {
                     viewModel?.let {
                         it.deleteHistoryAll()
-                        it.getAllHistories()
                     }
                 }
                 show()
@@ -111,15 +107,6 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding, MyPageViewModel>() {
     }
 
     private fun observeState() = lifecycleScope.launch {
-        viewModel.getAllHistories()
-            .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
-            .collect { histories ->
-                if (histories.isEmpty()) {
-                    binding.root.snack("저장된 기록이 없습니다.")
-                } else {
-                    historyAdapter.submitList(histories)
-                }
-            }
         viewModel.viewEvent
             .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
             .collect { viewEvent ->

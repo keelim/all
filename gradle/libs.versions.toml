@@ -67,7 +67,7 @@ glance = "1.0.0-alpha05"
 maps = "3.2.1"
 
 #view system
-material3 = "1.6.1"
+material = "1.6.1"
 
 [libraries]
 accompanist-flowlayout = { group = "com.google.accompanist", name = "accompanist-flowlayout", version.ref = "accompanist" }
@@ -179,7 +179,7 @@ moshi-kotlin = { group = "com.squareup.moshi", name = "moshi-kotlin", version.re
 moshi-codegen = { group = "com.squareup.moshi", name = "moshi-kotlin-codegen", version.ref = "moshiVersion" }
 retrofit-moshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofit" }
 #
-material3 = { group = "com.google.android.material", name = "material", version.ref = "material3" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 material-themAdapter = { group = "com.google.android.material", name = "compose-theme-adapter", version.ref = "themeAdapter" }
 androidx-lifecycle-rutime = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
 #

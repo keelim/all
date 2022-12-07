@@ -9,7 +9,7 @@ dependencies {
     implementation(libs.coil.kt)
     implementation(libs.coil.kt.compose)
     // compose
-    implementation(libs.material3)
+    implementation(libs.material)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.ui.tooling)

@@ -32,14 +32,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.keelim.cnubus.R
-import com.keelim.cnubus.data.repository.theme.AppTheme
 import com.keelim.cnubus.ui.main.MainViewModel
 import com.keelim.cnubus.ui.setting.compose.ScreenAction
 import com.keelim.cnubus.ui.setting.compose.SettingScreen
 import com.keelim.compose.ui.setThemeContent
 import com.keelim.map.MapsActivity
-import com.keelim.ui_setting.ui.Section
-import com.keelim.ui_setting.ui.SettingActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.launch
@@ -79,28 +76,12 @@ class SettingFragment2 : Fragment() {
                         },
                         ActivityOptions.makeSceneTransitionAnimation(requireActivity()).toBundle()
                     )
-                    ScreenAction.Theme -> selectTheme()
                     ScreenAction.Developer, ScreenAction.Lab -> {
-                        startActivity(
-                            Intent(
-                                requireContext(),
-                                SettingActivity::class.java
-                            ).apply {
-                                putExtra(
-                                    "type",
-                                    when (action) {
-                                        ScreenAction.Developer -> Section.Developer
-                                        ScreenAction.Lab -> Section.Lab
-                                        else -> null
-                                    }
-                                )
-                            },
-                            ActivityOptions.makeSceneTransitionAnimation(requireActivity()).toBundle()
-                        )
                     }
                     ScreenAction.Subway -> findNavController().navigate(R.id.stationsFragment)
                     ScreenAction.MYPAGE -> findNavController().navigate(R.id.myPageFragment)
                     ScreenAction.AppSetting -> findNavController().navigate(R.id.open_setting_fragment)
+                    else -> {}
                 }
             }
         }
@@ -116,30 +97,7 @@ class SettingFragment2 : Fragment() {
             .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
             .collect { theme ->
                 Timber.d("Current Theme is $theme")
-                val nextTheme = AppTheme.THEME_ARRAY.firstOrNull { it.modeNight == theme }
-                Timber.d("Next Theme is $nextTheme")
             }
-    }
-
-    private fun selectTheme() = viewLifecycleOwner.lifecycleScope.launch {
-        val currentTheme = mainViewModel.theme.last()
-        var checkedItem = AppTheme.THEME_ARRAY.indexOfFirst { it.modeNight == currentTheme }
-        val items =
-            AppTheme.THEME_ARRAY.map { theme -> getText(theme.modeNameRes) }.toTypedArray()
-
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle(R.string.choose_theme)
-            .setSingleChoiceItems(items, checkedItem) { _, it ->
-                checkedItem = it
-            }
-            .setPositiveButton(R.string.ok) { _, _ ->
-                val mode = AppTheme.THEME_ARRAY[checkedItem].modeNight
-                AppCompatDelegate.setDefaultNightMode(mode)
-                mainViewModel.setAppTheme(mode)
-            }.setNegativeButton(R.string.cancel) { _, _ ->
-            }
-            .create()
-            .show()
     }
 
     companion object {

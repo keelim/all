@@ -15,8 +15,8 @@
  */
 package com.keelim.cnubus.ui.setting.mypage
 
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.keelim.common.base.BaseViewModel
 import com.keelim.data.db.entity.CnuHistory
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -24,17 +24,13 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @HiltViewModel
 class MyPageViewModel @Inject constructor(
-    private val userUseCase: UserUseCase
-) : BaseViewModel() {
+) : ViewModel() {
     val userName = MutableStateFlow("id: 아직 로그인 중이 아닙니다.")
     val userFollowerCount = MutableStateFlow(0)
     val userFollowingCount = MutableStateFlow(0)
@@ -57,31 +53,18 @@ class MyPageViewModel @Inject constructor(
     }
 
     fun changeUserId(change: String) = viewModelScope.launch(errorHandler) {
-        userUseCase.setUserName(change)
         getUserId()
     }
 
     fun getUserId() = viewModelScope.launch(errorHandler) {
-        userUseCase.getUserName()
-            .collectLatest {
-                userName.emit(it.id)
-            }
+
     }
 
     fun deleteHistory(cnuHistory: CnuHistory) = viewModelScope.launch(errorHandler) {
-        userUseCase.deleteHistory(cnuHistory)
     }
 
     fun deleteHistoryAll() = viewModelScope.launch(errorHandler) {
-        userUseCase.deleteHistoryAll()
     }
-
-    fun getAllHistories() = userUseCase.getAllHistories()
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
-            initialValue = emptyList()
-        )
 
     sealed class ViewEvent {
         data class ShowToast(val message: String) : ViewEvent()

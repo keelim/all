@@ -98,7 +98,6 @@ class StationArrivalsFragment : Fragment() {
                         R.drawable.ic_star_empty
                     }
                 )
-                viewModel.toggleStationFavorite()
                 true
             }
             else -> super.onOptionsItemSelected(item)

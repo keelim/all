@@ -312,5 +312,6 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_lab1">Lab1Activity</string>
     <string name="title_activity_lab3">Lab3Activity</string>
+    <string name="title_activity_main">main</string>
 
 </resources>

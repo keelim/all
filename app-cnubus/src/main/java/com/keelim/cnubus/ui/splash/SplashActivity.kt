@@ -16,34 +16,31 @@
 package com.keelim.cnubus.ui.splash
 
 import android.content.Intent
+import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.keelim.cnubus.BuildConfig
 import com.keelim.cnubus.R
-import com.keelim.cnubus.databinding.ActivitySplashBinding
 import com.keelim.cnubus.ui.main.MainActivity
 import com.keelim.cnubus.utils.VerificationUtils
-import com.keelim.common.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
-    override val layoutResourceId: Int = R.layout.activity_splash
-    override val viewModel: SplashViewModel by viewModels()
+class SplashActivity : AppCompatActivity(R.layout.activity_splash) {
+    private val viewModel: SplashViewModel by viewModels()
 
     @Inject
     lateinit var verificationUtils: VerificationUtils
 
-    override fun initBeforeBinding() = Unit
-    override fun initDataBinding() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         observeState()
     }
-
-    override fun initAfterBinding() = Unit
 
     private fun observeState() = lifecycleScope.launch {
         viewModel.loading

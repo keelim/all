@@ -29,8 +29,7 @@ class LabFragment : PreferenceFragmentCompat() {
         addPreferencesFromResource(R.xml.preference_lab)
     }
 
-    override fun onPreferenceTreeClick(preference: Preference?): Boolean {
-        preference ?: return false
+    override fun onPreferenceTreeClick(preference: Preference): Boolean {
         when (preference.key) {
             "lab1" -> startActivity(
                 Intent(

@@ -23,6 +23,11 @@ import android.view.LayoutInflater
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -42,7 +47,6 @@ import com.keelim.cnubus.services.TerminateService
 import com.keelim.cnubus.worker.BusWorker
 import com.keelim.common.extensions.dp
 import com.keelim.common.extensions.toast
-import com.keelim.ui_setting.ui.theme.CnubusTheme
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.launch
@@ -69,7 +73,6 @@ class MainActivity : AppCompatActivity() {
             val responsePermissions = permissions.entries.filter { appPermissions.contains(it.key) }
             if (responsePermissions.filter { it.value }.size == appPermissions.size) {
                 toast("권한이 확인되었습니다.")
-                eventDialog()
             }
         }
 
@@ -109,35 +112,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.loading
             .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
             .collect {
-                binding.composeView.run {
-                    bringToFront()
-                    setContent {
-                        CnubusTheme {
-                            if (it) {
-                                CircularProgressIndicator(
-                                    modifier = Modifier.padding(8.dp),
-                                    color = Color.Yellow,
-                                    strokeWidth = 10.dp
-                                )
-                            }
-                        }
-                    }
-                }
             }
-    }
-
-    private fun eventDialog() {
-        val dialogBinding = DialogEventBinding.inflate(LayoutInflater.from(this))
-        val dialog = MaterialAlertDialogBuilder(this)
-            .setView(dialogBinding.root)
-            .create()
-        dialogBinding.btnSubmit.also { btn ->
-            btn.text = "okay!!"
-            btn.setOnClickListener {
-                dialog.dismiss()
-            }
-        }
-        dialog.show()
     }
 
     override fun onBackPressed() {

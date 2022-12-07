@@ -41,8 +41,8 @@ class Badge constructor(
     }
 
     init {
-        val verticalPadding = dip(4f)
-        val horizontalPadding = dip(8f)
+        val verticalPadding = context.dip(4f)
+        val horizontalPadding = context.dip(8f)
         setPadding(
             horizontalPadding,
             verticalPadding,

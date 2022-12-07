@@ -13,6 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package com.keelim.cnubus.ui.setting.compose
 
 import androidx.compose.foundation.clickable
@@ -26,12 +28,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CornerSize
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.Divider
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -89,7 +91,6 @@ private val settings by lazy {
 internal fun SettingScreen(
     onScreenAction: (ScreenAction) -> Unit,
 ) {
-
     Scaffold(
         topBar = {
             Column(
@@ -138,9 +139,9 @@ fun SettingItem(item: Setting, onScreenAction: (ScreenAction) -> Unit) {
                 vertical = 8.dp
             )
             .fillMaxWidth(),
-        elevation = 2.dp,
-        backgroundColor = Color.White,
-        shape = RoundedCornerShape(corner = CornerSize(16.dp))
+        elevation = CardDefaults.elevatedCardElevation(2.dp),
+        colors = CardDefaults.cardColors(containerColor = Color.White),
+        shape = CardDefaults.shape,
     ) {
         Row {
             Column(

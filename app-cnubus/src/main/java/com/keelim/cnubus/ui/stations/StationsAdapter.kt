@@ -59,7 +59,7 @@ class StationsAdapter(
                                     LinearLayout.LayoutParams.WRAP_CONTENT,
                                     LinearLayout.LayoutParams.WRAP_CONTENT
                                 ).apply {
-                                    rightMargin = dip(6f)
+                                    rightMargin = root.context.dip(6f)
                                 }
                         }
                     )

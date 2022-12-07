@@ -15,6 +15,6 @@
  */
 package com.keelim.cnubus.ui.bus
 
-import com.keelim.common.base.BaseViewModel
+import androidx.lifecycle.ViewModel
 
-class BusStopViewModel : BaseViewModel()
+class BusStopViewModel : ViewModel()

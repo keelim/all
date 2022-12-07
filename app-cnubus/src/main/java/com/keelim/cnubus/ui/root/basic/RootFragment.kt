@@ -16,14 +16,16 @@
 package com.keelim.cnubus.ui.root.basic
 
 import android.content.Intent
+import android.os.Bundle
+import android.view.View
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.FragmentRootBinding
-import com.keelim.common.base.BaseFragment
 import com.keelim.common.extensions.toast
 import com.keelim.data.model.gps.Location
 import com.keelim.map.MapEvent
@@ -32,9 +34,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class RootFragment : BaseFragment<FragmentRootBinding, RootViewModel>() {
-    override val layoutResourceId: Int = R.layout.fragment_root
-    override val viewModel: RootViewModel by viewModels()
+class RootFragment : Fragment(R.layout.fragment_root) {
+    private lateinit var binding: FragmentRootBinding
+    private val viewModel: RootViewModel by viewModels()
 
     private val mode by lazy { requireArguments().getString("mode") }
 
@@ -60,16 +62,13 @@ class RootFragment : BaseFragment<FragmentRootBinding, RootViewModel>() {
         )
     }
 
-    override fun initBeforeBinding() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentRootBinding.bind(view)
         modeSetting()
         initViews()
-    }
-
-    override fun initBinding() {
         observeState()
     }
-
-    override fun initAfterBinding() = Unit
 
     private fun modeSetting() {
         viewModel.rootChange(mode ?: "")

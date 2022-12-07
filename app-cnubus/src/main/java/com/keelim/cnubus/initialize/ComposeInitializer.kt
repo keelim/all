@@ -12,8 +12,7 @@ class ComposeInitializer : Initializer<Unit> {
 
     override fun dependencies(): List<Class<out Initializer<*>>> {
         return listOf(
-            ProcessLifecycleInitializer::class.java,
-            TimberInitializer::class.java,
+            ProcessLifecycleInitializer::class.java
         )
     }
 }

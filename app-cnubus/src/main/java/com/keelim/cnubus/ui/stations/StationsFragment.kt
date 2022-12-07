@@ -108,7 +108,6 @@ class StationsFragment : Fragment() {
                 )
             }
             onFavoriteClickListener = { station ->
-                viewModel.toggleStationFavorite(station)
             }
         }
     }

@@ -15,26 +15,21 @@
  */
 package com.keelim.cnubus.ui.bus
 
+import android.os.Bundle
+import android.view.View
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.FragmentBusStopBinding
-import com.keelim.common.base.BaseFragment
 
-class BusStopFragment : BaseFragment<FragmentBusStopBinding, BusStopViewModel>() {
-    override val layoutResourceId: Int = R.layout.fragment_bus_stop
-    override val viewModel: BusStopViewModel by viewModels()
+class BusStopFragment : Fragment(R.layout.fragment_bus_stop) {
+    private lateinit var binding: FragmentBusStopBinding
+    private val viewModel: BusStopViewModel by viewModels()
 
-    override fun initBeforeBinding() {
-        TODO("Not yet implemented")
-    }
-
-    override fun initBinding() {
-        TODO("Not yet implemented")
-    }
-
-    override fun initAfterBinding() {
-        TODO("Not yet implemented")
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentBusStopBinding.bind(view)
     }
 
     companion object {

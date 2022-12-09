@@ -15,13 +15,16 @@
  */
 package com.keelim.nandadiagnosis.ui.main
 
+import android.Manifest
 import android.app.DownloadManager
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -43,9 +46,30 @@ class Main2Activity : AppCompatActivity() {
     @Inject
     lateinit var receiver: DownloadReceiver
 
+    private val appPermissions: List<String> = buildList {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            add(Manifest.permission.POST_NOTIFICATIONS)
+            add(Manifest.permission.READ_MEDIA_IMAGES)
+            add(Manifest.permission.READ_MEDIA_VIDEO)
+            add(Manifest.permission.READ_MEDIA_AUDIO)
+        }
+    }
+
+    private val permissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+            val responsePermissions = permissions.entries.filter { appPermissions.contains(it.key) }
+            if (responsePermissions.filter { it.value }.size == appPermissions.size) {
+                toast("권한이 확인되었습니다.")
+            }
+        }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        permissionLauncher.launch(appPermissions.toTypedArray())
         startService(Intent(this, TerminateService::class.java))
         initViews()
         fileChecking()

@@ -13,8 +13,8 @@ plugins {
 android {
     defaultConfig {
         applicationId = "com.keelim.comssa"
-        versionCode = 9
-        versionName = "1.0.8"
+        versionCode = 10
+        versionName = "1.0.10"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -31,6 +31,7 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":common"))
     implementation(project(":common-android"))
+    implementation(project(":compose"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -64,6 +65,7 @@ dependencies {
     implementation("androidx.compose.ui:ui")
     implementation(composeBom)
     androidTestImplementation(composeBom)
+    implementation(libs.androidx.activity.compose)
 
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material:material")
@@ -75,4 +77,6 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended")
     implementation("androidx.compose.material3:material3-window-size-class")
     implementation("androidx.compose.runtime:runtime-livedata")
+
+    implementation(libs.androidx.paging.runtime)
 }

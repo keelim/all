@@ -8,14 +8,18 @@ plugins {
     id("dagger.hilt.android.plugin")
     id("com.google.firebase.firebase-perf")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+    id("org.jetbrains.kotlin.android")
 }
 
 android {
     defaultConfig {
         applicationId = "com.keelim.cnubus"
-        versionCode = 2118
-        versionName = "2.1.18"
+        versionCode = 2119
+        versionName = "2.1.19"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary = true
+        }
     }
     buildTypes {
         defaultConfig {
@@ -24,8 +28,24 @@ android {
     buildFeatures {
         dataBinding = true
         viewBinding = true
+        compose = true
     }
     namespace = "com.keelim.cnubus"
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.3.2"
+    }
+    packagingOptions {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
 }
 
 dependencies {
@@ -54,6 +74,14 @@ dependencies {
     implementation(libs.hilt.ext.work)
     implementation(libs.hilt.android)
     implementation("androidx.preference:preference-ktx:1.2.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
+    implementation("androidx.activity:activity-compose:1.5.1")
+    implementation(platform("androidx.compose:compose-bom:2022.10.00"))
+    implementation("androidx.compose.ui:ui-graphics")
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    androidTestImplementation(platform("androidx.compose:compose-bom:2022.10.00"))
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+    debugImplementation("androidx.compose.ui:ui-test-manifest")
     kapt(libs.hilt.compiler)
     kapt(libs.hilt.ext.compiler)
 

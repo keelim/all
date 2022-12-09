@@ -46,17 +46,21 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val viewModel: MainViewModel by viewModels()
-    private val appPermissions: Array<String> by lazy {
-        val data = arrayOf(
-            permission.ACCESS_FINE_LOCATION,
-            permission.ACCESS_COARSE_LOCATION,
-            permission.READ_EXTERNAL_STORAGE,
-            permission.CAMERA
-        )
+
+    private val appPermissions: List<String> = buildList {
+        add(permission.ACCESS_FINE_LOCATION)
+        add(permission.ACCESS_COARSE_LOCATION)
+        add(permission.READ_EXTERNAL_STORAGE)
+        add(permission.CAMERA)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            data.plus(permission.WRITE_EXTERNAL_STORAGE)
+            add(permission.WRITE_EXTERNAL_STORAGE)
         }
-        data
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            add(permission.POST_NOTIFICATIONS)
+            add(permission.READ_MEDIA_IMAGES)
+            add(permission.READ_MEDIA_VIDEO)
+            add(permission.READ_MEDIA_AUDIO)
+        }
     }
 
     private val permissionLauncher =
@@ -77,7 +81,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         startService(Intent(this, TerminateService::class.java))
-        permissionLauncher.launch(appPermissions)
+        permissionLauncher.launch(appPermissions.toTypedArray())
         initViews()
         observeState()
         startWork()

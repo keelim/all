@@ -1,5 +1,6 @@
 plugins {
     id("keelim.android.application")
+    id("keelim.android.application.compose")
     kotlin("kapt")
     id("com.google.gms.google-services")
     id("com.google.android.gms.oss-licenses-plugin")
@@ -36,6 +37,8 @@ dependencies {
     implementation(project(":data"))
     implementation(project(":common"))
     implementation(project(":common-android"))
+    implementation(project(":compose"))
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.activity.ktx)
@@ -78,6 +81,8 @@ dependencies {
     implementation("com.google.modernstorage:modernstorage-storage")
     implementation("com.google.modernstorage:modernstorage-photopicker")
     implementation("com.squareup.okio:okio")
+
+    implementation(libs.androidx.activity.compose)
 }
 
 

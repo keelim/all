@@ -26,7 +26,6 @@ class CoilInitializer : Initializer<Unit> {
 
     override fun create(context: Context) {
         val imageLoader = ImageLoader.Builder(context)
-            .diskCache(DiskCache.Builder().build())
             .okHttpClient {
                 OkHttpClient.Builder()
                     .build()

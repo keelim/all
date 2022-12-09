@@ -49,7 +49,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: app
-        path: app-cnubus/build/outputs/bundle/release/app-release.aab
+        path: app-cnubus/build/outputs/bundle/release/app-cnubus-release.aab
 
     - name: Create service_account.json
       id: createServiceAccount
@@ -61,6 +61,6 @@ jobs:
       with:
         serviceAccountJson: service_account.json
         packageName: com.keelim.cnubus
-        releaseFiles: app-cnubus/build/outputs/bundle/release/app-release.aab
+        releaseFiles: app-cnubus/build/outputs/bundle/release/app-cnubus-release.aab
         track: production
         status: completed

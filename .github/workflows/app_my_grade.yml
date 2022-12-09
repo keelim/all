@@ -7,60 +7,60 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
 
-    - name: set up JDK 11
-      uses: actions/setup-java@v3.6.0
-      with:
-        distribution: 'zulu' # See 'Supported distributions' for available options
-        java-version: '11'
+      - name: set up JDK 11
+        uses: actions/setup-java@v3.6.0
+        with:
+          distribution: 'zulu' # See 'Supported distributions' for available options
+          java-version: '11'
 
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
 
-    - name: Add Google Service Json
-      run: echo '${{ secrets.MYGRADE_GOOGLE_SERVICES_JSON }}' > ./app-my-grade/google-services.json
+      - name: Add Google Service Json
+        run: echo '${{ secrets.MYGRADE_GOOGLE_SERVICES_JSON }}' > ./app-my-grade/google-services.json
 
-    - name: ADD LOCAL PROPERTIES
-      env:
-        APOD_API_KEY: ${{ secrets.LOCAL_PROPERTIES }}
-      run: echo '${{ secrets.LOCAL_PROPERTIES }}' > ./local.properties
+      - name: ADD LOCAL PROPERTIES
+        env:
+          APOD_API_KEY: ${{ secrets.LOCAL_PROPERTIES }}
+        run: echo '${{ secrets.LOCAL_PROPERTIES }}' > ./local.properties
 
-    - name: Build with Gradle
-      run: ./gradlew app-my-grade:build
+      - name: Build with Gradle
+        run: ./gradlew app-my-grade:build
 
-    - name: Build Release AAB
-      id: buildRelease
-      run: ./gradlew app-my-grade:bundleRelease
+      - name: Build Release AAB
+        id: buildRelease
+        run: ./gradlew app-my-grade:bundleRelease
 
-    - name: Sign AAB
-      id: sign
-      uses: r0adkll/sign-android-release@v1
-      with:
-        releaseDirectory: app-my-grade/build/outputs/bundle/release
-        signingKeyBase64: ${{ secrets.SIGNING_KEY }}
-        alias: ${{ secrets.MYGRADE_ALIAS }}
-        keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
-        keyPassword: ${{ secrets.KEY_PASSWORD }}
+      - name: Sign AAB
+        id: sign
+        uses: r0adkll/sign-android-release@v1
+        with:
+          releaseDirectory: app-my-grade/build/outputs/bundle/release
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          alias: ${{ secrets.MYGRADE_ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
 
-    - name: Upload AAB
-      id: uploadArtifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: app
-        path: app-my-grade/build/outputs/bundle/release/app-my-grade-release.aab
+      - name: Upload AAB
+        id: uploadArtifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: app
+          path: app-my-grade/build/outputs/bundle/release/app-my-grade-release.aab
 
-    - name: Create service_account.json
-      id: createServiceAccount
-      run: echo '${{ secrets.SERVICE_ACCOUNT_JSON }}' > service_account.json
+      - name: Create service_account.json
+        id: createServiceAccount
+        run: echo '${{ secrets.SERVICE_ACCOUNT_JSON }}' > service_account.json
 
-    - name: Deploy to Play Store (BETA)
-      id: deploy
-      uses: r0adkll/upload-google-play@v1.0.19
-      with:
-        serviceAccountJson: service_account.json
-        packageName: com.keelim.mygrade
-        releaseFiles: app-my-grade/build/outputs/bundle/release/app-my-grade-release.aab
-        track: production
-        status: completed
+      - name: Deploy to Play Store (BETA)
+        id: deploy
+        uses: r0adkll/upload-google-play@v1.0.19
+        with:
+          serviceAccountJson: service_account.json
+          packageName: com.keelim.mygrade
+          releaseFiles: app-my-grade/build/outputs/bundle/release/app-my-grade-release.aab
+          track: production
+          status: completed

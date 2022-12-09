@@ -49,6 +49,7 @@
         <activity
             android:name=".ui.favorite.FavoriteActivity"
             android:exported="false" />
+        <activity android:name="com.keelim.comssa.ui.setting.SettingActivity" />
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"

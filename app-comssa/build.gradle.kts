@@ -31,6 +31,7 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":common"))
     implementation(project(":common-android"))
+    implementation(project(":compose"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -64,6 +65,7 @@ dependencies {
     implementation("androidx.compose.ui:ui")
     implementation(composeBom)
     androidTestImplementation(composeBom)
+    implementation(libs.androidx.activity.compose)
 
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material:material")

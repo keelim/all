@@ -20,7 +20,7 @@ jobs:
       run: chmod +x gradlew
 
     - name: Add Google Service Json
-      run: echo '${{ secrets.CNUBUS_GOOGLE_SERVICES_JSON }}' > ./app-my-grade/google-services.json
+      run: echo '${{ secrets.MYGRADE_GOOGLE_SERVICES_JSON }}' > ./app-my-grade/google-services.json
 
     - name: ADD LOCAL PROPERTIES
       env:

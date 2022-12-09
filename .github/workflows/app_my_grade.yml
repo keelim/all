@@ -49,7 +49,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: app
-        path: app-my-grade/build/outputs/bundle/release/app-release.aab
+        path: app-my-grade/build/outputs/bundle/release/app-my-grade-release.aab
 
     - name: Create service_account.json
       id: createServiceAccount
@@ -61,6 +61,6 @@ jobs:
       with:
         serviceAccountJson: service_account.json
         packageName: com.keelim.mygrade
-        releaseFiles: app-my-grade/build/outputs/bundle/release/app-release.aab
+        releaseFiles: app-my-grade/build/outputs/bundle/release/app-my-grade-release.aab
         track: production
         status: completed

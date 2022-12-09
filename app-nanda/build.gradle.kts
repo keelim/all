@@ -1,5 +1,6 @@
 plugins {
     id("keelim.android.application")
+    id("keelim.android.application.compose")
     kotlin("kapt")
     id("com.google.gms.google-services")
     id("com.google.android.gms.oss-licenses-plugin")
@@ -13,8 +14,8 @@ plugins {
 android {
     defaultConfig {
         applicationId = "com.keelim.nandadiagnosis"
-        versionCode = 53
-        versionName = "1.0.53"
+        versionCode = 54
+        versionName = "1.0.54"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -64,4 +65,6 @@ dependencies {
     implementation(libs.timber)
     implementation(libs.coil.kt)
     implementation(libs.androidx.startup)
+    // compose
+    implementation(libs.androidx.activity.compose)
 }

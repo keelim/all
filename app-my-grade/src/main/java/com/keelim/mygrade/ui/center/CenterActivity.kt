@@ -55,7 +55,7 @@ class CenterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCenterBinding
     private var _forceUpdate: Boolean = false
 
-    private val appPermissions:List<String> = buildList {
+    private val appPermissions: List<String> = buildList {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             add(Manifest.permission.POST_NOTIFICATIONS)
             add(Manifest.permission.READ_MEDIA_IMAGES)
@@ -71,7 +71,6 @@ class CenterActivity : AppCompatActivity() {
                 toast("권한이 확인되었습니다.")
             }
         }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         permissionLauncher.launch(appPermissions.toTypedArray())

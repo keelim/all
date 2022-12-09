@@ -25,7 +25,7 @@ sealed class SettingAction {
     object ThemeSetting : SettingAction()
     object Lab : SettingAction()
     object OtherApp : SettingAction()
-    object ShowLogcat: SettingAction()
+    object ShowLogcat : SettingAction()
 }
 
 @Composable

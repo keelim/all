@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
 
     @Inject lateinit var downloadRequest: DownloadRequest
 
-    private val appPermissions:List<String> = buildList {
+    private val appPermissions: List<String> = buildList {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
         }

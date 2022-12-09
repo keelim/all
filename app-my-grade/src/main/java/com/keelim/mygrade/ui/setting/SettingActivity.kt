@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.ui.Modifier
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.keelim.common.extensions.toast
 import com.keelim.compose.ui.screen.SettingAction
 import com.keelim.compose.ui.screen.SettingScreen
@@ -39,10 +38,8 @@ class SettingActivity : ComponentActivity() {
                 toast("아직 진행 중인 실험 기능이 없습니다. ")
             }
             SettingAction.OtherApp -> {
-
             }
             SettingAction.ThemeSetting -> {
-
             }
             SettingAction.ShowLogcat -> TODO()
         }

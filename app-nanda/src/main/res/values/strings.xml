@@ -490,12 +490,6 @@
     <string name="alpha">alpha</string>
     <string name="search">search</string>
     <string name="update">업데이트</string>
-    <string name="facebook_app_id">966700797412686</string>
-    <string name="fb_login_protocol_scheme">fb966700797412686</string>
     <string name="notification_channel_notice">NOTIFICATION</string>
     <string name="title_dynamic_vitamin">vitamin</string>
-    <string name="system">시스템 기본값\n</string>
-    <string name="dark_theme">다크모드\n</string>
-    <string name="light_theme">라이트모드</string>
-
 </resources>

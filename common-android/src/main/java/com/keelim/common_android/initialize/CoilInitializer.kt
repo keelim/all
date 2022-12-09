@@ -19,7 +19,6 @@ import android.content.Context
 import androidx.startup.Initializer
 import coil.Coil
 import coil.ImageLoader
-import coil.disk.DiskCache
 import okhttp3.OkHttpClient
 
 class CoilInitializer : Initializer<Unit> {

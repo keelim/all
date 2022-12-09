@@ -16,7 +16,6 @@
 package com.keelim.cnubus.ui.main
 
 import android.Manifest.permission
-import android.app.NotificationManager
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -48,7 +47,7 @@ class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val viewModel: MainViewModel by viewModels()
 
-    private val appPermissions:List<String> = buildList {
+    private val appPermissions: List<String> = buildList {
         add(permission.ACCESS_FINE_LOCATION)
         add(permission.ACCESS_COARSE_LOCATION)
         add(permission.READ_EXTERNAL_STORAGE)

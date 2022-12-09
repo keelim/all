@@ -46,7 +46,7 @@ class Main2Activity : AppCompatActivity() {
     @Inject
     lateinit var receiver: DownloadReceiver
 
-    private val appPermissions:List<String> = buildList {
+    private val appPermissions: List<String> = buildList {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
         }
@@ -65,7 +65,6 @@ class Main2Activity : AppCompatActivity() {
                 toast("권한이 확인되었습니다.")
             }
         }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

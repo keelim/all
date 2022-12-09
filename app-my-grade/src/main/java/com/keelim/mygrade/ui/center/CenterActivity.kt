@@ -1,9 +1,12 @@
 package com.keelim.mygrade.ui.center
 
+import android.Manifest
 import android.app.Activity
 import android.app.PendingIntent
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
@@ -52,7 +55,26 @@ class CenterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCenterBinding
     private var _forceUpdate: Boolean = false
 
+    private val appPermissions:List<String> = buildList {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            add(Manifest.permission.POST_NOTIFICATIONS)
+            add(Manifest.permission.READ_MEDIA_IMAGES)
+            add(Manifest.permission.READ_MEDIA_VIDEO)
+            add(Manifest.permission.READ_MEDIA_AUDIO)
+        }
+    }
+
+    private val permissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+            val responsePermissions = permissions.entries.filter { appPermissions.contains(it.key) }
+            if (responsePermissions.filter { it.value }.size == appPermissions.size) {
+                toast("권한이 확인되었습니다.")
+            }
+        }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        permissionLauncher.launch(appPermissions.toTypedArray())
         with(Firebase.remoteConfig) {
             getBoolean("forceUpdate").also { forceUpdate ->
                 _forceUpdate = forceUpdate

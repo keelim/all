@@ -65,6 +65,7 @@ play-services-maps="18.1.0"
 play-services-location="21.0.1"
 glance = "1.0.0-alpha05"
 maps = "3.2.1"
+qodana = "0.1.12"
 
 #view system
 material = "1.6.1"
@@ -205,3 +206,4 @@ kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
 secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secrets" }
+qodana = { id = "org.jetbrains.qodana", version.ref = "qodana" }

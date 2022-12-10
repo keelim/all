@@ -61,6 +61,9 @@
             android:exported="false"
             tools:node="merge">
             <meta-data
+                android:name="com.keelim.common_android.initialize.MobileAdsInitializer"
+                android:value="androidx.startup" />
+            <meta-data
                 android:name="com.keelim.common_android.initialize.TimberInitializer"
                 android:value="androidx.startup" />
             <meta-data

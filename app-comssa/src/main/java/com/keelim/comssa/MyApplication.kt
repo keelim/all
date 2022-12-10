@@ -30,7 +30,6 @@ class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         componentLogger.initialize(this)
-        MobileAds.initialize(this) {}
         val appOpenManager = AppOpenManager(this)
     }
 }

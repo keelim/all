@@ -74,6 +74,9 @@
             <meta-data
                 android:name="com.keelim.common_android.initialize.CoilInitializer"
                 android:value="androidx.startup" />
+            <meta-data
+                android:name="com.keelim.common_android.initialize.MobileAdsInitializer"
+                android:value="androidx.startup" />
         </provider>
     </application>
 </manifest>

@@ -8,6 +8,7 @@ plugins {
     id("com.google.firebase.firebase-perf")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
     id("androidx.navigation.safeargs.kotlin") version ("2.4.2")
+    id("org.jetbrains.qodana")
 }
 
 android {

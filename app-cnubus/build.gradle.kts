@@ -9,6 +9,7 @@ plugins {
     id("com.google.firebase.firebase-perf")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
     id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.qodana")
 }
 
 android {

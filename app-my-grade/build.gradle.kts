@@ -8,6 +8,7 @@ plugins {
     id("dagger.hilt.android.plugin")
     id("com.google.firebase.firebase-perf")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+    id("org.jetbrains.qodana")
 }
 
 android {

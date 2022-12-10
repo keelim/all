@@ -95,7 +95,7 @@
                 android:value="androidx.startup"
                 tools:node="remove" />
             <meta-data
-                android:name="com.keelim.cnubus.initialize.MobileAdsInitializer"
+                android:name="com.keelim.common_android.initialize.MobileAdsInitializer"
                 android:value="androidx.startup" />
             <meta-data
                 android:name="com.keelim.common_android.initialize.TimberInitializer"

@@ -7,13 +7,13 @@
         android:contentDescription="menu item notification"
         android:icon="@drawable/bell"
         android:title="Notification"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/menu_history"
         android:contentDescription="menu item history"
         android:icon="@drawable/history"
         android:title="history"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 
 </menu>

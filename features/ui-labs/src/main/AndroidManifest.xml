@@ -14,11 +14,11 @@
         <service
             android:name="com.keelim.labs.services.LabBoundService"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="false" />
         <service
             android:name="com.keelim.labs.services.LabBoundService2"
             android:process=":my_process"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="false" />
     </application>
 </manifest>

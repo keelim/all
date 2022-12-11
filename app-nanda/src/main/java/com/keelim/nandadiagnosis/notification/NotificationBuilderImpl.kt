@@ -33,6 +33,11 @@ class NotificationBuilderImpl @Inject constructor(
 
     private fun Context.createLauncherIntent(): PendingIntent {
         val intent = Intent(this, Main2Activity::class.java)
-        return PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)
+        return PendingIntent.getActivity(
+            this,
+            0,
+            intent,
+            PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
+        )
     }
 }

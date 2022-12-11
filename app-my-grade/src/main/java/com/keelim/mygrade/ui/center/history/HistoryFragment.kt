@@ -30,7 +30,7 @@ import kotlinx.coroutines.flow.stateIn
 
 @HiltViewModel
 class HistoryViewModel @Inject constructor(
-    private val ioRepository: IoRepository,
+    ioRepository: IoRepository,
 ) : ViewModel() {
     val state: StateFlow<HistoryState> = ioRepository.simpleAll
         .map { items ->

@@ -13,21 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.compose.ui
+package com.keelim.compose.component
 
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+
+data class ItemViewState(
+    val text: String
+)
 
 @Composable
-fun Loading(
-    loading: Boolean,
-    loadingContent: @Composable () -> Unit,
-    error: Boolean = false,
-    errorContent: @Composable () -> Unit = {},
-    content: @Composable () -> Unit
+fun MySampleList(
+    modifier: Modifier = Modifier,
+    itemViewStates: List<ItemViewState>
 ) {
-    when {
-        loading -> loadingContent()
-        error -> errorContent()
-        else -> content()
-    }
+}
+
+@Composable
+fun MyItem(state: ItemViewState) {
+    Text(text = state.text)
 }

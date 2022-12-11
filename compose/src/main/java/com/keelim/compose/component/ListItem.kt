@@ -1,4 +1,4 @@
-package com.keelim.compose.widget
+package com.keelim.compose.component
 
 import android.util.Log
 import androidx.compose.foundation.background

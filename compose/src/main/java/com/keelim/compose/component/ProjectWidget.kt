@@ -13,21 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.compose.ui
+package com.keelim.compose.component
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.glance.appwidget.GlanceAppWidget
+import androidx.glance.appwidget.GlanceAppWidgetReceiver
 
-@Preview
-@Composable
-private fun PreviewProgress() {
-    CircularIndeterminateProgressBar(
-        isDisplayed = true
-    )
+class ProjectWidget : GlanceAppWidget() {
+    @Composable
+    override fun Content() {
+        WidgetContent()
+    }
 }
 
-@Composable
-fun CircularIndeterminateProgressBar(
-    isDisplayed: Boolean,
-) {
+class ProjectGlanceWidgetReceiver : GlanceAppWidgetReceiver() {
+    override val glanceAppWidget: GlanceAppWidget
+        get() = ProjectWidget()
 }

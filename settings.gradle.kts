@@ -20,6 +20,7 @@ include(
     ":app-comssa",
     ":app-my-grade",
     ":app-nanda",
+    ":app-yr",
     ":common",
     ":common-android",
     ":data",

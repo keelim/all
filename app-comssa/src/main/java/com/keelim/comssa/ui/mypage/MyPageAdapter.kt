@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.keelim.comssa.R
 import com.keelim.comssa.databinding.ItemReviewedDataBinding
-import com.keelim.comssa.extensions.toDecimalFormatString
+import com.keelim.comssa.utils.toDecimalFormatString
 import com.keelim.data.model.Data
 import com.keelim.data.model.ReviewedData
 

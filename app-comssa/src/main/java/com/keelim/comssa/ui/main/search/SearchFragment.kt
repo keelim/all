@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.keelim.comssa.R
 import com.keelim.comssa.databinding.FragmentSearchBinding
-import com.keelim.comssa.extensions.toast
+import com.keelim.comssa.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

@@ -171,7 +171,6 @@
                     android:id="@+id/kakaoButton"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_alignParentTop="true"
                     android:layout_marginHorizontal="4dp"
                     android:scaleType="fitXY"
                     android:contentDescription="TODO" />

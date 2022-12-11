@@ -198,7 +198,7 @@ class VerificationUtils @Inject constructor(
                 return info.installingPackageName
             }
             return pm.getInstallerPackageName(packageName)
-        } catch (e: NameNotFoundException) {
+        } catch (_: NameNotFoundException) {
         }
         return ""
     }

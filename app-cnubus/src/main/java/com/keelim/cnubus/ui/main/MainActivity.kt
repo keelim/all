@@ -96,7 +96,7 @@ class MainActivity : AppCompatActivity() {
         return navigationController.navigateUp() || super.onSupportNavigateUp()
     }
 
-    private fun initViews() = with(binding) {
+    private fun initViews() {
         navigationController.addOnDestinationChangedListener { _, destination, argument ->
             if (destination.id == R.id.stationArrivalsFragment) {
             }

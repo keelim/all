@@ -17,7 +17,6 @@ package com.keelim.data.model
 
 open class Event<out T>(private val content: T) {
     private var hasBeenHandled = false
-        private set
 
     fun getContentIfNotHandled(): T? {
         return if (hasBeenHandled) { // 이벤트가 이미 처리 되었다면

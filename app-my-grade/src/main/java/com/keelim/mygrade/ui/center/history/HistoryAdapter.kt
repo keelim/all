@@ -10,7 +10,7 @@ import com.keelim.common.extensions.ViewHolderLifecycleInitializer
 import com.keelim.data.db.entity.SimpleHistory
 import com.keelim.mygrade.databinding.ItemNotificationBinding
 
-class HistoryAdapter() : ListAdapter<SimpleHistory, HistoryViewHolder>(diffUtil) {
+class HistoryAdapter : ListAdapter<SimpleHistory, HistoryViewHolder>(diffUtil) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder {
         return HistoryViewHolder(
             ItemNotificationBinding.inflate(

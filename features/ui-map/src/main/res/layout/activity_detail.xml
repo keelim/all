@@ -47,7 +47,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title"
-            tools:src="@tools:sample/avatars" />
+            tools:src="@tools:sample/avatars"
+            android:contentDescription="TODO" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_comment"

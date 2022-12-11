@@ -33,7 +33,8 @@
                 android:id="@+id/editProfileButton"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:contentDescription="TODO" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -147,21 +148,24 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginHorizontal="4dp"
-                    android:scaleType="fitXY" />
+                    android:scaleType="fitXY"
+                    android:contentDescription="TODO" />
 
                 <ImageView
                     android:id="@+id/instagramButton"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginHorizontal="4dp"
-                    android:scaleType="fitXY" />
+                    android:scaleType="fitXY"
+                    android:contentDescription="TODO" />
 
                 <ImageView
                     android:id="@+id/twitterButton"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginHorizontal="4dp"
-                    android:scaleType="fitXY" />
+                    android:scaleType="fitXY"
+                    android:contentDescription="TODO" />
 
                 <ImageView
                     android:id="@+id/kakaoButton"
@@ -169,7 +173,8 @@
                     android:layout_height="40dp"
                     android:layout_alignParentTop="true"
                     android:layout_marginHorizontal="4dp"
-                    android:scaleType="fitXY" />
+                    android:scaleType="fitXY"
+                    android:contentDescription="TODO" />
             </LinearLayout>
 
             <FrameLayout
@@ -284,7 +289,8 @@
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:contentDescription="TODO" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -315,7 +321,8 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="8dp"
-                    app:srcCompat="@drawable/ic_baseline_more_vert_24" />
+                    app:srcCompat="@drawable/ic_baseline_more_vert_24"
+                    android:contentDescription="TODO" />
             </RelativeLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -341,7 +348,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:gravity="end"
-                app:srcCompat="@drawable/ic_baseline_more_vert_24" />
+                app:srcCompat="@drawable/ic_baseline_more_vert_24"
+                android:contentDescription="TODO" />
         </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView

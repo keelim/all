@@ -73,7 +73,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:src="@drawable/ic_github_24dp" />
+                android:src="@drawable/ic_github_24dp"
+                android:contentDescription="TODO" />
 
             <com.google.android.material.textview.MaterialTextView
                 style="?attr/textAppearanceBody1"
@@ -108,7 +109,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:src="@drawable/ic_round_code_24" />
+                android:src="@drawable/ic_round_code_24"
+                android:contentDescription="TODO" />
 
             <com.google.android.material.textview.MaterialTextView
                 style="?attr/textAppearanceBody1"

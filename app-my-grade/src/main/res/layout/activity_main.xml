@@ -40,7 +40,8 @@
         android:layout_margin="20dp"
         android:src="@drawable/bell"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="TODO" />
 
     <LinearLayout xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/origin_container"
@@ -221,7 +222,8 @@
         android:layout_margin="20dp"
         android:src="@drawable/ic_baseline_change_circle_24"
         app:layout_constraintBottom_toTopOf="@id/adView"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="TODO" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/footer"

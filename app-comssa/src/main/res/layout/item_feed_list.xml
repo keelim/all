@@ -12,7 +12,8 @@
         android:layout_marginTop="19dp"
         android:src="@drawable/img_post"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="TODO" />
 
     <TextView
         android:id="@+id/textview_feed_list_title"
@@ -70,7 +71,8 @@
             android:background="@drawable/selector_feed_heart"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="TODO" />
 
         <TextView
             android:id="@+id/textview_feed_list_heart_num"
@@ -104,7 +106,8 @@
             android:background="@drawable/ic_comment_3"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="TODO" />
 
 
         <TextView
@@ -130,7 +133,8 @@
         android:layout_marginEnd="24dp"
         android:src="@drawable/ic_share"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="TODO" />
 
     <LinearLayout
         android:id="@+id/linearLayout"

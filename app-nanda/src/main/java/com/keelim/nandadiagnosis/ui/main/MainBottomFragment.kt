@@ -115,7 +115,7 @@ class MainBottomFragment : BottomSheetDialogFragment() {
 
     private fun chooseThemeClick() {
         val currentTheme = mainViewModel.theme.value
-        var checkedItem = AppTheme.THEME_ARRAY.indexOfFirst { it.modeNight == currentTheme }
+        val checkedItem = AppTheme.THEME_ARRAY.indexOfFirst { it.modeNight == currentTheme }
         if (checkedItem >= 0) {
             val items = AppTheme.THEME_ARRAY.map {
                 getText(it.modeNameRes)

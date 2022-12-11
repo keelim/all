@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.comssa.extensions
+package com.keelim.comssa.utils
 
 fun Int.toAbbreviatedString(): String = when (this) {
     in 0..1_000 -> {

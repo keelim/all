@@ -33,11 +33,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.keelim.common.extensions.toast
 import com.keelim.comssa.R
 import com.keelim.comssa.databinding.ActivityMainBinding
 import com.keelim.comssa.databinding.ItemPasswordBinding
-import com.keelim.comssa.extensions.toast
+import com.keelim.comssa.utils.toast
 import com.keelim.comssa.ui.main.search.SearchFragment
 import com.keelim.comssa.ui.mypage.MyPageFragment2
 import com.keelim.data.di.download.DownloadReceiver

@@ -3,39 +3,6 @@ package com.keelim.data.response
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-@Serializable
-data class ReleaseNote(
-    @SerialName("archived")
-    val archived: Boolean, // false
-    @SerialName("cover")
-    val cover: String, // null
-    @SerialName("created_by")
-    val createdBy: CreatedBy,
-    @SerialName("created_time")
-    val createdTime: String, // 2022-07-24T10:27:00.000Z
-    @SerialName("description")
-    val description: List<String>,
-    @SerialName("icon")
-    val icon: String, // null
-    @SerialName("id")
-    val id: String, // 17100f6b-a057-402a-b5ec-0cf0123c0207
-    @SerialName("is_inline")
-    val isInline: Boolean, // false
-    @SerialName("last_edited_by")
-    val lastEditedBy: LastEditedBy,
-    @SerialName("last_edited_time")
-    val lastEditedTime: String, // 2022-07-24T10:36:00.000Z
-    @SerialName("object")
-    val objectX: String, // database
-    @SerialName("parent")
-    val parent: Parent,
-    @SerialName("properties")
-    val properties: Properties,
-    @SerialName("title")
-    val title: List<TitleX>,
-    @SerialName("url")
-    val url: String, // https://www.notion.so/17100f6ba057402ab5ec0cf0123c0207
-)
 
 @Serializable
 data class CreatedBy(
@@ -82,31 +49,6 @@ data class TitleX(
     @SerialName("type")
     val type: String, // text
 )
-
-@Serializable
-data class 이름(
-    @SerialName("id")
-    val id: String, // title
-    @SerialName("name")
-    val name: String, // com.keelim.data.response.이름
-    @SerialName("title")
-    val title: Title,
-    @SerialName("type")
-    val type: String, // title
-)
-
-@Serializable
-data class 태그(
-    @SerialName("id")
-    val id: String, // GO%7Cg
-    @SerialName("multi_select")
-    val multiSelect: MultiSelect,
-    @SerialName("name")
-    val name: String, // com.keelim.data.response.태그
-    @SerialName("type")
-    val type: String, // multi_select
-)
-
 @Serializable
 class Title
 

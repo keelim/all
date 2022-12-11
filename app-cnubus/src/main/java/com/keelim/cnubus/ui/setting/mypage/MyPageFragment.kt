@@ -87,9 +87,7 @@ class MyPageFragment : Fragment(R.layout.fragment_my_page) {
         coverHistoryDetailButton.setOnClickListener {
             Snackbar.make(binding.root, "전부 지우기겠습니까?", Snackbar.LENGTH_SHORT).run {
                 setAction("Ok") {
-                    viewModel?.let {
-                        it.deleteHistoryAll()
-                    }
+                    viewModel?.deleteHistoryAll()
                 }
                 show()
             }

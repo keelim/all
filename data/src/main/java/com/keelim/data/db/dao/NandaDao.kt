@@ -49,22 +49,6 @@ interface NandaDao {
     @Query("SELECT * FROM nanda WHERE reason LIKE  '%' || :query || '%'")
     fun getSearchFlow(query: String): Flow<List<NandaEntity>>
 
-    @Query(
-        "SELECT * FROM nanda WHERE reason LIKE  '%' || :query || '%'  LIMIT :loadSize OFFSET (:page-1) * :loadSize"
-    )
-    suspend fun getQueryContentsByPaging(query: String, page: Int, loadSize: Int): List<NandaEntity>
-
     @Transaction @Query("SELECT * FROM nanda") fun getSearchData(): Flow<List<NandaEntity>>
 }
 
-@Dao
-interface NandaHistoryDao {
-    @Query("select * from history")
-    suspend fun getAll(): List<NandaHistory>
-
-    @Insert
-    suspend fun insertHistory(history: NandaHistory)
-
-    @Query("delete from history where subject==:keyword")
-    suspend fun delete(keyword: String)
-}

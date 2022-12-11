@@ -33,7 +33,7 @@ import com.keelim.cnubus.R
 import com.keelim.cnubus.ui.main.MainViewModel
 import com.keelim.cnubus.ui.setting.compose.ScreenAction
 import com.keelim.cnubus.ui.setting.compose.SettingScreen
-import com.keelim.compose.ui.setThemeContent
+import com.keelim.compose.setThemeContent
 import com.keelim.map.MapsActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

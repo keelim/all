@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.compose.ui.widget
+package com.keelim.compose.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -33,7 +33,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.keelim.compose.R
 
 @Composable
 fun Roll() {

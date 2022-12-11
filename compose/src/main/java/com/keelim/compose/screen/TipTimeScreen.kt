@@ -15,7 +15,7 @@
  */
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.keelim.compose.ui.screen
+package com.keelim.compose.screen
 
 import androidx.annotation.StringRes
 import androidx.annotation.VisibleForTesting

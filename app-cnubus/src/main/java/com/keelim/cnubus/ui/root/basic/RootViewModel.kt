@@ -32,7 +32,7 @@ class RootViewModel @Inject constructor() : ViewModel() {
     val state: StateFlow<MapEvent> = _state.asStateFlow()
     private val _data = MutableStateFlow<List<Location>>(emptyList())
     val data: StateFlow<List<Location>> = _data.asStateFlow()
-    val modes = MutableStateFlow("")
+    private val modes = MutableStateFlow("")
 
     fun rootChange(root: String) = viewModelScope.launch {
         when (root) {

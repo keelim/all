@@ -32,7 +32,7 @@ class SearchAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Search) = with(binding) {
             title.text = item.title
-            description.text = if (item.description.isNullOrEmpty()) {
+            description.text = if (item.description.isEmpty()) {
                 "아직 설명 자료가 없네요."
             } else {
                 item.description

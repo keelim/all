@@ -42,7 +42,7 @@ class MotionActivity : AppCompatActivity(R.layout.activity_motion) {
             val id = m.getPointerId(i)
             val action = m.actionMasked
             val actionIndex = m.actionIndex
-            var actionString: String = when (action) {
+            val actionString: String = when (action) {
                 MotionEvent.ACTION_DOWN -> "Down"
                 MotionEvent.ACTION_UP -> "Up"
                 MotionEvent.ACTION_POINTER_DOWN -> "Pointer Down"

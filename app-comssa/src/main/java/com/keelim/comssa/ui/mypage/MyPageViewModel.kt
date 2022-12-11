@@ -33,6 +33,6 @@ class MyPageViewModel @Inject constructor() : ViewModel() {
     init {
         fetchReviewedData()
     }
-    fun fetchReviewedData() = viewModelScope.launch {
+    private fun fetchReviewedData() = viewModelScope.launch {
     }
 }

@@ -55,7 +55,7 @@ class MyPageViewModel @Inject constructor() : ViewModel() {
         getUserId()
     }
 
-    fun getUserId() = viewModelScope.launch(errorHandler) {
+    private fun getUserId() = viewModelScope.launch(errorHandler) {
     }
 
     fun deleteHistory(cnuHistory: CnuHistory) = viewModelScope.launch(errorHandler) {

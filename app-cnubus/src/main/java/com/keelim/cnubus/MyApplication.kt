@@ -31,15 +31,14 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 
 @HiltAndroidApp
-class MyApplication : Application(), Configuration.Provider {
+class MyApplication : Application() {
     @Inject
     lateinit var themeRepository: ThemeRepository
     @Inject
     lateinit var componentLogger: ComponentLogger
     @Inject
     lateinit var appOpenManager: AppOpenManager
-    @Inject
-    lateinit var workerFactory: HiltWorkerFactory
+
     private val scope by lazy { MainScope() }
 
     override fun onCreate() {
@@ -55,10 +54,6 @@ class MyApplication : Application(), Configuration.Provider {
         }
         DynamicColors.applyToActivitiesIfAvailable(this)
     }
-
-    override fun getWorkManagerConfiguration() = Configuration.Builder()
-        .setWorkerFactory(workerFactory)
-        .build()
 
     override fun onLowMemory() {
         super.onLowMemory()

@@ -28,7 +28,7 @@ import java.util.Locale
 
 class LabBoundService : Service() {
     private val binder = LocalBinder()
-    override fun onBind(p0: Intent?): IBinder? {
+    override fun onBind(p0: Intent?): IBinder {
         return binder
     }
 
@@ -41,7 +41,7 @@ class LabBoundService : Service() {
         }
     }
 
-    inner class LocalBinder() : Binder() {
+    inner class LocalBinder : Binder() {
         fun getService(): LabBoundService {
             return this@LabBoundService
         }

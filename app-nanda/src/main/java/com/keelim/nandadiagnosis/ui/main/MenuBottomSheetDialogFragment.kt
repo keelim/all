@@ -50,7 +50,7 @@ class MenuBottomSheetDialogFragment : BottomSheetDialogFragment() {
         initViews()
     }
 
-    private fun initViews() = with(binding) {
+    private fun initViews() {
         with(binding) {
             move.setOnClickListener {
                 dismiss()

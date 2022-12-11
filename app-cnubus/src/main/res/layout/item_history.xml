@@ -20,7 +20,8 @@
             app:layout_constraintEnd_toStartOf="@id/tv_history_view"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@mipmap/ic_launcher_round" />
+            tools:src="@mipmap/ic_launcher_round"
+            android:contentDescription="TODO" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_history_view"
@@ -54,7 +55,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_delete_forever_24" />
+            app:srcCompat="@drawable/ic_baseline_delete_forever_24"
+            android:contentDescription="TODO" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

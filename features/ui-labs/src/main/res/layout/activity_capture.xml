@@ -16,7 +16,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintVertical_chainStyle="packed"
+        android:contentDescription="TODO" />
 
     <Button
         android:id="@+id/button_save_bitmap"
@@ -55,7 +56,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_get_image_from_gallery" />
+        app:layout_constraintTop_toBottomOf="@id/button_get_image_from_gallery"
+        android:contentDescription="TODO" />
 
     <TextView
         android:id="@+id/tv_time"

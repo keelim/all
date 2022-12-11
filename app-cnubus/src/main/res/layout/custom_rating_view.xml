@@ -8,26 +8,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        android:src="@drawable/ic_star" />
+        android:src="@drawable/ic_star"
+        android:contentDescription="TODO" />
 
     <ImageView
         android:id="@+id/iv_start2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        android:src="@drawable/ic_star_empty" />
+        android:src="@drawable/ic_star_empty"
+        android:contentDescription="TODO" />
 
     <ImageView
         android:id="@+id/iv_start3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        android:src="@drawable/ic_star_empty" />
+        android:src="@drawable/ic_star_empty"
+        android:contentDescription="TODO" />
 
     <ImageView
         android:id="@+id/iv_start4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        android:src="@drawable/ic_star_empty" />
+        android:src="@drawable/ic_star_empty"
+        android:contentDescription="TODO" />
 </merge>

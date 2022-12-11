@@ -33,7 +33,6 @@ class DiagnosisFragment : Fragment() {
     private val binding get() = _binding!!
     private val data: ArrayList<DiagnosisItem> by lazy { ArrayList() }
     private var nav: Int = 0
-    private val mainViewModel: MainViewModel by activityViewModels()
     private val args by lazy { requireArguments() }
     private val diagnosisAdapter = DiagnosisRecyclerViewAdapter(
         listener = { position ->

@@ -88,7 +88,7 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
              * Handle the error.
              */
             @Override
-            public void onAdFailedToLoad(LoadAdError loadAdError) {
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
 
             }
 
@@ -166,7 +166,7 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
                 }
 
                 @Override
-                public void onAdFailedToShowFullScreenContent(AdError adError) {
+                public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
                 }
 
                 @Override

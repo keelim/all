@@ -22,6 +22,7 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -61,11 +62,6 @@ sealed class MapEvent {
 @SuppressLint("all")
 @AndroidEntryPoint
 class MapsActivity : AppCompatActivity() {
-    companion object {
-        const val NORMAL_ZOOM = 17f
-        const val REQUEST_INTERVAL = 10000L
-        const val REQUEST_FAST_INTERVAL = 5000L
-    }
 
     private val binding by lazy { ActivityMapsBinding.inflate(layoutInflater) }
     private val bottomBinding by lazy { BottomSheetBinding.bind(binding.bottom.root) }
@@ -123,22 +119,25 @@ class MapsActivity : AppCompatActivity() {
     private lateinit var myLocationListener: LocationListener
     private var current: LatLng? = null
 
+    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            val behavior = BottomSheetBehavior.from(bottomBinding.root)
+            if (behavior.state == BottomSheetBehavior.STATE_EXPANDED) {
+                behavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            } else {
+                finish()
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        onBackPressedDispatcher.addCallback(this,onBackPressedCallback)
         initViews()
         setMyLocationListener()
         initFlow()
         googleMapSetting()
-    }
-
-    override fun onBackPressed() {
-        val behavior = BottomSheetBehavior.from(bottomBinding.root)
-        if (behavior.state == BottomSheetBehavior.STATE_EXPANDED) {
-            behavior.state = BottomSheetBehavior.STATE_COLLAPSED
-        } else {
-            super.onBackPressed()
-        }
     }
 
     private fun setMyLocationListener() {
@@ -294,5 +293,10 @@ class MapsActivity : AppCompatActivity() {
         if (::fusedLocationProvider.isInitialized) fusedLocationProvider.removeLocationUpdates(
             locationCallback
         )
+    }
+    companion object {
+        const val NORMAL_ZOOM = 17f
+        const val REQUEST_INTERVAL = 10000L
+        const val REQUEST_FAST_INTERVAL = 5000L
     }
 }

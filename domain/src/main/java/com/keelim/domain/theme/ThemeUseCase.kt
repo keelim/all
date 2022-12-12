@@ -22,5 +22,5 @@ class ThemeUseCase(
     private val themeRepository: ThemeRepository
 ) {
     val appTheme: Flow<Int?> = themeRepository.getUserTheme()
-    fun setUserTheme(theme: Int) = themeRepository.setUserTheme(theme)
+    suspend fun setUserTheme(theme: Int) = themeRepository.setUserTheme(theme)
 }

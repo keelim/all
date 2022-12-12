@@ -23,7 +23,7 @@ class GetNandaUseCase @Inject constructor(
     private val nandaIoRepository: NandaIORepository
 ) {
 
-    suspend operator fun invoke(uid: Long): NandaEntity2 {
+    suspend operator fun invoke(uid: Long): NandaEntity2? {
         return nandaIoRepository.getNandaItem(uid)
     }
 }

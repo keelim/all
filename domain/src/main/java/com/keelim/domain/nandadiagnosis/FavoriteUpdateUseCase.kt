@@ -22,7 +22,7 @@ class FavoriteUpdateUseCase @Inject constructor(
     private val nandaIoRepository: NandaIORepository,
 ) {
 
-    operator fun invoke(favorite: Int, id: Int) {
+    suspend operator fun invoke(favorite: Int, id: Int) {
         when (favorite) {
             1 -> nandaIoRepository.updateFavorite(0, id)
             0 -> nandaIoRepository.updateFavorite(1, id)

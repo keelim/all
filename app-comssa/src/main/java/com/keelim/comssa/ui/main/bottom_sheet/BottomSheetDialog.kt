@@ -22,8 +22,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.keelim.comssa.databinding.BottomSheetDialogBinding
-import com.keelim.comssa.utils.toast
 import com.keelim.comssa.ui.favorite.FavoriteActivity
+import com.keelim.comssa.utils.toast
 import com.keelim.data.di.download.DownloadReceiver
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

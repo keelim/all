@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
                 MaterialAlertDialogBuilder(this@MainActivity)
                     .setTitle("종료하시겠습니까?")
                     .setCancelable(true)
-                    . setPositiveButton("Yes") { dialog, which ->
+                    .setPositiveButton("Yes") { dialog, which ->
                         finish()
                     }
                     .setNegativeButton("Nope") { dialog, which -> }
@@ -99,7 +99,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        onBackPressedDispatcher.addCallback(this,onBackPressedCallback)
+        onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         startService(Intent(this, TerminateService::class.java))
         permissionLauncher.launch(appPermissions.toTypedArray())
         initViews()

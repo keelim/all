@@ -45,6 +45,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/AppTheme.material3"
+        android:enableOnBackInvokedCallback="true"
         android:usesCleartextTraffic="true">
 
         <profileable

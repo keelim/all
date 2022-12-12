@@ -58,6 +58,7 @@ dependencies {
     implementation(project(":features:ui-map"))
     implementation(project(":features:ui-setting"))
     implementation(project(":features:ui-labs"))
+    implementation(libs.activity.ktx)
 
     implementation(platform(libs.firebase.bom))
     implementation("com.google.firebase:firebase-core")

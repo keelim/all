@@ -145,8 +145,6 @@ class SplashActivity : AppCompatActivity() {
             .show()
     }
 
-    override fun onBackPressed() {}
-
     companion object {
         const val MULTIPLE_PERMISSIONS = 8888
     }

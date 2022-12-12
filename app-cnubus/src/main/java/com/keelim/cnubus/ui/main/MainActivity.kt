@@ -19,6 +19,7 @@ import android.Manifest.permission
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -46,6 +47,24 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val viewModel: MainViewModel by viewModels()
+
+    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            if (navigationController.currentDestination?.id == R.id.tabFragment) {
+                MaterialAlertDialogBuilder(this@MainActivity)
+                    .setTitle("종료하시겠습니까?")
+                    .setCancelable(true)
+                    . setPositiveButton("Yes") { dialog, which ->
+                        finish()
+                    }
+                    .setNegativeButton("Nope") { dialog, which -> }
+                    .create()
+                    .show()
+            } else {
+                navigationController.navigateUp()
+            }
+        }
+    }
 
     private val appPermissions: List<String> = buildList {
         add(permission.ACCESS_FINE_LOCATION)
@@ -80,6 +99,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        onBackPressedDispatcher.addCallback(this,onBackPressedCallback)
         startService(Intent(this, TerminateService::class.java))
         permissionLauncher.launch(appPermissions.toTypedArray())
         initViews()
@@ -108,22 +128,6 @@ class MainActivity : AppCompatActivity() {
             .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
             .collect {
             }
-    }
-
-    override fun onBackPressed() {
-        if (navigationController.currentDestination?.id == R.id.tabFragment) {
-            MaterialAlertDialogBuilder(this)
-                .setTitle("종료하시겠습니까?")
-                .setCancelable(true)
-                .setPositiveButton("Yes") { dialog, which ->
-                    super.onBackPressed()
-                }
-                .setNegativeButton("Nope") { dialog, which -> }
-                .create()
-                .show()
-        } else {
-            navigationController.navigateUp()
-        }
     }
 
     private fun startWork(start: Int = 10) {

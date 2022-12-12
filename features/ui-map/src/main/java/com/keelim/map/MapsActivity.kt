@@ -133,7 +133,7 @@ class MapsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        onBackPressedDispatcher.addCallback(this,onBackPressedCallback)
+        onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         initViews()
         setMyLocationListener()
         initFlow()

@@ -22,7 +22,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import com.keelim.data.db.entity.NandaEntity
-import com.keelim.data.db.entity.NandaHistory
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -51,4 +50,3 @@ interface NandaDao {
 
     @Transaction @Query("SELECT * FROM nanda") fun getSearchData(): Flow<List<NandaEntity>>
 }
-

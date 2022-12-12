@@ -17,8 +17,6 @@ package com.keelim.cnubus
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.hilt.work.HiltWorkerFactory
-import androidx.work.Configuration
 import com.google.android.material.color.DynamicColors
 import com.keelim.cnubus.utils.AppOpenManager
 import com.keelim.cnubus.utils.ComponentLogger

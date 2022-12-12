@@ -21,12 +21,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.keelim.data.db.entity.DiagnosisItem
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.FragmentDiagnosisBinding
-import com.keelim.nandadiagnosis.ui.main.MainViewModel
 
 class DiagnosisFragment : Fragment() {
     private var _binding: FragmentDiagnosisBinding? = null

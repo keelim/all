@@ -16,7 +16,6 @@
 package com.keelim.comssa
 
 import android.app.Application
-import com.google.android.gms.ads.MobileAds
 import com.keelim.comssa.utils.AppOpenManager
 import com.keelim.comssa.utils.ComponentLogger
 import dagger.hilt.android.HiltAndroidApp

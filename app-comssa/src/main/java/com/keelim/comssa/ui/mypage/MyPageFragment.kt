@@ -27,10 +27,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.keelim.comssa.R
 import com.keelim.comssa.databinding.FragmentMyPageBinding
+import com.keelim.comssa.ui.home.GridSpacingItemDecoration
 import com.keelim.comssa.utils.dip
 import com.keelim.comssa.utils.toGone
 import com.keelim.comssa.utils.toVisible
-import com.keelim.comssa.ui.home.GridSpacingItemDecoration
 import com.keelim.data.model.ReviewedData
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

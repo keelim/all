@@ -26,11 +26,11 @@ class HistoryUseCase @Inject constructor(
         return nandaIoRepository.getHistories()
     }
 
-    fun saveHistory(keyword: String) {
+    suspend fun saveHistory(keyword: String) {
         nandaIoRepository.saveHistory(keyword)
     }
 
-    fun deleteHistory(keyword: String) {
+    suspend fun deleteHistory(keyword: String) {
         nandaIoRepository.deleteHistory(keyword)
     }
 }

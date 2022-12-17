@@ -34,7 +34,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 
 @Composable
-fun CustomDialog(
+fun MyDialog(
     onDismissRequest: () -> Unit,
     properties: DialogProperties = DialogProperties(),
     content: @Composable () -> Unit,
@@ -53,7 +53,7 @@ fun NoticeDialog(
     onDismissRequest: () -> Unit,
 ) {
     if (visibility) {
-        CustomDialog(onDismissRequest = onDismissRequest) {
+        MyDialog(onDismissRequest = onDismissRequest) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()

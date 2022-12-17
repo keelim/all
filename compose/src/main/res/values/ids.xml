@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="compose_view_saveable_id_tag" type="id">composeview</item>
+    <item name="compose_view_saveable_id_tag" type="id"/>
 </resources>

@@ -20,7 +20,7 @@ import com.keelim.data.db.entity.NandaEntity
 import com.keelim.data.db.entity.NandaEntity2
 import com.keelim.data.db.entity.NandaHistory
 import com.keelim.data.di.IoDispatcher
-import com.keelim.data.network.targetService.NandaService
+import com.keelim.data.network.TargetService
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
@@ -30,7 +30,7 @@ import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 class NandaIORepositoryImpl @Inject constructor(
-    private val nandaService: NandaService,
+    private val nandaService: TargetService.NandaService,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
     private val db: NandaAppDatabase,
 ) : NandaIORepository {

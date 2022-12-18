@@ -16,11 +16,11 @@
 package com.keelim.data.repository
 
 import com.keelim.data.db.entity.NandaEntity2
-import com.keelim.data.network.targetService.NandaService
+import com.keelim.data.network.TargetService
 import javax.inject.Inject
 
 class RemoteDataSourceImpl @Inject constructor(
-    private val service: NandaService
+    private val service: TargetService.NandaService
 ) : RemoteDataSource {
     override suspend fun getNandaInformation(type: String): List<NandaEntity2> {
         return service.getNanfaInformation(type)

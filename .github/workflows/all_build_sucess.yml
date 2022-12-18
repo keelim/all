@@ -1,3 +1,9 @@
+on:
+  workflow_dispatch:
+    inputs:
+      tags:
+        description: 'check this projects is all build available'
+
 jobs:
   app_cnubus:
     runs-on: ubuntu-latest

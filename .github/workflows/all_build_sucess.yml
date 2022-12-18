@@ -1,9 +1,5 @@
 on:
   workflow_dispatch:
-    inputs:
-      tags:
-        required: true
-        description: 'check this projects is all build available'
 
 jobs:
   app_cnubus:

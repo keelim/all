@@ -15,8 +15,9 @@
  */
 package com.keelim.data.di
 
+import com.keelim.data.model.targetService.ServiceRetrofit
 import com.keelim.data.network.CacheInterceptor
-import com.keelim.data.network.NandaService
+import com.keelim.data.network.TargetService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,7 +34,11 @@ object NetworkModule {
     private const val CONNECT_TIMEOUT = 10L
     private const val WRITE_TIMEOUT = 1L
     private const val READ_TIMEOUT = 20L
-    private const val BASE_URL = "http://service.url/"
+    private const val CNUBUS_URL = "http://service.url/"
+    private const val MYGRADE_URL = "http://service.url/"
+    private const val COMSSA_URL = "http://service.url/"
+    private const val NANDA_URL = "http://service.url/"
+    private const val YR_URL = "http://service.url/"
 
     @Provides
     @Singleton
@@ -61,16 +66,81 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
-        return Retrofit.Builder()
-            .client(okHttpClient)
-            .baseUrl(BASE_URL)
-            .build()
+    fun provideCnubusRetrofit(okHttpClient: OkHttpClient): ServiceRetrofit.CnuBusRetrofit {
+        return ServiceRetrofit.CnuBusRetrofit(
+            Retrofit.Builder()
+                .client(okHttpClient)
+                .baseUrl(CNUBUS_URL)
+                .build()
+        )
     }
 
     @Provides
     @Singleton
-    fun provideNandaService(retrofit: Retrofit): NandaService {
-        return retrofit.create(NandaService::class.java)
+    fun provideMyGradeRetrofit(okHttpClient: OkHttpClient): ServiceRetrofit.MyGradeRetrofit {
+        return ServiceRetrofit.MyGradeRetrofit(
+            Retrofit.Builder()
+                .client(okHttpClient)
+                .baseUrl(MYGRADE_URL)
+                .build()
+        )
     }
+
+    @Provides
+    @Singleton
+    fun provideComssaRetrofit(okHttpClient: OkHttpClient): ServiceRetrofit.ComssaRetrofit {
+        return ServiceRetrofit.ComssaRetrofit(
+            Retrofit.Builder()
+                .client(okHttpClient)
+                .baseUrl(COMSSA_URL)
+                .build()
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideNandaRetrofit(okHttpClient: OkHttpClient): ServiceRetrofit.NandaRetrofit {
+        return ServiceRetrofit.NandaRetrofit(
+            Retrofit.Builder()
+                .client(okHttpClient)
+                .baseUrl(NANDA_URL)
+                .build()
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideYrRetrofit(okHttpClient: OkHttpClient): ServiceRetrofit.YrRetrofit {
+        return ServiceRetrofit.YrRetrofit(
+            Retrofit.Builder()
+                .client(okHttpClient)
+                .baseUrl(YR_URL)
+                .build()
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideNandaService(retrofit: Retrofit): TargetService.NandaService =
+        retrofit.create(TargetService.NandaService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideCnubusService(retrofit: Retrofit): TargetService.CnubusService =
+        retrofit.create(TargetService.CnubusService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideComssaService(retrofit: Retrofit): TargetService.ComssaService =
+        retrofit.create(TargetService.ComssaService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideMyGradeService(retrofit: Retrofit): TargetService.MyGradeService =
+        retrofit.create(TargetService.MyGradeService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideYrService(retrofit: Retrofit): TargetService.YrService =
+        retrofit.create(TargetService.YrService::class.java)
 }

@@ -3,7 +3,7 @@ package com.keelim.data.di
 import com.keelim.data.db.MyGradeAppDatabase
 import com.keelim.data.db.dao.HistoryDao
 import com.keelim.data.db.dao.SimpleHistoryDao
-import com.keelim.data.network.NandaService
+import com.keelim.data.network.targetService.NandaService
 import com.keelim.data.repository.RemoteDataSource
 import com.keelim.data.repository.RemoteDataSourceImpl
 import dagger.Module

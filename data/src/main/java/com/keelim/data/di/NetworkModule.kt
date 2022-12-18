@@ -121,26 +121,26 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideNandaService(retrofit: Retrofit): TargetService.NandaService =
-        retrofit.create(TargetService.NandaService::class.java)
+    fun provideNandaService(serviceRetrofit: ServiceRetrofit.NandaRetrofit): TargetService.NandaService =
+        serviceRetrofit.retrofit.create(TargetService.NandaService::class.java)
 
     @Provides
     @Singleton
-    fun provideCnubusService(retrofit: Retrofit): TargetService.CnubusService =
-        retrofit.create(TargetService.CnubusService::class.java)
+    fun provideCnubusService(serviceRetrofit: ServiceRetrofit.CnuBusRetrofit): TargetService.CnubusService =
+        serviceRetrofit.retrofit.create(TargetService.CnubusService::class.java)
 
     @Provides
     @Singleton
-    fun provideComssaService(retrofit: Retrofit): TargetService.ComssaService =
-        retrofit.create(TargetService.ComssaService::class.java)
+    fun provideComssaService(serviceRetrofit: ServiceRetrofit.ComssaRetrofit): TargetService.ComssaService =
+        serviceRetrofit.retrofit.create(TargetService.ComssaService::class.java)
 
     @Provides
     @Singleton
-    fun provideMyGradeService(retrofit: Retrofit): TargetService.MyGradeService =
-        retrofit.create(TargetService.MyGradeService::class.java)
+    fun provideMyGradeService(serviceRetrofit: ServiceRetrofit.MyGradeRetrofit): TargetService.MyGradeService =
+        serviceRetrofit.retrofit.create(TargetService.MyGradeService::class.java)
 
     @Provides
     @Singleton
-    fun provideYrService(retrofit: Retrofit): TargetService.YrService =
-        retrofit.create(TargetService.YrService::class.java)
+    fun provideYrService(serviceRetrofit: ServiceRetrofit.YrRetrofit): TargetService.YrService =
+        serviceRetrofit.retrofit.create(TargetService.YrService::class.java)
 }

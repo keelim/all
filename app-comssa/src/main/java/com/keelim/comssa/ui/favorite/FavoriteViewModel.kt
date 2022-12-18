@@ -25,7 +25,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 
 @HiltViewModel
-class FavoriteViewModel  @Inject constructor(): ViewModel() {
+class FavoriteViewModel @Inject constructor() : ViewModel() {
     fun favorite(favorite: Int, id: Int) = viewModelScope.launch {
     }
 

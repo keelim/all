@@ -46,4 +46,3 @@ sealed interface TargetService {
     interface MyGradeService : TargetService
     interface YrService : TargetService
 }
-

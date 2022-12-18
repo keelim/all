@@ -50,13 +50,12 @@ class MyComposeView(
         }
     }
 
-    private var content: @Composable () ->Unit by mutableStateOf({})
+    private var content: @Composable () -> Unit by mutableStateOf({})
     override var shouldCreateCompositionOnAttachedToWindow: Boolean = false
         private set
 
     @Composable
     override fun Content() {
-
     }
 
     fun setCustomContent(parent: CompositionContext? = null, content: @Composable () -> Unit) {
@@ -66,7 +65,6 @@ class MyComposeView(
         this.content = content
         shouldCreateCompositionOnAttachedToWindow = true
     }
-
 
     fun show() {
         if (isShowing) dismiss()

@@ -22,6 +22,7 @@ dependencies {
 
     implementation(libs.retrofit.kotlin.serialization)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.datetime)
 
     // Dagger Hilt
     implementation(libs.hilt.android)

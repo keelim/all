@@ -10,8 +10,10 @@ dependencies {
     implementation(libs.coil.kt.gif)
     implementation(libs.timber)
     implementation(libs.play.services.ad)
+    implementation("androidx.compose.ui:ui:1.3.2")
+    implementation(libs.androidx.lifecycle.process)
 }
 android {
-    namespace = "com.keelim.common_android"
+    namespace = "com.keelim.commonAndroid"
 }
 

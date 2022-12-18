@@ -25,17 +25,25 @@ import retrofit2.http.Path
 import retrofit2.http.Streaming
 import retrofit2.http.Url
 
-interface NandaService {
-    @GET("api/v1/nanda_information/{name}")
-    suspend fun getNanfaInformation(@Path("name") type: String): List<NandaEntity2>
+sealed interface TargetService {
+    interface NandaService : TargetService {
+        @GET("api/v1/nanda_information/{name}")
+        suspend fun getNanfaInformation(@Path("name") type: String): List<NandaEntity2>
 
-    @Streaming
-    @GET
-    suspend fun getDatabase(@Url fileUrl: String): Response<ResponseBody>
+        @Streaming
+        @GET
+        suspend fun getDatabase(@Url fileUrl: String): Response<ResponseBody>
 
-    @GET("nandas")
-    suspend fun getNandas(): Response<NandasResponse>
+        @GET("nandas")
+        suspend fun getNandas(): Response<NandasResponse>
 
-    @GET("nandas/{nandas_id}")
-    suspend fun getNanda(@Path("nandas_id") nandasId: Long): Response<NandaResponse>
+        @GET("nandas/{nandas_id}")
+        suspend fun getNanda(@Path("nandas_id") nandasId: Long): Response<NandaResponse>
+    }
+
+    interface CnubusService : TargetService
+    interface ComssaService : TargetService
+    interface MyGradeService : TargetService
+    interface YrService : TargetService
 }
+

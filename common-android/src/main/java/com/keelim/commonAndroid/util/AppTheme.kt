@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.common_android.util
+package com.keelim.commonAndroid.util
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatDelegate
-import com.keelim.common_android.R
+import com.keelim.commonAndroid.R
 
 enum class AppTheme(
     val modeNight: Int,

@@ -25,7 +25,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyGrade"
-        tools:targetApi="31">
+        android:enableOnBackInvokedCallback="true">
         <profileable
             android:shell="true"
             tools:targetApi="q" />
@@ -73,6 +73,9 @@
                 android:value="androidx.startup" />
             <meta-data
                 android:name="com.keelim.common_android.initialize.CoilInitializer"
+                android:value="androidx.startup" />
+            <meta-data
+                android:name="com.keelim.common_android.initialize.MobileAdsInitializer"
                 android:value="androidx.startup" />
         </provider>
     </application>

@@ -8,13 +8,14 @@ plugins {
     id("dagger.hilt.android.plugin")
     id("com.google.firebase.firebase-perf")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+    id("org.jetbrains.qodana")
 }
 
 android {
     defaultConfig {
         applicationId = "com.keelim.mygrade"
-        versionCode = 21
-        versionName = "0.0.21"
+        versionCode = 22
+        versionName = "0.0.22"
         vectorDrawables {
             useSupportLibrary = true
         }

@@ -9,13 +9,14 @@ plugins {
     id("com.google.firebase.firebase-perf")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
     id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.qodana")
 }
 
 android {
     defaultConfig {
         applicationId = "com.keelim.cnubus"
-        versionCode = 2119
-        versionName = "2.1.19"
+        versionCode = 2120
+        versionName = "2.1.20"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
@@ -57,6 +58,7 @@ dependencies {
     implementation(project(":features:ui-map"))
     implementation(project(":features:ui-setting"))
     implementation(project(":features:ui-labs"))
+    implementation(libs.activity.ktx)
 
     implementation(platform(libs.firebase.bom))
     implementation("com.google.firebase:firebase-core")
@@ -66,7 +68,7 @@ dependencies {
     implementation("com.google.firebase:firebase-messaging-ktx")
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-inappmessaging-display-ktx")
-    implementation("com.firebaseui:firebase-ui-auth:8.0.1")
+    implementation("com.firebaseui:firebase-ui-auth:8.0.2")
 
     implementation("com.airbnb.android:lottie:5.2.0")
 
@@ -74,12 +76,11 @@ dependencies {
     implementation(libs.hilt.ext.work)
     implementation(libs.hilt.android)
     implementation("androidx.preference:preference-ktx:1.2.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
-    implementation("androidx.activity:activity-compose:1.5.1")
-    implementation(platform("androidx.compose:compose-bom:2022.10.00"))
+    implementation(libs.androidx.lifecycle.rutime)
+    implementation(platform(libs.androidx.compose.bom))
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
-    androidTestImplementation(platform("androidx.compose:compose-bom:2022.10.00"))
+    androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     kapt(libs.hilt.compiler)

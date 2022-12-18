@@ -9,13 +9,14 @@ plugins {
     id("com.google.firebase.firebase-perf")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
     id("androidx.navigation.safeargs.kotlin") version ("2.4.2")
+    id("org.jetbrains.qodana")
 }
 
 android {
     defaultConfig {
         applicationId = "com.keelim.nandadiagnosis"
-        versionCode = 54
-        versionName = "1.0.54"
+        versionCode = 55
+        versionName = "1.0.55"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 

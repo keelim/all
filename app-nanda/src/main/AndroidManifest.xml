@@ -30,6 +30,7 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/AppTheme"
+        android:enableOnBackInvokedCallback="true"
         android:usesCleartextTraffic="true">
 
         <meta-data
@@ -91,7 +92,7 @@
             android:exported="false"
             tools:node="merge">
             <meta-data
-                android:name="com.keelim.nandadiagnosis.initialize.MobileAdsInitializer"
+                android:name="com.keelim.common_android.initialize.MobileAdsInitializer"
                 android:value="androidx.startup" />
             <meta-data
                 android:name="com.keelim.common_android.initialize.TimberInitializer"

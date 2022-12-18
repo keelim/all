@@ -8,13 +8,14 @@ plugins {
     id("com.google.firebase.firebase-perf")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
     id("androidx.navigation.safeargs.kotlin") version ("2.4.2")
+    id("org.jetbrains.qodana")
 }
 
 android {
     defaultConfig {
         applicationId = "com.keelim.comssa"
-        versionCode = 10
-        versionName = "1.0.10"
+        versionCode = 11
+        versionName = "1.0.11"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 

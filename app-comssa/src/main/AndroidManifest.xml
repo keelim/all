@@ -23,7 +23,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Comssa"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        android:enableOnBackInvokedCallback="true"
+        >
 
         <activity
             android:name=".ui.main.MainActivity"
@@ -60,6 +62,9 @@
             android:authorities="${applicationId}.androidx-startup"
             android:exported="false"
             tools:node="merge">
+            <meta-data
+                android:name="com.keelim.common_android.initialize.MobileAdsInitializer"
+                android:value="androidx.startup" />
             <meta-data
                 android:name="com.keelim.common_android.initialize.TimberInitializer"
                 android:value="androidx.startup" />

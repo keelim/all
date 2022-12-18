@@ -58,7 +58,7 @@ class CaptureActivity : AppCompatActivity(R.layout.activity_capture) {
     private var labBoundService: LabBoundService? = null
     private var isBound = false
 
-    val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+    private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         when (result.resultCode) {
             RESULT_OK -> {
                 result.data?.let {

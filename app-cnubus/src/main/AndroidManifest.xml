@@ -5,6 +5,9 @@
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
 
     <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -42,6 +45,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/AppTheme.material3"
+        android:enableOnBackInvokedCallback="true"
         android:usesCleartextTraffic="true">
 
         <profileable
@@ -95,7 +99,7 @@
                 android:value="androidx.startup"
                 tools:node="remove" />
             <meta-data
-                android:name="com.keelim.cnubus.initialize.MobileAdsInitializer"
+                android:name="com.keelim.common_android.initialize.MobileAdsInitializer"
                 android:value="androidx.startup" />
             <meta-data
                 android:name="com.keelim.common_android.initialize.TimberInitializer"

@@ -73,6 +73,17 @@ class CenterActivity : AppCompatActivity() {
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        DataBindingUtil.setContentView<ActivityCenterBinding>(
+            this,
+            R.layout.activity_center
+        ).apply {
+        }.also {
+            binding = it
+        }
+        MainWorker.enqueueWork(this)
+        sendNotification()
+        handleIntent()
         permissionLauncher.launch(appPermissions.toTypedArray())
         with(Firebase.remoteConfig) {
             getBoolean("forceUpdate").also { forceUpdate ->
@@ -93,17 +104,6 @@ class CenterActivity : AppCompatActivity() {
                 )
             }
         }
-        super.onCreate(savedInstanceState)
-        DataBindingUtil.setContentView<ActivityCenterBinding>(
-            this,
-            R.layout.activity_center
-        ).apply {
-        }.also {
-            binding = it
-        }
-        MainWorker.enqueueWork(this)
-        sendNotification()
-        handleIntent()
     }
 
     private fun sendNotification() {

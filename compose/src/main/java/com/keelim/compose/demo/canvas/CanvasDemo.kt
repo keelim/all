@@ -131,16 +131,3 @@ fun DrawOval() {
 private fun DrawOvalPreview() {
     DrawOval()
 }
-
-@Composable
-fun GradientDemo() {
-    
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun GradientDemoPreview() {
-    GradientDemo()
-}
-
-

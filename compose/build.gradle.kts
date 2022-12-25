@@ -15,6 +15,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling)
     implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.compose.glance)
+    implementation(libs.androidx.navigation.compose)
     implementation(libs.material.themAdapter)
 }
 android {

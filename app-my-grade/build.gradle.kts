@@ -16,17 +16,15 @@ android {
         applicationId = "com.keelim.mygrade"
         versionCode = 23
         versionName = "0.0.23"
-        vectorDrawables {
-            useSupportLibrary = true
+        buildTypes {
+            create("app-my-grade-benchmark") {
+                signingConfig = signingConfigs.getByName("debug")
+                matchingFallbacks += listOf("release")
+                isDebuggable = false
+            }
         }
     }
-    buildTypes {
-        getByName("debug") {
-            extra["enableCrashlytics"] = false
-            extra["alwaysUpdateBuildId"] = false
-            isCrunchPngs = false
-        }
-    }
+
     useLibrary("android.test.mock")
     buildFeatures {
         dataBinding = true

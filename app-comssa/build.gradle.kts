@@ -21,6 +21,11 @@ android {
 
     buildTypes {
         defaultConfig {}
+        create("app-comssa-benchmark") {
+            signingConfig = signingConfigs.getByName("debug")
+            matchingFallbacks += listOf("release")
+            isDebuggable = false
+        }
         getByName("release") {}
     }
     composeOptions { kotlinCompilerExtensionVersion = "1.3.2" }

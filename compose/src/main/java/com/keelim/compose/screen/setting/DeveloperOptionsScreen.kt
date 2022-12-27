@@ -11,8 +11,10 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.*
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
@@ -23,9 +25,9 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 
 @Composable
-fun DeveloperScreen(navController:  NavHostController) {
+fun DeveloperScreen(navController: NavHostController) {
     var userName by remember { mutableStateOf("") }
-    val onUserChanged = { text:String ->
+    val onUserChanged = { text: String ->
         userName = text
     }
 
@@ -52,14 +54,14 @@ fun DeveloperScreen(navController:  NavHostController) {
 @Composable
 fun DeveloperCustomTextField(
     title: String,
-    textState:  String,
+    textState: String,
     onTextChanged: (String) -> Unit
 ) {
     OutlinedTextField(
         value = textState,
         onValueChange = onTextChanged,
         modifier = Modifier.padding(10.dp),
-        label = { Text(title)},
+        label = { Text(title) },
         singleLine = true,
         textStyle = TextStyle(
             fontWeight = FontWeight.Bold,
@@ -73,4 +75,3 @@ fun DeveloperCustomTextField(
 private fun DeveloperCustomTextFieldPreview() {
     DeveloperCustomTextField("Sample", "Sample", {})
 }
-

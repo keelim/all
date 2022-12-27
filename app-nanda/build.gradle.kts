@@ -19,6 +19,13 @@ android {
         versionName = "1.0.56"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+    buildTypes {
+        create("app-nanda-benchmark") {
+            signingConfig = signingConfigs.getByName("debug")
+            matchingFallbacks += listOf("release")
+            isDebuggable = false
+        }
+    }
 
     useLibrary("android.test.mock")
     buildFeatures { dataBinding = true }

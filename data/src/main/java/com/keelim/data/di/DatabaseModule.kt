@@ -15,7 +15,7 @@ import com.keelim.data.db.MyGradeAppDatabase
 import com.keelim.data.db.NandaAppDatabase
 import com.keelim.data.db.PreferenceManager
 import com.keelim.data.db.SharedPreferenceManager
-import com.keelim.data.source.local.TokenManagerImpl
+import com.keelim.data.source.local.TokenManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -91,5 +91,5 @@ object DatabaseModule {
     @Singleton
     fun provideTokenManager(
         @ApplicationContext context: Context
-    ) = TokenManagerImpl(context)
+    ) = TokenManager(context)
 }

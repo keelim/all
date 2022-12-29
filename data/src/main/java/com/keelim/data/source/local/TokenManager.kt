@@ -9,8 +9,7 @@ import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-
-class TokenManagerImpl @Inject constructor(
+class TokenManager @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
 

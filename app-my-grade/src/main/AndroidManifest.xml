@@ -31,7 +31,7 @@
             tools:targetApi="q" />
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="${APPLICATION_ID}" />
+            android:value="${MYGRADE_APPLICATION_ID}" />
 
         <activity
             android:name=".ui.center.CenterActivity"

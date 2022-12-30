@@ -1,0 +1,20 @@
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": [
+        "config:base",
+        "group:all",
+        ":dependencyDashboard",
+        "schedule:daily"
+    ],
+    "baseBranches": [
+        "develop"
+    ],
+    "packageRules": [
+        {
+            "matchPackageNames": [
+                "com.google.protobuf"
+            ],
+            "allowedVersions": "<=0.8.19"
+        }
+    ]
+}

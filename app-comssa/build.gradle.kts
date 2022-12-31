@@ -14,8 +14,6 @@ plugins {
 android {
     defaultConfig {
         applicationId = "com.keelim.comssa"
-        versionCode = 12
-        versionName = "1.0.12"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 

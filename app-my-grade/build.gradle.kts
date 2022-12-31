@@ -14,8 +14,6 @@ plugins {
 android {
     defaultConfig {
         applicationId = "com.keelim.mygrade"
-        versionCode = 23
-        versionName = "0.0.23"
         buildTypes {
             create("app-my-grade-benchmark") {
                 signingConfig = signingConfigs.getByName("debug")

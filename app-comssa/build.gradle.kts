@@ -67,7 +67,7 @@ dependencies {
     implementation(libs.coil.kt.gif)
 
     // compose
-    val composeBom = platform("androidx.compose:compose-bom:2022.10.00")
+    val composeBom = platform("androidx.compose:compose-bom:2022.12.00")
     implementation("androidx.compose.ui:ui")
     implementation(composeBom)
     androidTestImplementation(composeBom)

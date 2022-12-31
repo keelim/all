@@ -98,7 +98,7 @@ dependencies {
     implementation(libs.androidx.navigation.ui)
 
     implementation(libs.androidx.compose.bom)
-    implementation("androidx.compose.ui:ui:1.3.1")
+    implementation("androidx.compose.ui:ui:1.3.2")
     implementation(libs.androidx.compose.runtime)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.material3)

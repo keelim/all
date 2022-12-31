@@ -15,8 +15,6 @@ plugins {
 android {
     defaultConfig {
         applicationId = "com.keelim.cnubus"
-        versionCode = 2121
-        versionName = "2.1.21"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true

@@ -17,6 +17,8 @@ class KeelimAndroidApplicationPlugin : Plugin<Project> {
 
             extensions.getByType<ApplicationExtension>().apply {
                 configureKotlinAndroid(this)
+                defaultConfig.versionName = ProjectConfiguration.versionName
+                defaultConfig.versionCode = ProjectConfiguration.versionCode
                 defaultConfig.targetSdk = ProjectConfiguration.targetSdk
                 buildFeatures.viewBinding = true
                 buildTypes.getByName("release").apply {

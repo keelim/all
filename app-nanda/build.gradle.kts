@@ -15,8 +15,6 @@ plugins {
 android {
     defaultConfig {
         applicationId = "com.keelim.nandadiagnosis"
-        versionCode = 56
-        versionName = "1.0.56"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

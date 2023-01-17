@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.compose
+package com.keelim.compose.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable

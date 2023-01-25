@@ -1,5 +1,6 @@
 plugins {
     id("keelim.android.application")
+    id("keelim.android.application.compose")
     kotlin("kapt")
     id("com.google.gms.google-services")
     id("com.google.android.gms.oss-licenses-plugin")
@@ -26,7 +27,6 @@ android {
         }
         getByName("release") {}
     }
-    composeOptions { kotlinCompilerExtensionVersion = "1.3.2" }
     namespace = "com.keelim.comssa"
 }
 
@@ -65,22 +65,17 @@ dependencies {
     implementation(libs.coil.kt.gif)
 
     // compose
-    val composeBom = platform("androidx.compose:compose-bom:2022.10.00")
-    implementation("androidx.compose.ui:ui")
-    implementation(composeBom)
-    androidTestImplementation(composeBom)
     implementation(libs.androidx.activity.compose)
-
-    implementation("androidx.compose.material3:material3")
-    implementation("androidx.compose.material:material")
-    implementation("androidx.compose.ui:ui")
-    implementation("androidx.compose.ui:ui-tooling-preview")
-    debugImplementation("androidx.compose.ui:ui-tooling")
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
-    implementation("androidx.compose.material:material-icons-extended")
-    implementation("androidx.compose.material3:material3-window-size-class")
-    implementation("androidx.compose.runtime:runtime-livedata")
+    implementation(libs.androidx.compose.foundation)
+    implementation(libs.androidx.compose.foundation.layout)
+    implementation(libs.androidx.compose.material.iconsExtended)
+    implementation(libs.androidx.compose.material3)
+    debugImplementation(libs.androidx.compose.ui.tooling)
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.compose.ui.util)
+    implementation(libs.androidx.compose.runtime)
+    androidTestImplementation(libs.androidx.compose.ui.test)
+    debugImplementation(libs.androidx.compose.ui.testManifest)
 
     implementation(libs.androidx.paging.runtime)
 }

@@ -6,3 +6,7 @@ sealed class SettingRoute(val route: String) {
     object Oss : SettingRoute("oss")
     object Lab : SettingRoute("lab")
 }
+
+sealed class SchemeRoute(val route: String) {
+    object Share: SchemeRoute("share")
+}

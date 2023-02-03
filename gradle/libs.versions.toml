@@ -66,7 +66,7 @@ play-services-location="21.0.1"
 glance = "1.0.0-alpha05"
 maps = "3.2.1"
 qodana = "0.1.12"
-
+errorprone = "2.15.0"
 #view system
 material = "1.6.1"
 
@@ -195,6 +195,8 @@ androidx-bio = { group = "androidx.biometric", name = "biometric", version.ref =
 inapp-update = { group = "com.google.android.play", name = "app-update-ktx", version.ref = "in-app-update" }
 # view system
 androidx-compose-glance = { group = "androidx.glance", name = "glance-appwidget", version.ref = "glance" }
+# errorprone
+errorprone = { group = "com.google.errorprone", name = "error_prone_annotations", version.ref = "errorprone" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }

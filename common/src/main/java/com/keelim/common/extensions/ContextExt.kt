@@ -4,13 +4,17 @@ import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
 import android.widget.Toast
 import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
 import androidx.annotation.Px
 import androidx.annotation.StringRes
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 
@@ -94,3 +98,9 @@ private fun Context.startNonBrowserActivity(url: String, fallback: () -> Unit) {
         fallback()
     }
 }
+
+fun Context.getCompatColor(@ColorRes colorId: Int) = ResourcesCompat.getColor(resources, colorId, null)
+
+fun Context.getCompatDrawable(@DrawableRes drawableId: Int): Drawable?
+= AppCompatResources.getDrawable(this, drawableId)
+

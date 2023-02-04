@@ -87,7 +87,7 @@ class SimpleAddBottomSheet : BottomSheetDialogFragment() {
             .flowWithLifecycle(lifecycle)
             .onEach {
                 when (it) {
-                    is MainState.UnInitialized -> Unit
+                    is MainState.UnInitialized, MainState.Initialized -> Unit
                     is MainState.Loading -> {
                         requireContext().snack(binding.root, "잠시만 기다려주세요")
                     }
@@ -117,6 +117,7 @@ class SimpleAddBottomSheet : BottomSheetDialogFragment() {
                         )
                     }
                     is MainState.Error -> requireContext().snack(binding.root, "오류가 발생했습니다")
+                    MainState.Initialized -> TODO()
                 }
             }.launchIn(lifecycleScope)
     }

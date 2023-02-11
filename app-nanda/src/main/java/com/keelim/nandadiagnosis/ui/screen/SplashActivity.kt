@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.ui
+package com.keelim.nandadiagnosis.ui.screen
 
 import android.Manifest
 import android.content.Intent
@@ -33,7 +33,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.keelim.common.extensions.toast
 import com.keelim.nandadiagnosis.BuildConfig
 import com.keelim.nandadiagnosis.databinding.ActivitySplashBinding
-import com.keelim.nandadiagnosis.ui.main.Main2Activity
+import com.keelim.nandadiagnosis.ui.screen.main.Main2Activity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

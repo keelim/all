@@ -36,7 +36,7 @@
     </fragment>
     <fragment
         android:id="@+id/content3Fragment"
-        android:name="com.keelim.cnubus.ui.content.Content3Fragment"
+        android:name="com.keelim.cnubus.ui.screen.content.Content3Fragment"
         android:label="Content3Fragment"
         tools:layout="@layout/fragment_content" />
     <fragment

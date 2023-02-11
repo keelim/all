@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.ui.main.search
+package com.keelim.nandadiagnosis.ui.screen.main.search
 
 import android.app.SearchManager
 import android.content.Context
@@ -33,7 +33,7 @@ import androidx.recyclerview.widget.LinearSnapHelper
 import com.keelim.common.extensions.toast
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.FragmentSearchBinding
-import com.keelim.nandadiagnosis.ui.main.search.history.HistoryAdapter
+import com.keelim.nandadiagnosis.ui.screen.main.search.history.HistoryAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

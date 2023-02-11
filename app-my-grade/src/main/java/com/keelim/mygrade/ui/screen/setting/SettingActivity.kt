@@ -1,4 +1,4 @@
-package com.keelim.mygrade.ui.setting
+package com.keelim.mygrade.ui.screen.setting
 
 import android.os.Build
 import android.os.Bundle

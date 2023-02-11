@@ -28,8 +28,8 @@ import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.FragmentRootBinding
 import com.keelim.common.extensions.toast
 import com.keelim.data.model.gps.Location
-import com.keelim.map.MapEvent
-import com.keelim.map.MapsActivity
+import com.keelim.map.screen.map1.MapEvent
+import com.keelim.map.screen.map1.MapsActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

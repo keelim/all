@@ -21,8 +21,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.keelim.cnubus.R
 import com.keelim.cnubus.ui.compose.Lab3Activity
-import com.keelim.cnubus.ui.screen.setting.LabActivity
-import com.keelim.labs.ui.capture.CaptureActivity
+import com.keelim.labs.ui.screen.CaptureActivity
 
 class LabFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {

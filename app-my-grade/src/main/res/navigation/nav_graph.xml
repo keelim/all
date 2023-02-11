@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.keelim.mygrade.ui.center.main.MainFragment"
+        android:name="com.keelim.mygrade.ui.screen.center.main.MainFragment"
         android:label="MainFragment"
         tools:layout="@layout/fragment_main">
         <action
@@ -26,17 +26,17 @@
 
     <fragment
         android:id="@+id/notificationFragment"
-        android:name="com.keelim.mygrade.ui.center.notification.NotificationFragment"
+        android:name="com.keelim.mygrade.ui.screen.center.notification.NotificationFragment"
         android:label="NotificationFragment"
         tools:layout="@layout/fragment_notification" />
     <fragment
         android:id="@+id/historyFragment"
-        android:name="com.keelim.mygrade.ui.center.history.HistoryFragment"
+        android:name="com.keelim.mygrade.ui.screen.center.history.HistoryFragment"
         android:label="HistoryFragment"
         tools:layout="@layout/fragment_history" />
     <fragment
         android:id="@+id/gradeFragment"
-        android:name="com.keelim.mygrade.ui.GradeFragment"
+        android:name="com.keelim.mygrade.ui.screen.GradeFragment"
         android:label="GradeFragment"
         tools:layout="@layout/fragment_grade">
         <argument
@@ -45,7 +45,7 @@
     </fragment>
     <dialog
         android:id="@+id/simpleAddBottomSheet"
-        android:name="com.keelim.mygrade.ui.center.simple.SimpleAddBottomSheet"
+        android:name="com.keelim.mygrade.ui.screen.center.main.SimpleAddBottomSheet"
         android:label="SimpleAddBottomSheet"
         tools:layout="@layout/bottomsheet_simple_add" >
         <action

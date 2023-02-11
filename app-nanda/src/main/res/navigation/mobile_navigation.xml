@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/navigation_category"
-        android:name="com.keelim.nandadiagnosis.ui.main.category.CategoryFragment"
+        android:name="com.keelim.nandadiagnosis.ui.screen.main.category.CategoryFragment"
         android:label="@string/title_category"
         tools:layout="@layout/fragment_category" >
         <action
@@ -15,18 +15,18 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_search"
-        android:name="com.keelim.nandadiagnosis.ui.main.search.SearchFragment"
+        android:name="com.keelim.nandadiagnosis.ui.screen.main.search.SearchFragment"
         android:label="@string/title_search"
         tools:layout="@layout/fragment_search" />
 
     <dialog
         android:id="@+id/moreBottomSheetDialog"
-        android:name="com.keelim.nandadiagnosis.ui.main.MainBottomFragment"
+        android:name="com.keelim.nandadiagnosis.ui.screen.main.MainBottomFragment"
         tools:layout="@layout/fragment_main_bottom" />
 
     <fragment
         android:id="@+id/aboutFragment"
-        android:name="com.keelim.nandadiagnosis.ui.main.setting.AboutFragment"
+        android:name="com.keelim.nandadiagnosis.ui.screen.main.setting.AboutFragment"
         tools:layout="@layout/fragment_about" >
         <action
             android:id="@+id/action_aboutFragment_to_webFragment"
@@ -34,15 +34,15 @@
     </fragment>
     <fragment
         android:id="@+id/inAppWebFragment"
-        android:name="com.keelim.nandadiagnosis.ui.main.inappweb.InAppWebFragment"
+        android:name="com.keelim.nandadiagnosis.ui.screen.main.inappweb.InAppWebFragment"
         android:label="InAppWebFragment" />
     <dialog
         android:id="@+id/menuBottomSheetDialogFragment"
-        android:name="com.keelim.nandadiagnosis.ui.main.MenuBottomSheetDialogFragment"
+        android:name="com.keelim.nandadiagnosis.ui.screen.main.MenuBottomSheetDialogFragment"
         android:label="MenuBottomSheetDialogFragment" />
     <fragment
         android:id="@+id/diagnosisFragment"
-        android:name="com.keelim.nandadiagnosis.ui.main.category.DiagnosisFragment"
+        android:name="com.keelim.nandadiagnosis.ui.screen.main.category.DiagnosisFragment"
         android:label="DiagnosisFragment">
         <argument
             android:name="navigation"
@@ -54,7 +54,7 @@
     </fragment>
     <fragment
         android:id="@+id/webFragment"
-        android:name="com.keelim.nandadiagnosis.ui.main.inappweb.WebFragment"
+        android:name="com.keelim.nandadiagnosis.ui.screen.main.inappweb.WebFragment"
         android:label="WebFragment">
         <argument
             android:name="url"
@@ -64,16 +64,16 @@
 
     <fragment
         android:id="@+id/favoriteFragment2"
-        android:name="com.keelim.nandadiagnosis.ui.main.favorite.FavoriteFragment2"
+        android:name="com.keelim.nandadiagnosis.ui.screen.main.favorite.FavoriteFragment2"
         android:label="FavoriteFragment2" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.keelim.nandadiagnosis.ui.auth.ProfileFragment"
+        android:name="com.keelim.nandadiagnosis.ui.screen.auth.ProfileFragment"
         android:label="ProfileFragment" />
 
     <fragment
         android:id="@+id/categoryFragment"
-        android:name="com.keelim.nandadiagnosis.ui.main.category.CategoryFragment"
+        android:name="com.keelim.nandadiagnosis.ui.screen.main.category.CategoryFragment"
         android:label="CategoryFragment" />
 
 </navigation>

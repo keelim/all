@@ -22,8 +22,8 @@ fun SchemeNavigation() {
                     action = Intent.ACTION_SEND
                     mimeType = "image/*"
                 }
-            )) {
-
+            )
+        ) {
         }
     }
 }

@@ -50,7 +50,7 @@ class MainViewModel @Inject constructor(
             runCatching {
                 _state.update { MainState.Initialized }
                 true
-            }.onSuccess {trigger ->
+            }.onSuccess { trigger ->
                 _state.update {
                     MainState.Success(
                         trigger,
@@ -96,7 +96,7 @@ class MainViewModel @Inject constructor(
     fun moveToUnInitialized() {
         _state.update { MainState.UnInitialized }
     }
- }
+}
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
@@ -226,7 +226,7 @@ class MainFragment : Fragment() {
 sealed class MainState {
     object UnInitialized : MainState()
     object Loading : MainState()
-    object Initialized: MainState()
+    object Initialized : MainState()
     data class Success(
         val flag: Boolean,
         val value: Int,

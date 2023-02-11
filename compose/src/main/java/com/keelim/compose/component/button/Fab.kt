@@ -19,7 +19,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
-
 @Composable
 fun FabScreen() {
     Row {
@@ -45,7 +44,7 @@ fun MediumFAB() {
 @Composable
 fun SmallFAB() {
     SmallFloatingActionButton(
-        onClick = {  },
+        onClick = { },
         containerColor = Color.Black,
         shape = RoundedCornerShape(12.dp),
     ) {
@@ -70,16 +69,14 @@ fun ExtendedFAB() {
                 tint = Color.White,
             )
         },
-        onClick = {  },
+        onClick = { },
         expanded = true,
         containerColor = Color.Green,
     )
-
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun FabScreenPreview() {
     FabScreen()
-
 }

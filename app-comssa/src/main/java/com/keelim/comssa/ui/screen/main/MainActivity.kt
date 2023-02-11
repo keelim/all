@@ -142,15 +142,16 @@ class MainActivity : AppCompatActivity() {
     private fun downloadDatabase(link: String) {
         val downloadManager =
             registerReceiver(
-                recevier, IntentFilter().apply {
+                recevier,
+                IntentFilter().apply {
                     addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
                     addAction(DownloadManager.ACTION_NOTIFICATION_CLICKED)
-                })
+                }
+            )
         (getSystemService(Context.DOWNLOAD_SERVICE) as? DownloadManager)?.enqueue(
             downloadRequest.provideDownloadRequest(link)
         )
     }
-
 
     private fun observeData() = lifecycleScope.launch {
         repeatOnLifecycle(Lifecycle.State.STARTED) {

@@ -143,5 +143,4 @@ fun ProfileCard() {
 @Composable
 private fun ProfileCardPreview() {
     ProfileCard()
-
 }

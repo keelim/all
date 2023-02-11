@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.keelim.cnubus.ui.content.Content3ViewModel" />
+            type="com.keelim.cnubus.ui.screen.content.Content3ViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

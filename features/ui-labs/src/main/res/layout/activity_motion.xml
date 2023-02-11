@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.keelim.labs.ui.motion.MotionActivity">
+    tools:context="com.keelim.labs.ui.screen.motion.MotionActivity">
 
     <TextView
         android:id="@+id/textView1"

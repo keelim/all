@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.map
+package com.keelim.map.screen.map1
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -47,9 +47,9 @@ import com.keelim.common.extensions.toast
 import com.keelim.data.model.gps.Location
 import com.keelim.map.databinding.ActivityMapsBinding
 import com.keelim.map.databinding.BottomSheetBinding
-import com.keelim.map3.LocationAdapter
-import com.keelim.map3.LocationPagerAdapter
-import com.keelim.map3.detail.DetailActivity
+import com.keelim.map.screen.map3.LocationAdapter
+import com.keelim.map.screen.map3.LocationPagerAdapter
+import com.keelim.map.screen.map3.detail.DetailActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 sealed class MapEvent {

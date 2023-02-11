@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.ui.setting
+package com.keelim.nandadiagnosis.ui.screen.setting
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

@@ -7,7 +7,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.text.bold
 import androidx.core.text.buildSpannedString
 import com.keelim.mygrade.R
-import com.keelim.mygrade.ui.center.CenterActivity
+import com.keelim.mygrade.ui.screen.center.CenterActivity
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 

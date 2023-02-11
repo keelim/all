@@ -37,7 +37,7 @@
 
 
     <application
-        android:name=".MyApplication"
+        android:name="com.keelim.cnubus.MyApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_descriptor"
@@ -63,7 +63,7 @@
             android:value="${APPLICATION_ID}" />
 
         <activity
-            android:name=".ui.splash.SplashActivity"
+            android:name="com.keelim.cnubus.ui.screen.splash.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
             <intent-filter>
@@ -73,20 +73,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.main.MainActivity"
+            android:name="com.keelim.cnubus.ui.screen.main.MainActivity"
             android:exported="false"
             android:label="@string/title_activity_main" />
         <activity
-            android:name=".ui.setting.LabActivity"
+            android:name="com.keelim.cnubus.ui.screen.setting.LabActivity"
             android:exported="false"
             android:label="@string/title_activity_lab1" />
         <activity
-            android:name=".ui.compose.Lab3Activity"
+            android:name="com.keelim.cnubus.ui.compose.Lab3Activity"
             android:exported="false"
             android:label="@string/title_activity_lab3" />
 
         <service
-            android:name=".services.TerminateService"
+            android:name="com.keelim.cnubus.services.TerminateService"
             android:exported="false" />
 
         <provider
@@ -110,7 +110,7 @@
         </provider>
 
         <receiver
-            android:name=".widget.StationWidgetProvider"
+            android:name="com.keelim.cnubus.ui.widget.StationWidgetProvider"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

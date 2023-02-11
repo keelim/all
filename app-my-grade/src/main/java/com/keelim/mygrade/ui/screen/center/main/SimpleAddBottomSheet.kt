@@ -1,4 +1,4 @@
-package com.keelim.mygrade.ui.center.simple
+package com.keelim.mygrade.ui.screen.center.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,8 +15,6 @@ import com.keelim.common.extensions.toast
 import com.keelim.data.model.Result
 import com.keelim.mygrade.R
 import com.keelim.mygrade.databinding.BottomsheetSimpleAddBinding
-import com.keelim.mygrade.ui.center.main.MainState
-import com.keelim.mygrade.ui.center.main.MainViewModel
 import com.keelim.mygrade.utils.Keys
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn

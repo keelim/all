@@ -1,4 +1,4 @@
-package com.keelim.mygrade.ui
+package com.keelim.mygrade.ui.screen
 
 import android.content.Intent
 import android.graphics.Bitmap

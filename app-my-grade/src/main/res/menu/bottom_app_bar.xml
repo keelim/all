@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/menu_flash_card"
+        android:contentDescription="menu_flash_card"
+        android:icon="@drawable/baseline_content_copy_24"
+        android:title="Flash Card"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/menu_notification"
         android:contentDescription="menu item notification"
         android:icon="@drawable/bell"

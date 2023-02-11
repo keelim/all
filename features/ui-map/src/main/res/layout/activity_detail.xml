@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp"
-        tools:context="com.keelim.map3.detail.DetailActivity">
+        tools:context=".screen.map3.detail.DetailActivity">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/title"

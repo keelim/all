@@ -7,7 +7,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.text.bold
 import androidx.core.text.buildSpannedString
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.ui.main.Main2Activity
+import com.keelim.nandadiagnosis.ui.screen.main.Main2Activity
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 

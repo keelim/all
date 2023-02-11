@@ -1,4 +1,4 @@
-package com.keelim.mygrade.ui.center.notification
+package com.keelim.mygrade.ui.screen.center.notification
 
 import android.os.Bundle
 import android.view.LayoutInflater

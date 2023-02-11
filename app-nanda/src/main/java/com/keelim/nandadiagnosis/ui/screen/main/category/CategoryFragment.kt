@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.ui.main.category
+package com.keelim.nandadiagnosis.ui.screen.main.category
 /*
  * Designed and developed by 2020 keelim (Jaehyun Kim)
  *
@@ -46,7 +46,7 @@ import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import com.keelim.data.db.entity.Recent
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.FragmentCategoryBinding
-import com.keelim.nandadiagnosis.ui.main.MainViewModel
+import com.keelim.nandadiagnosis.ui.screen.main.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONArray
 import org.json.JSONObject

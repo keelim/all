@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.ui.auth
+package com.keelim.nandadiagnosis.ui.screen.auth
 
 import android.app.Activity
 import android.os.Bundle
@@ -35,7 +35,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.keelim.common.extensions.toast
 import com.keelim.nandadiagnosis.databinding.FragmentProfileBinding
-import com.keelim.nandadiagnosis.ui.main.favorite.FavoriteAdapter
+import com.keelim.nandadiagnosis.ui.screen.main.favorite.FavoriteAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 

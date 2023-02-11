@@ -35,7 +35,7 @@
             android:value="${MYGRADE_APPLICATION_ID}" />
 
         <activity
-            android:name=".ui.center.CenterActivity"
+            android:name=".ui.screen.center.CenterActivity"
             android:windowSoftInputMode="adjustResize"
             android:exported="true">
             <intent-filter>
@@ -49,7 +49,7 @@
         </activity>
 
         <activity
-            android:name="com.keelim.mygrade.ui.setting.SettingActivity"
+            android:name="com.keelim.mygrade.ui.screen.setting.SettingActivity"
             android:exported="false" />
 
         <provider

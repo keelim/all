@@ -10,7 +10,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.keelim.map.MapsActivity">
+        tools:context="com.keelim.map.screen.map1.MapsActivity">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/top_container"

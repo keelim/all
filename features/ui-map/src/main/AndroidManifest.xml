@@ -3,14 +3,13 @@
 
     <application>
         <activity
-            android:name="com.keelim.map3.detail.DetailActivity"
+            android:name=".screen.map1.MapsActivity"
+            android:exported="true"
+            android:label="maps" />
+        <activity
+            android:name=".screen.map3.detail.DetailActivity"
             android:exported="false"
             android:label="detail"
             android:launchMode="singleTop" />
-        <activity
-            android:name="com.keelim.map.MapsActivity"
-            android:exported="true"
-            android:label="maps" />
-
     </application>
 </manifest>

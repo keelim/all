@@ -13,18 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.map
+package com.keelim.map.screen.map3.detail
 
 import androidx.lifecycle.ViewModel
-import com.keelim.data.model.gps.Location
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.stateIn
 
 @HiltViewModel
-class MapsViewModel @Inject constructor() : ViewModel() {
-    private val _state: MutableStateFlow<MapEvent> = MutableStateFlow(MapEvent.UnInitialized)
-    val state: StateFlow<MapEvent> get() = _state
-    private val data: MutableStateFlow<List<Location>> = MutableStateFlow(emptyList())
+class DetailViewModel @Inject constructor() : ViewModel() {
+    val state: StateFlow<DetailState> = flow<DetailState> {
+        emit(DetailState.Loading)
+        delay(3000)
+        emit(
+            DetailState.Success(
+                emptyList()
+            )
+        )
+    }.catch {
+        DetailState.Error(
+            message = "Error 가 발생하였습니다. "
+        )
+    }.stateIn(viewModelScope, SharingStarted.Lazily, DetailState.UnInitialized)
 }

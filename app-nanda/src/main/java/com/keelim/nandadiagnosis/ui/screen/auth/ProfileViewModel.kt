@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.ui.auth
+package com.keelim.nandadiagnosis.ui.screen.auth
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

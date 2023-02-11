@@ -1,4 +1,4 @@
-package com.keelim.mygrade.ui.center.history
+package com.keelim.mygrade.ui.screen.center.history
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -22,7 +22,7 @@ import android.content.Context
 import android.content.Intent
 import android.widget.RemoteViews
 import com.keelim.cnubus.R
-import com.keelim.map.MapsActivity
+import com.keelim.map.screen.map1.MapsActivity
 
 /**
  * BroadCastReceiver

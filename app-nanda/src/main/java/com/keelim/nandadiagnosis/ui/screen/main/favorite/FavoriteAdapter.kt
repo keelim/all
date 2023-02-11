@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.ui.main.favorite
+package com.keelim.nandadiagnosis.ui.screen.main.favorite
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

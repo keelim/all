@@ -8,5 +8,5 @@ sealed class SettingRoute(val route: String) {
 }
 
 sealed class SchemeRoute(val route: String) {
-    object Share: SchemeRoute("share")
+    object Share : SchemeRoute("share")
 }

@@ -101,6 +101,5 @@ private fun Context.startNonBrowserActivity(url: String, fallback: () -> Unit) {
 
 fun Context.getCompatColor(@ColorRes colorId: Int) = ResourcesCompat.getColor(resources, colorId, null)
 
-fun Context.getCompatDrawable(@DrawableRes drawableId: Int): Drawable?
-= AppCompatResources.getDrawable(this, drawableId)
-
+fun Context.getCompatDrawable(@DrawableRes drawableId: Int): Drawable? =
+    AppCompatResources.getDrawable(this, drawableId)

@@ -11,7 +11,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: set up JDK 11
-        uses: actions/setup-java@v3.9.0
+        uses: actions/setup-java@v3.10.0
         with:
           distribution: 'zulu' # See 'Supported distributions' for available options
           java-version: '11'
@@ -57,7 +57,7 @@ jobs:
 
       - name: Deploy to Play Store (BETA)
         id: deploy
-        uses: r0adkll/upload-google-play@v1.0.19
+        uses: r0adkll/upload-google-play@v1.1.1
         with:
           serviceAccountJson: service_account.json
           packageName: com.keelim.mygrade

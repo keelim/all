@@ -1,4 +1,4 @@
-package com.keelim.mygrade.ui.center
+package com.keelim.mygrade.ui.screen.center
 
 import android.Manifest
 import android.app.Activity

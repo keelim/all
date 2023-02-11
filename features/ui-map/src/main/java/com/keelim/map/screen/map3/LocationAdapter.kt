@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.map3
+package com.keelim.map.screen.map3
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -21,35 +21,34 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import coil.transform.CircleCropTransformation
 import com.keelim.data.model.gps.Location
-import com.keelim.map.databinding.ItemHouseDetailForViewpagerBinding
+import com.keelim.map.databinding.ItemHouseBinding
 
-class LocationPagerAdapter(
-    val clicked: (Location) -> Unit,
-    val longClicked: (Location) -> Unit
-) : ListAdapter<Location, LocationPagerAdapter.ItemViewHolder>(diffUtil) {
+class LocationAdapter : ListAdapter<Location, LocationAdapter.ItemViewHolder>(diffUtil) {
 
-    inner class ItemViewHolder(val binding: ItemHouseDetailForViewpagerBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ItemViewHolder(private val binding: ItemHouseBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Location) = with(binding) {
             titleTextView.text = item.name
             priceTextView.text = item.name
 
-            root.setOnLongClickListener {
-                longClicked(item)
-                return@setOnLongClickListener true
-            }
-            root.setOnClickListener {
-                clicked(item)
-            }
-            thumbnailIamgeView.load(item.imgUrl) {
+            thumbnailImageView.load(item.imgUrl) {
                 crossfade(true)
+                transformations(CircleCropTransformation())
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        return ItemViewHolder(ItemHouseDetailForViewpagerBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return ItemViewHolder(
+            ItemHouseBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {

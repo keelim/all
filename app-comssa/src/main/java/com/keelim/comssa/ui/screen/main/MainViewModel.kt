@@ -39,7 +39,6 @@ class MainViewModel @Inject constructor() : ViewModel() {
 
     val mainUiState: StateFlow<MainUiState> = _mainUiState.asStateFlow()
 
-
     fun getDownloadLink(password: String) = viewModelScope.launch {
         runCatching {}.onSuccess {}
     }

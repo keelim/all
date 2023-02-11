@@ -20,15 +20,27 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+
+data class MainUiState(
+    val downloadUrl: String,
+) {
+    companion object {
+        val UnInitialize = MainUiState("")
+    }
+}
 
 @HiltViewModel
 class MainViewModel @Inject constructor() : ViewModel() {
-    val downloadLink: MutableStateFlow<String> = MutableStateFlow("")
+    private val _mainUiState: MutableStateFlow<MainUiState> =
+        MutableStateFlow(MainUiState.UnInitialize)
+
+    val mainUiState: StateFlow<MainUiState> = _mainUiState.asStateFlow()
+
 
     fun getDownloadLink(password: String) = viewModelScope.launch {
-        runCatching {
-        }.onSuccess {
-        }
+        runCatching {}.onSuccess {}
     }
 }

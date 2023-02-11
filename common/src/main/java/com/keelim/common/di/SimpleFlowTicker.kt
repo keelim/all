@@ -11,9 +11,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.isActive
 
-class SimpleFlowTicker @Inject constructor(
-
-) : DefaultLifecycleObserver {
+class SimpleFlowTicker @Inject constructor() : DefaultLifecycleObserver {
 
     private var lastValue = 0L
     private var delayTime = 1_000L

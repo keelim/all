@@ -16,7 +16,6 @@
 package com.keelim.cnubus.ui.screen.main
 
 import android.Manifest.permission
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback

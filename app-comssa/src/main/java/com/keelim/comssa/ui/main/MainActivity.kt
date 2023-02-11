@@ -36,6 +36,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.keelim.comssa.R
 import com.keelim.comssa.databinding.ActivityMainBinding
 import com.keelim.comssa.databinding.ItemPasswordBinding
+import com.keelim.comssa.ui.main.flash.FlashCardFragment
 import com.keelim.comssa.ui.main.search.SearchFragment
 import com.keelim.comssa.ui.mypage.MyPageFragment2
 import com.keelim.comssa.utils.toast
@@ -50,7 +51,7 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val viewModel: MainViewModel by viewModels()
-    private val viewPagerAdapter by lazy { MainViewPagerAdapter(this) }
+    private val mainViewPagerAdapter by lazy { MainViewPagerAdapter(this) }
 
     @Inject lateinit var recevier: DownloadReceiver
 
@@ -79,48 +80,38 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        permissionLauncher.launch(appPermissions.toTypedArray())
-        initViews()
         fileChecking()
-        observeDownloadLink()
+        initViews()
+        observeData()
+        permissionLauncher.launch(appPermissions.toTypedArray())
     }
 
-    private fun initViews() {
-        val fragmentList =
-            listOf(
-                SearchFragment(),
-                SearchFragment(),
-                SearchFragment(),
-                SearchFragment(),
-                MyPageFragment2()
-            )
-        with(binding.viewpagerMain) {
-            adapter = viewPagerAdapter.also { it.fragmentList.addAll(fragmentList) }
-
-            registerOnPageChangeCallback(
-                object : ViewPager2.OnPageChangeCallback() {
-                    override fun onPageSelected(position: Int) {
-                        binding.bottomNavigationMain.menu.getItem(position).isChecked = true
-                    }
+    private fun initViews() = with(binding) {
+        with(viewpagerMain) {
+            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    binding.bottomNavigationMain.menu.getItem(position).isChecked = true
                 }
-            )
+            })
+            adapter = mainViewPagerAdapter
         }
 
-        binding.bottomNavigationMain.setOnItemSelectedListener {
-            binding.viewpagerMain.currentItem =
-                when (it.itemId) {
+        with(bottomNavigationMain) {
+            setOnItemSelectedListener {
+                viewpagerMain.currentItem = when (it.itemId) {
                     R.id.menu_feed -> FEED_FRAGMENT
                     R.id.menu_recommend -> RECOMMEND_FRAGMENT
                     R.id.menu_write -> WRITE_FRAGMENT
                     R.id.menu_alarm -> ALARM_FRAGMENT
                     else -> PROFILE_FRAGMENT
                 }
-            return@setOnItemSelectedListener true
+                return@setOnItemSelectedListener true
+            }
         }
-        with(binding.imageviewMainWrite) {
-            setOnClickListener { binding.viewpagerMain.currentItem = WRITE_FRAGMENT }
+        with(imageviewMainWrite) {
+            setOnClickListener { viewpagerMain.currentItem = WRITE_FRAGMENT }
         }
-        with(binding.bottomNavigationMain) { itemIconTintList = null }
+        with(bottomNavigationMain) { itemIconTintList = null }
     }
 
     private fun fileChecking() {
@@ -151,27 +142,25 @@ class MainActivity : AppCompatActivity() {
     private fun downloadDatabase(link: String) {
         val downloadManager =
             registerReceiver(
-                recevier,
-                IntentFilter().apply {
+                recevier, IntentFilter().apply {
                     addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
                     addAction(DownloadManager.ACTION_NOTIFICATION_CLICKED)
-                }
-            )
+                })
         (getSystemService(Context.DOWNLOAD_SERVICE) as? DownloadManager)?.enqueue(
             downloadRequest.provideDownloadRequest(link)
         )
     }
 
-    private fun observeDownloadLink() =
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                launch {
-                    viewModel.downloadLink.collect {
-                        it.takeIf { URLUtil.isValidUrl(it) }?.let { url -> downloadDatabase(url) }
-                    }
+
+    private fun observeData() = lifecycleScope.launch {
+        repeatOnLifecycle(Lifecycle.State.STARTED) {
+            viewModel.mainUiState.collect { uiState ->
+                if (URLUtil.isValidUrl(uiState.downloadUrl)) {
+                    downloadDatabase(uiState.downloadUrl)
                 }
             }
         }
+    }
 
     companion object {
         const val FEED_FRAGMENT = 0
@@ -180,9 +169,17 @@ class MainActivity : AppCompatActivity() {
         const val ALARM_FRAGMENT = 3
         const val PROFILE_FRAGMENT = 4
     }
+
     inner class MainViewPagerAdapter(fragmentActivity: FragmentActivity) :
         FragmentStateAdapter(fragmentActivity) {
-        val fragmentList: MutableList<Fragment> = mutableListOf()
+        private val fragmentList: List<Fragment> = listOf(
+            SearchFragment(),
+            SearchFragment(),
+            FlashCardFragment(),
+            SearchFragment(),
+            MyPageFragment2()
+        )
+
         override fun getItemCount(): Int = fragmentList.size
         override fun createFragment(position: Int) = fragmentList[position]
     }

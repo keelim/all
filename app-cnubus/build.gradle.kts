@@ -70,7 +70,7 @@ dependencies {
     implementation("com.google.firebase:firebase-inappmessaging-display-ktx")
     implementation("com.firebaseui:firebase-ui-auth:8.0.2")
 
-    implementation("com.airbnb.android:lottie:5.2.0")
+    implementation("com.airbnb.android:lottie:6.0.0")
 
     implementation(libs.androidx.work.ktx)
     implementation(libs.hilt.ext.work)

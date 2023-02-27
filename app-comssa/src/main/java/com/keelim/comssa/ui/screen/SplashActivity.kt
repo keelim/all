@@ -28,7 +28,7 @@ import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.keelim.comssa.BuildConfig
 import com.keelim.comssa.databinding.ActivitySplashBinding
-import com.keelim.comssa.ui.main.MainActivity
+import com.keelim.comssa.ui.screen.main.MainActivity
 import com.keelim.comssa.utils.or
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.MainScope

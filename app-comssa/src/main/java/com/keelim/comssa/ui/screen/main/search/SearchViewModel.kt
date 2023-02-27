@@ -18,7 +18,7 @@ package com.keelim.comssa.ui.screen.main.search
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
-import com.keelim.comssa.ui.favorite.Search
+import com.keelim.comssa.ui.screen.favorite.Search
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow

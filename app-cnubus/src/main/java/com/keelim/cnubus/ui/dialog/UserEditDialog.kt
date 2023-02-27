@@ -23,7 +23,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.keelim.cnubus.databinding.DialogUserEditBinding
-import com.keelim.cnubus.ui.setting.mypage.MyPageViewModel
+import com.keelim.cnubus.ui.screen.setting.mypage.MyPageViewModel
 
 class UserEditDialog : BottomSheetDialogFragment() {
     private var _binding: DialogUserEditBinding? = null

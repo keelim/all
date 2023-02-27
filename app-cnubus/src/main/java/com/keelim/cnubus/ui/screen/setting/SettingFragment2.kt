@@ -31,8 +31,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.keelim.cnubus.R
 import com.keelim.cnubus.ui.screen.main.MainViewModel
-import com.keelim.cnubus.ui.setting.compose.ScreenAction
-import com.keelim.cnubus.ui.setting.compose.SettingScreen
+import com.keelim.cnubus.ui.screen.setting.compose.ScreenAction
+import com.keelim.cnubus.ui.screen.setting.compose.SettingScreen
 import com.keelim.compose.setThemeContent
 import com.keelim.map.screen.map1.MapsActivity
 import dagger.hilt.android.AndroidEntryPoint

@@ -33,7 +33,8 @@ fun TabScreen() {
             selectedTabIndex = tabIndex
         ) {
             tabs.forEachIndexed { index, title ->
-                Tab(text = { Text(title) },
+                Tab(
+                    text = { Text(title) },
                     selected = tabIndex == index,
                     onClick = { tabIndex = index },
                     icon = {
@@ -62,7 +63,8 @@ fun TabScreen() {
                                 imageVector = Icons.Default.Star, contentDescription = null
                             )
                         }
-                    })
+                    }
+                )
             }
         }
         // when (tabIndex) {

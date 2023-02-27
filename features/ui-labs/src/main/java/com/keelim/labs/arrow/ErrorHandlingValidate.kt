@@ -5,8 +5,8 @@ import arrow.core.computations.either
 import arrow.core.handleErrorWith
 import arrow.core.invalidNel
 import arrow.core.validNel
-import arrow.typeclasses.Semigroup
 import arrow.core.zip
+import arrow.typeclasses.Semigroup
 
 sealed class ValidationError(val msg: String) {
     data class DoesNotContain(val value: String) : ValidationError("Did not contain $value")

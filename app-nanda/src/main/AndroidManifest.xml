@@ -81,11 +81,6 @@
         </activity>
         <activity android:name="com.keelim.nandadiagnosis.ui.screen.setting.SettingActivity" />
 
-        <service
-            android:name=".service.TerminateService"
-            android:exported="false"
-            android:stopWithTask="false" />
-
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"

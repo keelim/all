@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.keelim.cnubus.ui.setting.mypage.MyPageViewModel" />
+            type="com.keelim.cnubus.ui.screen.setting.mypage.MyPageViewModel" />
     </data>
 
     <LinearLayout

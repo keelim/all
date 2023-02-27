@@ -15,7 +15,7 @@
  */
 package com.keelim.comssa.ui.screen.main
 
-import com.keelim.comssa.ui.favorite.Search
+import com.keelim.comssa.ui.screen.favorite.Search
 
 sealed class MainListState {
     object UnInitialized : MainListState()

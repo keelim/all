@@ -18,4 +18,3 @@ suspend fun prepareLunch(): Salad? =
         val salad = prepare(knife, lettuce).bind()
         salad
     }
-

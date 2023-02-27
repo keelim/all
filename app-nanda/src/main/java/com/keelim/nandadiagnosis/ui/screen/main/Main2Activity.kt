@@ -18,7 +18,6 @@ package com.keelim.nandadiagnosis.ui.screen.main
 import android.Manifest
 import android.app.DownloadManager
 import android.content.Context
-import android.content.Intent
 import android.content.IntentFilter
 import android.net.Uri
 import android.os.Build
@@ -33,7 +32,6 @@ import com.keelim.common.extensions.toast
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.ActivityMain2Binding
 import com.keelim.nandadiagnosis.di.DownloadReceiver
-import com.keelim.nandadiagnosis.service.TerminateService
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import javax.inject.Inject
@@ -70,14 +68,12 @@ class Main2Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         permissionLauncher.launch(appPermissions.toTypedArray())
-        startService(Intent(this, TerminateService::class.java))
         initViews()
         fileChecking()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        stopService(Intent(this, TerminateService::class.java))
         unregisterReceiver(receiver)
     }
 

@@ -85,10 +85,6 @@
             android:exported="false"
             android:label="@string/title_activity_lab3" />
 
-        <service
-            android:name="com.keelim.cnubus.services.TerminateService"
-            android:exported="false" />
-
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"

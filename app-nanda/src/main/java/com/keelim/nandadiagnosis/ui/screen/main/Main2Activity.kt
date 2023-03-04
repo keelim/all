@@ -26,7 +26,10 @@ import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.keelim.common.extensions.toast
 import com.keelim.nandadiagnosis.R
@@ -133,12 +136,14 @@ class Main2Activity : AppCompatActivity() {
 
     private fun downloadDatabase2() {
         val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-        registerReceiver(
+        ContextCompat.registerReceiver(
+            this,
             receiver,
             IntentFilter().apply {
                 addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
                 addAction(DownloadManager.ACTION_NOTIFICATION_CLICKED)
-            }
+            },
+            RECEIVER_NOT_EXPORTED
         )
 
         val request = DownloadManager.Request(Uri.parse(applicationContext.getString(R.string.db_path)))

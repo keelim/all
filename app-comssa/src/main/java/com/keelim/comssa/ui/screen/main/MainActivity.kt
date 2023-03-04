@@ -26,6 +26,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Lifecycle
@@ -141,12 +142,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun downloadDatabase(link: String) {
         val downloadManager =
-            registerReceiver(
+            ContextCompat.registerReceiver(
+                this,
                 recevier,
                 IntentFilter().apply {
                     addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
                     addAction(DownloadManager.ACTION_NOTIFICATION_CLICKED)
-                }
+                },
+                RECEIVER_NOT_EXPORTED
             )
         (getSystemService(Context.DOWNLOAD_SERVICE) as? DownloadManager)?.enqueue(
             downloadRequest.provideDownloadRequest(link)

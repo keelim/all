@@ -157,7 +157,9 @@ class Main2Activity : AppCompatActivity() {
         downloadManager.enqueue(request)
     }
 
-    private fun navController() = findNavController(R.id.nav_host_fragment)
+    private fun navController(): NavController {
+        return binding.navHostFragment.getFragment<NavHostFragment>().navController
+    }
 
     private fun showMoreOptions() = navController().navigate(R.id.moreBottomSheetDialog)
 

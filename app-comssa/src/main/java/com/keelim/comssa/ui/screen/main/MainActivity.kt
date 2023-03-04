@@ -17,7 +17,6 @@ package com.keelim.comssa.ui.screen.main
 
 import android.Manifest
 import android.app.DownloadManager
-import android.content.Context
 import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
@@ -141,17 +140,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun downloadDatabase(link: String) {
-        val downloadManager =
-            ContextCompat.registerReceiver(
-                this,
-                recevier,
-                IntentFilter().apply {
-                    addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
-                    addAction(DownloadManager.ACTION_NOTIFICATION_CLICKED)
-                },
-                RECEIVER_NOT_EXPORTED
-            )
-        (getSystemService(Context.DOWNLOAD_SERVICE) as? DownloadManager)?.enqueue(
+        if(URLUtil.isValidUrl(link).not()) {
+            toast("유효하지 않는 URL 입니다. 앱을 다시 시작해주세요")
+            return
+        }
+
+        ContextCompat.registerReceiver(
+            this,
+            recevier,
+            IntentFilter().apply {
+                addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
+                addAction(DownloadManager.ACTION_NOTIFICATION_CLICKED)
+            },
+            RECEIVER_NOT_EXPORTED
+        )
+        getSystemService(DownloadManager::class.java).enqueue(
             downloadRequest.provideDownloadRequest(link)
         )
     }
@@ -159,19 +162,9 @@ class MainActivity : AppCompatActivity() {
     private fun observeData() = lifecycleScope.launch {
         repeatOnLifecycle(Lifecycle.State.STARTED) {
             viewModel.mainUiState.collect { uiState ->
-                if (URLUtil.isValidUrl(uiState.downloadUrl)) {
-                    downloadDatabase(uiState.downloadUrl)
-                }
+                downloadDatabase(uiState.downloadUrl)
             }
         }
-    }
-
-    companion object {
-        const val FEED_FRAGMENT = 0
-        const val RECOMMEND_FRAGMENT = 1
-        const val WRITE_FRAGMENT = 2
-        const val ALARM_FRAGMENT = 3
-        const val PROFILE_FRAGMENT = 4
     }
 
     inner class MainViewPagerAdapter(fragmentActivity: FragmentActivity) :
@@ -186,5 +179,13 @@ class MainActivity : AppCompatActivity() {
 
         override fun getItemCount(): Int = fragmentList.size
         override fun createFragment(position: Int) = fragmentList[position]
+    }
+
+    companion object {
+        const val FEED_FRAGMENT = 0
+        const val RECOMMEND_FRAGMENT = 1
+        const val WRITE_FRAGMENT = 2
+        const val ALARM_FRAGMENT = 3
+        const val PROFILE_FRAGMENT = 4
     }
 }

@@ -136,14 +136,12 @@ class Main2Activity : AppCompatActivity() {
 
     private fun downloadDatabase2() {
         val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-        ContextCompat.registerReceiver(
-            this,
+        registerReceiver(
             receiver,
             IntentFilter().apply {
                 addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
                 addAction(DownloadManager.ACTION_NOTIFICATION_CLICKED)
             },
-            RECEIVER_NOT_EXPORTED
         )
 
         val request = DownloadManager.Request(Uri.parse(applicationContext.getString(R.string.db_path)))

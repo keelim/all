@@ -145,14 +145,12 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        ContextCompat.registerReceiver(
-            this,
+        registerReceiver(
             recevier,
             IntentFilter().apply {
                 addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
                 addAction(DownloadManager.ACTION_NOTIFICATION_CLICKED)
             },
-            RECEIVER_NOT_EXPORTED
         )
         getSystemService(DownloadManager::class.java).enqueue(
             downloadRequest.provideDownloadRequest(link)

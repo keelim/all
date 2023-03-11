@@ -12,6 +12,10 @@ dependencies {
     implementation(libs.play.services.ad)
     implementation("androidx.compose.ui:ui:1.3.2")
     implementation(libs.androidx.lifecycle.process)
+
+    debugImplementation(libs.flipper)
+    debugImplementation(libs.soloader)
+    releaseImplementation(libs.flipper.noop)
 }
 android {
     namespace = "com.keelim.commonAndroid"

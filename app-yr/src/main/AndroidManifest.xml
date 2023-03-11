@@ -6,6 +6,9 @@
         android:enableOnBackInvokedCallback="true"
         >
 
+        <activity android:name="com.facebook.flipper.android.diagnostics.FlipperDiagnosticActivity"
+            android:exported="true"/>
+
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"

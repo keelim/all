@@ -5,6 +5,8 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.getByType
 import com.keelim.builds.configureAndroidCompose
 import com.keelim.builds.configureKotlinAndroid
+import org.gradle.api.artifacts.VersionCatalogsExtension
+import org.gradle.kotlin.dsl.dependencies
 
 class KeelimAndroidApplicationPlugin : Plugin<Project> {
     override fun apply(project: Project) {
@@ -24,6 +26,13 @@ class KeelimAndroidApplicationPlugin : Plugin<Project> {
                 buildTypes.getByName("release").apply {
                     isMinifyEnabled = true
                 }
+
+            }
+            val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
+            dependencies {
+                add("debugImplementation", libs.findLibrary("flipper").get())
+                add("debugImplementation", libs.findLibrary("soloader").get())
+                add("releaseImplementation", libs.findLibrary("flipper-noop").get())
             }
         }
     }

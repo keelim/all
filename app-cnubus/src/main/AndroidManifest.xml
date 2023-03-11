@@ -108,7 +108,7 @@
                 android:name="com.keelim.commonAndroid.initialize.CoilInitializer"
                 android:value="androidx.startup" />
             <meta-data
-                android:name="com.keelim.commonAndroid.initialize.FlipperInitializer"
+                android:name="androidx.work.WorkManagerInitializer"
                 android:value="androidx.startup" />
         </provider>
 

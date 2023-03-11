@@ -25,7 +25,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Lifecycle
@@ -140,7 +139,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun downloadDatabase(link: String) {
-        if(URLUtil.isValidUrl(link).not()) {
+        if (URLUtil.isValidUrl(link).not()) {
             toast("유효하지 않는 URL 입니다. 앱을 다시 시작해주세요")
             return
         }

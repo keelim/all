@@ -53,6 +53,10 @@
             android:exported="false" />
         <activity android:name="com.keelim.comssa.ui.screen.setting.SettingActivity" />
 
+        <activity
+            android:name="com.facebook.flipper.android.diagnostics.FlipperDiagnosticActivity"
+            android:exported="true" />
+
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="${COMSSA_APPLICATION_ID}" />

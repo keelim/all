@@ -15,6 +15,8 @@ dependencies {
 
     debugImplementation(libs.flipper)
     debugImplementation(libs.soloader)
+    debugImplementation(libs.flipper.leakcanary)
+    debugImplementation(libs.leakcanary)
     releaseImplementation(libs.flipper.noop)
 }
 android {

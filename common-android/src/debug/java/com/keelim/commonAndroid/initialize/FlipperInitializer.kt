@@ -35,7 +35,6 @@ class FlipperInitializer : Initializer<Unit> {
     override fun create(context: Context) {
         SoLoader.init(context, false)
 
-
         if (BuildConfig.DEBUG && FlipperUtils.shouldEnableFlipper(context)) {
             LeakCanary.config = LeakCanary.config.run {
                 copy(eventListeners = eventListeners + FlipperLeakEventListener())

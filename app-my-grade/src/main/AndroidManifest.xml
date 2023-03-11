@@ -83,9 +83,7 @@
             <meta-data
                 android:name="com.keelim.commonAndroid.initialize.MobileAdsInitializer"
                 android:value="androidx.startup" />
-            <meta-data
-                android:name="com.keelim.commonAndroid.initialize.FlipperInitializer"
-                android:value="androidx.startup" />
+
         </provider>
     </application>
 </manifest>

@@ -19,20 +19,36 @@ import android.content.Context
 import androidx.startup.Initializer
 import com.facebook.flipper.android.AndroidFlipperClient
 import com.facebook.flipper.android.utils.FlipperUtils
+import com.facebook.flipper.plugins.crashreporter.CrashReporterPlugin
+import com.facebook.flipper.plugins.databases.DatabasesFlipperPlugin
 import com.facebook.flipper.plugins.inspector.DescriptorMapping
 import com.facebook.flipper.plugins.inspector.InspectorFlipperPlugin
+import com.facebook.flipper.plugins.leakcanary2.FlipperLeakEventListener
+import com.facebook.flipper.plugins.leakcanary2.LeakCanary2FlipperPlugin
+import com.facebook.flipper.plugins.navigation.NavigationFlipperPlugin
 import com.facebook.soloader.SoLoader
 import com.keelim.commonAndroid.BuildConfig
+import leakcanary.LeakCanary
 
 class FlipperInitializer : Initializer<Unit> {
 
     override fun create(context: Context) {
         SoLoader.init(context, false)
 
+
         if (BuildConfig.DEBUG && FlipperUtils.shouldEnableFlipper(context)) {
-            val client = AndroidFlipperClient.getInstance(context)
-            client.addPlugin(InspectorFlipperPlugin(context, DescriptorMapping.withDefaults()))
-            client.start()
+            LeakCanary.config = LeakCanary.config.run {
+                copy(eventListeners = eventListeners + FlipperLeakEventListener())
+            }
+            AndroidFlipperClient.getInstance(context).apply {
+                addPlugin(InspectorFlipperPlugin(context, DescriptorMapping.withDefaults()))
+                addPlugin(CrashReporterPlugin.getInstance())
+                addPlugin(DatabasesFlipperPlugin(context))
+                addPlugin(LeakCanary2FlipperPlugin())
+                addPlugin(NavigationFlipperPlugin.getInstance())
+            }.run {
+                start()
+            }
         }
     }
 

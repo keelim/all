@@ -11,7 +11,7 @@
     ],
     "packageRules": [
         {
-            "matchAdoptionLevel": ">=80%",
+            "matchAdoptionLevel": ">=80%"
         },
         {
             "matchPackageNames": [

@@ -12,9 +12,6 @@
     "packageRules": [
         {
             "matchAdoptionLevel": ">=80%",
-            "commitMessagePrefix": "[AUTO]",
-            "commitMessageTopic": "{{depName}}",
-            "commitMessage": "Update to {{#if isFromDependencyFile}}{{oldVersion}}{{else}}{{newVersion}}{{/if}}"
         },
         {
             "matchPackageNames": [

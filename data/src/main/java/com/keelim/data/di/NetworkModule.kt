@@ -16,7 +16,7 @@
 package com.keelim.data.di
 
 import com.keelim.data.model.targetService.ServiceRetrofit
-import com.keelim.data.network.CacheInterceptor
+import com.keelim.data.network.interceptor.CacheInterceptor
 import com.keelim.data.network.TargetService
 import dagger.Module
 import dagger.Provides

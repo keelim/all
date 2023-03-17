@@ -49,12 +49,23 @@ import java.io.File
 import java.io.FileOutputStream
 import kotlin.math.roundToInt
 
+
+
+infix fun View.visibleIf(condition: Boolean) =
+    run { visibility = if (condition) VISIBLE else GONE }
+
+infix fun View.goneIf(condition: Boolean) =
+    run { visibility = if (condition) GONE else VISIBLE }
+
+infix fun View.invisibleIf(condition: Boolean) =
+    run { visibility = if (condition) View.INVISIBLE else VISIBLE }
+
 fun View.toVisible() {
-    visibility = View.VISIBLE
+    visibility = VISIBLE
 }
 
 fun View.toGone() {
-    visibility = View.GONE
+    visibility = GONE
 }
 
 fun View.toInvisible() {

@@ -49,8 +49,6 @@ import java.io.File
 import java.io.FileOutputStream
 import kotlin.math.roundToInt
 
-
-
 infix fun View.visibleIf(condition: Boolean) =
     run { visibility = if (condition) VISIBLE else GONE }
 

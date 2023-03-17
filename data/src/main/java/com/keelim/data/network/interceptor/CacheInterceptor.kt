@@ -21,7 +21,6 @@ import okhttp3.Response
 
 class CacheInterceptor @Inject constructor() : Interceptor {
 
-
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
         val useCache = request.header(HEADER_USE_CACHE_PREFIX) != null

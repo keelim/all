@@ -19,10 +19,12 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun DotIndicator(modifier: Modifier = Modifier, size: Dp, color: Color) {
-    Box(modifier = modifier
-        .size(size)
-        .clip(CircleShape)
-        .background(color))
+    Box(
+        modifier = modifier
+            .size(size)
+            .clip(CircleShape)
+            .background(color)
+    )
 }
 
 @Preview(showBackground = true)
@@ -40,12 +42,15 @@ fun DotsIndicator(
     selectedColor: Color = Color.Black,
     unselectedColor: Color = Color.White,
 ) {
-    LazyRow(modifier = Modifier
-        .wrapContentWidth()
-        .wrapContentHeight()) {
+    LazyRow(
+        modifier = Modifier
+            .wrapContentWidth()
+            .wrapContentHeight()
+    ) {
         items(dotCount) { index ->
             DotIndicator(
-                size = dotSize, color =
+                size = dotSize,
+                color =
                 if (index == selectedIndex) {
                     selectedColor
                 } else {

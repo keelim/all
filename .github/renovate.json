@@ -11,7 +11,8 @@
     ],
     "packageRules": [
         {
-            "matchAdoptionLevel": ">=80%"
+            "matchUpdateTypes": ["major"],
+            "labels": ["UPDATE-MAJOR"]
         },
         {
             "matchPackageNames": [

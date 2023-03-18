@@ -1,7 +1,5 @@
 package com.keelim.mygrade.ui.screen
 
-import android.adservices.AdServicesVersion
-import android.app.sdksandbox.SdkSandboxManager
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle

@@ -11,14 +11,8 @@
     ],
     "packageRules": [
         {
-            "matchUpdateTypes": ["major"],
-            "labels": ["UPDATE-MAJOR"]
-        },
-        {
-            "matchPackageNames": [
-                "com.google.protobuf"
-            ],
-            "allowedVersions": "<=0.8.19"
+            "matchUpdateTypes": ["minor", "patch"],
+            "labels": ["UPDATE-minor-patch"]
         }
     ]
 }

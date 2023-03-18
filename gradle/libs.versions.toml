@@ -70,7 +70,7 @@ errorprone = "2.15.0"
 #view system
 material = "1.6.1"
 #arrow
-arrow = "1.1.2"
+arrow = "1.1.5"
 #flipper
 flipper = "0.183.0"
 soloader = "0.10.5"

@@ -1,4 +1,4 @@
-package com.keelim.common.extensions
+package com.keelim.common.extensions.compose
 
 import android.app.Activity
 import android.view.ViewGroup

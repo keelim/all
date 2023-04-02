@@ -4,8 +4,8 @@ androidDesugarJdkLibs = "1.2.2"
 androidGradlePlugin = "7.3.1"
 androidxActivity = "1.6.1"
 androidxAppCompat = "1.5.1"
-androidxComposeBom = "2022.11.00"
-androidxComposeCompiler = "1.3.2"
+androidxComposeBom = "2023.03.00"
+androidxComposeCompiler = "1.4.3"
 androidxComposeRuntimeTracing = "1.0.0-alpha01"
 androidxCore = "1.9.0"
 androidxCoreSplashscreen = "1.0.0"
@@ -34,11 +34,12 @@ junit4 = "4.13.2"
 kotlin = "1.8.10"
 kotlinxCoroutines = "1.6.4"
 kotlinxDatetime = "0.4.0"
-kotlinxSerializationJson = "1.5.0"
+kotlinxSerializationJson = "1.4.1"
 ksp = "1.8.10-1.0.9"
+ktor = "2.2.4" 
 lint = "30.3.1"
 okhttp = "4.10.0"
-protobuf = "3.21.9"
+protobuf = "3.22.2"
 protobufPlugin = "0.8.19"
 retrofit = "2.9.0"
 retrofitKotlinxSerializationJson = "0.8.0"
@@ -66,16 +67,16 @@ play-services-location="21.0.1"
 glance = "1.0.0-alpha05"
 maps = "3.2.1"
 qodana = "0.1.13"
-errorprone = "2.15.0"
+errorprone = "2.18.0"
 #view system
 material = "1.6.1"
 #arrow
 arrow = "1.1.5"
 #flipper
-flipper = "0.183.0"
+flipper = "0.187.1"
 soloader = "0.10.5"
 #leak-canary
-leakcanary = "2.8.1"
+leakcanary = "2.10"
 
 [libraries]
 accompanist-flowlayout = { group = "com.google.accompanist", name = "accompanist-flowlayout", version.ref = "accompanist" }
@@ -212,6 +213,12 @@ soloader = { group = "com.facebook.soloader", name = "soloader", version.ref = "
 flipper-leakcanary = { group = "com.facebook.flipper", name = "flipper-leakcanary2-plugin", version.ref = "flipper" }
 #leakcanary
 leakcanary = { group = "com.squareup.leakcanary", name = "leakcanary-android", version.ref = "leakcanary" }
+#ktor
+ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
+ktor-client-cio = { group = "io.ktor", name = "ktor-client-cio", version.ref = "ktor" }
+ktor-client-websockets = { group = "io.ktor", name = "ktor-client-websockets", version.ref = "ktor" }
+ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor" }
+ktor-client-resources = { group = "io.ktor", name = "ktor-client-resources", version.ref = "ktor" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }

@@ -67,7 +67,7 @@ play-services-location="21.0.1"
 glance = "1.0.0-alpha05"
 maps = "3.2.1"
 qodana = "0.1.13"
-errorprone = "2.15.0"
+errorprone = "2.18.0"
 #view system
 material = "1.6.1"
 #arrow

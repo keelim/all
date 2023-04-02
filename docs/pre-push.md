@@ -6,9 +6,17 @@
 2. Write the shell script below.
 
     ```shell
-    #!/bin/sh
 
-    ./gradlew --init-script gradle/init.gradle.kts spotlessApply
+    #!/bin/sh
+    FILES=$(git diff --cached --name-only --diff-filter=AM | grep -E '\.kt$|\.kts$|\.xml$')
+
+    if [ -z "$FILES" ]; then
+    exit 0
+    fi
+
+    for FILE in $FILES; do
+      ./gradlew --init-script gradle/init.gradle.kts spotlessApply -Pspotless.target="$FILE"
+    done
 
     ```
 

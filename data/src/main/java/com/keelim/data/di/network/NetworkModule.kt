@@ -13,11 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.data.di
+package com.keelim.data.di.network
 
-import com.keelim.data.model.targetService.ServiceRetrofit
-import com.keelim.data.network.CacheInterceptor
 import com.keelim.data.network.TargetService
+import com.keelim.data.network.interceptor.CacheInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -64,83 +63,79 @@ object NetworkModule {
         }.build()
     }
 
+    @CNUBUS
     @Provides
     @Singleton
-    fun provideCnubusRetrofit(okHttpClient: OkHttpClient): ServiceRetrofit.CnuBusRetrofit {
-        return ServiceRetrofit.CnuBusRetrofit(
-            Retrofit.Builder()
-                .client(okHttpClient)
-                .baseUrl(CNUBUS_URL)
-                .build()
-        )
+    fun provideCnubusRetrofit(okHttpClient: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
+            .client(okHttpClient)
+            .baseUrl(CNUBUS_URL)
+            .build()
     }
 
+    @MYGRADE
     @Provides
     @Singleton
-    fun provideMyGradeRetrofit(okHttpClient: OkHttpClient): ServiceRetrofit.MyGradeRetrofit {
-        return ServiceRetrofit.MyGradeRetrofit(
-            Retrofit.Builder()
-                .client(okHttpClient)
-                .baseUrl(MYGRADE_URL)
-                .build()
-        )
+    fun provideMyGradeRetrofit(okHttpClient: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
+            .client(okHttpClient)
+            .baseUrl(MYGRADE_URL)
+            .build()
     }
 
+    @COMSSA
     @Provides
     @Singleton
-    fun provideComssaRetrofit(okHttpClient: OkHttpClient): ServiceRetrofit.ComssaRetrofit {
-        return ServiceRetrofit.ComssaRetrofit(
-            Retrofit.Builder()
-                .client(okHttpClient)
-                .baseUrl(COMSSA_URL)
-                .build()
-        )
+    fun provideComssaRetrofit(okHttpClient: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
+            .client(okHttpClient)
+            .baseUrl(COMSSA_URL)
+            .build()
     }
 
+    @NANDA
     @Provides
     @Singleton
-    fun provideNandaRetrofit(okHttpClient: OkHttpClient): ServiceRetrofit.NandaRetrofit {
-        return ServiceRetrofit.NandaRetrofit(
-            Retrofit.Builder()
-                .client(okHttpClient)
-                .baseUrl(NANDA_URL)
-                .build()
-        )
+    fun provideNandaRetrofit(okHttpClient: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
+            .client(okHttpClient)
+            .baseUrl(NANDA_URL)
+            .build()
     }
 
+    @YR
     @Provides
     @Singleton
-    fun provideYrRetrofit(okHttpClient: OkHttpClient): ServiceRetrofit.YrRetrofit {
-        return ServiceRetrofit.YrRetrofit(
-            Retrofit.Builder()
-                .client(okHttpClient)
-                .baseUrl(YR_URL)
-                .build()
-        )
+    fun provideYrRetrofit(okHttpClient: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
+            .client(okHttpClient)
+            .baseUrl(YR_URL)
+            .build()
     }
 
-    @Provides
-    @Singleton
-    fun provideNandaService(serviceRetrofit: ServiceRetrofit.NandaRetrofit): TargetService.NandaService =
-        serviceRetrofit.retrofit.create(TargetService.NandaService::class.java)
 
     @Provides
     @Singleton
-    fun provideCnubusService(serviceRetrofit: ServiceRetrofit.CnuBusRetrofit): TargetService.CnubusService =
-        serviceRetrofit.retrofit.create(TargetService.CnubusService::class.java)
+    fun provideNandaService(@NANDA serviceRetrofit: Retrofit): TargetService.NandaService =
+        serviceRetrofit.create(TargetService.NandaService::class.java)
 
     @Provides
     @Singleton
-    fun provideComssaService(serviceRetrofit: ServiceRetrofit.ComssaRetrofit): TargetService.ComssaService =
-        serviceRetrofit.retrofit.create(TargetService.ComssaService::class.java)
+    fun provideCnubusService(@CNUBUS serviceRetrofit: Retrofit): TargetService.CnubusService =
+        serviceRetrofit.create(TargetService.CnubusService::class.java)
 
     @Provides
     @Singleton
-    fun provideMyGradeService(serviceRetrofit: ServiceRetrofit.MyGradeRetrofit): TargetService.MyGradeService =
-        serviceRetrofit.retrofit.create(TargetService.MyGradeService::class.java)
+    fun provideComssaService(@COMSSA serviceRetrofit: Retrofit): TargetService.ComssaService =
+        serviceRetrofit.create(TargetService.ComssaService::class.java)
 
     @Provides
     @Singleton
-    fun provideYrService(serviceRetrofit: ServiceRetrofit.YrRetrofit): TargetService.YrService =
-        serviceRetrofit.retrofit.create(TargetService.YrService::class.java)
+    fun provideMyGradeService(@MYGRADE serviceRetrofit: Retrofit): TargetService.MyGradeService =
+        serviceRetrofit.create(TargetService.MyGradeService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideYrService(@YR serviceRetrofit: Retrofit): TargetService.YrService =
+        serviceRetrofit.create(TargetService.YrService::class.java)
 }

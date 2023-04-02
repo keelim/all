@@ -57,9 +57,9 @@
             android:name="com.facebook.flipper.android.diagnostics.FlipperDiagnosticActivity"
             android:exported="true" />
 
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="${COMSSA_APPLICATION_ID}" />
+<!--        <meta-data-->
+<!--            android:name="com.google.android.gms.ads.APPLICATION_ID"-->
+<!--            android:value="${COMSSA_APPLICATION_ID}" />-->
 
         <provider
             android:name="androidx.startup.InitializationProvider"
@@ -70,9 +70,9 @@
             <meta-data
                 android:name="com.keelim.commonAndroid.initialize.ComposeInitializer"
                 android:value="androidx.startup" />
-            <meta-data
-                android:name="com.keelim.commonAndroid.initialize.MobileAdsInitializer"
-                android:value="androidx.startup" />
+<!--            <meta-data-->
+<!--                android:name="com.keelim.commonAndroid.initialize.MobileAdsInitializer"-->
+<!--                android:value="androidx.startup" />-->
             <meta-data
                 android:name="com.keelim.commonAndroid.initialize.TimberInitializer"
                 android:value="androidx.startup" />

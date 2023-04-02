@@ -3,6 +3,7 @@ package com.keelim.mygrade.ui.screen
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.os.ext.SdkExtensions
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +13,10 @@ import androidx.core.view.drawToBitmap
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import com.google.modernstorage.permissions.RequestAccess
@@ -33,13 +35,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import java.io.File
 import java.io.FileOutputStream
 import javax.inject.Inject
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -138,15 +137,16 @@ class GradeFragment : Fragment() {
     }
 
     private fun initFlow() {
-        viewModel.uiState
-            .flowWithLifecycle(lifecycle)
-            .onEach { state ->
-                if (state.isSave) {
-                    requireActivity().snack(binding.root, "저장이 완료되었습니다. ")
-                }
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState
+                    .collectLatest { uiState ->
+                        if (uiState.isSave) {
+                            requireActivity().snack(binding.root, "저장이 완료되었습니다. ")
+                        }
+                    }
             }
-            .flowOn(Dispatchers.Main.immediate)
-            .launchIn(lifecycleScope)
+        }
     }
 
     private val requestAccess = registerForActivityResult(RequestAccess()) { hasAccess ->

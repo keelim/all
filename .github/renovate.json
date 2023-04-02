@@ -11,10 +11,34 @@
     ],
     "packageRules": [
         {
-            "matchPackageNames": [
-                "com.google.protobuf"
+            "description": "Automatically merge minor and patch-level updates",
+            "matchUpdateTypes": [
+                "minor",
+                "patch"
             ],
-            "allowedVersions": "<=0.8.19"
+            "automerge": true,
+            "automergeType": "develop",
+            "labels": [
+                "UPDATE-minor-patch"
+            ]
+        },
+        {
+            "matchPackagePatterns": [
+                "androidx.compose.compiler:compiler"
+            ],
+            "groupName": "kotlin"
+        },
+        {
+            "matchPackagePatterns": [
+                "org.jetbrains.kotlin.*"
+            ],
+            "groupName": "kotlin"
+        },
+        {
+            "matchPackagePatterns": [
+                "com.google.devtools.ksp"
+            ],
+            "groupName": "kotlin"
         }
     ]
 }

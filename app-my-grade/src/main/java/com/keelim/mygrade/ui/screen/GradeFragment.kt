@@ -137,7 +137,6 @@ class GradeFragment : Fragment() {
     }
 
     private fun initFlow() {
-        SdkExtensions
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState

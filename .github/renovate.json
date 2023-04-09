@@ -6,6 +6,7 @@
         ":dependencyDashboard",
         "schedule:daily"
     ],
+    "dependencyDashboardApproval": true,
     "baseBranches": [
         "develop"
     ],
@@ -23,10 +24,15 @@
             ]
         },
         {
+            "groupName": "Androidx Lifecycle Dependencies",
             "matchPackagePatterns": [
-                "androidx.compose.compiler:compiler"
-            ],
-            "groupName": "kotlin"
+                "androidx.lifecycle",
+                "androidx.navigation:navigation-compose"
+            ]
+        },
+        {
+            "groupName": "Compose Dependencies",
+            "matchPackagePatterns": "^androidx\\..*compose\\."
         },
         {
             "matchPackagePatterns": [

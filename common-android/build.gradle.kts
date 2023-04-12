@@ -10,8 +10,8 @@ dependencies {
     implementation(libs.coil.kt.gif)
     implementation(libs.timber)
     implementation(libs.play.services.ad)
-    implementation("androidx.compose.ui:ui:1.3.3")
     implementation(libs.androidx.lifecycle.process)
+    implementation(libs.androidx.compose.ui)
 
     debugImplementation(libs.flipper)
     debugImplementation(libs.soloader)

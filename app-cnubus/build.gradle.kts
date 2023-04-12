@@ -68,14 +68,14 @@ dependencies {
     implementation("com.google.firebase:firebase-messaging-ktx")
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-inappmessaging-display-ktx")
-    implementation("com.firebaseui:firebase-ui-auth:8.0.2")
+    implementation(libs.firebase.ui.auth)
 
-    implementation("com.airbnb.android:lottie:6.0.0")
+    implementation(libs.lottie)
 
     implementation(libs.androidx.work.ktx)
     implementation(libs.hilt.ext.work)
     implementation(libs.hilt.android)
-    implementation("androidx.preference:preference-ktx:1.2.0")
+    implementation(libs.androidx.preference.ktx)
     implementation(libs.androidx.lifecycle.rutime)
 
     implementation(libs.androidx.compose.foundation)

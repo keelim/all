@@ -73,7 +73,7 @@ dependencies {
     implementation(libs.androidx.metrics)
 
     // modern storage
-    implementation("com.google.modernstorage:modernstorage-bom:1.0.0-alpha06")
+    implementation(libs.modernstorage.bom)
     implementation("com.google.modernstorage:modernstorage-permissions")
     implementation("com.google.modernstorage:modernstorage-storage")
     implementation("com.google.modernstorage:modernstorage-photopicker")

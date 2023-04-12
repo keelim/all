@@ -45,7 +45,7 @@ dependencies {
     implementation(libs.activity.ktx)
     implementation(libs.fragment.ktx)
 
-    implementation("com.google.android.play:core-ktx:1.8.1")
+    implementation(libs.play.core)
 
     implementation(platform(libs.firebase.bom))
     implementation("com.google.firebase:firebase-analytics-ktx")
@@ -58,7 +58,7 @@ dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4")
+    implementation(libs.kotlinx.coroutines.play.services)
 
     implementation(libs.androidx.startup)
     implementation(libs.coil.kt)

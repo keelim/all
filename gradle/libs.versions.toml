@@ -56,7 +56,6 @@ play-services-auth = "20.4.0"
 timbers = "5.0.1"
 math3 = "3.6.1"
 firebase = "29.0.3"
-moshiVersion = "1.13.0"
 androidxPaging = "3.1.0"
 themeAdapter = "1.0.5"
 firebase-ui="8.0.2"
@@ -185,10 +184,6 @@ firebase-storage = { group = "com.google.firebase", name = "firebase-storage-ktx
 firebase-appcheck = { group = "com.google.firebase", name = "firebase-appcheck-playintegrity" }
 firebase-config = { group = "com.google.firebase", name = "firebase-config-ktx" }
 firebase-inappmessaging = { group = "com.google.firebase", name = "firebase-inappmessaging-display-ktx" }
-#
-moshi-kotlin = { group = "com.squareup.moshi", name = "moshi-kotlin", version.ref = "moshiVersion" }
-moshi-codegen = { group = "com.squareup.moshi", name = "moshi-kotlin-codegen", version.ref = "moshiVersion" }
-retrofit-moshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofit" }
 #
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 material-themAdapter = { group = "com.google.android.material", name = "compose-theme-adapter", version.ref = "themeAdapter" }

@@ -4,8 +4,12 @@
 
 <instance-profile id="all"
                  name="All Docs"
-                 start-page="Pre-push.md">
+                 start-page="Overview.md">
 
+    <toc-element topic="Overview.md"/>
+    <toc-element topic="State.md"/>
     <toc-element topic="Pre-push.md"/>
+    <toc-element topic="Link-Collection.md"/>
+    <toc-element topic="Release-Note.md"/>
     <toc-element topic="Pre-commit.md"/>
 </instance-profile>

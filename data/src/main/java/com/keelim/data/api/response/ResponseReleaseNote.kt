@@ -1,4 +1,4 @@
-package com.keelim.data.response
+package com.keelim.data.api.response
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

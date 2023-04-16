@@ -64,3 +64,4 @@ jobs:
           releaseFiles: app-nanda/build/outputs/bundle/release/app-nanda-release.aab
           track: production
           status: completed
+          changesNotSentForReview: true

@@ -1,6 +1,6 @@
 package com.keelim.data.model.notification
 
-import com.keelim.data.response.ResponseNotification
+import com.keelim.data.api.response.ResponseNotification
 
 data class Notification(
     val version: String,

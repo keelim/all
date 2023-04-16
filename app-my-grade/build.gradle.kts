@@ -70,16 +70,20 @@ dependencies {
     implementation(libs.inapp.update)
     implementation(libs.coil.kt)
     implementation(libs.coil.kt.svg)
+    implementation(libs.coil.kt.compose)
     implementation(libs.androidx.metrics)
 
     // modern storage
-    implementation("com.google.modernstorage:modernstorage-bom:1.0.0-alpha06")
+    implementation(libs.modernstorage.bom)
     implementation("com.google.modernstorage:modernstorage-permissions")
     implementation("com.google.modernstorage:modernstorage-storage")
     implementation("com.google.modernstorage:modernstorage-photopicker")
     implementation("com.squareup.okio:okio")
 
     implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.paging.compose)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.ui.tooling)
 }
 
 

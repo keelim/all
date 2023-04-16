@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.data.response
+package com.keelim.data.api.response
 
 import com.keelim.data.db.entity.NandaEntity2
 import java.util.Date

@@ -1,4 +1,4 @@
-package com.keelim.data.response
+package com.keelim.data.api.response
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

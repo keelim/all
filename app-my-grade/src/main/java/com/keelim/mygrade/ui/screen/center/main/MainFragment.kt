@@ -139,6 +139,10 @@ class MainFragment : Fragment() {
                         findNavController().navigate(R.id.historyFragment)
                         true
                     }
+                    R.id.menu_flash_card -> {
+                        findNavController().navigate(R.id.bookFragment)
+                        true
+                    }
                     else -> false
                 }
             }

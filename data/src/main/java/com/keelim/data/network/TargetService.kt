@@ -15,6 +15,7 @@
  */
 package com.keelim.data.network
 
+import com.keelim.data.api.response.mygrade.Books
 import com.keelim.data.db.entity.NandaEntity2
 import com.keelim.data.api.response.NandaResponse
 import com.keelim.data.api.response.NandasResponse
@@ -22,6 +23,7 @@ import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 import retrofit2.http.Streaming
 import retrofit2.http.Url
 
@@ -43,6 +45,15 @@ sealed interface TargetService {
 
     interface CnubusService : TargetService
     interface ComssaService : TargetService
-    interface MyGradeService : TargetService
+    interface MyGradeService : TargetService {
+        @GET("books/v1/volumes")
+        suspend fun getBooks(
+            @Query("q") query: String,
+            @Query("startIndex") startIndex: Int,
+            @Query("maxResults") limit: Int
+        ): Books
+
+    }
+
     interface YrService : TargetService
 }

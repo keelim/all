@@ -17,6 +17,7 @@ dependencies {
     implementation(libs.androidx.compose.glance)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.material.themAdapter)
+    implementation(libs.accompanist.systemuicontroller)
 }
 android {
     namespace = "com.keelim.compose"

@@ -13,13 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.data.response
+package com.keelim.data.api.response
 
 import kotlinx.serialization.SerialName
 
-data class RealtimeStationArrivals(
-    @SerialName("errorMessage")
-    val errorMessage: ErrorMessage? = null,
-    @SerialName("realtimeArrivalList")
-    val realtimeArrivalList: List<RealtimeArrival>? = null
+data class ErrorMessage(
+    @SerialName("code")
+    val code: String? = null,
+    @SerialName("developerMessage")
+    val developerMessage: String? = null,
+    @SerialName("link")
+    val link: String? = null,
+    @SerialName("message")
+    val message: String? = null,
+    @SerialName("status")
+    val status: Int? = null,
+    @SerialName("total")
+    val total: Int? = null
 )

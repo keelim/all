@@ -43,11 +43,17 @@
             android:name="mainToGrade"
             app:argType="com.keelim.data.model.Result" />
     </fragment>
+    <fragment
+        android:id="@+id/bookFragment"
+        android:name="com.keelim.mygrade.ui.screen.center.book.BookFragment"
+        android:label="BookFragment"
+        tools:layout="@layout/fragment_grade">
+    </fragment>
     <dialog
         android:id="@+id/simpleAddBottomSheet"
         android:name="com.keelim.mygrade.ui.screen.center.main.SimpleAddBottomSheet"
         android:label="SimpleAddBottomSheet"
-        tools:layout="@layout/bottomsheet_simple_add" >
+        tools:layout="@layout/bottomsheet_simple_add">
         <action
             android:id="@+id/action_simple_to_grade"
             app:destination="@id/gradeFragment" />

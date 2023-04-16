@@ -70,6 +70,7 @@ dependencies {
     implementation(libs.inapp.update)
     implementation(libs.coil.kt)
     implementation(libs.coil.kt.svg)
+    implementation(libs.coil.kt.compose)
     implementation(libs.androidx.metrics)
 
     // modern storage
@@ -82,6 +83,7 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.paging.compose)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.ui.tooling)
 }
 
 

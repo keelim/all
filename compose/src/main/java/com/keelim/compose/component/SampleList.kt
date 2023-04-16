@@ -25,8 +25,8 @@ data class ItemViewState(
 
 @Composable
 fun MySampleList(
-    modifier: Modifier = Modifier,
-    itemViewStates: List<ItemViewState>
+    itemViewStates: List<ItemViewState>,
+    modifier: Modifier = Modifier
 ) {
 }
 

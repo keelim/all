@@ -9,9 +9,9 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun SimpleDialog(
-    modifier: Modifier = Modifier,
     text: String,
-    onDismiss: () -> Unit
+    modifier: Modifier = Modifier,
+    onDismiss: () -> Unit,
 ) {
     AlertDialog(
         modifier = modifier,

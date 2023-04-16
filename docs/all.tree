@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE instance-profile
+        SYSTEM "https://helpserver.labs.jb.gg/help/schemas/mvp/product-profile.dtd">
+
+<instance-profile id="all"
+                 name="All Docs"
+                 start-page="Overview.md">
+
+    <toc-element topic="Overview.md"/>
+    <toc-element topic="State.md"/>
+    <toc-element topic="Pre-push.md"/>
+    <toc-element topic="Link-Collection.md"/>
+    <toc-element topic="Release-Note.md"/>
+    <toc-element topic="Pre-commit.md"/>
+</instance-profile>

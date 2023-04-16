@@ -12,6 +12,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.rutime)
     implementation(libs.fragment.ktx)
     implementation(libs.material)
+    implementation(libs.androidx.paging.common)
 
     // compose
     implementation(libs.material)

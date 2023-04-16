@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.data.response.mapper
+package com.keelim.data.api.response.mapper
 
 import com.keelim.data.model.ArrivalInformation
 import com.keelim.data.model.Subway
-import com.keelim.data.response.RealtimeArrival
+import com.keelim.data.api.response.RealtimeArrival
 import java.text.SimpleDateFormat
 import java.util.Locale
 

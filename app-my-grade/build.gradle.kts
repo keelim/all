@@ -80,6 +80,8 @@ dependencies {
     implementation("com.squareup.okio:okio")
 
     implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.paging.compose)
+    implementation(libs.androidx.compose.material3)
 }
 
 

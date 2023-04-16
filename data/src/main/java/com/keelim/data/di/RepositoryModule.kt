@@ -4,6 +4,8 @@ import com.keelim.data.repository.IoRepository
 import com.keelim.data.repository.IoRepositoryImpl
 import com.keelim.data.repository.NandaIORepository
 import com.keelim.data.repository.NandaIORepositoryImpl
+import com.keelim.data.repository.mygrade.BookRepository
+import com.keelim.data.repository.mygrade.BookRepositoryImpl
 import com.keelim.data.repository.setting.DeveloperRepository
 import com.keelim.data.repository.setting.DeveloperRepositoryImpl
 import dagger.Binds
@@ -28,4 +30,9 @@ abstract class RepositoryModule {
     abstract fun bindsNandaIoRepository(
         repository: NandaIORepositoryImpl,
     ): NandaIORepository
+
+    @Binds
+    abstract fun bindsBookRepository(
+        repository: BookRepositoryImpl
+    ): BookRepository
 }

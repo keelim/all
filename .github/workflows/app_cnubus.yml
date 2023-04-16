@@ -64,3 +64,4 @@ jobs:
           releaseFiles: app-cnubus/build/outputs/bundle/release/app-cnubus-release.aab
           track: production
           status: completed
+          changesNotSentForReview: true

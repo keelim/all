@@ -64,3 +64,4 @@ jobs:
           releaseFiles: app-comssa/build/outputs/bundle/release/app-comssa-release.aab
           track: production
           status: completed
+          changesNotSentForReview: true

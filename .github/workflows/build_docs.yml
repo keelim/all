@@ -1,0 +1,57 @@
+name: Writerside Build Docs Job
+
+on:
+  push:
+    branches: ["develop"]
+
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  pages: write
+
+env:
+  PRODUCT: docs/all
+  ARTIFACT: webHelpALL2-all.zip
+
+jobs:
+  build-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Build Writerside docs using Docker
+        uses: JetBrains/writerside-github-action@v3
+      - name: Upload artifact
+        uses: JetBrains/writerside-github-action@v3
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: artifact
+          path: artifacts/${{ env.ARTIFACT }}
+          retention-days: 1
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build-job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: artifact
+      - name: Unzip artifact
+        uses: montudor/action-zip@v1
+        with:
+          args: unzip -qq ${{ env.ARTIFACT }} -d dir
+      - name: Setup Pages
+        uses: actions/configure-pages@v2
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: dir
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1

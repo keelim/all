@@ -139,10 +139,10 @@ object NetworkModule {
     fun provideComssaService(@COMSSA serviceRetrofit: Retrofit): TargetService.ComssaService =
         serviceRetrofit.create(TargetService.ComssaService::class.java)
 
-    @Provides
-    @Singleton
-    fun provideMyGradeService(@MYGRADE serviceRetrofit: Retrofit): TargetService.MyGradeService =
-        serviceRetrofit.create(TargetService.MyGradeService::class.java)
+    // @Provides
+    // @Singleton
+    // fun provideMyGradeService(@MYGRADE serviceRetrofit: Retrofit): TargetService.MyGradeService =
+    //     serviceRetrofit.create(TargetService.MyGradeService::class.java)
 
     @Provides
     @Singleton

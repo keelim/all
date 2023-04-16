@@ -83,6 +83,16 @@ object NetworkModule {
             .build()
     }
 
+    @MYGRADE2
+    @Provides
+    @Singleton
+    fun provideMyGrade2Retrofit(okHttpClient: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
+            .client(okHttpClient)
+            .baseUrl("https://www.googleapis.com/")
+            .build()
+    }
+
     @COMSSA
     @Provides
     @Singleton
@@ -132,6 +142,11 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideMyGradeService(@MYGRADE serviceRetrofit: Retrofit): TargetService.MyGradeService =
+        serviceRetrofit.create(TargetService.MyGradeService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideMyGrade2Service(@MYGRADE2 serviceRetrofit: Retrofit): TargetService.MyGradeService =
         serviceRetrofit.create(TargetService.MyGradeService::class.java)
 
     @Provides

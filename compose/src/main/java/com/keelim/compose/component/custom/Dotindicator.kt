@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun DotIndicator(modifier: Modifier = Modifier, size: Dp, color: Color) {
+fun DotIndicator(size: Dp, color: Color, modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
             .size(size)

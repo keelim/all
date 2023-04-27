@@ -76,7 +76,7 @@ material = "1.6.1"
 #arrow
 arrow = "1.1.5"
 #flipper
-flipper = "0.189.0"
+flipper = "0.190.0"
 soloader = "0.10.5"
 #leak-canary
 leakcanary = "2.10"

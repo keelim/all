@@ -1,6 +1,6 @@
 on:
   pull_request:
-    branches: [ master ]
+    branches: [ develop ]
   workflow_dispatch:
 
 jobs:

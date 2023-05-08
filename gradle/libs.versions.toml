@@ -6,7 +6,7 @@ androidxActivity = "1.6.1"
 androidxAppCompat = "1.5.1"
 androidxComposeBom = "2023.03.00"
 androidxComposeCompiler = "1.4.3"
-androidxComposeRuntimeTracing = "1.0.0-alpha01"
+androidxComposeRuntimeTracing = "1.0.0-alpha03"
 androidxCore = "1.9.0"
 androidxCoreSplashscreen = "1.0.0"
 androidxDataStore = "1.0.0"
@@ -81,7 +81,7 @@ soloader = "0.10.5"
 #leak-canary
 leakcanary = "2.10"
 #Compose ui
-compose-view = "1.4.1"
+compose-view = "1.4.3"
 paging-compose = "1.0.0-alpha18"
 
 [libraries]

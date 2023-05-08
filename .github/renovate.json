@@ -13,12 +13,10 @@
     "packageRules": [
         {
             "description": "Automatically merge minor and patch-level updates",
-            "matchUpdateTypes": [
-                "minor",
-                "patch"
-            ],
+            "matchUpdateTypes": ["minor", "patch", "digest"],
             "automerge": true,
-            "automergeType": "develop",
+            "automergeType": "pr",
+            "platformAutomerge": true,
             "labels": [
                 "UPDATE-minor-patch"
             ]

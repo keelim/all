@@ -82,7 +82,7 @@ soloader = "0.10.5"
 leakcanary = "2.10"
 #Compose ui
 compose-view = "1.4.3"
-paging-compose = "1.0.0-alpha18"
+paging-compose = "1.0.0-alpha19"
 
 [libraries]
 accompanist-flowlayout = { group = "com.google.accompanist", name = "accompanist-flowlayout", version.ref = "accompanist" }

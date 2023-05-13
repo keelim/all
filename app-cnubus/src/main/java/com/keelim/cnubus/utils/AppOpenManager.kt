@@ -100,9 +100,7 @@ class AppOpenManager @Inject constructor() : LifecycleObserver {
                     isShowingAd = true
                 }
             }
-            if (appOpenAd != null && currentActivity != null) {
-                appOpenAd!!.show(currentActivity!!)
-            }
+            currentActivity?.also(appOpenAd!!::show)
         } else {
             Timber.d("Can not show ad.")
             fetchAd()

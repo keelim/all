@@ -54,7 +54,6 @@ dependencies {
     implementation(libs.activity.ktx)
 
     implementation(platform(libs.firebase.bom))
-    implementation("com.google.firebase:firebase-core")
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-crashlytics-ktx")
     implementation("com.google.firebase:firebase-perf-ktx")

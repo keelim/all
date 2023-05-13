@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.IdRes
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionContext
 import androidx.compose.runtime.getValue
@@ -92,7 +93,7 @@ private fun BottomSheetWrapper(
 @Suppress("NOTHING_TO_INLINE")
 @Composable
 inline fun SetUp(noinline content: @Composable () -> Unit) {
-    MdcTheme {
+    MaterialTheme {
         content()
     }
 }

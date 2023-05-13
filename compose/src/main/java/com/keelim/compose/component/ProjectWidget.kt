@@ -15,18 +15,19 @@
  */
 package com.keelim.compose.component
 
-import androidx.compose.runtime.Composable
+import android.content.Context
+import androidx.glance.GlanceId
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.GlanceAppWidgetReceiver
+import androidx.glance.appwidget.provideContent
 
 class ProjectWidget : GlanceAppWidget() {
-    @Composable
-    override fun Content() {
-        WidgetContent()
-    }
+  override suspend fun provideGlance(context: Context, id: GlanceId) {
+    provideContent { WidgetContentScreen() }
+  }
 }
 
 class ProjectGlanceWidgetReceiver : GlanceAppWidgetReceiver() {
-    override val glanceAppWidget: GlanceAppWidget
-        get() = ProjectWidget()
+  override val glanceAppWidget: GlanceAppWidget
+    get() = ProjectWidget()
 }

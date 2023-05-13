@@ -52,9 +52,7 @@ fun SearchView(
             }
         },
         maxLines = 1,
-        colors = TextFieldDefaults.textFieldColors(
-            containerColor = Color.Transparent, textColor = Color.Black
-        ),
+        colors = TextFieldDefaults.colors(),
         placeholder = { Text(text = "search") },
         textStyle = MaterialTheme.typography.labelLarge,
         singleLine = true,

@@ -39,7 +39,6 @@ dependencies {
     implementation(project(":features:ui-setting"))
 
     implementation(platform(libs.firebase.bom))
-    implementation("com.google.firebase:firebase-core")
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-database-ktx")
     implementation("com.google.firebase:firebase-crashlytics-ktx")

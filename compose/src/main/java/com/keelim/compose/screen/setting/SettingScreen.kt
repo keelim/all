@@ -1,4 +1,4 @@
-package com.keelim.compose.screen
+package com.keelim.compose.screen.setting
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column

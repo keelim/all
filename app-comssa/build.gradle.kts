@@ -8,7 +8,7 @@ plugins {
     id("dagger.hilt.android.plugin")
     id("com.google.firebase.firebase-perf")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
-    id("androidx.navigation.safeargs.kotlin") version ("2.4.2")
+    id("androidx.navigation.safeargs.kotlin") version ("2.5.3")
     id("org.jetbrains.qodana")
 }
 

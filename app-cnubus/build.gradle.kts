@@ -35,13 +35,6 @@ android {
         compose = true
     }
     namespace = "com.keelim.cnubus"
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
     packagingOptions {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -61,7 +54,6 @@ dependencies {
     implementation(libs.activity.ktx)
 
     implementation(platform(libs.firebase.bom))
-    implementation("com.google.firebase:firebase-core")
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-crashlytics-ktx")
     implementation("com.google.firebase:firebase-perf-ktx")

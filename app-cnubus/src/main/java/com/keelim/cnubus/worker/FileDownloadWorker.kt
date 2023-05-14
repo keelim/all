@@ -15,6 +15,7 @@
  */
 package com.keelim.cnubus.worker
 
+import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.ContentValues
@@ -43,6 +44,7 @@ class FileDownloadWorker @AssistedInject constructor(
     @Assisted val appContext: Context,
     @Assisted workerParams: WorkerParameters,
 ) : CoroutineWorker(appContext, workerParams) {
+    @SuppressLint("MissingPermission")
     override suspend fun doWork(): Result {
 
         val fileUrl = inputData.getString(KEY_FILE_URL) ?: ""

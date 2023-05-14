@@ -65,4 +65,4 @@ jobs:
           releaseFiles: app-my-grade/build/outputs/bundle/release/app-my-grade-release.aab
           track: production
           status: completed
-          changesNotSentForReview: true
+          changesNotSentForReview: false

@@ -15,18 +15,20 @@
  */
 package com.keelim.compose.component
 
+import android.content.Context
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.glance.Button
+import androidx.glance.GlanceId
 import androidx.glance.GlanceModifier
-import androidx.glance.action.Action
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.appWidgetBackground
 import androidx.glance.appwidget.background
 import androidx.glance.appwidget.cornerRadius
+import androidx.glance.appwidget.provideContent
 import androidx.glance.layout.Alignment
 import androidx.glance.layout.Column
 import androidx.glance.layout.Row
@@ -38,43 +40,34 @@ import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
 
 class WidgetContent : GlanceAppWidget() {
+  override suspend fun provideGlance(context: Context, id: GlanceId) {
+    provideContent { WidgetContentScreen() }
+  }
+}
 
-    @Composable
-    override fun Content() {
-        Column(
-            modifier = GlanceModifier
-                .fillMaxSize()
-                .background(day = Color.White, night = Color.LightGray)
-                .appWidgetBackground()
-                .cornerRadius(16.dp)
-                .padding(8.dp)
-        ) {
-            Text(
-                text = "Glance widget",
-                modifier = GlanceModifier.fillMaxWidth(),
-                style = TextStyle(fontWeight = FontWeight.Bold),
-            )
-            Row(
-                modifier = GlanceModifier.fillMaxSize(),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Button(
-                    text = "button1",
-                    onClick = object : Action {}
-                )
-                Button(
-                    text = "button2",
-                    onClick = object : Action {}
-                )
-            }
-        }
+@Composable
+fun WidgetContentScreen() {
+  Column(
+    modifier =
+      GlanceModifier.fillMaxSize()
+        .background(day = Color.White, night = Color.LightGray)
+        .appWidgetBackground()
+        .cornerRadius(16.dp)
+        .padding(8.dp)
+  ) {
+    Text(
+      text = "Glance widget",
+      style = TextStyle(fontWeight = FontWeight.Bold),
+      modifier = GlanceModifier.fillMaxWidth(),
+    )
+    Row(modifier = GlanceModifier.fillMaxSize(), verticalAlignment = Alignment.CenterVertically) {
+      Button(text = "button1", onClick = {})
     }
+  }
 }
 
 @Preview
 @Composable
-private fun PreviewWidgetContent() {
-    MaterialTheme {
-        WidgetContent()
-    }
+private fun PreviewWidgetContentScreen() {
+  MaterialTheme { WidgetContentScreen() }
 }

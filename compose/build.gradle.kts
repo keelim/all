@@ -2,9 +2,11 @@ plugins {
     id("keelim.android.library")
     id("keelim.android.library.compose")
     id("kotlinx-serialization")
+    kotlin("kapt")
 }
 
 dependencies {
+    implementation(project(":common"))
     // coil
     implementation(libs.coil.kt)
     implementation(libs.coil.kt.compose)
@@ -18,6 +20,10 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.material.themAdapter)
     implementation(libs.accompanist.systemuicontroller)
+
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
 }
 android {
     namespace = "com.keelim.compose"

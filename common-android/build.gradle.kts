@@ -5,7 +5,6 @@ plugins {
 
 dependencies {
     implementation(project(":common"))
-    implementation(project(":common-android"))
 
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.startup)

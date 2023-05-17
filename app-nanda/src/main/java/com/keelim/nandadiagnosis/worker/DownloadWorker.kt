@@ -43,10 +43,10 @@ import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.di.DownloadReceiver
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
+import kotlinx.coroutines.delay
 import java.io.File
 import java.util.UUID
 import java.util.concurrent.TimeUnit
-import kotlinx.coroutines.delay
 
 @HiltWorker
 class DownloadWorker @AssistedInject constructor(
@@ -55,7 +55,6 @@ class DownloadWorker @AssistedInject constructor(
     val receiver: DownloadReceiver,
 ) : CoroutineWorker(context, workerParameters) {
     override suspend fun doWork(): Result {
-
         return try {
             setForeground(createForegroundInfo())
             delay(500)
@@ -67,13 +66,13 @@ class DownloadWorker @AssistedInject constructor(
                         .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
                         .setDestinationUri(Uri.fromFile(File(applicationContext.getExternalFilesDir(null), "nanda.db")))
                         .setAllowedOverMetered(true)
-                        .setAllowedOverRoaming(true)
+                        .setAllowedOverRoaming(true),
                 )
             }
             Result.success(
                 workDataOf(
-                    "db" to File(applicationContext.getExternalFilesDir(null), "nanda.db").toString()
-                )
+                    "db" to File(applicationContext.getExternalFilesDir(null), "nanda.db").toString(),
+                ),
             )
         } catch (e: Exception) {
             if (runAttemptCount <= 3) {
@@ -89,7 +88,8 @@ class DownloadWorker @AssistedInject constructor(
             .createCancelPendingIntent(id)
 
         val notification = NotificationCompat.Builder(
-            applicationContext, "workDownload"
+            applicationContext,
+            "workDownload",
         )
             .setContentTitle("Downloading Your Image")
             .setTicker("Downloading Your Image")
@@ -106,7 +106,7 @@ class DownloadWorker @AssistedInject constructor(
     @RequiresApi(Build.VERSION_CODES.O)
     private fun createChannel(
         notificationBuilder: NotificationCompat.Builder,
-        id: String
+        id: String,
     ) {
         val notificationManager =
             applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as
@@ -115,7 +115,7 @@ class DownloadWorker @AssistedInject constructor(
         val channel = NotificationChannel(
             id,
             "NandaDiagnosis",
-            NotificationManager.IMPORTANCE_HIGH
+            NotificationManager.IMPORTANCE_HIGH,
         )
         channel.description = "NandaDiagnosis Notifications"
         notificationManager.createNotificationChannel(channel)
@@ -146,7 +146,7 @@ class DownloadWorker @AssistedInject constructor(
                         .setRequiredNetworkType(NetworkType.CONNECTED)
                         .setRequiresStorageNotLow(true)
                         .setRequiresBatteryNotLow(true)
-                        .build()
+                        .build(),
                 )
                 .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 1, TimeUnit.MINUTES)
                 .build()

@@ -20,7 +20,7 @@ import com.keelim.data.repository.NandaIORepository
 import javax.inject.Inject
 
 class GetNandaListUseCase @Inject constructor(
-    private val nandaIoRepository: NandaIORepository
+    private val nandaIoRepository: NandaIORepository,
 ) {
 
     suspend operator fun invoke(): List<NandaEntity2> {

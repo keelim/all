@@ -15,8 +15,8 @@ class NotificationAdapter : ListAdapter<Notification, NotificationViewHolder>(di
             ItemNotificationBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
-                false
-            )
+                false,
+            ),
         )
     }
 

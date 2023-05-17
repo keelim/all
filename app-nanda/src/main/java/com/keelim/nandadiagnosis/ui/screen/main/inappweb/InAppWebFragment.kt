@@ -40,7 +40,7 @@ class InAppWebFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         val contextWrapper = ContextThemeWrapper(requireActivity(), R.style.InAppWebview)
         val cloneInflater = inflater.cloneInContext(contextWrapper)
@@ -70,7 +70,7 @@ class InAppWebFragment : Fragment() {
                         findNavController().navigate(R.id.navigation_category)
                     }
                 }
-            }
+            },
         )
     }
 

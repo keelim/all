@@ -46,7 +46,7 @@ class ReviewsAdapter(
             ITEM_VIEW_TYPE_HEADER -> {
                 MovieInformationViewHolder(
                     ItemDataInformationBinding
-                        .inflate(LayoutInflater.from(parent.context), parent, false)
+                        .inflate(LayoutInflater.from(parent.context), parent, false),
                 )
             }
 
@@ -57,14 +57,14 @@ class ReviewsAdapter(
             ITEM_VIEW_TYPE_REVIEW_FORM -> {
                 ReviewFormViewHolder(
                     ItemReviewFormBinding
-                        .inflate(LayoutInflater.from(parent.context), parent, false)
+                        .inflate(LayoutInflater.from(parent.context), parent, false),
                 )
             }
 
             ITEM_VIEW_TYPE_MY_REVIEW -> {
                 MyReviewViewHolder(
                     ItemMyReviewBinding
-                        .inflate(LayoutInflater.from(parent.context), parent, false)
+                        .inflate(LayoutInflater.from(parent.context), parent, false),
                 )
             }
 
@@ -130,7 +130,7 @@ class ReviewsAdapter(
                         Chip(binding.root.context).apply {
                             isClickable = false
                             text = genre
-                        }
+                        },
                     )
                 }
             }
@@ -142,8 +142,8 @@ class ReviewsAdapter(
         private val binding: ItemReviewBinding = ItemReviewBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
-            false
-        )
+            false,
+        ),
     ) : RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")
@@ -164,7 +164,7 @@ class ReviewsAdapter(
             binding.submitButton.setOnClickListener {
                 onReviewSubmitButtonClickListener.invoke(
                     binding.reviewFieldEditText.text.toString(),
-                    binding.ratingBar.rating
+                    binding.ratingBar.rating,
                 )
             }
             binding.reviewFieldEditText.addTextChangedListener { editable ->

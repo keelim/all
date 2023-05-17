@@ -80,7 +80,7 @@ class DetailActivity : AppCompatActivity(R.layout.activity_detail) {
                             } else {
                                 "현재 업데이트 준비 구간입니다."
                             },
-                            Snackbar.LENGTH_SHORT
+                            Snackbar.LENGTH_SHORT,
                         ).show()
                     }
                     is DetailState.UnInitialized -> {}

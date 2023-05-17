@@ -77,7 +77,7 @@ class StationArrivalsFragment : Fragment() {
                     R.drawable.ic_star
                 } else {
                     R.drawable.ic_star_empty
-                }
+                },
             )
             isChecked = station!!.isFavorited
         }
@@ -96,7 +96,7 @@ class StationArrivalsFragment : Fragment() {
                         R.drawable.ic_star
                     } else {
                         R.drawable.ic_star_empty
-                    }
+                    },
                 )
                 true
             }

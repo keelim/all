@@ -19,11 +19,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.keelim.domain.nandadiagnosis.GetFavoriteListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class FavoriteViewModel @Inject constructor(
@@ -34,12 +34,12 @@ class FavoriteViewModel @Inject constructor(
 
     fun fetchData(): Job = viewModelScope.launch {
         setState(
-            FavoriteListState.Loading
+            FavoriteListState.Loading,
         )
         setState(
             FavoriteListState.Success(
-                getFavoriteListUseCase.invoke()
-            )
+                getFavoriteListUseCase.invoke(),
+            ),
         )
     }
 

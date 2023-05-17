@@ -21,10 +21,10 @@ sealed class DetailState {
     object UnInitialized : DetailState()
     object Loading : DetailState()
     data class Success(
-        val data: List<Comment>
+        val data: List<Comment>,
     ) : DetailState()
 
     data class Error(
-        val message: String
+        val message: String,
     ) : DetailState()
 }

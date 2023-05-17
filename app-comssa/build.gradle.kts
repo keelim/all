@@ -20,7 +20,7 @@ android {
 
     buildTypes {
         defaultConfig {}
-        create("app-comssa-benchmark") {
+        create("comssa-benchmark") {
             signingConfig = signingConfigs.getByName("debug")
             matchingFallbacks += listOf("release")
             isDebuggable = false

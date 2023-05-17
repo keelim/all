@@ -93,7 +93,7 @@ class DownloadWorker @AssistedInject constructor(
         )
             .setContentTitle("Downloading Your Image")
             .setTicker("Downloading Your Image")
-            .setSmallIcon(com.keelim.nandadiagnosis.R.mipmap.ic_launcher_round)
+            .setSmallIcon(R.mipmap.ic_launcher_round)
             .setOngoing(true)
             .addAction(android.R.drawable.ic_delete, "Cancel Download", intent)
         // 3

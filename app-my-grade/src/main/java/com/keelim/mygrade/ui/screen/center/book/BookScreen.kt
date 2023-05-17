@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,7 +28,8 @@ import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.itemsIndexed
+import androidx.paging.compose.itemContentType
+import androidx.paging.compose.itemKey
 import coil.compose.AsyncImage
 import com.keelim.data.api.response.mygrade.Books
 import kotlinx.coroutines.flow.flowOf
@@ -57,15 +59,21 @@ fun BookScreen(books: LazyPagingItems<Books.Book>, modifier: Modifier = Modifier
 
         is LoadState.NotLoading -> {
             LazyColumn(modifier = modifier) {
-                itemsIndexed(books) { index, book ->
-                    BookItem(
-                        item = book,
-                        modifier =
-                        Modifier
-                            .fillMaxSize()
-                            .background(getBackgroundForIndex(index))
-                            .padding(vertical = 15.dp),
-                    )
+                items(
+        count = books.itemCount,
+        key = books.itemKey<Books.Book>(),
+        contentType = books.itemContentType<Books.Book>(
+            )
+    ) { index ->
+        val item = books[index]
+        BookItem(
+            item = book,
+            modifier =
+            Modifier
+                .fillMaxSize()
+                .background(getBackgroundForIndex(index))
+                .padding(vertical = 15.dp),
+        )
                 }
             }
         }

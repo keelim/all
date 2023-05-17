@@ -24,9 +24,9 @@ import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
-class NetworkViewModel
-@Inject
-constructor(private val networkConnectivityService: NetworkConnectivityService) : ViewModel() {
+class NetworkViewModel @Inject constructor(
+    networkConnectivityService: NetworkConnectivityService
+) : ViewModel() {
     val networkStatus: StateFlow<NetworkStatus> =
         networkConnectivityService.networkStatus.stateIn(
             scope = viewModelScope,

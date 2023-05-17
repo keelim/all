@@ -8,13 +8,15 @@ import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import com.keelim.common.model.NetworkConnectivityService
 import com.keelim.common.model.NetworkStatus
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import javax.inject.Inject
 
-class NetworkConnectivityServiceImpl @Inject constructor(context: Context) :
-    NetworkConnectivityService {
+class NetworkConnectivityServiceImpl @Inject constructor(
+    @ApplicationContext context: Context
+) : NetworkConnectivityService {
 
     private val connectivityManager: ConnectivityManager =
         context.getSystemService(ConnectivityManager::class.java)

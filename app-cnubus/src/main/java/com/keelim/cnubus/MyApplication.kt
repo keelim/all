@@ -19,7 +19,7 @@ import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.material.color.DynamicColors
 import com.keelim.cnubus.utils.AppOpenManager
-import com.keelim.cnubus.utils.ComponentLogger
+import com.keelim.commonAndroid.util.ComponentLogger
 import com.keelim.data.repository.theme.ThemeRepository
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject

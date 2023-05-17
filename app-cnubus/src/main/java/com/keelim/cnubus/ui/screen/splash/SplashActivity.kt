@@ -27,8 +27,8 @@ import com.keelim.cnubus.R
 import com.keelim.cnubus.ui.screen.main.MainActivity
 import com.keelim.cnubus.utils.VerificationUtils
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SplashActivity : AppCompatActivity(R.layout.activity_splash) {

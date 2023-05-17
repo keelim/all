@@ -2,7 +2,6 @@ package com.keelim.common.di
 
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
-import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
@@ -10,6 +9,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.isActive
+import javax.inject.Inject
 
 class SimpleFlowTicker @Inject constructor() : DefaultLifecycleObserver {
 
@@ -23,7 +23,7 @@ class SimpleFlowTicker @Inject constructor() : DefaultLifecycleObserver {
         coroutineScope: CoroutineScope,
         owner: LifecycleOwner,
         onTick: (number: Long) -> Unit,
-        onComplete: () -> Unit
+        onComplete: () -> Unit,
     ) {
         owner.lifecycle.addObserver(this)
         scope = coroutineScope
@@ -45,10 +45,11 @@ class SimpleFlowTicker @Inject constructor() : DefaultLifecycleObserver {
         }
     }
 
-    private fun getStartValue(secondValueInFuture: Long): Long = if (lastValue != 0L)
+    private fun getStartValue(secondValueInFuture: Long): Long = if (lastValue != 0L) {
         lastValue
-    else
+    } else {
         secondValueInFuture
+    }
 
     private fun tickerFlow(
         startValue: Long,

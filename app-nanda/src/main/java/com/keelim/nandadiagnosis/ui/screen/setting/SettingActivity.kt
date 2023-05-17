@@ -3,7 +3,7 @@ package com.keelim.nandadiagnosis.ui.screen.setting
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.keelim.compose.screen.setting.SettingScreen
+import com.keelim.composeutil.screen.setting.SettingScreen
 
 class SettingActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

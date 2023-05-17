@@ -34,7 +34,7 @@ class UserEditDialog : BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = DialogUserEditBinding.inflate(inflater)
         return binding.root

@@ -94,7 +94,7 @@ class MapsActivity : AppCompatActivity() {
                 startActivity(
                     Intent(this@MapsActivity, DetailActivity::class.java).apply {
                         putExtra("item", it)
-                    }
+                    },
                 )
             },
             longClicked = {
@@ -105,10 +105,10 @@ class MapsActivity : AppCompatActivity() {
                             putExtra(Intent.EXTRA_TEXT, "[확인] ${it.name} 사진보기 : ${it.imgUrl}")
                             type = "text/plain"
                         },
-                        null
-                    )
+                        null,
+                    ),
                 )
-            }
+            },
         )
     }
     private val recyclerAdapter by lazy { LocationAdapter() }
@@ -152,12 +152,14 @@ class MapsActivity : AppCompatActivity() {
             requestLocationUpdates(
                 LocationManager.GPS_PROVIDER,
                 minTime,
-                minDistance, myLocationListener,
+                minDistance,
+                myLocationListener,
             )
             requestLocationUpdates(
                 LocationManager.NETWORK_PROVIDER,
                 minTime,
-                minDistance, myLocationListener
+                minDistance,
+                myLocationListener,
             )
         }
         if (::fusedLocationProvider.isInitialized.not()) {
@@ -181,7 +183,7 @@ class MapsActivity : AppCompatActivity() {
         fusedLocationProvider.requestLocationUpdates(
             locationRequest,
             locationCallback,
-            Looper.myLooper()!!
+            Looper.myLooper()!!,
         )
     }
 
@@ -204,7 +206,7 @@ class MapsActivity : AppCompatActivity() {
                     super.onPageSelected(position)
                     CameraUpdateFactory.newLatLngZoom(
                         viewPagerAdapter.currentList[position].latLng,
-                        NORMAL_ZOOM
+                        NORMAL_ZOOM,
                     )
                 }
             })
@@ -257,7 +259,7 @@ class MapsActivity : AppCompatActivity() {
                                         } else {
                                             state.data[location].latLng
                                         },
-                                        NORMAL_ZOOM
+                                        NORMAL_ZOOM,
                                     ).also { cameraUpdate ->
                                         animateCamera(cameraUpdate)
                                         isMyLocationEnabled = true
@@ -290,9 +292,11 @@ class MapsActivity : AppCompatActivity() {
     private fun removeLocationListener() {
         if (::myLocationListener.isInitialized) locationManager.removeUpdates(myLocationListener)
 
-        if (::fusedLocationProvider.isInitialized) fusedLocationProvider.removeLocationUpdates(
-            locationCallback
-        )
+        if (::fusedLocationProvider.isInitialized) {
+            fusedLocationProvider.removeLocationUpdates(
+                locationCallback,
+            )
+        }
     }
     companion object {
         const val NORMAL_ZOOM = 17f

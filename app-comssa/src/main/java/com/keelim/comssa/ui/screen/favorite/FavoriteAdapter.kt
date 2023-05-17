@@ -49,8 +49,8 @@ class FavoriteAdapter(
             ItemSearchBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
-                false
-            )
+                false,
+            ),
         )
     }
 

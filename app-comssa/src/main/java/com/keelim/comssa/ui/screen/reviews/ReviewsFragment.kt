@@ -44,7 +44,7 @@ class ReviewsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentReviewBinding.inflate(inflater, container, false)
         return binding.root
@@ -84,7 +84,7 @@ class ReviewsFragment : Fragment() {
             },
             onReviewDeleteButtonClickListener = { review ->
                 showDeleteConfirmDialog(review)
-            }
+            },
         )
     }
 

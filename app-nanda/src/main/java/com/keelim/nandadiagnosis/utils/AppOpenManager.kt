@@ -13,9 +13,9 @@ import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.appopen.AppOpenAd
 import com.google.android.gms.ads.appopen.AppOpenAd.AppOpenAdLoadCallback
 import com.keelim.nandadiagnosis.BuildConfig
+import timber.log.Timber
 import java.util.Date
 import javax.inject.Inject
-import timber.log.Timber
 
 class AppOpenManager @Inject constructor() : LifecycleObserver {
     private var appOpenAd: AppOpenAd? = null
@@ -46,6 +46,7 @@ class AppOpenManager @Inject constructor() : LifecycleObserver {
         })
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)
     }
+
     /**
      * Request an ad
      * Have unused ad, no need to fetch another.
@@ -72,6 +73,7 @@ class AppOpenManager @Inject constructor() : LifecycleObserver {
                 appOpenAd = ad
                 loadTime = Date().time
             }
+
             /**
              * Called when an app open ad has failed to load.
              * @param loadAdError the error.
@@ -88,9 +90,10 @@ class AppOpenManager @Inject constructor() : LifecycleObserver {
             },
             adRequest,
             AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT,
-            loadCallback
+            loadCallback,
         )
     }
+
     /**
      * Only show ad if there is not already an app open ad currently showing
      * and an ad is available.

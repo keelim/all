@@ -103,8 +103,8 @@ class StationsFragment : Fragment() {
                 findNavController().navigate(
                     R.id.stationArrivalsFragment,
                     bundleOf(
-                        "station" to station
-                    )
+                        "station" to station,
+                    ),
                 )
             }
             onFavoriteClickListener = { station ->

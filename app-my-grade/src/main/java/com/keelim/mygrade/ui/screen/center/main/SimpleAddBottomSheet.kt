@@ -30,7 +30,10 @@ class SimpleAddBottomSheet : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View = DataBindingUtil.inflate<BottomsheetSimpleAddBinding>(
-        inflater, R.layout.bottomsheet_simple_add, container, false
+        inflater,
+        R.layout.bottomsheet_simple_add,
+        container,
+        false,
     ).apply {
         buttonConfirm.setOnClickListener {
             validate()
@@ -70,7 +73,7 @@ class SimpleAddBottomSheet : BottomSheetDialogFragment() {
                                 items[1].toFloat(),
                                 items[2].toFloat(),
                                 items[3].toInt(),
-                                true
+                                true,
                             )
                         } else {
                             toast("알 수 없는 오류가 발생하였습니다. 다시 한번 시도해주세요")
@@ -107,11 +110,11 @@ class SimpleAddBottomSheet : BottomSheetDialogFragment() {
                                         grade,
                                         getLevel(
                                             (it.value * it.temp) / 100,
-                                            it.temp
-                                        )
-                                    )
+                                            it.temp,
+                                        ),
+                                    ),
                                 )
-                            }
+                            },
                         )
                     }
                     is MainState.Error -> requireContext().snack(binding.root, "오류가 발생했습니다")

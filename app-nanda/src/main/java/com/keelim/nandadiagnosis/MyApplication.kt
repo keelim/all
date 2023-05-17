@@ -27,6 +27,7 @@ import javax.inject.Inject
 class MyApplication : Application() {
     @Inject
     lateinit var componentLogger: ComponentLogger
+
     @Inject
     lateinit var appOpenManager: AppOpenManager
 

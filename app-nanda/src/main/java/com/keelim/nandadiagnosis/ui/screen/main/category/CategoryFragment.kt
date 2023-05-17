@@ -61,7 +61,7 @@ class CategoryFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentCategoryBinding.inflate(layoutInflater, container, false)
         return binding.root
@@ -99,7 +99,7 @@ class CategoryFragment : Fragment() {
         remoteConfig.setConfigSettingsAsync(
             remoteConfigSettings {
                 minimumFetchIntervalInSeconds = 0
-            }
+            },
         )
         remoteConfig.fetchAndActivate().addOnCompleteListener {
             if (it.isSuccessful) {
@@ -141,12 +141,11 @@ class CategoryFragment : Fragment() {
     private fun goNext(num: String) { // 데이터를 사용하는 페이지 이니 조심하라는 문구
         Snackbar.make(binding.root, "이 기능은 데이터를 사용할 수 있습니다.", Snackbar.LENGTH_LONG)
             .setAction("ok") {
-
                 findNavController().navigate(
                     R.id.diagnosisFragment,
                     bundleOf(
-                        "num" to num
-                    )
+                        "num" to num,
+                    ),
                 )
             }
             .show()

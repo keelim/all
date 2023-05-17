@@ -46,7 +46,7 @@ class HistoryAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            ItemHistoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemHistoryBinding.inflate(LayoutInflater.from(parent.context), parent, false),
         )
     }
 

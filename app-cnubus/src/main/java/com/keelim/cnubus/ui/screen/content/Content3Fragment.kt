@@ -51,8 +51,8 @@ class Content3Fragment : Fragment(R.layout.fragment_content) {
                         Content3ViewModel.VIEW_1 -> startActivity(
                             Intent(
                                 Intent.ACTION_VIEW,
-                                Uri.parse(getString(R.string.notification_uri))
-                            )
+                                Uri.parse(getString(R.string.notification_uri)),
+                            ),
                         )
                     }
                 }

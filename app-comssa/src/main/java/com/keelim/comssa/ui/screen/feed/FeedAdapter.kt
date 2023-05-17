@@ -11,7 +11,7 @@ import com.keelim.comssa.databinding.ItemFeedListBinding
 import com.keelim.data.model.Feed
 
 class FeedAdapter(
-    private val click: (Feed) -> Unit
+    private val click: (Feed) -> Unit,
 ) : ListAdapter<Feed, FeedAdapter.FeedViewHolder>(diffUtil) {
 
     inner class FeedViewHolder(private val binding: ItemFeedListBinding) :
@@ -49,8 +49,8 @@ class FeedAdapter(
             ItemFeedListBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
-                false
-            )
+                false,
+            ),
         )
     }
 

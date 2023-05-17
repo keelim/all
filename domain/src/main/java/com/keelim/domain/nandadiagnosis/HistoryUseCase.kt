@@ -20,7 +20,7 @@ import com.keelim.data.repository.NandaIORepository
 import javax.inject.Inject
 
 class HistoryUseCase @Inject constructor(
-    private val nandaIoRepository: NandaIORepository
+    private val nandaIoRepository: NandaIORepository,
 ) {
     suspend fun getAllHistory(): List<NandaHistory> {
         return nandaIoRepository.getHistories()

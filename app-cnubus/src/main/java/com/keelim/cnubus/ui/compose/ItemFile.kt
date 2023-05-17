@@ -55,20 +55,20 @@ fun ItemFile(
                 }
             }
             .padding(16.dp),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Column(
                 modifier = Modifier
-                    .fillMaxWidth(0.8f)
+                    .fillMaxWidth(0.8f),
             ) {
                 Text(
                     text = file.name,
-                    color = Color.Black
+                    color = Color.Black,
                 )
 
                 Row {
@@ -79,14 +79,14 @@ fun ItemFile(
                     }
                     Text(
                         text = description,
-                        color = Color.DarkGray
+                        color = Color.DarkGray,
                     )
                 }
                 if (file.isDownloading) {
                     CircularProgressIndicator(
                         color = Color.Blue,
                         modifier = Modifier
-                            .size(32.dp)
+                            .size(32.dp),
                     )
                 }
             }

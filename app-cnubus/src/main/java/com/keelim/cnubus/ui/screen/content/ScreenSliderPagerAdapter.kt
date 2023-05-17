@@ -22,7 +22,7 @@ import com.keelim.cnubus.R
 class ScreenSliderPagerAdapter(fa: Fragment) : FragmentStateAdapter(fa) {
     private val images = arrayOf(
         R.drawable.content1,
-        R.drawable.content2
+        R.drawable.content2,
     )
 
     override fun getItemCount(): Int = 2

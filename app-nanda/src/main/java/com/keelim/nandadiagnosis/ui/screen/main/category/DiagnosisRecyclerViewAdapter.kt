@@ -26,7 +26,7 @@ import com.keelim.nandadiagnosis.databinding.ItemListviewBinding
 class DiagnosisRecyclerViewAdapter(
     var listener: (Int) -> Unit,
 ) : ListAdapter<DiagnosisItem, DiagnosisRecyclerViewAdapter.ViewHolder>(
-    diffUtil
+    diffUtil,
 ) {
 
     inner class ViewHolder(private val binding: ItemListviewBinding) :

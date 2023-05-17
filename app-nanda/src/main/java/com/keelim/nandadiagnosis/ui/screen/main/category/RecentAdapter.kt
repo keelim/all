@@ -36,7 +36,7 @@ class RecentAdapter(private val recents: List<Recent>) : RecyclerView.Adapter<Re
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            ItemRecentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemRecentBinding.inflate(LayoutInflater.from(parent.context), parent, false),
         )
     }
 

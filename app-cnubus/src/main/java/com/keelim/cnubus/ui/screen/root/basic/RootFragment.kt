@@ -55,10 +55,10 @@ class RootFragment : Fragment(R.layout.fragment_root) {
                         Intent(requireContext(), MapsActivity::class.java).apply {
                             putExtra("location", value - 1)
                             putExtra("mode", mode)
-                        }
+                        },
                     )
                 } ?: requireActivity().toast("노선 준비 중입니다. ")
-            }
+            },
         )
     }
 
@@ -94,8 +94,8 @@ class RootFragment : Fragment(R.layout.fragment_root) {
                                 listOf(
                                     Location.defaultLocation().apply {
                                         name = "아직 지원하는 노선이 없습니다."
-                                    }
-                                )
+                                    },
+                                ),
                             )
                         } else {
                             rootAdapter.submitList(event.data)
@@ -110,7 +110,7 @@ class RootFragment : Fragment(R.layout.fragment_root) {
         fun newInstance(mode: String): RootFragment {
             return RootFragment().apply {
                 arguments = bundleOf(
-                    "mode" to mode
+                    "mode" to mode,
                 )
             }
         }

@@ -32,8 +32,8 @@ import com.keelim.mygrade.utils.Keys.IN_APP_UPDATE_REQUEST_CODE
 import com.keelim.mygrade.work.MainWorker
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class CenterViewModel @Inject constructor(
@@ -76,7 +76,7 @@ class CenterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         DataBindingUtil.setContentView<ActivityCenterBinding>(
             this,
-            R.layout.activity_center
+            R.layout.activity_center,
         ).apply {
         }.also {
             binding = it
@@ -100,7 +100,7 @@ class CenterActivity : AppCompatActivity() {
                         (newUpdate.asLong().toInt()) > 17 -> "새로운 업데이트가 있습니다. 확인해주세요"
                         (newUpdate.asLong().toInt()) == 17 -> "올바른 버전 입니다."
                         else -> "버전 확인이 완료되었습니다."
-                    }
+                    },
                 )
             }
         }
@@ -115,7 +115,7 @@ class CenterActivity : AppCompatActivity() {
             this,
             0,
             resultIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
         )
 
         val icon =
@@ -142,14 +142,14 @@ class CenterActivity : AppCompatActivity() {
             if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE && appUpdateInfo.updatePriority() >= 4 &&
                 /* high priority */
                 appUpdateInfo.isUpdateTypeAllowed(
-                        AppUpdateType.IMMEDIATE
-                    )
+                    AppUpdateType.IMMEDIATE,
+                )
             ) {
                 appUpdateManager.startUpdateFlowForResult(
                     appUpdateInfo,
                     AppUpdateType.IMMEDIATE,
                     this,
-                    Keys.IN_APP_UPDATE_REQUEST_CODE
+                    Keys.IN_APP_UPDATE_REQUEST_CODE,
                 )
             }
         }

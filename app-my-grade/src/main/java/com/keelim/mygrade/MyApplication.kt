@@ -19,6 +19,7 @@ import javax.inject.Inject
 class MyApplication : Application(), ImageLoaderFactory {
     @Inject
     lateinit var componentLogger: ComponentLogger
+
     @Inject
     lateinit var appOpenManager: AppOpenManager
     override fun onCreate() {

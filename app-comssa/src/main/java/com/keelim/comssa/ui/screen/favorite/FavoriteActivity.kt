@@ -33,7 +33,7 @@ class FavoriteActivity : AppCompatActivity() {
         FavoriteAdapter(
             favoriteListener = { favorite, id ->
                 viewModel.favorite(favorite, id)
-            }
+            },
         )
     }
 

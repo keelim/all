@@ -31,7 +31,7 @@ class StationWidgetProvider : AppWidgetProvider() {
     override fun onUpdate(
         context: Context?,
         appWidgetManager: AppWidgetManager?,
-        appWidgetIds: IntArray?
+        appWidgetIds: IntArray?,
     ) {
         super.onUpdate(context, appWidgetManager, appWidgetIds)
         val pendingIntent = PendingIntent.getActivity(
@@ -42,12 +42,12 @@ class StationWidgetProvider : AppWidgetProvider() {
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             } else {
                 PendingIntent.FLAG_UPDATE_CURRENT
-            }
+            },
         )
 
         val views = RemoteViews(
             context?.packageName,
-            R.layout.widget_main
+            R.layout.widget_main,
         ).apply {
             setOnClickPendingIntent(R.id.layout_widget, pendingIntent)
         }

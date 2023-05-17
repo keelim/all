@@ -33,7 +33,7 @@ import com.keelim.cnubus.R
 import com.keelim.cnubus.ui.screen.main.MainViewModel
 import com.keelim.cnubus.ui.screen.setting.compose.ScreenAction
 import com.keelim.cnubus.ui.screen.setting.compose.SettingScreen
-import com.keelim.compose.setThemeContent
+import com.keelim.composeutil.setThemeContent
 import com.keelim.map.screen.map1.MapsActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -55,23 +55,23 @@ class SettingFragment2 : Fragment() {
                     ScreenAction.Homepage -> startActivity(
                         Intent(
                             Intent.ACTION_VIEW,
-                            Uri.parse(getString(R.string.notification_uri))
+                            Uri.parse(getString(R.string.notification_uri)),
                         ),
-                        ActivityOptions.makeSceneTransitionAnimation(requireActivity()).toBundle()
+                        ActivityOptions.makeSceneTransitionAnimation(requireActivity()).toBundle(),
                     )
 
                     ScreenAction.Map -> startActivity(
                         Intent(
                             requireActivity(),
-                            MapsActivity::class.java
+                            MapsActivity::class.java,
                         ),
-                        ActivityOptions.makeSceneTransitionAnimation(requireActivity()).toBundle()
+                        ActivityOptions.makeSceneTransitionAnimation(requireActivity()).toBundle(),
                     )
                     ScreenAction.Update -> startActivity(
                         Intent(Intent.ACTION_VIEW).apply {
                             data = Uri.parse(getString(R.string.updateLink))
                         },
-                        ActivityOptions.makeSceneTransitionAnimation(requireActivity()).toBundle()
+                        ActivityOptions.makeSceneTransitionAnimation(requireActivity()).toBundle(),
                     )
                     ScreenAction.Developer, ScreenAction.Lab -> {
                     }

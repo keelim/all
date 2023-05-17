@@ -38,16 +38,16 @@ class DiagnosisFragment : Fragment() {
             findNavController().navigate(
                 R.id.webFragment,
                 bundleOf(
-                    "web" to "https://keelim.github.io/nandaDiagnosis/${nav + position + 1}.html"
-                )
+                    "web" to "https://keelim.github.io/nandaDiagnosis/${nav + position + 1}.html",
+                ),
             )
-        }
+        },
     )
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentDiagnosisBinding.inflate(inflater, container, false)
         return binding.root
@@ -68,7 +68,6 @@ class DiagnosisFragment : Fragment() {
     }
 
     private fun initArray() {
-
         when (args.getString("num")) {
             "1" -> {
                 nav = 0

@@ -39,7 +39,7 @@ class ImageSlideFragment : Fragment() {
                 inflater,
                 R.layout.fragment_image_slider,
                 container,
-                false
+                false,
             ).apply {
                 image?.let {
                     imgSlideImage.load(it)
@@ -52,7 +52,7 @@ class ImageSlideFragment : Fragment() {
         fun getInstance(@DrawableRes image: Int): ImageSlideFragment {
             return ImageSlideFragment().apply {
                 arguments = bundleOf(
-                    "image" to image
+                    "image" to image,
                 )
             }
         }

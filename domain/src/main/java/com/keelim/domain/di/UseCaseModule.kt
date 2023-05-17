@@ -57,6 +57,6 @@ object UseCaseModule {
     @Provides
     @ViewModelScoped
     fun provideThemeUseCase(
-        themeRepository: ThemeRepository
+        themeRepository: ThemeRepository,
     ): ThemeUseCase = ThemeUseCase(themeRepository)
 }

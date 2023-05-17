@@ -23,8 +23,8 @@ import com.keelim.data.model.Data
 import com.keelim.data.model.DataReviews
 import com.keelim.data.model.Review
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class ReviewViewModel @Inject constructor() : ViewModel() {

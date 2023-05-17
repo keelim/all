@@ -6,8 +6,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.ui.Modifier
 import com.keelim.common.extensions.toast
-import com.keelim.compose.screen.setting.SettingAction
-import com.keelim.compose.screen.setting.SettingScreen
+import com.keelim.composeutil.screen.setting.SettingAction
+import com.keelim.composeutil.screen.setting.SettingScreen
 import com.keelim.mygrade.BuildConfig
 import com.keelim.mygrade.R
 

@@ -15,7 +15,7 @@ object NotificationChannels {
                 val notice = NotificationChannel(
                     NOTICE,
                     application.getString(R.string.notification_channel_notice),
-                    NotificationManager.IMPORTANCE_HIGH
+                    NotificationManager.IMPORTANCE_HIGH,
                 )
                 createNotificationChannels(listOf(notice))
             }

@@ -12,7 +12,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class NotificationBuilderImpl @Inject constructor(
-    @ApplicationContext ctx: Context
+    @ApplicationContext ctx: Context,
 ) : NotificationBuilder {
 
     private val applicationContext = ctx.applicationContext
@@ -37,7 +37,7 @@ class NotificationBuilderImpl @Inject constructor(
             this,
             0,
             intent,
-            PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE,
         )
     }
 }

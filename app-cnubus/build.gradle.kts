@@ -23,7 +23,7 @@ android {
     buildTypes {
         defaultConfig {
         }
-        create("app-cnubus-benchmark") {
+        create("cnubus-benchmark") {
             signingConfig = signingConfigs.getByName("debug")
             matchingFallbacks += listOf("release")
             isDebuggable = false

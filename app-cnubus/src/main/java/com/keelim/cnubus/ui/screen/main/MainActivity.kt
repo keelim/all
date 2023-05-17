@@ -38,8 +38,8 @@ import com.keelim.cnubus.databinding.ActivityMainBinding
 import com.keelim.cnubus.worker.BusWorker
 import com.keelim.common.extensions.toast
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.launch
+import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -126,12 +126,12 @@ class MainActivity : AppCompatActivity() {
         val loopRequest = PeriodicWorkRequest
             .Builder(BusWorker::class.java, 1, TimeUnit.HOURS)
             .setConstraints(
-                Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
+                Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build(),
             )
             .setInputData(
                 workDataOf(
-                    BusWorker.START to start
-                )
+                    BusWorker.START to start,
+                ),
             )
             .build()
         registerWork(loopRequest)

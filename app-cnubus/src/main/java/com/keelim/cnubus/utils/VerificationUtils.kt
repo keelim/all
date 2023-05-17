@@ -60,7 +60,7 @@ class VerificationUtils @Inject constructor(
         "/system/app/su.apk",
         "/system/bin/.ext",
         "/system/xbin/.ext",
-        "/su/bin/su"
+        "/su/bin/su",
     )
 
     private val rootPackages = arrayOf(
@@ -98,7 +98,7 @@ class VerificationUtils @Inject constructor(
         "lg.min.cris",
         "samsung.cris.jeong",
         "test.aaa.1",
-        "test.bbb.2"
+        "test.bbb.2",
     )
 
     private val runtime by lazy {
@@ -130,15 +130,15 @@ class VerificationUtils @Inject constructor(
         var process: Process? = null
         val su = arrayOf(
             "/system/xbin/which",
-            "su"
+            "su",
         )
         try {
             process = runtime.exec(su)
             BufferedReader(
                 InputStreamReader(
                     process.inputStream,
-                    Charset.forName("UTF-8")
-                )
+                    Charset.forName("UTF-8"),
+                ),
             ).use { reader -> return reader.readLine() != null }
         } catch (_: IOException) {
         } catch (_: Exception) {

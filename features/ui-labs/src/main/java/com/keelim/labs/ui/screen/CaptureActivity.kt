@@ -162,7 +162,7 @@ class CaptureActivity : AppCompatActivity(R.layout.activity_capture) {
                     addCategory(Intent.CATEGORY_OPENABLE)
                     type = "text/plain"
                     putExtra(Intent.EXTRA_TITLE, "newfile.txt")
-                }
+                },
             )
         }
     }
@@ -171,12 +171,12 @@ class CaptureActivity : AppCompatActivity(R.layout.activity_capture) {
         bindService(
             Intent(this, LabBoundService::class.java),
             myConnection,
-            Context.BIND_AUTO_CREATE
+            Context.BIND_AUTO_CREATE,
         )
         bindService(
             Intent(this, LabBoundService2::class.java),
             myConnection2,
-            Context.BIND_AUTO_CREATE
+            Context.BIND_AUTO_CREATE,
         )
     }
 
@@ -190,7 +190,7 @@ class CaptureActivity : AppCompatActivity(R.layout.activity_capture) {
 
         val msg = Message.obtain()
         val bundle = bundleOf(
-            "MyString" to "Message Receiver"
+            "MyString" to "Message Receiver",
         )
         msg.data = bundle
         runCatching {
@@ -204,7 +204,7 @@ class CaptureActivity : AppCompatActivity(R.layout.activity_capture) {
         runCatching {
             val pfd = contentResolver.openFileDescriptor(uri, "w")
             val fileOutputStream = FileOutputStream(
-                pfd?.fileDescriptor
+                pfd?.fileDescriptor,
             )
             val content = ""
             fileOutputStream.write(content.toByteArray())

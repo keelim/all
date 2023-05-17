@@ -3,7 +3,6 @@ package com.keelim.commonAndroid.di
 import com.keelim.common.model.NetworkConnectivityService
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 

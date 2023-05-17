@@ -43,7 +43,7 @@ import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import com.keelim.cnubus.worker.FileDownloadWorker
 import com.keelim.common.extensions.toast
-import com.keelim.compose.setThemeContent
+import com.keelim.composeutil.setThemeContent
 import com.keelim.data.model.File
 
 class Lab3Activity : ComponentActivity() {
@@ -54,7 +54,7 @@ class Lab3Activity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         requestMultiplePermission = registerForActivityResult(
-            ActivityResultContracts.RequestMultiplePermissions()
+            ActivityResultContracts.RequestMultiplePermissions(),
         ) { permissionMap ->
             var isGranted = false
             permissionMap.forEach { (s, b) ->
@@ -70,13 +70,13 @@ class Lab3Activity : ComponentActivity() {
             Surface(
                 modifier = Modifier
                     .fillMaxSize(),
-                color = MaterialTheme.colorScheme.background
+                color = MaterialTheme.colorScheme.background,
             ) {
                 requestMultiplePermission.launch(
                     arrayOf(
                         Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE
-                    )
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    ),
                 )
                 Home()
             }
@@ -108,7 +108,7 @@ class Lab3Activity : ComponentActivity() {
         workManager.enqueueUniqueWork(
             "oneFileDownloadWork_${System.currentTimeMillis()}",
             ExistingWorkPolicy.KEEP,
-            fileDownloadWorker
+            fileDownloadWorker,
         )
 
         workManager.getWorkInfoByIdLiveData(fileDownloadWorker.id)
@@ -139,7 +139,7 @@ class Lab3Activity : ComponentActivity() {
                 .fillMaxSize()
                 .padding(32.dp),
             verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             val data = remember {
                 mutableStateOf(
@@ -148,8 +148,8 @@ class Lab3Activity : ComponentActivity() {
                         name = "Pdf File 10 MB",
                         type = "PDF",
                         url = "https://www.learningcontainer.com/wp-content/uploads/2019/09/sample-pdf-download-10-mb.pdf",
-                        downloadedUri = null
-                    )
+                        downloadedUri = null,
+                    ),
                 )
             }
             ItemFile(
@@ -164,7 +164,6 @@ class Lab3Activity : ComponentActivity() {
                             }
                         },
                         failed = {
-
                             data.value = data.value.copy().apply {
                                 isDownloading = false
                                 downloadedUri = null
@@ -174,7 +173,7 @@ class Lab3Activity : ComponentActivity() {
                             data.value = data.value.copy().apply {
                                 isDownloading = true
                             }
-                        }
+                        },
                     )
                 },
                 openFile = {
@@ -182,9 +181,9 @@ class Lab3Activity : ComponentActivity() {
                         Intent(Intent.ACTION_VIEW).apply {
                             setDataAndType(it.downloadedUri?.toUri(), "application/pdf")
                             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                        }
+                        },
                     )
-                }
+                },
             )
         }
     }

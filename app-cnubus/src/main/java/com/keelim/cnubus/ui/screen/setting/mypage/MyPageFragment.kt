@@ -49,7 +49,7 @@ class MyPageFragment : Fragment(R.layout.fragment_my_page) {
     }
 
     private val signInLauncher = registerForActivityResult(
-        FirebaseAuthUIActivityResultContract()
+        FirebaseAuthUIActivityResultContract(),
     ) { result ->
         val response = result.idpResponse
         if (result.resultCode == RESULT_OK) {
@@ -94,7 +94,7 @@ class MyPageFragment : Fragment(R.layout.fragment_my_page) {
         }
         btnGoogleLogin.setOnClickListener {
             val providers = arrayListOf(
-                AuthUI.IdpConfig.GoogleBuilder().build()
+                AuthUI.IdpConfig.GoogleBuilder().build(),
             )
             val signInIntent = AuthUI.getInstance()
                 .createSignInIntentBuilder()

@@ -16,8 +16,8 @@ class HistoryAdapter : ListAdapter<SimpleHistory, HistoryViewHolder>(diffUtil) {
             ItemNotificationBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
-                false
-            )
+                false,
+            ),
         )
     }
 

@@ -25,8 +25,6 @@ import com.keelim.mygrade.utils.Keys
 import com.keelim.mygrade.utils.ThemeManager
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
-import java.util.Date
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -35,6 +33,8 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.apache.commons.math3.distribution.NormalDistribution
+import java.util.Date
+import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
@@ -55,7 +55,7 @@ class MainViewModel @Inject constructor(
                     MainState.Success(
                         trigger,
                         getNormalProbabilityAtZ(((origin - average) / number).toDouble()),
-                        student
+                        student,
                     )
                 }
             }.onFailure {
@@ -88,8 +88,8 @@ class MainViewModel @Inject constructor(
                 number,
                 student,
                 grade.toFloat(),
-                level
-            )
+                level,
+            ),
         )
     }
 
@@ -119,7 +119,7 @@ class MainFragment : Fragment() {
                     valueAverage.text.toString().toFloat(),
                     valueNumber.text.toString().toFloat(),
                     valueStudent.text.toString().toInt(),
-                    true
+                    true,
                 )
             }
             floatingActionButton.setOnClickListener {
@@ -189,11 +189,11 @@ class MainFragment : Fragment() {
                                                 (
                                                     it.value * binding.valueStudent.text.toString()
                                                         .toInt()
-                                                    ) / 100
-                                            )
-                                        )
+                                                    ) / 100,
+                                            ),
+                                        ),
                                     )
-                                }
+                                },
                             )
                             viewModel.moveToUnInitialized()
                         }

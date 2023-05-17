@@ -31,7 +31,7 @@ sealed class ProfileState {
         data class Registered(
             val userName: String,
             val profileImage: Uri?,
-            val favoriteList: List<NandaEntity> = listOf()
+            val favoriteList: List<NandaEntity> = listOf(),
         ) : Success()
 
         object NotRegistered : Success()

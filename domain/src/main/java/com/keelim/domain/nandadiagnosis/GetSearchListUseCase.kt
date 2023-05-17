@@ -17,8 +17,8 @@ package com.keelim.domain.nandadiagnosis
 
 import com.keelim.data.db.entity.NandaEntity
 import com.keelim.data.repository.NandaIORepository
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
 class GetSearchListUseCase @Inject constructor(
     private val nandaIoRepository: NandaIORepository,

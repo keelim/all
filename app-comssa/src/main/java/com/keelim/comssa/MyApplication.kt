@@ -16,7 +16,7 @@
 package com.keelim.comssa
 
 import android.app.Application
-import com.keelim.comssa.utils.ComponentLogger
+import com.keelim.commonAndroid.util.ComponentLogger
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 

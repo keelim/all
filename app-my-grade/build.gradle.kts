@@ -15,7 +15,7 @@ android {
     defaultConfig {
         applicationId = "com.keelim.mygrade"
         buildTypes {
-            create("app-my-grade-benchmark") {
+            create("my-grade-benchmark") {
                 signingConfig = signingConfigs.getByName("debug")
                 matchingFallbacks += listOf("release")
                 isDebuggable = false

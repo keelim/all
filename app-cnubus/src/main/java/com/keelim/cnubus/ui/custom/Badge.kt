@@ -24,7 +24,7 @@ import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
 import com.keelim.common.extensions.dip
 
-class Badge constructor(
+class Badge(
     context: Context,
     attrs: AttributeSet? = null,
 ) : AppCompatTextView(context, attrs) {

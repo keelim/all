@@ -149,7 +149,7 @@ class CenterActivity : AppCompatActivity() {
                     appUpdateInfo,
                     AppUpdateType.IMMEDIATE,
                     this,
-                    Keys.IN_APP_UPDATE_REQUEST_CODE,
+                    IN_APP_UPDATE_REQUEST_CODE,
                 )
             }
         }

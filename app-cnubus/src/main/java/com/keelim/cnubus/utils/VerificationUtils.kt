@@ -155,7 +155,7 @@ class VerificationUtils @Inject constructor(
                 try {
                     pm.getPackageInfo(pkg, 0)
                     return true
-                } catch (ignored: PackageManager.NameNotFoundException) {
+                } catch (ignored: NameNotFoundException) {
                     // fine, package doesn't exist.
                 }
             }
@@ -165,10 +165,7 @@ class VerificationUtils @Inject constructor(
 
     private fun buildTagCheck(): Boolean {
         val tags = Build.TAGS ?: return true
-        if (tags.contains("test-keys") || tags.contains("test")) {
-            return true
-        }
-        return false
+        return tags.contains("test-keys") || tags.contains("test")
     }
 
     private fun isNotInstalledViaGooglePlay(): Boolean {

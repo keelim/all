@@ -1,7 +1,6 @@
 import arrow.core.Either
 import arrow.core.Nel
 import arrow.core.ValidatedNel
-import arrow.core.computations.either
 import arrow.core.handleErrorWith
 import arrow.core.invalidNel
 import arrow.core.validNel
@@ -46,7 +45,7 @@ object Rules {
 
     /** either blocks support binding over Validated values with no additional cost or need to convert first to Either **/
     private fun FormField.validateFailFast(): Either<Nel<ValidationError>, Email> =
-        either.eager {
+        arrow.core.continuations.either.eager {
             contains("@").bind() // fails fast on first error found
             maxLength(250).bind()
             Email(value)

@@ -79,7 +79,7 @@ arrow = "1.1.5"
 flipper = "0.190.0"
 soloader = "0.10.5"
 #leak-canary
-leakcanary = "2.10"
+leakcanary = "2.11"
 #Compose ui
 compose-view = "1.4.3"
 paging-compose = "1.0.0-alpha19"

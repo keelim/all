@@ -19,6 +19,8 @@ import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.material.color.DynamicColors
 import com.keelim.cnubus.utils.AppOpenManager
+import com.keelim.cnubus.utils.SplitManagerImpl
+import com.keelim.common.model.SplitManager
 import com.keelim.commonAndroid.util.ComponentLogger
 import com.keelim.data.repository.theme.ThemeRepository
 import dagger.hilt.android.HiltAndroidApp
@@ -38,6 +40,9 @@ class MyApplication : Application() {
 
     @Inject
     lateinit var appOpenManager: AppOpenManager
+
+    @Inject
+    lateinit var splitManager: SplitManagerImpl
 
     private val scope by lazy { MainScope() }
 

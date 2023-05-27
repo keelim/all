@@ -91,4 +91,6 @@ dependencies {
     implementation(libs.androidx.navigation.ui)
 
     implementation(libs.coil.kt)
+
+    implementation(libs.androidx.window.manager)
 }

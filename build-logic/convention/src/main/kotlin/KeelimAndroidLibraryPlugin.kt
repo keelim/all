@@ -13,8 +13,8 @@ class KeelimAndroidLibraryPlugin : Plugin<Project> {
                 apply("org.jetbrains.kotlin.android")
             }
             extensions.getByType<LibraryExtension>().apply {
+                buildFeatures.dataBinding = true
                 configureKotlinAndroid(this)
-                defaultConfig.targetSdk = ProjectConfiguration.targetSdk
             }
         }
     }

@@ -22,11 +22,10 @@ class KeelimAndroidApplicationPlugin : Plugin<Project> {
                 defaultConfig.versionName = ProjectConfiguration.versionName
                 defaultConfig.versionCode = ProjectConfiguration.versionCode
                 defaultConfig.targetSdk = ProjectConfiguration.targetSdk
-                buildFeatures.viewBinding = true
+                buildFeatures.dataBinding = true
                 buildTypes.getByName("release").apply {
                     isMinifyEnabled = true
                 }
-
             }
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
             dependencies {

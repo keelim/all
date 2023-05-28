@@ -2,9 +2,7 @@ plugins {
     id("keelim.android.library")
     id("keelim.android.library.jacoco")
     id("keelim.android.hilt")
-    kotlin("kapt")
-    id("kotlin-parcelize")
-    id("org.jetbrains.kotlin.android")
+    kotlin("plugin.parcelize")
 }
 
 android{

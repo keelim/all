@@ -5,6 +5,10 @@ plugins {
     kotlin("kapt")
 }
 
+android {
+    namespace = "com.keelim.common"
+}
+
 dependencies {
     implementation(libs.kotlinx.coroutines.android)
 
@@ -23,8 +27,5 @@ dependencies {
 
     implementation(libs.coil.kt)
     implementation(libs.play.services.oss)
-}
-android {
-    namespace = "com.keelim.common"
 }
 

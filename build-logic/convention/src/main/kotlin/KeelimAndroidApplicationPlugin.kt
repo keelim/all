@@ -14,6 +14,9 @@ class KeelimAndroidApplicationPlugin : Plugin<Project> {
             with(pluginManager) {
                 apply("com.android.application")
                 apply("org.jetbrains.kotlin.android")
+                apply("com.google.android.gms.oss-licenses-plugin")
+                apply("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+                apply("org.jetbrains.qodana")
             }
 
 

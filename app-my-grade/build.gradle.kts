@@ -3,10 +3,6 @@ plugins {
     id("keelim.android.application.compose")
     id("keelim.android.application.jacoco")
     id("keelim.android.hilt")
-    kotlin("kapt")
-    id("com.google.android.gms.oss-licenses-plugin")
-    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
-    id("org.jetbrains.qodana")
 }
 
 android {

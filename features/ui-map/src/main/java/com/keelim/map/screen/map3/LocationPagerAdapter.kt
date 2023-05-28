@@ -26,7 +26,7 @@ import com.keelim.map.databinding.ItemHouseDetailForViewpagerBinding
 
 class LocationPagerAdapter(
     val clicked: (Location) -> Unit,
-    val longClicked: (Location) -> Unit
+    val longClicked: (Location) -> Unit,
 ) : ListAdapter<Location, LocationPagerAdapter.ItemViewHolder>(diffUtil) {
 
     inner class ItemViewHolder(val binding: ItemHouseDetailForViewpagerBinding) : RecyclerView.ViewHolder(binding.root) {

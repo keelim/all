@@ -14,6 +14,9 @@ class KeelimAndroidApplicationPlugin : Plugin<Project> {
             with(pluginManager) {
                 apply("com.android.application")
                 apply("org.jetbrains.kotlin.android")
+                apply("com.google.android.gms.oss-licenses-plugin")
+                apply("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+                apply("org.jetbrains.qodana")
             }
 
 
@@ -22,11 +25,10 @@ class KeelimAndroidApplicationPlugin : Plugin<Project> {
                 defaultConfig.versionName = ProjectConfiguration.versionName
                 defaultConfig.versionCode = ProjectConfiguration.versionCode
                 defaultConfig.targetSdk = ProjectConfiguration.targetSdk
-                buildFeatures.viewBinding = true
+                buildFeatures.dataBinding = true
                 buildTypes.getByName("release").apply {
                     isMinifyEnabled = true
                 }
-
             }
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
             dependencies {

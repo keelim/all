@@ -16,14 +16,11 @@ dependencyResolutionManagement {
 }
 rootProject.name = "all"
 include(
+    ":app-benchmark",
     ":app-cnubus",
-    ":app-cnubus-benchmark",
     ":app-comssa",
-    ":app-comssa-benchmark",
     ":app-my-grade",
-    ":app-my-grade-benchmark",
     ":app-nanda",
-    ":app-nanda-benchmark",
     // ":app-yr",
     // ":app-yr-benchmark",
     ":common",

@@ -31,8 +31,8 @@ class RootAdapter(
         ItemRootBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
-            false
-        )
+            false,
+        ),
     )
 
     override fun onBindViewHolder(holder: RootViewHolder, position: Int) {

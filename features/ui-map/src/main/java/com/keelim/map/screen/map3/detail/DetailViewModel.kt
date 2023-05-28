@@ -18,13 +18,13 @@ package com.keelim.map.screen.map3.detail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
+import javax.inject.Inject
 
 @HiltViewModel
 class DetailViewModel @Inject constructor() : ViewModel() {
@@ -33,12 +33,12 @@ class DetailViewModel @Inject constructor() : ViewModel() {
         delay(3000)
         emit(
             DetailState.Success(
-                emptyList()
-            )
+                emptyList(),
+            ),
         )
     }.catch {
         DetailState.Error(
-            message = "Error 가 발생하였습니다. "
+            message = "Error 가 발생하였습니다. ",
         )
     }.stateIn(viewModelScope, SharingStarted.Lazily, DetailState.UnInitialized)
 }

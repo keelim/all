@@ -42,9 +42,9 @@ import com.keelim.comssa.utils.toast
 import com.keelim.data.di.download.DownloadReceiver
 import com.keelim.data.di.download.DownloadRequest
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Inject
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -131,7 +131,7 @@ class MainActivity : AppCompatActivity() {
                         "서버로부터 데이터베이스를 요청 합니다."
                     } else {
                         "디폴트 데이터베이스를 다운로드받습니다."
-                    }
+                    },
                 )
                 downloadDatabase("")
             }
@@ -152,7 +152,7 @@ class MainActivity : AppCompatActivity() {
             },
         )
         getSystemService(DownloadManager::class.java).enqueue(
-            downloadRequest.provideDownloadRequest(link)
+            downloadRequest.provideDownloadRequest(link),
         )
     }
 
@@ -171,7 +171,7 @@ class MainActivity : AppCompatActivity() {
             SearchFragment(),
             FlashCardFragment(),
             SearchFragment(),
-            MyPageFragment2()
+            MyPageFragment2(),
         )
 
         override fun getItemCount(): Int = fragmentList.size

@@ -28,7 +28,7 @@ import com.keelim.data.model.Station
 
 class StationsAdapter(
     var onItemClickListener: ((Station) -> Unit)? = null,
-    var onFavoriteClickListener: ((Station) -> Unit)? = null
+    var onFavoriteClickListener: ((Station) -> Unit)? = null,
 ) : ListAdapter<Station, StationsAdapter.ViewHolder>(diffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
@@ -57,11 +57,11 @@ class StationsAdapter(
                             layoutParams =
                                 LinearLayout.LayoutParams(
                                     LinearLayout.LayoutParams.WRAP_CONTENT,
-                                    LinearLayout.LayoutParams.WRAP_CONTENT
+                                    LinearLayout.LayoutParams.WRAP_CONTENT,
                                 ).apply {
                                     rightMargin = root.context.dip(6f)
                                 }
-                        }
+                        },
                     )
                 }
             stationNameTextView.text = station.name

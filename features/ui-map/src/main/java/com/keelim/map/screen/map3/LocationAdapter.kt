@@ -46,8 +46,8 @@ class LocationAdapter : ListAdapter<Location, LocationAdapter.ItemViewHolder>(di
             ItemHouseBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
-                false
-            )
+                false,
+            ),
         )
     }
 

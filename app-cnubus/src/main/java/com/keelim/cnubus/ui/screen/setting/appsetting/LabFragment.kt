@@ -33,20 +33,20 @@ class LabFragment : PreferenceFragmentCompat() {
             "lab1" -> startActivity(
                 Intent(
                     requireContext(),
-                    com.keelim.cnubus.ui.screen.setting.LabActivity::class.java
-                )
+                    com.keelim.cnubus.ui.screen.setting.LabActivity::class.java,
+                ),
             )
             "lab2" -> startActivity(
                 Intent(
                     requireContext(),
-                    CaptureActivity::class.java
-                )
+                    CaptureActivity::class.java,
+                ),
             )
             "lab3" -> startActivity(
                 Intent(
                     requireContext(),
-                    Lab3Activity::class.java
-                )
+                    Lab3Activity::class.java,
+                ),
             )
         }
         return true

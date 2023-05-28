@@ -28,7 +28,7 @@ import com.keelim.cnubus.databinding.CustomContentBoxBinding
 class CustomContentBox @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet?,
-    defStyleAttr: Int = 0
+    defStyleAttr: Int = 0,
 ) : FrameLayout(context, attrs, defStyleAttr) {
     private val binding = CustomContentBoxBinding.inflate(LayoutInflater.from(context), this)
     init {

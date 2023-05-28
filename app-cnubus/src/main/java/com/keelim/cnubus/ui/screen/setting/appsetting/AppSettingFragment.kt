@@ -35,7 +35,7 @@ class AppSettingFragment : PreferenceFragmentCompat() {
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.CAMERA
+            Manifest.permission.CAMERA,
         )
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             data.plus(Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -62,7 +62,7 @@ class AppSettingFragment : PreferenceFragmentCompat() {
                 startActivity(
                     Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
                         data = Uri.parse("package:com.keelim.cnubus")
-                    }
+                    },
                 )
             }
             "문의" -> sendEmailToAdmin()
@@ -93,11 +93,11 @@ class AppSettingFragment : PreferenceFragmentCompat() {
                         BuildConfig.VERSION_NAME,
                         Build.MODEL,
                         Build.VERSION.SDK_INT,
-                        Build.VERSION.RELEASE
-                    )
+                        Build.VERSION.RELEASE,
+                    ),
                 )
                 type = "message/rfc822"
-            }
+            },
         )
     }
 }

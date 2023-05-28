@@ -1,358 +1,365 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nestedscrollview_feed"
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintlayout_feed"
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedscrollview_feed"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/imagview_feed_main"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scaleType="fitXY"
-                android:src="@drawable/img_main"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:contentDescription="TODO" />
-
-            <ImageView
-                android:id="@+id/imageview_feed_search"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="64dp"
-                android:layout_marginEnd="52dp"
-                android:src="@drawable/ic_search"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:contentDescription="TODO" />
-
-            <ImageView
-                android:id="@+id/imageview_feed_list"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="21dp"
-                android:src="@drawable/ic_menu"
-                app:layout_constraintBottom_toBottomOf="@+id/imageview_feed_search"
-                app:layout_constraintStart_toEndOf="@+id/imageview_feed_search"
-                app:layout_constraintTop_toTopOf="@+id/imageview_feed_search"
-                android:contentDescription="TODO" />
-
-            <TextView
-                android:id="@+id/textview_feed_today"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="254dp"
-                android:text="feed"
-                android:textColor="@color/white"
-                android:textSize="13sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textview_feed_today_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-
-                android:text="0"
-                android:textColor="@color/white"
-                android:textSize="13sp"
-                app:layout_constraintBottom_toBottomOf="@+id/textview_feed_today"
-                app:layout_constraintStart_toEndOf="@+id/textview_feed_today"
-                app:layout_constraintTop_toTopOf="@+id/textview_feed_today" />
-
-            <ImageView
-                android:id="@+id/imageview_feed_white_point"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:background="@drawable/circle_full_white"
-                app:layout_constraintBottom_toBottomOf="@+id/textview_feed_today_count"
-                app:layout_constraintStart_toEndOf="@+id/textview_feed_today_count"
-                app:layout_constraintTop_toTopOf="@+id/textview_feed_today_count"
-                android:contentDescription="TODO" />
-
-            <TextView
-                android:id="@+id/textview_feed_total"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-
-                android:text="total"
-                android:textColor="@color/white"
-                android:textSize="13sp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageview_feed_white_point"
-                app:layout_constraintStart_toEndOf="@+id/imageview_feed_white_point"
-                app:layout_constraintTop_toTopOf="@+id/imageview_feed_white_point" />
-
-            <TextView
-                android:id="@+id/textview_feed_total_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-
-                android:text="feed"
-                android:textColor="@color/white"
-                android:textSize="13sp"
-                app:layout_constraintBottom_toBottomOf="@+id/textview_feed_total"
-                app:layout_constraintStart_toEndOf="@+id/textview_feed_total"
-                app:layout_constraintTop_toTopOf="@+id/textview_feed_total" />
-
-            <TextView
-                android:id="@+id/textview_feed_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-
-                android:text="blog"
-                android:textColor="@color/white"
-                android:textSize="26sp"
-                app:layout_constraintStart_toStartOf="@+id/textview_feed_today"
-                app:layout_constraintTop_toBottomOf="@+id/textview_feed_today" />
-
-
-            <ImageView
-                android:id="@+id/imageview_feed_profile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="41dp"
-                android:background="@drawable/circle_full_beige"
-                app:layout_constraintStart_toStartOf="@+id/textview_feed_name"
-                app:layout_constraintTop_toBottomOf="@+id/textview_feed_name"
-                android:contentDescription="TODO" />
-
-
-            <TextView
-                android:id="@+id/textview_feed_username"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="350dp"
-                android:text="keelim"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                app:layout_constraintStart_toEndOf="@+id/imageview_feed_profile"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <TextView
-                android:id="@+id/textview_feed_neighbor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:background="@drawable/rectangle_blank_edge_round_white"
-
-                android:paddingStart="11dp"
-                android:paddingTop="4dp"
-                android:paddingEnd="9dp"
-                android:paddingBottom="2dp"
-                android:text="이웃"
-                android:textColor="@color/white"
-                android:textSize="10sp"
-                app:layout_constraintBottom_toBottomOf="@+id/textview_feed_username"
-                app:layout_constraintStart_toEndOf="@+id/textview_feed_username"
-                app:layout_constraintTop_toTopOf="@+id/textview_feed_username" />
-
-
-            <TextView
-                android:id="@+id/textview_feed_category1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-
-                android:text="카테고리1"
-                android:textColor="@color/white"
-                android:textSize="11sp"
-                app:layout_constraintStart_toStartOf="@+id/textview_feed_username"
-                app:layout_constraintTop_toBottomOf="@+id/textview_feed_username" />
-
-            <ImageView
-                android:id="@+id/imageview_feed_white_point_category"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="1dp"
-                android:background="@drawable/circle_full_white"
-                app:layout_constraintBottom_toBottomOf="@+id/textview_feed_category1"
-                app:layout_constraintStart_toEndOf="@+id/textview_feed_category1"
-                app:layout_constraintTop_toTopOf="@+id/textview_feed_category1"
-                android:contentDescription="TODO" />
-
-            <TextView
-                android:id="@+id/textview_feed_category2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="1dp"
-
-                android:text="카테고리1"
-                android:textColor="@color/white"
-                android:textSize="11sp"
-                app:layout_constraintBottom_toBottomOf="@+id/textview_feed_category1"
-                app:layout_constraintStart_toEndOf="@+id/imageview_feed_white_point_category"
-                app:layout_constraintTop_toTopOf="@+id/textview_feed_category1" />
-
-            <ImageView
-                android:id="@+id/imageview_feed_white_point_2"
-                android:layout_width="2dp"
-                android:layout_height="2dp"
-                android:layout_marginStart="5dp"
-                android:background="@drawable/circle_full_white"
-                app:layout_constraintBottom_toBottomOf="@+id/textview_feed_category2"
-                app:layout_constraintStart_toEndOf="@+id/textview_feed_category2"
-                app:layout_constraintTop_toTopOf="@+id/textview_feed_category2"
-                android:contentDescription="TODO" />
-
-
-            <TextView
-                android:id="@+id/textview_feed_neighbor_num"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-
-                android:text="1"
-                android:textColor="@color/white"
-                android:textSize="11sp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageview_feed_white_point_2"
-                app:layout_constraintStart_toEndOf="@+id/imageview_feed_white_point_2"
-                app:layout_constraintTop_toTopOf="@+id/imageview_feed_white_point_2" />
-
-            <ImageView
-                android:id="@+id/imageview_menu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="42dp"
-                android:src="@drawable/ic_menu_sub"
-                app:layout_constraintBottom_toBottomOf="@+id/imagview_feed_main"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:contentDescription="TODO" />
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintlayout_feed_gray"
+                android:id="@+id/constraintlayout_feed"
                 android:layout_width="match_parent"
-                android:layout_height="16dp"
-                android:background="@color/colorDarkGray"
-                app:layout_constraintTop_toBottomOf="@+id/imagview_feed_main" />
+                android:layout_height="wrap_content">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/linearlayout_feed_gray_line"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorDarkGray"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintlayout_feed_gray" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintlayout_feed_mid"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintlayout_feed_gray">
-
-                <TextView
-                    android:id="@+id/textview_feed_total_post"
-                    android:layout_width="wrap_content"
+                <ImageView
+                    android:id="@+id/imagview_feed_main"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="19dp"
-                    android:layout_marginBottom="18dp"
-
-                    android:text="post"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/img_main"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/imageview_feed_dropdown"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="9dp"
-                    android:src="@drawable/ic_dropdown"
-                    app:layout_constraintBottom_toBottomOf="@+id/textview_feed_total_post"
-                    app:layout_constraintStart_toEndOf="@+id/textview_feed_total_post"
-                    app:layout_constraintTop_toTopOf="@+id/textview_feed_total_post"
-                    android:contentDescription="TODO" />
-
-                <ImageView
-                    android:id="@+id/imageview_feed_grid_gallery"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="18dp"
-                    android:layout_marginBottom="17dp"
-                    android:src="@drawable/btn_grid_gallery"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/imageview_feed_grid_list_1"
                     app:layout_constraintTop_toTopOf="parent"
                     android:contentDescription="TODO" />
 
                 <ImageView
-                    android:id="@+id/imageview_feed_grid_list_1"
+                    android:id="@+id/imageview_feed_search"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="18dp"
-                    android:src="@drawable/btn_grid_list_1"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageview_feed_grid_gallery"
-                    app:layout_constraintEnd_toStartOf="@+id/imageview_feed_grid_list_2"
-                    app:layout_constraintTop_toTopOf="@+id/imageview_feed_grid_gallery"
+                    android:layout_marginTop="64dp"
+                    android:layout_marginEnd="52dp"
+                    android:src="@drawable/ic_search"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     android:contentDescription="TODO" />
 
                 <ImageView
-                    android:id="@+id/imageview_feed_grid_list_2"
+                    android:id="@+id/imageview_feed_list"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="20dp"
-                    android:src="@drawable/btn_grid_list_2"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageview_feed_grid_list_1"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/imageview_feed_grid_list_1"
+                    android:layout_marginStart="21dp"
+                    android:src="@drawable/ic_menu"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageview_feed_search"
+                    app:layout_constraintStart_toEndOf="@+id/imageview_feed_search"
+                    app:layout_constraintTop_toTopOf="@+id/imageview_feed_search"
+                    android:contentDescription="TODO" />
+
+                <TextView
+                    android:id="@+id/textview_feed_today"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="254dp"
+                    android:text="feed"
+                    android:textColor="@color/white"
+                    android:textSize="13sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textview_feed_today_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textview_feed_today"
+                    app:layout_constraintStart_toEndOf="@+id/textview_feed_today"
+                    app:layout_constraintTop_toTopOf="@+id/textview_feed_today" />
+
+                <ImageView
+                    android:id="@+id/imageview_feed_white_point"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:background="@drawable/circle_full_white"
+                    app:layout_constraintBottom_toBottomOf="@+id/textview_feed_today_count"
+                    app:layout_constraintStart_toEndOf="@+id/textview_feed_today_count"
+                    app:layout_constraintTop_toTopOf="@+id/textview_feed_today_count"
+                    android:contentDescription="TODO" />
+
+                <TextView
+                    android:id="@+id/textview_feed_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+
+                    android:text="total"
+                    android:textColor="@color/white"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageview_feed_white_point"
+                    app:layout_constraintStart_toEndOf="@+id/imageview_feed_white_point"
+                    app:layout_constraintTop_toTopOf="@+id/imageview_feed_white_point" />
+
+                <TextView
+                    android:id="@+id/textview_feed_total_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+
+                    android:text="feed"
+                    android:textColor="@color/white"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textview_feed_total"
+                    app:layout_constraintStart_toEndOf="@+id/textview_feed_total"
+                    app:layout_constraintTop_toTopOf="@+id/textview_feed_total" />
+
+                <TextView
+                    android:id="@+id/textview_feed_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+
+                    android:text="blog"
+                    android:textColor="@color/white"
+                    android:textSize="26sp"
+                    app:layout_constraintStart_toStartOf="@+id/textview_feed_today"
+                    app:layout_constraintTop_toBottomOf="@+id/textview_feed_today" />
+
+
+                <ImageView
+                    android:id="@+id/imageview_feed_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="41dp"
+                    android:background="@drawable/circle_full_beige"
+                    app:layout_constraintStart_toStartOf="@+id/textview_feed_name"
+                    app:layout_constraintTop_toBottomOf="@+id/textview_feed_name"
                     android:contentDescription="TODO" />
 
 
+                <TextView
+                    android:id="@+id/textview_feed_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="350dp"
+                    android:text="keelim"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@+id/imageview_feed_profile"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/textview_feed_neighbor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/rectangle_blank_edge_round_white"
+
+                    android:paddingStart="11dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="9dp"
+                    android:paddingBottom="2dp"
+                    android:text="이웃"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textview_feed_username"
+                    app:layout_constraintStart_toEndOf="@+id/textview_feed_username"
+                    app:layout_constraintTop_toTopOf="@+id/textview_feed_username" />
+
+
+                <TextView
+                    android:id="@+id/textview_feed_category1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+
+                    android:text="카테고리1"
+                    android:textColor="@color/white"
+                    android:textSize="11sp"
+                    app:layout_constraintStart_toStartOf="@+id/textview_feed_username"
+                    app:layout_constraintTop_toBottomOf="@+id/textview_feed_username" />
+
+                <ImageView
+                    android:id="@+id/imageview_feed_white_point_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="1dp"
+                    android:background="@drawable/circle_full_white"
+                    app:layout_constraintBottom_toBottomOf="@+id/textview_feed_category1"
+                    app:layout_constraintStart_toEndOf="@+id/textview_feed_category1"
+                    app:layout_constraintTop_toTopOf="@+id/textview_feed_category1"
+                    android:contentDescription="TODO" />
+
+                <TextView
+                    android:id="@+id/textview_feed_category2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="1dp"
+
+                    android:text="카테고리1"
+                    android:textColor="@color/white"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textview_feed_category1"
+                    app:layout_constraintStart_toEndOf="@+id/imageview_feed_white_point_category"
+                    app:layout_constraintTop_toTopOf="@+id/textview_feed_category1" />
+
+                <ImageView
+                    android:id="@+id/imageview_feed_white_point_2"
+                    android:layout_width="2dp"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="5dp"
+                    android:background="@drawable/circle_full_white"
+                    app:layout_constraintBottom_toBottomOf="@+id/textview_feed_category2"
+                    app:layout_constraintStart_toEndOf="@+id/textview_feed_category2"
+                    app:layout_constraintTop_toTopOf="@+id/textview_feed_category2"
+                    android:contentDescription="TODO" />
+
+
+                <TextView
+                    android:id="@+id/textview_feed_neighbor_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+
+                    android:text="1"
+                    android:textColor="@color/white"
+                    android:textSize="11sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageview_feed_white_point_2"
+                    app:layout_constraintStart_toEndOf="@+id/imageview_feed_white_point_2"
+                    app:layout_constraintTop_toTopOf="@+id/imageview_feed_white_point_2" />
+
+                <ImageView
+                    android:id="@+id/imageview_menu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="42dp"
+                    android:src="@drawable/ic_menu_sub"
+                    app:layout_constraintBottom_toBottomOf="@+id/imagview_feed_main"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:contentDescription="TODO" />
+
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/linearlayout_feed_gray_line_2"
+                    android:id="@+id/constraintlayout_feed_gray"
+                    android:layout_width="match_parent"
+                    android:layout_height="16dp"
+                    android:background="@color/colorDarkGray"
+                    app:layout_constraintTop_toBottomOf="@+id/imagview_feed_main" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/linearlayout_feed_gray_line"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/colorDarkGray"
                     android:orientation="horizontal"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintlayout_feed_gray" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintlayout_feed_mid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintlayout_feed_gray">
+
+                    <TextView
+                        android:id="@+id/textview_feed_total_post"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="19dp"
+                        android:layout_marginBottom="18dp"
+
+                        android:text="post"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/imageview_feed_dropdown"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="9dp"
+                        android:src="@drawable/ic_dropdown"
+                        app:layout_constraintBottom_toBottomOf="@+id/textview_feed_total_post"
+                        app:layout_constraintStart_toEndOf="@+id/textview_feed_total_post"
+                        app:layout_constraintTop_toTopOf="@+id/textview_feed_total_post"
+                        android:contentDescription="TODO" />
+
+                    <ImageView
+                        android:id="@+id/imageview_feed_grid_gallery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="18dp"
+                        android:layout_marginBottom="17dp"
+                        android:src="@drawable/btn_grid_gallery"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/imageview_feed_grid_list_1"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:contentDescription="TODO" />
+
+                    <ImageView
+                        android:id="@+id/imageview_feed_grid_list_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="18dp"
+                        android:src="@drawable/btn_grid_list_1"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageview_feed_grid_gallery"
+                        app:layout_constraintEnd_toStartOf="@+id/imageview_feed_grid_list_2"
+                        app:layout_constraintTop_toTopOf="@+id/imageview_feed_grid_gallery"
+                        android:contentDescription="TODO" />
+
+                    <ImageView
+                        android:id="@+id/imageview_feed_grid_list_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:src="@drawable/btn_grid_list_2"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageview_feed_grid_list_1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/imageview_feed_grid_list_1"
+                        android:contentDescription="TODO" />
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/linearlayout_feed_gray_line_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorDarkGray"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerview_feed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintlayout_feed_mid"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/item_feed_list" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerview_feed"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintlayout_feed_mid"
-                tools:itemCount="3"
-                tools:listitem="@layout/item_feed_list" />
+        </androidx.core.widget.NestedScrollView>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.core.widget.NestedScrollView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

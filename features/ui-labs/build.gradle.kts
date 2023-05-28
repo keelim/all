@@ -1,9 +1,8 @@
 plugins {
     id("keelim.android.library")
-    kotlin("kapt")
-    id("kotlin-parcelize")
-    id("dagger.hilt.android.plugin")
-    id("org.jetbrains.kotlin.android")
+    id("keelim.android.library.jacoco")
+    id("keelim.android.hilt")
+    kotlin("plugin.parcelize")
 }
 
 android{
@@ -15,9 +14,6 @@ dependencies {
     implementation(project(":compose"))
     implementation(project(":domain"))
     implementation(project(":common"))
-
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
 
     // activity
     implementation(libs.androidx.appcompat)

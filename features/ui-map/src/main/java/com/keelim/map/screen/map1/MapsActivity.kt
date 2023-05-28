@@ -21,11 +21,8 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper
-import android.view.View
-import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -39,19 +36,18 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.maps.android.ktx.addMarker
 import com.google.maps.android.ktx.awaitMap
 import com.keelim.common.extensions.repeatCallDefaultOnStarted
 import com.keelim.common.extensions.toast
 import com.keelim.data.model.gps.Location
 import com.keelim.map.databinding.ActivityMapsBinding
-import com.keelim.map.databinding.BottomSheetBinding
 import com.keelim.map.screen.map3.LocationAdapter
 import com.keelim.map.screen.map3.LocationPagerAdapter
 import com.keelim.map.screen.map3.detail.DetailActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+
 sealed class MapEvent {
     object UnInitialized : MapEvent()
     object Loading : MapEvent()
@@ -64,7 +60,6 @@ sealed class MapEvent {
 class MapsActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityMapsBinding.inflate(layoutInflater) }
-    private val bottomBinding by lazy { BottomSheetBinding.bind(binding.bottom.root) }
     private val location by lazy {
         intent.getIntExtra("location", -1)
             .let { value ->
@@ -119,21 +114,9 @@ class MapsActivity : AppCompatActivity() {
     private lateinit var myLocationListener: LocationListener
     private var current: LatLng? = null
 
-    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
-        override fun handleOnBackPressed() {
-            val behavior = BottomSheetBehavior.from(bottomBinding.root)
-            if (behavior.state == BottomSheetBehavior.STATE_EXPANDED) {
-                behavior.state = BottomSheetBehavior.STATE_COLLAPSED
-            } else {
-                finish()
-            }
-        }
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         initViews()
         setMyLocationListener()
         initFlow()
@@ -188,17 +171,6 @@ class MapsActivity : AppCompatActivity() {
     }
 
     private fun initViews() = with(binding) {
-        with(bottomBinding) {
-            recyclerView.adapter = recyclerAdapter
-            recyclerView.itemAnimator = null
-            val behavior = BottomSheetBehavior.from(root)
-            behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-                override fun onStateChanged(bottomSheet: View, newState: Int) {
-                    binding.topContainer.isVisible = (newState == BottomSheetBehavior.STATE_EXPANDED).not()
-                }
-                override fun onSlide(bottomSheet: View, slideOffset: Float) = Unit
-            })
-        }
         with(houseViewPager) {
             adapter = viewPagerAdapter
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
@@ -268,7 +240,6 @@ class MapsActivity : AppCompatActivity() {
                                 }
                             viewPagerAdapter.submitList(state.data)
                             recyclerAdapter.submitList(state.data)
-                            bottomBinding.bottomSheetTitleTextView.text = "${state.data.size} 주변 장소"
                             binding.houseViewPager.currentItem = location
                         }
                     }

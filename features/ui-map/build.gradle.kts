@@ -9,7 +9,7 @@ plugins {
 android{
     buildFeatures{
         dataBinding = true
-        viewBinding = true
+
     }
     namespace = "com.keelim.map"
 }

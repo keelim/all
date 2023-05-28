@@ -14,7 +14,6 @@ android {
     }
 
     buildTypes {
-        defaultConfig {}
         create("comssa-benchmark") {
             signingConfig = signingConfigs.getByName("debug")
             matchingFallbacks += listOf("release")
@@ -22,6 +21,7 @@ android {
         }
         getByName("release") {}
     }
+    useLibrary("android.test.mock")
     namespace = "com.keelim.comssa"
 }
 

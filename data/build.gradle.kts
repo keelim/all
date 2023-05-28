@@ -1,11 +1,15 @@
 plugins {
     id("keelim.android.library")
-    kotlin("kapt")
+    id("keelim.android.library.jacoco")
+    id("keelim.android.hilt")
     kotlin("plugin.parcelize")
     id("kotlinx-serialization")
     alias(libs.plugins.ksp)
-    id("dagger.hilt.android.plugin")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+}
+
+android {
+    namespace = "com.keelim.data"
 }
 
 dependencies {
@@ -29,11 +33,6 @@ dependencies {
     implementation(libs.ktor.client.websockets)
     implementation(libs.ktor.client.logging)
     implementation(libs.ktor.client.resources)
-
-    // Dagger Hilt
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
-    kapt(libs.hilt.ext.compiler)
     implementation(libs.timber)
 
     //datastore
@@ -44,8 +43,5 @@ dependencies {
     implementation(libs.firebase.firestore)
 
     implementation(libs.play.services.maps)
-}
-android {
-    namespace = "com.keelim.data"
 }
 

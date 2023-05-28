@@ -1,15 +1,9 @@
 plugins {
     id("keelim.android.application")
+    id("keelim.android.application.firebase")
     id("keelim.android.application.compose")
-    kotlin("kapt")
-    id("com.google.gms.google-services")
-    id("com.google.android.gms.oss-licenses-plugin")
-    id("com.google.firebase.crashlytics")
-    id("dagger.hilt.android.plugin")
-    id("com.google.firebase.firebase-perf")
-    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
-    id("org.jetbrains.kotlin.android")
-    id("org.jetbrains.qodana")
+    id("keelim.android.application.jacoco")
+    id("keelim.android.hilt")
 }
 
 android {
@@ -28,11 +22,6 @@ android {
         }
     }
     namespace = "com.keelim.cnubus"
-    packagingOptions {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
 }
 
 dependencies {
@@ -47,19 +36,14 @@ dependencies {
     implementation(libs.activity.ktx)
 
     implementation(platform(libs.firebase.bom))
-    implementation("com.google.firebase:firebase-auth-ktx")
-    implementation("com.google.firebase:firebase-crashlytics-ktx")
-    implementation("com.google.firebase:firebase-perf-ktx")
-    implementation("com.google.firebase:firebase-messaging-ktx")
-    implementation("com.google.firebase:firebase-analytics-ktx")
-    implementation("com.google.firebase:firebase-inappmessaging-display-ktx")
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.messaging)
+    implementation(libs.firebase.inappmessaging)
     implementation(libs.firebase.ui.auth)
 
     implementation(libs.lottie)
 
     implementation(libs.androidx.work.ktx)
-    implementation(libs.hilt.ext.work)
-    implementation(libs.hilt.android)
     implementation(libs.androidx.preference.ktx)
     implementation(libs.androidx.lifecycle.rutime)
 
@@ -74,7 +58,8 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test)
     debugImplementation(libs.androidx.compose.ui.testManifest)
 
-    kapt(libs.hilt.compiler)
+    // hilt
+    implementation(libs.hilt.ext.work)
     kapt(libs.hilt.ext.compiler)
 
     implementation(libs.play.services.ad)

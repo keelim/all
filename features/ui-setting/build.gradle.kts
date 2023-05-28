@@ -1,10 +1,10 @@
 plugins {
     id("keelim.android.library")
+    id("keelim.android.hilt")
     kotlin("kapt")
     kotlin("plugin.parcelize")
     id("kotlinx-serialization")
     alias(libs.plugins.ksp)
-    id("dagger.hilt.android.plugin")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
@@ -16,9 +16,6 @@ dependencies {
     implementation(project(":data"))
     implementation(project(":domain"))
     implementation(project(":common"))
-
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3)

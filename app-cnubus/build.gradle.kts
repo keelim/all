@@ -21,18 +21,11 @@ android {
         }
     }
     buildTypes {
-        defaultConfig {
-        }
         create("cnubus-benchmark") {
             signingConfig = signingConfigs.getByName("debug")
             matchingFallbacks += listOf("release")
             isDebuggable = false
         }
-    }
-    buildFeatures {
-        dataBinding = true
-        viewBinding = true
-        compose = true
     }
     namespace = "com.keelim.cnubus"
     packagingOptions {

@@ -52,7 +52,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         )
     private val searchRecyclerViewAdapter2 =
         SearchRecyclerViewAdapter2(
-            favoriteListener = { favorite, id -> favoriteUpdate(favorite, id) }
+            favoriteListener = { favorite, id -> favoriteUpdate(favorite, id) },
         )
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -125,7 +125,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                         return true
                     }
                     override fun onQueryTextChange(newText: String): Boolean = true
-                })
+                },
+            )
         }
         super.onCreateOptionsMenu(menu, inflater)
     }
@@ -137,8 +138,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                         type = "text/plain"
                         putExtra(Intent.EXTRA_TEXT, s)
                     },
-                    "내용 공유하기"
-                )
+                    "내용 공유하기",
+                ),
             )
     }
 

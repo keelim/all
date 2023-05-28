@@ -25,7 +25,7 @@ import com.keelim.comssa.databinding.ItemSearchBinding
 import com.keelim.comssa.ui.screen.favorite.Search
 
 class SearchAdapter(
-    private val favoriteListener: (Int, Int) -> Unit
+    private val favoriteListener: (Int, Int) -> Unit,
 ) : PagingDataAdapter<Search, SearchAdapter.ViewHolder>(diffUtil) {
 
     inner class ViewHolder(private val binding: ItemSearchBinding) :
@@ -52,8 +52,8 @@ class SearchAdapter(
             ItemSearchBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
-                false
-            )
+                false,
+            ),
         )
     }
 

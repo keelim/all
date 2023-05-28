@@ -26,7 +26,7 @@ import javax.inject.Singleton
 
 @Singleton
 class DownloadReceiver @Inject constructor(
-    @ApplicationContext val context: Context
+    @ApplicationContext val context: Context,
 ) : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         val id = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)

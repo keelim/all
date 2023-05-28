@@ -34,7 +34,7 @@ class AboutFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentAboutBinding.inflate(layoutInflater, container, false)
         return binding.root
@@ -69,8 +69,8 @@ class AboutFragment : Fragment() {
                 findNavController().navigate(
                     R.id.webFragment,
                     bundleOf(
-                        "web" to getString(R.string.github)
-                    )
+                        "web" to getString(R.string.github),
+                    ),
                 )
             }
         }

@@ -18,9 +18,9 @@ package com.keelim.map.screen.map1
 import androidx.lifecycle.ViewModel
 import com.keelim.data.model.gps.Location
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import javax.inject.Inject
 
 @HiltViewModel
 class MapsViewModel @Inject constructor() : ViewModel() {

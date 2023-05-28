@@ -20,11 +20,11 @@ import androidx.lifecycle.viewModelScope
 import com.keelim.data.model.gps.Location
 import com.keelim.map.screen.map1.MapEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class RootViewModel @Inject constructor() : ViewModel() {

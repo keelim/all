@@ -2,10 +2,10 @@ package com.keelim.comssa.ui.screen.feed
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class FeedViewModel @Inject constructor() : ViewModel() {
     private val _state: MutableStateFlow<FeedState> = MutableStateFlow(FeedState.UnInitialized)

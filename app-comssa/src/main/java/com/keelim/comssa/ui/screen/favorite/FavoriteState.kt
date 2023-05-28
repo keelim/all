@@ -18,7 +18,7 @@ package com.keelim.comssa.ui.screen.favorite
 sealed class FavoriteState {
     object UnInitialized : FavoriteState()
     data class Success(
-        val data: List<Search>
+        val data: List<Search>,
     ) : FavoriteState()
 
     object Loading : FavoriteState()

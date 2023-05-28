@@ -5,12 +5,12 @@ import com.google.android.play.core.appupdate.AppUpdateInfo
 import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import dagger.hilt.android.qualifiers.ApplicationContext
+import timber.log.Timber
 import javax.inject.Inject
 import kotlin.coroutines.suspendCoroutine
-import timber.log.Timber
 
 class InAppUpdateManagerImpl @Inject constructor(
-    @ApplicationContext ctx: Context
+    @ApplicationContext ctx: Context,
 ) : InAppUpdateManager {
 
     private val appUpdateManager = AppUpdateManagerFactory.create(ctx)

@@ -32,7 +32,7 @@ class SwipeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         DataBindingUtil.setContentView<ActivitySwipeBinding>(
             this,
-            R.layout.activity_swipe
+            R.layout.activity_swipe,
         ).apply {
         }.also {
             binding = it

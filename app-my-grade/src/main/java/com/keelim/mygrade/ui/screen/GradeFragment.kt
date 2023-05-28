@@ -3,7 +3,6 @@ package com.keelim.mygrade.ui.screen
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.os.ext.SdkExtensions
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,15 +31,15 @@ import com.keelim.mygrade.databinding.FragmentGradeBinding
 import com.keelim.mygrade.utils.Keys
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
-import java.io.File
-import java.io.FileOutputStream
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.io.File
+import java.io.FileOutputStream
+import javax.inject.Inject
 
 @HiltViewModel
 class GradeViewModel @Inject constructor(
@@ -54,8 +53,8 @@ class GradeViewModel @Inject constructor(
             SimpleHistory(
                 name = "",
                 grade = grade,
-                rank = rank
-            )
+                rank = rank,
+            ),
         )
         changeSaveAction(isSave = true)
     }
@@ -75,7 +74,7 @@ class GradeFragment : Fragment() {
     private val viewModel by viewModels<GradeViewModel>()
     private val data: Result? by lazy {
         requireArguments().getParcelable(
-            Keys.MAIN_TO_GRADE
+            Keys.MAIN_TO_GRADE,
         )
     }
 
@@ -83,7 +82,7 @@ class GradeFragment : Fragment() {
     private val binding get() = checkNotNull(_binding)
 
     private val photoPicker = registerForActivityResult(
-        PhotoPicker()
+        PhotoPicker(),
     ) { uris ->
         startActivity(
             Intent.createChooser(
@@ -92,8 +91,8 @@ class GradeFragment : Fragment() {
                     putParcelableArrayListExtra(Intent.EXTRA_STREAM, ArrayList(uris))
                     type = "image/*"
                 },
-                "선택 이미지 공유"
-            )
+                "선택 이미지 공유",
+            ),
         )
     }
 
@@ -105,7 +104,7 @@ class GradeFragment : Fragment() {
         inflater,
         R.layout.fragment_grade,
         container,
-        false
+        false,
     ).apply {
         val (_grade, _level) = data?.grade.orEmpty() to data?.point.orEmpty()
         grade.text = _grade
@@ -163,10 +162,10 @@ class GradeFragment : Fragment() {
                 action = StoragePermissions.Action.READ_AND_WRITE,
                 types = listOf(
                     StoragePermissions.FileType.Image,
-                    StoragePermissions.FileType.Document
+                    StoragePermissions.FileType.Document,
                 ),
-                createdBy = StoragePermissions.CreatedBy.Self
-            )
+                createdBy = StoragePermissions.CreatedBy.Self,
+            ),
         )
     }
 
@@ -181,7 +180,8 @@ class GradeFragment : Fragment() {
             }
             FileProvider.getUriForFile(
                 requireContext(),
-                "com.keelim.fileprovider", File(cachePath, "image.png")
+                "com.keelim.fileprovider",
+                File(cachePath, "image.png"),
             )
         }.onSuccess {
             photoPicker.launch(PhotoPicker.Args(PhotoPicker.Type.IMAGES_ONLY, 1))

@@ -30,10 +30,10 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.keelim.cnubus.ui.screen.main.MainActivity
 import com.keelim.data.repository.setting.DeveloperRepository
-import java.util.UUID
-import javax.inject.Inject
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.util.UUID
+import javax.inject.Inject
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
     @Inject
@@ -64,7 +64,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                         PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
                     } else {
                         PendingIntent.FLAG_UPDATE_CURRENT
-                    }
+                    },
                     // PendingIntent.FLAG_UPDATE_CURRENT
                     // 기존 펜딩 인덴트가 있는 경우 교체
                     // Android SDK 31 Issue FLAG_IMMUTABLE
@@ -74,7 +74,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                     nickname,
                     message,
                     busId!!,
-                    pendingIntent
+                    pendingIntent,
                 ).build()
                 notificationManager.notify(NOTIFICATION_ID, notification)
             }
@@ -96,7 +96,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             val channel = NotificationChannel(
                 "id",
                 "CHATTING",
-                IMPORTANCE_HIGH
+                IMPORTANCE_HIGH,
             )
             channel.apply {
                 enableLights(true)
@@ -113,11 +113,11 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         title: String,
         content: String,
         privateChatroomId: String,
-        pendingIntent: PendingIntent
+        pendingIntent: PendingIntent,
     ): NotificationCompat.Builder {
         return NotificationCompat.Builder(
             this,
-            "id"
+            "id",
         )
             .setContentTitle(title)
             .setContentText(content)

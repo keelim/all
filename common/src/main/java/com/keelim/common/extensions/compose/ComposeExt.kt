@@ -15,7 +15,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
-import com.google.android.material.composethemeadapter.MdcTheme
 
 fun Activity.showAsBottomSheet(@IdRes id: Int, content: @Composable (() -> Unit) -> Unit) {
     val viewGroup = this.findViewById(id) as ViewGroup
@@ -37,7 +36,7 @@ private fun addContentToView(
             setContent {
                 BottomSheetWrapper(viewGroup, this, content)
             }
-        }
+        },
     )
 }
 
@@ -117,7 +116,7 @@ inline fun Fragment.fragmentComposeView(
     setParentCompositionContext(parent)
     layoutParams = ViewGroup.LayoutParams(
         ViewGroup.LayoutParams.MATCH_PARENT,
-        ViewGroup.LayoutParams.MATCH_PARENT
+        ViewGroup.LayoutParams.MATCH_PARENT,
     )
     setContent {
         SetUp {

@@ -57,9 +57,5 @@
             android:layout_marginBottom="120dp"
             android:orientation="horizontal" />
 
-        <include
-            android:id="@+id/bottom"
-            layout="@layout/bottom_sheet" />
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

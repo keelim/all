@@ -7,18 +7,18 @@
 {style="note"}
 
 ## Todo
-
 - Android
     - Android 14
-    - Jetpack Compose
     - Lint
     - MVVM, MVI
+      - mvrx, workflow, orbit
 - Kotlin
-    - kmm
+    - KMM
+      - Compose
     - ktor
     - kotlin serialization
     - ksp
-    - k2
+    - k2 compiler
 - Gradle
     - kotlin dsl
 - Network
@@ -34,6 +34,7 @@
 - [Now in Android](https://github.com/android/nowinandroid)
 - [Droid knights](https://github.com/droidknights/DroidKnights2021_App)
 - [Droid kagi](https://github.com/DroidKaigi/conference-app-2022)
+- [tivi](https://github.com/chrisbanes/tivi)
 
 ## Reference
 

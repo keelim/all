@@ -11,8 +11,11 @@ java {
 }
 
 dependencies {
-    implementation(libs.android.gradlePlugin)
-    implementation(libs.kotlin.gradlePlugin)
+    compileOnly(libs.android.gradlePlugin)
+    compileOnly(libs.firebase.crashlytics.gradlePlugin)
+    compileOnly(libs.firebase.performance.gradlePlugin)
+    compileOnly(libs.kotlin.gradlePlugin)
+    compileOnly(libs.ksp.gradlePlugin)
 }
 
 gradlePlugin {
@@ -20,6 +23,10 @@ gradlePlugin {
         register("androidApplication") {
             id = "keelim.android.application"
             implementationClass = "KeelimAndroidApplicationPlugin"
+        }
+        register("androidApplicationFirebase") {
+            id = "keelim.android.application.firebase"
+            implementationClass = "KeelimApplicationFirebasePlugin"
         }
         register("androidApplicationCompose") {
             id = "keelim.android.application.compose"

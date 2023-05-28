@@ -1,6 +1,7 @@
 plugins {
     id("keelim.android.library")
     id("keelim.android.library.compose")
+    id("keelim.android.library.jacoco")
     id("keelim.android.hilt")
     id("kotlinx-serialization")
     kotlin("kapt")

@@ -1,6 +1,7 @@
 plugins {
     id("keelim.android.application")
     id("keelim.android.application.compose")
+    id("keelim.android.application.jacoco")
     id("keelim.android.hilt")
     kotlin("kapt")
     id("com.google.gms.google-services")

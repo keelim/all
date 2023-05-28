@@ -17,25 +17,33 @@ dependencies {
 
 gradlePlugin {
     plugins {
+        register("androidApplication") {
+            id = "keelim.android.application"
+            implementationClass = "KeelimAndroidApplicationPlugin"
+        }
         register("androidApplicationCompose") {
             id = "keelim.android.application.compose"
             implementationClass = "KeelimAndroidApplicationComposePlugin"
         }
-        register("androidLibraryCompose") {
-            id = "keelim.android.library.compose"
-            implementationClass = "KeelimAndroidLibraryComposePlugin"
-        }
-        register("androidTest") {
-            id = "keelim.android.test"
-            implementationClass = "KeelimAndroidTestPlugin"
+        register("androidApplicationJacoco") {
+            id = "keelim.android.application.jacoco"
+            implementationClass = "KeelimApplicationJacocoPlugin"
         }
         register("androidLibrary") {
             id = "keelim.android.library"
             implementationClass = "KeelimAndroidLibraryPlugin"
         }
-        register("androidApplication") {
-            id = "keelim.android.application"
-            implementationClass = "KeelimAndroidApplicationPlugin"
+        register("androidLibraryCompose") {
+            id = "keelim.android.library.compose"
+            implementationClass = "KeelimAndroidLibraryComposePlugin"
+        }
+        register("androidLibraryJacoco") {
+            id = "keelim.android.library.jacoco"
+            implementationClass = "KeelimLibraryJacocoPlugin"
+        }
+        register("androidTest") {
+            id = "keelim.android.test"
+            implementationClass = "KeelimAndroidTestPlugin"
         }
         register("androidHilt") {
             id = "keelim.android.hilt"

@@ -7,9 +7,6 @@ plugins {
 }
 
 android{
-    buildFeatures{
-        viewBinding = true
-    }
     namespace = "com.keelim.labs"
 }
 

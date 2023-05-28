@@ -59,8 +59,10 @@ fun Project.configureKotlinAndroid(
 //                "-Xopt-in=kotlinx.serialization.ExperimentalSerializationApi"
             )
 
-            // Set JVM target to 1.8
             jvmTarget = ProjectConfiguration.javaVer.toString()
+            sourceSets.all {
+                languageVersion = "2.0"
+            }
         }
     }
 

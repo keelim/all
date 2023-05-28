@@ -19,23 +19,30 @@ import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.material.color.DynamicColors
 import com.keelim.cnubus.utils.AppOpenManager
-import com.keelim.cnubus.utils.ComponentLogger
+import com.keelim.cnubus.utils.SplitManagerImpl
+import com.keelim.common.model.SplitManager
+import com.keelim.commonAndroid.util.ComponentLogger
 import com.keelim.data.repository.theme.ThemeRepository
 import dagger.hilt.android.HiltAndroidApp
-import javax.inject.Inject
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltAndroidApp
 class MyApplication : Application() {
     @Inject
     lateinit var themeRepository: ThemeRepository
+
     @Inject
     lateinit var componentLogger: ComponentLogger
+
     @Inject
     lateinit var appOpenManager: AppOpenManager
+
+    @Inject
+    lateinit var splitManager: SplitManagerImpl
 
     private val scope by lazy { MainScope() }
 
@@ -47,7 +54,7 @@ class MyApplication : Application() {
         scope.launch {
             AppCompatDelegate.setDefaultNightMode(
                 themeRepository.getUserTheme().firstOrNull()
-                    ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+                    ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM,
             )
         }
         DynamicColors.applyToActivitiesIfAvailable(this)

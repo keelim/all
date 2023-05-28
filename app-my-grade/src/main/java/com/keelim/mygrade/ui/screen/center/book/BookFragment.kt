@@ -23,7 +23,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.keelim.common.extensions.compose.fragmentComposeView
-import com.keelim.compose.component.appbar.SearchView
+import com.keelim.composeutil.component.appbar.SearchView
 import com.keelim.data.repository.mygrade.BookRepository
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -31,7 +31,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BookViewModel @Inject constructor(
-    repository: BookRepository
+    repository: BookRepository,
 ) : ViewModel() {
 
     var query = mutableStateOf("")
@@ -48,13 +48,14 @@ class BookViewModel @Inject constructor(
 class BookFragment : Fragment() {
     private val viewModel: BookViewModel by viewModels()
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View = fragmentComposeView {
         val books = viewModel.bookFlow.collectAsLazyPagingItems()
         val focusManager = LocalFocusManager.current
         MaterialTheme {
             Scaffold(topBar = {
-
                 TopAppBar(title = {
                     SearchView(
                         query = viewModel.query.value,
@@ -65,8 +66,8 @@ class BookFragment : Fragment() {
                             .fillMaxWidth()
                             .background(
                                 color = MaterialTheme.colorScheme.background,
-                                shape = RoundedCornerShape(8.dp)
-                            )
+                                shape = RoundedCornerShape(8.dp),
+                            ),
                     )
                 })
             }) { padding ->

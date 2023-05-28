@@ -1,9 +1,15 @@
 plugins {
     id("keelim.android.library")
-    kotlin("kapt")
+    id("keelim.android.hilt")
+}
+
+android {
+    namespace = "com.keelim.commonAndroid"
 }
 
 dependencies {
+    implementation(project(":common"))
+
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.startup)
     implementation(libs.coil.kt)
@@ -18,8 +24,5 @@ dependencies {
     debugImplementation(libs.flipper.leakcanary)
     debugImplementation(libs.leakcanary)
     releaseImplementation(libs.flipper.noop)
-}
-android {
-    namespace = "com.keelim.commonAndroid"
 }
 

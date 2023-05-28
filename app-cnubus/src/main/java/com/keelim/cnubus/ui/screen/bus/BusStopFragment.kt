@@ -46,7 +46,7 @@ class BusStopFragment : Fragment(R.layout.fragment_bus_stop) {
             return BusStopFragment().apply {
                 uuid?.let {
                     arguments = bundleOf(
-                        "uuid" to uuid
+                        "uuid" to uuid,
                     )
                 }
             }

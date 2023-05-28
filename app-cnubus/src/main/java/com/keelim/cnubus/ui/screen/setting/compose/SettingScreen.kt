@@ -49,35 +49,35 @@ private val settings by lazy {
     val data = listOf(
         Setting(
             text = "마이페이지",
-            action = ScreenAction.MYPAGE
+            action = ScreenAction.MYPAGE,
         ),
         Setting(
             text = "공지사항",
-            action = ScreenAction.Content
+            action = ScreenAction.Content,
         ),
         Setting(
             text = "홈페이지",
-            action = ScreenAction.Homepage
+            action = ScreenAction.Homepage,
         ),
         Setting(
             text = "맵 바로가기",
-            action = ScreenAction.Map
+            action = ScreenAction.Map,
         ),
         Setting(
             text = "업데이트",
-            action = ScreenAction.Update
+            action = ScreenAction.Update,
         ),
         Setting(
             text = "근처 지하철",
-            action = ScreenAction.Subway
+            action = ScreenAction.Subway,
         ),
         Setting(
             text = "앱 설정",
-            action = ScreenAction.AppSetting
+            action = ScreenAction.AppSetting,
         ),
         Setting(
             text = "개발자 소개",
-            action = ScreenAction.Developer
+            action = ScreenAction.Developer,
         ),
 //        Setting(
 //            text = "실험기능1",
@@ -96,7 +96,7 @@ internal fun SettingScreen(
             Column(
                 Modifier
                     .fillMaxWidth()
-                    .padding(24.dp)
+                    .padding(24.dp),
             ) {
                 Text(
                     text = "설정",
@@ -106,20 +106,20 @@ internal fun SettingScreen(
                         Color.Black
                     },
                     fontSize = 32.sp,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
                 )
             }
-        }
+        },
     ) { innerPadding ->
         val data = remember { settings }
         LazyColumn(
-            modifier = Modifier.padding(innerPadding)
+            modifier = Modifier.padding(innerPadding),
         ) {
             items(
                 items = data,
                 itemContent = {
                     SettingItem(item = it, onScreenAction)
-                }
+                },
             )
         }
     }
@@ -136,7 +136,7 @@ fun SettingItem(item: Setting, onScreenAction: (ScreenAction) -> Unit) {
         modifier = Modifier
             .padding(
                 horizontal = 8.dp,
-                vertical = 8.dp
+                vertical = 8.dp,
             )
             .fillMaxWidth(),
         elevation = CardDefaults.elevatedCardElevation(2.dp),
@@ -148,7 +148,7 @@ fun SettingItem(item: Setting, onScreenAction: (ScreenAction) -> Unit) {
                 modifier = Modifier
                     .padding(16.dp)
                     .fillMaxWidth()
-                    .align(Alignment.CenterVertically)
+                    .align(Alignment.CenterVertically),
             ) {
                 CellItem(text = item.text) {
                     onScreenAction(item.action)
@@ -157,7 +157,7 @@ fun SettingItem(item: Setting, onScreenAction: (ScreenAction) -> Unit) {
                     color = "#EFEFEF".toColor(),
                     modifier = Modifier
                         .padding(horizontal = 24.dp)
-                        .height(1.dp)
+                        .height(1.dp),
                 )
             }
         }
@@ -183,7 +183,7 @@ private fun CellItem(
             .heightIn(min = 62.dp)
             .clickable { onClicked() }
             .padding(horizontal = 24.dp)
-            .wrapContentHeight()
+            .wrapContentHeight(),
     )
 }
 
@@ -192,6 +192,6 @@ private fun CellItem(
 private fun PreviewSettingScreen() {
     SettingScreen(
         onScreenAction = { action ->
-        }
+        },
     )
 }

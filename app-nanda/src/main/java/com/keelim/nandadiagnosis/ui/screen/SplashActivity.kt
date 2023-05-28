@@ -55,7 +55,7 @@ class SplashActivity : AppCompatActivity() {
     private fun initSplash() {
         val permissions = arrayOf(
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.READ_EXTERNAL_STORAGE
+            Manifest.permission.READ_EXTERNAL_STORAGE,
         )
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             permissions.plus(Manifest.permission.FOREGROUND_SERVICE)
@@ -70,7 +70,9 @@ class SplashActivity : AppCompatActivity() {
     private fun showAd() {
         val adRequest = AdRequest.Builder().build()
         InterstitialAd.load(
-            this, test or BuildConfig.NANDA_SPLASH, adRequest,
+            this,
+            test or BuildConfig.NANDA_SPLASH,
+            adRequest,
             object : InterstitialAdLoadCallback() {
                 override fun onAdFailedToLoad(adError: LoadAdError) {
                     Timber.d(adError.message)
@@ -88,7 +90,7 @@ class SplashActivity : AppCompatActivity() {
                     mInterstitialAd!!.show(this@SplashActivity)
                     goNext()
                 }
-            }
+            },
         )
     }
 
@@ -96,10 +98,11 @@ class SplashActivity : AppCompatActivity() {
         permissions.forEach { permission ->
             if (ActivityCompat.checkSelfPermission(
                     this,
-                    permission
+                    permission,
                 ) != PackageManager.PERMISSION_GRANTED
-            )
+            ) {
                 return false
+            }
         }
         return true
     }
@@ -108,7 +111,7 @@ class SplashActivity : AppCompatActivity() {
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
-        grantResults: IntArray
+        grantResults: IntArray,
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
@@ -138,7 +141,7 @@ class SplashActivity : AppCompatActivity() {
                 startActivity(
                     Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
                         data = Uri.parse("package:" + applicationContext.packageName)
-                    }
+                    },
                 )
             }
             .setNegativeButton("취소") { _, _ -> }

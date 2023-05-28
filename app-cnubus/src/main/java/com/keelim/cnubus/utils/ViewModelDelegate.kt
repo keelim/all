@@ -17,9 +17,9 @@ package com.keelim.cnubus.utils
 
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
+import javax.inject.Inject
 
 interface ErrorViewModel {
     val error: SharedFlow<Throwable>

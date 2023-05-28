@@ -50,7 +50,7 @@ class DepthPageTransformer : ViewPager2.PageTransformer {
                     val scaleFactor = (
                         MIN_SCALE + (1 - MIN_SCALE) * (
                             1 - kotlin.math.abs(
-                                position
+                                position,
                             )
                             )
                         )

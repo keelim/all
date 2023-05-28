@@ -43,7 +43,7 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentHomeBinding.inflate(layoutInflater)
         return binding.root
@@ -105,7 +105,8 @@ class HomeFragment : Fragment() {
                     override fun getSpanSize(position: Int): Int {
                         return when (adapter?.getItemViewType(position)) {
                             ITEM_VIEW_TYPE_SECTION_HEADER,
-                            ITEM_VIEW_TYPE_FEATURED -> spanCount
+                            ITEM_VIEW_TYPE_FEATURED,
+                            -> spanCount
                             else -> 1
                         }
                     }

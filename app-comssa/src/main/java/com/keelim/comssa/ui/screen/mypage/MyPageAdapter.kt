@@ -27,14 +27,14 @@ import com.keelim.data.model.Data
 import com.keelim.data.model.ReviewedData
 
 class MyPageAdapter(
-    var onDataClickListener: (Data) -> Unit
+    var onDataClickListener: (Data) -> Unit,
 ) : RecyclerView.Adapter<MyPageAdapter.ViewHolder>() {
     var reviewedDatas: List<ReviewedData> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyPageAdapter.ViewHolder =
         ViewHolder(
             ItemReviewedDataBinding
-                .inflate(LayoutInflater.from(parent.context), parent, false)
+                .inflate(LayoutInflater.from(parent.context), parent, false),
         )
 
     override fun getItemCount(): Int = reviewedDatas.size

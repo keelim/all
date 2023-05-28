@@ -40,9 +40,9 @@ fun Project.configureKotlinAndroid(
         }
 
         compileOptions {
-            sourceCompatibility = JavaVersion.VERSION_11
-            targetCompatibility = JavaVersion.VERSION_11
-            isCoreLibraryDesugaringEnabled = true
+            sourceCompatibility = ProjectConfiguration.javaVer
+            targetCompatibility = ProjectConfiguration.javaVer
+            // isCoreLibraryDesugaringEnabled = true
         }
 
         kotlinOptions {
@@ -60,14 +60,14 @@ fun Project.configureKotlinAndroid(
             )
 
             // Set JVM target to 1.8
-            jvmTarget = JavaVersion.VERSION_11.toString()
+            jvmTarget = ProjectConfiguration.javaVer.toString()
         }
     }
 
     val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
     dependencies {
-        add("coreLibraryDesugaring", libs.findLibrary("android.desugarJdkLibs").get())
+        // add("coreLibraryDesugaring", libs.findLibrary("android.desugarJdkLibs").get())
     }
 }
 

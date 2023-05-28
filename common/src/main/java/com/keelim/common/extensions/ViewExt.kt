@@ -103,7 +103,7 @@ fun ImageView.loadAsync(url: String?, doOnEnd: () -> Unit) {
     load(url) {
         listener(
             onSuccess = { _, _ -> doOnEnd() },
-            onError = { _, _ -> doOnEnd() }
+            onError = { _, _ -> doOnEnd() },
         )
     }
 }
@@ -247,7 +247,7 @@ fun Context.themeColor(
     @AttrRes themeAttrId: Int,
 ): Int {
     return obtainStyledAttributes(
-        intArrayOf(themeAttrId)
+        intArrayOf(themeAttrId),
     ).use {
         it.getColor(0, Color.MAGENTA)
     }
@@ -331,7 +331,7 @@ fun BottomNavigationView.show() {
     if (!isLaidOut) {
         measure(
             View.MeasureSpec.makeMeasureSpec(parent.width, View.MeasureSpec.EXACTLY),
-            View.MeasureSpec.makeMeasureSpec(parent.height, View.MeasureSpec.AT_MOST)
+            View.MeasureSpec.makeMeasureSpec(parent.height, View.MeasureSpec.AT_MOST),
         )
         layout(parent.left, parent.height - measuredHeight, parent.right, parent.height)
     }
@@ -344,7 +344,7 @@ fun BottomNavigationView.show() {
         duration = 300L
         interpolator = AnimationUtils.loadInterpolator(
             context,
-            android.R.interpolator.linear_out_slow_in
+            android.R.interpolator.linear_out_slow_in,
         )
         addUpdateListener {
             val newTop = it.animatedValue as Int
@@ -380,7 +380,7 @@ fun BottomNavigationView.hide() {
         duration = 200L
         interpolator = AnimationUtils.loadInterpolator(
             context,
-            android.R.interpolator.fast_out_linear_in
+            android.R.interpolator.fast_out_linear_in,
         )
         addUpdateListener {
             val newTop = it.animatedValue as Int

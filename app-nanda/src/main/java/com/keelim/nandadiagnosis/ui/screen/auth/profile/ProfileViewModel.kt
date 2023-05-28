@@ -23,11 +23,11 @@ import com.google.firebase.auth.FirebaseUser
 import com.keelim.data.di.IoDispatcher
 import com.keelim.data.di.PreferenceManager
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
+import javax.inject.Inject
 
 @HiltViewModel
 internal class ProfileViewModel @Inject constructor(
@@ -64,11 +64,11 @@ internal class ProfileViewModel @Inject constructor(
                 ProfileState.Success.Registered(
                     user.displayName ?: "익명",
                     user.photoUrl,
-                )
+                ),
             )
         } ?: kotlin.run {
             setState(
-                ProfileState.Success.NotRegistered
+                ProfileState.Success.NotRegistered,
             )
         }
     }

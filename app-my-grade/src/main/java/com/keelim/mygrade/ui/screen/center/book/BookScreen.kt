@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,7 +28,8 @@ import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.itemsIndexed
+import androidx.paging.compose.itemContentType
+import androidx.paging.compose.itemKey
 import coil.compose.AsyncImage
 import com.keelim.data.api.response.mygrade.Books
 import kotlinx.coroutines.flow.flowOf
@@ -39,7 +41,7 @@ fun BookScreen(books: LazyPagingItems<Books.Book>, modifier: Modifier = Modifier
             Column(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 CircularProgressIndicator()
             }
@@ -49,7 +51,7 @@ fun BookScreen(books: LazyPagingItems<Books.Book>, modifier: Modifier = Modifier
             Column(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text("error 가 발생하였습니다. ")
             }
@@ -57,15 +59,21 @@ fun BookScreen(books: LazyPagingItems<Books.Book>, modifier: Modifier = Modifier
 
         is LoadState.NotLoading -> {
             LazyColumn(modifier = modifier) {
-                itemsIndexed(books) { index, book ->
-                    BookItem(
-                        item = book,
-                        modifier =
-                        Modifier
-                            .fillMaxSize()
-                            .background(getBackgroundForIndex(index))
-                            .padding(vertical = 15.dp)
-                    )
+                items(
+        count = books.itemCount,
+        key = books.itemKey<Books.Book>(),
+        contentType = books.itemContentType<Books.Book>(
+            )
+    ) { index ->
+        val item = books[index]
+        BookItem(
+            item = item,
+            modifier =
+            Modifier
+                .fillMaxSize()
+                .background(getBackgroundForIndex(index))
+                .padding(vertical = 15.dp),
+        )
                 }
             }
         }
@@ -89,11 +97,11 @@ internal fun PreviewBookScreen() {
                         saleInfo = null,
                         searchInfo = null,
                         selfLink = null,
-                        volumeInfo = null
-                    )
-                )
-            )
-        ).collectAsLazyPagingItems()
+                        volumeInfo = null,
+                    ),
+                ),
+            ),
+        ).collectAsLazyPagingItems(),
     )
 }
 
@@ -106,20 +114,20 @@ internal fun BookItem(item: Books.Book?, modifier: Modifier = Modifier) {
             Modifier
                 .fillMaxHeight()
                 .weight(0.2f),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Spacer(modifier = Modifier.padding(top = 30.dp))
             AsyncImage(
                 model = thumbnail,
                 contentDescription = item?.volumeInfo?.title,
-                modifier = Modifier
+                modifier = Modifier,
             )
         }
         Column(
             modifier = Modifier
                 .fillMaxHeight()
                 .weight(0.8f)
-                .padding(30.dp)
+                .padding(30.dp),
         ) {
             Text(text = item?.volumeInfo?.title.orEmpty())
 
@@ -127,10 +135,10 @@ internal fun BookItem(item: Books.Book?, modifier: Modifier = Modifier) {
                 text =
                 HtmlCompat.fromHtml(
                     item?.searchInfo?.textSnippet.orEmpty(),
-                    HtmlCompat.FROM_HTML_MODE_COMPACT
+                    HtmlCompat.FROM_HTML_MODE_COMPACT,
                 )
                     .toString(),
-                textAlign = TextAlign.Justify
+                textAlign = TextAlign.Justify,
             )
         }
     }
@@ -154,7 +162,7 @@ internal fun PreviewBookItem() {
                 Books.Book.VolumeInfo.ImageLinks(
                     smallThumbnail = null,
                     thumbnail =
-                    "https://images.unsplash.com/photo-1607252650355-f7fd0460ccdb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                    "https://images.unsplash.com/photo-1607252650355-f7fd0460ccdb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
                 ),
                 industryIdentifiers = listOf(),
                 infoLink = null,
@@ -168,7 +176,7 @@ internal fun PreviewBookItem() {
                 publisher = null,
                 readingModes = null,
                 subtitle = null,
-                title = "이것은 Title"
+                title = "이것은 Title",
             ),
             searchInfo = Books.Book.SearchInfo("Description"),
             accessInfo = null,
@@ -176,10 +184,10 @@ internal fun PreviewBookItem() {
             id = null,
             kind = null,
             saleInfo = null,
-            selfLink = null
+            selfLink = null,
         ),
         modifier = Modifier
             .fillMaxWidth()
-            .height(150.dp)
+            .height(150.dp),
     )
 }

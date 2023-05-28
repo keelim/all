@@ -38,8 +38,8 @@ class FavoriteAdapter : ListAdapter<NandaEntity, FavoriteAdapter.ViewHolder>(dif
             ItemFavoriteBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
-                false
-            )
+                false,
+            ),
         )
     }
 

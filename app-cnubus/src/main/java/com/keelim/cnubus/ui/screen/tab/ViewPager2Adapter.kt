@@ -26,7 +26,7 @@ class ViewPager2Adapter(fa: Fragment) : FragmentStateAdapter(fa) {
         RootFragment.newInstance("b"),
         RootFragment.newInstance("c"),
         RootFragment.newInstance("night"),
-        SettingFragment2.newInstance()
+        SettingFragment2.newInstance(),
     )
     override fun getItemCount(): Int = fragments.size
     override fun createFragment(position: Int): Fragment = fragments[position]

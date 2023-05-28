@@ -39,7 +39,7 @@ class FavoriteFragment2 : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentFavoriteBinding.inflate(layoutInflater)
         return binding.root

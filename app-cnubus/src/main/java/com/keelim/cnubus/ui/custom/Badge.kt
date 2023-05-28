@@ -24,9 +24,9 @@ import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
 import com.keelim.common.extensions.dip
 
-class Badge constructor(
+class Badge(
     context: Context,
-    attrs: AttributeSet? = null
+    attrs: AttributeSet? = null,
 ) : AppCompatTextView(context, attrs) {
 
     var badgeColor = Color.LTGRAY
@@ -47,7 +47,7 @@ class Badge constructor(
             horizontalPadding,
             verticalPadding,
             horizontalPadding,
-            verticalPadding
+            verticalPadding,
         )
         setTextColor(Color.WHITE)
         textSize = 12f
@@ -63,8 +63,9 @@ class Badge constructor(
             0f,
             width.toFloat(),
             height.toFloat(),
-            height / 2f, height / 2f,
-            paint.apply { color = badgeColor }
+            height / 2f,
+            height / 2f,
+            paint.apply { color = badgeColor },
         )
     }
 

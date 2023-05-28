@@ -20,7 +20,7 @@ import com.keelim.data.repository.setting.DeveloperRepository
 import javax.inject.Inject
 
 class GetDevelopersUseCase @Inject constructor(
-    private val conferenceRepository: DeveloperRepository
+    private val conferenceRepository: DeveloperRepository,
 ) {
     suspend operator fun invoke(): List<Developer> {
         return conferenceRepository.getDeveloper()

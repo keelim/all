@@ -23,7 +23,7 @@ sealed class MainListState {
     object Loading : MainListState()
 
     data class Success(
-        val searchList: List<Search>
+        val searchList: List<Search>,
     ) : MainListState()
 
     object Error : MainListState()

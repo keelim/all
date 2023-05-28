@@ -27,7 +27,7 @@ import com.keelim.cnubus.databinding.ItemHistoryBinding
 import com.keelim.data.db.entity.CnuHistory
 
 class MyPageHistoryAdapter(
-    val itemDelete: (CnuHistory) -> Unit
+    val itemDelete: (CnuHistory) -> Unit,
 ) :
     ListAdapter<CnuHistory, MyPageHistoryAdapter.HistoryViewHolder>(diffUtil) {
     inner class HistoryViewHolder(val binding: ItemHistoryBinding) :
@@ -54,8 +54,8 @@ class MyPageHistoryAdapter(
             ItemHistoryBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
-                false
-            )
+                false,
+            ),
         )
     }
 

@@ -17,9 +17,9 @@ package com.keelim.nandadiagnosis
 
 import android.app.Application
 import com.google.android.material.color.DynamicColors
+import com.keelim.commonAndroid.util.ComponentLogger
 import com.keelim.nandadiagnosis.notification.NotificationChannels
 import com.keelim.nandadiagnosis.utils.AppOpenManager
-import com.keelim.nandadiagnosis.utils.ComponentLogger
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 
@@ -27,6 +27,7 @@ import javax.inject.Inject
 class MyApplication : Application() {
     @Inject
     lateinit var componentLogger: ComponentLogger
+
     @Inject
     lateinit var appOpenManager: AppOpenManager
 

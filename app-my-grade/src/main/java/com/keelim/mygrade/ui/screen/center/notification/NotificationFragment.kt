@@ -23,6 +23,7 @@ import javax.inject.Inject
 class NotificationViewModel @Inject constructor(
     private val ioRepository: IoRepository,
 ) : ViewModel()
+
 @AndroidEntryPoint
 class NotificationFragment : Fragment() {
     private var _binding: FragmentNotificationBinding? = null

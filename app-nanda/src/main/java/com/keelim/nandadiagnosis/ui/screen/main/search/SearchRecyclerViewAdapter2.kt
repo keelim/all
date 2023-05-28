@@ -59,8 +59,8 @@ class SearchRecyclerViewAdapter2(
             ItemListviewBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
-                false
-            )
+                false,
+            ),
         )
     }
 

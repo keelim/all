@@ -34,10 +34,10 @@ import androidx.work.workDataOf
 import com.keelim.cnubus.R
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
+import timber.log.Timber
 import java.io.File
 import java.io.FileOutputStream
 import java.net.URL
-import timber.log.Timber
 
 @HiltWorker
 class FileDownloadWorker @AssistedInject constructor(
@@ -46,7 +46,6 @@ class FileDownloadWorker @AssistedInject constructor(
 ) : CoroutineWorker(appContext, workerParams) {
     @SuppressLint("MissingPermission")
     override suspend fun doWork(): Result {
-
         val fileUrl = inputData.getString(KEY_FILE_URL) ?: ""
         val fileName = inputData.getString(KEY_FILE_NAME) ?: ""
         val fileType = inputData.getString(KEY_FILE_TYPE) ?: ""
@@ -61,7 +60,6 @@ class FileDownloadWorker @AssistedInject constructor(
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
             val name = NotificationConstants.CHANNEL_NAME
             val description = NotificationConstants.CHANNEL_DESCRIPTION
             val importance = NotificationManager.IMPORTANCE_HIGH
@@ -82,22 +80,22 @@ class FileDownloadWorker @AssistedInject constructor(
         NotificationManagerCompat.from(appContext)
             .notify(
                 NotificationConstants.NOTIFICATION_ID,
-                builder.build()
+                builder.build(),
             )
 
         val uri = getSavedFileUri(
             fileName = fileName,
             fileType = fileType,
             fileUrl = fileUrl,
-            context = appContext
+            context = appContext,
         )
 
         NotificationManagerCompat.from(appContext).cancel(NotificationConstants.NOTIFICATION_ID)
         return if (uri != null) {
             Result.success(
                 workDataOf(
-                    KEY_FILE_URI to uri.toString()
-                )
+                    KEY_FILE_URI to uri.toString(),
+                ),
             )
         } else {
             Result.failure()
@@ -141,7 +139,7 @@ class FileDownloadWorker @AssistedInject constructor(
             else -> {
                 val target = File(
                     Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-                    fileName
+                    fileName,
                 )
                 URL(fileUrl).openStream().use { input ->
                     FileOutputStream(target).use { output ->

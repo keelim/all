@@ -10,8 +10,8 @@ import androidx.lifecycle.lifecycleScope
 import com.keelim.comssa.databinding.FragmentFeedBinding
 import com.keelim.data.model.Feed
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class FeedFragment @Inject constructor() : Fragment() {
@@ -26,7 +26,7 @@ class FeedFragment @Inject constructor() : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentFeedBinding.inflate(inflater, container, false)
         return binding.root
@@ -49,8 +49,8 @@ class FeedFragment @Inject constructor() : Fragment() {
             listOf(
                 Feed(0, 0, "title", "contnet", "date", false, true, 6, 6),
                 Feed(1, 1, "title1", "contnet1", "date1", false, true, 7, 8),
-                Feed(2, 2, "title2", "contnet2", "date2", false, true, 6, 6)
-            )
+                Feed(2, 2, "title2", "contnet2", "date2", false, true, 6, 6),
+            ),
         )
         feedAdapter.notifyDataSetChanged()
     }

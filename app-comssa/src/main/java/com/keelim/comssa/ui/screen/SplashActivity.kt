@@ -52,7 +52,8 @@ class SplashActivity : AppCompatActivity() {
 
     private fun initSplash() {
         val permissions = arrayOf(
-            Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
         )
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             permissions.plus(Manifest.permission.FOREGROUND_SERVICE)
@@ -90,16 +91,19 @@ class SplashActivity : AppCompatActivity() {
                     mInterstitialAd!!.show(this@SplashActivity)
                     goNext()
                 }
-            }
+            },
         )
     }
 
     private fun hasPermissions(permissions: Array<String>): Boolean {
         permissions.forEach { permission ->
             if (ActivityCompat.checkSelfPermission(
-                    this, permission
+                    this,
+                    permission,
                 ) != PackageManager.PERMISSION_GRANTED
-            ) return false
+            ) {
+                return false
+            }
         }
         return true
     }
@@ -108,7 +112,7 @@ class SplashActivity : AppCompatActivity() {
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
-        grantResults: IntArray
+        grantResults: IntArray,
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
@@ -128,8 +132,9 @@ class SplashActivity : AppCompatActivity() {
             delay(1500)
             startActivity(
                 Intent(
-                    this@SplashActivity, MainActivity::class.java
-                )
+                    this@SplashActivity,
+                    MainActivity::class.java,
+                ),
             )
             finish()
         }

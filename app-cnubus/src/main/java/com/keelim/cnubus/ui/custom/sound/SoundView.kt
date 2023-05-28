@@ -24,7 +24,7 @@ import com.keelim.cnubus.R
 
 class SoundView(
     ctx: Context,
-    attributeSet: AttributeSet? = null
+    attributeSet: AttributeSet? = null,
 ) : View(ctx, attributeSet) {
 
     var requestAction: (() -> Int)? = null
@@ -94,7 +94,7 @@ class SoundView(
                     centerY - lineLength / 2F,
                     offsetX,
                     centerY + lineLength / 2F,
-                    wavePaint
+                    wavePaint,
                 )
             }
     }

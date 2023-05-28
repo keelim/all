@@ -45,7 +45,7 @@ fun Bitmap.saveToGallery(context: Context): Uri? {
             contentValues.apply {
                 put(
                     MediaStore.MediaColumns.DISPLAY_NAME,
-                    "${System.currentTimeMillis()}$IMAGE_JPEG_SUFFIX"
+                    "${System.currentTimeMillis()}$IMAGE_JPEG_SUFFIX",
                 )
                 put(MediaStore.MediaColumns.MIME_TYPE, IMAGE_MIME_TYPE)
                 put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
@@ -64,7 +64,7 @@ fun Bitmap.saveToGallery(context: Context): Uri? {
                 context.contentResolver,
                 this,
                 "${System.currentTimeMillis()}",
-                "${context.applicationInfo.loadLabel(context.packageManager)}-image"
+                "${context.applicationInfo.loadLabel(context.packageManager)}-image",
             )
             val savedImageUri = Uri.parse(imageUrl)
 
@@ -84,14 +84,14 @@ fun Context.getMediaUri(): Uri {
         val contentValues = ContentValues().apply {
             put(
                 MediaStore.MediaColumns.DISPLAY_NAME,
-                "${System.currentTimeMillis()}$IMAGE_JPEG_SUFFIX"
+                "${System.currentTimeMillis()}$IMAGE_JPEG_SUFFIX",
             )
             put(MediaStore.MediaColumns.MIME_TYPE, IMAGE_MIME_TYPE)
             put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
         }
         contentResolver.insert(
             MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-            contentValues
+            contentValues,
         )!!
     } else {
         val directory =
@@ -102,12 +102,12 @@ fun Context.getMediaUri(): Uri {
         val file = File.createTempFile(
             "${System.currentTimeMillis()}",
             IMAGE_JPEG_SUFFIX,
-            directory
+            directory,
         )
         FileProvider.getUriForFile(
             this,
             this.applicationContext.packageName + ".provider",
-            file
+            file,
         )
     }
 }
@@ -116,7 +116,7 @@ fun Context.scanMediaToBitmap(uri: Uri, action: (Bitmap) -> Unit) {
     MediaScannerConnection.scanFile(this, arrayOf(uri.path), null) { _, _ ->
         val bmp = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             ImageDecoder.decodeBitmap(
-                ImageDecoder.createSource(contentResolver, uri)
+                ImageDecoder.createSource(contentResolver, uri),
             )
         } else {
             val originalBitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri)
@@ -136,10 +136,10 @@ fun Bitmap.rotateFromGalleryPreVersionP(context: Context, uri: Uri): Bitmap {
         height,
         Matrix().apply {
             postRotate(
-                calculateExif(path)
+                calculateExif(path),
             )
         },
-        false
+        false,
     )
 }
 
@@ -162,7 +162,7 @@ fun Context.getFilePath(uri: Uri): String {
 fun calculateExif(path: String): Float {
     val attribute = ExifInterface(path).getAttributeInt(
         ExifInterface.TAG_ORIENTATION,
-        ExifInterface.ORIENTATION_NORMAL
+        ExifInterface.ORIENTATION_NORMAL,
     )
     return when (attribute) {
         ExifInterface.ORIENTATION_ROTATE_90 -> 90f

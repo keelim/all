@@ -1,10 +1,17 @@
 plugins {
     id("keelim.android.library")
     id("keelim.android.library.compose")
+    id("keelim.android.library.jacoco")
+    id("keelim.android.hilt")
     id("kotlinx-serialization")
 }
 
+android {
+    namespace = "com.keelim.compose"
+}
+
 dependencies {
+    implementation(project(":common"))
     // coil
     implementation(libs.coil.kt)
     implementation(libs.coil.kt.compose)
@@ -18,7 +25,6 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.material.themAdapter)
     implementation(libs.accompanist.systemuicontroller)
-}
-android {
-    namespace = "com.keelim.compose"
+
+    implementation(libs.androidx.hilt.navigation.compose)
 }

@@ -23,7 +23,7 @@ sealed class FeedState {
     object Loading : FeedState()
 
     data class Success(
-        val data: List<Feed>
+        val data: List<Feed>,
     ) : FeedState()
 
     object Error : FeedState()

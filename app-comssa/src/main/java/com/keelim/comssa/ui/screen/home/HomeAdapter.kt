@@ -34,7 +34,7 @@ import com.keelim.data.model.Data
 import com.keelim.data.model.FeaturedData
 
 class HomeAdapter(
-    val onDataClickListener: (Data) -> Unit
+    val onDataClickListener: (Data) -> Unit,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var data: List<DataItem> = emptyList()
@@ -48,14 +48,14 @@ class HomeAdapter(
             ITEM_VIEW_TYPE_FEATURED -> {
                 FeaturedDataItemViewHolder(
                     ItemFeaturedDataBinding
-                        .inflate(LayoutInflater.from(parent.context), parent, false)
+                        .inflate(LayoutInflater.from(parent.context), parent, false),
                 )
             }
 
             ITEM_VIEW_TYPE_ITEM -> {
                 DataItemViewHolder(
                     ItemDataBinding
-                        .inflate(LayoutInflater.from(parent.context), parent, false)
+                        .inflate(LayoutInflater.from(parent.context), parent, false),
                 )
             }
 
@@ -109,7 +109,7 @@ class HomeAdapter(
             typeface = Typeface.DEFAULT_BOLD
             setTextColor(Color.BLACK)
             setPadding(dip(12f), dip(6f), dip(12f), dip(6f))
-        }
+        },
     ) {
 
         fun bind(item: String) {

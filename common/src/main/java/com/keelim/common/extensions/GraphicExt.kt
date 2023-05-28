@@ -16,10 +16,14 @@ class CornerRounding(
 // To FloatArray suitable for Path#addRoundRect
 fun CornerRounding.toFloatArray(): FloatArray {
     return floatArrayOf(
-        topLeftRadius, topLeftRadius,
-        topRightRadius, topRightRadius,
-        bottomRightRadius, bottomRightRadius,
-        bottomLeftRadius, bottomLeftRadius
+        topLeftRadius,
+        topLeftRadius,
+        topRightRadius,
+        topRightRadius,
+        bottomRightRadius,
+        bottomRightRadius,
+        bottomLeftRadius,
+        bottomLeftRadius,
     )
 }
 
@@ -29,7 +33,7 @@ fun ShapeAppearanceModel?.toCornerRounding(bounds: RectF): CornerRounding {
         topLeftCornerSize.getCornerSize(bounds),
         topRightCornerSize.getCornerSize(bounds),
         bottomRightCornerSize.getCornerSize(bounds),
-        bottomLeftCornerSize.getCornerSize(bounds)
+        bottomLeftCornerSize.getCornerSize(bounds),
     )
 }
 

@@ -26,9 +26,9 @@ import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.appopen.AppOpenAd
 import com.keelim.cnubus.BuildConfig
+import timber.log.Timber
 import java.util.Date
 import javax.inject.Inject
-import timber.log.Timber
 
 class AppOpenManager @Inject constructor() : LifecycleObserver {
     private lateinit var myApplication: Application
@@ -81,7 +81,7 @@ class AppOpenManager @Inject constructor() : LifecycleObserver {
                     loadTime = Date().time
                 }
                 override fun onAdFailedToLoad(loadAdError: LoadAdError) {}
-            }
+            },
         )
     }
 

@@ -13,9 +13,9 @@ import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.appopen.AppOpenAd
 import com.google.android.gms.ads.appopen.AppOpenAd.AppOpenAdLoadCallback
 import com.keelim.mygrade.BuildConfig
+import timber.log.Timber
 import java.util.Date
 import javax.inject.Inject
-import timber.log.Timber
 
 class AppOpenManager @Inject constructor() : LifecycleObserver {
     private var appOpenAd: AppOpenAd? = null
@@ -96,7 +96,7 @@ class AppOpenManager @Inject constructor() : LifecycleObserver {
             },
             adRequest,
             AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT,
-            loadCallback
+            loadCallback,
         )
     }
 

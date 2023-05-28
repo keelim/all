@@ -22,14 +22,14 @@ import androidx.recyclerview.widget.RecyclerView
 
 class GridSpacingItemDecoration(
     private val spanCount: Int,
-    private val spacing: Int
+    private val spacing: Int,
 ) : RecyclerView.ItemDecoration() {
 
     override fun getItemOffsets(
         outRect: Rect,
         view: View,
         parent: RecyclerView,
-        state: RecyclerView.State
+        state: RecyclerView.State,
     ) {
         val adapterPosition = parent.getChildAdapterPosition(view)
         val gridLayoutManager = parent.layoutManager as GridLayoutManager

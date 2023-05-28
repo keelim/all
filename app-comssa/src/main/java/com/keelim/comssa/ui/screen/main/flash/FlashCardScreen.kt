@@ -50,7 +50,7 @@ fun FlashCard(
         animationSpec = tween(
             durationMillis = 400,
             easing = FastOutSlowInEasing,
-        )
+        ),
     )
     Card(
         onClick = { onClick?.invoke(flashCardState) },
@@ -60,11 +60,11 @@ fun FlashCard(
         },
     ) {
         Box(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
         ) {
             if (rotation.value <= 90f) {
                 Box(
-                    Modifier.fillMaxSize()
+                    Modifier.fillMaxSize(),
                 ) {
                     front()
                 }
@@ -118,7 +118,7 @@ fun FrontScreen() {
         Text(
             text = "Front",
             color = Color.White,
-            fontSize = 32.sp
+            fontSize = 32.sp,
         )
     }
 }
@@ -140,7 +140,7 @@ fun BackScreen() {
         Text(
             text = "Back",
             color = Color.White,
-            fontSize = 32.sp
+            fontSize = 32.sp,
         )
     }
 }

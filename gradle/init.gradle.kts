@@ -1,8 +1,8 @@
 //./gradlew --init-script gradle/init.gradle.kts spotlessApply
-val ktlintVersion = "0.43.0"
+val ktlintVersion = "0.48.1"
 
 initscript {
-    val spotlessVersion = "6.18.0"
+    val spotlessVersion = "6.13.0"
 
     repositories {
         mavenCentral()

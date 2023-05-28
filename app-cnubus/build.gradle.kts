@@ -1,13 +1,11 @@
 plugins {
     id("keelim.android.application")
+    id("keelim.android.application.firebase")
     id("keelim.android.application.compose")
     id("keelim.android.application.jacoco")
     id("keelim.android.hilt")
     kotlin("kapt")
-    id("com.google.gms.google-services")
     id("com.google.android.gms.oss-licenses-plugin")
-    id("com.google.firebase.crashlytics")
-    id("com.google.firebase.firebase-perf")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
     id("org.jetbrains.qodana")
 }
@@ -47,12 +45,9 @@ dependencies {
     implementation(libs.activity.ktx)
 
     implementation(platform(libs.firebase.bom))
-    implementation("com.google.firebase:firebase-auth-ktx")
-    implementation("com.google.firebase:firebase-crashlytics-ktx")
-    implementation("com.google.firebase:firebase-perf-ktx")
-    implementation("com.google.firebase:firebase-messaging-ktx")
-    implementation("com.google.firebase:firebase-analytics-ktx")
-    implementation("com.google.firebase:firebase-inappmessaging-display-ktx")
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.messaging)
+    implementation(libs.firebase.inappmessaging)
     implementation(libs.firebase.ui.auth)
 
     implementation(libs.lottie)

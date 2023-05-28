@@ -4,10 +4,7 @@ plugins {
     id("keelim.android.application.jacoco")
     id("keelim.android.hilt")
     kotlin("kapt")
-    id("com.google.gms.google-services")
     id("com.google.android.gms.oss-licenses-plugin")
-    id("com.google.firebase.crashlytics")
-    id("com.google.firebase.firebase-perf")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
     id("org.jetbrains.qodana")
 }
@@ -59,9 +56,6 @@ dependencies {
 
 
     implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.analytics)
-    implementation(libs.firebase.crashlytics)
-    implementation(libs.firebase.performances)
     implementation(libs.firebase.config)
 
     implementation(libs.androidx.navigation.ui)

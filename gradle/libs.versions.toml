@@ -60,13 +60,15 @@ play-services-auth = "20.5.0"
 timbers = "5.0.1"
 math3 = "3.6.1"
 firebase = "32.0.0"
+firebaseCrashlyticsPlugin = "2.9.2"
+firebasePerfPlugin = "1.4.2"
 androidxPaging = "3.1.1"
 themeAdapter = "1.2.1"
-firebase-ui="8.0.2"
-bio="1.1.0"
-in-app-update="2.1.0"
-play-services-maps="18.1.0"
-play-services-location="21.0.1"
+firebase-ui = "8.0.2"
+bio = "1.1.0"
+in-app-update = "2.1.0"
+play-services-maps = "18.1.0"
+play-services-location = "21.0.1"
 glance = "1.0.0-beta01"
 maps = "3.4.0"
 qodana = "0.1.13"
@@ -162,7 +164,10 @@ arrow-core = { group = "io.arrow-kt", name = "arrow-core", version.ref = "arrow"
 
 # Dependencies of the included build-logic
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
+firebase-crashlytics-gradlePlugin = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "firebaseCrashlyticsPlugin" }
+firebase-performance-gradlePlugin = { group = "com.google.firebase", name = "perf-plugin", version.ref = "firebasePerfPlugin" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 #
 activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "androidxActivity" }
 fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "androidxFragment" }
@@ -189,7 +194,7 @@ apache-math = { group = "org.apache.commons", name = "commons-math3", version.re
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase" }
 firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
-firebase-performances = { group = "com.google.firebase", name = "firebase-perf-ktx" }
+firebase-performance = { group = "com.google.firebase", name = "firebase-perf-ktx" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth-ktx" }
 firebase-database = { group = "com.google.firebase", name = "firebase-database-ktx" }
 firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore-ktx" }
@@ -197,6 +202,7 @@ firebase-storage = { group = "com.google.firebase", name = "firebase-storage-ktx
 firebase-appcheck = { group = "com.google.firebase", name = "firebase-appcheck-playintegrity" }
 firebase-config = { group = "com.google.firebase", name = "firebase-config-ktx" }
 firebase-inappmessaging = { group = "com.google.firebase", name = "firebase-inappmessaging-display-ktx" }
+firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging-ktx" }
 #
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 material-themAdapter = { group = "com.google.android.material", name = "compose-theme-adapter", version.ref = "themeAdapter" }

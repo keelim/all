@@ -1,11 +1,11 @@
 plugins {
     id("keelim.android.application")
     id("keelim.android.application.compose")
+    id("keelim.android.hilt")
     kotlin("kapt")
     id("com.google.gms.google-services")
     id("com.google.android.gms.oss-licenses-plugin")
     id("com.google.firebase.crashlytics")
-    id("dagger.hilt.android.plugin")
     id("com.google.firebase.firebase-perf")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
     id("androidx.navigation.safeargs.kotlin") version ("2.5.3")
@@ -61,9 +61,8 @@ dependencies {
     implementation(libs.inapp.update)
 
     implementation(libs.androidx.work.ktx)
+    // hilt
     implementation(libs.hilt.ext.work)
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
     kapt(libs.hilt.ext.compiler)
 
     implementation(libs.androidx.paging.common)

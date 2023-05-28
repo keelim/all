@@ -1,13 +1,12 @@
 plugins {
     id("keelim.android.library")
     id("keelim.android.library.compose")
+    id("keelim.android.hilt")
     kotlin("kapt")
 }
 
 dependencies {
     implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
 
     implementation(libs.androidx.lifecycle.rutime)
     implementation(libs.fragment.ktx)

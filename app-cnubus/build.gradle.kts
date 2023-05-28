@@ -1,14 +1,13 @@
 plugins {
     id("keelim.android.application")
     id("keelim.android.application.compose")
+    id("keelim.android.hilt")
     kotlin("kapt")
     id("com.google.gms.google-services")
     id("com.google.android.gms.oss-licenses-plugin")
     id("com.google.firebase.crashlytics")
-    id("dagger.hilt.android.plugin")
     id("com.google.firebase.firebase-perf")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
-    id("org.jetbrains.kotlin.android")
     id("org.jetbrains.qodana")
 }
 
@@ -58,8 +57,6 @@ dependencies {
     implementation(libs.lottie)
 
     implementation(libs.androidx.work.ktx)
-    implementation(libs.hilt.ext.work)
-    implementation(libs.hilt.android)
     implementation(libs.androidx.preference.ktx)
     implementation(libs.androidx.lifecycle.rutime)
 
@@ -74,7 +71,8 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test)
     debugImplementation(libs.androidx.compose.ui.testManifest)
 
-    kapt(libs.hilt.compiler)
+    // hilt
+    implementation(libs.hilt.ext.work)
     kapt(libs.hilt.ext.compiler)
 
     implementation(libs.play.services.ad)

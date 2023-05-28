@@ -2,7 +2,6 @@ plugins {
     id("keelim.android.library")
     id("keelim.android.library.jacoco")
     id("keelim.android.hilt")
-    kotlin("kapt")
     kotlin("plugin.parcelize")
     id("kotlinx-serialization")
     alias(libs.plugins.ksp)

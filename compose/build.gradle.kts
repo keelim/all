@@ -4,7 +4,10 @@ plugins {
     id("keelim.android.library.jacoco")
     id("keelim.android.hilt")
     id("kotlinx-serialization")
-    kotlin("kapt")
+}
+
+android {
+    namespace = "com.keelim.compose"
 }
 
 dependencies {
@@ -24,7 +27,4 @@ dependencies {
     implementation(libs.accompanist.systemuicontroller)
 
     implementation(libs.androidx.hilt.navigation.compose)
-}
-android {
-    namespace = "com.keelim.compose"
 }

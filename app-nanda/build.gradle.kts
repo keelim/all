@@ -21,7 +21,6 @@ android {
     }
 
     useLibrary("android.test.mock")
-    buildFeatures { dataBinding = true }
     namespace = "com.keelim.nandadiagnosis"
 }
 

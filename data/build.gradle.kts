@@ -1,10 +1,10 @@
 plugins {
     id("keelim.android.library")
+    id("keelim.android.hilt")
     kotlin("kapt")
     kotlin("plugin.parcelize")
     id("kotlinx-serialization")
     alias(libs.plugins.ksp)
-    id("dagger.hilt.android.plugin")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
@@ -29,11 +29,6 @@ dependencies {
     implementation(libs.ktor.client.websockets)
     implementation(libs.ktor.client.logging)
     implementation(libs.ktor.client.resources)
-
-    // Dagger Hilt
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
-    kapt(libs.hilt.ext.compiler)
     implementation(libs.timber)
 
     //datastore

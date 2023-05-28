@@ -37,6 +37,10 @@ gradlePlugin {
             id = "keelim.android.application"
             implementationClass = "KeelimAndroidApplicationPlugin"
         }
+        register("androidHilt") {
+            id = "keelim.android.hilt"
+            implementationClass = "KeelimHiltPlugin"
+        }
     }
 }
 

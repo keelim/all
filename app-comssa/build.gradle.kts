@@ -1,11 +1,11 @@
 plugins {
     id("keelim.android.application")
     id("keelim.android.application.compose")
+    id("keelim.android.hilt")
     kotlin("kapt")
     id("com.google.gms.google-services")
     id("com.google.android.gms.oss-licenses-plugin")
     id("com.google.firebase.crashlytics")
-    id("dagger.hilt.android.plugin")
     id("com.google.firebase.firebase-perf")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
     id("androidx.navigation.safeargs.kotlin") version ("2.5.3")
@@ -54,9 +54,6 @@ dependencies {
     implementation("com.google.firebase:firebase-perf-ktx")
     implementation(libs.timber)
     implementation(libs.play.services.ad)
-
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
 
     implementation(libs.kotlinx.coroutines.play.services)
 

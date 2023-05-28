@@ -1,8 +1,8 @@
 plugins {
     id("keelim.android.library")
+    id("keelim.android.hilt")
     kotlin("kapt")
     id("kotlin-parcelize")
-    id("dagger.hilt.android.plugin")
     id("org.jetbrains.kotlin.android")
 }
 
@@ -18,9 +18,6 @@ dependencies {
     implementation(project(":data"))
     implementation(project(":domain"))
     implementation(project(":common"))
-
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
 
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)

@@ -67,7 +67,7 @@ fun BookScreen(books: LazyPagingItems<Books.Book>, modifier: Modifier = Modifier
     ) { index ->
         val item = books[index]
         BookItem(
-            item = book,
+            item = item,
             modifier =
             Modifier
                 .fillMaxSize()

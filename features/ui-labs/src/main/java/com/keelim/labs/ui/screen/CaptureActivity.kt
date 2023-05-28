@@ -39,7 +39,9 @@ import java.io.FileOutputStream
 
 class CaptureActivity : AppCompatActivity(R.layout.activity_capture) {
 
-    private val binding by lazy { ActivityCaptureBinding.inflate(layoutInflater) }
+    private val binding by lazy {
+        ActivityCaptureBinding.inflate(layoutInflater)
+    }
 
     private val choosePhoto = registerForActivityResult(ActivityResultContracts.GetContent()) {
         binding.imageViewImageFromGallery.setImageURI(it)

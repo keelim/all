@@ -17,7 +17,7 @@ package com.keelim.cnubus.ui.screen.root.basic
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.keelim.data.model.gps.Location
+import com.keelim.data.model.Location
 import com.keelim.map.screen.map1.MapEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

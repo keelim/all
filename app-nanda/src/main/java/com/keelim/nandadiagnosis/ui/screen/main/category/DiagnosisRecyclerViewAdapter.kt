@@ -20,7 +20,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.keelim.data.db.entity.DiagnosisItem
+import com.keelim.data.model.entity.DiagnosisItem
 import com.keelim.nandadiagnosis.databinding.ItemListviewBinding
 
 class DiagnosisRecyclerViewAdapter(

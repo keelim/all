@@ -15,8 +15,8 @@
  */
 package com.keelim.domain.nandadiagnosis
 
-import com.keelim.data.db.entity.NandaEntity
-import com.keelim.data.repository.NandaIORepository
+import com.keelim.data.model.entity.NandaEntity
+import com.keelim.data.source.NandaIORepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

@@ -22,54 +22,43 @@ android {
 }
 
 dependencies {
-    implementation(project(":data"))
     implementation(project(":common"))
     implementation(project(":common-android"))
     implementation(project(":compose"))
+    implementation(project(":data"))
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.activity.ktx)
-    implementation(libs.material)
-    implementation(libs.androidx.work.ktx)
-    // hilt
-    implementation(libs.hilt.ext.work)
-    kapt(libs.hilt.ext.compiler)
-
-    implementation(libs.androidx.lifecycle.rutime)
-    implementation(libs.androidx.lifecycle.process)
-
-    implementation(libs.androidx.profileinstaller)
-
-    implementation(libs.play.services.ad)
-    implementation(libs.play.services.oss)
-
-    implementation(libs.timber)
-    implementation(libs.apache.math)
-
-
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.config)
-
-    implementation(libs.androidx.navigation.ui)
-    implementation(libs.androidx.navigation.fragment)
-    implementation(libs.inapp.update)
-    implementation(libs.coil.kt)
-    implementation(libs.coil.kt.svg)
-    implementation(libs.coil.kt.compose)
-    implementation(libs.androidx.metrics)
-
-    // modern storage
-    implementation(libs.modernstorage.bom)
     implementation("com.google.modernstorage:modernstorage-permissions")
-    implementation("com.google.modernstorage:modernstorage-storage")
     implementation("com.google.modernstorage:modernstorage-photopicker")
+    implementation("com.google.modernstorage:modernstorage-storage")
     implementation("com.squareup.okio:okio")
-
+    implementation(libs.activity.ktx)
     implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.paging.compose)
+    implementation(libs.androidx.appcompat)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.ui.tooling)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle.process)
+    implementation(libs.androidx.lifecycle.rutime)
+    implementation(libs.androidx.metrics)
+    implementation(libs.androidx.navigation.fragment)
+    implementation(libs.androidx.navigation.ui)
+    implementation(libs.androidx.paging.compose)
+    implementation(libs.androidx.profileinstaller)
+    implementation(libs.androidx.work.ktx)
+    implementation(libs.apache.math)
+    implementation(libs.coil.kt)
+    implementation(libs.coil.kt.compose)
+    implementation(libs.coil.kt.svg)
+    implementation(libs.firebase.config)
+    implementation(libs.hilt.ext.work)
+    implementation(libs.inapp.update)
+    implementation(libs.material)
+    implementation(libs.modernstorage.bom)
+    implementation(libs.play.services.ad)
+    implementation(libs.play.services.oss)
+    implementation(libs.timber)
+    implementation(platform(libs.firebase.bom))
+    kapt(libs.hilt.ext.compiler)
 }
 
 

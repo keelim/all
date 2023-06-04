@@ -1,9 +1,6 @@
 package com.keelim.mygrade
 
 import android.app.Application
-import coil.ImageLoader
-import coil.ImageLoaderFactory
-import coil.decode.SvgDecoder
 import com.google.android.material.color.DynamicColors
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
@@ -16,7 +13,7 @@ import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 
 @HiltAndroidApp
-class MyApplication : Application(), ImageLoaderFactory {
+class MyApplication : Application() {
     @Inject
     lateinit var componentLogger: ComponentLogger
 
@@ -34,13 +31,5 @@ class MyApplication : Application(), ImageLoaderFactory {
         remoteConfig.setConfigSettingsAsync(configSettings)
         NotificationChannels.initialize(this)
         DynamicColors.applyToActivitiesIfAvailable(this)
-    }
-
-    override fun newImageLoader(): ImageLoader {
-        return ImageLoader.Builder(this)
-            .components {
-                add(SvgDecoder.Factory())
-            }
-            .build()
     }
 }

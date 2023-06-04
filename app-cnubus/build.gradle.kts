@@ -25,50 +25,41 @@ android {
 }
 
 dependencies {
-    implementation(project(":data"))
-    implementation(project(":domain"))
-    implementation(project(":compose"))
     implementation(project(":common"))
     implementation(project(":common-android"))
+    implementation(project(":compose"))
+    implementation(project(":data"))
+    implementation(project(":domain"))
+    implementation(project(":features:ui-labs"))
     implementation(project(":features:ui-map"))
     implementation(project(":features:ui-setting"))
-    implementation(project(":features:ui-labs"))
+
+    androidTestImplementation(libs.androidx.compose.ui.test)
+    debugImplementation(libs.androidx.compose.ui.testManifest)
+    debugImplementation(libs.androidx.compose.ui.tooling)
     implementation(libs.activity.ktx)
-
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.auth)
-    implementation(libs.firebase.messaging)
-    implementation(libs.firebase.inappmessaging)
-    implementation(libs.firebase.ui.auth)
-
-    implementation(libs.lottie)
-
-    implementation(libs.androidx.work.ktx)
-    implementation(libs.androidx.preference.ktx)
-    implementation(libs.androidx.lifecycle.rutime)
-
     implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.compose.foundation.layout)
     implementation(libs.androidx.compose.material.iconsExtended)
     implementation(libs.androidx.compose.material3)
-    debugImplementation(libs.androidx.compose.ui.tooling)
+    implementation(libs.androidx.compose.runtime)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.ui.util)
-    implementation(libs.androidx.compose.runtime)
-    androidTestImplementation(libs.androidx.compose.ui.test)
-    debugImplementation(libs.androidx.compose.ui.testManifest)
-
-    // hilt
-    implementation(libs.hilt.ext.work)
-    kapt(libs.hilt.ext.compiler)
-
-    implementation(libs.play.services.ad)
-    implementation(libs.timber)
-
+    implementation(libs.androidx.lifecycle.rutime)
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.androidx.navigation.ui)
-
-    implementation(libs.coil.kt)
-
+    implementation(libs.androidx.preference.ktx)
     implementation(libs.androidx.window.manager)
+    implementation(libs.androidx.work.ktx)
+    implementation(libs.coil.kt)
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.inappmessaging)
+    implementation(libs.firebase.messaging)
+    implementation(libs.firebase.ui.auth)
+    implementation(libs.hilt.ext.work)
+    implementation(libs.lottie)
+    implementation(libs.play.services.ad)
+    implementation(libs.timber)
+    implementation(platform(libs.firebase.bom))
+    kapt(libs.hilt.ext.compiler)
 }

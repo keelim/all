@@ -16,7 +16,7 @@
 package com.keelim.map.screen.map1
 
 import androidx.lifecycle.ViewModel
-import com.keelim.data.model.gps.Location
+import com.keelim.data.model.Location
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

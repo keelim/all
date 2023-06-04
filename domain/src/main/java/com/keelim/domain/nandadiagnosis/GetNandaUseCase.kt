@@ -15,8 +15,8 @@
  */
 package com.keelim.domain.nandadiagnosis
 
-import com.keelim.data.db.entity.NandaEntity2
-import com.keelim.data.repository.NandaIORepository
+import com.keelim.data.model.entity.NandaEntity2
+import com.keelim.data.source.NandaIORepository
 import javax.inject.Inject
 
 class GetNandaUseCase @Inject constructor(

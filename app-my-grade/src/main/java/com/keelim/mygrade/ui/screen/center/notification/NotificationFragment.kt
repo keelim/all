@@ -12,8 +12,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.keelim.common.extensions.toGone
 import com.keelim.common.extensions.toVisible
-import com.keelim.data.model.notification.Notification
-import com.keelim.data.repository.IoRepository
+import com.keelim.data.model.Notification
+import com.keelim.data.source.HistoryRepository
 import com.keelim.mygrade.databinding.FragmentNotificationBinding
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,7 +21,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NotificationViewModel @Inject constructor(
-    private val ioRepository: IoRepository,
+    private val historyRepository: HistoryRepository,
 ) : ViewModel()
 
 @AndroidEntryPoint

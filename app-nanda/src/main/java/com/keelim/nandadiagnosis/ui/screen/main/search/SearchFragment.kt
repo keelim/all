@@ -23,7 +23,6 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import androidx.appcompat.widget.SearchView
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -33,9 +32,7 @@ import androidx.recyclerview.widget.LinearSnapHelper
 import com.keelim.common.extensions.toast
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.FragmentSearchBinding
-import com.keelim.nandadiagnosis.ui.screen.main.search.history.HistoryAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -45,11 +42,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     private val viewModel: SearchViewModel by viewModels()
 
-    private val historyAdapter =
-        HistoryAdapter(
-            historyDeleteListener = { deleteSearch(it) },
-            textSelectListener = {},
-        )
     private val searchRecyclerViewAdapter2 =
         SearchRecyclerViewAdapter2(
             favoriteListener = { favorite, id -> favoriteUpdate(favorite, id) },
@@ -78,23 +70,10 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                     }
                 }
             }
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.history.collectLatest {
-                    historyAdapter.submitList(it)
-                    binding.historyRecycler.isVisible = true
-                }
-            }
         }
 
     private fun initViews() =
         with(binding) {
-            historyRecycler.apply {
-                val snap = LinearSnapHelper()
-                setHasFixedSize(true)
-                adapter = historyAdapter
-                snap.attachToRecyclerView(this)
-            }
-
             recyclerView.apply {
                 val snap = LinearSnapHelper()
                 setHasFixedSize(true)
@@ -119,7 +98,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             setOnQueryTextListener(
                 object : SearchView.OnQueryTextListener {
                     override fun onQueryTextSubmit(query: String): Boolean {
-                        saveSearchKeyword(query)
                         Timber.d("데이터베이스 $query")
                         viewModel.search2(query.replace("\\s", ""))
                         return true
@@ -143,24 +121,11 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             )
     }
 
-    private fun saveSearchKeyword(keyword: String) {
-        viewModel.saveHistory(keyword)
-    }
-
-    private fun deleteSearch(keyword: String) {
-        viewModel.deleteHistory(keyword)
-    }
-
     private fun favoriteUpdate(favorite: Int, id: Int) {
         viewModel.favoriteUpdate(favorite, id)
     }
 
-    private fun hideHistoryView() {
-        binding.historyRecycler.isVisible = false
-    }
-
     private fun handleSuccess(state: SearchListState.Searching) {
-        hideHistoryView()
         if (state.searchList.isEmpty()) {
             Timber.d("결과 값이 비어 있습니다.")
         } else {

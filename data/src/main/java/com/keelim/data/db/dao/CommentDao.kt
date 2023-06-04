@@ -21,7 +21,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
-import com.keelim.data.db.entity.Comment
+import com.keelim.data.model.entity.Comment
 import kotlinx.coroutines.flow.Flow
 
 @Dao

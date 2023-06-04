@@ -16,9 +16,9 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.keelim.common.extensions.snack
 import com.keelim.common.extensions.toast
-import com.keelim.data.db.entity.History
+import com.keelim.data.source.local.History
 import com.keelim.data.model.Result
-import com.keelim.data.repository.IoRepository
+import com.keelim.data.source.HistoryRepository
 import com.keelim.mygrade.R
 import com.keelim.mygrade.databinding.FragmentMainBinding
 import com.keelim.mygrade.utils.Keys
@@ -38,7 +38,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val ioRepository: IoRepository,
+    private val historyRepository: HistoryRepository,
 ) : ViewModel() {
     private val _state: MutableStateFlow<MainState> = MutableStateFlow(MainState.UnInitialized)
     val state: StateFlow<MainState> = _state.asStateFlow()
@@ -80,7 +80,7 @@ class MainViewModel @Inject constructor(
         grade: String,
         level: String,
     ) = viewModelScope.launch {
-        ioRepository.insertHistories(
+        historyRepository.create(
             History(
                 Date().time.toString(),
                 origin.toInt(),

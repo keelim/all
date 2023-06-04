@@ -20,7 +20,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.keelim.data.db.entity.NandaEntity
+import com.keelim.data.model.entity.NandaEntity
 import com.keelim.nandadiagnosis.databinding.ItemListviewBinding
 
 class SearchRecyclerViewAdapter2(

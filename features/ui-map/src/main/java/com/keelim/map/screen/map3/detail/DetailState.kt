@@ -15,7 +15,7 @@
  */
 package com.keelim.map.screen.map3.detail
 
-import com.keelim.data.db.entity.Comment
+import com.keelim.data.model.entity.Comment
 
 sealed class DetailState {
     object UnInitialized : DetailState()

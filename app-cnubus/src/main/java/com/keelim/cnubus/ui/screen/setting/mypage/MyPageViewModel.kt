@@ -17,7 +17,7 @@ package com.keelim.cnubus.ui.screen.setting.mypage
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.keelim.data.db.entity.CnuHistory
+import com.keelim.data.model.entity.CnuHistory
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableSharedFlow

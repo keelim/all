@@ -27,7 +27,7 @@ import androidx.lifecycle.lifecycleScope
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.FragmentRootBinding
 import com.keelim.common.extensions.toast
-import com.keelim.data.model.gps.Location
+import com.keelim.data.model.Location
 import com.keelim.map.screen.map1.MapEvent
 import com.keelim.map.screen.map1.MapsActivity
 import dagger.hilt.android.AndroidEntryPoint

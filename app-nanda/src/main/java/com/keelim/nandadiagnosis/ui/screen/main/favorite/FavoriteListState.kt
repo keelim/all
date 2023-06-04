@@ -15,7 +15,7 @@
  */
 package com.keelim.nandadiagnosis.ui.screen.main.favorite
 
-import com.keelim.data.db.entity.NandaEntity
+import com.keelim.data.model.entity.NandaEntity
 
 sealed class FavoriteListState {
     object UnInitialized : FavoriteListState()

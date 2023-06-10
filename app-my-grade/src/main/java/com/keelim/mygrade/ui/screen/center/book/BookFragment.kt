@@ -24,7 +24,7 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.keelim.common.extensions.compose.fragmentComposeView
 import com.keelim.composeutil.component.appbar.SearchView
-import com.keelim.data.repository.mygrade.BookRepository
+import com.keelim.data.source.BookRepository
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

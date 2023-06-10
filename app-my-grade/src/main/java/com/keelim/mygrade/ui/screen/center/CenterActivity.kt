@@ -18,16 +18,12 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.remoteconfig.ktx.get
-import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.keelim.common.extensions.toast
-import com.keelim.data.db.entity.History
-import com.keelim.data.repository.IoRepository
+import com.keelim.data.source.local.History
+import com.keelim.data.source.HistoryRepository
 import com.keelim.mygrade.R
 import com.keelim.mygrade.databinding.ActivityCenterBinding
 import com.keelim.mygrade.notification.NotificationBuilder
-import com.keelim.mygrade.utils.Keys
 import com.keelim.mygrade.utils.Keys.IN_APP_UPDATE_REQUEST_CODE
 import com.keelim.mygrade.work.MainWorker
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,10 +33,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CenterViewModel @Inject constructor(
-    private val ioRepository: IoRepository,
+    private val historyRepository: HistoryRepository,
 ) : ViewModel() {
     fun saveHistory(query: String) = viewModelScope.launch {
-        ioRepository.insertHistories(History("", 0, 0f, 0f, 0, 0f, "1"))
+        historyRepository.create(History("", 0, 0f, 0f, 0, 0f, "1"))
     }
 }
 
@@ -85,25 +81,25 @@ class CenterActivity : AppCompatActivity() {
         sendNotification()
         handleIntent()
         permissionLauncher.launch(appPermissions.toTypedArray())
-        with(Firebase.remoteConfig) {
-            getBoolean("forceUpdate").also { forceUpdate ->
-                _forceUpdate = forceUpdate
-                fetchAndActivate().addOnSuccessListener {
-                    if (forceUpdate) {
-                        checkInAppUpdate()
-                    }
-                }
-            }
-            get("newUpdate").also { newUpdate ->
-                toast(
-                    when {
-                        (newUpdate.asLong().toInt()) > 17 -> "새로운 업데이트가 있습니다. 확인해주세요"
-                        (newUpdate.asLong().toInt()) == 17 -> "올바른 버전 입니다."
-                        else -> "버전 확인이 완료되었습니다."
-                    },
-                )
-            }
-        }
+        // with(Firebase.remoteConfig) {
+        //     getBoolean("forceUpdate").also { forceUpdate ->
+        //         _forceUpdate = forceUpdate
+        //         fetchAndActivate().addOnSuccessListener {
+        //             if (forceUpdate) {
+        //                 checkInAppUpdate()
+        //             }
+        //         }
+        //     }
+        //     get("newUpdate").also { newUpdate ->
+        //         toast(
+        //             when {
+        //                 (newUpdate.asLong().toInt()) > 17 -> "새로운 업데이트가 있습니다. 확인해주세요"
+        //                 (newUpdate.asLong().toInt()) == 17 -> "올바른 버전 입니다."
+        //                 else -> "버전 확인이 완료되었습니다."
+        //             },
+        //         )
+        //     }
+        // }
     }
 
     private fun sendNotification() {

@@ -10,11 +10,11 @@ import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.room.Room
 import com.keelim.data.db.CnuAppDatabase
-import com.keelim.data.db.DataStoreManager
+import com.keelim.data.source.local.DataStoreManager
 import com.keelim.data.db.MyGradeAppDatabase
 import com.keelim.data.db.NandaAppDatabase
-import com.keelim.data.db.PreferenceManager
-import com.keelim.data.db.SharedPreferenceManager
+import com.keelim.data.source.local.PreferenceManager
+import com.keelim.data.source.local.SharedPreferenceManager
 import com.keelim.data.source.local.TokenManager
 import dagger.Module
 import dagger.Provides

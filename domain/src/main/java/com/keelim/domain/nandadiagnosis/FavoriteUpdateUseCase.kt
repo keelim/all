@@ -15,7 +15,7 @@
  */
 package com.keelim.domain.nandadiagnosis
 
-import com.keelim.data.repository.NandaIORepository
+import com.keelim.data.source.NandaIORepository
 import javax.inject.Inject
 
 class FavoriteUpdateUseCase @Inject constructor(

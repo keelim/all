@@ -4,7 +4,7 @@ plugins {
     id("keelim.android.application.compose")
     id("keelim.android.application.jacoco")
     id("keelim.android.hilt")
-    id("androidx.navigation.safeargs.kotlin") version ("2.5.3")
+    id("androidx.navigation.safeargs.kotlin") version ("2.6.0")
 }
 
 android {

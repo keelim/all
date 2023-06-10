@@ -18,7 +18,9 @@ package com.keelim.data.model
 import android.os.Parcelable
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.parcelize.Parcelize
+import javax.annotation.concurrent.Immutable
 
+@Immutable
 @Parcelize
 data class Location(
     val latLng: LatLng,

@@ -24,7 +24,7 @@ import coil.load
 import coil.transform.CircleCropTransformation
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.ItemHistoryBinding
-import com.keelim.data.db.entity.CnuHistory
+import com.keelim.data.model.entity.CnuHistory
 
 class MyPageHistoryAdapter(
     val itemDelete: (CnuHistory) -> Unit,

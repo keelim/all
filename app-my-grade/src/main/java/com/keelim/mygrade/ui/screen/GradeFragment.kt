@@ -23,9 +23,9 @@ import com.google.modernstorage.permissions.StoragePermissions
 import com.google.modernstorage.photopicker.PhotoPicker
 import com.google.modernstorage.storage.AndroidFileSystem
 import com.keelim.common.extensions.snack
-import com.keelim.data.db.entity.SimpleHistory
 import com.keelim.data.model.Result
-import com.keelim.data.repository.IoRepository
+import com.keelim.data.source.HistoryRepository
+import com.keelim.data.source.local.History
 import com.keelim.mygrade.R
 import com.keelim.mygrade.databinding.FragmentGradeBinding
 import com.keelim.mygrade.utils.Keys
@@ -43,18 +43,23 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GradeViewModel @Inject constructor(
-    private val ioRepository: IoRepository,
+    private val historyRepository: HistoryRepository,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(GradeUiState())
     val uiState: StateFlow<GradeUiState> = _uiState.asStateFlow()
 
     fun saveSimpleHistory(grade: String, rank: String) = viewModelScope.launch {
-        ioRepository.insertSimpleHistories(
-            SimpleHistory(
-                name = "",
-                grade = grade,
-                rank = rank,
-            ),
+        historyRepository.create(
+            history = History(
+                subject = "",
+                origin = 0,
+                average = 0.0f,
+                std = 0.0f,
+                number = 0,
+                grade_num = 0.0f,
+                grade = "",
+                uid = 0
+            )
         )
         changeSaveAction(isSave = true)
     }

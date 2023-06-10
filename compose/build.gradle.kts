@@ -25,4 +25,7 @@ dependencies {
     implementation(libs.coil.kt.compose)
     implementation(libs.material)
     implementation(libs.material.themAdapter)
+
+    debugImplementation(libs.androidx.compose.ui.testManifest)
+    androidTestImplementation(libs.androidx.compose.ui.test)
 }

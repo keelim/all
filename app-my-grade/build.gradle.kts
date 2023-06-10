@@ -31,6 +31,7 @@ dependencies {
     implementation("com.google.modernstorage:modernstorage-photopicker")
     implementation("com.google.modernstorage:modernstorage-storage")
     implementation("com.squareup.okio:okio")
+
     implementation(libs.activity.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.appcompat)
@@ -40,6 +41,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.process)
     implementation(libs.androidx.lifecycle.rutime)
     implementation(libs.androidx.metrics)
+    implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.androidx.navigation.ui)
     implementation(libs.androidx.paging.compose)

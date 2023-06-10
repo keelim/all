@@ -14,7 +14,7 @@ android {
 
 dependencies {
     implementation(project(":common"))
-    
+
     implementation(libs.androidx.dataStore.core)
     implementation(libs.androidx.dataStore.preferences)
     implementation(libs.androidx.paging.common)
@@ -36,5 +36,12 @@ dependencies {
     implementation(libs.timber)
     implementation(platform(libs.firebase.bom))
     ksp(libs.room.compiler)
+
+    testImplementation(libs.kotlinx.coroutines.android)
+    testImplementation(libs.kotlinx.coroutines.test)
+
+    androidTestImplementation(libs.junit4)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
+    androidTestImplementation(libs.room.testing)
 }
 

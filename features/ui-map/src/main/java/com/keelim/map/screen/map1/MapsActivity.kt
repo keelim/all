@@ -40,7 +40,7 @@ import com.google.maps.android.ktx.addMarker
 import com.google.maps.android.ktx.awaitMap
 import com.keelim.common.extensions.repeatCallDefaultOnStarted
 import com.keelim.common.extensions.toast
-import com.keelim.data.model.gps.Location
+import com.keelim.data.model.Location
 import com.keelim.map.databinding.ActivityMapsBinding
 import com.keelim.map.screen.map3.LocationAdapter
 import com.keelim.map.screen.map3.LocationPagerAdapter

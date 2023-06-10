@@ -16,7 +16,7 @@
 package com.keelim.nandadiagnosis.ui.screen.auth.profile
 
 import android.net.Uri
-import com.keelim.data.db.entity.NandaEntity
+import com.keelim.data.model.entity.NandaEntity
 
 sealed class ProfileState {
     object UnInitialized : ProfileState()

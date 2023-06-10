@@ -17,10 +17,13 @@ package com.keelim.cnubus.ui.screen.stations
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.keelim.data.model.Location
 import com.keelim.data.model.Station
+import com.keelim.data.model.locationList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -34,6 +37,13 @@ class StationViewModel @Inject constructor() : ViewModel() {
         MutableStateFlow(StationState.UnInitialized)
     val state: StateFlow<StationState>
         get() = _state
+
+    private val _destinations = MutableStateFlow<List<Location>>(emptyList())
+    val destinations: StateFlow<List<Location>> = _destinations.asStateFlow()
+
+    init {
+        _destinations.value = locationList
+    }
 
     fun onViewCreated() = viewModelScope.launch {
         _state.emit(StationState.ShowStation(stations.value))

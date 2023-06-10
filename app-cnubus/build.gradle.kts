@@ -10,9 +10,7 @@ android {
     defaultConfig {
         applicationId = "com.keelim.cnubus"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
+        vectorDrawables { useSupportLibrary = true }
     }
     buildTypes {
         create("cnubus-benchmark") {
@@ -34,17 +32,18 @@ dependencies {
     implementation(project(":features:ui-map"))
     implementation(project(":features:ui-setting"))
 
-    androidTestImplementation(libs.androidx.compose.ui.test)
-    debugImplementation(libs.androidx.compose.ui.testManifest)
-    debugImplementation(libs.androidx.compose.ui.tooling)
     implementation(libs.activity.ktx)
+    implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.compose.foundation.layout)
+    implementation(libs.androidx.compose.material)
     implementation(libs.androidx.compose.material.iconsExtended)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.runtime)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.ui.util)
+    implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.rutime)
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.androidx.navigation.ui)
@@ -62,4 +61,8 @@ dependencies {
     implementation(libs.timber)
     implementation(platform(libs.firebase.bom))
     kapt(libs.hilt.ext.compiler)
+
+    debugImplementation(libs.androidx.compose.ui.testManifest)
+    debugImplementation(libs.androidx.compose.ui.tooling)
+    androidTestImplementation(libs.androidx.compose.ui.test)
 }

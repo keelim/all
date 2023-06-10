@@ -1,10 +1,10 @@
 plugins {
     id("keelim.android.library")
     id("keelim.android.library.jacoco")
+    id("keelim.android.library.compose")
     id("keelim.android.hilt")
     kotlin("kapt")
     kotlin("plugin.parcelize")
-    id("org.jetbrains.kotlin.android")
 }
 
 android{
@@ -18,7 +18,11 @@ dependencies {
 
     implementation(libs.activity.ktx)
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.compose.foundation)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.ui.tooling)
     implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.coil.kt)
     implementation(libs.maps.ktx)
     implementation(libs.maps.utils.ktx)

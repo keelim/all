@@ -15,7 +15,7 @@
  */
 package com.keelim.nandadiagnosis.ui.screen.main.search
 
-import com.keelim.data.db.entity.NandaEntity
+import com.keelim.data.model.entity.NandaEntity
 
 sealed class SearchListState {
     object UnInitialized : SearchListState()

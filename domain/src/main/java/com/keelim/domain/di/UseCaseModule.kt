@@ -15,13 +15,10 @@
  */
 package com.keelim.domain.di
 
-import com.keelim.data.repository.NandaIORepository
-import com.keelim.data.repository.theme.ThemeRepository
+import com.keelim.data.source.NandaIORepository
+import com.keelim.data.source.ThemeRepository
 import com.keelim.domain.nandadiagnosis.GetFavoriteListUseCase
-import com.keelim.domain.nandadiagnosis.GetNandaListUseCase
-import com.keelim.domain.nandadiagnosis.GetNandaUseCase
 import com.keelim.domain.nandadiagnosis.GetSearchListUseCase
-import com.keelim.domain.nandadiagnosis.HistoryUseCase
 import com.keelim.domain.theme.ThemeUseCase
 import dagger.Module
 import dagger.Provides
@@ -35,24 +32,12 @@ object UseCaseModule {
 
     @Provides
     @ViewModelScoped
-    fun provideGetNandaUseCase(nandaIoRepository: NandaIORepository) = GetNandaUseCase(nandaIoRepository)
-
-    @Provides
-    @ViewModelScoped
-    fun provideGetNandaListUseCase(nandaIoRepository: NandaIORepository) = GetNandaListUseCase(nandaIoRepository)
-
-    @Provides
-    @ViewModelScoped
     fun provideGetFavoriteListUseCase(nandaIoRepository: NandaIORepository) =
         GetFavoriteListUseCase(nandaIoRepository)
 
     @Provides
     @ViewModelScoped
     fun provideGetSearchListUseCase(nandaIoRepository: NandaIORepository) = GetSearchListUseCase(nandaIoRepository)
-
-    @Provides
-    @ViewModelScoped
-    fun provideHistoryUseCase(nandaIoRepository: NandaIORepository) = HistoryUseCase(nandaIoRepository)
 
     @Provides
     @ViewModelScoped

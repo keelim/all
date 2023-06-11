@@ -14,8 +14,8 @@ import androidx.navigation.fragment.findNavController
 import com.keelim.common.extensions.toGone
 import com.keelim.common.extensions.toVisible
 import com.keelim.common.extensions.toast
-import com.keelim.data.db.entity.SimpleHistory
-import com.keelim.data.repository.IoRepository
+import com.keelim.data.source.HistoryRepository
+import com.keelim.data.source.local.History
 import com.keelim.mygrade.databinding.FragmentHistoryBinding
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -30,9 +30,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HistoryViewModel @Inject constructor(
-    ioRepository: IoRepository,
+    historyRepository: HistoryRepository,
 ) : ViewModel() {
-    val state: StateFlow<HistoryState> = ioRepository.simpleAll
+    val state: StateFlow<HistoryState> = historyRepository.observeAll()
         .map { items ->
             if (items.isEmpty()) {
                 HistoryState.Loading
@@ -114,6 +114,6 @@ sealed class HistoryState {
     ) : HistoryState()
 
     data class Success(
-        val data: List<SimpleHistory>,
+        val data: List<History>,
     ) : HistoryState()
 }

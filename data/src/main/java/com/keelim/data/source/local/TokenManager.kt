@@ -3,7 +3,7 @@ package com.keelim.data.source.local
 import android.content.Context
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
-import com.keelim.data.repository.theme.dataStore
+import com.keelim.data.source.dataStore
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow

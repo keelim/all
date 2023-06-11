@@ -17,24 +17,17 @@ package com.keelim.nandadiagnosis.ui.screen.main.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.keelim.data.db.entity.NandaHistory
 import com.keelim.domain.nandadiagnosis.FavoriteUpdateUseCase
 import com.keelim.domain.nandadiagnosis.GetSearchListUseCase
-import com.keelim.domain.nandadiagnosis.HistoryUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -42,21 +35,11 @@ class SearchViewModel
 @Inject
 constructor(
     private val getSearchListUseCase: GetSearchListUseCase,
-    private val favoriteUpdateUseCase: FavoriteUpdateUseCase,
-    private val historyUseCase: HistoryUseCase,
+    private val favoriteUpdateUseCase: FavoriteUpdateUseCase
 ) : ViewModel() {
     private val _state: MutableStateFlow<SearchListState> =
         MutableStateFlow(SearchListState.UnInitialized)
     val state: StateFlow<SearchListState> = _state
-
-    val history: StateFlow<List<NandaHistory>> =
-        suspend { historyUseCase.getAllHistory() }
-            .asFlow()
-            .catch {
-                Timber.e(it)
-                emptyFlow<List<NandaHistory>>()
-            }
-            .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
 
     private val query: MutableStateFlow<String> = MutableStateFlow("")
     init {
@@ -70,12 +53,6 @@ constructor(
                 .onSuccess { _state.emit(SearchListState.Searching(it)) }
                 .onFailure { _state.emit(SearchListState.Error) }
         }
-
-    fun deleteHistory(keyword: String?) =
-        viewModelScope.launch { historyUseCase.deleteHistory(keyword.orEmpty()) }
-
-    fun saveHistory(keyword: String?) =
-        viewModelScope.launch { keyword?.let { historyUseCase.saveHistory(it) } }
 
     fun favoriteUpdate(favorite: Int, id: Int) =
         viewModelScope.launch { favoriteUpdateUseCase.invoke(favorite, id) }

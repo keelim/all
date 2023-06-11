@@ -16,7 +16,7 @@
 package com.keelim.domain.nandadiagnosis
 
 import com.keelim.data.model.Developer
-import com.keelim.data.repository.setting.DeveloperRepository
+import com.keelim.data.source.DeveloperRepository
 import javax.inject.Inject
 
 class GetDevelopersUseCase @Inject constructor(

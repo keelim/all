@@ -21,10 +21,10 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
-import com.keelim.data.db.entity.StationEntity
-import com.keelim.data.db.entity.StationSubwayCrossRefEntity
-import com.keelim.data.db.entity.StationWithSubwaysEntity
-import com.keelim.data.db.entity.SubwayEntity
+import com.keelim.data.model.entity.StationEntity
+import com.keelim.data.model.entity.StationSubwayCrossRefEntity
+import com.keelim.data.model.entity.StationWithSubwaysEntity
+import com.keelim.data.model.entity.SubwayEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

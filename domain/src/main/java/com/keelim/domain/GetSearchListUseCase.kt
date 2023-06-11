@@ -13,17 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.domain.nandadiagnosis
+package com.keelim.domain
 
-import com.keelim.data.model.Developer
-import com.keelim.data.source.DeveloperRepository
+import com.keelim.data.model.entity.NandaEntity
+import com.keelim.data.source.NandaIORepository
 import javax.inject.Inject
 
-class GetDevelopersUseCase @Inject constructor(
-    private val conferenceRepository: DeveloperRepository,
+class GetSearchListUseCase @Inject constructor(
+    private val nandaIoRepository: NandaIORepository,
 ) {
-    suspend operator fun invoke(): List<Developer> {
-        return conferenceRepository.getDeveloper()
-            .sortedBy { it.name }
+    suspend operator fun invoke(query: String?): List<NandaEntity> {
+        return nandaIoRepository.getSearchList(query)
     }
 }

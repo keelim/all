@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 class Todo(val id: Int, val label: String, initialChecked: Boolean = false) {
     var checked by mutableStateOf(initialChecked)
@@ -33,7 +34,9 @@ class Todo(val id: Int, val label: String, initialChecked: Boolean = false) {
 private fun getWellnessTodos() = List(30) { i -> Todo(i, "Todo # $i") }
 
 @HiltViewModel
-class TodoViewModel : ViewModel() {
+class TodoViewModel @Inject constructor(
+
+): ViewModel() {
     private val _tasks = getWellnessTodos().toMutableStateList()
     val tasks: List<Todo>
         get() = _tasks

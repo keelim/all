@@ -22,19 +22,8 @@ import kotlinx.coroutines.launch
 class StationActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setThemeContent { StationRoute() }
-  }
-}
-
-@Composable
-internal fun StationRoute() {
-  val scaffoldState = rememberScaffoldState()
-  Scaffold(
-    scaffoldState = scaffoldState,
-    modifier = Modifier.statusBarsPadding(),
-    drawerContent = { CnubusDrawer() }
-  ) { padding ->
-    val scope = rememberCoroutineScope()
-
+    setThemeContent {
+        
+    }
   }
 }

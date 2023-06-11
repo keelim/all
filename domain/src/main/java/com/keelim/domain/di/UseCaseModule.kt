@@ -17,9 +17,8 @@ package com.keelim.domain.di
 
 import com.keelim.data.source.NandaIORepository
 import com.keelim.data.source.ThemeRepository
-import com.keelim.domain.nandadiagnosis.GetFavoriteListUseCase
-import com.keelim.domain.nandadiagnosis.GetSearchListUseCase
-import com.keelim.domain.theme.ThemeUseCase
+import com.keelim.domain.GetFavoriteListUseCase
+import com.keelim.domain.GetSearchListUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

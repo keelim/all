@@ -13,24 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.domain.nandadiagnosis
+package com.keelim.domain
 
-import com.keelim.data.model.entity.NandaEntity
 import com.keelim.data.source.NandaIORepository
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetSearchListUseCase @Inject constructor(
+class FavoriteUpdateUseCase @Inject constructor(
     private val nandaIoRepository: NandaIORepository,
 ) {
 
-    suspend operator fun invoke(query: String?): List<NandaEntity> {
-        return nandaIoRepository.getSearchList(query)
+    suspend operator fun invoke(favorite: Int, id: Int) {
+        when (favorite) {
+            1 -> nandaIoRepository.updateFavorite(0, id)
+            0 -> nandaIoRepository.updateFavorite(1, id)
+            else -> Unit
+        }
     }
-
-    fun getFlowData(query: String): Flow<List<NandaEntity>> {
-        return nandaIoRepository.getSearchFlow(query)
-    }
-
-    val searchData: Flow<List<NandaEntity>> = nandaIoRepository.searchData
 }

@@ -47,6 +47,7 @@ dependencies {
     implementation(libs.androidx.paging.compose)
     implementation(libs.androidx.profileinstaller)
     implementation(libs.androidx.work.ktx)
+    implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.apache.math)
     implementation(libs.coil.kt)
     implementation(libs.coil.kt.compose)

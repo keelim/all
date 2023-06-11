@@ -15,7 +15,7 @@
  */
 package com.keelim.domain.theme
 
-import com.keelim.data.repository.theme.ThemeRepository
+import com.keelim.data.source.ThemeRepository
 import kotlinx.coroutines.flow.Flow
 
 class ThemeUseCase(

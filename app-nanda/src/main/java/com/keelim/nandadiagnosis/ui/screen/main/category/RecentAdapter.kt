@@ -18,7 +18,7 @@ package com.keelim.nandadiagnosis.ui.screen.main.category
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.keelim.data.db.entity.Recent
+import com.keelim.data.model.entity.Recent
 import com.keelim.nandadiagnosis.databinding.ItemRecentBinding
 
 class RecentAdapter(private val recents: List<Recent>) : RecyclerView.Adapter<RecentAdapter.ViewHolder>() {

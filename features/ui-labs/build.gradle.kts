@@ -10,15 +10,14 @@ android{
 }
 
 dependencies {
-    implementation(project(":data"))
-    implementation(project(":compose"))
-    implementation(project(":domain"))
     implementation(project(":common"))
+    implementation(project(":compose"))
+    implementation(project(":data"))
+    implementation(project(":domain"))
 
-    // activity
     implementation(libs.androidx.appcompat)
-    implementation(libs.material)
     implementation(libs.androidx.core.ktx)
     implementation(libs.arrow.core)
+    implementation(libs.material)
 }
 

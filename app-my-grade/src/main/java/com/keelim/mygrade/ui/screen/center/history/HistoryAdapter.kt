@@ -7,10 +7,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.keelim.common.extensions.ViewHolderLifecycleInitializer
-import com.keelim.data.db.entity.SimpleHistory
+import com.keelim.data.source.local.History
 import com.keelim.mygrade.databinding.ItemNotificationBinding
 
-class HistoryAdapter : ListAdapter<SimpleHistory, HistoryViewHolder>(diffUtil) {
+class HistoryAdapter : ListAdapter<History, HistoryViewHolder>(diffUtil) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder {
         return HistoryViewHolder(
             ItemNotificationBinding.inflate(
@@ -26,14 +26,14 @@ class HistoryAdapter : ListAdapter<SimpleHistory, HistoryViewHolder>(diffUtil) {
     }
 
     companion object {
-        val diffUtil = object : DiffUtil.ItemCallback<SimpleHistory>() {
-            override fun areItemsTheSame(oldItem: SimpleHistory, newItem: SimpleHistory): Boolean {
+        val diffUtil = object : DiffUtil.ItemCallback<History>() {
+            override fun areItemsTheSame(oldItem: History, newItem: History): Boolean {
                 return oldItem == newItem
             }
 
             override fun areContentsTheSame(
-                oldItem: SimpleHistory,
-                newItem: SimpleHistory,
+                oldItem: History,
+                newItem: History,
             ): Boolean {
                 return oldItem == newItem
             }
@@ -44,12 +44,14 @@ class HistoryAdapter : ListAdapter<SimpleHistory, HistoryViewHolder>(diffUtil) {
 class HistoryViewHolder(val binding: ItemNotificationBinding) :
     RecyclerView.ViewHolder(binding.root), ViewHolderLifecycleInitializer {
     override var lifecycleOwner: LifecycleOwner? = null
+
     init {
         initialize(itemView)
     }
-    fun bind(item: SimpleHistory) = with(binding) {
-        title.text = item.name
-        date.text = item.date
+
+    fun bind(item: History) = with(binding) {
+        title.text = item.subject
+        date.text = item.grade
         version.text = "version: ${item.grade}"
     }
 }

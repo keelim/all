@@ -37,10 +37,4 @@ object UseCaseModule {
     @Provides
     @ViewModelScoped
     fun provideGetSearchListUseCase(nandaIoRepository: NandaIORepository) = GetSearchListUseCase(nandaIoRepository)
-
-    @Provides
-    @ViewModelScoped
-    fun provideThemeUseCase(
-        themeRepository: ThemeRepository,
-    ): ThemeUseCase = ThemeUseCase(themeRepository)
 }

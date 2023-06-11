@@ -13,8 +13,5 @@ android {
 }
 
 dependencies {
-    implementation(project(":common"))
     implementation(project(":data"))
-
-    implementation(libs.androidx.paging.common)
 }

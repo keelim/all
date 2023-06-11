@@ -84,19 +84,6 @@ class SettingFragment2 : Fragment() {
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        observeTheme()
-    }
-
-    private fun observeTheme() = viewLifecycleOwner.lifecycleScope.launch {
-        mainViewModel.theme
-            .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
-            .collect { theme ->
-                Timber.d("Current Theme is $theme")
-            }
-    }
-
     companion object {
         fun newInstance(): SettingFragment2 {
             return SettingFragment2().apply {

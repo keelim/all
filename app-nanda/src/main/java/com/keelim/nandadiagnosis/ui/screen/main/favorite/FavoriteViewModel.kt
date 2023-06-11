@@ -17,7 +17,7 @@ package com.keelim.nandadiagnosis.ui.screen.main.favorite
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.keelim.domain.nandadiagnosis.GetFavoriteListUseCase
+import com.keelim.domain.GetFavoriteListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow

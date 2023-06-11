@@ -13,20 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.domain.nandadiagnosis
+package com.keelim.domain
 
+import com.keelim.data.model.entity.NandaEntity
 import com.keelim.data.source.NandaIORepository
 import javax.inject.Inject
 
-class FavoriteUpdateUseCase @Inject constructor(
+class GetSearchListUseCase @Inject constructor(
     private val nandaIoRepository: NandaIORepository,
 ) {
-
-    suspend operator fun invoke(favorite: Int, id: Int) {
-        when (favorite) {
-            1 -> nandaIoRepository.updateFavorite(0, id)
-            0 -> nandaIoRepository.updateFavorite(1, id)
-            else -> Unit
-        }
+    suspend operator fun invoke(query: String?): List<NandaEntity> {
+        return nandaIoRepository.getSearchList(query)
     }
 }

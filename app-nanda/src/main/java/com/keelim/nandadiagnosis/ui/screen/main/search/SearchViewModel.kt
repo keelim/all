@@ -17,8 +17,7 @@ package com.keelim.nandadiagnosis.ui.screen.main.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.keelim.domain.FavoriteUpdateUseCase
-import com.keelim.domain.GetSearchListUseCase
+import com.keelim.data.source.NandaIORepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -34,8 +33,7 @@ import javax.inject.Inject
 class SearchViewModel
 @Inject
 constructor(
-    private val getSearchListUseCase: GetSearchListUseCase,
-    private val favoriteUpdateUseCase: FavoriteUpdateUseCase
+    private val nandaRepository: NandaIORepository,
 ) : ViewModel() {
     private val _state: MutableStateFlow<SearchListState> =
         MutableStateFlow(SearchListState.UnInitialized)
@@ -49,18 +47,24 @@ constructor(
     fun search2(keyword: String?) =
         viewModelScope.launch {
             _state.emit(SearchListState.Loading)
-            runCatching { getSearchListUseCase(keyword.orEmpty()) }
+            runCatching { nandaRepository.getSearchList(keyword.orEmpty()) }
                 .onSuccess { _state.emit(SearchListState.Searching(it)) }
                 .onFailure { _state.emit(SearchListState.Error) }
         }
 
     fun favoriteUpdate(favorite: Int, id: Int) =
-        viewModelScope.launch { favoriteUpdateUseCase.invoke(favorite, id) }
+        viewModelScope.launch {
+            when (favorite) {
+                1 -> nandaRepository.updateFavorite(0, id)
+                0 -> nandaRepository.updateFavorite(1, id)
+                else -> Unit
+            }
+        }
 
     fun queryFilter(value: String) = viewModelScope.launch { query.emit(value) }
 
     private fun observeSearchState() {
-        getSearchListUseCase.searchData
+        nandaRepository.searchData
             .combine(query) { data, queryString ->
                 if (queryString.isNotBlank()) {
                     data.filter { nandaEntity -> nandaEntity.domain_name.contains(queryString) }

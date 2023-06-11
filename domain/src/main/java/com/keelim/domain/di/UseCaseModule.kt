@@ -15,26 +15,11 @@
  */
 package com.keelim.domain.di
 
-import com.keelim.data.source.NandaIORepository
-import com.keelim.data.source.ThemeRepository
-import com.keelim.domain.GetFavoriteListUseCase
-import com.keelim.domain.GetSearchListUseCase
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
-import dagger.hilt.android.scopes.ViewModelScoped
 
 @Module
 @InstallIn(ViewModelComponent::class)
 object UseCaseModule {
-
-    @Provides
-    @ViewModelScoped
-    fun provideGetFavoriteListUseCase(nandaIoRepository: NandaIORepository) =
-        GetFavoriteListUseCase(nandaIoRepository)
-
-    @Provides
-    @ViewModelScoped
-    fun provideGetSearchListUseCase(nandaIoRepository: NandaIORepository) = GetSearchListUseCase(nandaIoRepository)
 }

@@ -17,7 +17,6 @@ package com.keelim.cnubus.ui.screen.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.keelim.domain.theme.ThemeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,14 +26,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val themeUseCase: ThemeUseCase,
 ) : ViewModel() {
-    val theme = themeUseCase.appTheme
-
-    fun setAppTheme(theme: Int) = viewModelScope.launch {
-        themeUseCase.setUserTheme(theme)
-    }
-
     private val _loading: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val loading: StateFlow<Boolean> get() = _loading
 

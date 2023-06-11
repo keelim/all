@@ -16,23 +16,9 @@
 package com.keelim.nandadiagnosis.ui.screen.main
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.keelim.domain.theme.ThemeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val themeUseCase: ThemeUseCase,
-) : ViewModel() {
-
-    val theme: StateFlow<Int?> = themeUseCase.appTheme
-        .stateIn(viewModelScope, SharingStarted.Lazily, null)
-    fun setAppTheme(theme: Int) = viewModelScope.launch {
-        themeUseCase.setUserTheme(theme)
-    }
-}
+) : ViewModel()

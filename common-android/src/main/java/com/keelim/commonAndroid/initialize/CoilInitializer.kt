@@ -19,6 +19,7 @@ import android.content.Context
 import androidx.startup.Initializer
 import coil.Coil
 import coil.ImageLoader
+import coil.decode.SvgDecoder
 import okhttp3.OkHttpClient
 
 class CoilInitializer : Initializer<Unit> {
@@ -28,6 +29,9 @@ class CoilInitializer : Initializer<Unit> {
             .okHttpClient {
                 OkHttpClient.Builder()
                     .build()
+            }
+            .components {
+                add(SvgDecoder.Factory())
             }
             .build()
         Coil.setImageLoader(imageLoader)

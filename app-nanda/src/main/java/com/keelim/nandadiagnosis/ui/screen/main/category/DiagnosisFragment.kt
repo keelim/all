@@ -22,7 +22,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.keelim.data.db.entity.DiagnosisItem
+import com.keelim.data.model.entity.DiagnosisItem
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.FragmentDiagnosisBinding
 

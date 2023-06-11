@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.keelim.data.model.notification.Notification
+import com.keelim.data.model.Notification
 import com.keelim.mygrade.databinding.ItemNotificationBinding
 
 class NotificationAdapter : ListAdapter<Notification, NotificationViewHolder>(diffUtil) {

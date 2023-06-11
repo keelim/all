@@ -26,7 +26,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.keelim.common.extensions.loadAsync
 import com.keelim.common.extensions.toGone
 import com.keelim.common.extensions.toVisible
-import com.keelim.data.model.gps.Location
+import com.keelim.data.model.Location
 import com.keelim.map.R
 import com.keelim.map.databinding.ActivityDetailBinding
 import dagger.hilt.android.AndroidEntryPoint

@@ -17,8 +17,8 @@ package com.keelim.nandadiagnosis.ui.screen.main.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.keelim.domain.nandadiagnosis.FavoriteUpdateUseCase
-import com.keelim.domain.nandadiagnosis.GetSearchListUseCase
+import com.keelim.domain.FavoriteUpdateUseCase
+import com.keelim.domain.GetSearchListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

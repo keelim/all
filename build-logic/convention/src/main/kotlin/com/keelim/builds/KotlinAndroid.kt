@@ -33,7 +33,7 @@ fun Project.configureKotlinAndroid(
 ) {
     commonExtension.apply {
         compileSdk = ProjectConfiguration.compileSdk
-        compileSdkExtension = ProjectConfiguration.compileSdkExtension
+        // compileSdkExtension = ProjectConfiguration.compileSdkExtension
 
         defaultConfig {
             minSdk = ProjectConfiguration.minSdk

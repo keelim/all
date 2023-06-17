@@ -20,16 +20,19 @@ import javax.inject.Singleton
 object DaoModule {
 
     @Provides
+    @Singleton
     fun providesCnuHistoryDao(
         database: CnuAppDatabase,
     ): CnuHistoryDao = database.daoHistory()
 
     @Provides
+    @Singleton
     fun providesCommentDao(
         database: CnuAppDatabase,
     ): CommentDao = database.daoComment()
 
     @Provides
+    @Singleton
     fun providesHistoryDao(
         database: MyGradeAppDatabase,
     ): HistoryDao = database.historyDao()

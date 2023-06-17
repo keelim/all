@@ -22,9 +22,6 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.flowWithLifecycle
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.work.Constraints
 import androidx.work.NetworkType
@@ -37,14 +34,16 @@ import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.ActivityMainBinding
 import com.keelim.cnubus.worker.BusWorker
 import com.keelim.common.extensions.toast
+import com.keelim.commonAndroid.core.AppMainDelegator
+import com.keelim.commonAndroid.core.AppMainViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel: AppMainViewModel by viewModels()
+    private val appMainDelegator by lazy { AppMainDelegator(this, viewModel) }
 
     private val onBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
@@ -100,7 +99,6 @@ class MainActivity : AppCompatActivity() {
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         permissionLauncher.launch(appPermissions.toTypedArray())
         initViews()
-        observeState()
         startWork()
     }
 
@@ -113,13 +111,6 @@ class MainActivity : AppCompatActivity() {
             if (destination.id == R.id.stationArrivalsFragment) {
             }
         }
-    }
-
-    private fun observeState() = lifecycleScope.launch {
-        viewModel.loading
-            .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
-            .collect {
-            }
     }
 
     private fun startWork(start: Int = 10) {

@@ -46,7 +46,6 @@ import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import com.keelim.data.model.entity.Recent
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.FragmentCategoryBinding
-import com.keelim.nandadiagnosis.ui.screen.main.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONArray
 import org.json.JSONObject

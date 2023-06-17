@@ -24,10 +24,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.keelim.cnubus.R
-import com.keelim.cnubus.ui.screen.main.MainViewModel
 import com.keelim.cnubus.ui.screen.setting.compose.ScreenAction
 import com.keelim.cnubus.ui.screen.setting.compose.SettingScreen
 import com.keelim.composeutil.setThemeContent
@@ -36,8 +34,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SettingFragment2 : Fragment() {
-    private val mainViewModel: MainViewModel by viewModels()
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

@@ -30,6 +30,8 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.keelim.common.extensions.toast
+import com.keelim.commonAndroid.core.AppMainDelegator
+import com.keelim.commonAndroid.core.AppMainViewModel
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.ActivityMain2Binding
 import com.keelim.nandadiagnosis.di.DownloadReceiver
@@ -40,7 +42,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class Main2Activity : AppCompatActivity() {
     private val binding by lazy { ActivityMain2Binding.inflate(layoutInflater) }
-    private val mainViewModel: MainViewModel by viewModels()
+    private val viewModel: AppMainViewModel by viewModels()
+    private val appMainDelegator by lazy { AppMainDelegator(this, viewModel) }
 
     @Inject
     lateinit var receiver: DownloadReceiver

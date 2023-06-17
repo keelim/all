@@ -12,7 +12,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class ApplicationModule {
+object ApplicationModule {
     @Provides
     @Singleton
     fun providesAppInfo(

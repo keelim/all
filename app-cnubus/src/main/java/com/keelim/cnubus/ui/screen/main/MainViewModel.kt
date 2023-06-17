@@ -25,8 +25,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
-) : ViewModel() {
+class MainViewModel @Inject constructor() : ViewModel() {
     private val _loading: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val loading: StateFlow<Boolean> get() = _loading
 

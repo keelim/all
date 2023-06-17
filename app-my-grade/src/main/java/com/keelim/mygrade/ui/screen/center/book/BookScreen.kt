@@ -59,20 +59,19 @@ fun BookScreen(books: LazyPagingItems<Books.Book>, modifier: Modifier = Modifier
         is LoadState.NotLoading -> {
             LazyColumn(modifier = modifier) {
                 items(
-        count = books.itemCount,
-        key = books.itemKey<Books.Book>(),
-        contentType = books.itemContentType<Books.Book>(
-            )
-    ) { index ->
-        val item = books[index]
-        BookItem(
-            item = item,
-            modifier =
-            Modifier
-                .fillMaxSize()
-                .background(getBackgroundForIndex(index))
-                .padding(vertical = 15.dp),
-        )
+                    count = books.itemCount,
+                    key = books.itemKey<Books.Book>(),
+                    contentType = books.itemContentType<Books.Book>(),
+                ) { index ->
+                    val item = books[index]
+                    BookItem(
+                        item = item,
+                        modifier =
+                        Modifier
+                            .fillMaxSize()
+                            .background(getBackgroundForIndex(index))
+                            .padding(vertical = 15.dp),
+                    )
                 }
             }
         }

@@ -19,13 +19,9 @@ import android.content.Context
 import android.content.SharedPreferences
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
-import javax.inject.Singleton
 
-/**
- * 데이터 저장 및 로드 클래스
- */
-@Singleton
-class PreferenceManager @Inject constructor(
+
+class NandaPreferenceManager @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
 

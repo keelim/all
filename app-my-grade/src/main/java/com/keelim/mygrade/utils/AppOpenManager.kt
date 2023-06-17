@@ -18,15 +18,16 @@ import java.util.Date
 import javax.inject.Inject
 
 class AppOpenManager @Inject constructor() : LifecycleObserver {
+    private val adRequest: AdRequest by lazy { AdRequest.Builder().build() }
+
+    private var isShowingAd = false
+    private var loadTime: Long = 0
+
     private var appOpenAd: AppOpenAd? = null
     private var currentActivity: Activity? = null
-    private val AD_UNIT_ID = "ca-app-pub-3940256099942544/3419835294"
-    private val adRequest: AdRequest by lazy { AdRequest.Builder().build() }
-    private lateinit var application: Application
-    private var isShowingAd = false
+    private var application: Application? = null
     private val isAdAvailable: Boolean
         get() = appOpenAd != null && wasLoadTimeLessThanNHoursAgo()
-    private var loadTime: Long = 0
 
     fun initialize(application: Application) {
         this.application = application
@@ -36,7 +37,6 @@ class AppOpenManager @Inject constructor() : LifecycleObserver {
             override fun onActivityStarted(activity: Activity) {
                 currentActivity = activity
                 showAdIfAvailable()
-                Timber.d("onStart")
             }
 
             override fun onActivityResumed(activity: Activity) {
@@ -85,18 +85,17 @@ class AppOpenManager @Inject constructor() : LifecycleObserver {
              * @param loadAdError the error.
              * Handle the error.
              */
-            override fun onAdFailedToLoad(loadAdError: LoadAdError) {}
+            override fun onAdFailedToLoad(loadAdError: LoadAdError) = Unit
         }
         AppOpenAd.load(
-            application,
+            application ?: return,
             if (BuildConfig.DEBUG) {
                 AD_UNIT_ID
             } else {
                 BuildConfig.AD_OPEN_ID
             },
             adRequest,
-            AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT,
-            loadCallback,
+            loadCallback
         )
     }
 
@@ -135,5 +134,9 @@ class AppOpenManager @Inject constructor() : LifecycleObserver {
         val dateDifference = Date().time - loadTime
         val numMilliSecondsPerHour = 3600000
         return dateDifference < numMilliSecondsPerHour * numHours
+    }
+
+    companion object {
+        private const val AD_UNIT_ID = "ca-app-pub-3940256099942544/3419835294"
     }
 }

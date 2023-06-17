@@ -8,8 +8,8 @@ import com.keelim.mygrade.R
 
 object NotificationChannels {
 
-    const val NOTICE = "NTC"
-    const val EVENT = "EVT"
+    const val NOTICE = "NOTICE"
+    const val EVENT = "EVENT"
 
     internal fun initialize(application: Application) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

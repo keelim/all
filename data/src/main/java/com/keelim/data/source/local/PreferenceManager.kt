@@ -16,11 +16,8 @@
 package com.keelim.data.source.local
 
 interface PreferenceManager {
-
     fun getString(key: String): String?
-
     fun putString(key: String, value: String)
-
     fun getLong(key: String): Long?
     fun putLong(key: String, value: Long)
 }

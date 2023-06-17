@@ -36,7 +36,7 @@
         tools:layout="@layout/fragment_history" />
     <fragment
         android:id="@+id/gradeFragment"
-        android:name="com.keelim.mygrade.ui.screen.GradeFragment"
+        android:name="com.keelim.mygrade.ui.screen.grade.GradeFragment"
         android:label="GradeFragment"
         tools:layout="@layout/fragment_grade">
         <argument

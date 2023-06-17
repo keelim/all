@@ -19,6 +19,7 @@ import com.keelim.mygrade.utils.Keys
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import okhttp3.internal.platform.android.AndroidLogHandler.getLevel
 
 @AndroidEntryPoint
 class SimpleAddBottomSheet : BottomSheetDialogFragment() {
@@ -69,14 +70,14 @@ class SimpleAddBottomSheet : BottomSheetDialogFragment() {
                     }.let { items ->
                         if (items.isNotEmpty()) {
                             viewModel.submit(
-                                items[0].toFloat(),
-                                items[1].toFloat(),
-                                items[2].toFloat(),
-                                items[3].toInt(),
-                                true,
+                                origin = items[0].trim().toFloat(),
+                                average = items[1].trim().toFloat(),
+                                number = items[2].trim().toFloat(),
+                                student = items[3].trim().toInt(),
+                                flag = true,
                             )
                         } else {
-                            toast("알 수 없는 오류가 발생하였습니다. 다시 한번 시도해주세요")
+                            toast("알 수 없는 오류가 발생하였습니다. \n다시 한번 시도해주세요")
                         }
                     }
                 }
@@ -108,20 +109,18 @@ class SimpleAddBottomSheet : BottomSheetDialogFragment() {
                                     Keys.MAIN_TO_GRADE,
                                     Result(
                                         grade,
-                                        getLevel(
-                                            (it.value * it.temp) / 100,
-                                            it.temp,
-                                        ),
+                                        Level((it.value * it.temp) / 100).toProcess(it.temp.toString())
                                     ),
                                 )
                             },
                         )
                     }
-                    is MainState.Error -> requireContext().snack(binding.root, "오류가 발생했습니다")
-                    MainState.Initialized -> TODO()
+
+                    is MainState.Error, MainState.Initialized -> requireContext().snack(
+                        binding.root,
+                        "오류가 발생했습니다"
+                    )
                 }
             }.launchIn(lifecycleScope)
     }
-
-    private fun getLevel(level: Int, temp: Int): String = "$level / $temp"
 }

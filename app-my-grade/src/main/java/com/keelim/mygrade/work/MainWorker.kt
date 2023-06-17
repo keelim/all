@@ -11,7 +11,6 @@ import androidx.work.OneTimeWorkRequest
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
-import com.keelim.mygrade.notification.NotificationBuilder
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import java.util.concurrent.TimeUnit
@@ -19,12 +18,10 @@ import java.util.concurrent.TimeUnit
 @HiltWorker
 class MainWorker @AssistedInject constructor(
     @Assisted ctx: Context,
-    @Assisted params: WorkerParameters,
-    private val notificationBuilder: NotificationBuilder,
+    @Assisted params: WorkerParameters
 ) : CoroutineWorker(ctx, params) {
     override suspend fun doWork(): Result {
         return try {
-            notificationBuilder.showNotification(null)
             Result.success()
         } catch (t: Throwable) {
             if (runAttemptCount <= 3) {

@@ -48,10 +48,6 @@
                 android:resource="@xml/shortcut" />
         </activity>
 
-        <activity
-            android:name="com.keelim.mygrade.ui.screen.setting.SettingActivity"
-            android:exported="false" />
-
         <activity android:name="com.facebook.flipper.android.diagnostics.FlipperDiagnosticActivity"
             android:exported="true"/>
 

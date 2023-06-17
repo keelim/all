@@ -21,17 +21,13 @@ import com.keelim.commonAndroid.core.AppMainDelegator
 import com.keelim.commonAndroid.core.AppMainViewModel
 import com.keelim.mygrade.R
 import com.keelim.mygrade.databinding.ActivityCenterBinding
-import com.keelim.mygrade.notification.NotificationBuilder
 import com.keelim.mygrade.utils.Keys.IN_APP_UPDATE_REQUEST_CODE
 import com.keelim.mygrade.work.MainWorker
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 
 @AndroidEntryPoint
 class CenterActivity : AppCompatActivity() {
-    @Inject
-    lateinit var notificationBuilder: NotificationBuilder
 
     private val viewModel: AppMainViewModel by viewModels()
     private val appMainDelegator by lazy { AppMainDelegator(this, viewModel) }

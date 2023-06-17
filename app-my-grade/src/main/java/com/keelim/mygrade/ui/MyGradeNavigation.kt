@@ -6,8 +6,7 @@ private object MyGradeScreens {
     const val TODO_SCREEN = "todo"
 }
 
-object MyGradeDestinationsArgs {
-}
+object MyGradeDestinationsArgs
 
 object MyGradeDestinations {
     const val TODO_ROUTE = MyGradeScreens.TODO_SCREEN

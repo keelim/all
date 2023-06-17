@@ -46,7 +46,7 @@ private fun getMapLifecycleObserver(mapView: MapView): LifecycleEventObserver =
     }
 
 fun GoogleMap.setZoom(
-    zoom: Float
+    zoom: Float,
 ) {
     resetMinMaxZoomPreference()
     setMinZoomPreference(zoom)

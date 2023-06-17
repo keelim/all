@@ -58,8 +58,8 @@ class GradeViewModel @Inject constructor(
                 number = 0,
                 grade_num = 0.0f,
                 grade = "",
-                uid = 0
-            )
+                uid = 0,
+            ),
         )
         changeSaveAction(isSave = true)
     }

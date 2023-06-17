@@ -34,9 +34,7 @@ class Todo(val id: Int, val label: String, initialChecked: Boolean = false) {
 private fun getWellnessTodos() = List(30) { i -> Todo(i, "Todo # $i") }
 
 @HiltViewModel
-class TodoViewModel @Inject constructor(
-
-): ViewModel() {
+class TodoViewModel @Inject constructor() : ViewModel() {
     private val _tasks = getWellnessTodos().toMutableStateList()
     val tasks: List<Todo>
         get() = _tasks
@@ -63,7 +61,7 @@ fun WaterCounter(modifier: Modifier = Modifier) {
                     todoName = "Have you taken your 15 minute walk today?",
                     checked = false,
                     onCheckedChange = {},
-                    modifier = modifier
+                    modifier = modifier,
                 )
             }
             Text("You've had $count glasses.")
@@ -73,7 +71,7 @@ fun WaterCounter(modifier: Modifier = Modifier) {
             Button(onClick = { count++ }, enabled = count < 10) { Text("Add one") }
             Button(
                 onClick = { count = 0 },
-                Modifier.padding(start = 8.dp)
+                Modifier.padding(start = 8.dp),
             ) { Text("Clear water count") }
         }
     }
@@ -91,14 +89,14 @@ private fun WellnessTodo(
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     onClose: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
         Text(
             text = todoName,
             modifier = Modifier
                 .weight(1f)
-                .padding(paddingValues = PaddingValues(start = 16.dp))
+                .padding(paddingValues = PaddingValues(start = 16.dp)),
         )
         Checkbox(checked = checked, onCheckedChange = onCheckedChange)
         IconButton(onClick = onClose) { Icon(Icons.Filled.Close, contentDescription = "Close") }
@@ -142,7 +140,7 @@ internal fun WellnessTodoList(
                 todoName = item.label,
                 checked = item.checked,
                 onCheckedChange = { checked -> onCheckedTodo(item, checked) },
-                onClose = { onCloseTodo(item) }
+                onClose = { onCloseTodo(item) },
             )
         }
     }
@@ -161,7 +159,7 @@ private fun PreviewWellnessTodoList() {
 @Composable
 fun HabitScreen(
     modifier: Modifier = Modifier,
-    viewModel: TodoViewModel = hiltViewModel()
+    viewModel: TodoViewModel = hiltViewModel(),
 ) {
     Column(modifier = modifier) {
         StatefulCounter()
@@ -169,7 +167,7 @@ fun HabitScreen(
         WellnessTodoList(
             list = viewModel.tasks,
             onCheckedTodo = viewModel::changeTaskChecked,
-            onCloseTodo = viewModel::remove
+            onCloseTodo = viewModel::remove,
         )
     }
 }

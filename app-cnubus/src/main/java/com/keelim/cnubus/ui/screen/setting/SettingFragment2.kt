@@ -25,9 +25,6 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.flowWithLifecycle
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.keelim.cnubus.R
 import com.keelim.cnubus.ui.screen.main.MainViewModel
@@ -36,8 +33,6 @@ import com.keelim.cnubus.ui.screen.setting.compose.SettingScreen
 import com.keelim.composeutil.setThemeContent
 import com.keelim.map.screen.map1.MapsActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @AndroidEntryPoint
 class SettingFragment2 : Fragment() {

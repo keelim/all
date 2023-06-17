@@ -16,42 +16,42 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import kotlin.math.roundToInt
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
+import kotlin.math.roundToInt
 
 @Composable
 fun MoveBox(modifier: Modifier = Modifier) {
-  val animatedOffset = remember {
-    androidx.compose.animation.core.Animatable(Offset(0f, 0f), Offset.VectorConverter)
-  }
-  Box(
-    modifier =
-      modifier.fillMaxSize().pointerInput(Unit) {
-        coroutineScope {
-          while (true) {
-            val offset = awaitPointerEventScope { awaitFirstDown().position }
-            launch { animatedOffset.animateTo(offset) }
-          }
-        }
-      }
-  ) {
-    Text("Tab ", Modifier.align(Alignment.Center))
+    val animatedOffset = remember {
+        androidx.compose.animation.core.Animatable(Offset(0f, 0f), Offset.VectorConverter)
+    }
     Box(
-      modifier =
-        Modifier.offset {
-            IntOffset(
-              animatedOffset.value.x.roundToInt(),
-              animatedOffset.value.y.roundToInt(),
-            )
-          }
-          .size(40.dp)
-    )
-  }
+        modifier =
+        modifier.fillMaxSize().pointerInput(Unit) {
+            coroutineScope {
+                while (true) {
+                    val offset = awaitPointerEventScope { awaitFirstDown().position }
+                    launch { animatedOffset.animateTo(offset) }
+                }
+            }
+        },
+    ) {
+        Text("Tab ", Modifier.align(Alignment.Center))
+        Box(
+            modifier =
+            Modifier.offset {
+                IntOffset(
+                    animatedOffset.value.x.roundToInt(),
+                    animatedOffset.value.y.roundToInt(),
+                )
+            }
+                .size(40.dp),
+        )
+    }
 }
 
 @Preview
 @Composable
 fun PreviewMoveBox() {
-  MoveBox()
+    MoveBox()
 }

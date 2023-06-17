@@ -12,7 +12,6 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.CoroutineScope
 
-
 @Composable
 fun TodoNavGraph(
     modifier: Modifier = Modifier,
@@ -21,7 +20,7 @@ fun TodoNavGraph(
     startDestination: String,
     navActions: TodoNavigationActions = remember(navController) {
         TodoNavigationActions(navController)
-    }
+    },
 ) {
     val currentNavBackStackEntry by navController.currentBackStackEntryAsState()
     // val currentRoute = currentNavBackStackEntry?.destination?.route ?: startDestination
@@ -29,7 +28,7 @@ fun TodoNavGraph(
     NavHost(
         navController = navController,
         startDestination = startDestination,
-        modifier = modifier
+        modifier = modifier,
     ) {
         composable(
             MyGradeDestinations.TODO_ROUTE,
@@ -38,4 +37,3 @@ fun TodoNavGraph(
         }
     }
 }
-

@@ -38,7 +38,7 @@ class FavoriteViewModel @Inject constructor(
         )
         setState(
             FavoriteListState.Success(
-                nandaRepository.getFavoriteList()
+                nandaRepository.getFavoriteList(),
             ),
         )
     }

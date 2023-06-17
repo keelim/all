@@ -17,6 +17,7 @@ package com.keelim.data.di.network
 
 import com.keelim.data.BuildConfig
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.ktor.client.HttpClient
@@ -40,6 +41,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object KtorNetworkModule {
     @KtorHttpClient
+    @Provides
     @Singleton
     fun provideKtorClient(): HttpClient = HttpClient(CIO) {
         engine {
@@ -93,6 +95,7 @@ object KtorNetworkModule {
     }
 
     @KtorWebsocketHttpClient
+    @Provides
     @Singleton
     fun provideKtorWebsocketHttpClient(): HttpClient = HttpClient {
         install(WebSockets)

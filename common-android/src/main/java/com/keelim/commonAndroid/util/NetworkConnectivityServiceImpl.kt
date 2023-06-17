@@ -1,4 +1,4 @@
-package com.keelim.commonAndroid.di
+package com.keelim.commonAndroid.util
 
 import android.annotation.SuppressLint
 import android.content.Context

@@ -25,13 +25,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.keelim.commonAndroid.core.AppMainDelegator
+import com.keelim.commonAndroid.core.AppMainViewModel
 import com.keelim.comssa.R
 import com.keelim.comssa.databinding.ActivityMainBinding
 import com.keelim.comssa.databinding.ItemPasswordBinding
@@ -42,14 +42,14 @@ import com.keelim.comssa.utils.toast
 import com.keelim.data.di.download.DownloadReceiver
 import com.keelim.data.di.download.DownloadRequest
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel: AppMainViewModel by viewModels()
+    private val appMainDelegator by lazy { AppMainDelegator(this, viewModel) }
     private val mainViewPagerAdapter by lazy { MainViewPagerAdapter(this) }
 
     @Inject lateinit var recevier: DownloadReceiver
@@ -81,7 +81,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         fileChecking()
         initViews()
-        observeData()
         permissionLauncher.launch(appPermissions.toTypedArray())
     }
 
@@ -143,25 +142,19 @@ class MainActivity : AppCompatActivity() {
             toast("유효하지 않는 URL 입니다. 앱을 다시 시작해주세요")
             return
         }
-
-        registerReceiver(
+        ContextCompat.registerReceiver(
+            this,
             recevier,
             IntentFilter().apply {
                 addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
                 addAction(DownloadManager.ACTION_NOTIFICATION_CLICKED)
             },
+            ContextCompat.RECEIVER_NOT_EXPORTED
         )
+
         getSystemService(DownloadManager::class.java).enqueue(
             downloadRequest.provideDownloadRequest(link),
         )
-    }
-
-    private fun observeData() = lifecycleScope.launch {
-        repeatOnLifecycle(Lifecycle.State.STARTED) {
-            viewModel.mainUiState.collect { uiState ->
-                downloadDatabase(uiState.downloadUrl)
-            }
-        }
     }
 
     inner class MainViewPagerAdapter(fragmentActivity: FragmentActivity) :

@@ -46,14 +46,14 @@ fun Modifier.onTouchHeldAnimated(
     pollDelay: Duration = 500.milliseconds,
     targetPollDelay: Duration = pollDelay,
     animationDuration: Duration = 5.seconds,
-    onTouchHeld: () -> Unit
+    onTouchHeld: () -> Unit,
 ) = composed {
     val scope = rememberCoroutineScope()
     pointerInput(onTouchHeld) {
         val animationSpec: FloatAnimationSpec = FloatTweenSpec(
             animationDuration.inWholeSeconds.toInt(),
             0,
-            easing
+            easing,
         )
         awaitEachGesture {
             val initialDown = awaitFirstDown(requireUnconsumed = false)
@@ -68,7 +68,7 @@ fun Modifier.onTouchHeldAnimated(
                         currentPlayTime.inWholeNanoseconds,
                         pollDelay.inWholeMilliseconds.toFloat(),
                         targetPollDelay.inWholeMilliseconds.toFloat(),
-                        0F
+                        0F,
                     ).toInt().milliseconds
                 }
             }

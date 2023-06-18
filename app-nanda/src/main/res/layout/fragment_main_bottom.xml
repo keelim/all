@@ -106,45 +106,6 @@
                 android:background="@color/colorDivider" />
 
             <LinearLayout
-                android:id="@+id/theme_option"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/menu_row_height"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center_vertical">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/theme_icon"
-                    style="@style/Widget.Material3.Button.IconButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    app:icon="@drawable/ic_baseline_home_24" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:orientation="vertical">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        style="@style/TextAppearance.Material3.TitleMedium"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/theme"
-                        android:textColor="?attr/colorOnSurface" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/theme_description"
-                        style="@style/TextAppearance.Material3.TitleMedium"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/material_on_surface_emphasis_medium" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
                 android:id="@+id/update"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/menu_row_height"

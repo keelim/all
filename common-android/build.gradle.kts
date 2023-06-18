@@ -27,6 +27,7 @@ dependencies {
     implementation(libs.kotlinx.coroutines.test)
     implementation(libs.play.services.ad)
     implementation(libs.timber)
+    implementation(libs.kotlinx.datetime)
     kapt(libs.hilt.compiler)
 
     debugImplementation(libs.flipper)

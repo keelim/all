@@ -1,6 +1,7 @@
 package com.keelim.commonAndroid.di
 
 import com.keelim.common.model.NetworkConnectivityService
+import com.keelim.commonAndroid.util.NetworkConnectivityServiceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

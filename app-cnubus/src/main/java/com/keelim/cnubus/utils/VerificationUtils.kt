@@ -16,7 +16,6 @@
 package com.keelim.cnubus.utils
 
 import android.content.Context
-import android.content.pm.PackageManager
 import android.content.pm.PackageManager.NameNotFoundException
 import android.os.Build
 import android.text.TextUtils

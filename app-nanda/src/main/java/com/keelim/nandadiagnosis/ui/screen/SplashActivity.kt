@@ -53,17 +53,19 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun initSplash() {
-        val permissions = arrayOf(
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-        )
+        val permissions = buildList {
+            if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.O) {
+                add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                add(Manifest.permission.READ_EXTERNAL_STORAGE)
+            }
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             permissions.plus(Manifest.permission.FOREGROUND_SERVICE)
         }
         if (hasPermissions(permissions)) { // 권한이 있는 경우
             goNext()
         } else {
-            ActivityCompat.requestPermissions(this, permissions, MULTIPLE_PERMISSIONS)
+            ActivityCompat.requestPermissions(this, permissions.toTypedArray(), MULTIPLE_PERMISSIONS)
         }
     }
 
@@ -94,7 +96,7 @@ class SplashActivity : AppCompatActivity() {
         )
     }
 
-    private fun hasPermissions(permissions: Array<String>): Boolean {
+    private fun hasPermissions(permissions: List<String>): Boolean {
         permissions.forEach { permission ->
             if (ActivityCompat.checkSelfPermission(
                     this,

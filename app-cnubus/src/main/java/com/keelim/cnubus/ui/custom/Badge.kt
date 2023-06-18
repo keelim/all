@@ -55,9 +55,8 @@ class Badge(
         background = null
     }
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        canvas ?: return
         canvas.drawRoundRect(
             0f,
             0f,

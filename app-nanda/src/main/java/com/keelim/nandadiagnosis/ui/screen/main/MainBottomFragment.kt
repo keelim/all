@@ -16,7 +16,6 @@
 package com.keelim.nandadiagnosis.ui.screen.main
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -24,62 +23,37 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.oss.licenses.OssLicensesActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.keelim.common.extensions.toast
+import com.keelim.composeutil.setThemeContent
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.databinding.FragmentMainBottomBinding
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class MainBottomFragment : BottomSheetDialogFragment() {
-    private var _binding: FragmentMainBottomBinding? = null
-    private val binding get() = _binding!!
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View {
-        _binding = FragmentMainBottomBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initViews()
-    }
-
-    private fun initViews() = with(binding) {
-        aboutButton.setOnClickListener {
-            dismiss()
-            findNavController().navigate(R.id.aboutFragment)
-        }
-
-        openSourceLicensesButton.setOnClickListener {
-            dismiss()
-            startActivity(Intent(requireContext(), OssLicensesActivity::class.java))
-        }
-
-        update.setOnClickListener {
-            dismiss()
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.urinanda))))
-        }
-
-        blog.setOnClickListener {
-            dismiss()
-            findNavController().navigate(R.id.inAppWebFragment)
-        }
-
-        login.setOnClickListener {
-            dismiss()
-            findNavController().navigate(R.id.profileFragment)
-        }
-
-        binding.labFeature.setOnClickListener {
-            dismiss()
-        }
+    ): View = setThemeContent {
+        MainBottomSheetRoute(
+            onBlogClick = {
+                dismiss()
+                findNavController().navigate(R.id.inAppWebFragment)
+            },
+            onFavoriteClick = {
+                dismiss()
+                findNavController().navigate(R.id.favoriteFragment2)
+            },
+            onOpenSourceClick = {
+                try {
+                    dismiss()
+                    startActivity(Intent(requireContext(), OssLicensesActivity::class.java))
+                } catch (throwable : Throwable) {
+                    throwable.localizedMessage?.let { toast(it) }
+                }
+            },
+            onAboutClick = {
+                dismiss()
+                findNavController().navigate(R.id.aboutFragment)
+            }
+        )
     }
 }

@@ -89,10 +89,6 @@ class Main2Activity : AppCompatActivity() {
                 navController().navigate(R.id.navigation_search)
             }
 
-            bottomAppBar.setNavigationOnClickListener {
-                navController().navigate(R.id.menuBottomSheetDialogFragment)
-            }
-
             bottomAppBar.setOnMenuItemClickListener {
                 when (it.itemId) {
                     R.id.more -> {

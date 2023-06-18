@@ -26,6 +26,12 @@ class AppMainDelegator(
     private val viewModel: AppMainViewModel
 ) : DefaultLifecycleObserver {
 
+    init {
+        activity.lifecycle.addObserver(
+            this
+        )
+    }
+
     override fun onStart(owner: LifecycleOwner) {
         super.onStart(owner)
 

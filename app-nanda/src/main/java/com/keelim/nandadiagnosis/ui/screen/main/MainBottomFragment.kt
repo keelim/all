@@ -21,7 +21,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.oss.licenses.OssLicensesActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -33,8 +32,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainBottomFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentMainBottomBinding? = null
     private val binding get() = _binding!!
-
-    private val mainViewModel: MainViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,

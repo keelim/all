@@ -9,102 +9,20 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.keelim.common.extensions.snack
 import com.keelim.common.extensions.toast
-import com.keelim.data.model.Result
-import com.keelim.data.source.HistoryRepository
-import com.keelim.data.source.local.History
+import com.keelim.data.model.GradeResult
 import com.keelim.mygrade.R
 import com.keelim.mygrade.databinding.FragmentMainBinding
 import com.keelim.mygrade.utils.Keys
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 import org.apache.commons.math3.distribution.NormalDistribution
-import java.util.Date
-import javax.inject.Inject
-
-@HiltViewModel
-class MainViewModel @Inject constructor(
-    private val historyRepository: HistoryRepository,
-) : ViewModel() {
-    private val _state: MutableStateFlow<MainState> = MutableStateFlow(MainState.UnInitialized)
-    val state: StateFlow<MainState> = _state.asStateFlow()
-
-    // TODO: 이때 데이터 베이스에 저장을 할 것
-    fun submit(
-        origin: Float,
-        average: Float,
-        number: Float,
-        student: Int,
-        flag: Boolean = false
-    ) = viewModelScope.launch {
-        _state.update { MainState.Loading }
-        if (flag.not()) return@launch
-        runCatching {
-            _state.update { MainState.Initialized }
-            true
-        }.onSuccess { trigger ->
-            _state.update {
-                MainState.Success(
-                    trigger,
-                    getNormalProbabilityAtZ(((origin - average) / number).toDouble()),
-                    student,
-                )
-            }
-        }.onFailure {
-            _state.emit(MainState.Error("실패"))
-        }
-    }
-
-    private fun getNormalProbabilityAtZ(z: Double): Int {
-        return NormalDistribution()
-            .let { normal ->
-                if (z > 0) {
-                    100 - ((normal.probability(0.0, z) + 0.5) * 100).toInt()
-                } else {
-                    ((normal.probability(0.0, -z) + 0.5) * 100).toInt()
-                }
-            }
-    }
-
-    fun save(
-        origin: Float,
-        average: Float,
-        number: Float,
-        student: Int,
-        grade: String,
-        level: String,
-    ) = viewModelScope.launch {
-        historyRepository.create(
-            History(
-                Date().time.toString(),
-                origin.toInt(),
-                average,
-                number,
-                student,
-                grade.toFloat(),
-                level,
-            ),
-        )
-    }
-
-    fun moveToUnInitialized() {
-        _state.update { MainState.UnInitialized }
-    }
-}
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
@@ -154,7 +72,7 @@ class MainFragment : Fragment() {
 
     private fun initFlow() {
         viewModel.state
-            .flowWithLifecycle(lifecycle)
+            .flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach {
                 when (it) {
                     is MainState.Error -> requireContext().snack(binding.root, "오류가 발생했습니다")
@@ -162,20 +80,13 @@ class MainFragment : Fragment() {
                     is MainState.UnInitialized, MainState.Initialized -> Unit
                     is MainState.Success -> {
                         if (validation()) {
-                            val grade = when {
-                                it.value < 30 -> "A"
-                                it.value < 60 -> "B"
-                                it.value < 80 -> "C"
-                                it.value < 100 -> "D"
-                                else -> "F"
-                            }
                             findNavController().navigate(
                                 R.id.gradeFragment,
                                 bundleOf(
-                                    Keys.MAIN_TO_GRADE to Result(
-                                        grade,
+                                    Keys.MAIN_TO_GRADE to GradeResult(
+                                        it.value.grade(),
                                         Level(
-                                            (it.value * binding.valueStudent.text.toString()
+                                            (it.value.value * binding.valueStudent.text.toString()
                                                 .toInt()) / 100
                                         ).toProcess(binding.valueStudent.text.toString()),
                                     )
@@ -185,10 +96,8 @@ class MainFragment : Fragment() {
                         }
                     }
                 }
-            }.launchIn(lifecycleScope)
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
-
-    private fun getLevel(level: Int, count: String): String = "$level / ${count}"
 
     private fun validation(): Boolean = with(binding) {
         var flag = true
@@ -214,8 +123,35 @@ class MainFragment : Fragment() {
 
 @JvmInline
 value class Level(val level: Int)
+
 internal fun Level.toProcess(count: String): String = "$level / $count"
 
+@JvmInline
+value class Zvalue(val z: Double)
+
+internal fun Zvalue.getNormalProbability(): NormalProbability {
+    return NormalDistribution()
+        .let { normal ->
+            if (z > 0) {
+                NormalProbability(100 - ((normal.probability(0.0, z) + 0.5) * 100).toInt())
+            } else {
+                NormalProbability(((normal.probability(0.0, -z) + 0.5) * 100).toInt())
+            }
+        }
+}
+
+@JvmInline
+value class NormalProbability(val value: Int)
+
+internal fun NormalProbability.grade(isHardMode: Boolean = false): String {
+    return when {
+        value < 30 -> "A"
+        value < 60 -> "B"
+        value < 80 -> "C"
+        value < 100 -> "D"
+        else -> "F"
+    }
+}
 
 sealed class MainState {
     object UnInitialized : MainState()
@@ -223,7 +159,7 @@ sealed class MainState {
     object Initialized : MainState()
     data class Success(
         val flag: Boolean,
-        val value: Int,
+        val value: NormalProbability,
         val temp: Int = 0,
     ) : MainState()
 

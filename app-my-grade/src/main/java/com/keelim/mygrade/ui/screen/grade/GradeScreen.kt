@@ -30,21 +30,21 @@ import com.keelim.composeutil.component.appbar.NavigationBackArrowBar
 
 @Composable
 fun GradeRoute(
-    grade: String,
-    rank: String,
     onCopyClick: () -> Unit,
     onShareClick: () -> Unit,
     viewModel: GradeViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val data by viewModel.data.collectAsStateWithLifecycle()
     if (uiState.isMessageShow) {
-        Snackbar(
-            dismissAction = { viewModel.dismissMessage() }
-        ) {
-            Text(text = uiState.message)
-        }
+        Snackbar(dismissAction = { viewModel.dismissMessage() }) { Text(text = uiState.message) }
     }
-    GradeScreen(grade = grade, rank = rank, onCopyClick = onCopyClick, onShareClick = onShareClick)
+    GradeScreen(
+        grade = data.grade,
+        rank = data.point,
+        onCopyClick = onCopyClick,
+        onShareClick = onShareClick
+    )
 }
 
 @Composable

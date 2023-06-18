@@ -13,7 +13,7 @@ import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
-fun TodoNavGraph(
+fun MygradeNavGraph(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
@@ -31,9 +31,19 @@ fun TodoNavGraph(
         modifier = modifier,
     ) {
         composable(
+            MyGradeDestinations.MAIN_ROUTE
+        ) {
+
+        }
+        composable(
+            MyGradeDestinations.GRADE_ROUTE
+        ) {
+
+        }
+        composable(
             MyGradeDestinations.TODO_ROUTE,
         ) {
-            // todo screen 만들기
+            
         }
     }
 }

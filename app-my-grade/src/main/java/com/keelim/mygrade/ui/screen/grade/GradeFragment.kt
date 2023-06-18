@@ -11,71 +11,20 @@ import androidx.core.os.BuildCompat
 import androidx.core.view.drawToBitmap
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
 import com.google.modernstorage.permissions.RequestAccess
 import com.google.modernstorage.permissions.StoragePermissions
 import com.google.modernstorage.photopicker.PhotoPicker
 import com.google.modernstorage.storage.AndroidFileSystem
 import com.keelim.common.extensions.toast
 import com.keelim.composeutil.setThemeContent
-import com.keelim.data.model.Result
-import com.keelim.mygrade.utils.Keys
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import java.io.File
 import java.io.FileOutputStream
-import javax.inject.Inject
 
-@HiltViewModel
-class GradeViewModel @Inject constructor() : ViewModel() {
-    private val _uiState = MutableStateFlow(GradeUiState.empty())
-    val uiState: StateFlow<GradeUiState> = _uiState.asStateFlow()
-
-    fun updateMessage() {
-        _uiState.update { old ->
-            old.copy(
-                isMessageShow = true,
-                message = "처리 완료되었습니다. "
-            )
-        }
-    }
-
-    fun dismissMessage() {
-        _uiState.update { old ->
-            old.copy(
-                isMessageShow = false,
-                message = ""
-            )
-        }
-    }
-
-    data class GradeUiState(
-        val isMessageShow: Boolean,
-        val message: String,
-    ) {
-        companion object {
-            fun empty() = GradeUiState(
-                isMessageShow = false,
-                message = ""
-            )
-        }
-    }
-}
 
 @BuildCompat.PrereleaseSdkCheck
 @AndroidEntryPoint
 class GradeFragment : Fragment() {
-    private val data: Result? by lazy {
-        requireArguments()
-            .getParcelable(
-                Keys.MAIN_TO_GRADE,
-            )
-    }
-
     private val viewModel: GradeViewModel by viewModels()
 
     private val photoPicker =
@@ -101,8 +50,6 @@ class GradeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View = setThemeContent {
         GradeRoute(
-            grade = data?.grade.toString(),
-            rank = data?.point.toString(),
             onCopyClick = ::saveAndCopy,
             onShareClick = ::share
         )

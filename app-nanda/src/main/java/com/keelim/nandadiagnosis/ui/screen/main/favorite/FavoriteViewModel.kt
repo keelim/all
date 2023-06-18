@@ -17,7 +17,7 @@ package com.keelim.nandadiagnosis.ui.screen.main.favorite
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.keelim.domain.nandadiagnosis.GetFavoriteListUseCase
+import com.keelim.data.source.NandaIORepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,7 +27,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FavoriteViewModel @Inject constructor(
-    private val getFavoriteListUseCase: GetFavoriteListUseCase,
+    private val nandaRepository: NandaIORepository,
 ) : ViewModel() {
     private var _favoriteState = MutableStateFlow<FavoriteListState>(FavoriteListState.UnInitialized)
     val favoriteState: StateFlow<FavoriteListState> get() = _favoriteState
@@ -38,7 +38,7 @@ class FavoriteViewModel @Inject constructor(
         )
         setState(
             FavoriteListState.Success(
-                getFavoriteListUseCase.invoke(),
+                nandaRepository.getFavoriteList(),
             ),
         )
     }

@@ -32,12 +32,12 @@ arrow = "1.1.5"
 bio = "1.1.0"
 coil = "2.4.0"
 compose-view = "1.4.3"
-errorprone = "2.19.1"
-firebase = "32.1.0"
+errorprone = "2.20.0"
+firebase = "32.1.1"
 firebase-ui = "8.0.2"
-firebaseCrashlyticsPlugin = "2.9.5"
+firebaseCrashlyticsPlugin = "2.9.6"
 firebasePerfPlugin = "1.4.2"
-flipper = "0.194.0"
+flipper = "0.198.0"
 glance = "1.0.0-beta01"
 hilt = "2.46.1"
 hiltExt = "1.0.0"
@@ -48,6 +48,7 @@ kotlin = "1.8.21"
 kotlinxCoroutines = "1.7.1"
 kotlinxDatetime = "0.4.0"
 kotlinxSerializationJson = "1.5.1"
+kotlinxCollectionsImmutable = "0.3.5"
 ksp = "1.8.21-1.0.11"
 ktor = "2.3.1"
 leakcanary = "2.11"
@@ -68,7 +69,7 @@ playoss = "17.0.1"
 playoss-plugin = "0.10.6"
 preference = "1.2.0"
 preferenceKtx = "1.2.0"
-protobuf = "3.23.2"
+protobuf = "3.23.3"
 protobufPlugin = "0.9.3"
 qodana = "0.1.13"
 retrofit = "2.9.0"
@@ -181,6 +182,7 @@ kotlinx-coroutines-play-services = { module = "org.jetbrains.kotlinx:kotlinx-cor
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDatetime" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+kotlinx-collections-immutable = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "kotlinxCollectionsImmutable" }
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 ktor-client-cio = { group = "io.ktor", name = "ktor-client-cio", version.ref = "ktor" }
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }

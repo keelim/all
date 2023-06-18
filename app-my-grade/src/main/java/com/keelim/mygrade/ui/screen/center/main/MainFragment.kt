@@ -6,102 +6,26 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.keelim.common.extensions.snack
 import com.keelim.common.extensions.toast
-import com.keelim.data.source.local.History
-import com.keelim.data.model.Result
-import com.keelim.data.source.HistoryRepository
+import com.keelim.data.model.GradeResult
 import com.keelim.mygrade.R
 import com.keelim.mygrade.databinding.FragmentMainBinding
 import com.keelim.mygrade.utils.Keys
-import com.keelim.mygrade.utils.ThemeManager
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 import org.apache.commons.math3.distribution.NormalDistribution
-import java.util.Date
-import javax.inject.Inject
-
-@HiltViewModel
-class MainViewModel @Inject constructor(
-    private val historyRepository: HistoryRepository,
-) : ViewModel() {
-    private val _state: MutableStateFlow<MainState> = MutableStateFlow(MainState.UnInitialized)
-    val state: StateFlow<MainState> = _state.asStateFlow()
-
-    fun submit(origin: Float, average: Float, number: Float, student: Int, flag: Boolean = false) =
-        viewModelScope.launch {
-            _state.update { MainState.Loading }
-            if (flag.not()) return@launch
-            runCatching {
-                _state.update { MainState.Initialized }
-                true
-            }.onSuccess { trigger ->
-                _state.update {
-                    MainState.Success(
-                        trigger,
-                        getNormalProbabilityAtZ(((origin - average) / number).toDouble()),
-                        student,
-                    )
-                }
-            }.onFailure {
-                _state.emit(MainState.Error("실패"))
-            }
-        }
-
-    private fun getNormalProbabilityAtZ(z: Double): Int {
-        val normal = NormalDistribution()
-        return if (z > 0) {
-            100 - ((normal.probability(0.0, z) + 0.5) * 100).toInt()
-        } else {
-            ((normal.probability(0.0, -z) + 0.5) * 100).toInt()
-        }
-    }
-
-    fun save(
-        origin: Float,
-        average: Float,
-        number: Float,
-        student: Int,
-        grade: String,
-        level: String,
-    ) = viewModelScope.launch {
-        historyRepository.create(
-            History(
-                Date().time.toString(),
-                origin.toInt(),
-                average,
-                number,
-                student,
-                grade.toFloat(),
-                level,
-            ),
-        )
-    }
-
-    fun moveToUnInitialized() {
-        _state.update { MainState.UnInitialized }
-    }
-}
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
-    @Inject
-    lateinit var themeManager: ThemeManager
     private var _binding: FragmentMainBinding? = null
     private val binding get() = checkNotNull(_binding)
     private val viewModel by viewModels<MainViewModel>()
@@ -126,25 +50,11 @@ class MainFragment : Fragment() {
                 findNavController().navigate(R.id.simpleAddBottomSheet)
             }
             bottomAppBar.setNavigationOnClickListener {
-                toast("현재 메뉴 준비 중입니다.")
                 startActivity(Intent(requireContext(), OssLicensesMenuActivity::class.java))
             }
             bottomAppBar.setOnMenuItemClickListener { menuItem ->
-                when (menuItem.itemId) {
-                    R.id.menu_notification -> {
-                        findNavController().navigate(R.id.notificationFragment)
-                        true
-                    }
-                    R.id.menu_history -> {
-                        findNavController().navigate(R.id.historyFragment)
-                        true
-                    }
-                    R.id.menu_flash_card -> {
-                        findNavController().navigate(R.id.bookFragment)
-                        true
-                    }
-                    else -> false
-                }
+                toast("현재 메뉴 준비 중입니다.")
+                true
             }
         }.also {
             _binding = it
@@ -160,50 +70,34 @@ class MainFragment : Fragment() {
         _binding = null
     }
 
-    private fun initFlow() = with(viewLifecycleOwner) {
+    private fun initFlow() {
         viewModel.state
-            .flowWithLifecycle(lifecycle)
+            .flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach {
                 when (it) {
+                    is MainState.Error -> requireContext().snack(binding.root, "오류가 발생했습니다")
+                    is MainState.Loading -> requireContext().snack(binding.root, "잠시만 기다려주세요")
                     is MainState.UnInitialized, MainState.Initialized -> Unit
-                    is MainState.Loading -> {
-                        requireContext().snack(binding.root, "잠시만 기다려주세요")
-                    }
                     is MainState.Success -> {
                         if (validation()) {
-                            val grade = when {
-                                it.value < 30 -> "A"
-                                it.value < 60 -> "B"
-                                it.value < 80 -> "C"
-                                it.value < 100 -> "D"
-                                else -> "F"
-                            }
                             findNavController().navigate(
                                 R.id.gradeFragment,
-                                Bundle().apply {
-                                    putParcelable(
-                                        Keys.MAIN_TO_GRADE,
-                                        Result(
-                                            grade,
-                                            getLevel(
-                                                (
-                                                    it.value * binding.valueStudent.text.toString()
-                                                        .toInt()
-                                                    ) / 100,
-                                            ),
-                                        ),
+                                bundleOf(
+                                    Keys.MAIN_TO_GRADE to GradeResult(
+                                        it.value.grade(),
+                                        Level(
+                                            (it.value.value * binding.valueStudent.text.toString()
+                                                .toInt()) / 100
+                                        ).toProcess(binding.valueStudent.text.toString()),
                                     )
-                                },
+                                )
                             )
                             viewModel.moveToUnInitialized()
                         }
                     }
-                    is MainState.Error -> requireContext().snack(binding.root, "오류가 발생했습니다")
                 }
-            }.launchIn(lifecycleScope)
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
-
-    private fun getLevel(level: Int): String = level.toString() + " / " + binding.valueStudent.text
 
     private fun validation(): Boolean = with(binding) {
         var flag = true
@@ -227,13 +121,45 @@ class MainFragment : Fragment() {
     }
 }
 
+@JvmInline
+value class Level(val level: Int)
+
+internal fun Level.toProcess(count: String): String = "$level / $count"
+
+@JvmInline
+value class Zvalue(val z: Double)
+
+internal fun Zvalue.getNormalProbability(): NormalProbability {
+    return NormalDistribution()
+        .let { normal ->
+            if (z > 0) {
+                NormalProbability(100 - ((normal.probability(0.0, z) + 0.5) * 100).toInt())
+            } else {
+                NormalProbability(((normal.probability(0.0, -z) + 0.5) * 100).toInt())
+            }
+        }
+}
+
+@JvmInline
+value class NormalProbability(val value: Int)
+
+internal fun NormalProbability.grade(isHardMode: Boolean = false): String {
+    return when {
+        value < 30 -> "A"
+        value < 60 -> "B"
+        value < 80 -> "C"
+        value < 100 -> "D"
+        else -> "F"
+    }
+}
+
 sealed class MainState {
     object UnInitialized : MainState()
     object Loading : MainState()
     object Initialized : MainState()
     data class Success(
         val flag: Boolean,
-        val value: Int,
+        val value: NormalProbability,
         val temp: Int = 0,
     ) : MainState()
 

@@ -21,21 +21,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.oss.licenses.OssLicensesActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.keelim.commonAndroid.util.AppTheme
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.FragmentMainBottomBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainBottomFragment : BottomSheetDialogFragment() {
@@ -60,29 +52,10 @@ class MainBottomFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initAppThemeObserver()
         initViews()
     }
 
-    private fun initAppThemeObserver() {
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                mainViewModel.theme.collectLatest { currentTheme: Int? ->
-                    val appTheme = AppTheme.THEME_ARRAY.firstOrNull { it.modeNight == currentTheme }
-                    appTheme?.let {
-                        binding.themeIcon.setIconResource(it.themeIconRes)
-                        binding.themeDescription.text = getString(it.modeNameRes)
-                    }
-                }
-            }
-        }
-    }
-
     private fun initViews() = with(binding) {
-        themeOption.setOnClickListener {
-            chooseThemeClick()
-        }
-
         aboutButton.setOnClickListener {
             dismiss()
             findNavController().navigate(R.id.aboutFragment)
@@ -111,35 +84,5 @@ class MainBottomFragment : BottomSheetDialogFragment() {
         binding.labFeature.setOnClickListener {
             dismiss()
         }
-    }
-
-    private fun chooseThemeClick() {
-        val currentTheme = mainViewModel.theme.value
-        val checkedItem = AppTheme.THEME_ARRAY.indexOfFirst { it.modeNight == currentTheme }
-        if (checkedItem >= 0) {
-            val items = AppTheme.THEME_ARRAY.map {
-                getText(it.modeNameRes)
-            }.toTypedArray()
-            callDialog(items, checkedItem)
-        }
-    }
-
-    private fun callDialog(items: Array<CharSequence>, checkedItem: Int) {
-        var checkedItem1 = checkedItem
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle(R.string.choose_theme)
-            .setSingleChoiceItems(items, checkedItem1) { _, value ->
-                checkedItem1 = value
-            }
-            .setPositiveButton(R.string.ok) { _, _ ->
-                val mode = AppTheme.THEME_ARRAY[checkedItem1].modeNight
-                AppCompatDelegate.setDefaultNightMode(mode)
-                mainViewModel.setAppTheme(mode)
-                // Update theme description TextView
-                binding.themeDescription.text =
-                    getString(AppTheme.THEME_ARRAY[checkedItem1].modeNameRes)
-            }.setNegativeButton(R.string.cancel) { _, _ -> }
-            .create()
-            .show()
     }
 }

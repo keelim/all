@@ -17,7 +17,6 @@ package com.keelim.nandadiagnosis.ui.screen.main
 
 import android.Manifest
 import android.app.DownloadManager
-import android.content.Context
 import android.content.IntentFilter
 import android.net.Uri
 import android.os.Build
@@ -26,10 +25,14 @@ import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.keelim.common.extensions.toast
+import com.keelim.commonAndroid.core.AppMainDelegator
+import com.keelim.commonAndroid.core.AppMainViewModel
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.databinding.ActivityMain2Binding
 import com.keelim.nandadiagnosis.di.DownloadReceiver
@@ -40,7 +43,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class Main2Activity : AppCompatActivity() {
     private val binding by lazy { ActivityMain2Binding.inflate(layoutInflater) }
-    private val mainViewModel: MainViewModel by viewModels()
+    private val viewModel: AppMainViewModel by viewModels()
+    private val appMainDelegator by lazy { AppMainDelegator(this, viewModel) }
 
     @Inject
     lateinit var receiver: DownloadReceiver
@@ -67,9 +71,40 @@ class Main2Activity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
+        DataBindingUtil.setContentView<ActivityMain2Binding>(this, R.layout.activity_main_2).apply {
+            navController().addOnDestinationChangedListener { _, destination, _ ->
+                when (destination.id) {
+                    R.id.navigation_category -> {
+                        bottomAppBar.visibility = View.VISIBLE
+                        searchButton.show()
+                    }
+
+                    else -> {
+                        bottomAppBar.visibility = View.GONE
+                        searchButton.hide()
+                    }
+                }
+            }
+            searchButton.setOnClickListener {
+                navController().navigate(R.id.navigation_search)
+            }
+
+            bottomAppBar.setNavigationOnClickListener {
+                navController().navigate(R.id.menuBottomSheetDialogFragment)
+            }
+
+            bottomAppBar.setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.more -> {
+                        navController().navigate(R.id.moreBottomSheetDialog)
+                        true
+                    }
+
+                    else -> false
+                }
+            }
+        }
         permissionLauncher.launch(appPermissions.toTypedArray())
-        initViews()
         fileChecking()
     }
 
@@ -78,45 +113,12 @@ class Main2Activity : AppCompatActivity() {
         unregisterReceiver(receiver)
     }
 
-    private fun initViews() = with(binding) {
-        navController().addOnDestinationChangedListener { _, destination, _ ->
-            when (destination.id) {
-                R.id.navigation_category -> {
-                    bottomAppBar.visibility = View.VISIBLE
-                    searchButton.show()
-                }
-                else -> {
-                    bottomAppBar.visibility = View.GONE
-                    searchButton.hide()
-                }
-            }
-        }
-        searchButton.setOnClickListener {
-            navController().navigate(R.id.navigation_search)
-        }
-
-        bottomAppBar.setNavigationOnClickListener {
-            showMenu()
-        }
-
-        bottomAppBar.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.more -> {
-                    showMoreOptions()
-                    true
-                }
-                else -> {
-                    false
-                }
-            }
-        }
-    }
-
     private fun fileChecking() {
-        val check = File(getExternalFilesDir(null), "nanda.db")
-        if (check.exists().not()) {
+        takeIf {
+            File(getExternalFilesDir(null), "nanda.db").exists()
+        }?.run {
             databaseDownloadAlertDialog()
-        } else {
+        } ?: run {
             toast("데이터베이스가 존재합니다. 그대로 진행 합니다")
         }
     }
@@ -134,31 +136,29 @@ class Main2Activity : AppCompatActivity() {
     }
 
     private fun downloadDatabase2() {
-        val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-        registerReceiver(
+        ContextCompat.registerReceiver(
+            this,
             receiver,
             IntentFilter().apply {
                 addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
                 addAction(DownloadManager.ACTION_NOTIFICATION_CLICKED)
             },
+            ContextCompat.RECEIVER_NOT_EXPORTED,
         )
 
-        val request = DownloadManager.Request(Uri.parse(applicationContext.getString(R.string.db_path)))
+        DownloadManager.Request(Uri.parse(applicationContext.getString(R.string.db_path)))
             .setTitle("Downloading")
             .setDescription("Downloading Database file")
             .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-            .setDestinationUri(Uri.fromFile(File(applicationContext.getExternalFilesDir(null), "nanda.db")))
+            .setDestinationUri(
+                Uri.fromFile(File(applicationContext.getExternalFilesDir(null), "nanda.db"))
+            )
             .setAllowedOverMetered(true)
             .setAllowedOverRoaming(true)
-
-        downloadManager.enqueue(request)
+            .also(getSystemService(DownloadManager::class.java)::enqueue)
     }
 
     private fun navController(): NavController {
         return binding.navHostFragment.getFragment<NavHostFragment>().navController
     }
-
-    private fun showMoreOptions() = navController().navigate(R.id.moreBottomSheetDialog)
-
-    private fun showMenu() = navController().navigate(R.id.menuBottomSheetDialogFragment)
 }

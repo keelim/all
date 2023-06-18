@@ -199,6 +199,17 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bottomAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            style="@style/Widget.Material3.BottomAppBar"
+            app:fabAnimationMode="slide"
+            app:fabAlignmentMode="end"
+            app:navigationIcon="@drawable/baseline_menu_open_24"
+            app:menu="@menu/bottom_app_bar" />
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floating_action_button"
             android:layout_width="wrap_content"
@@ -211,16 +222,6 @@
             app:layout_anchor="@id/bottomAppBar"
             app:srcCompat="@drawable/baseline_add_24" />
 
-        <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/bottomAppBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            style="@style/Widget.Material3.BottomAppBar"
-            app:fabAnimationMode="slide"
-            app:fabAlignmentMode="end"
-            app:navigationIcon="@drawable/baseline_menu_open_24"
-            app:menu="@menu/bottom_app_bar" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

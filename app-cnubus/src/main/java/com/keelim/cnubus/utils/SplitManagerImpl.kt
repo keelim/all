@@ -13,7 +13,7 @@ class SplitManagerImpl @Inject constructor() : SplitManager {
     override fun createSplit(context: Context) {
         ActivityFilter(
             ComponentName(context, MainActivity::class.java),
-            null
+            null,
         ).let {
             ActivityRule.Builder(setOf(it))
                 .setAlwaysExpand(true)

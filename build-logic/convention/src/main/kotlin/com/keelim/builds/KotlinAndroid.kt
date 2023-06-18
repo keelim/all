@@ -33,7 +33,7 @@ fun Project.configureKotlinAndroid(
 ) {
     commonExtension.apply {
         compileSdk = ProjectConfiguration.compileSdk
-        compileSdkExtension = ProjectConfiguration.compileSdkExtension
+        // compileSdkExtension = ProjectConfiguration.compileSdkExtension
 
         defaultConfig {
             minSdk = ProjectConfiguration.minSdk
@@ -70,6 +70,7 @@ fun Project.configureKotlinAndroid(
 
     dependencies {
         // add("coreLibraryDesugaring", libs.findLibrary("android.desugarJdkLibs").get())
+        add("implementation", libs.findLibrary("kotlinx-collections-immutable").get())
     }
 }
 

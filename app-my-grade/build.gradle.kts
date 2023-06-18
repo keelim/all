@@ -40,6 +40,7 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.process)
     implementation(libs.androidx.lifecycle.rutime)
+    implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.metrics)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.navigation.fragment)

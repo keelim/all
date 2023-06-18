@@ -43,8 +43,7 @@
             app:fabAlignmentMode="center"
             app:fabCradleMargin="@dimen/bottom_app_bar_fab_cradle_margin"
             app:fabCradleRoundedCornerRadius="@dimen/bottom_app_bar_fab_cradle_corner_radius"
-            app:menu="@menu/bottom_app_bar_menu"
-            app:navigationIcon="@drawable/ic_menu_24dp" />
+            app:menu="@menu/bottom_app_bar_menu" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

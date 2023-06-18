@@ -36,10 +36,6 @@
         android:id="@+id/inAppWebFragment"
         android:name="com.keelim.nandadiagnosis.ui.screen.main.inappweb.InAppWebFragment"
         android:label="InAppWebFragment" />
-    <dialog
-        android:id="@+id/menuBottomSheetDialogFragment"
-        android:name="com.keelim.nandadiagnosis.ui.screen.main.MenuBottomSheetDialogFragment"
-        android:label="MenuBottomSheetDialogFragment" />
     <fragment
         android:id="@+id/diagnosisFragment"
         android:name="com.keelim.nandadiagnosis.ui.screen.main.category.DiagnosisFragment"
@@ -66,10 +62,6 @@
         android:id="@+id/favoriteFragment2"
         android:name="com.keelim.nandadiagnosis.ui.screen.main.favorite.FavoriteFragment2"
         android:label="FavoriteFragment2" />
-    <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.keelim.nandadiagnosis.ui.screen.auth.profile.ProfileFragment"
-        android:label="ProfileFragment" />
 
     <fragment
         android:id="@+id/categoryFragment"

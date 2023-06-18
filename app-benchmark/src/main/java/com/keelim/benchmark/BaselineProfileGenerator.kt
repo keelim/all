@@ -10,26 +10,26 @@ import org.junit.runner.RunWith
 @ExperimentalBaselineProfilesApi
 @RunWith(AndroidJUnit4::class)
 class BaselineProfileGenerator {
-  @get:Rule val baselineProfileRule = BaselineProfileRule()
+    @get:Rule val baselineProfileRule = BaselineProfileRule()
 
-  @Test
-  fun startup() {
-    listOf(
-        "com.keelim.mygrade",
-        "com.keelim.comssa",
-        "com.keelim.cnubus",
-        "com.keelim.nandadiagnosis",
-      )
-      .onEach { packageName ->
-          runCatching {
-              baselineProfileRule.collectBaselineProfile(packageName = packageName) {
-                  pressHome()
-                  // This block defines the app's critical user journey. Here we are interested in
-                  // optimizing for app startup. But you can also navigate and scroll
-                  // through your most important UI.
-                  startActivityAndWait()
-              }
-          }
-      }
-  }
+    @Test
+    fun startup() {
+        listOf(
+            "com.keelim.mygrade",
+            "com.keelim.comssa",
+            "com.keelim.cnubus",
+            "com.keelim.nandadiagnosis",
+        )
+            .onEach { packageName ->
+                runCatching {
+                    baselineProfileRule.collectBaselineProfile(packageName = packageName) {
+                        pressHome()
+                        // This block defines the app's critical user journey. Here we are interested in
+                        // optimizing for app startup. But you can also navigate and scroll
+                        // through your most important UI.
+                        startActivityAndWait()
+                    }
+                }
+            }
+    }
 }

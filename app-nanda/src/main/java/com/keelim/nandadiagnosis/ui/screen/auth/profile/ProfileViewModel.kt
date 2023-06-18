@@ -21,7 +21,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseUser
 import com.keelim.data.di.IoDispatcher
-import com.keelim.data.di.PreferenceManager
+import com.keelim.data.di.NandaPreferenceManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
@@ -31,7 +31,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 internal class ProfileViewModel @Inject constructor(
-    private val preferenceManager: PreferenceManager,
+    private val preferenceManager: NandaPreferenceManager,
     @IoDispatcher private val dispatcher: CoroutineDispatcher,
 ) : ViewModel() {
     private var _profileState = MutableLiveData<ProfileState>(ProfileState.UnInitialized)

@@ -12,16 +12,15 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.CoroutineScope
 
-
 @Composable
-fun TodoNavGraph(
+fun MygradeNavGraph(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
     startDestination: String,
     navActions: TodoNavigationActions = remember(navController) {
         TodoNavigationActions(navController)
-    }
+    },
 ) {
     val currentNavBackStackEntry by navController.currentBackStackEntryAsState()
     // val currentRoute = currentNavBackStackEntry?.destination?.route ?: startDestination
@@ -29,13 +28,22 @@ fun TodoNavGraph(
     NavHost(
         navController = navController,
         startDestination = startDestination,
-        modifier = modifier
+        modifier = modifier,
     ) {
+        composable(
+            MyGradeDestinations.MAIN_ROUTE
+        ) {
+
+        }
+        composable(
+            MyGradeDestinations.GRADE_ROUTE
+        ) {
+
+        }
         composable(
             MyGradeDestinations.TODO_ROUTE,
         ) {
-            // todo screen 만들기
+            
         }
     }
 }
-

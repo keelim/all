@@ -63,18 +63,13 @@
             android:value="${APPLICATION_ID}" />
 
         <activity
-            android:name="com.keelim.cnubus.ui.screen.splash.SplashActivity"
-            android:exported="true"
-            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
+            android:name="com.keelim.cnubus.ui.screen.main.MainActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.keelim.cnubus.ui.screen.main.MainActivity"
-            android:exported="false" />
         <activity
             android:name="com.keelim.cnubus.ui.screen.setting.LabActivity"
             android:exported="false" />

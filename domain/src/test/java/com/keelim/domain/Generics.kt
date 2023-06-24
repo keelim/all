@@ -1,4 +1,4 @@
-package src.main.com.keelim.domain
+package com.keelim.domain
 
 import org.junit.Assert
 import org.junit.Test

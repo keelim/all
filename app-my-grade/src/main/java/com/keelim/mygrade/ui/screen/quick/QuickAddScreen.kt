@@ -1,6 +1,6 @@
 @file:OptIn(SavedStateHandleSaveableApi::class)
 
-package com.keelim.mygrade.ui.screen.center.main
+package com.keelim.mygrade.ui.screen.quick
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -16,6 +16,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,30 +26,39 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.SavedStateHandleSaveableApi
-import com.keelim.composeutil.component.appbar.NavigationBackArrowBar
+import com.keelim.mygrade.ui.screen.main.NormalProbability
 
 @Composable
-fun QuickAddRoute() {
-    QuickAddScreen()
+fun QuickAddRoute(
+    onNavigate:(NormalProbability, Int) -> Unit,
+) {
+    QuickAddScreen(
+        onNavigate = onNavigate
+    )
 }
 
 @Composable
 private fun QuickAddScreen(
-    viewModel: QuickAddViewModel = hiltViewModel()
+    viewModel: QuickAddViewModel = hiltViewModel(),
+    onNavigate:(NormalProbability, Int) -> Unit = { _, _ -> },
 ) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 40.dp)
     ) {
-        NavigationBackArrowBar(title = "빠르게 추가")
-
         Column(
             modifier = Modifier.padding(horizontal = 20.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(modifier = Modifier.height(20.dp))
             val uiState by viewModel.quickAddUiState.collectAsStateWithLifecycle()
+            SideEffect {
+                if (uiState.normalProbability.value != 0 && uiState.student != 0) {
+                    onNavigate(uiState.normalProbability, uiState.student)
+                    viewModel.clear()
+                }
+            }
             TextField(
                 value = viewModel.message,
                 onValueChange = viewModel::update,

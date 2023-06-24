@@ -27,7 +27,8 @@ include(
     ":common-android",
     ":data",
     ":domain",
-    ":compose",
+    ":compose:compose-core",
+    ":compose:widget-glance",
     ":features:ui-setting",
     ":features:ui-map",
     ":features:ui-labs"

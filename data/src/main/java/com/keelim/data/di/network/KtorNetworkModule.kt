@@ -21,19 +21,23 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.ktor.client.HttpClient
+import io.ktor.client.engine.android.Android
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.engine.cio.endpoint
 import io.ktor.client.plugins.DefaultRequest
 import io.ktor.client.plugins.HttpRequestRetry
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.UserAgent
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.DEFAULT
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.plugins.resources.Resources
 import io.ktor.client.plugins.websocket.WebSockets
+import io.ktor.http.ContentType.Application.Json
 import io.ktor.http.isSuccess
+import kotlinx.serialization.json.Json
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
@@ -101,6 +105,17 @@ object KtorNetworkModule {
         install(WebSockets)
     }
 
+    @KtorAndroidClient
+    @Provides
+    @Singleton
+    fun providesKtorAndroidClient() : HttpClient {
+        return HttpClient(Android) {
+            install(Logging) {
+                level = LogLevel.ALL
+            }
+        }
+    }
+
     @Qualifier
     @Retention(AnnotationRetention.BINARY)
     annotation class KtorHttpClient
@@ -108,4 +123,8 @@ object KtorNetworkModule {
     @Qualifier
     @Retention(AnnotationRetention.BINARY)
     annotation class KtorWebsocketHttpClient
+
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class KtorAndroidClient
 }

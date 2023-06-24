@@ -1,5 +1,11 @@
 package com.keelim.mygrade.ui.screen.grade
 
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -22,6 +28,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.TransformOrigin
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -102,12 +110,31 @@ fun GradeContent(
                         .clickable { onCopyClick() }
                 )
                 Spacer(modifier = Modifier.width(24.dp))
+
+                val value by rememberInfiniteTransition(label = "").animateFloat(
+                    initialValue = 25f,
+                    targetValue = -25f,
+                    animationSpec = infiniteRepeatable(
+                        animation = tween(
+                            durationMillis = 600,
+                            easing = LinearEasing
+                        ),
+                        repeatMode = RepeatMode.Reverse
+                    ), label = ""
+                )
                 Icon(
                     imageVector = Icons.Filled.Share,
                     contentDescription = null,
                     modifier = Modifier
                         .size(36.dp)
                         .clickable { onShareClick() }
+                        .graphicsLayer {
+                            transformOrigin = TransformOrigin(
+                                pivotFractionX = 0.5f,
+                                pivotFractionY = 0.5f
+                            )
+                            rotationZ = value
+                        }
                 )
             }
         }

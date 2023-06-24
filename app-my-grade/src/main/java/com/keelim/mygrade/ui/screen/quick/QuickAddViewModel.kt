@@ -1,10 +1,12 @@
-package com.keelim.mygrade.ui.screen.center.main
+package com.keelim.mygrade.ui.screen.quick
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.saveable
+import com.keelim.mygrade.ui.screen.main.Zvalue
+import com.keelim.mygrade.ui.screen.main.getNormalProbability
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

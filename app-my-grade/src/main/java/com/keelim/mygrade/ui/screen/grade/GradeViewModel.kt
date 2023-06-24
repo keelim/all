@@ -3,7 +3,6 @@ package com.keelim.mygrade.ui.screen.grade
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.keelim.data.model.GradeResult
-import com.keelim.mygrade.utils.Keys
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -18,7 +17,10 @@ class GradeViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(GradeUiState.empty())
     val uiState: StateFlow<GradeUiState> = _uiState.asStateFlow()
 
-    val data = savedStateHandle.getStateFlow<GradeResult>(Keys.MAIN_TO_GRADE, GradeResult("", ""))
+
+    private val _data = MutableStateFlow(GradeResult.gradeResultInitial(savedStateHandle))
+    val data : StateFlow<GradeResult> = _data.asStateFlow()
+
 
     fun updateMessage() {
         _uiState.update { old ->

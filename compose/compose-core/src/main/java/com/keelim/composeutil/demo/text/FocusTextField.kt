@@ -6,6 +6,7 @@
 
 package com.keelim.composeutil.demo.text
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material3.Button
@@ -25,7 +26,6 @@ import androidx.compose.ui.focus.focusProperties
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.glance.layout.Column
 
 @Composable
 fun FocusTextField() {

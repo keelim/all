@@ -8,7 +8,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":common"))
+    implementation(project(":core:common"))
 
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.compose.ui)

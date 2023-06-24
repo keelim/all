@@ -2,7 +2,6 @@ package com.keelim.cnubus.ui.screen.stations
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.compose.runtime.getValue
 import com.keelim.composeutil.setThemeContent
 import dagger.hilt.android.AndroidEntryPoint
 

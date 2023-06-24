@@ -35,7 +35,7 @@
             android:value="${MYGRADE_APPLICATION_ID}" />
 
         <activity
-            android:name=".ui.screen.center.CenterActivity"
+            android:name=".ui.screen.CenterActivity"
             android:windowSoftInputMode="adjustResize"
             android:exported="true">
             <intent-filter>

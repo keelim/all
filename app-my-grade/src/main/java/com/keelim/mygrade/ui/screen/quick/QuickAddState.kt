@@ -1,6 +1,7 @@
-package com.keelim.mygrade.ui.screen.center.main
+package com.keelim.mygrade.ui.screen.quick
 
 import androidx.compose.runtime.Stable
+import com.keelim.mygrade.ui.screen.main.NormalProbability
 
 
 @Stable

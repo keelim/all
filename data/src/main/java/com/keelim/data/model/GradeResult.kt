@@ -1,10 +1,20 @@
 package com.keelim.data.model
 
 import android.os.Parcelable
+import androidx.lifecycle.SavedStateHandle
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class GradeResult(
     val grade: String,
     val point: String,
-) : Parcelable
+) : Parcelable {
+    companion object{
+        fun gradeResultInitial(savedStateHandle: SavedStateHandle) : GradeResult {
+            return GradeResult(
+                grade = checkNotNull(savedStateHandle["grade"]),
+                point = checkNotNull(savedStateHandle["point"])
+            )
+        }
+    }
+}

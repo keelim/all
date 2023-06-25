@@ -62,9 +62,8 @@ class SoundView(
         drawingHeight = h
     }
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        canvas ?: return
 
         val centerY = drawingHeight / 2f // 뷰의 중앙 높이
         var offsetX = drawingWidth.toFloat() // 오른 쪽 부터

@@ -25,9 +25,9 @@ android {
 }
 
 dependencies {
-    implementation(project(":common"))
-    implementation(project(":common-android"))
-    implementation(project(":compose"))
+    implementation(project(":core:common"))
+    implementation(project(":core:common-android"))
+    implementation(project(":compose:compose-core"))
     implementation(project(":data"))
     implementation(project(":domain"))
     implementation(project(":features:ui-setting"))
@@ -35,7 +35,13 @@ dependencies {
     implementation(libs.activity.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.compose.material.iconsExtended)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.runtime)
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.compose.ui.util)
     implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.lifecycle.rutime)
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.androidx.navigation.ui)

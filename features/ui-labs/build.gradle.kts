@@ -10,8 +10,8 @@ android{
 }
 
 dependencies {
-    implementation(project(":common"))
-    implementation(project(":compose"))
+    implementation(project(":core:common"))
+    implementation(project(":compose:compose-core"))
     implementation(project(":data"))
     implementation(project(":domain"))
 

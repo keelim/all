@@ -12,6 +12,8 @@ import com.keelim.mygrade.ui.screen.quick.quickScreen
 import com.keelim.mygrade.ui.screen.main.toProcess
 import com.keelim.mygrade.ui.screen.grade.gradeScreen
 import com.keelim.mygrade.ui.screen.grade.navigateGrade
+import com.keelim.mygrade.ui.screen.history.historyScreen
+import com.keelim.mygrade.ui.screen.history.navigateHistory
 
 @Composable
 fun MyGradeHost(
@@ -32,13 +34,22 @@ fun MyGradeHost(
                     Level((normalProbability.value * student) / 100).toProcess(student.toString())
                 )
             },
-            onFloatingButtonClick = { navController.navigateQuick() }
+            onFloatingButtonClick1 = { navController.navigateHistory() },
+            onFloatingButtonClick2 = { navController.navigateQuick() }
         )
         quickScreen(
             onDismiss = {
                 navController.popBackStack()
             },
             onNavigate = { normalProbability, student ->
+                navController.navigateGrade(
+                    normalProbability.grade(),
+                    Level((normalProbability.value * student) / 100).toProcess(student.toString())
+                )
+            }
+        )
+        historyScreen(
+            onHistoryClick = { normalProbability, student ->
                 navController.navigateGrade(
                     normalProbability.grade(),
                     Level((normalProbability.value * student) / 100).toProcess(student.toString())

@@ -4,7 +4,7 @@ androidDesugarJdkLibs = "2.0.3"
 androidGradlePlugin = "8.0.2"
 androidxActivity = "1.7.2"
 androidxAppCompat = "1.6.1"
-androidxComposeBom = "2023.06.00"
+androidxComposeBom = "2023.06.01"
 androidxComposeCompiler = "1.4.7"
 androidxComposeRuntimeTracing = "1.0.0-alpha03"
 androidxCore = "1.10.1"
@@ -37,7 +37,7 @@ firebase = "32.1.1"
 firebase-ui = "8.0.2"
 firebaseCrashlyticsPlugin = "2.9.6"
 firebasePerfPlugin = "1.4.2"
-flipper = "0.198.0"
+flipper = "0.201.0"
 glance = "1.0.0-beta01"
 hilt = "2.46.1"
 hiltExt = "1.0.0"
@@ -74,12 +74,12 @@ protobufPlugin = "0.9.3"
 qodana = "0.1.13"
 retrofit = "2.9.0"
 retrofitKotlinxSerializationJson = "1.0.0"
-room = "2.5.1"
+room = "2.5.2"
 secrets = "2.0.1"
 soloader = "0.10.5"
 themeAdapter = "1.2.1"
 timbers = "5.0.1"
-turbine = "0.13.0"
+turbine = "1.0.0"
 
 [libraries]
 accompanist-flowlayout = { group = "com.google.accompanist", name = "accompanist-flowlayout", version.ref = "accompanist" }
@@ -185,8 +185,11 @@ kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 kotlinx-collections-immutable = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "kotlinxCollectionsImmutable" }
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 ktor-client-cio = { group = "io.ktor", name = "ktor-client-cio", version.ref = "ktor" }
+ktor-client-android = { group = "io.ktor", name = "ktor-client-android", version.ref = "ktor" }
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor" }
+ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-client-serialization = { group = "io.ktor", name = "ktor-client-serialization", version.ref = "ktor" }
 ktor-client-resources = { group = "io.ktor", name = "ktor-client-resources", version.ref = "ktor" }
 ktor-client-websockets = { group = "io.ktor", name = "ktor-client-websockets", version.ref = "ktor" }
 leakcanary = { group = "com.squareup.leakcanary", name = "leakcanary-android", version.ref = "leakcanary" }

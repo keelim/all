@@ -23,9 +23,9 @@ android {
 }
 
 dependencies {
-    implementation(project(":common"))
-    implementation(project(":common-android"))
-    implementation(project(":compose"))
+    implementation(project(":core:common"))
+    implementation(project(":core:common-android"))
+    implementation(project(":compose:compose-core"))
     implementation(project(":data"))
     implementation(project(":domain"))
     implementation(project(":features:ui-labs"))
@@ -42,6 +42,8 @@ dependencies {
     implementation(libs.androidx.compose.runtime)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.ui.util)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.rutime)

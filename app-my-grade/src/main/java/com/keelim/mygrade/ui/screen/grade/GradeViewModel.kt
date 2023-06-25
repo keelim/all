@@ -12,21 +12,19 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GradeViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(GradeUiState.empty())
     val uiState: StateFlow<GradeUiState> = _uiState.asStateFlow()
 
-
     private val _data = MutableStateFlow(GradeResult.gradeResultInitial(savedStateHandle))
-    val data : StateFlow<GradeResult> = _data.asStateFlow()
-
+    val data: StateFlow<GradeResult> = _data.asStateFlow()
 
     fun updateMessage() {
         _uiState.update { old ->
             old.copy(
                 isMessageShow = true,
-                message = "처리 완료되었습니다. "
+                message = "처리 완료되었습니다. ",
             )
         }
     }
@@ -35,7 +33,7 @@ class GradeViewModel @Inject constructor(
         _uiState.update { old ->
             old.copy(
                 isMessageShow = false,
-                message = ""
+                message = "",
             )
         }
     }
@@ -47,7 +45,7 @@ class GradeViewModel @Inject constructor(
         companion object {
             fun empty() = GradeUiState(
                 isMessageShow = false,
-                message = ""
+                message = "",
             )
         }
     }

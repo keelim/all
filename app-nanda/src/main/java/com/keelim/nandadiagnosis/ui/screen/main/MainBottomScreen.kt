@@ -33,7 +33,7 @@ fun MainBottomSheetRoute(
         onBlogClick = onBlogClick,
         onFavoriteClick = onFavoriteClick,
         onOpenSourceClick = onOpenSourceClick,
-        onAboutClick = onAboutClick
+        onAboutClick = onAboutClick,
     )
 }
 
@@ -53,7 +53,7 @@ private fun MainBottomSheetScreen(
                 .height(40.dp)
                 .clickable { onBlogClick() },
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Row {
                 Icon(imageVector = Icons.Default.DesignServices, contentDescription = null)
@@ -73,7 +73,7 @@ private fun MainBottomSheetScreen(
                 .height(40.dp)
                 .clickable { onFavoriteClick() },
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Row {
                 Icon(imageVector = Icons.Default.AccessTimeFilled, contentDescription = null)
@@ -92,21 +92,21 @@ private fun MainBottomSheetScreen(
                 .padding(vertical = 14.dp, horizontal = 20.dp)
                 .height(20.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceEvenly
+            horizontalArrangement = Arrangement.SpaceEvenly,
         ) {
             Text(
                 text = "오픈소스 라이센스",
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.clickable {
                     onOpenSourceClick()
-                }
+                },
             )
             Text(
                 text = "About",
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.clickable {
                     onAboutClick()
-                }
+                },
             )
         }
     }

@@ -25,25 +25,27 @@ fun NavigationBackArrowBar(title: String) {
         "No OnBackPressedDispatcherOwner was provided via LocalOnBackPressedDispatcherOwner"
     }.onBackPressedDispatcher
 
-    Row(modifier = Modifier
-        .fillMaxWidth()
-        .height(50.dp)
-        .clickable {
-            backDispatcher.onBackPressed()
-        }) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(50.dp)
+            .clickable {
+                backDispatcher.onBackPressed()
+            },
+    ) {
         Icon(
             imageVector = Icons.Default.ArrowBack,
             contentDescription = null,
             modifier = Modifier
                 .size(36.dp)
-                .align(Alignment.CenterVertically)
+                .align(Alignment.CenterVertically),
 
         )
         Spacer(Modifier.width(10.dp))
         Text(
             text = title,
             style = MaterialTheme.typography.titleLarge,
-            modifier = Modifier.align(Alignment.CenterVertically)
+            modifier = Modifier.align(Alignment.CenterVertically),
         )
     }
 }
@@ -52,6 +54,6 @@ fun NavigationBackArrowBar(title: String) {
 @Composable
 private fun PreviewNavigationBackArrowBar() {
     NavigationBackArrowBar(
-        "Sample"
+        "Sample",
     )
 }

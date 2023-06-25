@@ -46,14 +46,14 @@ class MainBottomFragment : BottomSheetDialogFragment() {
                 try {
                     dismiss()
                     startActivity(Intent(requireContext(), OssLicensesActivity::class.java))
-                } catch (throwable : Throwable) {
+                } catch (throwable: Throwable) {
                     throwable.localizedMessage?.let { toast(it) }
                 }
             },
             onAboutClick = {
                 dismiss()
                 findNavController().navigate(R.id.aboutFragment)
-            }
+            },
         )
     }
 }

@@ -18,13 +18,13 @@ import androidx.compose.ui.unit.dp
 fun MultiAppBar(title: String) {
     Row(
         modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(text = title, style = MaterialTheme.typography.titleLarge)
         Spacer(modifier = Modifier.weight(1f))
         Icon(
             imageVector = Icons.Filled.MoreVert,
-            contentDescription = null
+            contentDescription = null,
         )
     }
 }

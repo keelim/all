@@ -20,27 +20,27 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun EmptyView(
-    text: String ="현재 표시 가능한 Item 이 없습니다.",
+    text: String = "현재 표시 가능한 Item 이 없습니다.",
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
             text = text,
             style = MaterialTheme.typography.bodyLarge,
         )
         Spacer(
-            modifier = Modifier.height(12.dp)
+            modifier = Modifier.height(12.dp),
         )
         val backPressDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
         Button(
-            onClick = { backPressDispatcher?.onBackPressed() }
+            onClick = { backPressDispatcher?.onBackPressed() },
         ) {
             Icon(
                 imageVector = Icons.Default.ArrowBack,
-                contentDescription = null
+                contentDescription = null,
             )
         }
     }

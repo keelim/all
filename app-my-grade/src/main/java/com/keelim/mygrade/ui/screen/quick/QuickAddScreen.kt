@@ -30,26 +30,26 @@ import com.keelim.mygrade.ui.screen.main.NormalProbability
 
 @Composable
 fun QuickAddRoute(
-    onNavigate:(NormalProbability, Int) -> Unit,
+    onNavigate: (NormalProbability, Int) -> Unit,
 ) {
     QuickAddScreen(
-        onNavigate = onNavigate
+        onNavigate = onNavigate,
     )
 }
 
 @Composable
 private fun QuickAddScreen(
     viewModel: QuickAddViewModel = hiltViewModel(),
-    onNavigate:(NormalProbability, Int) -> Unit = { _, _ -> },
+    onNavigate: (NormalProbability, Int) -> Unit = { _, _ -> },
 ) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 40.dp)
+            .padding(vertical = 40.dp),
     ) {
         Column(
             modifier = Modifier.padding(horizontal = 20.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Spacer(modifier = Modifier.height(20.dp))
             val uiState by viewModel.quickAddUiState.collectAsStateWithLifecycle()
@@ -67,7 +67,7 @@ private fun QuickAddScreen(
                     {
                         Text(
                             text = uiState.errorMessage,
-                            style = MaterialTheme.typography.labelSmall
+                            style = MaterialTheme.typography.labelSmall,
                         )
                     }
                 } else {
@@ -76,17 +76,17 @@ private fun QuickAddScreen(
                 placeholder = {
                     Text(
                         text = "원점수, 과목 평균, 표준편차, 학생수를 순서대로 입력하세요.",
-                        style = MaterialTheme.typography.labelLarge
+                        style = MaterialTheme.typography.labelLarge,
                     )
                 },
                 leadingIcon = {
                     Icon(
                         imageVector = Icons.Rounded.Create,
-                        contentDescription = null
+                        contentDescription = null,
                     )
                 },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             )
             Spacer(modifier = Modifier.height(40.dp))
             Button(onClick = viewModel::submit) { Text(text = "확인  하기!") }

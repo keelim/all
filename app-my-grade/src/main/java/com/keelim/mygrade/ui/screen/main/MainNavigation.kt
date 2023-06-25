@@ -7,7 +7,6 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import org.apache.commons.math3.distribution.NormalDistribution
 
-
 const val mainRoute = "main"
 fun NavController.navigateToMain(navOptions: NavOptions? = null) {
     this.navigate(mainRoute, navOptions)
@@ -21,7 +20,7 @@ fun NavGraphBuilder.mainScreen(
         MainRoute(
             onSubmitClick = onSubmitClick,
             onFloatingButtonClick1 = onFloatingButtonClick1,
-            onFloatingButtonClick2 = onFloatingButtonClick2
+            onFloatingButtonClick2 = onFloatingButtonClick2,
         )
     }
 }

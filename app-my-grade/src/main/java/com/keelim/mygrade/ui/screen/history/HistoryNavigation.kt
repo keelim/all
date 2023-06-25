@@ -4,7 +4,6 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import com.keelim.mygrade.ui.screen.grade.GradeRoute
 import com.keelim.mygrade.ui.screen.main.NormalProbability
 
 fun NavController.navigateHistory(navOptions: NavOptions? = null) {
@@ -12,14 +11,13 @@ fun NavController.navigateHistory(navOptions: NavOptions? = null) {
 }
 
 fun NavGraphBuilder.historyScreen(
-    onHistoryClick: (NormalProbability, Int) -> Unit
+    onHistoryClick: (NormalProbability, Int) -> Unit,
 ) {
     composable(
-        route = "history"
+        route = "history",
     ) {
         HistoryRoute(
-            onHistoryClick = { _, _ -> }
+            onHistoryClick = { _, _ -> },
         )
     }
 }
-

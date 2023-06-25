@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class QuickAddViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
     var message by savedStateHandle.saveable(stateSaver = TextFieldValue.Saver) {
         mutableStateOf(TextFieldValue(""))
@@ -29,7 +29,7 @@ class QuickAddViewModel @Inject constructor(
     fun update(newMessage: TextFieldValue) {
         if (message.text.isEmpty() && newMessage.text.isEmpty().not()) {
             _quickAddUiState.tryEmit(
-                QuickAddState.empty()
+                QuickAddState.empty(),
             )
         }
         message = newMessage
@@ -37,7 +37,7 @@ class QuickAddViewModel @Inject constructor(
 
     fun clear() {
         _quickAddUiState.tryEmit(
-            QuickAddState.empty()
+            QuickAddState.empty(),
         )
     }
 
@@ -64,11 +64,11 @@ class QuickAddViewModel @Inject constructor(
                 val number = items[2].trim().toFloat()
                 val student = items[3].trim().toInt()
                 Zvalue(((origin - average) / number).toDouble()).getNormalProbability() to student
-            }.onSuccess {(normalProbability, student) ->
-                _quickAddUiState.update {old ->
+            }.onSuccess { (normalProbability, student) ->
+                _quickAddUiState.update { old ->
                     old.copy(
                         normalProbability = normalProbability,
-                        student = student
+                        student = student,
                     )
                 }
             }.onFailure {
@@ -81,7 +81,7 @@ class QuickAddViewModel @Inject constructor(
         _quickAddUiState.update { old ->
             old.copy(
                 isError = true,
-                errorMessage = message
+                errorMessage = message,
             )
         }
     }

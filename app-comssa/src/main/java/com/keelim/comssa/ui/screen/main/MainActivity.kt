@@ -151,7 +151,7 @@ class MainActivity : AppCompatActivity() {
                 addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
                 addAction(DownloadManager.ACTION_NOTIFICATION_CLICKED)
             },
-            ContextCompat.RECEIVER_NOT_EXPORTED
+            ContextCompat.RECEIVER_NOT_EXPORTED,
         )
 
         getSystemService(DownloadManager::class.java).enqueue(

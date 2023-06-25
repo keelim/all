@@ -29,7 +29,7 @@ import com.keelim.mygrade.ui.rememberMyGradeState
 @Composable
 fun MyGradeApp(
     windowSizeClass: WindowSizeClass,
-    appState: MyGradeState = rememberMyGradeState(windowSizeClass = windowSizeClass)
+    appState: MyGradeState = rememberMyGradeState(windowSizeClass = windowSizeClass),
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -50,7 +50,7 @@ fun MyGradeApp(
         ) {
             Column(
                 modifier = Modifier
-                    .fillMaxSize()
+                    .fillMaxSize(),
             ) {
                 MyGradeHost(appState = appState, onShowSnackbar = { message, action ->
                     snackbarHostState.showSnackbar(

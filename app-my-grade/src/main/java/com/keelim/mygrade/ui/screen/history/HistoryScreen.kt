@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -38,14 +37,14 @@ fun HistoryRoute(
     onHistoryClick: (NormalProbability, Int) -> Unit,
 ) {
     HistoryScreen(
-        onHistoryClick = onHistoryClick
+        onHistoryClick = onHistoryClick,
     )
 }
 
 @Composable
 internal fun HistoryScreen(
     viewModel: HistoryViewModel = hiltViewModel(),
-    onHistoryClick: (NormalProbability, Int) -> Unit = { _, _ -> }
+    onHistoryClick: (NormalProbability, Int) -> Unit = { _, _ -> },
 ) {
     val histories by viewModel.histories.collectAsStateWithLifecycle(persistentListOf())
     if (histories.isEmpty()) {
@@ -59,7 +58,7 @@ internal fun HistoryScreen(
 fun HistoryList(
     histories: PersistentList<GradeHistory>,
     listState: LazyListState = rememberLazyListState(),
-    onHistoryClick: (NormalProbability, Int) -> Unit = { _, _ -> }
+    onHistoryClick: (NormalProbability, Int) -> Unit = { _, _ -> },
 ) {
     LazyColumn(
         state = listState,
@@ -72,7 +71,7 @@ fun HistoryList(
         ) { history ->
             GradeHistoryItem(
                 history = history,
-                onHistoryClick = onHistoryClick
+                onHistoryClick = onHistoryClick,
             )
         }
     }
@@ -90,40 +89,40 @@ private fun PreviewHistoryList() {
                 date = "sociosqu",
                 grade = "placerat",
                 myGrade = 3495,
-                totalStudent = 9776
-            )
+                totalStudent = 9776,
+            ),
         )
         GradeHistoryItem(
             GradeHistory(
                 date = "sociosqu",
                 grade = "placerat",
                 myGrade = 3495,
-                totalStudent = 9776
-            )
+                totalStudent = 9776,
+            ),
         )
         GradeHistoryItem(
             GradeHistory(
                 date = "sociosqu",
                 grade = "placerat",
                 myGrade = 3495,
-                totalStudent = 9776
-            )
+                totalStudent = 9776,
+            ),
         )
         GradeHistoryItem(
             GradeHistory(
                 date = "sociosqu",
                 grade = "placerat",
                 myGrade = 3495,
-                totalStudent = 9776
-            )
+                totalStudent = 9776,
+            ),
         )
         GradeHistoryItem(
             GradeHistory(
                 date = "sociosqu",
                 grade = "placerat",
                 myGrade = 3495,
-                totalStudent = 9776
-            )
+                totalStudent = 9776,
+            ),
         )
     }
 }
@@ -131,14 +130,14 @@ private fun PreviewHistoryList() {
 @Composable
 fun GradeHistoryItem(
     history: GradeHistory,
-    onHistoryClick: (NormalProbability, Int) -> Unit = { _, _ -> }
+    onHistoryClick: (NormalProbability, Int) -> Unit = { _, _ -> },
 ) {
     Card(
         onClick = { onHistoryClick(NormalProbability(1), 1) },
         shape = ShapeDefaults.Large,
         modifier = Modifier
             .fillMaxWidth(),
-        border = BorderStroke(1.dp, Color.Black)
+        border = BorderStroke(1.dp, Color.Black),
     ) {
         Column(
             modifier = Modifier
@@ -146,21 +145,21 @@ fun GradeHistoryItem(
         ) {
             Text(
                 text = "예상 학점: ${history.grade}",
-                style = MaterialTheme.typography.bodyLarge
+                style = MaterialTheme.typography.bodyLarge,
             )
             Spacer(modifier = Modifier.height(12.dp))
             Text(
                 text = "예상 등수: ${history.myGrade} / ${history.totalStudent} 등",
-                style = MaterialTheme.typography.bodyLarge
+                style = MaterialTheme.typography.bodyLarge,
             )
             Spacer(modifier = Modifier.height(4.dp))
             Row {
                 Spacer(
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier.weight(1f),
                 )
                 Text(
                     text = "입력 날짜: ${history.date}",
-                    style = MaterialTheme.typography.bodySmall
+                    style = MaterialTheme.typography.bodySmall,
                 )
             }
         }
@@ -172,7 +171,10 @@ fun GradeHistoryItem(
 private fun PreviewGradeHistoryItem() {
     GradeHistoryItem(
         history = GradeHistory(
-            date = "utamur", grade = "suscipiantur", myGrade = 5812, totalStudent = 7712
-        )
+            date = "utamur",
+            grade = "suscipiantur",
+            myGrade = 5812,
+            totalStudent = 7712,
+        ),
     )
 }

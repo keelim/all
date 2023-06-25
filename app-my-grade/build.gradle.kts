@@ -60,6 +60,7 @@ dependencies {
     implementation(libs.firebase.config)
     implementation(libs.hilt.ext.work)
     implementation(libs.inapp.update)
+    implementation(libs.kotlinx.datetime)
     implementation(libs.material)
     implementation(libs.modernstorage.bom)
     implementation(libs.play.services.ad)

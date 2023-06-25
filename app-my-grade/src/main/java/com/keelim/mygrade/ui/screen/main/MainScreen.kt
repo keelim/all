@@ -12,6 +12,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.rounded.Create
+import androidx.compose.material.icons.rounded.ThumbUp
 import androidx.compose.material3.Button
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -32,11 +33,13 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 @Composable
 fun MainRoute(
     onSubmitClick: (NormalProbability, Int) -> Unit,
-    onFloatingButtonClick: () -> Unit,
+    onFloatingButtonClick1: () -> Unit,
+    onFloatingButtonClick2: () -> Unit,
 ) {
     MainScreen(
         onSubmitClick = onSubmitClick,
-        onFloatingButtonClick = onFloatingButtonClick
+        onFloatingButtonClick1 = onFloatingButtonClick1,
+        onFloatingButtonClick2 = onFloatingButtonClick2
     )
 }
 
@@ -44,7 +47,8 @@ fun MainRoute(
 fun MainScreen(
     viewModel: MainViewModel = hiltViewModel(),
     onSubmitClick: (NormalProbability, Int) -> Unit = { _, _ -> },
-    onFloatingButtonClick: () -> Unit = {}
+    onFloatingButtonClick1: () -> Unit = {},
+    onFloatingButtonClick2: () -> Unit = {}
 ) {
     Column(modifier = Modifier
         .fillMaxSize()
@@ -102,10 +106,19 @@ fun MainScreen(
             }
         }
         Spacer(modifier = Modifier.weight(1f))
-        Row {
-            Spacer(modifier = Modifier.weight(1f))
-            FloatingActionButton(onClick = { onFloatingButtonClick() }) {
-                Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+        Column {
+            Row {
+                Spacer(modifier = Modifier.weight(1f))
+                FloatingActionButton(onClick = { onFloatingButtonClick1() }) {
+                    Icon(imageVector = Icons.Rounded.ThumbUp, contentDescription = null)
+                }
+            }
+            Spacer(modifier = Modifier.height(12.dp))
+            Row {
+                Spacer(modifier = Modifier.weight(1f))
+                FloatingActionButton(onClick = { onFloatingButtonClick2() }) {
+                    Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                }
             }
         }
     }

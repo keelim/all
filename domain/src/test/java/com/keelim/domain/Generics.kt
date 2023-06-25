@@ -11,28 +11,27 @@ interface Out<out T> {
     fun write(): T
 }
 
-interface Where<in T> where T: Number {
+interface Where<in T> where T : Number {
     fun length(item: T): Int
 }
 
-class InInt: In<Int> {
-    override fun read(item: Int): String  = item.toString()
+class InInt : In<Int> {
+    override fun read(item: Int): String = item.toString()
 }
 
-class OutInt: Out<Int> {
-    override fun write(): Int  = 1
+class OutInt : Out<Int> {
+    override fun write(): Int = 1
 }
 
-class WhereDouble: Where<Double> {
+class WhereDouble : Where<Double> {
     override fun length(item: Double): Int = item.toString().length
 }
-
 
 class Test {
     @Test
     fun int_to_string() {
         val a = InInt()
-        val b  = 1
+        val b = 1
         val bString = b.toString()
         val c = a.read(b)
 
@@ -51,7 +50,7 @@ class Test {
     @Test
     fun number_length() {
         val a = WhereDouble()
-        val b  = 1234.5678
+        val b = 1234.5678
         val c = 9
 
         val d = a.length(b)

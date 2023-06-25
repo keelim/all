@@ -31,9 +31,9 @@ class FlowTest {
                 simpleFlow()
                     .buffer()
                     .collect {
-                    delay(100)
-                    println("Received $it")
-                }
+                        delay(100)
+                        println("Received $it")
+                    }
                 println("Done")
             }.let {
                 println("Collected in $it ms")

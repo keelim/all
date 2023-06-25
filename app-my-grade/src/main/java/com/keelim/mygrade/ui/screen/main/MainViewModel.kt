@@ -8,7 +8,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
-
 data class MainScreenState(
     val originError: Boolean = false,
     val averageError: Boolean = false,
@@ -30,7 +29,6 @@ class MainViewModel @Inject constructor() : ViewModel() {
     private val _mainScreenState = MutableStateFlow(MainScreenState.empty())
     val mainScreenState: StateFlow<MainScreenState> = _mainScreenState.asStateFlow()
 
-
     private val _origin = MutableStateFlow<String>("")
     val origin: StateFlow<String> = _origin.asStateFlow()
 
@@ -46,7 +44,6 @@ class MainViewModel @Inject constructor() : ViewModel() {
     fun updateOrigin(origin: String) {
         origin.trim()
             .also(_origin::tryEmit)
-
     }
 
     fun updateAverage(average: String) {
@@ -75,7 +72,7 @@ class MainViewModel @Inject constructor() : ViewModel() {
         if (origin == null) {
             _mainScreenState.update { old ->
                 old.copy(
-                    originError = true
+                    originError = true,
                 )
             }
         }
@@ -86,7 +83,7 @@ class MainViewModel @Inject constructor() : ViewModel() {
         if (average == null) {
             _mainScreenState.update { old ->
                 old.copy(
-                    averageError = true
+                    averageError = true,
                 )
             }
         }
@@ -98,7 +95,7 @@ class MainViewModel @Inject constructor() : ViewModel() {
         if (number == null) {
             _mainScreenState.update { old ->
                 old.copy(
-                    numberError = true
+                    numberError = true,
                 )
             }
         }
@@ -108,7 +105,7 @@ class MainViewModel @Inject constructor() : ViewModel() {
         if (student == null) {
             _mainScreenState.update { old ->
                 old.copy(
-                    studentError = true
+                    studentError = true,
                 )
             }
         }
@@ -121,19 +118,19 @@ class MainViewModel @Inject constructor() : ViewModel() {
                 true,
                 Zvalue(((origin - average) / number).toDouble()).getNormalProbability(),
                 student,
-            )
+            ),
         )
     }
 
     fun moveToUnInitialized() {
         _state.tryEmit(
-            MainState.UnInitialized
+            MainState.UnInitialized,
         )
     }
 
     fun updateStateEmpty() {
         _mainScreenState.tryEmit(
-            MainScreenState.empty()
+            MainScreenState.empty(),
         )
     }
 }

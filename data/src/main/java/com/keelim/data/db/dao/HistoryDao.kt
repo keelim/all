@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Upsert
 import com.keelim.data.source.local.History
+import com.keelim.data.source.local.SimpleHistory
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -11,8 +12,14 @@ interface HistoryDao {
     @Query("SELECT * FROM history")
     fun observeAll(): Flow<List<History>>
 
+    @Query("SELECT * FROM simpleHistory")
+    fun observeSimpleHistories(): Flow<List<SimpleHistory>>
+
     @Upsert
     suspend fun upsert(history: History)
+
+    @Upsert
+    suspend fun upsertSimpleHistory(history: SimpleHistory)
 
     @Upsert
     suspend fun upsertAll(histories: List<History>)

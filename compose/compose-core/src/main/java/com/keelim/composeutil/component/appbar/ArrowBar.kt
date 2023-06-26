@@ -37,7 +37,7 @@ fun NavigationBackArrowBar(title: String) {
             imageVector = Icons.Default.ArrowBack,
             contentDescription = null,
             modifier = Modifier
-                .size(36.dp)
+                .size(24.dp)
                 .align(Alignment.CenterVertically),
 
         )

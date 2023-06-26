@@ -11,13 +11,13 @@ fun NavController.navigateHistory(navOptions: NavOptions? = null) {
 }
 
 fun NavGraphBuilder.historyScreen(
-    onHistoryClick: (NormalProbability, Int) -> Unit,
+    onHistoryClick: (String, String) -> Unit,
 ) {
     composable(
         route = "history",
     ) {
         HistoryRoute(
-            onHistoryClick = { _, _ -> },
+            onHistoryClick = onHistoryClick,
         )
     }
 }

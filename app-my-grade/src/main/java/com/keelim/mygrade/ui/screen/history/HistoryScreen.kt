@@ -27,14 +27,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.keelim.composeutil.component.appbar.NavigationBackArrowBar
 import com.keelim.composeutil.component.layout.EmptyView
-import com.keelim.mygrade.ui.screen.main.NormalProbability
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
 
 @Composable
 fun HistoryRoute(
-    onHistoryClick: (NormalProbability, Int) -> Unit,
+    onHistoryClick: (String, String) -> Unit,
 ) {
     HistoryScreen(
         onHistoryClick = onHistoryClick,
@@ -44,13 +44,17 @@ fun HistoryRoute(
 @Composable
 internal fun HistoryScreen(
     viewModel: HistoryViewModel = hiltViewModel(),
-    onHistoryClick: (NormalProbability, Int) -> Unit = { _, _ -> },
+    onHistoryClick: (String, String) -> Unit = { _, _ -> },
 ) {
     val histories by viewModel.histories.collectAsStateWithLifecycle(persistentListOf())
     if (histories.isEmpty()) {
         EmptyView()
     } else {
-        HistoryList(histories = histories, onHistoryClick = onHistoryClick)
+        Column {
+            NavigationBackArrowBar(title = "히스토리 확인")
+            Spacer(modifier = Modifier.height(10.dp))
+            HistoryList(histories = histories, onHistoryClick = onHistoryClick)
+        }
     }
 }
 
@@ -58,17 +62,14 @@ internal fun HistoryScreen(
 fun HistoryList(
     histories: PersistentList<GradeHistory>,
     listState: LazyListState = rememberLazyListState(),
-    onHistoryClick: (NormalProbability, Int) -> Unit = { _, _ -> },
+    onHistoryClick: (String, String) -> Unit = { _, _ -> },
 ) {
     LazyColumn(
         state = listState,
-        modifier = Modifier.padding(horizontal = 12.dp),
+        modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        items(
-            items = histories,
-            key = { history: GradeHistory -> history },
-        ) { history ->
+        items(items = histories) { history ->
             GradeHistoryItem(
                 history = history,
                 onHistoryClick = onHistoryClick,
@@ -130,18 +131,16 @@ private fun PreviewHistoryList() {
 @Composable
 fun GradeHistoryItem(
     history: GradeHistory,
-    onHistoryClick: (NormalProbability, Int) -> Unit = { _, _ -> },
+    onHistoryClick: (String, String) -> Unit = { _, _ -> },
 ) {
     Card(
-        onClick = { onHistoryClick(NormalProbability(1), 1) },
+        onClick = { onHistoryClick(history.grade, "${history.myGrade} / ${history.totalStudent}") },
         shape = ShapeDefaults.Large,
-        modifier = Modifier
-            .fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth(),
         border = BorderStroke(1.dp, Color.Black),
     ) {
         Column(
-            modifier = Modifier
-                .padding(horizontal = 12.dp, vertical = 20.dp),
+            modifier = Modifier.padding(horizontal = 12.dp, vertical = 20.dp),
         ) {
             Text(
                 text = "예상 학점: ${history.grade}",
@@ -170,7 +169,8 @@ fun GradeHistoryItem(
 @Composable
 private fun PreviewGradeHistoryItem() {
     GradeHistoryItem(
-        history = GradeHistory(
+        history =
+        GradeHistory(
             date = "utamur",
             grade = "suscipiantur",
             myGrade = 5812,

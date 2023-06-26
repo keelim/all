@@ -16,9 +16,10 @@ import com.keelim.data.model.entity.StationSubwayCrossRefEntity
 import com.keelim.data.model.entity.SubwayEntity
 import com.keelim.data.source.local.History
 import com.keelim.data.source.local.LocalTask
+import com.keelim.data.source.local.SimpleHistory
 
 @Database(
-    entities = [History::class, LocalTask::class],
+    entities = [History::class, LocalTask::class, SimpleHistory::class],
     version = 1,
     exportSchema = false
 )

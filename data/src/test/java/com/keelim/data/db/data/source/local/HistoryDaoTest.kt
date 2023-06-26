@@ -1,7 +1,9 @@
 import com.keelim.data.db.dao.HistoryDao
 import com.keelim.data.source.local.History
+import com.keelim.data.source.local.SimpleHistory
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flow
 
 class FakeHistoryDao(initialTasks: List<History>) : HistoryDao {
 
@@ -9,11 +11,18 @@ class FakeHistoryDao(initialTasks: List<History>) : HistoryDao {
     private val historyStream = MutableStateFlow(_histories.toList())
 
     override fun observeAll(): Flow<List<History>> = historyStream
+    override fun observeSimpleHistories(): Flow<List<SimpleHistory>>  = flow {
+        TODO("Not yet implemented")
+    }
 
     override suspend fun upsert(history: History) {
         _histories.removeIf { it.uid == history.uid }
         _histories.add(history)
         historyStream.emit(_histories)
+    }
+
+    override suspend fun upsertSimpleHistory(history: SimpleHistory) {
+        TODO("Not yet implemented")
     }
 
     override suspend fun upsertAll(histories: List<History>) {

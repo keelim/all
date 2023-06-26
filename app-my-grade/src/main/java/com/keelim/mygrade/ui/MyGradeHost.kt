@@ -49,10 +49,9 @@ fun MyGradeHost(
             },
         )
         historyScreen(
-            onHistoryClick = { normalProbability, student ->
+            onHistoryClick = { grade, point ->
                 navController.navigateGrade(
-                    normalProbability.grade(),
-                    Level((normalProbability.value * student) / 100).toProcess(student.toString()),
+                    grade, point
                 )
             },
         )

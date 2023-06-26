@@ -2,6 +2,9 @@ package com.keelim.data.source.local
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import java.util.Calendar
 
 @Entity(tableName = "history")
@@ -14,4 +17,13 @@ data class History(
     var grade_num: Float,
     var grade: String,
     @PrimaryKey(autoGenerate = true) var uid: Int = 0,
+)
+
+@Entity(tableName = "simpleHistory")
+data class SimpleHistory(
+    @PrimaryKey(autoGenerate = true) val uid: Int = 0,
+    val date: String = Clock.System.now().toLocalDateTime(TimeZone.UTC).toString(),
+    val grade: String,
+    val gradeRank: Int,
+    val totalRank: Int
 )

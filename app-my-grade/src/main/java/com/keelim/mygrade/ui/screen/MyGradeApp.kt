@@ -21,6 +21,7 @@ import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import com.keelim.mygrade.ui.MyGradeHost
 import com.keelim.mygrade.ui.MyGradeState
@@ -32,7 +33,7 @@ fun MyGradeApp(
     appState: MyGradeState = rememberMyGradeState(windowSizeClass = windowSizeClass),
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
-
+    val coroutineScope = rememberCoroutineScope()
     Scaffold(
         contentWindowInsets = WindowInsets(0, 0, 0, 0),
         snackbarHost = { SnackbarHost(snackbarHostState) },
@@ -49,16 +50,19 @@ fun MyGradeApp(
                 ),
         ) {
             Column(
-                modifier = Modifier
-                    .fillMaxSize(),
+                modifier = Modifier.fillMaxSize(),
             ) {
-                MyGradeHost(appState = appState, onShowSnackbar = { message, action ->
-                    snackbarHostState.showSnackbar(
-                        message = message,
-                        actionLabel = action,
-                        duration = SnackbarDuration.Short,
-                    ) == SnackbarResult.ActionPerformed
-                })
+                MyGradeHost(
+                    appState = appState,
+                    coroutineScope  =coroutineScope,
+                    onShowSnackbar = { message, action ->
+                        snackbarHostState.showSnackbar(
+                            message = message,
+                            actionLabel = action,
+                            duration = SnackbarDuration.Short,
+                        ) == SnackbarResult.ActionPerformed
+                    }
+                )
             }
         }
     }

@@ -15,12 +15,14 @@ fun NavGraphBuilder.mainScreen(
     onSubmitClick: (NormalProbability, Int) -> Unit,
     onFloatingButtonClick1: () -> Unit,
     onFloatingButtonClick2: () -> Unit,
+    onFloatingButtonClick3: () -> Unit,
 ) {
     composable(route = mainRoute) {
         MainRoute(
             onSubmitClick = onSubmitClick,
             onFloatingButtonClick1 = onFloatingButtonClick1,
             onFloatingButtonClick2 = onFloatingButtonClick2,
+            onFloatingButtonClick3 = onFloatingButtonClick3,
         )
     }
 }

@@ -64,8 +64,7 @@ fun SettingsScreen(
             0.dp
         }, label = ""
     )
-    val onBackPressedDispatcher =
-        checkNotNull(LocalOnBackPressedDispatcherOwner.current).onBackPressedDispatcher
+    val onBackPressedDispatcher = checkNotNull(LocalOnBackPressedDispatcherOwner.current).onBackPressedDispatcher
     Scaffold(
         containerColor = MaterialTheme.colorScheme.surface,
         contentColor = MaterialTheme.colorScheme.onSurface,

@@ -11,7 +11,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Create
+import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material.icons.rounded.ThumbUp
 import androidx.compose.material3.Button
 import androidx.compose.material3.FloatingActionButton
@@ -35,11 +38,13 @@ fun MainRoute(
     onSubmitClick: (NormalProbability, Int) -> Unit,
     onFloatingButtonClick1: () -> Unit,
     onFloatingButtonClick2: () -> Unit,
+    onFloatingButtonClick3: () -> Unit,
 ) {
     MainScreen(
         onSubmitClick = onSubmitClick,
         onFloatingButtonClick1 = onFloatingButtonClick1,
         onFloatingButtonClick2 = onFloatingButtonClick2,
+        onFloatingButtonClick3 = onFloatingButtonClick3,
     )
 }
 
@@ -49,6 +54,7 @@ fun MainScreen(
     onSubmitClick: (NormalProbability, Int) -> Unit = { _, _ -> },
     onFloatingButtonClick1: () -> Unit = {},
     onFloatingButtonClick2: () -> Unit = {},
+    onFloatingButtonClick3: () -> Unit = {},
 ) {
     Column(
         modifier = Modifier
@@ -117,9 +123,12 @@ fun MainScreen(
             }
             Spacer(modifier = Modifier.height(12.dp))
             Row {
+                FloatingActionButton(onClick = { onFloatingButtonClick3() }) {
+                    Icon(imageVector = Icons.Rounded.Settings, contentDescription = null)
+                }
                 Spacer(modifier = Modifier.weight(1f))
                 FloatingActionButton(onClick = { onFloatingButtonClick2() }) {
-                    Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                    Icon(imageVector = Icons.Rounded.Add, contentDescription = null)
                 }
             }
         }

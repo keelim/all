@@ -26,6 +26,7 @@ dependencies {
     implementation(project(":core:common-android"))
     implementation(project(":compose:compose-core"))
     implementation(project(":data"))
+    implementation(project(":features:ui-setting"))
 
     implementation("com.google.modernstorage:modernstorage-permissions")
     implementation("com.google.modernstorage:modernstorage-photopicker")

@@ -1,4 +1,4 @@
-name: Release
+name: Release tag
 on:
   pull_request:
     branches:

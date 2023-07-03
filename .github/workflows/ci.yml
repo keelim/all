@@ -1,10 +1,11 @@
 name: Test CI (v3)
 
 on:
-  push:
-    branches: [ master ]
   pull_request:
-    branches: [ master ]
+    branches:
+      - master
+    types: [ closed ]
+  workflow_dispatch:
 
 jobs:
   test:

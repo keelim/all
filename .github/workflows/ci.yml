@@ -1,4 +1,4 @@
-name: Test CI (v3)
+name: Release distribution report
 
 on:
   pull_request:

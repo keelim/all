@@ -41,7 +41,8 @@ android {
             matchingFallbacks += listOf("release")
         }
     }
-    // targetProjectPath = ":app-my-grade"
+    // todo 수정 할 것
+    targetProjectPath = ":app-my-grade"
     // targetProjectPath = ":app-comssa"
     // targetProjectPath = ":app-nanda"
     // targetProjectPath = ":app-cnubus"

@@ -12,7 +12,8 @@ fun NavController.navigateSettings(navOptions: NavOptions? = null) {
 
 fun NavGraphBuilder.settingsScreen(
     onNotificationsClick: () -> Unit,
-    onOpenSourceClick: () -> Unit
+    onOpenSourceClick: () -> Unit,
+    nestedGraphs: NavGraphBuilder.() -> Unit,
 ) {
     composable(
         route = "settings",
@@ -22,4 +23,5 @@ fun NavGraphBuilder.settingsScreen(
             onOpenSourceClick = onOpenSourceClick,
         )
     }
+    nestedGraphs()
 }

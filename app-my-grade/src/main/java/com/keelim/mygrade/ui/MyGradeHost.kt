@@ -17,7 +17,9 @@ import com.keelim.mygrade.ui.screen.main.mainScreen
 import com.keelim.mygrade.ui.screen.main.toProcess
 import com.keelim.mygrade.ui.screen.quick.navigateQuick
 import com.keelim.mygrade.ui.screen.quick.quickScreen
+import com.keelim.setting.screen.navigateNotification
 import com.keelim.setting.screen.navigateSettings
+import com.keelim.setting.screen.notificationScreen
 import com.keelim.setting.screen.settingsScreen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -68,12 +70,13 @@ fun MyGradeHost(
         gradeScreen()
         settingsScreen(
             onNotificationsClick = {
-                coroutineScope.launch {
-                    onShowSnackbar("현재 준비 중입니다. ", null)
-                }
+                navController.navigateNotification()
             },
             onOpenSourceClick = {
                 context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
+            },
+            nestedGraphs = {
+                notificationScreen()
             }
         )
     }

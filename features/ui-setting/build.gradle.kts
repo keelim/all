@@ -15,6 +15,7 @@ android {
 
 dependencies {
     implementation(project(":core:common"))
+    implementation(project(":compose:compose-core"))
     implementation(project(":data"))
     implementation(project(":domain"))
 
@@ -22,6 +23,9 @@ dependencies {
     implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.ui.tooling)
+    implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.navigation.compose)
-    implementation(libs.material.themAdapter)
+    implementation(libs.coil.kt.compose)
 }

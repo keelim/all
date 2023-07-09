@@ -42,7 +42,8 @@ class HistoryRepositoryImplTest {
     private val localDataSource = FakeHistoryDao(localHistories)
     private val historyRepository: HistoryRepository = HistoryRepositoryImpl(
         localDataSource = localDataSource,
-        dispatcher = testDispatcher,
+        io = testDispatcher,
+        default =  testDispatcher,
         scope = testScope
     )
 

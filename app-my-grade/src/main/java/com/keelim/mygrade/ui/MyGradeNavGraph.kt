@@ -16,7 +16,6 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.CoroutineScope
 
-
 @Composable
 fun MygradeNavGraph(
     modifier: Modifier = Modifier,
@@ -36,19 +35,16 @@ fun MygradeNavGraph(
         modifier = modifier,
     ) {
         composable(
-            MyGradeDestinations.MAIN_ROUTE
+            MyGradeDestinations.MAIN_ROUTE,
         ) {
-
         }
         composable(
-            MyGradeDestinations.GRADE_ROUTE
+            MyGradeDestinations.GRADE_ROUTE,
         ) {
-
         }
         composable(
             MyGradeDestinations.TODO_ROUTE,
         ) {
-
         }
     }
 }

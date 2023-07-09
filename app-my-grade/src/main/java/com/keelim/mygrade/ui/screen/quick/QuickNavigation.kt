@@ -18,12 +18,12 @@ fun NavController.navigateQuick(navOptions: NavOptions? = null) {
 
 fun NavGraphBuilder.quickScreen(
     onDismiss: () -> Unit,
-    onNavigate:(NormalProbability, Int) -> Unit
+    onNavigate: (NormalProbability, Int) -> Unit,
 ) {
     composable(route = quickRoute) {
-        ModalBottomSheet(onDismissRequest = {  onDismiss() }) {
+        ModalBottomSheet(onDismissRequest = { onDismiss() }) {
             QuickAddRoute(
-                onNavigate = onNavigate
+                onNavigate = onNavigate,
             )
         }
     }

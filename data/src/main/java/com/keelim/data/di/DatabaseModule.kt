@@ -44,7 +44,7 @@ object DatabaseModule {
         @ApplicationContext context: Context,
     ): NandaAppDatabase {
         return Room.databaseBuilder(
-            context.applicationContext, NandaAppDatabase::class.java, "nanda"
+            context, NandaAppDatabase::class.java, "nanda"
         ).createFromFile(File(context.getExternalFilesDir(null), "nanda.db"))
             .allowMainThreadQueries().build()
     }

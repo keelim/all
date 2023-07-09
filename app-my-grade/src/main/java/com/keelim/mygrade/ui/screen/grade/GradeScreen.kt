@@ -40,7 +40,7 @@ import com.keelim.composeutil.component.appbar.NavigationBackArrowBar
 fun GradeRoute(
     onCopyClick: () -> Unit,
     onShareClick: () -> Unit,
-    viewModel: GradeViewModel = hiltViewModel()
+    viewModel: GradeViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val data by viewModel.data.collectAsStateWithLifecycle()
@@ -51,7 +51,7 @@ fun GradeRoute(
         grade = data.grade,
         rank = data.point,
         onCopyClick = onCopyClick,
-        onShareClick = onShareClick
+        onShareClick = onShareClick,
     )
 }
 
@@ -68,7 +68,7 @@ private fun GradeScreen(
             grade = grade,
             rank = rank,
             onCopyClick = onCopyClick,
-            onShareClick = onShareClick
+            onShareClick = onShareClick,
         )
     }
 }
@@ -84,7 +84,7 @@ fun GradeContent(
         modifier = Modifier
             .padding(horizontal = 20.dp)
             .fillMaxSize(),
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
             Text(text = "예상학점: $grade ", style = MaterialTheme.typography.headlineLarge)
@@ -100,14 +100,14 @@ fun GradeContent(
             Row(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             ) {
                 Icon(
                     imageVector = Icons.Filled.List,
                     contentDescription = null,
                     modifier = Modifier
                         .size(36.dp)
-                        .clickable { onCopyClick() }
+                        .clickable { onCopyClick() },
                 )
                 Spacer(modifier = Modifier.width(24.dp))
 
@@ -117,10 +117,11 @@ fun GradeContent(
                     animationSpec = infiniteRepeatable(
                         animation = tween(
                             durationMillis = 600,
-                            easing = LinearEasing
+                            easing = LinearEasing,
                         ),
-                        repeatMode = RepeatMode.Reverse
-                    ), label = ""
+                        repeatMode = RepeatMode.Reverse,
+                    ),
+                    label = "",
                 )
                 Icon(
                     imageVector = Icons.Filled.Share,
@@ -131,10 +132,10 @@ fun GradeContent(
                         .graphicsLayer {
                             transformOrigin = TransformOrigin(
                                 pivotFractionX = 0.5f,
-                                pivotFractionY = 0.5f
+                                pivotFractionY = 0.5f,
                             )
                             rotationZ = value
-                        }
+                        },
                 )
             }
         }

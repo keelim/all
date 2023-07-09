@@ -55,6 +55,7 @@ fun Project.configureKotlinAndroid(
                 "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
                 "-Xopt-in=kotlinx.coroutines.FlowPreview",
                 "-Xopt-in=kotlin.Experimental",
+                "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api"
                 // Enable experimental kotlinx serialization APIs
 //                "-Xopt-in=kotlinx.serialization.ExperimentalSerializationApi"
             )

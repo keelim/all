@@ -17,6 +17,11 @@ jobs:
           java-version: "17"
           cache: "gradle"
 
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: "java"
+
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
@@ -66,3 +71,8 @@ jobs:
           track: production
           status: completed
           changesNotSentForReview: false
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+        with:
+          category: "/language:java"

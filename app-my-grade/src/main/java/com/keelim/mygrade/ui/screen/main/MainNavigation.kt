@@ -7,19 +7,22 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import org.apache.commons.math3.distribution.NormalDistribution
 
-
 const val mainRoute = "main"
 fun NavController.navigateToMain(navOptions: NavOptions? = null) {
     this.navigate(mainRoute, navOptions)
 }
 fun NavGraphBuilder.mainScreen(
     onSubmitClick: (NormalProbability, Int) -> Unit,
-    onFloatingButtonClick: () -> Unit,
+    onFloatingButtonClick1: () -> Unit,
+    onFloatingButtonClick2: () -> Unit,
+    onFloatingButtonClick3: () -> Unit,
 ) {
     composable(route = mainRoute) {
         MainRoute(
             onSubmitClick = onSubmitClick,
-            onFloatingButtonClick = onFloatingButtonClick
+            onFloatingButtonClick1 = onFloatingButtonClick1,
+            onFloatingButtonClick2 = onFloatingButtonClick2,
+            onFloatingButtonClick3 = onFloatingButtonClick3,
         )
     }
 }

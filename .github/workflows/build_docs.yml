@@ -1,9 +1,11 @@
 name: Writerside Build Docs Job
 
 on:
-  push:
-    branches: ["develop"]
-
+  pull_request:
+    branches:
+      - master
+    types: [ closed ]
+    
   workflow_dispatch:
 
 permissions:

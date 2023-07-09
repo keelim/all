@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.builtins.StandardNames.FqNames.target
+
 plugins {
     id("com.android.test")
     id("org.jetbrains.kotlin.android")
@@ -39,11 +41,11 @@ android {
             matchingFallbacks += listOf("release")
         }
     }
-
+    // todo 수정 할 것
     targetProjectPath = ":app-my-grade"
-    targetProjectPath = ":app-comssa"
-    targetProjectPath = ":app-nanda"
-    targetProjectPath = ":app-cnubus"
+    // targetProjectPath = ":app-comssa"
+    // targetProjectPath = ":app-nanda"
+    // targetProjectPath = ":app-cnubus"
     experimentalProperties["android.experimental.self-instrumenting"] = true
 }
 
@@ -55,10 +57,10 @@ dependencies {
 }
 
 androidComponents {
-    beforeVariants(selector().all()) {
-        it.enabled = (it.buildType == "my-grade-benchmark") ||
-            (it.buildType == "comssa-benchmark") ||
-            (it.buildType == "nanda-benchmark") ||
-            (it.buildType == "cnubus-benchmark")
-    }
+    // beforeVariants(selector().all()) {
+    //     it.enabled = (it.buildType == "my-grade-benchmark") ||
+    //         (it.buildType == "comssa-benchmark") ||
+    //         (it.buildType == "nanda-benchmark") ||
+    //         (it.buildType == "cnubus-benchmark")
+    // }
 }

@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun RedDot(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val value by rememberInfiniteTransition(label = "").animateFloat(
         initialValue = 0.5f,
@@ -37,10 +37,11 @@ fun RedDot(
         animationSpec = infiniteRepeatable(
             animation = tween(
                 durationMillis = 300,
-                easing = LinearEasing
+                easing = LinearEasing,
             ),
-            repeatMode = RepeatMode.Reverse
-        ), label = ""
+            repeatMode = RepeatMode.Reverse,
+        ),
+        label = "",
     )
     Box(
         modifier = modifier
@@ -50,7 +51,7 @@ fun RedDot(
             }
             .size(25.dp)
             .clip(CircleShape)
-            .background(Color.Red)
+            .background(Color.Red),
     )
 }
 
@@ -62,7 +63,7 @@ private fun PreviewRedDot() {
 
 @Composable
 fun GradientDot(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val value by rememberInfiniteTransition(label = "").animateFloat(
         initialValue = 0f,
@@ -70,15 +71,16 @@ fun GradientDot(
         animationSpec = infiniteRepeatable(
             animation = tween(
                 durationMillis = 1000,
-                easing = LinearEasing
-            )
-        ), label = ""
+                easing = LinearEasing,
+            ),
+        ),
+        label = "",
     )
     val colors = listOf(
         Color.Red,
         Color.Green,
         Color.Blue,
-        Color.Black
+        Color.Black,
     )
 
     var gradientBrush by remember {
@@ -87,19 +89,21 @@ fun GradientDot(
                 colors = colors,
                 startX = -10.0f,
                 endX = 400.0f,
-                tileMode = TileMode.Repeated
-            )
+                tileMode = TileMode.Repeated,
+            ),
         )
     }
-    Box(modifier = Modifier
-        .drawBehind {
-            rotate(value) {
-                drawCircle(
-                    gradientBrush, style = Stroke(width = 12.dp.value)
-                )
+    Box(
+        modifier = Modifier
+            .drawBehind {
+                rotate(value) {
+                    drawCircle(
+                        gradientBrush,
+                        style = Stroke(width = 12.dp.value),
+                    )
+                }
             }
-        }
-        .size(125.dp)
+            .size(125.dp),
     )
 }
 

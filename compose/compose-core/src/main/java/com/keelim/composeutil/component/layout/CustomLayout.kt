@@ -8,7 +8,7 @@ import androidx.compose.ui.layout.Layout
 fun CustomLayout(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
     Layout(
         modifier = modifier,
-        content = content
+        content = content,
     ) { measurables, constraints ->
         val looseConstraints = constraints.copy(
             minWidth = 0,

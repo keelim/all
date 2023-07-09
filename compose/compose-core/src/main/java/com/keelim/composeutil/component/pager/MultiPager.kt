@@ -21,10 +21,9 @@ fun MultiHorizontalPager() {
         state = state,
         modifier = Modifier
             .background(MaterialTheme.colorScheme.background)
-            .fillMaxSize()
+            .fillMaxSize(),
     ) { page ->
         when (page) {
-
         }
     }
 }
@@ -33,5 +32,4 @@ fun MultiHorizontalPager() {
 @Composable
 private fun PreviewMultiHorizontalPager() {
     MultiHorizontalPager()
-
 }

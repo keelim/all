@@ -95,7 +95,7 @@ class AppOpenManager @Inject constructor() : LifecycleObserver {
                 BuildConfig.AD_OPEN_ID
             },
             adRequest,
-            loadCallback
+            loadCallback,
         )
     }
 

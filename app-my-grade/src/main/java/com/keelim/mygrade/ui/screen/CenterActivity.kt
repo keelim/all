@@ -14,7 +14,6 @@ import com.keelim.commonAndroid.core.AppMainDelegator
 import com.keelim.commonAndroid.core.AppMainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @BuildCompat.PrereleaseSdkCheck
 @AndroidEntryPoint
 class CenterActivity : AppCompatActivity() {
@@ -26,7 +25,7 @@ class CenterActivity : AppCompatActivity() {
         setContent {
             MaterialTheme {
                 MyGradeApp(
-                    windowSizeClass = calculateWindowSizeClass(this)
+                    windowSizeClass = calculateWindowSizeClass(this),
                 )
             }
         }

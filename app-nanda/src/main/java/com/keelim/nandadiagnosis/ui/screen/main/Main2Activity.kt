@@ -149,7 +149,7 @@ class Main2Activity : AppCompatActivity() {
             .setDescription("Downloading Database file")
             .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
             .setDestinationUri(
-                Uri.fromFile(File(applicationContext.getExternalFilesDir(null), "nanda.db"))
+                Uri.fromFile(File(applicationContext.getExternalFilesDir(null), "nanda.db")),
             )
             .setAllowedOverMetered(true)
             .setAllowedOverRoaming(true)

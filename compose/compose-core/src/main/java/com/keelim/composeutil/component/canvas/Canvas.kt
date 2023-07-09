@@ -13,13 +13,13 @@ import androidx.compose.ui.unit.LayoutDirection
 
 @Composable
 fun Circle(
-    color: Color
+    color: Color,
 ) {
     Canvas(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) {
         drawCircle(
-            color = color
+            color = color,
         )
     }
 }
@@ -52,5 +52,3 @@ fun SemiRect(color: Color, lookingLeft: Boolean = true) {
 private fun PreviewSemiRect() {
     SemiRect(Color.Red)
 }
-
-

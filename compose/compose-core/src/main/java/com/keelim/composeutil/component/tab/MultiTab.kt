@@ -16,7 +16,7 @@ import kotlinx.collections.immutable.persistentListOf
 
 @Composable
 fun MultiTab(
-    tabs: ImmutableList<String>
+    tabs: ImmutableList<String>,
 ) {
     val selectedTabIndex by remember {
         mutableStateOf(0)
@@ -25,17 +25,16 @@ fun MultiTab(
         modifier = Modifier.fillMaxWidth(),
         selectedTabIndex = selectedTabIndex,
         indicator = { positions ->
-
-        }
+        },
     ) {
         tabs.forEachIndexed { index, data ->
             Tab(
                 selected = index == selectedTabIndex,
-                onClick = {}
+                onClick = {},
             ) {
                 Text(
                     text = data,
-                    style = MaterialTheme.typography.titleMedium
+                    style = MaterialTheme.typography.titleMedium,
                 )
             }
         }
@@ -52,6 +51,6 @@ private fun PreviewMultiTab() {
             "home1",
             "home1",
             "home1",
-        )
+        ),
     )
 }

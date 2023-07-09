@@ -11,7 +11,11 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Create
+import androidx.compose.material.icons.rounded.Settings
+import androidx.compose.material.icons.rounded.ThumbUp
 import androidx.compose.material3.Button
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -32,11 +36,15 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 @Composable
 fun MainRoute(
     onSubmitClick: (NormalProbability, Int) -> Unit,
-    onFloatingButtonClick: () -> Unit,
+    onFloatingButtonClick1: () -> Unit,
+    onFloatingButtonClick2: () -> Unit,
+    onFloatingButtonClick3: () -> Unit,
 ) {
     MainScreen(
         onSubmitClick = onSubmitClick,
-        onFloatingButtonClick = onFloatingButtonClick
+        onFloatingButtonClick1 = onFloatingButtonClick1,
+        onFloatingButtonClick2 = onFloatingButtonClick2,
+        onFloatingButtonClick3 = onFloatingButtonClick3,
     )
 }
 
@@ -44,11 +52,15 @@ fun MainRoute(
 fun MainScreen(
     viewModel: MainViewModel = hiltViewModel(),
     onSubmitClick: (NormalProbability, Int) -> Unit = { _, _ -> },
-    onFloatingButtonClick: () -> Unit = {}
+    onFloatingButtonClick1: () -> Unit = {},
+    onFloatingButtonClick2: () -> Unit = {},
+    onFloatingButtonClick3: () -> Unit = {},
 ) {
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .padding(horizontal = 12.dp, vertical = 12.dp)) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 12.dp, vertical = 12.dp),
+    ) {
         Text(text = "MyGrade", style = MaterialTheme.typography.titleLarge)
         Spacer(modifier = Modifier.height(10.dp))
         // 원점수
@@ -64,7 +76,7 @@ fun MainScreen(
             SideEffect {
                 onSubmitClick(
                     (state as MainState.Success).value,
-                    (state as MainState.Success).student
+                    (state as MainState.Success).student,
                 )
                 viewModel.moveToUnInitialized()
             }
@@ -75,25 +87,25 @@ fun MainScreen(
             text = "원점수",
             value = origin,
             onValueChange = viewModel::updateOrigin,
-            isError = mainState.originError
+            isError = mainState.originError,
         )
         ScoreTextRow(
             text = "과목 평균",
             value = average,
             onValueChange = viewModel::updateAverage,
-            isError = mainState.averageError
+            isError = mainState.averageError,
         )
         ScoreTextRow(
             text = "표준편차",
             value = number,
             onValueChange = viewModel::updateNumber,
-            isError = mainState.numberError
+            isError = mainState.numberError,
         )
         ScoreTextRow(
             text = "학생 수",
             value = student,
             onValueChange = viewModel::updateStudent,
-            isError = mainState.studentError
+            isError = mainState.studentError,
         )
         Row {
             Spacer(modifier = Modifier.weight(1f))
@@ -102,10 +114,22 @@ fun MainScreen(
             }
         }
         Spacer(modifier = Modifier.weight(1f))
-        Row {
-            Spacer(modifier = Modifier.weight(1f))
-            FloatingActionButton(onClick = { onFloatingButtonClick() }) {
-                Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+        Column {
+            Row {
+                Spacer(modifier = Modifier.weight(1f))
+                FloatingActionButton(onClick = { onFloatingButtonClick1() }) {
+                    Icon(imageVector = Icons.Rounded.ThumbUp, contentDescription = null)
+                }
+            }
+            Spacer(modifier = Modifier.height(12.dp))
+            Row {
+                FloatingActionButton(onClick = { onFloatingButtonClick3() }) {
+                    Icon(imageVector = Icons.Rounded.Settings, contentDescription = null)
+                }
+                Spacer(modifier = Modifier.weight(1f))
+                FloatingActionButton(onClick = { onFloatingButtonClick2() }) {
+                    Icon(imageVector = Icons.Rounded.Add, contentDescription = null)
+                }
             }
         }
     }
@@ -122,7 +146,7 @@ internal fun ScoreTextRow(
     text: String,
     value: String,
     onValueChange: (String) -> Unit,
-    isError: Boolean
+    isError: Boolean,
 ) {
     Row(verticalAlignment = Alignment.CenterVertically) {
         Text(text = text, style = MaterialTheme.typography.headlineSmall)
@@ -135,7 +159,7 @@ internal fun ScoreTextRow(
                 {
                     Text(
                         text = "형식을 다시 써주세요",
-                        style = MaterialTheme.typography.labelSmall
+                        style = MaterialTheme.typography.labelSmall,
                     )
                 }
             } else {
@@ -144,12 +168,12 @@ internal fun ScoreTextRow(
             placeholder = {
                 Text(
                     text = "$text 입력해주세요.",
-                    style = MaterialTheme.typography.labelLarge
+                    style = MaterialTheme.typography.labelLarge,
                 )
             },
             leadingIcon = { Icon(imageVector = Icons.Rounded.Create, contentDescription = null) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
     }
     Spacer(modifier = Modifier.height(36.dp))

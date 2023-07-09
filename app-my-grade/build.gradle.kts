@@ -26,6 +26,7 @@ dependencies {
     implementation(project(":core:common-android"))
     implementation(project(":compose:compose-core"))
     implementation(project(":data"))
+    implementation(project(":features:ui-setting"))
 
     implementation("com.google.modernstorage:modernstorage-permissions")
     implementation("com.google.modernstorage:modernstorage-photopicker")
@@ -60,6 +61,7 @@ dependencies {
     implementation(libs.firebase.config)
     implementation(libs.hilt.ext.work)
     implementation(libs.inapp.update)
+    implementation(libs.kotlinx.datetime)
     implementation(libs.material)
     implementation(libs.modernstorage.bom)
     implementation(libs.play.services.ad)

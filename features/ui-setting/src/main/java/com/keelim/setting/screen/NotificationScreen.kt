@@ -101,15 +101,20 @@ private fun NotificationScreen(viewModel: NotificationViewModel = hiltViewModel(
 
             is NotificationState.Success -> {
                 LazyColumn(
-                    contentPadding = padding,
+                    modifier = Modifier.padding(
+                        top = padding.calculateTopPadding(),
+                        bottom = padding.calculateBottomPadding(),
+                        start = 12.dp,
+                        end = 12.dp
+                    ),
                     state = listState,
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     items((notificationState as NotificationState.Success).items) { notification ->
                         NotificationListCard(
+                            notificationDate = notification.date,
                             notificationTitle = notification.title,
-                            notificationDesc = notification.desc,
-                            notificationImageUrl = notification.imageUrl
+                            notificationDesc = notification.desc
                         )
                     }
                 }
@@ -120,9 +125,9 @@ private fun NotificationScreen(viewModel: NotificationViewModel = hiltViewModel(
 
 @Composable
 private fun NotificationListCard(
+    notificationDate: String,
     notificationTitle: String,
     notificationDesc: String,
-    notificationImageUrl: String,
 ) {
     val context = LocalContext.current
     Card {
@@ -132,14 +137,11 @@ private fun NotificationListCard(
                 .padding(16.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            AsyncImage(
-                model = ImageRequest.Builder(context).data(notificationImageUrl).crossfade(true)
-                    .build(),
-                modifier = Modifier
-                    .size(80.dp)
-                    .clip(RoundedCornerShape(8.dp)),
-                contentScale = ContentScale.Crop,
-                contentDescription = "Content Description"
+            Text(
+                text = notificationDate,
+                style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 16.sp),
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 1
             )
             Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
                 Text(
@@ -152,7 +154,7 @@ private fun NotificationListCard(
                     text = notificationDesc,
                     style = TextStyle(fontWeight = FontWeight.Medium, fontSize = 16.sp),
                     overflow = TextOverflow.Ellipsis,
-                    maxLines = 1
+                    maxLines = 5
                 )
             }
         }
@@ -169,8 +171,8 @@ private fun PreviewNotificationScreen() {
 @Composable
 private fun PreviewNotificationListCard() {
     NotificationListCard(
+        notificationDate = "2022.12.13",
         notificationTitle = "공지 제목",
-        notificationDesc = "공지 설명",
-        notificationImageUrl = ""
+        notificationDesc = "공지 설명"
     )
 }

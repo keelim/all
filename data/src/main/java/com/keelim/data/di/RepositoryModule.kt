@@ -10,6 +10,8 @@ import com.keelim.data.source.DefaultTaskRepository
 import com.keelim.data.source.DefaultTaskRepositoryImpl
 import com.keelim.data.source.HistoryRepository
 import com.keelim.data.source.HistoryRepositoryImpl
+import com.keelim.data.source.notification.NotificationRepository
+import com.keelim.data.source.notification.NotificationRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -42,4 +44,9 @@ abstract class RepositoryModule {
     abstract fun bindsBookRepository(
         repository: BookRepositoryImpl
     ): BookRepository
+
+    @Binds
+    abstract fun bindsNotificationRepository(
+        repository: NotificationRepositoryImpl
+    ): NotificationRepository
 }

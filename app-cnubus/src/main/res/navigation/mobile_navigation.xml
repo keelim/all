@@ -13,12 +13,6 @@
         <action
             android:id="@+id/action_tabFragment_to_content3Fragment"
             app:destination="@id/content3Fragment" />
-        <action
-            android:id="@+id/action_tabFragment_to_stationsFragment"
-            app:destination="@id/stationsFragment" />
-        <action
-            android:id="@+id/action_tabFragment_to_myPageFragment"
-            app:destination="@id/myPageFragment" />
     </fragment>
     <fragment
         android:id="@+id/stationArrivalsFragment"
@@ -26,33 +20,10 @@
         android:label="StationArrivalsFragment"
         tools:layout="@layout/fragment_station_arrivals" />
     <fragment
-        android:id="@+id/stationsFragment"
-        android:name="com.keelim.cnubus.ui.screen.stations.StationsFragment"
-        android:label="StationsFragment"
-        tools:layout="@layout/fragment_stations">
-        <action
-            android:id="@+id/action_stationsFragment_to_stationArrivalsFragment"
-            app:destination="@id/stationArrivalsFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/content3Fragment"
         android:name="com.keelim.cnubus.ui.screen.content.Content3Fragment"
         android:label="Content3Fragment"
         tools:layout="@layout/fragment_content" />
-    <fragment
-        android:id="@+id/myPageFragment"
-        android:name="com.keelim.cnubus.ui.screen.setting.mypage.MyPageFragment"
-        android:label="MyPageFragment"
-        tools:layout="@layout/fragment_my_page">
-        <action
-            android:id="@+id/action_myPageFragment_to_userEditDialog"
-            app:destination="@id/userEditDialog" />
-    </fragment>
-    <dialog
-        android:id="@+id/userEditDialog"
-        android:name="com.keelim.cnubus.ui.dialog.UserEditDialog"
-        android:label="UserEditDialog"
-        tools:layout="@layout/dialog_user_edit" />
     <fragment
         android:id="@+id/appSettingFragment"
         android:name="com.keelim.cnubus.ui.screen.setting.appsetting.AppSettingFragment"
@@ -60,12 +31,4 @@
     <action
         android:id="@+id/open_setting_fragment"
         app:destination="@id/appSettingFragment" />
-
-    <fragment
-        android:id="@+id/labFragment"
-        android:name="com.keelim.cnubus.ui.screen.setting.appsetting.LabFragment"
-        android:label="LabFragment" />
-    <action
-        android:id="@+id/open_lab_fragment"
-        app:destination="@+id/labFragment" />
 </navigation>

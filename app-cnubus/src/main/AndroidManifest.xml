@@ -70,15 +70,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.keelim.cnubus.ui.screen.setting.LabActivity"
-            android:exported="false" />
-        <activity
-            android:name="com.keelim.cnubus.ui.compose.Lab3Activity"
-            android:exported="false" />
-        <activity
-            android:name="com.keelim.cnubus.ui.screen.stations.StationActivity"
-            android:exported="false" />
 
         <activity
             android:name="com.facebook.flipper.android.diagnostics.FlipperDiagnosticActivity"
@@ -107,17 +98,6 @@
                 android:value="androidx.startup" />
         </provider>
 
-        <receiver
-            android:name="com.keelim.cnubus.ui.widget.StationWidgetProvider"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/widget_info" />
-        </receiver>
     </application>
 
 </manifest>

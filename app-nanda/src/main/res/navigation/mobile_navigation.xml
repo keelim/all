@@ -26,7 +26,7 @@
 
     <fragment
         android:id="@+id/aboutFragment"
-        android:name="com.keelim.nandadiagnosis.ui.screen.main.setting.AboutFragment"
+        android:name="com.keelim.nandadiagnosis.ui.screen.main.setting.SettingsFragment"
         tools:layout="@layout/fragment_about" >
         <action
             android:id="@+id/action_aboutFragment_to_webFragment"

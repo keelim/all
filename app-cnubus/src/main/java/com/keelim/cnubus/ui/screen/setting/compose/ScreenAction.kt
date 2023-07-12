@@ -18,11 +18,8 @@ package com.keelim.cnubus.ui.screen.setting.compose
 enum class ScreenAction {
     AppSetting,
     Content,
-    Developer,
     Homepage,
-    Lab,
     Map,
-    MYPAGE,
     Subway,
     Theme,
     Update,

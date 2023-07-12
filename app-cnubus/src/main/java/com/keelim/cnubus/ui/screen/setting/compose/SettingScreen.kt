@@ -48,24 +48,12 @@ import com.keelim.cnubus.utils.toColor
 private val settings by lazy {
     val data = listOf(
         Setting(
-            text = "마이페이지",
-            action = ScreenAction.MYPAGE,
-        ),
-        Setting(
-            text = "공지사항",
-            action = ScreenAction.Content,
-        ),
-        Setting(
             text = "홈페이지",
             action = ScreenAction.Homepage,
         ),
         Setting(
             text = "맵 바로가기",
             action = ScreenAction.Map,
-        ),
-        Setting(
-            text = "업데이트",
-            action = ScreenAction.Update,
         ),
         Setting(
             text = "근처 지하철",
@@ -75,14 +63,6 @@ private val settings by lazy {
             text = "앱 설정",
             action = ScreenAction.AppSetting,
         ),
-        Setting(
-            text = "개발자 소개",
-            action = ScreenAction.Developer,
-        ),
-//        Setting(
-//            text = "실험기능1",
-//            action = ScreenAction.Lab
-//        ),
     )
     data
 }

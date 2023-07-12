@@ -13,39 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.ui.screen.main
+package com.keelim.nandadiagnosis.ui.screen.main.setting
 
+import SettingsRoute
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
-import com.google.android.gms.oss.licenses.OssLicensesActivity
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import androidx.fragment.app.Fragment
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.keelim.common.extensions.toast
 import com.keelim.composeutil.setThemeContent
-import com.keelim.nandadiagnosis.R
 
-class MainBottomFragment : BottomSheetDialogFragment() {
+class SettingsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ): View = setThemeContent {
-        MainBottomSheetRoute(
-            onBlogClick = {
-                dismiss()
-                findNavController().navigate(R.id.inAppWebFragment)
+        SettingsRoute(
+            onNotificationsClick = {
+                toast("현재 준비 중입니다. ")
             },
-            onFavoriteClick = {
-                dismiss()
-                findNavController().navigate(R.id.favoriteFragment2)
-            },
-            onAboutClick = {
-                dismiss()
-                findNavController().navigate(R.id.aboutFragment)
-            },
+            onOpenSourceClick = {
+                requireContext().startActivity(Intent(context, OssLicensesMenuActivity::class.java))
+            }
         )
     }
 }

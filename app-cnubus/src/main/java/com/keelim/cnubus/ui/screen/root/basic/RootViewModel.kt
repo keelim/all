@@ -18,21 +18,40 @@ package com.keelim.cnubus.ui.screen.root.basic
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.keelim.data.model.Location
+import com.keelim.data.model.locationList
 import com.keelim.map.screen.map1.MapEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.coroutines.flow.mapLatest
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class RootViewModel @Inject constructor() : ViewModel() {
-    private val _state = MutableStateFlow<MapEvent>(MapEvent.UnInitialized)
-    val state: StateFlow<MapEvent> = _state.asStateFlow()
+    private val modes = MutableStateFlow("a")
+
+    val state: StateFlow<MapEvent> = modes.mapLatest { mode ->
+        val locations = when (mode) {
+            "a" -> locationList.filter { it.roota != 999 }.sortedBy { it.roota }
+            "b" -> locationList.filter { it.rootb != 999 }.sortedBy { it.rootb }
+            "c" -> locationList.filter { it.rootc != 999 }.sortedBy { it.rootc }
+            else -> locationList.filter { it.root_night != 999 }.sortedBy { it.root_night }
+        }
+        _data.tryEmit(locations)
+        MapEvent.MigrateSuccess(locations)
+    }.catch {
+        emitAll(emptyFlow())
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), MapEvent.UnInitialized)
+
     private val _data = MutableStateFlow<List<Location>>(emptyList())
     val data: StateFlow<List<Location>> = _data.asStateFlow()
-    private val modes = MutableStateFlow("")
 
     fun rootChange(root: String) = viewModelScope.launch {
         when (root) {

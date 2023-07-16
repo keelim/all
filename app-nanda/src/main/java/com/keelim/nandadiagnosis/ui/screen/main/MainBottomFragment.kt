@@ -36,19 +36,11 @@ class MainBottomFragment : BottomSheetDialogFragment() {
         MainBottomSheetRoute(
             onBlogClick = {
                 dismiss()
-                findNavController().navigate(R.id.inAppWebFragment)
+                findNavController().navigate(R.id.webFragment)
             },
             onFavoriteClick = {
                 dismiss()
                 findNavController().navigate(R.id.favoriteFragment2)
-            },
-            onOpenSourceClick = {
-                try {
-                    dismiss()
-                    startActivity(Intent(requireContext(), OssLicensesActivity::class.java))
-                } catch (throwable: Throwable) {
-                    throwable.localizedMessage?.let { toast(it) }
-                }
             },
             onAboutClick = {
                 dismiss()

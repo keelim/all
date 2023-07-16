@@ -35,8 +35,8 @@ import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.plugins.resources.Resources
 import io.ktor.client.plugins.websocket.WebSockets
-import io.ktor.http.ContentType.Application.Json
 import io.ktor.http.isSuccess
+import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import javax.inject.Qualifier
 import javax.inject.Singleton
@@ -110,6 +110,12 @@ object KtorNetworkModule {
     @Singleton
     fun providesKtorAndroidClient() : HttpClient {
         return HttpClient(Android) {
+            install(ContentNegotiation) {
+                json(Json {
+                    prettyPrint = true
+                    isLenient = true
+                })
+            }
             install(Logging) {
                 level = LogLevel.ALL
             }

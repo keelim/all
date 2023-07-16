@@ -28,6 +28,11 @@ class KeelimAndroidApplicationPlugin : Plugin<Project> {
                 buildFeatures.dataBinding = true
                 buildTypes.getByName("release").apply {
                     isMinifyEnabled = true
+                    isShrinkResources = true
+                    proguardFiles(
+                        getDefaultProguardFile("proguard-android-optimize.txt"),
+                        "proguard-rules.pro"
+                    )
                 }
             }
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")

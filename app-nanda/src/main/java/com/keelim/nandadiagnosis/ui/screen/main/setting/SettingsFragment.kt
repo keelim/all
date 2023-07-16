@@ -13,32 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.ui.screen.main.inappweb
+package com.keelim.nandadiagnosis.ui.screen.main.setting
 
+import SettingsRoute
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
+import com.keelim.common.extensions.toast
 import com.keelim.composeutil.setThemeContent
-import com.keelim.setting.screen.webview.WebViewRoute
 
-class WebFragment : Fragment() {
-    private val url: String by lazy {
-        "https://m.blog.naver.com/cjhdori"
-    }
-
+class SettingsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ): View = setThemeContent {
-        WebViewRoute(
-            onBackwardClick = {
-                findNavController().popBackStack()
+        SettingsRoute(
+            onNotificationsClick = {
+                toast("현재 준비 중입니다. ")
             },
-            url = url
+            onOpenSourceClick = {
+                requireContext().startActivity(Intent(context, OssLicensesMenuActivity::class.java))
+            }
         )
     }
 }

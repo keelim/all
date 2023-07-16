@@ -64,10 +64,6 @@ class SettingFragment2 : Fragment() {
                         },
                         ActivityOptions.makeSceneTransitionAnimation(requireActivity()).toBundle(),
                     )
-                    ScreenAction.Developer, ScreenAction.Lab -> {
-                    }
-                    ScreenAction.Subway -> findNavController().navigate(R.id.stationsFragment)
-                    ScreenAction.MYPAGE -> findNavController().navigate(R.id.myPageFragment)
                     ScreenAction.AppSetting -> findNavController().navigate(R.id.open_setting_fragment)
                     else -> {}
                 }

@@ -25,12 +25,10 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun MainBottomSheetRoute(
     onBlogClick: () -> Unit,
-    onFavoriteClick: () -> Unit,
     onAboutClick: () -> Unit,
 ) {
     MainBottomSheetScreen(
         onBlogClick = onBlogClick,
-        onFavoriteClick = onFavoriteClick,
         onAboutClick = onAboutClick,
     )
 }
@@ -38,7 +36,6 @@ fun MainBottomSheetRoute(
 @Composable
 private fun MainBottomSheetScreen(
     onBlogClick: () -> Unit = {},
-    onFavoriteClick: () -> Unit = {},
     onAboutClick: () -> Unit = {},
 ) {
     Column {
@@ -56,26 +53,6 @@ private fun MainBottomSheetScreen(
                 Icon(imageVector = Icons.Default.DesignServices, contentDescription = null)
                 Spacer(modifier = Modifier.width(10.dp))
                 Text(text = "관련 정보", style = MaterialTheme.typography.bodyMedium)
-            }
-            Icon(
-                imageVector = Icons.Default.ArrowCircleRight,
-                contentDescription = null,
-            )
-        }
-        Row(
-            modifier =
-            Modifier
-                .fillMaxWidth()
-                .padding(vertical = 14.dp, horizontal = 20.dp)
-                .height(40.dp)
-                .clickable { onFavoriteClick() },
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
-        ) {
-            Row {
-                Icon(imageVector = Icons.Default.AccessTimeFilled, contentDescription = null)
-                Spacer(modifier = Modifier.width(10.dp))
-                Text(text = "관심 영역", style = MaterialTheme.typography.bodyMedium)
             }
             Icon(
                 imageVector = Icons.Default.ArrowCircleRight,

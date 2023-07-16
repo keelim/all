@@ -70,7 +70,6 @@
                     android:scheme="https" />
             </intent-filter>
         </activity>
-        <activity android:name="com.keelim.nandadiagnosis.ui.screen.setting.SettingActivity" />
 
         <activity android:name="com.facebook.flipper.android.diagnostics.FlipperDiagnosticActivity"
             android:exported="true"/>

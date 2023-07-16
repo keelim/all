@@ -7,8 +7,7 @@
     <fragment
         android:id="@+id/navigation_category"
         android:name="com.keelim.nandadiagnosis.ui.screen.main.category.CategoryFragment"
-        android:label="@string/title_category"
-        tools:layout="@layout/fragment_category" >
+        android:label="@string/title_category">
         <action
             android:id="@+id/action_navigation_category_to_diagnosisFragment"
             app:destination="@id/diagnosisFragment" />
@@ -32,10 +31,6 @@
             android:id="@+id/action_aboutFragment_to_webFragment"
             app:destination="@id/webFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/inAppWebFragment"
-        android:name="com.keelim.nandadiagnosis.ui.screen.main.inappweb.InAppWebFragment"
-        android:label="InAppWebFragment" />
     <fragment
         android:id="@+id/diagnosisFragment"
         android:name="com.keelim.nandadiagnosis.ui.screen.main.category.DiagnosisFragment"

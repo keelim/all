@@ -1,7 +1,5 @@
 package com.keelim.nandadiagnosis.di
 
-import com.keelim.nandadiagnosis.inappupdate.InAppUpdateManager
-import com.keelim.nandadiagnosis.inappupdate.InAppUpdateManagerImpl
 import com.keelim.nandadiagnosis.notification.NotificationBuilder
 import com.keelim.nandadiagnosis.notification.NotificationBuilderImpl
 import dagger.Binds
@@ -16,9 +14,4 @@ abstract class AppModule {
     abstract fun bindsNotificationBuilder(
         notificationBuilderImpl: NotificationBuilderImpl,
     ): NotificationBuilder
-
-    @Binds
-    abstract fun bindsAppUpdateManager(
-        appUpdateManagerImpl: InAppUpdateManagerImpl,
-    ): InAppUpdateManager
 }

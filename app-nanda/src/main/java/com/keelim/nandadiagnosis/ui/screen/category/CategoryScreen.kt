@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalLayoutApi::class)
 
-package com.keelim.nandadiagnosis.ui.screen.main.category
+package com.keelim.nandadiagnosis.ui.screen.category
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

@@ -26,13 +26,11 @@ import androidx.compose.ui.unit.dp
 fun MainBottomSheetRoute(
     onBlogClick: () -> Unit,
     onFavoriteClick: () -> Unit,
-    onOpenSourceClick: () -> Unit,
     onAboutClick: () -> Unit,
 ) {
     MainBottomSheetScreen(
         onBlogClick = onBlogClick,
         onFavoriteClick = onFavoriteClick,
-        onOpenSourceClick = onOpenSourceClick,
         onAboutClick = onAboutClick,
     )
 }
@@ -41,7 +39,6 @@ fun MainBottomSheetRoute(
 private fun MainBottomSheetScreen(
     onBlogClick: () -> Unit = {},
     onFavoriteClick: () -> Unit = {},
-    onOpenSourceClick: () -> Unit = {},
     onAboutClick: () -> Unit = {},
 ) {
     Column {
@@ -49,7 +46,7 @@ private fun MainBottomSheetScreen(
             modifier =
             Modifier
                 .fillMaxWidth()
-                .padding(vertical = 14.dp, horizontal = 20.dp)
+                .padding(vertical = 36.dp, horizontal = 20.dp)
                 .height(40.dp)
                 .clickable { onBlogClick() },
             verticalAlignment = Alignment.CenterVertically,
@@ -95,13 +92,6 @@ private fun MainBottomSheetScreen(
             horizontalArrangement = Arrangement.SpaceEvenly,
         ) {
             Text(
-                text = "오픈소스 라이센스",
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.clickable {
-                    onOpenSourceClick()
-                },
-            )
-            Text(
                 text = "About",
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.clickable {
@@ -109,6 +99,7 @@ private fun MainBottomSheetScreen(
                 },
             )
         }
+        Spacer(modifier = Modifier.height(20.dp))
     }
 }
 

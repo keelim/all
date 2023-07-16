@@ -60,6 +60,7 @@ dependencies {
     implementation(libs.hilt.ext.work)
     implementation(libs.lottie)
     implementation(libs.play.services.ad)
+    implementation(libs.play.services.oss)
     implementation(libs.timber)
     implementation(platform(libs.firebase.bom))
     kapt(libs.hilt.ext.compiler)

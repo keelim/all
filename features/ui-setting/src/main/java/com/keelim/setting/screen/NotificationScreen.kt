@@ -5,14 +5,14 @@ import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material3.Card
@@ -29,9 +29,7 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -41,8 +39,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
 import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.setting.screen.NotificationState
 import com.keelim.setting.screen.NotificationViewModel
@@ -54,7 +50,8 @@ fun NotificationRoute() {
 
 @Composable
 private fun NotificationScreen(viewModel: NotificationViewModel = hiltViewModel()) {
-    val notificationState: NotificationState by viewModel.notificationState.collectAsStateWithLifecycle()
+    val notificationState: NotificationState by
+    viewModel.notificationState.collectAsStateWithLifecycle()
     val listState = rememberLazyListState()
     val hasScrolled by remember { derivedStateOf { listState.firstVisibleItemScrollOffset > 0 } }
     val appBarElevation by
@@ -94,24 +91,43 @@ private fun NotificationScreen(viewModel: NotificationViewModel = hiltViewModel(
             )
         },
     ) { padding ->
-        when (notificationState) {
-            is NotificationState.Empty -> {
-                EmptyView()
-            }
+        NotificationContent(
+            uiState = notificationState,
+            listState = listState,
+            paddingValues = padding
+        )
+    }
+}
 
-            is NotificationState.Success -> {
-                LazyColumn(
-                    contentPadding = padding,
-                    state = listState,
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    items((notificationState as NotificationState.Success).items) { notification ->
-                        NotificationListCard(
-                            notificationTitle = notification.title,
-                            notificationDesc = notification.desc,
-                            notificationImageUrl = notification.imageUrl
-                        )
-                    }
+@Composable
+private fun NotificationContent(
+    uiState: NotificationState,
+    listState: LazyListState,
+    paddingValues: PaddingValues,
+) {
+    when (uiState) {
+        is NotificationState.Empty -> {
+            EmptyView()
+        }
+
+        is NotificationState.Success -> {
+            LazyColumn(
+                modifier =
+                Modifier.padding(
+                    top = paddingValues.calculateTopPadding(),
+                    bottom = paddingValues.calculateBottomPadding(),
+                    start = 12.dp,
+                    end = 12.dp
+                ),
+                state = listState,
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                items(uiState.items) { notification ->
+                    NotificationListCard(
+                        notificationDate = notification.date,
+                        notificationTitle = notification.title,
+                        notificationDesc = notification.desc
+                    )
                 }
             }
         }
@@ -120,9 +136,9 @@ private fun NotificationScreen(viewModel: NotificationViewModel = hiltViewModel(
 
 @Composable
 private fun NotificationListCard(
+    notificationDate: String,
     notificationTitle: String,
     notificationDesc: String,
-    notificationImageUrl: String,
 ) {
     val context = LocalContext.current
     Card {
@@ -132,14 +148,11 @@ private fun NotificationListCard(
                 .padding(16.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            AsyncImage(
-                model = ImageRequest.Builder(context).data(notificationImageUrl).crossfade(true)
-                    .build(),
-                modifier = Modifier
-                    .size(80.dp)
-                    .clip(RoundedCornerShape(8.dp)),
-                contentScale = ContentScale.Crop,
-                contentDescription = "Content Description"
+            Text(
+                text = notificationDate,
+                style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 16.sp),
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 1
             )
             Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
                 Text(
@@ -152,7 +165,7 @@ private fun NotificationListCard(
                     text = notificationDesc,
                     style = TextStyle(fontWeight = FontWeight.Medium, fontSize = 16.sp),
                     overflow = TextOverflow.Ellipsis,
-                    maxLines = 1
+                    maxLines = 5
                 )
             }
         }
@@ -169,8 +182,8 @@ private fun PreviewNotificationScreen() {
 @Composable
 private fun PreviewNotificationListCard() {
     NotificationListCard(
+        notificationDate = "2022.12.13",
         notificationTitle = "공지 제목",
-        notificationDesc = "공지 설명",
-        notificationImageUrl = ""
+        notificationDesc = "공지 설명"
     )
 }

@@ -18,9 +18,9 @@ rootProject.name = "all"
 include(
     ":app-benchmark",
     ":app-cnubus",
-    ":app-comssa",
     ":app-my-grade",
     ":app-nanda",
+    // ":app-comssa",
     // ":app-yr",
     ":core:common",
     ":core:common-android",

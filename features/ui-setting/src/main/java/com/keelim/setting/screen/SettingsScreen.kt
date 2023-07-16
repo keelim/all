@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Build
 import androidx.compose.material.icons.outlined.List
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material.icons.rounded.ArrowBack
@@ -32,6 +33,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
@@ -47,34 +49,31 @@ fun SettingsRoute(
 }
 
 @Composable
-fun SettingsScreen(
-    onNotificationsClick: () -> Unit = {},
-    onOpenSourceClick: () -> Unit = {}
-) {
+fun SettingsScreen(onNotificationsClick: () -> Unit = {}, onOpenSourceClick: () -> Unit = {}) {
     val listState = rememberLazyListState()
-    val hasScrolled by remember {
-        derivedStateOf {
-            listState.firstVisibleItemScrollOffset > 0
-        }
-    }
-    val appBarElevation by animateDpAsState(
-        targetValue = if (hasScrolled) {
+    val hasScrolled by remember { derivedStateOf { listState.firstVisibleItemScrollOffset > 0 } }
+    val appBarElevation by
+    animateDpAsState(
+        targetValue =
+        if (hasScrolled) {
             4.dp
         } else {
             0.dp
-        }, label = ""
+        },
+        label = ""
     )
-    val onBackPressedDispatcher = checkNotNull(LocalOnBackPressedDispatcherOwner.current).onBackPressedDispatcher
+    val onBackPressedDispatcher =
+        checkNotNull(LocalOnBackPressedDispatcherOwner.current).onBackPressedDispatcher
     Scaffold(
         containerColor = MaterialTheme.colorScheme.surface,
         contentColor = MaterialTheme.colorScheme.onSurface,
         topBar = {
             CenterAlignedTopAppBar(
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = if (isSystemInDarkTheme()) {
-                        MaterialTheme.colorScheme.surfaceVariant.copy(
-                            alpha = if (hasScrolled) 1f else 0f
-                        )
+                colors =
+                TopAppBarDefaults.topAppBarColors(
+                    containerColor =
+                    if (isSystemInDarkTheme()) {
+                        MaterialTheme.colorScheme.surfaceVariant.copy(alpha = if (hasScrolled) 1f else 0f)
                     } else {
                         MaterialTheme.colorScheme.surface
                     },
@@ -83,20 +82,19 @@ fun SettingsScreen(
                 title = { Text(text = "Settings") },
                 navigationIcon = {
                     IconButton(onClick = { onBackPressedDispatcher.onBackPressed() }) {
-                        Icon(
-                            Icons.Rounded.ArrowBack,
-                            contentDescription = "Go back"
-                        )
+                        Icon(Icons.Rounded.ArrowBack, contentDescription = "Go back")
                     }
                 },
-                actions = { },
+                actions = {},
             )
         },
     ) { padding ->
-        LazyColumn(
-            contentPadding = padding,
-            state = listState
-        ) {
+        val context = LocalContext.current
+        val versionName = context.packageManager?.getPackageInfo(
+            context.packageName,
+            0
+        )?.versionName
+        LazyColumn(contentPadding = padding, state = listState) {
             item {
                 CategoryItem(
                     title = "Notifications",
@@ -112,6 +110,15 @@ fun SettingsScreen(
                     onClick = { onOpenSourceClick() }
                 )
             }
+            item { Divider(modifier = Modifier.padding(vertical = 12.dp)) }
+            if (versionName != null) {
+                item {
+                    CategoryItem(
+                        title = "App Version: $versionName",
+                        icon = Icons.Outlined.Build,
+                        onClick = {})
+                }
+            }
         }
     }
 }
@@ -123,11 +130,7 @@ private fun PreviewSettingsScreen() {
 }
 
 @Composable
-fun CategoryItem(
-    title: String,
-    icon: ImageVector,
-    onClick: () -> Unit
-) {
+fun CategoryItem(title: String, icon: ImageVector, onClick: () -> Unit) {
     Surface(
         onClick = onClick,
         shape = MaterialTheme.shapes.medium,
@@ -149,4 +152,3 @@ fun CategoryItem(
         }
     }
 }
-

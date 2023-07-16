@@ -37,114 +37,28 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.remoteconfig.ktx.remoteConfig
-import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
-import com.keelim.data.model.entity.Recent
+import com.keelim.composeutil.setThemeContent
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.databinding.FragmentCategoryBinding
 import dagger.hilt.android.AndroidEntryPoint
-import org.json.JSONArray
-import org.json.JSONObject
-import timber.log.Timber
 
 @AndroidEntryPoint
 class CategoryFragment : Fragment() {
-    private var _binding: FragmentCategoryBinding? = null
-    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View {
-        _binding = FragmentCategoryBinding.inflate(layoutInflater, container, false)
-        return binding.root
+    ): View = setThemeContent {
+        CategoryRoute(onCategoryClick = { index -> goNext(index.toString()) })
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initView()
-        initData()
-    }
-
-    private fun initView() = with(binding) {
-        card1.setOnClickListener { goNext("1") }
-        card2.setOnClickListener { goNext("2") }
-        card3.setOnClickListener { goNext("3") }
-        card4.setOnClickListener { goNext("4") }
-        card5.setOnClickListener { goNext("5") }
-        card6.setOnClickListener { goNext("6") }
-        card7.setOnClickListener { goNext("7") }
-        card8.setOnClickListener { goNext("8") }
-        card9.setOnClickListener { goNext("9") }
-        card10.setOnClickListener { goNext("10") }
-        card11.setOnClickListener { goNext("11") }
-        card12.setOnClickListener { goNext("12") }
-        card13.setOnClickListener { goNext("13") }
-    }
-
-    private fun initData() {
-        val remoteConfig = Firebase.remoteConfig
-        remoteConfig.setConfigSettingsAsync(
-            remoteConfigSettings {
-                minimumFetchIntervalInSeconds = 0
-            },
-        )
-        remoteConfig.fetchAndActivate().addOnCompleteListener {
-            if (it.isSuccessful) {
-                val quotes = parseJson(remoteConfig.getString("recents"))
-                Timber.d("$quotes")
-                displayPager(quotes)
-            }
-        }
-    }
-
-    private fun parseJson(json: String): List<Recent> {
-        val jsonArray = JSONArray(json)
-        var jsonList = emptyList<JSONObject>()
-        for (index in 0 until jsonArray.length()) {
-            val jsonObject = jsonArray.getJSONObject(index)
-            jsonObject?.let {
-                jsonList = jsonList + it
-            }
-        }
-
-        return jsonList.map {
-            Recent(
-                reason = it.getString("reason"),
-                domain = it.getString("domain"),
-                class_name = it.getString("class_name"),
-                category = it.getString("category"),
+    private fun goNext(num: String) {
+        findNavController()
+            .navigate(
+                R.id.diagnosisFragment,
+                bundleOf(
+                    "num" to num,
+                ),
             )
-        }
-    }
-
-    private fun displayPager(recents: List<Recent>) {
-        val recentAdapter = RecentAdapter(recents = recents)
-        with(binding.recycler) {
-            adapter = recentAdapter
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        }
-    }
-
-    private fun goNext(num: String) { // 데이터를 사용하는 페이지 이니 조심하라는 문구
-        Snackbar.make(binding.root, "이 기능은 데이터를 사용할 수 있습니다.", Snackbar.LENGTH_LONG)
-            .setAction("ok") {
-                findNavController().navigate(
-                    R.id.diagnosisFragment,
-                    bundleOf(
-                        "num" to num,
-                    ),
-                )
-            }
-            .show()
     }
 }

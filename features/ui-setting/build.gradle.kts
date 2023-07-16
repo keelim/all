@@ -18,7 +18,7 @@ dependencies {
     implementation(project(":compose:compose-core"))
     implementation(project(":data"))
     implementation(project(":domain"))
-
+    implementation(libs.accompanist.webview)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.compose.material3)

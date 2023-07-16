@@ -56,9 +56,6 @@ class Main2Activity : AppCompatActivity() {
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             add(Manifest.permission.POST_NOTIFICATIONS)
-            add(Manifest.permission.READ_MEDIA_IMAGES)
-            add(Manifest.permission.READ_MEDIA_VIDEO)
-            add(Manifest.permission.READ_MEDIA_AUDIO)
         }
     }
 
@@ -78,19 +75,13 @@ class Main2Activity : AppCompatActivity() {
                 when (destination.id) {
                     R.id.navigation_category -> {
                         bottomAppBar.visibility = View.VISIBLE
-                        searchButton.show()
                     }
 
                     else -> {
                         bottomAppBar.visibility = View.GONE
-                        searchButton.hide()
                     }
                 }
             }
-            searchButton.setOnClickListener {
-                navController().navigate(R.id.navigation_search)
-            }
-
             bottomAppBar.setOnMenuItemClickListener {
                 when (it.itemId) {
                     R.id.more -> {

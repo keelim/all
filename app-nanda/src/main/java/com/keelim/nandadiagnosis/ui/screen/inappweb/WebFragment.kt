@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.nandadiagnosis.ui.screen.main.inappweb
+package com.keelim.nandadiagnosis.ui.screen.inappweb
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -25,10 +25,6 @@ import com.keelim.composeutil.setThemeContent
 import com.keelim.setting.screen.webview.WebViewRoute
 
 class WebFragment : Fragment() {
-    private val url: String by lazy {
-        "https://m.blog.naver.com/cjhdori"
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,7 +34,7 @@ class WebFragment : Fragment() {
             onBackwardClick = {
                 findNavController().popBackStack()
             },
-            url = url
+            url = requireArguments().getString("url", "https://m.blog.naver.com/cjhdori")
         )
     }
 }

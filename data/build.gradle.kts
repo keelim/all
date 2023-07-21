@@ -4,7 +4,6 @@ plugins {
     id("keelim.android.hilt")
     kotlin("plugin.parcelize")
     id("kotlinx-serialization")
-    alias(libs.plugins.ksp)
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
@@ -40,7 +39,7 @@ dependencies {
     implementation(libs.room.runtime)
     implementation(libs.timber)
     implementation(platform(libs.firebase.bom))
-    ksp(libs.room.compiler)
+    kapt(libs.room.compiler)
 
     testImplementation(libs.kotlinx.coroutines.android)
     testImplementation(libs.kotlinx.coroutines.test)

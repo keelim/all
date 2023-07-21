@@ -21,6 +21,7 @@ import android.content.IntentFilter
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import androidx.activity.ComponentActivity
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -43,7 +44,7 @@ import javax.inject.Inject
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @AndroidEntryPoint
-class Main2Activity : AppCompatActivity() {
+class Main2Activity : ComponentActivity() {
     private val viewModel: AppMainViewModel by viewModels()
     private val appMainDelegator by lazy { AppMainDelegator(this, viewModel) }
 

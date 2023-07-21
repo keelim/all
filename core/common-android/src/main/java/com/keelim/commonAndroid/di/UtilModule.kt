@@ -9,9 +9,9 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class UtilModule {
+interface UtilModule {
     @Binds
-    abstract fun bindsNetworkConnectivityService(
+    fun bindsNetworkConnectivityService(
         repository: NetworkConnectivityServiceImpl,
     ): NetworkConnectivityService
 }

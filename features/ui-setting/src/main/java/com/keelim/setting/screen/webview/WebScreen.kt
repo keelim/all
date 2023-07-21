@@ -1,6 +1,7 @@
 package com.keelim.setting.screen.webview
 
 import androidx.activity.compose.BackHandler
+import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -28,20 +29,23 @@ import com.google.accompanist.web.rememberWebViewNavigator
 import com.google.accompanist.web.rememberWebViewState
 
 @Composable
-fun WebViewRoute(onBackwardClick: () -> Unit, url: String) {
-    WebViewScreen(onBackwardClick = onBackwardClick, url = url)
+fun WebViewRoute(uri: String) {
+    WebViewScreen(uri = uri)
 }
 
 @Composable
-fun WebViewScreen(onBackwardClick: () -> Unit, url: String) {
+fun WebViewScreen(uri: String) {
     Column {
         val webViewNavigator = rememberWebViewNavigator()
+        val backPressedDispatcher = checkNotNull(
+            LocalOnBackPressedDispatcherOwner.current
+        ).onBackPressedDispatcher
         WebViewNavigationBar(
             onBackwardClick = {
                 if (webViewNavigator.canGoBack) {
                     webViewNavigator.navigateBack()
                 } else {
-                    onBackwardClick()
+                    backPressedDispatcher.onBackPressed()
                 }
             },
             onForwardClick = {
@@ -49,9 +53,9 @@ fun WebViewScreen(onBackwardClick: () -> Unit, url: String) {
                     webViewNavigator.navigateForward()
                 }
             },
-            url = url
+            url = uri
         )
-        val state = rememberWebViewState(url)
+        val state = rememberWebViewState(uri)
         WebView(
             state = state,
             navigator = webViewNavigator,
@@ -68,7 +72,7 @@ fun WebViewScreen(onBackwardClick: () -> Unit, url: String) {
             if (webViewNavigator.canGoBack) {
                 webViewNavigator.navigateBack()
             } else {
-                onBackwardClick()
+                backPressedDispatcher.onBackPressed()
             }
         }
     }
@@ -78,8 +82,7 @@ fun WebViewScreen(onBackwardClick: () -> Unit, url: String) {
 @Composable
 private fun PreviewWebViewScreen() {
     WebViewScreen(
-        onBackwardClick = {},
-        url = "https://www.google.com/#q=iriure"
+        uri = "https://www.google.com/#q=iriure"
     )
 }
 

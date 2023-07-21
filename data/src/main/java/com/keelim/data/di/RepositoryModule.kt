@@ -19,34 +19,34 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class RepositoryModule {
+interface RepositoryModule {
     @Binds
-    abstract fun bindsIoRepository(
+    fun bindsIoRepository(
         repository: HistoryRepositoryImpl,
     ): HistoryRepository
 
     @Binds
-    abstract fun bindsDefaultTaskRepository(
+    fun bindsDefaultTaskRepository(
         repository: DefaultTaskRepositoryImpl
     ): DefaultTaskRepository
 
     @Binds
-    abstract fun bindsDeveloperRepository(
+    fun bindsDeveloperRepository(
         repository: DeveloperRepositoryImpl,
     ): DeveloperRepository
 
     @Binds
-    abstract fun bindsNandaIoRepository(
+    fun bindsNandaIoRepository(
         repository: NandaIORepositoryImpl,
     ): NandaIORepository
 
     @Binds
-    abstract fun bindsBookRepository(
+    fun bindsBookRepository(
         repository: BookRepositoryImpl
     ): BookRepository
 
     @Binds
-    abstract fun bindsNotificationRepository(
+    fun bindsNotificationRepository(
         repository: NotificationRepositoryImpl
     ): NotificationRepository
 }

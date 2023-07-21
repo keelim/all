@@ -38,10 +38,6 @@ class MainBottomFragment : BottomSheetDialogFragment() {
                 dismiss()
                 findNavController().navigate(R.id.webFragment)
             },
-            onFavoriteClick = {
-                dismiss()
-                findNavController().navigate(R.id.favoriteFragment2)
-            },
             onAboutClick = {
                 dismiss()
                 findNavController().navigate(R.id.aboutFragment)

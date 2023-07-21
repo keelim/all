@@ -18,10 +18,13 @@ package com.keelim.cnubus.ui.screen.tab
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.airbnb.lottie.LottieDrawable
 import com.google.android.material.tabs.TabLayoutMediator
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.FragmentTabBinding
+import com.keelim.cnubus.ui.screen.root.RootFragment
+import com.keelim.cnubus.ui.screen.setting.SettingFragment2
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -37,7 +40,6 @@ class TabFragment : Fragment(R.layout.fragment_tab) {
     private fun initViews() = with(binding) {
         viewpager.apply {
             adapter = ViewPager2Adapter(this@TabFragment)
-            setPageTransformer(DepthPageTransformer())
         }
         TabLayoutMediator(tabLayout, viewpager) { tab, position ->
             when (position) {
@@ -51,4 +53,17 @@ class TabFragment : Fragment(R.layout.fragment_tab) {
         animationView.playAnimation()
         animationView.repeatCount = LottieDrawable.INFINITE
     }
+}
+
+class ViewPager2Adapter(fa: Fragment) : FragmentStateAdapter(fa) {
+    private var fragments = listOf(
+        RootFragment.newInstance("a"),
+        RootFragment.newInstance("b"),
+        RootFragment.newInstance("c"),
+        RootFragment.newInstance("night"),
+        SettingFragment2.newInstance(),
+    )
+
+    override fun getItemCount(): Int = fragments.size
+    override fun createFragment(position: Int): Fragment = fragments[position]
 }

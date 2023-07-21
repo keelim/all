@@ -6,6 +6,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import com.keelim.nandadiagnosis.ui.screen.category.categoryRoute
 import com.keelim.nandadiagnosis.ui.screen.category.categoryScreen
+import com.keelim.nandadiagnosis.ui.screen.diagnosis.diagnosisScreen
+import com.keelim.nandadiagnosis.ui.screen.diagnosis.navigateToDiagnosis
+import com.keelim.nandadiagnosis.ui.screen.inappweb.webScreen
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
@@ -22,8 +25,14 @@ fun NandaHost(
         startDestination = categoryRoute,
         modifier = modifier,
     ) {
+        webScreen()
         categoryScreen(
-            onCategoryClick = { }
+            onCategoryClick = { index ->
+                navController.navigateToDiagnosis(index.toString())
+            },
+            nestedGraphs = {
+                diagnosisScreen()
+            }
         )
     }
 }

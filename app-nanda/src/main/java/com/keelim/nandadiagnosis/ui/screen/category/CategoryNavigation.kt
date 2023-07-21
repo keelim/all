@@ -12,6 +12,12 @@ fun NavController.navigateToCategory(navOptions: NavOptions? = null) {
 
 fun NavGraphBuilder.categoryScreen(
     onCategoryClick: (Int) -> Unit,
+    nestedGraphs: NavGraphBuilder.() -> Unit,
 ) {
-    composable(route = categoryRoute) { CategoryRoute(onCategoryClick) }
+    composable(route = categoryRoute) {
+        CategoryRoute(
+            onCategoryClick = onCategoryClick
+        )
+    }
+    nestedGraphs()
 }

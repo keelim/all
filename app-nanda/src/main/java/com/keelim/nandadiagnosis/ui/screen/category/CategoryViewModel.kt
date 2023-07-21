@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.ui.screen.main.category
+package com.keelim.nandadiagnosis.ui.screen.category
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

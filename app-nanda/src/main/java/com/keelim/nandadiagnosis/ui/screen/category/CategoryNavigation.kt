@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.ui.screen.main.category
+package com.keelim.nandadiagnosis.ui.screen.category
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder

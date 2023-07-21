@@ -24,17 +24,6 @@
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
             app:navGraph="@navigation/mobile_navigation" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/search_button"
-            style="@style/Widget.Material3.Button.Icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:borderWidth="0dp"
-            android:backgroundTint="@color/colorPrimary"
-            android:src="@drawable/ic_baseline_search_24"
-            app:layout_anchor="@id/bottom_app_bar"
-            android:contentDescription="@null" />
-
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bottom_app_bar"
             android:layout_width="match_parent"

@@ -12,9 +12,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowCircleRight
 import androidx.compose.material.icons.filled.DesignServices
+import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,14 +26,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun MainBottomSheetRoute(
+fun MainBottomSheet(
     onBlogClick: () -> Unit,
     onAboutClick: () -> Unit,
+    onDismiss: () -> Unit,
+    modalBottomSheetState: SheetState = rememberModalBottomSheetState(),
 ) {
-    MainBottomSheetScreen(
-        onBlogClick = onBlogClick,
-        onAboutClick = onAboutClick,
-    )
+    ModalBottomSheet(
+        onDismissRequest = { onDismiss() },
+        sheetState = modalBottomSheetState,
+        dragHandle = { BottomSheetDefaults.DragHandle() },
+    ) {
+        MainBottomSheetScreen(
+            onBlogClick = onBlogClick,
+            onAboutClick = onAboutClick,
+        )
+    }
 }
 
 @Composable

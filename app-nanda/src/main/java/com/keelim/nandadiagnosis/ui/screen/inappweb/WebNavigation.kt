@@ -21,9 +21,9 @@ fun NavGraphBuilder.webScreen() {
             navArgument("uri") { type = NavType.StringType }
         )
     ) { backStackEntry ->
-        val uri = backStackEntry.arguments?.getString("uri", defaultUri) ?: defaultUri
+        // val uri = backStackEntry.arguments?.getString("uri", defaultUri) ?: defaultUri
         WebViewRoute(
-            uri = uri
+            uri = defaultUri
         )
     }
 }

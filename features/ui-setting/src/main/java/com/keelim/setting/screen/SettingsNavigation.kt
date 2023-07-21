@@ -6,8 +6,9 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 
+const val settingsRoute = "settings"
 fun NavController.navigateSettings(navOptions: NavOptions? = null) {
-    this.navigate("settings", navOptions)
+    this.navigate(settingsRoute, navOptions)
 }
 
 fun NavGraphBuilder.settingsScreen(
@@ -16,7 +17,7 @@ fun NavGraphBuilder.settingsScreen(
     nestedGraphs: NavGraphBuilder.() -> Unit,
 ) {
     composable(
-        route = "settings",
+        route = settingsRoute,
     ) {
         SettingsRoute(
             onNotificationsClick = onNotificationsClick,

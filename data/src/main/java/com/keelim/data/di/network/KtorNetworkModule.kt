@@ -29,15 +29,20 @@ import io.ktor.client.plugins.HttpRequestRetry
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.UserAgent
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.plugins.logging.DEFAULT
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.plugins.resources.Resources
 import io.ktor.client.plugins.websocket.WebSockets
+import io.ktor.client.request.accept
+import io.ktor.http.ContentType
+import io.ktor.http.contentType
 import io.ktor.http.isSuccess
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
+import timber.log.Timber
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
@@ -112,12 +117,32 @@ object KtorNetworkModule {
         return HttpClient(Android) {
             install(ContentNegotiation) {
                 json(Json {
+                    encodeDefaults = true
+                    ignoreUnknownKeys = true
                     prettyPrint = true
                     isLenient = true
                 })
             }
             install(Logging) {
-                level = LogLevel.ALL
+                if (BuildConfig.DEBUG) {
+                    level = LogLevel.ALL
+                    logger = object : Logger {
+                        override fun log(message: String) {
+                            Timber.d(message)
+                        }
+                    }
+                } else {
+                    level = LogLevel.NONE
+                }
+            }
+            install(HttpTimeout) {
+                connectTimeoutMillis = 30_000L
+                requestTimeoutMillis = 30_000L
+                socketTimeoutMillis = 30_000L
+            }
+            defaultRequest {
+                contentType(ContentType.Application.Json)
+                accept(ContentType.Application.Json)
             }
         }
     }

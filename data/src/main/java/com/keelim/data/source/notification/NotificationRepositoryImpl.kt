@@ -17,7 +17,9 @@ class NotificationRepositoryImpl @Inject constructor(
 ) : NotificationRepository {
     override suspend fun getNotification(): List<Notification> {
         return withContext(dispatcher) {
-            val response: NotificationResponse = client.get(BuildConfig.NOTIFICATION_URL).body()
+            val response: NotificationResponse = client.use {
+                it.get(BuildConfig.NOTIFICATION_URL).body()
+            }
             response.values.map { value ->
                 Notification(date = value[0], title = value[1], desc = value[2])
             }

@@ -35,11 +35,11 @@ compose-view = "1.4.3"
 errorprone = "2.20.0"
 firebase = "32.2.0"
 firebase-ui = "8.0.2"
-firebaseCrashlyticsPlugin = "2.9.6"
+firebaseCrashlyticsPlugin = "2.9.7"
 firebasePerfPlugin = "1.4.2"
 flipper = "0.201.0"
 glance = "1.0.0-beta01"
-hilt = "2.46.1"
+hilt = "2.47"
 hiltExt = "1.0.0"
 in-app-update = "2.1.0"
 jacoco = "0.8.7"
@@ -53,7 +53,7 @@ ksp = "1.8.21-1.0.11"
 ktor = "2.3.2"
 leakcanary = "2.12"
 lint = "31.0.2"
-lottie = "6.0.1"
+lottie = "6.1.0"
 maps = "3.4.0"
 material = "1.9.0"
 math3 = "3.6.1"
@@ -85,6 +85,7 @@ turbine = "1.0.0"
 accompanist-flowlayout = { group = "com.google.accompanist", name = "accompanist-flowlayout", version.ref = "accompanist" }
 accompanist-systemuicontroller = { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version.ref = "accompanist" }
 accompanist-webview = { group = "com.google.accompanist", name = "accompanist-webview", version.ref = "accompanist" }
+accompanist-permissions = { group = "com.google.accompanist", name = "accompanist-permissions", version.ref = "accompanist" }
 activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "androidxActivity" }
 android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }

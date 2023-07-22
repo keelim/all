@@ -21,29 +21,30 @@ import android.content.IntentFilter
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.view.View
+import androidx.activity.ComponentActivity
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.databinding.DataBindingUtil
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.keelim.common.extensions.toast
 import com.keelim.commonAndroid.core.AppMainDelegator
 import com.keelim.commonAndroid.core.AppMainViewModel
+import com.keelim.composeutil.setThemeContent
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.databinding.ActivityMain2Binding
 import com.keelim.nandadiagnosis.di.DownloadReceiver
+import com.keelim.nandadiagnosis.ui.screen.NandaApp
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import javax.inject.Inject
 
+@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @AndroidEntryPoint
-class Main2Activity : AppCompatActivity() {
-    private val binding by lazy { ActivityMain2Binding.inflate(layoutInflater) }
+class Main2Activity : ComponentActivity() {
     private val viewModel: AppMainViewModel by viewModels()
     private val appMainDelegator by lazy { AppMainDelegator(this, viewModel) }
 
@@ -56,9 +57,6 @@ class Main2Activity : AppCompatActivity() {
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             add(Manifest.permission.POST_NOTIFICATIONS)
-            add(Manifest.permission.READ_MEDIA_IMAGES)
-            add(Manifest.permission.READ_MEDIA_VIDEO)
-            add(Manifest.permission.READ_MEDIA_AUDIO)
         }
     }
 
@@ -73,35 +71,17 @@ class Main2Activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
-        DataBindingUtil.setContentView<ActivityMain2Binding>(this, R.layout.activity_main_2).apply {
-            navController().addOnDestinationChangedListener { _, destination, _ ->
-                when (destination.id) {
-                    R.id.navigation_category -> {
-                        bottomAppBar.visibility = View.VISIBLE
-                        searchButton.show()
-                    }
-
-                    else -> {
-                        bottomAppBar.visibility = View.GONE
-                        searchButton.hide()
-                    }
-                }
-            }
-            searchButton.setOnClickListener {
-                navController().navigate(R.id.navigation_search)
-            }
-
-            bottomAppBar.setOnMenuItemClickListener {
-                when (it.itemId) {
-                    R.id.more -> {
-                        navController().navigate(R.id.moreBottomSheetDialog)
-                        true
-                    }
-
-                    else -> false
-                }
+        setThemeContent {
+            MaterialTheme {
+                NandaApp(
+                    windowSizeClass = calculateWindowSizeClass(this)
+                )
             }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
         permissionLauncher.launch(appPermissions.toTypedArray())
         fileChecking()
     }
@@ -112,13 +92,9 @@ class Main2Activity : AppCompatActivity() {
     }
 
     private fun fileChecking() {
-        takeIf {
-            File(getExternalFilesDir(null), "nanda.db").exists()
-        }?.run {
-            databaseDownloadAlertDialog()
-        } ?: run {
-            toast("데이터베이스가 존재합니다. 그대로 진행 합니다")
-        }
+        takeIf { File(getExternalFilesDir(null), "nanda.db").exists() }
+            ?.run { databaseDownloadAlertDialog() }
+            ?: run { toast("데이터베이스가 존재합니다. 그대로 진행 합니다") }
     }
 
     private fun databaseDownloadAlertDialog() {
@@ -154,9 +130,5 @@ class Main2Activity : AppCompatActivity() {
             .setAllowedOverMetered(true)
             .setAllowedOverRoaming(true)
             .also(getSystemService(DownloadManager::class.java)::enqueue)
-    }
-
-    private fun navController(): NavController {
-        return binding.navHostFragment.getFragment<NavHostFragment>().navController
     }
 }

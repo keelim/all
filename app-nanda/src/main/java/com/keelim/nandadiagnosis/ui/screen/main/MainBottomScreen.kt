@@ -10,12 +10,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccessTimeFilled
 import androidx.compose.material.icons.filled.ArrowCircleRight
 import androidx.compose.material.icons.filled.DesignServices
+import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,22 +26,27 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun MainBottomSheetRoute(
+fun MainBottomSheet(
     onBlogClick: () -> Unit,
-    onFavoriteClick: () -> Unit,
     onAboutClick: () -> Unit,
+    onDismiss: () -> Unit,
+    modalBottomSheetState: SheetState = rememberModalBottomSheetState(),
 ) {
-    MainBottomSheetScreen(
-        onBlogClick = onBlogClick,
-        onFavoriteClick = onFavoriteClick,
-        onAboutClick = onAboutClick,
-    )
+    ModalBottomSheet(
+        onDismissRequest = { onDismiss() },
+        sheetState = modalBottomSheetState,
+        dragHandle = { BottomSheetDefaults.DragHandle() },
+    ) {
+        MainBottomSheetScreen(
+            onBlogClick = onBlogClick,
+            onAboutClick = onAboutClick,
+        )
+    }
 }
 
 @Composable
 private fun MainBottomSheetScreen(
     onBlogClick: () -> Unit = {},
-    onFavoriteClick: () -> Unit = {},
     onAboutClick: () -> Unit = {},
 ) {
     Column {
@@ -56,26 +64,6 @@ private fun MainBottomSheetScreen(
                 Icon(imageVector = Icons.Default.DesignServices, contentDescription = null)
                 Spacer(modifier = Modifier.width(10.dp))
                 Text(text = "관련 정보", style = MaterialTheme.typography.bodyMedium)
-            }
-            Icon(
-                imageVector = Icons.Default.ArrowCircleRight,
-                contentDescription = null,
-            )
-        }
-        Row(
-            modifier =
-            Modifier
-                .fillMaxWidth()
-                .padding(vertical = 14.dp, horizontal = 20.dp)
-                .height(40.dp)
-                .clickable { onFavoriteClick() },
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
-        ) {
-            Row {
-                Icon(imageVector = Icons.Default.AccessTimeFilled, contentDescription = null)
-                Spacer(modifier = Modifier.width(10.dp))
-                Text(text = "관심 영역", style = MaterialTheme.typography.bodyMedium)
             }
             Icon(
                 imageVector = Icons.Default.ArrowCircleRight,

@@ -9,9 +9,9 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class AppModule {
+interface AppModule {
     @Binds
-    abstract fun bindsNotificationBuilder(
+    fun bindsNotificationBuilder(
         notificationBuilderImpl: NotificationBuilderImpl,
     ): NotificationBuilder
 }

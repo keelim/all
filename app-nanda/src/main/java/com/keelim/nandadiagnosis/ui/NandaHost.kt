@@ -2,12 +2,12 @@ package com.keelim.nandadiagnosis.ui
 
 import android.content.Intent
 import androidx.compose.material3.SheetState
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
+import com.keelim.composeutil.AppState
 import com.keelim.nandadiagnosis.ui.screen.category.categoryRoute
 import com.keelim.nandadiagnosis.ui.screen.category.categoryScreen
 import com.keelim.nandadiagnosis.ui.screen.diagnosis.diagnosisScreen
@@ -23,7 +23,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun NandaHost(
-    appState: NandaState,
+    appState: AppState,
     bottomSheetState: SheetState,
     coroutineScope: CoroutineScope,
     onShowSnackbar: suspend (String, String?) -> Boolean,

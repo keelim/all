@@ -6,6 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
+import com.keelim.composeutil.AppState
 import com.keelim.mygrade.ui.screen.grade.gradeScreen
 import com.keelim.mygrade.ui.screen.grade.navigateGrade
 import com.keelim.mygrade.ui.screen.history.historyScreen
@@ -26,7 +27,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun MyGradeHost(
-    appState: MyGradeState,
+    appState: AppState,
     coroutineScope: CoroutineScope,
     onShowSnackbar: suspend (String, String?) -> Boolean,
     modifier: Modifier = Modifier,

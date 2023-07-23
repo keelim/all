@@ -22,12 +22,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.keelim.cnubus.R
-import com.keelim.cnubus.ui.screen.setting.compose.ScreenAction
-import com.keelim.cnubus.ui.screen.setting.compose.SettingScreen
 import com.keelim.composeutil.setThemeContent
 import com.keelim.map.screen.map1.MapsActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,42 +37,35 @@ class SettingFragment2 : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         return setThemeContent {
-            SettingScreen { action ->
-                when (action) {
-                    ScreenAction.Content -> findNavController().navigate(R.id.content3Fragment)
-                    ScreenAction.Homepage -> startActivity(
-                        Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse(getString(R.string.notification_uri)),
-                        ),
-                        ActivityOptions.makeSceneTransitionAnimation(requireActivity()).toBundle(),
-                    )
-
-                    ScreenAction.Map -> startActivity(
-                        Intent(
-                            requireActivity(),
-                            MapsActivity::class.java,
-                        ),
-                        ActivityOptions.makeSceneTransitionAnimation(requireActivity()).toBundle(),
-                    )
-                    ScreenAction.Update -> startActivity(
-                        Intent(Intent.ACTION_VIEW).apply {
-                            data = Uri.parse(getString(R.string.updateLink))
-                        },
-                        ActivityOptions.makeSceneTransitionAnimation(requireActivity()).toBundle(),
-                    )
-                    ScreenAction.AppSetting -> findNavController().navigate(R.id.open_setting_fragment)
-                    else -> {}
-                }
-            }
+            SettingScreen(onScreenAction = ::onSettingAction)
         }
     }
 
-    companion object {
-        fun newInstance(): SettingFragment2 {
-            return SettingFragment2().apply {
-                arguments = bundleOf()
-            }
-        }
+    private fun onSettingAction(action: ScreenAction) = when (action) {
+        ScreenAction.Homepage -> startActivity(
+            Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse(getString(R.string.notification_uri)),
+            ),
+            ActivityOptions.makeSceneTransitionAnimation(requireActivity()).toBundle(),
+        )
+
+        ScreenAction.Map -> startActivity(
+            Intent(
+                requireActivity(),
+                MapsActivity::class.java,
+            ),
+            ActivityOptions.makeSceneTransitionAnimation(requireActivity()).toBundle(),
+        )
+
+        ScreenAction.Update -> startActivity(
+            Intent(Intent.ACTION_VIEW).apply {
+                data = Uri.parse(getString(R.string.updateLink))
+            },
+            ActivityOptions.makeSceneTransitionAnimation(requireActivity()).toBundle(),
+        )
+
+        ScreenAction.AppSetting -> findNavController().navigate(R.id.open_setting_fragment)
+        else -> Unit
     }
 }

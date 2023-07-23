@@ -24,21 +24,13 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.fragment.NavHostFragment
-import androidx.work.Constraints
-import androidx.work.NetworkType
-import androidx.work.PeriodicWorkRequest
-import androidx.work.WorkManager
-import androidx.work.WorkRequest
-import androidx.work.workDataOf
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.ActivityMainBinding
-import com.keelim.cnubus.worker.BusWorker
 import com.keelim.common.extensions.toast
 import com.keelim.commonAndroid.core.AppMainDelegator
 import com.keelim.commonAndroid.core.AppMainViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -92,48 +84,19 @@ class MainActivity : AppCompatActivity() {
         (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment).navController
     }
 
-    private val workManager by lazy { WorkManager.getInstance(applicationContext) }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+    }
+
+    override fun onStart() {
+        super.onStart()
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         permissionLauncher.launch(appPermissions.toTypedArray())
-        initViews()
-        startWork()
     }
 
     override fun onSupportNavigateUp(): Boolean {
         return navigationController.navigateUp() || super.onSupportNavigateUp()
-    }
-
-    private fun initViews() {
-        navigationController.addOnDestinationChangedListener { _, destination, argument ->
-            if (destination.id == R.id.stationArrivalsFragment) {
-            }
-        }
-    }
-
-    private fun startWork(start: Int = 10) {
-        val loopRequest = PeriodicWorkRequest
-            .Builder(BusWorker::class.java, 1, TimeUnit.HOURS)
-            .setConstraints(
-                Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build(),
-            )
-            .setInputData(
-                workDataOf(
-                    BusWorker.START to start,
-                ),
-            )
-            .build()
-        registerWork(loopRequest)
-    }
-
-    private fun registerWork(work: WorkRequest) {
-        workManager.apply {
-            cancelAllWork()
-            enqueue(work)
-        }
     }
 }

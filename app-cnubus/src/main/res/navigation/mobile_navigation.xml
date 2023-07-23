@@ -9,24 +9,10 @@
         android:id="@+id/tabFragment"
         android:name="com.keelim.cnubus.ui.screen.tab.TabFragment"
         android:label="TabFragment"
-        tools:layout="@layout/fragment_tab">
-        <action
-            android:id="@+id/action_tabFragment_to_content3Fragment"
-            app:destination="@id/content3Fragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/stationArrivalsFragment"
-        android:name="com.keelim.cnubus.ui.screen.stationarrivals.StationArrivalsFragment"
-        android:label="StationArrivalsFragment"
-        tools:layout="@layout/fragment_station_arrivals" />
-    <fragment
-        android:id="@+id/content3Fragment"
-        android:name="com.keelim.cnubus.ui.screen.content.Content3Fragment"
-        android:label="Content3Fragment"
-        tools:layout="@layout/fragment_content" />
+        tools:layout="@layout/fragment_tab" />
     <fragment
         android:id="@+id/appSettingFragment"
-        android:name="com.keelim.cnubus.ui.screen.setting.appsetting.AppSettingFragment"
+        android:name="com.keelim.cnubus.ui.screen.setting.AppSettingFragment"
         android:label="AppSettingFragment" />
     <action
         android:id="@+id/open_setting_fragment"

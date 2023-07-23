@@ -37,16 +37,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.keelim.composeutil.AppState
+import com.keelim.composeutil.rememberAppState
 import com.keelim.nandadiagnosis.ui.NandaHost
-import com.keelim.nandadiagnosis.ui.NandaState
-import com.keelim.nandadiagnosis.ui.rememberNandaState
 import com.keelim.nandadiagnosis.ui.screen.main.NandaDrawer
 import kotlinx.coroutines.launch
 
 @Composable
 fun NandaApp(
     windowSizeClass: WindowSizeClass,
-    appState: NandaState = rememberNandaState(windowSizeClass = windowSizeClass),
+    appState: AppState = rememberAppState(windowSizeClass = windowSizeClass),
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()

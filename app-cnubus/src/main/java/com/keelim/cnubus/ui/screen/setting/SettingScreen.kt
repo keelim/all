@@ -15,7 +15,7 @@
  */
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.keelim.cnubus.ui.screen.setting.compose
+package com.keelim.cnubus.ui.screen.setting
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme

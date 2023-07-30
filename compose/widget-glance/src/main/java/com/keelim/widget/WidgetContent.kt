@@ -15,20 +15,15 @@
  */
 package com.keelim.widget
 
-import android.content.Context
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.glance.Button
-import androidx.glance.GlanceId
 import androidx.glance.GlanceModifier
-import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.appWidgetBackground
 import androidx.glance.appwidget.background
 import androidx.glance.appwidget.cornerRadius
-import androidx.glance.appwidget.provideContent
 import androidx.glance.layout.Alignment
 import androidx.glance.layout.Column
 import androidx.glance.layout.Row
@@ -38,12 +33,6 @@ import androidx.glance.layout.padding
 import androidx.glance.text.FontWeight
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
-
-class WidgetContent : GlanceAppWidget() {
-    override suspend fun provideGlance(context: Context, id: GlanceId) {
-        provideContent { WidgetContentScreen() }
-    }
-}
 
 @Composable
 fun WidgetContentScreen() {
@@ -69,5 +58,5 @@ fun WidgetContentScreen() {
 @Preview
 @Composable
 private fun PreviewWidgetContentScreen() {
-    MaterialTheme { WidgetContentScreen() }
+    WidgetContentScreen()
 }

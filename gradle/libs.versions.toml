@@ -55,6 +55,7 @@ leakcanary = "2.12"
 lint = "31.1.0"
 lottie = "6.1.0"
 maps = "3.4.0"
+maps-compose = "2.11.4"
 material = "1.9.0"
 math3 = "3.6.1"
 modernstorageBom = "1.0.0-alpha06"
@@ -204,6 +205,8 @@ lint-api = { group = "com.android.tools.lint", name = "lint-api", version.ref = 
 lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
 maps-ktx = { group = "com.google.maps.android", name = "maps-ktx", version.ref = "maps" }
 maps-utils-ktx = { group = "com.google.maps.android", name = "maps-utils-ktx", version.ref = "maps" }
+maps-compose-utils = { group = "com.google.maps.android", name = "maps-compose-utils", version.ref = "maps-compose" }
+maps-compose-widget = { group = "com.google.maps.android", name = "maps-compose-widgets", version.ref = "maps-compose" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 material-themAdapter = { group = "com.google.android.material", name = "compose-theme-adapter", version.ref = "themeAdapter" }
 modernstorage-bom = { module = "com.google.modernstorage:modernstorage-bom", version.ref = "modernstorageBom" }

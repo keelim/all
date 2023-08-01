@@ -5,10 +5,9 @@ buildscript {
         maven("https://jitpack.io")
     }
     dependencies {
-        classpath(libs.firebase.crashlytics.gradlePlugin)
-        classpath(libs.firebase.performance.gradlePlugin)
-        classpath("com.google.android.gms:oss-licenses-plugin:0.10.6")
-        classpath("com.google.gms:google-services:4.3.15")
+        classpath(libs.play.services.oss.plugin) {
+            exclude(group = "com.google.protobuf")
+        }
     }
 }
 
@@ -21,6 +20,9 @@ plugins {
     alias(libs.plugins.kotlin.serialization) apply false
     alias(libs.plugins.qodana) apply false
     alias(libs.plugins.secrets) apply false
+    alias(libs.plugins.gms.googleServices) apply false
+    alias(libs.plugins.firebase.crashlytics) apply false
+    alias(libs.plugins.firebase.perf) apply false
 }
 
 task("clean", Delete::class) {

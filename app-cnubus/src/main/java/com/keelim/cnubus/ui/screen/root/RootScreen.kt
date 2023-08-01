@@ -23,8 +23,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
-import com.keelim.map.screen.map1.MapEvent
+import com.keelim.data.model.Location
 
+sealed class MapEvent {
+    object UnInitialized : MapEvent()
+    object Loading : MapEvent()
+    data class MigrateSuccess(val data: List<Location>) : MapEvent()
+    data class Error(val message: String = "에러가 발생하였습니다.") : MapEvent()
+}
 @Composable
 fun RootRoute(onRootClick: (Int) -> Unit) {
     RootScreen(onRootClick = onRootClick)

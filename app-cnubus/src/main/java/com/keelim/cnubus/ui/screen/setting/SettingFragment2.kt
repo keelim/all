@@ -26,7 +26,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.keelim.cnubus.R
 import com.keelim.composeutil.setThemeContent
-import com.keelim.map.screen.map1.MapsActivity
+import com.keelim.map.screen.map.MapActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -53,7 +53,7 @@ class SettingFragment2 : Fragment() {
         ScreenAction.Map -> startActivity(
             Intent(
                 requireActivity(),
-                MapsActivity::class.java,
+                MapActivity::class.java,
             ),
             ActivityOptions.makeSceneTransitionAnimation(requireActivity()).toBundle(),
         )

@@ -3,13 +3,8 @@
 
     <application>
         <activity
-            android:name=".screen.map1.MapsActivity"
+            android:name=".screen.map.MapActivity"
             android:exported="true"
             android:label="maps" />
-        <activity
-            android:name=".screen.map3.detail.DetailActivity"
-            android:exported="false"
-            android:label="detail"
-            android:launchMode="singleTop" />
     </application>
 </manifest>

@@ -80,7 +80,7 @@ secrets = "2.0.1"
 soloader = "0.10.5"
 themeAdapter = "1.2.1"
 timbers = "5.0.1"
-truth = "1.1.4"
+truth = "1.1.5"
 turbine = "1.0.0"
 
 [libraries]

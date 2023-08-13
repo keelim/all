@@ -5,11 +5,20 @@ plugins {
     kotlin("plugin.parcelize")
     id("kotlinx-serialization")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+    alias(libs.plugins.protobuf)
 }
 
-android {
-    namespace = "com.keelim.data"
+protobuf {
+    protoc {
+        // TODO: 고쳐야 하는 부분
+        artifact = "com.google.protobuf:protoc:3.23.4"
+    }
+    generateProtoTasks {
+        all().forEach { task -> task.builtins { register("java") { option("lite") } } }
+    }
 }
+
+android { namespace = "com.keelim.data" }
 
 dependencies {
     implementation(project(":core:common"))
@@ -38,6 +47,7 @@ dependencies {
     implementation(libs.room.ktx)
     implementation(libs.room.runtime)
     implementation(libs.timber)
+    implementation(libs.protobuf.kotlin.lite)
     implementation(platform(libs.firebase.bom))
     kapt(libs.room.compiler)
 
@@ -48,4 +58,3 @@ dependencies {
     androidTestImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.room.testing)
 }
-

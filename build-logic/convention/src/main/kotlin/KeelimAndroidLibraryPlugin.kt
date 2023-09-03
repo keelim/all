@@ -11,6 +11,7 @@ class KeelimAndroidLibraryPlugin : Plugin<Project> {
             with(pluginManager) {
                 apply("com.android.library")
                 apply("org.jetbrains.kotlin.android")
+                apply("org.gradle.android.cache-fix")
             }
             extensions.getByType<LibraryExtension>().apply {
                 buildFeatures.dataBinding = true

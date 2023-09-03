@@ -68,7 +68,6 @@ dependencies {
     implementation(libs.play.services.oss)
     implementation(libs.timber)
     implementation(platform(libs.firebase.bom))
-    kapt(libs.hilt.ext.compiler)
 }
 
 

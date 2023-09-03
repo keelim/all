@@ -17,6 +17,8 @@ package com.keelim.data.model
 
 import android.os.Parcelable
 import com.google.android.gms.maps.model.LatLng
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flow
 import kotlinx.parcelize.Parcelize
 import javax.annotation.concurrent.Immutable
 
@@ -42,6 +44,12 @@ data class Location(
             "https://plus.cnu.ac.kr/images/cyber/thumbnails/691/d_39/2.jpg"
         )
     }
+}
+
+val locationsFlow = flow {
+    emit(locationList)
+}.catch {
+    emit(emptyList())
 }
 
 val locationList = listOf(

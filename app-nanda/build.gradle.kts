@@ -4,7 +4,6 @@ plugins {
     id("keelim.android.application.compose")
     id("keelim.android.application.jacoco")
     id("keelim.android.hilt")
-    id("androidx.navigation.safeargs.kotlin") version ("2.6.0")
 }
 
 android {
@@ -66,5 +65,4 @@ dependencies {
     implementation(libs.play.services.oss)
     implementation(libs.timber)
     implementation(platform(libs.firebase.bom))
-    kapt(libs.hilt.ext.compiler)
 }

@@ -25,7 +25,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.keelim.common.extensions.toast
 import com.keelim.composeutil.setThemeContent
-import com.keelim.map.screen.map1.MapsActivity
+import com.keelim.map.screen.map.MapActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -53,7 +53,7 @@ class RootFragment : Fragment() {
         }
         data?.let { value ->
             startActivity(
-                Intent(requireContext(), MapsActivity::class.java).apply {
+                Intent(requireContext(), MapActivity::class.java).apply {
                     putExtra("location", value - 1)
                     putExtra("mode", mode)
                 },

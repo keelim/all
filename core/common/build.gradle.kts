@@ -2,7 +2,6 @@ plugins {
     id("keelim.android.library")
     id("keelim.android.library.compose")
     id("keelim.android.hilt")
-    kotlin("kapt")
 }
 
 android {
@@ -22,7 +21,6 @@ dependencies {
     implementation(libs.coil.kt)
     implementation(libs.fragment.ktx)
     implementation(libs.hilt.android.testing)
-    implementation(libs.junit4)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.coroutines.test)
@@ -30,5 +28,6 @@ dependencies {
     implementation(libs.material)
     implementation(libs.material.themAdapter)
     implementation(libs.play.services.oss)
+    testImplementation(libs.junit4)
 }
 

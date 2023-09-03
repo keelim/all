@@ -36,6 +36,10 @@ gradlePlugin {
             id = "keelim.android.application.jacoco"
             implementationClass = "KeelimApplicationJacocoPlugin"
         }
+        register("androidApplicationRoom") {
+            id = "keelim.android.application.room"
+            implementationClass = "KeelimRoomConventionPlugin"
+        }
         register("androidLibrary") {
             id = "keelim.android.library"
             implementationClass = "KeelimAndroidLibraryPlugin"

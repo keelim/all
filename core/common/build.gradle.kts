@@ -2,7 +2,6 @@ plugins {
     id("keelim.android.library")
     id("keelim.android.library.compose")
     id("keelim.android.hilt")
-    kotlin("kapt")
 }
 
 android {

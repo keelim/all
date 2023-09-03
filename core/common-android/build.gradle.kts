@@ -28,7 +28,6 @@ dependencies {
     implementation(libs.play.services.ad)
     implementation(libs.timber)
     implementation(libs.kotlinx.datetime)
-    kapt(libs.hilt.compiler)
 
     debugImplementation(libs.flipper)
     debugImplementation(libs.flipper.leakcanary)

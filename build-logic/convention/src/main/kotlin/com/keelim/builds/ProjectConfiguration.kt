@@ -9,7 +9,7 @@ import org.gradle.kotlin.dsl.getByType
 object ProjectConfiguration {
     const val compileSdk = 34
     // const val compileSdkExtension = 5
-    const val minSdk = 24
+    const val minSdk = 26
     const val targetSdk = 33
     const val versionCode = 20230722
     const val versionName = versionCode.toString()

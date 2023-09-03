@@ -3,7 +3,6 @@ plugins {
     id("keelim.android.library.jacoco")
     id("keelim.android.library.compose")
     id("keelim.android.hilt")
-    kotlin("kapt")
     kotlin("plugin.parcelize")
 }
 

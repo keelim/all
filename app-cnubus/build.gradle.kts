@@ -64,7 +64,6 @@ dependencies {
     implementation(libs.play.services.oss)
     implementation(libs.timber)
     implementation(platform(libs.firebase.bom))
-    kapt(libs.hilt.ext.compiler)
 
     debugImplementation(libs.androidx.compose.ui.testManifest)
     debugImplementation(libs.androidx.compose.ui.tooling)

@@ -16,7 +16,6 @@ class KeelimAndroidApplicationPlugin : Plugin<Project> {
                 apply("org.gradle.android.cache-fix")
                 apply("com.google.android.gms.oss-licenses-plugin")
                 apply("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
-                apply("org.jetbrains.qodana")
             }
 
 

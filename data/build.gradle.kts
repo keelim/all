@@ -12,7 +12,7 @@ plugins {
 protobuf {
     protoc {
         // TODO: 고쳐야 하는 부분
-        artifact = "com.google.protobuf:protoc:3.24.2"
+        artifact = "com.google.protobuf:protoc:3.24.3"
     }
     generateProtoTasks {
         all().forEach { task -> task.builtins { register("java") { option("lite") } } }

@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.mapLatest
 import javax.inject.Inject
 
 data class GradeHistory(
+    val subject: String,
     val date: String,
     val grade: String,
     val myGrade: Int,
@@ -26,6 +27,7 @@ data class GradeHistory(
 fun SimpleHistory.toGradeHistory(): GradeHistory {
     // TODO: formatter 사용하기
     return GradeHistory(
+        subject = subject,
         date = date.split("T")[0],
         grade = grade,
         myGrade = gradeRank,

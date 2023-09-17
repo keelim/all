@@ -28,11 +28,12 @@ class HistoryRepositoryImpl @Inject constructor(
         return history.uid.toString()
     }
 
-    override suspend fun create(grade: String, point: String): Boolean {
+    override suspend fun create(subject: String, grade: String, point: String): Boolean {
         return try {
             withContext(io) {
                 val (gradeRank, totalRank) = point.replace(" ", "").split("/")
                 SimpleHistory(
+                    subject = subject,
                     grade = grade,
                     gradeRank = gradeRank.toInt(),
                     totalRank = totalRank.toInt()

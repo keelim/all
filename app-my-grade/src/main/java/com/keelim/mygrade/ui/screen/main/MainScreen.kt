@@ -10,8 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Create
 import androidx.compose.material.icons.rounded.Settings
@@ -35,7 +33,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 @Composable
 fun MainRoute(
-    onSubmitClick: (NormalProbability, Int) -> Unit,
+    onSubmitClick: (String, NormalProbability, Int) -> Unit,
     onFloatingButtonClick1: () -> Unit,
     onFloatingButtonClick2: () -> Unit,
     onFloatingButtonClick3: () -> Unit,
@@ -51,7 +49,7 @@ fun MainRoute(
 @Composable
 fun MainScreen(
     viewModel: MainViewModel = hiltViewModel(),
-    onSubmitClick: (NormalProbability, Int) -> Unit = { _, _ -> },
+    onSubmitClick: (String, NormalProbability, Int) -> Unit = { _, _, _ -> },
     onFloatingButtonClick1: () -> Unit = {},
     onFloatingButtonClick2: () -> Unit = {},
     onFloatingButtonClick3: () -> Unit = {},
@@ -67,6 +65,7 @@ fun MainScreen(
         Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {}
 
         val mainState by viewModel.mainScreenState.collectAsStateWithLifecycle()
+        val subject by viewModel.subject.collectAsStateWithLifecycle()
         val state by viewModel.state.collectAsStateWithLifecycle()
         val origin by viewModel.origin.collectAsStateWithLifecycle()
         val average by viewModel.average.collectAsStateWithLifecycle()
@@ -75,41 +74,51 @@ fun MainScreen(
         if (state is MainState.Success) {
             SideEffect {
                 onSubmitClick(
+                    (state as MainState.Success).subject,
                     (state as MainState.Success).value,
                     (state as MainState.Success).student,
                 )
-                viewModel.moveToUnInitialized()
+                viewModel.moveState(MainState.UnInitialized)
             }
         }
 
-        // 과목 평균
+        ScoreTextRow(
+            text = "과목명",
+            value = subject,
+            onValueChange = { viewModel.updateEditType(EditType.Subject(it))},
+            isError = mainState.subjectError,
+        )
         ScoreTextRow(
             text = "원점수",
             value = origin,
-            onValueChange = viewModel::updateOrigin,
+            onValueChange = { viewModel.updateEditType(EditType.Origin(it))},
             isError = mainState.originError,
         )
         ScoreTextRow(
             text = "과목 평균",
             value = average,
-            onValueChange = viewModel::updateAverage,
+            onValueChange = { viewModel.updateEditType(EditType.Average(it))},
             isError = mainState.averageError,
         )
         ScoreTextRow(
             text = "표준편차",
             value = number,
-            onValueChange = viewModel::updateNumber,
+            onValueChange = { viewModel.updateEditType(EditType.Number(it))},
             isError = mainState.numberError,
         )
         ScoreTextRow(
             text = "학생 수",
             value = student,
-            onValueChange = viewModel::updateStudent,
+            onValueChange = { viewModel.updateEditType(EditType.Student(it))},
             isError = mainState.studentError,
         )
         Row {
             Spacer(modifier = Modifier.weight(1f))
-            Button(onClick = { viewModel.submit() }) {
+            Button(onClick = viewModel::clear) {
+                Text(text = "Clear", style = MaterialTheme.typography.labelLarge)
+            }
+            Spacer(modifier = Modifier.width(4.dp))
+            Button(onClick = viewModel::submit) {
                 Text(text = "Submit", style = MaterialTheme.typography.labelLarge)
             }
         }
@@ -117,17 +126,17 @@ fun MainScreen(
         Column {
             Row {
                 Spacer(modifier = Modifier.weight(1f))
-                FloatingActionButton(onClick = { onFloatingButtonClick1() }) {
+                FloatingActionButton(onClick = onFloatingButtonClick1) {
                     Icon(imageVector = Icons.Rounded.ThumbUp, contentDescription = null)
                 }
             }
             Spacer(modifier = Modifier.height(12.dp))
             Row {
-                FloatingActionButton(onClick = { onFloatingButtonClick3() }) {
+                FloatingActionButton(onClick = onFloatingButtonClick3) {
                     Icon(imageVector = Icons.Rounded.Settings, contentDescription = null)
                 }
                 Spacer(modifier = Modifier.weight(1f))
-                FloatingActionButton(onClick = { onFloatingButtonClick2() }) {
+                FloatingActionButton(onClick = onFloatingButtonClick2) {
                     Icon(imageVector = Icons.Rounded.Add, contentDescription = null)
                 }
             }

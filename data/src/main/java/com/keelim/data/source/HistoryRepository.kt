@@ -9,7 +9,7 @@ interface HistoryRepository {
     fun observeSimpleHistories(): Flow<List<SimpleHistory>>
 
     suspend fun create(history: History): String
-    suspend fun create(grade: String, point: String): Boolean
+    suspend fun create(subject: String, grade: String, point: String): Boolean
 
     suspend fun complete(historyId: String, grade: String)
     suspend fun refresh()

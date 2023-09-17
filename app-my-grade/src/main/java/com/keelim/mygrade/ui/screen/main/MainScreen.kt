@@ -78,7 +78,7 @@ fun MainScreen(
                     (state as MainState.Success).value,
                     (state as MainState.Success).student,
                 )
-                viewModel.moveToUnInitialized()
+                viewModel.moveState(MainState.UnInitialized)
             }
         }
 
@@ -114,7 +114,11 @@ fun MainScreen(
         )
         Row {
             Spacer(modifier = Modifier.weight(1f))
-            Button(onClick = { viewModel.submit() }) {
+            Button(onClick = viewModel::clear) {
+                Text(text = "Clear", style = MaterialTheme.typography.labelLarge)
+            }
+            Spacer(modifier = Modifier.width(4.dp))
+            Button(onClick = viewModel::submit) {
                 Text(text = "Submit", style = MaterialTheme.typography.labelLarge)
             }
         }
@@ -122,17 +126,17 @@ fun MainScreen(
         Column {
             Row {
                 Spacer(modifier = Modifier.weight(1f))
-                FloatingActionButton(onClick = { onFloatingButtonClick1() }) {
+                FloatingActionButton(onClick = onFloatingButtonClick1) {
                     Icon(imageVector = Icons.Rounded.ThumbUp, contentDescription = null)
                 }
             }
             Spacer(modifier = Modifier.height(12.dp))
             Row {
-                FloatingActionButton(onClick = { onFloatingButtonClick3() }) {
+                FloatingActionButton(onClick = onFloatingButtonClick3) {
                     Icon(imageVector = Icons.Rounded.Settings, contentDescription = null)
                 }
                 Spacer(modifier = Modifier.weight(1f))
-                FloatingActionButton(onClick = { onFloatingButtonClick2() }) {
+                FloatingActionButton(onClick = onFloatingButtonClick2) {
                     Icon(imageVector = Icons.Rounded.Add, contentDescription = null)
                 }
             }

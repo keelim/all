@@ -11,7 +11,7 @@ fun NavController.navigateHistory(navOptions: NavOptions? = null) {
 }
 
 fun NavGraphBuilder.historyScreen(
-    onHistoryClick: (String, String) -> Unit,
+    onHistoryClick: (String, String, String) -> Unit,
 ) {
     composable(
         route = "history",

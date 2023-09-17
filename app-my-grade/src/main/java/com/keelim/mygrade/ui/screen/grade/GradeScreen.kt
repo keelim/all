@@ -48,6 +48,7 @@ fun GradeRoute(
         Snackbar(dismissAction = { viewModel.dismissMessage() }) { Text(text = uiState.message) }
     }
     GradeScreen(
+        subject = data.subject,
         grade = data.grade,
         rank = data.point,
         onCopyClick = onCopyClick,
@@ -57,6 +58,7 @@ fun GradeRoute(
 
 @Composable
 private fun GradeScreen(
+    subject: String,
     grade: String,
     rank: String,
     onCopyClick: () -> Unit,
@@ -65,6 +67,7 @@ private fun GradeScreen(
     Column {
         NavigationBackArrowBar(title = "결과 확인")
         GradeContent(
+            subject = subject,
             grade = grade,
             rank = rank,
             onCopyClick = onCopyClick,
@@ -75,6 +78,7 @@ private fun GradeScreen(
 
 @Composable
 fun GradeContent(
+    subject: String,
     grade: String,
     rank: String,
     onCopyClick: () -> Unit,
@@ -87,6 +91,8 @@ fun GradeContent(
         verticalArrangement = Arrangement.Center,
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
+            Text(text = "과목명: $subject ", style = MaterialTheme.typography.headlineLarge)
+            Spacer(modifier = Modifier.height(8.dp))
             Text(text = "예상학점: $grade ", style = MaterialTheme.typography.headlineLarge)
             Spacer(modifier = Modifier.height(4.dp))
             Text(text = "예상등수: $rank", style = MaterialTheme.typography.headlineLarge)
@@ -145,5 +151,5 @@ fun GradeContent(
 @Preview(showBackground = true)
 @Composable
 private fun PreviewGradeScreen() {
-    GradeScreen(grade = "12", rank = "23", onCopyClick = {}, onShareClick = {})
+    GradeScreen(subject = "Computer Science", grade = "12", rank = "23", onCopyClick = {}, onShareClick = {})
 }

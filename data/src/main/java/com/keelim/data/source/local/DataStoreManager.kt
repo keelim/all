@@ -17,7 +17,11 @@ package com.keelim.data.source.local
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.doublePreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.floatPreferencesKey
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.keelim.data.UserSettings
@@ -27,7 +31,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class DataStoreManager @Inject constructor(
-    private val defaultDataStore: DataStore<Preferences>,
+    val defaultDataStore: DataStore<Preferences>,
     private val userSettingsDataStore: DataStore<UserSettings>,
 ) {
     fun getLong(keyStone: String): Flow<Long> = defaultDataStore.data.map { preferences ->
@@ -42,15 +46,45 @@ class DataStoreManager @Inject constructor(
         }
     }
 
-    fun getUserId(keyStone: String): Flow<String> = defaultDataStore.data.map { preferences ->
-        val key = stringPreferencesKey(keyStone)
-        preferences[key] ?: "None"
+    inline fun <reified T> getValue(key: String): Flow<T> = defaultDataStore.data.map { preferences ->
+        when(T::class) {
+            Boolean::class -> preferences[booleanPreferencesKey(key)]
+            Double::class -> preferences[doublePreferencesKey(key)]
+            Float::class -> preferences[floatPreferencesKey(key)]
+            Int::class -> preferences[intPreferencesKey(key)]
+            String::class -> preferences[stringPreferencesKey(key)]
+            else -> throw IllegalStateException()
+        } as T
+    }
+    suspend fun setKeyValue(keyStone: String, value: Boolean) {
+        val key = booleanPreferencesKey(keyStone)
+        defaultDataStore.edit { preferences ->
+            preferences[key] = value
+        }
+    }
+    suspend fun setKeyValue(keyStone: String, value: Double) {
+        val key = doublePreferencesKey(keyStone)
+        defaultDataStore.edit { preferences ->
+            preferences[key] = value
+        }
+    }
+    suspend fun setKeyValue(keyStone: String, value: Float) {
+        val key = floatPreferencesKey(keyStone)
+        defaultDataStore.edit { preferences ->
+            preferences[key] = value
+        }
+    }
+    suspend fun setKeyValue(keyStone: String, value: Int) {
+        val key = intPreferencesKey(keyStone)
+        defaultDataStore.edit { preferences ->
+            preferences[key] = value
+        }
     }
 
-    suspend fun setUserId(keyStone: String, id: String) {
+    suspend fun setKeyValue(keyStone: String, value: String) {
         val key = stringPreferencesKey(keyStone)
         defaultDataStore.edit { preferences ->
-            preferences[key] = id
+            preferences[key] = value
         }
     }
 

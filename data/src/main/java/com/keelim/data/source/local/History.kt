@@ -22,6 +22,7 @@ data class History(
 @Entity(tableName = "simpleHistory")
 data class SimpleHistory(
     @PrimaryKey(autoGenerate = true) val uid: Int = 0,
+    val subject: String = "not supported",
     val date: String = Clock.System.now().toLocalDateTime(TimeZone.UTC).toString(),
     val grade: String,
     val gradeRank: Int,

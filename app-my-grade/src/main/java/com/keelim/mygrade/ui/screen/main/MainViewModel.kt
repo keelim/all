@@ -59,6 +59,18 @@ class MainViewModel @Inject constructor() : ViewModel() {
         updateStateEmpty()
     }
 
+    fun clear() {
+        _average.tryEmit("")
+        _number.tryEmit("")
+        _origin.tryEmit("")
+        _student.tryEmit("")
+        _subject.tryEmit("")
+    }
+
+    fun <T: MainState> moveState(state: T) {
+        _state.tryEmit(state)
+    }
+
     // TODO: 이때 데이터 베이스에 저장을 할 것
     fun submit() {
         val subject = runCatching {
@@ -131,13 +143,7 @@ class MainViewModel @Inject constructor() : ViewModel() {
         )
     }
 
-    fun moveToUnInitialized() {
-        _state.tryEmit(
-            MainState.UnInitialized,
-        )
-    }
-
-    fun updateStateEmpty() {
+    private fun updateStateEmpty() {
         _mainScreenState.tryEmit(
             MainScreenState.empty(),
         )

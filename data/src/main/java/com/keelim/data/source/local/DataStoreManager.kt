@@ -46,7 +46,7 @@ class DataStoreManager @Inject constructor(
         }
     }
 
-    inline fun <reified T> getValue(key: String): Flow<T> = defaultDataStore.data.map { preferences ->
+    inline fun <reified T> getValue(key: String): Flow<T?> = defaultDataStore.data.map { preferences ->
         when(T::class) {
             Boolean::class -> preferences[booleanPreferencesKey(key)]
             Double::class -> preferences[doublePreferencesKey(key)]

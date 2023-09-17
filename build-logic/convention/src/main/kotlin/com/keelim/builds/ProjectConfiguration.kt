@@ -11,7 +11,7 @@ object ProjectConfiguration {
     // const val compileSdkExtension = 5
     const val minSdk = 26
     const val targetSdk = 33
-    const val versionCode = 20230904
+    const val versionCode = 20230917
     const val versionName = versionCode.toString()
     val javaVer = JavaVersion.VERSION_17
 }

@@ -40,10 +40,11 @@ fun MyGradeHost(
         modifier = modifier,
     ) {
         mainScreen(
-            onSubmitClick = { normalProbability, student ->
+            onSubmitClick = { subject, normalProbability, student ->
                 navController.navigateGrade(
-                    normalProbability.grade(),
-                    Level((normalProbability.value * student) / 100).toProcess(student.toString()),
+                    subject = subject,
+                    grade =normalProbability.grade(),
+                    point =Level((normalProbability.value * student) / 100).toProcess(student.toString()),
                 )
             },
             onFloatingButtonClick1 = { navController.navigateHistory() },
@@ -54,17 +55,18 @@ fun MyGradeHost(
             onDismiss = {
                 navController.popBackStack()
             },
-            onNavigate = { normalProbability, student ->
+            onNavigate = { subject, normalProbability, student ->
                 navController.navigateGrade(
-                    normalProbability.grade(),
-                    Level((normalProbability.value * student) / 100).toProcess(student.toString()),
+                    subject = subject,
+                    grade = normalProbability.grade(),
+                    point = Level((normalProbability.value * student) / 100).toProcess(student.toString()),
                 )
             },
         )
         historyScreen(
-            onHistoryClick = { grade, point ->
+            onHistoryClick = { subject, grade, point ->
                 navController.navigateGrade(
-                    grade, point
+                    subject = subject, grade = grade, point = point
                 )
             },
         )

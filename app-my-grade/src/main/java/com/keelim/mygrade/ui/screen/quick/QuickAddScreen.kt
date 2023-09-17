@@ -30,7 +30,7 @@ import com.keelim.mygrade.ui.screen.main.NormalProbability
 
 @Composable
 fun QuickAddRoute(
-    onNavigate: (NormalProbability, Int) -> Unit,
+    onNavigate: (String, NormalProbability, Int) -> Unit,
 ) {
     QuickAddScreen(
         onNavigate = onNavigate,
@@ -40,7 +40,7 @@ fun QuickAddRoute(
 @Composable
 private fun QuickAddScreen(
     viewModel: QuickAddViewModel = hiltViewModel(),
-    onNavigate: (NormalProbability, Int) -> Unit = { _, _ -> },
+    onNavigate: (String, NormalProbability, Int) -> Unit = { _, _, _ -> },
 ) {
     Column(
         modifier = Modifier
@@ -54,8 +54,8 @@ private fun QuickAddScreen(
             Spacer(modifier = Modifier.height(20.dp))
             val uiState by viewModel.quickAddUiState.collectAsStateWithLifecycle()
             SideEffect {
-                if (uiState.normalProbability.value != 0 && uiState.student != 0) {
-                    onNavigate(uiState.normalProbability, uiState.student)
+                if (uiState.isValid()) {
+                    onNavigate(uiState.subject,uiState.normalProbability, uiState.student)
                     viewModel.clear()
                 }
             }
@@ -75,7 +75,7 @@ private fun QuickAddScreen(
                 },
                 placeholder = {
                     Text(
-                        text = "원점수, 과목 평균, 표준편차, 학생수를 순서대로 입력하세요.",
+                        text = "과목명, 원점수, 과목 평균, 표준편차, 학생수를 순서대로 입력하세요.",
                         style = MaterialTheme.typography.labelLarge,
                     )
                 },

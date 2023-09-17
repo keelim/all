@@ -8,6 +8,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.keelim.composeutil.AppState
+import com.keelim.setting.screen.event.eventScreen
 import com.keelim.setting.screen.navigateNotification
 import com.keelim.setting.screen.notificationScreen
 import com.keelim.setting.screen.settingsScreen
@@ -39,5 +40,6 @@ fun CnubusHost(
                 notificationScreen()
             }
         )
+        eventScreen()
     }
 }

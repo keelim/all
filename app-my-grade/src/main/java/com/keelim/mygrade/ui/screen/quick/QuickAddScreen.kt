@@ -55,7 +55,7 @@ private fun QuickAddScreen(
             val uiState by viewModel.quickAddUiState.collectAsStateWithLifecycle()
             SideEffect {
                 if (uiState.isValid()) {
-                    onNavigate(uiState.subject,uiState.normalProbability, uiState.student)
+                    onNavigate(uiState.subject, uiState.normalProbability, uiState.student)
                     viewModel.clear()
                 }
             }

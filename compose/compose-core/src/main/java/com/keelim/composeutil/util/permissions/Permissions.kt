@@ -44,26 +44,26 @@ fun PermissionScreen(
                     .fillMaxWidth()
                     .background(MaterialTheme.colorScheme.primary)
                     .padding(24.dp),
-                contentAlignment = Alignment.Center
+                contentAlignment = Alignment.Center,
             ) {
                 Icon(
                     imageVector = Icons.Default.CheckCircle,
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.onPrimary,
-                    modifier = Modifier.size(40.dp)
+                    modifier = Modifier.size(40.dp),
                 )
             }
             Column(
                 Modifier
                     .padding(24.dp)
                     .fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
                     text = getTextToShowGivenPermissions(
                         multiplePermissionsState.revokedPermissions,
-                        multiplePermissionsState.shouldShowRationale
-                    )
+                        multiplePermissionsState.shouldShowRationale,
+                    ),
                 )
                 Spacer(Modifier.height(24.dp))
                 Row(Modifier.align(Alignment.End)) {
@@ -71,7 +71,8 @@ fun PermissionScreen(
                     TextButton(
                         onClick = {
                             multiplePermissionsState.launchMultiplePermissionRequest()
-                        }) {
+                        },
+                    ) {
                         Text("Continue")
                     }
                 }
@@ -82,7 +83,7 @@ fun PermissionScreen(
 
 private fun getTextToShowGivenPermissions(
     permissions: List<PermissionState>,
-    shouldShowRationale: Boolean
+    shouldShowRationale: Boolean,
 ): String {
     val revokedPermissionsSize = permissions.size
     if (revokedPermissionsSize == 0) return ""
@@ -109,11 +110,10 @@ private fun getTextToShowGivenPermissions(
             "\n앱이 작동을 위해서는 권한이 필요합니다."
         } else {
             "\n앱 권한을 거절하였습니다. 원활한 앱 작동을 위해서는 권한이 필요합니다. "
-        }
+        },
     )
     return textToShow.toString()
 }
-
 
 @Preview(showBackground = true)
 @Composable
@@ -121,6 +121,6 @@ private fun PreviewPermissionScreen() {
     PermissionScreen(
         bottomSheetState = rememberModalBottomSheetState(),
         multiplePermissionsState = rememberMultiplePermissionsState(permissions = emptyList()),
-        onDismiss = {}
+        onDismiss = {},
     )
 }

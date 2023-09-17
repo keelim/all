@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.callbackFlow
 import javax.inject.Inject
 
 class NetworkConnectivityServiceImpl @Inject constructor(
-    @ApplicationContext context: Context
+    @ApplicationContext context: Context,
 ) : NetworkConnectivityService {
 
     private val connectivityManager: ConnectivityManager =

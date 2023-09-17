@@ -23,7 +23,7 @@ fun ColorBox() {
             .border(width = 2.dp, color = Color.Black)
             .background(randomColor())
             .width(40 * randomInt().dp)
-            .height(10 * randomInt().dp)
+            .height(10 * randomInt().dp),
     )
 }
 
@@ -43,23 +43,23 @@ private fun simpleFlexBoxMeasurePolicy(): MeasurePolicy =
         }
         layout(
             constraints.maxWidth,
-            constraints.maxHeight
+            constraints.maxHeight,
         ) {
             var yPos = 0
             var xPos = 0
             var maxY = 0
             placeables.forEach { placeable ->
-                if(xPos + placeable.width >constraints.maxWidth) {
+                if (xPos + placeable.width > constraints.maxWidth) {
                     xPos = 0
                     yPos += maxY
                     maxY = 0
                 }
                 placeable.placeRelative(
                     x = xPos,
-                    y = yPos
+                    y = yPos,
                 )
                 xPos += placeable.width
-                if(maxY < placeable.height) {
+                if (maxY < placeable.height) {
                     maxY = placeable.height
                 }
             }
@@ -75,12 +75,12 @@ private fun PreviewColorBox() {
 @Composable
 fun SimpleFlexBox(
     modifier: Modifier = Modifier,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     Layout(
         modifier = modifier,
         content = content,
-        measurePolicy = simpleFlexBoxMeasurePolicy()
+        measurePolicy = simpleFlexBoxMeasurePolicy(),
     )
 }
 

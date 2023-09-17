@@ -31,14 +31,14 @@ fun SimpleHistory.toGradeHistory(): GradeHistory {
         date = date.split("T")[0],
         grade = grade,
         myGrade = gradeRank,
-        totalStudent = totalRank
+        totalStudent = totalRank,
     )
 }
 
 @HiltViewModel
 class HistoryViewModel @Inject constructor(
     historyRepository: HistoryRepository,
-    @DefaultDispatcher val disPatcher: CoroutineDispatcher
+    @DefaultDispatcher val disPatcher: CoroutineDispatcher,
 ) : ViewModel() {
     val histories: Flow<PersistentList<GradeHistory>> =
         historyRepository

@@ -6,7 +6,6 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 
-
 fun NavController.navigateEvent(
     eventId: Int = 0,
     navOptions: NavOptions? = null,

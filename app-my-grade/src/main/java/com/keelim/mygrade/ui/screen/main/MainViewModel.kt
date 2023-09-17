@@ -29,38 +29,32 @@ class MainViewModel @Inject constructor() : ViewModel() {
     private val _mainScreenState = MutableStateFlow(MainScreenState.empty())
     val mainScreenState: StateFlow<MainScreenState> = _mainScreenState.asStateFlow()
 
-    private val _origin = MutableStateFlow<String>("")
+    private val _subject = MutableStateFlow("")
+    val subject: StateFlow<String> = _subject.asStateFlow()
+
+    private val _origin = MutableStateFlow("")
     val origin: StateFlow<String> = _origin.asStateFlow()
 
-    private val _average = MutableStateFlow<String>("")
+    private val _average = MutableStateFlow("")
     val average: StateFlow<String> = _average.asStateFlow()
 
-    private val _number = MutableStateFlow<String>("")
+    private val _number = MutableStateFlow("")
     val number: StateFlow<String> = _number.asStateFlow()
 
-    private val _student = MutableStateFlow<String>("")
+    private val _student = MutableStateFlow("")
     val student: StateFlow<String> = _student.asStateFlow()
 
-    fun updateOrigin(origin: String) {
-        origin.trim()
-            .also(_origin::tryEmit)
-    }
-
-    fun updateAverage(average: String) {
-        average.trim()
-            .also(_average::tryEmit)
-        updateStateEmpty()
-    }
-
-    fun updateNumber(number: String) {
-        number.trim()
-            .also(_number::tryEmit)
-        updateStateEmpty()
-    }
-
-    fun updateStudent(student: String) {
-        student.trim()
-            .also(_student::tryEmit)
+    fun <T: EditType> updateEditType(editType: T){
+        editType.value.trim()
+            .also { value ->
+                when(editType) {
+                    is EditType.Average -> _average.tryEmit(value)
+                    is EditType.Number -> _number.tryEmit(value)
+                    is EditType.Origin -> _origin.tryEmit(value)
+                    is EditType.Student -> _student.tryEmit(value)
+                    is EditType.Subject -> _subject.tryEmit(value)
+                }
+            }
         updateStateEmpty()
     }
 
@@ -133,4 +127,13 @@ class MainViewModel @Inject constructor() : ViewModel() {
             MainScreenState.empty(),
         )
     }
+}
+
+sealed interface EditType {
+    val value: String
+    data class Subject(override val value: String): EditType
+    data class Origin(override val value: String): EditType
+    data class Average(override val value: String): EditType
+    data class Number(override val value: String): EditType
+    data class Student(override val value: String): EditType
 }

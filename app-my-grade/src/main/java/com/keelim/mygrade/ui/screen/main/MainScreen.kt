@@ -10,8 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Create
 import androidx.compose.material.icons.rounded.Settings
@@ -67,6 +65,7 @@ fun MainScreen(
         Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {}
 
         val mainState by viewModel.mainScreenState.collectAsStateWithLifecycle()
+        val subject by viewModel.subject.collectAsStateWithLifecycle()
         val state by viewModel.state.collectAsStateWithLifecycle()
         val origin by viewModel.origin.collectAsStateWithLifecycle()
         val average by viewModel.average.collectAsStateWithLifecycle()
@@ -82,29 +81,34 @@ fun MainScreen(
             }
         }
 
-        // 과목 평균
+        ScoreTextRow(
+            text = "과목명",
+            value = subject,
+            onValueChange = { viewModel.updateEditType(EditType.Subject(it))},
+            isError = mainState.originError,
+        )
         ScoreTextRow(
             text = "원점수",
             value = origin,
-            onValueChange = viewModel::updateOrigin,
+            onValueChange = { viewModel.updateEditType(EditType.Origin(it))},
             isError = mainState.originError,
         )
         ScoreTextRow(
             text = "과목 평균",
             value = average,
-            onValueChange = viewModel::updateAverage,
+            onValueChange = { viewModel.updateEditType(EditType.Average(it))},
             isError = mainState.averageError,
         )
         ScoreTextRow(
             text = "표준편차",
             value = number,
-            onValueChange = viewModel::updateNumber,
+            onValueChange = { viewModel.updateEditType(EditType.Number(it))},
             isError = mainState.numberError,
         )
         ScoreTextRow(
             text = "학생 수",
             value = student,
-            onValueChange = viewModel::updateStudent,
+            onValueChange = { viewModel.updateEditType(EditType.Student(it))},
             isError = mainState.studentError,
         )
         Row {

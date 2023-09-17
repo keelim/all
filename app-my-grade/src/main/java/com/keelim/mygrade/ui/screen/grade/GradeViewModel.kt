@@ -32,6 +32,7 @@ class GradeViewModel @Inject constructor(
         val gradeResult = GradeResult.gradeResultInitial(savedStateHandle)
         viewModelScope.launch {
             historyRepository.create(
+                subject = gradeResult.subject,
                 grade = gradeResult.grade,
                 point = gradeResult.point
             ).also {

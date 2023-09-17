@@ -1,5 +1,6 @@
 package com.keelim.data.db
 
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.keelim.data.db.dao.CnuHistoryDao
@@ -20,8 +21,11 @@ import com.keelim.data.source.local.SimpleHistory
 
 @Database(
     entities = [History::class, LocalTask::class, SimpleHistory::class],
-    version = 1,
-    exportSchema = false
+    version = 2,
+    exportSchema = true,
+    autoMigrations = [
+        AutoMigration (from = 1, to = 2)
+    ]
 )
 abstract class MyGradeAppDatabase : RoomDatabase() {
     abstract fun historyDao(): HistoryDao

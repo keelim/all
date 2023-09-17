@@ -14,6 +14,7 @@ import com.keelim.nandadiagnosis.ui.screen.diagnosis.diagnosisScreen
 import com.keelim.nandadiagnosis.ui.screen.diagnosis.navigateToDiagnosis
 import com.keelim.nandadiagnosis.ui.screen.inappweb.navigateToWeb
 import com.keelim.nandadiagnosis.ui.screen.inappweb.webScreen
+import com.keelim.setting.screen.event.eventScreen
 import com.keelim.setting.screen.navigateNotification
 import com.keelim.setting.screen.navigateSettings
 import com.keelim.setting.screen.notificationScreen
@@ -74,5 +75,6 @@ fun NandaHost(
                 notificationScreen()
             }
         )
+        eventScreen()
     }
 }

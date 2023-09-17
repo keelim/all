@@ -38,7 +38,7 @@ fun WebViewScreen(uri: String) {
     Column {
         val webViewNavigator = rememberWebViewNavigator()
         val backPressedDispatcher = checkNotNull(
-            LocalOnBackPressedDispatcherOwner.current
+            LocalOnBackPressedDispatcherOwner.current,
         ).onBackPressedDispatcher
         WebViewNavigationBar(
             onBackwardClick = {
@@ -53,7 +53,7 @@ fun WebViewScreen(uri: String) {
                     webViewNavigator.navigateForward()
                 }
             },
-            url = uri
+            url = uri,
         )
         val state = rememberWebViewState(uri)
         WebView(
@@ -66,7 +66,7 @@ fun WebViewScreen(uri: String) {
                         settings.javaScriptEnabled = true
                     }
                 }
-            }
+            },
         )
         BackHandler(enabled = true) {
             if (webViewNavigator.canGoBack) {
@@ -82,7 +82,7 @@ fun WebViewScreen(uri: String) {
 @Composable
 private fun PreviewWebViewScreen() {
     WebViewScreen(
-        uri = "https://www.google.com/#q=iriure"
+        uri = "https://www.google.com/#q=iriure",
     )
 }
 
@@ -93,7 +93,7 @@ fun WebViewNavigationBar(onBackwardClick: () -> Unit, onForwardClick: () -> Unit
             .fillMaxWidth()
             .height(50.dp)
             .padding(horizontal = 8.dp),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
             imageVector = Icons.Rounded.ArrowBack,
@@ -121,7 +121,7 @@ fun WebViewNavigationBar(onBackwardClick: () -> Unit, onForwardClick: () -> Unit
                 Icon(
                     imageVector = Icons.Rounded.Lock,
                     contentDescription = null,
-                    modifier = Modifier.size(20.dp)
+                    modifier = Modifier.size(20.dp),
                 )
                 Text(text = url, maxLines = 1, modifier = Modifier.padding(6.dp))
             }
@@ -135,6 +135,6 @@ private fun PreviewWebViewNavigationBar() {
     WebViewNavigationBar(
         onBackwardClick = {},
         onForwardClick = {},
-        url = "https://www.google.com/#q=mazim"
+        url = "https://www.google.com/#q=mazim",
     )
 }

@@ -39,6 +39,7 @@ sealed class MapEvent {
     data class MigrateSuccess(val data: List<Location>) : MapEvent()
     data class Error(val message: String = "에러가 발생하였습니다.") : MapEvent()
 }
+
 @Composable
 fun RootRoute(onRootClick: (Int) -> Unit) {
     RootScreen(onRootClick = onRootClick)
@@ -49,18 +50,19 @@ fun RootScreen(onRootClick: (Int) -> Unit, viewModel: RootViewModel = hiltViewMo
     val uiState by viewModel.state.collectAsStateWithLifecycle()
     RootStateView(
         uiState = uiState,
-        onRootClick = onRootClick
+        onRootClick = onRootClick,
     )
 }
 
 @Composable
 fun RootStateView(
     uiState: MapEvent,
-    onRootClick: (Int) -> Unit
+    onRootClick: (Int) -> Unit,
 ) {
     when (uiState) {
         MapEvent.UnInitialized,
-        is MapEvent.Error -> EmptyView()
+        is MapEvent.Error,
+        -> EmptyView()
 
         MapEvent.Loading -> Loading()
         is MapEvent.MigrateSuccess -> {
@@ -70,13 +72,13 @@ fun RootStateView(
                 Spacer(modifier = Modifier.height(8.dp))
                 LazyColumn(
                     contentPadding = PaddingValues(horizontal = 12.dp),
-                    verticalArrangement = Arrangement.spacedBy(24.dp)
+                    verticalArrangement = Arrangement.spacedBy(24.dp),
                 ) {
                     itemsIndexed(uiState.data) { index, item ->
                         RootCard(
                             position = index,
                             rootTitle = item.name,
-                            onRootClick = onRootClick
+                            onRootClick = onRootClick,
                         )
                     }
                 }
@@ -101,14 +103,14 @@ internal fun RootCard(
         modifier = Modifier
             .fillMaxWidth(),
         elevation = CardDefaults.cardElevation(defaultElevation = 10.dp),
-        onClick = { onRootClick(position) }
+        onClick = { onRootClick(position) },
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(15.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
         ) {
             Text(text = rootTitle, style = MaterialTheme.typography.headlineSmall)
         }
@@ -123,19 +125,18 @@ private fun PreviewRootCard() {
 
 @Composable
 fun RootTopBar(
-    title: String
+    title: String,
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp),
-        horizontalArrangement = Arrangement.SpaceBetween
+        horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         Text(
             text = title,
-            style = MaterialTheme.typography.headlineSmall
+            style = MaterialTheme.typography.headlineSmall,
         )
-
     }
 }
 
@@ -143,7 +144,7 @@ fun RootTopBar(
 @Composable
 private fun PreviewRootTopBar() {
     RootTopBar(
-        title = "assueverit"
+        title = "assueverit",
     )
 }
 
@@ -152,9 +153,8 @@ private val roots = listOf(
     "B노선",
     "C노선",
     "야간노선",
-    "설정"
+    "설정",
 )
-
 
 @Preview
 @Composable
@@ -190,4 +190,3 @@ fun ExposedDropdownMenuSample() {
         }
     }
 }
-

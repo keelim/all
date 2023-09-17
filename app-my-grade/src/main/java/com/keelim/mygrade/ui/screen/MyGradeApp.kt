@@ -54,14 +54,14 @@ fun MyGradeApp(
             ) {
                 MyGradeHost(
                     appState = appState,
-                    coroutineScope  =coroutineScope,
+                    coroutineScope = coroutineScope,
                     onShowSnackbar = { message, action ->
                         snackbarHostState.showSnackbar(
                             message = message,
                             actionLabel = action,
                             duration = SnackbarDuration.Short,
                         ) == SnackbarResult.ActionPerformed
-                    }
+                    },
                 )
             }
         }

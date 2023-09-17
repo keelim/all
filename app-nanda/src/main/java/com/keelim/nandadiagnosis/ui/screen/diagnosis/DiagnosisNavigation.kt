@@ -17,11 +17,11 @@ fun NavGraphBuilder.diagnosisScreen() {
     composable(
         route = "$diagnosisRoute/{num}",
         arguments = listOf(
-            navArgument("num") { type = NavType.StringType }
-        )
+            navArgument("num") { type = NavType.StringType },
+        ),
     ) {
         DiagnosisRoute(
-            onDiagnosisClick = {}
+            onDiagnosisClick = {},
         )
     }
 }

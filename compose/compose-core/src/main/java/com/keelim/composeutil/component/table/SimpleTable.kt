@@ -22,7 +22,9 @@ import androidx.compose.ui.unit.dp
 
 @Stable
 data class Columns(
-    val date: String, val name: String, val status: String,
+    val date: String,
+    val name: String,
+    val status: String,
 )
 
 private val rawData = listOf(
@@ -36,13 +38,13 @@ private val rawData = listOf(
     Columns(date = "deseruisse", name = "Malinda Holder", status = "habitant"),
     Columns(date = "deseruisse", name = "Malinda Holder", status = "habitant"),
     Columns(date = "deseruisse", name = "Malinda Holder", status = "habitant"),
-    Columns(date = "deseruisse", name = "Malinda Holder", status = "habitant")
+    Columns(date = "deseruisse", name = "Malinda Holder", status = "habitant"),
 )
 
 @Composable
 fun SimpleTableScreen() {
     LazyColumn(
-        Modifier.padding(8.dp)
+        Modifier.padding(8.dp),
     ) {
         item {
             TableRow()
@@ -53,7 +55,7 @@ fun SimpleTableScreen() {
                 name = item.name,
                 status = item.status,
                 isHeader = index == 0,
-                isFooter = rawData.lastIndex == index
+                isFooter = rawData.lastIndex == index,
             )
         }
     }
@@ -65,11 +67,11 @@ private fun TableRow(
     name: String = "name",
     status: String = "status",
     isHeader: Boolean = false,
-    isFooter: Boolean = false
+    isFooter: Boolean = false,
 ) {
     Row(
         Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween
+        horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         TableCell(text = date, weight = 1f, title = true)
         TableCell(text = name, weight = 1f, title = true)
@@ -81,7 +83,7 @@ private fun TableRow(
             modifier = Modifier
                 .height(1.dp)
                 .fillMaxHeight()
-                .fillMaxWidth()
+                .fillMaxWidth(),
         )
     }
 }
@@ -91,7 +93,7 @@ fun RowScope.TableCell(
     text: String,
     weight: Float,
     alignment: TextAlign = TextAlign.Center,
-    title: Boolean = false
+    title: Boolean = false,
 ) {
     Text(
         text = text,

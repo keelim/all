@@ -130,7 +130,6 @@ private fun PreviewHistoryList() {
     }
 }
 
-
 @Composable
 fun HistoryCard(
     history: GradeHistory,
@@ -145,22 +144,22 @@ fun HistoryCard(
         Column {
             Row(
                 modifier = Modifier.padding(16.dp),
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
             ) {
                 Column {
                     Text(
                         text = "과목명: ${history.subject}",
-                        style = MaterialTheme.typography.bodyLarge
+                        style = MaterialTheme.typography.bodyLarge,
                     )
                     Spacer(Modifier.height(4.dp))
                     Text(
                         text = "예상 학점: ${history.grade}",
-                        style = MaterialTheme.typography.bodyLarge
+                        style = MaterialTheme.typography.bodyLarge,
                     )
                     Spacer(Modifier.height(4.dp))
                     Text(
                         text = "예상 등수: ${history.myGrade} / ${history.totalStudent} 등",
-                        style = MaterialTheme.typography.bodyLarge
+                        style = MaterialTheme.typography.bodyLarge,
                     )
                 }
             }
@@ -168,7 +167,7 @@ fun HistoryCard(
                 text = "입력 날짜: ${history.date}",
                 maxLines = 4,
                 style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier.padding(horizontal = 16.dp)
+                modifier = Modifier.padding(horizontal = 16.dp),
             )
             Spacer(Modifier.height(16.dp))
             // AsyncImage(
@@ -184,4 +183,3 @@ fun HistoryCard(
         }
     }
 }
-

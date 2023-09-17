@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DiagnosisViewModel @Inject constructor(
-    val savedStateHandle: SavedStateHandle
+    val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
     private var nav: Int = 0
@@ -123,5 +123,3 @@ sealed interface DiagnosisScreenState {
     object Error : DiagnosisScreenState
     data class Success(val items: List<DiagnosisItem>) : DiagnosisScreenState
 }
-
-

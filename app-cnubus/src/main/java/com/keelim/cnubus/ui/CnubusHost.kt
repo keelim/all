@@ -38,7 +38,7 @@ fun CnubusHost(
             },
             nestedGraphs = {
                 notificationScreen()
-            }
+            },
         )
         eventScreen()
     }

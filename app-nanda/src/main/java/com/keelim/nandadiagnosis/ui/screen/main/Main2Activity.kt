@@ -24,7 +24,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
@@ -74,7 +73,7 @@ class Main2Activity : ComponentActivity() {
         setThemeContent {
             MaterialTheme {
                 NandaApp(
-                    windowSizeClass = calculateWindowSizeClass(this)
+                    windowSizeClass = calculateWindowSizeClass(this),
                 )
             }
         }

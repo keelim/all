@@ -73,7 +73,7 @@ fun NandaHost(
             },
             nestedGraphs = {
                 notificationScreen()
-            }
+            },
         )
         eventScreen()
     }

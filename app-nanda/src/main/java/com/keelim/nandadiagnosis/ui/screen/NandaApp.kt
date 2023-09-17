@@ -55,7 +55,7 @@ fun NandaApp(
     ModalNavigationDrawer(
         drawerContent = {
             Spacer(
-                modifier = Modifier.height(12.dp)
+                modifier = Modifier.height(12.dp),
             )
             ModalDrawerSheet {
                 NandaDrawer(
@@ -70,11 +70,11 @@ fun NandaApp(
                             drawerState.close()
                             bottomSheetState.show()
                         }
-                    }
+                    },
                 )
             }
         },
-        drawerState = drawerState
+        drawerState = drawerState,
     ) {
         Scaffold(
             contentWindowInsets = WindowInsets(0, 0, 0, 0),
@@ -85,7 +85,7 @@ fun NandaApp(
                         IconButton(onClick = { coroutineScope.launch { drawerState.open() } }) {
                             Icon(
                                 imageVector = Icons.Rounded.Menu,
-                                contentDescription = "Drawer Icon"
+                                contentDescription = "Drawer Icon",
                             )
                         }
                     },
@@ -117,7 +117,7 @@ fun NandaApp(
                                 actionLabel = action,
                                 duration = SnackbarDuration.Short,
                             ) == SnackbarResult.ActionPerformed
-                        }
+                        },
                     )
                 }
             }

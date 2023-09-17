@@ -18,6 +18,7 @@ import com.keelim.mygrade.ui.screen.main.mainScreen
 import com.keelim.mygrade.ui.screen.main.toProcess
 import com.keelim.mygrade.ui.screen.quick.navigateQuick
 import com.keelim.mygrade.ui.screen.quick.quickScreen
+import com.keelim.setting.screen.event.eventScreen
 import com.keelim.setting.screen.navigateNotification
 import com.keelim.setting.screen.navigateSettings
 import com.keelim.setting.screen.notificationScreen
@@ -82,5 +83,6 @@ fun MyGradeHost(
                 notificationScreen()
             }
         )
+        eventScreen()
     }
 }

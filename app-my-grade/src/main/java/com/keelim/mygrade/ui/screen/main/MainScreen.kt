@@ -33,7 +33,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 @Composable
 fun MainRoute(
-    onSubmitClick: (NormalProbability, Int) -> Unit,
+    onSubmitClick: (String, NormalProbability, Int) -> Unit,
     onFloatingButtonClick1: () -> Unit,
     onFloatingButtonClick2: () -> Unit,
     onFloatingButtonClick3: () -> Unit,
@@ -49,7 +49,7 @@ fun MainRoute(
 @Composable
 fun MainScreen(
     viewModel: MainViewModel = hiltViewModel(),
-    onSubmitClick: (NormalProbability, Int) -> Unit = { _, _ -> },
+    onSubmitClick: (String, NormalProbability, Int) -> Unit = { _, _, _ -> },
     onFloatingButtonClick1: () -> Unit = {},
     onFloatingButtonClick2: () -> Unit = {},
     onFloatingButtonClick3: () -> Unit = {},
@@ -74,6 +74,7 @@ fun MainScreen(
         if (state is MainState.Success) {
             SideEffect {
                 onSubmitClick(
+                    (state as MainState.Success).subject,
                     (state as MainState.Success).value,
                     (state as MainState.Success).student,
                 )
@@ -85,7 +86,7 @@ fun MainScreen(
             text = "과목명",
             value = subject,
             onValueChange = { viewModel.updateEditType(EditType.Subject(it))},
-            isError = mainState.originError,
+            isError = mainState.subjectError,
         )
         ScoreTextRow(
             text = "원점수",

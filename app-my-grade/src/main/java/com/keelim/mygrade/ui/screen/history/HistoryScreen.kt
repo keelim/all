@@ -31,7 +31,7 @@ import kotlinx.collections.immutable.persistentListOf
 
 @Composable
 fun HistoryRoute(
-    onHistoryClick: (String, String) -> Unit,
+    onHistoryClick: (String, String, String) -> Unit,
 ) {
     HistoryScreen(
         onHistoryClick = onHistoryClick,
@@ -41,7 +41,7 @@ fun HistoryRoute(
 @Composable
 internal fun HistoryScreen(
     viewModel: HistoryViewModel = hiltViewModel(),
-    onHistoryClick: (String, String) -> Unit = { _, _ -> },
+    onHistoryClick: (String, String, String) -> Unit = { _, _, _ -> },
 ) {
     val histories by viewModel.histories.collectAsStateWithLifecycle(persistentListOf())
     if (histories.isEmpty()) {
@@ -59,7 +59,7 @@ internal fun HistoryScreen(
 fun HistoryList(
     histories: PersistentList<GradeHistory>,
     listState: LazyListState = rememberLazyListState(),
-    onHistoryClick: (String, String) -> Unit = { _, _ -> },
+    onHistoryClick: (String, String, String) -> Unit = { _, _, _ -> },
 ) {
     LazyColumn(
         state = listState,
@@ -84,6 +84,7 @@ private fun PreviewHistoryList() {
     ) {
         HistoryCard(
             GradeHistory(
+                subject = "Computer Science 1",
                 date = "sociosqu",
                 grade = "placerat",
                 myGrade = 3495,
@@ -92,6 +93,7 @@ private fun PreviewHistoryList() {
         )
         HistoryCard(
             GradeHistory(
+                subject = "Computer Science 2",
                 date = "sociosqu",
                 grade = "placerat",
                 myGrade = 3495,
@@ -100,6 +102,7 @@ private fun PreviewHistoryList() {
         )
         HistoryCard(
             GradeHistory(
+                subject = "Computer Science 3",
                 date = "sociosqu",
                 grade = "placerat",
                 myGrade = 3495,
@@ -108,6 +111,7 @@ private fun PreviewHistoryList() {
         )
         HistoryCard(
             GradeHistory(
+                subject = "Computer Science 4",
                 date = "sociosqu",
                 grade = "placerat",
                 myGrade = 3495,
@@ -116,6 +120,7 @@ private fun PreviewHistoryList() {
         )
         HistoryCard(
             GradeHistory(
+                subject = "Computer Science 5",
                 date = "sociosqu",
                 grade = "placerat",
                 myGrade = 3495,
@@ -125,30 +130,17 @@ private fun PreviewHistoryList() {
     }
 }
 
-@Preview
-@Composable
-private fun PreviewHistoryCard() {
-    HistoryCard(
-        history = GradeHistory(
-            date = "utamur",
-            grade = "suscipiantur",
-            myGrade = 5812,
-            totalStudent = 7712,
-        )
-    )
-}
-
 
 @Composable
 fun HistoryCard(
     history: GradeHistory,
-    onHistoryClick: (String, String) -> Unit = { _, _ -> },
+    onHistoryClick: (String, String, String) -> Unit = { _, _, _ -> },
 ) {
     // val context = LocalContext.current
     Card(
         modifier = Modifier
             .fillMaxWidth(),
-        onClick = { onHistoryClick(history.grade, "${history.myGrade} / ${history.totalStudent}") },
+        onClick = { onHistoryClick(history.subject, history.grade, "${history.myGrade} / ${history.totalStudent}") },
     ) {
         Column {
             Row(
@@ -156,6 +148,11 @@ fun HistoryCard(
                 horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 Column {
+                    Text(
+                        text = "과목명: ${history.subject}",
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                    Spacer(Modifier.height(4.dp))
                     Text(
                         text = "예상 학점: ${history.grade}",
                         style = MaterialTheme.typography.bodyLarge

@@ -42,7 +42,7 @@ class QuickAddViewModel @Inject constructor(
     }
 
     fun submit() {
-        if (message.text.count { it == ',' } != 3) {
+        if (message.text.count { it == ',' } != 4) {
             displayErrorMessage("올바른 양식으로 입력해주세요.")
             return
         }
@@ -59,14 +59,16 @@ class QuickAddViewModel @Inject constructor(
             displayErrorMessage("알 수 없는 오류가 발생하였습니다. \n다시 한번 시도해주세요")
         } else {
             runCatching {
-                val origin = items[0].trim().toFloat()
-                val average = items[1].trim().toFloat()
-                val number = items[2].trim().toFloat()
-                val student = items[3].trim().toInt()
-                Zvalue(((origin - average) / number).toDouble()).getNormalProbability() to student
-            }.onSuccess { (normalProbability, student) ->
+                val subject = items.first().toString()
+                val origin = items[1].trim().toFloat()
+                val average = items[2].trim().toFloat()
+                val number = items[3].trim().toFloat()
+                val student = items[4].trim().toInt()
+                Triple(subject, Zvalue(((origin - average) / number).toDouble()).getNormalProbability(), student)
+            }.onSuccess { (subject, normalProbability, student) ->
                 _quickAddUiState.update { old ->
                     old.copy(
+                        subject = subject,
                         normalProbability = normalProbability,
                         student = student,
                     )

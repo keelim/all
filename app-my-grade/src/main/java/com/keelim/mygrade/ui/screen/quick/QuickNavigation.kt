@@ -18,7 +18,7 @@ fun NavController.navigateQuick(navOptions: NavOptions? = null) {
 
 fun NavGraphBuilder.quickScreen(
     onDismiss: () -> Unit,
-    onNavigate: (NormalProbability, Int) -> Unit,
+    onNavigate: (String, NormalProbability, Int) -> Unit,
 ) {
     composable(route = quickRoute) {
         ModalBottomSheet(onDismissRequest = { onDismiss() }) {

@@ -12,7 +12,7 @@ fun NavController.navigateToMain(navOptions: NavOptions? = null) {
     this.navigate(mainRoute, navOptions)
 }
 fun NavGraphBuilder.mainScreen(
-    onSubmitClick: (NormalProbability, Int) -> Unit,
+    onSubmitClick: (String, NormalProbability, Int) -> Unit,
     onFloatingButtonClick1: () -> Unit,
     onFloatingButtonClick2: () -> Unit,
     onFloatingButtonClick3: () -> Unit,
@@ -65,6 +65,7 @@ sealed class MainState {
     object Initialized : MainState()
     data class Success(
         val flag: Boolean,
+        val subject: String,
         val value: NormalProbability,
         val student: Int = 0,
     ) : MainState()

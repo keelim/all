@@ -16,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class GradeViewModel @Inject constructor(
     val savedStateHandle: SavedStateHandle,
-    val historyRepository: HistoryRepository
+    val historyRepository: HistoryRepository,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(GradeUiState.empty())
     val uiState: StateFlow<GradeUiState> = _uiState.asStateFlow()
@@ -34,9 +34,9 @@ class GradeViewModel @Inject constructor(
             historyRepository.create(
                 subject = gradeResult.subject,
                 grade = gradeResult.grade,
-                point = gradeResult.point
+                point = gradeResult.point,
             ).also {
-                if(it) {
+                if (it) {
                     _uiState.update { old ->
                         old.copy(
                             isMessageShow = true,

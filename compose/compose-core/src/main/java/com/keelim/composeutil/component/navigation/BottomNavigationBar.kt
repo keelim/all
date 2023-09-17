@@ -19,7 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun AppBottomNavigationBar(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     NavigationBar(
         modifier = modifier,
@@ -27,24 +27,24 @@ fun AppBottomNavigationBar(
             AppNavItem(
                 imageVector = Icons.Default.Home,
                 selected = true,
-                onClick = {}
+                onClick = {},
             )
             AppNavItem(
                 imageVector = Icons.Default.CheckCircle,
                 selected = false,
-                onClick = {}
+                onClick = {},
             )
             AppNavItem(
                 imageVector = Icons.Default.Face,
                 selected = false,
-                onClick = {}
+                onClick = {},
             )
             AppNavItem(
                 imageVector = Icons.Default.Settings,
                 selected = false,
-                onClick = {}
+                onClick = {},
             )
-        }
+        },
     )
 }
 
@@ -52,13 +52,13 @@ fun AppBottomNavigationBar(
 fun RowScope.AppNavItem(
     imageVector: ImageVector,
     selected: Boolean,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     NavigationBarItem(
         icon = {
             Icon(
                 imageVector = imageVector,
-                contentDescription = null
+                contentDescription = null,
             )
         },
         onClick = onClick,
@@ -66,8 +66,8 @@ fun RowScope.AppNavItem(
         colors = NavigationBarItemDefaults.colors(
             selectedIconColor = Color.Black,
             unselectedIconColor = MaterialTheme.colorScheme.secondary,
-            indicatorColor = Color.White
-        )
+            indicatorColor = Color.White,
+        ),
     )
 }
 

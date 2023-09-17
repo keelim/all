@@ -52,7 +52,8 @@ private fun DiagnosisStateView(
 ) {
     when (state) {
         DiagnosisScreenState.Error,
-        DiagnosisScreenState.Empty -> EmptyView()
+        DiagnosisScreenState.Empty,
+        -> EmptyView()
 
         DiagnosisScreenState.Loading -> Loading()
         is DiagnosisScreenState.Success -> {
@@ -62,7 +63,7 @@ private fun DiagnosisStateView(
                         title = it.diagnosis,
                         content = "",
                         label = "",
-                        onDiagnosisClick = onDiagnosisClick
+                        onDiagnosisClick = onDiagnosisClick,
                     )
                 }
             }
@@ -88,19 +89,19 @@ fun DiagnosisItem(
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
+                .padding(16.dp),
         ) {
             Column(Modifier.weight(1f)) {
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Text(
                         text = title,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
-                        fontWeight = FontWeight.SemiBold
+                        fontWeight = FontWeight.SemiBold,
                     )
                     Text(text = label, style = MaterialTheme.typography.labelLarge)
                 }
@@ -109,7 +110,7 @@ fun DiagnosisItem(
                     text = content,
                     style = MaterialTheme.typography.bodyLarge,
                     maxLines = 2,
-                    overflow = TextOverflow.Ellipsis
+                    overflow = TextOverflow.Ellipsis,
                 )
             }
         }
@@ -124,6 +125,6 @@ private fun PreviewDiagnosisItem() {
         content =
         "I miss you! It's been too long since we last caught up. Let's plan a coffee date soon!",
         label = "4d ago",
-        onDiagnosisClick = {}
+        onDiagnosisClick = {},
     )
 }

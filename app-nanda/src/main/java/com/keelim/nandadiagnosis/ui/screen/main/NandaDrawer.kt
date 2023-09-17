@@ -64,15 +64,17 @@ fun NandaDrawer(
     onRouteClick: (String) -> Unit,
     onAboutClick: () -> Unit,
 ) {
-    Box(modifier = Modifier
-        .fillMaxSize()
-        .padding(horizontal = 16.dp, vertical = 24.dp)) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 16.dp, vertical = 24.dp),
+    ) {
         Column(modifier = Modifier.align(Alignment.TopCenter)) {
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = stringResource(R.string.app_name),
                 modifier = Modifier.padding(start = 8.dp),
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleMedium,
             )
             Spacer(modifier = Modifier.height(24.dp))
             LazyColumn {
@@ -82,7 +84,7 @@ fun NandaDrawer(
                             .fillMaxWidth()
                             .padding(4.dp),
                         shape = RoundedCornerShape(12.dp),
-                        onClick = { onRouteClick(item.route) }
+                        onClick = { onRouteClick(item.route) },
                     ) {
                         Row(
                             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
@@ -108,12 +110,12 @@ fun NandaDrawer(
                 .clickable {
                     onAboutClick()
                 },
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Icon(
                 imageVector = Icons.Rounded.OfflineBolt,
                 contentDescription = null,
-                modifier = Modifier.size(36.dp)
+                modifier = Modifier.size(36.dp),
             )
         }
     }

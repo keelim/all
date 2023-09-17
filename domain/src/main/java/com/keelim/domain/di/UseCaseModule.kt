@@ -14,6 +14,6 @@ object UseCaseModule {
     @Provides
     @Singleton
     fun providesShowEventUseCase(
-        dataStoreManager: DataStoreManager
+        dataStoreManager: DataStoreManager,
     ): ShowEventUseCase = ShowEventUseCase(dataStoreManager)
 }

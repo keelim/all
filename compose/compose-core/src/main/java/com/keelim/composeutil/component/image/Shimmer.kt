@@ -12,11 +12,10 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 
-
 @Composable
 fun Modifier.shimmer(
     showShimmer: Boolean = true,
-    targetValue: Float = 1000f
+    targetValue: Float = 1000f,
 ) = this.then(
     background(
         if (showShimmer) {
@@ -31,20 +30,22 @@ fun Modifier.shimmer(
                 initialValue = 0f,
                 targetValue = targetValue,
                 animationSpec = infiniteRepeatable(
-                    animation = tween(800), repeatMode = RepeatMode.Reverse
-                ), label = ""
+                    animation = tween(800),
+                    repeatMode = RepeatMode.Reverse,
+                ),
+                label = "",
             )
             Brush.linearGradient(
                 colors = shimmerColors,
                 start = Offset.Zero,
-                end = Offset(x = translateAnimation.value, y = translateAnimation.value)
+                end = Offset(x = translateAnimation.value, y = translateAnimation.value),
             )
         } else {
             Brush.linearGradient(
                 colors = listOf(Color.Transparent, Color.Transparent),
                 start = Offset.Zero,
-                end = Offset.Zero
+                end = Offset.Zero,
             )
-        }
-    )
+        },
+    ),
 )

@@ -26,11 +26,11 @@ fun StickyHeaderDemo() {
                     modifier = Modifier
                         .height(40.dp)
                         .fillMaxWidth()
-                        .background(Color.LightGray)
+                        .background(Color.LightGray),
                 ) {
                     Text(
                         text = item,
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
                     )
                 }
             }

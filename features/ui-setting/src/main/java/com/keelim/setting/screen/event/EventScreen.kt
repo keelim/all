@@ -6,7 +6,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 fun EventRoute() {
-  EventScreen()
+    EventScreen()
 }
 
 @Composable fun EventScreen(viewModel: EventViewModel = hiltViewModel()) {}
@@ -14,5 +14,5 @@ fun EventRoute() {
 @Preview(showBackground = true)
 @Composable
 private fun PreviewEventScreen() {
-  EventScreen()
+    EventScreen()
 }

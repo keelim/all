@@ -36,9 +36,7 @@ data class MapState(
 }
 
 @HiltViewModel
-class MapViewModel @Inject constructor(
-
-) : ViewModel() {
+class MapViewModel @Inject constructor() : ViewModel() {
 
     val locations: StateFlow<PersistentList<MapState>> = locationsFlow
         .mapLatest {
@@ -47,7 +45,7 @@ class MapViewModel @Inject constructor(
                     name = location.name,
                     latlng = location.latLng,
                     itemSnippet = location.name,
-                    imageUrl = location.imgUrl
+                    imageUrl = location.imgUrl,
                 )
             }.toPersistentList()
         }

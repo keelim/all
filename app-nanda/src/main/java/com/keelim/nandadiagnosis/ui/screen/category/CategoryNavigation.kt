@@ -22,14 +22,14 @@ fun NavGraphBuilder.categoryScreen(
 ) {
     composable(route = categoryRoute) {
         CategoryRoute(
-            onCategoryClick = onCategoryClick
+            onCategoryClick = onCategoryClick,
         )
         if (bottomSheetState.isVisible) {
             MainBottomSheet(
                 onBlogClick = onBlogClick,
                 onAboutClick = onAboutClick,
                 onDismiss = onDismiss,
-                modalBottomSheetState = bottomSheetState
+                modalBottomSheetState = bottomSheetState,
             )
         }
     }

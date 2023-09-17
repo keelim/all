@@ -24,8 +24,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun ScaffoldDemo() {
-
-    val counter =remember {
+    val counter = remember {
         mutableStateOf(0)
     }
 
@@ -47,25 +46,29 @@ fun ScaffoldDemo() {
                     } else {
                         scope.launch {
                             snackBarHostState.showSnackbar(
-                                "Counter Finished"
+                                "Counter Finished",
                             )
                         }
                     }
-                }) {
+                },
+            ) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = "Add")
             }
         },
-        floatingActionButtonPosition = FabPosition.End
+        floatingActionButtonPosition = FabPosition.End,
     ) { paddingValues ->
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             Text(
-                text = if (counter.value == 10) "Counter finished"
-                else "Counter:${counter.value}"
+                text = if (counter.value == 10) {
+                    "Counter finished"
+                } else {
+                    "Counter:${counter.value}"
+                },
             )
         }
     }

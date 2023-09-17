@@ -51,19 +51,19 @@ fun NotificationRoute() {
 @Composable
 private fun NotificationScreen(viewModel: NotificationViewModel = hiltViewModel()) {
     val notificationState: NotificationState by
-    viewModel.notificationState.collectAsStateWithLifecycle()
+        viewModel.notificationState.collectAsStateWithLifecycle()
     val listState = rememberLazyListState()
     val hasScrolled by remember { derivedStateOf { listState.firstVisibleItemScrollOffset > 0 } }
     val appBarElevation by
-    animateDpAsState(
-        targetValue =
-        if (hasScrolled) {
-            4.dp
-        } else {
-            0.dp
-        },
-        label = ""
-    )
+        animateDpAsState(
+            targetValue =
+            if (hasScrolled) {
+                4.dp
+            } else {
+                0.dp
+            },
+            label = "",
+        )
     val onBackPressedDispatcher =
         checkNotNull(LocalOnBackPressedDispatcherOwner.current).onBackPressedDispatcher
     Scaffold(
@@ -94,7 +94,7 @@ private fun NotificationScreen(viewModel: NotificationViewModel = hiltViewModel(
         NotificationContent(
             uiState = notificationState,
             listState = listState,
-            paddingValues = padding
+            paddingValues = padding,
         )
     }
 }
@@ -117,16 +117,16 @@ private fun NotificationContent(
                     top = paddingValues.calculateTopPadding(),
                     bottom = paddingValues.calculateBottomPadding(),
                     start = 12.dp,
-                    end = 12.dp
+                    end = 12.dp,
                 ),
                 state = listState,
-                verticalArrangement = Arrangement.spacedBy(12.dp)
+                verticalArrangement = Arrangement.spacedBy(12.dp),
             ) {
                 items(uiState.items) { notification ->
                     NotificationListCard(
                         notificationDate = notification.date,
                         notificationTitle = notification.title,
-                        notificationDesc = notification.desc
+                        notificationDesc = notification.desc,
                     )
                 }
             }
@@ -146,26 +146,26 @@ private fun NotificationListCard(
             Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             Text(
                 text = notificationDate,
                 style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 16.sp),
                 overflow = TextOverflow.Ellipsis,
-                maxLines = 1
+                maxLines = 1,
             )
             Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
                 Text(
                     text = notificationTitle,
                     style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 16.sp),
                     overflow = TextOverflow.Ellipsis,
-                    maxLines = 1
+                    maxLines = 1,
                 )
                 Text(
                     text = notificationDesc,
                     style = TextStyle(fontWeight = FontWeight.Medium, fontSize = 16.sp),
                     overflow = TextOverflow.Ellipsis,
-                    maxLines = 5
+                    maxLines = 5,
                 )
             }
         }
@@ -184,6 +184,6 @@ private fun PreviewNotificationListCard() {
     NotificationListCard(
         notificationDate = "2022.12.13",
         notificationTitle = "공지 제목",
-        notificationDesc = "공지 설명"
+        notificationDesc = "공지 설명",
     )
 }

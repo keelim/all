@@ -36,11 +36,11 @@ class RootFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View = setThemeContent {
         RootScreen(
             onRootClick = ::moveRoot,
-            viewModel = viewModel
+            viewModel = viewModel,
         )
     }
 

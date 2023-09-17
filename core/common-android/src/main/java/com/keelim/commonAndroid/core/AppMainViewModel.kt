@@ -16,19 +16,17 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AppMainViewModel @Inject constructor(
-    val networkConnectivityService: NetworkConnectivityService
-) : ViewModel() {
-
-}
+    val networkConnectivityService: NetworkConnectivityService,
+) : ViewModel()
 
 class AppMainDelegator(
     private val activity: ComponentActivity,
-    private val viewModel: AppMainViewModel
+    private val viewModel: AppMainViewModel,
 ) : DefaultLifecycleObserver {
 
     init {
         activity.lifecycle.addObserver(
-            this
+            this,
         )
     }
 

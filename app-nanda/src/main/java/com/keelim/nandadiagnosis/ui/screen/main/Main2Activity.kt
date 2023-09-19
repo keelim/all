@@ -34,6 +34,7 @@ import com.keelim.common.extensions.toast
 import com.keelim.commonAndroid.core.AppMainDelegator
 import com.keelim.commonAndroid.core.AppMainViewModel
 import com.keelim.composeutil.setThemeContent
+import com.keelim.composeutil.theme.AppTheme
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.di.DownloadReceiver
 import com.keelim.nandadiagnosis.ui.screen.NandaApp
@@ -71,7 +72,7 @@ class Main2Activity : ComponentActivity() {
         installSplashScreen()
         super.onCreate(savedInstanceState)
         setThemeContent {
-            MaterialTheme {
+            AppTheme {
                 NandaApp(
                     windowSizeClass = calculateWindowSizeClass(this),
                 )

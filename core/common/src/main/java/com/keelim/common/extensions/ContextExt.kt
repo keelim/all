@@ -3,6 +3,7 @@ package com.keelim.common.extensions
 import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Context
+import android.content.ContextWrapper
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.net.Uri
@@ -103,3 +104,14 @@ fun Context.getCompatColor(@ColorRes colorId: Int) = ResourcesCompat.getColor(re
 
 fun Context.getCompatDrawable(@DrawableRes drawableId: Int): Drawable? =
     AppCompatResources.getDrawable(this, drawableId)
+
+fun Context.findActivity(): Activity {
+    var context = this
+    while (context is ContextWrapper) {
+        if (context is Activity) {
+            return context
+        }
+        context = context.baseContext
+    }
+    throw IllegalStateException("no activity")
+}

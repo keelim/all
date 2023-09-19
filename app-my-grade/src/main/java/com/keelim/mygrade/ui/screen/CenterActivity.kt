@@ -10,6 +10,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.core.os.BuildCompat
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.keelim.commonAndroid.core.AppMainDelegator
 import com.keelim.commonAndroid.core.AppMainViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,6 +22,7 @@ class CenterActivity : AppCompatActivity() {
     private val appMainDelegator by lazy { AppMainDelegator(this, viewModel) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
         super.onCreate(savedInstanceState)
         setContent {
             MaterialTheme {

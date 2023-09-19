@@ -13,6 +13,7 @@ import androidx.core.os.BuildCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.keelim.commonAndroid.core.AppMainDelegator
 import com.keelim.commonAndroid.core.AppMainViewModel
+import com.keelim.composeutil.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @BuildCompat.PrereleaseSdkCheck
@@ -25,7 +26,7 @@ class CenterActivity : AppCompatActivity() {
         installSplashScreen()
         super.onCreate(savedInstanceState)
         setContent {
-            MaterialTheme {
+            AppTheme {
                 MyGradeApp(
                     windowSizeClass = calculateWindowSizeClass(this),
                 )

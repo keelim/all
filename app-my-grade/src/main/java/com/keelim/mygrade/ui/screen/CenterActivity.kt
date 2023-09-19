@@ -12,6 +12,7 @@ import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.core.os.BuildCompat
 import com.keelim.commonAndroid.core.AppMainDelegator
 import com.keelim.commonAndroid.core.AppMainViewModel
+import com.keelim.composeutil.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @BuildCompat.PrereleaseSdkCheck
@@ -23,7 +24,7 @@ class CenterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MaterialTheme {
+            AppTheme {
                 MyGradeApp(
                     windowSizeClass = calculateWindowSizeClass(this),
                 )

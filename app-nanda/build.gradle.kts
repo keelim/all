@@ -65,4 +65,6 @@ dependencies {
     implementation(libs.play.services.oss)
     implementation(libs.timber)
     implementation(platform(libs.firebase.bom))
+    implementation(libs.deeplinkdispatch)
+    ksp(libs.deeplinkdispatch.processor)
 }

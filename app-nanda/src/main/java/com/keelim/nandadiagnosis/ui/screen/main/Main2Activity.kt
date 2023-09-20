@@ -29,6 +29,7 @@ import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSiz
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.airbnb.deeplinkdispatch.DeepLink
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.keelim.common.extensions.toast
 import com.keelim.commonAndroid.core.AppMainDelegator
@@ -39,10 +40,12 @@ import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.di.DownloadReceiver
 import com.keelim.nandadiagnosis.ui.screen.NandaApp
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
+@DeepLink("all://screen/{name}")
 @AndroidEntryPoint
 class Main2Activity : ComponentActivity() {
     private val viewModel: AppMainViewModel by viewModels()
@@ -77,6 +80,10 @@ class Main2Activity : ComponentActivity() {
                     windowSizeClass = calculateWindowSizeClass(this),
                 )
             }
+        }
+        if (intent.getBooleanExtra(DeepLink.IS_DEEP_LINK, false)) {
+            val parameters = intent.extras
+            Timber.d("[deep link] name ${parameters?.getString("name")}")
         }
     }
 

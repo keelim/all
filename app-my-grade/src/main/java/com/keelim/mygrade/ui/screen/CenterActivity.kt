@@ -11,12 +11,16 @@ import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSiz
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.core.os.BuildCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.airbnb.deeplinkdispatch.DeepLink
+import com.keelim.common.extensions.toast
 import com.keelim.commonAndroid.core.AppMainDelegator
 import com.keelim.commonAndroid.core.AppMainViewModel
 import com.keelim.composeutil.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @BuildCompat.PrereleaseSdkCheck
+@DeepLink("all://screen/{name}")
 @AndroidEntryPoint
 class CenterActivity : AppCompatActivity() {
     private val viewModel: AppMainViewModel by viewModels()
@@ -31,6 +35,10 @@ class CenterActivity : AppCompatActivity() {
                     windowSizeClass = calculateWindowSizeClass(this),
                 )
             }
+        }
+        if (intent.getBooleanExtra(DeepLink.IS_DEEP_LINK, false)) {
+            val parameters = intent.extras
+            Timber.d("[deep link] name ${parameters?.getString("name")}")
         }
     }
 }

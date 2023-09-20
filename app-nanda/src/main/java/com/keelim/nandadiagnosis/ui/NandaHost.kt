@@ -1,6 +1,7 @@
 package com.keelim.nandadiagnosis.ui
 
 import android.content.Intent
+import android.net.Uri
 import androidx.compose.material3.SheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -14,6 +15,7 @@ import com.keelim.nandadiagnosis.ui.screen.diagnosis.diagnosisScreen
 import com.keelim.nandadiagnosis.ui.screen.diagnosis.navigateToDiagnosis
 import com.keelim.nandadiagnosis.ui.screen.inappweb.navigateToWeb
 import com.keelim.nandadiagnosis.ui.screen.inappweb.webScreen
+import com.keelim.nandadiagnosis.ui.screen.nutrients.nutrientScreen
 import com.keelim.setting.screen.event.eventScreen
 import com.keelim.setting.screen.navigateNotification
 import com.keelim.setting.screen.navigateSettings
@@ -24,57 +26,51 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun NandaHost(
-    appState: AppState,
-    bottomSheetState: SheetState,
-    coroutineScope: CoroutineScope,
-    onShowSnackbar: suspend (String, String?) -> Boolean,
-    modifier: Modifier = Modifier,
+  appState: AppState,
+  bottomSheetState: SheetState,
+  coroutineScope: CoroutineScope,
+  onShowSnackbar: suspend (String, String?) -> Boolean,
+  modifier: Modifier = Modifier,
 ) {
-    val navController = appState.navController
-    val context = LocalContext.current
-    NavHost(
-        navController = navController,
-        startDestination = categoryRoute,
-        modifier = modifier,
-    ) {
-        webScreen()
-        categoryScreen(
-            bottomSheetState = bottomSheetState,
-            onBlogClick = {
-                coroutineScope.launch {
-                    bottomSheetState.hide()
-                }
-                navController.navigateToWeb("nanda")
-            },
-            onAboutClick = {
-                coroutineScope.launch {
-                    bottomSheetState.hide()
-                }
-                navController.navigateSettings()
-            },
-            onCategoryClick = { index ->
-                navController.navigateToDiagnosis(index.toString())
-            },
-            onDismiss = {
-                coroutineScope.launch {
-                    bottomSheetState.hide()
-                }
-            },
-            nestedGraphs = {
-                diagnosisScreen()
-            },
-        )
-        settingsScreen(
-            onNotificationsClick = {
-                navController.navigateNotification()
-            },
-            onOpenSourceClick = {
-                context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
-            },
-            nestedGraphs = {
-                notificationScreen()
-            },
-        )
-        eventScreen()
-    }
+  val navController = appState.navController
+  val context = LocalContext.current
+  NavHost(
+    navController = navController,
+    startDestination = categoryRoute,
+    modifier = modifier,
+  ) {
+    webScreen()
+    categoryScreen(
+      bottomSheetState = bottomSheetState,
+      onBlogClick = {
+        coroutineScope.launch { bottomSheetState.hide() }
+        navController.navigateToWeb("nanda")
+      },
+      onAboutClick = {
+        coroutineScope.launch { bottomSheetState.hide() }
+        navController.navigateSettings()
+      },
+      onCategoryClick = { index -> navController.navigateToDiagnosis(index.toString()) },
+      onDismiss = { coroutineScope.launch { bottomSheetState.hide() } },
+      nestedGraphs = { diagnosisScreen() },
+    )
+    settingsScreen(
+      onNotificationsClick = { navController.navigateNotification() },
+      onOpenSourceClick = {
+        context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
+      },
+      nestedGraphs = { notificationScreen() },
+    )
+    eventScreen()
+    nutrientScreen(
+      onNutrientClick = { title, uri ->
+        coroutineScope.launch {
+          val result = onShowSnackbar("$title 로 이동하시겠습니까?", "move")
+          if (result) {
+            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(uri)))
+          }
+        }
+      }
+    )
+  }
 }

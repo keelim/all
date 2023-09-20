@@ -17,6 +17,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.OfflineBolt
+import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material.icons.rounded.Web
 import androidx.compose.material3.Card
@@ -34,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.ui.screen.category.categoryRoute
 import com.keelim.nandadiagnosis.ui.screen.inappweb.webRoute
+import com.keelim.nandadiagnosis.ui.screen.nutrients.nutrientRoute
 import com.keelim.setting.screen.settingsRoute
 import kotlinx.collections.immutable.persistentListOf
 
@@ -56,6 +58,11 @@ private val nandaNavItems =
             name = "Web",
             route = webRoute + "/nanda",
             icon = Icons.Rounded.Web,
+        ),
+        NandaNavItem(
+            name = "Nutrient",
+            route = nutrientRoute,
+            icon = Icons.Rounded.Person,
         ),
     )
 

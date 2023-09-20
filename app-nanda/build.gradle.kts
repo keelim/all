@@ -67,4 +67,5 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.deeplinkdispatch)
     ksp(libs.deeplinkdispatch.processor)
+    implementation(libs.coil.kt.compose)
 }

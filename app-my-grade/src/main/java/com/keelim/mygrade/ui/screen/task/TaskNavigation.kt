@@ -12,12 +12,14 @@ fun NavController.navigateTask(navOptions: NavOptions? = null) {
 
 fun NavGraphBuilder.taskScreen(
     onTaskClick: () -> Unit,
+    onNavigateTaskClick: () -> Unit,
 ) {
     composable(
         route = "Task",
     ) {
         TaskRoute(
             onTaskClick = onTaskClick,
+            onNavigateTaskClick = onNavigateTaskClick,
         )
     }
 }

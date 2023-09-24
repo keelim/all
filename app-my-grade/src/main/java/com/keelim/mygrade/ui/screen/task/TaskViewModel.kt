@@ -4,7 +4,7 @@ import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.keelim.data.source.DefaultTaskRepository
-import com.keelim.data.source.Task
+import com.keelim.data.source.local.LocalTask
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.toPersistentList
@@ -24,7 +24,7 @@ sealed interface TaskUiState {
     data object Empty: TaskUiState
     data object Error: TaskUiState
 
-    data class Success(val tasks: PersistentList<Task>): TaskUiState
+    data class Success(val tasks: PersistentList<LocalTask>): TaskUiState
 }
 @HiltViewModel
 class TaskViewModel @Inject constructor(

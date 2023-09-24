@@ -14,16 +14,19 @@ fun NavController.navigateToWeb(uri: String, navOptions: NavOptions? = null) {
     this.navigate("$webRoute/$uri", navOptions)
 }
 
-fun NavGraphBuilder.webScreen() {
+fun NavGraphBuilder.webScreen(
+    onNavigateCategory: () -> Unit,
+) {
     composable(
         route = "$webRoute/{uri}",
         arguments = listOf(
-            navArgument("uri") { type = NavType.StringType }
-        )
+            navArgument("uri") { type = NavType.StringType },
+        ),
     ) { backStackEntry ->
         // val uri = backStackEntry.arguments?.getString("uri", defaultUri) ?: defaultUri
         WebViewRoute(
-            uri = defaultUri
+            uri = defaultUri,
+            onNavigateCategory = onNavigateCategory
         )
     }
 }

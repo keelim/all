@@ -41,7 +41,8 @@ fun CategoryScreen(onCategoryClick: (Int) -> Unit, viewModel: CategoryViewModel 
 private fun CategoryStateView(uiState: CategoryState, onCategoryClick: (Int) -> Unit) {
     when (uiState) {
         CategoryState.Error,
-        CategoryState.Empty -> EmptyView()
+        CategoryState.Empty,
+        -> EmptyView()
 
         CategoryState.Loading -> Loading()
         is CategoryState.Success ->
@@ -49,7 +50,7 @@ private fun CategoryStateView(uiState: CategoryState, onCategoryClick: (Int) -> 
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(4.dp),
-                maxItemsInEachRow = 3
+                maxItemsInEachRow = 3,
             ) {
                 val itemModifier =
                     Modifier
@@ -61,7 +62,7 @@ private fun CategoryStateView(uiState: CategoryState, onCategoryClick: (Int) -> 
                         index = index,
                         categoryTitle = item,
                         onCategoryClick = onCategoryClick,
-                        modifier = itemModifier
+                        modifier = itemModifier,
                     )
                 }
             }
@@ -73,21 +74,21 @@ private fun CategoryCard(
     index: Int,
     categoryTitle: String,
     onCategoryClick: (Int) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Card(
         modifier = modifier.clip(RoundedCornerShape(8.dp)),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-        onClick = { onCategoryClick(index + 1) }
+        onClick = { onCategoryClick(index + 1) },
     ) {
         Column(
             modifier = modifier.padding(8.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
         ) {
             Text(
                 text = categoryTitle,
-                style = MaterialTheme.typography.headlineMedium
+                style = MaterialTheme.typography.headlineMedium,
             )
         }
     }

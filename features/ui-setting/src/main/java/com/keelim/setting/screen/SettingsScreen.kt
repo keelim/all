@@ -44,7 +44,7 @@ fun SettingsRoute(
 ) {
     SettingsScreen(
         onNotificationsClick = onNotificationsClick,
-        onOpenSourceClick = onOpenSourceClick
+        onOpenSourceClick = onOpenSourceClick,
     )
 }
 
@@ -53,15 +53,15 @@ fun SettingsScreen(onNotificationsClick: () -> Unit = {}, onOpenSourceClick: () 
     val listState = rememberLazyListState()
     val hasScrolled by remember { derivedStateOf { listState.firstVisibleItemScrollOffset > 0 } }
     val appBarElevation by
-    animateDpAsState(
-        targetValue =
-        if (hasScrolled) {
-            4.dp
-        } else {
-            0.dp
-        },
-        label = ""
-    )
+        animateDpAsState(
+            targetValue =
+            if (hasScrolled) {
+                4.dp
+            } else {
+                0.dp
+            },
+            label = "",
+        )
     val onBackPressedDispatcher =
         checkNotNull(LocalOnBackPressedDispatcherOwner.current).onBackPressedDispatcher
     Scaffold(
@@ -92,14 +92,14 @@ fun SettingsScreen(onNotificationsClick: () -> Unit = {}, onOpenSourceClick: () 
         val context = LocalContext.current
         val versionName = context.packageManager?.getPackageInfo(
             context.packageName,
-            0
+            0,
         )?.versionName
         LazyColumn(contentPadding = padding, state = listState) {
             item {
                 CategoryItem(
                     title = "Notifications",
                     icon = Icons.Outlined.Notifications,
-                    onClick = { onNotificationsClick() }
+                    onClick = { onNotificationsClick() },
                 )
             }
             item { Divider(modifier = Modifier.padding(vertical = 12.dp)) }
@@ -107,7 +107,7 @@ fun SettingsScreen(onNotificationsClick: () -> Unit = {}, onOpenSourceClick: () 
                 CategoryItem(
                     title = "OpenSource",
                     icon = Icons.Outlined.List,
-                    onClick = { onOpenSourceClick() }
+                    onClick = { onOpenSourceClick() },
                 )
             }
             item { Divider(modifier = Modifier.padding(vertical = 12.dp)) }
@@ -116,7 +116,8 @@ fun SettingsScreen(onNotificationsClick: () -> Unit = {}, onOpenSourceClick: () 
                     CategoryItem(
                         title = "App Version: $versionName",
                         icon = Icons.Outlined.Build,
-                        onClick = {})
+                        onClick = {},
+                    )
                 }
             }
         }
@@ -140,13 +141,13 @@ fun CategoryItem(title: String, icon: ImageVector, onClick: () -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 16.dp),
-            horizontalArrangement = Arrangement.spacedBy(30.dp)
+            horizontalArrangement = Arrangement.spacedBy(30.dp),
         ) {
             Icon(
                 icon,
                 contentDescription = null,
                 modifier = Modifier.size(28.dp),
-                tint = MaterialTheme.colorScheme.onSurface
+                tint = MaterialTheme.colorScheme.onSurface,
             )
             Text(title, style = MaterialTheme.typography.bodyLarge)
         }

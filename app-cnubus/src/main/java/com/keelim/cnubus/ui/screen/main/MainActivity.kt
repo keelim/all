@@ -24,6 +24,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.fragment.NavHostFragment
+import com.airbnb.deeplinkdispatch.DeepLink
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.keelim.cnubus.R
 import com.keelim.cnubus.databinding.ActivityMainBinding
@@ -31,7 +32,9 @@ import com.keelim.common.extensions.toast
 import com.keelim.commonAndroid.core.AppMainDelegator
 import com.keelim.commonAndroid.core.AppMainViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
+@DeepLink("all://screen/{name}")
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
@@ -88,6 +91,10 @@ class MainActivity : AppCompatActivity() {
         installSplashScreen()
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        if (intent.getBooleanExtra(DeepLink.IS_DEEP_LINK, false)) {
+            val parameters = intent.extras
+            Timber.d("[deep link] name ${parameters?.getString("name")}")
+        }
     }
 
     override fun onStart() {

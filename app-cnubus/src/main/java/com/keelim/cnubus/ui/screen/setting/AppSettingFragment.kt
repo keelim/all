@@ -30,7 +30,7 @@ class AppSettingFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View = setThemeContent {
         SettingsRoute(
             onNotificationsClick = { toast("준비중입니다.") },

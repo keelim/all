@@ -16,17 +16,17 @@ object ApplicationModule {
     @Provides
     @Singleton
     fun providesAppInfo(
-        @ApplicationContext context: Context
+        @ApplicationContext context: Context,
     ): AppInfo = AppInfo(
         context.packageName,
-        adId = ""
+        adId = "",
     )
 
     @Provides
     @Singleton
     fun providesApplicationMonitor(
-        appInfo: AppInfo
+        appInfo: AppInfo,
     ): ApplicationMonitor = ApplicationMonitor(
-        appInfo
+        appInfo,
     )
 }

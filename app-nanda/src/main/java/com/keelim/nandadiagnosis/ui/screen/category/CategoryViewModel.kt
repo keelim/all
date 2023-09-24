@@ -32,8 +32,8 @@ class CategoryViewModel @Inject constructor() : ViewModel() {
                     "안전/보호",
                     "안위",
                     "성장/발달",
-                )
-            )
+                ),
+            ),
         )
     }.catch {
         emit(CategoryState.Error)

@@ -18,12 +18,12 @@ import com.keelim.mygrade.ui.screen.main.mainScreen
 import com.keelim.mygrade.ui.screen.main.toProcess
 import com.keelim.mygrade.ui.screen.quick.navigateQuick
 import com.keelim.mygrade.ui.screen.quick.quickScreen
+import com.keelim.setting.screen.event.eventScreen
 import com.keelim.setting.screen.navigateNotification
 import com.keelim.setting.screen.navigateSettings
 import com.keelim.setting.screen.notificationScreen
 import com.keelim.setting.screen.settingsScreen
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 
 @Composable
 fun MyGradeHost(
@@ -43,13 +43,13 @@ fun MyGradeHost(
             onSubmitClick = { subject, normalProbability, student ->
                 navController.navigateGrade(
                     subject = subject,
-                    grade =normalProbability.grade(),
-                    point =Level((normalProbability.value * student) / 100).toProcess(student.toString()),
+                    grade = normalProbability.grade(),
+                    point = Level((normalProbability.value * student) / 100).toProcess(student.toString()),
                 )
             },
             onFloatingButtonClick1 = { navController.navigateHistory() },
             onFloatingButtonClick2 = { navController.navigateQuick() },
-            onFloatingButtonClick3 = { navController.navigateSettings() }
+            onFloatingButtonClick3 = { navController.navigateSettings() },
         )
         quickScreen(
             onDismiss = {
@@ -66,7 +66,9 @@ fun MyGradeHost(
         historyScreen(
             onHistoryClick = { subject, grade, point ->
                 navController.navigateGrade(
-                    subject = subject, grade = grade, point = point
+                    subject = subject,
+                    grade = grade,
+                    point = point,
                 )
             },
         )
@@ -80,7 +82,8 @@ fun MyGradeHost(
             },
             nestedGraphs = {
                 notificationScreen()
-            }
+            },
         )
+        eventScreen()
     }
 }

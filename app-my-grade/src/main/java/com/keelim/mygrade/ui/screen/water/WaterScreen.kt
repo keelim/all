@@ -33,18 +33,16 @@ fun WaterScreen(viewModel: WaterViewModel = hiltViewModel()) {
         NavigationBackArrowBar(title = "물 마시기")
         var waterCount by remember { mutableStateOf(0) }
 
-
-
         Button(onClick = { waterCount++ }) {
             Icon(imageVector = Icons.Sharp.Add, contentDescription = null)
         }
         if (waterCount > 8) {
             Spacer(
-                modifier = Modifier.height(10.dp)
+                modifier = Modifier.height(10.dp),
             )
             Text(
                 text = "물을 많이 드셨군요",
-                style = MaterialTheme.typography.bodyMedium
+                style = MaterialTheme.typography.bodyMedium,
             )
         }
     }

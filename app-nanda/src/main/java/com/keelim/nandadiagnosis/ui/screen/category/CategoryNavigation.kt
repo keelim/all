@@ -8,8 +8,12 @@ import androidx.navigation.compose.composable
 import com.keelim.nandadiagnosis.ui.screen.main.MainBottomSheet
 
 const val categoryRoute = "category"
-fun NavController.navigateToCategory(navOptions: NavOptions? = null) {
-    this.navigate(categoryRoute, navOptions)
+fun NavController.navigateToCategory() {
+    this.navigate(categoryRoute) {
+        popUpTo(graph.id) {
+            inclusive = true
+        }
+    }
 }
 
 fun NavGraphBuilder.categoryScreen(
@@ -22,14 +26,14 @@ fun NavGraphBuilder.categoryScreen(
 ) {
     composable(route = categoryRoute) {
         CategoryRoute(
-            onCategoryClick = onCategoryClick
+            onCategoryClick = onCategoryClick,
         )
         if (bottomSheetState.isVisible) {
             MainBottomSheet(
                 onBlogClick = onBlogClick,
                 onAboutClick = onAboutClick,
                 onDismiss = onDismiss,
-                modalBottomSheetState = bottomSheetState
+                modalBottomSheetState = bottomSheetState,
             )
         }
     }

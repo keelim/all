@@ -17,6 +17,7 @@
 package com.keelim.builds
 
 import com.android.build.api.dsl.CommonExtension
+import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionAware
 import org.gradle.kotlin.dsl.dependencies
@@ -29,16 +30,16 @@ fun Project.configureKotlinAndroid(
     commonExtension: CommonExtension<*, *, *, *>,
 ) {
     commonExtension.apply {
-        compileSdk = ProjectConfiguration.compileSdk
+        compileSdk = libs.findVersion("compileSdk").get().displayName.toInt()
         // compileSdkExtension = ProjectConfiguration.compileSdkExtension
 
         defaultConfig {
-            minSdk = ProjectConfiguration.minSdk
+            minSdk = libs.findVersion("minSdk").get().displayName.toInt()
         }
 
         compileOptions {
-            sourceCompatibility = ProjectConfiguration.javaVer
-            targetCompatibility = ProjectConfiguration.javaVer
+            sourceCompatibility = JavaVersion.VERSION_17
+            targetCompatibility = JavaVersion.VERSION_17
             // isCoreLibraryDesugaringEnabled = true
         }
 
@@ -57,7 +58,7 @@ fun Project.configureKotlinAndroid(
 //                "-Xopt-in=kotlinx.serialization.ExperimentalSerializationApi"
             )
 
-            jvmTarget = ProjectConfiguration.javaVer.toString()
+            jvmTarget = JavaVersion.VERSION_17.toString()
             sourceSets.all {
                 languageVersion = "2.0"
             }

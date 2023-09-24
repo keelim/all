@@ -1,4 +1,10 @@
 [versions]
+# project
+compileSdk = "34"
+minSdk = "26"
+targetSdk = "33"
+versionCode = "20230924"
+# library
 accompanist = "0.32.0"
 androidDesugarJdkLibs = "2.0.3"
 androidGradlePlugin = "8.0.2"

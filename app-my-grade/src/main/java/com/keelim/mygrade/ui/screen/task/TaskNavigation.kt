@@ -5,8 +5,9 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 
+const val taskRoute = "task"
 fun NavController.navigateTask(navOptions: NavOptions? = null) {
-    this.navigate("Task", navOptions)
+    this.navigate(taskRoute, navOptions)
 }
 
 fun NavGraphBuilder.taskScreen(

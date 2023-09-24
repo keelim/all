@@ -22,8 +22,8 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
-import javax.inject.Inject
 import timber.log.Timber
+import javax.inject.Inject
 
 private const val loggerTag = "[Lifecycle Logger]"
 
@@ -70,7 +70,7 @@ class ComponentLogger @Inject constructor() {
                 override fun onActivityDestroyed(activity: Activity) {
                     activity.printLifecycle("onDestroy")
                 }
-            }
+            },
         )
     }
 
@@ -81,14 +81,14 @@ class ComponentLogger @Inject constructor() {
                     override fun onFragmentPreAttached(
                         fm: FragmentManager,
                         f: Fragment,
-                        context: Context
+                        context: Context,
                     ) {
                     }
 
                     override fun onFragmentCreated(
                         fm: FragmentManager,
                         f: Fragment,
-                        savedInstanceState: Bundle?
+                        savedInstanceState: Bundle?,
                     ) {
                         super.onFragmentCreated(fm, f, savedInstanceState)
                         f.printLifecycle("onCreate")
@@ -98,7 +98,7 @@ class ComponentLogger @Inject constructor() {
                         fm: FragmentManager,
                         f: Fragment,
                         v: View,
-                        savedInstanceState: Bundle?
+                        savedInstanceState: Bundle?,
                     ) {
                         super.onFragmentViewCreated(fm, f, v, savedInstanceState)
                         f.printLifecycle("onViewCreated")
@@ -134,7 +134,7 @@ class ComponentLogger @Inject constructor() {
                         f.printLifecycle("onDestroy")
                     }
                 },
-                true
+                true,
             )
         }
     }

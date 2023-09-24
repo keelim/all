@@ -17,6 +17,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.OfflineBolt
+import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material.icons.rounded.Web
 import androidx.compose.material3.Card
@@ -34,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.ui.screen.category.categoryRoute
 import com.keelim.nandadiagnosis.ui.screen.inappweb.webRoute
+import com.keelim.nandadiagnosis.ui.screen.nutrients.nutrientRoute
 import com.keelim.setting.screen.settingsRoute
 import kotlinx.collections.immutable.persistentListOf
 
@@ -48,14 +50,19 @@ private val nandaNavItems =
             icon = Icons.Rounded.Home,
         ),
         NandaNavItem(
-            name = "Settings",
-            route = settingsRoute,
-            icon = Icons.Rounded.Settings,
-        ),
-        NandaNavItem(
             name = "Web",
             route = webRoute + "/nanda",
             icon = Icons.Rounded.Web,
+        ),
+        NandaNavItem(
+            name = "Nutrient",
+            route = nutrientRoute,
+            icon = Icons.Rounded.Person,
+        ),
+        NandaNavItem(
+            name = "Settings",
+            route = settingsRoute,
+            icon = Icons.Rounded.Settings,
         ),
     )
 
@@ -64,15 +71,17 @@ fun NandaDrawer(
     onRouteClick: (String) -> Unit,
     onAboutClick: () -> Unit,
 ) {
-    Box(modifier = Modifier
-        .fillMaxSize()
-        .padding(horizontal = 16.dp, vertical = 24.dp)) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 16.dp, vertical = 24.dp),
+    ) {
         Column(modifier = Modifier.align(Alignment.TopCenter)) {
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = stringResource(R.string.app_name),
                 modifier = Modifier.padding(start = 8.dp),
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleMedium,
             )
             Spacer(modifier = Modifier.height(24.dp))
             LazyColumn {
@@ -82,7 +91,7 @@ fun NandaDrawer(
                             .fillMaxWidth()
                             .padding(4.dp),
                         shape = RoundedCornerShape(12.dp),
-                        onClick = { onRouteClick(item.route) }
+                        onClick = { onRouteClick(item.route) },
                     ) {
                         Row(
                             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
@@ -108,12 +117,12 @@ fun NandaDrawer(
                 .clickable {
                     onAboutClick()
                 },
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Icon(
                 imageVector = Icons.Rounded.OfflineBolt,
                 contentDescription = null,
-                modifier = Modifier.size(36.dp)
+                modifier = Modifier.size(36.dp),
             )
         }
     }

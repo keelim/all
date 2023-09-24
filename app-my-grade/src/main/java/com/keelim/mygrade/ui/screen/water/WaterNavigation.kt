@@ -11,9 +11,7 @@ fun NavController.navigateWater(navOptions: NavOptions? = null) {
     this.navigate(waterRoute, navOptions)
 }
 
-fun NavGraphBuilder.waterScreen(
-
-) {
+fun NavGraphBuilder.waterScreen() {
     composable(route = waterRoute) {
         WaterRoute()
     }

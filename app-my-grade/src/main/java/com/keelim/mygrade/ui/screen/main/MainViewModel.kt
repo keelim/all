@@ -45,10 +45,10 @@ class MainViewModel @Inject constructor() : ViewModel() {
     private val _student = MutableStateFlow("")
     val student: StateFlow<String> = _student.asStateFlow()
 
-    fun <T: EditType> updateEditType(editType: T){
+    fun <T : EditType> updateEditType(editType: T) {
         editType.value.trim()
             .also { value ->
-                when(editType) {
+                when (editType) {
                     is EditType.Average -> _average.tryEmit(value)
                     is EditType.Number -> _number.tryEmit(value)
                     is EditType.Origin -> _origin.tryEmit(value)
@@ -67,7 +67,7 @@ class MainViewModel @Inject constructor() : ViewModel() {
         _subject.tryEmit("")
     }
 
-    fun <T: MainState> moveState(state: T) {
+    fun <T : MainState> moveState(state: T) {
         _state.tryEmit(state)
     }
 
@@ -77,7 +77,7 @@ class MainViewModel @Inject constructor() : ViewModel() {
             _subject.value
         }.getOrNull()
 
-        if(subject == null) {
+        if (subject == null) {
             _mainScreenState.update { old ->
                 old.copy(
                     originError = true,
@@ -152,9 +152,9 @@ class MainViewModel @Inject constructor() : ViewModel() {
 
 sealed interface EditType {
     val value: String
-    data class Subject(override val value: String): EditType
-    data class Origin(override val value: String): EditType
-    data class Average(override val value: String): EditType
-    data class Number(override val value: String): EditType
-    data class Student(override val value: String): EditType
+    data class Subject(override val value: String) : EditType
+    data class Origin(override val value: String) : EditType
+    data class Average(override val value: String) : EditType
+    data class Number(override val value: String) : EditType
+    data class Student(override val value: String) : EditType
 }

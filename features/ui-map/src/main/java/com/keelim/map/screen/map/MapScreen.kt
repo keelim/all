@@ -20,7 +20,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.maps.android.compose.GoogleMap
-import com.google.maps.android.compose.MapsComposeExperimentalApi
 import com.google.maps.android.compose.MarkerInfoWindowContent
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
@@ -42,13 +41,13 @@ fun MapScreen(viewModel: MapViewModel = hiltViewModel()) {
             MarkerInfoWindowContent(
                 state = MarkerState(position = marker.position),
                 title = marker.title,
-                snippet = marker.itemSnippet
+                snippet = marker.itemSnippet,
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(
                         modifier = Modifier.padding(top = 6.dp),
                         text = marker.title,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
                     )
                     AsyncImage(
                         model = marker.imageUrl,
@@ -56,9 +55,9 @@ fun MapScreen(viewModel: MapViewModel = hiltViewModel()) {
                             .padding(top = 6.dp)
                             .border(
                                 BorderStroke(3.dp, color = Color.Gray),
-                                shape = RectangleShape
+                                shape = RectangleShape,
                             ),
-                        contentDescription = null
+                        contentDescription = null,
                     )
                 }
             }

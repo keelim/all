@@ -32,13 +32,13 @@ import androidx.compose.ui.unit.dp
 data class PriceCardState(
     val value: Float,
     val suffix: String,
-    val previews: List<Pair<String, Float>>
+    val previews: List<Pair<String, Float>>,
 )
 
 @Composable
 fun PriceCard(
     priceCardState: PriceCardState,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Card(
         modifier = Modifier
@@ -46,7 +46,7 @@ fun PriceCard(
             .padding(10.dp)
             .fillMaxWidth()
             .height(350.dp),
-        shape = RoundedCornerShape(20)
+        shape = RoundedCornerShape(20),
     ) {
         Box(
             modifier = Modifier
@@ -54,27 +54,27 @@ fun PriceCard(
                 .background(Color.Gray)
                 .drawBehind {
                     drawCurvyLine()
-                }
+                },
         ) {
             Column(
-                modifier = Modifier.padding(vertical = 50.dp, horizontal = 30.dp)
+                modifier = Modifier.padding(vertical = 50.dp, horizontal = 30.dp),
             ) {
                 Text(
                     text = "My Crypto Cap",
                     color = Color.White,
                     style = MaterialTheme.typography.displaySmall,
-                    fontWeight = FontWeight.ExtraLight
+                    fontWeight = FontWeight.ExtraLight,
                 )
 
                 Text(
                     text = "${priceCardState.value} ${priceCardState.suffix}",
                     color = Color.White,
                     style = MaterialTheme.typography.displaySmall,
-                    fontWeight = FontWeight.ExtraBold
+                    fontWeight = FontWeight.ExtraBold,
                 )
 
                 DailyPreview(
-                    previews = priceCardState.previews
+                    previews = priceCardState.previews,
                 )
             }
         }
@@ -83,36 +83,35 @@ fun PriceCard(
 
 @Composable
 private fun DailyPreview(
-    previews: List<Pair<String, Float>>
+    previews: List<Pair<String, Float>>,
 ) {
     val maxValue = previews.maxBy { (_, value) -> value }.second
     Row(
         modifier = Modifier.fillMaxHeight(.8f),
-        verticalAlignment = Alignment.Bottom
+        verticalAlignment = Alignment.Bottom,
     ) {
         for (item in previews) {
             val columnHeightWeight =
-                item.second / maxValue //<-- We use it to get a value between 0 and 1
+                item.second / maxValue // <-- We use it to get a value between 0 and 1
             Card(
                 modifier = Modifier
                     .weight(1f)
-                    .fillMaxHeight(columnHeightWeight) //<-- Pass it through the modifier to determine Its height
+                    .fillMaxHeight(columnHeightWeight) // <-- Pass it through the modifier to determine Its height
                     .padding(5.dp),
-                shape = RoundedCornerShape(30)
+                shape = RoundedCornerShape(30),
             ) {
-
             }
         }
     }
 
     Row(
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         for (item in previews) {
             Text(
                 modifier = Modifier.weight(1f),
                 text = item.first,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             )
         }
     }
@@ -123,8 +122,10 @@ private fun DrawScope.drawCurvyLine() {
         moveTo(size.width.times(.9f), size.height.times(0f))
 
         quadraticBezierTo(
-            size.width.times(.9f), size.height.times(.28f),
-            size.width.times(.73f), size.height.times(.15f)
+            size.width.times(.9f),
+            size.height.times(.28f),
+            size.width.times(.73f),
+            size.height.times(.15f),
         )
     }
 
@@ -133,8 +134,8 @@ private fun DrawScope.drawCurvyLine() {
         color = Color.White,
         style = Stroke(
             width = 50f,
-            cap = StrokeCap.Round
-        )
+            cap = StrokeCap.Round,
+        ),
     )
 }
 
@@ -150,8 +151,8 @@ private fun PreviewPriceCard() {
                 Pair("Feb", 20000f),
                 Pair("Mar", 38000f),
                 Pair("Apr", 8000f),
-                Pair("May", 10000f)
+                Pair("May", 10000f),
             ),
-        )
+        ),
     )
 }

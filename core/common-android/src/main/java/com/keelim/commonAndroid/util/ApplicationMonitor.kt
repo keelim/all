@@ -17,7 +17,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class ApplicationMonitor @Inject constructor(
-    private val appInfo: AppInfo
+    private val appInfo: AppInfo,
 ) : LifecycleObserver {
     private val adRequest: AdRequest by lazy { AdRequest.Builder().build() }
 
@@ -66,7 +66,7 @@ class ApplicationMonitor @Inject constructor(
                     currentActivity = null
                     Timber.d("${activity::class.java.simpleName} onDestroyed")
                 }
-            }
+            },
         )
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)
     }
@@ -114,7 +114,7 @@ class ApplicationMonitor @Inject constructor(
                 appInfo.adId
             },
             adRequest,
-            loadCallback
+            loadCallback,
         )
     }
 

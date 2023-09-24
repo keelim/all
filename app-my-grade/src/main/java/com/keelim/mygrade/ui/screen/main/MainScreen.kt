@@ -85,31 +85,31 @@ fun MainScreen(
         ScoreTextRow(
             text = "과목명",
             value = subject,
-            onValueChange = { viewModel.updateEditType(EditType.Subject(it))},
+            onValueChange = { viewModel.updateEditType(EditType.Subject(it)) },
             isError = mainState.subjectError,
         )
         ScoreTextRow(
             text = "원점수",
             value = origin,
-            onValueChange = { viewModel.updateEditType(EditType.Origin(it))},
+            onValueChange = { viewModel.updateEditType(EditType.Origin(it)) },
             isError = mainState.originError,
         )
         ScoreTextRow(
             text = "과목 평균",
             value = average,
-            onValueChange = { viewModel.updateEditType(EditType.Average(it))},
+            onValueChange = { viewModel.updateEditType(EditType.Average(it)) },
             isError = mainState.averageError,
         )
         ScoreTextRow(
             text = "표준편차",
             value = number,
-            onValueChange = { viewModel.updateEditType(EditType.Number(it))},
+            onValueChange = { viewModel.updateEditType(EditType.Number(it)) },
             isError = mainState.numberError,
         )
         ScoreTextRow(
             text = "학생 수",
             value = student,
-            onValueChange = { viewModel.updateEditType(EditType.Student(it))},
+            onValueChange = { viewModel.updateEditType(EditType.Student(it)) },
             isError = mainState.studentError,
         )
         Row {

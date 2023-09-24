@@ -11,7 +11,7 @@ data class QuickAddState(
     val normalProbability: NormalProbability,
     val student: Int,
 ) {
-    fun isValid() : Boolean = subject.isNotEmpty() && normalProbability.value != 0 && student != 0
+    fun isValid(): Boolean = subject.isNotEmpty() && normalProbability.value != 0 && student != 0
     companion object {
         fun empty() = QuickAddState(
             isError = false,

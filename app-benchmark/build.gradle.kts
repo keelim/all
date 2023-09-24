@@ -1,18 +1,13 @@
 import org.jetbrains.kotlin.builtins.StandardNames.FqNames.target
 
 plugins {
-    id("com.android.test")
-    id("org.jetbrains.kotlin.android")
+    id("keelim.android.test")
 }
 
 android {
     namespace = "com.keelim.benchmark"
-    compileSdk = 33
 
     defaultConfig {
-        minSdk = 24
-        targetSdk = 33
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 

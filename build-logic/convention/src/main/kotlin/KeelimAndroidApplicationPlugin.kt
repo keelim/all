@@ -22,9 +22,9 @@ class KeelimAndroidApplicationPlugin : Plugin<Project> {
             extensions.getByType<ApplicationExtension>().apply {
                 configureKotlinAndroid(this)
                 defaultConfig {
-                    versionName = ProjectConfiguration.versionName
-                    versionCode = ProjectConfiguration.versionCode
-                    targetSdk = ProjectConfiguration.targetSdk
+                    versionName = libs.findVersion("versionCode").get().displayName
+                    versionCode = libs.findVersion("versionCode").get().displayName.toInt()
+                    targetSdk = libs.findVersion("targetSdk").get().displayName.toInt()
                 }
                 buildFeatures.dataBinding = true
                 buildTypes.getByName("release").apply {

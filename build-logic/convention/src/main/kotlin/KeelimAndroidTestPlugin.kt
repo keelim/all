@@ -1,6 +1,7 @@
 import com.android.build.gradle.TestExtension
 import com.keelim.builds.ProjectConfiguration
 import com.keelim.builds.configureKotlinAndroid
+import com.keelim.builds.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
@@ -15,7 +16,7 @@ class KeelimAndroidTestPlugin : Plugin<Project> {
 
             extensions.configure<TestExtension> {
                 configureKotlinAndroid(this)
-                defaultConfig.targetSdk = ProjectConfiguration.targetSdk
+                defaultConfig.targetSdk = libs.findVersion("targetSdk").get().displayName.toInt()
                 defaultConfig.testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
             }
         }

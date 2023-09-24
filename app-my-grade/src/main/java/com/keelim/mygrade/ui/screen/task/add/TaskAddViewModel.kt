@@ -16,26 +16,27 @@ import javax.inject.Inject
 
 @Stable
 sealed interface TaskAddState {
-    data object Empty: TaskAddState
-    data object Loading: TaskAddState
-    data object Success: TaskAddState
+    data object Empty : TaskAddState
+    data object Loading : TaskAddState
+    data object Success : TaskAddState
 }
+
 @HiltViewModel
 class TaskAddViewModel @Inject constructor(
     val defaultTaskRepository: DefaultTaskRepository,
-    @IoDispatcher val dispatcher: CoroutineDispatcher
+    @IoDispatcher val dispatcher: CoroutineDispatcher,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<TaskAddState>(TaskAddState.Empty)
-    val uiState : StateFlow<TaskAddState> = _uiState.asStateFlow()
-
+    val uiState: StateFlow<TaskAddState> = _uiState.asStateFlow()
 
     fun addTask(title: String, description: String) {
         viewModelScope.launch {
             _uiState.tryEmit(TaskAddState.Loading)
             withContext(dispatcher) {
                 val id = defaultTaskRepository.create(
-                    title = title, description = description
+                    title = title,
+                    description = description,
                 )
             }
             _uiState.tryEmit(TaskAddState.Success)

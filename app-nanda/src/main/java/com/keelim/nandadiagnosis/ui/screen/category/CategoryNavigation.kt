@@ -3,7 +3,6 @@ package com.keelim.nandadiagnosis.ui.screen.category
 import androidx.compose.material3.SheetState
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import com.keelim.nandadiagnosis.ui.screen.main.MainBottomSheet
 

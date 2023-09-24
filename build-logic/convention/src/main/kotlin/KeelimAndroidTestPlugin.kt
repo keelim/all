@@ -1,5 +1,4 @@
 import com.android.build.gradle.TestExtension
-import com.keelim.builds.ProjectConfiguration
 import com.keelim.builds.configureKotlinAndroid
 import com.keelim.builds.libs
 import org.gradle.api.Plugin

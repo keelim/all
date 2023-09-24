@@ -74,17 +74,17 @@ fun MainScreen(
             .padding(horizontal = 12.dp, vertical = 12.dp),
     ) {
         Row(
-            verticalAlignment = Alignment.CenterVertically
-        ){
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
             Text(text = "MyGrade", style = MaterialTheme.typography.headlineLarge)
             Spacer(
-                modifier = Modifier.width(8.dp)
+                modifier = Modifier.width(8.dp),
             )
             Icon(
                 Icons.Filled.Build,
                 contentDescription = null,
                 modifier = Modifier.size(18.dp)
-                    .clickable { onLabClick() }
+                    .clickable { onLabClick() },
             )
         }
         Spacer(modifier = Modifier.height(10.dp))

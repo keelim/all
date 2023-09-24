@@ -15,19 +15,19 @@ import androidx.emoji2.emojipicker.EmojiViewItem
 
 @Composable
 fun EmojiPickerView() {
-  var emoji by remember { mutableStateOf(EmojiViewItem("😀", emptyList())) }
-  Column {
-    AndroidView(
-      modifier = Modifier.fillMaxWidth(),
-      factory = {
-        EmojiPickerView(it).apply {
-          emojiGridColumns = 9
-          emojiGridRows = 6f
-          // set pick listener
-          setOnEmojiPickedListener { item -> emoji = item }
-        }
-      }
-    )
-      Text(text = emoji.emoji)
-  }
+    var emoji by remember { mutableStateOf(EmojiViewItem("😀", emptyList())) }
+    Column {
+        AndroidView(
+            modifier = Modifier.fillMaxWidth(),
+            factory = {
+                EmojiPickerView(it).apply {
+                    emojiGridColumns = 9
+                    emojiGridRows = 6f
+                    // set pick listener
+                    setOnEmojiPickedListener { item -> emoji = item }
+                }
+            },
+        )
+        Text(text = emoji.emoji)
+    }
 }

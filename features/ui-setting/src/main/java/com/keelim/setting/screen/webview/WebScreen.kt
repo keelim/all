@@ -1,7 +1,6 @@
 package com.keelim.setting.screen.webview
 
 import androidx.activity.compose.BackHandler
-import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -29,23 +28,29 @@ import com.google.accompanist.web.rememberWebViewNavigator
 import com.google.accompanist.web.rememberWebViewState
 
 @Composable
-fun WebViewRoute(uri: String) {
-    WebViewScreen(uri = uri)
+fun WebViewRoute(
+    uri: String,
+    onNavigateCategory: () -> Unit,
+) {
+    WebViewScreen(
+        uri = uri,
+        onNavigateCategory = onNavigateCategory
+    )
 }
 
 @Composable
-fun WebViewScreen(uri: String) {
+fun WebViewScreen(
+    uri: String,
+    onNavigateCategory: () -> Unit,
+) {
     Column {
         val webViewNavigator = rememberWebViewNavigator()
-        val backPressedDispatcher = checkNotNull(
-            LocalOnBackPressedDispatcherOwner.current,
-        ).onBackPressedDispatcher
         WebViewNavigationBar(
             onBackwardClick = {
                 if (webViewNavigator.canGoBack) {
                     webViewNavigator.navigateBack()
                 } else {
-                    backPressedDispatcher.onBackPressed()
+                    onNavigateCategory()
                 }
             },
             onForwardClick = {
@@ -72,7 +77,7 @@ fun WebViewScreen(uri: String) {
             if (webViewNavigator.canGoBack) {
                 webViewNavigator.navigateBack()
             } else {
-                backPressedDispatcher.onBackPressed()
+                onNavigateCategory()
             }
         }
     }
@@ -83,6 +88,7 @@ fun WebViewScreen(uri: String) {
 private fun PreviewWebViewScreen() {
     WebViewScreen(
         uri = "https://www.google.com/#q=iriure",
+        onNavigateCategory = {}
     )
 }
 

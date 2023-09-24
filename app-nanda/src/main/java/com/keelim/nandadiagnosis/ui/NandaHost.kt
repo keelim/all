@@ -11,6 +11,7 @@ import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.keelim.composeutil.AppState
 import com.keelim.nandadiagnosis.ui.screen.category.categoryRoute
 import com.keelim.nandadiagnosis.ui.screen.category.categoryScreen
+import com.keelim.nandadiagnosis.ui.screen.category.navigateToCategory
 import com.keelim.nandadiagnosis.ui.screen.diagnosis.diagnosisScreen
 import com.keelim.nandadiagnosis.ui.screen.diagnosis.navigateToDiagnosis
 import com.keelim.nandadiagnosis.ui.screen.inappweb.navigateToWeb
@@ -39,7 +40,9 @@ fun NandaHost(
     startDestination = categoryRoute,
     modifier = modifier,
   ) {
-    webScreen()
+    webScreen(
+        onNavigateCategory = navController::navigateToCategory
+    )
     categoryScreen(
       bottomSheetState = bottomSheetState,
       onBlogClick = {
@@ -55,7 +58,7 @@ fun NandaHost(
       nestedGraphs = { diagnosisScreen() },
     )
     settingsScreen(
-      onNotificationsClick = { navController.navigateNotification() },
+      onNotificationsClick = navController::navigateNotification,
       onOpenSourceClick = {
         context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
       },

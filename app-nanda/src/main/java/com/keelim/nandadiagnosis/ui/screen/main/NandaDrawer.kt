@@ -50,11 +50,6 @@ private val nandaNavItems =
             icon = Icons.Rounded.Home,
         ),
         NandaNavItem(
-            name = "Settings",
-            route = settingsRoute,
-            icon = Icons.Rounded.Settings,
-        ),
-        NandaNavItem(
             name = "Web",
             route = webRoute + "/nanda",
             icon = Icons.Rounded.Web,
@@ -63,6 +58,11 @@ private val nandaNavItems =
             name = "Nutrient",
             route = nutrientRoute,
             icon = Icons.Rounded.Person,
+        ),
+        NandaNavItem(
+            name = "Settings",
+            route = settingsRoute,
+            icon = Icons.Rounded.Settings,
         ),
     )
 

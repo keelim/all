@@ -18,8 +18,8 @@ import com.keelim.mygrade.ui.screen.main.mainScreen
 import com.keelim.mygrade.ui.screen.main.toProcess
 import com.keelim.mygrade.ui.screen.quick.navigateQuick
 import com.keelim.mygrade.ui.screen.quick.quickScreen
-import com.keelim.mygrade.ui.screen.task.navigateTask
-import com.keelim.mygrade.ui.screen.task.taskScreen
+import com.keelim.mygrade.ui.screen.task.show.navigateTask
+import com.keelim.mygrade.ui.screen.task.show.taskScreen
 import com.keelim.setting.screen.event.eventScreen
 import com.keelim.setting.screen.navigateNotification
 import com.keelim.setting.screen.navigateSettings

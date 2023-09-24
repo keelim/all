@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.keelim.mygrade.ui.screen.task
+package com.keelim.mygrade.ui.screen.task.show
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -51,9 +51,9 @@ fun TaskRoute(
 
 @Composable
 private fun TaskScreen(
-  viewModel: TaskViewModel = hiltViewModel(),
-  onTaskClick: () -> Unit = {},
-  onNavigateTaskClick: () -> Unit = {},
+    viewModel: TaskViewModel = hiltViewModel(),
+    onTaskClick: () -> Unit = {},
+    onNavigateTaskClick: () -> Unit = {},
   ) {
   val uiState by viewModel.taskUiState.collectAsStateWithLifecycle()
   TaskStateSection(uiState = uiState, onTaskClick = onTaskClick, onNavigateTaskClick = onNavigateTaskClick)
@@ -61,9 +61,9 @@ private fun TaskScreen(
 
 @Composable
 private fun TaskStateSection(
-  uiState: TaskUiState,
-  onTaskClick: () -> Unit,
-  onNavigateTaskClick: () -> Unit
+    uiState: TaskUiState,
+    onTaskClick: () -> Unit,
+    onNavigateTaskClick: () -> Unit
 ) {
     var fabHeight by remember { mutableIntStateOf(0) }
     Scaffold(

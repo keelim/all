@@ -1,4 +1,4 @@
-package com.keelim.mygrade.ui.screen.task
+package com.keelim.mygrade.ui.screen.task.show
 
 import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel

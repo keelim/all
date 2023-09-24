@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "50b514385218086066ecf2646b50ed69",
+    "identityHash": "c54acecb080f0ee3b7f785e7ab16ceff",
     "entities": [
       {
         "tableName": "history",
@@ -68,7 +68,7 @@
       },
       {
         "tableName": "task",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `title` TEXT NOT NULL, `description` TEXT NOT NULL, `isCompleted` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `title` TEXT NOT NULL, `description` TEXT NOT NULL, `isCompleted` INTEGER NOT NULL, `date` TEXT NOT NULL DEFAULT '', PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -93,6 +93,13 @@
             "columnName": "isCompleted",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
           }
         ],
         "primaryKey": {
@@ -158,7 +165,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '50b514385218086066ecf2646b50ed69')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c54acecb080f0ee3b7f785e7ab16ceff')"
     ]
   }
 }

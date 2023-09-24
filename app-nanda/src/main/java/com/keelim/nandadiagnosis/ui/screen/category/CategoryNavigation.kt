@@ -8,8 +8,12 @@ import androidx.navigation.compose.composable
 import com.keelim.nandadiagnosis.ui.screen.main.MainBottomSheet
 
 const val categoryRoute = "category"
-fun NavController.navigateToCategory(navOptions: NavOptions? = null) {
-    this.navigate(categoryRoute, navOptions)
+fun NavController.navigateToCategory() {
+    this.navigate(categoryRoute) {
+        popUpTo(graph.id) {
+            inclusive = true
+        }
+    }
 }
 
 fun NavGraphBuilder.categoryScreen(

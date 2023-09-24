@@ -26,7 +26,7 @@ fun NavGraphBuilder.webScreen(
         // val uri = backStackEntry.arguments?.getString("uri", defaultUri) ?: defaultUri
         WebViewRoute(
             uri = defaultUri,
-            onNavigateCategory = onNavigateCategory
+            onNavigateCategory = onNavigateCategory,
         )
     }
 }

@@ -20,24 +20,25 @@ import javax.inject.Inject
 
 @Stable
 sealed interface TaskUiState {
-     data object Loading: TaskUiState
-    data object Empty: TaskUiState
-    data object Error: TaskUiState
+    data object Loading : TaskUiState
+    data object Empty : TaskUiState
+    data object Error : TaskUiState
 
-    data class Success(val tasks: PersistentList<LocalTask>): TaskUiState
+    data class Success(val tasks: PersistentList<LocalTask>) : TaskUiState
 }
+
 @HiltViewModel
 class TaskViewModel @Inject constructor(
-    defaultTaskRepository: DefaultTaskRepository
+    defaultTaskRepository: DefaultTaskRepository,
 ) : ViewModel() {
     private val trigger = MutableStateFlow(Clock.System.now())
     val taskUiState: StateFlow<TaskUiState> = combine(defaultTaskRepository.observeAll(), trigger) { tasks, _ ->
-        if(tasks.isEmpty()) {
+        if (tasks.isEmpty()) {
             TaskUiState.Empty
         } else {
             TaskUiState.Success(tasks.toPersistentList())
         }
-    }.catch {throwable ->
+    }.catch { throwable ->
         Timber.e(throwable)
         TaskUiState.Error
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), TaskUiState.Loading)

@@ -2,6 +2,7 @@ package com.keelim.data.source
 
 import com.keelim.data.source.local.LocalTask
 import com.keelim.data.source.network.NetworkTask
+import kotlinx.datetime.Clock
 
 data class Task(
     val title: String = "",
@@ -37,6 +38,7 @@ fun Task.toLocal() = LocalTask(
     title = title,
     description = description,
     isCompleted = isCompleted,
+    date = Clock.System.now().toString()
 )
 
 fun NetworkTask.toLocal() = LocalTask(
@@ -44,6 +46,7 @@ fun NetworkTask.toLocal() = LocalTask(
     title = title,
     description = shortDescription,
     isCompleted = (status == NetworkTask.TaskStatus.COMPLETE),
+    date = Clock.System.now().toString()
 )
 
 fun List<NetworkTask>.toLocal() = map(NetworkTask::toLocal)

@@ -12,16 +12,22 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
+import kotlinx.datetime.Clock
+import kotlinx.datetime.DateTimeUnit
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.plus
 import org.junit.Test
 
 class DefaultTaskRepositoryImplTest {
 
     private var testDispatcher = UnconfinedTestDispatcher()
     private var testScope = TestScope(testDispatcher)
+    private val systemTZ = TimeZone.currentSystemDefault()
 
     private val localTasks = listOf(
-        LocalTask(id = "1", title = "title1", description = "description1", isCompleted = false),
-        LocalTask(id = "2", title = "title2", description = "description2", isCompleted = true),
+        LocalTask(id = "1", title = "title1", description = "description1", isCompleted = false, date = Clock.System.now().toString()),
+        LocalTask(id = "2", title = "title2", description = "description2", isCompleted = true, date = Clock.System.now().plus(1, DateTimeUnit.DAY, systemTZ).toString())
     )
 
     private val localDataSource = FakeTaskDao(localTasks)

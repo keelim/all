@@ -34,7 +34,7 @@ fun WebViewRoute(
 ) {
     WebViewScreen(
         uri = uri,
-        onNavigateCategory = onNavigateCategory
+        onNavigateCategory = onNavigateCategory,
     )
 }
 
@@ -88,7 +88,7 @@ fun WebViewScreen(
 private fun PreviewWebViewScreen() {
     WebViewScreen(
         uri = "https://www.google.com/#q=iriure",
-        onNavigateCategory = {}
+        onNavigateCategory = {},
     )
 }
 

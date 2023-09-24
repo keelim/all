@@ -17,7 +17,7 @@ fun NavGraphBuilder.taskAddScreen(
         route = taskAddRoute,
     ) {
         TaskAddRoute(
-            onAddFinish = onAddFinish
+            onAddFinish = onAddFinish,
         )
     }
 }

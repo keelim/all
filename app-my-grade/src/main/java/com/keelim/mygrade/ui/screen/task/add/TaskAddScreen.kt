@@ -10,41 +10,40 @@ import com.keelim.composeutil.component.layout.Loading
 
 @Composable
 fun TaskAddRoute(onAddFinish: () -> Unit) {
-  TaskAddScreen(onAddFinish = onAddFinish)
+    TaskAddScreen(onAddFinish = onAddFinish)
 }
 
 @Composable
 fun TaskAddScreen(onAddFinish: () -> Unit, viewModel: TaskAddViewModel = hiltViewModel()) {
-  val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-  TaskStateSection(uiState = uiState, onAddFinish = onAddFinish, onAddClick = viewModel::addTask)
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    TaskStateSection(uiState = uiState, onAddFinish = onAddFinish, onAddClick = viewModel::addTask)
 }
 
 @Composable
 private fun TaskStateSection(
-  uiState: TaskAddState,
-  onAddFinish: () -> Unit,
-  onAddClick: (String, String) -> Unit
+    uiState: TaskAddState,
+    onAddFinish: () -> Unit,
+    onAddClick: (String, String) -> Unit,
 ) {
-  if (uiState == TaskAddState.Loading) {
-    Loading()
-  }
-  if (uiState == TaskAddState.Success) {
-    LaunchedEffect(key1 = uiState) { onAddFinish() }
-  }
-  TaskAddSection(
-      onAddClick = onAddClick
-  )
+    if (uiState == TaskAddState.Loading) {
+        Loading()
+    }
+    if (uiState == TaskAddState.Success) {
+        LaunchedEffect(key1 = uiState) { onAddFinish() }
+    }
+    TaskAddSection(
+        onAddClick = onAddClick,
+    )
 }
 
 @Composable
 private fun TaskAddSection(
-    onAddClick: (String, String) -> Unit
+    onAddClick: (String, String) -> Unit,
 ) {
-
 }
 
 @Preview
 @Composable
 private fun PreviewTaskAddSection() {
-  TaskAddSection(onAddClick = { _, _ -> })
+    TaskAddSection(onAddClick = { _, _ -> })
 }

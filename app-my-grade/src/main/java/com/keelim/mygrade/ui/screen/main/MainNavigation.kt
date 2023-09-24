@@ -16,7 +16,7 @@ fun NavGraphBuilder.mainScreen(
     onFloatingButtonClick1: () -> Unit,
     onFloatingButtonClick2: () -> Unit,
     onFloatingButtonClick3: () -> Unit,
-    onLabClick: () -> Unit
+    onLabClick: () -> Unit,
 ) {
     composable(route = mainRoute) {
         MainRoute(

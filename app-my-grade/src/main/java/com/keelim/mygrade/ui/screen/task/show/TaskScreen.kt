@@ -41,12 +41,12 @@ import kotlinx.collections.immutable.persistentListOf
 @Composable
 fun TaskRoute(
     onTaskClick: () -> Unit,
-    onNavigateTaskClick: () -> Unit
+    onNavigateTaskClick: () -> Unit,
 ) {
-  TaskScreen(
-      onTaskClick = onTaskClick,
-      onNavigateTaskClick = onNavigateTaskClick
-  )
+    TaskScreen(
+        onTaskClick = onTaskClick,
+        onNavigateTaskClick = onNavigateTaskClick,
+    )
 }
 
 @Composable
@@ -54,16 +54,16 @@ private fun TaskScreen(
     viewModel: TaskViewModel = hiltViewModel(),
     onTaskClick: () -> Unit = {},
     onNavigateTaskClick: () -> Unit = {},
-  ) {
-  val uiState by viewModel.taskUiState.collectAsStateWithLifecycle()
-  TaskStateSection(uiState = uiState, onTaskClick = onTaskClick, onNavigateTaskClick = onNavigateTaskClick)
+) {
+    val uiState by viewModel.taskUiState.collectAsStateWithLifecycle()
+    TaskStateSection(uiState = uiState, onTaskClick = onTaskClick, onNavigateTaskClick = onNavigateTaskClick)
 }
 
 @Composable
 private fun TaskStateSection(
     uiState: TaskUiState,
     onTaskClick: () -> Unit,
-    onNavigateTaskClick: () -> Unit
+    onNavigateTaskClick: () -> Unit,
 ) {
     var fabHeight by remember { mutableIntStateOf(0) }
     Scaffold(
@@ -76,11 +76,12 @@ private fun TaskStateSection(
                 Icon(imageVector = Icons.Filled.Add, contentDescription = "icon")
             }
         },
-        floatingActionButtonPosition = FabPosition.End
+        floatingActionButtonPosition = FabPosition.End,
     ) { paddingValues ->
         when (uiState) {
             TaskUiState.Error,
-            TaskUiState.Empty -> EmptyView()
+            TaskUiState.Empty,
+            -> EmptyView()
             TaskUiState.Loading -> Loading()
             is TaskUiState.Success -> {
                 val modifier = Modifier.padding(paddingValues)
@@ -97,12 +98,12 @@ private fun TaskSuccessSection(
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
-        modifier = modifier
+        modifier = modifier,
     ) {
-        items(tasks) {task ->
+        items(tasks) { task ->
             TaskRow(
                 task = task,
-                onTaskClick = onTaskClick
+                onTaskClick = onTaskClick,
             )
         }
     }
@@ -111,24 +112,23 @@ private fun TaskSuccessSection(
 @Preview(showBackground = true)
 @Composable
 private fun PreviewTaskSuccessSection() {
-  TaskSuccessSection(tasks = persistentListOf(), onTaskClick = {})
+    TaskSuccessSection(tasks = persistentListOf(), onTaskClick = {})
 }
 
 @Composable
 private fun TaskRow(
     task: LocalTask,
-    onTaskClick: () -> Unit
+    onTaskClick: () -> Unit,
 ) {
-  Row(
-    modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 4.dp),
-    verticalAlignment = Alignment.CenterVertically,
-    horizontalArrangement = Arrangement.SpaceBetween
-  ) {
-    Text(text = task.title, style = MaterialTheme.typography.titleLarge)
-    Checkbox(checked = task.isCompleted, onCheckedChange = {
-
-    })
-  }
+    Row(
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 4.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween,
+    ) {
+        Text(text = task.title, style = MaterialTheme.typography.titleLarge)
+        Checkbox(checked = task.isCompleted, onCheckedChange = {
+        })
+    }
 }
 
 @Preview(showBackground = true)
@@ -136,14 +136,24 @@ private fun TaskRow(
 private fun PreviewTaskRow() {
     Column {
         TaskRow(
-            task  = LocalTask(
-                id = "pertinax", title = "decore", description = "persequeris", isCompleted = false, date = "epicurei"
-            ), onTaskClick = {}
+            task = LocalTask(
+                id = "pertinax",
+                title = "decore",
+                description = "persequeris",
+                isCompleted = false,
+                date = "epicurei",
+            ),
+            onTaskClick = {},
         )
         TaskRow(
-            task  = LocalTask(
-                id = "pertinax", title = "decore", description = "persequeris", isCompleted = true, date = "epicurei"
-            ), onTaskClick = {}
+            task = LocalTask(
+                id = "pertinax",
+                title = "decore",
+                description = "persequeris",
+                isCompleted = true,
+                date = "epicurei",
+            ),
+            onTaskClick = {},
         )
     }
 }

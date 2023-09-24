@@ -8,13 +8,13 @@ import androidx.navigation.compose.composable
 const val nutrientRoute = "nutrient"
 
 fun NavController.navigateToNutrient(navOptions: NavOptions? = null) {
-  this.navigate(nutrientRoute, navOptions)
+    this.navigate(nutrientRoute, navOptions)
 }
 
 fun NavGraphBuilder.nutrientScreen(
-  onNutrientClick: (String, String) -> Unit,
+    onNutrientClick: (String, String) -> Unit,
 ) {
-  composable(route = nutrientRoute) {
-      NutrientRoute(onNutrientClick = onNutrientClick)
-  }
+    composable(route = nutrientRoute) {
+        NutrientRoute(onNutrientClick = onNutrientClick)
+    }
 }

@@ -3,6 +3,7 @@ package com.keelim.data.source
 import com.keelim.data.db.dao.TaskDao
 import com.keelim.data.di.ApplicationScope
 import com.keelim.data.di.DefaultDispatcher
+import com.keelim.data.source.local.LocalTask
 import com.keelim.data.source.network.TaskNetworkDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
@@ -11,6 +12,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.datetime.Clock
 import java.util.UUID
 import javax.inject.Inject
 
@@ -21,22 +23,22 @@ class DefaultTaskRepositoryImpl @Inject constructor(
     @ApplicationScope private val scope: CoroutineScope,
 ) : DefaultTaskRepository {
 
-    override fun observeAll(): Flow<List<Task>> {
-        return localDataSource.observeAll().map { tasks ->
-            tasks.toExternal()
-        }
+    override fun observeAll(): Flow<List<LocalTask>> {
+        return localDataSource.observeAll()
     }
 
     override suspend fun create(title: String, description: String): String {
         val taskId = withContext(dispatcher) {
             createTaskId()
         }
-        val task = Task(
+        val task = LocalTask(
             title = title,
             description = description,
             id = taskId,
+            isCompleted = false,
+            date = Clock.System.now().toString()
         )
-        localDataSource.upsert(task.toLocal())
+        localDataSource.upsert(task)
         saveTasksToNetwork()
         return taskId
     }
@@ -53,6 +55,10 @@ class DefaultTaskRepositoryImpl @Inject constructor(
             networkTasks.toLocal()
         }
         localDataSource.upsertAll(networkTasks.toLocal())
+    }
+
+    override suspend fun clear() {
+        localDataSource.deleteAll()
     }
 
     private suspend fun saveTasksToNetwork() {

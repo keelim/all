@@ -18,12 +18,18 @@ import com.keelim.mygrade.ui.screen.main.mainScreen
 import com.keelim.mygrade.ui.screen.main.toProcess
 import com.keelim.mygrade.ui.screen.quick.navigateQuick
 import com.keelim.mygrade.ui.screen.quick.quickScreen
+import com.keelim.mygrade.ui.screen.task.add.navigateTaskAdd
+import com.keelim.mygrade.ui.screen.task.add.taskAddScreen
+import com.keelim.mygrade.ui.screen.task.show.navigateTask
+import com.keelim.mygrade.ui.screen.task.show.navigateTaskPopUpTo
+import com.keelim.mygrade.ui.screen.task.show.taskScreen
 import com.keelim.setting.screen.event.eventScreen
 import com.keelim.setting.screen.navigateNotification
 import com.keelim.setting.screen.navigateSettings
 import com.keelim.setting.screen.notificationScreen
 import com.keelim.setting.screen.settingsScreen
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 @Composable
 fun MyGradeHost(
@@ -50,11 +56,17 @@ fun MyGradeHost(
             onFloatingButtonClick1 = { navController.navigateHistory() },
             onFloatingButtonClick2 = { navController.navigateQuick() },
             onFloatingButtonClick3 = { navController.navigateSettings() },
+            onLabClick = {
+                coroutineScope.launch {
+                    val result = onShowSnackbar("새로운 기능으로 준비중입니다 😀", "move")
+                    if (result) {
+                        navController.navigateTask()
+                    }
+                }
+            },
         )
         quickScreen(
-            onDismiss = {
-                navController.popBackStack()
-            },
+            onDismiss = { navController.popBackStack() },
             onNavigate = { subject, normalProbability, student ->
                 navController.navigateGrade(
                     subject = subject,
@@ -74,16 +86,19 @@ fun MyGradeHost(
         )
         gradeScreen()
         settingsScreen(
-            onNotificationsClick = {
-                navController.navigateNotification()
-            },
+            onNotificationsClick = { navController.navigateNotification() },
             onOpenSourceClick = {
                 context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
             },
-            nestedGraphs = {
-                notificationScreen()
-            },
+            nestedGraphs = { notificationScreen() },
         )
         eventScreen()
+        taskScreen(
+            onTaskClick = {},
+            onNavigateTaskClick = navController::navigateTaskAdd,
+        )
+        taskAddScreen {
+            navController.navigateTaskPopUpTo()
+        }
     }
 }

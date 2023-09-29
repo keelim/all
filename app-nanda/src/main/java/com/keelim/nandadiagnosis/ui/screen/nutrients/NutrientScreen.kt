@@ -39,88 +39,89 @@ import com.keelim.composeutil.component.layout.Loading
 
 @Composable
 fun NutrientRoute(onNutrientClick: (String, String) -> Unit) {
-  NutrientScreen(onNutrientClick = onNutrientClick)
+    NutrientScreen(onNutrientClick = onNutrientClick)
 }
 
 @Composable
 private fun NutrientScreen(
-  viewModel: NutrientViewModel = hiltViewModel(),
-  onNutrientClick: (String, String) -> Unit
+    viewModel: NutrientViewModel = hiltViewModel(),
+    onNutrientClick: (String, String) -> Unit,
 ) {
-  val uiState by viewModel.state.collectAsStateWithLifecycle()
-  Column {
-    NavigationBackArrowBar(title = "Search Nutrient")
-    NutrientStateView(uiState = uiState, onNutrientClick = onNutrientClick)
-  }
+    val uiState by viewModel.state.collectAsStateWithLifecycle()
+    Column {
+        NavigationBackArrowBar(title = "Search Nutrient")
+        NutrientStateView(uiState = uiState, onNutrientClick = onNutrientClick)
+    }
 }
 
 @Composable
 private fun NutrientStateView(uiState: NutrientState, onNutrientClick: (String, String) -> Unit) {
-  when (uiState) {
-    NutrientState.Error,
-    NutrientState.Empty, -> EmptyView()
-    NutrientState.Loading -> Loading()
-    is NutrientState.Success -> {
-      LazyColumn {
-        items(uiState.items) { (title, uri) ->
-          NutrientCard(title = title, uri = uri, onNutrientClick = { onNutrientClick(title, uri) })
-          Spacer(modifier = Modifier.height(4.dp))
+    when (uiState) {
+        NutrientState.Error,
+        NutrientState.Empty,
+        -> EmptyView()
+        NutrientState.Loading -> Loading()
+        is NutrientState.Success -> {
+            LazyColumn {
+                items(uiState.items) { (title, uri) ->
+                    NutrientCard(title = title, uri = uri, onNutrientClick = { onNutrientClick(title, uri) })
+                    Spacer(modifier = Modifier.height(4.dp))
+                }
+            }
         }
-      }
     }
-  }
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun PreviewNutrientScreen() {
-  NutrientScreen(onNutrientClick = { _, _ -> })
+    NutrientScreen(onNutrientClick = { _, _ -> })
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun NutrientCard(title: String, uri: String, onNutrientClick: () -> Unit) {
-  Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-    Column(
-      modifier =
-        Modifier.widthIn(max = 400.dp)
-          .clip(MaterialTheme.shapes.large)
-          .clickable { onNutrientClick() }
-          .padding(16.dp)
-    ) {
-      Card(Modifier.fillMaxWidth()) {
-        Box {
-          AsyncImage(
-            model =
-              "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1024&q=80",
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        Column(
             modifier =
-              Modifier.clip(MaterialTheme.shapes.medium).aspectRatio(16 / 9f).fillMaxWidth(),
-            contentScale = ContentScale.Crop,
-            contentDescription = "null"
-          )
-          Button(
-            onClick = { onNutrientClick() },
-            modifier = Modifier.align(Alignment.TopEnd).padding(16.dp),
-            colors =
-              ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.surface,
-                contentColor = MaterialTheme.colorScheme.onSurface
-              )
-          ) {
-            Icon(Icons.Outlined.Favorite, contentDescription = "Favorite")
-          }
+            Modifier.widthIn(max = 400.dp)
+                .clip(MaterialTheme.shapes.large)
+                .clickable { onNutrientClick() }
+                .padding(16.dp),
+        ) {
+            Card(Modifier.fillMaxWidth()) {
+                Box {
+                    AsyncImage(
+                        model =
+                        "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1024&q=80",
+                        modifier =
+                        Modifier.clip(MaterialTheme.shapes.medium).aspectRatio(16 / 9f).fillMaxWidth(),
+                        contentScale = ContentScale.Crop,
+                        contentDescription = "null",
+                    )
+                    Button(
+                        onClick = { onNutrientClick() },
+                        modifier = Modifier.align(Alignment.TopEnd).padding(16.dp),
+                        colors =
+                        ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.surface,
+                            contentColor = MaterialTheme.colorScheme.onSurface,
+                        ),
+                    ) {
+                        Icon(Icons.Outlined.Favorite, contentDescription = "Favorite")
+                    }
+                }
+            }
+            Spacer(Modifier.height(12.dp))
+            Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    Text(title, maxLines = 1)
+                    // Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    //   Text("4.5")
+                    //   Icon(Icons.Rounded.Star, contentDescription = null, tint = Color(0xFFFF9800))
+                    // }
+                }
+            }
         }
-      }
-      Spacer(Modifier.height(12.dp))
-      Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-          Text(title, maxLines = 1)
-          // Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-          //   Text("4.5")
-          //   Icon(Icons.Rounded.Star, contentDescription = null, tint = Color(0xFFFF9800))
-          // }
-        }
-      }
     }
-  }
 }

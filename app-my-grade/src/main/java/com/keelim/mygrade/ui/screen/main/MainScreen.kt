@@ -1,5 +1,6 @@
 package com.keelim.mygrade.ui.screen.main
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -7,9 +8,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Create
 import androidx.compose.material.icons.rounded.Settings
@@ -37,12 +40,14 @@ fun MainRoute(
     onFloatingButtonClick1: () -> Unit,
     onFloatingButtonClick2: () -> Unit,
     onFloatingButtonClick3: () -> Unit,
+    onLabClick: () -> Unit,
 ) {
     MainScreen(
         onSubmitClick = onSubmitClick,
         onFloatingButtonClick1 = onFloatingButtonClick1,
         onFloatingButtonClick2 = onFloatingButtonClick2,
         onFloatingButtonClick3 = onFloatingButtonClick3,
+        onLabClick = onLabClick,
     )
 }
 
@@ -53,24 +58,38 @@ fun MainScreen(
     onFloatingButtonClick1: () -> Unit = {},
     onFloatingButtonClick2: () -> Unit = {},
     onFloatingButtonClick3: () -> Unit = {},
+    onLabClick: () -> Unit = {},
 ) {
+    val mainState by viewModel.mainScreenState.collectAsStateWithLifecycle()
+    val subject by viewModel.subject.collectAsStateWithLifecycle()
+    val state by viewModel.state.collectAsStateWithLifecycle()
+    val origin by viewModel.origin.collectAsStateWithLifecycle()
+    val average by viewModel.average.collectAsStateWithLifecycle()
+    val number by viewModel.number.collectAsStateWithLifecycle()
+    val student by viewModel.student.collectAsStateWithLifecycle()
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 12.dp, vertical = 12.dp),
     ) {
-        Text(text = "MyGrade", style = MaterialTheme.typography.titleLarge)
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(text = "MyGrade", style = MaterialTheme.typography.headlineLarge)
+            Spacer(
+                modifier = Modifier.width(8.dp),
+            )
+            Icon(
+                Icons.Filled.Build,
+                contentDescription = null,
+                modifier = Modifier.size(18.dp)
+                    .clickable { onLabClick() },
+            )
+        }
         Spacer(modifier = Modifier.height(10.dp))
         // 원점수
         Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {}
-
-        val mainState by viewModel.mainScreenState.collectAsStateWithLifecycle()
-        val subject by viewModel.subject.collectAsStateWithLifecycle()
-        val state by viewModel.state.collectAsStateWithLifecycle()
-        val origin by viewModel.origin.collectAsStateWithLifecycle()
-        val average by viewModel.average.collectAsStateWithLifecycle()
-        val number by viewModel.number.collectAsStateWithLifecycle()
-        val student by viewModel.student.collectAsStateWithLifecycle()
         if (state is MainState.Success) {
             SideEffect {
                 onSubmitClick(

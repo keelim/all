@@ -7,11 +7,11 @@ import androidx.navigation.compose.composable
 
 const val taskRoute = "task"
 
-fun NavController.navigateTask(navOptions: NavOptions) {
+fun NavController.navigateTask(navOptions: NavOptions? = null) {
     this.navigate(taskRoute, navOptions)
 }
 
-fun NavController.navigateTask() {
+fun NavController.navigateTaskPopUpTo() {
     this.navigate(taskRoute) {
         popUpTo(graph.id) {
             inclusive = true
@@ -24,7 +24,7 @@ fun NavGraphBuilder.taskScreen(
     onNavigateTaskClick: () -> Unit,
 ) {
     composable(
-        route = "Task",
+        route = taskRoute,
     ) {
         TaskRoute(
             onTaskClick = onTaskClick,

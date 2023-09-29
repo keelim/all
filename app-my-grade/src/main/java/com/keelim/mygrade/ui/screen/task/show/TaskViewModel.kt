@@ -8,42 +8,50 @@ import com.keelim.data.source.local.LocalTask
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.toPersistentList
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlinx.datetime.Clock
 import timber.log.Timber
 import javax.inject.Inject
 
 @Stable
-sealed interface TaskUiState {
-    data object Loading : TaskUiState
-    data object Empty : TaskUiState
-    data object Error : TaskUiState
+sealed interface TaskScreenState {
+    data object Loading : TaskScreenState
+    data object Empty : TaskScreenState
+    data object Error : TaskScreenState
 
-    data class Success(val tasks: PersistentList<LocalTask>) : TaskUiState
+    data class Success(val tasks: PersistentList<LocalTask>) : TaskScreenState
 }
 
 @HiltViewModel
 class TaskViewModel @Inject constructor(
-    defaultTaskRepository: DefaultTaskRepository,
+    val defaultTaskRepository: DefaultTaskRepository,
 ) : ViewModel() {
-    private val trigger = MutableStateFlow(Clock.System.now())
-    val taskUiState: StateFlow<TaskUiState> = combine(defaultTaskRepository.observeAll(), trigger) { tasks, _ ->
-        if (tasks.isEmpty()) {
-            TaskUiState.Empty
-        } else {
-            TaskUiState.Success(tasks.toPersistentList())
-        }
-    }.catch { throwable ->
-        Timber.e(throwable)
-        TaskUiState.Error
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), TaskUiState.Loading)
+    val taskScreenState: StateFlow<TaskScreenState> = defaultTaskRepository.observeAll()
+        .mapLatest { tasks ->
+            if (tasks.isEmpty()) {
+                TaskScreenState.Empty
+            } else {
+                TaskScreenState.Success(tasks.toPersistentList())
+            }
+        }.catch { throwable ->
+            Timber.e(throwable)
+            TaskScreenState.Error
+        }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), TaskScreenState.Loading)
 
-    fun refresh() {
-        trigger.tryEmit(Clock.System.now())
+     fun clearTask() {
+         viewModelScope.launch {
+             withContext(Dispatchers.IO) {
+                 defaultTaskRepository.clear()
+             }
+         }
     }
 }

@@ -21,6 +21,7 @@ import com.keelim.mygrade.ui.screen.quick.quickScreen
 import com.keelim.mygrade.ui.screen.task.add.navigateTaskAdd
 import com.keelim.mygrade.ui.screen.task.add.taskAddScreen
 import com.keelim.mygrade.ui.screen.task.show.navigateTask
+import com.keelim.mygrade.ui.screen.task.show.navigateTaskPopUpTo
 import com.keelim.mygrade.ui.screen.task.show.taskScreen
 import com.keelim.setting.screen.event.eventScreen
 import com.keelim.setting.screen.navigateNotification
@@ -97,7 +98,7 @@ fun MyGradeHost(
             onNavigateTaskClick = navController::navigateTaskAdd,
         )
         taskAddScreen {
-            navController.navigateTask()
+            navController.navigateTaskPopUpTo()
         }
     }
 }

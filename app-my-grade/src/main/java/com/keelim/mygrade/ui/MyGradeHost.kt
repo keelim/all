@@ -97,6 +97,7 @@ fun MyGradeHost(
             onNavigateTaskClick = navController::navigateTaskAdd,
         )
         taskAddScreen {
+            navController.navigateTask()
         }
     }
 }

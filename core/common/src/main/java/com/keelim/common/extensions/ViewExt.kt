@@ -409,12 +409,6 @@ fun View.drawToBitmap(@Px extraPaddingBottom: Int = 0): Bitmap {
         }
 }
 
-val Int.dp: Int
-    get() = (this * Resources.getSystem().displayMetrics.density).roundToInt()
-
-val Float.dp: Int
-    get() = (this * Resources.getSystem().displayMetrics.density).roundToInt()
-
 interface ViewHolderLifecycleInitializer {
     var lifecycleOwner: LifecycleOwner?
     fun initialize(itemView: View) {

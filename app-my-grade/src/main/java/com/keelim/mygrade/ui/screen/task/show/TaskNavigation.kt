@@ -6,8 +6,17 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 
 const val taskRoute = "task"
-fun NavController.navigateTask(navOptions: NavOptions? = null) {
+
+fun NavController.navigateTask(navOptions: NavOptions) {
     this.navigate(taskRoute, navOptions)
+}
+
+fun NavController.navigateTask() {
+    this.navigate(taskRoute) {
+        popUpTo(graph.id) {
+            inclusive = true
+        }
+    }
 }
 
 fun NavGraphBuilder.taskScreen(

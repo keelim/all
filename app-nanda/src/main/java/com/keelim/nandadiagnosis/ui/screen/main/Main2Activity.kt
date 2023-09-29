@@ -74,11 +74,9 @@ class Main2Activity : ComponentActivity() {
         installSplashScreen()
         super.onCreate(savedInstanceState)
         setThemeContent {
-            AppTheme {
-                NandaApp(
-                    windowSizeClass = calculateWindowSizeClass(this),
-                )
-            }
+            NandaApp(
+                windowSizeClass = calculateWindowSizeClass(this),
+            )
         }
         if (intent.getBooleanExtra(DeepLink.IS_DEEP_LINK, false)) {
             val parameters = intent.extras

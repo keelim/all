@@ -13,6 +13,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.airbnb.deeplinkdispatch.DeepLink
 import com.keelim.commonAndroid.core.AppMainDelegator
 import com.keelim.commonAndroid.core.AppMainViewModel
+import com.keelim.composeutil.setThemeContent
 import com.keelim.composeutil.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -27,12 +28,10 @@ class CenterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
-        setContent {
-            AppTheme {
-                MyGradeApp(
-                    windowSizeClass = calculateWindowSizeClass(this),
-                )
-            }
+        setThemeContent {
+            MyGradeApp(
+                windowSizeClass = calculateWindowSizeClass(this),
+            )
         }
         if (intent.getBooleanExtra(DeepLink.IS_DEEP_LINK, false)) {
             val parameters = intent.extras

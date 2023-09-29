@@ -17,19 +17,17 @@ package com.keelim.composeutil
 
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
+import com.keelim.composeutil.theme.AppTheme
 
 @Suppress("NOTHING_TO_INLINE")
 inline fun ComponentActivity.setThemeContent(noinline content: @Composable () -> Unit) =
-    setContent {
-        MaterialTheme {
-            content()
-        }
-    }
+  setContent {
+    AppTheme { content() }
+  }
 
 @Suppress("NOTHING_TO_INLINE")
 inline fun Fragment.setThemeContent(noinline content: @Composable () -> Unit) =
-    ComposeView(requireContext()).apply { setContent { MaterialTheme { content() } } }
+  ComposeView(requireContext()).apply { setContent { AppTheme { content() } } }

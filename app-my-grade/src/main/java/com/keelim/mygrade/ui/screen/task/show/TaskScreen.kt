@@ -5,13 +5,16 @@ package com.keelim.mygrade.ui.screen.task.show
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
@@ -36,7 +39,6 @@ import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
 import com.keelim.data.source.local.LocalTask
 import kotlinx.collections.immutable.PersistentList
-import kotlinx.collections.immutable.persistentListOf
 
 @Composable
 fun TaskRoute(
@@ -55,37 +57,65 @@ private fun TaskScreen(
     onTaskClick: () -> Unit = {},
     onNavigateTaskClick: () -> Unit = {},
 ) {
-    val uiState by viewModel.taskUiState.collectAsStateWithLifecycle()
-    TaskStateSection(uiState = uiState, onTaskClick = onTaskClick, onNavigateTaskClick = onNavigateTaskClick)
+    val uiState by viewModel.taskScreenState.collectAsStateWithLifecycle()
+    TaskStateSection(
+        screenState = uiState,
+        onTaskClick = onTaskClick,
+        onNavigateTaskClick = onNavigateTaskClick,
+        onTaskClear = viewModel::clearTask
+    )
 }
 
 @Composable
 private fun TaskStateSection(
-    uiState: TaskUiState,
+    screenState: TaskScreenState,
     onTaskClick: () -> Unit,
     onNavigateTaskClick: () -> Unit,
+    onTaskClear: () -> Unit,
 ) {
     var fabHeight by remember { mutableIntStateOf(0) }
     Scaffold(
         floatingActionButton = {
-            FloatingActionButton(
-                modifier = Modifier.onGloballyPositioned { fabHeight = it.size.height },
-                shape = CircleShape,
-                onClick = { onNavigateTaskClick() },
-            ) {
-                Icon(imageVector = Icons.Filled.Add, contentDescription = "icon")
+            Column {
+                when(screenState) {
+                    is TaskScreenState.Success -> {
+                        if(screenState.tasks.isNotEmpty()) {
+                            FloatingActionButton(
+                                modifier = Modifier.onGloballyPositioned { fabHeight = it.size.height },
+                                shape = CircleShape,
+                                onClick = onTaskClear,
+                            ) {
+                                Icon(imageVector = Icons.Filled.Clear, contentDescription = "icon")
+                            }
+                        }
+                    }
+                    else -> {}
+                }
+                Spacer(
+                    modifier = Modifier.height(12.dp)
+                )
+                FloatingActionButton(
+                    modifier = Modifier.onGloballyPositioned { fabHeight = it.size.height },
+                    shape = CircleShape,
+                    onClick = { onNavigateTaskClick() },
+                ) {
+                    Icon(imageVector = Icons.Filled.Add, contentDescription = "icon")
+                }
             }
         },
         floatingActionButtonPosition = FabPosition.End,
     ) { paddingValues ->
-        when (uiState) {
-            TaskUiState.Error,
-            TaskUiState.Empty,
+        when (screenState) {
+            TaskScreenState.Error,
+            TaskScreenState.Empty,
             -> EmptyView()
-            TaskUiState.Loading -> Loading()
-            is TaskUiState.Success -> {
-                val modifier = Modifier.padding(paddingValues)
-                TaskSuccessSection(tasks = uiState.tasks, modifier = modifier, onTaskClick = onTaskClick)
+            TaskScreenState.Loading -> Loading()
+            is TaskScreenState.Success -> {
+                TaskSuccessSection(tasks = screenState.tasks,
+                    modifier = Modifier.padding(
+                        horizontal = 8.dp
+                    ),
+                    onTaskClick = onTaskClick)
             }
         }
     }
@@ -100,6 +130,15 @@ private fun TaskSuccessSection(
     LazyColumn(
         modifier = modifier,
     ) {
+        item {
+            Text(
+                text = "Todos",
+                style = MaterialTheme.typography.headlineSmall
+            )
+            Spacer(
+                modifier = Modifier.height(12.dp)
+            )
+        }
         items(tasks) { task ->
             TaskRow(
                 task = task,
@@ -107,12 +146,6 @@ private fun TaskSuccessSection(
             )
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun PreviewTaskSuccessSection() {
-    TaskSuccessSection(tasks = persistentListOf(), onTaskClick = {})
 }
 
 @Composable

@@ -17,6 +17,7 @@ import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Create
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material.icons.rounded.ThumbUp
+import androidx.compose.material.icons.sharp.PlayArrow
 import androidx.compose.material3.Button
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -156,7 +157,7 @@ fun MainScreen(
                 }
                 Spacer(modifier = Modifier.weight(1f))
                 FloatingActionButton(onClick = onFloatingButtonClick2) {
-                    Icon(imageVector = Icons.Rounded.Add, contentDescription = null)
+                    Icon(imageVector = Icons.Sharp.PlayArrow, contentDescription = null)
                 }
             }
         }

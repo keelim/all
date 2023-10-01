@@ -76,7 +76,7 @@ fun MainScreen(
     onFloatingButtonClick1: () -> Unit = {},
     onFloatingButtonClick2: () -> Unit = {},
     onLabClick: () -> Unit = {},
-    onNavigateTimerHistory: () -> Unit = {}
+    onNavigateTimerHistory: () -> Unit = {},
 ) {
     val mainState by viewModel.mainScreenState.collectAsStateWithLifecycle()
     val subject by viewModel.subject.collectAsStateWithLifecycle()
@@ -88,18 +88,18 @@ fun MainScreen(
 
     val pagerState = rememberPagerState(pageCount = { pageCount })
     var backPressedState by remember { mutableStateOf(true) }
-    val scope =  rememberCoroutineScope()
-        BackHandler(
+    val scope = rememberCoroutineScope()
+    BackHandler(
         enabled = backPressedState,
         onBack = {
-            if(pagerState.currentPage == 0) {
+            if (pagerState.currentPage == 0) {
                 backPressedState = false
             } else {
                 scope.launch {
                     pagerState.animateScrollToPage(page = 0)
                 }
             }
-        }
+        },
     )
     Column(
         modifier = Modifier
@@ -108,7 +108,7 @@ fun MainScreen(
     ) {
         MainTopSection(
             pagerState = pagerState,
-            onLabClick = onLabClick
+            onLabClick = onLabClick,
         )
         HorizontalPager(
             state = pagerState,
@@ -176,7 +176,6 @@ fun MainScreen(
     }
 }
 
-
 @Composable
 private fun MainTopSection(
     pagerState: PagerState,
@@ -197,13 +196,13 @@ private fun MainTopSection(
                 .clickable { onLabClick() },
         )
         Spacer(
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
         )
         HorizontalPagerIndicator(
             pageCount = pageCount,
             currentPage = pagerState.currentPage,
             targetPage = pagerState.targetPage,
-            currentPageOffsetFraction = pagerState.currentPageOffsetFraction
+            currentPageOffsetFraction = pagerState.currentPageOffsetFraction,
         )
     }
 }
@@ -217,7 +216,7 @@ private fun ColumnScope.MainBottomSection(
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.End
+        horizontalArrangement = Arrangement.End,
     ) {
         Button(onClick = onClearClick) {
             Text(text = "Clear", style = MaterialTheme.typography.labelLarge)
@@ -230,7 +229,7 @@ private fun ColumnScope.MainBottomSection(
     Spacer(modifier = Modifier.weight(1f))
     Row(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween
+        horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         FloatingActionButton(onClick = onFloatingButtonClick2) {
             Icon(imageVector = Icons.Rounded.Settings, contentDescription = null)
@@ -240,7 +239,6 @@ private fun ColumnScope.MainBottomSection(
         }
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable

@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -43,7 +42,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 @Composable
 fun TimerScreen(
     onNavigateTimerHistory: () -> Unit,
-    viewModel: TimerViewModel = hiltViewModel()
+    viewModel: TimerViewModel = hiltViewModel(),
 ) {
     val isCountDownTimerVisible = viewModel.isRunning
     val addedTime = viewModel.addTime(System.currentTimeMillis())
@@ -57,7 +56,7 @@ fun TimerScreen(
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.padding(24.dp)
+        modifier = Modifier.padding(24.dp),
     ) {
         Spacer(modifier = Modifier.height(16.dp))
         SelectTime(runningState = isCountDownTimerVisible, viewModel = viewModel)
@@ -65,14 +64,14 @@ fun TimerScreen(
             runningState = isCountDownTimerVisible,
             viewModel = viewModel,
             addedTime = addedTime,
-            dialogState = dialogState
+            dialogState = dialogState,
         )
 
         Spacer(modifier = Modifier.height(24.dp))
 
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.Center,
         ) {
             Button(
                 onClick = {
@@ -80,29 +79,30 @@ fun TimerScreen(
                         RunningState.STOPPED -> viewModel.start()
                         RunningState.STARTED -> viewModel.stop()
                     }
-                }
+                },
             ) {
                 Text(
-                    text = if (viewModel.isRunning == RunningState.STOPPED)
+                    text = if (viewModel.isRunning == RunningState.STOPPED) {
                         "Start"
-                    else
+                    } else {
                         "Stop"
+                    },
                 )
             }
         }
         Spacer(
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
         )
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.End
+            horizontalArrangement = Arrangement.End,
         ) {
             FloatingActionButton(
-               onClick = onNavigateTimerHistory
+                onClick = onNavigateTimerHistory,
             ) {
                 Icon(
                     imageVector = Icons.Filled.CheckCircle,
-                    contentDescription = null
+                    contentDescription = null,
                 )
             }
         }
@@ -112,12 +112,12 @@ fun TimerScreen(
 @Composable
 fun SelectTime(
     runningState: RunningState,
-    viewModel: TimerViewModel
+    viewModel: TimerViewModel,
 ) {
     if (runningState == RunningState.STOPPED) {
         Box(
             modifier = Modifier.fillMaxWidth().height(350.dp),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             Box(
                 modifier = Modifier.fillMaxWidth().height(36.dp)
@@ -128,7 +128,7 @@ fun SelectTime(
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceEvenly
+                horizontalArrangement = Arrangement.SpaceEvenly,
             ) {
                 Row {
                     NumberPickerList(numbers = HOUR_LIST) {
@@ -162,7 +162,7 @@ fun CircularCountDownTimer(
     runningState: RunningState,
     viewModel: TimerViewModel,
     dialogState: MutableState<Boolean>,
-    addedTime: String
+    addedTime: String,
 ) {
     if (runningState != RunningState.STOPPED) {
         val leftTime = viewModel.leftTime.intValue
@@ -182,25 +182,25 @@ fun CircularCountDownTimer(
                 targetValue = progressTarget,
                 animationSpec = tween(
                     durationMillis = leftTime * 1000,
-                    easing = LinearEasing
-                )
+                    easing = LinearEasing,
+                ),
             )
         }
         Box(
             modifier = Modifier.size(350.dp),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             CircularProgressIndicator(
                 modifier = Modifier.fillMaxSize(),
                 color = Color.LightGray,
                 progress = 100f,
-                strokeWidth = 10.dp
+                strokeWidth = 10.dp,
             )
 
             CircularProgressIndicator(
                 modifier = Modifier.fillMaxSize(),
                 progress = progress.value,
-                strokeWidth = 10.dp
+                strokeWidth = 10.dp,
             )
 
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -210,7 +210,7 @@ fun CircularCountDownTimer(
                             formatTime(isLeadingZeroNeeded = true, value = (leftTime / 60) % 60)
                         }:" +
                         formatTime(isLeadingZeroNeeded = true, value = leftTime % 60),
-                    fontSize = 48.sp
+                    fontSize = 48.sp,
 
                 )
 
@@ -220,10 +220,10 @@ fun CircularCountDownTimer(
                     Icon(
                         imageVector = Icons.Default.AccountBox,
                         modifier = Modifier.padding(4.dp),
-                        contentDescription = null
+                        contentDescription = null,
                     )
                     Text(
-                        text = addedTime
+                        text = addedTime,
                     )
                 }
             }
@@ -235,13 +235,13 @@ fun CircularCountDownTimer(
 @Composable
 private fun PreviewTimerScreen() {
     TimerScreen(
-        onNavigateTimerHistory = {}
+        onNavigateTimerHistory = {},
     )
 }
 
 @Composable
 private fun ShowDialog(
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
@@ -249,7 +249,7 @@ private fun ShowDialog(
         Text(
             text = "확인해 주세요",
             modifier = Modifier.padding(8.dp),
-            style = MaterialTheme.typography.titleLarge
+            style = MaterialTheme.typography.titleLarge,
         )
     }
 }

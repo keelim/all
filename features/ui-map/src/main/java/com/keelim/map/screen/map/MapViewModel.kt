@@ -33,6 +33,8 @@ data class MapState(
 
     override fun getSnippet(): String =
         itemSnippet
+
+    override fun getZIndex(): Float? = null
 }
 
 @HiltViewModel

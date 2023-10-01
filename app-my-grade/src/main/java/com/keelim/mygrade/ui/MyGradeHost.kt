@@ -21,7 +21,8 @@ import com.keelim.mygrade.ui.screen.task.add.taskAddScreen
 import com.keelim.mygrade.ui.screen.task.show.navigateTask
 import com.keelim.mygrade.ui.screen.task.show.navigateTaskPopUpTo
 import com.keelim.mygrade.ui.screen.task.show.taskScreen
-import com.keelim.mygrade.ui.screen.timer.navigateTimer
+import com.keelim.mygrade.ui.screen.timer.history.navigateTimerHistory
+import com.keelim.mygrade.ui.screen.timer.history.timerHistoryScreen
 import com.keelim.mygrade.ui.screen.timer.timerScreen
 import com.keelim.setting.screen.event.eventScreen
 import com.keelim.setting.screen.navigateNotification
@@ -63,6 +64,10 @@ fun MyGradeHost(
                     }
                 }
             },
+            onNavigateTimerHistory = navController::navigateTimerHistory,
+            nestedGraphs = {
+                timerHistoryScreen()
+            }
         )
         historyScreen(
             onHistoryClick = { subject, grade, point ->

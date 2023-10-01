@@ -16,8 +16,6 @@ import com.keelim.mygrade.ui.screen.main.grade
 import com.keelim.mygrade.ui.screen.main.mainRoute
 import com.keelim.mygrade.ui.screen.main.mainScreen
 import com.keelim.mygrade.ui.screen.main.toProcess
-import com.keelim.mygrade.ui.screen.quick.navigateQuick
-import com.keelim.mygrade.ui.screen.quick.quickScreen
 import com.keelim.mygrade.ui.screen.task.add.navigateTaskAdd
 import com.keelim.mygrade.ui.screen.task.add.taskAddScreen
 import com.keelim.mygrade.ui.screen.task.show.navigateTask

@@ -1,6 +1,5 @@
 package com.keelim.mygrade.ui.screen.timer
 
-
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,7 +22,7 @@ import androidx.compose.ui.unit.sp
 @Composable
 internal fun NumberPickerList(
     numbers: List<Int>,
-    selectedItem: (Int) -> Unit
+    selectedItem: (Int) -> Unit,
 ) {
     val listState = rememberLazyListState(0, 0)
 
@@ -42,10 +41,10 @@ internal fun NumberPickerList(
     Box(
         modifier = Modifier
             .width(40.dp)
-            .height(96.dp)
+            .height(96.dp),
     ) {
         LazyColumn(
-            state = listState
+            state = listState,
         ) {
             item {
                 Spacer(
@@ -63,7 +62,7 @@ internal fun NumberPickerList(
                     text = formatTime(value = item),
                     fontSize = textSizeState.intValue.sp,
                     modifier = Modifier.height(32.dp).fillMaxWidth(),
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
                 )
             }
             item {

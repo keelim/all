@@ -18,7 +18,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlin.math.absoluteValue
 
-
 @Composable
 fun HorizontalPagerIndicator(
     pageCount: Int,
@@ -30,16 +29,15 @@ fun HorizontalPagerIndicator(
     unselectedIndicatorSize: Dp = 8.dp,
     selectedIndicatorSize: Dp = 10.dp,
     indicatorCornerRadius: Dp = 2.dp,
-    indicatorPadding: Dp = 2.dp
+    indicatorPadding: Dp = 2.dp,
 ) {
     Row(
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .wrapContentSize()
-            .height(selectedIndicatorSize + indicatorPadding * 2)
+            .height(selectedIndicatorSize + indicatorPadding * 2),
     ) {
-
         // draw an indicator for each page
         repeat(pageCount) { page ->
             // calculate color and size of the indicator
@@ -55,7 +53,7 @@ fun HorizontalPagerIndicator(
                         unselectedIndicatorSize + ((selectedIndicatorSize - unselectedIndicatorSize) * offsetPercentage)
 
                     indicatorColor.copy(
-                        alpha = offsetPercentage
+                        alpha = offsetPercentage,
                     ) to size
                 } else {
                     indicatorColor.copy(alpha = 0.1f) to unselectedIndicatorSize
@@ -67,12 +65,12 @@ fun HorizontalPagerIndicator(
                     .padding(
                         // apply horizontal padding, so that each indicator is same width
                         horizontal = ((selectedIndicatorSize + indicatorPadding * 2) - size) / 2,
-                        vertical = size / 4
+                        vertical = size / 4,
                     )
                     .clip(RoundedCornerShape(indicatorCornerRadius))
                     .background(color)
                     .width(size)
-                    .height(size / 2)
+                    .height(size / 2),
             )
         }
     }

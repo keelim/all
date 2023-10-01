@@ -1,6 +1,5 @@
 package com.keelim.mygrade.ui.screen.timer
 
-
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -10,7 +9,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.channels.ticker
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -27,10 +25,11 @@ enum class RunningState {
 }
 
 internal fun formatTime(isLeadingZeroNeeded: Boolean = false, value: Int): String {
-    return if (isLeadingZeroNeeded)
+    return if (isLeadingZeroNeeded) {
         String.format("%02d", value)
-    else
+    } else {
         String.format("%2d", value)
+    }
 }
 
 internal val HOUR_LIST = (0..12).toList()
@@ -38,9 +37,7 @@ internal val MINUTE_LIST = (0..60).toList()
 internal val SECOND_LIST = (0..60).toList()
 
 @HiltViewModel
-class TimerViewModel @Inject constructor(
-
-) : ViewModel() {
+class TimerViewModel @Inject constructor() : ViewModel() {
     private var countTimeJob: Job? = null
 
     private var _isRunning by mutableStateOf(RunningState.STOPPED)
@@ -85,7 +82,7 @@ class TimerViewModel @Inject constructor(
         if (leftTime.intValue <= 0) return
         _isRunning = RunningState.STARTED
         countTimeJob = tick(
-            leftTime.intValue
+            leftTime.intValue,
         ).onEach {
             leftTime.intValue = it
         }.launchIn(viewModelScope)
@@ -98,7 +95,7 @@ class TimerViewModel @Inject constructor(
 
     private fun tick(
         leftTime: Int,
-        duration: Long = 1000L
+        duration: Long = 1000L,
     ): Flow<Int> = flow {
         var i = leftTime
         while (i > 0) {

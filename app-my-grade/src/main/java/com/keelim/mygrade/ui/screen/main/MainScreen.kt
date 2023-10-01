@@ -58,12 +58,14 @@ fun MainRoute(
     onFloatingButtonClick1: () -> Unit,
     onFloatingButtonClick2: () -> Unit,
     onLabClick: () -> Unit,
+    onNavigateTimerHistory: () -> Unit,
 ) {
     MainScreen(
         onSubmitClick = onSubmitClick,
         onFloatingButtonClick1 = onFloatingButtonClick1,
         onFloatingButtonClick2 = onFloatingButtonClick2,
         onLabClick = onLabClick,
+        onNavigateTimerHistory = onNavigateTimerHistory,
     )
 }
 
@@ -74,6 +76,7 @@ fun MainScreen(
     onFloatingButtonClick1: () -> Unit = {},
     onFloatingButtonClick2: () -> Unit = {},
     onLabClick: () -> Unit = {},
+    onNavigateTimerHistory: () -> Unit = {}
 ) {
     val mainState by viewModel.mainScreenState.collectAsStateWithLifecycle()
     val subject by viewModel.subject.collectAsStateWithLifecycle()
@@ -107,12 +110,17 @@ fun MainScreen(
             pagerState = pagerState,
             onLabClick = onLabClick
         )
-        HorizontalPager(state = pagerState) { page ->
+        HorizontalPager(
+            state = pagerState,
+            modifier = Modifier.fillMaxSize(),
+        ) { page ->
             if (page == 1) {
                 LaunchedEffect(page) {
                     backPressedState = true
                 }
-                TimerScreen()
+                TimerScreen(
+                    onNavigateTimerHistory = onNavigateTimerHistory,
+                )
             } else {
                 Column {
                     Spacer(modifier = Modifier.height(10.dp))

@@ -54,8 +54,7 @@ fun MyGradeHost(
                 )
             },
             onFloatingButtonClick1 = { navController.navigateHistory() },
-            onFloatingButtonClick2 = { navController.navigateTimer() },
-            onFloatingButtonClick3 = { navController.navigateSettings() },
+            onFloatingButtonClick2 = { navController.navigateSettings() },
             onLabClick = {
                 coroutineScope.launch {
                     val result = onShowSnackbar("새로운 기능으로 준비중입니다 😀", "move")

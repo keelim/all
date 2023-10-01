@@ -15,7 +15,6 @@ fun NavGraphBuilder.mainScreen(
     onSubmitClick: (String, NormalProbability, Int) -> Unit,
     onFloatingButtonClick1: () -> Unit,
     onFloatingButtonClick2: () -> Unit,
-    onFloatingButtonClick3: () -> Unit,
     onLabClick: () -> Unit,
 ) {
     composable(route = mainRoute) {
@@ -23,7 +22,6 @@ fun NavGraphBuilder.mainScreen(
             onSubmitClick = onSubmitClick,
             onFloatingButtonClick1 = onFloatingButtonClick1,
             onFloatingButtonClick2 = onFloatingButtonClick2,
-            onFloatingButtonClick3 = onFloatingButtonClick3,
             onLabClick = onLabClick,
         )
     }

@@ -1,5 +1,7 @@
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.keelim.mygrade.ui.screen.timer.history.TimerHistoryViewModel
 
 @Composable
 fun TimerHistoryRoute() {
@@ -7,7 +9,9 @@ fun TimerHistoryRoute() {
 }
 
 @Composable
-fun TimerHistoryScreen() {
+fun TimerHistoryScreen(
+    viewModel: TimerHistoryViewModel = hiltViewModel()
+) {
 
 }
 

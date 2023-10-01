@@ -9,6 +9,7 @@ import com.keelim.data.db.dao.HistoryDao
 import com.keelim.data.db.dao.NandaDao
 import com.keelim.data.db.dao.StationDao
 import com.keelim.data.db.dao.TaskDao
+import com.keelim.data.db.dao.TimerHistoryDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -36,6 +37,12 @@ object DaoModule {
     fun providesHistoryDao(
         database: MyGradeAppDatabase,
     ): HistoryDao = database.historyDao()
+
+    @Provides
+    @Singleton
+    fun providesTimerHistoryDao(
+        database: MyGradeAppDatabase,
+    ): TimerHistoryDao = database.timerHistoryDao()
 
     @Provides
     @Singleton

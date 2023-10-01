@@ -2,7 +2,6 @@ package com.keelim.common.extensions
 
 import android.animation.ValueAnimator
 import android.content.Context
-import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat.JPEG
 import android.graphics.Color
@@ -47,7 +46,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import java.io.File
 import java.io.FileOutputStream
-import kotlin.math.roundToInt
 
 infix fun View.visibleIf(condition: Boolean) =
     run { visibility = if (condition) VISIBLE else GONE }

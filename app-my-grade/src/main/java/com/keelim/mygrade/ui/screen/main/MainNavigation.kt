@@ -25,7 +25,7 @@ fun NavGraphBuilder.mainScreen(
             onFloatingButtonClick1 = onFloatingButtonClick1,
             onFloatingButtonClick2 = onFloatingButtonClick2,
             onLabClick = onLabClick,
-            onNavigateTimerHistory = onNavigateTimerHistory
+            onNavigateTimerHistory = onNavigateTimerHistory,
         )
     }
     nestedGraphs()

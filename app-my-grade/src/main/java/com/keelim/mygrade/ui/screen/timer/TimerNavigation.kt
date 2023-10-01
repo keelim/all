@@ -10,11 +10,9 @@ fun NavController.navigateTimer(navOptions: NavOptions? = null) {
     this.navigate(TimerRoute, navOptions)
 }
 
-fun NavGraphBuilder.timerScreen(
-) {
+fun NavGraphBuilder.timerScreen() {
     composable(
         route = TimerRoute,
     ) {
-
     }
 }

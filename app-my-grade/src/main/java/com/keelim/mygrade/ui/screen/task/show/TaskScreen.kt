@@ -62,7 +62,7 @@ private fun TaskScreen(
         screenState = uiState,
         onTaskClick = onTaskClick,
         onNavigateTaskClick = onNavigateTaskClick,
-        onTaskClear = viewModel::clearTask
+        onTaskClear = viewModel::clearTask,
     )
 }
 
@@ -77,9 +77,9 @@ private fun TaskStateSection(
     Scaffold(
         floatingActionButton = {
             Column {
-                when(screenState) {
+                when (screenState) {
                     is TaskScreenState.Success -> {
-                        if(screenState.tasks.isNotEmpty()) {
+                        if (screenState.tasks.isNotEmpty()) {
                             FloatingActionButton(
                                 modifier = Modifier.onGloballyPositioned { fabHeight = it.size.height },
                                 shape = CircleShape,
@@ -92,7 +92,7 @@ private fun TaskStateSection(
                     else -> {}
                 }
                 Spacer(
-                    modifier = Modifier.height(12.dp)
+                    modifier = Modifier.height(12.dp),
                 )
                 FloatingActionButton(
                     modifier = Modifier.onGloballyPositioned { fabHeight = it.size.height },
@@ -111,11 +111,13 @@ private fun TaskStateSection(
             -> EmptyView()
             TaskScreenState.Loading -> Loading()
             is TaskScreenState.Success -> {
-                TaskSuccessSection(tasks = screenState.tasks,
+                TaskSuccessSection(
+                    tasks = screenState.tasks,
                     modifier = Modifier.padding(
-                        horizontal = 8.dp
+                        horizontal = 8.dp,
                     ),
-                    onTaskClick = onTaskClick)
+                    onTaskClick = onTaskClick,
+                )
             }
         }
     }
@@ -133,10 +135,10 @@ private fun TaskSuccessSection(
         item {
             Text(
                 text = "Todos",
-                style = MaterialTheme.typography.headlineSmall
+                style = MaterialTheme.typography.headlineSmall,
             )
             Spacer(
-                modifier = Modifier.height(12.dp)
+                modifier = Modifier.height(12.dp),
             )
         }
         items(tasks) { task ->

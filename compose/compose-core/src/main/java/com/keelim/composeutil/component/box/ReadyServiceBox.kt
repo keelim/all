@@ -14,7 +14,7 @@ fun ReadyServiceBox() {
     Box(modifier = Modifier.fillMaxSize()) {
         Text(
             text = stringResource(R.string.ready_service),
-            modifier = Modifier.align(Alignment.Center)
+            modifier = Modifier.align(Alignment.Center),
         )
     }
 }

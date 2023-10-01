@@ -67,7 +67,7 @@ fun MyGradeHost(
             onNavigateTimerHistory = navController::navigateTimerHistory,
             nestedGraphs = {
                 timerHistoryScreen()
-            }
+            },
         )
         historyScreen(
             onHistoryClick = { subject, grade, point ->
@@ -94,8 +94,6 @@ fun MyGradeHost(
         taskAddScreen {
             navController.navigateTaskPopUpTo()
         }
-        timerScreen(
-
-        )
+        timerScreen()
     }
 }

@@ -21,6 +21,8 @@ import com.keelim.mygrade.ui.screen.task.add.taskAddScreen
 import com.keelim.mygrade.ui.screen.task.show.navigateTask
 import com.keelim.mygrade.ui.screen.task.show.navigateTaskPopUpTo
 import com.keelim.mygrade.ui.screen.task.show.taskScreen
+import com.keelim.mygrade.ui.screen.timer.navigateTimer
+import com.keelim.mygrade.ui.screen.timer.timerScreen
 import com.keelim.setting.screen.event.eventScreen
 import com.keelim.setting.screen.navigateNotification
 import com.keelim.setting.screen.navigateSettings
@@ -52,7 +54,7 @@ fun MyGradeHost(
                 )
             },
             onFloatingButtonClick1 = { navController.navigateHistory() },
-            onFloatingButtonClick2 = { navController.navigateQuick() },
+            onFloatingButtonClick2 = { navController.navigateTimer() },
             onFloatingButtonClick3 = { navController.navigateSettings() },
             onLabClick = {
                 coroutineScope.launch {
@@ -61,16 +63,6 @@ fun MyGradeHost(
                         navController.navigateTask()
                     }
                 }
-            },
-        )
-        quickScreen(
-            onDismiss = { navController.popBackStack() },
-            onNavigate = { subject, normalProbability, student ->
-                navController.navigateGrade(
-                    subject = subject,
-                    grade = normalProbability.grade(),
-                    point = Level((normalProbability.value * student) / 100).toProcess(student.toString()),
-                )
             },
         )
         historyScreen(
@@ -98,5 +90,8 @@ fun MyGradeHost(
         taskAddScreen {
             navController.navigateTaskPopUpTo()
         }
+        timerScreen(
+
+        )
     }
 }

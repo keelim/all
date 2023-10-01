@@ -1,6 +1,7 @@
 package com.keelim.mygrade.ui.screen.main
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -13,7 +14,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Build
-import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Create
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material.icons.rounded.ThumbUp
@@ -101,7 +101,6 @@ fun MainScreen(
                 viewModel.moveState(MainState.UnInitialized)
             }
         }
-
         ScoreTextRow(
             text = "과목명",
             value = subject,
@@ -132,8 +131,10 @@ fun MainScreen(
             onValueChange = { viewModel.updateEditType(EditType.Student(it)) },
             isError = mainState.studentError,
         )
-        Row {
-            Spacer(modifier = Modifier.weight(1f))
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.End
+        ) {
             Button(onClick = viewModel::clear) {
                 Text(text = "Clear", style = MaterialTheme.typography.labelLarge)
             }
@@ -143,22 +144,24 @@ fun MainScreen(
             }
         }
         Spacer(modifier = Modifier.weight(1f))
-        Column {
-            Row {
-                Spacer(modifier = Modifier.weight(1f))
-                FloatingActionButton(onClick = onFloatingButtonClick1) {
-                    Icon(imageVector = Icons.Rounded.ThumbUp, contentDescription = null)
-                }
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.End
+        ) {
+            FloatingActionButton(onClick = onFloatingButtonClick1) {
+                Icon(imageVector = Icons.Rounded.ThumbUp, contentDescription = null)
             }
-            Spacer(modifier = Modifier.height(12.dp))
-            Row {
-                FloatingActionButton(onClick = onFloatingButtonClick3) {
-                    Icon(imageVector = Icons.Rounded.Settings, contentDescription = null)
-                }
-                Spacer(modifier = Modifier.weight(1f))
-                FloatingActionButton(onClick = onFloatingButtonClick2) {
-                    Icon(imageVector = Icons.Sharp.PlayArrow, contentDescription = null)
-                }
+        }
+        Spacer(modifier = Modifier.height(12.dp))
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            FloatingActionButton(onClick = onFloatingButtonClick3) {
+                Icon(imageVector = Icons.Rounded.Settings, contentDescription = null)
+            }
+            FloatingActionButton(onClick = onFloatingButtonClick2) {
+                Icon(imageVector = Icons.Sharp.PlayArrow, contentDescription = null)
             }
         }
     }

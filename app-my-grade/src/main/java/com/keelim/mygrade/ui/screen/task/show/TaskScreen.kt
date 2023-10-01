@@ -112,9 +112,7 @@ private fun TaskStateSection(
             TaskScreenState.Loading -> Loading()
             is TaskScreenState.Success -> {
                 TaskSuccessSection(tasks = screenState.tasks,
-                    modifier = Modifier.padding(
-                        horizontal = 8.dp
-                    ),
+                    modifier = Modifier.padding(paddingValues),
                     onTaskClick = onTaskClick)
             }
         }

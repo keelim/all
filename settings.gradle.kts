@@ -21,7 +21,7 @@ include(
     ":app-my-grade",
     ":app-nanda",
     // ":app-comssa",
-    // ":app-yr",
+    ":app-mysenior",
     ":core:common",
     ":core:common-android",
     ":data",

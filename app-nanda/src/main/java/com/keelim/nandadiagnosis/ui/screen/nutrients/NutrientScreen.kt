@@ -15,12 +15,15 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccessAlarm
 import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -38,19 +41,42 @@ import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
 
 @Composable
-fun NutrientRoute(onNutrientClick: (String, String) -> Unit) {
-    NutrientScreen(onNutrientClick = onNutrientClick)
+fun NutrientRoute(
+    onNutrientClick: (String, String) -> Unit,
+    onNutrientTimerClick: () -> Unit,
+) {
+    NutrientScreen(
+        onNutrientClick = onNutrientClick,
+        onNutrientTimerClick = onNutrientTimerClick
+    )
 }
 
 @Composable
 private fun NutrientScreen(
     viewModel: NutrientViewModel = hiltViewModel(),
     onNutrientClick: (String, String) -> Unit,
+    onNutrientTimerClick: () -> Unit,
 ) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
-    Column {
-        NavigationBackArrowBar(title = "Search Nutrient")
-        NutrientStateView(uiState = uiState, onNutrientClick = onNutrientClick)
+
+    Scaffold(
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = onNutrientTimerClick
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.AccessAlarm,
+                    contentDescription = null
+                )
+            }
+        }
+    ) { paddingValues ->
+        Column(
+            modifier = Modifier.padding(paddingValues)
+        ) {
+            NavigationBackArrowBar(title = "Search Nutrient")
+            NutrientStateView(uiState = uiState, onNutrientClick = onNutrientClick)
+        }
     }
 }
 
@@ -75,7 +101,9 @@ private fun NutrientStateView(uiState: NutrientState, onNutrientClick: (String, 
 @Preview(showBackground = true)
 @Composable
 private fun PreviewNutrientScreen() {
-    NutrientScreen(onNutrientClick = { _, _ -> })
+    NutrientScreen(
+        onNutrientClick = { _, _ -> },  onNutrientTimerClick = {}
+    )
 }
 
 @Preview(showBackground = true)

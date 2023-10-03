@@ -11,15 +11,18 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.AccessTime
 import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.OfflineBolt
 import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material.icons.rounded.Web
+import androidx.compose.material.icons.sharp.ArrowRight
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -39,27 +42,49 @@ import com.keelim.nandadiagnosis.ui.screen.nutrients.nutrientRoute
 import com.keelim.setting.screen.settingsRoute
 import kotlinx.collections.immutable.persistentListOf
 
+
 @Stable
-data class NandaNavItem(val name: String, val route: String, val icon: ImageVector)
+sealed interface NandaNavItem {
+    val name: String
+    val route: String
+    val icon: ImageVector
+
+    data class BigType(
+        override val name: String,
+        override val route: String,
+        override val icon: ImageVector
+    ): NandaNavItem
+
+    data class SmallType(
+        override val name: String,
+        override val route: String,
+        override val icon: ImageVector
+    ): NandaNavItem
+}
 
 private val nandaNavItems =
     persistentListOf(
-        NandaNavItem(
+        NandaNavItem.BigType(
             name = "Category",
             route = categoryRoute,
             icon = Icons.Rounded.Home,
         ),
-        NandaNavItem(
+        NandaNavItem.BigType(
             name = "Web",
             route = webRoute + "/nanda",
             icon = Icons.Rounded.Web,
         ),
-        NandaNavItem(
+        NandaNavItem.BigType(
             name = "Nutrient",
             route = nutrientRoute,
             icon = Icons.Rounded.Person,
         ),
-        NandaNavItem(
+        NandaNavItem.SmallType(
+            name = "NutrientTimer",
+            route = nutrientTimerRoute,
+            icon = Icons.Rounded.AccessTime,
+        ),
+        NandaNavItem.BigType(
             name = "Settings",
             route = settingsRoute,
             icon = Icons.Rounded.Settings,
@@ -86,25 +111,7 @@ fun NandaDrawer(
             Spacer(modifier = Modifier.height(24.dp))
             LazyColumn {
                 items(nandaNavItems) { item ->
-                    Card(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(4.dp),
-                        shape = RoundedCornerShape(12.dp),
-                        onClick = { onRouteClick(item.route) },
-                    ) {
-                        Row(
-                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.Start,
-                        ) {
-                            Icon(imageVector = item.icon, contentDescription = "${item.name} Icon")
-                            Text(
-                                modifier = Modifier.padding(start = 24.dp),
-                                text = item.name,
-                            )
-                        }
-                    }
+                    NavigationCard(item, onRouteClick)
                     Spacer(modifier = Modifier.height(8.dp))
                 }
             }
@@ -124,6 +131,48 @@ fun NandaDrawer(
                 contentDescription = null,
                 modifier = Modifier.size(36.dp),
             )
+        }
+    }
+}
+
+@Composable
+private fun NavigationCard(
+    item: NandaNavItem,
+    onRouteClick: (String) -> Unit,
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(4.dp),
+            shape = RoundedCornerShape(12.dp),
+            onClick = { onRouteClick(item.route) },
+        ) {
+            Row(
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Start,
+            ) {
+                when(item) {
+                    is NandaNavItem.SmallType -> {
+                        Icon(
+                            imageVector = Icons.Sharp.ArrowRight,
+                            contentDescription = "${item.name} Icon"
+                        )
+                        Spacer(
+                            modifier = Modifier.width(12.dp)
+                        )
+                    }
+                    else -> Unit
+                }
+                Icon(imageVector = item.icon, contentDescription = "${item.name} Icon")
+                Text(
+                    modifier = Modifier.padding(start = 24.dp),
+                    text = item.name,
+                )
+            }
         }
     }
 }

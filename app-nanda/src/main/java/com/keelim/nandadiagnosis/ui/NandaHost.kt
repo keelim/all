@@ -17,6 +17,7 @@ import com.keelim.nandadiagnosis.ui.screen.diagnosis.navigateToDiagnosis
 import com.keelim.nandadiagnosis.ui.screen.inappweb.navigateToWeb
 import com.keelim.nandadiagnosis.ui.screen.inappweb.webScreen
 import com.keelim.nandadiagnosis.ui.screen.nutrients.nutrientScreen
+import com.keelim.nandadiagnosis.ui.screen.nutrients.timer.navigateNutrientTimer
 import com.keelim.setting.screen.event.eventScreen
 import com.keelim.setting.screen.navigateNotification
 import com.keelim.setting.screen.navigateSettings
@@ -74,6 +75,7 @@ fun NandaHost(
                     }
                 }
             },
+            onNutrientTimerClick = navController::navigateNutrientTimer
         )
     }
 }

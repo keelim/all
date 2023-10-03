@@ -13,8 +13,12 @@ fun NavController.navigateToNutrient(navOptions: NavOptions? = null) {
 
 fun NavGraphBuilder.nutrientScreen(
     onNutrientClick: (String, String) -> Unit,
+    onNutrientTimerClick: () -> Unit,
 ) {
     composable(route = nutrientRoute) {
-        NutrientRoute(onNutrientClick = onNutrientClick)
+        NutrientRoute(
+            onNutrientClick = onNutrientClick,
+            onNutrientTimerClick = onNutrientTimerClick,
+        )
     }
 }

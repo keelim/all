@@ -1,4 +1,4 @@
-package com.keelim.mygrade.ui.screen.timer
+package com.keelim.composeutil.component.custom
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
@@ -19,8 +19,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+
+private fun formatTime(isLeadingZeroNeeded: Boolean = false, value: Int): String {
+    return if (isLeadingZeroNeeded) {
+        String.format("%02d", value)
+    } else {
+        String.format("%2d", value)
+    }
+}
+
 @Composable
-internal fun NumberPickerList(
+fun NumberPickerList(
     numbers: List<Int>,
     selectedItem: (Int) -> Unit,
 ) {

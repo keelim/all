@@ -24,10 +24,10 @@ import com.keelim.composeutil.theme.AppTheme
 
 @Suppress("NOTHING_TO_INLINE")
 inline fun ComponentActivity.setThemeContent(noinline content: @Composable () -> Unit) =
-  setContent {
-    AppTheme { content() }
-  }
+    setContent {
+        AppTheme { content() }
+    }
 
 @Suppress("NOTHING_TO_INLINE")
 inline fun Fragment.setThemeContent(noinline content: @Composable () -> Unit) =
-  ComposeView(requireContext()).apply { setContent { AppTheme { content() } } }
+    ComposeView(requireContext()).apply { setContent { AppTheme { content() } } }

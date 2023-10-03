@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="appname">compose</string>
+    <string name="ready_service">현재 서비스 준비 중입니다.</string>
 </resources>

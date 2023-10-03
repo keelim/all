@@ -1,11 +1,13 @@
 package com.keelim.data.source
 
 import com.keelim.data.db.dao.HistoryDao
+import com.keelim.data.db.dao.TimerHistoryDao
 import com.keelim.data.di.ApplicationScope
 import com.keelim.data.di.DefaultDispatcher
 import com.keelim.data.di.IoDispatcher
 import com.keelim.data.source.local.History
 import com.keelim.data.source.local.SimpleHistory
+import com.keelim.data.source.local.TimerHistory
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -15,6 +17,7 @@ import javax.inject.Inject
 
 class HistoryRepositoryImpl @Inject constructor(
     private val localDataSource: HistoryDao,
+    private val timerHistoryDataSource: TimerHistoryDao,
     @IoDispatcher private val io: CoroutineDispatcher,
     @DefaultDispatcher private val default: CoroutineDispatcher,
     @ApplicationScope private val scope: CoroutineScope,
@@ -22,6 +25,8 @@ class HistoryRepositoryImpl @Inject constructor(
     override fun observeAll(): Flow<List<History>> = localDataSource.observeAll()
     override fun observeSimpleHistories(): Flow<List<SimpleHistory>> =
         localDataSource.observeSimpleHistories()
+
+    override fun observeTimerHistories(): Flow<List<TimerHistory>> = timerHistoryDataSource.observeAll()
 
     override suspend fun create(history: History): String {
         localDataSource.upsert(history)
@@ -50,6 +55,11 @@ class HistoryRepositoryImpl @Inject constructor(
 
     override suspend fun complete(historyId: String, grade: String) {
         localDataSource.updateCompleted(historyId, grade)
+    }
+
+    override suspend fun completedTimerHistory(historyId: String) {
+        timerHistoryDataSource
+            .updateCompleted(historyId)
     }
 
 

@@ -28,3 +28,11 @@ data class SimpleHistory(
     val gradeRank: Int,
     val totalRank: Int
 )
+
+@Entity(tableName = "timerHistory")
+data class TimerHistory(
+    @PrimaryKey(autoGenerate = true) val uid: Int = 0,
+    val date: String = Clock.System.now().toLocalDateTime(TimeZone.UTC).toString(),
+    val historyTime: String = "",
+    val isCompleted: Boolean = false,
+)

@@ -3,7 +3,6 @@
 package com.keelim.mygrade.ui.screen
 
 import android.os.Bundle
-import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
@@ -14,7 +13,6 @@ import com.airbnb.deeplinkdispatch.DeepLink
 import com.keelim.commonAndroid.core.AppMainDelegator
 import com.keelim.commonAndroid.core.AppMainViewModel
 import com.keelim.composeutil.setThemeContent
-import com.keelim.composeutil.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 

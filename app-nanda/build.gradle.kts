@@ -28,7 +28,7 @@ dependencies {
     implementation(project(":core:common-android"))
     implementation(project(":compose:compose-core"))
     implementation(project(":core:data"))
-    implementation(project(":domain"))
+    implementation(project(":core:domain"))
     implementation(project(":features:ui-setting"))
 
     implementation(libs.activity.ktx)

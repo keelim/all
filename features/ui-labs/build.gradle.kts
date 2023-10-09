@@ -13,7 +13,7 @@ dependencies {
     implementation(project(":core:common"))
     implementation(project(":compose:compose-core"))
     implementation(project(":core:data"))
-    implementation(project(":domain"))
+    implementation(project(":core:domain"))
 
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)

@@ -26,7 +26,7 @@ dependencies {
     implementation(project(":core:common"))
     implementation(project(":core:common-android"))
     implementation(project(":compose:compose-core"))
-    implementation(project(":data"))
+    implementation(project(":core:data"))
     implementation(project(":domain"))
     implementation(project(":features:ui-labs"))
     implementation(project(":features:ui-map"))

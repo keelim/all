@@ -24,7 +24,7 @@ include(
     ":app-mysenior",
     ":core:common",
     ":core:common-android",
-    ":data",
+    ":core:data",
     ":domain",
     ":compose:compose-core",
     ":compose:widget-glance",

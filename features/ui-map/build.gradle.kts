@@ -12,7 +12,7 @@ android{
 
 dependencies {
     implementation(project(":core:common"))
-    implementation(project(":data"))
+    implementation(project(":core:data"))
     implementation(project(":domain"))
 
     implementation(libs.activity.ktx)

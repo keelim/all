@@ -25,7 +25,7 @@ dependencies {
     implementation(project(":core:common"))
     implementation(project(":core:common-android"))
     implementation(project(":compose:compose-core"))
-    implementation(project(":data"))
+    implementation(project(":core:data"))
     implementation(project(":features:ui-setting"))
 
     implementation("com.google.modernstorage:modernstorage-permissions")

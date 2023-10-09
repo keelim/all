@@ -12,7 +12,7 @@ android{
 dependencies {
     implementation(project(":core:common"))
     implementation(project(":compose:compose-core"))
-    implementation(project(":data"))
+    implementation(project(":core:data"))
     implementation(project(":domain"))
 
     implementation(libs.androidx.appcompat)

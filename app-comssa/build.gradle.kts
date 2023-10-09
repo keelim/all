@@ -27,7 +27,7 @@ android {
 dependencies {
     implementation(project(":core:common"))
     implementation(project(":core:common-android"))
-    implementation(project(":compose:compose-core"))
+    implementation(project(":core:compose-core"))
     implementation(project(":core:data"))
     implementation(project(":core:domain"))
 

@@ -60,10 +60,9 @@ fun MySeniorApp(
                             actionLabel = action,
                             duration = SnackbarDuration.Short,
                         ) == SnackbarResult.ActionPerformed
-                    }
+                    },
                 )
             }
         }
     }
 }
-

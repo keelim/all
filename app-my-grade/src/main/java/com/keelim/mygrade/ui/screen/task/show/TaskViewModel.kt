@@ -9,16 +9,13 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlinx.datetime.Clock
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -47,11 +44,11 @@ class TaskViewModel @Inject constructor(
             TaskScreenState.Error
         }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), TaskScreenState.Loading)
 
-     fun clearTask() {
-         viewModelScope.launch {
-             withContext(Dispatchers.IO) {
-                 defaultTaskRepository.clear()
-             }
-         }
+    fun clearTask() {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                defaultTaskRepository.clear()
+            }
+        }
     }
 }

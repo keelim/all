@@ -16,13 +16,14 @@ import com.keelim.mygrade.ui.screen.main.grade
 import com.keelim.mygrade.ui.screen.main.mainRoute
 import com.keelim.mygrade.ui.screen.main.mainScreen
 import com.keelim.mygrade.ui.screen.main.toProcess
-import com.keelim.mygrade.ui.screen.quick.navigateQuick
-import com.keelim.mygrade.ui.screen.quick.quickScreen
 import com.keelim.mygrade.ui.screen.task.add.navigateTaskAdd
 import com.keelim.mygrade.ui.screen.task.add.taskAddScreen
 import com.keelim.mygrade.ui.screen.task.show.navigateTask
 import com.keelim.mygrade.ui.screen.task.show.navigateTaskPopUpTo
 import com.keelim.mygrade.ui.screen.task.show.taskScreen
+import com.keelim.mygrade.ui.screen.timer.history.navigateTimerHistory
+import com.keelim.mygrade.ui.screen.timer.history.timerHistoryScreen
+import com.keelim.mygrade.ui.screen.timer.timerScreen
 import com.keelim.setting.screen.event.eventScreen
 import com.keelim.setting.screen.navigateNotification
 import com.keelim.setting.screen.navigateSettings
@@ -54,8 +55,7 @@ fun MyGradeHost(
                 )
             },
             onFloatingButtonClick1 = { navController.navigateHistory() },
-            onFloatingButtonClick2 = { navController.navigateQuick() },
-            onFloatingButtonClick3 = { navController.navigateSettings() },
+            onFloatingButtonClick2 = { navController.navigateSettings() },
             onLabClick = {
                 coroutineScope.launch {
                     val result = onShowSnackbar("새로운 기능으로 준비중입니다 😀", "move")
@@ -64,15 +64,9 @@ fun MyGradeHost(
                     }
                 }
             },
-        )
-        quickScreen(
-            onDismiss = { navController.popBackStack() },
-            onNavigate = { subject, normalProbability, student ->
-                navController.navigateGrade(
-                    subject = subject,
-                    grade = normalProbability.grade(),
-                    point = Level((normalProbability.value * student) / 100).toProcess(student.toString()),
-                )
+            onNavigateTimerHistory = navController::navigateTimerHistory,
+            nestedGraphs = {
+                timerHistoryScreen()
             },
         )
         historyScreen(
@@ -100,5 +94,6 @@ fun MyGradeHost(
         taskAddScreen {
             navController.navigateTaskPopUpTo()
         }
+        timerScreen()
     }
 }

@@ -24,11 +24,11 @@ include(
     ":app-mysenior",
     ":core:common",
     ":core:common-android",
-    ":data",
-    ":domain",
-    ":compose:compose-core",
-    ":compose:widget-glance",
-    ":features:ui-setting",
+    ":core:compose-core",
+    ":core:data",
+    ":core:domain",
+    ":core:widget-glance",
+    ":features:ui-labs",
     ":features:ui-map",
-    ":features:ui-labs"
+    ":features:ui-setting",
 )

@@ -12,8 +12,8 @@ android{
 
 dependencies {
     implementation(project(":core:common"))
-    implementation(project(":data"))
-    implementation(project(":domain"))
+    implementation(project(":core:data"))
+    implementation(project(":core:domain"))
 
     implementation(libs.activity.ktx)
     implementation(libs.androidx.activity.compose)

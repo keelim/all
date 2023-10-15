@@ -2,7 +2,7 @@
 # project
 compileSdk = "34"
 minSdk = "26"
-targetSdk = "33"
+targetSdk = "34"
 versionCode = "20231009"
 # library
 accompanist = "0.32.0"

@@ -15,7 +15,10 @@ fun NavController.navigateGrade(
     this.navigate("profile?subject=$subject&grade=$grade&point=$point", navOptions)
 }
 
-fun NavGraphBuilder.gradeScreen() {
+fun NavGraphBuilder.gradeScreen(
+    onCopyClick: () -> Unit,
+    onShareClick: () -> Unit,
+) {
     composable(
         route = "profile?subject={subject}&grade={grade}&point={point}",
         arguments =
@@ -26,8 +29,8 @@ fun NavGraphBuilder.gradeScreen() {
         ),
     ) {
         GradeRoute(
-            onCopyClick = {},
-            onShareClick = {},
+            onCopyClick = onCopyClick,
+            onShareClick = onShareClick,
         )
     }
 }

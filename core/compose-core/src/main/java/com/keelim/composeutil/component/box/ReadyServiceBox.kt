@@ -10,8 +10,10 @@ import androidx.compose.ui.res.stringResource
 import com.keelim.compose.core.R
 
 @Composable
-fun ReadyServiceBox() {
-    Box(modifier = Modifier.fillMaxSize()) {
+fun ReadyServiceBox(
+    modifier: Modifier = Modifier,
+) {
+    Box(modifier = modifier.fillMaxSize()) {
         Text(
             text = stringResource(R.string.ready_service),
             modifier = Modifier.align(Alignment.Center),

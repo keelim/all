@@ -1,4 +1,4 @@
-package com.keelim.common.di
+package com.keelim.common.flow
 
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner

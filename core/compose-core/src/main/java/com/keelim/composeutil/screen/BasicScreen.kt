@@ -51,6 +51,7 @@ private fun Greeting(name: String) {
             dampingRatio = Spring.DampingRatioMediumBouncy,
             stiffness = Spring.StiffnessLow,
         ),
+        label = "",
     )
     Surface(
         color = MaterialTheme.colorScheme.primary,

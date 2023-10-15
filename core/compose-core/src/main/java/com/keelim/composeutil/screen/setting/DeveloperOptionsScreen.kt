@@ -50,7 +50,6 @@ fun DeveloperScreen(navController: NavHostController) {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DeveloperCustomTextField(
     title: String,
@@ -73,5 +72,5 @@ fun DeveloperCustomTextField(
 @Preview(showBackground = true)
 @Composable
 private fun DeveloperCustomTextFieldPreview() {
-    DeveloperCustomTextField("Sample", "Sample", {})
+    DeveloperCustomTextField("Sample", "Sample") {}
 }

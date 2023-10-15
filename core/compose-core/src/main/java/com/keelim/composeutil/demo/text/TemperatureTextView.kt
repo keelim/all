@@ -79,7 +79,6 @@ private fun TemperatureViewPreview() {
     TemperatureView(false, "", {}, {})
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun InputRow(
     isFahrenheit: Boolean,
@@ -118,7 +117,7 @@ fun InputRow(
 
         Crossfade(
             targetState = isFahrenheit,
-            animationSpec = tween(2000),
+            animationSpec = tween(2000), label = "",
         ) { visible ->
             Text(if (visible) "\u2109" else "\u2103", style = MaterialTheme.typography.titleLarge)
         }

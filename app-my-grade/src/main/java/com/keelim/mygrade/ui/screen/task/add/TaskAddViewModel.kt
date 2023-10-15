@@ -34,14 +34,14 @@ data class TaskAddUiState(
 class TaskAddViewModel
 @Inject
 constructor(
-    val defaultTaskRepository: DefaultTaskRepository,
+    private val defaultTaskRepository: DefaultTaskRepository,
     @IoDispatcher val dispatcher: CoroutineDispatcher,
 ) : ViewModel() {
 
     private val _screenState = MutableStateFlow<TaskAddScreenState>(TaskAddScreenState.Empty)
     val screenState: StateFlow<TaskAddScreenState> = _screenState.asStateFlow()
 
-    private val _uiState = MutableStateFlow<TaskAddUiState>(TaskAddUiState())
+    private val _uiState = MutableStateFlow(TaskAddUiState())
     val uiState: StateFlow<TaskAddUiState> = _uiState.asStateFlow()
 
     fun updateTitle(value: String) {

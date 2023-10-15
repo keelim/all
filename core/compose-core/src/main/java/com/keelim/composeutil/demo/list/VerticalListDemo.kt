@@ -1,4 +1,4 @@
-package com.keelim.composeutil.demo
+package com.keelim.composeutil.demo.list
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row

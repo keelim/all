@@ -1,6 +1,5 @@
 package com.keelim.setting.screen
 
-import SettingsRoute
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions

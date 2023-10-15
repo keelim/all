@@ -1,64 +1,8 @@
 <resources>
-    <style name="LoginTheme" parent="Theme.MaterialComponents.NoActionBar">
-        <item name="backgroundColor">@color/colorAccent</item>
-    </style>
-
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
-    <style name="card_style">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">0dp</item>
-        <item name="android:layout_rowWeight">1</item>
-        <item name="android:layout_columnWeight">1</item>
-        <item name="android:layout_marginLeft">8dp</item>
-        <item name="android:layout_marginRight">8dp</item>
-        <item name="android:layout_marginBottom">8dp</item>
-    </style>
-
-    <style name="card_style_2">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textAlignment">center</item>
-        <item name="android:textSize">30sp</item>
-    </style>
-
-    <style name="card_style_3">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_gravity">center_horizontal|center_vertical</item>
-        <item name="android:layout_margin">8dp</item>
-        <item name="android:orientation">vertical</item>
-    </style>
-
-    <style name="tv_style">
-        <item name="android:textColor">@color/main_text_color</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-    </style>
-
-    <style name="ShapeAppearance.Button.CutCorners" parent="ShapeAppearance.MaterialComponents.SmallComponent">
-        <item name="cornerFamily">cut</item>
-        <item name="cornerSize">12dp</item>
-    </style>
 
     <style name="MyToolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
         <item name="titleTextColor">@color/main_bg_color</item>
         <item name="backgroundColor">@color/main_bg_color</item>
     </style>
 
-    <style name="Nanda.Button.TextButton.Mini" parent="Widget.MaterialComponents.Button.TextButton">
-        <item name="textAllCaps">false</item>
-    </style>
-
-    <style name="InAppWebview" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="android:statusBarColor">@color/transparent</item>
-        <item name="android:windowLightStatusBar">true</item>
-    </style>
 </resources>

@@ -4,7 +4,6 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import com.keelim.nandadiagnosis.ui.screen.nutrients.NutrientRoute
 
 const val nutrientTimerRoute = "timer"
 

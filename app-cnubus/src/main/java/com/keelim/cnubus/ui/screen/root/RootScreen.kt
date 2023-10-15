@@ -27,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.util.fastForEach
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.composeutil.component.layout.EmptyView
@@ -177,7 +178,7 @@ fun ExposedDropdownMenuSample() {
             expanded = expanded,
             onDismissRequest = { expanded = false },
         ) {
-            roots.forEach { selectionOption ->
+            roots.fastForEach { selectionOption ->
                 DropdownMenuItem(
                     text = { Text(selectionOption) },
                     onClick = {

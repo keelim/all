@@ -36,9 +36,9 @@ data class AppItem(
 )
 
 sealed class ItemState {
-    object Visible : ItemState()
-    object Progress : ItemState()
-    object Finish : ItemState()
+    data object Visible : ItemState()
+    data object Progress : ItemState()
+    data object Finish : ItemState()
 }
 
 @Composable

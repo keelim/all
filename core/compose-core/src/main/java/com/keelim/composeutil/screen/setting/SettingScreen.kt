@@ -21,11 +21,11 @@ import androidx.compose.ui.unit.dp
 import com.keelim.compose.core.BuildConfig
 
 sealed class SettingAction {
-    object AlarmSetting : SettingAction()
-    object ThemeSetting : SettingAction()
-    object Lab : SettingAction()
-    object OtherApp : SettingAction()
-    object ShowLogcat : SettingAction()
+    data object AlarmSetting : SettingAction()
+    data object ThemeSetting : SettingAction()
+    data object Lab : SettingAction()
+    data object OtherApp : SettingAction()
+    data object ShowLogcat : SettingAction()
 }
 
 @Composable

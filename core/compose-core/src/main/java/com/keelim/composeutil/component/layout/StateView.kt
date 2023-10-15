@@ -15,9 +15,9 @@ import androidx.compose.ui.unit.dp
 
 @Stable
 sealed interface CommonScreenState {
-    object Loading : CommonScreenState
-    object Empty : CommonScreenState
-    object Error : CommonScreenState
+    data object Loading : CommonScreenState
+    data object Empty : CommonScreenState
+    data object Error : CommonScreenState
     data class Success(val items: Any) : CommonScreenState
 }
 

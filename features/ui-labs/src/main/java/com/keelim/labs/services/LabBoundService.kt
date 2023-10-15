@@ -33,12 +33,8 @@ class LabBoundService : Service() {
     }
 
     fun getCurrentTime(): String {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val current = LocalDateTime.now()
-            current.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
-        } else {
-            SimpleDateFormat("HH:mm:ss MM/dd/yyyy", Locale.KOREA).format(Date())
-        }
+        val current = LocalDateTime.now()
+        return current.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
     }
 
     inner class LocalBinder : Binder() {

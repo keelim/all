@@ -1,5 +1,7 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
+package com.keelim.setting.screen
+
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.isSystemInDarkTheme

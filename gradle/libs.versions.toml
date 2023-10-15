@@ -166,6 +166,7 @@ firebase-appcheck = { group = "com.google.firebase", name = "firebase-appcheck-p
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth-ktx" }
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase" }
 firebase-config = { group = "com.google.firebase", name = "firebase-config-ktx" }
+firebase-common = { group = "com.google.firebase", name = "firebase-common-ktx" }
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
 firebase-crashlytics-gradlePlugin = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "firebaseCrashlyticsPlugin" }
 firebase-database = { group = "com.google.firebase", name = "firebase-database-ktx" }

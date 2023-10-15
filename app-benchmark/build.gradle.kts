@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.builtins.StandardNames.FqNames.target
-
 plugins {
     id("keelim.android.test")
 }

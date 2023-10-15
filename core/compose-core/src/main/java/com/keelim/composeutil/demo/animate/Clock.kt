@@ -23,13 +23,14 @@ import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun ClockAnimation() {
-    val infiniteTransition = rememberInfiniteTransition()
+    val infiniteTransition = rememberInfiniteTransition(label = "")
 
     val clockAnimation by
         infiniteTransition.animateFloat(
             initialValue = 0f,
             targetValue = 720f,
             animationSpec = infiniteRepeatable(animation = tween(), repeatMode = RepeatMode.Restart),
+            label = "",
         )
 
     var strokeWidth by remember { mutableStateOf(0f) }

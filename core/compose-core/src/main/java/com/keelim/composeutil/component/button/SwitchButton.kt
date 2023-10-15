@@ -63,6 +63,7 @@ fun SwitchButton(
             delayMillis = 0,
             easing = LinearOutSlowInEasing,
         ),
+        label = "",
     )
 
     Box(

@@ -10,15 +10,13 @@ object NotificationChannels {
     const val NOTICE = "NOTIFICATION"
 
     internal fun initialize(application: Application) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            application.getNotificationManager()?.run {
-                val notice = NotificationChannel(
-                    NOTICE,
-                    application.getString(R.string.notification_channel_notice),
-                    NotificationManager.IMPORTANCE_HIGH,
-                )
-                createNotificationChannels(listOf(notice))
-            }
+        application.getNotificationManager()?.run {
+            val notice = NotificationChannel(
+                NOTICE,
+                application.getString(R.string.notification_channel_notice),
+                NotificationManager.IMPORTANCE_HIGH,
+            )
+            createNotificationChannels(listOf(notice))
         }
     }
 }

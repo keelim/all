@@ -43,7 +43,7 @@ class HistoryViewModel @Inject constructor(
     val histories: Flow<PersistentList<GradeHistory>> =
         historyRepository
             .observeSimpleHistories()
-            .mapLatest { it.map { it.toGradeHistory() }.toPersistentList() }
+            .mapLatest { it -> it.map { it.toGradeHistory() }.toPersistentList() }
             .catch { emit(persistentListOf()) }
             .distinctUntilChanged()
             .flowOn(disPatcher)

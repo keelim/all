@@ -78,7 +78,18 @@ fun MyGradeHost(
                 )
             },
         )
-        gradeScreen()
+        gradeScreen(
+            onCopyClick = {
+                coroutineScope.launch {
+                    onShowSnackbar("새로운 기능으로 준비중입니다 😀", null)
+                }
+            },
+            onShareClick = {
+                coroutineScope.launch {
+                    onShowSnackbar("새로운 기능으로 준비중입니다 😀", null)
+                }
+            }
+        )
         settingsScreen(
             onNotificationsClick = { navController.navigateNotification() },
             onOpenSourceClick = {

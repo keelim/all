@@ -3,8 +3,6 @@ package com.keelim.data.db.dao
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Upsert
-import com.keelim.data.source.local.History
-import com.keelim.data.source.local.SimpleHistory
 import com.keelim.data.source.local.TimerHistory
 import kotlinx.coroutines.flow.Flow
 

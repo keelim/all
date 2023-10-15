@@ -1,5 +1,7 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
+package com.keelim.setting.screen
+
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -40,8 +42,6 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.composeutil.component.layout.EmptyView
-import com.keelim.setting.screen.NotificationState
-import com.keelim.setting.screen.NotificationViewModel
 
 @Composable
 fun NotificationRoute() {

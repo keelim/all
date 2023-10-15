@@ -24,6 +24,10 @@ import com.keelim.mygrade.ui.screen.task.show.taskScreen
 import com.keelim.mygrade.ui.screen.timer.history.navigateTimerHistory
 import com.keelim.mygrade.ui.screen.timer.history.timerHistoryScreen
 import com.keelim.mygrade.ui.screen.timer.timerScreen
+import com.keelim.mygrade.ui.screen.word.navigateWord
+import com.keelim.mygrade.ui.screen.word.navigateWordWrite
+import com.keelim.mygrade.ui.screen.word.wordScreen
+import com.keelim.mygrade.ui.screen.word.wordWriteScreen
 import com.keelim.setting.screen.event.eventScreen
 import com.keelim.setting.screen.navigateNotification
 import com.keelim.setting.screen.navigateSettings
@@ -65,6 +69,7 @@ fun MyGradeHost(
                 }
             },
             onNavigateTimerHistory = navController::navigateTimerHistory,
+            onNavigateWord = navController::navigateWord,
             nestedGraphs = {
                 timerHistoryScreen()
             },
@@ -78,7 +83,18 @@ fun MyGradeHost(
                 )
             },
         )
-        gradeScreen()
+        gradeScreen(
+            onCopyClick = {
+                coroutineScope.launch {
+                    onShowSnackbar("새로운 기능으로 준비중입니다 😀", null)
+                }
+            },
+            onShareClick = {
+                coroutineScope.launch {
+                    onShowSnackbar("새로운 기능으로 준비중입니다 😀", null)
+                }
+            }
+        )
         settingsScreen(
             onNotificationsClick = { navController.navigateNotification() },
             onOpenSourceClick = {
@@ -95,5 +111,10 @@ fun MyGradeHost(
             navController.navigateTaskPopUpTo()
         }
         timerScreen()
+        wordScreen(
+            onWordWriteNavigate = navController::navigateWordWrite
+        ) {
+            wordWriteScreen()
+        }
     }
 }

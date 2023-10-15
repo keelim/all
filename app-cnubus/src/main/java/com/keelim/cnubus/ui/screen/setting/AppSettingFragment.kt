@@ -15,7 +15,7 @@
  */
 package com.keelim.cnubus.ui.screen.setting
 
-import SettingsRoute
+import com.keelim.setting.screen.SettingsRoute
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater

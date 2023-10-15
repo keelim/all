@@ -41,8 +41,8 @@ class CategoryViewModel @Inject constructor() : ViewModel() {
 }
 
 sealed interface CategoryState {
-    object Loading : CategoryState
-    object Empty : CategoryState
-    object Error : CategoryState
+    data object Loading : CategoryState
+    data object Empty : CategoryState
+    data object Error : CategoryState
     data class Success(val items: PersistentList<String>) : CategoryState
 }

@@ -5,7 +5,6 @@ import androidx.room.PrimaryKey
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
-import java.util.Calendar
 
 @Entity(tableName = "history")
 data class History(

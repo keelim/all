@@ -35,7 +35,7 @@ fun rememberAppState(
 class AppState(
     val navController: NavHostController,
     val coroutineScope: CoroutineScope,
-    val windowSizeClass: WindowSizeClass,
+    private val windowSizeClass: WindowSizeClass,
 ) {
     val currentDestinations: NavDestination?
         @Composable get() = navController

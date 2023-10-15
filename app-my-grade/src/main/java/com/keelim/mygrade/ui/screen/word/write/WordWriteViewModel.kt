@@ -7,6 +7,4 @@ import javax.inject.Inject
 @HiltViewModel
 class WordWriteViewModel @Inject constructor(
 
-): ViewModel() {
-
-}
+): ViewModel()

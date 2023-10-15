@@ -92,20 +92,18 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     private fun createNotificationChannel(notificationManager: NotificationManager) {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                "id",
-                "CHATTING",
-                IMPORTANCE_HIGH,
-            )
-            channel.apply {
-                enableLights(true)
-                // setShowBadge(true)
-                lightColor = Color.RED
-                enableVibration(true)
-                description = "notification"
-                notificationManager.createNotificationChannel(channel)
-            }
+        val channel = NotificationChannel(
+            "id",
+            "CHATTING",
+            IMPORTANCE_HIGH,
+        )
+        channel.apply {
+            enableLights(true)
+            // setShowBadge(true)
+            lightColor = Color.RED
+            enableVibration(true)
+            description = "notification"
+            notificationManager.createNotificationChannel(channel)
         }
     }
 

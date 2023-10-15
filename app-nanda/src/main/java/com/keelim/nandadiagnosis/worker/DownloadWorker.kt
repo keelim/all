@@ -97,9 +97,7 @@ class DownloadWorker @AssistedInject constructor(
             .setOngoing(true)
             .addAction(android.R.drawable.ic_delete, "Cancel Download", intent)
         // 3
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            createChannel(notification, "workDownload")
-        }
+        createChannel(notification, "workDownload")
         return ForegroundInfo(1, notification.build())
     }
 

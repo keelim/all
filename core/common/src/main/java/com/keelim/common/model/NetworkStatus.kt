@@ -3,9 +3,9 @@ package com.keelim.common.model
 import kotlinx.coroutines.flow.Flow
 
 sealed class NetworkStatus {
-    object Unknown : NetworkStatus()
-    object Connected : NetworkStatus()
-    object Disconnected : NetworkStatus()
+    data object Unknown : NetworkStatus()
+    data object Connected : NetworkStatus()
+    data object Disconnected : NetworkStatus()
 }
 
 interface NetworkConnectivityService {

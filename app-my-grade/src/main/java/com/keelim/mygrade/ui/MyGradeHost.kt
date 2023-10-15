@@ -24,6 +24,8 @@ import com.keelim.mygrade.ui.screen.task.show.taskScreen
 import com.keelim.mygrade.ui.screen.timer.history.navigateTimerHistory
 import com.keelim.mygrade.ui.screen.timer.history.timerHistoryScreen
 import com.keelim.mygrade.ui.screen.timer.timerScreen
+import com.keelim.mygrade.ui.screen.word.navigateWord
+import com.keelim.mygrade.ui.screen.word.wordScreen
 import com.keelim.setting.screen.event.eventScreen
 import com.keelim.setting.screen.navigateNotification
 import com.keelim.setting.screen.navigateSettings
@@ -65,6 +67,7 @@ fun MyGradeHost(
                 }
             },
             onNavigateTimerHistory = navController::navigateTimerHistory,
+            onNavigateWord = navController::navigateWord,
             nestedGraphs = {
                 timerHistoryScreen()
             },
@@ -106,5 +109,6 @@ fun MyGradeHost(
             navController.navigateTaskPopUpTo()
         }
         timerScreen()
+        wordScreen()
     }
 }

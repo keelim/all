@@ -26,17 +26,16 @@ import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.appopen.AppOpenAd
 import com.keelim.cnubus.BuildConfig
-import timber.log.Timber
 import java.util.Date
 import javax.inject.Inject
 
 class AppOpenManager @Inject constructor() : LifecycleObserver {
     private lateinit var myApplication: Application
-    private var loadTime: Long = 0
+    private val adRequest by lazy { AdRequest.Builder().build() }
     private var appOpenAd: AppOpenAd? = null
     private var currentActivity: Activity? = null
     private var isShowingAd = false
-    private val adRequest by lazy { AdRequest.Builder().build() }
+    private var loadTime: Long = 0
     private val isAdAvailable: Boolean
         get() = appOpenAd != null && wasLoadTimeLessThanNHoursAgo()
 
@@ -47,7 +46,6 @@ class AppOpenManager @Inject constructor() : LifecycleObserver {
             override fun onActivityStarted(activity: Activity) {
                 currentActivity = activity
                 showAdIfAvailable()
-                Timber.d("onStart")
             }
             override fun onActivityResumed(activity: Activity) {
                 currentActivity = activity
@@ -68,41 +66,31 @@ class AppOpenManager @Inject constructor() : LifecycleObserver {
         }
         AppOpenAd.load(
             myApplication,
-            if (BuildConfig.DEBUG) {
-                AD_UNIT_ID
-            } else {
-                BuildConfig.UNIT
-            },
+            if (BuildConfig.DEBUG) AD_UNIT_ID else BuildConfig.UNIT,
             adRequest,
-            AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT,
             object : AppOpenAd.AppOpenAdLoadCallback() {
                 override fun onAdLoaded(ad: AppOpenAd) {
                     appOpenAd = ad
                     loadTime = Date().time
                 }
-                override fun onAdFailedToLoad(loadAdError: LoadAdError) {}
+                override fun onAdFailedToLoad(loadAdError: LoadAdError) = Unit
             },
         )
     }
 
     private fun showAdIfAvailable() {
-        if (!isShowingAd && isAdAvailable) {
-            Timber.d("Will show ad.")
-            appOpenAd!!.fullScreenContentCallback = object : FullScreenContentCallback() {
+        if (isShowingAd.not() && isAdAvailable) {
+            appOpenAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
                 override fun onAdDismissedFullScreenContent() {
                     appOpenAd = null
                     isShowingAd = false
                     fetchAd()
                 }
-
-                override fun onAdFailedToShowFullScreenContent(adError: AdError) {}
-                override fun onAdShowedFullScreenContent() {
-                    isShowingAd = true
-                }
+                override fun onAdFailedToShowFullScreenContent(adError: AdError) = Unit
+                override fun onAdShowedFullScreenContent() { isShowingAd = true }
             }
             currentActivity?.also(appOpenAd!!::show)
         } else {
-            Timber.d("Can not show ad.")
             fetchAd()
         }
     }

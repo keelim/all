@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.util.fastForEachIndexed
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.composeutil.component.layout.EmptyView
@@ -57,7 +58,7 @@ private fun CategoryStateView(uiState: CategoryState, onCategoryClick: (Int) -> 
                         .height(100.dp)
                         .padding(8.dp)
                         .clip(RoundedCornerShape(8.dp))
-                uiState.items.forEachIndexed { index, item ->
+                uiState.items.fastForEachIndexed { index, item ->
                     CategoryCard(
                         index = index,
                         categoryTitle = item,

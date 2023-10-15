@@ -35,8 +35,8 @@ import com.keelim.composeutil.component.layout.Loading
 import com.keelim.data.model.Location
 
 sealed class MapEvent {
-    object UnInitialized : MapEvent()
-    object Loading : MapEvent()
+    data object UnInitialized : MapEvent()
+    data object Loading : MapEvent()
     data class MigrateSuccess(val data: List<Location>) : MapEvent()
     data class Error(val message: String = "에러가 발생하였습니다.") : MapEvent()
 }

@@ -30,4 +30,4 @@ inline fun ComponentActivity.setThemeContent(noinline content: @Composable () ->
 
 @Suppress("NOTHING_TO_INLINE")
 inline fun Fragment.setThemeContent(noinline content: @Composable () -> Unit) =
-    ComposeView(requireContext()).apply { setContent { AppTheme { content() } } }
+    ComposeView(requireActivity()).apply { setContent { AppTheme { content() } } }

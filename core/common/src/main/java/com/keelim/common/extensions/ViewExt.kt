@@ -76,11 +76,11 @@ fun View.toggleVisibility() {
     }
 }
 
-fun Context.snack(view: View, message: String) {
+fun snack(view: View, message: String) {
     Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show()
 }
 
-fun Context.snack(view: View, @StringRes message: Int) {
+fun snack(view: View, @StringRes message: Int) {
     Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show()
 }
 

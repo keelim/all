@@ -70,6 +70,7 @@ fun MessageCard(msg: Message) {
         var isExpanded by remember { mutableStateOf(false) }
         val surfaceColor by animateColorAsState(
             if (isExpanded) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.primaryContainer,
+            label = "",
         )
         Spacer(modifier = Modifier.width(8.dp))
         Column(

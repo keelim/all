@@ -3,8 +3,8 @@ package com.keelim.composeutil.model
 import androidx.compose.runtime.Stable
 
 sealed class Result<out T> {
-    object Loading : Result<Nothing>()
-    object Error : Result<Nothing>()
+    data object Loading : Result<Nothing>()
+    data object Error : Result<Nothing>()
     class Success<T>(t: T?) : Result<T>()
 }
 

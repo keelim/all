@@ -72,7 +72,7 @@ private val nandaNavItems =
         ),
         NandaNavItem.BigType(
             name = "Web",
-            route = webRoute + "/nanda",
+            route = "$webRoute/nanda",
             icon = Icons.Rounded.Web,
         ),
         NandaNavItem.BigType(

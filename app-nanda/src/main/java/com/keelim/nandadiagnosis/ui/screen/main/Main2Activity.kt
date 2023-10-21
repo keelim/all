@@ -18,6 +18,7 @@ package com.keelim.nandadiagnosis.ui.screen.main
 import android.Manifest
 import android.app.DownloadManager
 import android.content.IntentFilter
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -28,12 +29,15 @@ import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSiz
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.datastore.core.DataStore
 import com.airbnb.deeplinkdispatch.DeepLink
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.keelim.common.extensions.toast
 import com.keelim.commonAndroid.core.AppMainDelegator
 import com.keelim.commonAndroid.core.AppMainViewModel
 import com.keelim.composeutil.setThemeContent
+import com.keelim.data.UserSettings
+import com.keelim.data.source.dataStore
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.di.DownloadReceiver
 import com.keelim.nandadiagnosis.ui.screen.NandaApp

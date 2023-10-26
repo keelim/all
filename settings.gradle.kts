@@ -27,6 +27,7 @@ include(
     ":core:compose-core",
     ":core:data",
     ":core:domain",
+    ":core:testing",
     ":core:widget-glance",
     ":features:ui-labs",
     ":features:ui-map",

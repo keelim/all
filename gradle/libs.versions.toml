@@ -44,7 +44,7 @@ firebase = "32.4.0"
 firebase-ui = "8.0.2"
 firebaseCrashlyticsPlugin = "2.9.9"
 firebasePerfPlugin = "1.4.2"
-flipper = "0.231.0"
+flipper = "0.233.0"
 glance = "1.0.0"
 hilt = "2.48.1"
 hiltExt = "1.0.0"
@@ -62,7 +62,7 @@ leakcanary = "2.12"
 lint = "31.1.2"
 lottie = "6.1.0"
 maps = "4.0.0"
-maps-compose = "3.1.1"
+maps-compose = "4.0.0"
 material = "1.10.0"
 math3 = "3.6.1"
 modernstorageBom = "1.0.0-alpha06"
@@ -249,7 +249,7 @@ android-application = { id = "com.android.application", version.ref = "androidGr
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 android-test = { id = "com.android.test", version.ref = "androidGradlePlugin" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
-cacheFixPlugin = { id = "org.gradle.android.cache-fix", version = "2.8.1" }
+cacheFixPlugin = { id = "org.gradle.android.cache-fix", version = "3.0" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

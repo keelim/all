@@ -28,6 +28,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.material.themAdapter)
     implementation(libs.play.services.oss)
-    testImplementation(libs.junit4)
+
+    testImplementation(project(":core:testing"))
 }
 

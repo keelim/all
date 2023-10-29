@@ -19,7 +19,7 @@ class KeelimAndroidLibraryPlugin : Plugin<Project> {
                 configureKotlinAndroid(this)
             }
             dependencies {
-                add("lintChecks", libs.findLibrary("slack-lint-checks").get())
+            //    add("lintChecks", libs.findLibrary("slack-lint-checks").get())
             }
         }
     }

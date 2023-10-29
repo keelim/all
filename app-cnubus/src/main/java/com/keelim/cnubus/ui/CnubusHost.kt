@@ -11,7 +11,7 @@ import com.keelim.composeutil.AppState
 import com.keelim.setting.screen.event.eventScreen
 import com.keelim.setting.screen.navigateNotification
 import com.keelim.setting.screen.notificationScreen
-import com.keelim.setting.screen.settingsScreen
+import com.keelim.setting.screen.settings.settingsScreen
 import com.keelim.setting.screen.welcome.welcomeScreen
 import kotlinx.coroutines.CoroutineScope
 

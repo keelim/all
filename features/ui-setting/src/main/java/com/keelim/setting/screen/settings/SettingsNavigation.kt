@@ -1,4 +1,4 @@
-package com.keelim.setting.screen
+package com.keelim.setting.screen.settings
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder

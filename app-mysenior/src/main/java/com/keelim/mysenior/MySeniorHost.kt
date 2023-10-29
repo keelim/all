@@ -10,8 +10,8 @@ import com.keelim.composeutil.AppState
 import com.keelim.setting.screen.event.eventScreen
 import com.keelim.setting.screen.navigateNotification
 import com.keelim.setting.screen.notificationScreen
-import com.keelim.setting.screen.settingsRoute
-import com.keelim.setting.screen.settingsScreen
+import com.keelim.setting.screen.settings.settingsRoute
+import com.keelim.setting.screen.settings.settingsScreen
 import kotlinx.coroutines.CoroutineScope
 
 @Composable

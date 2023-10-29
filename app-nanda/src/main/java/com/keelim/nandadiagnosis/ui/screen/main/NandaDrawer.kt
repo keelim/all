@@ -40,7 +40,7 @@ import com.keelim.nandadiagnosis.ui.screen.category.categoryRoute
 import com.keelim.nandadiagnosis.ui.screen.inappweb.webRoute
 import com.keelim.nandadiagnosis.ui.screen.nutrients.nutrientRoute
 import com.keelim.nandadiagnosis.ui.screen.nutrients.timer.nutrientTimerRoute
-import com.keelim.setting.screen.settingsRoute
+import com.keelim.setting.screen.settings.settingsRoute
 import kotlinx.collections.immutable.persistentListOf
 
 

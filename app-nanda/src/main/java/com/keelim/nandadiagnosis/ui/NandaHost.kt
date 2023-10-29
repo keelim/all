@@ -21,9 +21,9 @@ import com.keelim.nandadiagnosis.ui.screen.nutrients.timer.navigateNutrientTimer
 import com.keelim.nandadiagnosis.ui.screen.nutrients.timer.nutrientTimerScreen
 import com.keelim.setting.screen.event.eventScreen
 import com.keelim.setting.screen.navigateNotification
-import com.keelim.setting.screen.navigateSettings
+import com.keelim.setting.screen.settings.navigateSettings
 import com.keelim.setting.screen.notificationScreen
-import com.keelim.setting.screen.settingsScreen
+import com.keelim.setting.screen.settings.settingsScreen
 import com.keelim.setting.screen.welcome.welcomeScreen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch

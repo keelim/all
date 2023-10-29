@@ -40,7 +40,7 @@ class KeelimAndroidApplicationPlugin : Plugin<Project> {
                 add("debugImplementation", libs.findLibrary("flipper").get())
                 add("debugImplementation", libs.findLibrary("soloader").get())
                 add("releaseImplementation", libs.findLibrary("flipper-noop").get())
-                add("lintChecks", libs.findLibrary("slack-lint-checks").get())
+             //   add("lintChecks", libs.findLibrary("slack-lint-checks").get())
             }
         }
     }

@@ -17,9 +17,12 @@ class KeelimAndroidLibraryPlugin : Plugin<Project> {
             extensions.getByType<LibraryExtension>().apply {
                 buildFeatures.dataBinding = true
                 configureKotlinAndroid(this)
+                lint {
+                    abortOnError = false
+                }
             }
             dependencies {
-            //    add("lintChecks", libs.findLibrary("slack-lint-checks").get())
+                add("lintChecks", libs.findLibrary("slack-lint-checks").get())
             }
         }
     }

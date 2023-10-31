@@ -41,6 +41,6 @@ enum class Subway(
     LINE_77(1077, "신분당", Color.parseColor("#FFC82127")),
     UNKNOWN(-1, "확인불가", Color.LTGRAY);
     companion object {
-        fun findById(id: Int): Subway = values().find { it.id == id } ?: UNKNOWN
+        fun findById(id: Int): Subway = entries.find { it.id == id } ?: UNKNOWN
     }
 }

@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.util.fastForEach
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
@@ -37,7 +38,7 @@ fun MapScreen(viewModel: MapViewModel = hiltViewModel()) {
     }
     GoogleMap(modifier = Modifier.fillMaxSize(), cameraPositionState = cameraPositionState) {
         val locations by viewModel.locations.collectAsStateWithLifecycle()
-        locations.forEach { marker ->
+        locations.fastForEach { marker ->
             MarkerInfoWindowContent(
                 state = MarkerState(position = marker.position),
                 title = marker.title,

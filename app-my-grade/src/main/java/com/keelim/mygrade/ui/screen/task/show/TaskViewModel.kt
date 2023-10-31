@@ -30,7 +30,7 @@ sealed interface TaskScreenState {
 
 @HiltViewModel
 class TaskViewModel @Inject constructor(
-    val defaultTaskRepository: DefaultTaskRepository,
+    private val defaultTaskRepository: DefaultTaskRepository,
 ) : ViewModel() {
     val taskScreenState: StateFlow<TaskScreenState> = defaultTaskRepository.observeAll()
         .mapLatest { tasks ->

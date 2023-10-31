@@ -83,7 +83,7 @@ fun GradientDot(
         Color.Black,
     )
 
-    var gradientBrush by remember {
+    val gradientBrush by remember {
         mutableStateOf(
             Brush.horizontalGradient(
                 colors = colors,

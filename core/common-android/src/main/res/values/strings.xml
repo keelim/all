@@ -1,6 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="system">시스템 기본값</string>
-    <string name="dark_theme">다크모드</string>
-    <string name="light_theme">라이트모드</string>
-</resources>
+<resources></resources>

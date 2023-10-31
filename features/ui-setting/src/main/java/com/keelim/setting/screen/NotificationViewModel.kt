@@ -19,7 +19,7 @@ import javax.inject.Inject
 class NotificationViewModel
 @Inject
 constructor(
-    val notificationRepository: NotificationRepository,
+    private val notificationRepository: NotificationRepository,
     @DefaultDispatcher val dispatcher: CoroutineDispatcher,
 ) : ViewModel() {
     // repository 만들 것
@@ -44,6 +44,6 @@ constructor(
 data class Notification(val date: String, val title: String, val desc: String)
 
 sealed interface NotificationState {
-    object Empty : NotificationState
+    data object Empty : NotificationState
     class Success(val items: PersistentList<Notification>) : NotificationState
 }

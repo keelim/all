@@ -20,13 +20,11 @@ class ApplicationMonitor @Inject constructor(
     private val appInfo: AppInfo,
 ) : LifecycleObserver {
     private val adRequest: AdRequest by lazy { AdRequest.Builder().build() }
-
+    private var appOpenAd: AppOpenAd? = null
+    private var application: Application? = null
+    private var currentActivity: Activity? = null
     private var isShowingAd = false
     private var loadTime: Long = 0
-
-    private var appOpenAd: AppOpenAd? = null
-    private var currentActivity: Activity? = null
-    private var application: Application? = null
     private val isAdAvailable: Boolean
         get() = appOpenAd != null && wasLoadTimeLessThanNHoursAgo()
 

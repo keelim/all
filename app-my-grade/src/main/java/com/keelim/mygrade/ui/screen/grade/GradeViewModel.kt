@@ -16,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class GradeViewModel @Inject constructor(
     val savedStateHandle: SavedStateHandle,
-    val historyRepository: HistoryRepository,
+    private val historyRepository: HistoryRepository,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(GradeUiState.empty())
     val uiState: StateFlow<GradeUiState> = _uiState.asStateFlow()

@@ -5,15 +5,7 @@
     <color name="colorPrimaryDark">#0026ca</color>
     <color name="colorAccent">#7a7cff</color>
     <color name="error">#80DEEA</color>
-    <color name="main_bg_color">#ffffff</color>
-    <color name="white">#ffffff</color>
-    <color name="main_text_color">#121212</color>
     <color name="black">#121212</color>
     <color name="ic_launcher">#304ffe</color>
-    <color name="colorDivider">#ECECEC</color>
-    <color name="overlay_light_primary">#9C4146</color>
-    <color name="overlay_light_onPrimary">#FFFFFF</color>
-    <color name="overlay_light_primaryContainer">#FFDADB</color>
-    <color name="overlay_light_onPrimaryContainer">#400008</color>
 
 </resources>

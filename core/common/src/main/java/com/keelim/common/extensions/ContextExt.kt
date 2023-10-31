@@ -73,7 +73,7 @@ fun Context.executeWeb(url: String?) {
     startNonBrowserActivity(url, fallback = { startBrowserActivity(url) })
 }
 
-private fun Context.startBrowserActivity(url: String) {
+private fun startBrowserActivity(url: String) {
 //    CustomTabsIntent.Builder()
 //        .setShareState(CustomTabsIntent.SHARE_STATE_ON)
 //        .setColorScheme(CustomTabsIntent.COLOR_SCHEME_SYSTEM)

@@ -3,14 +3,14 @@
 compileSdk = "34"
 minSdk = "26"
 targetSdk = "34"
-versionCode = "20231015"
+versionCode = "20231030"
 # library
 accompanist = "0.32.0"
 androidDesugarJdkLibs = "2.0.3"
-androidGradlePlugin = "8.0.2"
+androidGradlePlugin = "8.1.2"
 androidxActivity = "1.8.0"
 androidxAppCompat = "1.6.1"
-androidxComposeBom = "2023.10.00"
+androidxComposeBom = "2023.10.01"
 androidxComposeCompiler = "1.5.3"
 androidxComposeRuntimeTracing = "1.0.0-alpha04"
 androidxCore = "1.12.0"
@@ -20,7 +20,7 @@ androidxEspresso = "3.5.1"
 androidxFragment = "1.6.1"
 androidxHiltNavigationCompose = "1.0.0"
 androidxLifecycle = "2.6.2"
-androidxMacroBenchmark = "1.1.1"
+androidxMacroBenchmark = "1.2.0"
 androidxMetrics = "1.0.0-alpha04"
 androidxNavigation = "2.7.4"
 androidxPaging = "3.2.1"
@@ -37,14 +37,15 @@ androidxWork = "2.8.1"
 arrow = "1.2.1"
 bio = "1.1.0"
 coil = "2.4.0"
-compose-view = "1.5.3"
+compose-view = "1.5.4"
+deeplinkdispatch = "6.2.2"
 emoji2-emojipicker = "1.4.0"
-errorprone = "2.22.0"
-firebase = "32.3.1"
+errorprone = "2.23.0"
+firebase = "32.4.0"
 firebase-ui = "8.0.2"
 firebaseCrashlyticsPlugin = "2.9.9"
 firebasePerfPlugin = "1.4.2"
-flipper = "0.226.0"
+flipper = "0.233.0"
 glance = "1.0.0"
 hilt = "2.48.1"
 hiltExt = "1.0.0"
@@ -62,15 +63,15 @@ leakcanary = "2.12"
 lint = "31.1.2"
 lottie = "6.1.0"
 maps = "4.0.0"
-maps-compose = "3.1.1"
+maps-compose = "4.1.1"
 material = "1.10.0"
 math3 = "3.6.1"
 modernstorageBom = "1.0.0-alpha06"
-okhttp = "4.11.0"
+okhttp = "4.12.0"
 paging-compose = "3.2.1"
 play-services-auth = "20.7.0"
 play-services-location = "21.0.1"
-play-services-maps = "18.1.0"
+play-services-maps = "18.2.0"
 playCore = "1.8.1"
 playad = "22.4.0"
 playoss = "17.0.1"
@@ -81,14 +82,16 @@ protobuf = "3.24.4"
 protobufPlugin = "0.9.4"
 retrofit = "2.9.0"
 retrofitKotlinxSerializationJson = "1.0.0"
-room = "2.5.2"
+robolectric = "4.11"
+roborazzi = "1.6.0"
+room = "2.6.0"
 secrets = "2.0.1"
 soloader = "0.10.5"
 themeAdapter = "1.2.1"
 timbers = "5.0.1"
 truth = "1.1.5"
 turbine = "1.0.0"
-deeplinkdispatch = "6.2.2"
+slackLintChecks = "0.7.0"
 
 [libraries]
 accompanist-flowlayout = { group = "com.google.accompanist", name = "accompanist-flowlayout", version.ref = "accompanist" }
@@ -96,6 +99,7 @@ accompanist-pager = { group = "com.google.accompanist", name = "accompanist-page
 accompanist-pager-indicators = { group = "com.google.accompanist", name = "accompanist-pager-indicators", version.ref = "accompanist" }
 accompanist-permissions = { group = "com.google.accompanist", name = "accompanist-permissions", version.ref = "accompanist" }
 accompanist-systemuicontroller = { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version.ref = "accompanist" }
+accompanist-testharness = { group = "com.google.accompanist", name = "accompanist-testharness", version.ref = "accompanist" }
 accompanist-webview = { group = "com.google.accompanist", name = "accompanist-webview", version.ref = "accompanist" }
 activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "androidxActivity" }
 android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
@@ -160,11 +164,14 @@ coil-kt = { group = "io.coil-kt", name = "coil", version.ref = "coil"}
 coil-kt-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil"}
 coil-kt-gif = { group = "io.coil-kt", name = "coil-gif", version.ref = "coil"}
 coil-kt-svg = { group = "io.coil-kt", name = "coil-svg", version.ref = "coil"}
+deeplinkdispatch = { group = "com.airbnb", name = "deeplinkdispatch", version.ref = "deeplinkdispatch" }
+deeplinkdispatch-processor = { group = "com.airbnb", name = "deeplinkdispatch-processor", version.ref = "deeplinkdispatch" }
 errorprone = { group = "com.google.errorprone", name = "error_prone_annotations", version.ref = "errorprone" }
 firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
 firebase-appcheck = { group = "com.google.firebase", name = "firebase-appcheck-playintegrity" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth-ktx" }
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase" }
+firebase-common = { group = "com.google.firebase", name = "firebase-common-ktx" }
 firebase-config = { group = "com.google.firebase", name = "firebase-config-ktx" }
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
 firebase-crashlytics-gradlePlugin = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "firebaseCrashlyticsPlugin" }
@@ -232,23 +239,24 @@ protobuf-kotlin-lite = { group = "com.google.protobuf", name = "protobuf-kotlin-
 protobuf-protoc = { group = "com.google.protobuf", name = "protoc", version.ref = "protobuf" }
 retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 retrofit-kotlin-serialization = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "retrofitKotlinxSerializationJson" }
+robolectric-shadows = { group = "org.robolectric", name = "shadows-framework", version.ref = "robolectric" }
+roborazzi = { group = "io.github.takahirom.roborazzi", name = "roborazzi", version.ref = "roborazzi" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room-testing = { group = "androidx.room", name = "room-testing", version.ref = "room" }
+slack-lint-checks =  { group = "com.slack.lint", name = "slack-lint-checks", version.ref = "slackLintChecks" }
 soloader = { group = "com.facebook.soloader", name = "soloader", version.ref = "soloader" }
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timbers" }
 truth = { module = "com.google.truth:truth", version.ref = "truth" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
-deeplinkdispatch = { group = "com.airbnb", name = "deeplinkdispatch", version.ref = "deeplinkdispatch" }
-deeplinkdispatch-processor = { group = "com.airbnb", name = "deeplinkdispatch-processor", version.ref = "deeplinkdispatch" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 android-test = { id = "com.android.test", version.ref = "androidGradlePlugin" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
-cacheFixPlugin = { id = "org.gradle.android.cache-fix", version = "2.8.1" }
+cacheFixPlugin = { id = "org.gradle.android.cache-fix", version = "3.0" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

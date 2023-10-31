@@ -27,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.util.fastForEach
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.composeutil.component.layout.EmptyView
@@ -34,8 +35,8 @@ import com.keelim.composeutil.component.layout.Loading
 import com.keelim.data.model.Location
 
 sealed class MapEvent {
-    object UnInitialized : MapEvent()
-    object Loading : MapEvent()
+    data object UnInitialized : MapEvent()
+    data object Loading : MapEvent()
     data class MigrateSuccess(val data: List<Location>) : MapEvent()
     data class Error(val message: String = "에러가 발생하였습니다.") : MapEvent()
 }
@@ -177,7 +178,7 @@ fun ExposedDropdownMenuSample() {
             expanded = expanded,
             onDismissRequest = { expanded = false },
         ) {
-            roots.forEach { selectionOption ->
+            roots.fastForEach { selectionOption ->
                 DropdownMenuItem(
                     text = { Text(selectionOption) },
                     onClick = {

@@ -59,17 +59,15 @@ class FileDownloadWorker @AssistedInject constructor(
             Result.failure()
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = NotificationConstants.CHANNEL_NAME
-            val description = NotificationConstants.CHANNEL_DESCRIPTION
-            val importance = NotificationManager.IMPORTANCE_HIGH
-            val channel = NotificationChannel(NotificationConstants.CHANNEL_ID, name, importance)
-            channel.description = description
+        val name = NotificationConstants.CHANNEL_NAME
+        val description = NotificationConstants.CHANNEL_DESCRIPTION
+        val importance = NotificationManager.IMPORTANCE_HIGH
+        val channel = NotificationChannel(NotificationConstants.CHANNEL_ID, name, importance)
+        channel.description = description
 
-            val notificationManager = appContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager?
+        val notificationManager = appContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager?
 
-            notificationManager?.createNotificationChannel(channel)
-        }
+        notificationManager?.createNotificationChannel(channel)
 
         val builder = NotificationCompat.Builder(appContext, NotificationConstants.CHANNEL_ID)
             .setSmallIcon(R.mipmap.ic_launcher_foreground)

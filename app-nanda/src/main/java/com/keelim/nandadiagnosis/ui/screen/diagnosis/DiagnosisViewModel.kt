@@ -118,8 +118,8 @@ data class DiagnosisItem(val diagnosis: String, val description: String)
 
 @Stable
 sealed interface DiagnosisScreenState {
-    object Loading : DiagnosisScreenState
-    object Empty : DiagnosisScreenState
-    object Error : DiagnosisScreenState
+    data object Loading : DiagnosisScreenState
+    data object Empty : DiagnosisScreenState
+    data object Error : DiagnosisScreenState
     data class Success(val items: List<DiagnosisItem>) : DiagnosisScreenState
 }

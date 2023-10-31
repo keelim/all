@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.builtins.StandardNames.FqNames.target
-
 plugins {
     id("keelim.android.test")
 }
@@ -45,7 +43,7 @@ android {
 }
 
 dependencies {
-    implementation("androidx.benchmark:benchmark-macro-junit4:1.1.1")
+    implementation("androidx.benchmark:benchmark-macro-junit4:1.2.0")
     implementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation("androidx.test.ext:junit:1.1.5")
     implementation("androidx.test.uiautomator:uiautomator:2.2.0")

@@ -104,7 +104,7 @@ class VerificationUtils @Inject constructor(
         Runtime.getRuntime()
     }
 
-    fun isVerifiedDebug(): Boolean = checkRootFiles() ||
+    private fun isVerifiedDebug(): Boolean = checkRootFiles() ||
         checkSUExist() ||
         checkRootPackages() ||
         buildTagCheck()

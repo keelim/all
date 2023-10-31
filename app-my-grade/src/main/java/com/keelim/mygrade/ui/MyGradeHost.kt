@@ -11,10 +11,8 @@ import com.keelim.mygrade.ui.screen.grade.gradeScreen
 import com.keelim.mygrade.ui.screen.grade.navigateGrade
 import com.keelim.mygrade.ui.screen.history.historyScreen
 import com.keelim.mygrade.ui.screen.history.navigateHistory
-import com.keelim.mygrade.ui.screen.main.Level
+import com.keelim.mygrade.ui.screen.main.*
 import com.keelim.mygrade.ui.screen.main.grade
-import com.keelim.mygrade.ui.screen.main.mainRoute
-import com.keelim.mygrade.ui.screen.main.mainScreen
 import com.keelim.mygrade.ui.screen.main.toProcess
 import com.keelim.mygrade.ui.screen.task.add.navigateTaskAdd
 import com.keelim.mygrade.ui.screen.task.add.taskAddScreen
@@ -30,9 +28,10 @@ import com.keelim.mygrade.ui.screen.word.wordScreen
 import com.keelim.mygrade.ui.screen.word.wordWriteScreen
 import com.keelim.setting.screen.event.eventScreen
 import com.keelim.setting.screen.navigateNotification
-import com.keelim.setting.screen.navigateSettings
+import com.keelim.setting.screen.settings.navigateSettings
 import com.keelim.setting.screen.notificationScreen
-import com.keelim.setting.screen.settingsScreen
+import com.keelim.setting.screen.settings.settingsScreen
+import com.keelim.setting.screen.welcome.welcomeScreen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -116,5 +115,8 @@ fun MyGradeHost(
         ) {
             wordWriteScreen()
         }
+        welcomeScreen(
+            onNavigateMain = navController::navigateToMain
+        )
     }
 }

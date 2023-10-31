@@ -20,6 +20,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.util.fastForEachIndexed
 
 @Composable
 fun TabScreen() {
@@ -32,7 +33,7 @@ fun TabScreen() {
         ScrollableTabRow(
             selectedTabIndex = tabIndex,
         ) {
-            tabs.forEachIndexed { index, title ->
+            tabs.fastForEachIndexed { index, title ->
                 Tab(
                     text = { Text(title) },
                     selected = tabIndex == index,

@@ -32,10 +32,10 @@ data class DataUiState<T>(
     }
 }
 
-sealed class SealedUiState<out T> {
-    data class Loading<T>(val value: T?) : SealedUiState<T>()
-    data class Error(val throwable: Throwable?) : SealedUiState<Nothing>()
-    data class Success<T>(val value: T) : SealedUiState<T>()
+sealed interface SealedUiState<out T> {
+    data object Loading: SealedUiState<Nothing>
+    data class Error(val throwable: Throwable?) : SealedUiState<Nothing>
+    data class Success<T>(val value: T) : SealedUiState<T>
 
     fun getOrDefault(defaultValue: @UnsafeVariance T): T {
         return if (this is Success) {
@@ -46,17 +46,9 @@ sealed class SealedUiState<out T> {
     }
 
     companion object {
-        fun <T> success(value: T): SealedUiState<T> {
-            return Success(value)
-        }
-
-        fun <T> loading(): SealedUiState<T> {
-            return Loading(null)
-        }
-
-        fun <T> error(throwable: Throwable): SealedUiState<T> {
-            return Error(throwable)
-        }
+        fun <T> success(value: T): SealedUiState<T> = Success(value)
+        fun <T> loading(): SealedUiState<T> = Loading
+        fun <T> error(throwable: Throwable): SealedUiState<T> = Error(throwable)
     }
 }
 

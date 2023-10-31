@@ -46,7 +46,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlin.random.Random
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun Heart(modifier: Modifier, horizontalPadding: Int, bottomMargin: Int) {
     val w = LocalConfiguration.current.screenWidthDp
@@ -61,7 +60,7 @@ fun Heart(modifier: Modifier, horizontalPadding: Int, bottomMargin: Int) {
             HearState.SELECTED -> h.dp
             else -> yRandom.dp
         },
-        animationSpec = tween(1000),
+        animationSpec = tween(1000), label = "",
     )
 
     val offsetXAnimation: Dp by animateDpAsState(
@@ -69,7 +68,7 @@ fun Heart(modifier: Modifier, horizontalPadding: Int, bottomMargin: Int) {
             HearState.SELECTED -> (((w - (horizontalPadding * 2)) / 2) + 8).dp
             else -> xRandom.dp
         },
-        animationSpec = tween(1000),
+        animationSpec = tween(1000), label = "",
     )
 
     LaunchedEffect(

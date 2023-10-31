@@ -32,16 +32,16 @@ fun RealtimeArrival.toArrivalInformation(): ArrivalInformation =
         direction = trainLineNm?.split("-")
             ?.get(1)
             ?.trim()
-            ?: com.keelim.data.model.mapper.INVALID_FIELD,
-        destination = bstatnNm ?: com.keelim.data.model.mapper.INVALID_FIELD,
+            ?: INVALID_FIELD,
+        destination = bstatnNm ?: INVALID_FIELD,
         message = arvlMsg2
             ?.replace(statnNm.toString(), "당역")
             ?.replace("[\\[\\]]".toRegex(), "")
-            ?: com.keelim.data.model.mapper.INVALID_FIELD,
+            ?: INVALID_FIELD,
         updatedAt = recptnDt
-            ?.let { com.keelim.data.model.mapper.apiDateFormat.parse(it) }
-            ?.let { com.keelim.data.model.mapper.dateFormat.format(it) }
-            ?: com.keelim.data.model.mapper.INVALID_FIELD
+            ?.let { apiDateFormat.parse(it) }
+            ?.let { dateFormat.format(it) }
+            ?: INVALID_FIELD
     )
 
 fun List<RealtimeArrival>.toArrivalInformation(): List<ArrivalInformation> =

@@ -13,6 +13,7 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.lifecycle.process)
+    implementation(libs.androidx.lifecycle.viewModel.ktx)
     implementation(libs.androidx.startup)
     implementation(libs.androidx.test.core)
     implementation(libs.androidx.test.ext)

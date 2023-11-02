@@ -26,8 +26,8 @@ class DeveloperRepositoryImpl @Inject constructor() : DeveloperRepository {
                     "김재현",
                     "https://avatars.githubusercontent.com/u/26667456?v=4",
                     "김재현",
-                    "https://github.com/keelim"
-                )
+                    "https://github.com/keelim",
+                ),
             )
         }.getOrDefault(
             listOf(
@@ -35,9 +35,9 @@ class DeveloperRepositoryImpl @Inject constructor() : DeveloperRepository {
                     "김재현",
                     "https://avatars.githubusercontent.com/u/26667456?v=4",
                     "김재현",
-                    "https://github.com/keelim"
-                )
-            )
+                    "https://github.com/keelim",
+                ),
+            ),
         )
     }
 }

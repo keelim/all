@@ -14,7 +14,7 @@ import com.google.android.gms.ads.appopen.AppOpenAd
 import com.google.android.gms.ads.appopen.AppOpenAd.AppOpenAdLoadCallback
 import com.keelim.nandadiagnosis.BuildConfig
 import timber.log.Timber
-import java.util.Date
+import java.util.*
 import javax.inject.Inject
 
 class AppOpenManager @Inject constructor() : LifecycleObserver {
@@ -38,11 +38,17 @@ class AppOpenManager @Inject constructor() : LifecycleObserver {
                 showAdIfAvailable()
                 Timber.d("onStart")
             }
-            override fun onActivityResumed(activity: Activity) { currentActivity = activity }
+
+            override fun onActivityResumed(activity: Activity) {
+                currentActivity = activity
+            }
+
             override fun onActivityStopped(activity: Activity) {}
             override fun onActivityPaused(activity: Activity) {}
             override fun onActivitySaveInstanceState(activity: Activity, bundle: Bundle) {}
-            override fun onActivityDestroyed(activity: Activity) { currentActivity = null }
+            override fun onActivityDestroyed(activity: Activity) {
+                currentActivity = null
+            }
         })
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)
     }

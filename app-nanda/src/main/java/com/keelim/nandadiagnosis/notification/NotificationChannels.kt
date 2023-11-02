@@ -3,7 +3,6 @@ package com.keelim.nandadiagnosis.notification
 import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.os.Build
 import com.keelim.nandadiagnosis.R
 
 object NotificationChannels {

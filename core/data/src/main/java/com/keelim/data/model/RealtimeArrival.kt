@@ -75,5 +75,5 @@ data class RealtimeArrival(
     @SerialName("trainLineNm")
     val trainLineNm: String? = null,
     @SerialName("updnLine")
-    val updnLine: String? = null
+    val updnLine: String? = null,
 )

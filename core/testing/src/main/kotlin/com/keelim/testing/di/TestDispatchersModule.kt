@@ -20,7 +20,7 @@ object TestDispatchersModule {
     @Provides
     @Dispatcher(IO)
     fun providesIODispatcher(
-        testDispatcher: TestDispatcher
+        testDispatcher: TestDispatcher,
     ): CoroutineDispatcher = testDispatcher
 
     @Provides

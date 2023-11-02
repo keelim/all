@@ -12,7 +12,7 @@ fun WordWriteRoute() {
 
 @Composable
 private fun WordWriteScreen(
-    viewModel: WordWriteViewModel = hiltViewModel()
+    viewModel: WordWriteViewModel = hiltViewModel(),
 ) {
     ReadyServiceBox()
 }

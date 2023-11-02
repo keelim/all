@@ -65,10 +65,8 @@ object KtorNetworkModule {
             }
         }
         install(Resources) {
-
         }
         install(DefaultRequest) {
-
         }
         install(UserAgent) {
             agent = "Ktor client"
@@ -88,12 +86,12 @@ object KtorNetworkModule {
                 retry * 3000L
             }
             modifyRequest { request ->
-               // request.headers.append("x-retry-count", retryCount.toString())
+                // request.headers.append("x-retry-count", retryCount.toString())
             }
         }
         install(HttpTimeout) {
             requestTimeoutMillis = 1000L
-            connectTimeoutMillis=  10_000L
+            connectTimeoutMillis = 10_000L
         }
         if (BuildConfig.DEBUG) {
             install(Logging) {
@@ -113,15 +111,17 @@ object KtorNetworkModule {
     @KtorAndroidClient
     @Provides
     @Singleton
-    fun providesKtorAndroidClient() : HttpClient {
+    fun providesKtorAndroidClient(): HttpClient {
         return HttpClient(Android) {
             install(ContentNegotiation) {
-                json(Json {
-                    encodeDefaults = true
-                    ignoreUnknownKeys = true
-                    prettyPrint = true
-                    isLenient = true
-                })
+                json(
+                    Json {
+                        encodeDefaults = true
+                        ignoreUnknownKeys = true
+                        prettyPrint = true
+                        isLenient = true
+                    },
+                )
             }
             install(Logging) {
                 if (BuildConfig.DEBUG) {

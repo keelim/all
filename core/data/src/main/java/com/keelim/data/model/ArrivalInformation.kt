@@ -20,5 +20,5 @@ data class ArrivalInformation(
     val direction: String,
     val message: String,
     val destination: String,
-    val updatedAt: String
+    val updatedAt: String,
 )

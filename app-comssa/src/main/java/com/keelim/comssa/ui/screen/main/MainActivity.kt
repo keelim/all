@@ -53,9 +53,11 @@ class MainActivity : AppCompatActivity() {
     private val appMainDelegator by lazy { AppMainDelegator(this, viewModel) }
     private val mainViewPagerAdapter by lazy { MainViewPagerAdapter(this) }
 
-    @Inject lateinit var recevier: DownloadReceiver
+    @Inject
+    lateinit var recevier: DownloadReceiver
 
-    @Inject lateinit var downloadRequest: DownloadRequest
+    @Inject
+    lateinit var downloadRequest: DownloadRequest
 
     private val appPermissions: List<String> = buildList {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {

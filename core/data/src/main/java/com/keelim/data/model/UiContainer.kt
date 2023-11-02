@@ -16,5 +16,5 @@
 package com.keelim.data.model
 
 data class UiContainer(
-    val text: String
+    val text: String,
 )

@@ -47,7 +47,7 @@ fun NutrientRoute(
 ) {
     NutrientScreen(
         onNutrientClick = onNutrientClick,
-        onNutrientTimerClick = onNutrientTimerClick
+        onNutrientTimerClick = onNutrientTimerClick,
     )
 }
 
@@ -62,17 +62,17 @@ private fun NutrientScreen(
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
-                onClick = onNutrientTimerClick
+                onClick = onNutrientTimerClick,
             ) {
                 Icon(
                     imageVector = Icons.Filled.AccessAlarm,
-                    contentDescription = null
+                    contentDescription = null,
                 )
             }
-        }
+        },
     ) { paddingValues ->
         Column(
-            modifier = Modifier.padding(paddingValues)
+            modifier = Modifier.padding(paddingValues),
         ) {
             NavigationBackArrowBar(title = "Search Nutrient")
             NutrientStateView(uiState = uiState, onNutrientClick = onNutrientClick)
@@ -86,6 +86,7 @@ private fun NutrientStateView(uiState: NutrientState, onNutrientClick: (String, 
         NutrientState.Error,
         NutrientState.Empty,
         -> EmptyView()
+
         NutrientState.Loading -> Loading()
         is NutrientState.Success -> {
             LazyColumn {
@@ -102,7 +103,8 @@ private fun NutrientStateView(uiState: NutrientState, onNutrientClick: (String, 
 @Composable
 private fun PreviewNutrientScreen() {
     NutrientScreen(
-        onNutrientClick = { _, _ -> },  onNutrientTimerClick = {}
+        onNutrientClick = { _, _ -> },
+        onNutrientTimerClick = {},
     )
 }
 

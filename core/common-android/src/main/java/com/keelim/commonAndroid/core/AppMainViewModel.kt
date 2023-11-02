@@ -17,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AppMainViewModel @Inject constructor(
     val networkConnectivityService: NetworkConnectivityService,
-    val errorDelegate: ErrorDelegate
+    val errorDelegate: ErrorDelegate,
 ) : ViewModel()
 
 class AppMainDelegator(

@@ -20,47 +20,50 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
-@Stable @JvmInline value class Otp(val value: String)
+@Stable
+@JvmInline
+value class Otp(val value: String)
 
 @Composable
 fun OtpInputTextField(
     otp: Otp,
     onOtpValueChange: (String) -> Unit,
 ) {
-  BasicTextField(
-      value = otp.value,
-      onValueChange = onOtpValueChange,
-      keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword)) {
+    BasicTextField(
+        value = otp.value,
+        onValueChange = onOtpValueChange,
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword),
+    ) {
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-          repeat(4) { index ->
-            val number =
-                when {
-                  index >= otp.value.length -> ""
-                  else -> otp.value[index].toString()
-                }
-              Column(
-                  horizontalAlignment = Alignment.CenterHorizontally,
-                  verticalArrangement = Arrangement.spacedBy(6.dp)
-              ) {
-                  Text(
-                      text = number,
-                      style = MaterialTheme.typography.titleLarge,
-                  )
+            repeat(4) { index ->
+                val number =
+                    when {
+                        index >= otp.value.length -> ""
+                        else -> otp.value[index].toString()
+                    }
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(6.dp),
+                ) {
+                    Text(
+                        text = number,
+                        style = MaterialTheme.typography.titleLarge,
+                    )
 
-                  Box(
-                    modifier = Modifier
-                        .width(40.dp)
-                        .height(2.dp)
-                        .background(Color.Black)
-                  )
-              }
-          }
+                    Box(
+                        modifier = Modifier
+                            .width(40.dp)
+                            .height(2.dp)
+                            .background(Color.Black),
+                    )
+                }
+            }
         }
-      }
+    }
 }
 
 @Preview
 @Composable
 private fun PreviewOtpInputTextField() {
-  OtpInputTextField(otp = Otp(value = "alienum"), onOtpValueChange = {})
+    OtpInputTextField(otp = Otp(value = "alienum"), onOtpValueChange = {})
 }

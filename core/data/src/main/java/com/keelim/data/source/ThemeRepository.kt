@@ -24,15 +24,15 @@ import androidx.datastore.preferences.preferencesDataStore
 import com.keelim.data.source.ThemeRepository.Companion.STORE_NAME
 import com.keelim.data.source.ThemeRepository.PreferencesKeys.USER_THEME
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
-import kotlinx.coroutines.flow.map
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = STORE_NAME)
 
 @Singleton
 class ThemeRepository @Inject constructor(
-    @ApplicationContext val context: Context
+    @ApplicationContext val context: Context,
 ) {
 
     fun getUserTheme() = context.dataStore.data.map { preferences ->

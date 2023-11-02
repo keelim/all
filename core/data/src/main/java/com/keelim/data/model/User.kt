@@ -16,5 +16,5 @@
 package com.keelim.data.model
 
 data class User(
-    val id: String
+    val id: String,
 )

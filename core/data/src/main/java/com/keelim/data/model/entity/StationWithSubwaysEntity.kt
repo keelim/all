@@ -24,7 +24,7 @@ data class StationWithSubwaysEntity(
     @Relation(
         parentColumn = "stationName",
         entityColumn = "subwayId",
-        associateBy = Junction(StationSubwayCrossRefEntity::class)
+        associateBy = Junction(StationSubwayCrossRefEntity::class),
     )
-    val subways: List<SubwayEntity>
+    val subways: List<SubwayEntity>,
 )

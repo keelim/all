@@ -12,8 +12,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
-    deviceInfoSource: DeviceInfoSource
-): ViewModel() {
+    deviceInfoSource: DeviceInfoSource,
+) : ViewModel() {
     val deviceInfo: StateFlow<DeviceInfo?> = deviceInfoSource
         .getDeviceInfo()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), null)

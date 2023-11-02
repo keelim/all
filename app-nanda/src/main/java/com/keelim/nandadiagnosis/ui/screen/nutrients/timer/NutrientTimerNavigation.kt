@@ -8,13 +8,13 @@ import androidx.navigation.compose.composable
 const val nutrientTimerRoute = "timer"
 
 fun NavController.navigateNutrientTimer(navOptions: NavOptions? = null) {
-  this.navigate(nutrientTimerRoute, navOptions)
+    this.navigate(nutrientTimerRoute, navOptions)
 }
 
 fun NavGraphBuilder.nutrientTimerScreen() {
-  composable(
-    route = nutrientTimerRoute,
-  ) {
-    NutrientTimerRoute()
-  }
+    composable(
+        route = nutrientTimerRoute,
+    ) {
+        NutrientTimerRoute()
+    }
 }

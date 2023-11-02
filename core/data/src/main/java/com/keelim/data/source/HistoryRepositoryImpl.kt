@@ -41,7 +41,7 @@ class HistoryRepositoryImpl @Inject constructor(
                     subject = subject,
                     grade = grade,
                     gradeRank = gradeRank.toInt(),
-                    totalRank = totalRank.toInt()
+                    totalRank = totalRank.toInt(),
                 ).also { history ->
                     localDataSource.upsertSimpleHistory(history)
                 }
@@ -61,7 +61,6 @@ class HistoryRepositoryImpl @Inject constructor(
         timerHistoryDataSource
             .updateCompleted(historyId)
     }
-
 
     override suspend fun refresh() {
         localDataSource.deleteAll()

@@ -107,6 +107,7 @@ class HomeFragment : Fragment() {
                             ITEM_VIEW_TYPE_SECTION_HEADER,
                             ITEM_VIEW_TYPE_FEATURED,
                             -> spanCount
+
                             else -> 1
                         }
                     }

@@ -1,6 +1,7 @@
 package com.keelim.builds
 
 import com.android.build.api.variant.AndroidComponentsExtension
+import java.util.*
 import org.gradle.api.Project
 import org.gradle.api.tasks.testing.Test
 import org.gradle.kotlin.dsl.configure
@@ -9,7 +10,6 @@ import org.gradle.kotlin.dsl.withType
 import org.gradle.testing.jacoco.plugins.JacocoPluginExtension
 import org.gradle.testing.jacoco.plugins.JacocoTaskExtension
 import org.gradle.testing.jacoco.tasks.JacocoReport
-import java.util.Locale
 
 private val coverageExclusions = listOf(
     // Android

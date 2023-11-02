@@ -17,18 +17,14 @@ package com.keelim.labs.services
 
 import android.app.Service
 import android.content.Intent
-import android.os.Build
 import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
 import android.os.Message
 import android.os.Messenger
 import com.keelim.common.extensions.toast
-import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.Date
-import java.util.Locale
 
 class LabBoundService2 : Service() {
     private val messenger by lazy { Messenger(IncomingHandler()) }

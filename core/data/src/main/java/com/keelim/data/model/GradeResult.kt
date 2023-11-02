@@ -10,12 +10,12 @@ data class GradeResult(
     val grade: String,
     val point: String,
 ) : Parcelable {
-    companion object{
-        fun gradeResultInitial(savedStateHandle: SavedStateHandle) : GradeResult {
+    companion object {
+        fun gradeResultInitial(savedStateHandle: SavedStateHandle): GradeResult {
             return GradeResult(
                 subject = checkNotNull(savedStateHandle["subject"]),
                 grade = checkNotNull(savedStateHandle["grade"]),
-                point = checkNotNull(savedStateHandle["point"])
+                point = checkNotNull(savedStateHandle["point"]),
             )
         }
     }

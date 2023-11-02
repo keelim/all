@@ -8,7 +8,7 @@ import com.keelim.mygrade.ui.screen.word.show.WordShowRoute
 import com.keelim.mygrade.ui.screen.word.write.WordWriteRoute
 
 const val WordRoute = "word"
-const val WordWriteRoute=  "$WordRoute/write"
+const val WordWriteRoute = "$WordRoute/write"
 
 fun NavController.navigateWord(
     navOptions: NavOptions? = null,
@@ -17,7 +17,7 @@ fun NavController.navigateWord(
 }
 
 fun NavController.navigateWordWrite(
-    navOptions: NavOptions? = null
+    navOptions: NavOptions? = null,
 ) {
     this.navigate(WordWriteRoute, navOptions)
 }
@@ -27,10 +27,10 @@ fun NavGraphBuilder.wordScreen(
     nestedGraphs: NavGraphBuilder.() -> Unit,
 ) {
     composable(
-        route = WordRoute
+        route = WordRoute,
     ) {
         WordShowRoute(
-            onWordWriteNavigate = onWordWriteNavigate
+            onWordWriteNavigate = onWordWriteNavigate,
         )
     }
     nestedGraphs()
@@ -38,7 +38,7 @@ fun NavGraphBuilder.wordScreen(
 
 fun NavGraphBuilder.wordWriteScreen() {
     composable(
-        route = WordWriteRoute
+        route = WordWriteRoute,
     ) {
         WordWriteRoute()
     }

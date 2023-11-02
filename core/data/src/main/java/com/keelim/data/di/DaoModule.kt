@@ -47,18 +47,18 @@ object DaoModule {
     @Provides
     @Singleton
     fun providesNandaDao(
-        database: NandaAppDatabase
+        database: NandaAppDatabase,
     ): NandaDao = database.dataDao()
 
     @Provides
     @Singleton
     fun providesStationDao(
-        database: CnuAppDatabase
+        database: CnuAppDatabase,
     ): StationDao = database.daoStation()
 
     @Provides
     @Singleton
     fun providesTaskDao(
-        database: MyGradeAppDatabase
+        database: MyGradeAppDatabase,
     ): TaskDao = database.taskDao()
 }

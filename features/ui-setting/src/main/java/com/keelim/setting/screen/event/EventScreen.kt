@@ -9,7 +9,9 @@ fun EventRoute() {
     EventScreen()
 }
 
-@Composable fun EventScreen(viewModel: EventViewModel = hiltViewModel()) {}
+@Composable
+fun EventScreen(viewModel: EventViewModel = hiltViewModel()) {
+}
 
 @Preview(showBackground = true)
 @Composable

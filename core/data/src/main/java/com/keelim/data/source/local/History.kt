@@ -25,7 +25,7 @@ data class SimpleHistory(
     val date: String = Clock.System.now().toLocalDateTime(TimeZone.UTC).toString(),
     val grade: String,
     val gradeRank: Int,
-    val totalRank: Int
+    val totalRank: Int,
 )
 
 @Entity(tableName = "timerHistory")

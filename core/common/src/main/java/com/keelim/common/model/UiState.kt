@@ -33,7 +33,7 @@ data class DataUiState<T>(
 }
 
 sealed interface SealedUiState<out T> {
-    data object Loading: SealedUiState<Nothing>
+    data object Loading : SealedUiState<Nothing>
     data class Error(val throwable: Throwable?) : SealedUiState<Nothing>
     data class Success<T>(val value: T) : SealedUiState<T>
 

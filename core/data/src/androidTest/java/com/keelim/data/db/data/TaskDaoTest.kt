@@ -9,13 +9,13 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
-
 import javax.inject.Inject
 
 @HiltAndroidTest
 class TaskDaoTest {
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
+
     @Inject
     lateinit var appDatabase: MyGradeAppDatabase
 
@@ -26,7 +26,7 @@ class TaskDaoTest {
             description = "description",
             id = "id",
             isCompleted = false,
-            date = "2021-03-27T02:16:20"
+            date = "2021-03-27T02:16:20",
         )
         appDatabase.taskDao().upsert(task)
         val tasks = appDatabase.taskDao().observeAll().first()

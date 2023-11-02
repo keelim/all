@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.datetime.Clock
-import java.util.UUID
+import java.util.*
 import javax.inject.Inject
 
 class DefaultTaskRepositoryImpl @Inject constructor(
@@ -35,7 +35,7 @@ class DefaultTaskRepositoryImpl @Inject constructor(
             description = description,
             id = taskId,
             isCompleted = false,
-            date = Clock.System.now().toString()
+            date = Clock.System.now().toString(),
         )
         localDataSource.upsert(task)
         saveTasksToNetwork()
@@ -71,7 +71,7 @@ class DefaultTaskRepositoryImpl @Inject constructor(
     }
 
     // This method might be computationally expensive
-    private fun createTaskId() : String {
+    private fun createTaskId(): String {
         return UUID.randomUUID().toString()
     }
 }

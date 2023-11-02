@@ -134,6 +134,7 @@ class FileDownloadWorker @AssistedInject constructor(
                     null
                 }
             }
+
             else -> {
                 val target = File(
                     Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
@@ -148,6 +149,7 @@ class FileDownloadWorker @AssistedInject constructor(
             }
         }
     }
+
     companion object {
         const val KEY_FILE_URL = "key_file_url"
         const val KEY_FILE_TYPE = "key_file_type"

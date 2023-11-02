@@ -9,7 +9,7 @@ import com.keelim.data.network.TargetService
 import javax.inject.Inject
 
 class BookPagingSource(
-    private val query: String
+    private val query: String,
 ) : PagingSource<Int, Books.Book>() {
 
     @Inject
@@ -21,7 +21,7 @@ class BookPagingSource(
             LoadResult.Page(
                 data = books.items,
                 prevKey = params.prevKey(),
-                nextKey = params.nextKey(books.totalItems)
+                nextKey = params.nextKey(books.totalItems),
             )
         } catch (e: Exception) {
             LoadResult.Error(e)

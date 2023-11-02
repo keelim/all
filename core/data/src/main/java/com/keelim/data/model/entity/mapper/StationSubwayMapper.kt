@@ -15,17 +15,17 @@
  */
 package com.keelim.data.model.entity.mapper
 
+import com.keelim.data.model.Station
+import com.keelim.data.model.Subway
 import com.keelim.data.model.entity.StationEntity
 import com.keelim.data.model.entity.StationWithSubwaysEntity
 import com.keelim.data.model.entity.SubwayEntity
-import com.keelim.data.model.Station
-import com.keelim.data.model.Subway
 
 fun StationWithSubwaysEntity.toStation() =
     Station(
         name = station.stationName,
         isFavorited = station.isFavorited,
-        connectedSubways = subways.toSubways()
+        connectedSubways = subways.toSubways(),
     )
 
 fun Station.toStationEntity() =

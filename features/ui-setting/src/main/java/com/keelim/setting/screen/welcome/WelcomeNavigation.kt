@@ -8,17 +8,17 @@ import androidx.navigation.compose.composable
 const val welcomeRoute = "welcome"
 
 fun NavController.navigateWelcome(navOptions: NavOptions? = null) {
-  this.navigate(welcomeRoute, navOptions)
+    this.navigate(welcomeRoute, navOptions)
 }
 
 fun NavGraphBuilder.welcomeScreen(
-    onNavigateMain: () -> Unit
+    onNavigateMain: () -> Unit,
 ) {
-  composable(
-      route = welcomeRoute,
-  ) {
-    WelcomeRoute(
-        onNavigateMain = onNavigateMain
-    )
-  }
+    composable(
+        route = welcomeRoute,
+    ) {
+        WelcomeRoute(
+            onNavigateMain = onNavigateMain,
+        )
+    }
 }

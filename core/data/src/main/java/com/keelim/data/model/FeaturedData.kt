@@ -17,5 +17,5 @@ package com.keelim.data.model
 
 data class FeaturedData(
     val data: Data,
-    val latestReview: Review?
+    val latestReview: Review?,
 )

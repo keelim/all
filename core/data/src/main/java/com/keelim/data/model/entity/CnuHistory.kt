@@ -23,5 +23,5 @@ data class CnuHistory(
     val destination: String,
     val root: String,
     @PrimaryKey(autoGenerate = true)
-    val uid: Int = 0
+    val uid: Int = 0,
 )

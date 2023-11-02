@@ -1,45 +1,45 @@
-//package com.keelim.composeutil.component.toolbar
+// package com.keelim.composeutil.component.toolbar
 //
-//import androidx.compose.foundation.layout.Box
-//import androidx.compose.foundation.layout.PaddingValues
-//import androidx.compose.foundation.layout.fillMaxSize
-//import androidx.compose.foundation.layout.fillMaxWidth
-//import androidx.compose.foundation.layout.height
-//import androidx.compose.foundation.lazy.rememberLazyListState
-//import androidx.compose.runtime.Composable
-//import androidx.compose.runtime.Stable
-//import androidx.compose.runtime.getValue
-//import androidx.compose.runtime.mutableStateOf
-//import androidx.compose.runtime.remember
-//import androidx.compose.runtime.saveable.mapSaver
-//import androidx.compose.runtime.saveable.rememberSaveable
-//import androidx.compose.runtime.setValue
-//import androidx.compose.runtime.structuralEqualityPolicy
-//import androidx.compose.ui.Modifier
-//import androidx.compose.ui.geometry.Offset
-//import androidx.compose.ui.graphics.graphicsLayer
-//import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
-//import androidx.compose.ui.input.nestedscroll.NestedScrollSource
-//import androidx.compose.ui.input.nestedscroll.nestedScroll
-//import androidx.compose.ui.platform.LocalDensity
-//import androidx.compose.ui.unit.dp
+// import androidx.compose.foundation.layout.Box
+// import androidx.compose.foundation.layout.PaddingValues
+// import androidx.compose.foundation.layout.fillMaxSize
+// import androidx.compose.foundation.layout.fillMaxWidth
+// import androidx.compose.foundation.layout.height
+// import androidx.compose.foundation.lazy.rememberLazyListState
+// import androidx.compose.runtime.Composable
+// import androidx.compose.runtime.Stable
+// import androidx.compose.runtime.getValue
+// import androidx.compose.runtime.mutableStateOf
+// import androidx.compose.runtime.remember
+// import androidx.compose.runtime.saveable.mapSaver
+// import androidx.compose.runtime.saveable.rememberSaveable
+// import androidx.compose.runtime.setValue
+// import androidx.compose.runtime.structuralEqualityPolicy
+// import androidx.compose.ui.Modifier
+// import androidx.compose.ui.geometry.Offset
+// import androidx.compose.ui.graphics.graphicsLayer
+// import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
+// import androidx.compose.ui.input.nestedscroll.NestedScrollSource
+// import androidx.compose.ui.input.nestedscroll.nestedScroll
+// import androidx.compose.ui.platform.LocalDensity
+// import androidx.compose.ui.unit.dp
 //
-//private val MinToolbarHeight = 96.dp
-//private val MaxToolbarHeight = 176.dp
+// private val MinToolbarHeight = 96.dp
+// private val MaxToolbarHeight = 176.dp
 //
-//data class Sample private constructor(val uuid: String)
+// data class Sample private constructor(val uuid: String)
 //
-//@Stable
-//interface ToolbarState {
+// @Stable
+// interface ToolbarState {
 //  val offset: Float
 //  val height: Float
 //  val progress: Float
 //  val consumed: Float
 //  var scrollTopLimitedReached: Boolean
 //  var scrollOffset: Float
-//}
+// }
 //
-//abstract class ScrollFlagState(heightRange: IntRange) : ToolbarState {
+// abstract class ScrollFlagState(heightRange: IntRange) : ToolbarState {
 //  init {
 //    require(heightRange.first >= 0 && heightRange.last >= heightRange.first) { "throw Exception" }
 //  }
@@ -60,13 +60,13 @@
 //    get() = _consumed
 //
 //  override var scrollTopLimitedReached: Boolean = true
-//}
+// }
 //
-//abstract class FixedScrollFlagState(heightRange: IntRange) : ScrollFlagState(heightRange) {
+// abstract class FixedScrollFlagState(heightRange: IntRange) : ScrollFlagState(heightRange) {
 //  override val offset: Float = 0f
-//}
+// }
 //
-//class ScrollState(heightRange: IntRange, scrollOffset: Float = 0f) :
+// class ScrollState(heightRange: IntRange, scrollOffset: Float = 0f) :
 //    FixedScrollFlagState(heightRange) {
 //  override var _scrollOffset: Float by
 //      mutableStateOf(
@@ -108,25 +108,25 @@
 //          })
 //    }
 //  }
-//}
+// }
 //
-//@Composable
-//private fun rememberToolbarState(toolbarHeightRange: IntRange): ToolbarState {
+// @Composable
+// private fun rememberToolbarState(toolbarHeightRange: IntRange): ToolbarState {
 //  return rememberSaveable(
 //      saver = ScrollState.Saver
 //  ) {
 //    ScrollState(toolbarHeightRange)
 //  }
-//}
+// }
 //
-//@Composable
-//fun Catalog(
+// @Composable
+// fun Catalog(
 //    items: List<Sample>,
 //    columns: Int,
 //    onClick1: () -> Unit,
 //    onClick2: () -> Unit,
 //    modifier: Modifier = Modifier
-//) {
+// ) {
 //  val toolbarHeightRange: IntRange =
 //      with(LocalDensity.current) { MinToolbarHeight.roundToPx()..MaxToolbarHeight.roundToPx() }
 //  val toolbarState = rememberToolbarState(toolbarHeightRange = toolbarHeightRange)
@@ -164,4 +164,4 @@
 //                .height(with(LocalDensity.current) { toolbarState.height.toDp() })
 //                .graphicsLayer { translationY = toolbarState.offset })
 //  }
-//}
+// }

@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -117,7 +116,8 @@ fun InputRow(
 
         Crossfade(
             targetState = isFahrenheit,
-            animationSpec = tween(2000), label = "",
+            animationSpec = tween(2000),
+            label = "",
         ) { visible ->
             Text(if (visible) "\u2109" else "\u2103", style = MaterialTheme.typography.titleLarge)
         }

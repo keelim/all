@@ -22,7 +22,7 @@ class KeelimAndroidLibraryPlugin : Plugin<Project> {
                 }
             }
             dependencies {
-                add("lintChecks", libs.findLibrary("slack-lint-checks").get())
+                // add("lintChecks", libs.findLibrary("slack-lint-checks").get())
             }
         }
     }

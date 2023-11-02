@@ -9,5 +9,5 @@ interface DefaultTaskRepository {
     suspend fun complete(taskId: String)
     suspend fun refresh()
 
-    suspend fun clear()
+    fun clear()
 }

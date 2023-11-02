@@ -32,6 +32,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.keelim.commonAndroid.model.SealedUiState
 import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
 import com.keelim.data.source.local.LocalTask
@@ -54,18 +55,20 @@ private fun TaskScreen(
     onTaskClick: () -> Unit = {},
     onNavigateTaskClick: () -> Unit = {},
 ) {
-    val uiState by viewModel.taskScreenState.collectAsStateWithLifecycle()
+    val uiState by viewModel.state.collectAsStateWithLifecycle()
     TaskStateSection(
         screenState = uiState,
         onTaskClick = onTaskClick,
         onNavigateTaskClick = onNavigateTaskClick,
-        onTaskClear = viewModel::clearTask,
+        onTaskClear = {
+            viewModel.emitUserAction(TaskUserAction.ClearTask)
+        },
     )
 }
 
 @Composable
 private fun TaskStateSection(
-    screenState: TaskScreenState,
+    screenState: SealedUiState<List<TaskUserAction>>,
     onTaskClick: () -> Unit,
     onNavigateTaskClick: () -> Unit,
     onTaskClear: () -> Unit,
@@ -75,8 +78,8 @@ private fun TaskStateSection(
         floatingActionButton = {
             Column {
                 when (screenState) {
-                    is TaskScreenState.Success -> {
-                        if (screenState.tasks.isNotEmpty()) {
+                    is SealedUiState.Success -> {
+                        if (screenState.value.isNotEmpty()) {
                             FloatingActionButton(
                                 modifier = Modifier.onGloballyPositioned { fabHeight = it.size.height },
                                 shape = CircleShape,
@@ -86,7 +89,7 @@ private fun TaskStateSection(
                             }
                         }
                     }
-                    else -> {}
+                    else -> Unit
                 }
                 Spacer(
                     modifier = Modifier.height(12.dp),
@@ -102,10 +105,16 @@ private fun TaskStateSection(
         },
         floatingActionButtonPosition = FabPosition.End,
     ) { paddingValues ->
+        when(screenState) {
+            is SealedUiState.Error -> TODO()
+            SealedUiState.Loading -> TODO()
+            is SealedUiState.Success -> TODO()
+        }
         when (screenState) {
             TaskScreenState.Error,
             TaskScreenState.Empty,
             -> EmptyView()
+
             TaskScreenState.Loading -> Loading()
             is TaskScreenState.Success -> {
                 TaskSuccessSection(

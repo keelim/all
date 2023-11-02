@@ -1,38 +1,12 @@
-package com.keelim.common.model
+package com.keelim.commonAndroid.model
 
+import com.keelim.commonAndroid.core.State
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 
-data class DataUiState<T>(
-    val isLoading: Boolean = false,
-    val throwable: Throwable? = null,
-    val value: T? = null,
-) {
-    val isError: Boolean
-        get() = throwable != null
-
-    fun getOrDefault(default: T): T {
-        return value ?: default
-    }
-
-    companion object {
-        fun <T> loading(): DataUiState<T> {
-            return DataUiState(isLoading = true)
-        }
-
-        fun <T> success(value: T): DataUiState<T> {
-            return DataUiState(value = value)
-        }
-
-        fun <T> error(throwable: Throwable): DataUiState<T> {
-            return DataUiState(throwable = throwable)
-        }
-    }
-}
-
-sealed interface SealedUiState<out T> {
+sealed interface SealedUiState<out T> : State {
     data object Loading : SealedUiState<Nothing>
     data class Error(val throwable: Throwable?) : SealedUiState<Nothing>
     data class Success<T>(val value: T) : SealedUiState<T>
@@ -50,12 +24,6 @@ sealed interface SealedUiState<out T> {
         fun <T> loading(): SealedUiState<T> = Loading
         fun <T> error(throwable: Throwable): SealedUiState<T> = Error(throwable)
     }
-}
-
-fun <T> Flow<T>.asDataUiState(): Flow<DataUiState<T>> {
-    return map { DataUiState.success(it) }
-        .onStart { emit(DataUiState.loading()) }
-        .catch { emit(DataUiState.error(it)) }
 }
 
 fun <T> Flow<T>.asSealedUiState(): Flow<SealedUiState<T>> {

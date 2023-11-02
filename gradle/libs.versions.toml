@@ -6,7 +6,7 @@ targetSdk = "34"
 versionCode = "20231030"
 # library
 accompanist = "0.32.0"
-androidDesugarJdkLibs = "2.0.3"
+androidDesugarJdkLibs = "2.0.4"
 androidGradlePlugin = "8.1.2"
 androidxActivity = "1.8.0"
 androidxAppCompat = "1.6.1"

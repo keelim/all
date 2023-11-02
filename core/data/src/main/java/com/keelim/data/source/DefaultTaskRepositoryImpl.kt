@@ -56,11 +56,15 @@ class DefaultTaskRepositoryImpl @Inject constructor(
         localDataSource.upsertAll(networkTasks.toLocal())
     }
 
-    override suspend fun clear() {
-        localDataSource.deleteAll()
+    override fun clear() {
+        scope.launch {
+            withContext(dispatcher) {
+                localDataSource.deleteAll()
+            }
+        }
     }
 
-    private suspend fun saveTasksToNetwork() {
+    private fun saveTasksToNetwork() {
         scope.launch {
             val localTasks = localDataSource.observeAll().first()
             val networkTasks = withContext(dispatcher) {

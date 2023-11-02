@@ -38,7 +38,7 @@ abstract class KeelimViewModel<state : State, userAction : UserAction>(
         }
     }
 
-    abstract suspend fun processUserAction(userAction: UserAction)
+    protected abstract suspend fun processUserAction(userAction: userAction)
 
     protected suspend fun emitState(state: state) {
         innerState.value = state

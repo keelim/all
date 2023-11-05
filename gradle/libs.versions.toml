@@ -3,7 +3,7 @@
 compileSdk = "34"
 minSdk = "26"
 targetSdk = "34"
-versionCode = "20231030"
+versionCode = "20231106"
 # library
 accompanist = "0.32.0"
 androidDesugarJdkLibs = "2.0.4"
@@ -252,7 +252,7 @@ timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "tim
 truth = { module = "com.google.truth:truth", version.ref = "truth" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
 
-[bundles] 
+[bundles]
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }

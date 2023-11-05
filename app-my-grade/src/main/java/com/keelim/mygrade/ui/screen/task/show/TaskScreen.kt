@@ -68,7 +68,7 @@ private fun TaskScreen(
 
 @Composable
 private fun TaskStateSection(
-    screenState: SealedUiState<List<TaskUserAction>>,
+    screenState: SealedUiState<List<LocalTask>>,
     onTaskClick: () -> Unit,
     onNavigateTaskClick: () -> Unit,
     onTaskClear: () -> Unit,
@@ -106,30 +106,20 @@ private fun TaskStateSection(
         floatingActionButtonPosition = FabPosition.End,
     ) { paddingValues ->
         when(screenState) {
-            is SealedUiState.Error -> TODO()
-            SealedUiState.Loading -> TODO()
-            is SealedUiState.Success -> TODO()
-        }
-        when (screenState) {
-            TaskScreenState.Error,
-            TaskScreenState.Empty,
-            -> EmptyView()
-
-            TaskScreenState.Loading -> Loading()
-            is TaskScreenState.Success -> {
-                TaskSuccessSection(
-                    tasks = screenState.tasks,
-                    modifier = Modifier.padding(paddingValues),
-                    onTaskClick = onTaskClick,
-                )
-            }
+            is SealedUiState.Error -> EmptyView()
+            SealedUiState.Loading -> Loading()
+            is SealedUiState.Success -> TaskSuccessSection(
+                tasks = screenState.value,
+                modifier = Modifier.padding(paddingValues),
+                onTaskClick = onTaskClick,
+            )
         }
     }
 }
 
 @Composable
 private fun TaskSuccessSection(
-    tasks: PersistentList<LocalTask>,
+    tasks: List<LocalTask>,
     onTaskClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {

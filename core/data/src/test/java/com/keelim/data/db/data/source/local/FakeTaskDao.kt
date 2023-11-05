@@ -29,6 +29,10 @@ class FakeTaskDao(initialTasks: List<LocalTask>) : TaskDao {
         tasksStream.emit(_tasks)
     }
 
+    override suspend fun delete(taskId: String) {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun deleteAll() {
         _tasks.clear()
         tasksStream.emit(_tasks)

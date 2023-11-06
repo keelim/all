@@ -38,6 +38,7 @@ fun Task.toLocal() = LocalTask(
     description = description,
     isCompleted = isCompleted,
     date = Clock.System.now().toString(),
+    isEditing = false
 )
 
 fun NetworkTask.toLocal() = LocalTask(
@@ -46,6 +47,7 @@ fun NetworkTask.toLocal() = LocalTask(
     description = shortDescription,
     isCompleted = (status == NetworkTask.TaskStatus.COMPLETE),
     date = Clock.System.now().toString(),
+    isEditing = false,
 )
 
 fun List<NetworkTask>.toLocal() = map(NetworkTask::toLocal)

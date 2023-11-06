@@ -17,7 +17,7 @@ fun NavGraphBuilder.mainScreen(
     onFloatingButtonClick2: () -> Unit,
     onLabClick: () -> Unit,
     onNavigateTimerHistory: () -> Unit,
-    onNavigateWord: () -> Unit,
+    onNavigateTask: () -> Unit,
     nestedGraphs: NavGraphBuilder.() -> Unit,
 ) {
     composable(route = mainRoute) {
@@ -27,7 +27,7 @@ fun NavGraphBuilder.mainScreen(
             onFloatingButtonClick2 = onFloatingButtonClick2,
             onLabClick = onLabClick,
             onNavigateTimerHistory = onNavigateTimerHistory,
-            onNavigateWord = onNavigateWord,
+            onNavigateTask = onNavigateTask,
         )
     }
     nestedGraphs()

@@ -60,7 +60,7 @@ fun MainRoute(
     onFloatingButtonClick2: () -> Unit,
     onLabClick: () -> Unit,
     onNavigateTimerHistory: () -> Unit,
-    onNavigateWord: () -> Unit,
+    onNavigateTask: () -> Unit,
 ) {
     MainScreen(
         onSubmitClick = onSubmitClick,
@@ -68,7 +68,7 @@ fun MainRoute(
         onFloatingButtonClick2 = onFloatingButtonClick2,
         onLabClick = onLabClick,
         onNavigateTimerHistory = onNavigateTimerHistory,
-        onNavigateWord = onNavigateWord,
+        onNavigateTask = onNavigateTask,
     )
 }
 
@@ -80,7 +80,7 @@ fun MainScreen(
     onFloatingButtonClick2: () -> Unit = {},
     onLabClick: () -> Unit = {},
     onNavigateTimerHistory: () -> Unit = {},
-    onNavigateWord: () -> Unit = {},
+    onNavigateTask: () -> Unit = {},
 ) {
     val mainState by viewModel.mainScreenState.collectAsStateWithLifecycle()
     val subject by viewModel.subject.collectAsStateWithLifecycle()
@@ -173,7 +173,7 @@ fun MainScreen(
                         onSubmitClick = viewModel::submit,
                         onFloatingButtonClick1 = onFloatingButtonClick1,
                         onFloatingButtonClick2 = onFloatingButtonClick2,
-                        onNavigateWord = onNavigateWord,
+                        onNavigateWord = onNavigateTask,
                     )
                 }
             }

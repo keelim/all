@@ -23,10 +23,11 @@ import com.keelim.data.source.local.TimerHistory
 
 @Database(
     entities = [History::class, LocalTask::class, SimpleHistory::class, TimerHistory::class],
-    version = 3,
+    version = 4,
     exportSchema = true,
     autoMigrations = [
         AutoMigration(from = 2, to = 3),
+        AutoMigration(from = 3, to = 4),
     ],
 )
 abstract class MyGradeAppDatabase : RoomDatabase() {

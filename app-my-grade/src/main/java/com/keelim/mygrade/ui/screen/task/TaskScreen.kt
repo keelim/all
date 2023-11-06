@@ -146,7 +146,7 @@ fun LocalTaskItem(
         },
     ) {
         Row(modifier = Modifier.padding(16.dp)) {
-            if (item.isCompleted.not()) {
+            if (item.isEditing) {
                 TextField(
                     value = item.title,
                     onValueChange = { onChange(item.copy(title = it)) },
@@ -154,7 +154,7 @@ fun LocalTaskItem(
                 )
                 IconButton(
                     modifier = Modifier.align(Alignment.CenterVertically),
-                    onClick = { onChange(item.copy(isCompleted = false)) },
+                    onClick = { onChange(item.copy(isEditing = false)) },
                 ) {
                     Icon(imageVector = Icons.Filled.Done, contentDescription = null)
                 }

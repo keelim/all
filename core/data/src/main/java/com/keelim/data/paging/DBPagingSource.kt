@@ -23,7 +23,7 @@ class DBPagingSource @Inject constructor(
             LoadResult.Page(
                 data = items,
                 prevKey = if (page == 1) null else page - 1,
-                nextKey = if (items.isEmpty()) null else page + (params.loadSize / 10)
+                nextKey = if (items.isEmpty()) null else page + (params.loadSize / 10),
             )
         } catch (e: Exception) {
             return LoadResult.Error(e)

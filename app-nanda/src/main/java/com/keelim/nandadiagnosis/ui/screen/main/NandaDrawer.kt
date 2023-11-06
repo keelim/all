@@ -43,7 +43,6 @@ import com.keelim.nandadiagnosis.ui.screen.nutrients.timer.nutrientTimerRoute
 import com.keelim.setting.screen.settings.settingsRoute
 import kotlinx.collections.immutable.persistentListOf
 
-
 @Stable
 sealed interface NandaNavItem {
     val name: String
@@ -53,14 +52,14 @@ sealed interface NandaNavItem {
     data class BigType(
         override val name: String,
         override val route: String,
-        override val icon: ImageVector
-    ): NandaNavItem
+        override val icon: ImageVector,
+    ) : NandaNavItem
 
     data class SmallType(
         override val name: String,
         override val route: String,
-        override val icon: ImageVector
-    ): NandaNavItem
+        override val icon: ImageVector,
+    ) : NandaNavItem
 }
 
 private val nandaNavItems =
@@ -142,7 +141,7 @@ private fun NavigationCard(
     onRouteClick: (String) -> Unit,
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
     ) {
         Card(
             modifier = Modifier
@@ -156,16 +155,17 @@ private fun NavigationCard(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start,
             ) {
-                when(item) {
+                when (item) {
                     is NandaNavItem.SmallType -> {
                         Icon(
                             imageVector = Icons.Sharp.ArrowRight,
-                            contentDescription = "${item.name} Icon"
+                            contentDescription = "${item.name} Icon",
                         )
                         Spacer(
-                            modifier = Modifier.width(12.dp)
+                            modifier = Modifier.width(12.dp),
                         )
                     }
+
                     else -> Unit
                 }
                 Icon(imageVector = item.icon, contentDescription = "${item.name} Icon")

@@ -14,11 +14,11 @@ import androidx.compose.ui.util.fastForEachIndexed
 @Stable
 data class PieChartEntry(
     val color: Color,
-    val percentage: Float
+    val percentage: Float,
 )
 
 private fun calculateStartAngles(
-    entries: List<PieChartEntry>
+    entries: List<PieChartEntry>,
 ): List<Float> {
     var totalPercentage = 0f
     return entries.map { entry ->
@@ -31,10 +31,10 @@ private fun calculateStartAngles(
 @Composable
 fun PieChart(
     entries: List<PieChartEntry>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Canvas(
-        modifier = modifier.size(300.dp)
+        modifier = modifier.size(300.dp),
     ) {
         val start = calculateStartAngles(entries)
         entries.fastForEachIndexed { index, entry ->
@@ -44,7 +44,7 @@ fun PieChart(
                 sweepAngle = entry.percentage * 360f,
                 useCenter = true,
                 topLeft = Offset.Zero,
-                size = this.size
+                size = this.size,
             )
         }
     }
@@ -57,7 +57,7 @@ private fun PreviewPieChart() {
         listOf(
             PieChartEntry(Color.Red, 0.5f),
             PieChartEntry(Color.Green, 0.3f),
-            PieChartEntry(Color.Blue, 0.2f)
-        )
+            PieChartEntry(Color.Blue, 0.2f),
+        ),
     )
 }

@@ -43,7 +43,6 @@ fun CnubusHost(
         )
         eventScreen()
         welcomeScreen {
-
         }
     }
 }

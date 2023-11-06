@@ -47,7 +47,7 @@ class DataStoreManager @Inject constructor(
     }
 
     inline fun <reified T> getValue(key: String): Flow<T?> = defaultDataStore.data.map { preferences ->
-        when(T::class) {
+        when (T::class) {
             Boolean::class -> preferences[booleanPreferencesKey(key)]
             Double::class -> preferences[doublePreferencesKey(key)]
             Float::class -> preferences[floatPreferencesKey(key)]
@@ -56,24 +56,28 @@ class DataStoreManager @Inject constructor(
             else -> throw IllegalStateException()
         } as T
     }
+
     suspend fun setKeyValue(keyStone: String, value: Boolean) {
         val key = booleanPreferencesKey(keyStone)
         defaultDataStore.edit { preferences ->
             preferences[key] = value
         }
     }
+
     suspend fun setKeyValue(keyStone: String, value: Double) {
         val key = doublePreferencesKey(keyStone)
         defaultDataStore.edit { preferences ->
             preferences[key] = value
         }
     }
+
     suspend fun setKeyValue(keyStone: String, value: Float) {
         val key = floatPreferencesKey(keyStone)
         defaultDataStore.edit { preferences ->
             preferences[key] = value
         }
     }
+
     suspend fun setKeyValue(keyStone: String, value: Int) {
         val key = intPreferencesKey(keyStone)
         defaultDataStore.edit { preferences ->

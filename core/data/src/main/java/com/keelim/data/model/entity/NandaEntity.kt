@@ -17,7 +17,7 @@ package com.keelim.data.model.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.Date
+import java.util.*
 
 @Entity(tableName = "nanda")
 data class NandaEntity(

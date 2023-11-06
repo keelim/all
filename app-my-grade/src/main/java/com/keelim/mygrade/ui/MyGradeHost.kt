@@ -11,14 +11,14 @@ import com.keelim.mygrade.ui.screen.grade.gradeScreen
 import com.keelim.mygrade.ui.screen.grade.navigateGrade
 import com.keelim.mygrade.ui.screen.history.historyScreen
 import com.keelim.mygrade.ui.screen.history.navigateHistory
-import com.keelim.mygrade.ui.screen.main.*
+import com.keelim.mygrade.ui.screen.main.Level
 import com.keelim.mygrade.ui.screen.main.grade
+import com.keelim.mygrade.ui.screen.main.mainRoute
+import com.keelim.mygrade.ui.screen.main.mainScreen
+import com.keelim.mygrade.ui.screen.main.navigateToMain
 import com.keelim.mygrade.ui.screen.main.toProcess
-import com.keelim.mygrade.ui.screen.task.add.navigateTaskAdd
-import com.keelim.mygrade.ui.screen.task.add.taskAddScreen
-import com.keelim.mygrade.ui.screen.task.show.navigateTask
-import com.keelim.mygrade.ui.screen.task.show.navigateTaskPopUpTo
-import com.keelim.mygrade.ui.screen.task.show.taskScreen
+import com.keelim.mygrade.ui.screen.task.navigateTask
+import com.keelim.mygrade.ui.screen.task.taskScreen
 import com.keelim.mygrade.ui.screen.timer.history.navigateTimerHistory
 import com.keelim.mygrade.ui.screen.timer.history.timerHistoryScreen
 import com.keelim.mygrade.ui.screen.timer.timerScreen
@@ -28,8 +28,8 @@ import com.keelim.mygrade.ui.screen.word.wordScreen
 import com.keelim.mygrade.ui.screen.word.wordWriteScreen
 import com.keelim.setting.screen.event.eventScreen
 import com.keelim.setting.screen.navigateNotification
-import com.keelim.setting.screen.settings.navigateSettings
 import com.keelim.setting.screen.notificationScreen
+import com.keelim.setting.screen.settings.navigateSettings
 import com.keelim.setting.screen.settings.settingsScreen
 import com.keelim.setting.screen.welcome.welcomeScreen
 import kotlinx.coroutines.CoroutineScope
@@ -92,7 +92,7 @@ fun MyGradeHost(
                 coroutineScope.launch {
                     onShowSnackbar("새로운 기능으로 준비중입니다 😀", null)
                 }
-            }
+            },
         )
         settingsScreen(
             onNotificationsClick = { navController.navigateNotification() },
@@ -102,21 +102,15 @@ fun MyGradeHost(
             nestedGraphs = { notificationScreen() },
         )
         eventScreen()
-        taskScreen(
-            onTaskClick = {},
-            onNavigateTaskClick = navController::navigateTaskAdd,
-        )
-        taskAddScreen {
-            navController.navigateTaskPopUpTo()
-        }
+        taskScreen()
         timerScreen()
         wordScreen(
-            onWordWriteNavigate = navController::navigateWordWrite
+            onWordWriteNavigate = navController::navigateWordWrite,
         ) {
             wordWriteScreen()
         }
         welcomeScreen(
-            onNavigateMain = navController::navigateToMain
+            onNavigateMain = navController::navigateToMain,
         )
     }
 }

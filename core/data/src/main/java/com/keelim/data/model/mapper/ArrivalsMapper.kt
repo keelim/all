@@ -16,10 +16,10 @@
 package com.keelim.data.model.mapper
 
 import com.keelim.data.model.ArrivalInformation
-import com.keelim.data.model.Subway
 import com.keelim.data.model.RealtimeArrival
+import com.keelim.data.model.Subway
 import java.text.SimpleDateFormat
-import java.util.Locale
+import java.util.*
 
 private val apiDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.'0'", Locale.KOREA)
 private val dateFormat = SimpleDateFormat("HH:mm:ss", Locale.KOREA)
@@ -41,7 +41,7 @@ fun RealtimeArrival.toArrivalInformation(): ArrivalInformation =
         updatedAt = recptnDt
             ?.let { apiDateFormat.parse(it) }
             ?.let { dateFormat.format(it) }
-            ?: INVALID_FIELD
+            ?: INVALID_FIELD,
     )
 
 fun List<RealtimeArrival>.toArrivalInformation(): List<ArrivalInformation> =

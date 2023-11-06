@@ -21,8 +21,8 @@ import com.keelim.nandadiagnosis.ui.screen.nutrients.timer.navigateNutrientTimer
 import com.keelim.nandadiagnosis.ui.screen.nutrients.timer.nutrientTimerScreen
 import com.keelim.setting.screen.event.eventScreen
 import com.keelim.setting.screen.navigateNotification
-import com.keelim.setting.screen.settings.navigateSettings
 import com.keelim.setting.screen.notificationScreen
+import com.keelim.setting.screen.settings.navigateSettings
 import com.keelim.setting.screen.settings.settingsScreen
 import com.keelim.setting.screen.welcome.welcomeScreen
 import kotlinx.coroutines.CoroutineScope
@@ -77,11 +77,11 @@ fun NandaHost(
                     }
                 }
             },
-            onNutrientTimerClick = navController::navigateNutrientTimer
+            onNutrientTimerClick = navController::navigateNutrientTimer,
         )
         nutrientTimerScreen()
         welcomeScreen(
-            onNavigateMain = navController::navigateToCategory
+            onNavigateMain = navController::navigateToCategory,
         )
     }
 }

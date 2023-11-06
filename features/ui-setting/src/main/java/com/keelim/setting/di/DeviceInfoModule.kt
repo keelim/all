@@ -8,19 +8,20 @@ import kotlinx.coroutines.flow.flow
 import timber.log.Timber
 import javax.inject.Inject
 
-
 data class DeviceInfo(
     val deviceName: String,
     val deviceBrand: String,
     val deviceModel: String,
     val versionName: String?,
 )
+
 interface DeviceInfoSource {
     fun getDeviceInfo(): Flow<DeviceInfo?>
 }
+
 class DeviceInfoSourceImpl @Inject constructor(
-    @ApplicationContext val context: Context
-): DeviceInfoSource {
+    @ApplicationContext val context: Context,
+) : DeviceInfoSource {
     override fun getDeviceInfo(): Flow<DeviceInfo?> = flow {
         val deviceInfo = try {
             val deviceModel = Build.MODEL
@@ -34,7 +35,7 @@ class DeviceInfoSourceImpl @Inject constructor(
                 deviceModel = deviceModel,
                 deviceBrand = deviceBrand,
                 deviceName = deviceName,
-                versionName = versionName
+                versionName = versionName,
             )
             info
         } catch (e: Throwable) {

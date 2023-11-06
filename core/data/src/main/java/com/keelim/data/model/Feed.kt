@@ -9,5 +9,5 @@ data class Feed(
     val isOwner: Boolean,
     val isHeartPressed: Boolean,
     val heartNum: Int,
-    val commentNum: Int
+    val commentNum: Int,
 )

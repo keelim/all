@@ -120,7 +120,7 @@ class ReviewsAdapter(
             item.let {
                 binding.averageScoreTextView.text =
                     "평점 ${it.averageScore?.toDecimalFormatString("0.0")} " +
-                    "(${it.numberOfScore?.toAbbreviatedString()})"
+                        "(${it.numberOfScore?.toAbbreviatedString()})"
                 binding.titleTextView.text = it.title
                 binding.additionalInformationTextView.text = "${it.releaseYear}·${it.country}"
                 binding.relationsTextView.text = "감독: ${it.director}\n출연진: ${it.actors}"

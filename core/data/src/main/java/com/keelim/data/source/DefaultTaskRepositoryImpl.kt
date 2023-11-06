@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.datetime.Clock
-import java.util.UUID
+import java.util.*
 import javax.inject.Inject
 
 class DefaultTaskRepositoryImpl @Inject constructor(
@@ -26,6 +26,21 @@ class DefaultTaskRepositoryImpl @Inject constructor(
         return localDataSource.observeAll()
     }
 
+    override suspend fun create() {
+        val taskId = withContext(dispatcher) {
+            createTaskId()
+        }
+        val task = LocalTask(
+            title = "",
+            description = "",
+            id = taskId,
+            isCompleted = false,
+            date = Clock.System.now().toString(),
+        )
+        localDataSource.upsert(task)
+        saveTasksToNetwork()
+    }
+
     override suspend fun create(title: String, description: String): String {
         val taskId = withContext(dispatcher) {
             createTaskId()
@@ -35,7 +50,7 @@ class DefaultTaskRepositoryImpl @Inject constructor(
             description = description,
             id = taskId,
             isCompleted = false,
-            date = Clock.System.now().toString()
+            date = Clock.System.now().toString(),
         )
         localDataSource.upsert(task)
         saveTasksToNetwork()
@@ -44,6 +59,11 @@ class DefaultTaskRepositoryImpl @Inject constructor(
 
     override suspend fun complete(taskId: String) {
         localDataSource.updateCompleted(taskId, true)
+        saveTasksToNetwork()
+    }
+
+    override suspend fun upsert(task: LocalTask) {
+        localDataSource.upsert(task)
         saveTasksToNetwork()
     }
 
@@ -56,11 +76,24 @@ class DefaultTaskRepositoryImpl @Inject constructor(
         localDataSource.upsertAll(networkTasks.toLocal())
     }
 
-    override suspend fun clear() {
-        localDataSource.deleteAll()
+    override fun delete(task: LocalTask) {
+        scope.launch {
+            withContext(dispatcher) {
+                localDataSource.delete(task.id)
+                saveTasksToNetwork()
+            }
+        }
     }
 
-    private suspend fun saveTasksToNetwork() {
+    override fun clear() {
+        scope.launch {
+            withContext(dispatcher) {
+                localDataSource.deleteAll()
+            }
+        }
+    }
+
+    private fun saveTasksToNetwork() {
         scope.launch {
             val localTasks = localDataSource.observeAll().first()
             val networkTasks = withContext(dispatcher) {
@@ -71,7 +104,7 @@ class DefaultTaskRepositoryImpl @Inject constructor(
     }
 
     // This method might be computationally expensive
-    private fun createTaskId() : String {
+    private fun createTaskId(): String {
         return UUID.randomUUID().toString()
     }
 }

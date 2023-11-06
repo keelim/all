@@ -16,7 +16,7 @@
 package com.keelim.data.model
 
 import com.keelim.data.model.entity.NandaEntity2
-import java.util.Date
+import java.util.*
 
 data class NandaResponse(
     val id: Int,
@@ -37,11 +37,11 @@ data class NandaResponse(
             domain_name = domain_name,
             category = category,
             favorite = favorite,
-            created_at = Date(createdAt)
+            created_at = Date(createdAt),
         )
 }
 
 data class NandasResponse(
     val items: List<NandaResponse>,
-    val count: Int
+    val count: Int,
 )

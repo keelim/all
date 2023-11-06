@@ -21,5 +21,5 @@ data class RealtimeStationArrivals(
     @SerialName("errorMessage")
     val errorMessage: ErrorMessage? = null,
     @SerialName("realtimeArrivalList")
-    val realtimeArrivalList: List<RealtimeArrival>? = null
+    val realtimeArrivalList: List<RealtimeArrival>? = null,
 )

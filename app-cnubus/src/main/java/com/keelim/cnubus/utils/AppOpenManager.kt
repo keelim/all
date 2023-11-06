@@ -26,7 +26,7 @@ import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.appopen.AppOpenAd
 import com.keelim.cnubus.BuildConfig
-import java.util.Date
+import java.util.*
 import javax.inject.Inject
 
 class AppOpenManager @Inject constructor() : LifecycleObserver {
@@ -47,9 +47,11 @@ class AppOpenManager @Inject constructor() : LifecycleObserver {
                 currentActivity = activity
                 showAdIfAvailable()
             }
+
             override fun onActivityResumed(activity: Activity) {
                 currentActivity = activity
             }
+
             override fun onActivityStopped(activity: Activity) {}
             override fun onActivityPaused(activity: Activity) {}
             override fun onActivitySaveInstanceState(activity: Activity, bundle: Bundle) {}
@@ -73,6 +75,7 @@ class AppOpenManager @Inject constructor() : LifecycleObserver {
                     appOpenAd = ad
                     loadTime = Date().time
                 }
+
                 override fun onAdFailedToLoad(loadAdError: LoadAdError) = Unit
             },
         )
@@ -86,8 +89,11 @@ class AppOpenManager @Inject constructor() : LifecycleObserver {
                     isShowingAd = false
                     fetchAd()
                 }
+
                 override fun onAdFailedToShowFullScreenContent(adError: AdError) = Unit
-                override fun onAdShowedFullScreenContent() { isShowingAd = true }
+                override fun onAdShowedFullScreenContent() {
+                    isShowingAd = true
+                }
             }
             currentActivity?.also(appOpenAd!!::show)
         } else {

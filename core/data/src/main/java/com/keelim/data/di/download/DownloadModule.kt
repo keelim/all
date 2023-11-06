@@ -14,7 +14,7 @@ object DownloadModule {
     @Provides
     @Singleton
     fun provideDownloadReceiver(
-        @ApplicationContext ctx: Context
+        @ApplicationContext ctx: Context,
     ): DownloadReceiver {
         return DownloadReceiver(ctx)
     }
@@ -22,7 +22,7 @@ object DownloadModule {
     @Provides
     @Singleton
     fun provideDownloadRequest(
-        @ApplicationContext ctx: Context
+        @ApplicationContext ctx: Context,
     ): DownloadRequest {
         return DownloadRequest(ctx)
     }

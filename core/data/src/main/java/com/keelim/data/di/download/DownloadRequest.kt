@@ -7,7 +7,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File
 
 class DownloadRequest(
-    @ApplicationContext private val ctx: Context
+    @ApplicationContext private val ctx: Context,
 ) {
     fun provideDownloadRequest(link: String): DownloadManager.Request {
         return DownloadManager.Request(Uri.parse(link))

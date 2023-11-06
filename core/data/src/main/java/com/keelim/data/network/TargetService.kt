@@ -16,9 +16,9 @@
 package com.keelim.data.network
 
 import com.keelim.data.model.Books
-import com.keelim.data.model.entity.NandaEntity2
 import com.keelim.data.model.NandaResponse
 import com.keelim.data.model.NandasResponse
+import com.keelim.data.model.entity.NandaEntity2
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.GET
@@ -50,9 +50,8 @@ sealed interface TargetService {
         suspend fun getBooks(
             @Query("q") query: String,
             @Query("startIndex") startIndex: Int,
-            @Query("maxResults") limit: Int
+            @Query("maxResults") limit: Int,
         ): Books
-
     }
 
     interface YrService : TargetService

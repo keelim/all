@@ -29,5 +29,5 @@ data class ErrorMessage(
     @SerialName("status")
     val status: Int? = null,
     @SerialName("total")
-    val total: Int? = null
+    val total: Int? = null,
 )

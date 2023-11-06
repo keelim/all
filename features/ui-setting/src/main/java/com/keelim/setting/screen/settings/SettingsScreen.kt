@@ -18,7 +18,6 @@ import androidx.compose.material.icons.outlined.List
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -45,116 +44,117 @@ fun SettingsRoute(
     onNotificationsClick: () -> Unit,
     onOpenSourceClick: () -> Unit,
 ) {
-  SettingsScreen(
-      onNotificationsClick = onNotificationsClick,
-      onOpenSourceClick = onOpenSourceClick,
-  )
+    SettingsScreen(
+        onNotificationsClick = onNotificationsClick,
+        onOpenSourceClick = onOpenSourceClick,
+    )
 }
 
 @Composable
 fun SettingsScreen(
     onNotificationsClick: () -> Unit,
     onOpenSourceClick: () -> Unit,
-    viewModel: SettingsViewModel = hiltViewModel()
+    viewModel: SettingsViewModel = hiltViewModel(),
 ) {
-  val listState = rememberLazyListState()
-  val hasScrolled by remember { derivedStateOf { listState.firstVisibleItemScrollOffset > 0 } }
-  val appBarElevation by
-      animateDpAsState(
-          targetValue =
-              if (hasScrolled) {
+    val listState = rememberLazyListState()
+    val hasScrolled by remember { derivedStateOf { listState.firstVisibleItemScrollOffset > 0 } }
+    val appBarElevation by
+        animateDpAsState(
+            targetValue =
+            if (hasScrolled) {
                 4.dp
-              } else {
+            } else {
                 0.dp
-              },
-          label = "",
-      )
-  val onBackPressedDispatcher =
-      checkNotNull(LocalOnBackPressedDispatcherOwner.current) { "this is not null" }
-          .onBackPressedDispatcher
-  val deviceInfo by viewModel.deviceInfo.collectAsStateWithLifecycle()
-  Scaffold(
-      containerColor = MaterialTheme.colorScheme.surface,
-      contentColor = MaterialTheme.colorScheme.onSurface,
-      topBar = {
-        CenterAlignedTopAppBar(
-            colors =
+            },
+            label = "",
+        )
+    val onBackPressedDispatcher =
+        checkNotNull(LocalOnBackPressedDispatcherOwner.current) { "this is not null" }
+            .onBackPressedDispatcher
+    val deviceInfo by viewModel.deviceInfo.collectAsStateWithLifecycle()
+    Scaffold(
+        containerColor = MaterialTheme.colorScheme.surface,
+        contentColor = MaterialTheme.colorScheme.onSurface,
+        topBar = {
+            CenterAlignedTopAppBar(
+                colors =
                 TopAppBarDefaults.topAppBarColors(
                     containerColor =
-                        if (isSystemInDarkTheme()) {
-                          MaterialTheme.colorScheme.surfaceVariant.copy(
-                              alpha = if (hasScrolled) 1f else 0f)
-                        } else {
-                          MaterialTheme.colorScheme.surface
-                        },
+                    if (isSystemInDarkTheme()) {
+                        MaterialTheme.colorScheme.surfaceVariant.copy(
+                            alpha = if (hasScrolled) 1f else 0f,
+                        )
+                    } else {
+                        MaterialTheme.colorScheme.surface
+                    },
                 ),
-            modifier = Modifier.shadow(appBarElevation),
-            title = { Text(text = "Settings") },
-            navigationIcon = {
-              IconButton(onClick = { onBackPressedDispatcher.onBackPressed() }) {
-                Icon(Icons.Rounded.ArrowBack, contentDescription = "Go back")
-              }
-            },
-            actions = {},
-        )
-      },
-  ) { padding ->
-    LazyColumn(
-        contentPadding = padding,
-        state = listState,
-        verticalArrangement = Arrangement.spacedBy(12.dp)
-    ) {
-      item {
-        CategoryItem(
-            title = "Notifications",
-            icon = Icons.Outlined.Notifications,
-            onClick = { onNotificationsClick() },
-        )
-      }
-      item {
-        CategoryItem(
-            title = "OpenSource",
-            icon = Icons.Outlined.List,
-            onClick = { onOpenSourceClick() },
-        )
-      }
-      if (deviceInfo?.versionName != null) {
-        item {
-          CategoryItem(
-              title = "App Version: ${deviceInfo?.versionName}",
-              icon = Icons.Outlined.Build,
-              onClick = {},
-          )
+                modifier = Modifier.shadow(appBarElevation),
+                title = { Text(text = "Settings") },
+                navigationIcon = {
+                    IconButton(onClick = { onBackPressedDispatcher.onBackPressed() }) {
+                        Icon(Icons.Rounded.ArrowBack, contentDescription = "Go back")
+                    }
+                },
+                actions = {},
+            )
+        },
+    ) { padding ->
+        LazyColumn(
+            contentPadding = padding,
+            state = listState,
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+            item {
+                CategoryItem(
+                    title = "Notifications",
+                    icon = Icons.Outlined.Notifications,
+                    onClick = { onNotificationsClick() },
+                )
+            }
+            item {
+                CategoryItem(
+                    title = "OpenSource",
+                    icon = Icons.Outlined.List,
+                    onClick = { onOpenSourceClick() },
+                )
+            }
+            if (deviceInfo?.versionName != null) {
+                item {
+                    CategoryItem(
+                        title = "App Version: ${deviceInfo?.versionName}",
+                        icon = Icons.Outlined.Build,
+                        onClick = {},
+                    )
+                }
+            }
         }
-      }
     }
-  }
 }
 
 @Preview
 @Composable
 private fun PreviewSettingsScreen() {
-  SettingsScreen(onNotificationsClick = {}, onOpenSourceClick = {})
+    SettingsScreen(onNotificationsClick = {}, onOpenSourceClick = {})
 }
 
 @Composable
 fun CategoryItem(title: String, icon: ImageVector, onClick: () -> Unit) {
-  Surface(
-      onClick = onClick,
-      shape = MaterialTheme.shapes.medium,
-  ) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 16.dp),
-        horizontalArrangement = Arrangement.spacedBy(30.dp),
+    Surface(
+        onClick = onClick,
+        shape = MaterialTheme.shapes.medium,
     ) {
-      Icon(
-          icon,
-          contentDescription = null,
-          modifier = Modifier.size(28.dp),
-          tint = MaterialTheme.colorScheme.onSurface,
-      )
-      Text(title, style = MaterialTheme.typography.bodyLarge)
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 16.dp),
+            horizontalArrangement = Arrangement.spacedBy(30.dp),
+        ) {
+            Icon(
+                icon,
+                contentDescription = null,
+                modifier = Modifier.size(28.dp),
+                tint = MaterialTheme.colorScheme.onSurface,
+            )
+            Text(title, style = MaterialTheme.typography.bodyLarge)
+        }
     }
-  }
 }

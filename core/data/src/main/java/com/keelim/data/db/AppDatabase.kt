@@ -26,8 +26,8 @@ import com.keelim.data.source.local.TimerHistory
     version = 3,
     exportSchema = true,
     autoMigrations = [
-        AutoMigration (from = 2, to = 3)
-    ]
+        AutoMigration(from = 2, to = 3),
+    ],
 )
 abstract class MyGradeAppDatabase : RoomDatabase() {
     abstract fun historyDao(): HistoryDao
@@ -41,7 +41,6 @@ abstract class MyGradeAppDatabase : RoomDatabase() {
     version = 1,
     exportSchema = true,
 )
-
 abstract class NandaAppDatabase : RoomDatabase() {
     abstract fun dataDao(): NandaDao
 }

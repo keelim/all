@@ -39,7 +39,9 @@ object DatabaseModule {
     fun provideAppDatabase(
         @ApplicationContext ctx: Context,
     ): MyGradeAppDatabase = Room.databaseBuilder(
-        ctx, MyGradeAppDatabase::class.java, "mygrade"
+        ctx,
+        MyGradeAppDatabase::class.java,
+        "mygrade",
     ).build()
 
     @Provides
@@ -48,7 +50,9 @@ object DatabaseModule {
         @ApplicationContext context: Context,
     ): NandaAppDatabase {
         return Room.databaseBuilder(
-            context, NandaAppDatabase::class.java, "nanda"
+            context,
+            NandaAppDatabase::class.java,
+            "nanda",
         ).createFromFile(File(context.getExternalFilesDir(null), "nanda.db"))
             .allowMainThreadQueries().build()
     }
@@ -56,46 +60,46 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun provideCnuBusAppDatabase(
-        @ApplicationContext ctx: Context
+        @ApplicationContext ctx: Context,
     ): CnuAppDatabase {
         return Room.databaseBuilder(
             ctx,
             CnuAppDatabase::class.java,
-            "station.db"
+            "station.db",
         ).build()
     }
 
     @Provides
     @Singleton
     fun providePreferenceManager(
-        @ApplicationContext context: Context
+        @ApplicationContext context: Context,
     ): PreferenceManager = SharedPreferenceManager(
-        context = context
+        context = context,
     )
 
     @Provides
     @Singleton
     fun provideTokenManager(
-        @ApplicationContext context: Context
+        @ApplicationContext context: Context,
     ) = TokenManager(context)
 
     @Provides
     @Singleton
     fun providePreferenceDataStore(
         @ApplicationContext ctx: Context,
-        @IoDispatcher io: CoroutineDispatcher
+        @IoDispatcher io: CoroutineDispatcher,
     ): DataStore<Preferences> = PreferenceDataStoreFactory.create(
         corruptionHandler = ReplaceFileCorruptionHandler { emptyPreferences() },
         migrations = listOf(SharedPreferencesMigration(ctx, "preference")),
         scope = CoroutineScope(io + SupervisorJob()),
-        produceFile = { ctx.preferencesDataStoreFile("preference") }
+        produceFile = { ctx.preferencesDataStoreFile("preference") },
     )
 
     @Provides
     @Singleton
     fun providePreferenceDataStoreManager(
         dataStore: DataStore<Preferences>,
-        userSettingsDataStore: DataStore<UserSettings>
+        userSettingsDataStore: DataStore<UserSettings>,
     ): DataStoreManager = DataStoreManager(dataStore, userSettingsDataStore)
 
     @Provides
@@ -104,11 +108,11 @@ object DatabaseModule {
         @ApplicationContext context: Context,
         @IoDispatcher ioDispatcher: CoroutineDispatcher,
         @ApplicationScope coroutineScope: CoroutineScope,
-        userSettingsSerializer: UserSettingsSerializer
+        userSettingsSerializer: UserSettingsSerializer,
     ): DataStore<UserSettings> {
         return DataStoreFactory.create(
             serializer = userSettingsSerializer,
-            scope = CoroutineScope(coroutineScope.coroutineContext + ioDispatcher)
+            scope = CoroutineScope(coroutineScope.coroutineContext + ioDispatcher),
         ) {
             context.dataStoreFile("user_settings.pb")
         }

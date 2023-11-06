@@ -1,6 +1,6 @@
 package com.keelim.data.db.data
 
-import FakeTaskDao
+import com.keelim.data.db.data.source.local.FakeTaskDao
 import com.keelim.data.source.DefaultTaskRepositoryImpl
 import com.keelim.data.source.local.LocalTask
 import com.keelim.data.source.network.NetworkTask
@@ -14,7 +14,6 @@ import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import kotlinx.datetime.Clock
 import kotlinx.datetime.DateTimeUnit
-import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.plus
 import org.junit.Test
@@ -26,8 +25,20 @@ class DefaultTaskRepositoryImplTest {
     private val systemTZ = TimeZone.currentSystemDefault()
 
     private val localTasks = listOf(
-        LocalTask(id = "1", title = "title1", description = "description1", isCompleted = false, date = Clock.System.now().toString()),
-        LocalTask(id = "2", title = "title2", description = "description2", isCompleted = true, date = Clock.System.now().plus(1, DateTimeUnit.DAY, systemTZ).toString())
+        LocalTask(
+            id = "1",
+            title = "title1",
+            description = "description1",
+            isCompleted = false,
+            date = Clock.System.now().toString(),
+        ),
+        LocalTask(
+            id = "2",
+            title = "title2",
+            description = "description2",
+            isCompleted = true,
+            date = Clock.System.now().plus(1, DateTimeUnit.DAY, systemTZ).toString(),
+        ),
     )
 
     private val localDataSource = FakeTaskDao(localTasks)
@@ -36,7 +47,7 @@ class DefaultTaskRepositoryImplTest {
         localDataSource = localDataSource,
         networkDataSource = networkDataSource,
         dispatcher = testDispatcher,
-        scope = testScope
+        scope = testScope,
     )
 
     @Test
@@ -49,7 +60,7 @@ class DefaultTaskRepositoryImplTest {
     fun onTaskCreation_localAndNetworkAreUpdated() = testScope.runTest {
         val newTaskId = taskRepository.create(
             localTasks[0].title,
-            localTasks[0].description
+            localTasks[0].description,
         )
 
         val localTasks = localDataSource.observeAll().first()

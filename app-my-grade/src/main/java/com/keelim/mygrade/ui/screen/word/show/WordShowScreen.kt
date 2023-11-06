@@ -18,7 +18,7 @@ fun WordShowRoute(
     onWordWriteNavigate: () -> Unit,
 ) {
     WordShowScreen(
-        onWordWriteNavigate = onWordWriteNavigate
+        onWordWriteNavigate = onWordWriteNavigate,
     )
 }
 
@@ -31,17 +31,17 @@ private fun WordShowScreen(
         modifier = Modifier.fillMaxSize(),
         floatingActionButton = {
             FloatingActionButton(
-                onClick = onWordWriteNavigate
+                onClick = onWordWriteNavigate,
             ) {
                 Icon(
                     imageVector = Icons.Rounded.Add,
-                    contentDescription = null
+                    contentDescription = null,
                 )
             }
-        }
+        },
     ) { paddingValues ->
         ReadyServiceBox(
-            modifier = Modifier.padding(paddingValues)
+            modifier = Modifier.padding(paddingValues),
         )
     }
 }
@@ -50,6 +50,6 @@ private fun WordShowScreen(
 @Composable
 private fun PreviewWordShowScreen() {
     WordShowScreen(
-        onWordWriteNavigate = {}
+        onWordWriteNavigate = {},
     )
 }

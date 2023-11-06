@@ -51,9 +51,9 @@ interface StationDao {
             stationSubways.map { (station, subway) ->
                 StationSubwayCrossRefEntity(
                     station.stationName,
-                    subway.subwayId
+                    subway.subwayId,
                 )
-            }
+            },
         )
     }
 

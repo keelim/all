@@ -1,9 +1,7 @@
-package com.keelim.common
-
 import app.cash.turbine.test
 import com.google.common.truth.Truth
-import com.keelim.common.model.SealedUiState
-import com.keelim.common.model.asSealedUiState
+import com.keelim.commonAndroid.model.SealedUiState
+import com.keelim.commonAndroid.model.asSealedUiState
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
@@ -31,5 +29,4 @@ class TurbineTest {
                 awaitComplete()
             }
     }
-
 }

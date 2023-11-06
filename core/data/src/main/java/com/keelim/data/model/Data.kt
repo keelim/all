@@ -37,5 +37,5 @@ data class Data(
     val averageScore: Float? = null,
     val numberOfScore: Int? = null,
     val releaseYear: Int? = null,
-    val runtime: Int? = null
+    val runtime: Int? = null,
 ) : Parcelable

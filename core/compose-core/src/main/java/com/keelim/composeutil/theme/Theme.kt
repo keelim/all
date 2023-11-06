@@ -24,6 +24,7 @@ fun AppTheme(
             val context = LocalContext.current
             if (isDarkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
+
         else -> MaterialTheme.colorScheme
     }
     val view = LocalView.current

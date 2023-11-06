@@ -21,7 +21,6 @@ data class Task(
         get() = title.isEmpty() || description.isEmpty()
 }
 
-
 // Convert a LocalTask to a Task
 fun LocalTask.toExternal() = Task(
     id = id,
@@ -38,7 +37,7 @@ fun Task.toLocal() = LocalTask(
     title = title,
     description = description,
     isCompleted = isCompleted,
-    date = Clock.System.now().toString()
+    date = Clock.System.now().toString(),
 )
 
 fun NetworkTask.toLocal() = LocalTask(
@@ -46,7 +45,7 @@ fun NetworkTask.toLocal() = LocalTask(
     title = title,
     description = shortDescription,
     isCompleted = (status == NetworkTask.TaskStatus.COMPLETE),
-    date = Clock.System.now().toString()
+    date = Clock.System.now().toString(),
 )
 
 fun List<NetworkTask>.toLocal() = map(NetworkTask::toLocal)
@@ -59,8 +58,7 @@ fun LocalTask.toNetwork() = NetworkTask(
         NetworkTask.TaskStatus.COMPLETE
     } else {
         NetworkTask.TaskStatus.ACTIVE
-    }
+    },
 )
 
 fun List<LocalTask>.toNetwork() = map(LocalTask::toNetwork)
-

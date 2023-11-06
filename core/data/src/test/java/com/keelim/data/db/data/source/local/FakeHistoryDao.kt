@@ -1,3 +1,5 @@
+package com.keelim.data.db.data.source.local
+
 import com.keelim.data.db.dao.HistoryDao
 import com.keelim.data.source.local.History
 import com.keelim.data.source.local.SimpleHistory
@@ -11,7 +13,7 @@ class FakeHistoryDao(initialTasks: List<History>) : HistoryDao {
     private val historyStream = MutableStateFlow(_histories.toList())
 
     override fun observeAll(): Flow<List<History>> = historyStream
-    override fun observeSimpleHistories(): Flow<List<SimpleHistory>>  = flow {
+    override fun observeSimpleHistories(): Flow<List<SimpleHistory>> = flow {
         TODO("Not yet implemented")
     }
 
@@ -32,7 +34,7 @@ class FakeHistoryDao(initialTasks: List<History>) : HistoryDao {
     }
 
     override suspend fun updateCompleted(historyId: String, grade: String) {
-        _histories.firstOrNull { it.grade== historyId }?.let { it.grade == grade }
+        _histories.firstOrNull { it.grade == historyId }?.let { it.grade == grade }
         historyStream.emit(_histories)
     }
 

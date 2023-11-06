@@ -1,3 +1,5 @@
+package com.keelim.data.db.data.source.local
+
 import com.keelim.data.db.dao.TaskDao
 import com.keelim.data.source.local.LocalTask
 import kotlinx.coroutines.flow.Flow
@@ -25,6 +27,10 @@ class FakeTaskDao(initialTasks: List<LocalTask>) : TaskDao {
     override suspend fun updateCompleted(taskId: String, completed: Boolean) {
         _tasks.firstOrNull { it.id == taskId }?.let { it.isCompleted = completed }
         tasksStream.emit(_tasks)
+    }
+
+    override suspend fun delete(taskId: String) {
+        TODO("Not yet implemented")
     }
 
     override suspend fun deleteAll() {

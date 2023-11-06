@@ -82,6 +82,7 @@ fun ListItem(
                         },
                     )
                 }
+
                 ItemState.Progress -> {
                     CircularProgressIndicator(
                         modifier = Modifier.size(30.dp),

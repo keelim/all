@@ -17,5 +17,5 @@ package com.keelim.data.model
 
 data class DataReviews(
     val myReview: Review?,
-    val othersReview: List<Review>
+    val othersReview: List<Review>,
 )

@@ -19,6 +19,6 @@ interface UtilModule {
 
     @Binds
     fun bindsErrorDelegate(
-        delegateImpl: ErrorDelegateImpl
+        delegateImpl: ErrorDelegateImpl,
     ): ErrorDelegate
 }

@@ -19,7 +19,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-
 private fun formatTime(isLeadingZeroNeeded: Boolean = false, value: Int): String {
     return if (isLeadingZeroNeeded) {
         String.format("%02d", value)

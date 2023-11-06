@@ -32,7 +32,7 @@ import com.keelim.cnubus.ui.screen.main.MainActivity
 import com.keelim.data.source.DeveloperRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import java.util.UUID
+import java.util.*
 import javax.inject.Inject
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {

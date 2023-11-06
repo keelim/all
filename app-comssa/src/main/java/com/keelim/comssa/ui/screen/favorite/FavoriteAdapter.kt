@@ -28,6 +28,7 @@ data class Search(
     val description: String,
     val favorite: Int,
 )
+
 class FavoriteAdapter(
     private val favoriteListener: (Int, Int) -> Unit,
 ) : PagingDataAdapter<Search, FavoriteAdapter.ViewHolder>(diffUtil) {

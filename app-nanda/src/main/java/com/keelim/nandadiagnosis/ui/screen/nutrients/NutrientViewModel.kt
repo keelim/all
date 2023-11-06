@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
-class NutrientViewModel@Inject constructor() : ViewModel() {
+class NutrientViewModel @Inject constructor() : ViewModel() {
     val state: StateFlow<NutrientState> = flow {
         emit(NutrientState.Loading)
         emit(

@@ -1,15 +1,15 @@
 package com.keelim.data.di
 
-import com.keelim.data.source.NandaIORepository
-import com.keelim.data.source.NandaIORepositoryImpl
 import com.keelim.data.source.BookRepository
 import com.keelim.data.source.BookRepositoryImpl
-import com.keelim.data.source.DeveloperRepository
-import com.keelim.data.source.DeveloperRepositoryImpl
 import com.keelim.data.source.DefaultTaskRepository
 import com.keelim.data.source.DefaultTaskRepositoryImpl
+import com.keelim.data.source.DeveloperRepository
+import com.keelim.data.source.DeveloperRepositoryImpl
 import com.keelim.data.source.HistoryRepository
 import com.keelim.data.source.HistoryRepositoryImpl
+import com.keelim.data.source.NandaIORepository
+import com.keelim.data.source.NandaIORepositoryImpl
 import com.keelim.data.source.notification.NotificationRepository
 import com.keelim.data.source.notification.NotificationRepositoryImpl
 import dagger.Binds
@@ -27,7 +27,7 @@ interface RepositoryModule {
 
     @Binds
     fun bindsDefaultTaskRepository(
-        repository: DefaultTaskRepositoryImpl
+        repository: DefaultTaskRepositoryImpl,
     ): DefaultTaskRepository
 
     @Binds
@@ -42,11 +42,11 @@ interface RepositoryModule {
 
     @Binds
     fun bindsBookRepository(
-        repository: BookRepositoryImpl
+        repository: BookRepositoryImpl,
     ): BookRepository
 
     @Binds
     fun bindsNotificationRepository(
-        repository: NotificationRepositoryImpl
+        repository: NotificationRepositoryImpl,
     ): NotificationRepository
 }

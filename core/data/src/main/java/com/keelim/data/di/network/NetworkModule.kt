@@ -21,11 +21,11 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import java.util.concurrent.TimeUnit
-import javax.inject.Singleton
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -42,7 +42,7 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideOkHttpClient(
-        cacheInterceptor: CacheInterceptor
+        cacheInterceptor: CacheInterceptor,
     ): OkHttpClient {
         return OkHttpClient.Builder().apply {
             connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
@@ -52,12 +52,12 @@ object NetworkModule {
             addInterceptor(
                 HttpLoggingInterceptor().apply {
                     level = HttpLoggingInterceptor.Level.BODY
-                }
+                },
             )
             addInterceptor(
                 HttpLoggingInterceptor().apply {
                     level = HttpLoggingInterceptor.Level.BODY
-                }
+                },
             )
             addInterceptor(cacheInterceptor)
         }.build()
@@ -122,7 +122,6 @@ object NetworkModule {
             .baseUrl(YR_URL)
             .build()
     }
-
 
     @Provides
     @Singleton

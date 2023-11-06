@@ -40,198 +40,198 @@ import com.keelim.composeutil.component.custom.NumberPickerList
 
 @Composable
 fun NutrientTimerRoute() {
-  NutrientTimerScreen()
+    NutrientTimerScreen()
 }
 
 @Composable
 private fun NutrientTimerScreen(
-  viewModel: NutrientTimerViewModel = hiltViewModel(),
+    viewModel: NutrientTimerViewModel = hiltViewModel(),
 ) {
-  val isCountDownTimerVisible = viewModel.isRunning
-  val addedTime = viewModel.addTime(System.currentTimeMillis())
-  val dialogState = remember { mutableStateOf(false) }
+    val isCountDownTimerVisible = viewModel.isRunning
+    val addedTime = viewModel.addTime(System.currentTimeMillis())
+    val dialogState = remember { mutableStateOf(false) }
 
-  if (dialogState.value) {
-    ShowDialog { dialogState.value = false }
-  }
+    if (dialogState.value) {
+        ShowDialog { dialogState.value = false }
+    }
 
-  Column(
-    horizontalAlignment = Alignment.CenterHorizontally,
-    modifier = Modifier.padding(24.dp),
-  ) {
-    Spacer(modifier = Modifier.height(16.dp))
-    SelectTime(runningState = isCountDownTimerVisible, viewModel = viewModel)
-    CircularCountDownTimer(
-      runningState = isCountDownTimerVisible,
-      viewModel = viewModel,
-      addedTime = addedTime,
-      dialogState = dialogState,
-    )
-
-    Spacer(modifier = Modifier.height(24.dp))
-
-    Row(
-      modifier = Modifier.fillMaxWidth(),
-      horizontalArrangement = Arrangement.Center,
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.padding(24.dp),
     ) {
-      Button(
-        onClick = {
-          when (viewModel.isRunning) {
-            RunningState.STOPPED -> viewModel.start()
-            RunningState.STARTED -> viewModel.stop()
-          }
-        },
-      ) {
-        Text(
-          text =
-            if (viewModel.isRunning == RunningState.STOPPED) {
-              "Start"
-            } else {
-              "Stop"
-            },
-        )
-      }
-    }
-    Spacer(
-      modifier = Modifier.weight(1f),
-    )
-  }
-}
-
-@Composable
-fun SelectTime(
-  runningState: RunningState,
-  viewModel: NutrientTimerViewModel,
-) {
-  if (runningState == RunningState.STOPPED) {
-    Box(
-      modifier = Modifier.fillMaxWidth().height(350.dp),
-      contentAlignment = Alignment.Center,
-    ) {
-      Box(
-        modifier =
-          Modifier.fillMaxWidth()
-            .height(36.dp)
-            .clip(RoundedCornerShape(10.dp))
-            .alpha(0.4f)
-            .align(Alignment.Center),
-      )
-
-      Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceEvenly,
-      ) {
-        Row {
-          NumberPickerList(numbers = HOUR_LIST) { viewModel.hour = it }
-
-          Text(text = "h", modifier = Modifier.align(Alignment.CenterVertically))
-        }
-
-        Row {
-          NumberPickerList(numbers = MINUTE_LIST) { viewModel.minute = it }
-
-          Text(text = "m", modifier = Modifier.align(Alignment.CenterVertically))
-        }
-        Row {
-          NumberPickerList(numbers = SECOND_LIST) { viewModel.second = it }
-
-          Text(text = "s", modifier = Modifier.align(Alignment.CenterVertically))
-        }
-      }
-    }
-  }
-}
-
-@Composable
-fun CircularCountDownTimer(
-  runningState: RunningState,
-  viewModel: NutrientTimerViewModel,
-  dialogState: MutableState<Boolean>,
-  addedTime: String,
-) {
-  if (runningState != RunningState.STOPPED) {
-    val leftTime = viewModel.leftTime.intValue
-    if (leftTime == 0) {
-      LaunchedEffect(leftTime) {
-        dialogState.value = true
-        viewModel.stop()
-      }
-    }
-    val progress = remember { Animatable(leftTime / viewModel.getTotalTimeInSeconds().toFloat()) }
-    val progressTarget = 0f
-
-    LaunchedEffect(runningState == RunningState.STARTED) {
-      progress.animateTo(
-        targetValue = progressTarget,
-        animationSpec =
-          tween(
-            durationMillis = leftTime * 1000,
-            easing = LinearEasing,
-          ),
-      )
-    }
-    Box(
-      modifier = Modifier.size(350.dp),
-      contentAlignment = Alignment.Center,
-    ) {
-      CircularProgressIndicator(
-        modifier = Modifier.fillMaxSize(),
-        color = Color.LightGray,
-        progress = 100f,
-        strokeWidth = 10.dp,
-      )
-
-      CircularProgressIndicator(
-        modifier = Modifier.fillMaxSize(),
-        progress = progress.value,
-        strokeWidth = 10.dp,
-      )
-
-      Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(
-          text =
-            "${formatTime(isLeadingZeroNeeded = true, value = leftTime / 3600)}:" +
-              "${
-                            formatTime(isLeadingZeroNeeded = true, value = (leftTime / 60) % 60)
-                        }:" +
-              formatTime(isLeadingZeroNeeded = true, value = leftTime % 60),
-          fontSize = 48.sp,
+        Spacer(modifier = Modifier.height(16.dp))
+        SelectTime(runningState = isCountDownTimerVisible, viewModel = viewModel)
+        CircularCountDownTimer(
+            runningState = isCountDownTimerVisible,
+            viewModel = viewModel,
+            addedTime = addedTime,
+            dialogState = dialogState,
         )
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        Row(verticalAlignment = Alignment.CenterVertically) {
-          Icon(
-            imageVector = Icons.Default.AccountBox,
-            modifier = Modifier.padding(4.dp),
-            contentDescription = null,
-          )
-          Text(
-            text = addedTime,
-          )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center,
+        ) {
+            Button(
+                onClick = {
+                    when (viewModel.isRunning) {
+                        RunningState.STOPPED -> viewModel.start()
+                        RunningState.STARTED -> viewModel.stop()
+                    }
+                },
+            ) {
+                Text(
+                    text =
+                    if (viewModel.isRunning == RunningState.STOPPED) {
+                        "Start"
+                    } else {
+                        "Stop"
+                    },
+                )
+            }
         }
-      }
+        Spacer(
+            modifier = Modifier.weight(1f),
+        )
     }
-  }
+}
+
+@Composable
+fun SelectTime(
+    runningState: RunningState,
+    viewModel: NutrientTimerViewModel,
+) {
+    if (runningState == RunningState.STOPPED) {
+        Box(
+            modifier = Modifier.fillMaxWidth().height(350.dp),
+            contentAlignment = Alignment.Center,
+        ) {
+            Box(
+                modifier =
+                Modifier.fillMaxWidth()
+                    .height(36.dp)
+                    .clip(RoundedCornerShape(10.dp))
+                    .alpha(0.4f)
+                    .align(Alignment.Center),
+            )
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceEvenly,
+            ) {
+                Row {
+                    NumberPickerList(numbers = HOUR_LIST) { viewModel.hour = it }
+
+                    Text(text = "h", modifier = Modifier.align(Alignment.CenterVertically))
+                }
+
+                Row {
+                    NumberPickerList(numbers = MINUTE_LIST) { viewModel.minute = it }
+
+                    Text(text = "m", modifier = Modifier.align(Alignment.CenterVertically))
+                }
+                Row {
+                    NumberPickerList(numbers = SECOND_LIST) { viewModel.second = it }
+
+                    Text(text = "s", modifier = Modifier.align(Alignment.CenterVertically))
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun CircularCountDownTimer(
+    runningState: RunningState,
+    viewModel: NutrientTimerViewModel,
+    dialogState: MutableState<Boolean>,
+    addedTime: String,
+) {
+    if (runningState != RunningState.STOPPED) {
+        val leftTime = viewModel.leftTime.intValue
+        if (leftTime == 0) {
+            LaunchedEffect(leftTime) {
+                dialogState.value = true
+                viewModel.stop()
+            }
+        }
+        val progress = remember { Animatable(leftTime / viewModel.getTotalTimeInSeconds().toFloat()) }
+        val progressTarget = 0f
+
+        LaunchedEffect(runningState == RunningState.STARTED) {
+            progress.animateTo(
+                targetValue = progressTarget,
+                animationSpec =
+                tween(
+                    durationMillis = leftTime * 1000,
+                    easing = LinearEasing,
+                ),
+            )
+        }
+        Box(
+            modifier = Modifier.size(350.dp),
+            contentAlignment = Alignment.Center,
+        ) {
+            CircularProgressIndicator(
+                modifier = Modifier.fillMaxSize(),
+                color = Color.LightGray,
+                progress = 100f,
+                strokeWidth = 10.dp,
+            )
+
+            CircularProgressIndicator(
+                modifier = Modifier.fillMaxSize(),
+                progress = progress.value,
+                strokeWidth = 10.dp,
+            )
+
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(
+                    text =
+                    "${formatTime(isLeadingZeroNeeded = true, value = leftTime / 3600)}:" +
+                        "${
+                            formatTime(isLeadingZeroNeeded = true, value = (leftTime / 60) % 60)
+                        }:" +
+                        formatTime(isLeadingZeroNeeded = true, value = leftTime % 60),
+                    fontSize = 48.sp,
+                )
+
+                Spacer(modifier = Modifier.height(24.dp))
+
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        imageVector = Icons.Default.AccountBox,
+                        modifier = Modifier.padding(4.dp),
+                        contentDescription = null,
+                    )
+                    Text(
+                        text = addedTime,
+                    )
+                }
+            }
+        }
+    }
 }
 
 @Preview
 @Composable
 private fun PreviewTimerScreen() {
-  NutrientTimerScreen()
+    NutrientTimerScreen()
 }
 
 @Composable
 private fun ShowDialog(
-  onDismiss: () -> Unit,
+    onDismiss: () -> Unit,
 ) {
-  AlertDialog(
-    onDismissRequest = onDismiss,
-  ) {
-    Text(
-      text = "확인해 주세요",
-      modifier = Modifier.padding(8.dp),
-      style = MaterialTheme.typography.titleLarge,
-    )
-  }
+    AlertDialog(
+        onDismissRequest = onDismiss,
+    ) {
+        Text(
+            text = "확인해 주세요",
+            modifier = Modifier.padding(8.dp),
+            style = MaterialTheme.typography.titleLarge,
+        )
+    }
 }

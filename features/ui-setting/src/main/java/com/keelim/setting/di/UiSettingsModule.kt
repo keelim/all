@@ -12,6 +12,6 @@ interface UiSettingsModule {
     @Binds
     @ViewModelScoped
     fun bindsDeviceInfoModule(
-        deviceInfo: DeviceInfoSourceImpl
+        deviceInfo: DeviceInfoSourceImpl,
     ): DeviceInfoSource
 }

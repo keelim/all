@@ -16,7 +16,6 @@
 package com.keelim.composeutil.component.custom
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -60,7 +59,8 @@ fun Heart(modifier: Modifier, horizontalPadding: Int, bottomMargin: Int) {
             HearState.SELECTED -> h.dp
             else -> yRandom.dp
         },
-        animationSpec = tween(1000), label = "",
+        animationSpec = tween(1000),
+        label = "",
     )
 
     val offsetXAnimation: Dp by animateDpAsState(
@@ -68,7 +68,8 @@ fun Heart(modifier: Modifier, horizontalPadding: Int, bottomMargin: Int) {
             HearState.SELECTED -> (((w - (horizontalPadding * 2)) / 2) + 8).dp
             else -> xRandom.dp
         },
-        animationSpec = tween(1000), label = "",
+        animationSpec = tween(1000),
+        label = "",
     )
 
     LaunchedEffect(

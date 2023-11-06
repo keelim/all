@@ -13,4 +13,5 @@ data class LocalTask(
     val description: String,
     var isCompleted: Boolean,
     @ColumnInfo(name = "date", defaultValue = "") val date: String,
+    @ColumnInfo(name = "isEditing", defaultValue = "1") val isEditing: Boolean,
 )

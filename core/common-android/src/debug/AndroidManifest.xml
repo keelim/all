@@ -4,6 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application>
+        <activity
+            android:name="com.facebook.flipper.android.diagnostics.FlipperDiagnosticActivity"
+            android:exported="true" />
+
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"
@@ -13,7 +17,6 @@
                 android:name="com.keelim.commonAndroid.initialize.FlipperInitializer"
                 android:value="androidx.startup" />
         </provider>
-
     </application>
 
 </manifest>

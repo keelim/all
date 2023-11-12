@@ -92,6 +92,7 @@ timbers = "5.0.1"
 truth = "1.1.5"
 turbine = "1.0.0"
 slackLintChecks = "0.7.0"
+showkase = "1.0.2"
 
 [libraries]
 accompanist-flowlayout = { group = "com.google.accompanist", name = "accompanist-flowlayout", version.ref = "accompanist" }
@@ -251,6 +252,8 @@ soloader = { group = "com.facebook.soloader", name = "soloader", version.ref = "
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timbers" }
 truth = { module = "com.google.truth:truth", version.ref = "truth" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
+showkase = { group = "com.airbnb.android", name = "showkase", version.ref = "showkase" }
+showkase-processor = { group = "com.airbnb.android", name = "showkase-processor", version.ref = "showkase" }
 
 [bundles]
 

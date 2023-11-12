@@ -37,8 +37,7 @@ dependencies {
     debugImplementation(libs.flipper.leakcanary)
     debugImplementation(libs.leakcanary)
     debugImplementation(libs.soloader)
-    releaseImplementation(libs.flipper.noop)
-    
+
     testImplementation(project(":core:testing"))
 }
 

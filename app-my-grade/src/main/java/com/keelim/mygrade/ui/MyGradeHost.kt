@@ -61,14 +61,14 @@ fun MyGradeHost(
             onFloatingButtonClick2 = { navController.navigateSettings() },
             onLabClick = {
                 coroutineScope.launch {
-                    val result = onShowSnackbar("새로운 기능으로 준비중입니다 😀", "move")
-                    if (result) {
-                        navController.navigateTask()
-                    }
+                    val result = onShowSnackbar("새로운 기능으로 준비중입니다 😀", null)
+                    // if (result) {
+                    //     navController.navigateTask()
+                    // }
                 }
             },
             onNavigateTimerHistory = navController::navigateTimerHistory,
-            onNavigateWord = navController::navigateWord,
+            onNavigateTask = navController::navigateTask,
             nestedGraphs = {
                 timerHistoryScreen()
             },

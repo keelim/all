@@ -18,6 +18,10 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import javax.inject.Inject
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 
 @Stable
 enum class RunningState {
@@ -36,11 +40,17 @@ internal val HOUR_LIST = (0..12).toList()
 internal val MINUTE_LIST = (0..60).toList()
 internal val SECOND_LIST = (0..60).toList()
 
+data class TimerUiState(
+    val isUnsetDialog: Boolean = false
+)
 @HiltViewModel
 class TimerViewModel @Inject constructor() : ViewModel() {
     private var countTimeJob: Job? = null
-
     private var _isRunning by mutableStateOf(RunningState.STOPPED)
+
+    private val _timerUiState = MutableStateFlow(TimerUiState())
+    val timerUiState : StateFlow<TimerUiState> = _timerUiState.asStateFlow()
+
     val isRunning
         get() = _isRunning
 
@@ -79,7 +89,14 @@ class TimerViewModel @Inject constructor() : ViewModel() {
 
     fun start() {
         leftTime.intValue = getTotalTimeInSeconds()
-        if (leftTime.intValue <= 0) return
+        if (leftTime.intValue <= 0) {
+            _timerUiState.update { old ->
+                old.copy(
+                    isUnsetDialog = true
+                )
+            }
+            return
+        }
         _isRunning = RunningState.STARTED
         countTimeJob = tick(
             leftTime.intValue,
@@ -91,6 +108,14 @@ class TimerViewModel @Inject constructor() : ViewModel() {
     fun stop() {
         countTimeJob?.cancel()
         _isRunning = RunningState.STOPPED
+    }
+
+    fun clearDialog() {
+        _timerUiState.update { old ->
+            old.copy(
+                isUnsetDialog = false
+            )
+        }
     }
 
     private fun tick(

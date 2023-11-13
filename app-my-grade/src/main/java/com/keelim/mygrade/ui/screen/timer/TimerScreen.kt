@@ -57,7 +57,7 @@ fun TimerScreen(
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.padding(24.dp),
+        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
     ) {
         Spacer(modifier = Modifier.height(16.dp))
         SelectTime(runningState = isCountDownTimerVisible, viewModel = viewModel)

@@ -21,62 +21,65 @@ import java.time.format.DateTimeFormatter
 
 @Composable
 fun CustomDatePicker() {
-  val (date, setDate) = remember { mutableStateOf(LocalDate.now()) }
-  val (isOpen, setOpen) = remember { mutableStateOf(false) }
+    val (date, setDate) = remember { mutableStateOf(LocalDate.now()) }
+    val (isOpen, setOpen) = remember { mutableStateOf(false) }
 
-  Row(verticalAlignment = Alignment.CenterVertically) {
-    OutlinedTextField(
-        readOnly = true,
-        value = date.format(DateTimeFormatter.ISO_DATE),
-        label = { Text("Date") },
-        onValueChange = {})
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        OutlinedTextField(
+            readOnly = true,
+            value = date.format(DateTimeFormatter.ISO_DATE),
+            label = { Text("Date") },
+            onValueChange = {},
+        )
 
-    IconButton(
-        onClick = { setOpen(true) } // show de dialog
+        IconButton(
+            onClick = { setOpen(true) }, // show de dialog
         ) {
-          Icon(
-              imageVector = Icons.Default.DateRange,
-              contentDescription = "null",
-          )
+            Icon(
+                imageVector = Icons.Default.DateRange,
+                contentDescription = "null",
+            )
         }
-  }
+    }
 
-  if (isOpen) {
-    CustomDatePickerDialog(
-        onAccept = {
-            setOpen(false)
-          if (it != null) { // Set the date
-             setDate(Instant.ofEpochMilli(it).atZone(ZoneId.of("UTC")).toLocalDate())
-          }
-        },
-        onCancel = {
-            setOpen(false)
-        })
-  }
+    if (isOpen) {
+        CustomDatePickerDialog(
+            onAccept = {
+                setOpen(false)
+                if (it != null) { // Set the date
+                    setDate(Instant.ofEpochMilli(it).atZone(ZoneId.of("UTC")).toLocalDate())
+                }
+            },
+            onCancel = {
+                setOpen(false)
+            },
+        )
+    }
 }
 
 @Composable
 fun CustomDatePickerDialog(onAccept: (Long?) -> Unit, onCancel: () -> Unit) {
-  val state = rememberDatePickerState()
+    val state = rememberDatePickerState()
 
-  DatePickerDialog(
-      onDismissRequest = {},
-      confirmButton = {
-        Button(onClick = { onAccept(state.selectedDateMillis) }) { Text("Accept") }
-      },
-      dismissButton = { Button(onClick = onCancel) { Text("Cancel") } }) {
+    DatePickerDialog(
+        onDismissRequest = {},
+        confirmButton = {
+            Button(onClick = { onAccept(state.selectedDateMillis) }) { Text("Accept") }
+        },
+        dismissButton = { Button(onClick = onCancel) { Text("Cancel") } },
+    ) {
         DatePicker(state = state)
-      }
+    }
 }
 
 @Preview
 @Composable
 fun PreviewCustomDatePicker() {
-  CustomDatePicker()
+    CustomDatePicker()
 }
 
 @Preview
 @Composable
 fun PreviewCustomDatePickerDialog() {
-  CustomDatePickerDialog(onAccept = {}, onCancel = {})
+    CustomDatePickerDialog(onAccept = {}, onCancel = {})
 }

@@ -22,7 +22,6 @@ import com.keelim.mygrade.ui.screen.task.taskScreen
 import com.keelim.mygrade.ui.screen.timer.history.navigateTimerHistory
 import com.keelim.mygrade.ui.screen.timer.history.timerHistoryScreen
 import com.keelim.mygrade.ui.screen.timer.timerScreen
-import com.keelim.mygrade.ui.screen.word.navigateWord
 import com.keelim.mygrade.ui.screen.word.navigateWordWrite
 import com.keelim.mygrade.ui.screen.word.wordScreen
 import com.keelim.mygrade.ui.screen.word.wordWriteScreen

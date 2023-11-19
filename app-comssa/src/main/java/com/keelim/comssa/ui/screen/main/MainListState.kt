@@ -15,16 +15,10 @@
  */
 package com.keelim.comssa.ui.screen.main
 
-import com.keelim.comssa.ui.screen.favorite.Search
-
 sealed class MainListState {
     object UnInitialized : MainListState()
 
     object Loading : MainListState()
-
-    data class Success(
-        val searchList: List<Search>,
-    ) : MainListState()
 
     object Error : MainListState()
 }

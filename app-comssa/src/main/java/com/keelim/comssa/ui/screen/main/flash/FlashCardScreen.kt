@@ -28,11 +28,11 @@ import androidx.compose.ui.unit.sp
 sealed class FlashCardState(val angle: Float) {
     abstract fun nextFace(): FlashCardState
 
-    object Front : FlashCardState(angle = 0f) {
+    data object Front : FlashCardState(angle = 0f) {
         override fun nextFace(): FlashCardState = Back
     }
 
-    object Back : FlashCardState(angle = 180f) {
+    data object Back : FlashCardState(angle = 180f) {
         override fun nextFace(): FlashCardState = Front
     }
 }

@@ -256,6 +256,7 @@ showkase = { group = "com.airbnb.android", name = "showkase", version.ref = "sho
 showkase-processor = { group = "com.airbnb.android", name = "showkase-processor", version.ref = "showkase" }
 
 [bundles]
+showkase = ["showkase", "showkase-processor"]
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }

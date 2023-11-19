@@ -19,6 +19,6 @@ dependencies {
     implementation(project(":core:compose-core"))
     implementation(libs.activity.ktx)
     implementation(libs.androidx.activity.compose)
-    implementation(libs.showkase)
-    ksp(libs.showkase.processor)
+    
+    ksp(libs.bundles.showkase)
 }

@@ -1,5 +1,6 @@
 package com.keelim.comssa.ui.screen
 
+import androidx.compose.material3.SheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
@@ -12,6 +13,7 @@ import kotlinx.coroutines.CoroutineScope
 @Composable
 fun ComssaHost(
     appState: AppState,
+    bottomSheetState: SheetState,
     coroutineScope: CoroutineScope,
     onShowSnackbar: suspend (String, String?) -> Boolean,
     modifier: Modifier = Modifier,

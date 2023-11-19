@@ -161,7 +161,7 @@ object KtorNetworkModule {
             install(UserAgent) {
                 agent = "Ktor"
             }
-            
+
             defaultRequest {
                 contentType(ContentType.Application.Json)
                 accept(ContentType.Application.Json)

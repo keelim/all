@@ -11,17 +11,17 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.update
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import javax.inject.Inject
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 
 @Stable
 enum class RunningState {
@@ -41,15 +41,16 @@ internal val MINUTE_LIST = (0..60).toList()
 internal val SECOND_LIST = (0..60).toList()
 
 data class TimerUiState(
-    val isUnsetDialog: Boolean = false
+    val isUnsetDialog: Boolean = false,
 )
+
 @HiltViewModel
 class TimerViewModel @Inject constructor() : ViewModel() {
     private var countTimeJob: Job? = null
     private var _isRunning by mutableStateOf(RunningState.STOPPED)
 
     private val _timerUiState = MutableStateFlow(TimerUiState())
-    val timerUiState : StateFlow<TimerUiState> = _timerUiState.asStateFlow()
+    val timerUiState: StateFlow<TimerUiState> = _timerUiState.asStateFlow()
 
     val isRunning
         get() = _isRunning
@@ -92,7 +93,7 @@ class TimerViewModel @Inject constructor() : ViewModel() {
         if (leftTime.intValue <= 0) {
             _timerUiState.update { old ->
                 old.copy(
-                    isUnsetDialog = true
+                    isUnsetDialog = true,
                 )
             }
             return
@@ -113,7 +114,7 @@ class TimerViewModel @Inject constructor() : ViewModel() {
     fun clearDialog() {
         _timerUiState.update { old ->
             old.copy(
-                isUnsetDialog = false
+                isUnsetDialog = false,
             )
         }
     }

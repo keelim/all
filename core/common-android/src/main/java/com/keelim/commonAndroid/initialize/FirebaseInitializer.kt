@@ -26,5 +26,5 @@ class FirebaseInitializer : Initializer<Unit> {
         Firebase.initialize(context)
     }
 
-    override fun dependencies(): List<Class<out Initializer<*>>>  = emptyList()
+    override fun dependencies(): List<Class<out Initializer<*>>> = emptyList()
 }

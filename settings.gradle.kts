@@ -21,7 +21,7 @@ include(
     ":app-my-grade",
     ":app-nanda",
     // ":app-comssa",
-    ":app-mysenior",
+    ":catalog",
     ":core:common",
     ":core:common-android",
     ":core:compose-core",

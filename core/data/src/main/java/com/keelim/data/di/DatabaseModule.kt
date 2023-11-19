@@ -2,20 +2,16 @@ package com.keelim.data.di
 
 import android.content.Context
 import androidx.datastore.core.DataStore
-import androidx.datastore.core.DataStoreFactory
 import androidx.datastore.core.handlers.ReplaceFileCorruptionHandler
-import androidx.datastore.dataStoreFile
 import androidx.datastore.preferences.SharedPreferencesMigration
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.room.Room
-import com.keelim.data.UserSettings
 import com.keelim.data.db.CnuAppDatabase
 import com.keelim.data.db.MyGradeAppDatabase
 import com.keelim.data.db.NandaAppDatabase
-import com.keelim.data.model.proto.UserSettingsSerializer
 import com.keelim.data.source.local.DataStoreManager
 import com.keelim.data.source.local.PreferenceManager
 import com.keelim.data.source.local.SharedPreferenceManager
@@ -25,11 +21,11 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import java.io.File
+import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
-import java.io.File
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -99,22 +95,5 @@ object DatabaseModule {
     @Singleton
     fun providePreferenceDataStoreManager(
         dataStore: DataStore<Preferences>,
-        userSettingsDataStore: DataStore<UserSettings>,
-    ): DataStoreManager = DataStoreManager(dataStore, userSettingsDataStore)
-
-    @Provides
-    @Singleton
-    fun providesUserSettingsPreferencesDataStore(
-        @ApplicationContext context: Context,
-        @IoDispatcher ioDispatcher: CoroutineDispatcher,
-        @ApplicationScope coroutineScope: CoroutineScope,
-        userSettingsSerializer: UserSettingsSerializer,
-    ): DataStore<UserSettings> {
-        return DataStoreFactory.create(
-            serializer = userSettingsSerializer,
-            scope = CoroutineScope(coroutineScope.coroutineContext + ioDispatcher),
-        ) {
-            context.dataStoreFile("user_settings.pb")
-        }
-    }
+    ): DataStoreManager = DataStoreManager(dataStore)
 }

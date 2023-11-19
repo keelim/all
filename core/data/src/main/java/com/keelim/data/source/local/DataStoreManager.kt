@@ -24,15 +24,12 @@ import androidx.datastore.preferences.core.floatPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
-import com.keelim.data.UserSettings
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import timber.log.Timber
-import javax.inject.Inject
 
 class DataStoreManager @Inject constructor(
     val defaultDataStore: DataStore<Preferences>,
-    private val userSettingsDataStore: DataStore<UserSettings>,
 ) {
     fun getLong(keyStone: String): Flow<Long> = defaultDataStore.data.map { preferences ->
         val key = longPreferencesKey(keyStone)
@@ -89,20 +86,6 @@ class DataStoreManager @Inject constructor(
         val key = stringPreferencesKey(keyStone)
         defaultDataStore.edit { preferences ->
             preferences[key] = value
-        }
-    }
-
-    fun getUserSettingsFlow(): Flow<UserSettings> = userSettingsDataStore.data
-
-    suspend fun setUserSettings() {
-        try {
-            userSettingsDataStore.updateData {
-                UserSettings.newBuilder()
-                    .setIsFirstUser(true)
-                    .build()
-            }
-        } catch (throwable: Throwable) {
-            Timber.e(throwable)
         }
     }
 }

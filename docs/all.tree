@@ -13,4 +13,5 @@
     <toc-element topic="Release-Note.md"/>
     <toc-element topic="Pre-commit.md"/>
     <toc-element topic="Books.md"/>
+    <toc-element topic="context.md"/>
 </instance-profile>

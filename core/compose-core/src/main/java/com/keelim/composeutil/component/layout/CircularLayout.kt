@@ -56,7 +56,7 @@ fun CircularLayout(
 @Preview
 @Composable
 fun PreviewCircularLayout() {
-    CircularLayout{
+    CircularLayout {
         (0..10).map {
             Box(
                 modifier = Modifier
@@ -67,8 +67,8 @@ fun PreviewCircularLayout() {
                             green = Random.nextInt(255),
                             blue = Random.nextInt(255),
                         ),
-                        shape = CircleShape
-                    )
+                        shape = CircleShape,
+                    ),
             )
         }
     }

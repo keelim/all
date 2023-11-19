@@ -4,6 +4,7 @@ plugins {
     id("keelim.android.library.jacoco")
     id("keelim.android.hilt")
     id("kotlinx-serialization")
+    id("keelim.android.showkase")
 }
 
 android {

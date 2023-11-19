@@ -16,7 +16,6 @@
 package com.keelim.comssa
 
 import android.app.Application
-import com.google.android.material.color.DynamicColors
 import com.keelim.commonAndroid.util.ComponentLogger
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
@@ -29,7 +28,5 @@ class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         componentLogger.initialize(this)
-        // val appOpenManager = AppOpenManager(this)
-        DynamicColors.applyToActivitiesIfAvailable(this)
     }
 }

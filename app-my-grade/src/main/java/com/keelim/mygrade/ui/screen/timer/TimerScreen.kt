@@ -27,6 +27,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -38,6 +39,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.composeutil.component.custom.NumberPickerList
 
 @Composable
@@ -45,19 +47,23 @@ fun TimerScreen(
     onNavigateTimerHistory: () -> Unit,
     viewModel: TimerViewModel = hiltViewModel(),
 ) {
+    val timerUiState by viewModel.timerUiState.collectAsStateWithLifecycle()
     val isCountDownTimerVisible = viewModel.isRunning
     val addedTime = viewModel.addTime(System.currentTimeMillis())
     val dialogState = remember { mutableStateOf(false) }
 
     if (dialogState.value) {
-        ShowDialog {
-            dialogState.value = false
-        }
+        CheckDialog { dialogState.value = false }
+    }
+    if (timerUiState.isUnsetDialog) {
+        UnsetDialog(
+            onDismiss = viewModel::clearDialog,
+        )
     }
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.padding(24.dp),
+        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
     ) {
         Spacer(modifier = Modifier.height(16.dp))
         SelectTime(runningState = isCountDownTimerVisible, viewModel = viewModel)
@@ -83,7 +89,8 @@ fun TimerScreen(
                 },
             ) {
                 Text(
-                    text = if (viewModel.isRunning == RunningState.STOPPED) {
+                    text =
+                    if (viewModel.isRunning == RunningState.STOPPED) {
                         "Start"
                     } else {
                         "Stop"
@@ -121,7 +128,9 @@ fun SelectTime(
             contentAlignment = Alignment.Center,
         ) {
             Box(
-                modifier = Modifier.fillMaxWidth().height(36.dp)
+                modifier =
+                Modifier.fillMaxWidth()
+                    .height(36.dp)
                     .clip(RoundedCornerShape(10.dp))
                     .alpha(0.4f)
                     .align(Alignment.Center),
@@ -132,24 +141,18 @@ fun SelectTime(
                 horizontalArrangement = Arrangement.SpaceEvenly,
             ) {
                 Row {
-                    NumberPickerList(numbers = HOUR_LIST) {
-                        viewModel.hour = it
-                    }
+                    NumberPickerList(numbers = HOUR_LIST) { viewModel.hour = it }
 
                     Text(text = "h", modifier = Modifier.align(Alignment.CenterVertically))
                 }
 
                 Row {
-                    NumberPickerList(numbers = MINUTE_LIST) {
-                        viewModel.minute = it
-                    }
+                    NumberPickerList(numbers = MINUTE_LIST) { viewModel.minute = it }
 
                     Text(text = "m", modifier = Modifier.align(Alignment.CenterVertically))
                 }
                 Row {
-                    NumberPickerList(numbers = SECOND_LIST) {
-                        viewModel.second = it
-                    }
+                    NumberPickerList(numbers = SECOND_LIST) { viewModel.second = it }
 
                     Text(text = "s", modifier = Modifier.align(Alignment.CenterVertically))
                 }
@@ -173,15 +176,14 @@ fun CircularCountDownTimer(
                 viewModel.stop()
             }
         }
-        val progress = remember {
-            Animatable(leftTime / viewModel.getTotalTimeInSeconds().toFloat())
-        }
+        val progress = remember { Animatable(leftTime / viewModel.getTotalTimeInSeconds().toFloat()) }
         val progressTarget = 0f
 
         LaunchedEffect(runningState == RunningState.STARTED) {
             progress.animateTo(
                 targetValue = progressTarget,
-                animationSpec = tween(
+                animationSpec =
+                tween(
                     durationMillis = leftTime * 1000,
                     easing = LinearEasing,
                 ),
@@ -206,13 +208,13 @@ fun CircularCountDownTimer(
 
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
-                    text = "${formatTime(isLeadingZeroNeeded = true, value = leftTime / 3600)}:" +
+                    text =
+                    "${formatTime(isLeadingZeroNeeded = true, value = leftTime / 3600)}:" +
                         "${
                             formatTime(isLeadingZeroNeeded = true, value = (leftTime / 60) % 60)
                         }:" +
                         formatTime(isLeadingZeroNeeded = true, value = leftTime % 60),
                     fontSize = 48.sp,
-
                 )
 
                 Spacer(modifier = Modifier.height(24.dp))
@@ -241,7 +243,7 @@ private fun PreviewTimerScreen() {
 }
 
 @Composable
-private fun ShowDialog(
+private fun CheckDialog(
     onDismiss: () -> Unit,
 ) {
     AlertDialog(
@@ -249,6 +251,19 @@ private fun ShowDialog(
     ) {
         Text(
             text = "확인해 주세요",
+            modifier = Modifier.padding(8.dp),
+            style = MaterialTheme.typography.titleLarge,
+        )
+    }
+}
+
+@Composable
+private fun UnsetDialog(onDismiss: () -> Unit) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+    ) {
+        Text(
+            text = "Timer 를 설정해주세요",
             modifier = Modifier.padding(8.dp),
             style = MaterialTheme.typography.titleLarge,
         )

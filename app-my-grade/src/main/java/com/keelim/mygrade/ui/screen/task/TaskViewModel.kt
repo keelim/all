@@ -8,17 +8,11 @@ import com.keelim.data.source.DefaultTaskRepository
 import com.keelim.data.source.local.LocalTask
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlinx.coroutines.async
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.distinctUntilChangedBy
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.mapLatest
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.job
-import timber.log.Timber
 
 @HiltViewModel
 class TaskViewModel @Inject constructor(
@@ -27,7 +21,7 @@ class TaskViewModel @Inject constructor(
 
     val state: StateFlow<SealedUiState<List<TaskElement>>> = taskRepository
         .observeAll()
-        .mapLatest {  it.toTaskListSections().toTaskElement() }
+        .mapLatest { it.toTaskListSections().toTaskElement() }
         .asSealedUiState()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), SealedUiState.Loading)
     fun addLocalTask() {

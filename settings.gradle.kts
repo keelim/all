@@ -20,7 +20,7 @@ include(
     ":app-cnubus",
     ":app-my-grade",
     ":app-nanda",
-    // ":app-comssa",
+    ":app-comssa",
     ":catalog",
     ":core:common",
     ":core:common-android",

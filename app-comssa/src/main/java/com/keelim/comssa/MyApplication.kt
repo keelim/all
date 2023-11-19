@@ -16,7 +16,6 @@
 package com.keelim.comssa
 
 import android.app.Application
-import com.google.android.material.color.DynamicColors
 import com.keelim.commonAndroid.util.ComponentLogger
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject

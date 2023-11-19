@@ -29,7 +29,5 @@ class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         componentLogger.initialize(this)
-        // val appOpenManager = AppOpenManager(this)
-        DynamicColors.applyToActivitiesIfAvailable(this)
     }
 }

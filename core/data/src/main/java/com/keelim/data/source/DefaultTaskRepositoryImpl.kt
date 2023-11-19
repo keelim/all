@@ -36,7 +36,7 @@ class DefaultTaskRepositoryImpl @Inject constructor(
             id = taskId,
             isCompleted = false,
             date = Clock.System.now().toString(),
-            isEditing  = true,
+            isEditing = true,
         )
         localDataSource.upsert(task)
         saveTasksToNetwork()

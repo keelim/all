@@ -5,7 +5,6 @@ package com.keelim.mygrade.ui.screen.task
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateRectAsState
 import androidx.compose.animation.core.spring
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
@@ -14,7 +13,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -33,7 +31,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -67,7 +64,8 @@ fun TaskScreen(viewModel: TaskViewModel = hiltViewModel()) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     when (state) {
         SealedUiState.Loading,
-        is SealedUiState.Error, -> EmptyView()
+        is SealedUiState.Error,
+        -> EmptyView()
         is SealedUiState.Success<List<TaskElement>> -> {
             val (showDialog, setShowDialog) = rememberSaveable { mutableStateOf(false) }
             var deleteTask by rememberSaveable { mutableStateOf<LocalTask?>(null) }
@@ -86,10 +84,10 @@ fun TaskScreen(viewModel: TaskViewModel = hiltViewModel()) {
                     SmallFloatingActionButton(onClick = viewModel::clear) {
                         Icon(
                             imageVector = Icons.Filled.Clear,
-                            contentDescription = null
+                            contentDescription = null,
                         )
                     }
-                }
+                },
             ) { paddingValues ->
                 LocalTaskList(
                     state = state,
@@ -140,18 +138,18 @@ fun LocalTaskList(
             modifier = modifier
                 .fillMaxWidth()
                 .padding(vertical = 8.dp),
-            verticalArrangement = Arrangement.spacedBy(spacedBy)
+            verticalArrangement = Arrangement.spacedBy(spacedBy),
         ) {
             items(
                 items = items,
             ) { task ->
-                when(task) {
+                when (task) {
                     is TaskElement.Header -> LocalTaskHeader(
                         task = task,
                         modifier = Modifier
                             .animateItemPlacement(
-                                animationSpec = spring()
-                            )
+                                animationSpec = spring(),
+                            ),
                     )
                     is TaskElement.Item -> LocalTaskItem(
                         item = task,
@@ -159,9 +157,9 @@ fun LocalTaskList(
                         onDelete = onDelete,
                         modifier = Modifier
                             .animateItemPlacement(
-                                animationSpec = spring()
+                                animationSpec = spring(),
                             ),
-                        innerCornerSize = innerCornerSize
+                        innerCornerSize = innerCornerSize,
                     )
                 }
             }
@@ -172,17 +170,17 @@ fun LocalTaskList(
 @Composable
 fun LocalTaskHeader(
     task: TaskElement.Header,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
             .padding(top = 16.dp, bottom = 8.dp, start = 16.dp, end = 16.dp),
-        ) {
+    ) {
         Text(
             text = task.text,
             style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
         )
     }
 }
@@ -203,8 +201,8 @@ fun LocalTaskItem(
             .fillMaxWidth()
             .pointerInput(Unit) {
                 detectTapGestures(onLongPress = { onDelete(task) })
-        },
-        shape = item.role.toShape(outerCornerSize, innerCornerSize)
+            },
+        shape = item.role.toShape(outerCornerSize, innerCornerSize),
     ) {
         Row(modifier = Modifier.padding(16.dp)) {
             if (task.isEditing) {
@@ -254,7 +252,10 @@ private fun TaskElement.Role.toShape(outerCornerSize: Dp, innerCornerSize: Dp): 
     val animatedRect by animateRectAsState(targetRect, label = "")
 
     return RoundedCornerShape(
-        animatedRect.left, animatedRect.top, animatedRect.right, animatedRect.bottom
+        animatedRect.left,
+        animatedRect.top,
+        animatedRect.right,
+        animatedRect.bottom,
     )
 }
 

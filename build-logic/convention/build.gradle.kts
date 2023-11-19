@@ -60,6 +60,10 @@ gradlePlugin {
             id = "keelim.android.hilt"
             implementationClass = "KeelimHiltPlugin"
         }
+        register("showkase") {
+            id = "keelim.android.showkase"
+            implementationClass = "KeelimShowkasePlugin"
+        }
     }
 }
 

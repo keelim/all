@@ -140,6 +140,28 @@ object KtorNetworkModule {
                 requestTimeoutMillis = 30_000L
                 socketTimeoutMillis = 30_000L
             }
+            install(HttpRequestRetry) {
+                retryOnServerErrors(maxRetries = 3)
+                exponentialDelay()
+                maxRetries = 3
+                retryIf { request, response ->
+                    !response.status.isSuccess()
+                }
+                retryOnExceptionIf { request, cause ->
+                    // cause is NetworkError
+                    false
+                }
+                delayMillis { retry ->
+                    retry * 3000L
+                }
+                modifyRequest { request ->
+                    // request.headers.append("x-retry-count", retryCount.toString())
+                }
+            }
+            install(UserAgent) {
+                agent = "Ktor"
+            }
+
             defaultRequest {
                 contentType(ContentType.Application.Json)
                 accept(ContentType.Application.Json)

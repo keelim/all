@@ -17,8 +17,7 @@ class KeelimAndroidApplicationPlugin : Plugin<Project> {
                 apply("org.gradle.android.cache-fix")
                 apply("com.google.android.gms.oss-licenses-plugin")
                 apply("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
-                apply("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
-                apply("androidx.baselineprofile")
+                // apply("androidx.baselineprofile")
             }
 
 
@@ -37,9 +36,9 @@ class KeelimAndroidApplicationPlugin : Plugin<Project> {
                         getDefaultProguardFile("proguard-android-optimize.txt"),
                         "proguard-rules.pro"
                     )
-                    configure<BaselineProfileConsumerExtension> {
-                        automaticGenerationDuringBuild = true
-                    }
+                    // configure<BaselineProfileConsumerExtension> {
+                    //     automaticGenerationDuringBuild = true
+                    // }
                 }
                 lint {
                     abortOnError = false

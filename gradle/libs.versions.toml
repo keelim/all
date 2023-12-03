@@ -7,12 +7,12 @@ versionCode = "20231119"
 # library
 accompanist = "0.32.0"
 androidDesugarJdkLibs = "2.0.4"
-androidGradlePlugin = "8.1.4"
+androidGradlePlugin = "8.2.0"
 androidxActivity = "1.8.1"
 androidxAppCompat = "1.6.1"
 androidxComposeBom = "2023.10.01"
 androidxComposeCompiler = "1.5.4"
-androidxComposeRuntimeTracing = "1.0.0-alpha05"
+androidxComposeRuntimeTracing = "1.0.0-beta01"
 androidxCore = "1.12.0"
 androidxCoreSplashscreen = "1.0.1"
 androidxDataStore = "1.0.0"
@@ -20,7 +20,7 @@ androidxEspresso = "3.5.1"
 androidxFragment = "1.6.2"
 androidxHiltNavigationCompose = "1.1.0"
 androidxLifecycle = "2.6.2"
-androidxMacroBenchmark = "1.2.1"
+androidxMacroBenchmark = "1.2.2"
 androidxMetrics = "1.0.0-alpha04"
 androidxNavigation = "2.7.5"
 androidxPaging = "3.2.1"
@@ -30,10 +30,10 @@ androidxTestCore = "1.5.0"
 androidxTestExt = "1.1.5"
 androidxTestRules = "1.5.0"
 androidxTestRunner = "1.5.2"
-androidxTracing = "1.1.0"
+androidxTracing = "1.2.0"
 androidxUiAutomator = "2.2.0"
 androidxWindowManager = "1.2.0"
-androidxWork = "2.8.1"
+androidxWork = "2.9.0"
 arrow = "1.2.1"
 bio = "1.1.0"
 coil = "2.5.0"
@@ -45,9 +45,9 @@ firebase = "32.6.0"
 firebase-ui = "8.0.2"
 firebaseCrashlyticsPlugin = "2.9.9"
 firebasePerfPlugin = "1.4.2"
-flipper = "0.238.0"
+flipper = "0.240.0"
 glance = "1.0.0"
-hilt = "2.48.1"
+hilt = "2.49"
 hiltExt = "1.1.0"
 in-app-update = "2.1.0"
 jacoco = "0.8.7"
@@ -55,12 +55,12 @@ junit4 = "4.13.2"
 kotlin = "1.9.21"
 kotlinxCollectionsImmutable = "0.3.6"
 kotlinxCoroutines = "1.7.3"
-kotlinxDatetime = "0.4.1"
-kotlinxSerializationJson = "1.6.1"
-ksp = "1.9.20-1.0.14"
+kotlinxDatetime = "0.5.0"
+kotlinxSerializationJson = "1.6.2"
+ksp = "1.9.21-1.0.15"
 ktor = "2.3.6"
 leakcanary = "2.12"
-lint = "31.1.4"
+lint = "31.2.0"
 lottie = "6.2.0"
 maps = "5.0.0"
 maps-compose = "4.3.0"
@@ -84,7 +84,7 @@ retrofit = "2.9.0"
 retrofitKotlinxSerializationJson = "1.0.0"
 robolectric = "4.11.1"
 roborazzi = "1.6.0"
-room = "2.6.0"
+room = "2.6.1"
 secrets = "2.0.1"
 soloader = "0.10.5"
 themeAdapter = "1.2.1"
@@ -174,17 +174,17 @@ firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics
 firebase-appcheck = { group = "com.google.firebase", name = "firebase-appcheck-playintegrity" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth-ktx" }
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase" }
-firebase-common = { group = "com.google.firebase", name = "firebase-common-ktx" }
-firebase-config = { group = "com.google.firebase", name = "firebase-config-ktx" }
-firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
+firebase-common = { group = "com.google.firebase", name = "firebase-common" }
+firebase-config = { group = "com.google.firebase", name = "firebase-config" }
+firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
 firebase-crashlytics-gradlePlugin = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "firebaseCrashlyticsPlugin" }
-firebase-database = { group = "com.google.firebase", name = "firebase-database-ktx" }
-firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore-ktx" }
-firebase-inappmessaging = { group = "com.google.firebase", name = "firebase-inappmessaging-display-ktx" }
-firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging-ktx" }
-firebase-performance = { group = "com.google.firebase", name = "firebase-perf-ktx" }
+firebase-database = { group = "com.google.firebase", name = "firebase-database" }
+firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore" }
+firebase-inappmessaging = { group = "com.google.firebase", name = "firebase-inappmessaging-display" }
+firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging" }
+firebase-performance = { group = "com.google.firebase", name = "firebase-perf" }
 firebase-performance-gradlePlugin = { group = "com.google.firebase", name = "perf-plugin", version.ref = "firebasePerfPlugin" }
-firebase-storage = { group = "com.google.firebase", name = "firebase-storage-ktx" }
+firebase-storage = { group = "com.google.firebase", name = "firebase-storage" }
 firebase-ui-auth = { group = "com.firebaseui", name = "firebase-ui-auth", version.ref = "firebase-ui" }
 firebase-ui-database = { group = "com.firebaseui", name = "firebase-ui-database", version.ref = "firebase-ui" }
 firebase-ui-firestore = { group = "com.firebaseui", name = "firebase-ui-firestore", version.ref = "firebase-ui" }

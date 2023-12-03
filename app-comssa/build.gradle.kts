@@ -53,6 +53,7 @@ dependencies {
     implementation(libs.play.services.ad)
     implementation(libs.timber)
     implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.firestore)
 
     debugImplementation(libs.androidx.compose.ui.testManifest)
     debugImplementation(libs.androidx.compose.ui.tooling)

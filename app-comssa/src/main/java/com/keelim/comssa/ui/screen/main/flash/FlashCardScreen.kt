@@ -3,48 +3,52 @@ package com.keelim.comssa.ui.screen.main.flash
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
-sealed class FlashCardState(val angle: Float) {
-    abstract fun nextFace(): FlashCardState
 
-    data object Front : FlashCardState(angle = 0f) {
-        override fun nextFace(): FlashCardState = Back
-    }
-
-    data object Back : FlashCardState(angle = 180f) {
-        override fun nextFace(): FlashCardState = Front
-    }
+@Composable
+fun FlashCardRoute() {
+    FlashCardScreen()
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun FlashCardScreen(
+    viewModel: FlashCardViewModel = hiltViewModel()
+) {
+    val cardFace by  viewModel.uiState.collectAsStateWithLifecycle()
+
+    FlashCard(
+        flashCardState = cardFace.flashCardState,
+        modifier = Modifier
+            .fillMaxWidth(.5f)
+            .aspectRatio(1f)
+            .padding(horizontal = 12.dp),
+        front = { FrontCardSection() },
+        back = { BackCardSection() },
+        onClick = viewModel::updateState,
+    )
+}
+
 @Composable
 fun FlashCard(
     flashCardState: FlashCardState,
+    back: @Composable () -> Unit,
+    front: @Composable () -> Unit,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    back: @Composable () -> Unit = {},
-    front: @Composable () -> Unit = {},
-    onClick: ((FlashCardState) -> Unit)?,
 ) {
     val rotation = animateFloatAsState(
         targetValue = flashCardState.angle,
@@ -52,9 +56,10 @@ fun FlashCard(
             durationMillis = 400,
             easing = FastOutSlowInEasing,
         ),
+        label = "",
     )
     Card(
-        onClick = { onClick?.invoke(flashCardState) },
+        onClick = onClick,
         modifier = modifier.graphicsLayer {
             rotationY = rotation.value
             cameraDistance = 12f * density
@@ -84,70 +89,8 @@ fun FlashCard(
     }
 }
 
+@Preview
 @Composable
-fun FlashCardScreen() {
-    var cardFace: FlashCardState by remember {
-        mutableStateOf(FlashCardState.Front)
-    }
-
-    FlashCard(
-        flashCardState = cardFace,
-        modifier = Modifier
-            .fillMaxWidth(.5f)
-            .aspectRatio(1f)
-            .padding(horizontal = 12.dp),
-        front = { FrontScreen() },
-        back = { BackScreen() },
-        onClick = { cardFace = cardFace.nextFace() },
-    )
-}
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-private fun FlipCardScreenPreview() {
+private fun PreviewFlashCardScreen() {
     FlashCardScreen()
-}
-
-@Composable
-fun FrontScreen() {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.Red),
-        contentAlignment = Alignment.Center,
-    ) {
-        Text(
-            text = "Front",
-            color = Color.White,
-            fontSize = 32.sp,
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun FrontScreenPreview() {
-    FrontScreen()
-}
-
-@Composable
-fun BackScreen() {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.Blue),
-        contentAlignment = Alignment.Center,
-    ) {
-        Text(
-            text = "Back",
-            color = Color.White,
-            fontSize = 32.sp,
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun BackScreenPreview() {
-    BackScreen()
 }

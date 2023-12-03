@@ -3,7 +3,7 @@ package com.keelim.data.source.notification
 import com.keelim.data.BuildConfig
 import com.keelim.data.di.IoDispatcher
 import com.keelim.data.di.network.KtorNetworkModule
-import com.keelim.data.network.response.NotificationResponse
+import com.keelim.data.network.response.CommonResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
@@ -22,7 +22,7 @@ constructor(
   override suspend fun getNotification(): List<Notification> {
     return withContext(dispatcher) {
       client
-          .use<HttpClient, NotificationResponse> {
+          .use<HttpClient, CommonResponse> {
             it.get {
                   url("${BuildConfig.NOTIFICATION_URL}/notifications")
                   parameter("key", BuildConfig.SHEET_KEY)

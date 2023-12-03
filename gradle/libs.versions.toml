@@ -15,6 +15,7 @@ androidxComposeCompiler = "1.5.5"
 androidxComposeRuntimeTracing = "1.0.0-beta01"
 androidxCore = "1.12.0"
 androidxCoreSplashscreen = "1.0.1"
+adaptive-navigation-suite = "1.0.0-alpha01"
 androidxDataStore = "1.0.0"
 androidxEspresso = "3.5.1"
 androidxFragment = "1.6.2"
@@ -119,6 +120,7 @@ androidx-compose-material = { group = "androidx.compose.material", name = "mater
 androidx-compose-material-iconsExtended = { group = "androidx.compose.material", name = "material-icons-extended" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-compose-material3-windowSizeClass = {group = "androidx.compose.material3", name = "material3-window-size-class" }
+androidx-compose-material3-adaptiveNavigationSuite = {group = "androidx.compose.material3", name = "material3-adaptive-navigation-suite-android", version.ref = "adaptive-navigation-suite" }
 androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime" }
 androidx-compose-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata" }
 androidx-compose-runtime-tracing = { group = "androidx.compose.runtime", name = "runtime-tracing", version.ref = "androidxComposeRuntimeTracing" }

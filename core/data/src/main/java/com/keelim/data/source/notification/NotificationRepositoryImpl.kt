@@ -20,8 +20,8 @@ class NotificationRepositoryImpl @Inject constructor(
             val response: NotificationResponse = client.use {
                 it.get(BuildConfig.NOTIFICATION_URL).body()
             }
-            response.values.map { value ->
-                Notification(date = value[0], title = value[1], desc = value[2])
+            response.values.map { (date, title, desc) ->
+                Notification(date = date, title = title, desc = desc)
             }
         }
     }

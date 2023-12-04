@@ -9,14 +9,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 fun CalendarRoute() {
-  CalendarScreen()
+    CalendarScreen()
 }
 
 @Composable
 fun CalendarScreen(
-    viewModel:CalendarViewModel = hiltViewModel()
+    viewModel: CalendarViewModel = hiltViewModel(),
 ) {
-  val state = rememberDatePickerState()
+    val state = rememberDatePickerState()
     Column {
         DatePicker(state = state)
     }
@@ -25,5 +25,5 @@ fun CalendarScreen(
 @Preview(showBackground = true)
 @Composable
 private fun PreviewCalendarScreen() {
-  CalendarScreen()
+    CalendarScreen()
 }

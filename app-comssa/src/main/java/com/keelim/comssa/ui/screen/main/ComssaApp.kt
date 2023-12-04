@@ -46,70 +46,74 @@ fun ComssaApp(
     windowSizeClass: WindowSizeClass,
     appState: AppState = rememberAppState(windowSizeClass = windowSizeClass),
 ) {
-  var selectedItem by rememberSaveable { mutableIntStateOf(0) }
-  val navItems =
-      listOf(
-          Category(
-              title = "이달 보기",
-              onClick = {
-                // appState.navController.navigate("")
-              }),
-          Category(
-              title = "연도 보기",
-              onClick = {
-                // appState.navController.navigate("")
-              }),
-          Category(title = "전체 보기", onClick = {}),
-      )
+    var selectedItem by rememberSaveable { mutableIntStateOf(0) }
+    val navItems =
+        listOf(
+            Category(
+                title = "이달 보기",
+                onClick = {
+                    // appState.navController.navigate("")
+                },
+            ),
+            Category(
+                title = "연도 보기",
+                onClick = {
+                    // appState.navController.navigate("")
+                },
+            ),
+            Category(title = "전체 보기", onClick = {}),
+        )
 
-  NavigationSuiteScaffold(
-      navigationSuiteItems = {
-        navItems.fastForEachIndexed { index, navItem ->
-          item(
-              icon = {
-                Icon(imageVector = Icons.Filled.Favorite, contentDescription = navItem.title)
-              },
-              label = { Text(text = navItem.title) },
-              selected = selectedItem == index,
-              onClick = {
-                selectedItem = index
-                navItem.onClick.invoke()
-              })
-        }
-      }) {
+    NavigationSuiteScaffold(
+        navigationSuiteItems = {
+            navItems.fastForEachIndexed { index, navItem ->
+                item(
+                    icon = {
+                        Icon(imageVector = Icons.Filled.Favorite, contentDescription = navItem.title)
+                    },
+                    label = { Text(text = navItem.title) },
+                    selected = selectedItem == index,
+                    onClick = {
+                        selectedItem = index
+                        navItem.onClick.invoke()
+                    },
+                )
+            }
+        },
+    ) {
         val snackbarHostState = remember { SnackbarHostState() }
         val coroutineScope = rememberCoroutineScope()
         val bottomSheetState = rememberModalBottomSheetState()
         Scaffold(
             snackbarHost = { SnackbarHost(snackbarHostState) },
         ) { padding ->
-          Row(
-              Modifier.fillMaxSize()
-                  .padding(padding)
-                  .consumeWindowInsets(padding)
-                  .windowInsetsPadding(
-                      WindowInsets.safeDrawing.only(
-                          WindowInsetsSides.Horizontal,
-                      ),
-                  ),
-          ) {
-            Column(
-                modifier = Modifier.fillMaxSize(),
+            Row(
+                Modifier.fillMaxSize()
+                    .padding(padding)
+                    .consumeWindowInsets(padding)
+                    .windowInsetsPadding(
+                        WindowInsets.safeDrawing.only(
+                            WindowInsetsSides.Horizontal,
+                        ),
+                    ),
             ) {
-              ComssaHost(
-                  appState = appState,
-                  bottomSheetState = bottomSheetState,
-                  coroutineScope = coroutineScope,
-                  onShowSnackbar = { message, action ->
-                    snackbarHostState.showSnackbar(
-                        message = message,
-                        actionLabel = action,
-                        duration = SnackbarDuration.Short,
-                    ) == SnackbarResult.ActionPerformed
-                  },
-              )
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                ) {
+                    ComssaHost(
+                        appState = appState,
+                        bottomSheetState = bottomSheetState,
+                        coroutineScope = coroutineScope,
+                        onShowSnackbar = { message, action ->
+                            snackbarHostState.showSnackbar(
+                                message = message,
+                                actionLabel = action,
+                                duration = SnackbarDuration.Short,
+                            ) == SnackbarResult.ActionPerformed
+                        },
+                    )
+                }
             }
-          }
         }
-      }
+    }
 }

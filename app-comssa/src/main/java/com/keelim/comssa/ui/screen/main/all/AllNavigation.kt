@@ -8,13 +8,12 @@ import androidx.navigation.compose.composable
 const val allRoute = "year"
 
 fun NavController.navigateAll(navOptions: NavOptions? = null) {
-  this.navigate(allRoute, navOptions)
+    this.navigate(allRoute, navOptions)
 }
 
 fun NavGraphBuilder.allScreen() {
-  composable(
-      route = allRoute,
-  ) {
-
-  }
+    composable(
+        route = allRoute,
+    ) {
+    }
 }

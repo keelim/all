@@ -8,13 +8,13 @@ import androidx.navigation.compose.composable
 const val calendarRoute = "calendar"
 
 fun NavController.navigateCalendar(navOptions: NavOptions? = null) {
-  this.navigate(calendarRoute, navOptions)
+    this.navigate(calendarRoute, navOptions)
 }
 
 fun NavGraphBuilder.calendarScreen() {
-  composable(
-      route = calendarRoute,
-  ) {
-    CalendarRoute()
-  }
+    composable(
+        route = calendarRoute,
+    ) {
+        CalendarRoute()
+    }
 }

@@ -9,9 +9,9 @@ import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 import io.ktor.client.request.url
-import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 class NotificationRepositoryImpl
 @Inject
@@ -19,18 +19,18 @@ constructor(
     @KtorNetworkModule.KtorAndroidClient val client: HttpClient,
     @IoDispatcher private val dispatcher: CoroutineDispatcher,
 ) : NotificationRepository {
-  override suspend fun getNotification(): List<Notification> {
-    return withContext(dispatcher) {
-      client
-          .use<HttpClient, CommonResponse> {
-            it.get {
-                  url("${BuildConfig.NOTIFICATION_URL}/notifications")
-                  parameter("key", BuildConfig.SHEET_KEY)
+    override suspend fun getNotification(): List<Notification> {
+        return withContext(dispatcher) {
+            client
+                .use<HttpClient, CommonResponse> {
+                    it.get {
+                        url("${BuildConfig.NOTIFICATION_URL}/notifications")
+                        parameter("key", BuildConfig.SHEET_KEY)
+                    }
+                        .body()
                 }
-                .body()
-          }
-          .values
-          .map { (date, title, desc) -> Notification(date = date, title = title, desc = desc) }
+                .values
+                .map { (date, title, desc) -> Notification(date = date, title = title, desc = desc) }
+        }
     }
-  }
 }

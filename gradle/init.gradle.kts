@@ -20,11 +20,7 @@ rootProject {
             kotlin {
                 target("**/*.kt")
                 targetExclude("**/build/**/*.kt")
-                ktlint(ktlintVersion).userData(
-                    mapOf(
-                        "android" to "true", "max_line_length" to "150"
-                    )
-                )
+                ktlint(ktlintVersion)
             }
             format("kts") {
                 target("**/*.kts")

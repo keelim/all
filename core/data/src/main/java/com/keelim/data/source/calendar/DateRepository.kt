@@ -5,7 +5,7 @@ data class EconomyCalendarDate(
     val time: String,
     val country: String,
     val title: String,
-    val priority: String
+    val priority: String,
 )
 
 interface DateRepository {

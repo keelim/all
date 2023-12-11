@@ -55,6 +55,7 @@ dependencies {
     implementation(libs.timber)
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.firestore)
+    implementation(libs.firebase.database)
 
     debugImplementation(libs.androidx.compose.ui.testManifest)
     debugImplementation(libs.androidx.compose.ui.tooling)

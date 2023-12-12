@@ -1,4 +1,4 @@
-package com.keelim.composeutil.component.card
+package com.keelim.composeutil.component.etc.profile
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

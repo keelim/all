@@ -57,6 +57,6 @@ fun WidgetContentScreen() {
 
 @Preview
 @Composable
-private fun PreviewWidgetContentScreen() {
+fun PreviewWidgetContentScreen() {
     WidgetContentScreen()
 }

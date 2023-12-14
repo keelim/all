@@ -135,7 +135,7 @@ fun SettingsScreen(
             if (deviceInfo.versionName != null) {
                 item {
                     CategoryItem(
-                        title = "App Version: ${deviceInfo.versionName}",
+                        title = "App Version: ${deviceInfo?.versionName}",
                         icon = Icons.Outlined.Build,
                         onClick = {},
                     )

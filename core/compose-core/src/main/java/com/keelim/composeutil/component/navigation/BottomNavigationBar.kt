@@ -73,6 +73,6 @@ fun RowScope.AppNavItem(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewAppBottomNavigationBar() {
+fun PreviewAppBottomNavigationBar() {
     AppBottomNavigationBar()
 }

@@ -180,6 +180,6 @@ private fun NavigationCard(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewNandaDrawer() {
+fun PreviewNandaDrawer() {
     NandaDrawer(onRouteClick = {}, onAboutClick = {})
 }

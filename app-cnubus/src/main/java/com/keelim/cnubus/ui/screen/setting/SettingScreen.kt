@@ -169,7 +169,7 @@ private fun CellItem(
 
 @Composable
 @Preview
-private fun PreviewSettingScreen() {
+fun PreviewSettingScreen() {
     SettingScreen(
         onScreenAction = { action ->
         },

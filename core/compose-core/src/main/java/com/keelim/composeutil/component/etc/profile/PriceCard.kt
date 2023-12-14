@@ -141,7 +141,7 @@ private fun DrawScope.drawCurvyLine() {
 
 @Preview
 @Composable
-private fun PreviewPriceCard() {
+fun PreviewPriceCard() {
     PriceCard(
         priceCardState = PriceCardState(
             value = 2.3f,

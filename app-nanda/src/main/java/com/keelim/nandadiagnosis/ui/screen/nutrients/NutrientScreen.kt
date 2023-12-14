@@ -101,7 +101,7 @@ private fun NutrientStateView(uiState: NutrientState, onNutrientClick: (String, 
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewNutrientScreen() {
+fun PreviewNutrientScreen() {
     NutrientScreen(
         onNutrientClick = { _, _ -> },
         onNutrientTimerClick = {},

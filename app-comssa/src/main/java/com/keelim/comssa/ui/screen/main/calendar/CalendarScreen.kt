@@ -24,6 +24,6 @@ fun CalendarScreen(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewCalendarScreen() {
+fun PreviewCalendarScreen() {
     CalendarScreen()
 }

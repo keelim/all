@@ -68,6 +68,6 @@ fun MapScreen(viewModel: MapViewModel = hiltViewModel()) {
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewMapScreen() {
+fun PreviewMapScreen() {
     MapScreen()
 }

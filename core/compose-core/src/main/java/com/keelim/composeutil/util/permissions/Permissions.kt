@@ -117,7 +117,7 @@ private fun getTextToShowGivenPermissions(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewPermissionScreen() {
+fun PreviewPermissionScreen() {
     PermissionScreen(
         bottomSheetState = rememberModalBottomSheetState(),
         multiplePermissionsState = rememberMultiplePermissionsState(permissions = emptyList()),

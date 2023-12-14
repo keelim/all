@@ -45,6 +45,6 @@ fun LoadingDialog(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewLoadingDialog() {
+fun PreviewLoadingDialog() {
   LoadingDialog(text = "ing...")
 }

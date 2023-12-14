@@ -48,6 +48,6 @@ fun EmptyView(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewEmptyView() {
+fun PreviewEmptyView() {
     EmptyView()
 }

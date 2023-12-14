@@ -64,6 +64,6 @@ fun OtpInputTextField(
 
 @Preview
 @Composable
-private fun PreviewOtpInputTextField() {
+fun PreviewOtpInputTextField() {
     OtpInputTextField(otp = Otp(value = "alienum"), onOtpValueChange = {})
 }

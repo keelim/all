@@ -93,6 +93,6 @@ private fun MainBottomSheetScreen(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewMainBottomSheetScreen() {
+fun PreviewMainBottomSheetScreen() {
     MainBottomSheetScreen()
 }

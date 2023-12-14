@@ -26,7 +26,7 @@ fun Circle(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewCircle() {
+fun PreviewCircle() {
     Circle(Color.Red)
 }
 
@@ -49,6 +49,6 @@ fun SemiRect(color: Color, lookingLeft: Boolean = true) {
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewSemiRect() {
+fun PreviewSemiRect() {
     SemiRect(Color.Red)
 }

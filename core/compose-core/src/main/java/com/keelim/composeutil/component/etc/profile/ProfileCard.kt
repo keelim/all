@@ -139,7 +139,7 @@ private fun ProfileText(title: String, description: String) {
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewProfileCard() {
+fun PreviewProfileCard() {
     ProfileCard(
         profile =
         Profile(

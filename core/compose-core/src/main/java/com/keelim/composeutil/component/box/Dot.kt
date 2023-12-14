@@ -56,7 +56,7 @@ fun RedDot(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewRedDot() {
+fun PreviewRedDot() {
     RedDot()
 }
 
@@ -108,6 +108,6 @@ fun GradientDot(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewGradientDot() {
+fun PreviewGradientDot() {
     GradientDot()
 }

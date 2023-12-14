@@ -44,7 +44,7 @@ fun ImageLabelRow(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewImageLabelRow() {
+fun PreviewImageLabelRow() {
     ImageLabelRow(
         imageUrl = "http://www.bing.com/search?q=reprimique",
         label = "rhoncus",

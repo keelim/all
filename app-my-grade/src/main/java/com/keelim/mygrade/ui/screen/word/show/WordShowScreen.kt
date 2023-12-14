@@ -48,7 +48,7 @@ private fun WordShowScreen(
 
 @Preview
 @Composable
-private fun PreviewWordShowScreen() {
+fun PreviewWordShowScreen() {
     WordShowScreen(
         onWordWriteNavigate = {},
     )

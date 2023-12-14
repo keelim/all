@@ -54,7 +54,7 @@ fun NavigationBackArrowBar(title: String) {
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewNavigationBackArrowBar() {
+fun PreviewNavigationBackArrowBar() {
     NavigationBackArrowBar(
         "Sample",
     )

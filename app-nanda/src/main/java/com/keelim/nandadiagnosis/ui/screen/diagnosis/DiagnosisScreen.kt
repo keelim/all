@@ -73,7 +73,7 @@ private fun DiagnosisStateView(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewDiagnosisScreen() {
+fun PreviewDiagnosisScreen() {
     DiagnosisScreen(onDiagnosisClick = {})
 }
 
@@ -119,7 +119,7 @@ fun DiagnosisItem(
 
 @Preview
 @Composable
-private fun PreviewDiagnosisItem() {
+fun PreviewDiagnosisItem() {
     DiagnosisItem(
         title = "Alice Bennett",
         content =

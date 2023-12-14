@@ -43,7 +43,7 @@ fun CircleLabelProfile(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewCircleLabelProfile() {
+fun PreviewCircleLabelProfile() {
     CircleLabelProfile(
         label = "quisque",
         profileUrl = "https://www.google.com/#q=porro",

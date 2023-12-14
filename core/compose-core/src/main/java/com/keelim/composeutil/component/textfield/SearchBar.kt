@@ -41,6 +41,6 @@ fun SearchBar(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewSearchBar() {
+fun PreviewSearchBar() {
     SearchBar(value = "electram", onValueChange = {}, placeHolder = "inani",)
 }

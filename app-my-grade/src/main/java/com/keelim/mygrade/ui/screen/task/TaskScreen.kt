@@ -111,7 +111,7 @@ fun TaskScreen(viewModel: TaskViewModel = hiltViewModel()) {
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewTaskScreen() {
+fun PreviewTaskScreen() {
     TaskScreen()
 }
 

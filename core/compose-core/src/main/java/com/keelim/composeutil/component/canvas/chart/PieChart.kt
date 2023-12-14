@@ -52,7 +52,7 @@ fun PieChart(
 
 @Preview
 @Composable
-private fun PreviewPieChart() {
+fun PreviewPieChart() {
     PieChart(
         listOf(
             PieChartEntry(Color.Red, 0.5f),

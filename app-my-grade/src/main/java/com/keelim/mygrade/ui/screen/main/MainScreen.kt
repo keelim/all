@@ -257,7 +257,7 @@ private fun ColumnScope.MainBottomSection(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewMainScreen() {
+fun PreviewMainScreen() {
     MainScreen()
 }
 
@@ -301,6 +301,6 @@ internal fun ScoreTextRow(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewScoreTextRow() {
+fun PreviewScoreTextRow() {
     ScoreTextRow(text = "원점수", value = "", onValueChange = {}, isError = false)
 }

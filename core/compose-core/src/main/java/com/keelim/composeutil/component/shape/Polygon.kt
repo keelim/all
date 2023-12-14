@@ -47,7 +47,7 @@ class Polygon(val slides: Int, val rotation: Float = 0f) : Shape {
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewPolygon() {
+fun PreviewPolygon() {
     Image(
         imageVector = Icons.Filled.Check,
         contentDescription = null,

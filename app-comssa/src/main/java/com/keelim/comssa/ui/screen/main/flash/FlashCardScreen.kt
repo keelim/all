@@ -90,6 +90,6 @@ fun FlashCard(
 
 @Preview
 @Composable
-private fun PreviewFlashCardScreen() {
+fun PreviewFlashCardScreen() {
     FlashCardScreen()
 }

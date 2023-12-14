@@ -19,6 +19,6 @@ private fun WordWriteScreen(
 
 @Preview
 @Composable
-private fun PreviewWordWriteScreen() {
+fun PreviewWordWriteScreen() {
     WordWriteScreen()
 }

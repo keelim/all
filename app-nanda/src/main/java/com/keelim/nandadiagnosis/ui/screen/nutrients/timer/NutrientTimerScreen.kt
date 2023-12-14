@@ -217,7 +217,7 @@ fun CircularCountDownTimer(
 
 @Preview
 @Composable
-private fun PreviewTimerScreen() {
+fun PreviewTimerScreen() {
     NutrientTimerScreen()
 }
 

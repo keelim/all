@@ -107,6 +107,6 @@ fun RowScope.TableCell(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewSimpleTableScreen() {
+fun PreviewSimpleTableScreen() {
     SimpleTableScreen()
 }

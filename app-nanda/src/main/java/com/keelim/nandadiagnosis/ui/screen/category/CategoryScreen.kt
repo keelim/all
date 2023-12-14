@@ -97,12 +97,12 @@ private fun CategoryCard(
 
 @Preview
 @Composable
-private fun PreviewCategoryCard() {
+fun PreviewCategoryCard() {
     CategoryCard(categoryTitle = "병명", onCategoryClick = {}, modifier = Modifier, index = 4713)
 }
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewCategoryScreen() {
+fun PreviewCategoryScreen() {
     CategoryScreen(onCategoryClick = {})
 }

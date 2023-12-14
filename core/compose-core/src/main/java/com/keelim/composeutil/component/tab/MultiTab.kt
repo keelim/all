@@ -43,7 +43,7 @@ fun MultiTab(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewMultiTab() {
+fun PreviewMultiTab() {
     MultiTab(
         persistentListOf(
             "home1",

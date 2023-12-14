@@ -76,7 +76,7 @@ fun ExpandableButton(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewExpandableButton() {
+fun PreviewExpandableButton() {
     ExpandableButton(
         title = "pellentesque",
         subtitle = "parturient",

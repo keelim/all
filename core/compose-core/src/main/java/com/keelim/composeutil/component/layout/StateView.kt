@@ -49,6 +49,6 @@ fun Loading() {
 
 @Preview
 @Composable
-private fun PreviewLoading() {
+fun PreviewLoading() {
     Loading()
 }

@@ -7,6 +7,7 @@ import com.keelim.setting.di.DeviceInfoSource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
@@ -14,7 +15,8 @@ import javax.inject.Inject
 class SettingsViewModel @Inject constructor(
     deviceInfoSource: DeviceInfoSource,
 ) : ViewModel() {
-    val deviceInfo: StateFlow<DeviceInfo?> = deviceInfoSource
+    val deviceInfo: StateFlow<DeviceInfo> = deviceInfoSource
         .getDeviceInfo()
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), null)
+        .filterNotNull()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), DeviceInfo.empty())
 }

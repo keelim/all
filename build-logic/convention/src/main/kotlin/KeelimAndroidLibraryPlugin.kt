@@ -15,7 +15,10 @@ class KeelimAndroidLibraryPlugin : Plugin<Project> {
                 apply("org.gradle.android.cache-fix")
             }
             extensions.getByType<LibraryExtension>().apply {
-                buildFeatures.dataBinding = true
+                with(buildFeatures) {
+                    dataBinding = true
+                    buildConfig = true
+                }
                 configureKotlinAndroid(this)
                 lint {
                     abortOnError = false

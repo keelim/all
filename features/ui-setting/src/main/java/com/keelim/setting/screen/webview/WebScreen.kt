@@ -85,7 +85,7 @@ fun WebViewScreen(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewWebViewScreen() {
+fun PreviewWebViewScreen() {
     WebViewScreen(
         uri = "https://www.google.com/#q=iriure",
         onNavigateCategory = {},
@@ -137,7 +137,7 @@ fun WebViewNavigationBar(onBackwardClick: () -> Unit, onForwardClick: () -> Unit
 
 @Preview
 @Composable
-private fun PreviewWebViewNavigationBar() {
+fun PreviewWebViewNavigationBar() {
     WebViewNavigationBar(
         onBackwardClick = {},
         onForwardClick = {},

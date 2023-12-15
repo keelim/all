@@ -77,7 +77,7 @@ fun HistoryList(
 
 @Preview
 @Composable
-private fun PreviewHistoryList() {
+fun PreviewHistoryList() {
     Column(
         modifier = Modifier.padding(horizontal = 12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),

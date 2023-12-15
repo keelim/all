@@ -1,4 +1,5 @@
-package com.keelim.composeutil.component.card
+
+package com.keelim.composeutil.component.etc.profile
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.border
@@ -138,7 +139,7 @@ private fun ProfileText(title: String, description: String) {
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewProfileCard() {
+fun PreviewProfileCard() {
     ProfileCard(
         profile =
         Profile(

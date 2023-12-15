@@ -14,11 +14,11 @@ android {
         vectorDrawables { useSupportLibrary = true }
     }
     buildTypes {
-        create("cnubus-benchmark") {
-            signingConfig = signingConfigs.getByName("debug")
-            matchingFallbacks += listOf("release")
-            isDebuggable = false
-        }
+        // create("cnubus-benchmark") {
+        //     signingConfig = signingConfigs.getByName("debug")
+        //     matchingFallbacks += listOf("release")
+        //     isDebuggable = false
+        // }
     }
     namespace = "com.keelim.cnubus"
 }

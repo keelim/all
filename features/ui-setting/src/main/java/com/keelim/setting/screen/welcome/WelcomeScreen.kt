@@ -75,7 +75,7 @@ private fun WelcomeScreen(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewWelcomeScreen() {
+fun PreviewWelcomeScreen() {
     WelcomeScreen(
         onNavigateMain = {},
     )

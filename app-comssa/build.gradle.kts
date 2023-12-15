@@ -13,11 +13,11 @@ android {
     }
 
     buildTypes {
-        create("comssa-benchmark") {
-            signingConfig = signingConfigs.getByName("debug")
-            matchingFallbacks += listOf("release")
-            isDebuggable = false
-        }
+        // create("comssa-benchmark") {
+        //     signingConfig = signingConfigs.getByName("debug")
+        //     matchingFallbacks += listOf("release")
+        //     isDebuggable = false
+        // }
         getByName("release") {}
     }
     useLibrary("android.test.mock")
@@ -36,6 +36,7 @@ dependencies {
     implementation(libs.androidx.compose.material.iconsExtended)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.material3.windowSizeClass)
+    implementation(libs.androidx.compose.material3.adaptiveNavigationSuite)
     implementation(libs.androidx.compose.runtime)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.ui.util)
@@ -54,6 +55,7 @@ dependencies {
     implementation(libs.timber)
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.firestore)
+    implementation(libs.firebase.database)
 
     debugImplementation(libs.androidx.compose.ui.testManifest)
     debugImplementation(libs.androidx.compose.ui.tooling)

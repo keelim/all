@@ -72,7 +72,7 @@ private fun RichIcon(iconUri: String) {
 
 @Preview
 @Composable
-private fun PreviewRichIcon() {
+fun PreviewRichIcon() {
     RichIcon(
         iconUri =
         "https://images.unsplash.com/photo-1694671702548-0f78d62ecadc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2574&q=80",
@@ -99,7 +99,7 @@ private fun RichTitle(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewRichTitle() {
+fun PreviewRichTitle() {
     RichTitle(title = "malesuada", subTitle = "habitasse")
 }
 
@@ -122,7 +122,7 @@ fun RichValue(currentValue: Float, totalValue: Float) {
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewRichValue() {
+fun PreviewRichValue() {
     RichValue(currentValue = 12.13f, totalValue = 14.15f)
 }
 
@@ -168,13 +168,13 @@ fun RichChart(modifier: Modifier = Modifier, list: List<Float>) {
 
 @Preview
 @Composable
-private fun PreviewRichChart() {
+fun PreviewRichChart() {
     RichChart(list = listOf(10f, 20f, 30f, 1f, 5f))
 }
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewRichCard() {
+fun PreviewRichCard() {
     RichCard(
         richRowInfo =
         RichRowInfo(

@@ -68,7 +68,7 @@ private fun simpleFlexBoxMeasurePolicy(): MeasurePolicy =
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewColorBox() {
+fun PreviewColorBox() {
     ColorBox()
 }
 
@@ -86,7 +86,7 @@ fun SimpleFlexBox(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewSimpleFlexBox() {
+fun PreviewSimpleFlexBox() {
     SimpleFlexBox {
         for (i in 0..1000) {
             ColorBox()

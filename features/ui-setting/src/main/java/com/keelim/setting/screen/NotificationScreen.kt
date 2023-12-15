@@ -174,13 +174,13 @@ private fun NotificationListCard(
 
 @Preview
 @Composable
-private fun PreviewNotificationScreen() {
+fun PreviewNotificationScreen() {
     NotificationScreen()
 }
 
 @Preview
 @Composable
-private fun PreviewNotificationListCard() {
+fun PreviewNotificationListCard() {
     NotificationListCard(
         notificationDate = "2022.12.13",
         notificationTitle = "공지 제목",

@@ -3,26 +3,34 @@ package com.keelim.data.source.notification
 import com.keelim.data.BuildConfig
 import com.keelim.data.di.IoDispatcher
 import com.keelim.data.di.network.KtorNetworkModule
-import com.keelim.data.network.response.NotificationResponse
+import com.keelim.data.network.response.CommonResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
+import io.ktor.client.request.parameter
+import io.ktor.client.request.url
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class NotificationRepositoryImpl @Inject constructor(
+class NotificationRepositoryImpl
+@Inject
+constructor(
     @KtorNetworkModule.KtorAndroidClient val client: HttpClient,
     @IoDispatcher private val dispatcher: CoroutineDispatcher,
 ) : NotificationRepository {
     override suspend fun getNotification(): List<Notification> {
         return withContext(dispatcher) {
-            val response: NotificationResponse = client.use {
-                it.get(BuildConfig.NOTIFICATION_URL).body()
-            }
-            response.values.map { value ->
-                Notification(date = value[0], title = value[1], desc = value[2])
-            }
+            client
+                .use<HttpClient, CommonResponse> {
+                    it.get {
+                        url("${BuildConfig.NOTIFICATION_URL}/notifications")
+                        parameter("key", BuildConfig.SHEET_KEY)
+                    }
+                        .body()
+                }
+                .values
+                .map { (date, title, desc) -> Notification(date = date, title = title, desc = desc) }
         }
     }
 }

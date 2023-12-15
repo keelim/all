@@ -13,6 +13,7 @@ fun NavController.navigateSettings(navOptions: NavOptions? = null) {
 fun NavGraphBuilder.settingsScreen(
     onNotificationsClick: () -> Unit,
     onOpenSourceClick: () -> Unit,
+    onLabClick: () -> Unit,
     nestedGraphs: NavGraphBuilder.() -> Unit,
 ) {
     composable(
@@ -21,6 +22,7 @@ fun NavGraphBuilder.settingsScreen(
         SettingsRoute(
             onNotificationsClick = onNotificationsClick,
             onOpenSourceClick = onOpenSourceClick,
+            onLabClick = onLabClick,
         )
     }
     nestedGraphs()

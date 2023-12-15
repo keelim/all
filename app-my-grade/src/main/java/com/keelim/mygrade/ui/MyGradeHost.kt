@@ -26,6 +26,8 @@ import com.keelim.mygrade.ui.screen.word.navigateWordWrite
 import com.keelim.mygrade.ui.screen.word.wordScreen
 import com.keelim.mygrade.ui.screen.word.wordWriteScreen
 import com.keelim.setting.screen.event.eventScreen
+import com.keelim.setting.screen.lab.labScreen
+import com.keelim.setting.screen.lab.navigateLab
 import com.keelim.setting.screen.navigateNotification
 import com.keelim.setting.screen.notificationScreen
 import com.keelim.setting.screen.settings.navigateSettings
@@ -94,11 +96,15 @@ fun MyGradeHost(
             },
         )
         settingsScreen(
-            onNotificationsClick = { navController.navigateNotification() },
+            onNotificationsClick = navController::navigateNotification,
             onOpenSourceClick = {
                 context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
             },
-            nestedGraphs = { notificationScreen() },
+            onLabClick = navController::navigateLab,
+            nestedGraphs = {
+                notificationScreen()
+                labScreen()
+            },
         )
         eventScreen()
         taskScreen()

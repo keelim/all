@@ -76,6 +76,6 @@ fun ScaffoldDemo() {
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewScaffoldDemo() {
+fun PreviewScaffoldDemo() {
     ScaffoldDemo()
 }

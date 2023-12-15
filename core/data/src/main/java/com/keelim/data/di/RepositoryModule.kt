@@ -12,6 +12,8 @@ import com.keelim.data.source.NandaIORepository
 import com.keelim.data.source.NandaIORepositoryImpl
 import com.keelim.data.source.notification.NotificationRepository
 import com.keelim.data.source.notification.NotificationRepositoryImpl
+import com.keelim.data.source.prompt.PromptRepository
+import com.keelim.data.source.prompt.PromptRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -49,4 +51,9 @@ interface RepositoryModule {
     fun bindsNotificationRepository(
         repository: NotificationRepositoryImpl,
     ): NotificationRepository
+
+    @Binds
+    fun bindsPromptRepository(
+        repository: PromptRepositoryImpl,
+    ): PromptRepository
 }

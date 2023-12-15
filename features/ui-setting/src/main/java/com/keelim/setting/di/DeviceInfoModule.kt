@@ -13,7 +13,16 @@ data class DeviceInfo(
     val deviceBrand: String,
     val deviceModel: String,
     val versionName: String?,
-)
+) {
+    companion object {
+        fun empty(): DeviceInfo = DeviceInfo(
+            deviceName = "",
+            deviceBrand = "",
+            deviceModel = "",
+            versionName = null,
+        )
+    }
+}
 
 interface DeviceInfoSource {
     fun getDeviceInfo(): Flow<DeviceInfo?>

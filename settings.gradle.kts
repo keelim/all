@@ -16,7 +16,7 @@ dependencyResolutionManagement {
 }
 rootProject.name = "all"
 include(
-    ":app-benchmark",
+    //":app-benchmark",
     ":app-cnubus",
     ":app-my-grade",
     ":app-nanda",

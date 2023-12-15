@@ -1,4 +1,4 @@
-package com.keelim.composeutil.component.card
+package com.keelim.composeutil.component.etc.profile
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -141,7 +141,7 @@ private fun DrawScope.drawCurvyLine() {
 
 @Preview
 @Composable
-private fun PreviewPriceCard() {
+fun PreviewPriceCard() {
     PriceCard(
         priceCardState = PriceCardState(
             value = 2.3f,

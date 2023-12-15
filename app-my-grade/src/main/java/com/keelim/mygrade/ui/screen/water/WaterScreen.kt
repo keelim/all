@@ -50,6 +50,6 @@ fun WaterScreen(viewModel: WaterViewModel = hiltViewModel()) {
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewWaterScreen() {
+fun PreviewWaterScreen() {
     WaterScreen()
 }

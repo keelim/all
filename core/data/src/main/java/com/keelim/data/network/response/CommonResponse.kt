@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class NotificationResponse(
+data class CommonResponse(
     @SerialName("majorDimension")
     val majorDimension: String, // ROWS
     @SerialName("range")

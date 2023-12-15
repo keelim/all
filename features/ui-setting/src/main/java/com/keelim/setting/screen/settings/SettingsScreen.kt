@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Build
 import androidx.compose.material.icons.outlined.List
+import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -38,23 +39,30 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.keelim.setting.di.DeviceInfo
 
 @Composable
 fun SettingsRoute(
     onNotificationsClick: () -> Unit,
     onOpenSourceClick: () -> Unit,
+    onLabClick: () -> Unit,
+    viewModel: SettingsViewModel = hiltViewModel(),
 ) {
+    val deviceInfo by viewModel.deviceInfo.collectAsStateWithLifecycle()
     SettingsScreen(
+        deviceInfo = deviceInfo,
         onNotificationsClick = onNotificationsClick,
         onOpenSourceClick = onOpenSourceClick,
+        onLabClick = onLabClick,
     )
 }
 
 @Composable
 fun SettingsScreen(
+    deviceInfo: DeviceInfo,
     onNotificationsClick: () -> Unit,
     onOpenSourceClick: () -> Unit,
-    viewModel: SettingsViewModel = hiltViewModel(),
+    onLabClick: () -> Unit,
 ) {
     val listState = rememberLazyListState()
     val hasScrolled by remember { derivedStateOf { listState.firstVisibleItemScrollOffset > 0 } }
@@ -71,7 +79,6 @@ fun SettingsScreen(
     val onBackPressedDispatcher =
         checkNotNull(LocalOnBackPressedDispatcherOwner.current) { "this is not null" }
             .onBackPressedDispatcher
-    val deviceInfo by viewModel.deviceInfo.collectAsStateWithLifecycle()
     Scaffold(
         containerColor = MaterialTheme.colorScheme.surface,
         contentColor = MaterialTheme.colorScheme.onSurface,
@@ -108,17 +115,24 @@ fun SettingsScreen(
                 CategoryItem(
                     title = "Notifications",
                     icon = Icons.Outlined.Notifications,
-                    onClick = { onNotificationsClick() },
+                    onClick = onNotificationsClick,
                 )
             }
             item {
                 CategoryItem(
                     title = "OpenSource",
                     icon = Icons.Outlined.List,
-                    onClick = { onOpenSourceClick() },
+                    onClick = onOpenSourceClick,
                 )
             }
-            if (deviceInfo?.versionName != null) {
+            item {
+                CategoryItem(
+                    title = "실험실",
+                    icon = Icons.Outlined.Lock,
+                    onClick = onLabClick,
+                )
+            }
+            if (deviceInfo.versionName != null) {
                 item {
                     CategoryItem(
                         title = "App Version: ${deviceInfo?.versionName}",
@@ -134,7 +148,17 @@ fun SettingsScreen(
 @Preview
 @Composable
 private fun PreviewSettingsScreen() {
-    SettingsScreen(onNotificationsClick = {}, onOpenSourceClick = {})
+    SettingsScreen(
+        deviceInfo = DeviceInfo(
+            deviceName = "Ned Pruitt",
+            deviceBrand = "dolore",
+            deviceModel = "tale",
+            versionName = null,
+        ),
+        onNotificationsClick = {},
+        onOpenSourceClick = {},
+        onLabClick = {},
+    )
 }
 
 @Composable

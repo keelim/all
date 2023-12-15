@@ -44,9 +44,6 @@ jobs:
           APOD_API_KEY: ${{ secrets.LOCAL_PROPERTIES }}
         run: echo '${{ secrets.LOCAL_PROPERTIES }}' > ./local.properties
 
-      - name: Build with Gradle
-        run: ./gradlew app-cnubus:build
-
       - name: Build Release AAB
         id: buildRelease
         run: ./gradlew app-cnubus:bundleRelease

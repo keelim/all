@@ -28,19 +28,19 @@ fun SearchBar(
         leadingIcon = {
             Icon(
                 imageVector = Icons.Default.Search,
-                contentDescription = null
+                contentDescription = null,
             )
         },
         placeholder = {
             Text(
                 text = placeHolder,
             )
-        }
+        },
     )
 }
 
 @Preview(showBackground = true)
 @Composable
 fun PreviewSearchBar() {
-    SearchBar(value = "electram", onValueChange = {}, placeHolder = "inani",)
+    SearchBar(value = "electram", onValueChange = {}, placeHolder = "inani")
 }

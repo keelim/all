@@ -7,9 +7,9 @@ import com.keelim.setting.di.DeviceInfoSource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
-import kotlinx.coroutines.flow.filterNotNull
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(

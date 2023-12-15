@@ -28,11 +28,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 @Composable
 fun LabRoute(viewModel: LabViewModel = hiltViewModel()) {
-  val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-  LabScreen(
-      uiState = uiState,
-      onClick = viewModel::queuePrompt
-  )
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    LabScreen(
+        uiState = uiState,
+        onClick = viewModel::queuePrompt,
+    )
 }
 
 @Composable
@@ -40,24 +40,28 @@ fun LabScreen(
     uiState: LabUiState,
     onClick: (String) -> Unit,
 ) {
-    val (prompt, setPrompt) =  remember { mutableStateOf("") }
+    val (prompt, setPrompt) = remember { mutableStateOf("") }
     Column(
         modifier = Modifier
             .padding(all = 8.dp)
-            .verticalScroll(rememberScrollState())
+            .verticalScroll(rememberScrollState()),
     ) {
         Row {
             TextField(
                 value = prompt,
-                label = { Text(
-                    text = "prompt 를 입력해주세요"
-                ) },
-                placeholder = { Text(
-                    text = "요약해드립니다."
-                ) },
+                label = {
+                    Text(
+                        text = "prompt 를 입력해주세요",
+                    )
+                },
+                placeholder = {
+                    Text(
+                        text = "요약해드립니다.",
+                    )
+                },
                 onValueChange = setPrompt,
                 modifier = Modifier
-                    .weight(8f)
+                    .weight(8f),
             )
             TextButton(
                 onClick = {
@@ -68,20 +72,21 @@ fun LabScreen(
                 modifier = Modifier
                     .weight(2f)
                     .padding(all = 4.dp)
-                    .align(Alignment.CenterVertically)
+                    .align(Alignment.CenterVertically),
             ) {
                 Text(
-                    text = "Queue!"
+                    text = "Queue!",
                 )
             }
         }
         when (uiState) {
             LabUiState.Initial,
-            LabUiState.Loading -> Box(
+            LabUiState.Loading,
+            -> Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
                     .padding(all = 8.dp)
-                    .align(Alignment.CenterHorizontally)
+                    .align(Alignment.CenterHorizontally),
             ) {
                 CircularProgressIndicator()
             }
@@ -89,18 +94,18 @@ fun LabScreen(
             is LabUiState.Success -> Row(modifier = Modifier.padding(all = 8.dp)) {
                 Icon(
                     Icons.Outlined.Person,
-                    contentDescription = "Person Icon"
+                    contentDescription = "Person Icon",
                 )
                 Text(
                     text = uiState.outputText,
-                    modifier = Modifier.padding(horizontal = 8.dp)
+                    modifier = Modifier.padding(horizontal = 8.dp),
                 )
             }
 
             is LabUiState.Error -> Text(
                 text = uiState.errorMessage,
                 color = Color.Red,
-                modifier = Modifier.padding(all = 8.dp)
+                modifier = Modifier.padding(all = 8.dp),
             )
         }
     }
@@ -109,7 +114,8 @@ fun LabScreen(
 @Preview(showBackground = true)
 @Composable
 private fun PreviewLabScreen() {
-  LabScreen(
-      uiState =LabUiState.Loading, onClick = {}
-  )
+    LabScreen(
+        uiState = LabUiState.Loading,
+        onClick = {},
+    )
 }

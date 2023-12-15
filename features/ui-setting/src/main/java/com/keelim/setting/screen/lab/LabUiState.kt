@@ -10,10 +10,10 @@ sealed interface LabUiState {
     data object Loading : LabUiState
 
     data class Success(
-        val outputText: String
+        val outputText: String,
     ) : LabUiState
 
     data class Error(
-        val errorMessage: String
+        val errorMessage: String,
     ) : LabUiState
 }

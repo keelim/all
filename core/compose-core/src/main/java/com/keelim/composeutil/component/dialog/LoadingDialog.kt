@@ -20,31 +20,32 @@ import androidx.compose.ui.window.DialogProperties
 fun LoadingDialog(
     text: String,
 ) {
-  Dialog(
-      onDismissRequest = {},
-      properties =
-          DialogProperties(
-              dismissOnBackPress = false,
-              dismissOnClickOutside = false,
-          ),
-  ) {
-    Surface(shape = RoundedCornerShape(16.dp)) {
-      Row(
-          verticalAlignment = Alignment.CenterVertically,
-          horizontalArrangement = Arrangement.spacedBy(16.dp),
-          modifier = Modifier.padding(16.dp)) {
-            CircularProgressIndicator()
-            Text(
-                text = text,
-                modifier = Modifier.fillMaxWidth()
-            )
-          }
+    Dialog(
+        onDismissRequest = {},
+        properties =
+        DialogProperties(
+            dismissOnBackPress = false,
+            dismissOnClickOutside = false,
+        ),
+    ) {
+        Surface(shape = RoundedCornerShape(16.dp)) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                modifier = Modifier.padding(16.dp),
+            ) {
+                CircularProgressIndicator()
+                Text(
+                    text = text,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            }
+        }
     }
-  }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun PreviewLoadingDialog() {
-  LoadingDialog(text = "ing...")
+    LoadingDialog(text = "ing...")
 }

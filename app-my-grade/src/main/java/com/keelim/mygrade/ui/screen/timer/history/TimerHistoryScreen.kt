@@ -16,6 +16,6 @@ fun TimerHistoryScreen(viewModel: TimerHistoryViewModel = hiltViewModel()) {
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewTimerHistoryScreen() {
+fun PreviewTimerHistoryScreen() {
     TimerHistoryScreen()
 }

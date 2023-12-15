@@ -40,6 +40,6 @@ fun StickyHeaderDemo() {
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewStickyHeaderDemo() {
+fun PreviewStickyHeaderDemo() {
     StickyHeaderDemo()
 }

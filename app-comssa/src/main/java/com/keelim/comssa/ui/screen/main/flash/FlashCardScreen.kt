@@ -18,7 +18,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
-
 @Composable
 fun FlashCardRoute() {
     FlashCardScreen()
@@ -26,9 +25,9 @@ fun FlashCardRoute() {
 
 @Composable
 fun FlashCardScreen(
-    viewModel: FlashCardViewModel = hiltViewModel()
+    viewModel: FlashCardViewModel = hiltViewModel(),
 ) {
-    val cardFace by  viewModel.uiState.collectAsStateWithLifecycle()
+    val cardFace by viewModel.uiState.collectAsStateWithLifecycle()
 
     FlashCard(
         flashCardState = cardFace.flashCardState,
@@ -91,6 +90,6 @@ fun FlashCard(
 
 @Preview
 @Composable
-private fun PreviewFlashCardScreen() {
+fun PreviewFlashCardScreen() {
     FlashCardScreen()
 }

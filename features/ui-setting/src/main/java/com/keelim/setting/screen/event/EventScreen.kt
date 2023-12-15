@@ -15,6 +15,6 @@ fun EventScreen(viewModel: EventViewModel = hiltViewModel()) {
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewEventScreen() {
+fun PreviewEventScreen() {
     EventScreen()
 }

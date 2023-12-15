@@ -31,6 +31,6 @@ fun MultiAppBar(title: String) {
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewMultiAppBar() {
+fun PreviewMultiAppBar() {
     MultiAppBar("App Name")
 }

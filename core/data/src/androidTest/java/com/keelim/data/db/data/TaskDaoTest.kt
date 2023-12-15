@@ -27,7 +27,7 @@ class TaskDaoTest {
             id = "id",
             isCompleted = false,
             date = "2021-03-27T02:16:20",
-            isEditing = true
+            isEditing = true,
         )
         appDatabase.taskDao().upsert(task)
         val tasks = appDatabase.taskDao().observeAll().first()

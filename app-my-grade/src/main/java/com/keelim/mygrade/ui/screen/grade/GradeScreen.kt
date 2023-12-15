@@ -150,6 +150,6 @@ fun GradeContent(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewGradeScreen() {
+fun PreviewGradeScreen() {
     GradeScreen(subject = "Computer Science", grade = "12", rank = "23", onCopyClick = {}, onShareClick = {})
 }

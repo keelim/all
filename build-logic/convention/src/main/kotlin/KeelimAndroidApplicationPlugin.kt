@@ -28,7 +28,10 @@ class KeelimAndroidApplicationPlugin : Plugin<Project> {
                     versionCode = libs.findVersion("versionCode").get().displayName.toInt()
                     targetSdk = libs.findVersion("targetSdk").get().displayName.toInt()
                 }
-                buildFeatures.dataBinding = true
+                with(buildFeatures) {
+                    dataBinding = true
+                    buildConfig = true
+                }
                 buildTypes.getByName("release").apply {
                     isMinifyEnabled = true
                     isShrinkResources = true

@@ -90,7 +90,7 @@ fun RootStateView(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewRootScreen() {
+fun PreviewRootScreen() {
     RootScreen(onRootClick = {})
 }
 
@@ -120,7 +120,7 @@ internal fun RootCard(
 
 @Preview
 @Composable
-private fun PreviewRootCard() {
+fun PreviewRootCard() {
     RootCard(onRootClick = {}, position = 6612, rootTitle = "velit")
 }
 
@@ -143,7 +143,7 @@ fun RootTopBar(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewRootTopBar() {
+fun PreviewRootTopBar() {
     RootTopBar(
         title = "assueverit",
     )

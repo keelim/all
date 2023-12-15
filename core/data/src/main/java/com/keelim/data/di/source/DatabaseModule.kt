@@ -1,4 +1,4 @@
-package com.keelim.data.di
+package com.keelim.data.di.source
 
 import android.content.Context
 import androidx.datastore.core.DataStore
@@ -12,6 +12,7 @@ import androidx.room.Room
 import com.keelim.data.db.CnuAppDatabase
 import com.keelim.data.db.MyGradeAppDatabase
 import com.keelim.data.db.NandaAppDatabase
+import com.keelim.data.di.IoDispatcher
 import com.keelim.data.source.local.DataStoreManager
 import com.keelim.data.source.local.PreferenceManager
 import com.keelim.data.source.local.SharedPreferenceManager
@@ -21,11 +22,11 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import java.io.File
-import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
+import java.io.File
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)

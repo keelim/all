@@ -9,6 +9,8 @@ import androidx.navigation.compose.NavHost
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.keelim.composeutil.AppState
 import com.keelim.setting.screen.event.eventScreen
+import com.keelim.setting.screen.lab.labScreen
+import com.keelim.setting.screen.lab.navigateLab
 import com.keelim.setting.screen.navigateNotification
 import com.keelim.setting.screen.notificationScreen
 import com.keelim.setting.screen.settings.settingsScreen
@@ -31,14 +33,14 @@ fun CnubusHost(
         modifier = modifier,
     ) {
         settingsScreen(
-            onNotificationsClick = {
-                navController.navigateNotification()
-            },
+            onNotificationsClick = navController::navigateNotification,
             onOpenSourceClick = {
                 context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
             },
+            onLabClick = navController::navigateLab,
             nestedGraphs = {
                 notificationScreen()
+                labScreen()
             },
         )
         eventScreen()

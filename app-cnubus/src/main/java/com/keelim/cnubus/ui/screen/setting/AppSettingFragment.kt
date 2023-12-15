@@ -37,7 +37,7 @@ class AppSettingFragment : Fragment() {
             onOpenSourceClick = {
                 requireContext().startActivity(Intent(context, OssLicensesMenuActivity::class.java))
             },
-            onLabClick = { toast("준비중입니다.") }
+            onLabClick = { toast("준비중입니다.") },
         )
     }
 }

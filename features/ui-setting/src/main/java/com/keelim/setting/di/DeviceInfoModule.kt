@@ -15,11 +15,11 @@ data class DeviceInfo(
     val versionName: String?,
 ) {
     companion object {
-        fun empty() : DeviceInfo = DeviceInfo(
+        fun empty(): DeviceInfo = DeviceInfo(
             deviceName = "",
             deviceBrand = "",
             deviceModel = "",
-            versionName = null
+            versionName = null,
         )
     }
 }

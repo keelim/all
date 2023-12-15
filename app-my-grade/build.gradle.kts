@@ -9,11 +9,11 @@ android {
     defaultConfig {
         applicationId = "com.keelim.mygrade"
         buildTypes {
-            create("my-grade-benchmark") {
-                signingConfig = signingConfigs.getByName("debug")
-                matchingFallbacks += listOf("release")
-                isDebuggable = false
-            }
+            // create("my-grade-benchmark") {
+            //     signingConfig = signingConfigs.getByName("debug")
+            //     matchingFallbacks += listOf("release")
+            //     isDebuggable = false
+            // }
         }
     }
 

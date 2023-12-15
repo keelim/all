@@ -13,9 +13,8 @@ import javax.inject.Singleton
 object PromptModule {
     @Provides
     @Singleton
-    fun provideGenerativeModel(
-    ): GenerativeModel = GenerativeModel(
+    fun provideGenerativeModel(): GenerativeModel = GenerativeModel(
         modelName = "gemini-pro",
-        apiKey = BuildConfig.GENERATIVE
+        apiKey = BuildConfig.GENERATIVE,
     )
 }

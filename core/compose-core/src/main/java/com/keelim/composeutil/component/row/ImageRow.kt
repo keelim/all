@@ -19,11 +19,11 @@ import coil.compose.AsyncImage
 fun ImageLabelRow(
     imageUrl: String,
     label: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Surface(
         shape = MaterialTheme.shapes.medium,
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier.fillMaxWidth(),
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -36,7 +36,7 @@ fun ImageLabelRow(
             )
             Text(
                 text = label,
-                modifier = Modifier.padding(horizontal = 16.dp)
+                modifier = Modifier.padding(horizontal = 16.dp),
             )
         }
     }

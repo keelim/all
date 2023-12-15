@@ -150,15 +150,15 @@ fun SettingsScreen(
 private fun PreviewSettingsScreen() {
     SettingsScreen(
         deviceInfo = DeviceInfo(
-        deviceName = "Ned Pruitt",
-        deviceBrand = "dolore",
-        deviceModel = "tale",
-        versionName = null
-    ),
+            deviceName = "Ned Pruitt",
+            deviceBrand = "dolore",
+            deviceModel = "tale",
+            versionName = null,
+        ),
         onNotificationsClick = {},
         onOpenSourceClick = {},
         onLabClick = {},
-        )
+    )
 }
 
 @Composable

@@ -19,11 +19,11 @@ import coil.compose.AsyncImage
 fun CircleLabelProfile(
     label: String,
     profileUrl: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         AsyncImage(
             model = profileUrl,
@@ -31,12 +31,12 @@ fun CircleLabelProfile(
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .size(90.dp)
-                .clip(CircleShape)
+                .clip(CircleShape),
         )
         Text(
             text = label,
             modifier = Modifier.paddingFromBaseline(top = 24.dp, bottom = 8.dp),
-            style = MaterialTheme.typography.bodyMedium
+            style = MaterialTheme.typography.bodyMedium,
         )
     }
 }

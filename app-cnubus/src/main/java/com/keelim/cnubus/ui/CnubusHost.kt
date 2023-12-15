@@ -37,7 +37,7 @@ fun CnubusHost(
             onOpenSourceClick = {
                 context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
             },
-            onLabClick =  navController::navigateLab,
+            onLabClick = navController::navigateLab,
             nestedGraphs = {
                 notificationScreen()
                 labScreen()

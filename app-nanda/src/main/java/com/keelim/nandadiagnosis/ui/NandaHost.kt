@@ -72,7 +72,7 @@ fun NandaHost(
             nestedGraphs = {
                 notificationScreen()
                 labScreen()
-           },
+            },
         )
         eventScreen()
         nutrientScreen(

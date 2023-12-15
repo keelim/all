@@ -20,7 +20,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
-
 @Composable
 fun ExpandableButton(
     title: String,
@@ -29,18 +28,18 @@ fun ExpandableButton(
     clickedButtonHint: String,
     onClick: () -> Unit,
 ) {
-    val (expanded, setExpanded) =  remember { mutableStateOf(false)}
+    val (expanded, setExpanded) = remember { mutableStateOf(false) }
     val extraPadding by animateDpAsState(
-        targetValue = if(expanded) 48.dp else 0.dp,
+        targetValue = if (expanded) 48.dp else 0.dp,
         animationSpec = spring(
             dampingRatio = Spring.DampingRatioMediumBouncy,
-            stiffness = Spring.StiffnessLow
+            stiffness = Spring.StiffnessLow,
         ),
         label = "",
     )
     Surface(
         modifier = Modifier
-            .padding(vertical = 4.dp, horizontal = 8.dp)
+            .padding(vertical = 4.dp, horizontal = 8.dp),
     ) {
         Row(
             modifier = Modifier
@@ -51,23 +50,23 @@ fun ExpandableButton(
         ) {
             Column(
                 modifier = Modifier
-                    .padding(bottom = extraPadding.coerceAtLeast(0.dp))
+                    .padding(bottom = extraPadding.coerceAtLeast(0.dp)),
             ) {
                 Text(
                     text = title,
                 )
                 Text(
-                    text = subtitle
+                    text = subtitle,
                 )
             }
             ElevatedButton(
                 onClick = {
                     onClick()
                     setExpanded(expanded.not())
-                }
+                },
             ) {
                 Text(
-                    text = if(expanded) clickedButtonHint else buttonHint
+                    text = if (expanded) clickedButtonHint else buttonHint,
                 )
             }
         }

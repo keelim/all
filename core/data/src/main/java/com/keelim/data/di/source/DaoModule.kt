@@ -1,4 +1,4 @@
-package com.keelim.data.di
+package com.keelim.data.di.source
 
 import com.keelim.data.db.CnuAppDatabase
 import com.keelim.data.db.MyGradeAppDatabase

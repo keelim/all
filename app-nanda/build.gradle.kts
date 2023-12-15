@@ -12,11 +12,11 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
-        create("nanda-benchmark") {
-            signingConfig = signingConfigs.getByName("debug")
-            matchingFallbacks += listOf("release")
-            isDebuggable = false
-        }
+        // create("nanda-benchmark") {
+        //     signingConfig = signingConfigs.getByName("debug")
+        //     matchingFallbacks += listOf("release")
+        //     isDebuggable = false
+        // }
     }
 
     useLibrary("android.test.mock")

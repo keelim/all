@@ -28,6 +28,7 @@ dependencies {
     implementation(libs.androidx.dataStore.preferences)
     implementation(libs.androidx.paging.common)
     implementation(libs.firebase.firestore)
+    implementation(libs.generativeai)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.datetime)
     implementation(libs.kotlinx.serialization.json)
@@ -43,10 +44,11 @@ dependencies {
     implementation(libs.ktor.client.websockets)
     implementation(libs.okhttp.logging)
     implementation(libs.play.services.maps)
+    implementation(libs.protobuf.kotlin.lite)
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.kotlin.serialization)
     implementation(libs.timber)
-    implementation(libs.protobuf.kotlin.lite)
+
     implementation(platform(libs.firebase.bom))
 
     testImplementation(libs.kotlinx.coroutines.android)

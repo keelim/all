@@ -13,11 +13,11 @@ android {
     }
 
     buildTypes {
-        create("comssa-benchmark") {
-            signingConfig = signingConfigs.getByName("debug")
-            matchingFallbacks += listOf("release")
-            isDebuggable = false
-        }
+        // create("comssa-benchmark") {
+        //     signingConfig = signingConfigs.getByName("debug")
+        //     matchingFallbacks += listOf("release")
+        //     isDebuggable = false
+        // }
         getByName("release") {}
     }
     useLibrary("android.test.mock")

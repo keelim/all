@@ -27,7 +27,7 @@ jobs:
       - name: Upload artifact
         uses: JetBrains/writerside-github-action@v4
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: artifact
           path: artifacts/${{ env.ARTIFACT }}

@@ -45,7 +45,7 @@ jobs:
         run: echo '${{ secrets.LOCAL_PROPERTIES }}' > ./local.properties
 
       - name: Build with Gradle
-        run: ./gradlew app-my-grade:build
+        run: ./gradlew app-my-grade:assembleRelease
 
       - name: Build Release AAB
         id: buildRelease

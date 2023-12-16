@@ -10,6 +10,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEachIndexed
+import com.keelim.composeutil.util.randomColor
 
 @Stable
 data class PieChartEntry(
@@ -55,9 +56,9 @@ fun PieChart(
 fun PreviewPieChart() {
     PieChart(
         listOf(
-            PieChartEntry(Color.Red, 0.5f),
-            PieChartEntry(Color.Green, 0.3f),
-            PieChartEntry(Color.Blue, 0.2f),
+            PieChartEntry(randomColor(), 0.5f),
+            PieChartEntry(randomColor(), 0.3f),
+            PieChartEntry(randomColor(), 0.2f),
         ),
     )
 }

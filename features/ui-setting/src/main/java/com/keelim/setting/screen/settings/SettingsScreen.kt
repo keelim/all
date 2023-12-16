@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Build
+import androidx.compose.material.icons.outlined.DateRange
 import androidx.compose.material.icons.outlined.List
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Notifications
@@ -46,6 +47,7 @@ fun SettingsRoute(
     onNotificationsClick: () -> Unit,
     onOpenSourceClick: () -> Unit,
     onLabClick: () -> Unit,
+    onEcocalClick: () -> Unit,
     viewModel: SettingsViewModel = hiltViewModel(),
 ) {
     val deviceInfo by viewModel.deviceInfo.collectAsStateWithLifecycle()
@@ -54,6 +56,7 @@ fun SettingsRoute(
         onNotificationsClick = onNotificationsClick,
         onOpenSourceClick = onOpenSourceClick,
         onLabClick = onLabClick,
+        onEcocalClick = onEcocalClick,
     )
 }
 
@@ -63,6 +66,7 @@ fun SettingsScreen(
     onNotificationsClick: () -> Unit,
     onOpenSourceClick: () -> Unit,
     onLabClick: () -> Unit,
+    onEcocalClick: () -> Unit,
 ) {
     val listState = rememberLazyListState()
     val hasScrolled by remember { derivedStateOf { listState.firstVisibleItemScrollOffset > 0 } }
@@ -132,6 +136,13 @@ fun SettingsScreen(
                     onClick = onLabClick,
                 )
             }
+            item {
+                CategoryItem(
+                    title = "Ecocal",
+                    icon = Icons.Outlined.DateRange,
+                    onClick = onEcocalClick,
+                )
+            }
             if (deviceInfo.versionName != null) {
                 item {
                     CategoryItem(
@@ -158,6 +169,7 @@ private fun PreviewSettingsScreen() {
         onNotificationsClick = {},
         onOpenSourceClick = {},
         onLabClick = {},
+        onEcocalClick = {},
     )
 }
 

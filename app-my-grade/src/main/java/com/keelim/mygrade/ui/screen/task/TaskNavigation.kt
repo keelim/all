@@ -12,10 +12,16 @@ fun NavController.navigateTask(
     this.navigate(taskRoute, navOptions)
 }
 
-fun NavGraphBuilder.taskScreen() {
+fun NavGraphBuilder.taskScreen(
+    onNavigateChart: () -> Unit,
+    nestedGraphs: NavGraphBuilder.() -> Unit,
+) {
     composable(
         route = taskRoute,
     ) {
-        TaskRoute()
+        TaskRoute(
+            onNavigateChart = onNavigateChart
+        )
     }
+    nestedGraphs()
 }

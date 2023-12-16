@@ -1,4 +1,4 @@
-package com.keelim.comssa.ui.screen.ecocal
+package com.keelim.comssa.ui.screen.main.ecocal
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,10 +24,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.keelim.data.source.firebase.EcoCalEntry
-import com.keelim.data.source.firebase.EcocalEntries
 
 @Composable
-fun EcocalMainSection(entries: EcocalEntries) {
+fun EcocalMainSection(entries: List<EcoCalEntry>) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -38,7 +37,7 @@ fun EcocalMainSection(entries: EcocalEntries) {
             modifier = Modifier.height(12.dp),
         )
         LazyColumn(modifier = Modifier.fillMaxSize()) {
-            items(entries.entries) { entry ->
+            items(entries) { entry ->
                 Row(modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp, horizontal = 8.dp)) {
                     Text(text = entry.toString())
                 }
@@ -82,18 +81,14 @@ fun PreviewEcocalTopSection() {
 @Composable
 fun PreviewEcocalMainSection() {
     EcocalMainSection(
-        entries =
-        EcocalEntries(
-            entries =
-            listOf(
-                EcoCalEntry(
-                    country = "Congo, Democratic Republic of the",
-                    date = "ridiculus",
-                    priority = "mus",
-                    time = "penatibus",
-                    title = "option",
-                ),
+        entries =             listOf(
+            EcoCalEntry(
+                country = "Congo, Democratic Republic of the",
+                date = "ridiculus",
+                priority = "mus",
+                time = "penatibus",
+                title = "option",
             ),
-        ),
+        )
     )
 }

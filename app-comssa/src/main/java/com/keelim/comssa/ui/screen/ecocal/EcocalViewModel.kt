@@ -1,4 +1,4 @@
-package com.keelim.ecocal
+package com.keelim.comssa.ui.screen.ecocal
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

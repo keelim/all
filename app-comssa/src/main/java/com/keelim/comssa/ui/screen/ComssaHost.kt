@@ -5,6 +5,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import com.keelim.composeutil.AppState
+import com.keelim.comssa.ui.screen.main.ecocal.ecocalRoute
+import com.keelim.comssa.ui.screen.main.ecocal.ecocalScreen
 import com.keelim.comssa.ui.screen.main.calendar.calendarRoute
 import com.keelim.comssa.ui.screen.main.calendar.calendarScreen
 import com.keelim.comssa.ui.screen.main.flash.flashScreen
@@ -21,10 +23,9 @@ fun ComssaHost(
     val navController = appState.navController
     NavHost(
         navController = navController,
-        startDestination = calendarRoute,
+        startDestination = ecocalRoute,
         modifier = modifier,
     ) {
-        calendarScreen()
-        flashScreen()
+        ecocalScreen()
     }
 }

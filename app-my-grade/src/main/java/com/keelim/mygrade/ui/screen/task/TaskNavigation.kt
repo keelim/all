@@ -20,7 +20,7 @@ fun NavGraphBuilder.taskScreen(
         route = taskRoute,
     ) {
         TaskRoute(
-            onNavigateChart = onNavigateChart
+            onNavigateChart = onNavigateChart,
         )
     }
     nestedGraphs()

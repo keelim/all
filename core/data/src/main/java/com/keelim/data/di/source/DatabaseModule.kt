@@ -12,7 +12,6 @@ import androidx.room.Room
 import com.google.firebase.Firebase
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.database
-import com.google.firebase.initialize
 import com.keelim.data.db.CnuAppDatabase
 import com.keelim.data.db.MyGradeAppDatabase
 import com.keelim.data.db.NandaAppDatabase
@@ -104,8 +103,7 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideFirebaseDatabase(
-    ): FirebaseDatabase {
+    fun provideFirebaseDatabase(): FirebaseDatabase {
         return Firebase.database
     }
 }

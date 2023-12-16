@@ -61,6 +61,6 @@ interface RepositoryModule {
 
     @Binds
     fun bindsFirebaseRepository(
-        repository: FirebaseRepositoryImpl
+        repository: FirebaseRepositoryImpl,
     ): FirebaseRepository
 }

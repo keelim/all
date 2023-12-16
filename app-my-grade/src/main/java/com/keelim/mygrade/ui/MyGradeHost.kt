@@ -17,6 +17,8 @@ import com.keelim.mygrade.ui.screen.main.mainRoute
 import com.keelim.mygrade.ui.screen.main.mainScreen
 import com.keelim.mygrade.ui.screen.main.navigateToMain
 import com.keelim.mygrade.ui.screen.main.toProcess
+import com.keelim.mygrade.ui.screen.task.chart.navigateTaskChart
+import com.keelim.mygrade.ui.screen.task.chart.taskChartScreen
 import com.keelim.mygrade.ui.screen.task.navigateTask
 import com.keelim.mygrade.ui.screen.task.taskScreen
 import com.keelim.mygrade.ui.screen.timer.history.navigateTimerHistory
@@ -108,9 +110,9 @@ fun MyGradeHost(
         )
         eventScreen()
         taskScreen(
-            onNavigateChart = {}
+            onNavigateChart = navController::navigateTaskChart,
         ) {
-
+            taskChartScreen()
         }
         timerScreen()
         wordScreen(

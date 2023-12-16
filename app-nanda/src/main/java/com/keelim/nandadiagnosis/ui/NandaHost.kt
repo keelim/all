@@ -9,6 +9,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.keelim.composeutil.AppState
+import com.keelim.ecocal.ecocalScreen
+import com.keelim.ecocal.navigateEcocal
 import com.keelim.nandadiagnosis.ui.screen.category.categoryRoute
 import com.keelim.nandadiagnosis.ui.screen.category.categoryScreen
 import com.keelim.nandadiagnosis.ui.screen.category.navigateToCategory
@@ -68,10 +70,12 @@ fun NandaHost(
                 context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
             },
             onLabClick = navController::navigateLab,
+            onEcocalClick = navController::navigateEcocal,
             nestedGraphs = {
                 notificationScreen()
                 labScreen()
                 eventScreen()
+                ecocalScreen()
             },
         )
         eventScreen()

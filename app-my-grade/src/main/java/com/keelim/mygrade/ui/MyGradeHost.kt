@@ -107,7 +107,11 @@ fun MyGradeHost(
             },
         )
         eventScreen()
-        taskScreen()
+        taskScreen(
+            onNavigateChart = {}
+        ) {
+
+        }
         timerScreen()
         wordScreen(
             onWordWriteNavigate = navController::navigateWordWrite,

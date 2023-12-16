@@ -80,7 +80,7 @@ class MainViewModel @Inject constructor() : ViewModel() {
         if (subject == null) {
             _mainScreenState.update { old ->
                 old.copy(
-                    originError = true,
+                    subjectError = true,
                 )
             }
         }

@@ -12,32 +12,38 @@ import com.keelim.data.source.firebase.EcocalEntries
 
 @Composable
 fun EcocalRoute(viewModel: EcocalViewModel = hiltViewModel()) {
-  val uiState by viewModel.ref.collectAsStateWithLifecycle()
-  EcocalScreen(uiState)
+    val uiState by viewModel.ref.collectAsStateWithLifecycle()
+    EcocalScreen(uiState)
 }
 
 @Composable
 fun EcocalScreen(state: SealedUiState<EcocalEntries>) {
-  when (state) {
-    is SealedUiState.Error,
-    SealedUiState.Loading -> EmptyView()
-    is SealedUiState.Success -> EcocalMainSection(state.value)
-  }
+    when (state) {
+        is SealedUiState.Error,
+        SealedUiState.Loading,
+        -> EmptyView()
+        is SealedUiState.Success -> EcocalMainSection(state.value)
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun PreviewEcocalScreen() {
-  EcocalScreen(
-      state =
-          SealedUiState.success(
-              EcocalEntries(
-                  entries =
-                      listOf(
-                          EcoCalEntry(
-                              country = "Congo, Democratic Republic of the",
-                              date = "ridiculus",
-                              priority = "mus",
-                              time = "penatibus",
-                              title = "option")))))
+    EcocalScreen(
+        state =
+        SealedUiState.success(
+            EcocalEntries(
+                entries =
+                listOf(
+                    EcoCalEntry(
+                        country = "Congo, Democratic Republic of the",
+                        date = "ridiculus",
+                        priority = "mus",
+                        time = "penatibus",
+                        title = "option",
+                    ),
+                ),
+            ),
+        ),
+    )
 }

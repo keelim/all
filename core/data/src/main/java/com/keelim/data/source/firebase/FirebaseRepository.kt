@@ -3,7 +3,7 @@ package com.keelim.data.source.firebase
 import kotlinx.coroutines.flow.Flow
 
 data class EcocalEntries(
-    val entries: List<EcoCalEntry>
+    val entries: List<EcoCalEntry>,
 )
 data class EcoCalEntry(
     val country: String,

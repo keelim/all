@@ -31,19 +31,19 @@ import com.keelim.composeutil.util.randomColor
 
 @Composable
 fun TaskChartRoute(
-    viewModel: TaskChartViewModel = hiltViewModel()
+    viewModel: TaskChartViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     TaskChartScreen(
-        state = state
+        state = state,
     )
 }
 
 @Composable
 fun TaskChartScreen(
-    state: SealedUiState<List<PieChartEntry>>
+    state: SealedUiState<List<PieChartEntry>>,
 ) {
-    when(state) {
+    when (state) {
         is SealedUiState.Error, SealedUiState.Loading -> EmptyView()
         is SealedUiState.Success -> TaskChartSuccessSection(state.value)
     }
@@ -51,12 +51,12 @@ fun TaskChartScreen(
 
 @Composable
 fun TaskChartSuccessSection(
-    entries: List<PieChartEntry>
+    entries: List<PieChartEntry>,
 ) {
     Column(
         modifier = Modifier.padding(
-            vertical = 12.dp
-        )
+            vertical = 12.dp,
+        ),
     ) {
         Text(
             modifier = Modifier.padding(start = 15.dp),
@@ -64,20 +64,21 @@ fun TaskChartSuccessSection(
             style = MaterialTheme.typography.titleLarge,
         )
         Spacer(
-            modifier = Modifier.height(24.dp)
+            modifier = Modifier.height(24.dp),
         )
         PieChart(
             entries = entries,
             radiusOuter = 150.dp,
-            chartBarWidth = 20.dp, duration = 2000,
+            chartBarWidth = 20.dp,
+            duration = 2000,
         )
         Spacer(
-            modifier = Modifier.height(24.dp)
+            modifier = Modifier.height(24.dp),
         )
-        entries.fastForEach {entry ->
+        entries.fastForEach { entry ->
             TaskChartDetailEntry(
                 title = entry.name,
-                color = entry.color
+                color = entry.color,
             )
         }
     }
@@ -86,26 +87,26 @@ fun TaskChartSuccessSection(
 @Composable
 fun TaskChartDetailEntry(
     title: String,
-    color: Color
+    color: Color,
 ) {
     Surface(
         modifier = Modifier
-            .padding(vertical = 10.dp, horizontal = 40.dp)
+            .padding(vertical = 10.dp, horizontal = 40.dp),
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Box(
                 modifier = Modifier
                     .background(
                         color = color,
-                        shape = RoundedCornerShape(10.dp)
-                    ).size(40.dp)
+                        shape = RoundedCornerShape(10.dp),
+                    ).size(40.dp),
             )
 
             Column(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             ) {
                 Text(
                     modifier = Modifier.padding(start = 15.dp),
@@ -117,8 +118,6 @@ fun TaskChartDetailEntry(
     }
 }
 
-
-
 @Preview(showBackground = true)
 @Composable
 private fun PreviewTaskChartScreen() {
@@ -129,6 +128,6 @@ private fun PreviewTaskChartScreen() {
             PieChartEntry("hello3", randomColor(), 10f),
             PieChartEntry("hello4", randomColor(), 10f),
             PieChartEntry("hello5", randomColor(), 10f),
-        )
+        ),
     )
 }

@@ -8,6 +8,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.keelim.composeutil.AppState
+import com.keelim.ecocal.ecocalScreen
+import com.keelim.ecocal.navigateEcocal
 import com.keelim.setting.screen.event.eventScreen
 import com.keelim.setting.screen.lab.labScreen
 import com.keelim.setting.screen.lab.navigateLab
@@ -38,9 +40,11 @@ fun CnubusHost(
                 context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
             },
             onLabClick = navController::navigateLab,
+            onEcocalClick = navController::navigateEcocal,
             nestedGraphs = {
                 notificationScreen()
                 labScreen()
+                ecocalScreen()
             },
         )
         eventScreen()

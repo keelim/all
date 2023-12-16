@@ -28,6 +28,7 @@ dependencies {
     implementation(libs.androidx.dataStore.preferences)
     implementation(libs.androidx.paging.common)
     implementation(libs.firebase.firestore)
+    implementation(libs.firebase.database)
     implementation(libs.generativeai)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.datetime)

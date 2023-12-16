@@ -10,6 +10,8 @@ import com.keelim.data.source.HistoryRepository
 import com.keelim.data.source.HistoryRepositoryImpl
 import com.keelim.data.source.NandaIORepository
 import com.keelim.data.source.NandaIORepositoryImpl
+import com.keelim.data.source.firebase.FirebaseRepository
+import com.keelim.data.source.firebase.FirebaseRepositoryImpl
 import com.keelim.data.source.notification.NotificationRepository
 import com.keelim.data.source.notification.NotificationRepositoryImpl
 import com.keelim.data.source.prompt.PromptRepository
@@ -56,4 +58,9 @@ interface RepositoryModule {
     fun bindsPromptRepository(
         repository: PromptRepositoryImpl,
     ): PromptRepository
+
+    @Binds
+    fun bindsFirebaseRepository(
+        repository: FirebaseRepositoryImpl
+    ): FirebaseRepository
 }

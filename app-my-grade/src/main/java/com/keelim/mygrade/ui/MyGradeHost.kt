@@ -7,6 +7,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.keelim.composeutil.AppState
+import com.keelim.ecocal.ecocalScreen
+import com.keelim.ecocal.navigateEcocal
 import com.keelim.mygrade.ui.screen.grade.gradeScreen
 import com.keelim.mygrade.ui.screen.grade.navigateGrade
 import com.keelim.mygrade.ui.screen.history.historyScreen
@@ -103,9 +105,11 @@ fun MyGradeHost(
                 context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
             },
             onLabClick = navController::navigateLab,
+            onEcocalClick = navController::navigateEcocal,
             nestedGraphs = {
                 notificationScreen()
                 labScreen()
+                ecocalScreen()
             },
         )
         eventScreen()

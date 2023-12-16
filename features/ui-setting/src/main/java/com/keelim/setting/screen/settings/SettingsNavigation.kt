@@ -14,6 +14,7 @@ fun NavGraphBuilder.settingsScreen(
     onNotificationsClick: () -> Unit,
     onOpenSourceClick: () -> Unit,
     onLabClick: () -> Unit,
+    onEcocalClick: () -> Unit,
     nestedGraphs: NavGraphBuilder.() -> Unit,
 ) {
     composable(
@@ -23,6 +24,7 @@ fun NavGraphBuilder.settingsScreen(
             onNotificationsClick = onNotificationsClick,
             onOpenSourceClick = onOpenSourceClick,
             onLabClick = onLabClick,
+            onEcocalClick = onEcocalClick,
         )
     }
     nestedGraphs()

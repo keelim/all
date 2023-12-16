@@ -1,4 +1,4 @@
-package com.keelim.comssa.ui.screen.ecocal
+package com.keelim.comssa.ui.screen.main.ecocal
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -8,7 +8,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.commonAndroid.model.SealedUiState
 import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.data.source.firebase.EcoCalEntry
-import com.keelim.data.source.firebase.EcocalEntries
 
 @Composable
 fun EcocalRoute(viewModel: EcocalViewModel = hiltViewModel()) {
@@ -17,7 +16,7 @@ fun EcocalRoute(viewModel: EcocalViewModel = hiltViewModel()) {
 }
 
 @Composable
-fun EcocalScreen(state: SealedUiState<EcocalEntries>) {
+fun EcocalScreen(state: SealedUiState<List<EcoCalEntry>>) {
     when (state) {
         is SealedUiState.Error,
         SealedUiState.Loading,
@@ -32,18 +31,15 @@ private fun PreviewEcocalScreen() {
     EcocalScreen(
         state =
         SealedUiState.success(
-            EcocalEntries(
-                entries =
-                listOf(
-                    EcoCalEntry(
-                        country = "Congo, Democratic Republic of the",
-                        date = "ridiculus",
-                        priority = "mus",
-                        time = "penatibus",
-                        title = "option",
-                    ),
+            listOf(
+                EcoCalEntry(
+                    country = "Congo, Democratic Republic of the",
+                    date = "ridiculus",
+                    priority = "mus",
+                    time = "penatibus",
+                    title = "option",
                 ),
-            ),
+            )
         ),
     )
 }

@@ -1,4 +1,4 @@
-package com.keelim.comssa.ui.screen.ecocal
+package com.keelim.comssa.ui.screen.main.ecocal
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder

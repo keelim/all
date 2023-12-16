@@ -7,16 +7,16 @@ import com.keelim.commonAndroid.model.asSealedUiState
 import com.keelim.data.source.firebase.EcocalEntries
 import com.keelim.data.source.firebase.FirebaseRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
 import timber.log.Timber
+import javax.inject.Inject
 
 @HiltViewModel
 class EcocalViewModel @Inject constructor(
     val firebaseRepository: FirebaseRepository,
-): ViewModel() {
+) : ViewModel() {
     val ref = firebaseRepository
         .getRef("update")
         .mapLatest { result ->

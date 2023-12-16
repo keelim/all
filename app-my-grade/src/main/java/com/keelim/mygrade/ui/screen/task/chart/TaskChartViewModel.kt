@@ -8,11 +8,11 @@ import com.keelim.composeutil.component.canvas.chart.PieChartEntry
 import com.keelim.composeutil.util.randomColor
 import com.keelim.data.source.DefaultTaskRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
+import javax.inject.Inject
 
 @HiltViewModel
 class TaskChartViewModel
@@ -21,18 +21,18 @@ constructor(
     taskRepository: DefaultTaskRepository,
 ) : ViewModel() {
 
-  val state: StateFlow<SealedUiState<List<PieChartEntry>>> =
-      taskRepository
-          .observeAll()
-          .mapLatest {
-            it.map { task ->
-              PieChartEntry(
-                  name = task.title,
-                  color = randomColor(),
-                  percentage = (1f / it.size),
-              )
+    val state: StateFlow<SealedUiState<List<PieChartEntry>>> =
+        taskRepository
+            .observeAll()
+            .mapLatest {
+                it.map { task ->
+                    PieChartEntry(
+                        name = task.title,
+                        color = randomColor(),
+                        percentage = (1f / it.size),
+                    )
+                }
             }
-          }
-          .asSealedUiState()
-          .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), SealedUiState.Loading)
+            .asSealedUiState()
+            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), SealedUiState.Loading)
 }

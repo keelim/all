@@ -7,7 +7,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.commonAndroid.model.SealedUiState
 import com.keelim.composeutil.component.layout.EmptyView
-import com.keelim.data.source.firebase.EcoCalEntry
+import com.keelim.data.model.EcoCalEntry
 
 @Composable
 fun EcocalRoute(viewModel: EcocalViewModel = hiltViewModel()) {

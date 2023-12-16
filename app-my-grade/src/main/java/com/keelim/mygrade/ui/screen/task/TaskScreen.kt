@@ -58,90 +58,90 @@ import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.data.source.local.LocalTask
 
 @Composable
-fun TaskRoute(
-    viewModel: TaskViewModel = hiltViewModel()
-) {
-    val state by viewModel.state.collectAsStateWithLifecycle()
-    TaskScreen(
-        state = state,
-        onAddLocalTask = viewModel::addLocalTask,
-        onClear = viewModel::clear,
-        onEditTask = viewModel::editTask,
-        onDeleteTask = viewModel::deleteTask
-    )
+fun TaskRoute(onNavigateChart: () -> Unit, viewModel: TaskViewModel = hiltViewModel()) {
+  val state by viewModel.state.collectAsStateWithLifecycle()
+  TaskScreen(
+      state = state,
+      onNavigateChart = onNavigateChart,
+      onAddLocalTask = viewModel::addLocalTask,
+      onClear = viewModel::clear,
+      onEditTask = viewModel::editTask,
+      onDeleteTask = viewModel::deleteTask)
 }
 
 @Composable
 fun TaskScreen(
     state: SealedUiState<List<TaskElement>>,
+    onNavigateChart: () -> Unit,
     onAddLocalTask: () -> Unit,
     onClear: () -> Unit,
     onEditTask: (LocalTask) -> Unit,
     onDeleteTask: (LocalTask) -> Unit,
 ) {
-    when (state) {
-        SealedUiState.Loading,
-        is SealedUiState.Error,
-        -> EmptyView()
-        is SealedUiState.Success<List<TaskElement>> -> {
-            val (showDialog, setShowDialog) = rememberSaveable { mutableStateOf(false) }
-            var deleteTask by rememberSaveable { mutableStateOf<LocalTask?>(null) }
-            Scaffold(
-                topBar = {
-                    TopAppBar(
-                        title = { Text(text = "MyGrade") },
-                        actions = {
-                            IconButton(onClick = onAddLocalTask) {
-                                Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                            }
-                        },
-                    )
+  when (state) {
+    SealedUiState.Loading,
+    is SealedUiState.Error, -> EmptyView()
+    is SealedUiState.Success<List<TaskElement>> -> {
+      val (showDialog, setShowDialog) = rememberSaveable { mutableStateOf(false) }
+      var deleteTask by rememberSaveable { mutableStateOf<LocalTask?>(null) }
+      Scaffold(
+          topBar = {
+            TopAppBar(
+                title = { Text(text = "MyGrade") },
+                actions = {
+                  IconButton(onClick = onAddLocalTask) {
+                    Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                  }
                 },
-                floatingActionButton = {
-                    Column(
-                        verticalArrangement = Arrangement.spacedBy(4.dp)
-                    ) {
-                        FloatingActionButton(onClick = onClear) {
-                            Icon(
-                                imageVector = Icons.Filled.CheckCircle,
-                                contentDescription = null,
-                            )
-                        }
-                        SmallFloatingActionButton(onClick = onClear) {
-                            Icon(
-                                imageVector = Icons.Filled.Clear,
-                                contentDescription = null,
-                            )
-                        }
-                    }
-                },
-            ) { paddingValues ->
-                LocalTaskList(
-                    state = state,
-                    onChange = onEditTask,
-                    onDelete = {
-                        deleteTask = it
-                        setShowDialog(true)
-                    },
-                    modifier = Modifier.padding(paddingValues),
+            )
+          },
+          floatingActionButton = {
+            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+              FloatingActionButton(onClick = onNavigateChart) {
+                Icon(
+                    imageVector = Icons.Filled.CheckCircle,
+                    contentDescription = null,
                 )
-                if (showDialog) {
-                    DeleteDialog(
-                        setShowDialog = setShowDialog,
-                        onConfirm = { deleteTask?.also(onDeleteTask) },
-                    )
-                }
+              }
+              SmallFloatingActionButton(onClick = onClear) {
+                Icon(
+                    imageVector = Icons.Filled.Clear,
+                    contentDescription = null,
+                )
+              }
             }
+          },
+      ) { paddingValues ->
+        LocalTaskList(
+            state = state,
+            onChange = onEditTask,
+            onDelete = {
+              deleteTask = it
+              setShowDialog(true)
+            },
+            modifier = Modifier.padding(paddingValues),
+        )
+        if (showDialog) {
+          DeleteDialog(
+              setShowDialog = setShowDialog,
+              onConfirm = { deleteTask?.also(onDeleteTask) },
+          )
         }
+      }
     }
+  }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun PreviewTaskScreen() {
-    TaskScreen(
-        state = SealedUiState.loading(), onAddLocalTask = {}, onClear = {}, onEditTask = {}, onDeleteTask = {}
-    )
+  TaskScreen(
+      state = SealedUiState.loading(),
+      onAddLocalTask = {},
+      onClear = {},
+      onEditTask = {},
+      onDeleteTask = {},
+      onNavigateChart = {})
 }
 
 @Composable
@@ -151,49 +151,52 @@ fun LocalTaskList(
     onDelete: (task: LocalTask) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val items = state.getOrDefault(emptyList())
-    if (items.isEmpty()) {
-        EmptyView()
-    } else {
-        val selected by remember(items) {
-            derivedStateOf {
-                items.filterIsInstance(TaskElement.Header::class.java)
-                    .takeIf { it.size >= 2 }?.let { 1 } ?: 0
-            }
+  val items = state.getOrDefault(emptyList())
+  if (items.isEmpty()) {
+    EmptyView()
+  } else {
+    val selected by
+        remember(items) {
+          derivedStateOf {
+            items
+                .filterIsInstance(TaskElement.Header::class.java)
+                .takeIf { it.size >= 2 }
+                ?.let { 1 } ?: 0
+          }
         }
-        val spacedBy by animateDpAsState(Dp(selected * 2f), label = "")
-        val innerCornerSize by animateDpAsState(Dp(selected * 4f), label = "")
-        LazyColumn(
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp),
-            verticalArrangement = Arrangement.spacedBy(spacedBy),
-        ) {
-            items(
-                items = items,
-            ) { task ->
-                when (task) {
-                    is TaskElement.Header -> LocalTaskHeader(
-                        task = task,
-                        modifier = Modifier
-                            .animateItemPlacement(
-                                animationSpec = spring(),
-                            ),
-                    )
-                    is TaskElement.Item -> LocalTaskItem(
-                        item = task,
-                        onChange = onChange,
-                        onDelete = onDelete,
-                        modifier = Modifier
-                            .animateItemPlacement(
-                                animationSpec = spring(),
-                            ),
-                        innerCornerSize = innerCornerSize,
-                    )
-                }
-            }
+    val spacedBy by animateDpAsState(Dp(selected * 2f), label = "")
+    val innerCornerSize by animateDpAsState(Dp(selected * 4f), label = "")
+    LazyColumn(
+        modifier = modifier.fillMaxWidth().padding(vertical = 8.dp),
+        verticalArrangement = Arrangement.spacedBy(spacedBy),
+    ) {
+      items(
+          items = items,
+      ) { task ->
+        when (task) {
+          is TaskElement.Header ->
+              LocalTaskHeader(
+                  task = task,
+                  modifier =
+                      Modifier.animateItemPlacement(
+                          animationSpec = spring(),
+                      ),
+              )
+          is TaskElement.Item ->
+              LocalTaskItem(
+                  item = task,
+                  onChange = onChange,
+                  onDelete = onDelete,
+                  modifier =
+                      Modifier.animateItemPlacement(
+                          animationSpec = spring(),
+                      ),
+                  innerCornerSize = innerCornerSize,
+              )
         }
+      }
     }
+  }
 }
 
 @Composable
@@ -201,17 +204,16 @@ fun LocalTaskHeader(
     task: TaskElement.Header,
     modifier: Modifier = Modifier,
 ) {
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(top = 16.dp, bottom = 8.dp, start = 16.dp, end = 16.dp),
-    ) {
-        Text(
-            text = task.text,
-            style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.Bold,
-        )
-    }
+  Row(
+      modifier =
+          modifier.fillMaxWidth().padding(top = 16.dp, bottom = 8.dp, start = 16.dp, end = 16.dp),
+  ) {
+    Text(
+        text = task.text,
+        style = MaterialTheme.typography.titleMedium,
+        fontWeight = FontWeight.Bold,
+    )
+  }
 }
 
 @Composable
@@ -223,95 +225,97 @@ fun LocalTaskItem(
     outerCornerSize: Dp = 20.dp,
     innerCornerSize: Dp = 0.dp,
 ) {
-    val task = item.localTask
-    Card(
-        modifier = modifier
-            .padding(horizontal = 16.dp, vertical = 8.dp)
-            .fillMaxWidth()
-            .pointerInput(Unit) {
-                detectTapGestures(onLongPress = { onDelete(task) })
-            },
-        shape = item.role.toShape(outerCornerSize, innerCornerSize),
-    ) {
-        Row(modifier = Modifier.padding(16.dp)) {
-            if (task.isEditing) {
-                TextField(
-                    value = task.title,
-                    onValueChange = { onChange(task.copy(title = it)) },
-                    modifier = Modifier.weight(1f).padding(end = 8.dp),
-                )
-                IconButton(
-                    modifier = Modifier.align(Alignment.CenterVertically),
-                    onClick = { onChange(task.copy(isEditing = false)) },
-                ) {
-                    Icon(imageVector = Icons.Filled.Done, contentDescription = null)
-                }
-            } else {
-                Text(
-                    text = task.title,
-                    textDecoration =
-                    if (task.isCompleted) TextDecoration.LineThrough else TextDecoration.None,
-                    modifier = Modifier.weight(1f).padding(end = 8.dp),
-                )
-                Checkbox(
-                    modifier = Modifier.align(Alignment.CenterVertically),
-                    checked = task.isCompleted,
-                    onCheckedChange = { onChange(task.copy(isCompleted = it)) },
-                )
-            }
+  val task = item.localTask
+  Card(
+      modifier =
+          modifier.padding(horizontal = 16.dp, vertical = 8.dp).fillMaxWidth().pointerInput(Unit) {
+            detectTapGestures(onLongPress = { onDelete(task) })
+          },
+      shape = item.role.toShape(outerCornerSize, innerCornerSize),
+  ) {
+    Row(modifier = Modifier.padding(16.dp)) {
+      if (task.isEditing) {
+        TextField(
+            value = task.title,
+            onValueChange = { onChange(task.copy(title = it)) },
+            modifier = Modifier.weight(1f).padding(end = 8.dp),
+        )
+        IconButton(
+            modifier = Modifier.align(Alignment.CenterVertically),
+            onClick = { onChange(task.copy(isEditing = false)) },
+        ) {
+          Icon(imageVector = Icons.Filled.Done, contentDescription = null)
         }
+      } else {
+        Text(
+            text = task.title,
+            textDecoration =
+                if (task.isCompleted) TextDecoration.LineThrough else TextDecoration.None,
+            modifier = Modifier.weight(1f).padding(end = 8.dp),
+        )
+        Checkbox(
+            modifier = Modifier.align(Alignment.CenterVertically),
+            checked = task.isCompleted,
+            onCheckedChange = { onChange(task.copy(isCompleted = it)) },
+        )
+      }
     }
+  }
 }
 
 @Composable
 private fun TaskElement.Role.toShape(outerCornerSize: Dp, innerCornerSize: Dp): Shape {
-    val (outerCornerSizePx, innerCornerSizePx) = LocalDensity.current.run {
-        outerCornerSize.toPx() to innerCornerSize.toPx()
-    }
+  val (outerCornerSizePx, innerCornerSizePx) =
+      LocalDensity.current.run { outerCornerSize.toPx() to innerCornerSize.toPx() }
 
-    val targetRect = remember(this, outerCornerSize, innerCornerSize) {
+  val targetRect =
+      remember(this, outerCornerSize, innerCornerSize) {
         when (this) {
-            TaskElement.Role.TOP -> Rect(outerCornerSizePx, outerCornerSizePx, innerCornerSizePx, innerCornerSizePx)
-            TaskElement.Role.BOTTOM -> Rect(innerCornerSizePx, innerCornerSizePx, outerCornerSizePx, outerCornerSizePx)
-            TaskElement.Role.MIDDLE -> Rect(innerCornerSizePx, innerCornerSizePx, innerCornerSizePx, innerCornerSizePx)
-            TaskElement.Role.SINGLE -> Rect(outerCornerSizePx, outerCornerSizePx, outerCornerSizePx, outerCornerSizePx)
+          TaskElement.Role.TOP ->
+              Rect(outerCornerSizePx, outerCornerSizePx, innerCornerSizePx, innerCornerSizePx)
+          TaskElement.Role.BOTTOM ->
+              Rect(innerCornerSizePx, innerCornerSizePx, outerCornerSizePx, outerCornerSizePx)
+          TaskElement.Role.MIDDLE ->
+              Rect(innerCornerSizePx, innerCornerSizePx, innerCornerSizePx, innerCornerSizePx)
+          TaskElement.Role.SINGLE ->
+              Rect(outerCornerSizePx, outerCornerSizePx, outerCornerSizePx, outerCornerSizePx)
         }
-    }
+      }
 
-    val animatedRect by animateRectAsState(targetRect, label = "")
+  val animatedRect by animateRectAsState(targetRect, label = "")
 
-    return RoundedCornerShape(
-        animatedRect.left,
-        animatedRect.top,
-        animatedRect.right,
-        animatedRect.bottom,
-    )
+  return RoundedCornerShape(
+      animatedRect.left,
+      animatedRect.top,
+      animatedRect.right,
+      animatedRect.bottom,
+  )
 }
 
 @Composable
 fun DeleteDialog(setShowDialog: (Boolean) -> Unit, onConfirm: () -> Unit) {
-    AlertDialog(
-        onDismissRequest = { setShowDialog(false) },
-        title = { Text(text = "삭제") },
-        text = { Text(text = "LocalTask 삭제") },
-        confirmButton = {
-            Button(
-                onClick = {
-                    onConfirm()
-                    setShowDialog(false)
-                },
-            ) {
-                Text(
-                    text = "확인",
-                )
-            }
-        },
-        dismissButton = {
-            Button(onClick = { setShowDialog(false) }) {
-                Text(
-                    text = "취소",
-                )
-            }
-        },
-    )
+  AlertDialog(
+      onDismissRequest = { setShowDialog(false) },
+      title = { Text(text = "삭제") },
+      text = { Text(text = "LocalTask 삭제") },
+      confirmButton = {
+        Button(
+            onClick = {
+              onConfirm()
+              setShowDialog(false)
+            },
+        ) {
+          Text(
+              text = "확인",
+          )
+        }
+      },
+      dismissButton = {
+        Button(onClick = { setShowDialog(false) }) {
+          Text(
+              text = "취소",
+          )
+        }
+      },
+  )
 }

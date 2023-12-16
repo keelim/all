@@ -28,68 +28,72 @@ import com.keelim.data.source.firebase.EcocalEntries
 
 @Composable
 fun EcocalMainSection(entries: EcocalEntries) {
-  Column(
-      modifier = Modifier
-          .fillMaxSize()
-          .padding(horizontal = 4.dp)
-  ) {
-      EcocalTopSection()
-      Spacer(
-          modifier = Modifier.height(12.dp)
-      )
-      LazyColumn(modifier = Modifier.fillMaxSize()) {
-          items(entries.entries) { entry ->
-              Row(modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp, horizontal = 8.dp)) {
-                  Text(text = entry.toString())
-              }
-              Divider(thickness = 1.dp)
-          }
-      }
-  }
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 4.dp),
+    ) {
+        EcocalTopSection()
+        Spacer(
+            modifier = Modifier.height(12.dp),
+        )
+        LazyColumn(modifier = Modifier.fillMaxSize()) {
+            items(entries.entries) { entry ->
+                Row(modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp, horizontal = 8.dp)) {
+                    Text(text = entry.toString())
+                }
+                Divider(thickness = 1.dp)
+            }
+        }
+    }
 }
 
 @Composable
 fun ColumnScope.EcocalTopSection() {
-  Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-    Text(text = "Eco Cal", style = MaterialTheme.typography.headlineMedium)
-  }
-  Spacer(modifier = Modifier.height(12.dp))
-  Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-    Button(
-        onClick = {},
-    ) {
-      Icon(Icons.Filled.Add, contentDescription = null)
-      Text(text = "Year")
+    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+        Text(text = "Eco Cal", style = MaterialTheme.typography.headlineMedium)
     }
-    Spacer(modifier = Modifier.width(8.dp))
+    Spacer(modifier = Modifier.height(12.dp))
+    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+        Button(
+            onClick = {},
+        ) {
+            Icon(Icons.Filled.Add, contentDescription = null)
+            Text(text = "Year")
+        }
+        Spacer(modifier = Modifier.width(8.dp))
 
-    Button(
-        onClick = {},
-    ) {
-      Icon(Icons.Filled.Add, contentDescription = null)
-      Text(text = "Month")
+        Button(
+            onClick = {},
+        ) {
+            Icon(Icons.Filled.Add, contentDescription = null)
+            Text(text = "Month")
+        }
     }
-  }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun PreviewEcocalTopSection() {
-  Column { EcocalTopSection() }
+    Column { EcocalTopSection() }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun PreviewEcocalMainSection() {
-  EcocalMainSection(
-      entries =
-          EcocalEntries(
-              entries =
-                  listOf(
-                      EcoCalEntry(
-                          country = "Congo, Democratic Republic of the",
-                          date = "ridiculus",
-                          priority = "mus",
-                          time = "penatibus",
-                          title = "option"))))
+    EcocalMainSection(
+        entries =
+        EcocalEntries(
+            entries =
+            listOf(
+                EcoCalEntry(
+                    country = "Congo, Democratic Republic of the",
+                    date = "ridiculus",
+                    priority = "mus",
+                    time = "penatibus",
+                    title = "option",
+                ),
+            ),
+        ),
+    )
 }

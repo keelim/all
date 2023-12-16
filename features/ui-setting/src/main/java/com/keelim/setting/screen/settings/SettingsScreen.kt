@@ -185,11 +185,12 @@ private fun PreviewSettingsScreen() {
 fun CategoryItem(title: String, icon: ImageVector, onClick: () -> Unit) {
     var clicked by remember { mutableStateOf(false) }
     val sizeScale by animateFloatAsState(
-        targetValue = if (clicked) .9f else 1f, animationSpec = spring(
+        targetValue = if (clicked) .9f else 1f,
+        animationSpec = spring(
             dampingRatio = Spring.DampingRatioMediumBouncy,
-            stiffness = Spring.StiffnessMediumLow
+            stiffness = Spring.StiffnessMediumLow,
         ),
-        label = ""
+        label = "",
     )
     Surface(
         modifier = Modifier
@@ -208,8 +209,7 @@ fun CategoryItem(title: String, icon: ImageVector, onClick: () -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 16.dp)
-                .scale(sizeScale)
-            ,
+                .scale(sizeScale),
             horizontalArrangement = Arrangement.spacedBy(30.dp),
         ) {
             Icon(

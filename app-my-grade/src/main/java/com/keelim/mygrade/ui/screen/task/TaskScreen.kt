@@ -8,6 +8,7 @@ import androidx.compose.animation.core.spring
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -16,12 +17,14 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -55,13 +58,27 @@ import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.data.source.local.LocalTask
 
 @Composable
-fun TaskRoute() {
-    TaskScreen()
+fun TaskRoute(
+    viewModel: TaskViewModel = hiltViewModel()
+) {
+    val state by viewModel.state.collectAsStateWithLifecycle()
+    TaskScreen(
+        state = state,
+        onAddLocalTask = viewModel::addLocalTask,
+        onClear = viewModel::clear,
+        onEditTask = viewModel::editTask,
+        onDeleteTask = viewModel::deleteTask
+    )
 }
 
 @Composable
-fun TaskScreen(viewModel: TaskViewModel = hiltViewModel()) {
-    val state by viewModel.state.collectAsStateWithLifecycle()
+fun TaskScreen(
+    state: SealedUiState<List<TaskElement>>,
+    onAddLocalTask: () -> Unit,
+    onClear: () -> Unit,
+    onEditTask: (LocalTask) -> Unit,
+    onDeleteTask: (LocalTask) -> Unit,
+) {
     when (state) {
         SealedUiState.Loading,
         is SealedUiState.Error,
@@ -74,24 +91,34 @@ fun TaskScreen(viewModel: TaskViewModel = hiltViewModel()) {
                     TopAppBar(
                         title = { Text(text = "MyGrade") },
                         actions = {
-                            IconButton(onClick = viewModel::addLocalTask) {
+                            IconButton(onClick = onAddLocalTask) {
                                 Icon(imageVector = Icons.Filled.Add, contentDescription = null)
                             }
                         },
                     )
                 },
                 floatingActionButton = {
-                    SmallFloatingActionButton(onClick = viewModel::clear) {
-                        Icon(
-                            imageVector = Icons.Filled.Clear,
-                            contentDescription = null,
-                        )
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(4.dp)
+                    ) {
+                        FloatingActionButton(onClick = onClear) {
+                            Icon(
+                                imageVector = Icons.Filled.CheckCircle,
+                                contentDescription = null,
+                            )
+                        }
+                        SmallFloatingActionButton(onClick = onClear) {
+                            Icon(
+                                imageVector = Icons.Filled.Clear,
+                                contentDescription = null,
+                            )
+                        }
                     }
                 },
             ) { paddingValues ->
                 LocalTaskList(
                     state = state,
-                    onChange = viewModel::editTask,
+                    onChange = onEditTask,
                     onDelete = {
                         deleteTask = it
                         setShowDialog(true)
@@ -101,7 +128,7 @@ fun TaskScreen(viewModel: TaskViewModel = hiltViewModel()) {
                 if (showDialog) {
                     DeleteDialog(
                         setShowDialog = setShowDialog,
-                        onConfirm = { deleteTask?.also(viewModel::deleteTask) },
+                        onConfirm = { deleteTask?.also(onDeleteTask) },
                     )
                 }
             }
@@ -112,7 +139,9 @@ fun TaskScreen(viewModel: TaskViewModel = hiltViewModel()) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewTaskScreen() {
-    TaskScreen()
+    TaskScreen(
+        state = SealedUiState.loading(), onAddLocalTask = {}, onClear = {}, onEditTask = {}, onDeleteTask = {}
+    )
 }
 
 @Composable

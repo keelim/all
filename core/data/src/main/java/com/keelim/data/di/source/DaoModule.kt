@@ -7,6 +7,7 @@ import com.keelim.data.db.dao.CnuHistoryDao
 import com.keelim.data.db.dao.CommentDao
 import com.keelim.data.db.dao.HistoryDao
 import com.keelim.data.db.dao.NandaDao
+import com.keelim.data.db.dao.NetworkCacheDao
 import com.keelim.data.db.dao.StationDao
 import com.keelim.data.db.dao.TaskDao
 import com.keelim.data.db.dao.TimerHistoryDao
@@ -61,4 +62,10 @@ object DaoModule {
     fun providesTaskDao(
         database: MyGradeAppDatabase,
     ): TaskDao = database.taskDao()
+
+    @Provides
+    @Singleton
+    fun providesNetworkCache(
+        database: MyGradeAppDatabase
+    ): NetworkCacheDao = database.networkCacheDao()
 }

@@ -108,20 +108,26 @@ object KtorNetworkModule {
         install(WebSockets)
     }
 
+    @Provides
+    @Singleton
+    fun providesJsonFormatter(): Json {
+        return Json {
+            encodeDefaults = true
+            ignoreUnknownKeys = true
+            prettyPrint = true
+            isLenient = true
+        }
+    }
+
     @KtorAndroidClient
     @Provides
     @Singleton
-    fun providesKtorAndroidClient(): HttpClient {
+    fun providesKtorAndroidClient(
+        jsonFormatter: Json
+    ): HttpClient {
         return HttpClient(Android) {
             install(ContentNegotiation) {
-                json(
-                    Json {
-                        encodeDefaults = true
-                        ignoreUnknownKeys = true
-                        prettyPrint = true
-                        isLenient = true
-                    },
-                )
+                json(jsonFormatter)
             }
             install(Logging) {
                 if (BuildConfig.DEBUG) {

@@ -17,8 +17,6 @@ package com.keelim.cnubus
 
 import android.app.Application
 import com.google.android.material.color.DynamicColors
-import com.keelim.cnubus.utils.AppOpenManager
-import com.keelim.cnubus.utils.SplitManagerImpl
 import com.keelim.commonAndroid.util.ComponentLogger
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
@@ -28,15 +26,8 @@ class MyApplication : Application() {
     @Inject
     lateinit var componentLogger: ComponentLogger
 
-    @Inject
-    lateinit var appOpenManager: AppOpenManager
-
-    @Inject
-    lateinit var splitManager: SplitManagerImpl
-
     override fun onCreate() {
         super.onCreate()
-        appOpenManager.initialize(this)
         componentLogger.initialize(this)
         DynamicColors.applyToActivitiesIfAvailable(this)
     }

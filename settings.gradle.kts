@@ -30,6 +30,5 @@ include(
     ":core:testing",
     ":core:widget-glance",
     ":features:ui-labs",
-    ":features:ui-map",
     ":features:ui-setting",
 )

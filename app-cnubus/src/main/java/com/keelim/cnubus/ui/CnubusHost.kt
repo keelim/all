@@ -7,7 +7,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
+import com.keelim.cnubus.ui.screen.main.mainRoute
+import com.keelim.cnubus.ui.screen.main.mainScreen
 import com.keelim.composeutil.AppState
+import com.keelim.cnubus.ui.screen.map.screen.map.mapScreen
+import com.keelim.cnubus.ui.screen.map.screen.map.navigateMap
 import com.keelim.setting.screen.event.eventScreen
 import com.keelim.setting.screen.lab.labScreen
 import com.keelim.setting.screen.lab.navigateLab
@@ -29,9 +33,15 @@ fun CnubusHost(
     val context = LocalContext.current
     NavHost(
         navController = navController,
-        startDestination = "main",
+        startDestination = mainRoute,
         modifier = modifier,
     ) {
+        mainScreen(
+            onNavigateMap = navController::navigateMap,
+            nestedGraphs = {
+                mapScreen()
+            }
+        )
         settingsScreen(
             onNotificationsClick = navController::navigateNotification,
             onOpenSourceClick = {

@@ -4,8 +4,6 @@ import com.keelim.data.source.BookRepository
 import com.keelim.data.source.BookRepositoryImpl
 import com.keelim.data.source.DefaultTaskRepository
 import com.keelim.data.source.DefaultTaskRepositoryImpl
-import com.keelim.data.source.DeveloperRepository
-import com.keelim.data.source.DeveloperRepositoryImpl
 import com.keelim.data.source.HistoryRepository
 import com.keelim.data.source.HistoryRepositoryImpl
 import com.keelim.data.source.NandaIORepository
@@ -33,11 +31,6 @@ interface RepositoryModule {
     fun bindsDefaultTaskRepository(
         repository: DefaultTaskRepositoryImpl,
     ): DefaultTaskRepository
-
-    @Binds
-    fun bindsDeveloperRepository(
-        repository: DeveloperRepositoryImpl,
-    ): DeveloperRepository
 
     @Binds
     fun bindsNandaIoRepository(

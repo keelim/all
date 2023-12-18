@@ -4,8 +4,12 @@
 
 package com.keelim.cnubus.ui.screen.main
 
+import android.Manifest
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -17,6 +21,7 @@ import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -31,13 +36,35 @@ import com.keelim.cnubus.ui.screen.setting.ScreenAction.AppSetting
 import com.keelim.cnubus.ui.screen.setting.ScreenAction.Map
 import com.keelim.cnubus.ui.screen.setting.ScreenAction.Update
 import com.keelim.cnubus.ui.screen.setting.SettingScreen
+import com.keelim.common.extensions.toast
 import kotlinx.coroutines.launch
+
+private val appPermissions: List<String> = buildList {
+    add(Manifest.permission.ACCESS_FINE_LOCATION)
+    add(Manifest.permission.ACCESS_COARSE_LOCATION)
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        add(Manifest.permission.POST_NOTIFICATIONS)
+    }
+}
 
 @Composable
 fun MainRoute(
     onNavigateMap:() -> Unit,
     viewModel: RootViewModel = hiltViewModel(),
     ) {
+    val context = LocalContext.current
+    val launcher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        val responsePermissions = permissions.entries.filter { appPermissions.contains(it.key) }
+        if (responsePermissions.filter { it.value }.size == appPermissions.size) {
+            context.toast("권한이 확인되었습니다.")
+        }
+    }
+    LaunchedEffect(launcher) {
+        launcher.launch(appPermissions.toTypedArray())
+    }
+
   MainScreen(
       onNavigateMap = onNavigateMap,
       onSetMode = viewModel::setMode,

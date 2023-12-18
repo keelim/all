@@ -15,11 +15,8 @@
  */
 package com.keelim.cnubus.ui.screen.main
 
-import android.Manifest.permission
-import android.os.Build
 import android.os.Bundle
 import androidx.activity.compose.BackHandler
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material3.AlertDialog
@@ -34,7 +31,6 @@ import androidx.compose.runtime.setValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.airbnb.deeplinkdispatch.DeepLink
 import com.keelim.cnubus.ui.CnubusApp
-import com.keelim.common.extensions.toast
 import com.keelim.commonAndroid.core.AppMainDelegator
 import com.keelim.commonAndroid.core.AppMainViewModel
 import com.keelim.composeutil.setThemeContent
@@ -46,22 +42,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val viewModel: AppMainViewModel by viewModels()
     private val appMainDelegator by lazy { AppMainDelegator(this, viewModel) }
-
-    private val appPermissions: List<String> = buildList {
-        add(permission.ACCESS_FINE_LOCATION)
-        add(permission.ACCESS_COARSE_LOCATION)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            add(permission.POST_NOTIFICATIONS)
-        }
-    }
-
-    private val permissionLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-            val responsePermissions = permissions.entries.filter { appPermissions.contains(it.key) }
-            if (responsePermissions.filter { it.value }.size == appPermissions.size) {
-                toast("권한이 확인되었습니다.")
-            }
-        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
@@ -109,10 +89,5 @@ class MainActivity : AppCompatActivity() {
 
             }
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        permissionLauncher.launch(appPermissions.toTypedArray())
     }
 }

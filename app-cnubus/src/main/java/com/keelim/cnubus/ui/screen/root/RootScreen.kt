@@ -19,6 +19,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -34,6 +35,7 @@ import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
 import com.keelim.data.model.Location
 
+@Stable
 sealed class MapEvent {
     data object UnInitialized : MapEvent()
     data object Loading : MapEvent()
@@ -42,29 +44,25 @@ sealed class MapEvent {
 }
 
 @Composable
-fun RootRoute(onRootClick: (Int) -> Unit) {
-    RootScreen(onRootClick = onRootClick)
-}
-
-@Composable
-fun RootScreen(onRootClick: (Int) -> Unit, viewModel: RootViewModel = hiltViewModel()) {
+fun RootRoute(
+    onRootClick: (Int) -> Unit,
+    viewModel: RootViewModel = hiltViewModel(),
+) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
-    RootStateView(
+    RootScreen(
         uiState = uiState,
         onRootClick = onRootClick,
     )
 }
 
 @Composable
-fun RootStateView(
+fun RootScreen(
     uiState: MapEvent,
     onRootClick: (Int) -> Unit,
-) {
+    ) {
     when (uiState) {
         MapEvent.UnInitialized,
-        is MapEvent.Error,
-        -> EmptyView()
-
+        is MapEvent.Error, -> EmptyView()
         MapEvent.Loading -> Loading()
         is MapEvent.MigrateSuccess -> {
             if (uiState.data.isEmpty()) {
@@ -91,7 +89,10 @@ fun RootStateView(
 @Preview(showBackground = true)
 @Composable
 fun PreviewRootScreen() {
-    RootScreen(onRootClick = {})
+    RootScreen(
+        uiState = MapEvent.UnInitialized,
+        onRootClick = {},
+    )
 }
 
 @Composable
@@ -149,7 +150,7 @@ fun PreviewRootTopBar() {
     )
 }
 
-private val roots = listOf(
+val roots = listOf(
     "A노선",
     "B노선",
     "C노선",

@@ -1,4 +1,4 @@
-package com.keelim.map.screen.map
+package com.keelim.cnubus.ui.screen.map.screen.map
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder

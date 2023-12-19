@@ -13,11 +13,11 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:common"))
-    implementation(project(":core:common-android"))
-    implementation(project(":core:compose-core"))
-    implementation(project(":core:data"))
-    implementation(project(":core:domain"))
+    implementation(projects.core.common)
+    implementation(projects.core.commonAndroid)
+    implementation(projects.core.composeCore)
+    implementation(projects.core.data)
+    implementation(projects.core.domain)
     implementation(libs.accompanist.webview)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.foundation)

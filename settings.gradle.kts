@@ -15,6 +15,8 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "all"
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(
     //":app-benchmark",
     ":app-cnubus",

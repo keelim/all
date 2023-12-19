@@ -26,8 +26,8 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:compose-core"))
-    implementation(project(":features:ui-setting"))
+    implementation(projects.core.composeCore)
+    implementation(projects.features.uiSetting)
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.activity.ktx)
     implementation(libs.androidx.activity.compose)

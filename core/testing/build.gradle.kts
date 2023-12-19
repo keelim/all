@@ -27,5 +27,5 @@ dependencies {
     debugApi(libs.androidx.compose.ui.testManifest)
     implementation(libs.kotlinx.datetime)
 
-    implementation(project(":core:common"))
+    implementation(projects.core.common)
 }

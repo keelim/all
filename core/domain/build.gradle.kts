@@ -8,7 +8,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:data"))
+    implementation(projects.core.data)
     testImplementation(libs.junit4)
     testImplementation(libs.turbine)
     testImplementation(libs.truth)

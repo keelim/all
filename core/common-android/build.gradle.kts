@@ -8,7 +8,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:common"))
+    implementation(projects.core.common)
 
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.compose.ui)
@@ -38,6 +38,6 @@ dependencies {
     debugImplementation(libs.leakcanary)
     debugImplementation(libs.soloader)
 
-    testImplementation(project(":core:testing"))
+    testImplementation(projects.core.testing)
 }
 

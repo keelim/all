@@ -10,10 +10,10 @@ android{
 }
 
 dependencies {
-    implementation(project(":core:common"))
-    implementation(project(":core:compose-core"))
-    implementation(project(":core:data"))
-    implementation(project(":core:domain"))
+    implementation(projects.core.common)
+    implementation(projects.core.composeCore)
+    implementation(projects.core.data)
+    implementation(projects.core.domain)
 
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)

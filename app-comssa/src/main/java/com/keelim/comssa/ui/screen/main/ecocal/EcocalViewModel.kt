@@ -6,7 +6,6 @@ import com.keelim.commonAndroid.model.SealedUiState
 import com.keelim.commonAndroid.model.asSealedUiState
 import com.keelim.data.source.firebase.FirebaseRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.emitAll
@@ -14,6 +13,7 @@ import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
 import timber.log.Timber
+import javax.inject.Inject
 
 @HiltViewModel
 class EcocalViewModel @Inject constructor(

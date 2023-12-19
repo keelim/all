@@ -20,7 +20,6 @@ import androidx.lifecycle.viewModelScope
 import com.keelim.data.model.Location
 import com.keelim.data.model.locationList
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -31,6 +30,7 @@ import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
+import javax.inject.Inject
 
 @HiltViewModel
 class RootViewModel @Inject constructor() : ViewModel() {

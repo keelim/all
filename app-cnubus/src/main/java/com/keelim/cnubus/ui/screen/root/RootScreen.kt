@@ -59,10 +59,11 @@ fun RootRoute(
 fun RootScreen(
     uiState: MapEvent,
     onRootClick: (Int) -> Unit,
-    ) {
+) {
     when (uiState) {
         MapEvent.UnInitialized,
-        is MapEvent.Error, -> EmptyView()
+        is MapEvent.Error,
+        -> EmptyView()
         MapEvent.Loading -> Loading()
         is MapEvent.MigrateSuccess -> {
             if (uiState.data.isEmpty()) {

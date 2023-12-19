@@ -56,12 +56,12 @@ class MainActivity : AppCompatActivity() {
                 enabled = true,
                 onBack = {
                     isDialogOpen = true
-                }
+                },
             )
-            if(isDialogOpen) {
+            if (isDialogOpen) {
                 AlertDialog(
                     onDismissRequest = {
-                                       isDialogOpen = false
+                        isDialogOpen = false
                     },
                     title = { Text(text = "안내") },
                     text = { Text(text = "종료 하시겠습니까?") },
@@ -86,7 +86,6 @@ class MainActivity : AppCompatActivity() {
                         }
                     },
                 )
-
             }
         }
     }

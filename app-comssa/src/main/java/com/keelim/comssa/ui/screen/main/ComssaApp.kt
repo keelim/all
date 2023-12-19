@@ -59,7 +59,7 @@ fun ComssaApp(
                         duration = SnackbarDuration.Short,
                     ) == SnackbarResult.ActionPerformed
                 },
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier.fillMaxSize(),
             )
         }
     }

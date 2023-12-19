@@ -12,7 +12,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:common"))
+    implementation(projects.core.common)
 
     implementation(libs.accompanist.permissions)
     implementation(libs.accompanist.systemuicontroller)

@@ -7,9 +7,6 @@ import androidx.navigation.compose.NavHost
 import com.keelim.composeutil.AppState
 import com.keelim.comssa.ui.screen.main.ecocal.ecocalRoute
 import com.keelim.comssa.ui.screen.main.ecocal.ecocalScreen
-import com.keelim.comssa.ui.screen.main.calendar.calendarRoute
-import com.keelim.comssa.ui.screen.main.calendar.calendarScreen
-import com.keelim.comssa.ui.screen.main.flash.flashScreen
 import kotlinx.coroutines.CoroutineScope
 
 @Composable

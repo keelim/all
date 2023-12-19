@@ -41,48 +41,49 @@ import com.keelim.data.model.EcoCalEntry
 
 @Composable
 fun EcocalMainSection(entries: List<EcoCalEntry>) {
-  Column(
-      modifier = Modifier.fillMaxSize().padding(horizontal = 4.dp),
-  ) {
-    EcocalTopSection()
-    Spacer(
-        modifier = Modifier.height(12.dp),
-    )
-      LazyColumn(modifier = Modifier.fillMaxSize()) {
-          stickyHeader {
-              HeaderItem(
-                  title = "2023-12"
-              )
-          }
-          items(entries) { entry ->
-              ListItem(
-                  title = entry.title,
-                  subtitle = "${entry.date} ${entry.time}",
-                  photoUrl = null,
-                  label = entry.country,
-                  priority = entry.priority,
-                  onClick = {},
-              )
-          }
-      }
-  }
+    Column(
+        modifier = Modifier.fillMaxSize().padding(horizontal = 4.dp),
+    ) {
+        EcocalTopSection()
+        Spacer(
+            modifier = Modifier.height(12.dp),
+        )
+        LazyColumn(modifier = Modifier.fillMaxSize()) {
+            stickyHeader {
+                HeaderItem(
+                    title = "2023-12",
+                )
+            }
+            items(entries) { entry ->
+                ListItem(
+                    title = entry.title,
+                    subtitle = "${entry.date} ${entry.time}",
+                    photoUrl = null,
+                    label = entry.country,
+                    priority = entry.priority,
+                    onClick = {},
+                )
+            }
+        }
+    }
 }
 
 @Composable
 fun HeaderItem(title: String, modifier: Modifier = Modifier) {
-  Box(
-      modifier
-          .fillMaxWidth()
-          .background(MaterialTheme.colorScheme.surfaceVariant)
-          .padding(horizontal = 16.dp, vertical = 8.dp),
-      contentAlignment = Alignment.CenterStart) {
+    Box(
+        modifier
+            .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.surfaceVariant)
+            .padding(horizontal = 16.dp, vertical = 8.dp),
+        contentAlignment = Alignment.CenterStart,
+    ) {
         Text(
             text = title,
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             maxLines = 1,
         )
-      }
+    }
 }
 
 @Composable
@@ -95,63 +96,64 @@ fun ListItem(
     modifier: Modifier = Modifier,
     photoUrl: String? = null,
 ) {
-  Surface(onClick = onClick, shape = MaterialTheme.shapes.large) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
-        modifier =
+    Surface(onClick = onClick, shape = MaterialTheme.shapes.large) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            modifier =
             modifier
                 .fillMaxWidth()
-                .padding(start = 16.dp, end = 8.dp, top = 16.dp, bottom = 16.dp)) {
-        SubcomposeAsyncImage(
-            model = photoUrl,
-            modifier = Modifier.size(58.dp).clip(CircleShape),
-            contentScale = ContentScale.Crop,
-            contentDescription = null,
+                .padding(start = 16.dp, end = 8.dp, top = 16.dp, bottom = 16.dp),
         ) {
-            val state = painter.state
-            if (state is AsyncImagePainter.State.Loading || state is AsyncImagePainter.State.Error) {
-                CircularProgressIndicator()
-            } else {
-                SubcomposeAsyncImageContent()
-            }
-        }
-        Column(Modifier.weight(1f)) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
+            SubcomposeAsyncImage(
+                model = photoUrl,
+                modifier = Modifier.size(58.dp).clip(CircleShape),
+                contentScale = ContentScale.Crop,
+                contentDescription = null,
             ) {
-                Text(
-                    text = title,
-                    style = MaterialTheme.typography.headlineSmall,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                )
-                // 해당 부분은 다른 composable 로 변경 예정
-                Text(
-                    text = priority,
-                    style = MaterialTheme.typography.bodyMedium,
-                    overflow = TextOverflow.Ellipsis
-                )
+                val state = painter.state
+                if (state is AsyncImagePainter.State.Loading || state is AsyncImagePainter.State.Error) {
+                    CircularProgressIndicator()
+                } else {
+                    SubcomposeAsyncImageContent()
+                }
             }
-            Spacer(Modifier.height(4.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    text = subtitle,
-                    style = MaterialTheme.typography.bodyMedium,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-                Text(
-                    text = label,
-                    style = MaterialTheme.typography.bodyMedium,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-            }
+            Column(Modifier.weight(1f)) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                ) {
+                    Text(
+                        text = title,
+                        style = MaterialTheme.typography.headlineSmall,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                    // 해당 부분은 다른 composable 로 변경 예정
+                    Text(
+                        text = priority,
+                        style = MaterialTheme.typography.bodyMedium,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                }
+                Spacer(Modifier.height(4.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                ) {
+                    Text(
+                        text = subtitle,
+                        style = MaterialTheme.typography.bodyMedium,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                    Text(
+                        text = label,
+                        style = MaterialTheme.typography.bodyMedium,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                }
             }
 //          Box {
 //            var isExpanded by remember { mutableStateOf(false) }
@@ -166,51 +168,52 @@ fun ListItem(
 //             }
 //          }
         }
-  }
+    }
 }
 
 @Composable
 fun EcocalTopSection() {
-  Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-    Text(text = "Eco Cal", style = MaterialTheme.typography.headlineMedium)
-  }
-  Spacer(modifier = Modifier.height(12.dp))
-  Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-    Button(
-        onClick = {},
-    ) {
-      Icon(Icons.Filled.Add, contentDescription = null)
-      Text(text = "Year")
+    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+        Text(text = "Eco Cal", style = MaterialTheme.typography.headlineMedium)
     }
-    Spacer(modifier = Modifier.width(8.dp))
+    Spacer(modifier = Modifier.height(12.dp))
+    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+        Button(
+            onClick = {},
+        ) {
+            Icon(Icons.Filled.Add, contentDescription = null)
+            Text(text = "Year")
+        }
+        Spacer(modifier = Modifier.width(8.dp))
 
-    Button(
-        onClick = {},
-    ) {
-      Icon(Icons.Filled.Add, contentDescription = null)
-      Text(text = "Month")
+        Button(
+            onClick = {},
+        ) {
+            Icon(Icons.Filled.Add, contentDescription = null)
+            Text(text = "Month")
+        }
     }
-  }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun PreviewEcocalTopSection() {
-  Column { EcocalTopSection() }
+    Column { EcocalTopSection() }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun PreviewEcocalMainSection() {
-  EcocalMainSection(
-      entries =
-          listOf(
-              EcoCalEntry(
-                  country = "Congo, Democratic Republic of the",
-                  date = "ridiculus",
-                  priority = "mus",
-                  time = "penatibus",
-                  title = "option",
-              ),
-          ))
+    EcocalMainSection(
+        entries =
+        listOf(
+            EcoCalEntry(
+                country = "Congo, Democratic Republic of the",
+                date = "ridiculus",
+                priority = "mus",
+                time = "penatibus",
+                title = "option",
+            ),
+        ),
+    )
 }

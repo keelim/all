@@ -25,10 +25,10 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:common"))
-    implementation(project(":core:common-android"))
-    implementation(project(":core:compose-core"))
-    implementation(project(":core:data"))
+    implementation(projects.core.common)
+    implementation(projects.core.commonAndroid)
+    implementation(projects.core.composeCore)
+    implementation(projects.core.data)
 
     implementation(libs.activity.ktx)
     implementation(libs.androidx.activity.compose)

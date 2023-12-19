@@ -1,5 +1,5 @@
 @file:OptIn(
-    ExperimentalFoundationApi::class
+    ExperimentalFoundationApi::class,
 )
 
 package com.keelim.cnubus.ui.screen.main
@@ -49,12 +49,12 @@ private val appPermissions: List<String> = buildList {
 
 @Composable
 fun MainRoute(
-    onNavigateMap:() -> Unit,
+    onNavigateMap: () -> Unit,
     viewModel: RootViewModel = hiltViewModel(),
-    ) {
+) {
     val context = LocalContext.current
     val launcher = rememberLauncherForActivityResult(
-        ActivityResultContracts.RequestMultiplePermissions()
+        ActivityResultContracts.RequestMultiplePermissions(),
     ) { permissions ->
         val responsePermissions = permissions.entries.filter { appPermissions.contains(it.key) }
         if (responsePermissions.filter { it.value }.size == appPermissions.size) {
@@ -65,10 +65,10 @@ fun MainRoute(
         launcher.launch(appPermissions.toTypedArray())
     }
 
-  MainScreen(
-      onNavigateMap = onNavigateMap,
-      onSetMode = viewModel::setMode,
-  )
+    MainScreen(
+        onNavigateMap = onNavigateMap,
+        onSetMode = viewModel::setMode,
+    )
 }
 
 @Stable
@@ -91,7 +91,7 @@ fun MainScreen(
     onNavigateMap: () -> Unit,
     onSetMode: (String) -> Unit,
 ) {
-  val pagerState = rememberPagerState { tabItems.size }
+    val pagerState = rememberPagerState { tabItems.size }
     Column {
         TabBarLayout(
             state = pagerState,
@@ -118,14 +118,14 @@ fun TabBarLayout(
             Tab(
                 selected = state.currentPage == index,
                 onClick = {
-                      coroutineScope.launch {
-                          state.animateScrollToPage(index)
-                          onSetMode(tabItem.mode)
-                      }
+                    coroutineScope.launch {
+                        state.animateScrollToPage(index)
+                        onSetMode(tabItem.mode)
+                    }
                 },
                 text = {
                     Text(
-                        text = tabItem.title
+                        text = tabItem.title,
                     )
                 },
             )
@@ -170,7 +170,7 @@ fun PagerContent(
             4 -> {
                 SettingScreen(
                     onScreenAction = { action ->
-                        when(action) {
+                        when (action) {
                             AppSetting -> {
                                 context.startActivity(
                                     Intent(
@@ -184,13 +184,13 @@ fun PagerContent(
                                 context.startActivity(
                                     Intent(
                                         Intent.ACTION_VIEW,
-                                        Uri.parse("https://play.google.com/store/apps/details?id=com.keelim.cnubus")
-                                    )
+                                        Uri.parse("https://play.google.com/store/apps/details?id=com.keelim.cnubus"),
+                                    ),
                                 )
                             }
                             else -> Unit
                         }
-                    }
+                    },
                 )
             }
         }
@@ -200,8 +200,8 @@ fun PagerContent(
 @Preview(showBackground = true)
 @Composable
 private fun PreviewMainScreen() {
-  MainScreen(
-      onNavigateMap = {},
-      onSetMode = {},
-  )
+    MainScreen(
+        onNavigateMap = {},
+        onSetMode = {},
+    )
 }

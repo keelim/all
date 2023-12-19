@@ -11,7 +11,7 @@ internal const val isEmulatorEnable = false
 class FirestoreInitializer : Initializer<Unit> {
 
     override fun create(context: Context) {
-        if(isEmulatorEnable) {
+        if (isEmulatorEnable) {
             // 10.0.2.2 is the special IP address to connect to the 'localhost' of
             // the host computer from an Android emulator.
             val firestore = Firebase.firestore

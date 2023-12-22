@@ -21,7 +21,7 @@ import kotlin.time.Duration.Companion.seconds
 fun Modifier.onTouchHeld(
     pollDelay: Duration,
     onTouchHeld: (timeElapsed: Duration) -> Unit,
-) = composed {
+) = this.composed {
     val scope = rememberCoroutineScope()
     pointerInput(onTouchHeld) {
         awaitEachGesture {
@@ -47,7 +47,7 @@ fun Modifier.onTouchHeldAnimated(
     targetPollDelay: Duration = pollDelay,
     animationDuration: Duration = 5.seconds,
     onTouchHeld: () -> Unit,
-) = composed {
+) = this.composed {
     val scope = rememberCoroutineScope()
     pointerInput(onTouchHeld) {
         val animationSpec: FloatAnimationSpec = FloatTweenSpec(

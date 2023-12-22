@@ -108,7 +108,6 @@ fun PreviewNutrientScreen() {
     )
 }
 
-@Preview(showBackground = true)
 @Composable
 private fun NutrientCard(title: String, uri: String, onNutrientClick: () -> Unit) {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -154,4 +153,14 @@ private fun NutrientCard(title: String, uri: String, onNutrientClick: () -> Unit
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun PreviewNutrientCard() {
+    NutrientCard(
+        title = "ridiculus",
+        uri = "habemus",
+        onNutrientClick = {}
+    )
 }

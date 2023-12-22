@@ -8,6 +8,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -15,7 +16,7 @@ import androidx.compose.ui.graphics.Color
 fun Modifier.shimmer(
     showShimmer: Boolean = true,
     targetValue: Float = 1000f,
-) = composed { this.then(
+) = this.composed { this.then(
     background(
         if (showShimmer) {
             val shimmerColors = listOf(

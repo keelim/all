@@ -46,12 +46,12 @@ fun FlipCard(
         modifier = Modifier
             .clickable {
                 isFront = isFront.not()
-            }
+            },
     ) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .graphicsLayer(rotationY = if (isFront) 180f else 0f)
+                .graphicsLayer(rotationY = if (isFront) 180f else 0f),
         )
         if (isFront) {
             // front
@@ -65,7 +65,7 @@ fun FlipCard(
             // back
             BackCard(
                 title = title2,
-                subtitle = subtitle
+                subtitle = subtitle,
             )
         }
     }
@@ -103,34 +103,34 @@ private fun FrontCard(
                     contentDescription = null,
                 )
                 Spacer(
-                    modifier = Modifier.height(16.dp)
+                    modifier = Modifier.height(16.dp),
                 )
                 Text(
                     text = title,
                     color = Color.Black,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .align(Alignment.Start)
+                        .align(Alignment.Start),
                 )
                 Spacer(
-                    modifier = Modifier.height(16.dp)
+                    modifier = Modifier.height(16.dp),
                 )
                 Text(
                     text = name,
                     color = Color.Black,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .align(Alignment.Start)
+                        .align(Alignment.Start),
                 )
                 Spacer(
-                    modifier = Modifier.height(8.dp)
+                    modifier = Modifier.height(8.dp),
                 )
                 Text(
                     text = description,
                     color = Color.Black,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .align(Alignment.Start)
+                        .align(Alignment.Start),
                 )
             }
         }
@@ -153,30 +153,30 @@ private fun BackCard(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp)
+                .padding(16.dp),
         ) {
             Spacer(
-                modifier = Modifier.height(8.dp)
+                modifier = Modifier.height(8.dp),
             )
             Text(
                 text = title,
                 color = Color.White,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .align(Alignment.Start)
+                    .align(Alignment.Start),
             )
             Spacer(
-                modifier = Modifier.height(8.dp)
+                modifier = Modifier.height(8.dp),
             )
             Text(
                 text = subtitle,
                 color = Color.White,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .align(Alignment.Start)
+                    .align(Alignment.Start),
             )
             Spacer(
-                modifier = Modifier.height(8.dp)
+                modifier = Modifier.height(8.dp),
             )
             Icon(
                 imageVector = Icons.Filled.AccountBox,
@@ -217,7 +217,7 @@ fun PreviewFontCard() {
 @Composable
 fun PreviewBackCard() {
     BackCard(
-        title = "elementum", subtitle = "natum",
+        title = "elementum",
+        subtitle = "natum",
     )
 }
-

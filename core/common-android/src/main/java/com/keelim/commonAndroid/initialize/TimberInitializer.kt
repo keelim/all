@@ -2,7 +2,6 @@ package com.keelim.commonAndroid.initialize
 
 import android.content.Context
 import androidx.startup.Initializer
-import com.google.firebase.initialize
 import com.keelim.commonAndroid.BuildConfig
 import timber.log.Timber
 

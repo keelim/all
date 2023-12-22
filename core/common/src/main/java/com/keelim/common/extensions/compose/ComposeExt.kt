@@ -1,10 +1,8 @@
 package com.keelim.common.extensions.compose
 
-import android.app.Activity
 import android.view.ViewGroup
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.annotation.IdRes
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionContext
@@ -15,17 +13,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
-
-fun Activity.showAsBottomSheet(@IdRes id: Int, content: @Composable (() -> Unit) -> Unit) {
-    val viewGroup = this.findViewById(id) as ViewGroup
-    addContentToView(viewGroup, content)
-}
-
-// Extension for Fragment
-fun Fragment.showAsBottomSheet(@IdRes id: Int, content: @Composable (() -> Unit) -> Unit) {
-    val viewGroup = requireActivity().findViewById(id) as ViewGroup
-    addContentToView(viewGroup, content)
-}
 
 private fun addContentToView(
     viewGroup: ViewGroup,
@@ -46,7 +33,7 @@ private fun BottomSheetWrapper(
     composeView: ComposeView,
     content: @Composable (() -> Unit) -> Unit,
 ) {
-    val TAG = parent::class.java.simpleName
+    val tag = parent::class.java.simpleName
     val coroutineScope = rememberCoroutineScope()
 //    val modalBottomSheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
     var isSheetOpened by remember { mutableStateOf(false) }

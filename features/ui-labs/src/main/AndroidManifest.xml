@@ -3,10 +3,6 @@
 
     <application>
         <activity
-            android:name="com.keelim.labs.ui.screen.CaptureActivity"
-            android:exported="false"
-            android:label="maps" />
-        <activity
             android:name="com.keelim.labs.ui.screen.motion.MotionActivity"
             android:exported="false"
             android:label="maps" />

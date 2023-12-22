@@ -8,16 +8,16 @@ import kotlinx.datetime.Clock
 data class NetworkCache(
     @PrimaryKey val url: String,
     val json: String,
-    val timestamp: Long
+    val timestamp: Long,
 ) {
     companion object {
         fun newInstance(
             url: String,
             body: String,
-        ) : NetworkCache = NetworkCache(
+        ): NetworkCache = NetworkCache(
             url = url,
             json = body,
-            timestamp = Clock.System.now().toEpochMilliseconds()
+            timestamp = Clock.System.now().toEpochMilliseconds(),
         )
     }
 }

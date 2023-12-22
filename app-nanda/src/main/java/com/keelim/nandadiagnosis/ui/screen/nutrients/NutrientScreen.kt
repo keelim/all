@@ -161,6 +161,6 @@ fun PreviewNutrientCard() {
     NutrientCard(
         title = "ridiculus",
         uri = "habemus",
-        onNutrientClick = {}
+        onNutrientClick = {},
     )
 }

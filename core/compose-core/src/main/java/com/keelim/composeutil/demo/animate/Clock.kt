@@ -86,7 +86,7 @@ fun ClockAnimation() {
 
 @Preview
 @Composable
-private fun clockPreview() {
+private fun ClockPreview() {
     ClockAnimation()
 }
 

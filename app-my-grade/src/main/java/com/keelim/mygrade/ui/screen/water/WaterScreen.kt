@@ -12,6 +12,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -31,7 +32,7 @@ fun WaterRoute() {
 fun WaterScreen(viewModel: WaterViewModel = hiltViewModel()) {
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         NavigationBackArrowBar(title = "물 마시기")
-        var waterCount by remember { mutableStateOf(0) }
+        var waterCount by remember { mutableIntStateOf(0) }
 
         Button(onClick = { waterCount++ }) {
             Icon(imageVector = Icons.Sharp.Add, contentDescription = null)

@@ -244,7 +244,7 @@ private fun ColumnScope.MainBottomSection(
                 History(),
                 Setting(),
                 Other(),
-            )
+            ),
         )
     }
     Row(
@@ -261,14 +261,14 @@ private fun ColumnScope.MainBottomSection(
                 iconTint = MaterialTheme.colorScheme.onPrimary,
             ),
             onFabItemClicked = { item ->
-                when(item) {
+                when (item) {
                     is History -> onFloatingButtonClick1()
                     is Setting -> onFloatingButtonClick2()
                     is Other -> onNavigateWord()
                 }
             },
             stateChanged = {
-                   fabState = it
+                fabState = it
             },
         )
     }

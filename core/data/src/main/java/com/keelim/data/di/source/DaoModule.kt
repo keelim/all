@@ -66,6 +66,6 @@ object DaoModule {
     @Provides
     @Singleton
     fun providesNetworkCache(
-        database: MyGradeAppDatabase
+        database: MyGradeAppDatabase,
     ): NetworkCacheDao = database.networkCacheDao()
 }

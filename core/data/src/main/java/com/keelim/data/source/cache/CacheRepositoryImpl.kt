@@ -13,7 +13,7 @@ class CacheRepositoryImpl @Inject constructor(
     val cacheDao: NetworkCacheDao,
     @KtorNetworkModule.KtorAndroidClient
     val client: HttpClient,
-): CacheRepository {
+) : CacheRepository {
     override suspend fun getResponse(url: String, enforce: Boolean): String {
         val cachedData = cacheDao.getCache(url)
         if (cachedData != null && System.currentTimeMillis() - cachedData.timestamp < CACHE_VALIDITY) {

@@ -16,8 +16,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.List
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -25,8 +23,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,7 +33,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
-
 @Stable
 interface FabButtonItem {
     val imageVector: ImageVector
@@ -46,13 +41,13 @@ interface FabButtonItem {
 
 // FabButtonMain.kt
 interface FabButtonMain {
-  val imageVector: ImageVector
-  val iconRotate: Float?
+    val imageVector: ImageVector
+    val iconRotate: Float?
 }
 
 private class FabButtonMainImpl(
     override val imageVector: ImageVector,
-    override val iconRotate: Float?
+    override val iconRotate: Float?,
 ) : FabButtonMain
 
 fun FabButtonMain(iconRes: ImageVector = Icons.Filled.Add, iconRotate: Float = 45f): FabButtonMain =
@@ -60,8 +55,8 @@ fun FabButtonMain(iconRes: ImageVector = Icons.Filled.Add, iconRotate: Float = 4
 
 // FabButtonSub.kt
 interface FabButtonSub {
-  val iconTint: Color
-  val backgroundTint: Color
+    val iconTint: Color
+    val backgroundTint: Color
 }
 
 private class FabButtonSubImpl(override val iconTint: Color, override val backgroundTint: Color) :
@@ -75,18 +70,18 @@ fun FabButtonSub(
 // FabButtonState.kt
 @Stable
 sealed interface FabButtonState {
-  data object Collapsed : FabButtonState
+    data object Collapsed : FabButtonState
 
-  data object Expand : FabButtonState
+    data object Expand : FabButtonState
 
-  fun isExpanded() = this == Expand
+    fun isExpanded() = this == Expand
 
-  fun toggleValue() =
-      if (isExpanded()) {
-        Collapsed
-      } else {
-        Expand
-      }
+    fun toggleValue() =
+        if (isExpanded()) {
+            Collapsed
+        } else {
+            Expand
+        }
 }
 
 @Composable
@@ -108,7 +103,7 @@ fun MultiSubFab(
             style = MaterialTheme.typography.labelSmall,
             modifier = Modifier
                 .clip(RoundedCornerShape(8.dp))
-                .padding(all = 8.dp)
+                .padding(all = 8.dp),
         )
 
         FloatingActionButton(
@@ -159,11 +154,12 @@ fun MultiMainFab(
             fabIcon.iconRotate ?: 0f
         } else {
             0f
-        }, label = ""
+        },
+        label = "",
     )
     Column(
         modifier = modifier.wrapContentSize(),
-        horizontalAlignment = Alignment.End
+        horizontalAlignment = Alignment.End,
     ) {
         // AnimatedVisibility to show or hide the sub-items when the Multi-FAB is expanded or collapsed
         AnimatedVisibility(
@@ -173,9 +169,9 @@ fun MultiMainFab(
             LazyColumn(
                 modifier = Modifier.wrapContentSize(),
                 horizontalAlignment = Alignment.End,
-                verticalArrangement = Arrangement.spacedBy(15.dp)
+                verticalArrangement = Arrangement.spacedBy(15.dp),
             ) {
-                items(items) {item ->
+                items(items) { item ->
                     MultiSubFab(
                         item = item,
                         option = fabOption,
@@ -184,7 +180,7 @@ fun MultiMainFab(
                 }
                 item {
                     Spacer(
-                        modifier = Modifier.height(12.dp)
+                        modifier = Modifier.height(12.dp),
                     )
                 }
             }
@@ -194,13 +190,13 @@ fun MultiMainFab(
                 stateChanged(fabState.toggleValue())
             },
             containerColor = fabOption.backgroundTint,
-            contentColor = fabOption.iconTint
+            contentColor = fabOption.iconTint,
         ) {
             Icon(
                 imageVector = fabIcon.imageVector,
                 contentDescription = null,
                 modifier = Modifier.rotate(rotation),
-                tint = fabOption.iconTint
+                tint = fabOption.iconTint,
             )
         }
     }

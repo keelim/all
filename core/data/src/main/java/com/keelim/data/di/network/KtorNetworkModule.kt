@@ -123,7 +123,7 @@ object KtorNetworkModule {
     @Provides
     @Singleton
     fun providesKtorAndroidClient(
-        jsonFormatter: Json
+        jsonFormatter: Json,
     ): HttpClient {
         return HttpClient(Android) {
             install(ContentNegotiation) {

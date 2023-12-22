@@ -12,11 +12,10 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 
-@Composable
 fun Modifier.shimmer(
     showShimmer: Boolean = true,
     targetValue: Float = 1000f,
-) = this.then(
+) = composed { this.then(
     background(
         if (showShimmer) {
             val shimmerColors = listOf(
@@ -48,4 +47,4 @@ fun Modifier.shimmer(
             )
         },
     ),
-)
+) }

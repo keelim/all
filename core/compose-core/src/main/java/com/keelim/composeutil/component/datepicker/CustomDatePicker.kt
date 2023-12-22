@@ -1,3 +1,5 @@
+package com.keelim.composeutil.component.datepicker
+
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange

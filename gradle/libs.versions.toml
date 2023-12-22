@@ -48,7 +48,7 @@ firebaseCrashlyticsPlugin = "2.9.9"
 firebasePerfPlugin = "1.4.2"
 flipper = "0.243.0"
 glance = "1.0.0"
-hilt = "2.49"
+hilt = "2.50"
 hiltExt = "1.1.0"
 
 in-app-update = "2.1.0"

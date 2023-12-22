@@ -101,7 +101,6 @@ class DownloadWorker @AssistedInject constructor(
         return ForegroundInfo(1, notification.build())
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun createChannel(
         notificationBuilder: NotificationCompat.Builder,
         id: String,

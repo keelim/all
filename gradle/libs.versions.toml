@@ -96,6 +96,7 @@ turbine = "1.0.0"
 slackLintChecks = "0.7.0"
 showkase = "1.0.2"
 generativeai = "0.1.1"
+dependencyGuard = "0.4.3"
 
 [libraries]
 accompanist-flowlayout = { group = "com.google.accompanist", name = "accompanist-flowlayout", version.ref = "accompanist" }
@@ -261,6 +262,7 @@ showkase = { group = "com.airbnb.android", name = "showkase", version.ref = "sho
 showkase-processor = { group = "com.airbnb.android", name = "showkase-processor", version.ref = "showkase" }
 generativeai = { group = "com.google.ai.client.generativeai", name = "generativeai", version.ref = "generativeai" }
 room-gradlePlugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "room" }
+dependencyGuard-gradlePlugin = { group = "com.dropbox.dependency-guard", name = "com.dropbox.dependency-guard.gradle.plugin", version.ref = "dependencyGuard" }
 
 [bundles]
 showkase = ["showkase", "showkase-processor"]
@@ -282,6 +284,7 @@ gms-googleServices = "com.google.gms.google-services:4.4.0"
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlyticsPlugin" }
 firebase-perf = { id = "com.google.firebase.firebase-perf", version.ref = "firebasePerfPlugin" }
 room = { id = "androidx.room", version.ref = "room" }
+dependencyGuard = { id = "com.dropbox.dependency-guard", version.ref = "dependencyGuard" }
 
 # project plugin
 keelim-android-application = { id = "keelim.android.application", version = "unspecified" }

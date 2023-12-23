@@ -27,7 +27,6 @@ class KeelimAndroidApplicationPlugin : Plugin<Project> {
                     targetSdk = libs.findVersion("targetSdk").get().displayName.toInt()
                 }
                 with(buildFeatures) {
-                    dataBinding = true
                     buildConfig = true
                 }
                 buildTypes.getByName("release").apply {

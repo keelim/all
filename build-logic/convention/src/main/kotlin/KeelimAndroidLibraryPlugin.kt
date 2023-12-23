@@ -15,7 +15,6 @@ class KeelimAndroidLibraryPlugin : Plugin<Project> {
             }
             extensions.getByType<LibraryExtension>().apply {
                 with(buildFeatures) {
-                    dataBinding = true
                     buildConfig = true
                 }
                 configureKotlinAndroid(this)

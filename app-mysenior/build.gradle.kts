@@ -1,8 +1,8 @@
 plugins {
-    id("keelim.android.application")
-    id("keelim.android.application.compose")
-    id("keelim.android.application.jacoco")
-    id("keelim.android.hilt")
+    alias(libs.plugins.keelim.android.application)
+    alias(libs.plugins.keelim.android.application.compose)
+    alias(libs.plugins.keelim.android.application.jacoco)
+    alias(libs.plugins.keelim.android.hilt)
     alias(libs.plugins.kotlin.android)
 }
 

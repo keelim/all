@@ -1,4 +1,5 @@
 import com.android.build.api.dsl.ApplicationExtension
+import com.dropbox.gradle.plugins.dependencyguard.DependencyGuardPluginExtension
 import com.keelim.builds.configureKotlinAndroid
 import com.keelim.builds.libs
 import org.gradle.api.Plugin
@@ -15,6 +16,7 @@ class KeelimAndroidApplicationPlugin : Plugin<Project> {
                 apply("org.gradle.android.cache-fix")
                 apply("com.google.android.gms.oss-licenses-plugin")
                 apply("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+                apply("com.dropbox.dependency-guard")
                 // apply("androidx.baselineprofile")
             }
 
@@ -43,6 +45,9 @@ class KeelimAndroidApplicationPlugin : Plugin<Project> {
                 lint {
                     abortOnError = false
                 }
+            }
+            extensions.getByType<DependencyGuardPluginExtension>().apply {
+                configuration("releaseRuntimeClasspath")
             }
 
             dependencies {

@@ -1,6 +1,6 @@
 plugins {
-    id("keelim.android.library")
-    id("keelim.android.hilt")
+    alias(libs.plugins.keelim.android.library)
+    alias(libs.plugins.keelim.android.hilt)
 }
 
 android {

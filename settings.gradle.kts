@@ -30,7 +30,7 @@ include(
     ":core:data",
     ":core:domain",
     ":core:testing",
-    ":core:widget-glance",
+    // ":core:widget-glance",
     ":features:ui-labs",
     ":features:ui-setting",
 )

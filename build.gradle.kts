@@ -23,6 +23,7 @@ plugins {
     alias(libs.plugins.gms.googleServices) apply false
     alias(libs.plugins.firebase.crashlytics) apply false
     alias(libs.plugins.firebase.perf) apply false
+    alias(libs.plugins.room) apply false
 }
 
 task("clean", Delete::class) {

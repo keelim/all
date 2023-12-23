@@ -25,7 +25,10 @@ class KeelimRoomConventionPlugin : Plugin<Project> {
 
     override fun apply(target: Project) {
         with(target) {
-            pluginManager.apply("com.google.devtools.ksp")
+            with(pluginManager) {
+                apply("com.google.devtools.ksp")
+                apply("androidx.room")
+            }
 
             extensions.configure<RoomExtension> {
                 // The schemas directory contains a schema file for each version of the Room database.

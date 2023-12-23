@@ -1,7 +1,7 @@
 plugins {
-    id("keelim.android.application")
-    id("keelim.android.application.compose")
-    id("keelim.android.showkase")
+    alias(libs.plugins.keelim.android.application)
+    alias(libs.plugins.keelim.android.application.compose)
+    alias(libs.plugins.keelim.android.showkase)
 }
 
 android {

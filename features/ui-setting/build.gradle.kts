@@ -1,8 +1,8 @@
 plugins {
-    id("keelim.android.library")
-    id("keelim.android.library.compose")
-    id("keelim.android.library.jacoco")
-    id("keelim.android.hilt")
+    alias(libs.plugins.keelim.android.library)
+    alias(libs.plugins.keelim.android.library.compose)
+    alias(libs.plugins.keelim.android.library.jacoco)
+    alias(libs.plugins.keelim.android.hilt)
     kotlin("plugin.parcelize")
     id("kotlinx-serialization")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")

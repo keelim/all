@@ -15,9 +15,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
@@ -30,6 +32,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -44,7 +47,6 @@ fun EcocalMainSection(entries: List<EcoCalEntry>) {
     Column(
         modifier = Modifier.fillMaxSize().padding(horizontal = 4.dp),
     ) {
-        EcocalTopSection()
         Spacer(
             modifier = Modifier.height(12.dp),
         )
@@ -126,32 +128,38 @@ fun ListItem(
                     Text(
                         text = title,
                         style = MaterialTheme.typography.headlineSmall,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
                     )
                     // 해당 부분은 다른 composable 로 변경 예정
-                    Text(
-                        text = priority,
-                        style = MaterialTheme.typography.bodyMedium,
-                        overflow = TextOverflow.Ellipsis,
-                    )
+                    // Text(
+                    //     text = priority,
+                    //     style = MaterialTheme.typography.bodyMedium,
+                    //     overflow = TextOverflow.Ellipsis,
+                    // )
                 }
                 Spacer(Modifier.height(4.dp))
                 Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Text(
-                        text = subtitle,
+                        text = "$subtitle $label",
                         style = MaterialTheme.typography.bodyMedium,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.weight(1f),
                     )
-                    Text(
-                        text = label,
-                        style = MaterialTheme.typography.bodyMedium,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
+                    val color = when(priority) {
+                        "상" -> Color.Red
+                        "중" -> Color.Yellow
+                        "하" -> Color.Green
+                        else -> Color.Transparent
+                    }
+                    Box(
+                        modifier = Modifier
+                            .size(12.dp)
+                            .clip(CircleShape)
+                            .background(color)
                     )
                 }
             }

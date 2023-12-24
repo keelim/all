@@ -2,6 +2,7 @@ package com.keelim.composeutil.component.fab
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -30,6 +31,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
@@ -101,9 +103,12 @@ fun MultiSubFab(
         Text(
             text = item.label,
             style = MaterialTheme.typography.labelSmall,
+            fontWeight = FontWeight.Bold,
             modifier = Modifier
                 .clip(RoundedCornerShape(8.dp))
+                .background(Color.DarkGray)
                 .padding(all = 8.dp),
+            color = Color.White,
         )
 
         FloatingActionButton(

@@ -44,9 +44,12 @@ import coil.compose.SubcomposeAsyncImageContent
 import com.keelim.data.model.EcoCalEntry
 
 @Composable
-fun EcocalMainSection(entries: List<EcoCalEntry>) {
+fun EcocalMainSection(
+    entries: List<EcoCalEntry>,
+    modifier: Modifier = Modifier,
+) {
     Column(
-        modifier = Modifier.fillMaxSize().padding(horizontal = 4.dp),
+        modifier = modifier.fillMaxSize().padding(horizontal = 4.dp),
     ) {
         Spacer(
             modifier = Modifier.height(12.dp),
@@ -64,6 +67,7 @@ fun EcocalMainSection(entries: List<EcoCalEntry>) {
                     photoUrl = null,
                     label = entry.country,
                     priority = entry.priority,
+                    isToday = entry.isToday,
                     onClick = {},
                 )
             }
@@ -128,18 +132,22 @@ fun ListItem(
     subtitle: String,
     label: String,
     priority: String,
+    isToday: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     photoUrl: String? = null,
 ) {
-    Surface(onClick = onClick, shape = MaterialTheme.shapes.large) {
+    Surface(
+        onClick = onClick,
+        shape = MaterialTheme.shapes.large,
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(start = 16.dp, end = 8.dp, top = 16.dp, bottom = 16.dp)
+            .clip(RoundedCornerShape(4.dp))
+    ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(16.dp),
-            modifier =
-            modifier
-                .fillMaxWidth()
-                .padding(start = 16.dp, end = 8.dp, top = 16.dp, bottom = 16.dp),
         ) {
             SubcomposeAsyncImage(
                 model = photoUrl,

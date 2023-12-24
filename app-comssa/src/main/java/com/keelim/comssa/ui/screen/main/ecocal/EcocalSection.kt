@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -23,9 +22,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.PlainTooltipBox
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -34,13 +33,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImagePainter
-import coil.compose.SubcomposeAsyncImage
-import coil.compose.SubcomposeAsyncImageContent
 import com.keelim.data.model.EcoCalEntry
 
 @Composable
@@ -49,7 +45,9 @@ fun EcocalMainSection(
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier.fillMaxSize().padding(horizontal = 4.dp),
+        modifier = modifier
+            .fillMaxSize()
+            .padding(horizontal = 4.dp),
     ) {
         Spacer(
             modifier = Modifier.height(12.dp),
@@ -71,6 +69,21 @@ fun EcocalMainSection(
                     onClick = {},
                 )
             }
+            item {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(60.dp)
+                        .background(MaterialTheme.colorScheme.primaryContainer),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(
+                        text = "여기가 마지막 일정입니다.",
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                }
+            }
         }
     }
 }
@@ -91,37 +104,44 @@ fun HeaderItem(title: String, modifier: Modifier = Modifier) {
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             maxLines = 1,
         )
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-        ) {
-            val boxModifier = Modifier
-                .size(12.dp)
-                .clip(RectangleShape)
-            Box(
-                modifier = boxModifier
-                    .background(Color.Red)
-            )
+        PlainTooltipBox(tooltip = {
             Text(
-                text = "상",
-                style = MaterialTheme.typography.bodyMedium,
+                text = "중요도를 표시하는 항목"
             )
-            Box(
-                modifier = boxModifier
-                    .background(Color.Yellow)
-            )
-            Text(
-                text = "중",
-                style = MaterialTheme.typography.bodyMedium,
-            )
-            Box(
-                modifier = boxModifier
-                    .background(Color.Green)
-            )
-            Text(
-                text = "하",
-                style = MaterialTheme.typography.bodyMedium,
-            )
+        }) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier.tooltipAnchor()
+            ) {
+                val boxModifier = Modifier
+                    .size(12.dp)
+                    .clip(RectangleShape)
+                Box(
+                    modifier = boxModifier
+                        .background(Color.Red)
+                )
+                Text(
+                    text = "상",
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+                Box(
+                    modifier = boxModifier
+                        .background(Color.Yellow)
+                )
+                Text(
+                    text = "중",
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+                Box(
+                    modifier = boxModifier
+                        .background(Color.Green)
+                )
+                Text(
+                    text = "하",
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+            }
         }
     }
 }
@@ -142,26 +162,25 @@ fun ListItem(
         shape = MaterialTheme.shapes.large,
         modifier = modifier
             .fillMaxWidth()
-            .padding(start = 16.dp, end = 8.dp, top = 16.dp, bottom = 16.dp)
-            .clip(RoundedCornerShape(4.dp))
+            .padding(all = 16.dp)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            SubcomposeAsyncImage(
-                model = photoUrl,
-                modifier = Modifier.size(58.dp).clip(CircleShape),
-                contentScale = ContentScale.Crop,
-                contentDescription = null,
-            ) {
-                val state = painter.state
-                if (state is AsyncImagePainter.State.Loading || state is AsyncImagePainter.State.Error) {
-                    CircularProgressIndicator()
-                } else {
-                    SubcomposeAsyncImageContent()
-                }
-            }
+            // SubcomposeAsyncImage(
+            //     model = photoUrl,
+            //     modifier = Modifier.size(58.dp).clip(CircleShape),
+            //     contentScale = ContentScale.Crop,
+            //     contentDescription = null,
+            // ) {
+            //     val state = painter.state
+            //     if (state is AsyncImagePainter.State.Loading || state is AsyncImagePainter.State.Error) {
+            //         CircularProgressIndicator()
+            //     } else {
+            //         SubcomposeAsyncImageContent()
+            //     }
+            // }
             Column(Modifier.weight(1f)) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -171,12 +190,6 @@ fun ListItem(
                         text = title,
                         style = MaterialTheme.typography.headlineSmall,
                     )
-                    // 해당 부분은 다른 composable 로 변경 예정
-                    // Text(
-                    //     text = priority,
-                    //     style = MaterialTheme.typography.bodyMedium,
-                    //     overflow = TextOverflow.Ellipsis,
-                    // )
                 }
                 Spacer(Modifier.height(4.dp))
                 Row(
@@ -187,6 +200,7 @@ fun ListItem(
                     Text(
                         text = "$subtitle $label",
                         style = MaterialTheme.typography.bodyMedium,
+                        fontWeight = FontWeight.Bold,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                         modifier = Modifier.weight(1f),

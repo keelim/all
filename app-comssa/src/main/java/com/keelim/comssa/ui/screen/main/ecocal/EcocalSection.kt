@@ -33,6 +33,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -72,12 +73,13 @@ fun EcocalMainSection(entries: List<EcoCalEntry>) {
 
 @Composable
 fun HeaderItem(title: String, modifier: Modifier = Modifier) {
-    Box(
-        modifier
+    Row(
+        modifier  = modifier
             .fillMaxWidth()
             .background(MaterialTheme.colorScheme.surfaceVariant)
             .padding(horizontal = 16.dp, vertical = 8.dp),
-        contentAlignment = Alignment.CenterStart,
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         Text(
             text = title,
@@ -85,6 +87,38 @@ fun HeaderItem(title: String, modifier: Modifier = Modifier) {
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             maxLines = 1,
         )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            val boxModifier = Modifier
+                .size(12.dp)
+                .clip(RectangleShape)
+            Box(
+                modifier = boxModifier
+                    .background(Color.Red)
+            )
+            Text(
+                text = "상",
+                style = MaterialTheme.typography.bodyMedium,
+            )
+            Box(
+                modifier = boxModifier
+                    .background(Color.Yellow)
+            )
+            Text(
+                text = "중",
+                style = MaterialTheme.typography.bodyMedium,
+            )
+            Box(
+                modifier = boxModifier
+                    .background(Color.Green)
+            )
+            Text(
+                text = "하",
+                style = MaterialTheme.typography.bodyMedium,
+            )
+        }
     }
 }
 

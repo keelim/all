@@ -16,9 +16,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
@@ -28,6 +29,11 @@ import androidx.compose.material3.PlainTooltipBox
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -38,9 +44,14 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.keelim.data.model.EcoCalEntry
+import kotlinx.coroutines.delay
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 
 @Composable
 fun EcocalMainSection(
+    state: LazyListState,
     entries: List<EcoCalEntry>,
     modifier: Modifier = Modifier,
 ) {
@@ -52,7 +63,10 @@ fun EcocalMainSection(
         Spacer(
             modifier = Modifier.height(12.dp),
         )
-        LazyColumn(modifier = Modifier.fillMaxSize()) {
+        LazyColumn(
+            state = state,
+            modifier = Modifier.fillMaxSize(),
+        ) {
             stickyHeader {
                 HeaderItem(
                     title = "2023-12",
@@ -90,58 +104,80 @@ fun EcocalMainSection(
 
 @Composable
 fun HeaderItem(title: String, modifier: Modifier = Modifier) {
-    Row(
-        modifier  = modifier
+    Column(
+        modifier = modifier
+    ) {
+        val rowModifier = Modifier
             .fillMaxWidth()
             .background(MaterialTheme.colorScheme.surfaceVariant)
-            .padding(horizontal = 16.dp, vertical = 8.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween,
-    ) {
-        Text(
-            text = title,
-            style = MaterialTheme.typography.bodyLarge,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            maxLines = 1,
-        )
-        PlainTooltipBox(tooltip = {
+            .padding(horizontal = 16.dp, vertical = 8.dp)
+        Row(
+            modifier = rowModifier,
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
             Text(
-                text = "중요도를 표시하는 항목"
+                text = title,
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                maxLines = 1,
             )
-        }) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier.tooltipAnchor()
-            ) {
-                val boxModifier = Modifier
-                    .size(12.dp)
-                    .clip(RectangleShape)
-                Box(
-                    modifier = boxModifier
-                        .background(Color.Red)
-                )
+            PlainTooltipBox(tooltip = {
                 Text(
-                    text = "상",
-                    style = MaterialTheme.typography.bodyMedium,
+                    text = "중요도를 표시하는 항목"
                 )
-                Box(
-                    modifier = boxModifier
-                        .background(Color.Yellow)
-                )
-                Text(
-                    text = "중",
-                    style = MaterialTheme.typography.bodyMedium,
-                )
-                Box(
-                    modifier = boxModifier
-                        .background(Color.Green)
-                )
-                Text(
-                    text = "하",
-                    style = MaterialTheme.typography.bodyMedium,
-                )
+            }) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    modifier = Modifier.tooltipAnchor()
+                ) {
+                    val boxModifier = Modifier
+                        .size(12.dp)
+                        .clip(RectangleShape)
+                    Box(
+                        modifier = boxModifier
+                            .background(Color.Red)
+                    )
+                    Text(
+                        text = "상",
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                    Box(
+                        modifier = boxModifier
+                            .background(Color.Yellow)
+                    )
+                    Text(
+                        text = "중",
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                    Box(
+                        modifier = boxModifier
+                            .background(Color.Green)
+                    )
+                    Text(
+                        text = "하",
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                }
             }
+        }
+        Row(
+            modifier = rowModifier,
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.End,
+        ) {
+            var now by remember { mutableStateOf(Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())) }
+
+            LaunchedEffect(Unit) {
+                while (true) {
+                    delay(1000L)
+                    now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+                }
+            }
+            Text(
+                text = "${now.year}년 ${now.monthNumber}월 ${now.dayOfMonth}일 ${now.hour}:${now.minute}:${now.second}",
+            )
         }
     }
 }
@@ -269,6 +305,7 @@ fun PreviewEcocalTopSection() {
 @Composable
 fun PreviewEcocalMainSection() {
     EcocalMainSection(
+        state = rememberLazyListState(),
         entries =
         listOf(
             EcoCalEntry(

@@ -52,6 +52,7 @@ dependencies {
     implementation(libs.firebase.database)
     implementation(libs.firebase.firestore)
     implementation(libs.kotlinx.coroutines.play.services)
+    implementation(libs.kotlinx.datetime)
     implementation(libs.play.core)
     implementation(libs.play.services.ad)
     implementation(libs.timber)

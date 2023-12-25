@@ -1,15 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <application>
-        <activity
-            android:name="com.keelim.labs.ui.screen.motion.MotionActivity"
-            android:exported="false"
-            android:label="maps" />
-
-        <service
-            android:name="com.keelim.labs.services.LabBoundService"
-            android:enabled="true"
-            android:exported="false" />
-    </application>
-</manifest>
+<manifest/>

@@ -8,6 +8,7 @@ import androidx.compose.animation.core.spring
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -16,12 +17,14 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -55,13 +58,27 @@ import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.data.source.local.LocalTask
 
 @Composable
-fun TaskRoute() {
-    TaskScreen()
+fun TaskRoute(onNavigateChart: () -> Unit, viewModel: TaskViewModel = hiltViewModel()) {
+    val state by viewModel.state.collectAsStateWithLifecycle()
+    TaskScreen(
+        state = state,
+        onNavigateChart = onNavigateChart,
+        onAddLocalTask = viewModel::addLocalTask,
+        onClear = viewModel::clear,
+        onEditTask = viewModel::editTask,
+        onDeleteTask = viewModel::deleteTask,
+    )
 }
 
 @Composable
-fun TaskScreen(viewModel: TaskViewModel = hiltViewModel()) {
-    val state by viewModel.state.collectAsStateWithLifecycle()
+fun TaskScreen(
+    state: SealedUiState<List<TaskElement>>,
+    onNavigateChart: () -> Unit,
+    onAddLocalTask: () -> Unit,
+    onClear: () -> Unit,
+    onEditTask: (LocalTask) -> Unit,
+    onDeleteTask: (LocalTask) -> Unit,
+) {
     when (state) {
         SealedUiState.Loading,
         is SealedUiState.Error,
@@ -74,24 +91,32 @@ fun TaskScreen(viewModel: TaskViewModel = hiltViewModel()) {
                     TopAppBar(
                         title = { Text(text = "MyGrade") },
                         actions = {
-                            IconButton(onClick = viewModel::addLocalTask) {
+                            IconButton(onClick = onAddLocalTask) {
                                 Icon(imageVector = Icons.Filled.Add, contentDescription = null)
                             }
                         },
                     )
                 },
                 floatingActionButton = {
-                    SmallFloatingActionButton(onClick = viewModel::clear) {
-                        Icon(
-                            imageVector = Icons.Filled.Clear,
-                            contentDescription = null,
-                        )
+                    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                        FloatingActionButton(onClick = onNavigateChart) {
+                            Icon(
+                                imageVector = Icons.Filled.CheckCircle,
+                                contentDescription = null,
+                            )
+                        }
+                        SmallFloatingActionButton(onClick = onClear) {
+                            Icon(
+                                imageVector = Icons.Filled.Clear,
+                                contentDescription = null,
+                            )
+                        }
                     }
                 },
             ) { paddingValues ->
                 LocalTaskList(
                     state = state,
-                    onChange = viewModel::editTask,
+                    onChange = onEditTask,
                     onDelete = {
                         deleteTask = it
                         setShowDialog(true)
@@ -101,7 +126,7 @@ fun TaskScreen(viewModel: TaskViewModel = hiltViewModel()) {
                 if (showDialog) {
                     DeleteDialog(
                         setShowDialog = setShowDialog,
-                        onConfirm = { deleteTask?.also(viewModel::deleteTask) },
+                        onConfirm = { deleteTask?.also(onDeleteTask) },
                     )
                 }
             }
@@ -112,7 +137,14 @@ fun TaskScreen(viewModel: TaskViewModel = hiltViewModel()) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewTaskScreen() {
-    TaskScreen()
+    TaskScreen(
+        state = SealedUiState.loading(),
+        onAddLocalTask = {},
+        onClear = {},
+        onEditTask = {},
+        onDeleteTask = {},
+        onNavigateChart = {},
+    )
 }
 
 @Composable
@@ -126,41 +158,44 @@ fun LocalTaskList(
     if (items.isEmpty()) {
         EmptyView()
     } else {
-        val selected by remember(items) {
-            derivedStateOf {
-                items.filterIsInstance(TaskElement.Header::class.java)
-                    .takeIf { it.size >= 2 }?.let { 1 } ?: 0
+        val selected by
+            remember(items) {
+                derivedStateOf {
+                    items
+                        .filterIsInstance(TaskElement.Header::class.java)
+                        .takeIf { it.size >= 2 }
+                        ?.let { 1 } ?: 0
+                }
             }
-        }
         val spacedBy by animateDpAsState(Dp(selected * 2f), label = "")
         val innerCornerSize by animateDpAsState(Dp(selected * 4f), label = "")
         LazyColumn(
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp),
+            modifier = modifier.fillMaxWidth().padding(vertical = 8.dp),
             verticalArrangement = Arrangement.spacedBy(spacedBy),
         ) {
             items(
                 items = items,
             ) { task ->
                 when (task) {
-                    is TaskElement.Header -> LocalTaskHeader(
-                        task = task,
-                        modifier = Modifier
-                            .animateItemPlacement(
+                    is TaskElement.Header ->
+                        LocalTaskHeader(
+                            task = task,
+                            modifier =
+                            Modifier.animateItemPlacement(
                                 animationSpec = spring(),
                             ),
-                    )
-                    is TaskElement.Item -> LocalTaskItem(
-                        item = task,
-                        onChange = onChange,
-                        onDelete = onDelete,
-                        modifier = Modifier
-                            .animateItemPlacement(
+                        )
+                    is TaskElement.Item ->
+                        LocalTaskItem(
+                            item = task,
+                            onChange = onChange,
+                            onDelete = onDelete,
+                            modifier =
+                            Modifier.animateItemPlacement(
                                 animationSpec = spring(),
                             ),
-                        innerCornerSize = innerCornerSize,
-                    )
+                            innerCornerSize = innerCornerSize,
+                        )
                 }
             }
         }
@@ -173,9 +208,8 @@ fun LocalTaskHeader(
     modifier: Modifier = Modifier,
 ) {
     Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(top = 16.dp, bottom = 8.dp, start = 16.dp, end = 16.dp),
+        modifier =
+        modifier.fillMaxWidth().padding(top = 16.dp, bottom = 8.dp, start = 16.dp, end = 16.dp),
     ) {
         Text(
             text = task.text,
@@ -196,12 +230,10 @@ fun LocalTaskItem(
 ) {
     val task = item.localTask
     Card(
-        modifier = modifier
-            .padding(horizontal = 16.dp, vertical = 8.dp)
-            .fillMaxWidth()
-            .pointerInput(Unit) {
-                detectTapGestures(onLongPress = { onDelete(task) })
-            },
+        modifier =
+        modifier.padding(horizontal = 16.dp, vertical = 8.dp).fillMaxWidth().pointerInput(Unit) {
+            detectTapGestures(onLongPress = { onDelete(task) })
+        },
         shape = item.role.toShape(outerCornerSize, innerCornerSize),
     ) {
         Row(modifier = Modifier.padding(16.dp)) {
@@ -236,18 +268,22 @@ fun LocalTaskItem(
 
 @Composable
 private fun TaskElement.Role.toShape(outerCornerSize: Dp, innerCornerSize: Dp): Shape {
-    val (outerCornerSizePx, innerCornerSizePx) = LocalDensity.current.run {
-        outerCornerSize.toPx() to innerCornerSize.toPx()
-    }
+    val (outerCornerSizePx, innerCornerSizePx) =
+        LocalDensity.current.run { outerCornerSize.toPx() to innerCornerSize.toPx() }
 
-    val targetRect = remember(this, outerCornerSize, innerCornerSize) {
-        when (this) {
-            TaskElement.Role.TOP -> Rect(outerCornerSizePx, outerCornerSizePx, innerCornerSizePx, innerCornerSizePx)
-            TaskElement.Role.BOTTOM -> Rect(innerCornerSizePx, innerCornerSizePx, outerCornerSizePx, outerCornerSizePx)
-            TaskElement.Role.MIDDLE -> Rect(innerCornerSizePx, innerCornerSizePx, innerCornerSizePx, innerCornerSizePx)
-            TaskElement.Role.SINGLE -> Rect(outerCornerSizePx, outerCornerSizePx, outerCornerSizePx, outerCornerSizePx)
+    val targetRect =
+        remember(this, outerCornerSize, innerCornerSize) {
+            when (this) {
+                TaskElement.Role.TOP ->
+                    Rect(outerCornerSizePx, outerCornerSizePx, innerCornerSizePx, innerCornerSizePx)
+                TaskElement.Role.BOTTOM ->
+                    Rect(innerCornerSizePx, innerCornerSizePx, outerCornerSizePx, outerCornerSizePx)
+                TaskElement.Role.MIDDLE ->
+                    Rect(innerCornerSizePx, innerCornerSizePx, innerCornerSizePx, innerCornerSizePx)
+                TaskElement.Role.SINGLE ->
+                    Rect(outerCornerSizePx, outerCornerSizePx, outerCornerSizePx, outerCornerSizePx)
+            }
         }
-    }
 
     val animatedRect by animateRectAsState(targetRect, label = "")
 

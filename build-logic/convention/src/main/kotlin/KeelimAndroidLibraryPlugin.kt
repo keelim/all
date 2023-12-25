@@ -1,6 +1,5 @@
 import com.android.build.api.dsl.LibraryExtension
 import com.keelim.builds.configureKotlinAndroid
-import com.keelim.builds.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
@@ -16,7 +15,6 @@ class KeelimAndroidLibraryPlugin : Plugin<Project> {
             }
             extensions.getByType<LibraryExtension>().apply {
                 with(buildFeatures) {
-                    dataBinding = true
                     buildConfig = true
                 }
                 configureKotlinAndroid(this)

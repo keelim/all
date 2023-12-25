@@ -21,8 +21,6 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.net.Uri
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.hilt.work.HiltWorker
 import androidx.lifecycle.LifecycleOwner
@@ -101,7 +99,6 @@ class DownloadWorker @AssistedInject constructor(
         return ForegroundInfo(1, notification.build())
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun createChannel(
         notificationBuilder: NotificationCompat.Builder,
         id: String,

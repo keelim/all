@@ -45,6 +45,7 @@ import kotlinx.serialization.json.Json
 import timber.log.Timber
 import javax.inject.Qualifier
 import javax.inject.Singleton
+import okhttp3.CertificatePinner
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -108,20 +109,36 @@ object KtorNetworkModule {
         install(WebSockets)
     }
 
+    // add CertificatePinner
+    @Provides
+    @Singleton
+    fun provideCertificatePinner(): CertificatePinner {
+        return CertificatePinner.Builder()
+            // please add pattern and pins
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    fun providesJsonFormatter(): Json {
+        return Json {
+            encodeDefaults = true
+            ignoreUnknownKeys = true
+            prettyPrint = true
+            isLenient = true
+        }
+    }
+
     @KtorAndroidClient
     @Provides
     @Singleton
-    fun providesKtorAndroidClient(): HttpClient {
+    fun providesKtorAndroidClient(
+        jsonFormatter: Json,
+        certificatePinner: CertificatePinner,
+    ): HttpClient {
         return HttpClient(Android) {
             install(ContentNegotiation) {
-                json(
-                    Json {
-                        encodeDefaults = true
-                        ignoreUnknownKeys = true
-                        prettyPrint = true
-                        isLenient = true
-                    },
-                )
+                json(jsonFormatter)
             }
             install(Logging) {
                 if (BuildConfig.DEBUG) {

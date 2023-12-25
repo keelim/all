@@ -1,7 +1,7 @@
 plugins {
-    id("keelim.android.library")
-    id("keelim.android.library.compose")
-    id("keelim.android.hilt")
+    alias(libs.plugins.keelim.android.library)
+    alias(libs.plugins.keelim.android.library.compose)
+    alias(libs.plugins.keelim.android.hilt)
 }
 
 android {
@@ -27,5 +27,5 @@ dependencies {
     debugApi(libs.androidx.compose.ui.testManifest)
     implementation(libs.kotlinx.datetime)
 
-    implementation(project(":core:common"))
+    implementation(projects.core.common)
 }

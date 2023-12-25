@@ -1,7 +1,7 @@
 plugins {
-    id("keelim.android.application")
-    id("keelim.android.application.compose")
-    id("keelim.android.showkase")
+    alias(libs.plugins.keelim.android.application)
+    alias(libs.plugins.keelim.android.application.compose)
+    alias(libs.plugins.keelim.android.showkase)
 }
 
 android {
@@ -16,9 +16,9 @@ ksp {
 }
 
 dependencies {
-    implementation(project(":core:compose-core"))
+    implementation(projects.core.composeCore)
     implementation(libs.activity.ktx)
     implementation(libs.androidx.activity.compose)
-    
+
     ksp(libs.bundles.showkase)
 }

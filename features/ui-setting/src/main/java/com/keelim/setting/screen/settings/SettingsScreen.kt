@@ -3,7 +3,11 @@
 package com.keelim.setting.screen.settings
 
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
+import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.spring
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -30,11 +34,15 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -135,7 +143,7 @@ fun SettingsScreen(
             if (deviceInfo.versionName != null) {
                 item {
                     CategoryItem(
-                        title = "App Version: ${deviceInfo?.versionName}",
+                        title = "App Version: ${deviceInfo.versionName}",
                         icon = Icons.Outlined.Build,
                         onClick = {},
                     )
@@ -163,13 +171,33 @@ private fun PreviewSettingsScreen() {
 
 @Composable
 fun CategoryItem(title: String, icon: ImageVector, onClick: () -> Unit) {
+    var clicked by remember { mutableStateOf(false) }
+    val sizeScale by animateFloatAsState(
+        targetValue = if (clicked) .9f else 1f,
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioMediumBouncy,
+            stiffness = Spring.StiffnessMediumLow,
+        ),
+        label = "",
+    )
     Surface(
+        modifier = Modifier
+            .pointerInput(Unit) {
+                detectTapGestures(onPress = {
+                    clicked = true
+                    awaitRelease()
+                    clicked = false
+                })
+            },
         onClick = onClick,
         shape = MaterialTheme.shapes.medium,
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 16.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 16.dp)
+                .scale(sizeScale),
             horizontalArrangement = Arrangement.spacedBy(30.dp),
         ) {
             Icon(

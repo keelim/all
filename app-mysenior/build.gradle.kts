@@ -1,8 +1,8 @@
 plugins {
-    id("keelim.android.application")
-    id("keelim.android.application.compose")
-    id("keelim.android.application.jacoco")
-    id("keelim.android.hilt")
+    alias(libs.plugins.keelim.android.application)
+    alias(libs.plugins.keelim.android.application.compose)
+    alias(libs.plugins.keelim.android.application.jacoco)
+    alias(libs.plugins.keelim.android.hilt)
     alias(libs.plugins.kotlin.android)
 }
 
@@ -26,8 +26,8 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:compose-core"))
-    implementation(project(":features:ui-setting"))
+    implementation(projects.core.composeCore)
+    implementation(projects.features.uiSetting)
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.activity.ktx)
     implementation(libs.androidx.activity.compose)

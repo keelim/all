@@ -1,10 +1,9 @@
-import androidx.baselineprofile.gradle.consumer.BaselineProfileConsumerExtension
 import com.android.build.api.dsl.ApplicationExtension
+import com.dropbox.gradle.plugins.dependencyguard.DependencyGuardPluginExtension
 import com.keelim.builds.configureKotlinAndroid
 import com.keelim.builds.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 
@@ -17,6 +16,7 @@ class KeelimAndroidApplicationPlugin : Plugin<Project> {
                 apply("org.gradle.android.cache-fix")
                 apply("com.google.android.gms.oss-licenses-plugin")
                 apply("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+                apply("com.dropbox.dependency-guard")
                 // apply("androidx.baselineprofile")
             }
 
@@ -29,7 +29,6 @@ class KeelimAndroidApplicationPlugin : Plugin<Project> {
                     targetSdk = libs.findVersion("targetSdk").get().displayName.toInt()
                 }
                 with(buildFeatures) {
-                    dataBinding = true
                     buildConfig = true
                 }
                 buildTypes.getByName("release").apply {
@@ -46,6 +45,9 @@ class KeelimAndroidApplicationPlugin : Plugin<Project> {
                 lint {
                     abortOnError = false
                 }
+            }
+            extensions.getByType<DependencyGuardPluginExtension>().apply {
+                configuration("releaseRuntimeClasspath")
             }
 
             dependencies {

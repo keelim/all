@@ -29,16 +29,11 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.keelim.cnubus.ui.screen.main.MainActivity
-import com.keelim.data.source.DeveloperRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.*
-import javax.inject.Inject
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
-    @Inject
-    lateinit var repository: DeveloperRepository
-
     private val notificationManager by lazy { getSystemService(NOTIFICATION_SERVICE) as NotificationManager }
 
     override fun onCreate() {
@@ -86,7 +81,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         val currentUser = auth.currentUser
         currentUser?.let {
             ProcessLifecycleOwner.get().lifecycle.coroutineScope.launch {
-//                repository.updateToken(currentUser.uid, token)
             }
         }
     }

@@ -1,6 +1,6 @@
 plugins {
-    id("keelim.android.library")
-    id("keelim.android.hilt")
+    alias(libs.plugins.keelim.android.library)
+    alias(libs.plugins.keelim.android.hilt)
 }
 
 android {
@@ -8,13 +8,15 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:common"))
+    implementation(projects.core.common)
 
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.compose.ui)
-    implementation(libs.androidx.lifecycle.process)
-    implementation(libs.androidx.lifecycle.viewModel.ktx)
     implementation(libs.androidx.startup)
+    implementation(libs.androidx.lifecycle.process)
+    implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.androidx.lifecycle.viewModel.ktx)
     implementation(libs.androidx.test.core)
     implementation(libs.androidx.test.ext)
     implementation(libs.androidx.test.rules)
@@ -38,6 +40,6 @@ dependencies {
     debugImplementation(libs.leakcanary)
     debugImplementation(libs.soloader)
 
-    testImplementation(project(":core:testing"))
+    testImplementation(projects.core.testing)
 }
 

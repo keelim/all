@@ -1,8 +1,8 @@
 plugins {
-    id("keelim.android.application")
-    id("keelim.android.application.compose")
-    id("keelim.android.application.jacoco")
-    id("keelim.android.hilt")
+    alias(libs.plugins.keelim.android.application)
+    alias(libs.plugins.keelim.android.application.compose)
+    alias(libs.plugins.keelim.android.application.jacoco)
+    alias(libs.plugins.keelim.android.hilt)
 }
 
 android {
@@ -22,11 +22,11 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:common"))
-    implementation(project(":core:common-android"))
-    implementation(project(":core:compose-core"))
-    implementation(project(":core:data"))
-    implementation(project(":features:ui-setting"))
+    implementation(projects.core.common)
+    implementation(projects.core.commonAndroid)
+    implementation(projects.core.composeCore)
+    implementation(projects.core.data)
+    implementation(projects.features.uiSetting)
 
     implementation(libs.activity.ktx)
     implementation(libs.androidx.activity.compose)
@@ -34,6 +34,7 @@ dependencies {
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.androidx.compose.material3.windowSizeClass)
     implementation(libs.androidx.compose.ui.tooling)
+    implementation(libs.androidx.compose.ui.util)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.hilt.navigation.compose)

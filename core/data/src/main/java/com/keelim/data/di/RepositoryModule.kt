@@ -4,12 +4,12 @@ import com.keelim.data.source.BookRepository
 import com.keelim.data.source.BookRepositoryImpl
 import com.keelim.data.source.DefaultTaskRepository
 import com.keelim.data.source.DefaultTaskRepositoryImpl
-import com.keelim.data.source.DeveloperRepository
-import com.keelim.data.source.DeveloperRepositoryImpl
 import com.keelim.data.source.HistoryRepository
 import com.keelim.data.source.HistoryRepositoryImpl
 import com.keelim.data.source.NandaIORepository
 import com.keelim.data.source.NandaIORepositoryImpl
+import com.keelim.data.source.firebase.FirebaseRepository
+import com.keelim.data.source.firebase.FirebaseRepositoryImpl
 import com.keelim.data.source.notification.NotificationRepository
 import com.keelim.data.source.notification.NotificationRepositoryImpl
 import com.keelim.data.source.prompt.PromptRepository
@@ -33,11 +33,6 @@ interface RepositoryModule {
     ): DefaultTaskRepository
 
     @Binds
-    fun bindsDeveloperRepository(
-        repository: DeveloperRepositoryImpl,
-    ): DeveloperRepository
-
-    @Binds
     fun bindsNandaIoRepository(
         repository: NandaIORepositoryImpl,
     ): NandaIORepository
@@ -56,4 +51,9 @@ interface RepositoryModule {
     fun bindsPromptRepository(
         repository: PromptRepositoryImpl,
     ): PromptRepository
+
+    @Binds
+    fun bindsFirebaseRepository(
+        repository: FirebaseRepositoryImpl,
+    ): FirebaseRepository
 }

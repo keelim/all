@@ -25,7 +25,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -46,7 +46,7 @@ fun Roll() {
 @Preview(showBackground = true)
 @Composable
 fun DiceWithButtonAndImage(modifier: Modifier = Modifier) {
-    var result by remember { mutableStateOf(1) }
+    var result by remember { mutableIntStateOf(1) }
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,

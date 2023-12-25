@@ -15,6 +15,8 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "all"
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(
     //":app-benchmark",
     ":app-cnubus",
@@ -28,8 +30,7 @@ include(
     ":core:data",
     ":core:domain",
     ":core:testing",
-    ":core:widget-glance",
+    // ":core:widget-glance",
     ":features:ui-labs",
-    ":features:ui-map",
     ":features:ui-setting",
 )

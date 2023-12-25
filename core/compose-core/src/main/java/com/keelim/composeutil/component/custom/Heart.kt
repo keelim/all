@@ -32,6 +32,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -157,7 +158,7 @@ fun Path.heartPath(size: Size): Path {
 @Preview
 @Composable
 fun HeartScreen() {
-    val heartCount = remember { mutableStateOf(0) }
+    val heartCount = remember { mutableIntStateOf(0) }
 
     Box(modifier = Modifier.fillMaxSize()) {
         repeat(heartCount.value) {

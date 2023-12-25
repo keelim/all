@@ -33,4 +33,5 @@ include(
     // ":core:widget-glance",
     ":features:ui-labs",
     ":features:ui-setting",
+    ":shared"
 )

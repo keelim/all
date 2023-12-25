@@ -7,15 +7,18 @@ import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
+import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Build
 import androidx.compose.material.icons.outlined.List
@@ -39,10 +42,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -140,12 +145,30 @@ fun SettingsScreen(
                     onClick = onLabClick,
                 )
             }
-            if (deviceInfo.versionName != null) {
-                item {
-                    CategoryItem(
-                        title = "App Version: ${deviceInfo.versionName}",
-                        icon = Icons.Outlined.Build,
-                        onClick = {},
+            item {
+                CategoryItem(
+                    title = "App Version: ${deviceInfo.versionName}",
+                    icon = Icons.Outlined.Build,
+                    onClick = {},
+                )
+            }
+            item {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(60.dp)
+                        .padding(horizontal = 8.dp, vertical = 4.dp)
+                        .clip(RoundedCornerShape(4.dp))
+                        .background(
+                            color = MaterialTheme.colorScheme.primaryContainer,
+                        ),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(
+                        text = "Platform: ${deviceInfo.platform}",
+                        fontWeight = FontWeight.Bold,
+                        style = MaterialTheme.typography.bodyLarge,
                     )
                 }
             }
@@ -161,7 +184,9 @@ private fun PreviewSettingsScreen() {
             deviceName = "Ned Pruitt",
             deviceBrand = "dolore",
             deviceModel = "tale",
-            versionName = null,
+            versionName = "2023.12.25",
+            platform = "nonumes",
+            isSupported = false,
         ),
         onNotificationsClick = {},
         onOpenSourceClick = {},

@@ -1,7 +1,7 @@
 plugins {
-    id("keelim.android.library")
-    id("keelim.android.library.jacoco")
-    id("keelim.android.hilt")
+    alias(libs.plugins.keelim.android.library)
+    alias(libs.plugins.keelim.android.library.jacoco)
+    alias(libs.plugins.keelim.android.hilt)
     kotlin("plugin.parcelize")
 }
 
@@ -10,10 +10,10 @@ android{
 }
 
 dependencies {
-    implementation(project(":core:common"))
-    implementation(project(":core:compose-core"))
-    implementation(project(":core:data"))
-    implementation(project(":core:domain"))
+    implementation(projects.core.common)
+    implementation(projects.core.composeCore)
+    implementation(projects.core.data)
+    implementation(projects.core.domain)
 
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)

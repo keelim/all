@@ -1,6 +1,6 @@
 plugins {
-    id("keelim.android.library")
-    id("keelim.android.hilt")
+    alias(libs.plugins.keelim.android.library)
+    alias(libs.plugins.keelim.android.hilt)
 }
 
 android {
@@ -8,7 +8,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:data"))
+    implementation(projects.core.data)
     testImplementation(libs.junit4)
     testImplementation(libs.turbine)
     testImplementation(libs.truth)

@@ -14,12 +14,12 @@ class RetryingInterceptor : Interceptor {
         try {
             val request = chain.request()
             response = chain.proceed(request)
-            if (attempt < tryCnt && !response.isSuccessful) {
+            if (attempt < TRY_CNT && !response.isSuccessful) {
                 return delayedAttempt(chain, response, attempt)
             }
             return response
         } catch (e: Exception) {
-            if (attempt < tryCnt && networkRetryCheck(e)) {
+            if (attempt < TRY_CNT && networkRetryCheck(e)) {
                 return delayedAttempt(chain, response, attempt)
             }
             throw e
@@ -32,7 +32,7 @@ class RetryingInterceptor : Interceptor {
         attempt: Int,
     ): Response {
         response?.body?.close()
-        Thread.sleep(baseInterval * attempt)
+        Thread.sleep(BASE_INTERVAL * attempt)
         return process(chain, attempt = attempt + 1)
     }
 
@@ -41,7 +41,7 @@ class RetryingInterceptor : Interceptor {
     }
 
     companion object {
-        const val tryCnt = 3
-        const val baseInterval = 2000L
+        const val TRY_CNT = 3
+        const val BASE_INTERVAL = 2000L
     }
 }

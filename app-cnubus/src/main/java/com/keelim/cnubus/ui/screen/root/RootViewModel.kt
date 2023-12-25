@@ -15,7 +15,6 @@
  */
 package com.keelim.cnubus.ui.screen.root
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.keelim.data.model.Location
@@ -34,10 +33,8 @@ import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
-class RootViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
-) : ViewModel() {
-    private val modes = savedStateHandle.getStateFlow("mode", "a")
+class RootViewModel @Inject constructor() : ViewModel() {
+    private val modes = MutableStateFlow("a")
 
     val state: StateFlow<MapEvent> = modes.mapLatest { mode ->
         val locations = when (mode) {
@@ -55,4 +52,8 @@ class RootViewModel @Inject constructor(
 
     private val _data = MutableStateFlow<List<Location>>(emptyList())
     val data: StateFlow<List<Location>> = _data.asStateFlow()
+
+    fun setMode(mode: String) {
+        modes.tryEmit(mode)
+    }
 }

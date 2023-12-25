@@ -1,9 +1,9 @@
 plugins {
-    id("keelim.android.application")
-    id("keelim.android.application.firebase")
-    id("keelim.android.application.compose")
-    id("keelim.android.application.jacoco")
-    id("keelim.android.hilt")
+    alias(libs.plugins.keelim.android.application)
+    alias(libs.plugins.keelim.android.application.firebase)
+    alias(libs.plugins.keelim.android.application.compose)
+    alias(libs.plugins.keelim.android.application.jacoco)
+    alias(libs.plugins.keelim.android.hilt)
 }
 
 android {
@@ -24,12 +24,12 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:common"))
-    implementation(project(":core:common-android"))
-    implementation(project(":core:compose-core"))
-    implementation(project(":core:data"))
-    implementation(project(":core:domain"))
-    implementation(project(":features:ui-setting"))
+    implementation(projects.core.common)
+    implementation(projects.core.commonAndroid)
+    implementation(projects.core.composeCore)
+    implementation(projects.core.data)
+    implementation(projects.core.domain)
+    implementation(projects.features.uiSetting)
 
     implementation(libs.activity.ktx)
     implementation(libs.androidx.activity.compose)

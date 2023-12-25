@@ -22,12 +22,11 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Build
+import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material.icons.rounded.Create
-import androidx.compose.material.icons.rounded.List
-import androidx.compose.material.icons.rounded.Settings
-import androidx.compose.material.icons.rounded.ThumbUp
 import androidx.compose.material3.Button
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -42,11 +41,17 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.keelim.composeutil.component.fab.FabButtonItem
+import com.keelim.composeutil.component.fab.FabButtonMain
+import com.keelim.composeutil.component.fab.FabButtonState
+import com.keelim.composeutil.component.fab.FabButtonSub
+import com.keelim.composeutil.component.fab.MultiMainFab
 import com.keelim.composeutil.component.pager.HorizontalPagerIndicator
 import com.keelim.mygrade.ui.screen.timer.TimerScreen
 import kotlinx.coroutines.launch
@@ -233,25 +238,39 @@ private fun ColumnScope.MainBottomSection(
         }
     }
     Spacer(modifier = Modifier.weight(1f))
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.Start,
-    ) {
-        FloatingActionButton(onClick = onNavigateWord) {
-            Icon(imageVector = Icons.Rounded.List, contentDescription = null)
-        }
+    val items by remember {
+        mutableStateOf(
+            listOf(
+                History(),
+                Setting(),
+                Other(),
+            ),
+        )
     }
-    Spacer(modifier = Modifier.height(4.dp))
     Row(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween,
+        horizontalArrangement = Arrangement.End,
     ) {
-        FloatingActionButton(onClick = onFloatingButtonClick2) {
-            Icon(imageVector = Icons.Rounded.Settings, contentDescription = null)
-        }
-        FloatingActionButton(onClick = onFloatingButtonClick1) {
-            Icon(imageVector = Icons.Rounded.ThumbUp, contentDescription = null)
-        }
+        var fabState by remember { mutableStateOf<FabButtonState>(FabButtonState.Collapsed) }
+        MultiMainFab(
+            fabState = fabState,
+            items = items,
+            fabIcon = FabButtonMain(),
+            fabOption = FabButtonSub(
+                backgroundTint = MaterialTheme.colorScheme.primary,
+                iconTint = MaterialTheme.colorScheme.onPrimary,
+            ),
+            onFabItemClicked = { item ->
+                when (item) {
+                    is History -> onFloatingButtonClick1()
+                    is Setting -> onFloatingButtonClick2()
+                    is Other -> onNavigateWord()
+                }
+            },
+            stateChanged = {
+                fabState = it
+            },
+        )
     }
 }
 
@@ -304,3 +323,17 @@ internal fun ScoreTextRow(
 fun PreviewScoreTextRow() {
     ScoreTextRow(text = "원점수", value = "", onValueChange = {}, isError = false)
 }
+
+data class History(
+    override val imageVector: ImageVector = Icons.Filled.List,
+    override val label: String = "히스토리 확인",
+) : FabButtonItem
+data class Setting(
+    override val imageVector: ImageVector = Icons.Filled.Settings,
+    override val label: String = "설정",
+) : FabButtonItem
+
+data class Other(
+    override val imageVector: ImageVector = Icons.Filled.ThumbUp,
+    override val label: String = "Task",
+) : FabButtonItem

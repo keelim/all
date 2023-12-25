@@ -3,7 +3,7 @@
 compileSdk = "34"
 minSdk = "26"
 targetSdk = "34"
-versionCode = "20231216"
+versionCode = "20231225"
 # library
 accompanist = "0.32.0"
 androidDesugarJdkLibs = "2.0.4"
@@ -11,7 +11,7 @@ androidGradlePlugin = "8.2.0"
 androidxActivity = "1.8.2"
 androidxAppCompat = "1.6.1"
 androidxComposeBom = "2023.10.01"
-androidxComposeCompiler = "1.5.6"
+androidxComposeCompiler = "1.5.7"
 androidxComposeRuntimeTracing = "1.0.0-beta01"
 androidxCore = "1.12.0"
 androidxCoreSplashscreen = "1.0.1"
@@ -41,21 +41,21 @@ coil = "2.5.0"
 compose-view = "1.5.4"
 deeplinkdispatch = "6.2.2"
 emoji2-emojipicker = "1.4.0"
-errorprone = "2.23.0"
+errorprone = "2.24.0"
 firebase = "32.7.0"
 firebase-ui = "8.0.2"
 firebaseCrashlyticsPlugin = "2.9.9"
 firebasePerfPlugin = "1.4.2"
-flipper = "0.240.0"
+flipper = "0.243.0"
 glance = "1.0.0"
-hilt = "2.49"
+hilt = "2.50"
 hiltExt = "1.1.0"
 
 in-app-update = "2.1.0"
 jacoco = "0.8.7"
 junit4 = "4.13.2"
 kotlin = "1.9.21"
-kotlinxCollectionsImmutable = "0.3.6"
+kotlinxCollectionsImmutable = "0.3.7"
 kotlinxCoroutines = "1.7.3"
 kotlinxDatetime = "0.5.0"
 kotlinxSerializationJson = "1.6.2"
@@ -80,7 +80,7 @@ playoss = "17.0.1"
 playoss-plugin = "0.10.6"
 preference = "1.2.1"
 preferenceKtx = "1.2.1"
-protobuf = "3.25.0"
+protobuf = "3.25.1"
 protobufPlugin = "0.9.4"
 retrofit = "2.9.0"
 retrofitKotlinxSerializationJson = "1.0.0"
@@ -91,11 +91,12 @@ secrets = "2.0.1"
 soloader = "0.10.5"
 themeAdapter = "1.2.1"
 timbers = "5.0.1"
-truth = "1.1.5"
+truth = "1.2.0"
 turbine = "1.0.0"
 slackLintChecks = "0.7.0"
 showkase = "1.0.2"
 generativeai = "0.1.1"
+dependencyGuard = "0.4.3"
 
 [libraries]
 accompanist-flowlayout = { group = "com.google.accompanist", name = "accompanist-flowlayout", version.ref = "accompanist" }
@@ -260,6 +261,8 @@ turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine
 showkase = { group = "com.airbnb.android", name = "showkase", version.ref = "showkase" }
 showkase-processor = { group = "com.airbnb.android", name = "showkase-processor", version.ref = "showkase" }
 generativeai = { group = "com.google.ai.client.generativeai", name = "generativeai", version.ref = "generativeai" }
+room-gradlePlugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "room" }
+dependencyGuard-gradlePlugin = { group = "com.dropbox.dependency-guard", name = "com.dropbox.dependency-guard.gradle.plugin", version.ref = "dependencyGuard" }
 
 [bundles]
 showkase = ["showkase", "showkase-processor"]
@@ -280,3 +283,19 @@ secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugi
 gms-googleServices = "com.google.gms.google-services:4.4.0"
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlyticsPlugin" }
 firebase-perf = { id = "com.google.firebase.firebase-perf", version.ref = "firebasePerfPlugin" }
+room = { id = "androidx.room", version.ref = "room" }
+dependencyGuard = { id = "com.dropbox.dependency-guard", version.ref = "dependencyGuard" }
+
+# project plugin
+keelim-android-application = { id = "keelim.android.application", version = "unspecified" }
+keelim-android-application-firebase = {id = "keelim.android.application.firebase", version = "unspecified" }
+keelim-android-application-compose = {id = "keelim.android.application.compose", version = "unspecified" }
+keelim-android-application-jacoco = {id = "keelim.android.application.jacoco", version = "unspecified" }
+keelim-android-application-room = {id = "keelim.android.application.room", version = "unspecified" }
+keelim-android-library = {id = "keelim.android.library", version = "unspecified" }
+keelim-android-library-compose = {id = "keelim.android.library.compose", version = "unspecified" }
+keelim-android-library-jacoco = {id = "keelim.android.library.jacoco", version = "unspecified" }
+keelim-android-test = {id = "keelim.android.test", version = "unspecified" }
+keelim-android-hilt = {id = "keelim.android.hilt", version = "unspecified" }
+keelim-android-showkase = {id = "keelim.android.showkase", version = "unspecified" }
+

@@ -48,7 +48,7 @@ class FlowTest {
 
     @Test
     fun turbineTest() = runBlocking {
-        val number = (0..2).asFlow().onEach { delay(1) }
+        val number = (0..2).asFlow().onEach { delay(10) }
         val intro = listOf("Hello").asFlow()
 
         val combined = combine(intro, number) { one, two ->

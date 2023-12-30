@@ -1,5 +1,6 @@
 import com.android.build.api.dsl.ApplicationExtension
 import com.dropbox.gradle.plugins.dependencyguard.DependencyGuardPluginExtension
+import com.keelim.builds.configureDependencyGuard
 import com.keelim.builds.configureKotlinAndroid
 import com.keelim.builds.libs
 import org.gradle.api.Plugin
@@ -23,6 +24,7 @@ class KeelimAndroidApplicationPlugin : Plugin<Project> {
 
             extensions.getByType<ApplicationExtension>().apply {
                 configureKotlinAndroid(this)
+                configureDependencyGuard()
                 defaultConfig {
                     versionName = libs.findVersion("versionCode").get().displayName
                     versionCode = libs.findVersion("versionCode").get().displayName.toInt()
@@ -45,9 +47,6 @@ class KeelimAndroidApplicationPlugin : Plugin<Project> {
                 lint {
                     abortOnError = false
                 }
-            }
-            extensions.getByType<DependencyGuardPluginExtension>().apply {
-                configuration("releaseRuntimeClasspath")
             }
 
             dependencies {

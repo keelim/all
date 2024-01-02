@@ -3,6 +3,8 @@ package com.keelim.setting.di
 import android.content.Context
 import android.os.Build
 import dagger.hilt.android.qualifiers.ApplicationContext
+import getAppSupported
+import getPlatform
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import timber.log.Timber
@@ -12,14 +14,18 @@ data class DeviceInfo(
     val deviceName: String,
     val deviceBrand: String,
     val deviceModel: String,
-    val versionName: String?,
+    val versionName: String,
+    val platform: String,
+    val isSupported: Boolean,
 ) {
     companion object {
         fun empty(): DeviceInfo = DeviceInfo(
             deviceName = "",
             deviceBrand = "",
             deviceModel = "",
-            versionName = null,
+            versionName = "",
+            platform = "",
+            isSupported = false,
         )
     }
 }
@@ -44,7 +50,9 @@ class DeviceInfoSourceImpl @Inject constructor(
                 deviceModel = deviceModel,
                 deviceBrand = deviceBrand,
                 deviceName = deviceName,
-                versionName = versionName,
+                versionName = versionName ?: "",
+                platform = getPlatform().name,
+                isSupported = getAppSupported().isSupported,
             )
             info
         } catch (e: Throwable) {

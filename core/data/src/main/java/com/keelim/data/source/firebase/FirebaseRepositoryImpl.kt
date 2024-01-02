@@ -39,7 +39,7 @@ constructor(
                         .takeIf { it.exists() }
                         ?.children
                         ?.mapNotNull {
-                            it.getValue<EcoCalEntry>()
+                            it.getValue(EcoCalEntry::class.java)
                         } ?: emptyList()
                 }
             }

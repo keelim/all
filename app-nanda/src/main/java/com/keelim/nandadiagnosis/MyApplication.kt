@@ -28,12 +28,8 @@ class MyApplication : Application() {
     @Inject
     lateinit var componentLogger: ComponentLogger
 
-    @Inject
-    lateinit var appOpenManager: AppOpenManager
-
     override fun onCreate() {
         super.onCreate()
-        appOpenManager.initialize(this) // 콜드 부팅에서 복귀시 ad
         componentLogger.initialize(this)
         NotificationChannels.initialize(this)
         DynamicColors.applyToActivitiesIfAvailable(this)

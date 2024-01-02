@@ -8,7 +8,6 @@ pluginManagement {
 }
 
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
         mavenCentral()
@@ -33,4 +32,5 @@ include(
     // ":core:widget-glance",
     ":features:ui-labs",
     ":features:ui-setting",
+    ":shared"
 )

@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.keelim.android.library.jacoco)
     alias(libs.plugins.keelim.android.hilt)
     kotlin("plugin.parcelize")
-    id("kotlinx-serialization")
+    kotlin("plugin.serialization")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
@@ -18,6 +18,7 @@ dependencies {
     implementation(projects.core.composeCore)
     implementation(projects.core.data)
     implementation(projects.core.domain)
+    implementation(projects.shared)
     implementation(libs.accompanist.webview)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.foundation)

@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.keelim.android.hilt)
     alias(libs.plugins.keelim.android.application.room)
     kotlin("plugin.parcelize")
-    id("kotlinx-serialization")
+    kotlin("plugin.serialization")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
     // alias(libs.plugins.protobuf)
 }

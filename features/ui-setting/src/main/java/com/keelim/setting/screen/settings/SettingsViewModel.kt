@@ -1,5 +1,6 @@
 package com.keelim.setting.screen.settings
 
+import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.keelim.setting.di.DeviceInfo
@@ -10,8 +11,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
-
-import androidx.compose.runtime.Stable
 @Stable
 @HiltViewModel
 class SettingsViewModel @Inject constructor(

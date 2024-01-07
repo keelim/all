@@ -1,5 +1,6 @@
 package com.keelim.setting.screen.event
 
+import androidx.compose.runtime.Stable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,7 +22,6 @@ value class EventResult(
     }
 }
 
-import androidx.compose.runtime.Stable
 @Stable
 @HiltViewModel
 class EventViewModel @Inject constructor(

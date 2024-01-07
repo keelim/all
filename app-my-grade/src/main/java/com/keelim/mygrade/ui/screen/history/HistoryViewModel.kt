@@ -1,5 +1,6 @@
 package com.keelim.mygrade.ui.screen.history
 
+import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import com.keelim.data.di.DefaultDispatcher
 import com.keelim.data.source.HistoryRepository
@@ -35,7 +36,6 @@ fun SimpleHistory.toGradeHistory(): GradeHistory {
     )
 }
 
-import androidx.compose.runtime.Stable
 @Stable
 @HiltViewModel
 class HistoryViewModel @Inject constructor(

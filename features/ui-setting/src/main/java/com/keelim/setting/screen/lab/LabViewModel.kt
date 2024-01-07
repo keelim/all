@@ -1,5 +1,6 @@
 package com.keelim.setting.screen.lab
 
+import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.keelim.data.source.prompt.PromptRepository
@@ -10,8 +11,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
-
-import androidx.compose.runtime.Stable
 @Stable
 @HiltViewModel
 class LabViewModel @Inject constructor(

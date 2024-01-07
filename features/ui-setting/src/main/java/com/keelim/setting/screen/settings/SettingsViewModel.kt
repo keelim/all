@@ -11,6 +11,8 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
+import androidx.compose.runtime.Stable
+@Stable
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
     deviceInfoSource: DeviceInfoSource,

@@ -35,6 +35,8 @@ internal val HOUR_LIST = (0..12).toList()
 internal val MINUTE_LIST = (0..60).toList()
 internal val SECOND_LIST = (0..60).toList()
 
+import androidx.compose.runtime.Stable
+@Stable
 @HiltViewModel
 class NutrientTimerViewModel @Inject constructor() : ViewModel() {
     private var countTimeJob: Job? = null

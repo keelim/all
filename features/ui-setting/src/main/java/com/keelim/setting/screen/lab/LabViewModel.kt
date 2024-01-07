@@ -11,6 +11,8 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
+import androidx.compose.runtime.Stable
+@Stable
 @HiltViewModel
 class LabViewModel @Inject constructor(
     val promptRepository: PromptRepository,

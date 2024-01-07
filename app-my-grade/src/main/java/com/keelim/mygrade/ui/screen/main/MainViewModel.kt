@@ -22,6 +22,8 @@ data class MainScreenState(
     }
 }
 
+import androidx.compose.runtime.Stable
+@Stable
 @HiltViewModel
 class MainViewModel @Inject constructor() : ViewModel() {
     private val _state: MutableStateFlow<MainState> = MutableStateFlow(MainState.UnInitialized)

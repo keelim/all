@@ -35,6 +35,8 @@ fun SimpleHistory.toGradeHistory(): GradeHistory {
     )
 }
 
+import androidx.compose.runtime.Stable
+@Stable
 @HiltViewModel
 class HistoryViewModel @Inject constructor(
     historyRepository: HistoryRepository,

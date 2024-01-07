@@ -12,6 +12,8 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
+import androidx.compose.runtime.Stable
+@Stable
 @HiltViewModel
 class CategoryViewModel @Inject constructor() : ViewModel() {
     val state: StateFlow<CategoryState> = flow {

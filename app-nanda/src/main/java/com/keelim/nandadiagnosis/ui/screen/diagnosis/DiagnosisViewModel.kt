@@ -13,6 +13,8 @@ import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
+import androidx.compose.runtime.Stable
+@Stable
 @HiltViewModel
 class DiagnosisViewModel @Inject constructor(
     val savedStateHandle: SavedStateHandle,

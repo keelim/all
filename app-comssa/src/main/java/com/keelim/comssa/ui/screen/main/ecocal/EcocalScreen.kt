@@ -47,7 +47,7 @@ fun EcocalScreen(
         is SealedUiState.Error -> EmptyView()
         SealedUiState.Loading -> Loading()
         is SealedUiState.Success -> {
-            if(uiState.value.isEmpty()) {
+            if (uiState.value.isEmpty()) {
                 EmptyView()
             } else {
                 val state = rememberLazyListState()
@@ -61,7 +61,7 @@ fun EcocalScreen(
                                     High(),
                                     Medium(),
                                     Low(),
-                                    All()
+                                    All(),
                                 ),
                             )
                         }
@@ -85,12 +85,12 @@ fun EcocalScreen(
                                 fabState = it
                             },
                         )
-                    }
+                    },
                 ) { paddingValues ->
                     EcocalMainSection(
                         state = state,
                         entries = uiState.value,
-                        modifier = Modifier.padding(paddingValues)
+                        modifier = Modifier.padding(paddingValues),
                     )
                 }
             }

@@ -19,6 +19,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.update
 
+import androidx.compose.runtime.Stable
+@Stable
 @HiltViewModel
 class EcocalViewModel @Inject constructor(
     firebaseRepository: FirebaseRepository,

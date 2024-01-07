@@ -15,6 +15,8 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
+import androidx.compose.runtime.Stable
+@Stable
 @HiltViewModel
 class NotificationViewModel
 @Inject

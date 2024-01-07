@@ -21,6 +21,8 @@ value class EventResult(
     }
 }
 
+import androidx.compose.runtime.Stable
+@Stable
 @HiltViewModel
 class EventViewModel @Inject constructor(
     val savedStateHandle: SavedStateHandle,

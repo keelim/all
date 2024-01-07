@@ -44,6 +44,8 @@ data class TimerUiState(
     val isUnsetDialog: Boolean = false,
 )
 
+import androidx.compose.runtime.Stable
+@Stable
 @HiltViewModel
 class TimerViewModel @Inject constructor() : ViewModel() {
     private var countTimeJob: Job? = null

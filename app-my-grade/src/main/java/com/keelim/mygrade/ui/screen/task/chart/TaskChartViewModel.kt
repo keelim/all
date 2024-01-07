@@ -14,6 +14,8 @@ import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
+import androidx.compose.runtime.Stable
+@Stable
 @HiltViewModel
 class TaskChartViewModel
 @Inject

@@ -13,6 +13,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+import androidx.compose.runtime.Stable
+@Stable
 @HiltViewModel
 class GradeViewModel @Inject constructor(
     val savedStateHandle: SavedStateHandle,

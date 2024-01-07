@@ -14,6 +14,8 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
+import androidx.compose.runtime.Stable
+@Stable
 @HiltViewModel
 class AppMainViewModel @Inject constructor(
     val networkConnectivityService: NetworkConnectivityService,

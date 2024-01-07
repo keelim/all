@@ -23,6 +23,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
+import androidx.compose.runtime.Stable
+@Stable
 @HiltViewModel
 class NetworkViewModel @Inject constructor(
     networkConnectivityService: NetworkConnectivityService,

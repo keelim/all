@@ -144,7 +144,7 @@ com.caverock:androidsvg-aar:1.4
 com.google.accompanist:accompanist-drawablepainter:0.32.0
 com.google.accompanist:accompanist-permissions:0.32.0
 com.google.accompanist:accompanist-systemuicontroller:0.32.0
-com.google.ai.client.generativeai:generativeai:0.1.1
+com.google.ai.client.generativeai:generativeai:0.1.2
 com.google.android.datatransport:transport-api:3.0.0
 com.google.android.datatransport:transport-backend-cct:3.1.9
 com.google.android.datatransport:transport-runtime:3.1.9
@@ -246,8 +246,8 @@ io.ktor:ktor-client-json-jvm:2.3.7
 io.ktor:ktor-client-json:2.3.7
 io.ktor:ktor-client-logging-jvm:2.3.7
 io.ktor:ktor-client-logging:2.3.7
-io.ktor:ktor-client-okhttp-jvm:2.3.5
-io.ktor:ktor-client-okhttp:2.3.5
+io.ktor:ktor-client-okhttp-jvm:2.3.2
+io.ktor:ktor-client-okhttp:2.3.2
 io.ktor:ktor-client-resources-jvm:2.3.7
 io.ktor:ktor-client-resources:2.3.7
 io.ktor:ktor-client-serialization-jvm:2.3.7
@@ -293,8 +293,6 @@ org.jetbrains.kotlin:kotlin-stdlib-common:1.9.21
 org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.10
 org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10
 org.jetbrains.kotlin:kotlin-stdlib:1.9.21
-org.jetbrains.kotlinx:atomicfu-jvm:0.22.0
-org.jetbrains.kotlinx:atomicfu:0.22.0
 org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm:0.3.7
 org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.7
 org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3

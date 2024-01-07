@@ -19,7 +19,6 @@ import android.app.Application
 import com.google.android.material.color.DynamicColors
 import com.keelim.commonAndroid.util.ComponentLogger
 import com.keelim.nandadiagnosis.notification.NotificationChannels
-import com.keelim.nandadiagnosis.utils.AppOpenManager
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 

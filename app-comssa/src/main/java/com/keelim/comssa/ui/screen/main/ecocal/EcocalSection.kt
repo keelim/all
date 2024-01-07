@@ -105,7 +105,7 @@ fun EcocalMainSection(
 @Composable
 fun HeaderItem(title: String, modifier: Modifier = Modifier) {
     Column(
-        modifier = modifier
+        modifier = modifier,
     ) {
         val rowModifier = Modifier
             .fillMaxWidth()
@@ -124,20 +124,20 @@ fun HeaderItem(title: String, modifier: Modifier = Modifier) {
             )
             PlainTooltipBox(tooltip = {
                 Text(
-                    text = "중요도를 표시하는 항목"
+                    text = "중요도를 표시하는 항목",
                 )
             }) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    modifier = Modifier.tooltipAnchor()
+                    modifier = Modifier.tooltipAnchor(),
                 ) {
                     val boxModifier = Modifier
                         .size(12.dp)
                         .clip(RectangleShape)
                     Box(
                         modifier = boxModifier
-                            .background(Color.Red)
+                            .background(Color.Red),
                     )
                     Text(
                         text = "상",
@@ -145,7 +145,7 @@ fun HeaderItem(title: String, modifier: Modifier = Modifier) {
                     )
                     Box(
                         modifier = boxModifier
-                            .background(Color.Yellow)
+                            .background(Color.Yellow),
                     )
                     Text(
                         text = "중",
@@ -153,7 +153,7 @@ fun HeaderItem(title: String, modifier: Modifier = Modifier) {
                     )
                     Box(
                         modifier = boxModifier
-                            .background(Color.Green)
+                            .background(Color.Green),
                     )
                     Text(
                         text = "하",
@@ -198,7 +198,7 @@ fun ListItem(
         shape = MaterialTheme.shapes.large,
         modifier = modifier
             .fillMaxWidth()
-            .padding(all = 16.dp)
+            .padding(all = 16.dp),
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -241,7 +241,7 @@ fun ListItem(
                         overflow = TextOverflow.Ellipsis,
                         modifier = Modifier.weight(1f),
                     )
-                    val color = when(priority) {
+                    val color = when (priority) {
                         "상" -> Color.Red
                         "중" -> Color.Yellow
                         "하" -> Color.Green
@@ -251,7 +251,7 @@ fun ListItem(
                         modifier = Modifier
                             .size(12.dp)
                             .clip(CircleShape)
-                            .background(color)
+                            .background(color),
                     )
                 }
             }

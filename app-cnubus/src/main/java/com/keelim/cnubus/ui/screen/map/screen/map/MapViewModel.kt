@@ -37,7 +37,6 @@ data class MapState(
     override fun getZIndex(): Float? = null
 }
 
-import androidx.compose.runtime.Stable
 @Stable
 @HiltViewModel
 class MapViewModel @Inject constructor() : ViewModel() {

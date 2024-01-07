@@ -1,5 +1,6 @@
 package com.keelim.mygrade.ui.screen.task
 
+import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.keelim.commonAndroid.model.SealedUiState
@@ -13,8 +14,6 @@ import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
-import androidx.compose.runtime.Stable
 @Stable
 @HiltViewModel
 class TaskViewModel @Inject constructor(

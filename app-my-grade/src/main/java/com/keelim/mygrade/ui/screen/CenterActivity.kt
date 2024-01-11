@@ -3,6 +3,7 @@
 package com.keelim.mygrade.ui.screen
 
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
@@ -26,6 +27,7 @@ class CenterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setThemeContent {
             MyGradeApp(
                 windowSizeClass = calculateWindowSizeClass(this),

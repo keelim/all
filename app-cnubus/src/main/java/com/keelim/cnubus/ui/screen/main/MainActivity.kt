@@ -17,6 +17,7 @@ package com.keelim.cnubus.ui.screen.main
 
 import android.os.Bundle
 import androidx.activity.compose.BackHandler
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material3.AlertDialog
@@ -46,6 +47,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setThemeContent {
             CnubusApp(
                 windowSizeClass = calculateWindowSizeClass(this),

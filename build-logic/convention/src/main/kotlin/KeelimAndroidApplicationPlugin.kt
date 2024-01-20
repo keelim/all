@@ -1,3 +1,4 @@
+import androidx.baselineprofile.gradle.consumer.BaselineProfileConsumerExtension
 import com.android.build.api.dsl.ApplicationExtension
 import com.dropbox.gradle.plugins.dependencyguard.DependencyGuardPluginExtension
 import com.keelim.builds.configureDependencyGuard
@@ -5,6 +6,7 @@ import com.keelim.builds.configureKotlinAndroid
 import com.keelim.builds.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 
@@ -40,9 +42,10 @@ class KeelimAndroidApplicationPlugin : Plugin<Project> {
                         getDefaultProguardFile("proguard-android-optimize.txt"),
                         "proguard-rules.pro"
                     )
-                    // configure<BaselineProfileConsumerExtension> {
-                    //     automaticGenerationDuringBuild = true
-                    // }
+                    configure<BaselineProfileConsumerExtension> {
+                        automaticGenerationDuringBuild = true
+                    }
+                    experimentalProperties["android.experimental.r8.dex-startup-optimization"] = true
                 }
                 lint {
                     abortOnError = false

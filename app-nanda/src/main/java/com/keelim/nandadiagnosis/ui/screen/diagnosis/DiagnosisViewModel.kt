@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
-
+@Stable
 @HiltViewModel
 class DiagnosisViewModel @Inject constructor(
     val savedStateHandle: SavedStateHandle,

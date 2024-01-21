@@ -1,5 +1,6 @@
 package com.keelim.nandadiagnosis.ui.screen.nutrients
 
+import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -11,7 +12,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
-
+@Stable
 @HiltViewModel
 class NutrientViewModel @Inject constructor() : ViewModel() {
     val state: StateFlow<NutrientState> = flow {

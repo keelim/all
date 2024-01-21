@@ -37,6 +37,7 @@ data class MapState(
     override fun getZIndex(): Float? = null
 }
 
+@Stable
 @HiltViewModel
 class MapViewModel @Inject constructor() : ViewModel() {
 

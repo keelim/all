@@ -1,5 +1,6 @@
 package com.keelim.mygrade.ui.screen.main
 
+import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,6 +23,7 @@ data class MainScreenState(
     }
 }
 
+@Stable
 @HiltViewModel
 class MainViewModel @Inject constructor() : ViewModel() {
     private val _state: MutableStateFlow<MainState> = MutableStateFlow(MainState.UnInitialized)

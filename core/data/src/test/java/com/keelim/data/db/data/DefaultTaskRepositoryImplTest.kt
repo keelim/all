@@ -5,8 +5,6 @@ import com.keelim.data.source.DefaultTaskRepositoryImpl
 import com.keelim.data.source.local.LocalTask
 import com.keelim.data.source.network.NetworkTask
 import com.keelim.data.source.network.TaskNetworkDataSource
-import com.keelim.data.source.toExternal
-import com.keelim.data.source.toLocal
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.TestScope

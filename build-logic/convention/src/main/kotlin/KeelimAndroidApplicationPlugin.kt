@@ -43,7 +43,6 @@ class KeelimAndroidApplicationPlugin : Plugin<Project> {
                     // configure<BaselineProfileConsumerExtension> {
                     //     automaticGenerationDuringBuild = true
                     // }
-                    experimentalProperties["android.experimental.r8.dex-startup-optimization"] = true
                 }
                 lint {
                     abortOnError = false

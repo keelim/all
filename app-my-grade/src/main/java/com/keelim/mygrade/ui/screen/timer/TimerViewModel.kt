@@ -44,6 +44,7 @@ data class TimerUiState(
     val isUnsetDialog: Boolean = false,
 )
 
+@Stable
 @HiltViewModel
 class TimerViewModel @Inject constructor() : ViewModel() {
     private var countTimeJob: Job? = null

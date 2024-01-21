@@ -15,6 +15,7 @@
  */
 package com.keelim.cnubus.ui.screen.root
 
+import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.keelim.data.model.Location
@@ -31,7 +32,7 @@ import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
-
+@Stable
 @HiltViewModel
 class RootViewModel @Inject constructor() : ViewModel() {
     private val modes = MutableStateFlow("a")

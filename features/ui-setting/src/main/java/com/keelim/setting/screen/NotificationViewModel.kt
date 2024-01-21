@@ -1,5 +1,6 @@
 package com.keelim.setting.screen
 
+import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.keelim.data.di.DefaultDispatcher
@@ -14,7 +15,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
-
+@Stable
 @HiltViewModel
 class NotificationViewModel
 @Inject

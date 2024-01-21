@@ -1,5 +1,6 @@
 package com.keelim.mygrade.ui.screen.task.chart
 
+import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.keelim.commonAndroid.model.SealedUiState
@@ -13,7 +14,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
-
+@Stable
 @HiltViewModel
 class TaskChartViewModel
 @Inject

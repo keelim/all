@@ -1,6 +1,7 @@
 package com.keelim.commonAndroid.core
 
 import androidx.activity.ComponentActivity
+import androidx.compose.runtime.Stable
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
@@ -13,7 +14,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
-
+@Stable
 @HiltViewModel
 class AppMainViewModel @Inject constructor(
     val networkConnectivityService: NetworkConnectivityService,

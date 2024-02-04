@@ -24,12 +24,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.keelim.composeutil.component.appbar.NavigationBackArrowBar
 
 @Composable
-fun WaterRoute() = trace("WaterRoute") {
+fun WaterRoute(
+    viewModel: WaterViewModel = hiltViewModel(),
+) = trace("WaterRoute") {
     WaterScreen()
 }
 
 @Composable
-fun WaterScreen(viewModel: WaterViewModel = hiltViewModel()) = trace("WaterScreen") {
+fun WaterScreen() = trace("WaterScreen") {
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         NavigationBackArrowBar(title = "물 마시기")
         var waterCount by remember { mutableIntStateOf(0) }

@@ -45,8 +45,12 @@ import com.keelim.composeutil.component.layout.Loading
 fun NutrientRoute(
     onNutrientClick: (String, String) -> Unit,
     onNutrientTimerClick: () -> Unit,
+    viewModel: NutrientViewModel = hiltViewModel(),
 ) = trace("NutrientRoute") {
+    val uiState by viewModel.state.collectAsStateWithLifecycle()
+
     NutrientScreen(
+        uiState = uiState,
         onNutrientClick = onNutrientClick,
         onNutrientTimerClick = onNutrientTimerClick,
     )
@@ -54,11 +58,10 @@ fun NutrientRoute(
 
 @Composable
 private fun NutrientScreen(
-    viewModel: NutrientViewModel = hiltViewModel(),
+    uiState: NutrientState,
     onNutrientClick: (String, String) -> Unit,
     onNutrientTimerClick: () -> Unit,
 ) = trace("NutrientScreen") {
-    val uiState by viewModel.state.collectAsStateWithLifecycle()
 
     Scaffold(
         floatingActionButton = {
@@ -105,6 +108,7 @@ private fun NutrientStateView(uiState: NutrientState, onNutrientClick: (String, 
 @Composable
 fun PreviewNutrientScreen() {
     NutrientScreen(
+        uiState = NutrientState.Empty,
         onNutrientClick = { _, _ -> },
         onNutrientTimerClick = {},
     )

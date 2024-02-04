@@ -29,6 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEach
+import androidx.compose.ui.util.trace
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.composeutil.component.layout.EmptyView
@@ -47,7 +48,7 @@ sealed class MapEvent {
 fun RootRoute(
     onRootClick: (Int) -> Unit,
     viewModel: RootViewModel = hiltViewModel(),
-) {
+) = trace("RootRoute") {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
     RootScreen(
         uiState = uiState,
@@ -59,7 +60,7 @@ fun RootRoute(
 fun RootScreen(
     uiState: MapEvent,
     onRootClick: (Int) -> Unit,
-) {
+) = trace("RootScreen") {
     when (uiState) {
         MapEvent.UnInitialized,
         is MapEvent.Error,
@@ -101,7 +102,7 @@ internal fun RootCard(
     position: Int,
     rootTitle: String,
     onRootClick: (Int) -> Unit,
-) {
+) = trace("RootCard") {
     Card(
         modifier = Modifier
             .fillMaxWidth(),

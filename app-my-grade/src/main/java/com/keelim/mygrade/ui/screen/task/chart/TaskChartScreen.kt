@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEach
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.tracing.trace
 import com.keelim.commonAndroid.model.SealedUiState
 import com.keelim.composeutil.component.canvas.chart.PieChart
 import com.keelim.composeutil.component.canvas.chart.PieChartEntry
@@ -32,7 +33,7 @@ import com.keelim.composeutil.util.randomColor
 @Composable
 fun TaskChartRoute(
     viewModel: TaskChartViewModel = hiltViewModel(),
-) {
+) = trace("TaskChartRoute") {
     val state by viewModel.state.collectAsStateWithLifecycle()
     TaskChartScreen(
         state = state,
@@ -42,7 +43,7 @@ fun TaskChartRoute(
 @Composable
 fun TaskChartScreen(
     state: SealedUiState<List<PieChartEntry>>,
-) {
+) = trace("TaskChartScreen") {
     when (state) {
         is SealedUiState.Error, SealedUiState.Loading -> EmptyView()
         is SealedUiState.Success -> TaskChartSuccessSection(state.value)
@@ -52,7 +53,7 @@ fun TaskChartScreen(
 @Composable
 fun TaskChartSuccessSection(
     entries: List<PieChartEntry>,
-) {
+) = trace("TaskChartSuccessSection") {
     Column(
         modifier = Modifier.padding(
             vertical = 12.dp,
@@ -88,7 +89,7 @@ fun TaskChartSuccessSection(
 fun TaskChartDetailEntry(
     title: String,
     color: Color,
-) {
+) = trace("TaskChartDetailEntry") {
     Surface(
         modifier = Modifier
             .padding(vertical = 10.dp, horizontal = 40.dp),

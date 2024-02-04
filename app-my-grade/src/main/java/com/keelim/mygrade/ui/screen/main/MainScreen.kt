@@ -47,6 +47,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.tracing.trace
 import com.keelim.composeutil.component.fab.FabButtonItem
 import com.keelim.composeutil.component.fab.FabButtonMain
 import com.keelim.composeutil.component.fab.FabButtonState
@@ -66,7 +67,7 @@ fun MainRoute(
     onLabClick: () -> Unit,
     onNavigateTimerHistory: () -> Unit,
     onNavigateTask: () -> Unit,
-) {
+) = trace("MainRoute") {
     MainScreen(
         onSubmitClick = onSubmitClick,
         onFloatingButtonClick1 = onFloatingButtonClick1,
@@ -86,7 +87,7 @@ fun MainScreen(
     onLabClick: () -> Unit = {},
     onNavigateTimerHistory: () -> Unit = {},
     onNavigateTask: () -> Unit = {},
-) {
+) = trace("MainScreen") {
     val mainState by viewModel.mainScreenState.collectAsStateWithLifecycle()
     val subject by viewModel.subject.collectAsStateWithLifecycle()
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -190,7 +191,7 @@ fun MainScreen(
 private fun MainTopSection(
     pagerState: PagerState,
     onLabClick: () -> Unit,
-) {
+) = trace("MainTopSection") {
     Row(
         verticalAlignment = Alignment.CenterVertically,
     ) {
@@ -224,7 +225,7 @@ private fun ColumnScope.MainBottomSection(
     onFloatingButtonClick1: () -> Unit,
     onFloatingButtonClick2: () -> Unit,
     onNavigateWord: () -> Unit,
-) {
+) = trace("MainBottomSection") {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.End,
@@ -286,7 +287,7 @@ internal fun ScoreTextRow(
     value: String,
     onValueChange: (String) -> Unit,
     isError: Boolean,
-) {
+) = trace("ScoreTextRow") {
     Row(verticalAlignment = Alignment.CenterVertically) {
         Text(text = text, style = MaterialTheme.typography.headlineSmall)
         Spacer(modifier = Modifier.width(20.dp))

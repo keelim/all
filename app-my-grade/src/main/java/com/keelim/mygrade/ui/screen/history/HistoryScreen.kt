@@ -24,6 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.tracing.trace
 import com.keelim.composeutil.component.appbar.NavigationBackArrowBar
 import com.keelim.composeutil.component.layout.EmptyView
 import kotlinx.collections.immutable.PersistentList
@@ -32,7 +33,7 @@ import kotlinx.collections.immutable.persistentListOf
 @Composable
 fun HistoryRoute(
     onHistoryClick: (String, String, String) -> Unit,
-) {
+) = trace("HistoryRoute") {
     HistoryScreen(
         onHistoryClick = onHistoryClick,
     )
@@ -42,7 +43,7 @@ fun HistoryRoute(
 internal fun HistoryScreen(
     viewModel: HistoryViewModel = hiltViewModel(),
     onHistoryClick: (String, String, String) -> Unit = { _, _, _ -> },
-) {
+) = trace("HistoryScreen") {
     val histories by viewModel.histories.collectAsStateWithLifecycle(persistentListOf())
     if (histories.isEmpty()) {
         EmptyView()
@@ -60,7 +61,7 @@ fun HistoryList(
     histories: PersistentList<GradeHistory>,
     listState: LazyListState = rememberLazyListState(),
     onHistoryClick: (String, String, String) -> Unit = { _, _, _ -> },
-) {
+) = trace("HistoryList") {
     LazyColumn(
         state = listState,
         modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
@@ -134,7 +135,7 @@ fun PreviewHistoryList() {
 fun HistoryCard(
     history: GradeHistory,
     onHistoryClick: (String, String, String) -> Unit = { _, _, _ -> },
-) {
+) = trace("HistoryCard") {
     // val context = LocalContext.current
     Card(
         modifier = Modifier

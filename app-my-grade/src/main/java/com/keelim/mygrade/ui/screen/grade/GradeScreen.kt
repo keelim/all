@@ -34,6 +34,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.tracing.trace
 import com.keelim.composeutil.component.appbar.NavigationBackArrowBar
 
 @Composable
@@ -41,7 +42,7 @@ fun GradeRoute(
     onCopyClick: () -> Unit,
     onShareClick: () -> Unit,
     viewModel: GradeViewModel = hiltViewModel(),
-) {
+) = trace("GradeRoute") {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val data by viewModel.data.collectAsStateWithLifecycle()
     if (uiState.isMessageShow) {
@@ -63,7 +64,7 @@ private fun GradeScreen(
     rank: String,
     onCopyClick: () -> Unit,
     onShareClick: () -> Unit,
-) {
+)  = trace("GradeScreen") {
     Column {
         NavigationBackArrowBar(title = "결과 확인")
         GradeContent(
@@ -83,7 +84,7 @@ fun GradeContent(
     rank: String,
     onCopyClick: () -> Unit,
     onShareClick: () -> Unit,
-) {
+) = trace("GradeContent") {
     Column(
         modifier = Modifier
             .padding(horizontal = 20.dp)

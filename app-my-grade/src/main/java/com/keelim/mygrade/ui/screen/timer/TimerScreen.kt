@@ -40,13 +40,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.tracing.trace
 import com.keelim.composeutil.component.custom.NumberPickerList
 
 @Composable
 fun TimerScreen(
     onNavigateTimerHistory: () -> Unit,
     viewModel: TimerViewModel = hiltViewModel(),
-) {
+) = trace("TimerScreen") {
     val timerUiState by viewModel.timerUiState.collectAsStateWithLifecycle()
     val isCountDownTimerVisible = viewModel.isRunning
     val addedTime = viewModel.addTime(System.currentTimeMillis())
@@ -121,7 +122,7 @@ fun TimerScreen(
 fun SelectTime(
     runningState: RunningState,
     viewModel: TimerViewModel,
-) {
+) = trace("SelectTime") {
     if (runningState == RunningState.STOPPED) {
         Box(
             modifier = Modifier.fillMaxWidth().height(350.dp),
@@ -167,7 +168,7 @@ fun CircularCountDownTimer(
     viewModel: TimerViewModel,
     dialogState: MutableState<Boolean>,
     addedTime: String,
-) {
+) = trace("CircularCountDownTimer") {
     if (runningState != RunningState.STOPPED) {
         val leftTime = viewModel.leftTime.intValue
         if (leftTime == 0) {
@@ -245,7 +246,7 @@ fun PreviewTimerScreen() {
 @Composable
 private fun CheckDialog(
     onDismiss: () -> Unit,
-) {
+) = trace("CheckDialog") {
     AlertDialog(
         onDismissRequest = onDismiss,
     ) {
@@ -258,7 +259,7 @@ private fun CheckDialog(
 }
 
 @Composable
-private fun UnsetDialog(onDismiss: () -> Unit) {
+private fun UnsetDialog(onDismiss: () -> Unit) = trace("UnsetDialog") {
     AlertDialog(
         onDismissRequest = onDismiss,
     ) {

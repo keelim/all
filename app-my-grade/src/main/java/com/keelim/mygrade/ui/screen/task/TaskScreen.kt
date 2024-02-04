@@ -53,12 +53,13 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.tracing.trace
 import com.keelim.commonAndroid.model.SealedUiState
 import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.data.source.local.LocalTask
 
 @Composable
-fun TaskRoute(onNavigateChart: () -> Unit, viewModel: TaskViewModel = hiltViewModel()) {
+fun TaskRoute(onNavigateChart: () -> Unit, viewModel: TaskViewModel = hiltViewModel()) = trace("TaskRoute") {
     val state by viewModel.state.collectAsStateWithLifecycle()
     TaskScreen(
         state = state,
@@ -78,11 +79,12 @@ fun TaskScreen(
     onClear: () -> Unit,
     onEditTask: (LocalTask) -> Unit,
     onDeleteTask: (LocalTask) -> Unit,
-) {
+) = trace("TaskScreen") {
     when (state) {
         SealedUiState.Loading,
         is SealedUiState.Error,
         -> EmptyView()
+
         is SealedUiState.Success<List<TaskElement>> -> {
             val (showDialog, setShowDialog) = rememberSaveable { mutableStateOf(false) }
             var deleteTask by rememberSaveable { mutableStateOf<LocalTask?>(null) }
@@ -153,20 +155,20 @@ fun LocalTaskList(
     onChange: (task: LocalTask) -> Unit,
     onDelete: (task: LocalTask) -> Unit,
     modifier: Modifier = Modifier,
-) {
+) = trace("LocalTaskList") {
     val items = state.getOrDefault(emptyList())
     if (items.isEmpty()) {
         EmptyView()
     } else {
         val selected by
-            remember(items) {
-                derivedStateOf {
-                    items
-                        .filterIsInstance(TaskElement.Header::class.java)
-                        .takeIf { it.size >= 2 }
-                        ?.let { 1 } ?: 0
-                }
+        remember(items) {
+            derivedStateOf {
+                items
+                    .filterIsInstance(TaskElement.Header::class.java)
+                    .takeIf { it.size >= 2 }
+                    ?.let { 1 } ?: 0
             }
+        }
         val spacedBy by animateDpAsState(Dp(selected * 2f), label = "")
         val innerCornerSize by animateDpAsState(Dp(selected * 4f), label = "")
         LazyColumn(
@@ -185,6 +187,7 @@ fun LocalTaskList(
                                 animationSpec = spring(),
                             ),
                         )
+
                     is TaskElement.Item ->
                         LocalTaskItem(
                             item = task,
@@ -206,7 +209,7 @@ fun LocalTaskList(
 fun LocalTaskHeader(
     task: TaskElement.Header,
     modifier: Modifier = Modifier,
-) {
+) = trace("LocalTaskHeader") {
     Row(
         modifier =
         modifier.fillMaxWidth().padding(top = 16.dp, bottom = 8.dp, start = 16.dp, end = 16.dp),
@@ -227,7 +230,7 @@ fun LocalTaskItem(
     modifier: Modifier = Modifier,
     outerCornerSize: Dp = 20.dp,
     innerCornerSize: Dp = 0.dp,
-) {
+) = trace("LocalTaskItem") {
     val task = item.localTask
     Card(
         modifier =
@@ -268,35 +271,38 @@ fun LocalTaskItem(
 
 @Composable
 private fun TaskElement.Role.toShape(outerCornerSize: Dp, innerCornerSize: Dp): Shape {
-    val (outerCornerSizePx, innerCornerSizePx) =
-        LocalDensity.current.run { outerCornerSize.toPx() to innerCornerSize.toPx() }
+        val (outerCornerSizePx, innerCornerSizePx) =
+            LocalDensity.current.run { outerCornerSize.toPx() to innerCornerSize.toPx() }
 
-    val targetRect =
-        remember(this, outerCornerSize, innerCornerSize) {
-            when (this) {
-                TaskElement.Role.TOP ->
-                    Rect(outerCornerSizePx, outerCornerSizePx, innerCornerSizePx, innerCornerSizePx)
-                TaskElement.Role.BOTTOM ->
-                    Rect(innerCornerSizePx, innerCornerSizePx, outerCornerSizePx, outerCornerSizePx)
-                TaskElement.Role.MIDDLE ->
-                    Rect(innerCornerSizePx, innerCornerSizePx, innerCornerSizePx, innerCornerSizePx)
-                TaskElement.Role.SINGLE ->
-                    Rect(outerCornerSizePx, outerCornerSizePx, outerCornerSizePx, outerCornerSizePx)
+        val targetRect =
+            remember(this, outerCornerSize, innerCornerSize) {
+                when (this) {
+                    TaskElement.Role.TOP ->
+                        Rect(outerCornerSizePx, outerCornerSizePx, innerCornerSizePx, innerCornerSizePx)
+
+                    TaskElement.Role.BOTTOM ->
+                        Rect(innerCornerSizePx, innerCornerSizePx, outerCornerSizePx, outerCornerSizePx)
+
+                    TaskElement.Role.MIDDLE ->
+                        Rect(innerCornerSizePx, innerCornerSizePx, innerCornerSizePx, innerCornerSizePx)
+
+                    TaskElement.Role.SINGLE ->
+                        Rect(outerCornerSizePx, outerCornerSizePx, outerCornerSizePx, outerCornerSizePx)
+                }
             }
-        }
 
-    val animatedRect by animateRectAsState(targetRect, label = "")
+        val animatedRect by animateRectAsState(targetRect, label = "")
 
-    return RoundedCornerShape(
-        animatedRect.left,
-        animatedRect.top,
-        animatedRect.right,
-        animatedRect.bottom,
-    )
-}
+        return RoundedCornerShape(
+            animatedRect.left,
+            animatedRect.top,
+            animatedRect.right,
+            animatedRect.bottom,
+        )
+    }
 
 @Composable
-fun DeleteDialog(setShowDialog: (Boolean) -> Unit, onConfirm: () -> Unit) {
+fun DeleteDialog(setShowDialog: (Boolean) -> Unit, onConfirm: () -> Unit) = trace("DeleteDialog") {
     AlertDialog(
         onDismissRequest = { setShowDialog(false) },
         title = { Text(text = "삭제") },

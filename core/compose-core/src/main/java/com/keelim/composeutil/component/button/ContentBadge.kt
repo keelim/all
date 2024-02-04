@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun ContentBadge(
-    modifier : Modifier = Modifier,
+    modifier: Modifier = Modifier,
     content: @Composable () -> Unit,
     badgeContent: @Composable () -> Unit,
 ) {
@@ -47,12 +47,12 @@ fun PreviewContentBadge() {
                 Icon(
                     modifier = Modifier.size(42.dp),
                     imageVector = Icons.Filled.Notifications,
-                    contentDescription = "NotificationIcon"
+                    contentDescription = "NotificationIcon",
                 )
             }
         },
         badgeContent = {
             Text(text = "99+")
-        }
+        },
     )
 }

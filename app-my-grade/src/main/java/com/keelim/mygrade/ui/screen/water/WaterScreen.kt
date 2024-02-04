@@ -19,17 +19,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.util.trace
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.tracing.trace
 import com.keelim.composeutil.component.appbar.NavigationBackArrowBar
 
 @Composable
-fun WaterRoute() = trace("WaterRoute") {
+fun WaterRoute(
+    viewModel: WaterViewModel = hiltViewModel(),
+) = trace("WaterRoute") {
     WaterScreen()
 }
 
 @Composable
-fun WaterScreen(viewModel: WaterViewModel = hiltViewModel()) = trace("WaterScreen") {
+fun WaterScreen() = trace("WaterScreen") {
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         NavigationBackArrowBar(title = "물 마시기")
         var waterCount by remember { mutableIntStateOf(0) }

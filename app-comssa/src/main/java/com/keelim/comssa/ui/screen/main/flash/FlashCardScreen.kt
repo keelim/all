@@ -15,30 +15,35 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.util.trace
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.tracing.trace
 
 @Composable
-fun FlashCardRoute() = trace("FlashCardRoute") {
-    FlashCardScreen()
+fun FlashCardRoute(
+    viewModel: FlashCardViewModel = hiltViewModel(),
+) = trace("FlashCardRoute") {
+    val cardFace by viewModel.uiState.collectAsStateWithLifecycle()
+    FlashCardScreen(
+        cardFace.flashCardState,
+        onClick = viewModel::updateState,
+    )
 }
 
 @Composable
 fun FlashCardScreen(
-    viewModel: FlashCardViewModel = hiltViewModel(),
+    flashCardState: FlashCardState,
+    onClick: () -> Unit,
 ) = trace("FlashCardScreen") {
-    val cardFace by viewModel.uiState.collectAsStateWithLifecycle()
-
     FlashCard(
-        flashCardState = cardFace.flashCardState,
+        flashCardState = flashCardState,
         modifier = Modifier
             .fillMaxWidth(.5f)
             .aspectRatio(1f)
             .padding(horizontal = 12.dp),
         front = { FrontCardSection() },
         back = { BackCardSection() },
-        onClick = viewModel::updateState,
+        onClick = onClick,
     )
 }
 
@@ -92,5 +97,8 @@ fun FlashCard(
 @Preview
 @Composable
 fun PreviewFlashCardScreen() {
-    FlashCardScreen()
+    FlashCardScreen(
+        flashCardState = FlashCardState.Front,
+        onClick = {},
+    )
 }

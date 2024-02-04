@@ -22,29 +22,30 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.util.trace
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.tracing.trace
 import com.keelim.composeutil.component.appbar.NavigationBackArrowBar
 import com.keelim.composeutil.component.layout.EmptyView
-import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
 
 @Composable
 fun HistoryRoute(
     onHistoryClick: (String, String, String) -> Unit,
+    viewModel: HistoryViewModel = hiltViewModel(),
 ) = trace("HistoryRoute") {
+    val histories by viewModel.histories.collectAsStateWithLifecycle(persistentListOf())
     HistoryScreen(
+        histories = histories,
         onHistoryClick = onHistoryClick,
     )
 }
 
 @Composable
 internal fun HistoryScreen(
-    viewModel: HistoryViewModel = hiltViewModel(),
+    histories: List<GradeHistory>,
     onHistoryClick: (String, String, String) -> Unit = { _, _, _ -> },
 ) = trace("HistoryScreen") {
-    val histories by viewModel.histories.collectAsStateWithLifecycle(persistentListOf())
     if (histories.isEmpty()) {
         EmptyView()
     } else {
@@ -58,7 +59,7 @@ internal fun HistoryScreen(
 
 @Composable
 fun HistoryList(
-    histories: PersistentList<GradeHistory>,
+    histories: List<GradeHistory>,
     listState: LazyListState = rememberLazyListState(),
     onHistoryClick: (String, String, String) -> Unit = { _, _, _ -> },
 ) = trace("HistoryList") {

@@ -1,0 +1,145 @@
+on:
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: cache gradle
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: set up JDK 17
+        uses: actions/setup-java@v4.0.0
+        with:
+          distribution: "zulu"
+          java-version: "17"
+          cache: "gradle"
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v3.0.0
+        with:
+          gradle-version: current
+          gradle-home-cache-cleanup: true
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Add Google Service Json
+        run: |
+          echo '${{ secrets.CNUBUS_GOOGLE_SERVICES_JSON }}' > ./app-cnubus/google-services.json
+          echo '${{ secrets.COMSSA_GOOGLE_SERVICES_JSON }}' > ./app-comssa/google-services.json
+          echo '${{ secrets.MYGRADE_GOOGLE_SERVICES_JSON }}' > ./app-my-grade/google-services.json
+          echo '${{ secrets.NANDA_GOOGLE_SERVICES_JSON }}' > ./app-nanda/google-services.json
+
+      - name: ADD LOCAL PROPERTIES
+        env:
+          APOD_API_KEY: ${{ secrets.LOCAL_PROPERTIES }}
+        run: echo '${{ secrets.LOCAL_PROPERTIES }}' > ./local.properties
+
+      - name: Build with Gradle
+        run: ./gradlew app-comssa:assembleRelease app-cnubus:assembleRelease app-my-grade:assembleRelease app-nanda:assembleRelease
+
+      - name: Build Release AAB
+        id: buildRelease
+        run: ./gradlew app-comssa:bundleRelease app-cnubus:bundleRelease app-my-grade:bundleRelease app-nanda:bundleRelease
+
+      - name: Sign Comssa AAB
+        id: sign
+        uses: r0adkll/sign-android-release@v1
+        with:
+          releaseDirectory: app-comssa/build/outputs/bundle/release
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          alias: ${{ secrets.COMSSA_ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+
+      - name: Sign Cnubus AAB
+        id: sign
+        uses: r0adkll/sign-android-release@v1
+        with:
+          releaseDirectory: app-cnubus/build/outputs/bundle/release
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          alias: ${{ secrets.CNUBUS_ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+
+      - name: Sign MyGrade AAB
+        id: sign
+        uses: r0adkll/sign-android-release@v1
+        with:
+          releaseDirectory: app-my-grade/build/outputs/bundle/release
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          alias: ${{ secrets.MYGRADE_ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+
+      - name: Sign Nanda AAB
+        id: sign
+        uses: r0adkll/sign-android-release@v1
+        with:
+          releaseDirectory: app-nanda/build/outputs/bundle/release
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          alias: ${{ secrets.NANDA_ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+
+      - name: Create service_account.json
+        id: createServiceAccount
+        run: echo '${{ secrets.SERVICE_ACCOUNT_JSON }}' > service_account.json
+
+      - name: Deploy to Play Store Cnubus
+        id: deploy
+        uses: r0adkll/upload-google-play@v1.1.2
+        with:
+          serviceAccountJson: service_account.json
+          packageName: com.keelim.cnubus
+          releaseFiles: app-cnubus/build/outputs/bundle/release/app-cnubus-release.aab
+          track: production
+          status: completed
+          changesNotSentForReview: false
+
+      - name: Deploy to Play Store Comssa
+        id: deploy
+        uses: r0adkll/upload-google-play@v1.1.2
+        with:
+          serviceAccountJson: service_account.json
+          packageName: com.keelim.comssa
+          releaseFiles: app-comssa/build/outputs/bundle/release/app-comssa-release.aab
+          track: production
+          status: completed
+          changesNotSentForReview: false
+
+      - name: Deploy to Play Store MyGrade
+        id: deploy
+        uses: r0adkll/upload-google-play@v1.1.2
+        with:
+          serviceAccountJson: service_account.json
+          packageName: com.keelim.mygrade
+          releaseFiles: app-my-grade/build/outputs/bundle/release/app-my-grade-release.aab
+          track: production
+          status: completed
+          changesNotSentForReview: false
+
+      - name: Deploy to Play Store Nanda
+        id: deploy
+        uses: r0adkll/upload-google-play@v1.1.2
+        with:
+          serviceAccountJson: service_account.json
+          packageName: com.keelim.nandadiagnosis
+          releaseFiles: app-nanda/build/outputs/bundle/release/app-nanda-release.aab
+          track: production
+          status: completed
+          changesNotSentForReview: false

@@ -64,7 +64,7 @@ private fun GradeScreen(
     rank: String,
     onCopyClick: () -> Unit,
     onShareClick: () -> Unit,
-)  = trace("GradeScreen") {
+) = trace("GradeScreen") {
     Column {
         NavigationBackArrowBar(title = "결과 확인")
         GradeContent(

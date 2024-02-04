@@ -118,8 +118,8 @@ fun PreviewCategoryScreen() {
     CategoryScreen(
         state = CategoryState.Success(
             items = persistentListOf(
-                "a"
-            )
+                "a",
+            ),
         ),
         onCategoryClick = {},
     )

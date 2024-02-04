@@ -62,7 +62,6 @@ private fun NutrientScreen(
     onNutrientClick: (String, String) -> Unit,
     onNutrientTimerClick: () -> Unit,
 ) = trace("NutrientScreen") {
-
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(

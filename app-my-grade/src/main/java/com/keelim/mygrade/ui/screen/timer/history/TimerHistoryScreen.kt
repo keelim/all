@@ -7,12 +7,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.keelim.composeutil.component.box.ReadyServiceBox
 
 @Composable
-fun TimerHistoryRoute() = trace("TimerHistoryRoute") {
+fun TimerHistoryRoute(
+    viewModel: TimerHistoryViewModel = hiltViewModel(),
+) = trace("TimerHistoryRoute") {
     TimerHistoryScreen()
 }
 
 @Composable
-fun TimerHistoryScreen(viewModel: TimerHistoryViewModel = hiltViewModel()) = trace("TimerHistoryScreen") {
+fun TimerHistoryScreen() = trace("TimerHistoryScreen") {
     ReadyServiceBox()
 }
 

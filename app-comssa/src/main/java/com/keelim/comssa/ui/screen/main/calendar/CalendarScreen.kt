@@ -9,14 +9,14 @@ import androidx.compose.ui.util.trace
 import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
-fun CalendarRoute() = trace("CalendarRoute") {
+fun CalendarRoute(
+    viewModel: CalendarViewModel = hiltViewModel(),
+) = trace("CalendarRoute") {
     CalendarScreen()
 }
 
 @Composable
-fun CalendarScreen(
-    viewModel: CalendarViewModel = hiltViewModel(),
-) = trace("CalendarScreen") {
+fun CalendarScreen() = trace("CalendarScreen") {
     val state = rememberDatePickerState()
     Column {
         DatePicker(state = state)

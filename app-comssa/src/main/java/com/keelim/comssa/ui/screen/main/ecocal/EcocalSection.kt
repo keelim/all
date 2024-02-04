@@ -43,6 +43,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.tracing.trace
 import com.keelim.data.model.EcoCalEntry
 import kotlinx.coroutines.delay
 import kotlinx.datetime.Clock
@@ -54,7 +55,7 @@ fun EcocalMainSection(
     state: LazyListState,
     entries: List<EcoCalEntry>,
     modifier: Modifier = Modifier,
-) {
+) = trace("EcocalMainSection") {
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -103,7 +104,7 @@ fun EcocalMainSection(
 }
 
 @Composable
-fun HeaderItem(title: String, modifier: Modifier = Modifier) {
+fun HeaderItem(title: String, modifier: Modifier = Modifier) = trace("HeaderItem") {
     Column(
         modifier = modifier,
     ) {
@@ -192,7 +193,7 @@ fun ListItem(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     photoUrl: String? = null,
-) {
+) = trace("ListItem") {
     Surface(
         onClick = onClick,
         shape = MaterialTheme.shapes.large,
@@ -272,7 +273,7 @@ fun ListItem(
 }
 
 @Composable
-fun EcocalTopSection() {
+fun EcocalTopSection() = trace("EcocalTopSection") {
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
         Text(text = "Eco Cal", style = MaterialTheme.typography.headlineMedium)
     }

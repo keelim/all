@@ -36,17 +36,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.tracing.trace
 import com.keelim.composeutil.component.custom.NumberPickerList
 
 @Composable
-fun NutrientTimerRoute() {
+fun NutrientTimerRoute() = trace("NutrientTimerRoute") {
     NutrientTimerScreen()
 }
 
 @Composable
 private fun NutrientTimerScreen(
     viewModel: NutrientTimerViewModel = hiltViewModel(),
-) {
+) = trace("NutrientTimerScreen") {
     val isCountDownTimerVisible = viewModel.isRunning
     val addedTime = viewModel.addTime(System.currentTimeMillis())
     val dialogState = remember { mutableStateOf(false) }
@@ -102,7 +103,7 @@ private fun NutrientTimerScreen(
 fun SelectTime(
     runningState: RunningState,
     viewModel: NutrientTimerViewModel,
-) {
+) = trace("SelectTime") {
     if (runningState == RunningState.STOPPED) {
         Box(
             modifier = Modifier.fillMaxWidth().height(350.dp),
@@ -148,7 +149,7 @@ fun CircularCountDownTimer(
     viewModel: NutrientTimerViewModel,
     dialogState: MutableState<Boolean>,
     addedTime: String,
-) {
+) = trace("CircularCountDownTimer") {
     if (runningState != RunningState.STOPPED) {
         val leftTime = viewModel.leftTime.intValue
         if (leftTime == 0) {
@@ -224,7 +225,7 @@ fun PreviewTimerScreen() {
 @Composable
 private fun ShowDialog(
     onDismiss: () -> Unit,
-) {
+) = trace("ShowDialog") {
     AlertDialog(
         onDismissRequest = onDismiss,
     ) {

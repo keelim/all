@@ -17,16 +17,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.tracing.trace
 
 @Composable
-fun FlashCardRoute() {
+fun FlashCardRoute() = trace("FlashCardRoute") {
     FlashCardScreen()
 }
 
 @Composable
 fun FlashCardScreen(
     viewModel: FlashCardViewModel = hiltViewModel(),
-) {
+) = trace("FlashCardScreen") {
     val cardFace by viewModel.uiState.collectAsStateWithLifecycle()
 
     FlashCard(
@@ -48,7 +49,7 @@ fun FlashCard(
     front: @Composable () -> Unit,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-) {
+) = trace("FlashCard") {
     val rotation = animateFloatAsState(
         targetValue = flashCardState.angle,
         animationSpec = tween(

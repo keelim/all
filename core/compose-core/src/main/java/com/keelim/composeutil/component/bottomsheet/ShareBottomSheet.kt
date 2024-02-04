@@ -51,22 +51,22 @@ fun ShareSheet(
         sheetContent = {
             Column(
                 verticalArrangement = Arrangement.spacedBy(12.dp),
-                modifier = Modifier.padding(vertical = 24.dp)
+                modifier = Modifier.padding(vertical = 24.dp),
             ) {
                 Text(
                     text = "Share!",
                     style = MaterialTheme.typography.titleLarge,
-                    modifier = Modifier.padding(horizontal = 24.dp)
+                    modifier = Modifier.padding(horizontal = 24.dp),
                 )
                 LazyRow(
                     contentPadding = PaddingValues(16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(24.dp)
+                    horizontalArrangement = Arrangement.spacedBy(24.dp),
                 ) {
                     items(shareItems) { item ->
                         LabeledIconButton(
                             imageVector = item.imageVector,
                             label = item.label,
-                            onClick = item.onClick
+                            onClick = item.onClick,
                         )
                     }
                 }
@@ -95,19 +95,19 @@ private fun LabeledIconButton(
     label: String,
     onClick: () -> Unit,
     containerColor: Color = MaterialTheme.colorScheme.secondaryContainer,
-    contentColor: Color = contentColorFor(containerColor)
+    contentColor: Color = contentColorFor(containerColor),
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         FilledIconButton(
             onClick = onClick,
             modifier = Modifier.size(64.dp),
             colors = IconButtonDefaults.filledIconButtonColors(
                 containerColor = containerColor,
-                contentColor = contentColor
-            )
+                contentColor = contentColor,
+            ),
         ) {
             Icon(
                 imageVector = imageVector,
@@ -117,4 +117,3 @@ private fun LabeledIconButton(
         Text(text = label, style = MaterialTheme.typography.labelSmall, maxLines = 1)
     }
 }
-

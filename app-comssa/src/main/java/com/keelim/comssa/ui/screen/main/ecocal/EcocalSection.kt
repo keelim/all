@@ -43,7 +43,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.tracing.trace
+import androidx.compose.ui.util.trace
 import com.keelim.data.model.EcoCalEntry
 import kotlinx.coroutines.delay
 import kotlinx.datetime.Clock

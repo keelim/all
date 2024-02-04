@@ -30,7 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEachIndexed
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.tracing.trace
+import androidx.compose.ui.util.trace
 import com.keelim.cnubus.ui.screen.root.RootRoute
 import com.keelim.cnubus.ui.screen.root.RootViewModel
 import com.keelim.cnubus.ui.screen.setting.ScreenAction.AppSetting

@@ -6,7 +6,7 @@ import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.tracing.trace
+import androidx.compose.ui.util.trace
 
 @Composable
 fun CalendarRoute() = trace("CalendarRoute") {

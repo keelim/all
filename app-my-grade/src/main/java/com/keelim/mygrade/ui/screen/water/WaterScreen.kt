@@ -20,7 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.tracing.trace
+import androidx.compose.ui.util.trace
 import com.keelim.composeutil.component.appbar.NavigationBackArrowBar
 
 @Composable

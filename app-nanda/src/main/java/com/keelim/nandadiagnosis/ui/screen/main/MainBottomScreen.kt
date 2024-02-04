@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.tracing.trace
 
 @Composable
 fun MainBottomSheet(
@@ -31,7 +32,7 @@ fun MainBottomSheet(
     onAboutClick: () -> Unit,
     onDismiss: () -> Unit,
     modalBottomSheetState: SheetState = rememberModalBottomSheetState(),
-) {
+) = trace("MainBottomSheet") {
     ModalBottomSheet(
         onDismissRequest = { onDismiss() },
         sheetState = modalBottomSheetState,
@@ -48,7 +49,7 @@ fun MainBottomSheet(
 private fun MainBottomSheetScreen(
     onBlogClick: () -> Unit = {},
     onAboutClick: () -> Unit = {},
-) {
+) = trace("MainBottomSheetScreen") {
     Column {
         Row(
             modifier =

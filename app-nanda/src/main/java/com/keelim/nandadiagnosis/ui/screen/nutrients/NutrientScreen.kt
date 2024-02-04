@@ -35,6 +35,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.tracing.trace
 import coil.compose.AsyncImage
 import com.keelim.composeutil.component.appbar.NavigationBackArrowBar
 import com.keelim.composeutil.component.layout.EmptyView
@@ -44,7 +45,7 @@ import com.keelim.composeutil.component.layout.Loading
 fun NutrientRoute(
     onNutrientClick: (String, String) -> Unit,
     onNutrientTimerClick: () -> Unit,
-) {
+) = trace("NutrientRoute") {
     NutrientScreen(
         onNutrientClick = onNutrientClick,
         onNutrientTimerClick = onNutrientTimerClick,
@@ -56,7 +57,7 @@ private fun NutrientScreen(
     viewModel: NutrientViewModel = hiltViewModel(),
     onNutrientClick: (String, String) -> Unit,
     onNutrientTimerClick: () -> Unit,
-) {
+) = trace("NutrientScreen") {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
 
     Scaffold(
@@ -81,23 +82,24 @@ private fun NutrientScreen(
 }
 
 @Composable
-private fun NutrientStateView(uiState: NutrientState, onNutrientClick: (String, String) -> Unit) {
-    when (uiState) {
-        NutrientState.Error,
-        NutrientState.Empty,
-        -> EmptyView()
+private fun NutrientStateView(uiState: NutrientState, onNutrientClick: (String, String) -> Unit) =
+    trace("NutrientStateView") {
+        when (uiState) {
+            NutrientState.Error,
+            NutrientState.Empty,
+            -> EmptyView()
 
-        NutrientState.Loading -> Loading()
-        is NutrientState.Success -> {
-            LazyColumn {
-                items(uiState.items) { (title, uri) ->
-                    NutrientCard(title = title, uri = uri, onNutrientClick = { onNutrientClick(title, uri) })
-                    Spacer(modifier = Modifier.height(4.dp))
+            NutrientState.Loading -> Loading()
+            is NutrientState.Success -> {
+                LazyColumn {
+                    items(uiState.items) { (title, uri) ->
+                        NutrientCard(title = title, uri = uri, onNutrientClick = { onNutrientClick(title, uri) })
+                        Spacer(modifier = Modifier.height(4.dp))
+                    }
                 }
             }
         }
     }
-}
 
 @Preview(showBackground = true)
 @Composable
@@ -109,7 +111,7 @@ fun PreviewNutrientScreen() {
 }
 
 @Composable
-private fun NutrientCard(title: String, uri: String, onNutrientClick: () -> Unit) {
+private fun NutrientCard(title: String, uri: String, onNutrientClick: () -> Unit) = trace("NutrientCard") {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Column(
             modifier =

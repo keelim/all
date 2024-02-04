@@ -24,6 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.tracing.trace
 import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
 import com.keelim.nandadiagnosis.R
@@ -31,25 +32,26 @@ import com.keelim.nandadiagnosis.R
 @Composable
 fun DiagnosisRoute(
     onDiagnosisClick: () -> Unit,
-) {
+) = trace("DiagnosisRoute") {
     DiagnosisScreen(onDiagnosisClick = onDiagnosisClick)
 }
 
 @Composable
-fun DiagnosisScreen(onDiagnosisClick: () -> Unit, viewModel: DiagnosisViewModel = hiltViewModel()) {
-    val screenState by viewModel.screenState.collectAsStateWithLifecycle()
-    DiagnosisStateView(state = screenState, onDiagnosisClick = onDiagnosisClick)
-    val context = LocalContext.current
-    LaunchedEffect(context) {
-        viewModel.initArray(context.resources.getStringArray(R.array.diagnosis1))
+fun DiagnosisScreen(onDiagnosisClick: () -> Unit, viewModel: DiagnosisViewModel = hiltViewModel()) =
+    trace("DiagnosisScreen") {
+        val screenState by viewModel.screenState.collectAsStateWithLifecycle()
+        DiagnosisStateView(state = screenState, onDiagnosisClick = onDiagnosisClick)
+        val context = LocalContext.current
+        LaunchedEffect(context) {
+            viewModel.initArray(context.resources.getStringArray(R.array.diagnosis1))
+        }
     }
-}
 
 @Composable
 private fun DiagnosisStateView(
     state: DiagnosisScreenState,
     onDiagnosisClick: () -> Unit,
-) {
+) = trace("DiagnosisStateView") {
     when (state) {
         DiagnosisScreenState.Error,
         DiagnosisScreenState.Empty,
@@ -83,7 +85,7 @@ fun DiagnosisItem(
     content: String,
     label: String,
     onDiagnosisClick: () -> Unit,
-) {
+) = trace("DiagnosisItem") {
     Surface(onClick = { onDiagnosisClick() }, shape = MaterialTheme.shapes.large) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(16.dp),

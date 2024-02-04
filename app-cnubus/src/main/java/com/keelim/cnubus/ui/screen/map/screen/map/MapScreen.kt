@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEach
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.tracing.trace
 import coil.compose.AsyncImage
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.maps.android.compose.GoogleMap
@@ -32,7 +33,7 @@ fun MapRoute() {
 }
 
 @Composable
-fun MapScreen(viewModel: MapViewModel = hiltViewModel()) {
+fun MapScreen(viewModel: MapViewModel = hiltViewModel()) = trace("MapScreen") {
     val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(Location.defaultLocation().latLng, 25f)
     }

@@ -53,12 +53,13 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.tracing.trace
 import com.keelim.commonAndroid.model.SealedUiState
 import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.data.source.local.LocalTask
 
 @Composable
-fun TaskRoute(onNavigateChart: () -> Unit, viewModel: TaskViewModel = hiltViewModel()) {
+fun TaskRoute(onNavigateChart: () -> Unit, viewModel: TaskViewModel = hiltViewModel()) = trace("TaskRoute") {
     val state by viewModel.state.collectAsStateWithLifecycle()
     TaskScreen(
         state = state,
@@ -78,11 +79,12 @@ fun TaskScreen(
     onClear: () -> Unit,
     onEditTask: (LocalTask) -> Unit,
     onDeleteTask: (LocalTask) -> Unit,
-) {
+) = trace("TaskScreen") {
     when (state) {
         SealedUiState.Loading,
         is SealedUiState.Error,
         -> EmptyView()
+
         is SealedUiState.Success<List<TaskElement>> -> {
             val (showDialog, setShowDialog) = rememberSaveable { mutableStateOf(false) }
             var deleteTask by rememberSaveable { mutableStateOf<LocalTask?>(null) }
@@ -153,7 +155,7 @@ fun LocalTaskList(
     onChange: (task: LocalTask) -> Unit,
     onDelete: (task: LocalTask) -> Unit,
     modifier: Modifier = Modifier,
-) {
+) = trace("LocalTaskList") {
     val items = state.getOrDefault(emptyList())
     if (items.isEmpty()) {
         EmptyView()
@@ -185,6 +187,7 @@ fun LocalTaskList(
                                 animationSpec = spring(),
                             ),
                         )
+
                     is TaskElement.Item ->
                         LocalTaskItem(
                             item = task,
@@ -206,7 +209,7 @@ fun LocalTaskList(
 fun LocalTaskHeader(
     task: TaskElement.Header,
     modifier: Modifier = Modifier,
-) {
+) = trace("LocalTaskHeader") {
     Row(
         modifier =
         modifier.fillMaxWidth().padding(top = 16.dp, bottom = 8.dp, start = 16.dp, end = 16.dp),
@@ -227,7 +230,7 @@ fun LocalTaskItem(
     modifier: Modifier = Modifier,
     outerCornerSize: Dp = 20.dp,
     innerCornerSize: Dp = 0.dp,
-) {
+) = trace("LocalTaskItem") {
     val task = item.localTask
     Card(
         modifier =
@@ -276,10 +279,13 @@ private fun TaskElement.Role.toShape(outerCornerSize: Dp, innerCornerSize: Dp): 
             when (this) {
                 TaskElement.Role.TOP ->
                     Rect(outerCornerSizePx, outerCornerSizePx, innerCornerSizePx, innerCornerSizePx)
+
                 TaskElement.Role.BOTTOM ->
                     Rect(innerCornerSizePx, innerCornerSizePx, outerCornerSizePx, outerCornerSizePx)
+
                 TaskElement.Role.MIDDLE ->
                     Rect(innerCornerSizePx, innerCornerSizePx, innerCornerSizePx, innerCornerSizePx)
+
                 TaskElement.Role.SINGLE ->
                     Rect(outerCornerSizePx, outerCornerSizePx, outerCornerSizePx, outerCornerSizePx)
             }
@@ -296,7 +302,7 @@ private fun TaskElement.Role.toShape(outerCornerSize: Dp, innerCornerSize: Dp): 
 }
 
 @Composable
-fun DeleteDialog(setShowDialog: (Boolean) -> Unit, onConfirm: () -> Unit) {
+fun DeleteDialog(setShowDialog: (Boolean) -> Unit, onConfirm: () -> Unit) = trace("DeleteDialog") {
     AlertDialog(
         onDismissRequest = { setShowDialog(false) },
         title = { Text(text = "삭제") },

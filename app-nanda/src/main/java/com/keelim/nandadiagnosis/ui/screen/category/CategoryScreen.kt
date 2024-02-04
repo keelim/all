@@ -24,22 +24,24 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEachIndexed
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.tracing.trace
 import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
 
 @Composable
-fun CategoryRoute(onCategoryClick: (Int) -> Unit) {
+fun CategoryRoute(onCategoryClick: (Int) -> Unit) = trace("CategoryRoute") {
     CategoryScreen(onCategoryClick = onCategoryClick)
 }
 
 @Composable
-fun CategoryScreen(onCategoryClick: (Int) -> Unit, viewModel: CategoryViewModel = hiltViewModel()) {
-    val state by viewModel.state.collectAsStateWithLifecycle()
-    CategoryStateView(uiState = state, onCategoryClick = onCategoryClick)
-}
+fun CategoryScreen(onCategoryClick: (Int) -> Unit, viewModel: CategoryViewModel = hiltViewModel()) =
+    trace("CategoryScreen") {
+        val state by viewModel.state.collectAsStateWithLifecycle()
+        CategoryStateView(uiState = state, onCategoryClick = onCategoryClick)
+    }
 
 @Composable
-private fun CategoryStateView(uiState: CategoryState, onCategoryClick: (Int) -> Unit) {
+private fun CategoryStateView(uiState: CategoryState, onCategoryClick: (Int) -> Unit) = trace("CategoryStateView") {
     when (uiState) {
         CategoryState.Error,
         CategoryState.Empty,
@@ -76,7 +78,7 @@ private fun CategoryCard(
     categoryTitle: String,
     onCategoryClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
-) {
+) = trace("CategoryCard") {
     Card(
         modifier = modifier.clip(RoundedCornerShape(8.dp)),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),

@@ -7,13 +7,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.keelim.composeutil.component.box.ReadyServiceBox
 
 @Composable
-fun WordWriteRoute() = trace("WordWriteScreen") {
+fun WordWriteRoute(
+    viewModel: WordWriteViewModel = hiltViewModel(),
+) = trace("WordWriteScreen") {
     WordWriteScreen()
 }
 
 @Composable
 private fun WordWriteScreen(
-    viewModel: WordWriteViewModel = hiltViewModel(),
 ) = trace("WordWriteScreen") {
     ReadyServiceBox()
 }

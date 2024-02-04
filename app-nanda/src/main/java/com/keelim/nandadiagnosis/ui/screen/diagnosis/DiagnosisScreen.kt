@@ -32,20 +32,27 @@ import com.keelim.nandadiagnosis.R
 @Composable
 fun DiagnosisRoute(
     onDiagnosisClick: () -> Unit,
+    viewModel: DiagnosisViewModel = hiltViewModel(),
 ) = trace("DiagnosisRoute") {
-    DiagnosisScreen(onDiagnosisClick = onDiagnosisClick)
+    val screenState by viewModel.screenState.collectAsStateWithLifecycle()
+    DiagnosisScreen(
+        screenState = screenState,
+        onDiagnosisClick = onDiagnosisClick,
+    )
+
+    val context = LocalContext.current
+    LaunchedEffect(context) {
+        viewModel.initArray(context.resources.getStringArray(R.array.diagnosis1))
+    }
 }
 
 @Composable
-fun DiagnosisScreen(onDiagnosisClick: () -> Unit, viewModel: DiagnosisViewModel = hiltViewModel()) =
-    trace("DiagnosisScreen") {
-        val screenState by viewModel.screenState.collectAsStateWithLifecycle()
-        DiagnosisStateView(state = screenState, onDiagnosisClick = onDiagnosisClick)
-        val context = LocalContext.current
-        LaunchedEffect(context) {
-            viewModel.initArray(context.resources.getStringArray(R.array.diagnosis1))
-        }
-    }
+fun DiagnosisScreen(
+    screenState: DiagnosisScreenState,
+    onDiagnosisClick: () -> Unit,
+) = trace("DiagnosisScreen") {
+    DiagnosisStateView(state = screenState, onDiagnosisClick = onDiagnosisClick)
+}
 
 @Composable
 private fun DiagnosisStateView(
@@ -76,7 +83,10 @@ private fun DiagnosisStateView(
 @Preview(showBackground = true)
 @Composable
 fun PreviewDiagnosisScreen() {
-    DiagnosisScreen(onDiagnosisClick = {})
+    DiagnosisScreen(
+        screenState = DiagnosisScreenState.Empty,
+        onDiagnosisClick = {},
+    )
 }
 
 @Composable

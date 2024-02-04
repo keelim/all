@@ -67,27 +67,8 @@ fun MainRoute(
     onLabClick: () -> Unit,
     onNavigateTimerHistory: () -> Unit,
     onNavigateTask: () -> Unit,
-) = trace("MainRoute") {
-    MainScreen(
-        onSubmitClick = onSubmitClick,
-        onFloatingButtonClick1 = onFloatingButtonClick1,
-        onFloatingButtonClick2 = onFloatingButtonClick2,
-        onLabClick = onLabClick,
-        onNavigateTimerHistory = onNavigateTimerHistory,
-        onNavigateTask = onNavigateTask,
-    )
-}
-
-@Composable
-fun MainScreen(
     viewModel: MainViewModel = hiltViewModel(),
-    onSubmitClick: (String, NormalProbability, Int) -> Unit = { _, _, _ -> },
-    onFloatingButtonClick1: () -> Unit = {},
-    onFloatingButtonClick2: () -> Unit = {},
-    onLabClick: () -> Unit = {},
-    onNavigateTimerHistory: () -> Unit = {},
-    onNavigateTask: () -> Unit = {},
-) = trace("MainScreen") {
+) = trace("MainRoute") {
     val mainState by viewModel.mainScreenState.collectAsStateWithLifecycle()
     val subject by viewModel.subject.collectAsStateWithLifecycle()
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -95,7 +76,47 @@ fun MainScreen(
     val average by viewModel.average.collectAsStateWithLifecycle()
     val number by viewModel.number.collectAsStateWithLifecycle()
     val student by viewModel.student.collectAsStateWithLifecycle()
+    MainScreen(
+        clear = viewModel::clear,
+        submit = viewModel::submit,
+        moveState = viewModel::moveState,
+        updateEditType = viewModel::updateEditType,
+        onSubmitClick = onSubmitClick,
+        onFloatingButtonClick1 = onFloatingButtonClick1,
+        onFloatingButtonClick2 = onFloatingButtonClick2,
+        onLabClick = onLabClick,
+        onNavigateTimerHistory = onNavigateTimerHistory,
+        onNavigateTask = onNavigateTask,
+        mainState = mainState,
+        subject = subject,
+        state = state,
+        origin = origin,
+        average = average,
+        number = number,
+        student = student,
+    )
+}
 
+@Composable
+fun MainScreen(
+    mainState: MainScreenState,
+    subject: String,
+    state: MainState,
+    origin: String,
+    average: String,
+    number: String,
+    student: String,
+    clear: () -> Unit,
+    submit: () -> Unit,
+    moveState: (MainState) -> Unit,
+    updateEditType: (EditType) -> Unit,
+    onSubmitClick: (String, NormalProbability, Int) -> Unit,
+    onFloatingButtonClick1: () -> Unit,
+    onFloatingButtonClick2: () -> Unit,
+    onLabClick: () -> Unit,
+    onNavigateTimerHistory: () -> Unit,
+    onNavigateTask: () -> Unit,
+) = trace("MainScreen") {
     val pagerState = rememberPagerState(pageCount = { pageCount })
     var backPressedState by remember { mutableStateOf(true) }
     val scope = rememberCoroutineScope()
@@ -137,46 +158,46 @@ fun MainScreen(
                     if (state is MainState.Success) {
                         SideEffect {
                             onSubmitClick(
-                                (state as MainState.Success).subject,
-                                (state as MainState.Success).value,
-                                (state as MainState.Success).student,
+                                state.subject,
+                                state.value,
+                                state.student,
                             )
-                            viewModel.moveState(MainState.UnInitialized)
+                            moveState(MainState.UnInitialized)
                         }
                     }
                     ScoreTextRow(
                         text = "과목명",
                         value = subject,
-                        onValueChange = { viewModel.updateEditType(EditType.Subject(it)) },
+                        onValueChange = { updateEditType(EditType.Subject(it)) },
                         isError = mainState.subjectError,
                     )
                     ScoreTextRow(
                         text = "원점수",
                         value = origin,
-                        onValueChange = { viewModel.updateEditType(EditType.Origin(it)) },
+                        onValueChange = { updateEditType(EditType.Origin(it)) },
                         isError = mainState.originError,
                     )
                     ScoreTextRow(
                         text = "과목 평균",
                         value = average,
-                        onValueChange = { viewModel.updateEditType(EditType.Average(it)) },
+                        onValueChange = { updateEditType(EditType.Average(it)) },
                         isError = mainState.averageError,
                     )
                     ScoreTextRow(
                         text = "표준편차",
                         value = number,
-                        onValueChange = { viewModel.updateEditType(EditType.Number(it)) },
+                        onValueChange = { updateEditType(EditType.Number(it)) },
                         isError = mainState.numberError,
                     )
                     ScoreTextRow(
                         text = "학생 수",
                         value = student,
-                        onValueChange = { viewModel.updateEditType(EditType.Student(it)) },
+                        onValueChange = { updateEditType(EditType.Student(it)) },
                         isError = mainState.studentError,
                     )
                     MainBottomSection(
-                        onClearClick = viewModel::clear,
-                        onSubmitClick = viewModel::submit,
+                        onClearClick = clear,
+                        onSubmitClick = submit,
                         onFloatingButtonClick1 = onFloatingButtonClick1,
                         onFloatingButtonClick2 = onFloatingButtonClick2,
                         onNavigateWord = onNavigateTask,
@@ -278,7 +299,29 @@ private fun ColumnScope.MainBottomSection(
 @Preview(showBackground = true)
 @Composable
 fun PreviewMainScreen() {
-    MainScreen()
+    MainScreen(
+        onSubmitClick = { _, _, _ -> },
+        onFloatingButtonClick1 = {},
+        onFloatingButtonClick2 = {},
+        onLabClick = {},
+        onNavigateTimerHistory = {},
+        onNavigateTask = {},
+        updateEditType = {},
+        moveState = {},
+        clear = {},
+        submit = {},
+        mainState = MainScreenState(),
+        subject = "Computer Science",
+        state = MainState.Success(
+            flag = true,
+            subject = "Computer Science",
+            value = NormalProbability(1),
+        ),
+        origin = "23",
+        average = "23",
+        number = "23",
+        student = "23",
+    )
 }
 
 @Composable
@@ -329,6 +372,7 @@ data class History(
     override val imageVector: ImageVector = Icons.Filled.List,
     override val label: String = "히스토리 확인",
 ) : FabButtonItem
+
 data class Setting(
     override val imageVector: ImageVector = Icons.Filled.Settings,
     override val label: String = "설정",

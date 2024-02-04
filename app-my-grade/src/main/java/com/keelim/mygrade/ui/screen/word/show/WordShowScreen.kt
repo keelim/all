@@ -17,6 +17,7 @@ import com.keelim.composeutil.component.box.ReadyServiceBox
 @Composable
 fun WordShowRoute(
     onWordWriteNavigate: () -> Unit,
+    viewModel: WordShowViewModel = hiltViewModel(),
 ) = trace("WordShowRoute") {
     WordShowScreen(
         onWordWriteNavigate = onWordWriteNavigate,
@@ -26,7 +27,6 @@ fun WordShowRoute(
 @Composable
 private fun WordShowScreen(
     onWordWriteNavigate: () -> Unit,
-    viewModel: WordShowViewModel = hiltViewModel(),
 ) = trace("WordShowScreen") {
     Scaffold(
         modifier = Modifier.fillMaxSize(),

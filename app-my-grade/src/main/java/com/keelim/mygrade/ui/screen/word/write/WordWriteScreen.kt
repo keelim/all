@@ -14,8 +14,7 @@ fun WordWriteRoute(
 }
 
 @Composable
-private fun WordWriteScreen(
-) = trace("WordWriteScreen") {
+private fun WordWriteScreen() = trace("WordWriteScreen") {
     ReadyServiceBox()
 }
 

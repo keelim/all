@@ -33,9 +33,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.util.trace
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.tracing.trace
 import coil.compose.AsyncImage
 import com.keelim.composeutil.component.appbar.NavigationBackArrowBar
 import com.keelim.composeutil.component.layout.EmptyView
@@ -45,8 +45,12 @@ import com.keelim.composeutil.component.layout.Loading
 fun NutrientRoute(
     onNutrientClick: (String, String) -> Unit,
     onNutrientTimerClick: () -> Unit,
+    viewModel: NutrientViewModel = hiltViewModel(),
 ) = trace("NutrientRoute") {
+    val uiState by viewModel.state.collectAsStateWithLifecycle()
+
     NutrientScreen(
+        uiState = uiState,
         onNutrientClick = onNutrientClick,
         onNutrientTimerClick = onNutrientTimerClick,
     )
@@ -54,12 +58,10 @@ fun NutrientRoute(
 
 @Composable
 private fun NutrientScreen(
-    viewModel: NutrientViewModel = hiltViewModel(),
+    uiState: NutrientState,
     onNutrientClick: (String, String) -> Unit,
     onNutrientTimerClick: () -> Unit,
 ) = trace("NutrientScreen") {
-    val uiState by viewModel.state.collectAsStateWithLifecycle()
-
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
@@ -105,6 +107,7 @@ private fun NutrientStateView(uiState: NutrientState, onNutrientClick: (String, 
 @Composable
 fun PreviewNutrientScreen() {
     NutrientScreen(
+        uiState = NutrientState.Empty,
         onNutrientClick = { _, _ -> },
         onNutrientTimerClick = {},
     )

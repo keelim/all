@@ -2,19 +2,19 @@ package com.keelim.mygrade.ui.screen.word.write
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.util.trace
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.tracing.trace
 import com.keelim.composeutil.component.box.ReadyServiceBox
 
 @Composable
-fun WordWriteRoute() = trace("WordWriteScreen") {
+fun WordWriteRoute(
+    viewModel: WordWriteViewModel = hiltViewModel(),
+) = trace("WordWriteScreen") {
     WordWriteScreen()
 }
 
 @Composable
-private fun WordWriteScreen(
-    viewModel: WordWriteViewModel = hiltViewModel(),
-) = trace("WordWriteScreen") {
+private fun WordWriteScreen() = trace("WordWriteScreen") {
     ReadyServiceBox()
 }
 

@@ -22,23 +22,32 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEachIndexed
+import androidx.compose.ui.util.trace
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.tracing.trace
 import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
+import kotlinx.collections.immutable.persistentListOf
 
 @Composable
-fun CategoryRoute(onCategoryClick: (Int) -> Unit) = trace("CategoryRoute") {
-    CategoryScreen(onCategoryClick = onCategoryClick)
+fun CategoryRoute(
+    onCategoryClick: (Int) -> Unit,
+    viewModel: CategoryViewModel = hiltViewModel(),
+) = trace("CategoryRoute") {
+    val state by viewModel.state.collectAsStateWithLifecycle()
+    CategoryScreen(
+        state = state,
+        onCategoryClick = onCategoryClick,
+    )
 }
 
 @Composable
-fun CategoryScreen(onCategoryClick: (Int) -> Unit, viewModel: CategoryViewModel = hiltViewModel()) =
-    trace("CategoryScreen") {
-        val state by viewModel.state.collectAsStateWithLifecycle()
-        CategoryStateView(uiState = state, onCategoryClick = onCategoryClick)
-    }
+fun CategoryScreen(
+    state: CategoryState,
+    onCategoryClick: (Int) -> Unit,
+) = trace("CategoryScreen") {
+    CategoryStateView(uiState = state, onCategoryClick = onCategoryClick)
+}
 
 @Composable
 private fun CategoryStateView(uiState: CategoryState, onCategoryClick: (Int) -> Unit) = trace("CategoryStateView") {
@@ -106,5 +115,12 @@ fun PreviewCategoryCard() {
 @Preview(showBackground = true)
 @Composable
 fun PreviewCategoryScreen() {
-    CategoryScreen(onCategoryClick = {})
+    CategoryScreen(
+        state = CategoryState.Success(
+            items = persistentListOf(
+                "a",
+            ),
+        ),
+        onCategoryClick = {},
+    )
 }

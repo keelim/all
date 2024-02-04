@@ -30,6 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEachIndexed
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.tracing.trace
 import com.keelim.cnubus.ui.screen.root.RootRoute
 import com.keelim.cnubus.ui.screen.root.RootViewModel
 import com.keelim.cnubus.ui.screen.setting.ScreenAction.AppSetting
@@ -51,7 +52,7 @@ private val appPermissions: List<String> = buildList {
 fun MainRoute(
     onNavigateMap: () -> Unit,
     viewModel: RootViewModel = hiltViewModel(),
-) {
+) = trace("MainRoute") {
     val context = LocalContext.current
     val launcher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions(),
@@ -90,7 +91,7 @@ private val tabItems =
 fun MainScreen(
     onNavigateMap: () -> Unit,
     onSetMode: (String) -> Unit,
-) {
+) = trace("MainScreen") {
     val pagerState = rememberPagerState { tabItems.size }
     Column {
         TabBarLayout(
@@ -108,7 +109,7 @@ fun MainScreen(
 fun TabBarLayout(
     state: PagerState,
     onSetMode: (String) -> Unit,
-) {
+) = trace("TabBarLayout") {
     val coroutineScope = rememberCoroutineScope()
     TabRow(
         selectedTabIndex = state.currentPage,
@@ -139,7 +140,7 @@ fun PagerContent(
     state: PagerState,
     onNavigateMap: () -> Unit,
     paddingValues: PaddingValues = PaddingValues(horizontal = 8.dp, vertical = 4.dp),
-) {
+) = trace("PagerContent") {
     val context = LocalContext.current
     HorizontalPager(
         state = state,

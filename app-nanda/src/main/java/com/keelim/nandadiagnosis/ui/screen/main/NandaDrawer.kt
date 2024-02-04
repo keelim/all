@@ -35,6 +35,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.tracing.trace
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.ui.screen.category.categoryRoute
 import com.keelim.nandadiagnosis.ui.screen.inappweb.webRoute
@@ -95,7 +96,7 @@ private val nandaNavItems =
 fun NandaDrawer(
     onRouteClick: (String) -> Unit,
     onAboutClick: () -> Unit,
-) {
+) = trace("NandaDrawer") {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -139,7 +140,7 @@ fun NandaDrawer(
 private fun NavigationCard(
     item: NandaNavItem,
     onRouteClick: (String) -> Unit,
-) {
+) = trace("NavigationCard") {
     Row(
         modifier = Modifier.fillMaxWidth(),
     ) {

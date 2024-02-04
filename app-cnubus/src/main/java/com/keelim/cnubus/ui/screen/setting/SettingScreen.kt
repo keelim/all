@@ -43,6 +43,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.tracing.trace
 
 private val settings by lazy {
     val data = listOf(
@@ -69,7 +70,7 @@ private val settings by lazy {
 @Composable
 internal fun SettingScreen(
     onScreenAction: (ScreenAction) -> Unit,
-) {
+) = trace("SettingScreen") {
     Scaffold(
         topBar = {
             Column(
@@ -110,7 +111,7 @@ data class Setting(
 )
 
 @Composable
-fun SettingItem(item: Setting, onScreenAction: (ScreenAction) -> Unit) {
+fun SettingItem(item: Setting, onScreenAction: (ScreenAction) -> Unit) = trace("SettingItem") {
     Card(
         modifier = Modifier
             .padding(
@@ -146,7 +147,7 @@ fun SettingItem(item: Setting, onScreenAction: (ScreenAction) -> Unit) {
 private fun CellItem(
     text: String,
     onClicked: () -> Unit,
-) {
+) = trace("CellItem") {
     Text(
         text = text,
         color = if (isSystemInDarkTheme()) {

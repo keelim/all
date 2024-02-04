@@ -11,12 +11,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.tracing.trace
 import com.keelim.composeutil.component.box.ReadyServiceBox
 
 @Composable
 fun WordShowRoute(
     onWordWriteNavigate: () -> Unit,
-) {
+) = trace("WordShowRoute") {
     WordShowScreen(
         onWordWriteNavigate = onWordWriteNavigate,
     )
@@ -26,7 +27,7 @@ fun WordShowRoute(
 private fun WordShowScreen(
     onWordWriteNavigate: () -> Unit,
     viewModel: WordShowViewModel = hiltViewModel(),
-) {
+) = trace("WordShowScreen") {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         floatingActionButton = {

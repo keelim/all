@@ -57,7 +57,7 @@ jobs:
         run: ./gradlew app-comssa:bundleRelease app-cnubus:bundleRelease app-my-grade:bundleRelease app-nanda:bundleRelease
 
       - name: Sign Comssa AAB
-        id: sign comssa
+        id: sign_comssa
         uses: r0adkll/sign-android-release@v1
         with:
           releaseDirectory: app-comssa/build/outputs/bundle/release
@@ -67,7 +67,7 @@ jobs:
           keyPassword: ${{ secrets.KEY_PASSWORD }}
 
       - name: Sign Cnubus AAB
-        id: sign cnubus
+        id: sign_cnubus
         uses: r0adkll/sign-android-release@v1
         with:
           releaseDirectory: app-cnubus/build/outputs/bundle/release
@@ -77,7 +77,7 @@ jobs:
           keyPassword: ${{ secrets.KEY_PASSWORD }}
 
       - name: Sign MyGrade AAB
-        id: sign mygrade
+        id: sign_mygrade
         uses: r0adkll/sign-android-release@v1
         with:
           releaseDirectory: app-my-grade/build/outputs/bundle/release
@@ -87,7 +87,7 @@ jobs:
           keyPassword: ${{ secrets.KEY_PASSWORD }}
 
       - name: Sign Nanda AAB
-        id: sign nanda
+        id: sign_nanda
         uses: r0adkll/sign-android-release@v1
         with:
           releaseDirectory: app-nanda/build/outputs/bundle/release
@@ -101,7 +101,7 @@ jobs:
         run: echo '${{ secrets.SERVICE_ACCOUNT_JSON }}' > service_account.json
 
       - name: Deploy to Play Store Cnubus
-        id: deploy cnubus
+        id: deploy_cnubus
         uses: r0adkll/upload-google-play@v1.1.2
         with:
           serviceAccountJson: service_account.json
@@ -112,7 +112,7 @@ jobs:
           changesNotSentForReview: false
 
       #- name: Deploy to Play Store Comssa
-      #  id: deploy comssa
+      #  id: deploy_comssa
       #  uses: r0adkll/upload-google-play@v1.1.2
       #  with:
       #    serviceAccountJson: service_account.json
@@ -123,7 +123,7 @@ jobs:
       #    changesNotSentForReview: false
 
       - name: Deploy to Play Store MyGrade
-        id: deploy mygrade
+        id: deploy_mygrade
         uses: r0adkll/upload-google-play@v1.1.2
         with:
           serviceAccountJson: service_account.json
@@ -134,7 +134,7 @@ jobs:
           changesNotSentForReview: false
 
       - name: Deploy to Play Store Nanda
-        id: deploy nanda
+        id: deplo_nanda
         uses: r0adkll/upload-google-play@v1.1.2
         with:
           serviceAccountJson: service_account.json

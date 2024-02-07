@@ -26,6 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.keelim.composeutil.resource.space4
 
 @Composable
 fun SwitchButton(
@@ -113,7 +114,7 @@ private fun SwitchButtonPreview() {
     SwitchButton(
         width = 100.dp,
         height = 30.dp,
-        padding = 4.dp,
+        padding = space4,
         isEnable = false,
     )
 }

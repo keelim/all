@@ -32,7 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import com.keelim.composeutil.resource.space16
 
 @Composable
 fun Roll() {
@@ -52,7 +52,7 @@ fun DiceWithButtonAndImage(modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Image(painter = painterResource(id = android.R.drawable.sym_def_app_icon), contentDescription = "1")
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(space16))
         Button(
             onClick = {
                 result = (1..6).random()

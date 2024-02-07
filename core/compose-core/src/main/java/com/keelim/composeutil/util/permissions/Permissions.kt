@@ -30,6 +30,7 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.MultiplePermissionsState
 import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
+import com.keelim.composeutil.resource.space24
 
 @Composable
 fun PermissionScreen(
@@ -43,7 +44,7 @@ fun PermissionScreen(
                 Modifier
                     .fillMaxWidth()
                     .background(MaterialTheme.colorScheme.primary)
-                    .padding(24.dp),
+                    .padding(space24),
                 contentAlignment = Alignment.Center,
             ) {
                 Icon(
@@ -55,7 +56,7 @@ fun PermissionScreen(
             }
             Column(
                 Modifier
-                    .padding(24.dp)
+                    .padding(space24)
                     .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
@@ -65,7 +66,7 @@ fun PermissionScreen(
                         multiplePermissionsState.shouldShowRationale,
                     ),
                 )
-                Spacer(Modifier.height(24.dp))
+                Spacer(Modifier.height(space24))
                 Row(Modifier.align(Alignment.End)) {
                     TextButton(onClick = onDismiss) { Text("Not now") }
                     TextButton(

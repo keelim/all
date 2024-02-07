@@ -27,6 +27,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.composeutil.component.appbar.NavigationBackArrowBar
 import com.keelim.composeutil.component.layout.EmptyView
+import com.keelim.composeutil.resource.space12
+import com.keelim.composeutil.resource.space16
+import com.keelim.composeutil.resource.space4
+import com.keelim.composeutil.resource.space8
 import kotlinx.collections.immutable.persistentListOf
 
 @Composable
@@ -65,8 +69,8 @@ fun HistoryList(
 ) = trace("HistoryList") {
     LazyColumn(
         state = listState,
-        modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = Modifier.padding(horizontal = space12, vertical = 10.dp),
+        verticalArrangement = Arrangement.spacedBy(space8),
     ) {
         items(items = histories) { history ->
             HistoryCard(
@@ -81,8 +85,8 @@ fun HistoryList(
 @Composable
 fun PreviewHistoryList() {
     Column(
-        modifier = Modifier.padding(horizontal = 12.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
+        modifier = Modifier.padding(horizontal = space12),
+        verticalArrangement = Arrangement.spacedBy(space12),
     ) {
         HistoryCard(
             GradeHistory(
@@ -145,20 +149,20 @@ fun HistoryCard(
     ) {
         Column {
             Row(
-                modifier = Modifier.padding(16.dp),
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                modifier = Modifier.padding(space16),
+                horizontalArrangement = Arrangement.spacedBy(space16),
             ) {
                 Column {
                     Text(
                         text = "과목명: ${history.subject}",
                         style = MaterialTheme.typography.bodyLarge,
                     )
-                    Spacer(Modifier.height(4.dp))
+                    Spacer(Modifier.height(space4))
                     Text(
                         text = "예상 학점: ${history.grade}",
                         style = MaterialTheme.typography.bodyLarge,
                     )
-                    Spacer(Modifier.height(4.dp))
+                    Spacer(Modifier.height(space4))
                     Text(
                         text = "예상 등수: ${history.myGrade} / ${history.totalStudent} 등",
                         style = MaterialTheme.typography.bodyLarge,
@@ -169,9 +173,9 @@ fun HistoryCard(
                 text = "입력 날짜: ${history.date}",
                 maxLines = 4,
                 style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier.padding(horizontal = 16.dp),
+                modifier = Modifier.padding(horizontal = space16),
             )
-            Spacer(Modifier.height(16.dp))
+            Spacer(Modifier.height(space16))
             // AsyncImage(
             //     model = ImageRequest.Builder(context)
             //         .data("https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80")

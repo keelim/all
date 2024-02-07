@@ -28,6 +28,8 @@ import com.keelim.commonAndroid.model.SealedUiState
 import com.keelim.composeutil.component.canvas.chart.PieChart
 import com.keelim.composeutil.component.canvas.chart.PieChartEntry
 import com.keelim.composeutil.component.layout.EmptyView
+import com.keelim.composeutil.resource.space12
+import com.keelim.composeutil.resource.space24
 import com.keelim.composeutil.util.randomColor
 
 @Composable
@@ -56,7 +58,7 @@ fun TaskChartSuccessSection(
 ) = trace("TaskChartSuccessSection") {
     Column(
         modifier = Modifier.padding(
-            vertical = 12.dp,
+            vertical = space12,
         ),
     ) {
         Text(
@@ -65,7 +67,7 @@ fun TaskChartSuccessSection(
             style = MaterialTheme.typography.titleLarge,
         )
         Spacer(
-            modifier = Modifier.height(24.dp),
+            modifier = Modifier.height(space24),
         )
         PieChart(
             entries = entries,
@@ -74,7 +76,7 @@ fun TaskChartSuccessSection(
             duration = 2000,
         )
         Spacer(
-            modifier = Modifier.height(24.dp),
+            modifier = Modifier.height(space24),
         )
         entries.fastForEach { entry ->
             TaskChartDetailEntry(

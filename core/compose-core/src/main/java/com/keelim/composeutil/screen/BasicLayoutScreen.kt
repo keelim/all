@@ -52,6 +52,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.keelim.composeutil.resource.space16
+import com.keelim.composeutil.resource.space8
 
 @Composable
 fun SearchBar(
@@ -130,7 +132,7 @@ fun FavoriteCollectionCard(
             Text(
                 text = "Sample",
                 style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier.padding(horizontal = 16.dp),
+                modifier = Modifier.padding(horizontal = space16),
             )
         }
     }
@@ -148,8 +150,8 @@ fun AlignYourBodyRow(
 ) {
     LazyRow(
         modifier = modifier,
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        contentPadding = PaddingValues(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(space8),
+        contentPadding = PaddingValues(horizontal = space16),
     ) {
         items(listOf(1, 2, 3)) { item ->
             AlignYourBodyElement()
@@ -176,9 +178,9 @@ fun HomeSection(
             modifier = Modifier
                 .paddingFromBaseline(
                     top = 40.dp,
-                    bottom = 8.dp,
+                    bottom = space8,
                 )
-                .padding(horizontal = 16.dp),
+                .padding(horizontal = space16),
         )
         content.invoke()
     }
@@ -197,10 +199,10 @@ fun HomeScreen(modifier: Modifier = Modifier) {
     Column(
         modifier
             .verticalScroll(rememberScrollState())
-            .padding(16.dp),
+            .padding(space16),
     ) {
-        Spacer(Modifier.height(16.dp))
-        SearchBar(Modifier.padding(horizontal = 16.dp))
+        Spacer(Modifier.height(space16))
+        SearchBar(Modifier.padding(horizontal = space16))
         HomeSection(title = "안녕하세요") {
             AlignYourBodyRow()
         }
@@ -208,7 +210,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
         HomeSection(title = "반갑습니다.") {
             AlignYourBodyRow()
         }
-        Spacer(Modifier.height(16.dp))
+        Spacer(Modifier.height(space16))
     }
 }
 

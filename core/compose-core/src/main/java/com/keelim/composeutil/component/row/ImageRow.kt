@@ -14,6 +14,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.keelim.composeutil.resource.space16
 
 @Composable
 fun ImageLabelRow(
@@ -36,7 +37,7 @@ fun ImageLabelRow(
             )
             Text(
                 text = label,
-                modifier = Modifier.padding(horizontal = 16.dp),
+                modifier = Modifier.padding(horizontal = space16),
             )
         }
     }

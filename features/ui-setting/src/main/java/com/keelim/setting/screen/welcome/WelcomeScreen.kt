@@ -19,6 +19,8 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.keelim.composeutil.resource.space24
+import com.keelim.composeutil.resource.space8
 
 @Composable
 fun WelcomeRoute(
@@ -42,7 +44,7 @@ private fun WelcomeScreen(
         Column(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
-                .padding(24.dp)
+                .padding(space24)
                 .widthIn(max = 600.dp)
                 .fillMaxWidth(),
         ) {
@@ -52,7 +54,7 @@ private fun WelcomeScreen(
                 color = Color.White,
             )
             Spacer(
-                modifier = Modifier.height(8.dp),
+                modifier = Modifier.height(space8),
             )
             Text(
                 text = "We hope you find what you're looking for here.",
@@ -66,7 +68,7 @@ private fun WelcomeScreen(
             ) {
                 Text(
                     text = "Let`s Move",
-                    modifier = Modifier.padding(vertical = 8.dp),
+                    modifier = Modifier.padding(vertical = space8),
                 )
             }
         }

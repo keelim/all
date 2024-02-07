@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.keelim.composeutil.resource.space32
 
 private fun formatTime(isLeadingZeroNeeded: Boolean = false, value: Int): String {
     return if (isLeadingZeroNeeded) {
@@ -56,7 +57,7 @@ fun NumberPickerList(
         ) {
             item {
                 Spacer(
-                    modifier = Modifier.fillMaxWidth().height(32.dp),
+                    modifier = Modifier.fillMaxWidth().height(space32),
                 )
             }
             itemsIndexed(items = numbers) { index, item ->
@@ -69,13 +70,13 @@ fun NumberPickerList(
                 Text(
                     text = formatTime(value = item),
                     fontSize = textSizeState.intValue.sp,
-                    modifier = Modifier.height(32.dp).fillMaxWidth(),
+                    modifier = Modifier.height(space32).fillMaxWidth(),
                     textAlign = TextAlign.Center,
                 )
             }
             item {
                 Spacer(
-                    modifier = Modifier.fillMaxWidth().height(32.dp),
+                    modifier = Modifier.fillMaxWidth().height(space32),
                 )
             }
         }

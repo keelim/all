@@ -27,6 +27,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
+import com.keelim.composeutil.resource.space4
+import com.keelim.composeutil.resource.space8
 import kotlinx.collections.immutable.persistentListOf
 
 @Composable
@@ -61,14 +63,14 @@ private fun CategoryStateView(uiState: CategoryState, onCategoryClick: (Int) -> 
             FlowRow(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(4.dp),
+                    .padding(space4),
                 maxItemsInEachRow = 3,
             ) {
                 val itemModifier =
                     Modifier
                         .height(100.dp)
-                        .padding(8.dp)
-                        .clip(RoundedCornerShape(8.dp))
+                        .padding(space8)
+                        .clip(RoundedCornerShape(space8))
                 uiState.items.fastForEachIndexed { index, item ->
                     CategoryCard(
                         index = index,
@@ -89,12 +91,12 @@ private fun CategoryCard(
     modifier: Modifier = Modifier,
 ) = trace("CategoryCard") {
     Card(
-        modifier = modifier.clip(RoundedCornerShape(8.dp)),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+        modifier = modifier.clip(RoundedCornerShape(space8)),
+        elevation = CardDefaults.cardElevation(defaultElevation = space4),
         onClick = { onCategoryClick(index + 1) },
     ) {
         Column(
-            modifier = modifier.padding(8.dp),
+            modifier = modifier.padding(space8),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
         ) {

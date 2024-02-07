@@ -54,6 +54,9 @@ import com.keelim.composeutil.component.fab.FabButtonState
 import com.keelim.composeutil.component.fab.FabButtonSub
 import com.keelim.composeutil.component.fab.MultiMainFab
 import com.keelim.composeutil.component.pager.HorizontalPagerIndicator
+import com.keelim.composeutil.resource.space12
+import com.keelim.composeutil.resource.space4
+import com.keelim.composeutil.resource.space8
 import com.keelim.mygrade.ui.screen.timer.TimerScreen
 import kotlinx.coroutines.launch
 
@@ -135,7 +138,7 @@ fun MainScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 12.dp, vertical = 12.dp),
+            .padding(horizontal = space12, vertical = space12),
     ) {
         MainTopSection(
             pagerState = pagerState,
@@ -218,7 +221,7 @@ private fun MainTopSection(
     ) {
         Text(text = "MyGrade", style = MaterialTheme.typography.headlineLarge)
         Spacer(
-            modifier = Modifier.width(8.dp),
+            modifier = Modifier.width(space8),
         )
         Icon(
             Icons.Filled.Build,
@@ -254,7 +257,7 @@ private fun ColumnScope.MainBottomSection(
         Button(onClick = onClearClick) {
             Text(text = "Clear", style = MaterialTheme.typography.labelLarge)
         }
-        Spacer(modifier = Modifier.width(4.dp))
+        Spacer(modifier = Modifier.width(space4))
         Button(onClick = onSubmitClick) {
             Text(text = "Submit", style = MaterialTheme.typography.labelLarge)
         }

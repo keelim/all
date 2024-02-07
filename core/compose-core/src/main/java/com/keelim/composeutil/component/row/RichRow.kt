@@ -25,6 +25,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.keelim.composeutil.resource.space2
+import com.keelim.composeutil.resource.space4
 
 @Stable
 data class RichRowInfo(
@@ -38,7 +40,7 @@ data class RichRowInfo(
 
 @Composable
 fun RichCard(richRowInfo: RichRowInfo) {
-    Card(modifier = Modifier.wrapContentHeight().fillMaxWidth().padding(all = 4.dp)) {
+    Card(modifier = Modifier.wrapContentHeight().fillMaxWidth().padding(all = space4)) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
@@ -65,7 +67,7 @@ private fun RichIcon(iconUri: String) {
         AsyncImage(
             model = iconUri,
             contentDescription = null,
-            modifier = Modifier.size(25.dp).padding(2.dp),
+            modifier = Modifier.size(25.dp).padding(space2),
         )
     }
 }

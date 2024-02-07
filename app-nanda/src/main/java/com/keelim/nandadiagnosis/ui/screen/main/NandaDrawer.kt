@@ -36,6 +36,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.trace
+import com.keelim.composeutil.resource.space12
+import com.keelim.composeutil.resource.space16
+import com.keelim.composeutil.resource.space24
+import com.keelim.composeutil.resource.space4
+import com.keelim.composeutil.resource.space8
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.ui.screen.category.categoryRoute
 import com.keelim.nandadiagnosis.ui.screen.inappweb.webRoute
@@ -100,20 +105,20 @@ fun NandaDrawer(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 16.dp, vertical = 24.dp),
+            .padding(horizontal = space16, vertical = space24),
     ) {
         Column(modifier = Modifier.align(Alignment.TopCenter)) {
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(space8))
             Text(
                 text = stringResource(R.string.app_name),
-                modifier = Modifier.padding(start = 8.dp),
+                modifier = Modifier.padding(start = space8),
                 style = MaterialTheme.typography.titleMedium,
             )
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(space24))
             LazyColumn {
                 items(nandaNavItems) { item ->
                     NavigationCard(item, onRouteClick)
-                    Spacer(modifier = Modifier.height(8.dp))
+                    Spacer(modifier = Modifier.height(space8))
                 }
             }
         }
@@ -147,12 +152,12 @@ private fun NavigationCard(
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(4.dp),
-            shape = RoundedCornerShape(12.dp),
+                .padding(space4),
+            shape = RoundedCornerShape(space12),
             onClick = { onRouteClick(item.route) },
         ) {
             Row(
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                modifier = Modifier.padding(horizontal = space16, vertical = space8),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start,
             ) {
@@ -163,7 +168,7 @@ private fun NavigationCard(
                             contentDescription = "${item.name} Icon",
                         )
                         Spacer(
-                            modifier = Modifier.width(12.dp),
+                            modifier = Modifier.width(space12),
                         )
                     }
 
@@ -171,7 +176,7 @@ private fun NavigationCard(
                 }
                 Icon(imageVector = item.icon, contentDescription = "${item.name} Icon")
                 Text(
-                    modifier = Modifier.padding(start = 24.dp),
+                    modifier = Modifier.padding(start = space24),
                     text = item.name,
                 )
             }

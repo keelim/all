@@ -34,6 +34,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
+import com.keelim.composeutil.resource.space12
+import com.keelim.composeutil.resource.space24
+import com.keelim.composeutil.resource.space8
 import com.keelim.data.model.Location
 
 @Stable
@@ -70,10 +73,10 @@ fun RootScreen(
             if (uiState.data.isEmpty()) {
                 EmptyView()
             } else {
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(space8))
                 LazyColumn(
-                    contentPadding = PaddingValues(horizontal = 12.dp),
-                    verticalArrangement = Arrangement.spacedBy(24.dp),
+                    contentPadding = PaddingValues(horizontal = space12),
+                    verticalArrangement = Arrangement.spacedBy(space24),
                 ) {
                     itemsIndexed(uiState.data) { index, item ->
                         RootCard(
@@ -134,7 +137,7 @@ fun RootTopBar(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp),
+            .padding(space8),
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         Text(

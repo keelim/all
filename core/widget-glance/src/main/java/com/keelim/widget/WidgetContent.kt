@@ -18,7 +18,6 @@ package com.keelim.widget
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.glance.Button
 import androidx.glance.GlanceModifier
 import androidx.glance.appwidget.appWidgetBackground
@@ -41,8 +40,8 @@ fun WidgetContentScreen() {
         GlanceModifier.fillMaxSize()
             .background(day = Color.White, night = Color.LightGray)
             .appWidgetBackground()
-            .cornerRadius(16.dp)
-            .padding(8.dp),
+            .cornerRadius(space16)
+            .padding(space8),
     ) {
         Text(
             text = "Glance widget",

@@ -36,6 +36,10 @@ import androidx.compose.ui.util.trace
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.composeutil.component.appbar.NavigationBackArrowBar
+import com.keelim.composeutil.resource.space12
+import com.keelim.composeutil.resource.space24
+import com.keelim.composeutil.resource.space4
+import com.keelim.composeutil.resource.space8
 
 @Composable
 fun GradeRoute(
@@ -93,17 +97,17 @@ fun GradeContent(
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
             Text(text = "과목명: $subject ", style = MaterialTheme.typography.headlineLarge)
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(space8))
             Text(text = "예상학점: $grade ", style = MaterialTheme.typography.headlineLarge)
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(space4))
             Text(text = "예상등수: $rank", style = MaterialTheme.typography.headlineLarge)
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(space12))
             Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {
                 Text(
                     text = "+ 은 교수님 재량입니다.",
                 )
             }
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(space24))
             Row(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically,
@@ -116,7 +120,7 @@ fun GradeContent(
                         .size(36.dp)
                         .clickable { onCopyClick() },
                 )
-                Spacer(modifier = Modifier.width(24.dp))
+                Spacer(modifier = Modifier.width(space24))
 
                 val value by rememberInfiniteTransition(label = "").animateFloat(
                     initialValue = 25f,

@@ -12,9 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.keelim.composeutil.resource.space16
 
 @Composable
 fun LoadingDialog(
@@ -28,11 +28,11 @@ fun LoadingDialog(
             dismissOnClickOutside = false,
         ),
     ) {
-        Surface(shape = RoundedCornerShape(16.dp)) {
+        Surface(shape = RoundedCornerShape(space16)) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
-                modifier = Modifier.padding(16.dp),
+                horizontalArrangement = Arrangement.spacedBy(space16),
+                modifier = Modifier.padding(space16),
             ) {
                 CircularProgressIndicator()
                 Text(

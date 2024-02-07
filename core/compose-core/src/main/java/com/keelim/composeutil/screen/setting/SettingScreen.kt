@@ -19,6 +19,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.keelim.compose.core.BuildConfig
+import com.keelim.composeutil.resource.space16
+import com.keelim.composeutil.resource.space2
+import com.keelim.composeutil.resource.space4
+import com.keelim.composeutil.resource.space8
 
 sealed class SettingAction {
     data object AlarmSetting : SettingAction()
@@ -38,8 +42,8 @@ fun SettingScreen(
     Surface(
         modifier = modifier
             .padding(
-                horizontal = 8.dp,
-                vertical = 16.dp,
+                horizontal = space8,
+                vertical = space16,
             ),
     ) {
         Column(
@@ -57,12 +61,12 @@ fun SettingScreen(
                 text = "알림 설정",
                 style = MaterialTheme.typography.titleSmall,
             )
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(space4))
             Divider(
                 color = Color.DarkGray,
                 thickness = 1.dp,
             )
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(space16))
             Text(
                 modifier = Modifier.clickable {
                     clickAction?.invoke(SettingAction.ThemeSetting)
@@ -70,12 +74,12 @@ fun SettingScreen(
                 text = "테마 설정",
                 style = MaterialTheme.typography.titleSmall,
             )
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(space4))
             Divider(
                 color = Color.DarkGray,
                 thickness = 1.dp,
             )
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(space16))
             Text(
                 modifier = Modifier.clickable {
                     clickAction?.invoke(SettingAction.Lab)
@@ -83,12 +87,12 @@ fun SettingScreen(
                 text = "실험실",
                 style = MaterialTheme.typography.titleSmall,
             )
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(space4))
             Divider(
                 color = Color.DarkGray,
                 thickness = 1.dp,
             )
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(space8))
             Text(
                 modifier = Modifier
                     .align(Alignment.End)
@@ -104,7 +108,7 @@ fun SettingScreen(
                     text = "개발자 옵션",
                     style = MaterialTheme.typography.titleSmall,
                 )
-                Spacer(modifier = Modifier.height(2.dp))
+                Spacer(modifier = Modifier.height(space2))
                 LazyColumn {
                     items(developerModeDataHolder?.toList() ?: emptyList()) { (key, value) ->
                         DeveloperOptionPart(
@@ -134,7 +138,7 @@ fun DeveloperOptionPart(
     displayKey: String,
     value: String? = null,
 ) {
-    Spacer(modifier = modifier.height(16.dp))
+    Spacer(modifier = modifier.height(space16))
     Text(
         text = displayTitle,
         style = MaterialTheme.typography.titleSmall,
@@ -144,7 +148,7 @@ fun DeveloperOptionPart(
         style = MaterialTheme.typography.labelSmall,
         color = Color.Gray,
     )
-    Spacer(modifier = modifier.height(4.dp))
+    Spacer(modifier = modifier.height(space4))
     Divider(
         color = Color.DarkGray,
         thickness = 1.dp,

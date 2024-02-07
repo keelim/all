@@ -28,6 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.keelim.composeutil.resource.space16
 
 data class AppItem(
     val message: String,
@@ -61,7 +62,7 @@ fun ListItem(
         Text(
             modifier = Modifier
                 .weight(1f)
-                .padding(horizontal = 16.dp),
+                .padding(horizontal = space16),
             text = item.message,
             style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.SemiBold),
         )

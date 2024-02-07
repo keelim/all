@@ -11,7 +11,7 @@ import androidx.compose.runtime.Stable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import com.keelim.composeutil.resource.space16
 
 @Stable
 sealed interface CommonScreenState {
@@ -43,7 +43,7 @@ fun Loading() {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         CircularProgressIndicator()
-        Text(text = "로딩중...", modifier = Modifier.padding(16.dp))
+        Text(text = "로딩중...", modifier = Modifier.padding(space16))
     }
 }
 

@@ -44,6 +44,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.trace
+import com.keelim.composeutil.resource.space16
+import com.keelim.composeutil.resource.space2
+import com.keelim.composeutil.resource.space24
+import com.keelim.composeutil.resource.space8
 
 private val settings by lazy {
     val data = listOf(
@@ -76,7 +80,7 @@ internal fun SettingScreen(
             Column(
                 Modifier
                     .fillMaxWidth()
-                    .padding(24.dp),
+                    .padding(space24),
             ) {
                 Text(
                     text = "설정",
@@ -115,18 +119,18 @@ fun SettingItem(item: Setting, onScreenAction: (ScreenAction) -> Unit) = trace("
     Card(
         modifier = Modifier
             .padding(
-                horizontal = 8.dp,
-                vertical = 8.dp,
+                horizontal = space8,
+                vertical = space8,
             )
             .fillMaxWidth(),
-        elevation = CardDefaults.elevatedCardElevation(2.dp),
+        elevation = CardDefaults.elevatedCardElevation(space2),
         colors = CardDefaults.cardColors(containerColor = Color.White),
         shape = CardDefaults.shape,
     ) {
         Row {
             Column(
                 modifier = Modifier
-                    .padding(16.dp)
+                    .padding(space16)
                     .fillMaxWidth()
                     .align(Alignment.CenterVertically),
             ) {
@@ -135,7 +139,7 @@ fun SettingItem(item: Setting, onScreenAction: (ScreenAction) -> Unit) = trace("
                 }
                 Divider(
                     modifier = Modifier
-                        .padding(horizontal = 24.dp)
+                        .padding(horizontal = space24)
                         .height(1.dp),
                 )
             }
@@ -161,7 +165,7 @@ private fun CellItem(
             .fillMaxWidth()
             .heightIn(min = 62.dp)
             .clickable { onClicked() }
-            .padding(horizontal = 24.dp)
+            .padding(horizontal = space24)
             .wrapContentHeight(),
     )
 }

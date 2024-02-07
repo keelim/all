@@ -57,6 +57,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.keelim.composeutil.resource.space12
+import com.keelim.composeutil.resource.space2
+import com.keelim.composeutil.resource.space4
+import com.keelim.composeutil.resource.space8
 
 @Composable
 fun ImageProfile(modifier: Modifier = Modifier) {
@@ -119,13 +123,13 @@ fun ProfileCard() {
             modifier = Modifier
                 .width(200.dp)
                 .height(390.dp)
-                .padding(12.dp),
+                .padding(space12),
             shape = RoundedCornerShape(corner = CornerSize(15.dp)),
             colors = CardDefaults.cardColors(
                 containerColor = Color.White,
             ),
             elevation = CardDefaults.elevatedCardElevation(
-                defaultElevation = 4.dp,
+                defaultElevation = space4,
             ),
         ) {
             Column(
@@ -176,7 +180,7 @@ fun Content() {
                 .fillMaxHeight(),
             shape = RoundedCornerShape(corner = CornerSize(6.dp)),
             border = BorderStroke(
-                width = 2.dp,
+                width = space2,
                 color = Color.LightGray,
             ),
         ) {
@@ -203,12 +207,12 @@ fun Portfolio(data: List<String>) {
                     .fillMaxWidth(),
                 shape = RectangleShape,
                 elevation = CardDefaults.elevatedCardElevation(
-                    defaultElevation = 4.dp,
+                    defaultElevation = space4,
                 ),
             ) {
                 Row(
                     modifier = Modifier
-                        .padding(8.dp)
+                        .padding(space8)
                         .background(MaterialTheme.colorScheme.surface)
                         .padding(7.dp),
                 ) {

@@ -22,7 +22,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import com.keelim.composeutil.resource.space4
+import com.keelim.composeutil.resource.space8
 
 @Composable
 fun HashTagTextField(
@@ -73,10 +74,10 @@ fun SampleHashTagScreen() {
     ) {
         HashTagTextField(onAdd = { setHashTags(hashTags + it) })
         Spacer(
-            modifier = Modifier.height(8.dp),
+            modifier = Modifier.height(space8),
         )
         LazyColumn(
-            verticalArrangement = Arrangement.spacedBy(4.dp),
+            verticalArrangement = Arrangement.spacedBy(space4),
         ) {
             items(hashTags) { item ->
                 Text(

@@ -17,15 +17,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import com.keelim.composeutil.resource.space12
+import com.keelim.composeutil.resource.space8
 
 @Composable
 fun FabScreen() {
     Row {
         SmallFAB()
-        Spacer(modifier = Modifier.width(8.dp))
+        Spacer(modifier = Modifier.width(space8))
         MediumFAB()
-        Spacer(modifier = Modifier.width(8.dp))
+        Spacer(modifier = Modifier.width(space8))
         ExtendedFAB()
     }
 }
@@ -46,7 +47,7 @@ fun SmallFAB() {
     SmallFloatingActionButton(
         onClick = { },
         containerColor = Color.Black,
-        shape = RoundedCornerShape(12.dp),
+        shape = RoundedCornerShape(space12),
     ) {
         Icon(
             imageVector = Icons.Rounded.Close,

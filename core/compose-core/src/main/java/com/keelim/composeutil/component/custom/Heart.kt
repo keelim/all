@@ -44,6 +44,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.keelim.composeutil.resource.space24
 import kotlin.random.Random
 
 @Composable
@@ -178,7 +179,7 @@ fun HeartScreen() {
             },
             modifier = Modifier
                 .align(Alignment.BottomCenter)
-                .padding(24.dp)
+                .padding(space24)
                 .wrapContentHeight()
                 .wrapContentWidth(),
         ) {

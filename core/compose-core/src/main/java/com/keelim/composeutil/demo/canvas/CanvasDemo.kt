@@ -13,6 +13,8 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.keelim.composeutil.resource.space12
+import com.keelim.composeutil.resource.space8
 
 @Composable
 fun DrawLine() {
@@ -51,7 +53,7 @@ fun DrawRect() {
             size = size,
             topLeft = Offset(20f, 20f),
             style = Stroke(
-                width = 8.dp.toPx(),
+                width = space8.toPx(),
             ),
             cornerRadius = CornerRadius(
                 30.dp.toPx(),
@@ -119,7 +121,7 @@ fun DrawOval() {
                 width = height - 50.dp.toPx(),
                 height = height / 2 - 50.dp.toPx(),
             ),
-            style = Stroke(width = 12.dp.toPx()),
+            style = Stroke(width = space12.toPx()),
         )
     }
 }

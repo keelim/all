@@ -56,6 +56,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.commonAndroid.model.SealedUiState
 import com.keelim.composeutil.component.layout.EmptyView
+import com.keelim.composeutil.resource.space16
+import com.keelim.composeutil.resource.space4
+import com.keelim.composeutil.resource.space8
 import com.keelim.data.source.local.LocalTask
 
 @Composable
@@ -100,7 +103,7 @@ fun TaskScreen(
                     )
                 },
                 floatingActionButton = {
-                    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    Column(verticalArrangement = Arrangement.spacedBy(space4)) {
                         FloatingActionButton(onClick = onNavigateChart) {
                             Icon(
                                 imageVector = Icons.Filled.CheckCircle,
@@ -172,7 +175,7 @@ fun LocalTaskList(
         val spacedBy by animateDpAsState(Dp(selected * 2f), label = "")
         val innerCornerSize by animateDpAsState(Dp(selected * 4f), label = "")
         LazyColumn(
-            modifier = modifier.fillMaxWidth().padding(vertical = 8.dp),
+            modifier = modifier.fillMaxWidth().padding(vertical = space8),
             verticalArrangement = Arrangement.spacedBy(spacedBy),
         ) {
             items(
@@ -212,7 +215,7 @@ fun LocalTaskHeader(
 ) = trace("LocalTaskHeader") {
     Row(
         modifier =
-        modifier.fillMaxWidth().padding(top = 16.dp, bottom = 8.dp, start = 16.dp, end = 16.dp),
+        modifier.fillMaxWidth().padding(top = space16, bottom = space8, start = space16, end = space16),
     ) {
         Text(
             text = task.text,
@@ -234,17 +237,17 @@ fun LocalTaskItem(
     val task = item.localTask
     Card(
         modifier =
-        modifier.padding(horizontal = 16.dp, vertical = 8.dp).fillMaxWidth().pointerInput(Unit) {
+        modifier.padding(horizontal = space16, vertical = space8).fillMaxWidth().pointerInput(Unit) {
             detectTapGestures(onLongPress = { onDelete(task) })
         },
         shape = item.role.toShape(outerCornerSize, innerCornerSize),
     ) {
-        Row(modifier = Modifier.padding(16.dp)) {
+        Row(modifier = Modifier.padding(space16)) {
             if (task.isEditing) {
                 TextField(
                     value = task.title,
                     onValueChange = { onChange(task.copy(title = it)) },
-                    modifier = Modifier.weight(1f).padding(end = 8.dp),
+                    modifier = Modifier.weight(1f).padding(end = space8),
                 )
                 IconButton(
                     modifier = Modifier.align(Alignment.CenterVertically),
@@ -257,7 +260,7 @@ fun LocalTaskItem(
                     text = task.title,
                     textDecoration =
                     if (task.isCompleted) TextDecoration.LineThrough else TextDecoration.None,
-                    modifier = Modifier.weight(1f).padding(end = 8.dp),
+                    modifier = Modifier.weight(1f).padding(end = space8),
                 )
                 Checkbox(
                     modifier = Modifier.align(Alignment.CenterVertically),

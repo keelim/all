@@ -14,10 +14,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.trace
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.keelim.composeutil.resource.space12
 
 @Composable
 fun FlashCardRoute(
@@ -40,7 +40,7 @@ fun FlashCardScreen(
         modifier = Modifier
             .fillMaxWidth(.5f)
             .aspectRatio(1f)
-            .padding(horizontal = 12.dp),
+            .padding(horizontal = space12),
         front = { FrontCardSection() },
         back = { BackCardSection() },
         onClick = onClick,

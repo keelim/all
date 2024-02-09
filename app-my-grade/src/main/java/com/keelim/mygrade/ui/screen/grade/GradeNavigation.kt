@@ -17,7 +17,7 @@ fun NavController.navigateGrade(
 }
 
 fun NavGraphBuilder.gradeScreen(
-    onCopyClick: () -> Unit,
+    onNavigateNotes: () -> Unit,
     onEditClick: (String) -> Unit,
     onShareClick: () -> Unit,
     nestedGraphs: NavGraphBuilder.() -> Unit,
@@ -32,7 +32,7 @@ fun NavGraphBuilder.gradeScreen(
         ),
     ) {
         GradeRoute(
-            onCopyClick = onCopyClick,
+            onNavigateNotes = onNavigateNotes,
             onEditClick = onEditClick,
             onShareClick = onShareClick,
         )

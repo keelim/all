@@ -43,7 +43,7 @@ import com.keelim.composeutil.resource.space8
 
 @Composable
 fun GradeRoute(
-    onCopyClick: () -> Unit,
+    onNavigateNotes: () -> Unit,
     onEditClick: (String) -> Unit,
     onShareClick: () -> Unit,
     viewModel: GradeViewModel = hiltViewModel(),
@@ -57,7 +57,7 @@ fun GradeRoute(
         subject = data.subject,
         grade = data.grade,
         rank = data.point,
-        onCopyClick = onCopyClick,
+        onNavigateNotes = onNavigateNotes,
         onEditClick = onEditClick,
         onShareClick = onShareClick,
     )
@@ -68,7 +68,7 @@ private fun GradeScreen(
     subject: String,
     grade: String,
     rank: String,
-    onCopyClick: () -> Unit,
+    onNavigateNotes: () -> Unit,
     onEditClick: (String) -> Unit,
     onShareClick: () -> Unit,
 ) = trace("GradeScreen") {
@@ -78,7 +78,7 @@ private fun GradeScreen(
             subject = subject,
             grade = grade,
             rank = rank,
-            onCopyClick = onCopyClick,
+            onNavigateNotes = onNavigateNotes,
             onEditClick = onEditClick,
             onShareClick = onShareClick,
         )
@@ -90,7 +90,7 @@ fun GradeContent(
     subject: String,
     grade: String,
     rank: String,
-    onCopyClick: () -> Unit,
+    onNavigateNotes: () -> Unit,
     onEditClick: (String) -> Unit,
     onShareClick: () -> Unit,
 ) = trace("GradeContent") {
@@ -100,69 +100,74 @@ fun GradeContent(
             .fillMaxSize(),
         verticalArrangement = Arrangement.Center,
     ) {
-        Column(modifier = Modifier.fillMaxWidth()) {
-            Text(text = "과목명: $subject ", style = MaterialTheme.typography.headlineLarge)
-            Spacer(modifier = Modifier.height(space8))
-            Text(text = "예상학점: $grade ", style = MaterialTheme.typography.headlineLarge)
-            Spacer(modifier = Modifier.height(space4))
-            Text(text = "예상등수: $rank", style = MaterialTheme.typography.headlineLarge)
-            Spacer(modifier = Modifier.height(space12))
-            Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {
-                Text(
-                    text = "+ 은 교수님 재량입니다.",
-                )
-            }
-            Spacer(modifier = Modifier.height(space24))
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(space24),
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth(),
-            ) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.List,
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(36.dp)
-                        .clickable { onCopyClick() },
-                )
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(space8)
+        ) {
+            Text(text = "과목명: $subject ", style = MaterialTheme.typography.headlineMedium)
+            Text(text = "예상학점: $grade ", style = MaterialTheme.typography.headlineMedium)
+            Text(text = "예상등수: $rank", style = MaterialTheme.typography.headlineMedium)
+        }
+        Spacer(modifier = Modifier.height(space12))
+        Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {
+            Text(
+                text = "+ 은 교수님 재량입니다.",
+            )
+        }
+        Spacer(modifier = Modifier.height(space24))
+        Row(
+            horizontalArrangement = Arrangement
+                .spacedBy(
+                    space = space24,
+                    alignment = Alignment.CenterHorizontally,
+                ),
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Icon(
+                imageVector = Icons.AutoMirrored.Filled.List,
+                contentDescription = null,
+                modifier = Modifier
+                    .size(36.dp)
+                    .clickable { onNavigateNotes() },
+            )
 
-                Icon(
-                    imageVector = Icons.Filled.Edit,
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(36.dp)
-                        .clickable { onEditClick(subject) },
-                )
+            Icon(
+                imageVector = Icons.Filled.Edit,
+                contentDescription = null,
+                modifier = Modifier
+                    .size(36.dp)
+                    .clickable { onEditClick(subject) },
+            )
 
-                val value by rememberInfiniteTransition(label = "")
-                    .animateFloat(
-                        initialValue = 25f,
-                        targetValue = -25f,
-                        animationSpec = infiniteRepeatable(
-                            animation = tween(
-                                durationMillis = 600,
-                                easing = LinearEasing,
-                            ),
-                            repeatMode = RepeatMode.Reverse,
+            val value by rememberInfiniteTransition(label = "")
+                .animateFloat(
+                    initialValue = 25f,
+                    targetValue = -25f,
+                    animationSpec = infiniteRepeatable(
+                        animation = tween(
+                            durationMillis = 600,
+                            easing = LinearEasing,
                         ),
-                        label = "",
-                    )
-
-                Icon(
-                    imageVector = Icons.Filled.Share,
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(36.dp)
-                        .clickable { onShareClick() }
-                        .graphicsLayer {
-                            transformOrigin = TransformOrigin(
-                                pivotFractionX = 0.5f,
-                                pivotFractionY = 0.5f,
-                            )
-                            rotationZ = value
-                        },
+                        repeatMode = RepeatMode.Reverse,
+                    ),
+                    label = "",
                 )
-            }
+
+            Icon(
+                imageVector = Icons.Filled.Share,
+                contentDescription = null,
+                modifier = Modifier
+                    .size(36.dp)
+                    .clickable { onShareClick() }
+                    .graphicsLayer {
+                        transformOrigin = TransformOrigin(
+                            pivotFractionX = 0.5f,
+                            pivotFractionY = 0.5f,
+                        )
+                        rotationZ = value
+                    },
+            )
         }
     }
 }
@@ -174,7 +179,7 @@ fun PreviewGradeScreen() {
         subject = "Computer Science",
         grade = "12",
         rank = "23",
-        onCopyClick = {},
+        onNavigateNotes = {},
         onEditClick = {},
         onShareClick = {},
     )

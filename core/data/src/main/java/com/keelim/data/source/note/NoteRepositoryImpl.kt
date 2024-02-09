@@ -16,7 +16,7 @@ class NoteRepositoryImpl @Inject constructor(
     @IoDispatcher
     private val dispatcher: CoroutineDispatcher,
 ): NoteRepository {
-    override suspend fun getNoteList(): Flow<Result<List<Notices>>> = noteDao.getNotes()
+    override fun getNoteList(): Flow<Result<List<Notices>>> = noteDao.getNotes()
         .mapLatest { runCatching { it } }
 
     override suspend fun getNoteDetail(id: Int): Result<Notices> = runCatching {

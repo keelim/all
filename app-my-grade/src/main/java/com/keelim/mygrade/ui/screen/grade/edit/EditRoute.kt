@@ -79,22 +79,18 @@ fun EditSuccessSection(
             .current?.onBackPressedDispatcher
         EditDialog(
             title = "등록 완료",
-            subtitle = "노트 목록",
-            description = "$editResult 노트 등록이 완료되었습니다. (${description.first()}...",
+            description = "$editResult 노트 등록이 완료되었습니다. (${description.firstOrNull()}...",
             onClick = {
                 backPressedDispatcher?.onBackPressed()
             },
-            onNavigateNoteList = {},
             onDismiss = onClearDialog,
         )
     }
     if (dialogState == EditDialogState.Failed) {
         EditDialog(
             title = "등록 실패",
-            subtitle = "",
             description = "$editResult 노트 등록이 실패되었습니다. (${description.first()}...",
             onClick = onClearDialog,
-            onNavigateNoteList = {},
             onDismiss = onClearDialog,
         )
     }
@@ -164,10 +160,8 @@ fun EditSuccessSection(
 @Composable
 private fun EditDialog(
     title: String,
-    subtitle: String,
     description: String,
     onClick: () -> Unit,
-    onNavigateNoteList: () -> Unit,
     onDismiss: () -> Unit,
 ) {
     var isDialogOpen by rememberSaveable {
@@ -184,15 +178,6 @@ private fun EditDialog(
                     verticalArrangement = Arrangement.spacedBy(space2)
                 ) {
                     Text(text = title)
-                    if(subtitle.isNotBlank()) {
-                        Text(
-                            text = "$subtitle -> 이동",
-                            modifier = Modifier
-                                .clickable {
-                                    onNavigateNoteList()
-                                }
-                        )
-                    }
                 }
             },
             text = {

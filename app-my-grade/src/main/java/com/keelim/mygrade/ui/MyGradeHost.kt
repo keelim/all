@@ -7,6 +7,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.keelim.composeutil.AppState
+import com.keelim.mygrade.ui.screen.grade.edit.editScreen
+import com.keelim.mygrade.ui.screen.grade.edit.navigateEdit
 import com.keelim.mygrade.ui.screen.grade.gradeScreen
 import com.keelim.mygrade.ui.screen.grade.navigateGrade
 import com.keelim.mygrade.ui.screen.history.historyScreen
@@ -91,12 +93,19 @@ fun MyGradeHost(
                     onShowSnackbar("새로운 기능으로 준비중입니다 😀", null)
                 }
             },
+            onEditClick = { subject ->
+                navController.navigateEdit(
+                    subject = subject,
+                )
+            },
             onShareClick = {
                 coroutineScope.launch {
                     onShowSnackbar("새로운 기능으로 준비중입니다 😀", null)
                 }
             },
-        )
+        ) {
+            editScreen()
+        }
         settingsScreen(
             onNotificationsClick = navController::navigateNotification,
             onOpenSourceClick = {

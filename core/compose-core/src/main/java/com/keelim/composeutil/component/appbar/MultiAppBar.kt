@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.keelim.composeutil.resource.space4
+import com.keelim.composeutil.resource.space8
 
 @Composable
 fun MultiAppBar(title: String) {

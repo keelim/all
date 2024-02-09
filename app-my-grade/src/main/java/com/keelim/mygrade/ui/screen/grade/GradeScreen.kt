@@ -16,9 +16,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.automirrored.filled.List
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -44,6 +44,7 @@ import com.keelim.composeutil.resource.space8
 @Composable
 fun GradeRoute(
     onCopyClick: () -> Unit,
+    onEditClick: (String) -> Unit,
     onShareClick: () -> Unit,
     viewModel: GradeViewModel = hiltViewModel(),
 ) = trace("GradeRoute") {
@@ -57,6 +58,7 @@ fun GradeRoute(
         grade = data.grade,
         rank = data.point,
         onCopyClick = onCopyClick,
+        onEditClick = onEditClick,
         onShareClick = onShareClick,
     )
 }
@@ -67,6 +69,7 @@ private fun GradeScreen(
     grade: String,
     rank: String,
     onCopyClick: () -> Unit,
+    onEditClick: (String) -> Unit,
     onShareClick: () -> Unit,
 ) = trace("GradeScreen") {
     Column {
@@ -76,6 +79,7 @@ private fun GradeScreen(
             grade = grade,
             rank = rank,
             onCopyClick = onCopyClick,
+            onEditClick = onEditClick,
             onShareClick = onShareClick,
         )
     }
@@ -87,6 +91,7 @@ fun GradeContent(
     grade: String,
     rank: String,
     onCopyClick: () -> Unit,
+    onEditClick: (String) -> Unit,
     onShareClick: () -> Unit,
 ) = trace("GradeContent") {
     Column(
@@ -109,31 +114,40 @@ fun GradeContent(
             }
             Spacer(modifier = Modifier.height(space24))
             Row(
-                horizontalArrangement = Arrangement.Center,
+                horizontalArrangement = Arrangement.spacedBy(space24),
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth(),
             ) {
                 Icon(
-                    imageVector = Icons.Filled.List,
+                    imageVector = Icons.AutoMirrored.Filled.List,
                     contentDescription = null,
                     modifier = Modifier
                         .size(36.dp)
                         .clickable { onCopyClick() },
                 )
-                Spacer(modifier = Modifier.width(space24))
 
-                val value by rememberInfiniteTransition(label = "").animateFloat(
-                    initialValue = 25f,
-                    targetValue = -25f,
-                    animationSpec = infiniteRepeatable(
-                        animation = tween(
-                            durationMillis = 600,
-                            easing = LinearEasing,
-                        ),
-                        repeatMode = RepeatMode.Reverse,
-                    ),
-                    label = "",
+                Icon(
+                    imageVector = Icons.Filled.Edit,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(36.dp)
+                        .clickable { onEditClick(subject) },
                 )
+
+                val value by rememberInfiniteTransition(label = "")
+                    .animateFloat(
+                        initialValue = 25f,
+                        targetValue = -25f,
+                        animationSpec = infiniteRepeatable(
+                            animation = tween(
+                                durationMillis = 600,
+                                easing = LinearEasing,
+                            ),
+                            repeatMode = RepeatMode.Reverse,
+                        ),
+                        label = "",
+                    )
+
                 Icon(
                     imageVector = Icons.Filled.Share,
                     contentDescription = null,
@@ -156,5 +170,12 @@ fun GradeContent(
 @Preview(showBackground = true)
 @Composable
 fun PreviewGradeScreen() {
-    GradeScreen(subject = "Computer Science", grade = "12", rank = "23", onCopyClick = {}, onShareClick = {})
+    GradeScreen(
+        subject = "Computer Science",
+        grade = "12",
+        rank = "23",
+        onCopyClick = {},
+        onEditClick = {},
+        onShareClick = {},
+    )
 }

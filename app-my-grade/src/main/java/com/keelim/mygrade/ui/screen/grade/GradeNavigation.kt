@@ -6,21 +6,24 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 
+const val gradeRoute = "grade"
 fun NavController.navigateGrade(
     subject: String,
     grade: String,
     point: String,
     navOptions: NavOptions? = null,
 ) {
-    this.navigate("profile?subject=$subject&grade=$grade&point=$point", navOptions)
+    this.navigate("$gradeRoute?subject=$subject&grade=$grade&point=$point", navOptions)
 }
 
 fun NavGraphBuilder.gradeScreen(
     onCopyClick: () -> Unit,
+    onEditClick: (String) -> Unit,
     onShareClick: () -> Unit,
+    nestedGraphs: NavGraphBuilder.() -> Unit,
 ) {
     composable(
-        route = "profile?subject={subject}&grade={grade}&point={point}",
+        route = "$gradeRoute?subject={subject}&grade={grade}&point={point}",
         arguments =
         listOf(
             navArgument("subject") { defaultValue = "" },
@@ -30,7 +33,9 @@ fun NavGraphBuilder.gradeScreen(
     ) {
         GradeRoute(
             onCopyClick = onCopyClick,
+            onEditClick = onEditClick,
             onShareClick = onShareClick,
         )
     }
+    nestedGraphs()
 }

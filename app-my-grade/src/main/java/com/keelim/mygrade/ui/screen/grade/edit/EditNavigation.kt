@@ -24,6 +24,6 @@ fun NavGraphBuilder.editScreen() {
             navArgument("subject") { defaultValue = "" },
         ),
     ) {
-
+        EditRoute()
     }
 }

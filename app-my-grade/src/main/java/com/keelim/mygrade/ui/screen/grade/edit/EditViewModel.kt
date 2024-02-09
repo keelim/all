@@ -5,13 +5,15 @@ import androidx.compose.runtime.Immutable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.keelim.commonAndroid.model.SealedUiState
 import com.keelim.commonAndroid.model.asSealedUiState
 import com.keelim.data.model.entity.Notices
 import com.keelim.data.source.note.NoteRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
@@ -54,22 +56,23 @@ class EditViewModel @Inject constructor(
         editResult = EditResult.editResultInitial(savedStateHandle),
         descriptions = "",
     ))
-    val data = _data.asStateFlow().asSealedUiState()
-    fun updateNote() {
+    val data = _data.asSealedUiState()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), SealedUiState.Loading)
+    fun updateNote(descriptions: String) {
         val current = _data.value
         val title = current.editResult.subject
-        val description = current.descriptions
 
         viewModelScope.launch {
             noteRepository.updateNote(
                 Notices(
                     title = title,
-                    note = description
+                    note = descriptions
                 )
             ).onSuccess {
                 _data.update { old ->
                     old.copy(
                         dialogState = EditDialogState.Success,
+                        descriptions = descriptions,
                     )
                 }
             }.onFailure { throwable ->
@@ -77,9 +80,18 @@ class EditViewModel @Inject constructor(
                 _data.update { old ->
                     old.copy(
                         dialogState = EditDialogState.Failed,
+                        descriptions = descriptions,
                     )
                 }
             }
+        }
+    }
+
+    fun clearDialogState() {
+        _data.update { old ->
+            old.copy(
+                dialogState = EditDialogState.IDLE,
+            )
         }
     }
 }

@@ -273,7 +273,7 @@ android-library = { id = "com.android.library", version.ref = "androidGradlePlug
 android-test = { id = "com.android.test", version.ref = "androidGradlePlugin" }
 baselineprofile = { id = "androidx.baselineprofile", version.ref = "androidxMacroBenchmark"}
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
-cacheFixPlugin = { id = "org.gradle.android.cache-fix", version = "3.0" }
+cacheFixPlugin = { id = "org.gradle.android.cache-fix", version = "3.0.1" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }

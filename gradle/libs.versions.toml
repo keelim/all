@@ -38,7 +38,6 @@ androidxWork = "2.9.0"
 arrow = "1.2.1"
 bio = "1.1.0"
 coil = "2.5.0"
-compose-view = "1.6.1"
 deeplinkdispatch = "6.2.2"
 emoji2-emojipicker = "1.4.0"
 errorprone = "2.24.1"
@@ -116,24 +115,36 @@ androidx-benchmark-gradlePlugin = { group = "androidx.benchmark", name = "benchm
 androidx-benchmark-macro = { group = "androidx.benchmark", name = "benchmark-macro-junit4", version.ref = "androidxMacroBenchmark" }
 androidx-bio = { group = "androidx.biometric", name = "biometric", version.ref = "bio" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidxComposeBom" }
+androidx-compose-animation = { group = "androidx.compose.animation", name = "animation" }
+androidx-compose-animation-core = { group = "androidx.compose.animation", name = "animation-core" }
+androidx-compose-animation-graphics = { group = "androidx.compose.animation", name = "animation-graphics" }
 androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
 androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout" }
-androidx-compose-glance = { group = "androidx.glance", name = "glance-appwidget", version.ref = "glance" }
-androidx-compose-glance-material3 = { group = "androidx.glance", name = "glance-material3", version.ref = "glance" }
 androidx-compose-material = { group = "androidx.compose.material", name = "material" }
+androidx-compose-material-iconsCore = { group = "androidx.compose.material", name = "material-icons-core" }
 androidx-compose-material-iconsExtended = { group = "androidx.compose.material", name = "material-icons-extended" }
+androidx-compose-material-ripple = { group = "androidx.compose.material", name = "material-ripple" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-compose-material3-windowSizeClass = {group = "androidx.compose.material3", name = "material3-window-size-class" }
-androidx-compose-material3-adaptiveNavigationSuite = {group = "androidx.compose.material3", name = "material3-adaptive-navigation-suite-android", version.ref = "adaptive-navigation-suite" }
 androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime" }
 androidx-compose-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata" }
-androidx-compose-runtime-tracing = { group = "androidx.compose.runtime", name = "runtime-tracing", version.ref = "androidxComposeRuntimeTracing" }
-androidx-compose-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "compose-view" }
-androidx-compose-ui-test = { group = "androidx.compose.ui", name = "ui-test-junit4" }
-androidx-compose-ui-testManifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+androidx-compose-runtime-saveable = { group = "androidx.compose.runtime", name = "runtime-saveable" }
+androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-compose-ui-geometry = { group = "androidx.compose.ui", name = "ui-geometry" }
+androidx-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+androidx-compose-ui-text = { group = "androidx.compose.ui", name = "ui-text" }
+androidx-compose-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts" }
+androidx-compose-ui-unit = { group = "androidx.compose.ui", name = "ui-unit" }
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-compose-ui-tooling-data = { group = "androidx.compose.ui", name = "ui-tooling-data" }
 androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-compose-ui-util = { group = "androidx.compose.ui", name = "ui-util" }
+androidx-compose-glance = { group = "androidx.glance", name = "glance-appwidget", version.ref = "glance" }
+androidx-compose-glance-material3 = { group = "androidx.glance", name = "glance-material3", version.ref = "glance" }
+androidx-compose-ui-test = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+androidx-compose-ui-testManifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+androidx-compose-material3-adaptiveNavigationSuite = {group = "androidx.compose.material3", name = "material3-adaptive-navigation-suite-android", version.ref = "adaptive-navigation-suite" }
+androidx-compose-runtime-tracing = { group = "androidx.compose.runtime", name = "runtime-tracing", version.ref = "androidxComposeRuntimeTracing" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
 androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "androidxCoreSplashscreen" }
 androidx-dataStore-core = { group = "androidx.datastore", name = "datastore", version.ref = "androidxDataStore" }
@@ -280,6 +291,37 @@ ktor = [
     "ktor-client-serialization",
     "ktor-client-serialization-kotlinx-json",
     "ktor-client-websockets",
+]
+compose = [
+    "androidx-compose-animation",
+    "androidx-compose-animation-core",
+    "androidx-compose-animation-graphics",
+    "androidx-compose-foundation",
+    "androidx-compose-foundation-layout",
+    "androidx-compose-material",
+    "androidx-compose-material-iconsCore",
+    "androidx-compose-material-iconsExtended",
+    "androidx-compose-material-ripple",
+    "androidx-compose-material3",
+    "androidx-compose-material3-windowSizeClass",
+    "androidx-compose-runtime",
+    "androidx-compose-runtime-livedata",
+    "androidx-compose-runtime-saveable",
+    "androidx-compose-ui",
+    "androidx-compose-ui-geometry",
+    "androidx-compose-ui-graphics",
+    "androidx-compose-ui-text",
+    "androidx-compose-ui-text-google-fonts",
+    "androidx-compose-ui-unit",
+    "androidx-compose-ui-tooling",
+    "androidx-compose-ui-tooling-data",
+    "androidx-compose-ui-tooling-preview",
+    "androidx-compose-ui-util",
+]
+
+compose-test = [
+    "androidx-compose-ui-test",
+    "androidx-compose-ui-testManifest",
 ]
 
 [plugins]

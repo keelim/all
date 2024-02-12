@@ -28,6 +28,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.util.trace
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.commonAndroid.model.SealedUiState
@@ -40,7 +41,7 @@ import com.keelim.composeutil.resource.space8
 @Composable
 fun EditRoute(
     viewModel: EditViewModel = hiltViewModel()
-) {
+) = trace("EditRoute") {
     val editUiState by viewModel.data.collectAsStateWithLifecycle()
 
     EditScreen(
@@ -55,7 +56,7 @@ fun EditScreen(
     editUiState: SealedUiState<EditUiState>,
     onAddClick: (String) -> Unit,
     onClearDialog: () -> Unit,
-) {
+) = trace("EditScreen") {
     when (editUiState) {
         SealedUiState.Loading -> Loading()
         is SealedUiState.Error -> EmptyView()
@@ -72,7 +73,7 @@ fun EditSuccessSection(
     editUiState: SealedUiState.Success<EditUiState>,
     onAddClick: (String) -> Unit,
     onClearDialog: () -> Unit,
-) {
+) = trace("EditSuccessSection") {
     val (editResult, description, dialogState) = editUiState.value
     if (dialogState == EditDialogState.Success) {
         val backPressedDispatcher = LocalOnBackPressedDispatcherOwner
@@ -163,7 +164,7 @@ private fun EditDialog(
     description: String,
     onClick: () -> Unit,
     onDismiss: () -> Unit,
-) {
+) = trace("EditDialog") {
     var isDialogOpen by rememberSaveable {
         mutableStateOf(true)
     }

@@ -3,7 +3,7 @@
 compileSdk = "34"
 minSdk = "26"
 targetSdk = "34"
-versionCode = "20240204"
+versionCode = "20240213"
 # library
 accompanist = "0.34.0"
 androidDesugarJdkLibs = "2.0.4"

@@ -15,8 +15,7 @@ fun NavController.navigateEdit(
     this.navigate("$editRoute?subject=$subject", navOptions)
 }
 
-fun NavGraphBuilder.editScreen(
-) {
+fun NavGraphBuilder.editScreen() {
     composable(
         route = "$editRoute?subject={subject}",
         arguments =

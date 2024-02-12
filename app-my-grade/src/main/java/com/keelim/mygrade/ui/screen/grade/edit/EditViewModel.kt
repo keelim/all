@@ -10,7 +10,6 @@ import com.keelim.commonAndroid.model.asSealedUiState
 import com.keelim.data.model.entity.Notices
 import com.keelim.data.source.note.NoteRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
@@ -18,7 +17,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import timber.log.Timber
-
+import javax.inject.Inject
 
 @Parcelize
 data class EditResult(
@@ -50,12 +49,14 @@ enum class EditDialogState {
 class EditViewModel @Inject constructor(
     val savedStateHandle: SavedStateHandle,
     val noteRepository: NoteRepository,
-): ViewModel() {
+) : ViewModel() {
 
-    private val _data = MutableStateFlow(EditUiState(
-        editResult = EditResult.editResultInitial(savedStateHandle),
-        descriptions = "",
-    ))
+    private val _data = MutableStateFlow(
+        EditUiState(
+            editResult = EditResult.editResultInitial(savedStateHandle),
+            descriptions = "",
+        ),
+    )
     val data = _data.asSealedUiState()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), SealedUiState.Loading)
     fun updateNote(descriptions: String) {
@@ -66,8 +67,8 @@ class EditViewModel @Inject constructor(
             noteRepository.updateNote(
                 Notices(
                     title = title,
-                    note = descriptions
-                )
+                    note = descriptions,
+                ),
             ).onSuccess {
                 _data.update { old ->
                     old.copy(

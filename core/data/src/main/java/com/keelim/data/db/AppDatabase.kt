@@ -28,10 +28,10 @@ import com.keelim.data.source.local.SimpleHistory
 import com.keelim.data.source.local.TimerHistory
 import java.util.Date
 
-
 internal class MyGradeTypeConverters {
     @TypeConverter
     fun fromTimestamp(value: Long?): Date? = value?.let(::Date)
+
     @TypeConverter
     fun dateToTimestamp(date: Date?): Long? = date?.time
 }

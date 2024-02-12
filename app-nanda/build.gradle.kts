@@ -46,7 +46,8 @@ dependencies {
     implementation(libs.androidx.startup)
     implementation(libs.androidx.window.manager)
     implementation(libs.androidx.work.ktx)
-    implementation(libs.coil.kt)
+    implementation(platform(libs.coil.bom))
+    implementation(libs.bundles.coil)
     implementation(libs.firebase.auth)
     implementation(libs.firebase.config)
     implementation(libs.firebase.database)
@@ -61,5 +62,4 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.deeplinkdispatch)
     ksp(libs.deeplinkdispatch.processor)
-    implementation(libs.coil.kt.compose)
 }

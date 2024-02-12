@@ -19,8 +19,8 @@ dependencies {
     implementation(libs.androidx.emoji2.emojipicker)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.navigation.compose)
-    implementation(libs.coil.kt)
-    implementation(libs.coil.kt.compose)
+    implementation(platform(libs.coil.bom))
+    implementation(libs.bundles.coil)
     implementation(libs.material)
     implementation(libs.material.themAdapter)
 

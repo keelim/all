@@ -180,10 +180,13 @@ androidx-work-ktx = { group = "androidx.work", name = "work-runtime-ktx", versio
 androidx-work-testing = { group = "androidx.work", name = "work-testing", version.ref = "androidxWork" }
 apache-math = { group = "org.apache.commons", name = "commons-math3", version.ref = "math3" }
 arrow-core = { group = "io.arrow-kt", name = "arrow-core", version.ref = "arrow" }
-coil-kt = { group = "io.coil-kt", name = "coil", version.ref = "coil"}
-coil-kt-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil"}
-coil-kt-gif = { group = "io.coil-kt", name = "coil-gif", version.ref = "coil"}
-coil-kt-svg = { group = "io.coil-kt", name = "coil-svg", version.ref = "coil"}
+coil-bom = { group = "io.coil-kt", name = "coil-bom", version.ref = "coil"}
+coil = { group = "io.coil-kt", name = "coil"}
+coil-compose = { group = "io.coil-kt", name = "coil-compose"}
+coil-gif = { group = "io.coil-kt", name = "coil-gif"}
+coil-svg = { group = "io.coil-kt", name = "coil-svg"}
+coil-video = { group = "io.coil-kt", name = "coil-video"}
+coil-network-ktor = { group = "io.coil-kt", name = "coil-video", version.ref = "coil"}
 deeplinkdispatch = { group = "com.airbnb", name = "deeplinkdispatch", version.ref = "deeplinkdispatch" }
 deeplinkdispatch-processor = { group = "com.airbnb", name = "deeplinkdispatch-processor", version.ref = "deeplinkdispatch" }
 errorprone = { group = "com.google.errorprone", name = "error_prone_annotations", version.ref = "errorprone" }
@@ -322,6 +325,15 @@ compose = [
 compose-test = [
     "androidx-compose-ui-test",
     "androidx-compose-ui-testManifest",
+]
+
+coil = [
+    "coil",
+    "coil-compose",
+    "coil-gif",
+    "coil-svg",
+    "coil-video",
+    "coil-network-ktor",
 ]
 
 [plugins]

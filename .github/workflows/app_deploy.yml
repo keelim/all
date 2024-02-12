@@ -50,21 +50,21 @@ jobs:
         run: echo '${{ secrets.LOCAL_PROPERTIES }}' > ./local.properties
 
       - name: Build with Gradle
-        run: ./gradlew app-comssa:assembleRelease app-cnubus:assembleRelease app-my-grade:assembleRelease app-nanda:assembleRelease
+        run: ./gradlew app-cnubus:assembleRelease app-my-grade:assembleRelease app-nanda:assembleRelease
 
       - name: Build Release AAB
         id: buildRelease
-        run: ./gradlew app-comssa:bundleRelease app-cnubus:bundleRelease app-my-grade:bundleRelease app-nanda:bundleRelease
+        run: ./gradlew app-cnubus:bundleRelease app-my-grade:bundleRelease app-nanda:bundleRelease
 
-      - name: Sign Comssa AAB
-        id: sign_comssa
-        uses: r0adkll/sign-android-release@v1
-        with:
-          releaseDirectory: app-comssa/build/outputs/bundle/release
-          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
-          alias: ${{ secrets.COMSSA_ALIAS }}
-          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
-          keyPassword: ${{ secrets.KEY_PASSWORD }}
+#      - name: Sign Comssa AAB
+#        id: sign_comssa
+#        uses: r0adkll/sign-android-release@v1
+#        with:
+#          releaseDirectory: app-comssa/build/outputs/bundle/release
+#          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+#          alias: ${{ secrets.COMSSA_ALIAS }}
+#          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+#          keyPassword: ${{ secrets.KEY_PASSWORD }}
 
       - name: Sign Cnubus AAB
         id: sign_cnubus

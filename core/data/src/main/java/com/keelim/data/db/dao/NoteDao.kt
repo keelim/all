@@ -14,8 +14,10 @@ interface NoteDao {
 
     @Query("SELECT * FROM notices WHERE uid = :id")
     fun getNoteDetail(id: Int): Notices
+
     @Upsert
     fun updateNote(notes: Notices)
+
     @Delete
     fun deleteNotes(notes: Notices): Int
 }

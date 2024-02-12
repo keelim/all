@@ -38,7 +38,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.composeutil.component.appbar.NavigationBackArrowBar
 import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space24
-import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
 
 @Composable
@@ -102,7 +101,7 @@ fun GradeContent(
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(space8)
+            verticalArrangement = Arrangement.spacedBy(space8),
         ) {
             Text(text = "과목명: $subject ", style = MaterialTheme.typography.headlineMedium)
             Text(text = "예상학점: $grade ", style = MaterialTheme.typography.headlineMedium)

@@ -1,7 +1,6 @@
 package com.keelim.mygrade.ui.screen.grade.edit
 
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -40,7 +39,7 @@ import com.keelim.composeutil.resource.space8
 
 @Composable
 fun EditRoute(
-    viewModel: EditViewModel = hiltViewModel()
+    viewModel: EditViewModel = hiltViewModel(),
 ) = trace("EditRoute") {
     val editUiState by viewModel.data.collectAsStateWithLifecycle()
 
@@ -96,7 +95,6 @@ fun EditSuccessSection(
         )
     }
 
-
     var inputTitle by rememberSaveable {
         mutableStateOf("")
     }
@@ -116,16 +114,16 @@ fun EditSuccessSection(
                 icon = {
                     Icon(
                         imageVector = Icons.Filled.Check,
-                        contentDescription = ""
+                        contentDescription = "",
                     )
                 },
             )
-        }
+        },
     ) { paddingValues ->
         Column(
             modifier = Modifier
                 .padding(paddingValues),
-            verticalArrangement = Arrangement.spacedBy(space8)
+            verticalArrangement = Arrangement.spacedBy(space8),
         ) {
             Text(
                 text = editResult.subject,
@@ -139,7 +137,7 @@ fun EditSuccessSection(
                 textStyle = TextStyle(
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Normal,
-                    color = MaterialTheme.colorScheme.onSurface
+                    color = MaterialTheme.colorScheme.onSurface,
                 ),
                 singleLine = false,
                 shape = RectangleShape,
@@ -150,9 +148,9 @@ fun EditSuccessSection(
                     Text(
                         text = "메모를 입력해주세요.",
                         fontSize = 18.sp,
-                        color = MaterialTheme.colorScheme.onSurface
+                        color = MaterialTheme.colorScheme.onSurface,
                     )
-                }
+                },
             )
         }
     }
@@ -176,7 +174,7 @@ private fun EditDialog(
             },
             title = {
                 Column(
-                    verticalArrangement = Arrangement.spacedBy(space2)
+                    verticalArrangement = Arrangement.spacedBy(space2),
                 ) {
                     Text(text = title)
                 }
@@ -197,10 +195,11 @@ private fun EditDialog(
                 }
             },
             dismissButton = {
-                Button(onClick = {
-                    isDialogOpen = false
-                    onDismiss()
-                }
+                Button(
+                    onClick = {
+                        isDialogOpen = false
+                        onDismiss()
+                    },
                 ) {
                     Text(
                         text = "취소",
@@ -208,7 +207,6 @@ private fun EditDialog(
                 }
             },
         )
-
     }
 }
 
@@ -219,10 +217,10 @@ fun PreviewEditScreen() {
         editUiState = SealedUiState.success(
             value = EditUiState(
                 editResult = EditResult(
-                    subject = "subject"
+                    subject = "subject",
                 ),
                 descriptions = "descriptions",
-            )
+            ),
         ),
         onAddClick = {},
         onClearDialog = {},

@@ -31,6 +31,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.util.trace
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.commonAndroid.model.SealedUiState
@@ -43,7 +44,7 @@ import com.keelim.data.model.entity.Notices
 @Composable
 fun NotesRoute(
     viewModel: NotesViewModel = hiltViewModel()
-) {
+) = trace("NotesRoute") {
     val uiState by viewModel.notesUiState.collectAsStateWithLifecycle()
     NotesScreen(
         uiState = uiState,
@@ -55,7 +56,7 @@ fun NotesRoute(
 fun NotesScreen(
     uiState: SealedUiState<List<Notices>>,
     onDeleteClick: (Notices) -> Unit,
-) {
+) = trace("NotesScreen") {
     when (uiState) {
         is SealedUiState.Error -> EmptyView()
         SealedUiState.Loading -> Loading()
@@ -71,7 +72,7 @@ fun NotesScreen(
 fun NoteSuccessSection(
     uiState: SealedUiState.Success<List<Notices>>,
     onDeleteClick: (Notices) -> Unit,
-) {
+) = trace("NoteSuccessSection") {
     var isMarkedRequireDialog by rememberSaveable {
         mutableStateOf(false)
     }
@@ -153,7 +154,7 @@ fun NotesItem(
     onClick: () -> Unit,
     onLongClick: () -> Unit,
     modifier: Modifier = Modifier,
-) {
+) = trace("NotesItem") {
     Box(
         modifier = modifier
             .combinedClickable(

@@ -7,16 +7,16 @@ import com.keelim.commonAndroid.model.asSealedUiState
 import com.keelim.data.model.entity.Notices
 import com.keelim.data.source.note.NoteRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class NotesViewModel @Inject constructor(
     val noteRepository: NoteRepository,
-): ViewModel() {
+) : ViewModel() {
 
     val notesUiState = noteRepository
         .getNoteList()

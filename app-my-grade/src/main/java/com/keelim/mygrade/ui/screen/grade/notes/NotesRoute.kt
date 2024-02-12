@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -43,7 +42,7 @@ import com.keelim.data.model.entity.Notices
 
 @Composable
 fun NotesRoute(
-    viewModel: NotesViewModel = hiltViewModel()
+    viewModel: NotesViewModel = hiltViewModel(),
 ) = trace("NotesRoute") {
     val uiState by viewModel.notesUiState.collectAsStateWithLifecycle()
     NotesScreen(
@@ -60,11 +59,14 @@ fun NotesScreen(
     when (uiState) {
         is SealedUiState.Error -> EmptyView()
         SealedUiState.Loading -> Loading()
-        is SealedUiState.Success -> if (uiState.value.isEmpty()) EmptyView()
-        else NoteSuccessSection(
-            uiState = uiState,
-            onDeleteClick = onDeleteClick,
-        )
+        is SealedUiState.Success -> if (uiState.value.isEmpty()) {
+            EmptyView()
+        } else {
+            NoteSuccessSection(
+                uiState = uiState,
+                onDeleteClick = onDeleteClick,
+            )
+        }
     }
 }
 
@@ -90,7 +92,7 @@ fun NoteSuccessSection(
                     horizontalArrangement = Arrangement.End,
                     modifier = Modifier.clickable {
                         isMarkedRequireDialog = false
-                    }
+                    },
                 ) {
                     Text(
                         text = "확인",
@@ -103,7 +105,7 @@ fun NoteSuccessSection(
     LazyColumn {
         items(
             items = uiState.value,
-            key = { it.uid }
+            key = { it.uid },
         ) { item ->
             var isMarked by rememberSaveable(key = item.uid.toString()) {
                 mutableStateOf(false)
@@ -115,11 +117,11 @@ fun NoteSuccessSection(
                     isMarked = !isMarked
                 },
                 onLongClick = {
-                  if(isMarked) {
-                      onDeleteClick(item)
-                  } else {
-                      isMarkedRequireDialog = true
-                  }
+                    if (isMarked) {
+                        onDeleteClick(item)
+                    } else {
+                        isMarkedRequireDialog = true
+                    }
                 },
             )
         }
@@ -139,13 +141,12 @@ fun PreviewNotesScreen() {
                 Notices(
                     title = "hi",
                     note = "notes",
-                )
-            )
+                ),
+            ),
         ),
         onDeleteClick = {},
     )
 }
-
 
 @Composable
 fun NotesItem(
@@ -159,23 +160,22 @@ fun NotesItem(
         modifier = modifier
             .combinedClickable(
                 onClick = { onClick() },
-                onLongClick = onLongClick
+                onLongClick = onLongClick,
             )
-            .background(MaterialTheme.colorScheme.primary, shape = RoundedCornerShape(space12))
+            .background(MaterialTheme.colorScheme.primary, shape = RoundedCornerShape(space12)),
     ) {
         val boxStartPadding by animateDpAsState(
             targetValue = if (isMarked) space8 else 0.dp,
-            label = ""
+            label = "",
         )
         Box(
             modifier = Modifier.fillMaxWidth()
                 .padding(start = boxStartPadding)
-                .background(MaterialTheme.colorScheme.surface)
+                .background(MaterialTheme.colorScheme.surface),
         ) {
-
             Column(
                 modifier = Modifier.padding(16.dp),
-                horizontalAlignment = Alignment.Start
+                horizontalAlignment = Alignment.Start,
             ) {
                 Text(
                     text = data.title,
@@ -184,7 +184,7 @@ fun NotesItem(
                     fontWeight = FontWeight.Bold,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.padding(bottom = 4.dp)
+                    modifier = Modifier.padding(bottom = 4.dp),
                 )
                 Text(
                     text = data.note,
@@ -192,14 +192,14 @@ fun NotesItem(
                     overflow = TextOverflow.Ellipsis,
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.padding(bottom = 1.dp)
+                    modifier = Modifier.padding(bottom = 1.dp),
                 )
                 Text(
                     text = data.createdAt.toString(),
                     maxLines = 1,
                     style = MaterialTheme.typography.bodySmall,
                     overflow = TextOverflow.Ellipsis,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
                 )
             }
         }

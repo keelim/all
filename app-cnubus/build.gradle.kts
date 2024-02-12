@@ -34,14 +34,6 @@ dependencies {
 
     implementation(libs.activity.ktx)
     implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.compose.foundation)
-    implementation(libs.androidx.compose.foundation.layout)
-    implementation(libs.androidx.compose.material.iconsExtended)
-    implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.compose.material3.windowSizeClass)
-    implementation(libs.androidx.compose.runtime)
-    implementation(libs.androidx.compose.ui.tooling.preview)
-    implementation(libs.androidx.compose.ui.util)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.hilt.navigation.compose)
@@ -61,8 +53,4 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.deeplinkdispatch)
     ksp(libs.deeplinkdispatch.processor)
-
-    debugImplementation(libs.androidx.compose.ui.testManifest)
-    debugImplementation(libs.androidx.compose.ui.tooling)
-    androidTestImplementation(libs.androidx.compose.ui.test)
 }

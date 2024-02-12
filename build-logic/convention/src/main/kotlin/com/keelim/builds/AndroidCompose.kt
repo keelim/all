@@ -17,6 +17,7 @@
 package com.keelim.builds
 
 import com.android.build.api.dsl.CommonExtension
+import com.android.tools.r8.internal.va
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 
@@ -36,8 +37,12 @@ fun Project.configureAndroidCompose(
         }
         dependencies {
             val bom = libs.findLibrary("androidx-compose-bom").get()
+            val composeBundle = libs.findBundle("compose").get()
+            val composeTestBundle = libs.findBundle("compose-test").get()
             add("implementation", platform(bom))
+            add("implementation", composeBundle)
             add("androidTestImplementation", platform(bom))
+            add("androidTestImplementation", composeTestBundle)
         }
     }
 }

@@ -70,6 +70,7 @@ material = "1.11.0"
 math3 = "3.6.1"
 modernstorageBom = "1.0.0-alpha06"
 okhttp = "4.12.0"
+okio = "3.8.0"
 paging-compose = "3.2.1"
 play-services-auth = "20.7.0"
 play-services-location = "21.1.0"
@@ -234,7 +235,8 @@ maps-utils-ktx = { group = "com.google.maps.android", name = "maps-utils-ktx", v
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 material-themAdapter = { group = "com.google.android.material", name = "compose-theme-adapter", version.ref = "themeAdapter" }
 modernstorage-bom = { module = "com.google.modernstorage:modernstorage-bom", version.ref = "modernstorageBom" }
-okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
+okio-bom = { group = "com.squareup.okio", name = "okio-bom", version.ref = "okio" }
+okio = { group = "com.squareup.okio", name = "okio" }
 play-core = { module = "com.google.android.play:core-ktx", version.ref = "playCore" }
 play-services-ad = { group = "com.google.android.gms", name = "play-services-ads", version.ref = "playad" }
 play-services-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "play-services-auth" }

@@ -27,7 +27,6 @@ class CenterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setThemeContent {
             MyGradeApp(
                 windowSizeClass = calculateWindowSizeClass(this),

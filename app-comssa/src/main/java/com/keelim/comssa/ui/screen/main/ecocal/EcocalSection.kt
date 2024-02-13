@@ -43,6 +43,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.util.trace
+import com.keelim.composeutil.resource.space12
+import com.keelim.composeutil.resource.space16
+import com.keelim.composeutil.resource.space4
+import com.keelim.composeutil.resource.space8
 import com.keelim.data.model.EcoCalEntry
 import kotlinx.coroutines.delay
 import kotlinx.datetime.Clock
@@ -54,14 +59,14 @@ fun EcocalMainSection(
     state: LazyListState,
     entries: List<EcoCalEntry>,
     modifier: Modifier = Modifier,
-) {
+) = trace("EcocalMainSection") {
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(horizontal = 4.dp),
+            .padding(horizontal = space4),
     ) {
         Spacer(
-            modifier = Modifier.height(12.dp),
+            modifier = Modifier.height(space12),
         )
         LazyColumn(
             state = state,
@@ -103,14 +108,14 @@ fun EcocalMainSection(
 }
 
 @Composable
-fun HeaderItem(title: String, modifier: Modifier = Modifier) {
+fun HeaderItem(title: String, modifier: Modifier = Modifier) = trace("HeaderItem") {
     Column(
         modifier = modifier,
     ) {
         val rowModifier = Modifier
             .fillMaxWidth()
             .background(MaterialTheme.colorScheme.surfaceVariant)
-            .padding(horizontal = 16.dp, vertical = 8.dp)
+            .padding(horizontal = space16, vertical = space8)
         Row(
             modifier = rowModifier,
             verticalAlignment = Alignment.CenterVertically,
@@ -129,11 +134,11 @@ fun HeaderItem(title: String, modifier: Modifier = Modifier) {
             }) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    horizontalArrangement = Arrangement.spacedBy(space8),
                     modifier = Modifier.tooltipAnchor(),
                 ) {
                     val boxModifier = Modifier
-                        .size(12.dp)
+                        .size(space12)
                         .clip(RectangleShape)
                     Box(
                         modifier = boxModifier
@@ -192,17 +197,17 @@ fun ListItem(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     photoUrl: String? = null,
-) {
+) = trace("ListItem") {
     Surface(
         onClick = onClick,
         shape = MaterialTheme.shapes.large,
         modifier = modifier
             .fillMaxWidth()
-            .padding(all = 16.dp),
+            .padding(all = space16),
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            horizontalArrangement = Arrangement.spacedBy(space16),
         ) {
             // SubcomposeAsyncImage(
             //     model = photoUrl,
@@ -227,7 +232,7 @@ fun ListItem(
                         style = MaterialTheme.typography.headlineSmall,
                     )
                 }
-                Spacer(Modifier.height(4.dp))
+                Spacer(Modifier.height(space4))
                 Row(
                     modifier = Modifier
                         .fillMaxWidth(),
@@ -249,7 +254,7 @@ fun ListItem(
                     }
                     Box(
                         modifier = Modifier
-                            .size(12.dp)
+                            .size(space12)
                             .clip(CircleShape)
                             .background(color),
                     )
@@ -272,11 +277,11 @@ fun ListItem(
 }
 
 @Composable
-fun EcocalTopSection() {
+fun EcocalTopSection() = trace("EcocalTopSection") {
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
         Text(text = "Eco Cal", style = MaterialTheme.typography.headlineMedium)
     }
-    Spacer(modifier = Modifier.height(12.dp))
+    Spacer(modifier = Modifier.height(space12))
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
         Button(
             onClick = {},
@@ -284,7 +289,7 @@ fun EcocalTopSection() {
             Icon(Icons.Filled.Add, contentDescription = null)
             Text(text = "Year")
         }
-        Spacer(modifier = Modifier.width(8.dp))
+        Spacer(modifier = Modifier.width(space8))
 
         Button(
             onClick = {},

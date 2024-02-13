@@ -19,6 +19,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.keelim.composeutil.resource.space24
+import com.keelim.composeutil.resource.space8
 
 @Composable
 fun NavigationBackArrowBar(title: String) {
@@ -29,7 +31,7 @@ fun NavigationBackArrowBar(title: String) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 8.dp)
+            .padding(horizontal = space8)
             .height(50.dp)
             .clickable {
                 backDispatcher.onBackPressed()
@@ -39,7 +41,7 @@ fun NavigationBackArrowBar(title: String) {
             imageVector = Icons.Rounded.ArrowBack,
             contentDescription = null,
             modifier = Modifier
-                .size(24.dp)
+                .size(space24)
                 .align(Alignment.CenterVertically),
 
         )

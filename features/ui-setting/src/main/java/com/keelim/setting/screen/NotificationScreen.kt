@@ -42,6 +42,9 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.composeutil.component.layout.EmptyView
+import com.keelim.composeutil.resource.space12
+import com.keelim.composeutil.resource.space16
+import com.keelim.composeutil.resource.space8
 
 @Composable
 fun NotificationRoute() {
@@ -116,11 +119,11 @@ private fun NotificationContent(
                 Modifier.padding(
                     top = paddingValues.calculateTopPadding(),
                     bottom = paddingValues.calculateBottomPadding(),
-                    start = 12.dp,
-                    end = 12.dp,
+                    start = space12,
+                    end = space12,
                 ),
                 state = listState,
-                verticalArrangement = Arrangement.spacedBy(12.dp),
+                verticalArrangement = Arrangement.spacedBy(space12),
             ) {
                 items(uiState.items) { notification ->
                     NotificationListCard(
@@ -145,8 +148,8 @@ private fun NotificationListCard(
         Row(
             Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                .padding(space16),
+            horizontalArrangement = Arrangement.spacedBy(space8),
         ) {
             Text(
                 text = notificationDate,

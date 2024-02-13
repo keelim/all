@@ -52,6 +52,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.keelim.composeutil.resource.space12
+import com.keelim.composeutil.resource.space16
+import com.keelim.composeutil.resource.space4
+import com.keelim.composeutil.resource.space8
 import com.keelim.setting.di.DeviceInfo
 
 @Composable
@@ -122,7 +126,7 @@ fun SettingsScreen(
         LazyColumn(
             contentPadding = padding,
             state = listState,
-            verticalArrangement = Arrangement.spacedBy(12.dp),
+            verticalArrangement = Arrangement.spacedBy(space12),
         ) {
             item {
                 CategoryItem(
@@ -157,8 +161,8 @@ fun SettingsScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(60.dp)
-                        .padding(horizontal = 8.dp, vertical = 4.dp)
-                        .clip(RoundedCornerShape(4.dp))
+                        .padding(horizontal = space8, vertical = space4)
+                        .clip(RoundedCornerShape(space4))
                         .background(
                             color = MaterialTheme.colorScheme.primaryContainer,
                         ),
@@ -221,7 +225,7 @@ fun CategoryItem(title: String, icon: ImageVector, onClick: () -> Unit) {
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 16.dp)
+                .padding(horizontal = space16, vertical = space16)
                 .scale(sizeScale),
             horizontalArrangement = Arrangement.spacedBy(30.dp),
         ) {

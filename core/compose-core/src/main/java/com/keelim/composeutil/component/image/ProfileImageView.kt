@@ -44,6 +44,11 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.keelim.composeutil.resource.space12
+import com.keelim.composeutil.resource.space16
+import com.keelim.composeutil.resource.space2
+import com.keelim.composeutil.resource.space4
+import com.keelim.composeutil.resource.space8
 
 @Composable
 fun ProfileImage(
@@ -52,10 +57,10 @@ fun ProfileImage(
     Surface(
         modifier = Modifier
             .size(144.dp)
-            .padding(8.dp),
+            .padding(space8),
         shape = CircleShape,
         border = BorderStroke(1.dp, Color.Black),
-        shadowElevation = 4.dp,
+        shadowElevation = space4,
     ) {
         Image(
             painter = painterResource(id = android.R.drawable.ic_dialog_email),
@@ -88,13 +93,13 @@ fun ProfileDescription() {
         )
 
         Text(
-            modifier = Modifier.padding(4.dp),
+            modifier = Modifier.padding(space4),
             text = "Android Developer",
             color = Color.Black,
         )
 
         Text(
-            modifier = Modifier.padding(2.dp),
+            modifier = Modifier.padding(space2),
             text = "Studying Android, Kotlin, Software",
             color = Color.Black,
         )
@@ -120,10 +125,10 @@ fun ProfileCard() {
             modifier = Modifier
                 .width(144.dp)
                 .height(596.dp)
-                .padding(12.dp),
-            shape = RoundedCornerShape(corner = CornerSize(16.dp)),
+                .padding(space12),
+            shape = RoundedCornerShape(corner = CornerSize(space16)),
             elevation = CardDefaults.elevatedCardElevation(
-                defaultElevation = 4.dp,
+                defaultElevation = space4,
             ),
         ) {
             Column(

@@ -51,6 +51,7 @@ class KeelimAndroidApplicationPlugin : Plugin<Project> {
 
             dependencies {
                 // add("lintChecks", libs.findLibrary("slack-lint-checks").get())
+                add("implementation", libs.findLibrary("androidx-tracing-ktx").get())
             }
         }
     }

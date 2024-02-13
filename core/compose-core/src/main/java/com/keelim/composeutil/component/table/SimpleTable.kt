@@ -19,6 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.keelim.composeutil.resource.space8
 
 @Stable
 data class Columns(
@@ -44,7 +45,7 @@ private val rawData = listOf(
 @Composable
 fun SimpleTableScreen() {
     LazyColumn(
-        Modifier.padding(8.dp),
+        Modifier.padding(space8),
     ) {
         item {
             TableRow()

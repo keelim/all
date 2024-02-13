@@ -29,6 +29,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.keelim.composeutil.resource.space16
+import com.keelim.composeutil.resource.space8
 import com.keelim.composeutil.util.randomColor
 
 @Composable
@@ -89,7 +91,7 @@ private fun FrontCard(
         Card(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp),
+                .padding(space16),
             shape = MaterialTheme.shapes.medium,
         ) {
             Column(
@@ -103,7 +105,7 @@ private fun FrontCard(
                     contentDescription = null,
                 )
                 Spacer(
-                    modifier = Modifier.height(16.dp),
+                    modifier = Modifier.height(space16),
                 )
                 Text(
                     text = title,
@@ -113,7 +115,7 @@ private fun FrontCard(
                         .align(Alignment.Start),
                 )
                 Spacer(
-                    modifier = Modifier.height(16.dp),
+                    modifier = Modifier.height(space16),
                 )
                 Text(
                     text = name,
@@ -123,7 +125,7 @@ private fun FrontCard(
                         .align(Alignment.Start),
                 )
                 Spacer(
-                    modifier = Modifier.height(8.dp),
+                    modifier = Modifier.height(space8),
                 )
                 Text(
                     text = description,
@@ -153,10 +155,10 @@ private fun BackCard(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp),
+                .padding(space16),
         ) {
             Spacer(
-                modifier = Modifier.height(8.dp),
+                modifier = Modifier.height(space8),
             )
             Text(
                 text = title,
@@ -166,7 +168,7 @@ private fun BackCard(
                     .align(Alignment.Start),
             )
             Spacer(
-                modifier = Modifier.height(8.dp),
+                modifier = Modifier.height(space8),
             )
             Text(
                 text = subtitle,
@@ -176,7 +178,7 @@ private fun BackCard(
                     .align(Alignment.Start),
             )
             Spacer(
-                modifier = Modifier.height(8.dp),
+                modifier = Modifier.height(space8),
             )
             Icon(
                 imageVector = Icons.Filled.AccountBox,

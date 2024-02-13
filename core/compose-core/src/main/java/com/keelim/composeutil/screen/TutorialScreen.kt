@@ -43,6 +43,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.keelim.composeutil.resource.space4
+import com.keelim.composeutil.resource.space8
 
 data class Message(
     val author: String,
@@ -52,7 +54,7 @@ data class Message(
 @Composable
 fun MessageCard(msg: Message) {
     Row(
-        modifier = Modifier.padding(all = 8.dp),
+        modifier = Modifier.padding(all = space8),
     ) {
         Image(
             painter = painterResource(id = com.google.android.material.composethemeadapter.R.drawable.abc_text_select_handle_left_mtrl),
@@ -72,7 +74,7 @@ fun MessageCard(msg: Message) {
             if (isExpanded) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.primaryContainer,
             label = "",
         )
-        Spacer(modifier = Modifier.width(8.dp))
+        Spacer(modifier = Modifier.width(space8))
         Column(
             modifier = Modifier.clickable {
                 isExpanded = !isExpanded
@@ -83,7 +85,7 @@ fun MessageCard(msg: Message) {
                 color = MaterialTheme.colorScheme.secondary,
                 style = MaterialTheme.typography.titleLarge,
             )
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(space4))
 
             Surface(
                 shape = MaterialTheme.shapes.medium,
@@ -94,7 +96,7 @@ fun MessageCard(msg: Message) {
             ) {
                 Text(
                     text = msg.body,
-                    modifier = Modifier.padding(all = 4.dp),
+                    modifier = Modifier.padding(all = space4),
                     maxLines = if (isExpanded) Int.MAX_VALUE else 1,
                     style = MaterialTheme.typography.bodyLarge,
                 )

@@ -13,6 +13,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.keelim.composeutil.resource.space2
 import kotlinx.coroutines.launch
 
 @Composable
@@ -24,7 +25,7 @@ fun VerticalListDemo() {
             Button(
                 modifier = Modifier
                     .weight(0.5f)
-                    .padding(2.dp),
+                    .padding(space2),
                 onClick = {
                     coroutineScope.launch {
                         scrollState.animateScrollTo(0)
@@ -36,7 +37,7 @@ fun VerticalListDemo() {
             Button(
                 modifier = Modifier
                     .weight(0.5f)
-                    .padding(2.dp),
+                    .padding(space2),
                 onClick = {
                     coroutineScope.launch {
                         scrollState.animateScrollTo(

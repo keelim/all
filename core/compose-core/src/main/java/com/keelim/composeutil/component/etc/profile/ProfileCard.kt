@@ -27,6 +27,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.keelim.composeutil.resource.space12
+import com.keelim.composeutil.resource.space16
+import com.keelim.composeutil.resource.space2
+import com.keelim.composeutil.resource.space24
 
 @Stable
 data class Profile(
@@ -65,31 +69,31 @@ private fun ProfileContent(
     username: String,
 ) {
     Column {
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(space12))
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
             ProfileText(title = "Date", description = date)
             Icon(
-                modifier = Modifier.padding(end = 24.dp).size(size = 42.dp),
+                modifier = Modifier.padding(end = space24).size(size = 42.dp),
                 imageVector = Icons.Rounded.Home,
                 contentDescription = null,
             )
         }
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(space12))
         ProfileText(title = "Time", description = time)
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(space12))
         ProfileText(title = "UserName", description = username)
-        Spacer(modifier = Modifier.height(12.dp))
-        Divider(modifier = Modifier.height(2.dp))
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(space12))
+        Divider(modifier = Modifier.height(space2))
+        Spacer(modifier = Modifier.height(space12))
         Row(
-            modifier = Modifier.fillMaxWidth().padding(12.dp),
+            modifier = Modifier.fillMaxWidth().padding(space12),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 // Image(
                 //     modifier = Modifier
-                //         .padding(start = 24.dp)
+                //         .padding(start = space24)
                 //         .size(size = 42.dp)
                 //         .clip(CircleShape) ,
                 //     contentScale = ContentScale.Crop,
@@ -97,14 +101,14 @@ private fun ProfileContent(
                 //     contentDescription = ""
                 // )
                 Text(
-                    modifier = Modifier.padding(start = 16.dp),
+                    modifier = Modifier.padding(start = space16),
                     text = snsId,
                     fontWeight = FontWeight.SemiBold,
                     style = MaterialTheme.typography.labelLarge,
                 )
             }
             Text(
-                modifier = Modifier.padding(end = 24.dp),
+                modifier = Modifier.padding(end = space24),
                 text = userId,
                 fontWeight = FontWeight.Light,
                 style = MaterialTheme.typography.labelMedium,
@@ -115,8 +119,8 @@ private fun ProfileContent(
 
 @Composable
 private fun PunchHall(modifier: Modifier) {
-    Canvas(modifier = modifier.border(color = Color.Magenta, width = 2.dp)) {
-        drawCircle(color = Color.Black, radius = 24.dp.toPx())
+    Canvas(modifier = modifier.border(color = Color.Magenta, width = space2)) {
+        drawCircle(color = Color.Black, radius = space24.toPx())
     }
 }
 
@@ -124,13 +128,13 @@ private fun PunchHall(modifier: Modifier) {
 private fun ProfileText(title: String, description: String) {
     Column {
         Text(
-            modifier = Modifier.padding(horizontal = 24.dp),
+            modifier = Modifier.padding(horizontal = space24),
             text = title,
             style = MaterialTheme.typography.bodySmall,
         )
 
         Text(
-            modifier = Modifier.padding(horizontal = 24.dp),
+            modifier = Modifier.padding(horizontal = space24),
             text = description,
             style = MaterialTheme.typography.labelLarge,
         )

@@ -29,10 +29,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEach
+import androidx.compose.ui.util.trace
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
+import com.keelim.composeutil.resource.space12
+import com.keelim.composeutil.resource.space24
+import com.keelim.composeutil.resource.space8
 import com.keelim.data.model.Location
 
 @Stable
@@ -47,7 +51,7 @@ sealed class MapEvent {
 fun RootRoute(
     onRootClick: (Int) -> Unit,
     viewModel: RootViewModel = hiltViewModel(),
-) {
+) = trace("RootRoute") {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
     RootScreen(
         uiState = uiState,
@@ -59,7 +63,7 @@ fun RootRoute(
 fun RootScreen(
     uiState: MapEvent,
     onRootClick: (Int) -> Unit,
-) {
+) = trace("RootScreen") {
     when (uiState) {
         MapEvent.UnInitialized,
         is MapEvent.Error,
@@ -69,10 +73,10 @@ fun RootScreen(
             if (uiState.data.isEmpty()) {
                 EmptyView()
             } else {
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(space8))
                 LazyColumn(
-                    contentPadding = PaddingValues(horizontal = 12.dp),
-                    verticalArrangement = Arrangement.spacedBy(24.dp),
+                    contentPadding = PaddingValues(horizontal = space12),
+                    verticalArrangement = Arrangement.spacedBy(space24),
                 ) {
                     itemsIndexed(uiState.data) { index, item ->
                         RootCard(
@@ -101,7 +105,7 @@ internal fun RootCard(
     position: Int,
     rootTitle: String,
     onRootClick: (Int) -> Unit,
-) {
+) = trace("RootCard") {
     Card(
         modifier = Modifier
             .fillMaxWidth(),
@@ -133,7 +137,7 @@ fun RootTopBar(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp),
+            .padding(space8),
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         Text(

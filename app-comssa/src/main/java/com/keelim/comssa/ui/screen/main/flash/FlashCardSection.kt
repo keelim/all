@@ -10,9 +10,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.util.trace
 
 @Composable
-fun FrontCardSection() {
+fun FrontCardSection() = trace("FrontCardSection") {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -28,7 +29,7 @@ fun FrontCardSection() {
 }
 
 @Composable
-fun BackCardSection() {
+fun BackCardSection() = trace("BackCardSection") {
     Box(
         modifier = Modifier
             .fillMaxSize()

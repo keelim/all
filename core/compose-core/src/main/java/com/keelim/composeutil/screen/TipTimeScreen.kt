@@ -53,6 +53,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.keelim.compose.core.R
+import com.keelim.composeutil.resource.space16
+import com.keelim.composeutil.resource.space24
+import com.keelim.composeutil.resource.space32
+import com.keelim.composeutil.resource.space8
 import java.text.NumberFormat
 
 @Preview
@@ -65,15 +69,15 @@ fun TipTimeScreen() {
     val focusManager = LocalFocusManager.current
 
     Column(
-        modifier = Modifier.padding(32.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = Modifier.padding(space32),
+        verticalArrangement = Arrangement.spacedBy(space8),
     ) {
         Text(
             text = stringResource(R.string.appname),
             fontSize = 24.sp,
             modifier = Modifier.align(Alignment.CenterHorizontally),
         )
-        Spacer(Modifier.height(16.dp))
+        Spacer(Modifier.height(space16))
         EditNumberField(
             label = R.string.appname,
             keyboardOptions = KeyboardOptions.Default.copy(
@@ -92,7 +96,7 @@ fun TipTimeScreen() {
             onValueChange = { amountInput = it },
         )
         RoundTheTipRow(roundUp = roundUp, onRoundUpChanged = { roundUp = it })
-        Spacer(Modifier.height(24.dp))
+        Spacer(Modifier.height(space24))
         Text(
             text = stringResource(R.string.appname, tip),
             modifier = Modifier.align(Alignment.CenterHorizontally),

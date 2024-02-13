@@ -21,18 +21,21 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEach
+import androidx.compose.ui.util.trace
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.commonAndroid.model.SealedUiState
 import com.keelim.composeutil.component.canvas.chart.PieChart
 import com.keelim.composeutil.component.canvas.chart.PieChartEntry
 import com.keelim.composeutil.component.layout.EmptyView
+import com.keelim.composeutil.resource.space12
+import com.keelim.composeutil.resource.space24
 import com.keelim.composeutil.util.randomColor
 
 @Composable
 fun TaskChartRoute(
     viewModel: TaskChartViewModel = hiltViewModel(),
-) {
+) = trace("TaskChartRoute") {
     val state by viewModel.state.collectAsStateWithLifecycle()
     TaskChartScreen(
         state = state,
@@ -42,7 +45,7 @@ fun TaskChartRoute(
 @Composable
 fun TaskChartScreen(
     state: SealedUiState<List<PieChartEntry>>,
-) {
+) = trace("TaskChartScreen") {
     when (state) {
         is SealedUiState.Error, SealedUiState.Loading -> EmptyView()
         is SealedUiState.Success -> TaskChartSuccessSection(state.value)
@@ -52,10 +55,10 @@ fun TaskChartScreen(
 @Composable
 fun TaskChartSuccessSection(
     entries: List<PieChartEntry>,
-) {
+) = trace("TaskChartSuccessSection") {
     Column(
         modifier = Modifier.padding(
-            vertical = 12.dp,
+            vertical = space12,
         ),
     ) {
         Text(
@@ -64,7 +67,7 @@ fun TaskChartSuccessSection(
             style = MaterialTheme.typography.titleLarge,
         )
         Spacer(
-            modifier = Modifier.height(24.dp),
+            modifier = Modifier.height(space24),
         )
         PieChart(
             entries = entries,
@@ -73,7 +76,7 @@ fun TaskChartSuccessSection(
             duration = 2000,
         )
         Spacer(
-            modifier = Modifier.height(24.dp),
+            modifier = Modifier.height(space24),
         )
         entries.fastForEach { entry ->
             TaskChartDetailEntry(
@@ -88,7 +91,7 @@ fun TaskChartSuccessSection(
 fun TaskChartDetailEntry(
     title: String,
     color: Color,
-) {
+) = trace("TaskChartDetailEntry") {
     Surface(
         modifier = Modifier
             .padding(vertical = 10.dp, horizontal = 40.dp),

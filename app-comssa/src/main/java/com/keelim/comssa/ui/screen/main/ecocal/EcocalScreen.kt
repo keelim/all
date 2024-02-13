@@ -15,6 +15,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.util.trace
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.commonAndroid.model.SealedUiState
@@ -30,7 +31,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @Composable
-fun EcocalRoute(viewModel: EcocalViewModel = hiltViewModel()) {
+fun EcocalRoute(viewModel: EcocalViewModel = hiltViewModel()) = trace("EcocalRoute") {
     val uiState by viewModel.items.collectAsStateWithLifecycle()
     EcocalScreen(
         uiState = uiState,
@@ -42,7 +43,7 @@ fun EcocalRoute(viewModel: EcocalViewModel = hiltViewModel()) {
 fun EcocalScreen(
     uiState: SealedUiState<List<EcoCalEntry>>,
     updateFilter: (FabButtonItem) -> Unit,
-) {
+) = trace("EcocalScreen") {
     when (uiState) {
         is SealedUiState.Error -> EmptyView()
         SealedUiState.Loading -> Loading()

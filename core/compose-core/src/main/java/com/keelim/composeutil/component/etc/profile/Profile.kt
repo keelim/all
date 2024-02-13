@@ -14,6 +14,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.keelim.composeutil.resource.space24
+import com.keelim.composeutil.resource.space8
 
 @Composable
 fun CircleLabelProfile(
@@ -35,7 +37,7 @@ fun CircleLabelProfile(
         )
         Text(
             text = label,
-            modifier = Modifier.paddingFromBaseline(top = 24.dp, bottom = 8.dp),
+            modifier = Modifier.paddingFromBaseline(top = space24, bottom = space8),
             style = MaterialTheme.typography.bodyMedium,
         )
     }

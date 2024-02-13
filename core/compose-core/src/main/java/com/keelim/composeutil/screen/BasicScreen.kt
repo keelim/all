@@ -40,6 +40,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.keelim.composeutil.resource.space24
+import com.keelim.composeutil.resource.space4
+import com.keelim.composeutil.resource.space8
 
 @Composable
 private fun Greeting(name: String) {
@@ -55,9 +58,9 @@ private fun Greeting(name: String) {
     )
     Surface(
         color = MaterialTheme.colorScheme.primary,
-        modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp),
+        modifier = Modifier.padding(vertical = space4, horizontal = space8),
     ) {
-        Row(modifier = Modifier.padding(24.dp)) {
+        Row(modifier = Modifier.padding(space24)) {
             Column(
                 modifier = Modifier
                     .weight(1f)
@@ -77,7 +80,7 @@ private fun Greeting(name: String) {
 
 @Composable
 private fun Greetings(names: List<String> = List(1000) { "$it" }) {
-    LazyColumn(modifier = Modifier.padding(vertical = 4.dp)) {
+    LazyColumn(modifier = Modifier.padding(vertical = space4)) {
         items(items = names) { name ->
             Greeting(name = name)
         }
@@ -88,7 +91,7 @@ private fun Greetings(names: List<String> = List(1000) { "$it" }) {
 @Composable
 fun GreetingPreview() {
     Column(
-        modifier = Modifier.padding(vertical = 4.dp),
+        modifier = Modifier.padding(vertical = space4),
     ) {
         Greetings()
     }
@@ -107,7 +110,7 @@ fun OnBoarding() {
         ) {
             Text("Welcome to the basic Codelab!")
             Button(
-                modifier = Modifier.padding(vertical = 24.dp),
+                modifier = Modifier.padding(vertical = space24),
                 onClick = { shouldShowOnBoarding = false },
             ) {
                 Text(text = "Continue")

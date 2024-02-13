@@ -38,15 +38,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.util.trace
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.composeutil.component.custom.NumberPickerList
+import com.keelim.composeutil.resource.space16
+import com.keelim.composeutil.resource.space24
+import com.keelim.composeutil.resource.space4
+import com.keelim.composeutil.resource.space8
 
 @Composable
 fun TimerScreen(
     onNavigateTimerHistory: () -> Unit,
     viewModel: TimerViewModel = hiltViewModel(),
-) {
+) = trace("TimerScreen") {
     val timerUiState by viewModel.timerUiState.collectAsStateWithLifecycle()
     val isCountDownTimerVisible = viewModel.isRunning
     val addedTime = viewModel.addTime(System.currentTimeMillis())
@@ -63,9 +68,9 @@ fun TimerScreen(
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+        modifier = Modifier.padding(horizontal = space16, vertical = space8),
     ) {
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(space16))
         SelectTime(runningState = isCountDownTimerVisible, viewModel = viewModel)
         CircularCountDownTimer(
             runningState = isCountDownTimerVisible,
@@ -74,7 +79,7 @@ fun TimerScreen(
             dialogState = dialogState,
         )
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(space24))
 
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -121,7 +126,7 @@ fun TimerScreen(
 fun SelectTime(
     runningState: RunningState,
     viewModel: TimerViewModel,
-) {
+) = trace("SelectTime") {
     if (runningState == RunningState.STOPPED) {
         Box(
             modifier = Modifier.fillMaxWidth().height(350.dp),
@@ -167,7 +172,7 @@ fun CircularCountDownTimer(
     viewModel: TimerViewModel,
     dialogState: MutableState<Boolean>,
     addedTime: String,
-) {
+) = trace("CircularCountDownTimer") {
     if (runningState != RunningState.STOPPED) {
         val leftTime = viewModel.leftTime.intValue
         if (leftTime == 0) {
@@ -217,12 +222,12 @@ fun CircularCountDownTimer(
                     fontSize = 48.sp,
                 )
 
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(space24))
 
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(
                         imageVector = Icons.Default.AccountBox,
-                        modifier = Modifier.padding(4.dp),
+                        modifier = Modifier.padding(space4),
                         contentDescription = null,
                     )
                     Text(
@@ -245,26 +250,26 @@ fun PreviewTimerScreen() {
 @Composable
 private fun CheckDialog(
     onDismiss: () -> Unit,
-) {
+) = trace("CheckDialog") {
     AlertDialog(
         onDismissRequest = onDismiss,
     ) {
         Text(
             text = "확인해 주세요",
-            modifier = Modifier.padding(8.dp),
+            modifier = Modifier.padding(space8),
             style = MaterialTheme.typography.titleLarge,
         )
     }
 }
 
 @Composable
-private fun UnsetDialog(onDismiss: () -> Unit) {
+private fun UnsetDialog(onDismiss: () -> Unit) = trace("UnsetDialog") {
     AlertDialog(
         onDismissRequest = onDismiss,
     ) {
         Text(
             text = "Timer 를 설정해주세요",
-            modifier = Modifier.padding(8.dp),
+            modifier = Modifier.padding(space8),
             style = MaterialTheme.typography.titleLarge,
         )
     }

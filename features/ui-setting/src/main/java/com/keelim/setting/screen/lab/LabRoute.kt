@@ -21,9 +21,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.keelim.composeutil.resource.space4
+import com.keelim.composeutil.resource.space8
 
 @Composable
 fun LabRoute(viewModel: LabViewModel = hiltViewModel()) {
@@ -42,7 +43,7 @@ fun LabScreen(
     val (prompt, setPrompt) = remember { mutableStateOf("") }
     Column(
         modifier = Modifier
-            .padding(all = 8.dp)
+            .padding(all = space8)
             .verticalScroll(rememberScrollState()),
     ) {
         Row {
@@ -70,7 +71,7 @@ fun LabScreen(
                 },
                 modifier = Modifier
                     .weight(2f)
-                    .padding(all = 4.dp)
+                    .padding(all = space4)
                     .align(Alignment.CenterVertically),
             ) {
                 Text(
@@ -84,27 +85,27 @@ fun LabScreen(
             -> Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
-                    .padding(all = 8.dp)
+                    .padding(all = space8)
                     .align(Alignment.CenterHorizontally),
             ) {
                 CircularProgressIndicator()
             }
 
-            is LabUiState.Success -> Row(modifier = Modifier.padding(all = 8.dp)) {
+            is LabUiState.Success -> Row(modifier = Modifier.padding(all = space8)) {
                 Icon(
                     Icons.Outlined.Person,
                     contentDescription = "Person Icon",
                 )
                 Text(
                     text = uiState.outputText,
-                    modifier = Modifier.padding(horizontal = 8.dp),
+                    modifier = Modifier.padding(horizontal = space8),
                 )
             }
 
             is LabUiState.Error -> Text(
                 text = uiState.errorMessage,
                 color = Color.Red,
-                modifier = Modifier.padding(all = 8.dp),
+                modifier = Modifier.padding(all = space8),
             )
         }
     }

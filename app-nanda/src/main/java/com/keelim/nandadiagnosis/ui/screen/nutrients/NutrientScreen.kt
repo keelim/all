@@ -33,19 +33,27 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.util.trace
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.keelim.composeutil.component.appbar.NavigationBackArrowBar
 import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
+import com.keelim.composeutil.resource.space12
+import com.keelim.composeutil.resource.space16
+import com.keelim.composeutil.resource.space4
 
 @Composable
 fun NutrientRoute(
     onNutrientClick: (String, String) -> Unit,
     onNutrientTimerClick: () -> Unit,
-) {
+    viewModel: NutrientViewModel = hiltViewModel(),
+) = trace("NutrientRoute") {
+    val uiState by viewModel.state.collectAsStateWithLifecycle()
+
     NutrientScreen(
+        uiState = uiState,
         onNutrientClick = onNutrientClick,
         onNutrientTimerClick = onNutrientTimerClick,
     )
@@ -53,12 +61,10 @@ fun NutrientRoute(
 
 @Composable
 private fun NutrientScreen(
-    viewModel: NutrientViewModel = hiltViewModel(),
+    uiState: NutrientState,
     onNutrientClick: (String, String) -> Unit,
     onNutrientTimerClick: () -> Unit,
-) {
-    val uiState by viewModel.state.collectAsStateWithLifecycle()
-
+) = trace("NutrientScreen") {
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
@@ -81,42 +87,44 @@ private fun NutrientScreen(
 }
 
 @Composable
-private fun NutrientStateView(uiState: NutrientState, onNutrientClick: (String, String) -> Unit) {
-    when (uiState) {
-        NutrientState.Error,
-        NutrientState.Empty,
-        -> EmptyView()
+private fun NutrientStateView(uiState: NutrientState, onNutrientClick: (String, String) -> Unit) =
+    trace("NutrientStateView") {
+        when (uiState) {
+            NutrientState.Error,
+            NutrientState.Empty,
+            -> EmptyView()
 
-        NutrientState.Loading -> Loading()
-        is NutrientState.Success -> {
-            LazyColumn {
-                items(uiState.items) { (title, uri) ->
-                    NutrientCard(title = title, uri = uri, onNutrientClick = { onNutrientClick(title, uri) })
-                    Spacer(modifier = Modifier.height(4.dp))
+            NutrientState.Loading -> Loading()
+            is NutrientState.Success -> {
+                LazyColumn {
+                    items(uiState.items) { (title, uri) ->
+                        NutrientCard(title = title, uri = uri, onNutrientClick = { onNutrientClick(title, uri) })
+                        Spacer(modifier = Modifier.height(space4))
+                    }
                 }
             }
         }
     }
-}
 
 @Preview(showBackground = true)
 @Composable
 fun PreviewNutrientScreen() {
     NutrientScreen(
+        uiState = NutrientState.Empty,
         onNutrientClick = { _, _ -> },
         onNutrientTimerClick = {},
     )
 }
 
 @Composable
-private fun NutrientCard(title: String, uri: String, onNutrientClick: () -> Unit) {
+private fun NutrientCard(title: String, uri: String, onNutrientClick: () -> Unit) = trace("NutrientCard") {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Column(
             modifier =
             Modifier.widthIn(max = 400.dp)
                 .clip(MaterialTheme.shapes.large)
                 .clickable { onNutrientClick() }
-                .padding(16.dp),
+                .padding(space16),
         ) {
             Card(Modifier.fillMaxWidth()) {
                 Box {
@@ -130,7 +138,7 @@ private fun NutrientCard(title: String, uri: String, onNutrientClick: () -> Unit
                     )
                     Button(
                         onClick = { onNutrientClick() },
-                        modifier = Modifier.align(Alignment.TopEnd).padding(16.dp),
+                        modifier = Modifier.align(Alignment.TopEnd).padding(space16),
                         colors =
                         ButtonDefaults.buttonColors(
                             containerColor = MaterialTheme.colorScheme.surface,
@@ -141,11 +149,11 @@ private fun NutrientCard(title: String, uri: String, onNutrientClick: () -> Unit
                     }
                 }
             }
-            Spacer(Modifier.height(12.dp))
-            Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            Spacer(Modifier.height(space12))
+            Row(horizontalArrangement = Arrangement.spacedBy(space12)) {
+                Column(verticalArrangement = Arrangement.spacedBy(space4)) {
                     Text(title, maxLines = 1)
-                    // Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    // Row(horizontalArrangement = Arrangement.spacedBy(space8)) {
                     //   Text("4.5")
                     //   Icon(Icons.Rounded.Star, contentDescription = null, tint = Color(0xFFFF9800))
                     // }

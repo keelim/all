@@ -27,6 +27,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.keelim.composeutil.resource.space12
+import com.keelim.composeutil.resource.space16
+import com.keelim.composeutil.resource.space24
+import com.keelim.composeutil.resource.space8
 
 @Stable
 data class ShareItem(
@@ -50,17 +54,17 @@ fun ShareSheet(
         scaffoldState = scaffoldState,
         sheetContent = {
             Column(
-                verticalArrangement = Arrangement.spacedBy(12.dp),
-                modifier = Modifier.padding(vertical = 24.dp),
+                verticalArrangement = Arrangement.spacedBy(space12),
+                modifier = Modifier.padding(vertical = space24),
             ) {
                 Text(
                     text = "Share!",
                     style = MaterialTheme.typography.titleLarge,
-                    modifier = Modifier.padding(horizontal = 24.dp),
+                    modifier = Modifier.padding(horizontal = space24),
                 )
                 LazyRow(
-                    contentPadding = PaddingValues(16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(24.dp),
+                    contentPadding = PaddingValues(space16),
+                    horizontalArrangement = Arrangement.spacedBy(space24),
                 ) {
                     items(shareItems) { item ->
                         LabeledIconButton(
@@ -99,7 +103,7 @@ private fun LabeledIconButton(
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(space8),
     ) {
         FilledIconButton(
             onClick = onClick,

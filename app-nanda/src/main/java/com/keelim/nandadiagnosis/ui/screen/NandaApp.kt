@@ -36,9 +36,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.keelim.composeutil.AppState
 import com.keelim.composeutil.rememberAppState
+import com.keelim.composeutil.resource.space12
 import com.keelim.nandadiagnosis.ui.NandaHost
 import com.keelim.nandadiagnosis.ui.screen.main.NandaDrawer
 import kotlinx.coroutines.launch
@@ -55,7 +55,7 @@ fun NandaApp(
     ModalNavigationDrawer(
         drawerContent = {
             Spacer(
-                modifier = Modifier.height(12.dp),
+                modifier = Modifier.height(space12),
             )
             ModalDrawerSheet {
                 NandaDrawer(

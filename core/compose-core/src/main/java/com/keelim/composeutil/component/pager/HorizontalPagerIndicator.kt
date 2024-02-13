@@ -16,6 +16,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.keelim.composeutil.resource.space2
+import com.keelim.composeutil.resource.space8
 import kotlin.math.absoluteValue
 
 @Composable
@@ -26,10 +28,10 @@ fun HorizontalPagerIndicator(
     currentPageOffsetFraction: Float,
     modifier: Modifier = Modifier,
     indicatorColor: Color = Color.DarkGray,
-    unselectedIndicatorSize: Dp = 8.dp,
+    unselectedIndicatorSize: Dp = space8,
     selectedIndicatorSize: Dp = 10.dp,
-    indicatorCornerRadius: Dp = 2.dp,
-    indicatorPadding: Dp = 2.dp,
+    indicatorCornerRadius: Dp = space2,
+    indicatorPadding: Dp = space2,
 ) {
     Row(
         horizontalArrangement = Arrangement.Center,

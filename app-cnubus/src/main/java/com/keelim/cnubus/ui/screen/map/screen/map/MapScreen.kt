@@ -16,6 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEach
+import androidx.compose.ui.util.trace
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
@@ -32,7 +33,7 @@ fun MapRoute() {
 }
 
 @Composable
-fun MapScreen(viewModel: MapViewModel = hiltViewModel()) {
+fun MapScreen(viewModel: MapViewModel = hiltViewModel()) = trace("MapScreen") {
     val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(Location.defaultLocation().latLng, 25f)
     }

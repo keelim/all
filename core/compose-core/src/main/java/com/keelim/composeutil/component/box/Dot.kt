@@ -25,6 +25,7 @@ import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.keelim.composeutil.resource.space12
 
 @Composable
 fun RedDot(
@@ -98,7 +99,7 @@ fun GradientDot(
                 rotate(value) {
                     drawCircle(
                         gradientBrush,
-                        style = Stroke(width = 12.dp.value),
+                        style = Stroke(width = space12.value),
                     )
                 }
             }

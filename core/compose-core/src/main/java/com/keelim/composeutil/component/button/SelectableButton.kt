@@ -15,6 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.keelim.composeutil.resource.space24
+import com.keelim.composeutil.resource.space8
 
 @Composable
 fun SelectableButton(modifier: Modifier = Modifier, isSelected: Boolean = false) {
@@ -35,7 +37,7 @@ fun SelectableButton(modifier: Modifier = Modifier, isSelected: Boolean = false)
         border = BorderStroke(1.dp, borderColor),
     ) {
         Image(
-            modifier = Modifier.padding(8.dp),
+            modifier = Modifier.padding(space8),
             imageVector = icon,
             colorFilter = ColorFilter.tint(iconColor),
             contentDescription = null,
@@ -46,11 +48,11 @@ fun SelectableButton(modifier: Modifier = Modifier, isSelected: Boolean = false)
 @Preview("selected on")
 @Composable
 fun PreviewSelectedButton() {
-    SelectableButton(modifier = Modifier.size(24.dp), isSelected = true)
+    SelectableButton(modifier = Modifier.size(space24), isSelected = true)
 }
 
 @Preview("selected false")
 @Composable
 fun PreviewUnSelectedButton() {
-    SelectableButton(modifier = Modifier.size(24.dp), isSelected = false)
+    SelectableButton(modifier = Modifier.size(space24), isSelected = false)
 }

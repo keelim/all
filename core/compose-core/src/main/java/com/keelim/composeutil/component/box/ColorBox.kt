@@ -13,6 +13,7 @@ import androidx.compose.ui.layout.MeasurePolicy
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
+import com.keelim.composeutil.resource.space2
 import kotlin.random.Random
 
 @Composable
@@ -20,7 +21,7 @@ fun ColorBox() {
     Box(
         modifier =
         Modifier
-            .border(width = 2.dp, color = Color.Black)
+            .border(width = space2, color = Color.Black)
             .background(randomColor())
             .width(40 * randomInt().dp)
             .height(10 * randomInt().dp),

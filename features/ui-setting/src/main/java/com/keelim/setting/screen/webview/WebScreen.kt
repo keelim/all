@@ -26,6 +26,9 @@ import androidx.compose.ui.unit.dp
 import com.google.accompanist.web.WebView
 import com.google.accompanist.web.rememberWebViewNavigator
 import com.google.accompanist.web.rememberWebViewState
+import com.keelim.composeutil.resource.space24
+import com.keelim.composeutil.resource.space4
+import com.keelim.composeutil.resource.space8
 
 @Composable
 fun WebViewRoute(
@@ -98,7 +101,7 @@ fun WebViewNavigationBar(onBackwardClick: () -> Unit, onForwardClick: () -> Unit
         modifier = Modifier
             .fillMaxWidth()
             .height(50.dp)
-            .padding(horizontal = 8.dp),
+            .padding(horizontal = space8),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
@@ -106,7 +109,7 @@ fun WebViewNavigationBar(onBackwardClick: () -> Unit, onForwardClick: () -> Unit
             contentDescription = null,
             modifier =
             Modifier
-                .size(24.dp)
+                .size(space24)
                 .align(Alignment.CenterVertically)
                 .clickable { onBackwardClick() },
         )
@@ -116,14 +119,14 @@ fun WebViewNavigationBar(onBackwardClick: () -> Unit, onForwardClick: () -> Unit
             contentDescription = null,
             modifier =
             Modifier
-                .size(24.dp)
+                .size(space24)
                 .align(Alignment.CenterVertically)
                 .clickable { onForwardClick() },
         )
-        Spacer(Modifier.width(24.dp))
+        Spacer(Modifier.width(space24))
         Card(modifier = Modifier.fillMaxWidth()) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Spacer(modifier = Modifier.width(4.dp))
+                Spacer(modifier = Modifier.width(space4))
                 Icon(
                     imageVector = Icons.Rounded.Lock,
                     contentDescription = null,

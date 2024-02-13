@@ -21,24 +21,26 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.util.trace
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
+import com.keelim.composeutil.resource.space16
+import com.keelim.composeutil.resource.space4
 import com.keelim.nandadiagnosis.R
 
 @Composable
 fun DiagnosisRoute(
     onDiagnosisClick: () -> Unit,
-) {
-    DiagnosisScreen(onDiagnosisClick = onDiagnosisClick)
-}
-
-@Composable
-fun DiagnosisScreen(onDiagnosisClick: () -> Unit, viewModel: DiagnosisViewModel = hiltViewModel()) {
+    viewModel: DiagnosisViewModel = hiltViewModel(),
+) = trace("DiagnosisRoute") {
     val screenState by viewModel.screenState.collectAsStateWithLifecycle()
-    DiagnosisStateView(state = screenState, onDiagnosisClick = onDiagnosisClick)
+    DiagnosisScreen(
+        screenState = screenState,
+        onDiagnosisClick = onDiagnosisClick,
+    )
+
     val context = LocalContext.current
     LaunchedEffect(context) {
         viewModel.initArray(context.resources.getStringArray(R.array.diagnosis1))
@@ -46,10 +48,18 @@ fun DiagnosisScreen(onDiagnosisClick: () -> Unit, viewModel: DiagnosisViewModel 
 }
 
 @Composable
+fun DiagnosisScreen(
+    screenState: DiagnosisScreenState,
+    onDiagnosisClick: () -> Unit,
+) = trace("DiagnosisScreen") {
+    DiagnosisStateView(state = screenState, onDiagnosisClick = onDiagnosisClick)
+}
+
+@Composable
 private fun DiagnosisStateView(
     state: DiagnosisScreenState,
     onDiagnosisClick: () -> Unit,
-) {
+) = trace("DiagnosisStateView") {
     when (state) {
         DiagnosisScreenState.Error,
         DiagnosisScreenState.Empty,
@@ -74,7 +84,10 @@ private fun DiagnosisStateView(
 @Preview(showBackground = true)
 @Composable
 fun PreviewDiagnosisScreen() {
-    DiagnosisScreen(onDiagnosisClick = {})
+    DiagnosisScreen(
+        screenState = DiagnosisScreenState.Empty,
+        onDiagnosisClick = {},
+    )
 }
 
 @Composable
@@ -83,13 +96,13 @@ fun DiagnosisItem(
     content: String,
     label: String,
     onDiagnosisClick: () -> Unit,
-) {
+) = trace("DiagnosisItem") {
     Surface(onClick = { onDiagnosisClick() }, shape = MaterialTheme.shapes.large) {
         Row(
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            horizontalArrangement = Arrangement.spacedBy(space16),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(space16),
         ) {
             Column(Modifier.weight(1f)) {
                 Row(
@@ -105,7 +118,7 @@ fun DiagnosisItem(
                     )
                     Text(text = label, style = MaterialTheme.typography.labelLarge)
                 }
-                Spacer(Modifier.height(4.dp))
+                Spacer(Modifier.height(space4))
                 Text(
                     text = content,
                     style = MaterialTheme.typography.bodyLarge,

@@ -35,18 +35,23 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.util.trace
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.keelim.composeutil.component.custom.NumberPickerList
+import com.keelim.composeutil.resource.space16
+import com.keelim.composeutil.resource.space24
+import com.keelim.composeutil.resource.space4
+import com.keelim.composeutil.resource.space8
 
 @Composable
-fun NutrientTimerRoute() {
+fun NutrientTimerRoute() = trace("NutrientTimerRoute") {
     NutrientTimerScreen()
 }
 
 @Composable
 private fun NutrientTimerScreen(
     viewModel: NutrientTimerViewModel = hiltViewModel(),
-) {
+) = trace("NutrientTimerScreen") {
     val isCountDownTimerVisible = viewModel.isRunning
     val addedTime = viewModel.addTime(System.currentTimeMillis())
     val dialogState = remember { mutableStateOf(false) }
@@ -57,9 +62,9 @@ private fun NutrientTimerScreen(
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.padding(24.dp),
+        modifier = Modifier.padding(space24),
     ) {
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(space16))
         SelectTime(runningState = isCountDownTimerVisible, viewModel = viewModel)
         CircularCountDownTimer(
             runningState = isCountDownTimerVisible,
@@ -68,7 +73,7 @@ private fun NutrientTimerScreen(
             dialogState = dialogState,
         )
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(space24))
 
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -102,7 +107,7 @@ private fun NutrientTimerScreen(
 fun SelectTime(
     runningState: RunningState,
     viewModel: NutrientTimerViewModel,
-) {
+) = trace("SelectTime") {
     if (runningState == RunningState.STOPPED) {
         Box(
             modifier = Modifier.fillMaxWidth().height(350.dp),
@@ -148,7 +153,7 @@ fun CircularCountDownTimer(
     viewModel: NutrientTimerViewModel,
     dialogState: MutableState<Boolean>,
     addedTime: String,
-) {
+) = trace("CircularCountDownTimer") {
     if (runningState != RunningState.STOPPED) {
         val leftTime = viewModel.leftTime.intValue
         if (leftTime == 0) {
@@ -198,12 +203,12 @@ fun CircularCountDownTimer(
                     fontSize = 48.sp,
                 )
 
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(space24))
 
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(
                         imageVector = Icons.Default.AccountBox,
-                        modifier = Modifier.padding(4.dp),
+                        modifier = Modifier.padding(space4),
                         contentDescription = null,
                     )
                     Text(
@@ -224,13 +229,13 @@ fun PreviewTimerScreen() {
 @Composable
 private fun ShowDialog(
     onDismiss: () -> Unit,
-) {
+) = trace("ShowDialog") {
     AlertDialog(
         onDismissRequest = onDismiss,
     ) {
         Text(
             text = "확인해 주세요",
-            modifier = Modifier.padding(8.dp),
+            modifier = Modifier.padding(space8),
             style = MaterialTheme.typography.titleLarge,
         )
     }

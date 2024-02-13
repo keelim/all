@@ -115,7 +115,7 @@ jobs:
 
       - name: Deploy to Play Store Comssa
         id: deploy_comssa
-        uses: r0adkll/upload-google-play@v1.1.2
+        uses: r0adkll/upload-google-play@v1.1.3
         with:
           serviceAccountJson: service_account.json
           packageName: com.keelim.comssa

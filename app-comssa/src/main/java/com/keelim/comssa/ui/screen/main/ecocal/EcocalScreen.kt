@@ -1,5 +1,6 @@
 package com.keelim.comssa.ui.screen.main.ecocal
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
@@ -44,55 +45,59 @@ fun EcocalScreen(
     uiState: SealedUiState<List<EcoCalEntry>>,
     updateFilter: (FabButtonItem) -> Unit,
 ) = trace("EcocalScreen") {
-    when (uiState) {
-        is SealedUiState.Error -> EmptyView()
-        SealedUiState.Loading -> Loading()
-        is SealedUiState.Success -> {
-            if (uiState.value.isEmpty()) {
-                EmptyView()
-            } else {
-                val state = rememberLazyListState()
-                val coroutineScope = rememberCoroutineScope()
-                Scaffold(
-                    floatingActionButton = {
-                        var fabState by remember { mutableStateOf<FabButtonState>(FabButtonState.Collapsed) }
-                        val items by remember {
-                            mutableStateOf(
-                                listOf(
-                                    High(),
-                                    Medium(),
-                                    Low(),
-                                    All(),
+    AnimatedContent(
+        targetState = uiState, label = "",
+    ) { targetState ->
+        when (targetState) {
+            is SealedUiState.Error -> EmptyView()
+            SealedUiState.Loading -> Loading()
+            is SealedUiState.Success -> {
+                if (targetState.value.isEmpty()) {
+                    EmptyView()
+                } else {
+                    val state = rememberLazyListState()
+                    val coroutineScope = rememberCoroutineScope()
+                    Scaffold(
+                        floatingActionButton = {
+                            var fabState by remember { mutableStateOf<FabButtonState>(FabButtonState.Collapsed) }
+                            val items by remember {
+                                mutableStateOf(
+                                    listOf(
+                                        High(),
+                                        Medium(),
+                                        Low(),
+                                        All(),
+                                    ),
+                                )
+                            }
+                            MultiMainFab(
+                                fabState = fabState,
+                                items = items,
+                                fabIcon = FabButtonMain(),
+                                fabOption = FabButtonSub(
+                                    backgroundTint = MaterialTheme.colorScheme.primary,
+                                    iconTint = MaterialTheme.colorScheme.onPrimary,
                                 ),
+                                onFabItemClicked = { item ->
+                                    Timber.d("item $item")
+                                    updateFilter(item)
+                                    fabState = fabState.toggleValue()
+                                    coroutineScope.launch {
+                                        state.scrollToItem(0)
+                                    }
+                                },
+                                stateChanged = {
+                                    fabState = it
+                                },
                             )
-                        }
-                        MultiMainFab(
-                            fabState = fabState,
-                            items = items,
-                            fabIcon = FabButtonMain(),
-                            fabOption = FabButtonSub(
-                                backgroundTint = MaterialTheme.colorScheme.primary,
-                                iconTint = MaterialTheme.colorScheme.onPrimary,
-                            ),
-                            onFabItemClicked = { item ->
-                                Timber.d("item $item")
-                                updateFilter(item)
-                                fabState = fabState.toggleValue()
-                                coroutineScope.launch {
-                                    state.scrollToItem(0)
-                                }
-                            },
-                            stateChanged = {
-                                fabState = it
-                            },
+                        },
+                    ) { paddingValues ->
+                        EcocalMainSection(
+                            state = state,
+                            entries = targetState.value,
+                            modifier = Modifier.padding(paddingValues),
                         )
-                    },
-                ) { paddingValues ->
-                    EcocalMainSection(
-                        state = state,
-                        entries = uiState.value,
-                        modifier = Modifier.padding(paddingValues),
-                    )
+                    }
                 }
             }
         }

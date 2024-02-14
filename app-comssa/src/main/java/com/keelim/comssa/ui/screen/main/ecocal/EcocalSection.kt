@@ -25,7 +25,6 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.PlainTooltipBox
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -38,7 +37,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -127,45 +125,6 @@ fun HeaderItem(title: String, modifier: Modifier = Modifier) = trace("HeaderItem
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 maxLines = 1,
             )
-            PlainTooltipBox(tooltip = {
-                Text(
-                    text = "중요도를 표시하는 항목",
-                )
-            }) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(space8),
-                    modifier = Modifier.tooltipAnchor(),
-                ) {
-                    val boxModifier = Modifier
-                        .size(space12)
-                        .clip(RectangleShape)
-                    Box(
-                        modifier = boxModifier
-                            .background(Color.Red),
-                    )
-                    Text(
-                        text = "상",
-                        style = MaterialTheme.typography.bodyMedium,
-                    )
-                    Box(
-                        modifier = boxModifier
-                            .background(Color.Yellow),
-                    )
-                    Text(
-                        text = "중",
-                        style = MaterialTheme.typography.bodyMedium,
-                    )
-                    Box(
-                        modifier = boxModifier
-                            .background(Color.Green),
-                    )
-                    Text(
-                        text = "하",
-                        style = MaterialTheme.typography.bodyMedium,
-                    )
-                }
-            }
         }
         Row(
             modifier = rowModifier,

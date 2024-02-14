@@ -1,6 +1,7 @@
 package com.keelim.mygrade.ui.screen.grade.edit
 
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -56,14 +57,18 @@ fun EditScreen(
     onAddClick: (String) -> Unit,
     onClearDialog: () -> Unit,
 ) = trace("EditScreen") {
-    when (editUiState) {
-        SealedUiState.Loading -> Loading()
-        is SealedUiState.Error -> EmptyView()
-        is SealedUiState.Success -> EditSuccessSection(
-            editUiState = editUiState,
-            onAddClick = onAddClick,
-            onClearDialog = onClearDialog,
-        )
+    AnimatedContent(
+        targetState = editUiState, label = ""
+    ) { targetState ->
+        when (targetState) {
+            SealedUiState.Loading -> Loading()
+            is SealedUiState.Error -> EmptyView()
+            is SealedUiState.Success -> EditSuccessSection(
+                editUiState = targetState,
+                onAddClick = onAddClick,
+                onClearDialog = onClearDialog,
+            )
+        }
     }
 }
 

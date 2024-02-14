@@ -76,7 +76,7 @@ fun TaskScreen(
     AnimatedContent(
         targetState = state,
         label = "",
-        contentKey = { state }
+        contentKey = { state },
     ) { targetState ->
         when (targetState) {
             SealedUiState.Loading -> Loading()

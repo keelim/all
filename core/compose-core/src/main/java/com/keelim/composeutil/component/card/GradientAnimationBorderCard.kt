@@ -37,13 +37,13 @@ fun GradientAnimationBorderCard(
         targetValue = 360f,
         animationSpec = infiniteRepeatable(
             animation = tween(durationMillis = duration, easing = LinearEasing),
-            repeatMode = RepeatMode.Restart
+            repeatMode = RepeatMode.Restart,
         ),
-        label = ""
+        label = "",
     )
     Surface(
         modifier = modifier.clickable(onClick = onClick),
-        shape = CircleShape
+        shape = CircleShape,
     ) {
         Surface(
             modifier = Modifier
@@ -53,13 +53,13 @@ fun GradientAnimationBorderCard(
                         drawCircle(
                             brush = Brush.linearGradient(colors),
                             radius = size.width,
-                            blendMode = BlendMode.SrcIn
+                            blendMode = BlendMode.SrcIn,
                         )
                     }
                     drawContent()
                 },
             shape = CircleShape,
-            content = content
+            content = content,
         )
     }
 }
@@ -72,7 +72,7 @@ fun PreviewGradientAnimationBorderCard() {
             colors = listOf(Color.Red, Color.Blue),
             duration = 5000,
             onClick = {},
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier.padding(16.dp),
         ) {
             Text(
                 modifier = Modifier.padding(16.dp),

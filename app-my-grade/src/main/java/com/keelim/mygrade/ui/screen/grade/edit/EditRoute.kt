@@ -58,7 +58,8 @@ fun EditScreen(
     onClearDialog: () -> Unit,
 ) = trace("EditScreen") {
     AnimatedContent(
-        targetState = editUiState, label = ""
+        targetState = editUiState,
+        label = "",
     ) { targetState ->
         when (targetState) {
             SealedUiState.Loading -> Loading()

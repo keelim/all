@@ -46,7 +46,8 @@ fun EcocalScreen(
     updateFilter: (FabButtonItem) -> Unit,
 ) = trace("EcocalScreen") {
     AnimatedContent(
-        targetState = uiState, label = "",
+        targetState = uiState,
+        label = "",
     ) { targetState ->
         when (targetState) {
             is SealedUiState.Error -> EmptyView()

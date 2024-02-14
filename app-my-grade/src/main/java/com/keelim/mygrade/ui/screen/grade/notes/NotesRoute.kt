@@ -58,7 +58,8 @@ fun NotesScreen(
     onDeleteClick: (Notices) -> Unit,
 ) = trace("NotesScreen") {
     AnimatedContent(
-        targetState = uiState, label = ""
+        targetState = uiState,
+        label = "",
     ) { targetState ->
         when (targetState) {
             is SealedUiState.Error -> EmptyView()

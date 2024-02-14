@@ -44,7 +44,7 @@ fun TaskChartScreen(
 ) = trace("TaskChartScreen") {
     AnimatedContent(
         targetState = state,
-        label = ""
+        label = "",
     ) { targetState ->
         when (targetState) {
             SealedUiState.Loading -> Loading()

@@ -83,7 +83,7 @@ fun TaskSuccessSection(
     onNavigateChart: () -> Unit,
     onClear: () -> Unit,
     onEditTask: (LocalTask) -> Unit,
-    onDeleteTask: (LocalTask) -> Unit
+    onDeleteTask: (LocalTask) -> Unit,
 ) {
     if (state.value.isEmpty()) {
         EmptyView()

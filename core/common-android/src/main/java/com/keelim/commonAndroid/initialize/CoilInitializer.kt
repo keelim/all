@@ -37,7 +37,5 @@ class CoilInitializer : Initializer<Unit> {
         Coil.setImageLoader(imageLoader)
     }
 
-    override fun dependencies(): List<Class<out Initializer<*>>> {
-        return listOf(TimberInitializer::class.java)
-    }
+    override fun dependencies() = listOf(TimberInitializer::class.java)
 }

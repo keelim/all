@@ -10,9 +10,7 @@ class ComposeInitializer : Initializer<Unit> {
         ComposeView(context)
     }
 
-    override fun dependencies(): List<Class<out Initializer<*>>> {
-        return listOf(
-            ProcessLifecycleInitializer::class.java,
-        )
-    }
+    override fun dependencies() = listOf(
+        ProcessLifecycleInitializer::class.java,
+    )
 }

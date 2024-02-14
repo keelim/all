@@ -159,7 +159,7 @@ com.google.accompanist:accompanist-drawablepainter:0.32.0
 com.google.accompanist:accompanist-permissions:0.34.0
 com.google.accompanist:accompanist-systemuicontroller:0.34.0
 com.google.accompanist:accompanist-webview:0.34.0
-com.google.ai.client.generativeai:generativeai:0.1.2
+com.google.ai.client.generativeai:generativeai:0.2.0
 com.google.android.datatransport:transport-api:3.0.0
 com.google.android.datatransport:transport-backend-cct:3.1.9
 com.google.android.datatransport:transport-runtime:3.1.9
@@ -323,5 +323,5 @@ org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.6.2
 org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2
 org.jetbrains:annotations:23.0.0
 org.reactivestreams:reactive-streams:1.0.3
-org.slf4j:slf4j-android:1.7.36
-org.slf4j:slf4j-api:1.7.36
+org.slf4j:slf4j-api:2.0.9
+org.slf4j:slf4j-nop:2.0.9

@@ -11,13 +11,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object DownloadModule {
-    @Provides
-    @Singleton
-    fun provideDownloadReceiver(
-        @ApplicationContext ctx: Context,
-    ): DownloadReceiver {
-        return DownloadReceiver(ctx)
-    }
 
     @Provides
     @Singleton

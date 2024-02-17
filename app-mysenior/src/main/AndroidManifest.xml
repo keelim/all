@@ -5,6 +5,7 @@
     <application
         android:name=".MyApplication"
         android:enableOnBackInvokedCallback="true"
+        android:allowBackup="false"
         android:usesCleartextTraffic="false"
         tools:targetApi="upside_down_cake">
         <activity

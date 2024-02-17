@@ -11,8 +11,9 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="false"
         android:enableOnBackInvokedCallback="true"
+        android:allowBackup="false"
         android:theme="@style/ComssaTheme"
-        tools:targetApi="tiramisu">
+        tools:targetApi="tiramisu" android:dataExtractionRules="@xml/data_extraction_rules">
 
         <activity
             android:name=".ui.screen.main.MainActivity"

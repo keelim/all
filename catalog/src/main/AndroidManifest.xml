@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
+        android:usesCleartextTraffic="false"
+        android:allowBackup="false"
         tools:targetApi="upside_down_cake">
         <activity
             android:name=".MainActivity"

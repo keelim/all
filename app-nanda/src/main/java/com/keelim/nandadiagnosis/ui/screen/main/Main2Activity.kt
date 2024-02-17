@@ -36,7 +36,7 @@ import com.keelim.commonAndroid.core.AppMainDelegator
 import com.keelim.commonAndroid.core.AppMainViewModel
 import com.keelim.composeutil.setThemeContent
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.di.DownloadReceiver
+import com.keelim.commonAndroid.util.DownloadReceiver
 import com.keelim.nandadiagnosis.ui.screen.NandaApp
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -51,7 +51,7 @@ class Main2Activity : ComponentActivity() {
     private val appMainDelegator by lazy { AppMainDelegator(this, viewModel) }
 
     @Inject
-    lateinit var receiver: DownloadReceiver
+    lateinit var downloadReceiver: DownloadReceiver
 
     private val appPermissions: List<String> = buildList {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -93,7 +93,7 @@ class Main2Activity : ComponentActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        unregisterReceiver(receiver)
+        unregisterReceiver(downloadReceiver)
     }
 
     private fun fileChecking() {
@@ -117,7 +117,7 @@ class Main2Activity : ComponentActivity() {
     private fun downloadDatabase2() {
         ContextCompat.registerReceiver(
             this,
-            receiver,
+            downloadReceiver,
             IntentFilter().apply {
                 addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
                 addAction(DownloadManager.ACTION_NOTIFICATION_CLICKED)

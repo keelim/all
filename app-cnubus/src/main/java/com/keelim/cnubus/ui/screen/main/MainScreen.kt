@@ -149,52 +149,34 @@ fun PagerContent(
         contentPadding = paddingValues,
     ) { index ->
         when (index) {
-            0 -> {
-                RootRoute(
-                    onRootClick = {},
-                )
-            }
-            1 -> {
-                RootRoute(
-                    onRootClick = {},
-                )
-            }
-            2 -> {
-                RootRoute(
-                    onRootClick = {},
-                )
-            }
-            3 -> {
-                RootRoute(
-                    onRootClick = {},
-                )
-            }
-            4 -> {
-                SettingScreen(
-                    onScreenAction = { action ->
-                        when (action) {
-                            AppSetting -> {
-                                context.startActivity(
-                                    Intent(
-                                        Intent.ACTION_VIEW,
-                                        Uri.parse("https://plus.cnu.ac.kr/html/kr/sub05/sub05_050403.html"),
-                                    ),
-                                )
-                            }
-                            Map -> onNavigateMap()
-                            Update -> {
-                                context.startActivity(
-                                    Intent(
-                                        Intent.ACTION_VIEW,
-                                        Uri.parse("https://play.google.com/store/apps/details?id=com.keelim.cnubus"),
-                                    ),
-                                )
-                            }
-                            else -> Unit
+            4 -> SettingScreen(
+                onScreenAction = { action ->
+                    when (action) {
+                        AppSetting -> {
+                            context.startActivity(
+                                Intent(
+                                    Intent.ACTION_VIEW,
+                                    Uri.parse("https://plus.cnu.ac.kr/html/kr/sub05/sub05_050403.html"),
+                                ),
+                            )
                         }
-                    },
-                )
-            }
+
+                        Map -> onNavigateMap()
+                        Update -> {
+                            context.startActivity(
+                                Intent(
+                                    Intent.ACTION_VIEW,
+                                    Uri.parse("https://play.google.com/store/apps/details?id=com.keelim.cnubus"),
+                                ),
+                            )
+                        }
+                        else -> Unit
+                    }
+                },
+            )
+            else -> RootRoute(
+                onRootClick = {},
+            )
         }
     }
 }

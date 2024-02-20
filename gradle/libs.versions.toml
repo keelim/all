@@ -95,6 +95,7 @@ truth = "1.4.1"
 turbine = "1.0.0"
 slackLintChecks = "0.7.0"
 showkase = "1.0.2"
+sqldelight = "2.0.1"
 generativeai = "0.2.0"
 dependencyGuard = "0.5.0"
 
@@ -277,6 +278,13 @@ showkase = { group = "com.airbnb.android", name = "showkase", version.ref = "sho
 showkase-processor = { group = "com.airbnb.android", name = "showkase-processor", version.ref = "showkase" }
 slack-lint-checks =  { group = "com.slack.lint", name = "slack-lint-checks", version.ref = "slackLintChecks" }
 soloader = { group = "com.facebook.soloader", name = "soloader", version.ref = "soloader" }
+sqldelight-android = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
+sqldelight-coroutines = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
+sqldelight-native = { module = "app.cash.sqldelight:native-driver", version.ref = "sqldelight" }
+sqldelight-paging = { module = "app.cash.sqldelight:androidx-paging3-extensions", version.ref = "sqldelight" }
+sqldelight-primitive = { module = "app.cash.sqldelight:primitive-adapters", version.ref = "sqldelight" }
+sqldelight-web-worker = {module = "app.cash.sqldelight:web-worker-driver", version.ref = "sqldelight" }
+sqldelight-sqlite = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqldelight" }
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timbers" }
 truth = { module = "com.google.truth:truth", version.ref = "truth" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
@@ -341,20 +349,21 @@ android-application = { id = "com.android.application", version.ref = "androidGr
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 android-test = { id = "com.android.test", version.ref = "androidGradlePlugin" }
 baselineprofile = { id = "androidx.baselineprofile", version.ref = "androidxMacroBenchmark"}
-hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 cacheFixPlugin = { id = "org.gradle.android.cache-fix", version = "3.0.1" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
-kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
-secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secrets" }
-gms-googleServices = "com.google.gms.google-services:4.4.1"
+dependencyGuard = { id = "com.dropbox.dependency-guard", version.ref = "dependencyGuard" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlyticsPlugin" }
 firebase-perf = { id = "com.google.firebase.firebase-perf", version.ref = "firebasePerfPlugin" }
+gms-googleServices = "com.google.gms.google-services:4.4.1"
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
 room = { id = "androidx.room", version.ref = "room" }
-dependencyGuard = { id = "com.dropbox.dependency-guard", version.ref = "dependencyGuard" }
+secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secrets" }
+sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 
 # project plugin
 keelim-android-application = { id = "keelim.android.application", version = "unspecified" }

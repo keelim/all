@@ -1,26 +1,14 @@
-import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
-
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.android.library)
+    alias(libs.plugins.sqldelight)
 }
 
 kotlin {
-    @OptIn(ExperimentalWasmDsl::class)
-    wasmJs {
-       browser()
-    }
     js(IR) {
         browser()
     }
     androidTarget {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = JavaVersion.VERSION_1_8.toString()
-            }
-        }
-    }
-    jvm {
         compilations.all {
             kotlinOptions {
                 jvmTarget = JavaVersion.VERSION_1_8.toString()
@@ -32,8 +20,27 @@ kotlin {
     iosSimulatorArm64()
 
     sourceSets {
+        androidMain.dependencies {
+            implementation(libs.sqldelight.android)
+        }
         commonMain.dependencies {
-            // put your Multiplatform dependencies here
+            implementation(libs.sqldelight.coroutines)
+            implementation(libs.sqldelight.paging)
+            implementation(libs.sqldelight.primitive)
+        }
+        iosMain.dependencies {
+            implementation(libs.sqldelight.native)
+        }
+        jsMain.dependencies {
+            implementation(libs.sqldelight.web.worker)
+        }
+    }
+}
+
+sqldelight {
+    databases {
+        create("Database") {
+            packageName = "com.keelim.kmp.data"
         }
     }
 }

@@ -48,7 +48,7 @@ firebasePerfPlugin = "1.4.2"
 flipper = "0.247.0"
 glance = "1.0.0"
 hilt = "2.50"
-hiltExt = "1.1.0"
+hiltExt = "1.2.0"
 
 in-app-update = "2.1.0"
 jacoco = "0.8.7"

@@ -1,6 +1,7 @@
 package com.keelim.cnubus.ui
 
 import android.content.Intent
+import android.net.Uri
 import androidx.compose.material3.SheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -50,6 +51,14 @@ fun CnubusHost(
                 context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
             },
             onLabClick = navController::navigateLab,
+            onAppUpdateClick = {
+                context.startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("https://play.google.com/store/apps/details?id=${context.packageName}"),
+                    ),
+                )
+            },
             nestedGraphs = {
                 notificationScreen()
                 labScreen()

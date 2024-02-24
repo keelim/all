@@ -17,6 +17,7 @@ import com.keelim.setting.screen.lab.labScreen
 import com.keelim.setting.screen.lab.navigateLab
 import com.keelim.setting.screen.navigateNotification
 import com.keelim.setting.screen.notificationScreen
+import com.keelim.setting.screen.settings.navigateSettings
 import com.keelim.setting.screen.settings.settingsScreen
 import com.keelim.setting.screen.welcome.welcomeScreen
 import kotlinx.coroutines.CoroutineScope
@@ -38,6 +39,7 @@ fun CnubusHost(
     ) {
         mainScreen(
             onNavigateMap = navController::navigateMap,
+            onNavigateAppSetting = navController::navigateSettings,
             nestedGraphs = {
                 mapScreen()
             },

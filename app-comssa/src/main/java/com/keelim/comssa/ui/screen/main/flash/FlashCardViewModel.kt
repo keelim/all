@@ -17,7 +17,7 @@ class FlashCardViewModel @Inject constructor() : ViewModel() {
     fun updateState() {
         _uiState.update { old ->
             old.copy(
-                old.flashCardState.nextFace(),
+                flashCardState = old.flashCardState.nextFace(),
             )
         }
     }

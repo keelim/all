@@ -18,6 +18,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
@@ -199,15 +200,15 @@ fun CircularCountDownTimer(
             contentAlignment = Alignment.Center,
         ) {
             CircularProgressIndicator(
+                progress = { 100f },
                 modifier = Modifier.fillMaxSize(),
                 color = Color.LightGray,
-                progress = 100f,
                 strokeWidth = 10.dp,
             )
 
             CircularProgressIndicator(
+                progress = { progress.value },
                 modifier = Modifier.fillMaxSize(),
-                progress = progress.value,
                 strokeWidth = 10.dp,
             )
 
@@ -251,9 +252,7 @@ fun PreviewTimerScreen() {
 private fun CheckDialog(
     onDismiss: () -> Unit,
 ) = trace("CheckDialog") {
-    AlertDialog(
-        onDismissRequest = onDismiss,
-    ) {
+    BasicAlertDialog(onDismissRequest = onDismiss) {
         Text(
             text = "확인해 주세요",
             modifier = Modifier.padding(space8),
@@ -264,9 +263,7 @@ private fun CheckDialog(
 
 @Composable
 private fun UnsetDialog(onDismiss: () -> Unit) = trace("UnsetDialog") {
-    AlertDialog(
-        onDismissRequest = onDismiss,
-    ) {
+    BasicAlertDialog(onDismissRequest = onDismiss) {
         Text(
             text = "Timer 를 설정해주세요",
             modifier = Modifier.padding(space8),

@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package com.keelim.mygrade.ui.screen.history
 
 import androidx.compose.foundation.layout.Arrangement

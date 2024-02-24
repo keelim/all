@@ -16,13 +16,13 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.sharp.ArrowRight
 import androidx.compose.material.icons.rounded.AccessTime
 import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.OfflineBolt
 import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material.icons.rounded.Web
-import androidx.compose.material.icons.sharp.ArrowRight
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -164,7 +164,7 @@ private fun NavigationCard(
                 when (item) {
                     is NandaNavItem.SmallType -> {
                         Icon(
-                            imageVector = Icons.Sharp.ArrowRight,
+                            imageVector = Icons.AutoMirrored.Sharp.ArrowRight,
                             contentDescription = "${item.name} Icon",
                         )
                         Spacer(

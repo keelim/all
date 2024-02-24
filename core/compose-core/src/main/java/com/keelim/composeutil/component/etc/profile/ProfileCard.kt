@@ -15,7 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Home
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -83,7 +83,7 @@ private fun ProfileContent(
         Spacer(modifier = Modifier.height(space12))
         ProfileText(title = "UserName", description = username)
         Spacer(modifier = Modifier.height(space12))
-        Divider(modifier = Modifier.height(space2))
+        HorizontalDivider(modifier = Modifier.height(space2))
         Spacer(modifier = Modifier.height(space12))
         Row(
             modifier = Modifier.fillMaxWidth().padding(space12),

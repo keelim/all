@@ -6,7 +6,7 @@ class AndroidPlatform : Platform {
 
 actual fun getPlatform(): Platform = AndroidPlatform()
 
-class AndroidAppSupported() : AppSupported {
+class AndroidAppSupported : AppSupported {
     override val isSupported: Boolean
         get() = false
 }

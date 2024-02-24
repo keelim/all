@@ -4,7 +4,7 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -106,22 +106,22 @@ fun EcocalScreen(
 }
 
 data class High(
-    override val imageVector: ImageVector = Icons.Filled.List,
+    override val imageVector: ImageVector = Icons.AutoMirrored.Filled.List,
     override val label: String = "상",
 ) : FabButtonItem
 
 data class Medium(
-    override val imageVector: ImageVector = Icons.Filled.List,
+    override val imageVector: ImageVector = Icons.AutoMirrored.Filled.List,
     override val label: String = "중",
 ) : FabButtonItem
 
 data class Low(
-    override val imageVector: ImageVector = Icons.Filled.List,
+    override val imageVector: ImageVector = Icons.AutoMirrored.Filled.List,
     override val label: String = "하",
 ) : FabButtonItem
 
 data class All(
-    override val imageVector: ImageVector = Icons.Filled.List,
+    override val imageVector: ImageVector = Icons.AutoMirrored.Filled.List,
     override val label: String = "전체",
 ) : FabButtonItem
 

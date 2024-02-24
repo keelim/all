@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalLayoutApi::class)
-
 package com.keelim.cnubus.ui
 
 import androidx.compose.foundation.layout.Column

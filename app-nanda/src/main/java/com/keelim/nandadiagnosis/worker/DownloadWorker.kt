@@ -37,13 +37,12 @@ import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
 import com.keelim.common.extensions.toast
-import com.keelim.nandadiagnosis.R
 import com.keelim.commonAndroid.util.DownloadReceiver
+import com.keelim.nandadiagnosis.R
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
-import kotlinx.coroutines.delay
 import java.io.File
-import java.util.*
+import java.util.UUID
 import java.util.concurrent.TimeUnit
 
 @HiltWorker

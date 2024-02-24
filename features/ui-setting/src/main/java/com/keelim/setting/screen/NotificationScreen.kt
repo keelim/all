@@ -16,7 +16,7 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material3.Card
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -87,7 +87,7 @@ private fun NotificationScreen(viewModel: NotificationViewModel = hiltViewModel(
                 title = { Text(text = "Notifications") },
                 navigationIcon = {
                     IconButton(onClick = { onBackPressedDispatcher.onBackPressed() }) {
-                        Icon(Icons.Rounded.ArrowBack, contentDescription = "Go back")
+                        Icon(Icons.AutoMirrored.Rounded.ArrowBack, contentDescription = "Go back")
                     }
                 },
                 actions = {},

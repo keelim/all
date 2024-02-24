@@ -3,17 +3,16 @@ package com.keelim.data.source.firebase
 import com.google.firebase.Firebase
 import com.google.firebase.database.Logger
 import com.google.firebase.database.database
-import com.google.firebase.database.getValue
 import com.keelim.data.BuildConfig
 import com.keelim.data.di.IoDispatcher
 import com.keelim.data.model.EcoCalEntry
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import timber.log.Timber
-import javax.inject.Inject
 
 class FirebaseRepositoryImpl
 @Inject

@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalLayoutApi::class)
-
 package com.keelim.comssa.ui.screen.main
 
 import androidx.compose.foundation.layout.ExperimentalLayoutApi

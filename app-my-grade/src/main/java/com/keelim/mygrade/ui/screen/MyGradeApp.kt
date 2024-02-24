@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalLayoutApi::class, ExperimentalLayoutApi::class)
-
 package com.keelim.mygrade.ui.screen
 
 import androidx.compose.foundation.layout.Column

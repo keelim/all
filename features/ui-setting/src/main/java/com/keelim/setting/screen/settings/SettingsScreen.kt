@@ -21,6 +21,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Build
+import androidx.compose.material.icons.outlined.DesignServices
 import androidx.compose.material.icons.outlined.List
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Notifications
@@ -63,6 +64,7 @@ fun SettingsRoute(
     onNotificationsClick: () -> Unit,
     onOpenSourceClick: () -> Unit,
     onLabClick: () -> Unit,
+    onAppUpdateClick: () -> Unit,
     viewModel: SettingsViewModel = hiltViewModel(),
 ) {
     val deviceInfo by viewModel.deviceInfo.collectAsStateWithLifecycle()
@@ -71,6 +73,7 @@ fun SettingsRoute(
         onNotificationsClick = onNotificationsClick,
         onOpenSourceClick = onOpenSourceClick,
         onLabClick = onLabClick,
+        onAppUpdateClick = onAppUpdateClick
     )
 }
 
@@ -80,19 +83,20 @@ fun SettingsScreen(
     onNotificationsClick: () -> Unit,
     onOpenSourceClick: () -> Unit,
     onLabClick: () -> Unit,
+    onAppUpdateClick: () -> Unit,
 ) {
     val listState = rememberLazyListState()
     val hasScrolled by remember { derivedStateOf { listState.firstVisibleItemScrollOffset > 0 } }
     val appBarElevation by
-        animateDpAsState(
-            targetValue =
-            if (hasScrolled) {
-                4.dp
-            } else {
-                0.dp
-            },
-            label = "",
-        )
+    animateDpAsState(
+        targetValue =
+        if (hasScrolled) {
+            4.dp
+        } else {
+            0.dp
+        },
+        label = "",
+    )
     val onBackPressedDispatcher =
         checkNotNull(LocalOnBackPressedDispatcherOwner.current) { "this is not null" }
             .onBackPressedDispatcher
@@ -151,6 +155,13 @@ fun SettingsScreen(
             }
             item {
                 CategoryItem(
+                    title = "앱 업데이트",
+                    icon = Icons.Outlined.DesignServices,
+                    onClick = onAppUpdateClick
+                )
+            }
+            item {
+                CategoryItem(
                     title = "App Version: ${deviceInfo.versionName}",
                     icon = Icons.Outlined.Build,
                     onClick = {},
@@ -195,6 +206,7 @@ private fun PreviewSettingsScreen() {
         onNotificationsClick = {},
         onOpenSourceClick = {},
         onLabClick = {},
+        onAppUpdateClick = {},
     )
 }
 

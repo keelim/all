@@ -162,16 +162,7 @@ fun PagerContent(
                             )
                         }
                         ScreenAction.Map -> onNavigateMap()
-                        ScreenAction.Update -> {
-                            context.startActivity(
-                                Intent(
-                                    Intent.ACTION_VIEW,
-                                    Uri.parse("https://play.google.com/store/apps/details?id=com.keelim.cnubus"),
-                                ),
-                            )
-                        }
                         ScreenAction.AppSetting -> onNavigateAppSetting()
-                        else -> Unit
                     }
                 },
             )

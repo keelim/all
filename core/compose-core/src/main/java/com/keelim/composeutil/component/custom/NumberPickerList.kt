@@ -20,13 +20,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.keelim.composeutil.resource.space32
 
-private fun formatTime(isLeadingZeroNeeded: Boolean = false, value: Int): String {
-    return if (isLeadingZeroNeeded) {
-        String.format("%02d", value)
-    } else {
-        String.format("%2d", value)
-    }
-}
+private fun formatTime(isLeadingZeroNeeded: Boolean = false, value: Int): String =
+    String.format(if (isLeadingZeroNeeded) "%02d" else "%2d", value)
 
 @Composable
 fun NumberPickerList(
@@ -57,7 +52,9 @@ fun NumberPickerList(
         ) {
             item {
                 Spacer(
-                    modifier = Modifier.fillMaxWidth().height(space32),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(space32),
                 )
             }
             itemsIndexed(items = numbers) { index, item ->
@@ -70,13 +67,17 @@ fun NumberPickerList(
                 Text(
                     text = formatTime(value = item),
                     fontSize = textSizeState.intValue.sp,
-                    modifier = Modifier.height(space32).fillMaxWidth(),
+                    modifier = Modifier
+                        .height(space32)
+                        .fillMaxWidth(),
                     textAlign = TextAlign.Center,
                 )
             }
             item {
                 Spacer(
-                    modifier = Modifier.fillMaxWidth().height(space32),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(space32),
                 )
             }
         }

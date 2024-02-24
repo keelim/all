@@ -41,8 +41,8 @@ fun ScaffoldDemo() {
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    if (counter.value < 10) {
-                        counter.value++
+                    if (counter.intValue < 10) {
+                        counter.intValue++
                     } else {
                         scope.launch {
                             snackBarHostState.showSnackbar(
@@ -64,10 +64,10 @@ fun ScaffoldDemo() {
             contentAlignment = Alignment.Center,
         ) {
             Text(
-                text = if (counter.value == 10) {
+                text = if (counter.intValue == 10) {
                     "Counter finished"
                 } else {
-                    "Counter:${counter.value}"
+                    "Counter:${counter.intValue}"
                 },
             )
         }

@@ -162,7 +162,7 @@ fun HeartScreen() {
     val heartCount = remember { mutableIntStateOf(0) }
 
     Box(modifier = Modifier.fillMaxSize()) {
-        repeat(heartCount.value) {
+        repeat(heartCount.intValue) {
             Heart(
                 modifier = Modifier
                     .fillMaxSize()
@@ -175,7 +175,7 @@ fun HeartScreen() {
 
         Button(
             onClick = {
-                heartCount.value++
+                heartCount.intValue++
             },
             modifier = Modifier
                 .align(Alignment.BottomCenter)

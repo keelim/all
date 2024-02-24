@@ -35,15 +35,13 @@ class AppMainDelegator(
     override fun onStart(owner: LifecycleOwner) {
         super.onStart(owner)
 
-        with(activity) {
-            viewModel.networkConnectivityService
-                .networkStatus
-                .flowWithLifecycle(activity.lifecycle)
-                .onEach { state ->
-                    if (state == NetworkStatus.Disconnected) {
-                        activity.toast("네트워크를 확인하고 있습니다. ")
-                    }
-                }.launchIn(activity.lifecycleScope)
-        }
+        viewModel.networkConnectivityService
+            .networkStatus
+            .flowWithLifecycle(activity.lifecycle)
+            .onEach { state ->
+                if (state == NetworkStatus.Disconnected) {
+                    activity.toast("네트워크를 확인하고 있습니다. ")
+                }
+            }.launchIn(activity.lifecycleScope)
     }
 }

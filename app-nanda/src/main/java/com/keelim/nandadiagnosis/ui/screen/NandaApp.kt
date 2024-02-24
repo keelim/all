@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalLayoutApi::class)
-
 package com.keelim.nandadiagnosis.ui.screen
 
 import androidx.compose.foundation.layout.Column

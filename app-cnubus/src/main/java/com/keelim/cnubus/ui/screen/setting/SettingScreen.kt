@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@file:OptIn(ExperimentalMaterial3Api::class)
 
 package com.keelim.cnubus.ui.screen.setting
 

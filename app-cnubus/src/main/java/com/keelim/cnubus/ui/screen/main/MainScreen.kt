@@ -1,6 +1,4 @@
-@file:OptIn(
-    ExperimentalFoundationApi::class,
-)
+@file:OptIn(ExperimentalFoundationApi::class)
 
 package com.keelim.cnubus.ui.screen.main
 
@@ -32,9 +30,7 @@ import androidx.compose.ui.util.trace
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.keelim.cnubus.ui.screen.root.RootRoute
 import com.keelim.cnubus.ui.screen.root.RootViewModel
-import com.keelim.cnubus.ui.screen.setting.ScreenAction.AppSetting
-import com.keelim.cnubus.ui.screen.setting.ScreenAction.Map
-import com.keelim.cnubus.ui.screen.setting.ScreenAction.Update
+import com.keelim.cnubus.ui.screen.setting.ScreenAction
 import com.keelim.cnubus.ui.screen.setting.SettingScreen
 import com.keelim.common.extensions.toast
 import com.keelim.composeutil.resource.space4
@@ -52,6 +48,7 @@ private val appPermissions: List<String> = buildList {
 @Composable
 fun MainRoute(
     onNavigateMap: () -> Unit,
+    onNavigateAppSetting: () -> Unit,
     viewModel: RootViewModel = hiltViewModel(),
 ) = trace("MainRoute") {
     val context = LocalContext.current
@@ -70,6 +67,7 @@ fun MainRoute(
     MainScreen(
         onNavigateMap = onNavigateMap,
         onSetMode = viewModel::setMode,
+        onNavigateAppSetting = onNavigateAppSetting,
     )
 }
 
@@ -92,6 +90,7 @@ private val tabItems =
 fun MainScreen(
     onNavigateMap: () -> Unit,
     onSetMode: (String) -> Unit,
+    onNavigateAppSetting: () -> Unit,
 ) = trace("MainScreen") {
     val pagerState = rememberPagerState { tabItems.size }
     Column {
@@ -101,6 +100,7 @@ fun MainScreen(
         )
         PagerContent(
             state = pagerState,
+            onNavigateAppSetting = onNavigateAppSetting,
             onNavigateMap = onNavigateMap,
         )
     }
@@ -140,6 +140,7 @@ fun TabBarLayout(
 fun PagerContent(
     state: PagerState,
     onNavigateMap: () -> Unit,
+    onNavigateAppSetting: () -> Unit,
     paddingValues: PaddingValues = PaddingValues(horizontal = space8, vertical = space4),
 ) = trace("PagerContent") {
     val context = LocalContext.current
@@ -152,7 +153,7 @@ fun PagerContent(
             4 -> SettingScreen(
                 onScreenAction = { action ->
                     when (action) {
-                        AppSetting -> {
+                        ScreenAction.Homepage -> {
                             context.startActivity(
                                 Intent(
                                     Intent.ACTION_VIEW,
@@ -160,9 +161,8 @@ fun PagerContent(
                                 ),
                             )
                         }
-
-                        Map -> onNavigateMap()
-                        Update -> {
+                        ScreenAction.Map -> onNavigateMap()
+                        ScreenAction.Update -> {
                             context.startActivity(
                                 Intent(
                                     Intent.ACTION_VIEW,
@@ -170,6 +170,7 @@ fun PagerContent(
                                 ),
                             )
                         }
+                        ScreenAction.AppSetting -> onNavigateAppSetting()
                         else -> Unit
                     }
                 },
@@ -186,6 +187,7 @@ fun PagerContent(
 private fun PreviewMainScreen() {
     MainScreen(
         onNavigateMap = {},
+        onNavigateAppSetting = {},
         onSetMode = {},
     )
 }

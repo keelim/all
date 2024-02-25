@@ -64,7 +64,7 @@ fun SettingScreen(
             Spacer(modifier = Modifier.height(space4))
             HorizontalDivider(
                 thickness = 1.dp,
-                color = Color.DarkGray
+                color = Color.DarkGray,
             )
             Spacer(modifier = Modifier.height(space16))
             Text(
@@ -77,7 +77,7 @@ fun SettingScreen(
             Spacer(modifier = Modifier.height(space4))
             HorizontalDivider(
                 thickness = 1.dp,
-                color = Color.DarkGray
+                color = Color.DarkGray,
             )
             Spacer(modifier = Modifier.height(space16))
             Text(
@@ -90,7 +90,7 @@ fun SettingScreen(
             Spacer(modifier = Modifier.height(space4))
             HorizontalDivider(
                 thickness = 1.dp,
-                color = Color.DarkGray
+                color = Color.DarkGray,
             )
             Spacer(modifier = Modifier.height(space8))
             Text(
@@ -151,7 +151,7 @@ fun DeveloperOptionPart(
     Spacer(modifier = modifier.height(space4))
     HorizontalDivider(
         thickness = 1.dp,
-        color = Color.DarkGray
+        color = Color.DarkGray,
     )
 }
 

@@ -9,15 +9,16 @@ enum class OverlappingState {
     Normal,
     Quarter,
     Half,
-    Full
+    Full,
 }
+
 @Composable
 fun OverlappingRow(
     content: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     overlappingState: OverlappingState = OverlappingState.Normal,
 ) {
-    val factor = when(overlappingState) {
+    val factor = when (overlappingState) {
         OverlappingState.Normal -> 0.8f
         OverlappingState.Quarter -> 0.75f
         OverlappingState.Half -> 0.5f
@@ -39,7 +40,7 @@ fun OverlappingRow(
                     x += (placeable.width * factor).toInt()
                 }
             }
-        }
+        },
     )
 }
 
@@ -49,6 +50,6 @@ fun PreviewOverlappingRow() {
     OverlappingRow(
         content = {
             // Your content here
-        }
+        },
     )
 }

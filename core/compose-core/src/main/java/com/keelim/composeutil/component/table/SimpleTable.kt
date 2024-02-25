@@ -84,7 +84,7 @@ private fun TableRow(
                 .height(1.dp)
                 .fillMaxHeight()
                 .fillMaxWidth(),
-            color = Color.LightGray
+            color = Color.LightGray,
         )
     }
 }

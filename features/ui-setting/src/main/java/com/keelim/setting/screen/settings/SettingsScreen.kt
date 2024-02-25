@@ -73,7 +73,7 @@ fun SettingsRoute(
         onNotificationsClick = onNotificationsClick,
         onOpenSourceClick = onOpenSourceClick,
         onLabClick = onLabClick,
-        onAppUpdateClick = onAppUpdateClick
+        onAppUpdateClick = onAppUpdateClick,
     )
 }
 
@@ -88,15 +88,15 @@ fun SettingsScreen(
     val listState = rememberLazyListState()
     val hasScrolled by remember { derivedStateOf { listState.firstVisibleItemScrollOffset > 0 } }
     val appBarElevation by
-    animateDpAsState(
-        targetValue =
-        if (hasScrolled) {
-            4.dp
-        } else {
-            0.dp
-        },
-        label = "",
-    )
+        animateDpAsState(
+            targetValue =
+            if (hasScrolled) {
+                4.dp
+            } else {
+                0.dp
+            },
+            label = "",
+        )
     val onBackPressedDispatcher =
         checkNotNull(LocalOnBackPressedDispatcherOwner.current) { "this is not null" }
             .onBackPressedDispatcher
@@ -157,7 +157,7 @@ fun SettingsScreen(
                 CategoryItem(
                     title = "앱 업데이트",
                     icon = Icons.Outlined.DesignServices,
-                    onClick = onAppUpdateClick
+                    onClick = onAppUpdateClick,
                 )
             }
             item {

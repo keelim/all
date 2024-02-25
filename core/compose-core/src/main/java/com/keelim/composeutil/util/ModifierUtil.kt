@@ -77,3 +77,27 @@ fun Modifier.onTouchHeldAnimated(
         }
     }
 }
+
+
+inline fun Modifier.conditional(
+    condition: Boolean,
+    ifTrue: Modifier.() -> Modifier,
+    ifFalse: Modifier.() -> Modifier = { this },
+): Modifier = if (condition) {
+    then(ifTrue(Modifier))
+} else {
+    then(ifFalse(Modifier))
+}
+
+
+inline fun <T> Modifier.conditional(
+    condition: T?,
+    ifNotNull: Modifier.(T) -> Modifier,
+    ifNull: Modifier.() -> Modifier = { this },
+): Modifier {
+    return if (condition != null) {
+        then(ifNotNull(Modifier, condition))
+    } else {
+        then(ifNull(Modifier))
+    }
+}

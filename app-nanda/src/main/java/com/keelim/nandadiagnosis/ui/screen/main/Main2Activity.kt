@@ -33,9 +33,9 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.keelim.common.extensions.toast
 import com.keelim.commonAndroid.core.AppMainDelegator
 import com.keelim.commonAndroid.core.AppMainViewModel
+import com.keelim.commonAndroid.util.DownloadReceiver
 import com.keelim.composeutil.setThemeContent
 import com.keelim.nandadiagnosis.R
-import com.keelim.commonAndroid.util.DownloadReceiver
 import com.keelim.nandadiagnosis.ui.screen.NandaApp
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber

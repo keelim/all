@@ -1,5 +1,4 @@
 import com.android.build.api.dsl.ApplicationExtension
-import com.dropbox.gradle.plugins.dependencyguard.DependencyGuardPluginExtension
 import com.keelim.builds.configureDependencyGuard
 import com.keelim.builds.configureKotlinAndroid
 import com.keelim.builds.libs

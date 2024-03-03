@@ -1,7 +1,7 @@
 package com.keelim.builds
 
 import com.android.build.api.variant.AndroidComponentsExtension
-import java.util.*
+import java.util.Locale
 import org.gradle.api.Project
 import org.gradle.api.tasks.testing.Test
 import org.gradle.kotlin.dsl.configure
@@ -34,30 +34,24 @@ internal fun Project.configureJacoco(
 
     androidComponentsExtension.onVariants { variant ->
         val testTaskName = "test${variant.name.capitalize()}UnitTest"
+        val buildDir = layout.buildDirectory.get().asFile
+        val reportTask = tasks.register("jacoco${testTaskName.capitalize()}Report", JacocoReport::class) {
+            dependsOn(testTaskName)
 
-        val reportTask =
-            tasks.register("jacoco${testTaskName.capitalize()}Report", JacocoReport::class) {
-                dependsOn(testTaskName)
-
-                reports {
-                    xml.required.set(true)
-                    html.required.set(true)
-                }
-
-                classDirectories.setFrom(
-                    fileTree("$buildDir/tmp/kotlin-classes/${variant.name}") {
-                        exclude(coverageExclusions)
-                    }
-                )
-
-                sourceDirectories.setFrom(
-                    files(
-                        "$projectDir/src/main/java",
-                        "$projectDir/src/main/kotlin"
-                    )
-                )
-                executionData.setFrom(file("$buildDir/jacoco/$testTaskName.exec"))
+            reports {
+                xml.required.set(true)
+                html.required.set(true)
             }
+
+            classDirectories.setFrom(
+                fileTree("$buildDir/tmp/kotlin-classes/${variant.name}") {
+                    exclude(coverageExclusions)
+                }
+            )
+
+            sourceDirectories.setFrom(files("$projectDir/src/main/java"))
+            executionData.setFrom(file("$buildDir/jacoco/$testTaskName.exec"))
+        }
 
         jacocoTestReport.dependsOn(reportTask)
     }

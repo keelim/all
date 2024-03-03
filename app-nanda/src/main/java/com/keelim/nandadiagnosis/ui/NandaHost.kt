@@ -68,6 +68,14 @@ fun NandaHost(
                 context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
             },
             onLabClick = navController::navigateLab,
+            onAppUpdateClick = {
+                context.startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("https://play.google.com/store/apps/details?id=${context.packageName}"),
+                    ),
+                )
+            },
             nestedGraphs = {
                 notificationScreen()
                 labScreen()

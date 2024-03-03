@@ -21,8 +21,8 @@ import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Build
-import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material.icons.rounded.Create
@@ -372,7 +372,7 @@ fun PreviewScoreTextRow() {
 }
 
 data class History(
-    override val imageVector: ImageVector = Icons.Filled.List,
+    override val imageVector: ImageVector = Icons.AutoMirrored.Filled.List,
     override val label: String = "히스토리 확인",
 ) : FabButtonItem
 

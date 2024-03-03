@@ -3,7 +3,6 @@ package com.keelim.data.source.firebase
 import com.google.firebase.Firebase
 import com.google.firebase.database.Logger
 import com.google.firebase.database.database
-import com.google.firebase.database.getValue
 import com.keelim.data.BuildConfig
 import com.keelim.data.di.IoDispatcher
 import com.keelim.data.model.EcoCalEntry

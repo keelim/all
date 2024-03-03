@@ -3,6 +3,7 @@ package com.keelim.commonAndroid.di
 import android.content.Context
 import com.keelim.commonAndroid.model.AppInfo
 import com.keelim.commonAndroid.util.ApplicationMonitor
+import com.keelim.commonAndroid.util.DownloadReceiver
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,5 +29,13 @@ object ApplicationModule {
         appInfo: AppInfo,
     ): ApplicationMonitor = ApplicationMonitor(
         appInfo,
+    )
+
+    @Provides
+    @Singleton
+    fun providesDownloadReceiver(
+        @ApplicationContext context: Context,
+    ): DownloadReceiver = DownloadReceiver(
+        context,
     )
 }

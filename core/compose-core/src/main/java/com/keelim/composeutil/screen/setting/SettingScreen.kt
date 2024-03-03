@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -62,9 +62,9 @@ fun SettingScreen(
                 style = MaterialTheme.typography.titleSmall,
             )
             Spacer(modifier = Modifier.height(space4))
-            Divider(
-                color = Color.DarkGray,
+            HorizontalDivider(
                 thickness = 1.dp,
+                color = Color.DarkGray,
             )
             Spacer(modifier = Modifier.height(space16))
             Text(
@@ -75,9 +75,9 @@ fun SettingScreen(
                 style = MaterialTheme.typography.titleSmall,
             )
             Spacer(modifier = Modifier.height(space4))
-            Divider(
-                color = Color.DarkGray,
+            HorizontalDivider(
                 thickness = 1.dp,
+                color = Color.DarkGray,
             )
             Spacer(modifier = Modifier.height(space16))
             Text(
@@ -88,9 +88,9 @@ fun SettingScreen(
                 style = MaterialTheme.typography.titleSmall,
             )
             Spacer(modifier = Modifier.height(space4))
-            Divider(
-                color = Color.DarkGray,
+            HorizontalDivider(
                 thickness = 1.dp,
+                color = Color.DarkGray,
             )
             Spacer(modifier = Modifier.height(space8))
             Text(
@@ -149,9 +149,9 @@ fun DeveloperOptionPart(
         color = Color.Gray,
     )
     Spacer(modifier = modifier.height(space4))
-    Divider(
-        color = Color.DarkGray,
+    HorizontalDivider(
         thickness = 1.dp,
+        color = Color.DarkGray,
     )
 }
 

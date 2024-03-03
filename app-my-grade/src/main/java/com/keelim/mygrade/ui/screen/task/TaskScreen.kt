@@ -2,13 +2,13 @@
 
 package com.keelim.mygrade.ui.screen.task
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateRectAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -16,30 +16,20 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Checkbox
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Rect
@@ -56,8 +46,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.commonAndroid.model.SealedUiState
 import com.keelim.composeutil.component.layout.EmptyView
+import com.keelim.composeutil.component.layout.Loading
 import com.keelim.composeutil.resource.space16
-import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
 import com.keelim.data.source.local.LocalTask
 
@@ -83,58 +73,15 @@ fun TaskScreen(
     onEditTask: (LocalTask) -> Unit,
     onDeleteTask: (LocalTask) -> Unit,
 ) = trace("TaskScreen") {
-    when (state) {
-        SealedUiState.Loading,
-        is SealedUiState.Error,
-        -> EmptyView()
-
-        is SealedUiState.Success<List<TaskElement>> -> {
-            val (showDialog, setShowDialog) = rememberSaveable { mutableStateOf(false) }
-            var deleteTask by rememberSaveable { mutableStateOf<LocalTask?>(null) }
-            Scaffold(
-                topBar = {
-                    TopAppBar(
-                        title = { Text(text = "MyGrade") },
-                        actions = {
-                            IconButton(onClick = onAddLocalTask) {
-                                Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                            }
-                        },
-                    )
-                },
-                floatingActionButton = {
-                    Column(verticalArrangement = Arrangement.spacedBy(space4)) {
-                        FloatingActionButton(onClick = onNavigateChart) {
-                            Icon(
-                                imageVector = Icons.Filled.CheckCircle,
-                                contentDescription = null,
-                            )
-                        }
-                        SmallFloatingActionButton(onClick = onClear) {
-                            Icon(
-                                imageVector = Icons.Filled.Clear,
-                                contentDescription = null,
-                            )
-                        }
-                    }
-                },
-            ) { paddingValues ->
-                LocalTaskList(
-                    state = state,
-                    onChange = onEditTask,
-                    onDelete = {
-                        deleteTask = it
-                        setShowDialog(true)
-                    },
-                    modifier = Modifier.padding(paddingValues),
-                )
-                if (showDialog) {
-                    DeleteDialog(
-                        setShowDialog = setShowDialog,
-                        onConfirm = { deleteTask?.also(onDeleteTask) },
-                    )
-                }
-            }
+    AnimatedContent(
+        targetState = state,
+        label = "",
+        contentKey = { state },
+    ) { targetState ->
+        when (targetState) {
+            SealedUiState.Loading -> Loading()
+            is SealedUiState.Error -> EmptyView()
+            is SealedUiState.Success<List<TaskElement>> -> TaskSuccessSection(targetState, onAddLocalTask, onNavigateChart, onClear, onEditTask, onDeleteTask)
         }
     }
 }
@@ -167,7 +114,7 @@ fun LocalTaskList(
             remember(items) {
                 derivedStateOf {
                     items
-                        .filterIsInstance(TaskElement.Header::class.java)
+                        .filterIsInstance<TaskElement.Header>()
                         .takeIf { it.size >= 2 }
                         ?.let { 1 } ?: 0
                 }

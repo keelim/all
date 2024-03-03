@@ -37,13 +37,12 @@ import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
 import com.keelim.common.extensions.toast
+import com.keelim.commonAndroid.util.DownloadReceiver
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.di.DownloadReceiver
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
-import kotlinx.coroutines.delay
 import java.io.File
-import java.util.*
+import java.util.UUID
 import java.util.concurrent.TimeUnit
 
 @HiltWorker
@@ -55,7 +54,6 @@ class DownloadWorker @AssistedInject constructor(
     override suspend fun doWork(): Result {
         return try {
             setForeground(createForegroundInfo())
-            delay(500)
             (context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager).run {
                 enqueue(
                     DownloadManager.Request(Uri.parse(applicationContext.getString(R.string.db_path)))

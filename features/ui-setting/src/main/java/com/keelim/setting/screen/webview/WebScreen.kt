@@ -12,8 +12,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.material.icons.rounded.ArrowForward
+import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.automirrored.rounded.ArrowForward
 import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
@@ -105,7 +105,7 @@ fun WebViewNavigationBar(onBackwardClick: () -> Unit, onForwardClick: () -> Unit
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
-            imageVector = Icons.Rounded.ArrowBack,
+            imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
             contentDescription = null,
             modifier =
             Modifier
@@ -115,7 +115,7 @@ fun WebViewNavigationBar(onBackwardClick: () -> Unit, onForwardClick: () -> Unit
         )
         Spacer(Modifier.width(10.dp))
         Icon(
-            imageVector = Icons.Rounded.ArrowForward,
+            imageVector = Icons.AutoMirrored.Rounded.ArrowForward,
             contentDescription = null,
             modifier =
             Modifier

@@ -1,9 +1,6 @@
-@file:OptIn(ExperimentalLayoutApi::class)
-
 package com.keelim.nandadiagnosis.ui.screen
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets

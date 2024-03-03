@@ -3,7 +3,6 @@
 package com.keelim.comssa.ui.screen.main
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
@@ -16,7 +15,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setThemeContent {
             ComssaApp(
                 windowSizeClass = calculateWindowSizeClass(this),

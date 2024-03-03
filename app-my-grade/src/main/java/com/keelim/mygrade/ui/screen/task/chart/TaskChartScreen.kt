@@ -1,12 +1,11 @@
 package com.keelim.mygrade.ui.screen.task.chart
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -20,16 +19,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.util.fastForEach
 import androidx.compose.ui.util.trace
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.commonAndroid.model.SealedUiState
-import com.keelim.composeutil.component.canvas.chart.PieChart
 import com.keelim.composeutil.component.canvas.chart.PieChartEntry
 import com.keelim.composeutil.component.layout.EmptyView
-import com.keelim.composeutil.resource.space12
-import com.keelim.composeutil.resource.space24
+import com.keelim.composeutil.component.layout.Loading
 import com.keelim.composeutil.util.randomColor
 
 @Composable
@@ -46,43 +42,14 @@ fun TaskChartRoute(
 fun TaskChartScreen(
     state: SealedUiState<List<PieChartEntry>>,
 ) = trace("TaskChartScreen") {
-    when (state) {
-        is SealedUiState.Error, SealedUiState.Loading -> EmptyView()
-        is SealedUiState.Success -> TaskChartSuccessSection(state.value)
-    }
-}
-
-@Composable
-fun TaskChartSuccessSection(
-    entries: List<PieChartEntry>,
-) = trace("TaskChartSuccessSection") {
-    Column(
-        modifier = Modifier.padding(
-            vertical = space12,
-        ),
-    ) {
-        Text(
-            modifier = Modifier.padding(start = 15.dp),
-            text = "Task percentage",
-            style = MaterialTheme.typography.titleLarge,
-        )
-        Spacer(
-            modifier = Modifier.height(space24),
-        )
-        PieChart(
-            entries = entries,
-            radiusOuter = 150.dp,
-            chartBarWidth = 20.dp,
-            duration = 2000,
-        )
-        Spacer(
-            modifier = Modifier.height(space24),
-        )
-        entries.fastForEach { entry ->
-            TaskChartDetailEntry(
-                title = entry.name,
-                color = entry.color,
-            )
+    AnimatedContent(
+        targetState = state,
+        label = "",
+    ) { targetState ->
+        when (targetState) {
+            SealedUiState.Loading -> Loading()
+            is SealedUiState.Error -> EmptyView()
+            is SealedUiState.Success -> TaskChartSuccessSection(targetState.value)
         }
     }
 }

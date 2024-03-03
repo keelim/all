@@ -2,6 +2,7 @@
 
 package com.keelim.mygrade.ui.screen.grade.notes
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -56,16 +57,21 @@ fun NotesScreen(
     uiState: SealedUiState<List<Notices>>,
     onDeleteClick: (Notices) -> Unit,
 ) = trace("NotesScreen") {
-    when (uiState) {
-        is SealedUiState.Error -> EmptyView()
-        SealedUiState.Loading -> Loading()
-        is SealedUiState.Success -> if (uiState.value.isEmpty()) {
-            EmptyView()
-        } else {
-            NoteSuccessSection(
-                uiState = uiState,
-                onDeleteClick = onDeleteClick,
-            )
+    AnimatedContent(
+        targetState = uiState,
+        label = "",
+    ) { targetState ->
+        when (targetState) {
+            is SealedUiState.Error -> EmptyView()
+            SealedUiState.Loading -> Loading()
+            is SealedUiState.Success -> if (targetState.value.isEmpty()) {
+                EmptyView()
+            } else {
+                NoteSuccessSection(
+                    uiState = targetState,
+                    onDeleteClick = onDeleteClick,
+                )
+            }
         }
     }
 }

@@ -17,10 +17,6 @@ package com.keelim.cnubus.ui.screen.setting
 
 enum class ScreenAction {
     AppSetting,
-    Content,
     Homepage,
     Map,
-    Subway,
-    Theme,
-    Update,
 }

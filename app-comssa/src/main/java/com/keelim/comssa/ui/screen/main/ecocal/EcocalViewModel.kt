@@ -29,7 +29,12 @@ class EcocalViewModel @Inject constructor(
         .mapLatest { result ->
             Timber.d("result $result")
             result.getOrThrow()
-        }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), emptyList())
+        }
+        .catch { throwable ->
+            Timber.e(throwable)
+            emitAll(emptyFlow())
+        }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), emptyList())
 
     private val filter = MutableStateFlow<FabButtonItem>(All())
     val items = combine(ref, filter) { data, filter ->

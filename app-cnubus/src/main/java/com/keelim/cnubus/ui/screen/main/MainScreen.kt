@@ -1,6 +1,4 @@
-@file:OptIn(
-    ExperimentalFoundationApi::class,
-)
+@file:OptIn(ExperimentalFoundationApi::class)
 
 package com.keelim.cnubus.ui.screen.main
 
@@ -32,9 +30,7 @@ import androidx.compose.ui.util.trace
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.keelim.cnubus.ui.screen.root.RootRoute
 import com.keelim.cnubus.ui.screen.root.RootViewModel
-import com.keelim.cnubus.ui.screen.setting.ScreenAction.AppSetting
-import com.keelim.cnubus.ui.screen.setting.ScreenAction.Map
-import com.keelim.cnubus.ui.screen.setting.ScreenAction.Update
+import com.keelim.cnubus.ui.screen.setting.ScreenAction
 import com.keelim.cnubus.ui.screen.setting.SettingScreen
 import com.keelim.common.extensions.toast
 import com.keelim.composeutil.resource.space4
@@ -52,6 +48,7 @@ private val appPermissions: List<String> = buildList {
 @Composable
 fun MainRoute(
     onNavigateMap: () -> Unit,
+    onNavigateAppSetting: () -> Unit,
     viewModel: RootViewModel = hiltViewModel(),
 ) = trace("MainRoute") {
     val context = LocalContext.current
@@ -70,6 +67,7 @@ fun MainRoute(
     MainScreen(
         onNavigateMap = onNavigateMap,
         onSetMode = viewModel::setMode,
+        onNavigateAppSetting = onNavigateAppSetting,
     )
 }
 
@@ -92,6 +90,7 @@ private val tabItems =
 fun MainScreen(
     onNavigateMap: () -> Unit,
     onSetMode: (String) -> Unit,
+    onNavigateAppSetting: () -> Unit,
 ) = trace("MainScreen") {
     val pagerState = rememberPagerState { tabItems.size }
     Column {
@@ -101,6 +100,7 @@ fun MainScreen(
         )
         PagerContent(
             state = pagerState,
+            onNavigateAppSetting = onNavigateAppSetting,
             onNavigateMap = onNavigateMap,
         )
     }
@@ -140,6 +140,7 @@ fun TabBarLayout(
 fun PagerContent(
     state: PagerState,
     onNavigateMap: () -> Unit,
+    onNavigateAppSetting: () -> Unit,
     paddingValues: PaddingValues = PaddingValues(horizontal = space8, vertical = space4),
 ) = trace("PagerContent") {
     val context = LocalContext.current
@@ -149,52 +150,25 @@ fun PagerContent(
         contentPadding = paddingValues,
     ) { index ->
         when (index) {
-            0 -> {
-                RootRoute(
-                    onRootClick = {},
-                )
-            }
-            1 -> {
-                RootRoute(
-                    onRootClick = {},
-                )
-            }
-            2 -> {
-                RootRoute(
-                    onRootClick = {},
-                )
-            }
-            3 -> {
-                RootRoute(
-                    onRootClick = {},
-                )
-            }
-            4 -> {
-                SettingScreen(
-                    onScreenAction = { action ->
-                        when (action) {
-                            AppSetting -> {
-                                context.startActivity(
-                                    Intent(
-                                        Intent.ACTION_VIEW,
-                                        Uri.parse("https://plus.cnu.ac.kr/html/kr/sub05/sub05_050403.html"),
-                                    ),
-                                )
-                            }
-                            Map -> onNavigateMap()
-                            Update -> {
-                                context.startActivity(
-                                    Intent(
-                                        Intent.ACTION_VIEW,
-                                        Uri.parse("https://play.google.com/store/apps/details?id=com.keelim.cnubus"),
-                                    ),
-                                )
-                            }
-                            else -> Unit
+            4 -> SettingScreen(
+                onScreenAction = { action ->
+                    when (action) {
+                        ScreenAction.Homepage -> {
+                            context.startActivity(
+                                Intent(
+                                    Intent.ACTION_VIEW,
+                                    Uri.parse("https://plus.cnu.ac.kr/html/kr/sub05/sub05_050403.html"),
+                                ),
+                            )
                         }
-                    },
-                )
-            }
+                        ScreenAction.Map -> onNavigateMap()
+                        ScreenAction.AppSetting -> onNavigateAppSetting()
+                    }
+                },
+            )
+            else -> RootRoute(
+                onRootClick = {},
+            )
         }
     }
 }
@@ -204,6 +178,7 @@ fun PagerContent(
 private fun PreviewMainScreen() {
     MainScreen(
         onNavigateMap = {},
+        onNavigateAppSetting = {},
         onSetMode = {},
     )
 }

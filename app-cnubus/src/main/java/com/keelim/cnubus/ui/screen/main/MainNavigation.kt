@@ -12,6 +12,7 @@ fun NavController.navigateMain(navOptions: NavOptions? = null) {
 
 fun NavGraphBuilder.mainScreen(
     onNavigateMap: () -> Unit,
+    onNavigateAppSetting: () -> Unit,
     nestedGraphs: NavGraphBuilder.() -> Unit,
 ) {
     composable(
@@ -19,6 +20,7 @@ fun NavGraphBuilder.mainScreen(
     ) {
         MainRoute(
             onNavigateMap = onNavigateMap,
+            onNavigateAppSetting = onNavigateAppSetting,
         )
     }
     nestedGraphs()

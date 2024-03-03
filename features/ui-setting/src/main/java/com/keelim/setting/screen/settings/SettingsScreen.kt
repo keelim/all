@@ -20,11 +20,12 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.List
+import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.outlined.Build
-import androidx.compose.material.icons.outlined.List
+import androidx.compose.material.icons.outlined.DesignServices
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Notifications
-import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -63,6 +64,7 @@ fun SettingsRoute(
     onNotificationsClick: () -> Unit,
     onOpenSourceClick: () -> Unit,
     onLabClick: () -> Unit,
+    onAppUpdateClick: () -> Unit,
     viewModel: SettingsViewModel = hiltViewModel(),
 ) {
     val deviceInfo by viewModel.deviceInfo.collectAsStateWithLifecycle()
@@ -71,6 +73,7 @@ fun SettingsRoute(
         onNotificationsClick = onNotificationsClick,
         onOpenSourceClick = onOpenSourceClick,
         onLabClick = onLabClick,
+        onAppUpdateClick = onAppUpdateClick,
     )
 }
 
@@ -80,6 +83,7 @@ fun SettingsScreen(
     onNotificationsClick: () -> Unit,
     onOpenSourceClick: () -> Unit,
     onLabClick: () -> Unit,
+    onAppUpdateClick: () -> Unit,
 ) {
     val listState = rememberLazyListState()
     val hasScrolled by remember { derivedStateOf { listState.firstVisibleItemScrollOffset > 0 } }
@@ -116,7 +120,7 @@ fun SettingsScreen(
                 title = { Text(text = "Settings") },
                 navigationIcon = {
                     IconButton(onClick = { onBackPressedDispatcher.onBackPressed() }) {
-                        Icon(Icons.Rounded.ArrowBack, contentDescription = "Go back")
+                        Icon(Icons.AutoMirrored.Rounded.ArrowBack, contentDescription = "Go back")
                     }
                 },
                 actions = {},
@@ -138,7 +142,7 @@ fun SettingsScreen(
             item {
                 CategoryItem(
                     title = "OpenSource",
-                    icon = Icons.Outlined.List,
+                    icon = Icons.AutoMirrored.Outlined.List,
                     onClick = onOpenSourceClick,
                 )
             }
@@ -147,6 +151,13 @@ fun SettingsScreen(
                     title = "실험실",
                     icon = Icons.Outlined.Lock,
                     onClick = onLabClick,
+                )
+            }
+            item {
+                CategoryItem(
+                    title = "앱 업데이트",
+                    icon = Icons.Outlined.DesignServices,
+                    onClick = onAppUpdateClick,
                 )
             }
             item {
@@ -195,6 +206,7 @@ private fun PreviewSettingsScreen() {
         onNotificationsClick = {},
         onOpenSourceClick = {},
         onLabClick = {},
+        onAppUpdateClick = {},
     )
 }
 

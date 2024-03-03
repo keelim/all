@@ -16,8 +16,8 @@
 package com.keelim.data.network
 
 import com.keelim.data.model.Books
-import com.keelim.data.model.NandaResponse
-import com.keelim.data.model.NandasResponse
+import com.keelim.model.NandaResponse
+import com.keelim.model.NandasResponse
 import com.keelim.data.model.entity.NandaEntity2
 import okhttp3.ResponseBody
 import retrofit2.Response

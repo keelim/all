@@ -1,6 +1,6 @@
 package com.keelim.data.source.firebase
 
-import com.keelim.data.model.EcoCalEntry
+import com.keelim.model.EcoCalEntry
 import kotlinx.coroutines.flow.Flow
 
 interface FirebaseRepository {

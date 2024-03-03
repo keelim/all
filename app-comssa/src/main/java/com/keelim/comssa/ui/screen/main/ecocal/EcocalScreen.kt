@@ -27,7 +27,7 @@ import com.keelim.composeutil.component.fab.FabButtonSub
 import com.keelim.composeutil.component.fab.MultiMainFab
 import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
-import com.keelim.data.model.EcoCalEntry
+import com.keelim.model.EcoCalEntry
 import kotlinx.coroutines.launch
 import timber.log.Timber
 

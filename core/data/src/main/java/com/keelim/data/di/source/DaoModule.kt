@@ -9,7 +9,6 @@ import com.keelim.data.db.dao.HistoryDao
 import com.keelim.data.db.dao.NandaDao
 import com.keelim.data.db.dao.NetworkCacheDao
 import com.keelim.data.db.dao.NoteDao
-import com.keelim.data.db.dao.StationDao
 import com.keelim.data.db.dao.TaskDao
 import com.keelim.data.db.dao.TimerHistoryDao
 import dagger.Module
@@ -51,12 +50,6 @@ object DaoModule {
     fun providesNandaDao(
         database: NandaAppDatabase,
     ): NandaDao = database.dataDao()
-
-    @Provides
-    @Singleton
-    fun providesStationDao(
-        database: CnuAppDatabase,
-    ): StationDao = database.daoStation()
 
     @Provides
     @Singleton

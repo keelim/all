@@ -19,6 +19,7 @@ import com.keelim.data.db.NandaAppDatabase
 import com.keelim.data.di.IoDispatcher
 import com.keelim.data.model.entity.NandaEntity
 import com.keelim.data.model.entity.NandaEntity2
+import com.keelim.data.model.toEntity
 import com.keelim.data.network.TargetService
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow

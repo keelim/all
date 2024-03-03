@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.data.model.entity
+package com.keelim.model
 
-import androidx.room.Entity
-
-@Entity(primaryKeys = ["stationName", "subwayId"])
-data class StationSubwayCrossRefEntity(
-    val stationName: String,
-    val subwayId: Int,
+data class File(
+    val id: String,
+    val name: String,
+    val type: String,
+    val url: String,
+    var downloadedUri: String? = null,
+    var isDownloading: Boolean = false,
 )

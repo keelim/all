@@ -22,7 +22,8 @@ plugins {
 android { namespace = "com.keelim.data" }
 
 dependencies {
-    implementation(projects.core.common)
+    api(projects.core.common)
+    api(projects.core.model)
 
     implementation(libs.androidx.dataStore.core)
     implementation(libs.androidx.dataStore.preferences)

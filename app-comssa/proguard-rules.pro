@@ -14,6 +14,6 @@
 
 # This rule will properly ProGuard all the model classes in
 # Modify this rule to fit the structure of your app.
--keepclassmembers class com.keelim.data.model.EcoCalEntry {
+-keepclassmembers class com.keelim.model.EcoCalEntry {
   *;
 }

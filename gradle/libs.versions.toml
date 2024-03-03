@@ -6,6 +6,7 @@ targetSdk = "34"
 versionCode = "20240226"
 # library
 accompanist = "0.34.0"
+adaptive-navigation-suite = "1.0.0-alpha04"
 androidDesugarJdkLibs = "2.0.4"
 androidGradlePlugin = "8.2.2"
 androidxActivity = "1.8.2"
@@ -15,7 +16,6 @@ androidxComposeCompiler = "1.5.8"
 androidxComposeRuntimeTracing = "1.0.0-beta01"
 androidxCore = "1.12.0"
 androidxCoreSplashscreen = "1.0.1"
-adaptive-navigation-suite = "1.0.0-alpha04"
 androidxDataStore = "1.0.0"
 androidxEspresso = "3.5.1"
 androidxFragment = "1.6.2"
@@ -39,6 +39,7 @@ arrow = "1.2.3"
 bio = "1.1.0"
 coil = "2.6.0"
 deeplinkdispatch = "6.2.2"
+dependencyGuard = "0.5.0"
 emoji2-emojipicker = "1.4.0"
 errorprone = "2.25.0"
 firebase = "32.7.3"
@@ -46,10 +47,10 @@ firebase-ui = "8.0.2"
 firebaseCrashlyticsPlugin = "2.9.9"
 firebasePerfPlugin = "1.4.2"
 flipper = "0.247.0"
+generativeai = "0.2.1"
 glance = "1.0.0"
 hilt = "2.51"
 hiltExt = "1.2.0"
-
 in-app-update = "2.1.0"
 jacoco = "0.8.7"
 junit4 = "4.13.2"
@@ -68,6 +69,7 @@ maps-compose = "4.3.3"
 material = "1.11.0"
 math3 = "3.6.1"
 modernstorageBom = "1.0.0-alpha06"
+moduleGraphAssertion = "2.5.0"
 okhttp = "4.12.0"
 okio = "3.8.0"
 paging-compose = "3.2.1"
@@ -88,16 +90,14 @@ robolectric = "4.11.1"
 roborazzi = "1.10.1"
 room = "2.6.1"
 secrets = "2.0.1"
+showkase = "1.0.2"
+slackLintChecks = "0.7.0"
 soloader = "0.11.0"
+sqldelight = "2.0.1"
 themeAdapter = "1.2.1"
 timbers = "5.0.1"
 truth = "1.4.2"
 turbine = "1.0.0"
-slackLintChecks = "0.7.0"
-showkase = "1.0.2"
-sqldelight = "2.0.1"
-generativeai = "0.2.1"
-dependencyGuard = "0.5.0"
 
 [libraries]
 accompanist-flowlayout = { group = "com.google.accompanist", name = "accompanist-flowlayout", version.ref = "accompanist" }
@@ -283,8 +283,8 @@ sqldelight-coroutines = { module = "app.cash.sqldelight:coroutines-extensions", 
 sqldelight-native = { module = "app.cash.sqldelight:native-driver", version.ref = "sqldelight" }
 sqldelight-paging = { module = "app.cash.sqldelight:androidx-paging3-extensions", version.ref = "sqldelight" }
 sqldelight-primitive = { module = "app.cash.sqldelight:primitive-adapters", version.ref = "sqldelight" }
-sqldelight-web-worker = {module = "app.cash.sqldelight:web-worker-driver", version.ref = "sqldelight" }
 sqldelight-sqlite = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqldelight" }
+sqldelight-web-worker = {module = "app.cash.sqldelight:web-worker-driver", version.ref = "sqldelight" }
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timbers" }
 truth = { module = "com.google.truth:truth", version.ref = "truth" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
@@ -360,6 +360,7 @@ kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+moduleGraphAssertion = { id = "com.jraska.module.graph.assertion", version.ref = "moduleGraphAssertion" }
 protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
 room = { id = "androidx.room", version.ref = "room" }
 secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secrets" }

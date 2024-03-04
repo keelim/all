@@ -18,12 +18,13 @@ plugins {
 //     }
 // }
 
-android { namespace = "com.keelim.data" }
+android { namespace = "com.keelim.core.data" }
 
 dependencies {
     api(projects.core.common)
-    api(projects.core.model)
     api(projects.core.database)
+    api(projects.core.model)
+    api(projects.core.network)
 
     implementation(libs.androidx.dataStore.core)
     implementation(libs.androidx.dataStore.preferences)
@@ -39,7 +40,6 @@ dependencies {
     implementation(platform(libs.okio.bom))
     implementation(libs.okio)
     implementation(libs.play.services.maps)
-    implementation(libs.protobuf.kotlin.lite)
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.kotlin.serialization)
     implementation(libs.timber)

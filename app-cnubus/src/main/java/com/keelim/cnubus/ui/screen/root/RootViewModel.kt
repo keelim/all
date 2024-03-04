@@ -18,8 +18,8 @@ package com.keelim.cnubus.ui.screen.root
 import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.keelim.data.model.Location
-import com.keelim.data.model.locationList
+import com.keelim.core.data.model.Location
+import com.keelim.core.data.model.locationList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted

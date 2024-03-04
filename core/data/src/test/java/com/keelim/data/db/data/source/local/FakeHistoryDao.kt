@@ -1,5 +1,6 @@
 package com.keelim.data.db.data.source.local
 
+import com.keelim.core.database.dao.HistoryDao
 import com.keelim.core.database.model.History
 import com.keelim.core.database.model.SimpleHistory
 import kotlinx.coroutines.flow.Flow
@@ -7,7 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flow
 
 class FakeHistoryDao(initialTasks: List<History>) :
-    com.keelim.core.database.dao.HistoryDao {
+    HistoryDao {
 
     private val _histories = initialTasks.toMutableList()
     private val historyStream = MutableStateFlow(_histories.toList())

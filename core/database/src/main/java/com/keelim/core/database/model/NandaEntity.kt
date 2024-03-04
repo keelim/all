@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.data.model.entity
+package com.keelim.core.database.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

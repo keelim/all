@@ -27,6 +27,7 @@ include(
     ":core:common-android",
     ":core:compose-core",
     ":core:data",
+    ":core:database",
     ":core:domain",
     ":core:model",
     ":core:testing",

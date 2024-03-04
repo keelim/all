@@ -9,9 +9,9 @@ import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 import io.ktor.client.request.url
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
 class NotificationRepositoryImpl
 @Inject
@@ -30,7 +30,13 @@ constructor(
                         .body()
                 }
                 .values
-                .map { (date, title, desc) -> Notification(date = date, title = title, desc = desc) }
+                .map { (date, title, desc) ->
+                    Notification(
+                        date = date,
+                        title = title,
+                        desc = desc
+                    )
+                }
         }
     }
 }

@@ -1,10 +1,12 @@
 package com.keelim.data.source
 
-import com.keelim.data.db.dao.TaskDao
+import com.keelim.core.database.dao.TaskDao
+import com.keelim.core.database.model.LocalTask
 import com.keelim.data.di.ApplicationScope
 import com.keelim.data.di.DefaultDispatcher
-import com.keelim.data.source.local.LocalTask
 import com.keelim.data.source.network.TaskNetworkDataSource
+import java.util.UUID
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -12,8 +14,6 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.datetime.Clock
-import java.util.*
-import javax.inject.Inject
 
 class DefaultTaskRepositoryImpl @Inject constructor(
     private val localDataSource: TaskDao,

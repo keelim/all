@@ -1,14 +1,15 @@
 package com.keelim.data.source.cache
 
-import com.keelim.data.db.dao.NetworkCacheDao
+import com.keelim.core.database.dao.NetworkCacheDao
+import com.keelim.core.database.model.NetworkCache
 import com.keelim.data.di.network.KtorNetworkModule
-import com.keelim.data.model.cache.NetworkCache
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
 import javax.inject.Inject
 
 const val CACHE_VALIDITY = 60000L
+
 class CacheRepositoryImpl @Inject constructor(
     val cacheDao: NetworkCacheDao,
     @KtorNetworkModule.KtorAndroidClient

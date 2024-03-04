@@ -15,9 +15,9 @@
  */
 package com.keelim.data.network.interceptor
 
+import javax.inject.Inject
 import okhttp3.Interceptor
 import okhttp3.Response
-import javax.inject.Inject
 
 class CacheInterceptor @Inject constructor() : Interceptor {
 

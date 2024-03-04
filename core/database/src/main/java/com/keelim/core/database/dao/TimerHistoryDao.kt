@@ -1,9 +1,9 @@
-package com.keelim.data.db.dao
+package com.keelim.core.database.dao
 
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Upsert
-import com.keelim.data.source.local.TimerHistory
+import com.keelim.core.database.model.TimerHistory
 import kotlinx.coroutines.flow.Flow
 
 @Dao

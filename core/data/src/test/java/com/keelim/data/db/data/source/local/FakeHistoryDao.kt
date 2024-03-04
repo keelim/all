@@ -1,21 +1,22 @@
 package com.keelim.data.db.data.source.local
 
-import com.keelim.data.db.dao.HistoryDao
-import com.keelim.data.source.local.History
-import com.keelim.data.source.local.SimpleHistory
+import com.keelim.core.database.model.History
+import com.keelim.core.database.model.SimpleHistory
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flow
 
-class FakeHistoryDao(initialTasks: List<History>) : HistoryDao {
+class FakeHistoryDao(initialTasks: List<History>) :
+    com.keelim.core.database.dao.HistoryDao {
 
     private val _histories = initialTasks.toMutableList()
     private val historyStream = MutableStateFlow(_histories.toList())
 
     override fun observeAll(): Flow<List<History>> = historyStream
-    override fun observeSimpleHistories(): Flow<List<SimpleHistory>> = flow {
-        TODO("Not yet implemented")
-    }
+    override fun observeSimpleHistories(): Flow<List<SimpleHistory>> =
+        flow {
+            TODO("Not yet implemented")
+        }
 
     override suspend fun upsert(history: History) {
         _histories.removeIf { it.uid == history.uid }
@@ -43,7 +44,10 @@ class FakeHistoryDao(initialTasks: List<History>) : HistoryDao {
         historyStream.emit(_histories)
     }
 
-    override suspend fun getPagingAll(page: Int, loadSize: Int): List<History> {
+    override suspend fun getPagingAll(
+        page: Int,
+        loadSize: Int
+    ): List<History> {
         return emptyList()
     }
 }

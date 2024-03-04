@@ -21,10 +21,10 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.OkHttpClient
-import retrofit2.Retrofit
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
+import okhttp3.OkHttpClient
+import retrofit2.Retrofit
 
 @Module
 @InstallIn(SingletonComponent::class)

@@ -1,6 +1,6 @@
 package com.keelim.domain.di
 
-import com.keelim.data.source.local.DataStoreManager
+import com.keelim.core.data.source.local.DataStoreManager
 import com.keelim.domain.ShowEventUseCase
 import dagger.Module
 import dagger.Provides

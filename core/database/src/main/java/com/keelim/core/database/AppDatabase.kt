@@ -33,6 +33,7 @@ internal class MyGradeTypeConverters {
     @TypeConverter
     fun dateToTimestamp(date: Date?): Long? = date?.time
 }
+
 @Database(
     entities = [
         History::class,
@@ -68,7 +69,6 @@ abstract class MyGradeAppDatabase : RoomDatabase() {
 abstract class NandaAppDatabase : RoomDatabase() {
     abstract fun dataDao(): NandaDao
 }
-
 
 @DeleteTable(tableName = "StationEntity")
 @DeleteTable(tableName = "SubwayEntity")

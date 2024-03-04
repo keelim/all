@@ -66,4 +66,3 @@ object DaoModule {
         database: MyGradeAppDatabase,
     ): NoteDao = database.noteDao()
 }
-

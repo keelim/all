@@ -1,9 +1,9 @@
 package com.keelim.domain
 
 import com.keelim.core.data.source.local.DataStoreManager
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.mapLatest
+import javax.inject.Inject
 
 class ShowEventUseCase @Inject constructor(
     private val dataStoreManager: DataStoreManager,

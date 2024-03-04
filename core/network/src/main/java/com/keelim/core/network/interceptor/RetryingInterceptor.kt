@@ -1,8 +1,8 @@
 package com.keelim.core.network.interceptor
 
-import javax.inject.Inject
 import okhttp3.Interceptor
 import okhttp3.Response
+import javax.inject.Inject
 
 class RetryingInterceptor @Inject constructor() : Interceptor {
 

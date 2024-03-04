@@ -41,11 +41,11 @@ import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.http.isSuccess
 import io.ktor.serialization.kotlinx.json.json
-import javax.inject.Qualifier
-import javax.inject.Singleton
 import kotlinx.serialization.json.Json
 import okhttp3.CertificatePinner
 import timber.log.Timber
+import javax.inject.Qualifier
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)

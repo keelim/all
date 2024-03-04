@@ -87,7 +87,6 @@ fun Modifier.onTouchHeldAnimated(
     }
 }
 
-
 inline fun Modifier.conditional(
     condition: Boolean,
     ifTrue: Modifier.() -> Modifier,
@@ -97,7 +96,6 @@ inline fun Modifier.conditional(
 } else {
     then(ifFalse(Modifier))
 }
-
 
 inline fun <T> Modifier.conditional(
     condition: T?,

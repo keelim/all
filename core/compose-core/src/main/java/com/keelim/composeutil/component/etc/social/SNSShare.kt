@@ -1,6 +1,5 @@
 package com.keelim.composeutil.component.etc.social
 
-
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -67,7 +66,7 @@ fun SocialShare(
     title: String,
     items: SocialItemHolder,
     modifier: Modifier = Modifier,
-    scaffoldState: BottomSheetScaffoldState = rememberBottomSheetScaffoldState()
+    scaffoldState: BottomSheetScaffoldState = rememberBottomSheetScaffoldState(),
 ) {
     BottomSheetScaffold(
         modifier = modifier,
@@ -75,16 +74,16 @@ fun SocialShare(
         sheetContent = {
             Column(
                 verticalArrangement = Arrangement.spacedBy(space12),
-                modifier = Modifier.padding(vertical = space24)
+                modifier = Modifier.padding(vertical = space24),
             ) {
                 Text(
                     text = title,
                     style = MaterialTheme.typography.titleLarge,
-                    modifier = Modifier.padding(horizontal = space24)
+                    modifier = Modifier.padding(horizontal = space24),
                 )
                 LazyRow(
                     contentPadding = PaddingValues(space16),
-                    horizontalArrangement = Arrangement.spacedBy(space24)
+                    horizontalArrangement = Arrangement.spacedBy(space24),
                 ) {
                     items(
                         items = items.mainItems,
@@ -99,11 +98,11 @@ fun SocialShare(
                     }
                 }
                 HorizontalDivider(
-                    modifier = Modifier.padding(horizontal = 8.dp)
+                    modifier = Modifier.padding(horizontal = 8.dp),
                 )
                 LazyRow(
                     contentPadding = PaddingValues(16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(24.dp)
+                    horizontalArrangement = Arrangement.spacedBy(24.dp),
                 ) {
                     items(
                         items = items.subItems,
@@ -123,7 +122,7 @@ fun SocialShare(
         Box(
             Modifier
                 .fillMaxSize()
-                .background(Color(0xFFBDBDBD))
+                .background(Color(0xFFBDBDBD)),
         )
     }
 }
@@ -140,15 +139,15 @@ fun LabeledIconButton(
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(space8)
+        verticalArrangement = Arrangement.spacedBy(space8),
     ) {
         FilledIconButton(
             onClick = onClick,
             modifier = Modifier.size(space64),
             colors = IconButtonDefaults.filledIconButtonColors(
                 containerColor = containerColor,
-                contentColor = contentColor
-            )
+                contentColor = contentColor,
+            ),
         ) {
             Icon(
                 imageVector = imageVector,
@@ -158,7 +157,6 @@ fun LabeledIconButton(
         Text(text = label, style = MaterialTheme.typography.labelSmall, maxLines = 1)
     }
 }
-
 
 @Preview
 @Composable
@@ -198,7 +196,7 @@ fun PreviewSocialShare() {
                     contentColor = randomColor(),
                     containerColor = randomColor(),
                     onClick = {},
-                )
+                ),
             ),
             subItems = listOf(
                 SocialItem(
@@ -243,7 +241,7 @@ fun PreviewSocialShare() {
                     contentColor = randomColor(),
                     containerColor = randomColor(),
                 ),
-            )
+            ),
 
         ),
         scaffoldState = scaffoldState,

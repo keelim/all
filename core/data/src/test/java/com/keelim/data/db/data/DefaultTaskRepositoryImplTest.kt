@@ -1,10 +1,10 @@
 package com.keelim.data.db.data
 
-import com.keelim.core.database.model.LocalTask
 import com.keelim.core.data.db.data.source.local.FakeTaskDao
 import com.keelim.core.data.model.NetworkTask
 import com.keelim.core.data.source.DefaultTaskRepositoryImpl
 import com.keelim.core.data.source.TaskNetworkDataSource
+import com.keelim.core.database.model.LocalTask
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.TestScope

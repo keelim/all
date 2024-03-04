@@ -1,10 +1,11 @@
 package com.keelim.data.db.data.source.local
 
+import com.keelim.core.database.dao.TaskDao
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class FakeTaskDao(initialTasks: List<com.keelim.core.database.model.LocalTask>) :
-    com.keelim.core.database.dao.TaskDao {
+    TaskDao {
 
     private val _tasks = initialTasks.toMutableList()
     private val tasksStream = MutableStateFlow(_tasks.toList())

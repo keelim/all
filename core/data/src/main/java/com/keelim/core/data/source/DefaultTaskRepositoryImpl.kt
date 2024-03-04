@@ -6,8 +6,6 @@ import com.keelim.core.data.model.toLocal
 import com.keelim.core.data.model.toNetwork
 import com.keelim.core.database.dao.TaskDao
 import com.keelim.core.database.model.LocalTask
-import java.util.UUID
-import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -15,6 +13,8 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.datetime.Clock
+import java.util.UUID
+import javax.inject.Inject
 
 class DefaultTaskRepositoryImpl @Inject constructor(
     private val localDataSource: TaskDao,

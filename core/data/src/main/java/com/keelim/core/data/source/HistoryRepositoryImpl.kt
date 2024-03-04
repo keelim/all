@@ -8,12 +8,12 @@ import com.keelim.core.database.dao.TimerHistoryDao
 import com.keelim.core.database.model.History
 import com.keelim.core.database.model.SimpleHistory
 import com.keelim.core.database.model.TimerHistory
-import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import timber.log.Timber
+import javax.inject.Inject
 
 class HistoryRepositoryImpl @Inject constructor(
     private val localDataSource: HistoryDao,

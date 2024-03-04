@@ -64,12 +64,12 @@ fun SimpleTimeline(
                         .padding(start = (24 / 2).dp)
                         .height(space12)
                         .width(1.dp)
-                        .clip(RoundedCornerShape(100))
+                        .clip(RoundedCornerShape(100)),
                 )
             }
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(vertical = space8)
+                modifier = Modifier.padding(vertical = space8),
             ) {
                 Icon(
                     it.icon,
@@ -79,9 +79,9 @@ fun SimpleTimeline(
                         .size(space24)
                         .background(
                             color = it.tint,
-                            shape = CircleShape
+                            shape = CircleShape,
                         )
-                        .padding(space4)
+                        .padding(space4),
                 )
                 Spacer(Modifier.width(space16))
                 Text(it.text)
@@ -104,38 +104,38 @@ fun PreviewSimpleTimeline() {
                 randomColor(),
                 Icons.Rounded.ArrowForward,
                 "Sent $50 to John",
-                "Sep 20"
+                "Sep 20",
             ),
             Timeline(
                 randomColor(),
                 Icons.Rounded.ArrowBack,
                 "Received $30 from Sarah",
-                "Sep 18"
+                "Sep 18",
             ),
             Timeline(
                 randomColor(),
                 Icons.Rounded.Schedule,
                 "Pending payment of $25 to Alex",
-                "Sep 16"
+                "Sep 16",
             ),
             Timeline(
                 randomColor(),
                 Icons.Rounded.Close,
                 "Cancelled payment to Lisa",
-                "Sep 14"
+                "Sep 14",
             ),
             Timeline(
                 randomColor(),
                 Icons.Rounded.ArrowForward,
                 "Sent $70 to Robert",
-                "Sep 12"
+                "Sep 12",
             ),
             Timeline(
                 randomColor(),
                 Icons.Rounded.CheckCircle,
                 "Opened account",
-                "Sep 10"
+                "Sep 10",
             ),
-        )
+        ),
     )
 }

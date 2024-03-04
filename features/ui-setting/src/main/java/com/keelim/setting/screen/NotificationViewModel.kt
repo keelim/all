@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.keelim.common.di.DefaultDispatcher
 import com.keelim.core.data.source.notification.NotificationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.CoroutineDispatcher
@@ -15,6 +14,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.stateIn
+import javax.inject.Inject
 
 @Stable
 @HiltViewModel

@@ -6,8 +6,8 @@ import androidx.paging.PagingData
 import com.keelim.core.data.paging.BookPagingSource
 import com.keelim.core.network.TargetService
 import com.keelim.core.network.model.Books
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
 class BookRepositoryImpl
 @Inject

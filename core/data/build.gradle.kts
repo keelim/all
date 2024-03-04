@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.keelim.android.library)
     alias(libs.plugins.keelim.android.library.jacoco)
     alias(libs.plugins.keelim.android.hilt)
-    alias(libs.plugins.keelim.android.application.room)
     kotlin("plugin.parcelize")
     kotlin("plugin.serialization")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
@@ -24,6 +23,7 @@ android { namespace = "com.keelim.data" }
 dependencies {
     api(projects.core.common)
     api(projects.core.model)
+    api(projects.core.database)
 
     implementation(libs.androidx.dataStore.core)
     implementation(libs.androidx.dataStore.preferences)

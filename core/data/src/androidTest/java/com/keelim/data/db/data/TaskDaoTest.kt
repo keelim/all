@@ -1,15 +1,13 @@
 package com.keelim.data.db.data
 
-import com.keelim.data.db.MyGradeAppDatabase
-import com.keelim.data.source.local.LocalTask
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import javax.inject.Inject
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
-import javax.inject.Inject
 
 @HiltAndroidTest
 class TaskDaoTest {
@@ -17,11 +15,11 @@ class TaskDaoTest {
     var hiltRule = HiltAndroidRule(this)
 
     @Inject
-    lateinit var appDatabase: MyGradeAppDatabase
+    lateinit var appDatabase: com.keelim.core.database.MyGradeAppDatabase
 
     @Test
     fun insertTaskAndGetTasks() = runTest {
-        val task = LocalTask(
+        val task = com.keelim.core.database.model.LocalTask(
             title = "title",
             description = "description",
             id = "id",

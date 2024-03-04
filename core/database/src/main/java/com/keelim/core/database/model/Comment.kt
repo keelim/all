@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.data.model.entity
+package com.keelim.core.database.model
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class CnuHistory(
-    val destination: String,
-    val root: String,
-    @PrimaryKey(autoGenerate = true)
-    val uid: Int = 0,
+data class Comment(
+    @PrimaryKey val comment_id: Int,
+    @ColumnInfo(name = "owner") val owner: String,
+    @ColumnInfo(name = "description") val description: String,
 )

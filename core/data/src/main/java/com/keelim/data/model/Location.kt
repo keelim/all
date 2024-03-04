@@ -17,10 +17,10 @@ package com.keelim.data.model
 
 import android.os.Parcelable
 import com.google.android.gms.maps.model.LatLng
+import javax.annotation.concurrent.Immutable
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.parcelize.Parcelize
-import javax.annotation.concurrent.Immutable
 
 @Immutable
 @Parcelize

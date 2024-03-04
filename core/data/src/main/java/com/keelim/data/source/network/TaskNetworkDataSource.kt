@@ -1,9 +1,9 @@
 package com.keelim.data.source.network
 
+import javax.inject.Inject
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import javax.inject.Inject
 
 class TaskNetworkDataSource @Inject constructor() {
 

@@ -1,8 +1,8 @@
 package com.keelim.data.db.data
 
+import com.keelim.core.database.model.LocalTask
 import com.keelim.data.db.data.source.local.FakeTaskDao
 import com.keelim.data.source.DefaultTaskRepositoryImpl
-import com.keelim.data.source.local.LocalTask
 import com.keelim.data.source.network.NetworkTask
 import com.keelim.data.source.network.TaskNetworkDataSource
 import junit.framework.TestCase.assertEquals

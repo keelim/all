@@ -1,4 +1,4 @@
-package com.keelim.data.model
+package com.keelim.model
 
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone

@@ -68,6 +68,10 @@ gradlePlugin {
             id = "keelim.android.library.jacoco"
             implementationClass = "KeelimLibraryJacocoPlugin"
         }
+        register("jvmLibrary") {
+            id = "keelim.jvm.library"
+            implementationClass = "KeelimJvmLibraryPlugin"
+        }
         register("androidTest") {
             id = "keelim.android.test"
             implementationClass = "KeelimAndroidTestPlugin"

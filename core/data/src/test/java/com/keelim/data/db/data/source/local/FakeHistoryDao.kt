@@ -47,7 +47,7 @@ class FakeHistoryDao(initialTasks: List<History>) :
 
     override suspend fun getPagingAll(
         page: Int,
-        loadSize: Int
+        loadSize: Int,
     ): List<History> {
         return emptyList()
     }

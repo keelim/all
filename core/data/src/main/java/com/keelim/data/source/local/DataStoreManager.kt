@@ -24,9 +24,9 @@ import androidx.datastore.preferences.core.floatPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
 
 class DataStoreManager @Inject constructor(
     val defaultDataStore: DataStore<Preferences>,
@@ -43,16 +43,17 @@ class DataStoreManager @Inject constructor(
         }
     }
 
-    inline fun <reified T> getValue(key: String): Flow<T?> = defaultDataStore.data.map { preferences ->
-        when (T::class) {
-            Boolean::class -> preferences[booleanPreferencesKey(key)]
-            Double::class -> preferences[doublePreferencesKey(key)]
-            Float::class -> preferences[floatPreferencesKey(key)]
-            Int::class -> preferences[intPreferencesKey(key)]
-            String::class -> preferences[stringPreferencesKey(key)]
-            else -> throw IllegalStateException()
-        } as T
-    }
+    inline fun <reified T> getValue(key: String): Flow<T?> =
+        defaultDataStore.data.map { preferences ->
+            when (T::class) {
+                Boolean::class -> preferences[booleanPreferencesKey(key)]
+                Double::class -> preferences[doublePreferencesKey(key)]
+                Float::class -> preferences[floatPreferencesKey(key)]
+                Int::class -> preferences[intPreferencesKey(key)]
+                String::class -> preferences[stringPreferencesKey(key)]
+                else -> throw IllegalStateException()
+            } as T
+        }
 
     suspend fun setKeyValue(keyStone: String, value: Boolean) {
         val key = booleanPreferencesKey(keyStone)

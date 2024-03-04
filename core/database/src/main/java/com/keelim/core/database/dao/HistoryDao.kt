@@ -1,10 +1,10 @@
-package com.keelim.data.db.dao
+package com.keelim.core.database.dao
 
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Upsert
-import com.keelim.data.source.local.History
-import com.keelim.data.source.local.SimpleHistory
+import com.keelim.core.database.model.History
+import com.keelim.core.database.model.SimpleHistory
 import kotlinx.coroutines.flow.Flow
 
 @Dao

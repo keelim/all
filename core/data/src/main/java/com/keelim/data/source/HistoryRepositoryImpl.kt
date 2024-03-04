@@ -1,19 +1,19 @@
 package com.keelim.data.source
 
-import com.keelim.data.db.dao.HistoryDao
-import com.keelim.data.db.dao.TimerHistoryDao
+import com.keelim.core.database.dao.HistoryDao
+import com.keelim.core.database.dao.TimerHistoryDao
+import com.keelim.core.database.model.History
+import com.keelim.core.database.model.SimpleHistory
+import com.keelim.core.database.model.TimerHistory
 import com.keelim.data.di.ApplicationScope
 import com.keelim.data.di.DefaultDispatcher
 import com.keelim.data.di.IoDispatcher
-import com.keelim.data.source.local.History
-import com.keelim.data.source.local.SimpleHistory
-import com.keelim.data.source.local.TimerHistory
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import timber.log.Timber
-import javax.inject.Inject
 
 class HistoryRepositoryImpl @Inject constructor(
     private val localDataSource: HistoryDao,
@@ -22,11 +22,14 @@ class HistoryRepositoryImpl @Inject constructor(
     @DefaultDispatcher private val default: CoroutineDispatcher,
     @ApplicationScope private val scope: CoroutineScope,
 ) : HistoryRepository {
-    override fun observeAll(): Flow<List<History>> = localDataSource.observeAll()
+    override fun observeAll(): Flow<List<History>> =
+        localDataSource.observeAll()
+
     override fun observeSimpleHistories(): Flow<List<SimpleHistory>> =
         localDataSource.observeSimpleHistories()
 
-    override fun observeTimerHistories(): Flow<List<TimerHistory>> = timerHistoryDataSource.observeAll()
+    override fun observeTimerHistories(): Flow<List<TimerHistory>> =
+        timerHistoryDataSource.observeAll()
 
     override suspend fun create(history: History): String {
         localDataSource.upsert(history)

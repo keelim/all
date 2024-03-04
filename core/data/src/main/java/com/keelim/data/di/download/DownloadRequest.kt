@@ -5,8 +5,9 @@ import android.content.Context
 import android.net.Uri
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File
+import javax.inject.Inject
 
-class DownloadRequest(
+class DownloadRequest @Inject constructor(
     @ApplicationContext private val ctx: Context,
 ) {
     fun provideDownloadRequest(link: String): DownloadManager.Request {

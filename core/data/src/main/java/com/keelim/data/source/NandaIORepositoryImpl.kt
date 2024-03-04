@@ -15,19 +15,19 @@
  */
 package com.keelim.data.source
 
-import com.keelim.data.db.NandaAppDatabase
+import com.keelim.core.database.NandaAppDatabase
+import com.keelim.core.database.model.NandaEntity
+import com.keelim.core.database.model.NandaEntity2
 import com.keelim.data.di.IoDispatcher
-import com.keelim.data.model.entity.NandaEntity
-import com.keelim.data.model.entity.NandaEntity2
 import com.keelim.data.model.toEntity
 import com.keelim.data.network.TargetService
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
 import timber.log.Timber
-import javax.inject.Inject
 
 class NandaIORepositoryImpl @Inject constructor(
     private val nandaService: TargetService.NandaService,
@@ -39,24 +39,27 @@ class NandaIORepositoryImpl @Inject constructor(
             .distinctUntilChanged()
             .flowOn(ioDispatcher)
 
-    override suspend fun getNandaList(): List<NandaEntity2> = withContext(ioDispatcher) {
-        val response = nandaService.getNandas()
-        return@withContext if (response.isSuccessful) {
-            response.body()?.items?.map { it.toEntity() } ?: listOf()
-        } else {
-            listOf()
+    override suspend fun getNandaList(): List<NandaEntity2> =
+        withContext(ioDispatcher) {
+            val response = nandaService.getNandas()
+            return@withContext if (response.isSuccessful) {
+                response.body()?.items?.map { it.toEntity() } ?: listOf()
+            } else {
+                listOf()
+            }
         }
-    }
 
-    override suspend fun getFavoriteList(): List<NandaEntity> = withContext(ioDispatcher) {
-        db.dataDao().favorites()
-    }
+    override suspend fun getFavoriteList(): List<NandaEntity> =
+        withContext(ioDispatcher) {
+            db.dataDao().favorites()
+        }
 
-    override suspend fun getSearchList(keyword: String?): List<NandaEntity> = withContext(ioDispatcher) {
-        val result = db.dataDao().search(keyword.orEmpty())
-        Timber.d("검색 결과", result)
-        return@withContext result
-    }
+    override suspend fun getSearchList(keyword: String?): List<NandaEntity> =
+        withContext(ioDispatcher) {
+            val result = db.dataDao().search(keyword.orEmpty())
+            Timber.d("검색 결과", result)
+            return@withContext result
+        }
 
     override suspend fun saveHistory(keyword: String) = withContext(ioDispatcher) {
     }

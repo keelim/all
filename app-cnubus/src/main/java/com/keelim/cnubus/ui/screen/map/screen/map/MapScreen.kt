@@ -25,7 +25,7 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MarkerInfoWindowContent
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
-import com.keelim.data.model.Location
+import com.keelim.core.data.model.Location
 
 @Composable
 fun MapRoute() {

@@ -37,7 +37,7 @@ import com.keelim.composeutil.component.layout.Loading
 import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space24
 import com.keelim.composeutil.resource.space8
-import com.keelim.data.model.Location
+import com.keelim.core.data.model.Location
 
 @Stable
 sealed class MapEvent {

@@ -378,4 +378,5 @@ keelim-android-library-jacoco = {id = "keelim.android.library.jacoco", version =
 keelim-android-test = {id = "keelim.android.test", version = "unspecified" }
 keelim-android-hilt = {id = "keelim.android.hilt", version = "unspecified" }
 keelim-android-showkase = {id = "keelim.android.showkase", version = "unspecified" }
+keelim-jvm-library = {id = "keelim.jvm.library", version = "unspecified" }
 

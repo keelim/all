@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.keelim.commonAndroid.model.SealedUiState
 import com.keelim.commonAndroid.model.asSealedUiState
 import com.keelim.composeutil.component.fab.FabButtonItem
-import com.keelim.data.source.firebase.FirebaseRepository
+import com.keelim.core.data.source.firebase.FirebaseRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted

@@ -1,10 +1,10 @@
-package com.keelim.data.db.dao
+package com.keelim.core.database.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Upsert
-import com.keelim.data.model.entity.Notices
+import com.keelim.core.database.model.Notices
 import kotlinx.coroutines.flow.Flow
 
 @Dao

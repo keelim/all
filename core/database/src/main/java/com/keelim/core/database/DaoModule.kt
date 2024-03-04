@@ -1,16 +1,13 @@
-package com.keelim.data.di.source
+package com.keelim.core.database
 
-import com.keelim.data.db.CnuAppDatabase
-import com.keelim.data.db.MyGradeAppDatabase
-import com.keelim.data.db.NandaAppDatabase
-import com.keelim.data.db.dao.CnuHistoryDao
-import com.keelim.data.db.dao.CommentDao
-import com.keelim.data.db.dao.HistoryDao
-import com.keelim.data.db.dao.NandaDao
-import com.keelim.data.db.dao.NetworkCacheDao
-import com.keelim.data.db.dao.NoteDao
-import com.keelim.data.db.dao.TaskDao
-import com.keelim.data.db.dao.TimerHistoryDao
+import com.keelim.core.database.dao.CnuHistoryDao
+import com.keelim.core.database.dao.CommentDao
+import com.keelim.core.database.dao.HistoryDao
+import com.keelim.core.database.dao.NandaDao
+import com.keelim.core.database.dao.NetworkCacheDao
+import com.keelim.core.database.dao.NoteDao
+import com.keelim.core.database.dao.TaskDao
+import com.keelim.core.database.dao.TimerHistoryDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -69,3 +66,4 @@ object DaoModule {
         database: MyGradeAppDatabase,
     ): NoteDao = database.noteDao()
 }
+

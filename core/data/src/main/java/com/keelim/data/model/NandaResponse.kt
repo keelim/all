@@ -15,9 +15,9 @@
  */
 package com.keelim.data.model
 
-import com.keelim.data.model.entity.NandaEntity2
+import com.keelim.core.database.model.NandaEntity2
 import com.keelim.model.NandaResponse
-import java.util.*
+import java.util.Date
 
 fun NandaResponse.toEntity() = NandaEntity2(
     nanda_id = id,

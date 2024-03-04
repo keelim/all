@@ -49,7 +49,7 @@ import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space8
-import com.keelim.data.source.local.LocalTask
+import com.keelim.core.database.model.LocalTask
 
 @Composable
 fun TaskRoute(onNavigateChart: () -> Unit, viewModel: TaskViewModel = hiltViewModel()) = trace("TaskRoute") {

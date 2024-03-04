@@ -1,8 +1,8 @@
 package com.keelim.data.source
 
-import com.keelim.data.source.local.History
-import com.keelim.data.source.local.SimpleHistory
-import com.keelim.data.source.local.TimerHistory
+import com.keelim.core.database.model.History
+import com.keelim.core.database.model.SimpleHistory
+import com.keelim.core.database.model.TimerHistory
 import kotlinx.coroutines.flow.Flow
 
 interface HistoryRepository {

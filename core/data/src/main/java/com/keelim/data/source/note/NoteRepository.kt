@@ -1,8 +1,8 @@
 package com.keelim.data.source.note
 
-import com.keelim.data.model.entity.Notices
+import com.keelim.core.database.model.Notices as NoteModel
+import com.keelim.core.database.model.Notices
 import kotlinx.coroutines.flow.Flow
-import com.keelim.data.model.entity.Notices as NoteModel
 
 interface NoteRepository {
     fun getNoteList(): Flow<Result<List<NoteModel>>>

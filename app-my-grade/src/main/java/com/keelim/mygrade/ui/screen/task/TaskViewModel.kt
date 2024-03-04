@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.keelim.commonAndroid.model.SealedUiState
 import com.keelim.commonAndroid.model.asSealedUiState
 import com.keelim.data.source.DefaultTaskRepository
-import com.keelim.data.source.local.LocalTask
+import com.keelim.core.database.model.LocalTask
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow

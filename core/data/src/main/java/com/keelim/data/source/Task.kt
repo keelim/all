@@ -1,6 +1,6 @@
 package com.keelim.data.source
 
-import com.keelim.data.source.local.LocalTask
+import com.keelim.core.database.model.LocalTask
 import com.keelim.data.source.network.NetworkTask
 import kotlinx.datetime.Clock
 
@@ -30,7 +30,8 @@ fun LocalTask.toExternal() = Task(
 )
 
 // Convenience function which converts a list of LocalTasks to a list of Tasks
-fun List<LocalTask>.toExternal() = map(LocalTask::toExternal) // Equivalent to map { it.toExternal() }
+fun List<LocalTask>.toExternal() =
+    map(LocalTask::toExternal) // Equivalent to map { it.toExternal() }
 
 fun Task.toLocal() = LocalTask(
     id = id,
@@ -63,4 +64,5 @@ fun LocalTask.toNetwork() = NetworkTask(
     },
 )
 
-fun List<LocalTask>.toNetwork() = map(LocalTask::toNetwork)
+fun List<LocalTask>.toNetwork() =
+    map(LocalTask::toNetwork)

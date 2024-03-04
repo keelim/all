@@ -1,4 +1,4 @@
-package com.keelim.data.source.local
+package com.keelim.core.database.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

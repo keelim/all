@@ -13,30 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.data.db.dao
+package com.keelim.core.database.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Transaction
-import com.keelim.data.model.entity.Comment
+import com.keelim.core.database.model.CnuHistory
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface CommentDao {
-    @Query("SELECT * FROM Comment")
-    suspend fun getAll(): List<Comment>
+interface CnuHistoryDao {
 
-    @Query("SELECT * FROM Comment")
-    fun getAllFlow(): Flow<List<Comment>>
+    @Query("SELECT * FROM CnuHistory")
+    fun getHistoryAll(): Flow<List<CnuHistory>>
 
-    @Transaction
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun addFavorite(item: Comment)
+    @Query("SELECT * FROM CnuHistory")
+    suspend fun getHistoryRawAll(): List<CnuHistory>
 
-    @Transaction
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertHistory(cnuHistory: CnuHistory)
+
     @Delete
-    suspend fun removeFavorite(item: Comment)
+    suspend fun deleteHistory(cnuHistory: CnuHistory)
+
+    @Query("DELETE FROM CnuHistory")
+    suspend fun deleteAll()
 }

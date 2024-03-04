@@ -1,30 +1,29 @@
-package com.keelim.data.db
+package com.keelim.core.database
 
 import androidx.room.AutoMigration
 import androidx.room.Database
-import androidx.room.DeleteColumn
 import androidx.room.DeleteTable
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters
 import androidx.room.migration.AutoMigrationSpec
-import com.keelim.data.db.dao.CnuHistoryDao
-import com.keelim.data.db.dao.CommentDao
-import com.keelim.data.db.dao.HistoryDao
-import com.keelim.data.db.dao.NandaDao
-import com.keelim.data.db.dao.NetworkCacheDao
-import com.keelim.data.db.dao.NoteDao
-import com.keelim.data.db.dao.TaskDao
-import com.keelim.data.db.dao.TimerHistoryDao
-import com.keelim.data.model.cache.NetworkCache
-import com.keelim.data.model.entity.CnuHistory
-import com.keelim.data.model.entity.Comment
-import com.keelim.data.model.entity.NandaEntity
-import com.keelim.data.model.entity.Notices
-import com.keelim.data.source.local.History
-import com.keelim.data.source.local.LocalTask
-import com.keelim.data.source.local.SimpleHistory
-import com.keelim.data.source.local.TimerHistory
+import com.keelim.core.database.dao.CnuHistoryDao
+import com.keelim.core.database.dao.CommentDao
+import com.keelim.core.database.dao.HistoryDao
+import com.keelim.core.database.dao.NandaDao
+import com.keelim.core.database.dao.NetworkCacheDao
+import com.keelim.core.database.dao.NoteDao
+import com.keelim.core.database.dao.TaskDao
+import com.keelim.core.database.dao.TimerHistoryDao
+import com.keelim.core.database.model.CnuHistory
+import com.keelim.core.database.model.Comment
+import com.keelim.core.database.model.History
+import com.keelim.core.database.model.LocalTask
+import com.keelim.core.database.model.NandaEntity
+import com.keelim.core.database.model.NetworkCache
+import com.keelim.core.database.model.Notices
+import com.keelim.core.database.model.SimpleHistory
+import com.keelim.core.database.model.TimerHistory
 import java.util.Date
 
 internal class MyGradeTypeConverters {
@@ -34,7 +33,6 @@ internal class MyGradeTypeConverters {
     @TypeConverter
     fun dateToTimestamp(date: Date?): Long? = date?.time
 }
-
 @Database(
     entities = [
         History::class,

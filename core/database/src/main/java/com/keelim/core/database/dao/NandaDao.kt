@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.data.db.dao
+package com.keelim.core.database.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -21,7 +21,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
-import com.keelim.data.model.entity.NandaEntity
+import com.keelim.core.database.model.NandaEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

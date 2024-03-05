@@ -5,18 +5,8 @@ plugins {
     kotlin("plugin.parcelize")
     kotlin("plugin.serialization")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
-    // alias(libs.plugins.protobuf)
 }
 
-// protobuf {
-//     protoc {
-//         // TODO: 고쳐야 하는 부분
-//         artifact = "com.google.protobuf:protoc:3.25.0"
-//     }
-//     generateProtoTasks {
-//         all().forEach { task -> task.builtins { register("java") { option("lite") } } }
-//     }
-// }
 
 android { namespace = "com.keelim.core.data" }
 

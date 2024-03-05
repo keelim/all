@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+option java_package = "com.keelim.core.datastore";
+option java_multiple_files = true;
+
+message UserSetting {
+    bool should_hide_onboarding = 1;
+}
+

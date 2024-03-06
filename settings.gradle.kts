@@ -28,6 +28,7 @@ include(
     ":core:compose-core",
     ":core:data",
     ":core:database",
+    ":core:datastore-proto",
     ":core:domain",
     ":core:model",
     ":core:network",

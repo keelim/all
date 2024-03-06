@@ -97,7 +97,7 @@ sqldelight = "2.0.1"
 themeAdapter = "1.2.1"
 timbers = "5.0.1"
 truth = "1.4.2"
-turbine = "1.0.0"
+turbine = "1.1.0"
 
 [libraries]
 accompanist-flowlayout = { group = "com.google.accompanist", name = "accompanist-flowlayout", version.ref = "accompanist" }

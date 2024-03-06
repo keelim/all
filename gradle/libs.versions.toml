@@ -6,7 +6,7 @@ targetSdk = "34"
 versionCode = "20240226"
 # library
 accompanist = "0.34.0"
-adaptive-navigation-suite = "1.0.0-alpha04"
+adaptive-navigation-suite = "1.0.0-alpha05"
 androidDesugarJdkLibs = "2.0.4"
 androidGradlePlugin = "8.2.2"
 androidxActivity = "1.8.2"

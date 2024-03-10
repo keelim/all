@@ -38,11 +38,6 @@ interface RepositoryModule {
     ): NandaIORepository
 
     @Binds
-    fun bindsBookRepository(
-        repository: BookRepositoryImpl,
-    ): BookRepository
-
-    @Binds
     fun bindsNotificationRepository(
         repository: NotificationRepositoryImpl,
     ): NotificationRepository

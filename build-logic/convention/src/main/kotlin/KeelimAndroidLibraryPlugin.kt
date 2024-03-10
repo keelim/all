@@ -1,5 +1,6 @@
 import com.android.build.api.dsl.LibraryExtension
 import com.keelim.builds.configureKotlinAndroid
+import com.keelim.builds.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
@@ -23,7 +24,7 @@ class KeelimAndroidLibraryPlugin : Plugin<Project> {
                 }
             }
             dependencies {
-                // add("lintChecks", libs.findLibrary("slack-lint-checks").get())
+                add("lintChecks", libs.findLibrary("slack-lint-checks").get())
             }
         }
     }

@@ -40,6 +40,7 @@ fun Project.configureAndroidCompose(
             val composeTestBundle = libs.findBundle("compose-test").get()
             add("implementation", platform(bom))
             add("implementation", composeBundle)
+            add("lintChecks", libs.findLibrary("slack-compose-lint").get())
             add("androidTestImplementation", platform(bom))
             add("androidTestImplementation", composeTestBundle)
         }

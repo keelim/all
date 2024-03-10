@@ -16,21 +16,17 @@
 package com.keelim.core.data.source
 
 import com.keelim.common.di.IoDispatcher
-import com.keelim.core.data.model.toEntity
 import com.keelim.core.database.dao.NandaDao
 import com.keelim.core.database.model.NandaEntity
-import com.keelim.core.database.model.NandaEntity2
-import com.keelim.core.network.TargetService
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
 import timber.log.Timber
-import javax.inject.Inject
 
 class NandaIORepositoryImpl @Inject constructor(
-    private val nandaService: TargetService.NandaService,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
     private val nandaDao: NandaDao,
 ) : NandaIORepository {
@@ -38,16 +34,6 @@ class NandaIORepositoryImpl @Inject constructor(
         nandaDao.getSearchData()
             .distinctUntilChanged()
             .flowOn(ioDispatcher)
-
-    override suspend fun getNandaList(): List<NandaEntity2> =
-        withContext(ioDispatcher) {
-            val response = nandaService.getNandas()
-            return@withContext if (response.isSuccessful) {
-                response.body()?.items?.map { it.toEntity() } ?: listOf()
-            } else {
-                listOf()
-            }
-        }
 
     override suspend fun getFavoriteList(): List<NandaEntity> =
         withContext(ioDispatcher) {

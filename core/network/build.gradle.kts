@@ -30,5 +30,4 @@ dependencies {
     implementation(libs.timber)
 
     implementation(libs.retrofit.core)
-    implementation(libs.retrofit.kotlin.serialization)
 }

@@ -20,7 +20,6 @@ import com.keelim.core.database.model.NandaEntity2
 import kotlinx.coroutines.flow.Flow
 
 interface NandaIORepository {
-    suspend fun getNandaList(): List<NandaEntity2>
 
     val searchData: Flow<List<NandaEntity>>
 

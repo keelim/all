@@ -1,7 +1,5 @@
 package com.keelim.core.data.di
 
-import com.keelim.core.data.source.BookRepository
-import com.keelim.core.data.source.BookRepositoryImpl
 import com.keelim.core.data.source.DefaultTaskRepository
 import com.keelim.core.data.source.DefaultTaskRepositoryImpl
 import com.keelim.core.data.source.HistoryRepository

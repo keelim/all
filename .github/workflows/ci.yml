@@ -57,7 +57,9 @@ jobs:
       - name: ADD LOCAL PROPERTIES
         env:
           APOD_API_KEY: ${{ secrets.LOCAL_PROPERTIES }}
-        run: echo '${{ secrets.LOCAL_PROPERTIES }}' > ./local.properties
+        run:
+          echo '${{ secrets.LOCAL_PROPERTIES }}' > ./local.properties
+          echo ./local.properties
 
       - name: Generate jacocoTestReport
         run: ./gradlew jacocoTestReport

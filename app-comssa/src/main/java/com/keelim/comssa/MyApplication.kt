@@ -28,11 +28,11 @@ class MyApplication : Application(), ImageLoaderFactory {
     lateinit var imageLoader: dagger.Lazy<ImageLoader>
 
     @Inject
-    lateinit var componentLogger: ComponentLogger
+    lateinit var componentLogger: dagger.Lazy<ComponentLogger>
 
     override fun onCreate() {
         super.onCreate()
-        componentLogger.initialize(this)
+        componentLogger.get().initialize(this)
     }
 
     override fun newImageLoader(): ImageLoader = imageLoader.get()

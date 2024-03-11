@@ -24,10 +24,16 @@ dependencies {
     api(projects.core.common)
     api(projects.core.model)
 
+    implementation(platform(libs.coil.bom))
+    implementation(libs.coil)
+    implementation(libs.coil.svg)
+
     implementation(libs.kotlinx.serialization.json)
     implementation(platform(libs.ktor.bom))
     implementation(libs.bundles.ktor)
     implementation(libs.timber)
+
+    implementation(libs.okhttp.logging)
 
     implementation(libs.retrofit.core)
 }

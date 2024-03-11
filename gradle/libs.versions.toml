@@ -255,6 +255,7 @@ material = { group = "com.google.android.material", name = "material", version.r
 material-themAdapter = { group = "com.google.android.material", name = "compose-theme-adapter", version.ref = "themeAdapter" }
 modernstorage-bom = { module = "com.google.modernstorage:modernstorage-bom", version.ref = "modernstorageBom" }
 okio = { group = "com.squareup.okio", name = "okio" }
+okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
 okio-bom = { group = "com.squareup.okio", name = "okio-bom", version.ref = "okio" }
 play-core = { module = "com.google.android.play:core-ktx", version.ref = "playCore" }
 play-services-ad = { group = "com.google.android.gms", name = "play-services-ads", version.ref = "playad" }

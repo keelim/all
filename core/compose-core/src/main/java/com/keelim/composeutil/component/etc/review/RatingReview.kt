@@ -44,7 +44,7 @@ private val emptyColor = Color(0xFFEEEEEE)
 @Immutable
 data class Review(
     val rating: String,
-    val percentage: Int
+    val percentage: Int,
 )
 
 @Composable
@@ -62,13 +62,13 @@ fun ReviewsSection(
         modifier = modifier
             .widthIn(max = 400.dp)
             .fillMaxWidth()
-            .padding(space16)
+            .padding(space16),
     ) {
         Column(Modifier.weight(1f)) {
             reviews.fastForEach { review ->
                 ReviewPercentageBar(
                     rating = review.rating,
-                    percentage = review.percentage
+                    percentage = review.percentage,
                 )
             }
         }
@@ -76,25 +76,27 @@ fun ReviewsSection(
             rating = rating,
             maxRating = maxRating,
             totalReviews = totalReviews,
-            onMoreReviewsClick = onMoreReviewsClick
+            onMoreReviewsClick = onMoreReviewsClick,
         )
     }
-
 }
 
 @Composable
 private fun ReviewPercentageBar(rating: String, percentage: Int) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(space12)
+        horizontalArrangement = Arrangement.spacedBy(space12),
     ) {
         Text(rating)
         fun rememberPercentageShape(
-            percentage: Int, shape: Shape
+            percentage: Int,
+            shape: Shape,
         ): Shape {
             return object : Shape {
                 override fun createOutline(
-                    size: Size, layoutDirection: LayoutDirection, density: Density
+                    size: Size,
+                    layoutDirection: LayoutDirection,
+                    density: Density,
                 ): Outline {
                     val right = size.width * (percentage / 100f)
                     return shape.createOutline(Size(right, size.height), layoutDirection, density)
@@ -108,13 +110,12 @@ private fun ReviewPercentageBar(rating: String, percentage: Int) {
                 .clip(MaterialTheme.shapes.small)
                 .background(emptyColor)
                 .clip(
-                    rememberPercentageShape(percentage, MaterialTheme.shapes.small)
+                    rememberPercentageShape(percentage, MaterialTheme.shapes.small),
                 )
-                .background(fillColor)
+                .background(fillColor),
         )
     }
 }
-
 
 @Composable
 private fun RatingSummary(
@@ -122,15 +123,15 @@ private fun RatingSummary(
     maxRating: Int,
     totalReviews: String,
     onMoreReviewsClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier
+        modifier = modifier,
     ) {
         Text(
             text = rating.toString(),
-            style = MaterialTheme.typography.headlineLarge.copy(fontSize = 64.sp)
+            style = MaterialTheme.typography.headlineLarge.copy(fontSize = 64.sp),
         )
         RatingBar(rating = rating, maxRating = maxRating)
         TextButton(onClick = onMoreReviewsClick) {
@@ -148,7 +149,9 @@ private fun RatingBar(
     val firstHalf = remember {
         object : Shape {
             override fun createOutline(
-                size: Size, layoutDirection: LayoutDirection, density: Density
+                size: Size,
+                layoutDirection: LayoutDirection,
+                density: Density,
             ): Outline {
                 return Outline.Rectangle(Rect(0f, 0f, size.width / 2, size.height))
             }
@@ -156,7 +159,7 @@ private fun RatingBar(
     }
 
     Row(
-        modifier = modifier
+        modifier = modifier,
     ) {
         repeat(maxRating) { i ->
             Box(Modifier.size(18.dp)) {
@@ -165,7 +168,7 @@ private fun RatingBar(
                     imageVector = Icons.Rounded.Star,
                     contentDescription = null,
                     tint = emptyColor,
-                    modifier = Modifier.matchParentSize()
+                    modifier = Modifier.matchParentSize(),
                 )
                 Icon(
                     imageVector = Icons.Rounded.Star,
@@ -175,8 +178,8 @@ private fun RatingBar(
                         .conditional(
                             condition = i <= lastFullIndex,
                             ifTrue = { matchParentSize() },
-                            ifFalse = { matchParentSize().clip(firstHalf) }
-                        )
+                            ifFalse = { matchParentSize().clip(firstHalf) },
+                        ),
                 )
             }
         }
@@ -195,10 +198,8 @@ fun PreviewReviewsSection() {
             Review("4", 28),
             Review("3", 13),
             Review("2", 9),
-            Review("1", 4)
+            Review("1", 4),
         ),
-        onMoreReviewsClick = {  },
+        onMoreReviewsClick = { },
     )
 }
-
-

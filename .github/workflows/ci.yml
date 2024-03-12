@@ -15,6 +15,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: wrapper validation action
+        uses: gradle/wrapper-validation-action@v2
+
       - name: cache gradle
         uses: actions/cache@v4
         with:
@@ -57,7 +60,9 @@ jobs:
       - name: ADD LOCAL PROPERTIES
         env:
           APOD_API_KEY: ${{ secrets.LOCAL_PROPERTIES }}
-        run: echo '${{ secrets.LOCAL_PROPERTIES }}' > ./local.properties
+        run:
+          echo '${{ secrets.LOCAL_PROPERTIES }}' > ./local.properties
+          echo ./local.properties
 
       - name: Generate jacocoTestReport
         run: ./gradlew jacocoTestReport

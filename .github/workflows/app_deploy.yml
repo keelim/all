@@ -11,6 +11,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: wrapper validation action
+        uses: gradle/wrapper-validation-action@v2
+
       - name: cache gradle
         uses: actions/cache@v4
         with:
@@ -133,7 +136,7 @@ jobs:
           releaseFiles: app-my-grade/build/outputs/bundle/release/app-my-grade-release.aab
           track: production
           status: completed
-          changesNotSentForReview: false
+          changesNotSentForReview: true
 
       - name: Deploy to Play Store Nanda
         id: deplo_nanda

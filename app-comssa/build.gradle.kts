@@ -42,6 +42,7 @@ dependencies {
     implementation(libs.bundles.coil)
     implementation(libs.firebase.database)
     implementation(libs.firebase.firestore)
+    implementation(libs.haze)
     implementation(libs.kotlinx.coroutines.play.services)
     implementation(libs.kotlinx.datetime)
     implementation(libs.play.core)

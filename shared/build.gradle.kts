@@ -5,9 +5,9 @@ plugins {
 }
 
 kotlin {
-    js(IR) {
-        browser()
-    }
+    // js(IR) {
+    //     browser()
+    // }
     androidTarget {
         compilations.all {
             kotlinOptions {
@@ -31,9 +31,9 @@ kotlin {
         iosMain.dependencies {
             implementation(libs.sqldelight.native)
         }
-        jsMain.dependencies {
-            implementation(libs.sqldelight.web.worker)
-        }
+        // jsMain.dependencies {
+        //     implementation(libs.sqldelight.web.worker)
+        // }
     }
 }
 

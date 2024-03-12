@@ -2,9 +2,9 @@ package com.keelim.mygrade.ui.screen.history
 
 import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
-import com.keelim.data.di.DefaultDispatcher
-import com.keelim.data.source.HistoryRepository
-import com.keelim.data.source.local.SimpleHistory
+import com.keelim.common.di.DefaultDispatcher
+import com.keelim.core.data.source.HistoryRepository
+import com.keelim.core.database.model.SimpleHistory
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf

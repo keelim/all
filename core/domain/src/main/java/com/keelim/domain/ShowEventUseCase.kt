@@ -1,6 +1,6 @@
 package com.keelim.domain
 
-import com.keelim.data.source.local.DataStoreManager
+import com.keelim.core.data.source.local.DataStoreManager
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.mapLatest
 import javax.inject.Inject

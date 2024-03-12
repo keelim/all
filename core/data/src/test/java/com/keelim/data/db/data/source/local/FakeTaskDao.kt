@@ -1,24 +1,24 @@
 package com.keelim.data.db.data.source.local
 
-import com.keelim.data.db.dao.TaskDao
-import com.keelim.data.source.local.LocalTask
+import com.keelim.core.database.dao.TaskDao
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 
-class FakeTaskDao(initialTasks: List<LocalTask>) : TaskDao {
+class FakeTaskDao(initialTasks: List<com.keelim.core.database.model.LocalTask>) :
+    TaskDao {
 
     private val _tasks = initialTasks.toMutableList()
     private val tasksStream = MutableStateFlow(_tasks.toList())
 
-    override fun observeAll(): Flow<List<LocalTask>> = tasksStream
+    override fun observeAll(): Flow<List<com.keelim.core.database.model.LocalTask>> = tasksStream
 
-    override suspend fun upsert(task: LocalTask) {
+    override suspend fun upsert(task: com.keelim.core.database.model.LocalTask) {
         _tasks.removeIf { it.id == task.id }
         _tasks.add(task)
         tasksStream.emit(_tasks)
     }
 
-    override suspend fun upsertAll(tasks: List<LocalTask>) {
+    override suspend fun upsertAll(tasks: List<com.keelim.core.database.model.LocalTask>) {
         val newTaskIds = tasks.map { it.id }
         _tasks.removeIf { newTaskIds.contains(it.id) }
         _tasks.addAll(tasks)

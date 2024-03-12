@@ -3,8 +3,8 @@ package com.keelim.setting.screen
 import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.keelim.data.di.DefaultDispatcher
-import com.keelim.data.source.notification.NotificationRepository
+import com.keelim.common.di.DefaultDispatcher
+import com.keelim.core.data.source.notification.NotificationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.toPersistentList
@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
+
 @Stable
 @HiltViewModel
 class NotificationViewModel

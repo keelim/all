@@ -27,7 +27,12 @@ import com.keelim.composeutil.component.fab.FabButtonSub
 import com.keelim.composeutil.component.fab.MultiMainFab
 import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
-import com.keelim.data.model.EcoCalEntry
+import com.keelim.model.EcoCalEntry
+import dev.chrisbanes.haze.HazeDefaults
+import dev.chrisbanes.haze.HazeState
+import dev.chrisbanes.haze.HazeStyle
+import dev.chrisbanes.haze.haze
+import dev.chrisbanes.haze.hazeChild
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -58,7 +63,14 @@ fun EcocalScreen(
                 } else {
                     val state = rememberLazyListState()
                     val coroutineScope = rememberCoroutineScope()
+                    val hazeState = remember { HazeState() }
                     Scaffold(
+                        topBar = {
+                            HeaderItem(
+                                modifier = Modifier
+                                    .hazeChild(state = hazeState)
+                            )
+                        },
                         floatingActionButton = {
                             var fabState by remember { mutableStateOf<FabButtonState>(FabButtonState.Collapsed) }
                             val items by remember {
@@ -90,13 +102,26 @@ fun EcocalScreen(
                                 stateChanged = {
                                     fabState = it
                                 },
+                                modifier = Modifier
+                                    .hazeChild(
+                                        state = hazeState,
+                                    )
                             )
                         },
                     ) { paddingValues ->
                         EcocalMainSection(
                             state = state,
                             entries = targetState.value,
-                            modifier = Modifier.padding(paddingValues),
+                            modifier = Modifier
+                                .haze(
+                                    state = hazeState,
+                                    style = HazeStyle(
+                                        HazeDefaults.tint(MaterialTheme.colorScheme.background),
+                                        HazeDefaults.blurRadius,
+                                        HazeDefaults.noiseFactor,
+                                    ),
+                                )
+                                .padding(paddingValues),
                         )
                     }
                 }

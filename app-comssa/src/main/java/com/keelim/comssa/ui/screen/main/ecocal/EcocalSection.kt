@@ -1,8 +1,6 @@
-@file:OptIn(ExperimentalFoundationApi::class)
 
 package com.keelim.comssa.ui.screen.main.ecocal
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -46,7 +44,7 @@ import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
-import com.keelim.data.model.EcoCalEntry
+import com.keelim.model.EcoCalEntry
 import kotlinx.coroutines.delay
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
@@ -59,9 +57,7 @@ fun EcocalMainSection(
     modifier: Modifier = Modifier,
 ) = trace("EcocalMainSection") {
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(horizontal = space4),
+        modifier = modifier,
     ) {
         Spacer(
             modifier = Modifier.height(space12),
@@ -70,11 +66,6 @@ fun EcocalMainSection(
             state = state,
             modifier = Modifier.fillMaxSize(),
         ) {
-            stickyHeader {
-                HeaderItem(
-                    title = "2023-12",
-                )
-            }
             items(entries) { entry ->
                 ListItem(
                     title = entry.title,
@@ -106,39 +97,41 @@ fun EcocalMainSection(
 }
 
 @Composable
-fun HeaderItem(title: String, modifier: Modifier = Modifier) = trace("HeaderItem") {
+fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
     Column(
         modifier = modifier,
     ) {
         val rowModifier = Modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.surfaceVariant)
+            .background(Color.Transparent)
             .padding(horizontal = space16, vertical = space8)
+
+        var now by remember { mutableStateOf(Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())) }
+
+        LaunchedEffect(Unit) {
+            while (true) {
+                delay(1000L)
+                now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+            }
+        }
+
         Row(
             modifier = rowModifier,
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Text(
-                text = title,
+                text = "${now.year} ${now.monthNumber}",
                 style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 maxLines = 1,
             )
         }
+
         Row(
             modifier = rowModifier,
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.End,
         ) {
-            var now by remember { mutableStateOf(Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())) }
-
-            LaunchedEffect(Unit) {
-                while (true) {
-                    delay(1000L)
-                    now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-                }
-            }
             Text(
                 text = "${now.year}년 ${now.monthNumber}월 ${now.dayOfMonth}일 ${now.hour}:${now.minute}:${now.second}",
             )
@@ -261,13 +254,13 @@ fun EcocalTopSection() = trace("EcocalTopSection") {
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewEcocalTopSection() {
+private fun PreviewEcocalTopSection() {
     Column { EcocalTopSection() }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewEcocalMainSection() {
+private fun PreviewEcocalMainSection() {
     EcocalMainSection(
         state = rememberLazyListState(),
         entries =

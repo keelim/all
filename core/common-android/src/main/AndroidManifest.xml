@@ -27,5 +27,10 @@
                 android:name="com.keelim.commonAndroid.initialize.MobileAdsInitializer"
                 android:value="androidx.startup" />
         </provider>
+
+        <property
+            android:name="android.adservices.AD_SERVICES_CONFIG"
+            android:resource="@xml/gma_ad_services_config"
+            tools:replace="android:resource" />
     </application>
 </manifest>

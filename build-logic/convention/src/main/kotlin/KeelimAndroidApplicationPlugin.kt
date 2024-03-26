@@ -36,6 +36,7 @@ class KeelimAndroidApplicationPlugin : Plugin<Project> {
                 buildTypes.getByName("release").apply {
                     isMinifyEnabled = true
                     isShrinkResources = true
+                    vcsInfo.include = true
                     proguardFiles(
                         getDefaultProguardFile("proguard-android-optimize.txt"),
                         "proguard-rules.pro"

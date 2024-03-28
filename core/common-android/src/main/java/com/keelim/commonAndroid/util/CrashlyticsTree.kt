@@ -22,16 +22,14 @@ import timber.log.Timber
 
 class CrashlyticsTree : Timber.Tree() {
 
-    private val crashlytics = Firebase.crashlytics
-
     override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
         if (priority == Log.VERBOSE || priority == Log.DEBUG || priority == Log.INFO) {
             return
         }
         when {
-            t != null -> crashlytics.recordException(t)
-            tag != null -> crashlytics.log("$tag: $message")
-            else -> crashlytics.log(message)
+            t != null -> Firebase.crashlytics.recordException(t)
+            tag != null -> Firebase.crashlytics.log("$tag: $message")
+            else -> Firebase.crashlytics.log(message)
         }
     }
 }

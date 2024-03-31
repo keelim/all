@@ -1,6 +1,7 @@
-
 package com.keelim.comssa.ui.screen.main.ecocal
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -21,6 +22,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -35,11 +37,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.trace
+import coil.compose.AsyncImagePainter
+import coil.compose.SubcomposeAsyncImage
+import coil.compose.SubcomposeAsyncImageContent
 import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space4
@@ -56,6 +63,7 @@ fun EcocalMainSection(
     entries: List<EcoCalEntry>,
     modifier: Modifier = Modifier,
 ) = trace("EcocalMainSection") {
+    val context = LocalContext.current
     Column(
         modifier = modifier,
     ) {
@@ -74,7 +82,14 @@ fun EcocalMainSection(
                     label = entry.country,
                     priority = entry.priority,
                     isToday = entry.isToday,
-                    onClick = {},
+                    onClick = {
+                        context.startActivity(
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse("https://www.google.com/search?q=${entry.country}-${entry.title} ${entry.date} ${entry.time}")
+                            )
+                        )
+                    },
                 )
             }
             item {
@@ -152,29 +167,32 @@ fun ListItem(
 ) = trace("ListItem") {
     Surface(
         onClick = onClick,
-        shape = MaterialTheme.shapes.large,
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(all = space16),
+        modifier = modifier.fillMaxWidth()
+            .padding(space16),
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(space16),
         ) {
-            // SubcomposeAsyncImage(
-            //     model = photoUrl,
-            //     modifier = Modifier.size(58.dp).clip(CircleShape),
-            //     contentScale = ContentScale.Crop,
-            //     contentDescription = null,
-            // ) {
-            //     val state = painter.state
-            //     if (state is AsyncImagePainter.State.Loading || state is AsyncImagePainter.State.Error) {
-            //         CircularProgressIndicator()
-            //     } else {
-            //         SubcomposeAsyncImageContent()
-            //     }
-            // }
-            Column(Modifier.weight(1f)) {
+            if (photoUrl != null) {
+                SubcomposeAsyncImage(
+                    model = photoUrl,
+                    modifier = Modifier.size(58.dp).clip(CircleShape),
+                    contentScale = ContentScale.Crop,
+                    contentDescription = null,
+                ) {
+                    val state = painter.state
+                    if (state is AsyncImagePainter.State.Loading || state is AsyncImagePainter.State.Error) {
+                        CircularProgressIndicator()
+                    } else {
+                        SubcomposeAsyncImageContent()
+                    }
+                }
+            }
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+            ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -212,42 +230,36 @@ fun ListItem(
                     )
                 }
             }
-//          Box {
-//            var isExpanded by remember { mutableStateOf(false) }
-//
-//            IconButton(onClick = { isExpanded = true }) {
-//              Icon(Icons.Rounded.MoreVert, contentDescription = "More")
-//            }
-//
-//             DropdownMenu(expanded = isExpanded, onDismissRequest = { isExpanded = false }) {
-//               DropdownMenuItem(text = { Text("Message") }, onClick = { /*TODO*/})
-//               DropdownMenuItem(text = { Text("Block") }, onClick = { /*TODO*/})
-//             }
-//          }
         }
     }
 }
 
 @Composable
-fun EcocalTopSection() = trace("EcocalTopSection") {
-    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-        Text(text = "Eco Cal", style = MaterialTheme.typography.headlineMedium)
-    }
-    Spacer(modifier = Modifier.height(space12))
-    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-        Button(
-            onClick = {},
-        ) {
-            Icon(Icons.Filled.Add, contentDescription = null)
-            Text(text = "Year")
+fun EcocalTopSection(
+    modifier: Modifier = Modifier,
+) = trace("EcocalTopSection") {
+    Box(
+        modifier = modifier
+    ) {
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+            Text(text = "Eco Cal", style = MaterialTheme.typography.headlineMedium)
         }
-        Spacer(modifier = Modifier.width(space8))
+        Spacer(modifier = Modifier.height(space12))
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+            Button(
+                onClick = {},
+            ) {
+                Icon(Icons.Filled.Add, contentDescription = null)
+                Text(text = "Year")
+            }
+            Spacer(modifier = Modifier.width(space8))
 
-        Button(
-            onClick = {},
-        ) {
-            Icon(Icons.Filled.Add, contentDescription = null)
-            Text(text = "Month")
+            Button(
+                onClick = {},
+            ) {
+                Icon(Icons.Filled.Add, contentDescription = null)
+                Text(text = "Month")
+            }
         }
     }
 }

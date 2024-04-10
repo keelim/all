@@ -18,7 +18,9 @@ android {
         //     matchingFallbacks += listOf("release")
         //     isDebuggable = false
         // }
-        getByName("release") {}
+        getByName("release") {
+            signingConfig = signingConfigs.getByName("debug")
+        }
     }
     useLibrary("android.test.mock")
     namespace = "com.keelim.comssa"

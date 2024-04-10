@@ -21,9 +21,13 @@ dependencies {
     implementation(libs.androidx.test.rules)
     implementation(platform(libs.coil.bom))
     implementation(libs.bundles.coil)
+
+    implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.common)
     implementation(libs.firebase.crashlytics)
-    implementation(platform(libs.firebase.bom))
+    releaseImplementation(libs.firebase.appcheck)
+    debugImplementation(libs.firebase.appcheck.debug)
+
     implementation(libs.hilt.android)
     implementation(libs.hilt.android.testing)
     implementation(libs.junit4)

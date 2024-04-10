@@ -58,72 +58,68 @@ fun EcocalScreen(
             is SealedUiState.Error -> EmptyView()
             SealedUiState.Loading -> Loading()
             is SealedUiState.Success -> {
-                if (targetState.value.isEmpty()) {
-                    EmptyView()
-                } else {
-                    val state = rememberLazyListState()
-                    val coroutineScope = rememberCoroutineScope()
-                    val hazeState = remember { HazeState() }
-                    Scaffold(
-                        topBar = {
-                            HeaderItem(
-                                modifier = Modifier
-                                    .hazeChild(state = hazeState)
-                            )
-                        },
-                        floatingActionButton = {
-                            var fabState by remember { mutableStateOf<FabButtonState>(FabButtonState.Collapsed) }
-                            val items by remember {
-                                mutableStateOf(
-                                    listOf(
-                                        High(),
-                                        Medium(),
-                                        Low(),
-                                        All(),
-                                    ),
-                                )
-                            }
-                            MultiMainFab(
-                                fabState = fabState,
-                                items = items,
-                                fabIcon = FabButtonMain(),
-                                fabOption = FabButtonSub(
-                                    backgroundTint = MaterialTheme.colorScheme.primary,
-                                    iconTint = MaterialTheme.colorScheme.onPrimary,
-                                ),
-                                onFabItemClicked = { item ->
-                                    Timber.d("item $item")
-                                    updateFilter(item)
-                                    fabState = fabState.toggleValue()
-                                    coroutineScope.launch {
-                                        state.scrollToItem(0)
-                                    }
-                                },
-                                stateChanged = {
-                                    fabState = it
-                                },
-                                modifier = Modifier
-                                    .hazeChild(
-                                        state = hazeState,
-                                    )
-                            )
-                        },
-                    ) { paddingValues ->
-                        EcocalMainSection(
-                            state = state,
-                            entries = targetState.value,
+                val state = rememberLazyListState()
+                val coroutineScope = rememberCoroutineScope()
+                val hazeState = remember { HazeState() }
+                Scaffold(
+                    topBar = {
+                        HeaderItem(
                             modifier = Modifier
-                                .haze(
-                                    state = hazeState,
-                                    style = HazeStyle(
-                                        HazeDefaults.tint(MaterialTheme.colorScheme.background),
-                                        HazeDefaults.blurRadius,
-                                        HazeDefaults.noiseFactor,
-                                    ),
-                                )
-                                .padding(paddingValues),
+                                .hazeChild(state = hazeState)
                         )
-                    }
+                    },
+                    floatingActionButton = {
+                        var fabState by remember { mutableStateOf<FabButtonState>(FabButtonState.Collapsed) }
+                        val items by remember {
+                            mutableStateOf(
+                                listOf(
+                                    High(),
+                                    Medium(),
+                                    Low(),
+                                    All(),
+                                ),
+                            )
+                        }
+                        MultiMainFab(
+                            fabState = fabState,
+                            items = items,
+                            fabIcon = FabButtonMain(),
+                            fabOption = FabButtonSub(
+                                backgroundTint = MaterialTheme.colorScheme.primary,
+                                iconTint = MaterialTheme.colorScheme.onPrimary,
+                            ),
+                            onFabItemClicked = { item ->
+                                Timber.d("item $item")
+                                updateFilter(item)
+                                fabState = fabState.toggleValue()
+                                coroutineScope.launch {
+                                    state.scrollToItem(0)
+                                }
+                            },
+                            stateChanged = {
+                                fabState = it
+                            },
+                            modifier = Modifier
+                                .hazeChild(
+                                    state = hazeState,
+                                )
+                        )
+                    },
+                ) { paddingValues ->
+                    EcocalMainSection(
+                        state = state,
+                        entries = targetState.value,
+                        modifier = Modifier
+                            .haze(
+                                state = hazeState,
+                                style = HazeStyle(
+                                    HazeDefaults.tint(MaterialTheme.colorScheme.background),
+                                    HazeDefaults.blurRadius,
+                                    HazeDefaults.noiseFactor,
+                                ),
+                            )
+                            .padding(paddingValues),
+                    )
                 }
             }
         }

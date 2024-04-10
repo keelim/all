@@ -36,7 +36,7 @@ jobs:
           cache: "gradle"
 
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@v3.1.0
+        uses: gradle/gradle-build-action@v3.2.1
         with:
           gradle-version: current
           gradle-home-cache-cleanup: true
@@ -68,7 +68,7 @@ jobs:
         run: ./gradlew jacocoTestReport
 
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.1.1
+        uses: codecov/codecov-action@v4.3.0
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 

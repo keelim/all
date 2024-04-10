@@ -196,6 +196,7 @@ dependencyGuard-gradlePlugin = { group = "com.dropbox.dependency-guard", name = 
 errorprone = { group = "com.google.errorprone", name = "error_prone_annotations", version.ref = "errorprone" }
 firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
 firebase-appcheck = { group = "com.google.firebase", name = "firebase-appcheck-playintegrity" }
+firebase-appcheck-debug = { group = "com.google.firebase", name = "firebase-appcheck-debug" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth-ktx" }
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase" }
 firebase-common = { group = "com.google.firebase", name = "firebase-common" }

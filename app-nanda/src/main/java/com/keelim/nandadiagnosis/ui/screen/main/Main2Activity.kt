@@ -23,7 +23,6 @@ import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.viewModels
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.core.content.ContextCompat
@@ -31,8 +30,6 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.airbnb.deeplinkdispatch.DeepLink
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.keelim.common.extensions.toast
-import com.keelim.commonAndroid.core.AppMainDelegator
-import com.keelim.commonAndroid.core.AppMainViewModel
 import com.keelim.commonAndroid.util.DownloadReceiver
 import com.keelim.composeutil.setThemeContent
 import com.keelim.nandadiagnosis.R
@@ -46,9 +43,6 @@ import javax.inject.Inject
 @DeepLink("all://screen/{name}")
 @AndroidEntryPoint
 class Main2Activity : ComponentActivity() {
-    private val viewModel: AppMainViewModel by viewModels()
-    private val appMainDelegator by lazy { AppMainDelegator(this, viewModel) }
-
     @Inject
     lateinit var downloadReceiver: DownloadReceiver
 

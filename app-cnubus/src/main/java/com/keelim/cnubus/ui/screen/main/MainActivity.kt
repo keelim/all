@@ -30,7 +30,7 @@ import androidx.compose.runtime.setValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.airbnb.deeplinkdispatch.DeepLink
 import com.keelim.cnubus.ui.CnubusApp
-import com.keelim.composeutil.setThemeContent
+import com.keelim.composeutil.util.setThemeContent
 import dagger.hilt.android.AndroidEntryPoint
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)

@@ -31,7 +31,7 @@ import com.airbnb.deeplinkdispatch.DeepLink
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.keelim.common.extensions.toast
 import com.keelim.commonAndroid.util.DownloadReceiver
-import com.keelim.composeutil.setThemeContent
+import com.keelim.composeutil.util.setThemeContent
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.ui.screen.NandaApp
 import dagger.hilt.android.AndroidEntryPoint

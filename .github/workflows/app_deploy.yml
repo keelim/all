@@ -40,17 +40,14 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Add Google Service Json
+      - name: Set environment
         run: |
-          echo '${{ secrets.CNUBUS_GOOGLE_SERVICES_JSON }}' > ./app-cnubus/google-services.json
-          echo '${{ secrets.COMSSA_GOOGLE_SERVICES_JSON }}' > ./app-comssa/google-services.json
-          echo '${{ secrets.MYGRADE_GOOGLE_SERVICES_JSON }}' > ./app-my-grade/google-services.json
-          echo '${{ secrets.NANDA_GOOGLE_SERVICES_JSON }}' > ./app-nanda/google-services.json
-
-      - name: ADD LOCAL PROPERTIES
-        env:
-          APOD_API_KEY: ${{ secrets.LOCAL_PROPERTIES }}
-        run: echo '${{ secrets.LOCAL_PROPERTIES }}' > ./local.properties
+          echo '${{ secrets.GOOGLE_SERVICES_JSON }}' | base64 -d > ./app-cnubus/google-services.json
+          echo '${{ secrets.GOOGLE_SERVICE_JSON }}' | base64 -d > ./app-comssa/google-services.json
+          echo '${{ secrets.GOOGLE_SERVICE_JSON }}' | base64 -d > ./app-my-grade/google-services.json
+          echo '${{ secrets.GOOGLE_SERVICE_JSON }}' | base64 -d > ./app-nanda/google-services.json
+          echo '${{ secrets.LOCAL_PROPERTIES }}' | base64 -d > ./local.properties
+          echo '${{ secrets.FONTS }}' | base64 -d > ./core/compose-core/src/main/res/values/font_certs.xml
 
       - name: Build with Gradle
         run: |

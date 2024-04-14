@@ -3,7 +3,7 @@ package com.keelim.catalog
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import com.airbnb.android.showkase.models.Showkase
-import com.keelim.composeutil.setThemeContent
+import com.keelim.composeutil.util.setThemeContent
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

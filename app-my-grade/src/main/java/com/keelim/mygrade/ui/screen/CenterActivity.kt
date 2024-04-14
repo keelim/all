@@ -9,7 +9,7 @@ import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.core.os.BuildCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.airbnb.deeplinkdispatch.DeepLink
-import com.keelim.composeutil.setThemeContent
+import com.keelim.composeutil.util.setThemeContent
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 

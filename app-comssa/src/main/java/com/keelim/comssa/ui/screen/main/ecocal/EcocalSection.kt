@@ -70,41 +70,53 @@ fun EcocalMainSection(
         Spacer(
             modifier = Modifier.height(space12),
         )
-        LazyColumn(
-            state = state,
-            modifier = Modifier.fillMaxSize(),
-        ) {
-            items(entries) { entry ->
-                ListItem(
-                    title = entry.title,
-                    subtitle = "${entry.date} ${entry.time}",
-                    photoUrl = null,
-                    label = entry.country,
-                    priority = entry.priority,
-                    isToday = entry.isToday,
-                    onClick = {
-                        context.startActivity(
-                            Intent(
-                                Intent.ACTION_VIEW,
-                                Uri.parse("https://www.google.com/search?q=${entry.country}-${entry.title} ${entry.date} ${entry.time}")
-                            )
-                        )
-                    },
-                )
-            }
-            item {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(60.dp)
-                        .background(MaterialTheme.colorScheme.primaryContainer),
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Text(
-                        text = "여기가 마지막 일정입니다.",
-                        style = MaterialTheme.typography.bodyMedium,
+        if (entries.isEmpty()) {
+            Text(
+                text = "검색된 내용이 없습니다.",
+                modifier = Modifier
+                    .align(
+                        Alignment.CenterHorizontally,
                     )
+                ,
+                style = MaterialTheme.typography.bodySmall,
+            )
+        } else {
+            LazyColumn(
+                state = state,
+                modifier = Modifier.fillMaxSize(),
+            ) {
+                items(entries) { entry ->
+                    ListItem(
+                        title = entry.title,
+                        subtitle = "${entry.date} ${entry.time}",
+                        photoUrl = null,
+                        label = entry.country,
+                        priority = entry.priority,
+                        isToday = entry.isToday,
+                        onClick = {
+                            context.startActivity(
+                                Intent(
+                                    Intent.ACTION_VIEW,
+                                    Uri.parse("https://www.google.com/search?q=${entry.country}-${entry.title} ${entry.date} ${entry.time}")
+                                )
+                            )
+                        },
+                    )
+                }
+                item {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(60.dp)
+                            .background(MaterialTheme.colorScheme.primaryContainer),
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Text(
+                            text = "여기가 마지막 일정입니다.",
+                            style = MaterialTheme.typography.bodyMedium,
+                        )
+                    }
                 }
             }
         }
@@ -121,7 +133,11 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
             .background(Color.Transparent)
             .padding(horizontal = space16, vertical = space8)
 
-        var now by remember { mutableStateOf(Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())) }
+        var now by remember {
+            mutableStateOf(
+                Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+            )
+        }
 
         LaunchedEffect(Unit) {
             while (true) {
@@ -167,8 +183,9 @@ fun ListItem(
 ) = trace("ListItem") {
     Surface(
         onClick = onClick,
-        modifier = modifier.fillMaxWidth()
-            .padding(space16),
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(space8),
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -177,7 +194,9 @@ fun ListItem(
             if (photoUrl != null) {
                 SubcomposeAsyncImage(
                     model = photoUrl,
-                    modifier = Modifier.size(58.dp).clip(CircleShape),
+                    modifier = Modifier
+                        .size(58.dp)
+                        .clip(CircleShape),
                     contentScale = ContentScale.Crop,
                     contentDescription = null,
                 ) {
@@ -194,20 +213,15 @@ fun ListItem(
                     .weight(1f)
             ) {
                 Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Text(
                         text = title,
                         style = MaterialTheme.typography.headlineSmall,
                     )
-                }
-                Spacer(Modifier.height(space4))
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
+                    Spacer(modifier = Modifier.weight(1f))
                     Text(
                         text = "$subtitle $label",
                         style = MaterialTheme.typography.bodyMedium,
@@ -215,6 +229,9 @@ fun ListItem(
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                         modifier = Modifier.weight(1f),
+                    )
+                    Spacer(
+                        modifier = Modifier.width(space4)
                     )
                     val color = when (priority) {
                         "상" -> Color.Red

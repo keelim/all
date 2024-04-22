@@ -10,7 +10,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: wrapper validation action
-        uses: gradle/wrapper-validation-action@v2
+        uses: gradle/wrapper-validation-action@v3
 
       - name: cache gradle
         uses: actions/cache@v4
@@ -30,7 +30,7 @@ jobs:
           cache: "gradle"
 
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@v3.2.1
+        uses: gradle/gradle-build-action@v3.3.1
         with:
           gradle-version: current
           gradle-home-cache-cleanup: true
@@ -38,13 +38,11 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Add Google Service Json
-        run: echo '${{ secrets.CNUBUS_GOOGLE_SERVICES_JSON }}' > ./app-cnubus/google-services.json
-
-      - name: ADD LOCAL PROPERTIES
-        env:
-          APOD_API_KEY: ${{ secrets.LOCAL_PROPERTIES }}
-        run: echo '${{ secrets.LOCAL_PROPERTIES }}' > ./local.properties
+      - name: Set environment
+        run: |
+          echo '${{ secrets.GOOGLE_SERVICE_JSON }}' | base64 -d > ./app-cnubus/google-services.json
+          echo '${{ secrets.LOCAL_PROPERTIES }}' | base64 -d > ./local.properties
+          echo '${{ secrets.FONTS }}' | base64 -d > ./core/compose-core/src/main/res/values/font_certs.xml
 
       - name: Build with Gradle
         run: ./gradlew app-cnubus:assembleRelease

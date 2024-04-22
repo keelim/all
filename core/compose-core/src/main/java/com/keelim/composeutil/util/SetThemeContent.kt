@@ -13,21 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.composeutil
+package com.keelim.composeutil.util
 
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
-import com.keelim.composeutil.theme.AppTheme
+import com.keelim.composeutil.ui.theme.KeelimTheme
 
 @Suppress("NOTHING_TO_INLINE")
 inline fun ComponentActivity.setThemeContent(noinline content: @Composable () -> Unit) =
     setContent {
-        AppTheme { content() }
+        KeelimTheme { content() }
     }
 
 @Suppress("NOTHING_TO_INLINE")
 inline fun Fragment.setThemeContent(noinline content: @Composable () -> Unit) =
-    ComposeView(requireActivity()).apply { setContent { AppTheme { content() } } }
+    ComposeView(requireActivity()).apply { setContent { KeelimTheme { content() } } }

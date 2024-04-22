@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.keelim.composeutil.setThemeContent
+import com.keelim.composeutil.util.setThemeContent
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

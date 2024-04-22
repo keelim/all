@@ -1,4 +1,4 @@
-package com.keelim.composeutil.theme
+package com.keelim.composeutil.ui.theme
 
 import android.app.Activity
 import android.os.Build
@@ -15,7 +15,7 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 @Composable
-fun AppTheme(
+fun KeelimTheme(
     isDarkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit,
 ) {
@@ -24,7 +24,6 @@ fun AppTheme(
             val context = LocalContext.current
             if (isDarkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
-
         else -> MaterialTheme.colorScheme
     }
     val view = LocalView.current
@@ -37,6 +36,7 @@ fun AppTheme(
     }
 
     MaterialTheme(
+        typography = keelimTypography,
         colorScheme = colorScheme,
         content = content,
     )

@@ -3,7 +3,7 @@
 compileSdk = "34"
 minSdk = "26"
 targetSdk = "34"
-versionCode = "20240415"
+versionCode = "20240429"
 # library
 accompanist = "0.34.0"
 adaptive-navigation-suite = "1.0.0-alpha06"

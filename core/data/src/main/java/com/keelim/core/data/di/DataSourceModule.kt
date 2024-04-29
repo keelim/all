@@ -8,9 +8,6 @@ import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.preferencesDataStoreFile
-import com.google.firebase.Firebase
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.database
 import com.keelim.common.di.IoDispatcher
 import com.keelim.core.data.source.local.DataStoreManager
 import com.keelim.core.data.source.local.PreferenceManager
@@ -61,10 +58,4 @@ object DataSourceModule {
     fun providePreferenceDataStoreManager(
         dataStore: DataStore<Preferences>,
     ): DataStoreManager = DataStoreManager(dataStore)
-
-    @Provides
-    @Singleton
-    fun provideFirebaseDatabase(): FirebaseDatabase {
-        return Firebase.database
-    }
 }

@@ -18,17 +18,15 @@ package com.keelim.commonAndroid.initialize
 import android.content.Context
 import androidx.startup.Initializer
 import com.google.firebase.Firebase
-import com.google.firebase.appcheck.appCheck
-import com.google.firebase.appcheck.debug.DebugAppCheckProviderFactory
 import com.google.firebase.initialize
 
 class FirebaseInitializer : Initializer<Unit> {
 
     override fun create(context: Context) {
         Firebase.initialize(context)
-        Firebase.appCheck.installAppCheckProviderFactory(
-            DebugAppCheckProviderFactory.getInstance(),
-        )
+        // Firebase.appCheck.installAppCheckProviderFactory(
+        //     DebugAppCheckProviderFactory.getInstance(),
+        // )
     }
 
     override fun dependencies(): List<Class<out Initializer<*>>> = emptyList()

@@ -19,6 +19,8 @@ package com.keelim.builds
 import com.android.build.api.dsl.CommonExtension
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.withType
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 /**
  * Configure Compose-specific options
@@ -45,4 +47,38 @@ fun Project.configureAndroidCompose(
             add("androidTestImplementation", composeTestBundle)
         }
     }
+    tasks.withType<KotlinCompile>().configureEach {
+        kotlinOptions {
+            freeCompilerArgs += buildList {
+                // addAll(composeCompilerReports())
+                // addAll(composeCompilerMetrics())
+                addAll(stabilityConfiguration())
+                addAll(strongSkippingConfiguration())
+            }
+        }
+    }
 }
+
+
+private fun Project.composeCompilerReports() = listOf(
+    "-P",
+    "plugin:androidx.compose.compiler.plugins.kotlin:reportsDestination=" +
+        project.buildDir.absolutePath + "/compose_compiler"
+)
+
+private fun Project.composeCompilerMetrics() = listOf(
+    "-P",
+    "plugin:androidx.compose.compiler.plugins.kotlin:metricsDestination=" +
+        project.buildDir.absolutePath + "/compose_compiler"
+)
+
+private fun Project.stabilityConfiguration() = listOf(
+    "-P",
+    "plugin:androidx.compose.compiler.plugins.kotlin:stabilityConfigurationPath=${project.rootDir.absolutePath}/compose_compiler_config.conf",
+)
+
+private fun Project.strongSkippingConfiguration() = listOf(
+    "-P",
+    "plugin:androidx.compose.compiler.plugins.kotlin:experimentalStrongSkipping=true",
+)
+

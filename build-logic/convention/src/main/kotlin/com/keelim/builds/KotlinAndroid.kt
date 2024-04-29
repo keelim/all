@@ -19,13 +19,10 @@ package com.keelim.builds
 import com.android.build.api.dsl.CommonExtension
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
-import org.gradle.api.plugins.ExtensionAware
 import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.provideDelegate
 import org.gradle.kotlin.dsl.withType
-import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 /**
@@ -71,7 +68,7 @@ private fun Project.configureKotlin() {
             // Treat all Kotlin warnings as errors (disabled by default)
             allWarningsAsErrors = properties["warningsAsErrors"] as? Boolean ?: false
 
-            freeCompilerArgs = freeCompilerArgs + listOf(
+            freeCompilerArgs += listOf(
                 "-Xopt-in=kotlin.RequiresOptIn",
                 // Enable experimental coroutines APIs, including Flow
                 "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",

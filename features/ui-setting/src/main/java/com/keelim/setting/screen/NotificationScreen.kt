@@ -32,7 +32,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -143,7 +142,6 @@ private fun NotificationListCard(
     notificationTitle: String,
     notificationDesc: String,
 ) {
-    val context = LocalContext.current
     Card {
         Row(
             Modifier
@@ -153,20 +151,26 @@ private fun NotificationListCard(
         ) {
             Text(
                 text = notificationDate,
-                style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 16.sp),
+                style = MaterialTheme.typography.bodySmall.copy(
+                    fontWeight = FontWeight.Bold,
+                ),
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 1,
             )
             Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
                 Text(
                     text = notificationTitle,
-                    style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 16.sp),
+                    style = MaterialTheme.typography.bodySmall.copy(
+                        fontWeight = FontWeight.Bold,
+                    ),
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
                 )
                 Text(
                     text = notificationDesc,
-                    style = TextStyle(fontWeight = FontWeight.Medium, fontSize = 16.sp),
+                    style = MaterialTheme.typography.bodySmall.copy(
+                        fontWeight = FontWeight.Bold,
+                    ),
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 5,
                 )
@@ -177,13 +181,13 @@ private fun NotificationListCard(
 
 @Preview
 @Composable
-fun PreviewNotificationScreen() {
+private fun PreviewNotificationScreen() {
     NotificationScreen()
 }
 
 @Preview
 @Composable
-fun PreviewNotificationListCard() {
+private fun PreviewNotificationListCard() {
     NotificationListCard(
         notificationDate = "2022.12.13",
         notificationTitle = "공지 제목",

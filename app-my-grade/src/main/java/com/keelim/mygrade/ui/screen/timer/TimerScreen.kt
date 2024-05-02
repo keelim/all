@@ -129,12 +129,15 @@ fun SelectTime(
 ) = trace("SelectTime") {
     if (runningState == RunningState.STOPPED) {
         Box(
-            modifier = Modifier.fillMaxWidth().height(350.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(350.dp),
             contentAlignment = Alignment.Center,
         ) {
             Box(
                 modifier =
-                Modifier.fillMaxWidth()
+                Modifier
+                    .fillMaxWidth()
                     .height(36.dp)
                     .clip(RoundedCornerShape(10.dp))
                     .alpha(0.4f)
@@ -146,19 +149,26 @@ fun SelectTime(
                 horizontalArrangement = Arrangement.SpaceEvenly,
             ) {
                 Row {
-                    NumberPickerList(numbers = HOUR_LIST) { viewModel.hour = it }
-
+                    NumberPickerList(
+                        numbers = HOUR_LIST,
+                        selectedItem = { viewModel.hour = it }
+                    )
                     Text(text = "h", modifier = Modifier.align(Alignment.CenterVertically))
                 }
 
                 Row {
-                    NumberPickerList(numbers = MINUTE_LIST) { viewModel.minute = it }
+                    NumberPickerList(
+                        numbers = MINUTE_LIST,
+                        selectedItem = { viewModel.minute = it },
+                    )
 
                     Text(text = "m", modifier = Modifier.align(Alignment.CenterVertically))
                 }
                 Row {
-                    NumberPickerList(numbers = SECOND_LIST) { viewModel.second = it }
-
+                    NumberPickerList(
+                        numbers = SECOND_LIST,
+                        selectedItem = { viewModel.second = it },
+                    )
                     Text(text = "s", modifier = Modifier.align(Alignment.CenterVertically))
                 }
             }
@@ -181,7 +191,8 @@ fun CircularCountDownTimer(
                 viewModel.stop()
             }
         }
-        val progress = remember { Animatable(leftTime / viewModel.getTotalTimeInSeconds().toFloat()) }
+        val progress =
+            remember { Animatable(leftTime / viewModel.getTotalTimeInSeconds().toFloat()) }
         val progressTarget = 0f
 
         LaunchedEffect(runningState == RunningState.STARTED) {

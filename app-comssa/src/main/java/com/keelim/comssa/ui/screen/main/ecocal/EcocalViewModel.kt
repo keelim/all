@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import timber.log.Timber
 import javax.inject.Inject
+
 @Stable
 @HiltViewModel
 class EcocalViewModel @Inject constructor(
@@ -27,8 +28,8 @@ class EcocalViewModel @Inject constructor(
     private val ref = firebaseRepository
         .getRef("ecocal")
         .mapLatest { result ->
-            Timber.d("result $result")
             result.getOrThrow()
+                .map { item -> item.toModel() }
         }
         .catch { throwable ->
             Timber.e(throwable)
@@ -41,17 +42,17 @@ class EcocalViewModel @Inject constructor(
         Timber.d("data $data filter $filter")
         val sample = when (filter) {
             is All -> data
-            is High -> data.filter { it.priority == "상" }
-            is Medium -> data.filter { it.priority == "중" }
-            is Low -> data.filter { it.priority == "하" }
+            is High -> data.filter { it.priority == EcocalPriority.HIGH }
+            is Medium -> data.filter { it.priority == EcocalPriority.MEDIUM }
+            is Low -> data.filter { it.priority == EcocalPriority.LOW }
             else -> emptyList()
         }
         sample
-    }.catch { throwable ->
-        Timber.e(throwable)
-        emitAll(emptyFlow())
-    }
-        .asSealedUiState()
+    }.asSealedUiState()
+        .catch { throwable ->
+            Timber.e(throwable)
+            emitAll(emptyFlow())
+        }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), SealedUiState.loading())
 
     fun updateFilter(item: FabButtonItem) {

@@ -39,6 +39,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.trace
 import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space16
+import com.keelim.composeutil.resource.space2
+import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
 import kotlinx.coroutines.delay
 import kotlinx.datetime.Clock
@@ -101,7 +103,9 @@ fun EcocalMainSection(
                     ) {
                         Text(
                             text = "여기가 마지막 일정입니다.",
-                            style = MaterialTheme.typography.bodyMedium,
+                            style = MaterialTheme.typography.bodyMedium.copy(
+                                fontWeight = FontWeight.Bold,
+                            ),
                         )
                     }
                 }
@@ -122,36 +126,34 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
 
         var now by remember {
             mutableStateOf(
-                Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+                Clock.System.now()
             )
         }
 
         LaunchedEffect(Unit) {
             while (true) {
                 delay(1000L)
-                now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+                now = Clock.System.now()
             }
         }
-
-        Row(
-            modifier = rowModifier,
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
-        ) {
-            Text(
-                text = "${now.year}-${now.monthNumber}",
-                style = MaterialTheme.typography.bodyLarge,
-                maxLines = 1,
-            )
+        val timezone = remember {
+            TimeZone.currentSystemDefault()
         }
-
-        Row(
+        Column(
             modifier = rowModifier,
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.End,
         ) {
+            val time = now.toLocalDateTime(timezone)
             Text(
-                text = "${now.year}년 ${now.monthNumber}월 ${now.dayOfMonth}일 ${now.hour}:${now.minute}:${now.second}",
+                text = "${time.year}-${time.monthNumber}",
+                style = MaterialTheme.typography.bodyLarge,
+            )
+            Text(
+                modifier = Modifier.align(Alignment.End),
+                text = "${time.year}년 ${time.monthNumber}월 ${time.dayOfMonth}일",
+            )
+            Text(
+                modifier = Modifier.align(Alignment.End),
+                text = "${time.hour}:${time.minute}:${time.second}",
             )
         }
     }
@@ -170,15 +172,26 @@ fun ListItem(
         modifier = modifier
             .fillMaxWidth()
             .clickable { onClick() }
-            .padding(space8),
+            .padding(horizontal = space16, vertical = space8)
     ) {
         Text(
             text = title,
             style = MaterialTheme.typography.headlineSmall,
         )
-
+        Spacer(
+            modifier = Modifier.height(space4)
+        )
         Text(
-            text = "$subtitle $label",
+            text = subtitle,
+            style = MaterialTheme.typography.bodyMedium,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+        )
+        Spacer(
+            modifier = Modifier.height(space2)
+        )
+        Text(
+            text = label,
             style = MaterialTheme.typography.bodyMedium,
             fontWeight = FontWeight.Bold,
             maxLines = 1,
@@ -206,13 +219,16 @@ fun ListItem(
 @Preview
 @Composable
 private fun PreviewListItem() {
-    ListItem(
-        title = "fastidii",
-        subtitle = "ultrices",
-        label = "efficitur",
-        priority = EcocalPriority.LOW,
-        onClick = {},
-    )
+    MaterialTheme {
+        ListItem(
+            title = "fastidii",
+            subtitle = "ultrices",
+            label = "efficitur",
+            priority = EcocalPriority.LOW,
+            onClick = {},
+            modifier = Modifier.background(MaterialTheme.colorScheme.surface)
+        )
+    }
 }
 
 @Preview
@@ -229,5 +245,6 @@ private fun PreviewEcocalMainSection() {
                 title = "option",
             ),
         ),
+        modifier = Modifier.background(MaterialTheme.colorScheme.surface),
     )
 }

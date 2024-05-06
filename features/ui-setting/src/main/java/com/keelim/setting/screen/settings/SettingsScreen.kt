@@ -94,15 +94,15 @@ fun SettingsScreen(
             val listState = rememberLazyListState()
             val hasScrolled by remember { derivedStateOf { listState.firstVisibleItemScrollOffset > 0 } }
             val appBarElevation by
-            animateDpAsState(
-                targetValue =
-                if (hasScrolled) {
-                    4.dp
-                } else {
-                    0.dp
-                },
-                label = "",
-            )
+                animateDpAsState(
+                    targetValue =
+                    if (hasScrolled) {
+                        4.dp
+                    } else {
+                        0.dp
+                    },
+                    label = "",
+                )
             val onBackPressedDispatcher =
                 checkNotNull(LocalOnBackPressedDispatcherOwner.current) { "this is not null" }
                     .onBackPressedDispatcher
@@ -129,7 +129,7 @@ fun SettingsScreen(
                             IconButton(onClick = { onBackPressedDispatcher.onBackPressed() }) {
                                 Icon(
                                     Icons.AutoMirrored.Rounded.ArrowBack,
-                                    contentDescription = "Go back"
+                                    contentDescription = "Go back",
                                 )
                             }
                         },

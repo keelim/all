@@ -1,3 +1,5 @@
+package com.keelim.shared.di
+
 import com.keelim.shared.data.UserStateStore
 import kotlinx.cinterop.ExperimentalForeignApi
 import okio.FileSystem
@@ -6,7 +8,7 @@ import platform.Foundation.NSFileManager
 import platform.Foundation.NSURL
 import platform.Foundation.NSUserDomainMask
 
-actual class Factory {
+actual class Module {
     actual fun createUserStateStore(): UserStateStore {
         return UserStateStore(
             fileSystem = FileSystem.SYSTEM,

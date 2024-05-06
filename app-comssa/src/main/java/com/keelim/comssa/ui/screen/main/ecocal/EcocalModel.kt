@@ -22,7 +22,6 @@ fun EcoCalEntry.toModel() = EcoCalModel(
     title = title,
 )
 
-
 enum class EcocalPriority {
     HIGH, MEDIUM, LOW, NONE;
 

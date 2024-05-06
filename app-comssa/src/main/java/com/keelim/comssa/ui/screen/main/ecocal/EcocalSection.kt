@@ -86,8 +86,8 @@ fun EcocalMainSection(
                             context.startActivity(
                                 Intent(
                                     Intent.ACTION_VIEW,
-                                    Uri.parse("https://www.google.com/search?q=${entry.country}-${entry.title} ${entry.date} ${entry.time}")
-                                )
+                                    Uri.parse("https://www.google.com/search?q=${entry.country}-${entry.title} ${entry.date} ${entry.time}"),
+                                ),
                             )
                         },
                     )
@@ -126,7 +126,7 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
 
         var now by remember {
             mutableStateOf(
-                Clock.System.now()
+                Clock.System.now(),
             )
         }
 
@@ -172,14 +172,14 @@ fun ListItem(
         modifier = modifier
             .fillMaxWidth()
             .clickable { onClick() }
-            .padding(horizontal = space16, vertical = space8)
+            .padding(horizontal = space16, vertical = space8),
     ) {
         Text(
             text = title,
             style = MaterialTheme.typography.headlineSmall,
         )
         Spacer(
-            modifier = Modifier.height(space4)
+            modifier = Modifier.height(space4),
         )
         Text(
             text = subtitle,
@@ -188,7 +188,7 @@ fun ListItem(
             overflow = TextOverflow.Ellipsis,
         )
         Spacer(
-            modifier = Modifier.height(space2)
+            modifier = Modifier.height(space2),
         )
         Text(
             text = label,
@@ -212,9 +212,7 @@ fun ListItem(
                 .align(Alignment.End),
         )
     }
-
 }
-
 
 @Preview
 @Composable
@@ -226,7 +224,7 @@ private fun PreviewListItem() {
             label = "efficitur",
             priority = EcocalPriority.LOW,
             onClick = {},
-            modifier = Modifier.background(MaterialTheme.colorScheme.surface)
+            modifier = Modifier.background(MaterialTheme.colorScheme.surface),
         )
     }
 }

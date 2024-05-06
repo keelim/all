@@ -27,6 +27,7 @@ import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSiz
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.lifecycleScope
 import com.airbnb.deeplinkdispatch.DeepLink
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.keelim.common.extensions.toast
@@ -34,7 +35,12 @@ import com.keelim.commonAndroid.util.DownloadReceiver
 import com.keelim.composeutil.util.setThemeContent
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.ui.screen.NandaApp
+import com.keelim.shared.data.UserStateStore
+import dagger.Lazy
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
@@ -45,6 +51,9 @@ import javax.inject.Inject
 class Main2Activity : ComponentActivity() {
     @Inject
     lateinit var downloadReceiver: DownloadReceiver
+
+    @Inject
+    lateinit var userStateStore: Lazy<UserStateStore>
 
     private val appPermissions: List<String> = buildList {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -75,6 +84,8 @@ class Main2Activity : ComponentActivity() {
             val parameters = intent.extras
             Timber.d("[deep link] name ${parameters?.getString("name")}")
         }
+
+        updateVisitedTime()
     }
 
     override fun onStart() {
@@ -127,5 +138,13 @@ class Main2Activity : ComponentActivity() {
             .setAllowedOverMetered(true)
             .setAllowedOverRoaming(true)
             .also(getSystemService(DownloadManager::class.java)::enqueue)
+    }
+
+    private fun updateVisitedTime() {
+        lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                userStateStore.get().updateVisitedTime()
+            }
+        }
     }
 }

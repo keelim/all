@@ -3,7 +3,7 @@ package com.keelim.shared.data
 import androidx.datastore.core.DataStoreFactory
 import androidx.datastore.core.okio.OkioSerializer
 import androidx.datastore.core.okio.OkioStorage
-import json
+import com.keelim.shared.di.json
 import kotlinx.coroutines.flow.Flow
 import kotlinx.serialization.Serializable
 import okio.BufferedSink

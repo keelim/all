@@ -27,7 +27,6 @@ import com.keelim.composeutil.component.fab.FabButtonSub
 import com.keelim.composeutil.component.fab.MultiMainFab
 import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
-
 import dev.chrisbanes.haze.HazeDefaults
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.HazeStyle
@@ -65,7 +64,7 @@ fun EcocalScreen(
                     topBar = {
                         HeaderItem(
                             modifier = Modifier
-                                .hazeChild(state = hazeState)
+                                .hazeChild(state = hazeState),
                         )
                     },
                     floatingActionButton = {
@@ -102,7 +101,7 @@ fun EcocalScreen(
                             modifier = Modifier
                                 .hazeChild(
                                     state = hazeState,
-                                )
+                                ),
                         )
                     },
                 ) { paddingValues ->

@@ -1,6 +1,5 @@
 package com.keelim.commonAndroid.di
 
-import Factory
 import android.content.Context
 import com.keelim.commonAndroid.model.AppInfo
 import com.keelim.commonAndroid.util.ApplicationMonitor
@@ -45,7 +44,7 @@ object ApplicationModule {
     @Singleton
     fun providesUserStateStore(
         @ApplicationContext context: Context,
-    ): UserStateStore = Factory(
+    ): UserStateStore = com.keelim.shared.di.Module(
         context = context,
     ).createUserStateStore()
 }

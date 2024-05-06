@@ -18,8 +18,6 @@ package com.keelim.commonAndroid.initialize
 import android.content.Context
 import androidx.startup.Initializer
 import com.google.firebase.Firebase
-// import com.google.firebase.appcheck.appCheck
-// import com.google.firebase.appcheck.playintegrity.PlayIntegrityAppCheckProviderFactory
 import com.google.firebase.initialize
 
 class FirebaseInitializer : Initializer<Unit> {

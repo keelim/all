@@ -16,12 +16,12 @@ import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 sealed interface SettingsUiState {
-    data object Initialized: SettingsUiState
+    data object Initialized : SettingsUiState
 
     data class Success(
         val userState: UserState,
         val deviceInfo: DeviceInfo,
-    ): SettingsUiState
+    ) : SettingsUiState
 }
 
 @Stable

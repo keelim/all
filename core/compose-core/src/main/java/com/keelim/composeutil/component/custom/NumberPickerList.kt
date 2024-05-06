@@ -67,7 +67,7 @@ fun NumberPickerList(
                 val animateState =
                     animateFloatAsState(
                         targetValue = if (firstVisibleItemIndex.value != item) 0f else 1f,
-                        label = ""
+                        label = "",
                     )
 
                 val textStyle = lerp(
@@ -121,13 +121,13 @@ fun NumberPickerList(
                     when (index) {
                         0, listState.layoutInfo.totalItemsCount - 1 -> {
                             view.performHapticFeedback(
-                                HapticFeedbackConstantsCompat.LONG_PRESS
+                                HapticFeedbackConstantsCompat.LONG_PRESS,
                             )
                         }
 
                         else -> {
                             view.performHapticFeedback(
-                                HapticFeedbackConstantsCompat.CLOCK_TICK
+                                HapticFeedbackConstantsCompat.CLOCK_TICK,
                             )
                         }
                     }

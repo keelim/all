@@ -28,15 +28,25 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.lifecycleScope
 import com.airbnb.deeplinkdispatch.DeepLink
 import com.keelim.cnubus.ui.CnubusApp
 import com.keelim.composeutil.util.setThemeContent
+import com.keelim.shared.data.UserStateStore
+import dagger.Lazy
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @DeepLink("all://screen/{name}")
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var userStateStore: Lazy<UserStateStore>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
@@ -81,6 +91,16 @@ class MainActivity : AppCompatActivity() {
                         }
                     },
                 )
+            }
+        }
+
+        updateVisitedTime()
+    }
+
+    private fun updateVisitedTime() {
+        lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                userStateStore.get().updateVisitedTime()
             }
         }
     }

@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.android.library)
     alias(libs.plugins.sqldelight)
+    kotlin("plugin.serialization")
 }
 
 kotlin {
@@ -15,8 +16,9 @@ kotlin {
             }
         }
     }
-    iosX64()
-    iosArm64()
+
+    // iosX64()
+    // iosArm64()
     iosSimulatorArm64()
 
     sourceSets {
@@ -27,13 +29,14 @@ kotlin {
             implementation(libs.sqldelight.coroutines)
             implementation(libs.sqldelight.paging)
             implementation(libs.sqldelight.primitive)
+            implementation(libs.kotlinx.serialization.json)
+            api(libs.androidx.dataStore.preferences)
+            api(libs.androidx.dataStore.core.okio)
+            implementation(libs.okio)
         }
-        iosMain.dependencies {
+        appleMain.dependencies {
             implementation(libs.sqldelight.native)
         }
-        // jsMain.dependencies {
-        //     implementation(libs.sqldelight.web.worker)
-        // }
     }
 }
 

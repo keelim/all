@@ -218,7 +218,6 @@ fun CircularCountDownTimer(
                     )
                 }
             }
-
         }
     }
 }

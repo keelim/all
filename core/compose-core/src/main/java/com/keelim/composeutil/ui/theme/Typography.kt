@@ -11,14 +11,14 @@ import com.keelim.compose.core.R
 private val provider = GoogleFont.Provider(
     providerAuthority = "com.google.android.gms.fonts",
     providerPackage = "com.google.android.gms",
-    certificates = R.array.com_google_android_gms_fonts_certs
+    certificates = R.array.com_google_android_gms_fonts_certs,
 )
 
 private fun KeelimFont(name: String = "Noto Sans KR", weight: FontWeight): Font {
     return Font(
         googleFont = GoogleFont(name),
         fontProvider = provider,
-        weight = weight
+        weight = weight,
     )
 }
 
@@ -38,52 +38,52 @@ private val fontFamily = FontFamily(
 
 internal val keelimTypography = Typography(
     displayLarge = typography.displayLarge.copy(
-        fontFamily = fontFamily
+        fontFamily = fontFamily,
     ),
     displayMedium = typography.displayMedium.copy(
-        fontFamily = fontFamily
+        fontFamily = fontFamily,
     ),
     displaySmall = typography.displaySmall.copy(
-        fontFamily = fontFamily
+        fontFamily = fontFamily,
     ),
 
     headlineLarge = typography.headlineLarge.copy(
-        fontFamily = fontFamily
+        fontFamily = fontFamily,
     ),
     headlineMedium = typography.headlineMedium.copy(
-        fontFamily = fontFamily
+        fontFamily = fontFamily,
     ),
     headlineSmall = typography.headlineSmall.copy(
-        fontFamily = fontFamily
+        fontFamily = fontFamily,
     ),
 
     titleLarge = typography.titleLarge.copy(
-        fontFamily = fontFamily
+        fontFamily = fontFamily,
     ),
     titleMedium = typography.titleMedium.copy(
-        fontFamily = fontFamily
+        fontFamily = fontFamily,
     ),
     titleSmall = typography.titleSmall.copy(
-        fontFamily = fontFamily
+        fontFamily = fontFamily,
     ),
 
     bodyLarge = typography.bodyLarge.copy(
-        fontFamily = fontFamily
+        fontFamily = fontFamily,
     ),
     bodyMedium = typography.bodyMedium.copy(
-        fontFamily = fontFamily
+        fontFamily = fontFamily,
     ),
     bodySmall = typography.bodySmall.copy(
-        fontFamily = fontFamily
+        fontFamily = fontFamily,
     ),
 
     labelLarge = typography.labelLarge.copy(
-        fontFamily = fontFamily
+        fontFamily = fontFamily,
     ),
     labelMedium = typography.labelMedium.copy(
-        fontFamily = fontFamily
+        fontFamily = fontFamily,
     ),
     labelSmall = typography.labelSmall.copy(
-        fontFamily = fontFamily
+        fontFamily = fontFamily,
     ),
 )

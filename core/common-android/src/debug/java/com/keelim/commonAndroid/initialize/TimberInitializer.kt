@@ -10,6 +10,6 @@ class TimberInitializer : Initializer<Unit> {
     }
 
     override fun dependencies() = listOf(
-        FirebaseInitializer::class.java
+        FirebaseInitializer::class.java,
     )
 }

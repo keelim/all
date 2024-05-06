@@ -36,5 +36,4 @@ class MyApplication : Application(), ImageLoaderFactory {
     }
 
     override fun newImageLoader(): ImageLoader = imageLoader.get()
-
 }

@@ -136,7 +136,7 @@ fun DeveloperOptionPart(
     displayTitle: String,
     displayKey: String,
     modifier: Modifier = Modifier,
-    value: String? = null
+    value: String? = null,
 ) {
     Spacer(modifier = modifier.height(space16))
     Text(

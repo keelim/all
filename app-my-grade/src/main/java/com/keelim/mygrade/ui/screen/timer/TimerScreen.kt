@@ -151,7 +151,7 @@ fun SelectTime(
                 Row {
                     NumberPickerList(
                         numbers = HOUR_LIST,
-                        selectedItem = { viewModel.hour = it }
+                        selectedItem = { viewModel.hour = it },
                     )
                     Text(text = "h", modifier = Modifier.align(Alignment.CenterVertically))
                 }

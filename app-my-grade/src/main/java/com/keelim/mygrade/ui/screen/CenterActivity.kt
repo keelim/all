@@ -43,7 +43,6 @@ class CenterActivity : AppCompatActivity() {
         updateVisitedTime()
     }
 
-
     private fun updateVisitedTime() {
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {

@@ -36,20 +36,21 @@ data class AppItem(
     val state: ItemState,
 )
 
-sealed class ItemState {
-    data object Visible : ItemState()
-    data object Progress : ItemState()
-    data object Finish : ItemState()
+sealed interface ItemState {
+    data object Visible : ItemState
+    data object Progress : ItemState
+    data object Finish : ItemState
 }
 
 @Composable
 fun ListItem(
     item: AppItem,
     backgroundColor: Color,
+    modifier: Modifier = Modifier,
     onItemClick: ((Int) -> Unit)? = null,
 ) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(60.dp)
             .background(backgroundColor)
@@ -98,7 +99,7 @@ fun ListItem(
 
 @Preview
 @Composable
-fun PreviewListItem(
+private fun PreviewListItem(
     mockItems: List<AppItem> = (0..20).map { index ->
         AppItem(
             id = index,

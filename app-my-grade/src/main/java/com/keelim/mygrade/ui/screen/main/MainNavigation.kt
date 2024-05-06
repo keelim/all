@@ -65,16 +65,19 @@ internal fun NormalProbability.grade(isHardMode: Boolean = false): String {
     }
 }
 
-sealed class MainState {
-    data object UnInitialized : MainState()
-    data object Loading : MainState()
-    data object Initialized : MainState()
+sealed interface MainState {
+    data object UnInitialized : MainState
+
+    data object Loading : MainState
+
+    data object Initialized : MainState
+
     data class Success(
         val flag: Boolean,
         val subject: String,
         val value: NormalProbability,
         val student: Int = 0,
-    ) : MainState()
+    ) : MainState
 
-    data class Error(val message: String) : MainState()
+    data class Error(val message: String) : MainState
 }

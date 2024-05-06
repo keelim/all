@@ -40,11 +40,11 @@ import com.keelim.composeutil.resource.space8
 import com.keelim.core.data.model.Location
 
 @Stable
-sealed class MapEvent {
-    data object UnInitialized : MapEvent()
-    data object Loading : MapEvent()
-    data class MigrateSuccess(val data: List<Location>) : MapEvent()
-    data class Error(val message: String = "에러가 발생하였습니다.") : MapEvent()
+sealed interface MapEvent {
+    data object UnInitialized : MapEvent
+    data object Loading : MapEvent
+    data class MigrateSuccess(val data: List<Location>) : MapEvent
+    data class Error(val message: String = "에러가 발생하였습니다.") : MapEvent
 }
 
 @Composable

@@ -2,9 +2,9 @@ package com.keelim.setting.di
 
 import android.content.Context
 import android.os.Build
+import com.keelim.shared.getAppSupported
+import com.keelim.shared.getPlatform
 import dagger.hilt.android.qualifiers.ApplicationContext
-import getAppSupported
-import getPlatform
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import timber.log.Timber

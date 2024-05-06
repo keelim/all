@@ -35,16 +35,4 @@ object DatabaseModule {
         ).createFromFile(File(context.getExternalFilesDir(null), "nanda.db"))
             .allowMainThreadQueries().build()
     }
-
-    @Provides
-    @Singleton
-    fun provideCnuBusAppDatabase(
-        @ApplicationContext ctx: Context,
-    ): CnuAppDatabase {
-        return Room.databaseBuilder(
-            ctx,
-            CnuAppDatabase::class.java,
-            "station.db",
-        ).build()
-    }
 }

@@ -13,6 +13,7 @@
         android:enableOnBackInvokedCallback="true"
         android:allowBackup="false"
         android:theme="@style/ComssaTheme"
+        android:hardwareAccelerated="true"
         tools:targetApi="tiramisu">
 
         <activity

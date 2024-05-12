@@ -29,8 +29,10 @@ value class Otp(val value: String)
 fun OtpInputTextField(
     otp: Otp,
     onOtpValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     BasicTextField(
+        modifier = modifier,
         value = otp.value,
         onValueChange = onOtpValueChange,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword),
@@ -65,6 +67,6 @@ fun OtpInputTextField(
 
 @Preview
 @Composable
-fun PreviewOtpInputTextField() {
+private fun PreviewOtpInputTextField() {
     OtpInputTextField(otp = Otp(value = "alienum"), onOtpValueChange = {})
 }

@@ -267,8 +267,8 @@ private fun ColumnScope.MainBottomSection(
         mutableStateOf(
             listOf(
                 History(),
-                Setting(),
                 Other(),
+                Setting(),
             ),
         )
     }

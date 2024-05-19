@@ -24,8 +24,8 @@ fun FlashCardRoute(
     viewModel: FlashCardViewModel = hiltViewModel(),
 ) = trace("FlashCardRoute") {
     val cardFace by viewModel.uiState.collectAsStateWithLifecycle(
-  lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current
-)
+        lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current,
+    )
     FlashCardScreen(
         cardFace.flashCardState,
         onClick = viewModel::updateState,

@@ -54,8 +54,8 @@ fun RootRoute(
     viewModel: RootViewModel = hiltViewModel(),
 ) = trace("RootRoute") {
     val uiState by viewModel.state.collectAsStateWithLifecycle(
-  lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current
-)
+        lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current,
+    )
     RootScreen(
         uiState = uiState,
         onRootClick = onRootClick,

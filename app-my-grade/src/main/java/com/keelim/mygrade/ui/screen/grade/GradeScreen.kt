@@ -48,11 +48,11 @@ fun GradeRoute(
     viewModel: GradeViewModel = hiltViewModel(),
 ) = trace("GradeRoute") {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle(
-  lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current
-)
+        lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current,
+    )
     val data by viewModel.data.collectAsStateWithLifecycle(
-  lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current
-)
+        lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current,
+    )
     if (uiState.isMessageShow) {
         Snackbar(dismissAction = { viewModel.dismissMessage() }) { Text(text = uiState.message) }
     }

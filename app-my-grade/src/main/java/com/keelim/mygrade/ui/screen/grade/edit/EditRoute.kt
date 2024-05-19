@@ -43,8 +43,8 @@ fun EditRoute(
     viewModel: EditViewModel = hiltViewModel(),
 ) = trace("EditRoute") {
     val editUiState by viewModel.data.collectAsStateWithLifecycle(
-  lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current
-)
+        lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current,
+    )
 
     EditScreen(
         editUiState = editUiState,

@@ -33,8 +33,8 @@ fun TaskChartRoute(
     viewModel: TaskChartViewModel = hiltViewModel(),
 ) = trace("TaskChartRoute") {
     val state by viewModel.state.collectAsStateWithLifecycle(
-  lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current
-)
+        lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current,
+    )
     TaskChartScreen(
         state = state,
     )

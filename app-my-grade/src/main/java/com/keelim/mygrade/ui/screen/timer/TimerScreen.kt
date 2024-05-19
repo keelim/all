@@ -52,7 +52,9 @@ fun TimerScreen(
     onNavigateTimerHistory: () -> Unit,
     viewModel: TimerViewModel = hiltViewModel(),
 ) = trace("TimerScreen") {
-    val timerUiState by viewModel.timerUiState.collectAsStateWithLifecycle()
+    val timerUiState by viewModel.timerUiState.collectAsStateWithLifecycle(
+  lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current
+)
     val isCountDownTimerVisible = viewModel.isRunning
     val addedTime = viewModel.addTime(System.currentTimeMillis())
     val dialogState = remember { mutableStateOf(false) }

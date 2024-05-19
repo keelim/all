@@ -38,7 +38,9 @@ fun MapScreen(viewModel: MapViewModel = hiltViewModel()) = trace("MapScreen") {
         position = CameraPosition.fromLatLngZoom(Location.defaultLocation().latLng, 25f)
     }
     GoogleMap(modifier = Modifier.fillMaxSize(), cameraPositionState = cameraPositionState) {
-        val locations by viewModel.locations.collectAsStateWithLifecycle()
+        val locations by viewModel.locations.collectAsStateWithLifecycle(
+  lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current
+)
         locations.fastForEach { marker ->
             MarkerInfoWindowContent(
                 state = MarkerState(position = marker.position),

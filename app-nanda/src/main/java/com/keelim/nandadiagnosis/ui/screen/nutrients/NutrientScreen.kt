@@ -51,8 +51,8 @@ fun NutrientRoute(
     viewModel: NutrientViewModel = hiltViewModel(),
 ) = trace("NutrientRoute") {
     val uiState by viewModel.state.collectAsStateWithLifecycle(
-  lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current
-)
+        lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current,
+    )
 
     NutrientScreen(
         uiState = uiState,

@@ -37,7 +37,9 @@ import timber.log.Timber
 
 @Composable
 fun EcocalRoute(viewModel: EcocalViewModel = hiltViewModel()) = trace("EcocalRoute") {
-    val uiState by viewModel.items.collectAsStateWithLifecycle()
+    val uiState by viewModel.items.collectAsStateWithLifecycle(
+  lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current
+)
     EcocalScreen(
         uiState = uiState,
         updateFilter = viewModel::updateFilter,

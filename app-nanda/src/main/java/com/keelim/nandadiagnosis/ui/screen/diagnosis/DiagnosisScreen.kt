@@ -36,8 +36,8 @@ fun DiagnosisRoute(
     viewModel: DiagnosisViewModel = hiltViewModel(),
 ) = trace("DiagnosisRoute") {
     val screenState by viewModel.screenState.collectAsStateWithLifecycle(
-  lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current
-)
+        lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current,
+    )
     DiagnosisScreen(
         screenState = screenState,
         onDiagnosisClick = onDiagnosisClick,

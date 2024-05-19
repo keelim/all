@@ -46,8 +46,8 @@ fun NotesRoute(
     viewModel: NotesViewModel = hiltViewModel(),
 ) = trace("NotesRoute") {
     val uiState by viewModel.notesUiState.collectAsStateWithLifecycle(
-  lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current
-)
+        lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current,
+    )
     NotesScreen(
         uiState = uiState,
         onDeleteClick = viewModel::deleteNote,

@@ -12,6 +12,6 @@ class CompositionCounter(var count: Int)
 fun LogComposable(tag: String = "log", message: String) {
     if (BuildConfig.DEBUG.not()) return
     val compositionCounter: CompositionCounter = remember { CompositionCounter(0) }
-    Log.d(tag, "$message ${compositionCounter.count} $currentRecomposeScope")
+    Timber.tag(tag).d(message + " " + compositionCounter.count + " " + currentRecomposeScope)
     compositionCounter.count++
 }

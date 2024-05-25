@@ -12,7 +12,6 @@ androidGradlePlugin = "8.4.1"
 androidxActivity = "1.9.0"
 androidxAppCompat = "1.6.1"
 androidxComposeBom = "2024.05.00"
-androidxComposeCompiler = "1.5.14"
 androidxComposeRuntimeTracing = "1.0.0-beta01"
 androidxCore = "1.13.1"
 androidxCoreSplashscreen = "1.0.1"
@@ -191,6 +190,7 @@ coil-gif = { group = "io.coil-kt", name = "coil-gif"}
 coil-network-ktor = { group = "io.coil-kt", name = "coil-video", version.ref = "coil"}
 coil-svg = { group = "io.coil-kt", name = "coil-svg"}
 coil-video = { group = "io.coil-kt", name = "coil-video"}
+compose-compiler-gradlePlugin = { group = "org.jetbrains.kotlin", name = "compose-compiler-gradle-plugin", version.ref = "kotlin" }
 deeplinkdispatch = { group = "com.airbnb", name = "deeplinkdispatch", version.ref = "deeplinkdispatch" }
 deeplinkdispatch-processor = { group = "com.airbnb", name = "deeplinkdispatch-processor", version.ref = "deeplinkdispatch" }
 dependencyGuard-gradlePlugin = { group = "com.dropbox.dependency-guard", name = "com.dropbox.dependency-guard.gradle.plugin", version.ref = "dependencyGuard" }
@@ -357,6 +357,7 @@ android-library = { id = "com.android.library", version.ref = "androidGradlePlug
 android-test = { id = "com.android.test", version.ref = "androidGradlePlugin" }
 baselineprofile = { id = "androidx.baselineprofile", version.ref = "androidxMacroBenchmark"}
 cacheFixPlugin = { id = "org.gradle.android.cache-fix", version = "3.0.1" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 dependencyGuard = { id = "com.dropbox.dependency-guard", version.ref = "dependencyGuard" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlyticsPlugin" }
 firebase-perf = { id = "com.google.firebase.firebase-perf", version.ref = "firebasePerfPlugin" }

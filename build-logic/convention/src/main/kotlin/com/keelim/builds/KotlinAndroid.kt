@@ -20,9 +20,11 @@ import com.android.build.api.dsl.CommonExtension
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginExtension
+import org.gradle.kotlin.dsl.assign
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.withType
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 /**
@@ -64,23 +66,22 @@ internal fun Project.configureKotlinJvm() {
 private fun Project.configureKotlin() {
     // Use withType to workaround https://youtrack.jetbrains.com/issue/KT-55947
     tasks.withType<KotlinCompile>().configureEach {
-        kotlinOptions {
+        compilerOptions {
             // Treat all Kotlin warnings as errors (disabled by default)
             allWarningsAsErrors = properties["warningsAsErrors"] as? Boolean ?: false
-
-            freeCompilerArgs += listOf(
-                "-Xopt-in=kotlin.RequiresOptIn",
-                // Enable experimental coroutines APIs, including Flow
-                "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-                "-Xopt-in=kotlinx.coroutines.FlowPreview",
-                "-Xopt-in=kotlin.Experimental",
-                "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api"
-                // Enable experimental kotlinx serialization APIs
+            freeCompilerArgs.addAll(
+                listOf(
+                    "-Xopt-in=kotlin.RequiresOptIn",
+                    // Enable experimental coroutines APIs, including Flow
+                    "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+                    "-Xopt-in=kotlinx.coroutines.FlowPreview",
+                    "-Xopt-in=kotlin.Experimental",
+                    "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api"
+                    // Enable experimental kotlinx serialization APIs
 //                "-Xopt-in=kotlinx.serialization.ExperimentalSerializationApi"
+                )
             )
-
-            jvmTarget = JavaVersion.VERSION_17.toString()
-            languageVersion = "2.0"
+            jvmTarget = JvmTarget.JVM_17
         }
     }
 }

@@ -1,3 +1,4 @@
+// tsp format .
 // tsp compile openapi.tsp --emit=@typespec/openapi3
 // npx @openapitools/openapi-generator-cli generate -i raw/raw.yaml -g html2 -o
 // current code is example
@@ -24,5 +25,5 @@ model Error {
 
 @route("/")
 interface App {
-  @route("isDarkMode") @get() isDarkMode(): DarkMode | Error;
+  @route("isDarkMode") @get isDarkMode(): DarkMode | Error;
 }

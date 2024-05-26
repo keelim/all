@@ -12,4 +12,5 @@ namespace Keelim;
 
 model UserSetting {
   @field(1) should_hide_onboarding: boolean;
+  @field(2) last_visit_time: string;
 }

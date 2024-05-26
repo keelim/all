@@ -1,3 +1,4 @@
+// tsp format .
 // tsp compile protobuf.tsp --emit=@typespec/protobuf
 import "@typespec/http";
 import "@typespec/protobuf";

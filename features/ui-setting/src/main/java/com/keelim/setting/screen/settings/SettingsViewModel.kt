@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
+@Stable
 sealed interface SettingsUiState {
     data object Initialized : SettingsUiState
 

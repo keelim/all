@@ -4,6 +4,7 @@ import android.content.Context
 import com.keelim.commonAndroid.model.AppInfo
 import com.keelim.commonAndroid.util.ApplicationMonitor
 import com.keelim.commonAndroid.util.DownloadReceiver
+import com.keelim.shared.data.UserStateStore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -38,4 +39,12 @@ object ApplicationModule {
     ): DownloadReceiver = DownloadReceiver(
         context,
     )
+
+    @Provides
+    @Singleton
+    fun providesUserStateStore(
+        @ApplicationContext context: Context,
+    ): UserStateStore = com.keelim.shared.di.Module(
+        context = context,
+    ).createUserStateStore()
 }

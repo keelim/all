@@ -24,6 +24,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/AppTheme.material3"
         android:enableOnBackInvokedCallback="true"
+        android:hardwareAccelerated="true"
         android:usesCleartextTraffic="false">
 
         <profileable

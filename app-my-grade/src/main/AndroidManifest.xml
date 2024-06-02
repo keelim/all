@@ -27,6 +27,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyGrade"
+        android:hardwareAccelerated="true"
         android:enableOnBackInvokedCallback="true">
         <profileable
             android:shell="true"

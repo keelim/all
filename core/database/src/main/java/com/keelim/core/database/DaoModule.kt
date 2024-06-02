@@ -1,7 +1,5 @@
 package com.keelim.core.database
 
-import com.keelim.core.database.dao.CnuHistoryDao
-import com.keelim.core.database.dao.CommentDao
 import com.keelim.core.database.dao.HistoryDao
 import com.keelim.core.database.dao.NandaDao
 import com.keelim.core.database.dao.NetworkCacheDao
@@ -17,18 +15,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object DaoModule {
-
-    @Provides
-    @Singleton
-    fun providesCnuHistoryDao(
-        database: CnuAppDatabase,
-    ): CnuHistoryDao = database.daoHistory()
-
-    @Provides
-    @Singleton
-    fun providesCommentDao(
-        database: CnuAppDatabase,
-    ): CommentDao = database.daoComment()
 
     @Provides
     @Singleton

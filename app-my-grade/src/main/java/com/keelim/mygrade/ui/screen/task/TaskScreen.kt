@@ -53,7 +53,9 @@ import com.keelim.core.database.model.LocalTask
 
 @Composable
 fun TaskRoute(onNavigateChart: () -> Unit, viewModel: TaskViewModel = hiltViewModel()) = trace("TaskRoute") {
-    val state by viewModel.state.collectAsStateWithLifecycle()
+    val state by viewModel.state.collectAsStateWithLifecycle(
+        lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current,
+    )
     TaskScreen(
         state = state,
         onNavigateChart = onNavigateChart,

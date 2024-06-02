@@ -9,6 +9,7 @@ android {
 
 dependencies {
     implementation(projects.core.common)
+    implementation(projects.shared)
 
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)

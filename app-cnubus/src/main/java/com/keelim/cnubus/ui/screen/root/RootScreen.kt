@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -40,11 +41,11 @@ import com.keelim.composeutil.resource.space8
 import com.keelim.core.data.model.Location
 
 @Stable
-sealed class MapEvent {
-    data object UnInitialized : MapEvent()
-    data object Loading : MapEvent()
-    data class MigrateSuccess(val data: List<Location>) : MapEvent()
-    data class Error(val message: String = "에러가 발생하였습니다.") : MapEvent()
+sealed interface MapEvent {
+    data object UnInitialized : MapEvent
+    data object Loading : MapEvent
+    data class MigrateSuccess(val data: List<Location>) : MapEvent
+    data class Error(val message: String = "에러가 발생하였습니다.") : MapEvent
 }
 
 @Composable
@@ -52,7 +53,9 @@ fun RootRoute(
     onRootClick: (Int) -> Unit,
     viewModel: RootViewModel = hiltViewModel(),
 ) = trace("RootRoute") {
-    val uiState by viewModel.state.collectAsStateWithLifecycle()
+    val uiState by viewModel.state.collectAsStateWithLifecycle(
+        lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current,
+    )
     RootScreen(
         uiState = uiState,
         onRootClick = onRootClick,
@@ -75,6 +78,7 @@ fun RootScreen(
             } else {
                 Spacer(modifier = Modifier.height(space8))
                 LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
                     contentPadding = PaddingValues(horizontal = space12),
                     verticalArrangement = Arrangement.spacedBy(space24),
                 ) {

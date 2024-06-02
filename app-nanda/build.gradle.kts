@@ -28,6 +28,7 @@ dependencies {
     implementation(projects.core.commonAndroid)
     implementation(projects.core.composeCore)
     implementation(projects.core.data)
+    implementation(projects.shared)
     implementation(projects.core.domain)
     implementation(projects.features.uiSetting)
 
@@ -39,6 +40,7 @@ dependencies {
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.rutime)
+    implementation(libs.androidx.lifecycle.process)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.androidx.navigation.ui)

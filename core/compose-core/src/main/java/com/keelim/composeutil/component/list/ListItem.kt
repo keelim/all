@@ -127,7 +127,7 @@ private fun PreviewListItem(
                     Color.White
                 },
                 onItemClick = {
-                    Timber.tag("[COMPOSE]").d("Compose ListItem clicked")
+                    Log.d("Compose","Compose ListItem clicked")
                 },
             )
         }

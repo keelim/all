@@ -36,7 +36,9 @@ fun CategoryRoute(
     onCategoryClick: (Int) -> Unit,
     viewModel: CategoryViewModel = hiltViewModel(),
 ) = trace("CategoryRoute") {
-    val state by viewModel.state.collectAsStateWithLifecycle()
+    val state by viewModel.state.collectAsStateWithLifecycle(
+        lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current,
+    )
     CategoryScreen(
         state = state,
         onCategoryClick = onCategoryClick,

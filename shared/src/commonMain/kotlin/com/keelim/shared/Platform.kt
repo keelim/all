@@ -1,3 +1,5 @@
+package com.keelim.shared
+
 interface Platform {
     val name: String
 }

@@ -27,7 +27,6 @@ import com.keelim.composeutil.component.fab.FabButtonSub
 import com.keelim.composeutil.component.fab.MultiMainFab
 import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
-import com.keelim.model.EcoCalEntry
 import dev.chrisbanes.haze.HazeDefaults
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.HazeStyle
@@ -38,7 +37,9 @@ import timber.log.Timber
 
 @Composable
 fun EcocalRoute(viewModel: EcocalViewModel = hiltViewModel()) = trace("EcocalRoute") {
-    val uiState by viewModel.items.collectAsStateWithLifecycle()
+    val uiState by viewModel.items.collectAsStateWithLifecycle(
+        lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current,
+    )
     EcocalScreen(
         uiState = uiState,
         updateFilter = viewModel::updateFilter,
@@ -47,7 +48,7 @@ fun EcocalRoute(viewModel: EcocalViewModel = hiltViewModel()) = trace("EcocalRou
 
 @Composable
 fun EcocalScreen(
-    uiState: SealedUiState<List<EcoCalEntry>>,
+    uiState: SealedUiState<List<EcoCalModel>>,
     updateFilter: (FabButtonItem) -> Unit,
 ) = trace("EcocalScreen") {
     AnimatedContent(
@@ -65,7 +66,7 @@ fun EcocalScreen(
                     topBar = {
                         HeaderItem(
                             modifier = Modifier
-                                .hazeChild(state = hazeState)
+                                .hazeChild(state = hazeState),
                         )
                     },
                     floatingActionButton = {
@@ -102,7 +103,7 @@ fun EcocalScreen(
                             modifier = Modifier
                                 .hazeChild(
                                     state = hazeState,
-                                )
+                                ),
                         )
                     },
                 ) { paddingValues ->
@@ -152,10 +153,10 @@ private fun PreviewEcocalScreen() {
     EcocalScreen(
         uiState = SealedUiState.success(
             listOf(
-                EcoCalEntry(
+                EcoCalModel(
                     country = "Congo, Democratic Republic of the",
                     date = "ridiculus",
-                    priority = "mus",
+                    priority = EcocalPriority.LOW,
                     time = "penatibus",
                     title = "option",
                 ),

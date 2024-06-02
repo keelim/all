@@ -24,12 +24,12 @@ import com.keelim.composeutil.resource.space2
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
 
-sealed class SettingAction {
-    data object AlarmSetting : SettingAction()
-    data object ThemeSetting : SettingAction()
-    data object Lab : SettingAction()
-    data object OtherApp : SettingAction()
-    data object ShowLogcat : SettingAction()
+sealed interface SettingAction {
+    data object AlarmSetting : SettingAction
+    data object ThemeSetting : SettingAction
+    data object Lab : SettingAction
+    data object OtherApp : SettingAction
+    data object ShowLogcat : SettingAction
 }
 
 @Composable
@@ -133,9 +133,9 @@ fun SettingScreen(
 
 @Composable
 fun DeveloperOptionPart(
-    modifier: Modifier = Modifier,
     displayTitle: String,
     displayKey: String,
+    modifier: Modifier = Modifier,
     value: String? = null,
 ) {
     Spacer(modifier = modifier.height(space16))

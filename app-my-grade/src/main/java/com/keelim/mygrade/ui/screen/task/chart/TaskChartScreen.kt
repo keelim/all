@@ -32,7 +32,9 @@ import com.keelim.composeutil.util.randomColor
 fun TaskChartRoute(
     viewModel: TaskChartViewModel = hiltViewModel(),
 ) = trace("TaskChartRoute") {
-    val state by viewModel.state.collectAsStateWithLifecycle()
+    val state by viewModel.state.collectAsStateWithLifecycle(
+        lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current,
+    )
     TaskChartScreen(
         state = state,
     )

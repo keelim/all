@@ -28,7 +28,9 @@ import com.keelim.composeutil.resource.space8
 
 @Composable
 fun LabRoute(viewModel: LabViewModel = hiltViewModel()) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle(
+        lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current,
+    )
     LabScreen(
         uiState = uiState,
         onClick = viewModel::queuePrompt,

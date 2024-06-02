@@ -1,8 +1,6 @@
 package com.keelim.nandadiagnosis.ui.screen.nutrients.timer
 
 import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -31,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -107,15 +106,18 @@ private fun NutrientTimerScreen(
 fun SelectTime(
     runningState: RunningState,
     viewModel: NutrientTimerViewModel,
+    modifier: Modifier = Modifier,
 ) = trace("SelectTime") {
     if (runningState == RunningState.STOPPED) {
         Box(
-            modifier = Modifier.fillMaxWidth().height(350.dp),
+            modifier = modifier
+                .fillMaxWidth()
+                .height(350.dp),
             contentAlignment = Alignment.Center,
         ) {
             Box(
-                modifier =
-                Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
                     .height(36.dp)
                     .clip(RoundedCornerShape(10.dp))
                     .alpha(0.4f)
@@ -127,18 +129,18 @@ fun SelectTime(
                 horizontalArrangement = Arrangement.SpaceEvenly,
             ) {
                 Row {
-                    NumberPickerList(numbers = HOUR_LIST) { viewModel.hour = it }
+                    NumberPickerList(numbers = HOUR_LIST, selectedItem = { viewModel.hour = it })
 
                     Text(text = "h", modifier = Modifier.align(Alignment.CenterVertically))
                 }
 
                 Row {
-                    NumberPickerList(numbers = MINUTE_LIST) { viewModel.minute = it }
+                    NumberPickerList(numbers = MINUTE_LIST, { viewModel.minute = it })
 
                     Text(text = "m", modifier = Modifier.align(Alignment.CenterVertically))
                 }
                 Row {
-                    NumberPickerList(numbers = SECOND_LIST) { viewModel.second = it }
+                    NumberPickerList(numbers = SECOND_LIST, { viewModel.second = it })
 
                     Text(text = "s", modifier = Modifier.align(Alignment.CenterVertically))
                 }
@@ -153,30 +155,17 @@ fun CircularCountDownTimer(
     viewModel: NutrientTimerViewModel,
     dialogState: MutableState<Boolean>,
     addedTime: String,
+    modifier: Modifier = Modifier,
 ) = trace("CircularCountDownTimer") {
     if (runningState != RunningState.STOPPED) {
         val leftTime = viewModel.leftTime.intValue
-        if (leftTime == 0) {
-            LaunchedEffect(leftTime) {
-                dialogState.value = true
-                viewModel.stop()
-            }
-        }
-        val progress = remember { Animatable(leftTime / viewModel.getTotalTimeInSeconds().toFloat()) }
-        val progressTarget = 0f
 
-        LaunchedEffect(runningState == RunningState.STARTED) {
-            progress.animateTo(
-                targetValue = progressTarget,
-                animationSpec =
-                tween(
-                    durationMillis = leftTime * 1000,
-                    easing = LinearEasing,
-                ),
-            )
+        val progress = remember(leftTime, viewModel) {
+            Animatable(leftTime / viewModel.getTotalTimeInSeconds().toFloat())
         }
+
         Box(
-            modifier = Modifier.size(350.dp),
+            modifier = modifier.size(350.dp),
             contentAlignment = Alignment.Center,
         ) {
             CircularProgressIndicator(
@@ -193,9 +182,22 @@ fun CircularCountDownTimer(
             )
 
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                val anim = remember { Animatable(0f) }
+
+                LaunchedEffect(leftTime) {
+                    if (leftTime == 0) {
+                        dialogState.value = true
+                        viewModel.stop()
+                    } else {
+                        anim.animateTo(1f)
+                    }
+                }
+
                 Text(
-                    text =
-                    "${formatTime(isLeadingZeroNeeded = true, value = leftTime / 3600)}:" +
+                    modifier = Modifier
+                        .alpha(anim.value)
+                        .scale(anim.value / 2f + .5f),
+                    text = "${formatTime(isLeadingZeroNeeded = true, value = leftTime / 3600)}:" +
                         "${
                             formatTime(isLeadingZeroNeeded = true, value = (leftTime / 60) % 60)
                         }:" +
@@ -222,7 +224,7 @@ fun CircularCountDownTimer(
 
 @Preview
 @Composable
-fun PreviewTimerScreen() {
+private fun PreviewTimerScreen() {
     NutrientTimerScreen()
 }
 

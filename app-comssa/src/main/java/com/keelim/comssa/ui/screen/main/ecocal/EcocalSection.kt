@@ -3,6 +3,7 @@ package com.keelim.comssa.ui.screen.main.ecocal
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,19 +14,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -37,21 +31,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.trace
-import coil.compose.AsyncImagePainter
-import coil.compose.SubcomposeAsyncImage
-import coil.compose.SubcomposeAsyncImageContent
 import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space16
+import com.keelim.composeutil.resource.space2
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
-import com.keelim.model.EcoCalEntry
 import kotlinx.coroutines.delay
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
@@ -60,7 +50,7 @@ import kotlinx.datetime.toLocalDateTime
 @Composable
 fun EcocalMainSection(
     state: LazyListState,
-    entries: List<EcoCalEntry>,
+    entries: List<EcoCalModel>,
     modifier: Modifier = Modifier,
 ) = trace("EcocalMainSection") {
     val context = LocalContext.current
@@ -71,15 +61,16 @@ fun EcocalMainSection(
             modifier = Modifier.height(space12),
         )
         if (entries.isEmpty()) {
-            Text(
-                text = "검색된 내용이 없습니다.",
-                modifier = Modifier
-                    .align(
-                        Alignment.CenterHorizontally,
-                    )
-                ,
-                style = MaterialTheme.typography.bodySmall,
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center,
+            ) {
+                Text(
+                    text = "검색된 내용이 없습니다.",
+                    style = MaterialTheme.typography.bodySmall,
+                )
+            }
         } else {
             LazyColumn(
                 state = state,
@@ -89,16 +80,14 @@ fun EcocalMainSection(
                     ListItem(
                         title = entry.title,
                         subtitle = "${entry.date} ${entry.time}",
-                        photoUrl = null,
                         label = entry.country,
                         priority = entry.priority,
-                        isToday = entry.isToday,
                         onClick = {
                             context.startActivity(
                                 Intent(
                                     Intent.ACTION_VIEW,
-                                    Uri.parse("https://www.google.com/search?q=${entry.country}-${entry.title} ${entry.date} ${entry.time}")
-                                )
+                                    Uri.parse("https://www.google.com/search?q=${entry.country}-${entry.title} ${entry.date} ${entry.time}"),
+                                ),
                             )
                         },
                     )
@@ -114,7 +103,9 @@ fun EcocalMainSection(
                     ) {
                         Text(
                             text = "여기가 마지막 일정입니다.",
-                            style = MaterialTheme.typography.bodyMedium,
+                            style = MaterialTheme.typography.bodyMedium.copy(
+                                fontWeight = FontWeight.Bold,
+                            ),
                         )
                     }
                 }
@@ -135,36 +126,34 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
 
         var now by remember {
             mutableStateOf(
-                Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+                Clock.System.now(),
             )
         }
 
         LaunchedEffect(Unit) {
             while (true) {
                 delay(1000L)
-                now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+                now = Clock.System.now()
             }
         }
-
-        Row(
-            modifier = rowModifier,
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
-        ) {
-            Text(
-                text = "${now.year} ${now.monthNumber}",
-                style = MaterialTheme.typography.bodyLarge,
-                maxLines = 1,
-            )
+        val timezone = remember {
+            TimeZone.currentSystemDefault()
         }
-
-        Row(
+        Column(
             modifier = rowModifier,
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.End,
         ) {
+            val time = now.toLocalDateTime(timezone)
             Text(
-                text = "${now.year}년 ${now.monthNumber}월 ${now.dayOfMonth}일 ${now.hour}:${now.minute}:${now.second}",
+                text = "${time.year}-${time.monthNumber}",
+                style = MaterialTheme.typography.bodyLarge,
+            )
+            Text(
+                modifier = Modifier.align(Alignment.End),
+                text = "${time.year}년 ${time.monthNumber}월 ${time.dayOfMonth}일",
+            )
+            Text(
+                modifier = Modifier.align(Alignment.End),
+                text = "${time.hour}:${time.minute}:${time.second}",
             )
         }
     }
@@ -175,132 +164,85 @@ fun ListItem(
     title: String,
     subtitle: String,
     label: String,
-    priority: String,
-    isToday: Boolean,
+    priority: EcocalPriority,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    photoUrl: String? = null,
 ) = trace("ListItem") {
-    Surface(
-        onClick = onClick,
+    Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(space8),
+            .clickable { onClick() }
+            .padding(horizontal = space16, vertical = space8),
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(space16),
-        ) {
-            if (photoUrl != null) {
-                SubcomposeAsyncImage(
-                    model = photoUrl,
-                    modifier = Modifier
-                        .size(58.dp)
-                        .clip(CircleShape),
-                    contentScale = ContentScale.Crop,
-                    contentDescription = null,
-                ) {
-                    val state = painter.state
-                    if (state is AsyncImagePainter.State.Loading || state is AsyncImagePainter.State.Error) {
-                        CircularProgressIndicator()
-                    } else {
-                        SubcomposeAsyncImageContent()
-                    }
-                }
-            }
-            Column(
-                modifier = Modifier
-                    .weight(1f)
-            ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Text(
-                        text = title,
-                        style = MaterialTheme.typography.headlineSmall,
-                    )
-                    Spacer(modifier = Modifier.weight(1f))
-                    Text(
-                        text = "$subtitle $label",
-                        style = MaterialTheme.typography.bodyMedium,
-                        fontWeight = FontWeight.Bold,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                        modifier = Modifier.weight(1f),
-                    )
-                    Spacer(
-                        modifier = Modifier.width(space4)
-                    )
-                    val color = when (priority) {
-                        "상" -> Color.Red
-                        "중" -> Color.Yellow
-                        "하" -> Color.Green
-                        else -> Color.Transparent
-                    }
-                    Box(
-                        modifier = Modifier
-                            .size(space12)
-                            .clip(CircleShape)
-                            .background(color),
-                    )
-                }
-            }
+        Text(
+            text = title,
+            style = MaterialTheme.typography.headlineSmall,
+        )
+        Spacer(
+            modifier = Modifier.height(space4),
+        )
+        Text(
+            text = subtitle,
+            style = MaterialTheme.typography.bodyMedium,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+        )
+        Spacer(
+            modifier = Modifier.height(space2),
+        )
+        Text(
+            text = label,
+            style = MaterialTheme.typography.bodyMedium,
+            fontWeight = FontWeight.Bold,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+        )
+
+        val color = when (priority) {
+            EcocalPriority.HIGH -> Color.Red
+            EcocalPriority.MEDIUM -> Color.Yellow
+            EcocalPriority.LOW -> Color.Green
+            EcocalPriority.NONE -> Color.Transparent
         }
+        Box(
+            modifier = Modifier
+                .size(space12)
+                .clip(CircleShape)
+                .background(color)
+                .align(Alignment.End),
+        )
     }
 }
 
+@Preview
 @Composable
-fun EcocalTopSection(
-    modifier: Modifier = Modifier,
-) = trace("EcocalTopSection") {
-    Box(
-        modifier = modifier
-    ) {
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-            Text(text = "Eco Cal", style = MaterialTheme.typography.headlineMedium)
-        }
-        Spacer(modifier = Modifier.height(space12))
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-            Button(
-                onClick = {},
-            ) {
-                Icon(Icons.Filled.Add, contentDescription = null)
-                Text(text = "Year")
-            }
-            Spacer(modifier = Modifier.width(space8))
-
-            Button(
-                onClick = {},
-            ) {
-                Icon(Icons.Filled.Add, contentDescription = null)
-                Text(text = "Month")
-            }
-        }
+private fun PreviewListItem() {
+    MaterialTheme {
+        ListItem(
+            title = "fastidii",
+            subtitle = "ultrices",
+            label = "efficitur",
+            priority = EcocalPriority.LOW,
+            onClick = {},
+            modifier = Modifier.background(MaterialTheme.colorScheme.surface),
+        )
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-private fun PreviewEcocalTopSection() {
-    Column { EcocalTopSection() }
-}
-
-@Preview(showBackground = true)
+@Preview
 @Composable
 private fun PreviewEcocalMainSection() {
     EcocalMainSection(
         state = rememberLazyListState(),
-        entries =
-        listOf(
-            EcoCalEntry(
+        entries = listOf(
+            EcoCalModel(
                 country = "Congo, Democratic Republic of the",
                 date = "ridiculus",
-                priority = "mus",
+                priority = EcocalPriority.MEDIUM,
                 time = "penatibus",
                 title = "option",
             ),
         ),
+        modifier = Modifier.background(MaterialTheme.colorScheme.surface),
     )
 }

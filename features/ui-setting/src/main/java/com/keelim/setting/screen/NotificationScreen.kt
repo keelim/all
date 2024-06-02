@@ -32,13 +32,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.composeutil.component.layout.EmptyView
@@ -54,7 +51,9 @@ fun NotificationRoute() {
 @Composable
 private fun NotificationScreen(viewModel: NotificationViewModel = hiltViewModel()) {
     val notificationState: NotificationState by
-        viewModel.notificationState.collectAsStateWithLifecycle()
+        viewModel.notificationState.collectAsStateWithLifecycle(
+            lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current,
+        )
     val listState = rememberLazyListState()
     val hasScrolled by remember { derivedStateOf { listState.firstVisibleItemScrollOffset > 0 } }
     val appBarElevation by
@@ -143,7 +142,6 @@ private fun NotificationListCard(
     notificationTitle: String,
     notificationDesc: String,
 ) {
-    val context = LocalContext.current
     Card {
         Row(
             Modifier
@@ -153,20 +151,26 @@ private fun NotificationListCard(
         ) {
             Text(
                 text = notificationDate,
-                style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 16.sp),
+                style = MaterialTheme.typography.bodySmall.copy(
+                    fontWeight = FontWeight.Bold,
+                ),
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 1,
             )
             Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
                 Text(
                     text = notificationTitle,
-                    style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 16.sp),
+                    style = MaterialTheme.typography.bodySmall.copy(
+                        fontWeight = FontWeight.Bold,
+                    ),
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
                 )
                 Text(
                     text = notificationDesc,
-                    style = TextStyle(fontWeight = FontWeight.Medium, fontSize = 16.sp),
+                    style = MaterialTheme.typography.bodySmall.copy(
+                        fontWeight = FontWeight.Bold,
+                    ),
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 5,
                 )
@@ -177,13 +181,13 @@ private fun NotificationListCard(
 
 @Preview
 @Composable
-fun PreviewNotificationScreen() {
+private fun PreviewNotificationScreen() {
     NotificationScreen()
 }
 
 @Preview
 @Composable
-fun PreviewNotificationListCard() {
+private fun PreviewNotificationListCard() {
     NotificationListCard(
         notificationDate = "2022.12.13",
         notificationTitle = "공지 제목",

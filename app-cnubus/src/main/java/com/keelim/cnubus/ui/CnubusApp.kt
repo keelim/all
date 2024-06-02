@@ -1,6 +1,5 @@
 package com.keelim.cnubus.ui
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
@@ -47,22 +46,18 @@ fun CnubusApp(
                     ),
                 ),
         ) {
-            Column(
-                modifier = Modifier.fillMaxSize(),
-            ) {
-                CnubusHost(
-                    appState = appState,
-                    coroutineScope = coroutineScope,
-                    bottomSheetState = bottomSheetState,
-                    onShowSnackbar = { message, action ->
-                        snackbarHostState.showSnackbar(
-                            message = message,
-                            actionLabel = action,
-                            duration = SnackbarDuration.Short,
-                        ) == SnackbarResult.ActionPerformed
-                    },
-                )
-            }
+            CnubusHost(
+                appState = appState,
+                coroutineScope = coroutineScope,
+                bottomSheetState = bottomSheetState,
+                onShowSnackbar = { message, action ->
+                    snackbarHostState.showSnackbar(
+                        message = message,
+                        actionLabel = action,
+                        duration = SnackbarDuration.Short,
+                    ) == SnackbarResult.ActionPerformed
+                },
+            )
         }
     }
 }

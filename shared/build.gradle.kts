@@ -1,5 +1,7 @@
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.compose.compiler)
     alias(libs.plugins.android.library)
     alias(libs.plugins.sqldelight)
     kotlin("plugin.serialization")
@@ -33,6 +35,7 @@ kotlin {
             api(libs.androidx.dataStore.preferences)
             api(libs.androidx.dataStore.core.okio)
             implementation(libs.okio)
+            implementation(compose.components.resources)
         }
         appleMain.dependencies {
             implementation(libs.sqldelight.native)
@@ -54,4 +57,10 @@ android {
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
     }
+}
+
+compose.resources {
+    publicResClass = true
+    packageOfResClass = "com.keelim.res"
+    generateResClass = auto
 }

@@ -52,7 +52,6 @@ haze = "0.7.1"
 hilt = "2.51.1"
 hiltExt = "1.2.0"
 in-app-update = "2.1.0"
-jetbrainCompose = "1.6.10"
 jacoco = "0.8.7"
 junit4 = "4.13.2"
 kotlin = "2.0.0"
@@ -364,7 +363,6 @@ firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "
 firebase-perf = { id = "com.google.firebase.firebase-perf", version.ref = "firebasePerfPlugin" }
 gms-googleServices = "com.google.gms.google-services:4.4.1"
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
-jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "jetbrainCompose" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

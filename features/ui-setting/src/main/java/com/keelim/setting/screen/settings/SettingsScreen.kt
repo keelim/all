@@ -17,11 +17,13 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.List
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material.icons.outlined.Abc
 import androidx.compose.material.icons.outlined.Build
 import androidx.compose.material.icons.outlined.DesignServices
@@ -62,8 +64,15 @@ import com.keelim.composeutil.resource.space8
 import com.keelim.setting.di.DeviceInfo
 import com.keelim.shared.data.UserState
 
+data class Category(
+    val title: String,
+    val icon: ImageVector,
+    val onClick: () -> Unit,
+)
+
 @Composable
 fun SettingsRoute(
+    onThemeChangeClick: () -> Unit,
     onNotificationsClick: () -> Unit,
     onOpenSourceClick: () -> Unit,
     onLabClick: () -> Unit,
@@ -75,6 +84,7 @@ fun SettingsRoute(
     )
     SettingsScreen(
         uiState = uiState,
+        onThemeChangeClick = onThemeChangeClick,
         onNotificationsClick = onNotificationsClick,
         onOpenSourceClick = onOpenSourceClick,
         onLabClick = onLabClick,
@@ -85,6 +95,7 @@ fun SettingsRoute(
 @Composable
 fun SettingsScreen(
     uiState: SettingsUiState,
+    onThemeChangeClick: () -> Unit,
     onNotificationsClick: () -> Unit,
     onOpenSourceClick: () -> Unit,
     onLabClick: () -> Unit,
@@ -139,52 +150,30 @@ fun SettingsScreen(
                     )
                 },
             ) { padding ->
+                val items = remember {
+                    listOf(
+                        Category("Theme Change", Icons.Filled.AutoAwesome, onThemeChangeClick),
+                        Category("Notifications", Icons.Outlined.Notifications, onNotificationsClick),
+                        Category("OpenSource", Icons.AutoMirrored.Outlined.List, onOpenSourceClick),
+                        Category("실험실", Icons.Outlined.Lock, onLabClick),
+                        Category("앱 업데이트", Icons.Outlined.DesignServices, onAppUpdateClick),
+                        Category("App Version: ${uiState.deviceInfo.versionName}", Icons.Outlined.Build) {},
+                        Category("${uiState.userState.visitedTime} 번 방문하셨습니다.", Icons.Outlined.Abc) {},
+                    )
+                }
                 LazyColumn(
                     contentPadding = padding,
                     state = listState,
                     verticalArrangement = Arrangement.spacedBy(space12),
                 ) {
-                    item {
+                    items(
+                        items = items,
+                        key = { it.title }
+                    ) { item ->
                         CategoryItem(
-                            title = "Notifications",
-                            icon = Icons.Outlined.Notifications,
-                            onClick = onNotificationsClick,
-                        )
-                    }
-                    item {
-                        CategoryItem(
-                            title = "OpenSource",
-                            icon = Icons.AutoMirrored.Outlined.List,
-                            onClick = onOpenSourceClick,
-                        )
-                    }
-                    item {
-                        CategoryItem(
-                            title = "실험실",
-                            icon = Icons.Outlined.Lock,
-                            onClick = onLabClick,
-                        )
-                    }
-                    item {
-                        CategoryItem(
-                            title = "앱 업데이트",
-                            icon = Icons.Outlined.DesignServices,
-                            onClick = onAppUpdateClick,
-                        )
-                    }
-                    item {
-                        CategoryItem(
-                            title = "App Version: ${uiState.deviceInfo.versionName}",
-                            icon = Icons.Outlined.Build,
-                            onClick = {},
-                        )
-                    }
-
-                    item {
-                        CategoryItem(
-                            title = "${uiState.userState.visitedTime} 번 방문하셨습니다.",
-                            icon = Icons.Outlined.Abc,
-                            onClick = {},
+                            title = item.title,
+                            icon = item.icon,
+                            onClick = item.onClick,
                         )
                     }
                     item {
@@ -229,6 +218,7 @@ private fun PreviewSettingsScreen() {
             ),
 
         ),
+        onThemeChangeClick = {},
         onNotificationsClick = {},
         onOpenSourceClick = {},
         onLabClick = {},

@@ -1,10 +1,10 @@
 package com.keelim.common.extensions.compose
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.currentRecomposeScope
 import androidx.compose.runtime.remember
 import com.keelim.common.BuildConfig
+import timber.log.Timber
 
 class CompositionCounter(var count: Int)
 

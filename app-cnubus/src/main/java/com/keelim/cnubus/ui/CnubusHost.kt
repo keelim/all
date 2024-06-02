@@ -20,6 +20,8 @@ import com.keelim.setting.screen.navigateNotification
 import com.keelim.setting.screen.notificationScreen
 import com.keelim.setting.screen.settings.navigateSettings
 import com.keelim.setting.screen.settings.settingsScreen
+import com.keelim.setting.screen.theme.navigateTheme
+import com.keelim.setting.screen.theme.themeScreen
 import com.keelim.setting.screen.welcome.welcomeScreen
 import kotlinx.coroutines.CoroutineScope
 
@@ -46,6 +48,7 @@ fun CnubusHost(
             },
         )
         settingsScreen(
+            onThemeChangeClick = navController::navigateTheme,
             onNotificationsClick = navController::navigateNotification,
             onOpenSourceClick = {
                 context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
@@ -60,6 +63,7 @@ fun CnubusHost(
                 )
             },
             nestedGraphs = {
+                themeScreen()
                 notificationScreen()
                 labScreen()
             },

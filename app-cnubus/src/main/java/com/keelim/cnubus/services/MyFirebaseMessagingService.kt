@@ -22,16 +22,11 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.graphics.Color
 import androidx.core.app.NotificationCompat
-import androidx.lifecycle.ProcessLifecycleOwner
-import androidx.lifecycle.coroutineScope
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.keelim.cnubus.ui.screen.main.MainActivity
-import kotlinx.coroutines.launch
 import timber.log.Timber
-import java.util.*
+import java.util.UUID
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
     private val notificationManager by lazy { getSystemService(NOTIFICATION_SERVICE) as NotificationManager }
@@ -72,15 +67,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                     pendingIntent,
                 ).build()
                 notificationManager.notify(NOTIFICATION_ID, notification)
-            }
-        }
-    }
-
-    override fun onNewToken(token: String) {
-        val auth = Firebase.auth
-        val currentUser = auth.currentUser
-        currentUser?.let {
-            ProcessLifecycleOwner.get().lifecycle.coroutineScope.launch {
             }
         }
     }

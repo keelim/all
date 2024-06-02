@@ -18,22 +18,22 @@ package com.keelim.builds
 
 import com.android.build.api.dsl.CommonExtension
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.assign
 import org.gradle.kotlin.dsl.dependencies
+import org.jetbrains.kotlin.compose.compiler.gradle.ComposeCompilerGradlePluginExtension
 
 /**
  * Configure Compose-specific options
  */
 fun Project.configureAndroidCompose(
     commonExtension: CommonExtension<*, *, *, *, *, *>,
+    composeCompilerGradlePluginExtension: ComposeCompilerGradlePluginExtension,
 ) {
     commonExtension.apply {
         buildFeatures {
             compose = true
         }
 
-        composeOptions {
-            kotlinCompilerExtensionVersion = libs.findVersion("androidxComposeCompiler").get().toString()
-        }
         dependencies {
             val bom = libs.findLibrary("androidx-compose-bom").get()
             val composeBundle = libs.findBundle("compose").get()
@@ -45,4 +45,11 @@ fun Project.configureAndroidCompose(
             add("androidTestImplementation", composeTestBundle)
         }
     }
+
+    with(composeCompilerGradlePluginExtension) {
+        enableStrongSkippingMode = true
+        reportsDestination = layout.buildDirectory.dir("compose_compiler")
+        stabilityConfigurationFile = rootProject.layout.projectDirectory.file("compose_compiler_config.conf")
+    }
 }
+

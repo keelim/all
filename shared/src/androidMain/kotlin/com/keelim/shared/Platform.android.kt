@@ -1,3 +1,5 @@
+package com.keelim.shared
+
 import android.os.Build
 
 class AndroidPlatform : Platform {

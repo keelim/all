@@ -36,6 +36,7 @@ fun MySeniorHost(
                 context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
             },
             nestedGraphs = {
+                themeScreen()
                 notificationScreen()
             },
         )

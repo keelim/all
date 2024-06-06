@@ -68,7 +68,7 @@ fun EcocalMainSection(
             ) {
                 Text(
                     text = "검색된 내용이 없습니다.",
-                    style = MaterialTheme.typography.bodySmall,
+                    style = MaterialTheme.typography.bodyLarge,
                 )
             }
         } else {

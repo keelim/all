@@ -43,7 +43,7 @@ fun EcocalRoute(viewModel: EcocalViewModel = hiltViewModel()) = trace("EcocalRou
 
 @Composable
 fun EcocalScreen(
-    uiState: SealedUiState<List<EcoCalModel>>,
+    uiState: SealedUiState<Map<String, List<EcoCalModel>>>,
     updateFilter: (FabButtonItem) -> Unit,
 ) = trace("EcocalScreen") {
     AnimatedContent(
@@ -129,15 +129,18 @@ data class All(
 private fun PreviewEcocalScreen() {
     EcocalScreen(
         uiState = SealedUiState.success(
-            listOf(
-                EcoCalModel(
-                    country = "Congo, Democratic Republic of the",
-                    date = "ridiculus",
-                    priority = EcocalPriority.LOW,
-                    time = "penatibus",
-                    title = "option",
-                ),
-            ),
+            mapOf(
+                "a" to listOf(
+                    EcoCalModel(
+                        country = "Congo, Democratic Republic of the",
+                        date = "ridiculus",
+                        priority = EcocalPriority.LOW,
+                        time = "penatibus",
+                        title = "option",
+                    ),
+                )
+            )
+
         ),
         updateFilter = {},
     )

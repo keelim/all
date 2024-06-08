@@ -6,9 +6,11 @@ plugins {
 }
 
 kotlin {
+    // web
     // js(IR) {
     //     browser()
     // }
+    // android
     androidTarget {
         compilations.all {
             kotlinOptions {
@@ -17,8 +19,9 @@ kotlin {
         }
     }
 
-    // iosX64()
-    // iosArm64()
+    // apple
+    iosX64()
+    iosArm64()
     iosSimulatorArm64()
 
     sourceSets {

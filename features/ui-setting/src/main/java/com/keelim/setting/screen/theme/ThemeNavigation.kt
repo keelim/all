@@ -10,14 +10,10 @@ fun NavController.navigateTheme(navOptions: NavOptions? = null) {
     this.navigate(themeRoute, navOptions)
 }
 
-fun NavGraphBuilder.themeScreen(
-
-) {
+fun NavGraphBuilder.themeScreen() {
     composable(
         route = themeRoute,
     ) {
-        ThemeRoute(
-
-        )
+        ThemeRoute()
     }
 }

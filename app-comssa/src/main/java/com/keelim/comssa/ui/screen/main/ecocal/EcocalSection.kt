@@ -1,7 +1,10 @@
+@file:OptIn(ExperimentalFoundationApi::class)
+
 package com.keelim.comssa.ui.screen.main.ecocal
 
 import android.content.Intent
 import android.net.Uri
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -50,7 +53,7 @@ import kotlinx.datetime.toLocalDateTime
 @Composable
 fun EcocalMainSection(
     state: LazyListState,
-    entries: List<EcoCalModel>,
+    entries: Map<String, List<EcoCalModel>>,
     modifier: Modifier = Modifier,
 ) = trace("EcocalMainSection") {
     val context = LocalContext.current
@@ -68,7 +71,7 @@ fun EcocalMainSection(
             ) {
                 Text(
                     text = "검색된 내용이 없습니다.",
-                    style = MaterialTheme.typography.bodySmall,
+                    style = MaterialTheme.typography.bodyLarge,
                 )
             }
         } else {
@@ -76,22 +79,37 @@ fun EcocalMainSection(
                 state = state,
                 modifier = Modifier.fillMaxSize(),
             ) {
-                items(entries) { entry ->
-                    ListItem(
-                        title = entry.title,
-                        subtitle = "${entry.date} ${entry.time}",
-                        label = entry.country,
-                        priority = entry.priority,
-                        onClick = {
-                            context.startActivity(
-                                Intent(
-                                    Intent.ACTION_VIEW,
-                                    Uri.parse("https://www.google.com/search?q=${entry.country}-${entry.title} ${entry.date} ${entry.time}"),
-                                ),
-                            )
-                        },
-                    )
+                entries.forEach { (header, entries) ->
+                    stickyHeader {
+                        Text(
+                            text = header,
+                            style = MaterialTheme.typography.bodyMedium.copy(
+                                fontWeight = FontWeight.Bold,
+                            ),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .background(MaterialTheme.colorScheme.primaryContainer)
+                                .padding(horizontal = space16, vertical = space8),
+                        )
+                    }
+                    items(entries) { entry ->
+                        ListItem(
+                            title = entry.title,
+                            subtitle = "${entry.date} ${entry.time}",
+                            label = entry.country,
+                            priority = entry.priority,
+                            onClick = {
+                                context.startActivity(
+                                    Intent(
+                                        Intent.ACTION_VIEW,
+                                        Uri.parse("https://www.google.com/search?q=${entry.country}-${entry.title} ${entry.date} ${entry.time}"),
+                                    ),
+                                )
+                            },
+                        )
+                    }
                 }
+
                 item {
                     Row(
                         modifier = Modifier
@@ -234,13 +252,15 @@ private fun PreviewListItem() {
 private fun PreviewEcocalMainSection() {
     EcocalMainSection(
         state = rememberLazyListState(),
-        entries = listOf(
-            EcoCalModel(
-                country = "Congo, Democratic Republic of the",
-                date = "ridiculus",
-                priority = EcocalPriority.MEDIUM,
-                time = "penatibus",
-                title = "option",
+        entries = mapOf(
+            "a" to listOf(
+                EcoCalModel(
+                    country = "Congo, Democratic Republic of the",
+                    date = "ridiculus",
+                    priority = EcocalPriority.LOW,
+                    time = "penatibus",
+                    title = "option",
+                ),
             ),
         ),
         modifier = Modifier.background(MaterialTheme.colorScheme.surface),

@@ -168,7 +168,7 @@ fun SettingsScreen(
                 ) {
                     items(
                         items = items,
-                        key = { it.title }
+                        key = { it.title },
                     ) { item ->
                         CategoryItem(
                             title = item.title,

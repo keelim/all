@@ -138,8 +138,8 @@ private fun PreviewEcocalScreen() {
                         time = "penatibus",
                         title = "option",
                     ),
-                )
-            )
+                ),
+            ),
 
         ),
         updateFilter = {},

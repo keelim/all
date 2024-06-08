@@ -261,7 +261,7 @@ private fun PreviewEcocalMainSection() {
                     time = "penatibus",
                     title = "option",
                 ),
-            )
+            ),
         ),
         modifier = Modifier.background(MaterialTheme.colorScheme.surface),
     )

@@ -26,7 +26,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.composeutil.resource.space8
 import com.keelim.shared.data.ThemeType
 
-
 @Composable
 fun ThemeRoute(
     viewModel: ThemeViewModel = hiltViewModel(),
@@ -50,7 +49,6 @@ fun ThemeScreen(
     onDialogClick: () -> Unit,
     onRadioClick: (ThemeType) -> Unit,
 ) {
-
     if (themeTypeState.isDialogVisible) {
         ThemeDialog(
             state = themeTypeState,
@@ -117,11 +115,11 @@ fun ThemeDialog(
         },
         confirmButton = {
             Button(
-                onClick = onDialogClick
+                onClick = onDialogClick,
             ) {
                 Text("Confirm")
             }
-        }
+        },
     )
 }
 
@@ -139,13 +137,13 @@ fun RadioButtons(
             Row(
                 modifier = Modifier.selectable(
                     selected = (it.value == state.selectedRadio),
-                    onClick = { onRadioClick(it.value) }
+                    onClick = { onRadioClick(it.value) },
                 ),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 RadioButton(
                     selected = (it.value == state.selectedRadio),
-                    onClick = { onRadioClick(it.value) }
+                    onClick = { onRadioClick(it.value) },
                 )
                 Text(text = it.title)
             }

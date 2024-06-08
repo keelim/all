@@ -27,11 +27,6 @@ import com.keelim.composeutil.component.fab.FabButtonSub
 import com.keelim.composeutil.component.fab.MultiMainFab
 import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
-import dev.chrisbanes.haze.HazeDefaults
-import dev.chrisbanes.haze.HazeState
-import dev.chrisbanes.haze.HazeStyle
-import dev.chrisbanes.haze.haze
-import dev.chrisbanes.haze.hazeChild
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -48,7 +43,7 @@ fun EcocalRoute(viewModel: EcocalViewModel = hiltViewModel()) = trace("EcocalRou
 
 @Composable
 fun EcocalScreen(
-    uiState: SealedUiState<List<EcoCalModel>>,
+    uiState: SealedUiState<Map<String, List<EcoCalModel>>>,
     updateFilter: (FabButtonItem) -> Unit,
 ) = trace("EcocalScreen") {
     AnimatedContent(
@@ -61,14 +56,8 @@ fun EcocalScreen(
             is SealedUiState.Success -> {
                 val state = rememberLazyListState()
                 val coroutineScope = rememberCoroutineScope()
-                val hazeState = remember { HazeState() }
                 Scaffold(
-                    topBar = {
-                        HeaderItem(
-                            modifier = Modifier
-                                .hazeChild(state = hazeState),
-                        )
-                    },
+                    topBar = { HeaderItem() },
                     floatingActionButton = {
                         var fabState by remember { mutableStateOf<FabButtonState>(FabButtonState.Collapsed) }
                         val items by remember {
@@ -100,10 +89,6 @@ fun EcocalScreen(
                             stateChanged = {
                                 fabState = it
                             },
-                            modifier = Modifier
-                                .hazeChild(
-                                    state = hazeState,
-                                ),
                         )
                     },
                 ) { paddingValues ->
@@ -111,14 +96,6 @@ fun EcocalScreen(
                         state = state,
                         entries = targetState.value,
                         modifier = Modifier
-                            .haze(
-                                state = hazeState,
-                                style = HazeStyle(
-                                    HazeDefaults.tint(MaterialTheme.colorScheme.background),
-                                    HazeDefaults.blurRadius,
-                                    HazeDefaults.noiseFactor,
-                                ),
-                            )
                             .padding(paddingValues),
                     )
                 }
@@ -152,15 +129,18 @@ data class All(
 private fun PreviewEcocalScreen() {
     EcocalScreen(
         uiState = SealedUiState.success(
-            listOf(
-                EcoCalModel(
-                    country = "Congo, Democratic Republic of the",
-                    date = "ridiculus",
-                    priority = EcocalPriority.LOW,
-                    time = "penatibus",
-                    title = "option",
+            mapOf(
+                "a" to listOf(
+                    EcoCalModel(
+                        country = "Congo, Democratic Republic of the",
+                        date = "ridiculus",
+                        priority = EcocalPriority.LOW,
+                        time = "penatibus",
+                        title = "option",
+                    ),
                 ),
             ),
+
         ),
         updateFilter = {},
     )

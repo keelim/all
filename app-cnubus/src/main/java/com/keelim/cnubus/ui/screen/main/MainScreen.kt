@@ -15,6 +15,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.PrimaryScrollableTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
@@ -24,6 +26,7 @@ import androidx.compose.runtime.Stable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.util.fastForEachIndexed
 import androidx.compose.ui.util.trace
@@ -79,10 +82,10 @@ data class TabItem(
 
 private val tabItems =
     listOf(
-        TabItem(title = "A노선", mode = "a"),
-        TabItem(title = "B노선", mode = "b"),
-        TabItem(title = "C노선", mode = "c"),
-        TabItem(title = "야간\n노선", mode = "d"),
+        TabItem(title = "A 노선", mode = "a"),
+        TabItem(title = "B 노선", mode = "b"),
+        TabItem(title = "C 노선", mode = "c"),
+        TabItem(title = "야간 노선", mode = "d"),
         TabItem(title = "설정", mode = "e"),
     )
 
@@ -110,15 +113,17 @@ fun MainScreen(
 fun TabBarLayout(
     state: PagerState,
     onSetMode: (String) -> Unit,
+    modifier: Modifier = Modifier,
 ) = trace("TabBarLayout") {
     val coroutineScope = rememberCoroutineScope()
-    TabRow(
-        selectedTabIndex = state.currentPage,
-        modifier = Modifier.fillMaxWidth(),
+    PrimaryScrollableTabRow(
+        modifier = modifier,
+        selectedTabIndex = state.currentPage
     ) {
         tabItems.fastForEachIndexed { index, tabItem ->
+            val selected = state.currentPage == index
             Tab(
-                selected = state.currentPage == index,
+                selected = selected,
                 onClick = {
                     coroutineScope.launch {
                         state.animateScrollToPage(index)
@@ -128,6 +133,9 @@ fun TabBarLayout(
                 text = {
                     Text(
                         text = tabItem.title,
+                        style = MaterialTheme.typography.bodyLarge.copy(
+                            fontWeight = if(selected) FontWeight.Bold else FontWeight.Normal,
+                        ),
                     )
                 },
             )

@@ -9,6 +9,7 @@ import com.keelim.arducon.ui.screen.main.mainRoute
 import com.keelim.arducon.ui.screen.main.mainScreen
 import com.keelim.composeutil.AppState
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 @Composable
 fun ArduConHost(
@@ -26,6 +27,11 @@ fun ArduConHost(
         modifier = modifier,
     ) {
         mainScreen(
+            onShowMessage = { message ->
+                coroutineScope.launch {
+                    onShowSnackbar(message, null)
+                }
+            },
             nestedGraphs = {},
         )
     }

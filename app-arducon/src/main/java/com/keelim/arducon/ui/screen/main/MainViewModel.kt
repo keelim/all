@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val repository: ArduconRepository
+    private val repository: ArduconRepository,
 ) : ViewModel() {
     private val _onClickSearch = MutableStateFlow("")
     val onClickSearch = _onClickSearch.asStateFlow()
@@ -47,7 +47,7 @@ class MainViewModel @Inject constructor(
                     DeepLink(
                         url = uri,
                         timestamp = System.currentTimeMillis(),
-                    )
+                    ),
                 )
             }.onSuccess {
                 _onClickSearch.value = uri
@@ -55,7 +55,6 @@ class MainViewModel @Inject constructor(
                 Timber.d("onClickSearch() onError() -> " + it.localizedMessage)
                 _onClickSearch.value = ""
             }
-
         }
     }
 

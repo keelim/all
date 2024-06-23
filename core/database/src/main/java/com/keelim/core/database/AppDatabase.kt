@@ -71,6 +71,6 @@ abstract class NandaAppDatabase : RoomDatabase() {
     version = 1,
     exportSchema = true,
 )
-abstract class ArduconDatabase: RoomDatabase() {
+abstract class ArduconDatabase : RoomDatabase() {
     abstract fun dataDao(): ArduconDao
 }

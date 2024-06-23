@@ -11,14 +11,12 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.PrimaryScrollableTabRow
 import androidx.compose.material3.Tab
-import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -118,7 +116,7 @@ fun TabBarLayout(
     val coroutineScope = rememberCoroutineScope()
     PrimaryScrollableTabRow(
         modifier = modifier,
-        selectedTabIndex = state.currentPage
+        selectedTabIndex = state.currentPage,
     ) {
         tabItems.fastForEachIndexed { index, tabItem ->
             val selected = state.currentPage == index
@@ -134,7 +132,7 @@ fun TabBarLayout(
                     Text(
                         text = tabItem.title,
                         style = MaterialTheme.typography.bodyLarge.copy(
-                            fontWeight = if(selected) FontWeight.Bold else FontWeight.Normal,
+                            fontWeight = if (selected) FontWeight.Bold else FontWeight.Normal,
                         ),
                     )
                 },

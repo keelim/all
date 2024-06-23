@@ -36,6 +36,6 @@ object DataSourceModule {
     @Singleton
     @Provides
     fun provideArduconDataSource(
-        dao: ArduconDao
+        dao: ArduconDao,
     ): ArduconDataSource = ArduconDataSourceImpl(dao)
 }

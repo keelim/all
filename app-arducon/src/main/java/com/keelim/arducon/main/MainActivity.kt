@@ -41,7 +41,7 @@ class MainActivity : ComponentActivity() {
                         Uri.parse(uri)
                     ).let { startActivity(it) }
                     viewModel.clear()
-                } catch (e: Exception) {
+                } catch (throwable: Throwable) {
                     Toast.makeText(this, "Exception !!!\n" + e.message.toString(), Toast.LENGTH_SHORT).show()
                 }
             }.launchIn(lifecycleScope)

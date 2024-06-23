@@ -98,10 +98,10 @@ jobs:
           keyPassword: ${{ secrets.KEY_PASSWORD }}
 
       - name: Sign Arducon AAB
-        id: sign_nanda
+        id: sign_arducon
         uses: r0adkll/sign-android-release@v1
         with:
-          releaseDirectory: app-nanda/build/outputs/bundle/release
+          releaseDirectory: app-arducon/build/outputs/bundle/release
           signingKeyBase64: ${{ secrets.SIGNING_KEY }}
           alias: ${{ secrets.ARDUCON_ALIAS }}
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
@@ -156,7 +156,7 @@ jobs:
           changesNotSentForReview: false
 
       - name: Deploy to Play Store Arducon
-        id: deplo_nanda
+        id: deplo_arducon
         uses: r0adkll/upload-google-play@v1.1.3
         with:
           serviceAccountJson: service_account.json

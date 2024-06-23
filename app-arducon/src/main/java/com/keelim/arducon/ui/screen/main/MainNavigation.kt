@@ -12,12 +12,15 @@ fun NavController.navigateMain(navOptions: NavOptions? = null) {
 }
 
 fun NavGraphBuilder.mainScreen(
+    onShowMessage: (String) -> Unit,
     nestedGraphs: NavGraphBuilder.() -> Unit,
 ) {
     composable(
         route = mainRoute,
     ) {
-        MainRoute()
+        MainRoute(
+            onShowMessage = onShowMessage,
+        )
     }
     nestedGraphs()
 }

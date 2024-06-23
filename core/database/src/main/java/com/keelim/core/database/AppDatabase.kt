@@ -5,12 +5,14 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters
+import com.keelim.core.database.dao.ArduconDao
 import com.keelim.core.database.dao.HistoryDao
 import com.keelim.core.database.dao.NandaDao
 import com.keelim.core.database.dao.NetworkCacheDao
 import com.keelim.core.database.dao.NoteDao
 import com.keelim.core.database.dao.TaskDao
 import com.keelim.core.database.dao.TimerHistoryDao
+import com.keelim.core.database.model.DeepLink
 import com.keelim.core.database.model.History
 import com.keelim.core.database.model.LocalTask
 import com.keelim.core.database.model.NandaEntity
@@ -62,4 +64,13 @@ abstract class MyGradeAppDatabase : RoomDatabase() {
 )
 abstract class NandaAppDatabase : RoomDatabase() {
     abstract fun dataDao(): NandaDao
+}
+
+@Database(
+    entities = [DeepLink::class],
+    version = 1,
+    exportSchema = true,
+)
+abstract class ArduconDatabase: RoomDatabase() {
+    abstract fun dataDao(): ArduconDao
 }

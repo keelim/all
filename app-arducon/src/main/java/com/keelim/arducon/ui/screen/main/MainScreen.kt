@@ -50,6 +50,7 @@ fun MainRoute(
 
     val context = LocalContext.current
     LaunchedEffect(isSearched.value) {
+        if(isSearched.value.isEmpty()) return@LaunchedEffect
         try {
             Intent(
                 Intent.ACTION_VIEW,

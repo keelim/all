@@ -28,9 +28,10 @@ fun DeepLinkSection(
     items: List<DeepLink>,
     onSearch: (String) -> Unit,
     onDelete: (DeepLink) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     LazyColumn(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(space8),
     ) {
         items(

@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.PlayCircle
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -18,12 +19,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.keelim.composeutil.resource.space2
 import com.keelim.composeutil.resource.space8
 import com.keelim.core.database.model.DeepLink
 
 @Composable
 fun DeepLinkSection(
     items: List<DeepLink>,
+    onSearch: (String) -> Unit,
     onDelete: (DeepLink) -> Unit,
 ) {
     LazyColumn(
@@ -35,6 +38,7 @@ fun DeepLinkSection(
         ) {
             DeepLinkItem(
                 deepLink = it,
+                onSearch = onSearch,
                 onDelete = onDelete,
             )
         }
@@ -45,6 +49,7 @@ fun DeepLinkSection(
 private fun DeepLinkItem(
     deepLink: DeepLink,
     modifier: Modifier = Modifier,
+    onSearch: (String) -> Unit,
     onDelete: (DeepLink) -> Unit,
 ) {
     Card(
@@ -61,6 +66,14 @@ private fun DeepLinkItem(
             )
             Spacer(
                 modifier = Modifier.width(space8),
+            )
+            Icon(
+                imageVector = Icons.Default.PlayCircle,
+                contentDescription = "play",
+                modifier = Modifier.clickable { onSearch(deepLink.url) },
+            )
+            Spacer(
+                modifier = Modifier.width(space2),
             )
             Icon(
                 imageVector = Icons.Default.Delete,
@@ -93,6 +106,7 @@ private fun PreviewDeepLinkSection() {
                 timestamp = 2323L,
             ),
         ),
+        onSearch = {},
         onDelete = {},
     )
 }

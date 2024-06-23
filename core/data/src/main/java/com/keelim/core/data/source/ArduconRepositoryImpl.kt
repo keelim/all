@@ -10,9 +10,9 @@ import javax.inject.Inject
 
 class ArduconRepositoryImpl @Inject constructor(
     private val local: ArduconDataSource,
-    @Dispatcher(KeelimDispatchers.IO) private val dispatcher: CoroutineDispatcher
+    @Dispatcher(KeelimDispatchers.IO) private val dispatcher: CoroutineDispatcher,
 ) : ArduconRepository {
-    override suspend fun insertDeepLinkUrl(deepLink: DeepLink)  {
+    override suspend fun insertDeepLinkUrl(deepLink: DeepLink) {
         withContext(dispatcher) {
             local.insertDeepLinkUrl(deepLink)
         }

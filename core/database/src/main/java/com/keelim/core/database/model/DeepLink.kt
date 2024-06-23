@@ -5,5 +5,6 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "deepLink")
 data class DeepLink(
-    @PrimaryKey val url: String, val timestamp: Long
+    @PrimaryKey val url: String,
+    val timestamp: Long,
 )

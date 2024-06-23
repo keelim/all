@@ -161,7 +161,7 @@ jobs:
         with:
           serviceAccountJson: service_account.json
           packageName: com.keelim.arducon
-          releaseFiles: app-arducon/build/outputs/bundle/release/app-nanda-release.aab
+          releaseFiles: app-arducon/build/outputs/bundle/release/app-arducon-release.aab
           track: production
           status: completed
           changesNotSentForReview: true

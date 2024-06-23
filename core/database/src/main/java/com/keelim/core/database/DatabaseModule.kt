@@ -35,4 +35,16 @@ object DatabaseModule {
         ).createFromFile(File(context.getExternalFilesDir(null), "nanda.db"))
             .allowMainThreadQueries().build()
     }
+
+    @Provides
+    @Singleton
+    fun provideArduconDatabase(
+        @ApplicationContext context: Context,
+    ): ArduconDatabase {
+        return Room.databaseBuilder(
+            context,
+            ArduconDatabase::class.java,
+            "arducon.db",
+        ).build()
+    }
 }

@@ -1,5 +1,7 @@
 package com.keelim.core.data.di
 
+import com.keelim.core.data.source.ArduconRepository
+import com.keelim.core.data.source.ArduconRepositoryImpl
 import com.keelim.core.data.source.DefaultTaskRepository
 import com.keelim.core.data.source.DefaultTaskRepositoryImpl
 import com.keelim.core.data.source.HistoryRepository
@@ -56,4 +58,9 @@ interface RepositoryModule {
     fun bindsNoteRepository(
         repository: NoteRepositoryImpl,
     ): NoteRepository
+
+    @Binds
+    fun bindsArduconRepository(
+        repository: ArduconRepositoryImpl,
+    ): ArduconRepository
 }

@@ -114,6 +114,7 @@ fun MainScreen(
         HorizontalDivider()
         DeepLinkSection(
             items = items,
+            onSearch = onSearch,
             onDelete = onDelete,
         )
     }

@@ -1,5 +1,6 @@
 package com.keelim.core.database
 
+import com.keelim.core.database.dao.ArduconDao
 import com.keelim.core.database.dao.HistoryDao
 import com.keelim.core.database.dao.NandaDao
 import com.keelim.core.database.dao.NetworkCacheDao
@@ -51,4 +52,10 @@ object DaoModule {
     fun provideNoteDao(
         database: MyGradeAppDatabase,
     ): NoteDao = database.noteDao()
+
+    @Provides
+    @Singleton
+    fun providesArduconDao(
+        database: ArduconDatabase,
+    ): ArduconDao = database.dataDao()
 }

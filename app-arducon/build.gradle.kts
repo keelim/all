@@ -47,6 +47,7 @@ dependencies {
     implementation(libs.kotlinx.datetime)
     implementation(libs.play.services.oss)
     implementation(libs.timber)
+    implementation(libs.play.services.ad)
 }
 
 

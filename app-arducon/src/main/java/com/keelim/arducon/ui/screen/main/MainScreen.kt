@@ -29,7 +29,7 @@ import com.keelim.core.database.model.DeepLink
 
 @Composable
 fun MainRoute(
-    viewModel: MainViewModel = hiltViewModel()
+    viewModel: MainViewModel = hiltViewModel(),
 ) {
     val items by viewModel.deepLinkList.collectAsStateWithLifecycle(
         lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current,
@@ -56,7 +56,7 @@ fun MainScreen(
         val (text, setText) = remember { mutableStateOf("") }
 
         Row(
-            modifier = Modifier.padding(top = space8)
+            modifier = Modifier.padding(top = space8),
         ) {
             TextField(
                 modifier = Modifier.weight(1f),
@@ -67,13 +67,13 @@ fun MainScreen(
                         Icon(
                             imageVector = Icons.Default.Delete,
                             contentDescription = "Clear",
-                            modifier = Modifier.clickable { setText("") }
+                            modifier = Modifier.clickable { setText("") },
                         )
                     }
                 },
-                )
+            )
             Spacer(
-                modifier = Modifier.width(space8)
+                modifier = Modifier.width(space8),
             )
             Button(
                 onClick = { onSearch(text) },
@@ -89,7 +89,6 @@ fun MainScreen(
     }
 }
 
-
 @Preview
 @Composable
 private fun PreviewMainScreen() {
@@ -100,6 +99,6 @@ private fun PreviewMainScreen() {
             DeepLink("https://www.google.com", 0),
             DeepLink("https://www.naver.com", 0),
             DeepLink("https://www.daum.net", 0),
-        )
+        ),
     )
 }

@@ -21,7 +21,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.keelim.composeutil.resource.space8
 import com.keelim.core.database.model.DeepLink
 
-
 @Composable
 fun DeepLinkSection(
     items: List<DeepLink>,
@@ -61,15 +60,14 @@ private fun DeepLinkItem(
                 modifier = Modifier.weight(1f),
             )
             Spacer(
-                modifier = Modifier.width(space8)
+                modifier = Modifier.width(space8),
             )
             Icon(
                 imageVector = Icons.Default.Delete,
                 contentDescription = "delete",
-                modifier = Modifier.clickable { onDelete(deepLink) }
+                modifier = Modifier.clickable { onDelete(deepLink) },
             )
         }
-
     }
 }
 
@@ -95,6 +93,6 @@ private fun PreviewDeepLinkSection() {
                 timestamp = 2323L,
             ),
         ),
-        onDelete = {}
+        onDelete = {},
     )
 }

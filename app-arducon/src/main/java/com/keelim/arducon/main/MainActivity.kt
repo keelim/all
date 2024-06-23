@@ -38,7 +38,7 @@ class MainActivity : ComponentActivity() {
                 try {
                     Intent(
                         Intent.ACTION_VIEW,
-                        Uri.parse(uri)
+                        Uri.parse(uri),
                     ).let { startActivity(it) }
                     viewModel.clear()
                 } catch (throwable: Throwable) {

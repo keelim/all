@@ -23,8 +23,7 @@ dependencies {
     implementation(projects.core.common)
     implementation(projects.core.composeCore)
     implementation(projects.core.data)
-    implementation(projects.shared)
-    implementation(projects.features.uiSetting)
+    implementation(projects.core.data)
 
     implementation(libs.activity.ktx)
     implementation(libs.androidx.activity.compose)

@@ -79,4 +79,4 @@ jobs:
           releaseFiles: app-arducon/build/outputs/bundle/release/app-arducon-release.aab
           track: production
           status: completed
-          changesNotSentForReview: false
+          changesNotSentForReview: true

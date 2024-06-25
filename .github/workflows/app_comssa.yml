@@ -52,8 +52,9 @@ jobs:
 
       - name: Sign AAB
         id: sign
-        uses: r0adkll/sign-android-release@v1
+        uses: keelim/upload-google-play@0.0.2
         with:
+          type: sign
           releaseDirectory: app-comssa/build/outputs/bundle/release
           signingKeyBase64: ${{ secrets.SIGNING_KEY }}
           alias: ${{ secrets.COMSSA_ALIAS }}
@@ -66,8 +67,9 @@ jobs:
 
       - name: Deploy to Play Store
         id: deploy
-        uses: keelim/upload-google-play@0.0.1
+        uses: keelim/upload-google-play@0.0.2
         with:
+          type: upload
           serviceAccountJson: service_account.json
           packageName: com.keelim.comssa
           releaseFiles: app-comssa/build/outputs/bundle/release/app-comssa-release.aab

@@ -59,20 +59,13 @@ jobs:
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
 
-      - name: Upload AAB
-        id: uploadArtifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: app
-          path: app-nanda/build/outputs/bundle/release/app-nanda-release.aab
-
       - name: Create service_account.json
         id: createServiceAccount
         run: echo '${{ secrets.SERVICE_ACCOUNT_JSON }}' > service_account.json
 
-      - name: Deploy to Play Store (BETA)
+      - name: Deploy to Play Store
         id: deploy
-        uses: r0adkll/upload-google-play@v1.1.3
+        uses: keelim/upload-google-play@0.0.1
         with:
           serviceAccountJson: service_account.json
           packageName: com.keelim.nandadiagnosis

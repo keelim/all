@@ -97,7 +97,7 @@ soloader = "0.11.0"
 sqldelight = "2.0.2"
 themeAdapter = "1.2.1"
 timbers = "5.0.1"
-truth = "1.4.2"
+truth = "1.4.3"
 turbine = "1.1.0"
 
 [libraries]

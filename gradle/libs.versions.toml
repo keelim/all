@@ -76,7 +76,7 @@ paging-compose = "3.3.0"
 play-services-auth = "21.2.0"
 play-services-location = "21.3.0"
 play-services-maps = "18.2.0"
-playad = "23.2.0"
+playad = "23.1.0"
 playoss = "17.1.0"
 playoss-plugin = "0.10.6"
 preference = "1.2.1"
@@ -260,7 +260,6 @@ modernstorage-bom = { module = "com.google.modernstorage:modernstorage-bom", ver
 okio = { group = "com.squareup.okio", name = "okio" }
 okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
 okio-bom = { group = "com.squareup.okio", name = "okio-bom", version.ref = "okio" }
-play-core = { module = "com.google.android.play:core-ktx", version.ref = "playCore" }
 play-services-ad = { group = "com.google.android.gms", name = "play-services-ads", version.ref = "playad" }
 play-services-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "play-services-auth" }
 play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "play-services-location" }

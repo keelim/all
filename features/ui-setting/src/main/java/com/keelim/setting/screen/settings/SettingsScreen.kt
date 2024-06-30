@@ -23,12 +23,12 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.List
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
-import androidx.compose.material.icons.filled.AutoAwesome
-import androidx.compose.material.icons.outlined.Abc
 import androidx.compose.material.icons.outlined.Build
-import androidx.compose.material.icons.outlined.DesignServices
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Notifications
+import androidx.compose.material.icons.outlined.ThumbUp
+import androidx.compose.material.icons.rounded.ArrowDropDown
+import androidx.compose.material.icons.rounded.ThumbUp
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -152,13 +152,13 @@ fun SettingsScreen(
             ) { padding ->
                 val items = remember {
                     listOf(
-                        Category("Theme Change", Icons.Filled.AutoAwesome, onThemeChangeClick),
+                        Category("Theme Change", Icons.Rounded.ArrowDropDown, onThemeChangeClick),
                         Category("Notifications", Icons.Outlined.Notifications, onNotificationsClick),
                         Category("OpenSource", Icons.AutoMirrored.Outlined.List, onOpenSourceClick),
                         Category("실험실", Icons.Outlined.Lock, onLabClick),
-                        Category("앱 업데이트", Icons.Outlined.DesignServices, onAppUpdateClick),
+                        Category("앱 업데이트", Icons.Rounded.ThumbUp, onAppUpdateClick),
                         Category("App Version: ${uiState.deviceInfo.versionName}", Icons.Outlined.Build) {},
-                        Category("${uiState.userState.visitedTime} 번 방문하셨습니다.", Icons.Outlined.Abc) {},
+                        Category("${uiState.userState.visitedTime} 번 방문하셨습니다.", Icons.Outlined.ThumbUp) {},
                     )
                 }
                 LazyColumn(

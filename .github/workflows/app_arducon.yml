@@ -51,7 +51,7 @@ jobs:
 
       - name: Sign AAB
         id: sign
-        uses: keelim/upload-google-play@0.0.2
+        uses: keelim/upload-google-play@v1.1.3
         with:
           type: sign
           releaseDirectory: app-arducon/build/outputs/bundle/release
@@ -66,7 +66,7 @@ jobs:
 
       - name: Deploy to Play Store
         id: deploy
-        uses: keelim/upload-google-play@0.0.2
+        uses: keelim/upload-google-play@v1.1.3
         with:
           type: upload
           serviceAccountJson: service_account.json

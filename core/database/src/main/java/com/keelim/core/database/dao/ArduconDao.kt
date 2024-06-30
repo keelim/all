@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.keelim.core.database.model.DeepLink
 import kotlinx.coroutines.flow.Flow
 
@@ -18,4 +19,7 @@ interface ArduconDao {
 
     @Delete
     suspend fun deleteDeepLinkUrl(deepLink: DeepLink)
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun updateDeepLink(deepLink: DeepLink)
 }

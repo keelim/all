@@ -68,8 +68,11 @@ abstract class NandaAppDatabase : RoomDatabase() {
 
 @Database(
     entities = [DeepLink::class],
-    version = 1,
+    version = 2,
     exportSchema = true,
+    autoMigrations = [
+        AutoMigration(from = 1, to = 2),
+    ],
 )
 abstract class ArduconDatabase : RoomDatabase() {
     abstract fun dataDao(): ArduconDao

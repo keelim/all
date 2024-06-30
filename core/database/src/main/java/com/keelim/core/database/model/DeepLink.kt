@@ -7,4 +7,5 @@ import androidx.room.PrimaryKey
 data class DeepLink(
     @PrimaryKey val url: String,
     val timestamp: Long,
+    val isBookMarked: Boolean = false,
 )

@@ -11,7 +11,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.PlayCircle
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -49,9 +49,9 @@ fun DeepLinkSection(
 @Composable
 private fun DeepLinkItem(
     deepLink: DeepLink,
-    modifier: Modifier = Modifier,
     onSearch: (String) -> Unit,
     onDelete: (DeepLink) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Card(
         modifier = modifier
@@ -69,7 +69,7 @@ private fun DeepLinkItem(
                 modifier = Modifier.width(space8),
             )
             Icon(
-                imageVector = Icons.Default.PlayCircle,
+                imageVector = Icons.Default.PlayArrow,
                 contentDescription = "play",
                 modifier = Modifier.clickable { onSearch(deepLink.url) },
             )

@@ -95,6 +95,7 @@ fun MainScreen(
                 modifier = Modifier.weight(1f),
                 value = text,
                 onValueChange = setText,
+                label = { Text("please write your deeplink") },
                 trailingIcon = {
                     if (text.isNotEmpty()) {
                         Icon(

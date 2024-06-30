@@ -49,10 +49,13 @@ fun MainTopSection(onSearch: (String) -> Unit) {
             .padding(vertical = space8),
     ) {
         val (text, setText) = remember { mutableStateOf("") }
+        val (isError, setError) = remember { mutableStateOf(false) }
+
         Row {
             TextField(
                 modifier = Modifier.weight(1f),
                 value = text,
+                isError = isError,
                 onValueChange = setText,
                 label = { Text("please write your deeplink") },
                 trailingIcon = {
@@ -60,7 +63,9 @@ fun MainTopSection(onSearch: (String) -> Unit) {
                         Icon(
                             imageVector = Icons.Default.Delete,
                             contentDescription = "Clear",
-                            modifier = Modifier.clickable { setText("") },
+                            modifier = Modifier.clickable {
+                                setText("")
+                            },
                         )
                     }
                 },
@@ -69,7 +74,12 @@ fun MainTopSection(onSearch: (String) -> Unit) {
                 ),
                 keyboardActions = KeyboardActions(
                     onDone = {
-                        onSearch(text)
+                        if (text.isEmpty()) {
+                            setError(true)
+                        } else {
+                            setError(false)
+                            onSearch(text)
+                        }
                     }
                 ),
             )
@@ -77,7 +87,14 @@ fun MainTopSection(onSearch: (String) -> Unit) {
                 modifier = Modifier.width(space8),
             )
             Button(
-                onClick = { onSearch(text) },
+                onClick = {
+                    if (text.isEmpty()) {
+                        setError(true)
+                    } else {
+                        setError(false)
+                        onSearch(text)
+                    }
+                },
             ) {
                 Text("Search")
             }
@@ -94,6 +111,7 @@ fun MainTopSection(onSearch: (String) -> Unit) {
             ) { scheme ->
                 AssistChip(
                     onClick = {
+                        setError(false)
                         setText("$scheme://")
                     },
                     label = { Text("$scheme://") },
@@ -171,6 +189,7 @@ private fun DeepLinkItem(
         }
     }
 }
+
 @Preview(showBackground = true)
 @Composable
 private fun PreviewMainTopSection() {

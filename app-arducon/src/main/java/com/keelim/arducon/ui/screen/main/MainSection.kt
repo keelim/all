@@ -2,16 +2,22 @@ package com.keelim.arducon.ui.screen.main
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material3.AssistChip
+import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
@@ -27,34 +33,68 @@ import com.keelim.composeutil.resource.space2
 import com.keelim.composeutil.resource.space8
 import com.keelim.core.database.model.DeepLink
 
+private val schemeList = listOf(
+    "http",
+    "https",
+)
+
 @Composable
 fun MainTopSection(onSearch: (String) -> Unit) {
-    Row(
-        modifier = Modifier.padding(top = space8),
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = space8),
     ) {
         val (text, setText) = remember { mutableStateOf("") }
-        TextField(
-            modifier = Modifier.weight(1f),
-            value = text,
-            onValueChange = setText,
-            label = { Text("please write your deeplink") },
-            trailingIcon = {
-                if (text.isNotEmpty()) {
-                    Icon(
-                        imageVector = Icons.Default.Delete,
-                        contentDescription = "Clear",
-                        modifier = Modifier.clickable { setText("") },
-                    )
-                }
-            },
-        )
-        Spacer(
-            modifier = Modifier.width(space8),
-        )
-        Button(
-            onClick = { onSearch(text) },
+        Row {
+            TextField(
+                modifier = Modifier.weight(1f),
+                value = text,
+                onValueChange = setText,
+                label = { Text("please write your deeplink") },
+                trailingIcon = {
+                    if (text.isNotEmpty()) {
+                        Icon(
+                            imageVector = Icons.Default.Delete,
+                            contentDescription = "Clear",
+                            modifier = Modifier.clickable { setText("") },
+                        )
+                    }
+                },
+            )
+            Spacer(
+                modifier = Modifier.width(space8),
+            )
+            Button(
+                onClick = { onSearch(text) },
+            ) {
+                Text("Search")
+            }
+        }
+
+        LazyRow(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = space8),
+            horizontalArrangement = Arrangement.spacedBy(space8)
         ) {
-            Text("Search")
+            items(
+                items = schemeList
+            ) { scheme ->
+                AssistChip(
+                    onClick = {
+                        setText("$scheme://")
+                    },
+                    label = { Text("$scheme://") },
+                    leadingIcon = {
+                        Icon(
+                            Icons.Filled.Add,
+                            contentDescription = "Add $scheme",
+                            Modifier.size(AssistChipDefaults.IconSize)
+                        )
+                    }
+                )
+            }
         }
     }
 }

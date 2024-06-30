@@ -12,16 +12,52 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.keelim.composeutil.resource.space2
 import com.keelim.composeutil.resource.space8
 import com.keelim.core.database.model.DeepLink
+
+@Composable
+fun MainTopSection(onSearch: (String) -> Unit) {
+    Row(
+        modifier = Modifier.padding(top = space8),
+    ) {
+        val (text, setText) = remember { mutableStateOf("") }
+        TextField(
+            modifier = Modifier.weight(1f),
+            value = text,
+            onValueChange = setText,
+            label = { Text("please write your deeplink") },
+            trailingIcon = {
+                if (text.isNotEmpty()) {
+                    Icon(
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = "Clear",
+                        modifier = Modifier.clickable { setText("") },
+                    )
+                }
+            },
+        )
+        Spacer(
+            modifier = Modifier.width(space8),
+        )
+        Button(
+            onClick = { onSearch(text) },
+        ) {
+            Text("Search")
+        }
+    }
+}
 
 @Composable
 fun DeepLinkSection(
@@ -84,6 +120,14 @@ private fun DeepLinkItem(
         }
     }
 }
+@Preview(showBackground = true)
+@Composable
+private fun PreviewMainTopSection() {
+    MainTopSection(
+        onSearch = {},
+    )
+}
+
 
 @Preview(showBackground = true)
 @Composable
@@ -111,3 +155,5 @@ private fun PreviewDeepLinkSection() {
         onDelete = {},
     )
 }
+
+

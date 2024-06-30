@@ -58,6 +58,18 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    fun updateDeepLinkUrl(deepLink: DeepLink) {
+        viewModelScope.launch {
+            runCatching {
+                showProgress()
+                repository.updateDeepLinkUrl(deepLink.copy(isBookMarked = deepLink.isBookMarked.not()))
+            }.onFailure {
+                Timber.d("updateDeepLinkUrl() onError() -> " + it.localizedMessage)
+            }
+            hideProgress()
+        }
+    }
+
     fun deleteDeepLinkUrl(deepLink: DeepLink) {
         viewModelScope.launch {
             runCatching {

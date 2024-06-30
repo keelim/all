@@ -1,5 +1,6 @@
 package com.keelim.arducon.ui.screen.main
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,6 +18,8 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
@@ -132,6 +135,7 @@ fun MainTopSection(onSearch: (String) -> Unit) {
 fun DeepLinkSection(
     items: List<DeepLink>,
     onSearch: (String) -> Unit,
+    onUpdate: (DeepLink) -> Unit,
     onDelete: (DeepLink) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -145,6 +149,7 @@ fun DeepLinkSection(
             DeepLinkItem(
                 deepLink = it,
                 onSearch = onSearch,
+                onUpdate = onUpdate,
                 onDelete = onDelete,
             )
         }
@@ -155,6 +160,7 @@ fun DeepLinkSection(
 private fun DeepLinkItem(
     deepLink: DeepLink,
     onSearch: (String) -> Unit,
+    onUpdate: (DeepLink) -> Unit,
     onDelete: (DeepLink) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -172,6 +178,21 @@ private fun DeepLinkItem(
             )
             Spacer(
                 modifier = Modifier.width(space8),
+            )
+            AnimatedContent(
+                targetState = deepLink.isBookMarked,
+                label = "bookmark",
+            ) {
+                Icon(
+                    imageVector = if (deepLink.isBookMarked) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
+                    contentDescription = "bookmark",
+                    modifier = Modifier.clickable {
+                        onUpdate(deepLink)
+                    },
+                )
+            }
+            Spacer(
+                modifier = Modifier.width(space2),
             )
             Icon(
                 imageVector = Icons.Default.PlayArrow,
@@ -223,6 +244,7 @@ private fun PreviewDeepLinkSection() {
         ),
         onSearch = {},
         onDelete = {},
+        onUpdate = {},
     )
 }
 

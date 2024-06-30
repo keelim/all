@@ -56,6 +56,7 @@ fun MainRoute(
     MainScreen(
         items = items,
         onSearch = viewModel::onClickSearch,
+        onUpdate = viewModel::updateDeepLinkUrl,
         onDelete = viewModel::deleteDeepLinkUrl,
     )
 }
@@ -64,6 +65,7 @@ fun MainRoute(
 fun MainScreen(
     items: List<DeepLink>,
     onSearch: (String) -> Unit,
+    onUpdate: (DeepLink) -> Unit,
     onDelete: (DeepLink) -> Unit,
 ) {
     Column(
@@ -83,6 +85,7 @@ fun MainScreen(
         DeepLinkSection(
             items = items,
             onSearch = onSearch,
+            onUpdate = onUpdate,
             onDelete = onDelete,
             modifier = Modifier
                 .weight(1f)
@@ -100,6 +103,7 @@ fun MainScreen(
 private fun PreviewMainScreen() {
     MainScreen(
         onSearch = {},
+        onUpdate = {},
         onDelete = {},
         items = listOf(
             DeepLink("https://www.google.com", 0),

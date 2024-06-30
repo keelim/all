@@ -182,9 +182,9 @@ private fun DeepLinkItem(
             AnimatedContent(
                 targetState = deepLink.isBookMarked,
                 label = "bookmark",
-            ) {
+            ) { targetState ->
                 Icon(
-                    imageVector = if (deepLink.isBookMarked) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
+                    imageVector = if (targetState) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
                     contentDescription = "bookmark",
                     modifier = Modifier.clickable {
                         onUpdate(deepLink)

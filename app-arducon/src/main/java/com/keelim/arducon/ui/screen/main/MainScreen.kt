@@ -87,34 +87,9 @@ fun MainScreen(
             text = "Arducon Simple Deeplink Tester",
             style = MaterialTheme.typography.titleLarge,
         )
-        Row(
-            modifier = Modifier.padding(top = space8),
-        ) {
-            val (text, setText) = remember { mutableStateOf("") }
-            TextField(
-                modifier = Modifier.weight(1f),
-                value = text,
-                onValueChange = setText,
-                label = { Text("please write your deeplink") },
-                trailingIcon = {
-                    if (text.isNotEmpty()) {
-                        Icon(
-                            imageVector = Icons.Default.Delete,
-                            contentDescription = "Clear",
-                            modifier = Modifier.clickable { setText("") },
-                        )
-                    }
-                },
-            )
-            Spacer(
-                modifier = Modifier.width(space8),
-            )
-            Button(
-                onClick = { onSearch(text) },
-            ) {
-                Text("Search")
-            }
-        }
+        MainTopSection(
+            onSearch = onSearch,
+        )
         HorizontalDivider()
         DeepLinkSection(
             items = items,
@@ -129,6 +104,7 @@ fun MainScreen(
         )
     }
 }
+
 
 @Preview
 @Composable

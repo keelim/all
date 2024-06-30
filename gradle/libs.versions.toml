@@ -66,7 +66,6 @@ lint = "31.5.0"
 lottie = "6.4.1"
 maps = "5.0.0"
 maps-compose = "5.0.4"
-material = "1.12.0"
 math3 = "3.6.1"
 modernstorageBom = "1.0.0-alpha06"
 moduleGraphAssertion = "2.5.0"
@@ -123,10 +122,6 @@ androidx-compose-foundation = { group = "androidx.compose.foundation", name = "f
 androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout" }
 androidx-compose-glance = { group = "androidx.glance", name = "glance-appwidget", version.ref = "glance" }
 androidx-compose-glance-material3 = { group = "androidx.glance", name = "glance-material3", version.ref = "glance" }
-androidx-compose-material = { group = "androidx.compose.material", name = "material" }
-androidx-compose-material-iconsCore = { group = "androidx.compose.material", name = "material-icons-core" }
-androidx-compose-material-iconsExtended = { group = "androidx.compose.material", name = "material-icons-extended" }
-androidx-compose-material-ripple = { group = "androidx.compose.material", name = "material-ripple" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-compose-material3-adaptiveNavigationSuite = {group = "androidx.compose.material3", name = "material3-adaptive-navigation-suite-android", version.ref = "adaptive-navigation-suite" }
 androidx-compose-material3-windowSizeClass = {group = "androidx.compose.material3", name = "material3-window-size-class" }
@@ -254,7 +249,6 @@ maps-compose-utils = { group = "com.google.maps.android", name = "maps-compose-u
 maps-compose-widget = { group = "com.google.maps.android", name = "maps-compose-widgets", version.ref = "maps-compose" }
 maps-ktx = { group = "com.google.maps.android", name = "maps-ktx", version.ref = "maps" }
 maps-utils-ktx = { group = "com.google.maps.android", name = "maps-utils-ktx", version.ref = "maps" }
-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 material-themAdapter = { group = "com.google.android.material", name = "compose-theme-adapter", version.ref = "themeAdapter" }
 modernstorage-bom = { module = "com.google.modernstorage:modernstorage-bom", version.ref = "modernstorageBom" }
 okio = { group = "com.squareup.okio", name = "okio" }
@@ -314,10 +308,6 @@ compose = [
     "androidx-compose-animation-graphics",
     "androidx-compose-foundation",
     "androidx-compose-foundation-layout",
-    "androidx-compose-material",
-    "androidx-compose-material-iconsCore",
-    "androidx-compose-material-iconsExtended",
-    "androidx-compose-material-ripple",
     "androidx-compose-material3",
     "androidx-compose-material3-windowSizeClass",
     "androidx-compose-runtime",

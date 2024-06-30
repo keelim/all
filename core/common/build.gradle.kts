@@ -19,7 +19,6 @@ dependencies {
     implementation(libs.hilt.android.testing)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.coroutines.test)
-    implementation(libs.material)
     implementation(libs.material.themAdapter)
     implementation(libs.play.services.oss)
     implementation(libs.timber)

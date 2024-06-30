@@ -73,7 +73,7 @@ fun MainScreen(
         verticalArrangement = Arrangement.spacedBy(space8),
     ) {
         Text(
-            text = "Arducon Simple Deeplink Tester",
+            text = "Arducon Deeplink Tester",
             style = MaterialTheme.typography.titleLarge,
         )
         MainTopSection(

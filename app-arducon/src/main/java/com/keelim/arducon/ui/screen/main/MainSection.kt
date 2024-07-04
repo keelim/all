@@ -88,7 +88,7 @@ fun MainTopSection(onSearch: (String) -> Unit) {
                             setError(false)
                             onSearch(text)
                         }
-                    }
+                    },
                 ),
             )
             Spacer(
@@ -112,10 +112,10 @@ fun MainTopSection(onSearch: (String) -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = space8),
-            horizontalArrangement = Arrangement.spacedBy(space8)
+            horizontalArrangement = Arrangement.spacedBy(space8),
         ) {
             items(
-                items = schemeList
+                items = schemeList,
             ) { scheme ->
                 AssistChip(
                     onClick = {
@@ -127,9 +127,9 @@ fun MainTopSection(onSearch: (String) -> Unit) {
                         Icon(
                             Icons.Filled.Add,
                             contentDescription = "Add $scheme",
-                            Modifier.size(AssistChipDefaults.IconSize)
+                            Modifier.size(AssistChipDefaults.IconSize),
                         )
-                    }
+                    },
                 )
             }
         }
@@ -160,8 +160,8 @@ fun DeepLinkSection(
                     animationSpec = tween(
                         durationMillis = 500,
                         easing = LinearOutSlowInEasing,
-                    )
-                )
+                    ),
+                ),
             )
         }
     }
@@ -230,7 +230,6 @@ private fun PreviewMainTopSection() {
     )
 }
 
-
 @Preview(showBackground = true)
 @Composable
 private fun PreviewDeepLinkSection() {
@@ -258,5 +257,3 @@ private fun PreviewDeepLinkSection() {
         onUpdate = {},
     )
 }
-
-

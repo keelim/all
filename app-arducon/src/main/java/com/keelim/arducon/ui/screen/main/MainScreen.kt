@@ -24,7 +24,6 @@ import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space8
 import com.keelim.core.database.model.DeepLink
 
-
 @Composable
 fun MainRoute(
     onShowMessage: (String) -> Unit,
@@ -39,7 +38,7 @@ fun MainRoute(
 
     val context = LocalContext.current
     LaunchedEffect(isSearched.value) {
-        if(isSearched.value.isEmpty()) return@LaunchedEffect
+        if (isSearched.value.isEmpty()) return@LaunchedEffect
         try {
             Intent(
                 Intent.ACTION_VIEW,
@@ -92,11 +91,10 @@ fun MainScreen(
                 .fillMaxWidth(),
         )
         AdBannerView(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
     }
 }
-
 
 @Preview
 @Composable

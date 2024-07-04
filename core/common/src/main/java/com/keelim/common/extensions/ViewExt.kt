@@ -284,8 +284,6 @@ fun View.findAncestorById(@IdRes ancestorId: Int): View {
     }
 }
 
-
-
 /**
  * A copy of the KTX method, adding the ability to add extra padding the bottom of the [Bitmap];
  * useful when it will be used in a [android.graphics.BitmapShader][BitmapShader] with

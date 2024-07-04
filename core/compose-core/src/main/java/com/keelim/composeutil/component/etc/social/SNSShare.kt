@@ -125,7 +125,7 @@ fun LabeledIconButton(
     onClick: () -> Unit,
     containerColor: Color,
     contentColor: Color,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier,

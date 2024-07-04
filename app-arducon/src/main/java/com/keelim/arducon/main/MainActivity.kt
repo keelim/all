@@ -15,7 +15,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ArduconApp(
-                windowSizeClass = calculateWindowSizeClass(this)
+                windowSizeClass = calculateWindowSizeClass(this),
             )
         }
     }

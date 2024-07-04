@@ -48,6 +48,6 @@ object DatabaseModule {
             ArduconDatabase::class.java,
             "arducon.db",
         ).fallbackToDestructiveMigration()
-        .build()
+            .build()
     }
 }

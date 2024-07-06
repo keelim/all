@@ -40,6 +40,7 @@ constructor(
                         date = formattedDate,
                         title = it.title,
                         desc = it.description,
+                        fixed = it.fixed,
                     )
                 }
         }

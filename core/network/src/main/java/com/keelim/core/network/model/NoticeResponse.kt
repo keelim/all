@@ -14,5 +14,7 @@ data class NoticeResponse(
     @SerialName("id")
     val id: Int = 0, // 1
     @SerialName("title")
-    val title: String = "" // 버전 업데이트
+    val title: String = "", // 버전 업데이트
+    @SerialName("fixed")
+    val fixed: Boolean = false,
 )

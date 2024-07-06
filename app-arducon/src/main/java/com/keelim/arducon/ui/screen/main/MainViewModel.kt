@@ -40,6 +40,7 @@ class MainViewModel @Inject constructor(
     // 딥링크 검색 버튼 클릭
     fun onClickSearch(
         uri: String,
+        title: String,
     ) {
         viewModelScope.launch {
             runCatching {
@@ -47,6 +48,7 @@ class MainViewModel @Inject constructor(
                     DeepLink(
                         url = uri,
                         timestamp = System.currentTimeMillis(),
+                        title = title,
                     ),
                 )
             }.onSuccess {

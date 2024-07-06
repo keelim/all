@@ -2,6 +2,8 @@
 
 package com.keelim.arducon.ui.screen.main
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
@@ -12,6 +14,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -31,13 +34,16 @@ import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import com.keelim.composeutil.resource.space2
@@ -50,13 +56,14 @@ private val schemeList = listOf(
 )
 
 @Composable
-fun MainTopSection(onSearch: (String) -> Unit) {
+fun MainTopSection(onSearch: (String, String) -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = space8),
     ) {
         val (text, setText) = remember { mutableStateOf("") }
+        val (title, setTitle) = remember { mutableStateOf("") }
         val (isError, setError) = remember { mutableStateOf(false) }
 
         Row {
@@ -86,7 +93,7 @@ fun MainTopSection(onSearch: (String) -> Unit) {
                             setError(true)
                         } else {
                             setError(false)
-                            onSearch(text)
+                            onSearch(text, title)
                         }
                     },
                 ),
@@ -100,13 +107,38 @@ fun MainTopSection(onSearch: (String) -> Unit) {
                         setError(true)
                     } else {
                         setError(false)
-                        onSearch(text)
+                        onSearch(text, title)
                     }
                 },
             ) {
                 Text("Search")
             }
         }
+
+        Spacer(
+            modifier = Modifier.height(space8)
+        )
+
+        TextField(
+            value = title,
+            isError = isError,
+            onValueChange = setTitle,
+            label = { Text("please write your title") },
+            trailingIcon = {
+                if (title.isNotEmpty()) {
+                    Icon(
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = "Clear",
+                        modifier = Modifier.clickable {
+                            setTitle("")
+                        },
+                    )
+                }
+            },
+            keyboardOptions = KeyboardOptions(
+                imeAction = ImeAction.Done,
+            ),
+        )
 
         LazyRow(
             modifier = Modifier
@@ -139,11 +171,11 @@ fun MainTopSection(onSearch: (String) -> Unit) {
 @Composable
 fun DeepLinkSection(
     items: List<DeepLink>,
-    onSearch: (String) -> Unit,
     onUpdate: (DeepLink) -> Unit,
     onDelete: (DeepLink) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+
     LazyColumn(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(space8),
@@ -151,9 +183,24 @@ fun DeepLinkSection(
         items(
             items = items,
         ) {
+            val (isMoved, setMoved) = remember { mutableStateOf("") }
+            val context = LocalContext.current
+            if(isMoved.isNotEmpty()) {
+                LaunchedEffect(context, isMoved) {
+                    context.startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse(isMoved),
+                        )
+                    )
+                    setMoved("")
+                }
+            }
             DeepLinkItem(
                 deepLink = it,
-                onSearch = onSearch,
+                onPlay = { uri ->
+                    setMoved(uri)
+                },
                 onUpdate = onUpdate,
                 onDelete = onDelete,
                 modifier = Modifier.animateItemPlacement(
@@ -170,7 +217,7 @@ fun DeepLinkSection(
 @Composable
 private fun DeepLinkItem(
     deepLink: DeepLink,
-    onSearch: (String) -> Unit,
+    onPlay: (String) -> Unit,
     onUpdate: (DeepLink) -> Unit,
     onDelete: (DeepLink) -> Unit,
     modifier: Modifier = Modifier,
@@ -179,45 +226,56 @@ private fun DeepLinkItem(
         modifier = modifier
             .fillMaxWidth(),
     ) {
-        Row(
-            modifier = Modifier.padding(space8),
-            verticalAlignment = Alignment.CenterVertically,
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(space8),
         ) {
-            Text(
-                text = deepLink.url,
-                modifier = Modifier.weight(1f),
-            )
-            Spacer(
-                modifier = Modifier.width(space8),
-            )
-            AnimatedContent(
-                targetState = deepLink.isBookMarked,
-                label = "bookmark",
-            ) { targetState ->
-                Icon(
-                    imageVector = if (targetState) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
-                    contentDescription = "bookmark",
-                    modifier = Modifier.clickable {
-                        onUpdate(deepLink)
-                    },
+            if(deepLink.title.isNotEmpty()) {
+                Text(
+                    text = deepLink.title,
+                    style = MaterialTheme.typography.headlineSmall,
                 )
             }
-            Spacer(
-                modifier = Modifier.width(space2),
-            )
-            Icon(
-                imageVector = Icons.Default.PlayArrow,
-                contentDescription = "play",
-                modifier = Modifier.clickable { onSearch(deepLink.url) },
-            )
-            Spacer(
-                modifier = Modifier.width(space2),
-            )
-            Icon(
-                imageVector = Icons.Default.Delete,
-                contentDescription = "delete",
-                modifier = Modifier.clickable { onDelete(deepLink) },
-            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(
+                    text = deepLink.url,
+                    modifier = Modifier.weight(1f),
+                )
+                Spacer(
+                    modifier = Modifier.width(space8),
+                )
+                AnimatedContent(
+                    targetState = deepLink.isBookMarked,
+                    label = "bookmark",
+                ) { targetState ->
+                    Icon(
+                        imageVector = if (targetState) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
+                        contentDescription = "bookmark",
+                        modifier = Modifier.clickable {
+                            onUpdate(deepLink)
+                        },
+                    )
+                }
+                Spacer(
+                    modifier = Modifier.width(space2),
+                )
+                Icon(
+                    imageVector = Icons.Default.PlayArrow,
+                    contentDescription = "play",
+                    modifier = Modifier.clickable { onPlay(deepLink.url) },
+                )
+                Spacer(
+                    modifier = Modifier.width(space2),
+                )
+                Icon(
+                    imageVector = Icons.Default.Delete,
+                    contentDescription = "delete",
+                    modifier = Modifier.clickable { onDelete(deepLink) },
+                )
+            }
         }
     }
 }
@@ -226,7 +284,7 @@ private fun DeepLinkItem(
 @Composable
 private fun PreviewMainTopSection() {
     MainTopSection(
-        onSearch = {},
+        onSearch = {_, _ ->},
     )
 }
 
@@ -238,6 +296,7 @@ private fun PreviewDeepLinkSection() {
             DeepLink(
                 url = "https://www.google.com",
                 timestamp = 2323L,
+                title = "naver",
             ),
             DeepLink(
                 url = "https://www.google.com",
@@ -252,7 +311,6 @@ private fun PreviewDeepLinkSection() {
                 timestamp = 2323L,
             ),
         ),
-        onSearch = {},
         onDelete = {},
         onUpdate = {},
     )

@@ -63,7 +63,7 @@ fun MainRoute(
 @Composable
 fun MainScreen(
     items: List<DeepLink>,
-    onSearch: (String) -> Unit,
+    onSearch: (String, String) -> Unit,
     onUpdate: (DeepLink) -> Unit,
     onDelete: (DeepLink) -> Unit,
 ) {
@@ -83,7 +83,6 @@ fun MainScreen(
         HorizontalDivider()
         DeepLinkSection(
             items = items,
-            onSearch = onSearch,
             onUpdate = onUpdate,
             onDelete = onDelete,
             modifier = Modifier
@@ -100,7 +99,7 @@ fun MainScreen(
 @Composable
 private fun PreviewMainScreen() {
     MainScreen(
-        onSearch = {},
+        onSearch = {_, _ ->},
         onUpdate = {},
         onDelete = {},
         items = listOf(

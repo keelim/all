@@ -9,4 +9,5 @@ data class DeepLink(
     @PrimaryKey val url: String,
     val timestamp: Long,
     @ColumnInfo(defaultValue = "0") val isBookMarked: Boolean = false,
+    @ColumnInfo(defaultValue = "") val title: String = "",
 )

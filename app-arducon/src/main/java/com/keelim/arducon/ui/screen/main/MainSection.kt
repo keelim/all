@@ -170,7 +170,8 @@ fun MainTopSection(onSearch: (String, String) -> Unit) {
 
 @Composable
 fun DeepLinkSection(
-    items: List<DeepLink>,
+    favoriteItems: List<DeepLink>,
+    generalItems: List<DeepLink>,
     onUpdate: (DeepLink) -> Unit,
     onDelete: (DeepLink) -> Unit,
     modifier: Modifier = Modifier,
@@ -180,8 +181,57 @@ fun DeepLinkSection(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(space8),
     ) {
+        stickyHeader {
+            Row(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = "Favorite"
+                )
+            }
+        }
         items(
-            items = items,
+            items = favoriteItems
+        ) {
+            val (isMoved, setMoved) = remember { mutableStateOf("") }
+            val context = LocalContext.current
+            if(isMoved.isNotEmpty()) {
+                LaunchedEffect(context, isMoved) {
+                    context.startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse(isMoved),
+                        )
+                    )
+                    setMoved("")
+                }
+            }
+            DeepLinkItem(
+                deepLink = it,
+                onPlay = { uri ->
+                    setMoved(uri)
+                },
+                onUpdate = onUpdate,
+                onDelete = onDelete,
+                modifier = Modifier.animateItemPlacement(
+                    animationSpec = tween(
+                        durationMillis = 500,
+                        easing = LinearOutSlowInEasing,
+                    ),
+                ),
+            )
+        }
+        stickyHeader {
+            Row(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = "General"
+                )
+            }
+        }
+        items(
+            items = generalItems,
         ) {
             val (isMoved, setMoved) = remember { mutableStateOf("") }
             val context = LocalContext.current
@@ -292,7 +342,8 @@ private fun PreviewMainTopSection() {
 @Composable
 private fun PreviewDeepLinkSection() {
     DeepLinkSection(
-        items = listOf(
+        favoriteItems = listOf(),
+        generalItems = listOf(
             DeepLink(
                 url = "https://www.google.com",
                 timestamp = 2323L,

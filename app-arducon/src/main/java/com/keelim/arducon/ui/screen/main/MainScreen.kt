@@ -53,7 +53,8 @@ fun MainRoute(
     }
 
     MainScreen(
-        items = items,
+        favoriteItems = items.first,
+        generalItems = items.second,
         onSearch = viewModel::onClickSearch,
         onUpdate = viewModel::updateDeepLinkUrl,
         onDelete = viewModel::deleteDeepLinkUrl,
@@ -62,7 +63,8 @@ fun MainRoute(
 
 @Composable
 fun MainScreen(
-    items: List<DeepLink>,
+    favoriteItems: List<DeepLink>,
+    generalItems: List<DeepLink>,
     onSearch: (String, String) -> Unit,
     onUpdate: (DeepLink) -> Unit,
     onDelete: (DeepLink) -> Unit,
@@ -82,7 +84,8 @@ fun MainScreen(
         )
         HorizontalDivider()
         DeepLinkSection(
-            items = items,
+            favoriteItems = favoriteItems,
+            generalItems = generalItems,
             onUpdate = onUpdate,
             onDelete = onDelete,
             modifier = Modifier
@@ -102,7 +105,12 @@ private fun PreviewMainScreen() {
         onSearch = {_, _ ->},
         onUpdate = {},
         onDelete = {},
-        items = listOf(
+        favoriteItems = listOf(
+            DeepLink("https://www.google.com", 0),
+            DeepLink("https://www.naver.com", 0),
+            DeepLink("https://www.daum.net", 0),
+        ),
+        generalItems = listOf(
             DeepLink("https://www.google.com", 0),
             DeepLink("https://www.naver.com", 0),
             DeepLink("https://www.daum.net", 0),

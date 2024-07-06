@@ -18,7 +18,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.keelim.arducon.ui.component.AdBannerView
 import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space8
@@ -92,9 +91,9 @@ fun MainScreen(
                 .weight(1f)
                 .fillMaxWidth(),
         )
-        AdBannerView(
-            modifier = Modifier.fillMaxWidth(),
-        )
+        // AdBannerView(
+        //     modifier = Modifier.fillMaxWidth(),
+        // )
     }
 }
 

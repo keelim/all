@@ -10,8 +10,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowCircleRight
-import androidx.compose.material.icons.filled.DesignServices
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -62,12 +62,12 @@ private fun MainBottomSheetScreen(
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Row {
-                Icon(imageVector = Icons.Default.DesignServices, contentDescription = null)
+                Icon(imageVector = Icons.Default.Check, contentDescription = null)
                 Spacer(modifier = Modifier.width(10.dp))
                 Text(text = "관련 정보", style = MaterialTheme.typography.bodyMedium)
             }
             Icon(
-                imageVector = Icons.Default.ArrowCircleRight,
+                imageVector = Icons.Default.ArrowBack,
                 contentDescription = null,
             )
         }

@@ -7,6 +7,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import com.keelim.arducon.ui.screen.main.mainRoute
 import com.keelim.arducon.ui.screen.main.mainScreen
+import com.keelim.arducon.ui.screen.qr.navigateQr
+import com.keelim.arducon.ui.screen.qr.qrScreen
 import com.keelim.composeutil.AppState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -32,7 +34,16 @@ fun ArduConHost(
                     onShowSnackbar(message, null)
                 }
             },
-            nestedGraphs = {},
+            onQrCodeClick = navController::navigateQr,
+            nestedGraphs = {
+                qrScreen(
+                    onShowBarcode = { barcode ->
+                        coroutineScope.launch {
+                            onShowSnackbar(barcode, null)
+                        }
+                    }
+                )
+            },
         )
     }
 }

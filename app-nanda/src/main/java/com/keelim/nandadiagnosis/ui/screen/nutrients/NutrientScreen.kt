@@ -15,7 +15,7 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccessAlarm
+import androidx.compose.material.icons.filled.Call
 import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -73,7 +73,7 @@ private fun NutrientScreen(
                 onClick = onNutrientTimerClick,
             ) {
                 Icon(
-                    imageVector = Icons.Filled.AccessAlarm,
+                    imageVector = Icons.Filled.Call,
                     contentDescription = null,
                 )
             }

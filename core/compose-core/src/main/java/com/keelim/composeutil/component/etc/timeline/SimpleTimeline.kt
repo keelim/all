@@ -17,7 +17,7 @@ import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.ArrowForward
 import androidx.compose.material.icons.rounded.CheckCircle
 import androidx.compose.material.icons.rounded.Close
-import androidx.compose.material.icons.rounded.Schedule
+import androidx.compose.material.icons.rounded.Share
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -97,7 +97,7 @@ fun SimpleTimeline(
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewSimpleTimeline() {
+private fun PreviewSimpleTimeline() {
     SimpleTimeline(
         items = listOf(
             Timeline(
@@ -114,7 +114,7 @@ fun PreviewSimpleTimeline() {
             ),
             Timeline(
                 randomColor(),
-                Icons.Rounded.Schedule,
+                Icons.Rounded.Share,
                 "Pending payment of $25 to Alex",
                 "Sep 16",
             ),

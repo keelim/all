@@ -1,15 +1,19 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
+@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 
 package com.keelim.setting.screen
 
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
@@ -17,9 +21,11 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Card
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -41,6 +47,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space16
+import com.keelim.composeutil.resource.space2
+import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
 
 @Composable
@@ -124,11 +132,53 @@ private fun NotificationContent(
                 state = listState,
                 verticalArrangement = Arrangement.spacedBy(space12),
             ) {
-                items(uiState.items) { notification ->
+                if(uiState.fixedItems.isNotEmpty()) {
+                    stickyHeader {
+                        Icon(
+                            imageVector = Icons.Default.Check,
+                            contentDescription = "Fixed",
+                        )
+                    }
+                    items(
+                        items = uiState.fixedItems,
+                        key = { it.title + it.date + it.desc },
+                    ) { notification ->
+                        NotificationListCard(
+                            notificationDate = notification.date,
+                            notificationTitle = notification.title,
+                            notificationDesc = notification.desc,
+                            modifier = Modifier.animateItemPlacement(
+                                animationSpec = tween(
+                                    durationMillis = 500,
+                                )
+                            )
+                        )
+                    }
+                    item {
+                        Spacer(
+                            modifier = Modifier.height(space4)
+                        )
+                        HorizontalDivider(
+                            thickness = space2,
+                        )
+                        Spacer(
+                            modifier = Modifier.height(space4)
+                        )
+                    }
+                }
+                items(
+                    uiState.generalItems,
+                    key = { it.title + it.date + it.desc },
+                ) { notification ->
                     NotificationListCard(
                         notificationDate = notification.date,
                         notificationTitle = notification.title,
                         notificationDesc = notification.desc,
+                        modifier = Modifier.animateItemPlacement(
+                            animationSpec = tween(
+                                durationMillis = 500,
+                            )
+                        )
                     )
                 }
             }
@@ -141,8 +191,13 @@ private fun NotificationListCard(
     notificationDate: String,
     notificationTitle: String,
     notificationDesc: String,
+    modifier: Modifier = Modifier
 ) {
-    Card {
+    Card(
+        modifier = modifier.padding(
+            start = space16,
+        )
+    ) {
         Row(
             Modifier
                 .fillMaxWidth()
@@ -160,7 +215,7 @@ private fun NotificationListCard(
             Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
                 Text(
                     text = notificationTitle,
-                    style = MaterialTheme.typography.bodySmall.copy(
+                    style = MaterialTheme.typography.bodyMedium.copy(
                         fontWeight = FontWeight.Bold,
                     ),
                     overflow = TextOverflow.Ellipsis,
@@ -168,9 +223,7 @@ private fun NotificationListCard(
                 )
                 Text(
                     text = notificationDesc,
-                    style = MaterialTheme.typography.bodySmall.copy(
-                        fontWeight = FontWeight.Bold,
-                    ),
+                    style = MaterialTheme.typography.bodySmall,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 5,
                 )

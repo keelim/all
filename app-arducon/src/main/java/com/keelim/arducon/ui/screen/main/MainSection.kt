@@ -191,7 +191,8 @@ fun DeepLinkSection(
             }
         }
         items(
-            items = favoriteItems
+            items = favoriteItems,
+            key = { it.timestamp },
         ) {
             val (isMoved, setMoved) = remember { mutableStateOf("") }
             val context = LocalContext.current
@@ -232,6 +233,7 @@ fun DeepLinkSection(
         }
         items(
             items = generalItems,
+            key = { it.timestamp },
         ) {
             val (isMoved, setMoved) = remember { mutableStateOf("") }
             val context = LocalContext.current

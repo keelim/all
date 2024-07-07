@@ -11,16 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ChatBubbleOutline
-import androidx.compose.material.icons.rounded.AlternateEmail
-import androidx.compose.material.icons.rounded.Bluetooth
-import androidx.compose.material.icons.rounded.ContentCopy
-import androidx.compose.material.icons.rounded.Facebook
-import androidx.compose.material.icons.rounded.MoreHoriz
-import androidx.compose.material.icons.rounded.PinDrop
 import androidx.compose.material.icons.rounded.Share
-import androidx.compose.material.icons.rounded.VideoChat
-import androidx.compose.material.icons.rounded.Whatsapp
 import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.BottomSheetScaffoldState
 import androidx.compose.material3.FilledIconButton
@@ -132,9 +123,9 @@ fun LabeledIconButton(
     imageVector: ImageVector,
     label: String,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier,
     containerColor: Color,
     contentColor: Color,
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier,
@@ -160,7 +151,7 @@ fun LabeledIconButton(
 
 @Preview
 @Composable
-fun PreviewSocialShare() {
+private fun PreviewSocialShare() {
     val scaffoldState = rememberBottomSheetScaffoldState()
     LaunchedEffect(Unit) {
         scaffoldState.bottomSheetState.expand()
@@ -170,28 +161,28 @@ fun PreviewSocialShare() {
         items = SocialItemHolder(
             mainItems = listOf(
                 SocialItem(
-                    imageVector = Icons.Rounded.Whatsapp,
+                    imageVector = Icons.Rounded.Share,
                     label = "Whatsapp",
                     contentColor = randomColor(),
                     containerColor = randomColor(),
                     onClick = {},
                 ),
                 SocialItem(
-                    imageVector = Icons.Rounded.Facebook,
+                    imageVector = Icons.Rounded.Share,
                     label = "Facebook",
                     contentColor = randomColor(),
                     containerColor = randomColor(),
                     onClick = {},
                 ),
                 SocialItem(
-                    imageVector = Icons.Rounded.PinDrop,
+                    imageVector = Icons.Rounded.Share,
                     label = "Pinboard",
                     contentColor = randomColor(),
                     containerColor = randomColor(),
                     onClick = {},
                 ),
                 SocialItem(
-                    imageVector = Icons.Rounded.VideoChat,
+                    imageVector = Icons.Rounded.Share,
                     label = "Video Chat",
                     contentColor = randomColor(),
                     containerColor = randomColor(),
@@ -207,35 +198,35 @@ fun PreviewSocialShare() {
                     containerColor = randomColor(),
                 ),
                 SocialItem(
-                    imageVector = Icons.Rounded.ContentCopy,
+                    imageVector = Icons.Rounded.Share,
                     label = "Copy Link",
                     onClick = {},
                     contentColor = randomColor(),
                     containerColor = randomColor(),
                 ),
                 SocialItem(
-                    imageVector = Icons.Outlined.ChatBubbleOutline,
+                    imageVector = Icons.Rounded.Share,
                     label = "Message",
                     onClick = {},
                     contentColor = randomColor(),
                     containerColor = randomColor(),
                 ),
                 SocialItem(
-                    imageVector = Icons.Rounded.Bluetooth,
+                    imageVector = Icons.Rounded.Share,
                     label = "Bluetooth",
                     onClick = {},
                     contentColor = randomColor(),
                     containerColor = randomColor(),
                 ),
                 SocialItem(
-                    imageVector = Icons.Rounded.AlternateEmail,
+                    imageVector = Icons.Rounded.Share,
                     label = "Email",
                     onClick = {},
                     contentColor = randomColor(),
                     containerColor = randomColor(),
                 ),
                 SocialItem(
-                    imageVector = Icons.Rounded.MoreHoriz,
+                    imageVector = Icons.Rounded.Share,
                     label = "More",
                     onClick = {},
                     contentColor = randomColor(),

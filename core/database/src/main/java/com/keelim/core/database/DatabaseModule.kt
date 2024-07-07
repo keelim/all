@@ -21,7 +21,8 @@ object DatabaseModule {
         ctx,
         MyGradeAppDatabase::class.java,
         "mygrade",
-    ).build()
+    ).fallbackToDestructiveMigration()
+        .build()
 
     @Provides
     @Singleton
@@ -33,7 +34,8 @@ object DatabaseModule {
             NandaAppDatabase::class.java,
             "nanda",
         ).createFromFile(File(context.getExternalFilesDir(null), "nanda.db"))
-            .allowMainThreadQueries().build()
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
     @Provides
@@ -45,6 +47,7 @@ object DatabaseModule {
             context,
             ArduconDatabase::class.java,
             "arducon.db",
-        ).build()
+        ).fallbackToDestructiveMigration()
+            .build()
     }
 }

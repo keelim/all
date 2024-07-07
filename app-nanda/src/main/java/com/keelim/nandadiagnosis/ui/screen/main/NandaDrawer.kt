@@ -16,13 +16,12 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.sharp.ArrowRight
-import androidx.compose.material.icons.rounded.AccessTime
+import androidx.compose.material.icons.automirrored.sharp.ArrowBack
+import androidx.compose.material.icons.rounded.DateRange
 import androidx.compose.material.icons.rounded.Home
-import androidx.compose.material.icons.rounded.OfflineBolt
+import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material.icons.rounded.Settings
-import androidx.compose.material.icons.rounded.Web
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -78,7 +77,7 @@ private val nandaNavItems =
         NandaNavItem.BigType(
             name = "Web",
             route = "$webRoute/nanda",
-            icon = Icons.Rounded.Web,
+            icon = Icons.Rounded.Info,
         ),
         NandaNavItem.BigType(
             name = "Nutrient",
@@ -88,7 +87,7 @@ private val nandaNavItems =
         NandaNavItem.SmallType(
             name = "NutrientTimer",
             route = nutrientTimerRoute,
-            icon = Icons.Rounded.AccessTime,
+            icon = Icons.Rounded.DateRange,
         ),
         NandaNavItem.BigType(
             name = "Settings",
@@ -133,7 +132,7 @@ fun NandaDrawer(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Icon(
-                imageVector = Icons.Rounded.OfflineBolt,
+                imageVector = Icons.Rounded.Settings,
                 contentDescription = null,
                 modifier = Modifier.size(36.dp),
             )
@@ -164,7 +163,7 @@ private fun NavigationCard(
                 when (item) {
                     is NandaNavItem.SmallType -> {
                         Icon(
-                            imageVector = Icons.AutoMirrored.Sharp.ArrowRight,
+                            imageVector = Icons.AutoMirrored.Sharp.ArrowBack,
                             contentDescription = "${item.name} Icon",
                         )
                         Spacer(

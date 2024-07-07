@@ -12,11 +12,13 @@ fun NavController.navigateQr(navOptions: NavOptions? = null) {
 }
 
 fun NavGraphBuilder.qrScreen(
-
+    onShowBarcode: (String) -> Unit,
 ) {
     composable(
         route = qrRoute,
     ) {
-        QrRoute()
+        QrRoute(
+            onShowBarcode = onShowBarcode
+        )
     }
 }

@@ -36,7 +36,13 @@ fun ArduConHost(
             },
             onQrCodeClick = navController::navigateQr,
             nestedGraphs = {
-                qrScreen()
+                qrScreen(
+                    onShowBarcode = { barcode ->
+                        coroutineScope.launch {
+                            onShowSnackbar(barcode, null)
+                        }
+                    }
+                )
             },
         )
     }

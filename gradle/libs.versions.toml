@@ -2,6 +2,7 @@
 # project
 compileSdk = "34"
 minSdk = "26"
+playServicesCodeScanner = "16.1.0"
 targetSdk = "34"
 versionCode = "20240625"
 # library
@@ -256,6 +257,7 @@ okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor",
 okio-bom = { group = "com.squareup.okio", name = "okio-bom", version.ref = "okio" }
 play-services-ad = { group = "com.google.android.gms", name = "play-services-ads", version.ref = "playad" }
 play-services-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "play-services-auth" }
+play-services-code-scanner = { module = "com.google.android.gms:play-services-code-scanner", version.ref = "playServicesCodeScanner" }
 play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "play-services-location" }
 play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "play-services-maps" }
 play-services-oss = { group = "com.google.android.gms", name = "play-services-oss-licenses", version.ref = "playoss" }

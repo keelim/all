@@ -4,6 +4,7 @@ package com.keelim.setting.screen
 
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
@@ -138,11 +139,19 @@ private fun NotificationContent(
                             contentDescription = "Fixed",
                         )
                     }
-                    items(uiState.fixedItems) { notification ->
+                    items(
+                        items = uiState.fixedItems,
+                        key = { it.title + it.date },
+                    ) { notification ->
                         NotificationListCard(
                             notificationDate = notification.date,
                             notificationTitle = notification.title,
                             notificationDesc = notification.desc,
+                            modifier = Modifier.animateItemPlacement(
+                                animationSpec = tween(
+                                    durationMillis = 500,
+                                )
+                            )
                         )
                     }
                     item {
@@ -157,11 +166,19 @@ private fun NotificationContent(
                         )
                     }
                 }
-                items(uiState.generalItems) { notification ->
+                items(
+                    uiState.generalItems,
+                    key = { it.title + it.date },
+                ) { notification ->
                     NotificationListCard(
                         notificationDate = notification.date,
                         notificationTitle = notification.title,
                         notificationDesc = notification.desc,
+                        modifier = Modifier.animateItemPlacement(
+                            animationSpec = tween(
+                                durationMillis = 500,
+                            )
+                        )
                     )
                 }
             }
@@ -174,9 +191,10 @@ private fun NotificationListCard(
     notificationDate: String,
     notificationTitle: String,
     notificationDesc: String,
+    modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = Modifier.padding(
+        modifier = modifier.padding(
             start = space16,
         )
     ) {

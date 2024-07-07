@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -98,9 +99,11 @@ fun MainScreen(
                     tintColor = if (isDark) Color.White else Color.Black
                 ),
                 contentDescription = "QR Code Scanner",
-                modifier = Modifier.clickable {
-                    onQrCodeClick()
-                }
+                modifier = Modifier
+                    .size(space8)
+                    .clickable {
+                        onQrCodeClick()
+                    }
             )
         }
 

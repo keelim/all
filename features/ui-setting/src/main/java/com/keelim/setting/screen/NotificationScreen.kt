@@ -141,7 +141,7 @@ private fun NotificationContent(
                     }
                     items(
                         items = uiState.fixedItems,
-                        key = { it.title + it.date },
+                        key = { it.title + it.date + it.desc },
                     ) { notification ->
                         NotificationListCard(
                             notificationDate = notification.date,
@@ -168,7 +168,7 @@ private fun NotificationContent(
                 }
                 items(
                     uiState.generalItems,
-                    key = { it.title + it.date },
+                    key = { it.title + it.date + it.desc },
                 ) { notification ->
                     NotificationListCard(
                         notificationDate = notification.date,

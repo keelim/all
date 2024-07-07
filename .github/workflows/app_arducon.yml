@@ -38,25 +38,25 @@ jobs:
 
       - name: Set environment
         run: |
-          echo '${{ secrets.GOOGLE_SERVICE_JSON }}' | base64 -d > ./app-nanda/google-services.json
+          echo '${{ secrets.GOOGLE_SERVICE_JSON }}' | base64 -d > ./app-arducon/google-services.json
           echo '${{ secrets.LOCAL_PROPERTIES }}' | base64 -d > ./local.properties
           echo '${{ secrets.FONTS }}' | base64 -d > ./core/compose-core/src/main/res/values/font_certs.xml
 
       - name: Build with Gradle
-        run: ./gradlew app-nanda:assembleRelease
+        run: ./gradlew app-arducon:assembleRelease
 
       - name: Build Release AAB
         id: buildRelease
-        run: ./gradlew app-nanda:bundleRelease
+        run: ./gradlew app-arducon:bundleRelease
 
       - name: Sign AAB
         id: sign
         uses: keelim/upload-google-play@0.0.2
         with:
           type: sign
-          releaseDirectory: app-nanda/build/outputs/bundle/release
+          releaseDirectory: app-arducon/build/outputs/bundle/release
           signingKeyBase64: ${{ secrets.SIGNING_KEY }}
-          alias: ${{ secrets.NANDA_ALIAS }}
+          alias: ${{ secrets.arducon_ALIAS }}
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
 
@@ -70,8 +70,8 @@ jobs:
         with:
           type: upload
           serviceAccountJson: service_account.json
-          packageName: com.keelim.nandadiagnosis
-          releaseFiles: app-nanda/build/outputs/bundle/release/app-nanda-release.aab
+          packageName: com.keelim.arducon
+          releaseFiles: app-arducon/build/outputs/bundle/release/app-arducon-release.aab
           track: production
           status: completed
           changesNotSentForReview: false

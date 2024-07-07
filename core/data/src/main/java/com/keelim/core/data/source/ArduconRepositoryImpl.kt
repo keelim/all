@@ -25,4 +25,10 @@ class ArduconRepositoryImpl @Inject constructor(
             local.deleteDeepLinkUrl(deepLink)
         }
     }
+
+    override suspend fun updateDeepLinkUrl(deepLink: DeepLink) {
+        withContext(dispatcher) {
+            local.updateDeepLinkUrl(deepLink)
+        }
+    }
 }

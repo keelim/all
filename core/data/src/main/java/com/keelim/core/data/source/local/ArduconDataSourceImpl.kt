@@ -10,4 +10,5 @@ class ArduconDataSourceImpl @Inject constructor(
     override suspend fun insertDeepLinkUrl(deepLink: DeepLink) = dao.insertDeepLinkUrl(deepLink)
     override fun getDeepLinkUrls() = dao.getDeepLinkUrls()
     override suspend fun deleteDeepLinkUrl(deepLink: DeepLink) = dao.deleteDeepLinkUrl(deepLink)
+    override suspend fun updateDeepLinkUrl(deepLink: DeepLink) = dao.updateDeepLink(deepLink)
 }

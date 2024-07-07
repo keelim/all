@@ -13,6 +13,7 @@ fun NavController.navigateMain(navOptions: NavOptions? = null) {
 
 fun NavGraphBuilder.mainScreen(
     onShowMessage: (String) -> Unit,
+    onQrCodeClick: () -> Unit,
     nestedGraphs: NavGraphBuilder.() -> Unit,
 ) {
     composable(
@@ -20,6 +21,7 @@ fun NavGraphBuilder.mainScreen(
     ) {
         MainRoute(
             onShowMessage = onShowMessage,
+            onQrCodeClick = onQrCodeClick,
         )
     }
     nestedGraphs()

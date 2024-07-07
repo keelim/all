@@ -21,7 +21,6 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(platform(libs.coil.bom))
     implementation(libs.bundles.coil)
-    implementation(libs.material)
     implementation(libs.material.themAdapter)
 
     debugImplementation(libs.androidx.compose.ui.testManifest)

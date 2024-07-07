@@ -23,8 +23,6 @@ dependencies {
     implementation(projects.core.common)
     implementation(projects.core.composeCore)
     implementation(projects.core.data)
-    implementation(projects.shared)
-    implementation(projects.features.uiSetting)
 
     implementation(libs.activity.ktx)
     implementation(libs.androidx.activity.compose)
@@ -40,14 +38,13 @@ dependencies {
     implementation(libs.androidx.paging.compose)
     implementation(libs.androidx.profileinstaller)
     implementation(libs.androidx.window.manager)
-    implementation(libs.apache.math)
     implementation(platform(libs.coil.bom))
     implementation(libs.bundles.coil)
-    implementation(libs.inapp.update)
     implementation(libs.kotlinx.datetime)
     implementation(libs.play.services.oss)
     implementation(libs.timber)
     implementation(libs.play.services.ad)
+    implementation(libs.play.services.code.scanner)
 }
 
 

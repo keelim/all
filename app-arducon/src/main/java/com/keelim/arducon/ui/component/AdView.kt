@@ -23,6 +23,6 @@ fun AdBannerView(
         },
         update = { adView ->
             adView.loadAd(AdRequest.Builder().build())
-        }
+        },
     )
 }

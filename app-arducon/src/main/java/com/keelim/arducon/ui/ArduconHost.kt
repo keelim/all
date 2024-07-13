@@ -1,5 +1,7 @@
 package com.keelim.arducon.ui
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.material3.SheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -39,7 +41,12 @@ fun ArduConHost(
                 qrScreen(
                     onShowBarcode = { barcode ->
                         coroutineScope.launch {
-                            onShowSnackbar(barcode, null)
+                            if(onShowSnackbar(barcode, null)) {
+                                Intent(
+                                    Intent.ACTION_VIEW,
+                                    Uri.parse(barcode),
+                                ).let { context.startActivity(it) }
+                            }
                         }
                     }
                 )

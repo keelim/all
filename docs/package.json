@@ -4,7 +4,7 @@
   "type": "module",
   "dependencies": {
     "@typespec/compiler": "latest",
-    "@typespec/http": "^0.56.0",
+    "@typespec/http": "^0.57.0",
     "@typespec/openapi3": "^0.56.0",
     "@typespec/protobuf": "^0.56.0"
   },

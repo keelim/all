@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.android.library)
     alias(libs.plugins.sqldelight)
     kotlin("plugin.serialization")
@@ -19,8 +20,8 @@ kotlin {
         }
     }
 
-    // apple
-    iosX64()
+    // apple do not need x64
+    // iosX64()
     iosArm64()
     iosSimulatorArm64()
 

@@ -128,7 +128,7 @@ fun MultiSubFab(
 
 @Preview
 @Composable
-fun PreviewSubFab() {
+private fun PreviewSubFab() {
     MultiSubFab(
         item = object : FabButtonItem {
             override val imageVector: ImageVector

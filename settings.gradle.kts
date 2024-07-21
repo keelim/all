@@ -44,6 +44,7 @@ include(
     ":core:model",
     ":core:network",
     ":core:testing",
+    ":core:navigation",
     // ":core:widget-glance",
     ":features:ui-labs",
     ":features:ui-setting",

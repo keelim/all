@@ -4,10 +4,10 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import com.keelim.core.navigation.CnuBusRoute
 
-const val mainRoute = "main"
 fun NavController.navigateMain(navOptions: NavOptions? = null) {
-    this.navigate(mainRoute, navOptions)
+    this.navigate(CnuBusRoute.Main, navOptions)
 }
 
 fun NavGraphBuilder.mainScreen(
@@ -15,9 +15,7 @@ fun NavGraphBuilder.mainScreen(
     onNavigateAppSetting: () -> Unit,
     nestedGraphs: NavGraphBuilder.() -> Unit,
 ) {
-    composable(
-        route = mainRoute,
-    ) {
+    composable<CnuBusRoute.Main> {
         MainRoute(
             onNavigateMap = onNavigateMap,
             onNavigateAppSetting = onNavigateAppSetting,

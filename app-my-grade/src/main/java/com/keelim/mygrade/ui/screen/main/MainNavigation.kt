@@ -5,12 +5,13 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import com.keelim.core.navigation.MyGradeRoute
 import org.apache.commons.math3.distribution.NormalDistribution
 
-const val mainRoute = "main"
 fun NavController.navigateToMain(navOptions: NavOptions? = null) {
-    this.navigate(mainRoute, navOptions)
+    this.navigate(MyGradeRoute.Main, navOptions)
 }
+
 fun NavGraphBuilder.mainScreen(
     onSubmitClick: (String, NormalProbability, Int) -> Unit,
     onFloatingButtonClick1: () -> Unit,
@@ -20,7 +21,7 @@ fun NavGraphBuilder.mainScreen(
     onNavigateTask: () -> Unit,
     nestedGraphs: NavGraphBuilder.() -> Unit,
 ) {
-    composable(route = mainRoute) {
+    composable<MyGradeRoute.Main> {
         MainRoute(
             onSubmitClick = onSubmitClick,
             onFloatingButtonClick1 = onFloatingButtonClick1,

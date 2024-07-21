@@ -9,7 +9,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.keelim.composeutil.AppState
-import com.keelim.nandadiagnosis.ui.screen.category.categoryRoute
+import com.keelim.core.navigation.NandaRoute
 import com.keelim.nandadiagnosis.ui.screen.category.categoryScreen
 import com.keelim.nandadiagnosis.ui.screen.category.navigateToCategory
 import com.keelim.nandadiagnosis.ui.screen.diagnosis.diagnosisScreen
@@ -44,7 +44,7 @@ fun NandaHost(
     val context = LocalContext.current
     NavHost(
         navController = navController,
-        startDestination = categoryRoute,
+        startDestination = NandaRoute.Nutrient,
         modifier = modifier,
     ) {
         webScreen(
@@ -60,7 +60,7 @@ fun NandaHost(
                 coroutineScope.launch { bottomSheetState.hide() }
                 navController.navigateSettings()
             },
-            onCategoryClick = { index -> navController.navigateToDiagnosis(index.toString()) },
+            onCategoryClick = { index, category -> navController.navigateToDiagnosis(index.toString(), category) },
             onDismiss = { coroutineScope.launch { bottomSheetState.hide() } },
             nestedGraphs = { diagnosisScreen() },
         )

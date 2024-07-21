@@ -4,15 +4,13 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import com.keelim.core.navigation.MyGradeRoute
 
-const val TimerRoute = "timer"
 fun NavController.navigateTimer(navOptions: NavOptions? = null) {
-    this.navigate(TimerRoute, navOptions)
+    this.navigate(MyGradeRoute.Timer, navOptions)
 }
 
 fun NavGraphBuilder.timerScreen() {
-    composable(
-        route = TimerRoute,
-    ) {
+    composable<MyGradeRoute.Timer> {
     }
 }

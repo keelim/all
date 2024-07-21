@@ -13,13 +13,12 @@ import com.google.mlkit.vision.codescanner.GmsBarcodeScanning
 import com.keelim.common.extensions.findActivity
 import timber.log.Timber
 
-
 @Composable
 fun QrRoute(
     onShowBarcode: (String) -> Unit,
 ) {
     QrScreen(
-        onShowBarcode = onShowBarcode
+        onShowBarcode = onShowBarcode,
     )
 }
 
@@ -29,7 +28,7 @@ fun QrScreen(
 ) {
     val context = LocalContext.current
     val scanner = rememberQrCodeScanner(
-        context = context
+        context = context,
     )
     LaunchedEffect(scanner) {
         scanner.startScan()
@@ -54,13 +53,13 @@ fun QrScreen(
 
 @Composable
 private fun rememberQrCodeScanner(
-    context: Context = LocalContext.current
+    context: Context = LocalContext.current,
 ): GmsBarcodeScanner {
     return remember(context) {
         val options = GmsBarcodeScannerOptions.Builder()
             .setBarcodeFormats(
                 Barcode.FORMAT_QR_CODE,
-                Barcode.FORMAT_AZTEC
+                Barcode.FORMAT_AZTEC,
             )
             .enableAutoZoom() // available on 16.1.0 and higher
             .build()

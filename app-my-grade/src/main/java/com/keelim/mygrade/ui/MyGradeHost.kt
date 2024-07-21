@@ -8,6 +8,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.keelim.composeutil.AppState
+import com.keelim.core.navigation.MyGradeRoute
 import com.keelim.mygrade.ui.screen.grade.edit.editScreen
 import com.keelim.mygrade.ui.screen.grade.edit.navigateEdit
 import com.keelim.mygrade.ui.screen.grade.gradeScreen
@@ -18,7 +19,6 @@ import com.keelim.mygrade.ui.screen.history.historyScreen
 import com.keelim.mygrade.ui.screen.history.navigateHistory
 import com.keelim.mygrade.ui.screen.main.Level
 import com.keelim.mygrade.ui.screen.main.grade
-import com.keelim.mygrade.ui.screen.main.mainRoute
 import com.keelim.mygrade.ui.screen.main.mainScreen
 import com.keelim.mygrade.ui.screen.main.navigateToMain
 import com.keelim.mygrade.ui.screen.main.toProcess
@@ -56,7 +56,7 @@ fun MyGradeHost(
     val context = LocalContext.current
     NavHost(
         navController = navController,
-        startDestination = mainRoute,
+        startDestination = MyGradeRoute.Main,
         modifier = modifier,
     ) {
         mainScreen(

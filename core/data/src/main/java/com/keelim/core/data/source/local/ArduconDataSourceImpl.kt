@@ -2,6 +2,7 @@ package com.keelim.core.data.source.local
 
 import com.keelim.core.database.dao.ArduconDao
 import com.keelim.core.database.model.DeepLink
+import com.keelim.core.database.repository.ArduconDataSource
 import javax.inject.Inject
 
 class ArduconDataSourceImpl @Inject constructor(

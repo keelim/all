@@ -1,9 +1,9 @@
 package com.keelim.core.data.di
 
 import android.content.Context
-import com.keelim.core.data.source.local.ArduconDataSource
+import com.keelim.core.database.repository.ArduconDataSource
 import com.keelim.core.data.source.local.ArduconDataSourceImpl
-import com.keelim.core.data.source.local.PreferenceManager
+import com.keelim.data.repository.PreferenceManager
 import com.keelim.core.data.source.local.SharedPreferenceManager
 import com.keelim.core.data.source.local.TokenManager
 import com.keelim.core.database.dao.ArduconDao

@@ -162,12 +162,12 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
         ) {
             val time = now.toLocalDateTime(timezone)
             Text(
-                text = "${time.year}-${time.monthNumber}",
+                text = "${time.year}-${String.format("%02d", time.monthNumber)}",
                 style = MaterialTheme.typography.bodyLarge,
             )
             Text(
                 modifier = Modifier.align(Alignment.End),
-                text = "${time.year}년 ${time.monthNumber}월 ${time.dayOfMonth}일",
+                text = "${time.year}년 ${String.format("%02d", time.monthNumber)}월 ${time.dayOfMonth}일",
             )
             Text(
                 modifier = Modifier.align(Alignment.End),

@@ -66,7 +66,7 @@ fun MainRoute(
         onSearch = viewModel::onClickSearch,
         onUpdate = viewModel::updateDeepLinkUrl,
         onDelete = viewModel::deleteDeepLinkUrl,
-        onQrCodeClick = onQrCodeClick
+        onQrCodeClick = onQrCodeClick,
     )
 }
 
@@ -97,13 +97,13 @@ fun MainScreen(
             val isDark = isSystemInDarkTheme()
             Icon(
                 imageVector = rememberQrCodeScanner(
-                    tintColor = if (isDark) Color.White else Color.Black
+                    tintColor = if (isDark) Color.White else Color.Black,
                 ),
                 contentDescription = "QR Code Scanner",
                 modifier = Modifier
                     .clickable {
                         onQrCodeClick()
-                    }
+                    },
             )
         }
 

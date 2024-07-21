@@ -116,7 +116,7 @@ fun MainTopSection(onSearch: (String, String) -> Unit) {
         }
 
         Spacer(
-            modifier = Modifier.height(space8)
+            modifier = Modifier.height(space8),
         )
 
         TextField(
@@ -176,17 +176,16 @@ fun DeepLinkSection(
     onDelete: (DeepLink) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-
     LazyColumn(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(space8),
     ) {
         stickyHeader {
             Row(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             ) {
                 Text(
-                    text = "Favorite"
+                    text = "Favorite",
                 )
             }
         }
@@ -196,13 +195,13 @@ fun DeepLinkSection(
         ) {
             val (isMoved, setMoved) = remember { mutableStateOf("") }
             val context = LocalContext.current
-            if(isMoved.isNotEmpty()) {
+            if (isMoved.isNotEmpty()) {
                 LaunchedEffect(context, isMoved) {
                     context.startActivity(
                         Intent(
                             Intent.ACTION_VIEW,
                             Uri.parse(isMoved),
-                        )
+                        ),
                     )
                     setMoved("")
                 }
@@ -224,10 +223,10 @@ fun DeepLinkSection(
         }
         stickyHeader {
             Row(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             ) {
                 Text(
-                    text = "General"
+                    text = "General",
                 )
             }
         }
@@ -237,13 +236,13 @@ fun DeepLinkSection(
         ) {
             val (isMoved, setMoved) = remember { mutableStateOf("") }
             val context = LocalContext.current
-            if(isMoved.isNotEmpty()) {
+            if (isMoved.isNotEmpty()) {
                 LaunchedEffect(context, isMoved) {
                     context.startActivity(
                         Intent(
                             Intent.ACTION_VIEW,
                             Uri.parse(isMoved),
-                        )
+                        ),
                     )
                     setMoved("")
                 }
@@ -283,7 +282,7 @@ private fun DeepLinkItem(
                 .fillMaxWidth()
                 .padding(space8),
         ) {
-            if(deepLink.title.isNotEmpty()) {
+            if (deepLink.title.isNotEmpty()) {
                 Text(
                     text = deepLink.title,
                     style = MaterialTheme.typography.headlineSmall,
@@ -336,7 +335,7 @@ private fun DeepLinkItem(
 @Composable
 private fun PreviewMainTopSection() {
     MainTopSection(
-        onSearch = {_, _ ->},
+        onSearch = { _, _ -> },
     )
 }
 

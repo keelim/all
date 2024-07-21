@@ -1,5 +1,10 @@
 package com.keelim.comssa.ui.screen.main.ecocal
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.List
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.ui.graphics.vector.ImageVector
+import com.keelim.composeutil.component.fab.FabButtonItem
 import com.keelim.model.EcoCalEntry
 import com.keelim.model.day
 import com.keelim.model.month
@@ -34,3 +39,23 @@ enum class EcocalPriority {
         }
     }
 }
+
+data class High(
+    override val imageVector: ImageVector = Icons.AutoMirrored.Filled.List,
+    override val label: String = "상",
+) : FabButtonItem
+
+data class Medium(
+    override val imageVector: ImageVector = Icons.AutoMirrored.Filled.List,
+    override val label: String = "중",
+) : FabButtonItem
+
+data class Low(
+    override val imageVector: ImageVector = Icons.AutoMirrored.Filled.List,
+    override val label: String = "하",
+) : FabButtonItem
+
+data class Clear(
+    override val imageVector: ImageVector = Icons.Filled.Close,
+    override val label: String = "초기화",
+) : FabButtonItem

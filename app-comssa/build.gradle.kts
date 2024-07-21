@@ -29,6 +29,7 @@ dependencies {
     implementation(projects.core.commonAndroid)
     implementation(projects.core.composeCore)
     implementation(projects.core.data)
+    implementation(projects.core.navigation)
     implementation(projects.shared)
 
     implementation(libs.activity.ktx)

@@ -4,17 +4,14 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-
-const val nutrientTimerRoute = "timer"
+import com.keelim.core.navigation.NandaRoute
 
 fun NavController.navigateNutrientTimer(navOptions: NavOptions? = null) {
-    this.navigate(nutrientTimerRoute, navOptions)
+    this.navigate(NandaRoute.NutrientTimer, navOptions)
 }
 
 fun NavGraphBuilder.nutrientTimerScreen() {
-    composable(
-        route = nutrientTimerRoute,
-    ) {
+    composable<NandaRoute.NutrientTimer> {
         NutrientTimerRoute()
     }
 }

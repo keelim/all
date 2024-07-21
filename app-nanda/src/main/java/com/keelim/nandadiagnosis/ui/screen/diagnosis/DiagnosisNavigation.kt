@@ -3,23 +3,15 @@ package com.keelim.nandadiagnosis.ui.screen.diagnosis
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
-import androidx.navigation.NavType
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
+import com.keelim.core.navigation.NandaRoute
 
-const val diagnosisRoute = "diagnosis"
-
-fun NavController.navigateToDiagnosis(num: String, navOptions: NavOptions? = null) {
-    this.navigate("$diagnosisRoute/$num", navOptions)
+fun NavController.navigateToDiagnosis(num: String, category: String, navOptions: NavOptions? = null) {
+    this.navigate(NandaRoute.Diagnosis(num, category), navOptions)
 }
 
 fun NavGraphBuilder.diagnosisScreen() {
-    composable(
-        route = "$diagnosisRoute/{num}",
-        arguments = listOf(
-            navArgument("num") { type = NavType.StringType },
-        ),
-    ) {
+    composable<NandaRoute.Diagnosis> {
         DiagnosisRoute(
             onDiagnosisClick = {},
         )

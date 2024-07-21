@@ -4,19 +4,16 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-
-const val welcomeRoute = "welcome"
+import com.keelim.core.navigation.FeatureRoute
 
 fun NavController.navigateWelcome(navOptions: NavOptions? = null) {
-    this.navigate(welcomeRoute, navOptions)
+    this.navigate(FeatureRoute.Welcome, navOptions)
 }
 
 fun NavGraphBuilder.welcomeScreen(
     onNavigateMain: () -> Unit,
 ) {
-    composable(
-        route = welcomeRoute,
-    ) {
+    composable<FeatureRoute.Welcome> {
         WelcomeRoute(
             onNavigateMain = onNavigateMain,
         )

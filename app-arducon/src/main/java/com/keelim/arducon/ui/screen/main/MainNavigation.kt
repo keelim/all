@@ -4,11 +4,11 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import com.keelim.core.navigation.ArduconRoute
 
-const val mainRoute = "main"
 
 fun NavController.navigateMain(navOptions: NavOptions? = null) {
-    this.navigate(mainRoute, navOptions)
+    this.navigate(ArduconRoute.Main, navOptions)
 }
 
 fun NavGraphBuilder.mainScreen(
@@ -16,9 +16,7 @@ fun NavGraphBuilder.mainScreen(
     onQrCodeClick: () -> Unit,
     nestedGraphs: NavGraphBuilder.() -> Unit,
 ) {
-    composable(
-        route = mainRoute,
-    ) {
+    composable<ArduconRoute.Main>() {
         MainRoute(
             onShowMessage = onShowMessage,
             onQrCodeClick = onQrCodeClick,

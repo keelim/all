@@ -4,31 +4,27 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import com.keelim.core.navigation.MyGradeRoute
 import com.keelim.mygrade.ui.screen.word.show.WordShowRoute
 import com.keelim.mygrade.ui.screen.word.write.WordWriteRoute
-
-const val WordRoute = "word"
-const val WordWriteRoute = "$WordRoute/write"
 
 fun NavController.navigateWord(
     navOptions: NavOptions? = null,
 ) {
-    this.navigate(WordRoute, navOptions)
+    this.navigate(MyGradeRoute.Word, navOptions)
 }
 
 fun NavController.navigateWordWrite(
     navOptions: NavOptions? = null,
 ) {
-    this.navigate(WordWriteRoute, navOptions)
+    this.navigate(MyGradeRoute.WordWrite, navOptions)
 }
 
 fun NavGraphBuilder.wordScreen(
     onWordWriteNavigate: () -> Unit,
     nestedGraphs: NavGraphBuilder.() -> Unit,
 ) {
-    composable(
-        route = WordRoute,
-    ) {
+    composable<MyGradeRoute.Word>{
         WordShowRoute(
             onWordWriteNavigate = onWordWriteNavigate,
         )
@@ -37,9 +33,7 @@ fun NavGraphBuilder.wordScreen(
 }
 
 fun NavGraphBuilder.wordWriteScreen() {
-    composable(
-        route = WordWriteRoute,
-    ) {
+    composable<MyGradeRoute.WordWrite> {
         WordWriteRoute()
     }
 }

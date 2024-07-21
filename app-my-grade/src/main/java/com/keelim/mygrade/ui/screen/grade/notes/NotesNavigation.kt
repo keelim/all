@@ -4,18 +4,16 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import com.keelim.core.navigation.MyGradeRoute
 
-const val notesRoute = "notes"
 fun NavController.navigateNotes(
     navOptions: NavOptions? = null,
 ) {
-    this.navigate(notesRoute, navOptions)
+    this.navigate(MyGradeRoute.Notes, navOptions)
 }
 
 fun NavGraphBuilder.notesScreen() {
-    composable(
-        route = notesRoute,
-    ) {
+    composable<MyGradeRoute.Notes> {
         NotesRoute()
     }
 }

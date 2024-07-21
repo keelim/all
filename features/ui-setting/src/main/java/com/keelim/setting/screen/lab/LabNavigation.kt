@@ -4,19 +4,16 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-
-const val labRoute = "lab"
+import com.keelim.core.navigation.FeatureRoute
 
 fun NavController.navigateLab(
     navOptions: NavOptions? = null,
 ) {
-    this.navigate(labRoute, navOptions)
+    this.navigate(FeatureRoute.Lab, navOptions)
 }
 
 fun NavGraphBuilder.labScreen() {
-    composable(
-        route = labRoute,
-    ) {
+    composable<FeatureRoute.Lab> {
         LabRoute()
     }
 }

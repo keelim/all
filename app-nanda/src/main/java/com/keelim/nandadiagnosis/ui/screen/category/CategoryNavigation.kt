@@ -4,11 +4,11 @@ import androidx.compose.material3.SheetState
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.keelim.core.navigation.NandaRoute
 import com.keelim.nandadiagnosis.ui.screen.main.MainBottomSheet
 
-const val categoryRoute = "category"
 fun NavController.navigateToCategory() {
-    this.navigate(categoryRoute) {
+    this.navigate(NandaRoute.Category) {
         popUpTo(graph.id) {
             inclusive = true
         }
@@ -20,10 +20,10 @@ fun NavGraphBuilder.categoryScreen(
     onBlogClick: () -> Unit,
     onAboutClick: () -> Unit,
     onDismiss: () -> Unit,
-    onCategoryClick: (Int) -> Unit,
+    onCategoryClick: (Int, String) -> Unit,
     nestedGraphs: NavGraphBuilder.() -> Unit,
 ) {
-    composable(route = categoryRoute) {
+    composable<NandaRoute.Category> {
         CategoryRoute(
             onCategoryClick = onCategoryClick,
         )

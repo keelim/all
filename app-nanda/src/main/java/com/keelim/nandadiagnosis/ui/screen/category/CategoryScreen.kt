@@ -33,7 +33,7 @@ import kotlinx.collections.immutable.persistentListOf
 
 @Composable
 fun CategoryRoute(
-    onCategoryClick: (Int) -> Unit,
+    onCategoryClick: (Int, String) -> Unit,
     viewModel: CategoryViewModel = hiltViewModel(),
 ) = trace("CategoryRoute") {
     val state by viewModel.state.collectAsStateWithLifecycle(
@@ -48,13 +48,16 @@ fun CategoryRoute(
 @Composable
 fun CategoryScreen(
     state: CategoryState,
-    onCategoryClick: (Int) -> Unit,
+    onCategoryClick: (Int, String) -> Unit,
 ) = trace("CategoryScreen") {
     CategoryStateView(uiState = state, onCategoryClick = onCategoryClick)
 }
 
 @Composable
-private fun CategoryStateView(uiState: CategoryState, onCategoryClick: (Int) -> Unit) = trace("CategoryStateView") {
+private fun CategoryStateView(
+    uiState: CategoryState,
+    onCategoryClick: (Int, String) -> Unit,
+) = trace("CategoryStateView") {
     when (uiState) {
         CategoryState.Error,
         CategoryState.Empty,
@@ -89,13 +92,13 @@ private fun CategoryStateView(uiState: CategoryState, onCategoryClick: (Int) -> 
 private fun CategoryCard(
     index: Int,
     categoryTitle: String,
-    onCategoryClick: (Int) -> Unit,
+    onCategoryClick: (Int, String) -> Unit,
     modifier: Modifier = Modifier,
 ) = trace("CategoryCard") {
     Card(
         modifier = modifier.clip(RoundedCornerShape(space8)),
         elevation = CardDefaults.cardElevation(defaultElevation = space4),
-        onClick = { onCategoryClick(index + 1) },
+        onClick = { onCategoryClick(index + 1, categoryTitle) },
     ) {
         Column(
             modifier = modifier.padding(space8),
@@ -112,19 +115,19 @@ private fun CategoryCard(
 
 @Preview
 @Composable
-fun PreviewCategoryCard() {
-    CategoryCard(categoryTitle = "병명", onCategoryClick = {}, modifier = Modifier, index = 4713)
+private fun PreviewCategoryCard() {
+    CategoryCard(categoryTitle = "병명", onCategoryClick = { _, _ ->}, modifier = Modifier, index = 4713)
 }
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewCategoryScreen() {
+private fun PreviewCategoryScreen() {
     CategoryScreen(
         state = CategoryState.Success(
             items = persistentListOf(
                 "a",
             ),
         ),
-        onCategoryClick = {},
+        onCategoryClick = { _, _ -> },
     )
 }

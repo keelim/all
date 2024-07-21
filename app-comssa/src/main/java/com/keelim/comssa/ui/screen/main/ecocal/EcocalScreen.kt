@@ -3,11 +3,6 @@ package com.keelim.comssa.ui.screen.main.ecocal
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ExitToApp
-import androidx.compose.material.icons.automirrored.filled.List
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -17,7 +12,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.util.trace
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -109,26 +103,6 @@ fun EcocalScreen(
         }
     }
 }
-
-data class High(
-    override val imageVector: ImageVector = Icons.AutoMirrored.Filled.List,
-    override val label: String = "상",
-) : FabButtonItem
-
-data class Medium(
-    override val imageVector: ImageVector = Icons.AutoMirrored.Filled.List,
-    override val label: String = "중",
-) : FabButtonItem
-
-data class Low(
-    override val imageVector: ImageVector = Icons.AutoMirrored.Filled.List,
-    override val label: String = "하",
-) : FabButtonItem
-
-data class Clear(
-    override val imageVector: ImageVector = Icons.Filled.Close,
-    override val label: String = "초기화",
-) : FabButtonItem
 
 @Preview(showBackground = true)
 @Composable

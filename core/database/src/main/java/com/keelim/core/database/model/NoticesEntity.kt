@@ -5,8 +5,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.Date
 
-@Entity
-data class Notices(
+@Entity(tableName = "Notices")
+data class NoticesEntity(
     @PrimaryKey(autoGenerate = true)
     val uid: Int = 0,
     @ColumnInfo(name = "title") val title: String,

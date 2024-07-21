@@ -39,7 +39,7 @@ import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
 import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space8
-import com.keelim.core.database.model.Notices
+import com.keelim.model.Notices
 
 @Composable
 fun NotesRoute(

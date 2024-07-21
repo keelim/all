@@ -10,7 +10,7 @@ import com.keelim.core.database.repository.NandaIORepository
 import com.keelim.core.data.source.NandaIORepositoryImpl
 import com.keelim.data.repository.FirebaseRepository
 import com.keelim.core.data.source.firebase.FirebaseRepositoryImpl
-import com.keelim.core.database.repository.NoteRepository
+import com.keelim.data.repository.NoteRepository
 import com.keelim.core.data.source.note.NoteRepositoryImpl
 import com.keelim.data.repository.NotificationRepository
 import com.keelim.core.data.source.notification.NotificationRepositoryImpl

@@ -16,8 +16,9 @@ fun NavController.navigateGrade(
         MyGradeRoute.Grade(
             subject = subject,
             grade = grade,
-            point = point
-        ), navOptions
+            point = point,
+        ),
+        navOptions,
     )
 }
 

@@ -40,29 +40,27 @@ import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space24
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
+import com.keelim.core.navigation.AppRoute
+import com.keelim.core.navigation.FeatureRoute
+import com.keelim.core.navigation.NandaRoute
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.ui.screen.category.categoryRoute
-import com.keelim.nandadiagnosis.ui.screen.inappweb.webRoute
-import com.keelim.nandadiagnosis.ui.screen.nutrients.nutrientRoute
-import com.keelim.nandadiagnosis.ui.screen.nutrients.timer.nutrientTimerRoute
-import com.keelim.setting.screen.settings.settingsRoute
 import kotlinx.collections.immutable.persistentListOf
 
 @Stable
 sealed interface NandaNavItem {
     val name: String
-    val route: String
+    val route: AppRoute
     val icon: ImageVector
 
     data class BigType(
         override val name: String,
-        override val route: String,
+        override val route: AppRoute,
         override val icon: ImageVector,
     ) : NandaNavItem
 
     data class SmallType(
         override val name: String,
-        override val route: String,
+        override val route: AppRoute,
         override val icon: ImageVector,
     ) : NandaNavItem
 }
@@ -71,34 +69,34 @@ private val nandaNavItems =
     persistentListOf(
         NandaNavItem.BigType(
             name = "Category",
-            route = categoryRoute,
+            route = NandaRoute.Category,
             icon = Icons.Rounded.Home,
         ),
         NandaNavItem.BigType(
             name = "Web",
-            route = "$webRoute/nanda",
+            route = NandaRoute.Web(uri = "nanda"),
             icon = Icons.Rounded.Info,
         ),
         NandaNavItem.BigType(
             name = "Nutrient",
-            route = nutrientRoute,
+            route = NandaRoute.Nutrient,
             icon = Icons.Rounded.Person,
         ),
         NandaNavItem.SmallType(
             name = "NutrientTimer",
-            route = nutrientTimerRoute,
+            route = NandaRoute.NutrientTimer,
             icon = Icons.Rounded.DateRange,
         ),
         NandaNavItem.BigType(
             name = "Settings",
-            route = settingsRoute,
+            route = FeatureRoute.Settings,
             icon = Icons.Rounded.Settings,
         ),
     )
 
 @Composable
 fun NandaDrawer(
-    onRouteClick: (String) -> Unit,
+    onRouteClick: (AppRoute) -> Unit,
     onAboutClick: () -> Unit,
 ) = trace("NandaDrawer") {
     Box(
@@ -143,7 +141,7 @@ fun NandaDrawer(
 @Composable
 private fun NavigationCard(
     item: NandaNavItem,
-    onRouteClick: (String) -> Unit,
+    onRouteClick: (AppRoute) -> Unit,
 ) = trace("NavigationCard") {
     Row(
         modifier = Modifier.fillMaxWidth(),

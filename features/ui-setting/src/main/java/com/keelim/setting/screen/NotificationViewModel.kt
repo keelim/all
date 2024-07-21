@@ -40,7 +40,7 @@ constructor(
                             NotificationState.Success(
                                 fixedItems = fixed.toPersistentList(),
                                 generalItems = general.toPersistentList(),
-                            )
+                            ),
                         )
                     }
                 }

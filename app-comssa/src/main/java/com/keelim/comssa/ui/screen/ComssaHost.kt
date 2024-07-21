@@ -5,8 +5,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import com.keelim.composeutil.AppState
-import com.keelim.comssa.ui.screen.main.ecocal.ecocalRoute
 import com.keelim.comssa.ui.screen.main.ecocal.ecocalScreen
+import com.keelim.core.navigation.ComssaRoute
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
@@ -20,7 +20,7 @@ fun ComssaHost(
     val navController = appState.navController
     NavHost(
         navController = navController,
-        startDestination = ecocalRoute,
+        startDestination = ComssaRoute.Ecocal,
         modifier = modifier,
     ) {
         ecocalScreen()

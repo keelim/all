@@ -4,16 +4,14 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import com.keelim.core.navigation.CnuBusRoute
 
-const val mapRoute = "map"
 fun NavController.navigateMap(navOptions: NavOptions? = null) {
-    this.navigate(mapRoute, navOptions)
+    this.navigate(CnuBusRoute.Map, navOptions)
 }
 
 fun NavGraphBuilder.mapScreen() {
-    composable(
-        route = mapRoute,
-    ) {
+    composable<CnuBusRoute.Map> {
         MapRoute()
     }
 }

@@ -132,7 +132,7 @@ private fun NotificationContent(
                 state = listState,
                 verticalArrangement = Arrangement.spacedBy(space12),
             ) {
-                if(uiState.fixedItems.isNotEmpty()) {
+                if (uiState.fixedItems.isNotEmpty()) {
                     stickyHeader {
                         Icon(
                             imageVector = Icons.Default.Check,
@@ -150,19 +150,19 @@ private fun NotificationContent(
                             modifier = Modifier.animateItemPlacement(
                                 animationSpec = tween(
                                     durationMillis = 500,
-                                )
-                            )
+                                ),
+                            ),
                         )
                     }
                     item {
                         Spacer(
-                            modifier = Modifier.height(space4)
+                            modifier = Modifier.height(space4),
                         )
                         HorizontalDivider(
                             thickness = space2,
                         )
                         Spacer(
-                            modifier = Modifier.height(space4)
+                            modifier = Modifier.height(space4),
                         )
                     }
                 }
@@ -177,8 +177,8 @@ private fun NotificationContent(
                         modifier = Modifier.animateItemPlacement(
                             animationSpec = tween(
                                 durationMillis = 500,
-                            )
-                        )
+                            ),
+                        ),
                     )
                 }
             }
@@ -191,12 +191,12 @@ private fun NotificationListCard(
     notificationDate: String,
     notificationTitle: String,
     notificationDesc: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Card(
         modifier = modifier.padding(
             start = space16,
-        )
+        ),
     ) {
         Row(
             Modifier

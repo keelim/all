@@ -54,6 +54,7 @@ import kotlinx.datetime.toLocalDateTime
 fun EcocalMainSection(
     state: LazyListState,
     entries: Map<String, List<EcoCalModel>>,
+    onCountryClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) = trace("EcocalMainSection") {
     val context = LocalContext.current
@@ -98,7 +99,7 @@ fun EcocalMainSection(
                             subtitle = "${entry.date} ${entry.time}",
                             label = entry.country,
                             priority = entry.priority,
-                            onClick = {
+                            onCardClick = {
                                 context.startActivity(
                                     Intent(
                                         Intent.ACTION_VIEW,
@@ -106,6 +107,7 @@ fun EcocalMainSection(
                                     ),
                                 )
                             },
+                            onCountryClick = onCountryClick,
                         )
                     }
                 }
@@ -135,13 +137,11 @@ fun EcocalMainSection(
 @Composable
 fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
     Column(
-        modifier = modifier,
-    ) {
-        val rowModifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .background(Color.Transparent)
-            .padding(horizontal = space16, vertical = space8)
-
+            .padding(horizontal = space16, vertical = space8),
+    ) {
         var now by remember {
             mutableStateOf(
                 Clock.System.now(),
@@ -154,27 +154,26 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
                 now = Clock.System.now()
             }
         }
+
         val timezone = remember {
             TimeZone.currentSystemDefault()
         }
-        Column(
-            modifier = rowModifier,
-        ) {
-            val time = now.toLocalDateTime(timezone)
-            Text(
-                text = "${time.year}-${time.monthNumber}",
-                style = MaterialTheme.typography.bodyLarge,
-            )
-            Text(
-                modifier = Modifier.align(Alignment.End),
-                text = "${time.year}년 ${time.monthNumber}월 ${time.dayOfMonth}일",
-            )
-            Text(
-                modifier = Modifier.align(Alignment.End),
-                text = "${time.hour}:${time.minute}:${time.second}",
-            )
-        }
+
+        val time = now.toLocalDateTime(timezone)
+        Text(
+            text = "${time.year}-${String.format("%02d", time.monthNumber)}",
+            style = MaterialTheme.typography.bodyLarge,
+        )
+        Text(
+            modifier = Modifier.align(Alignment.End),
+            text = "${time.year}년 ${String.format("%02d", time.monthNumber)}월 ${time.dayOfMonth}일",
+        )
+        Text(
+            modifier = Modifier.align(Alignment.End),
+            text = "${time.hour}:${time.minute}:${time.second}",
+        )
     }
+
 }
 
 @Composable
@@ -183,13 +182,14 @@ fun ListItem(
     subtitle: String,
     label: String,
     priority: EcocalPriority,
-    onClick: () -> Unit,
+    onCardClick: () -> Unit,
+    onCountryClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) = trace("ListItem") {
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .clickable { onClick() }
+            .clickable { onCardClick() }
             .padding(horizontal = space16, vertical = space8),
     ) {
         Text(
@@ -214,6 +214,7 @@ fun ListItem(
             fontWeight = FontWeight.Bold,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
+            modifier = Modifier.clickable { onCountryClick(label) },
         )
 
         val color = when (priority) {
@@ -241,7 +242,8 @@ private fun PreviewListItem() {
             subtitle = "ultrices",
             label = "efficitur",
             priority = EcocalPriority.LOW,
-            onClick = {},
+            onCardClick = {},
+            onCountryClick = {},
             modifier = Modifier.background(MaterialTheme.colorScheme.surface),
         )
     }
@@ -263,6 +265,7 @@ private fun PreviewEcocalMainSection() {
                 ),
             ),
         ),
+        onCountryClick = {},
         modifier = Modifier.background(MaterialTheme.colorScheme.surface),
     )
 }

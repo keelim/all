@@ -4,16 +4,14 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import com.keelim.core.navigation.FeatureRoute
 
-const val notificationRoute = "notification"
 fun NavController.navigateNotification(navOptions: NavOptions? = null) {
-    this.navigate(notificationRoute, navOptions)
+    this.navigate(FeatureRoute.Notification, navOptions)
 }
 
 fun NavGraphBuilder.notificationScreen() {
-    composable(
-        route = notificationRoute,
-    ) {
+    composable<FeatureRoute.Notification> {
         NotificationRoute()
     }
 }

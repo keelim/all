@@ -3,8 +3,6 @@ package com.keelim.comssa.ui.screen.main.ecocal
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -14,7 +12,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.util.trace
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -38,6 +35,7 @@ fun EcocalRoute(viewModel: EcocalViewModel = hiltViewModel()) = trace("EcocalRou
     EcocalScreen(
         uiState = uiState,
         updateFilter = viewModel::updateFilter,
+        updateCountry = viewModel::updateCountry,
     )
 }
 
@@ -45,6 +43,7 @@ fun EcocalRoute(viewModel: EcocalViewModel = hiltViewModel()) = trace("EcocalRou
 fun EcocalScreen(
     uiState: SealedUiState<Map<String, List<EcoCalModel>>>,
     updateFilter: (FabButtonItem) -> Unit,
+    updateCountry: (String) -> Unit,
 ) = trace("EcocalScreen") {
     AnimatedContent(
         targetState = uiState,
@@ -66,7 +65,7 @@ fun EcocalScreen(
                                     High(),
                                     Medium(),
                                     Low(),
-                                    All(),
+                                    Clear(),
                                 ),
                             )
                         }
@@ -97,32 +96,13 @@ fun EcocalScreen(
                         entries = targetState.value,
                         modifier = Modifier
                             .padding(paddingValues),
+                        onCountryClick = updateCountry,
                     )
                 }
             }
         }
     }
 }
-
-data class High(
-    override val imageVector: ImageVector = Icons.AutoMirrored.Filled.List,
-    override val label: String = "상",
-) : FabButtonItem
-
-data class Medium(
-    override val imageVector: ImageVector = Icons.AutoMirrored.Filled.List,
-    override val label: String = "중",
-) : FabButtonItem
-
-data class Low(
-    override val imageVector: ImageVector = Icons.AutoMirrored.Filled.List,
-    override val label: String = "하",
-) : FabButtonItem
-
-data class All(
-    override val imageVector: ImageVector = Icons.AutoMirrored.Filled.List,
-    override val label: String = "전체",
-) : FabButtonItem
 
 @Preview(showBackground = true)
 @Composable
@@ -143,5 +123,6 @@ private fun PreviewEcocalScreen() {
 
         ),
         updateFilter = {},
+        updateCountry = {},
     )
 }

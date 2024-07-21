@@ -1,15 +1,17 @@
 package com.keelim.arducon.ui
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.material3.SheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
-import com.keelim.arducon.ui.screen.main.mainRoute
 import com.keelim.arducon.ui.screen.main.mainScreen
 import com.keelim.arducon.ui.screen.qr.navigateQr
 import com.keelim.arducon.ui.screen.qr.qrScreen
 import com.keelim.composeutil.AppState
+import com.keelim.core.navigation.ArduconRoute
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -25,7 +27,7 @@ fun ArduConHost(
     val context = LocalContext.current
     NavHost(
         navController = navController,
-        startDestination = mainRoute,
+        startDestination = ArduconRoute.Main,
         modifier = modifier,
     ) {
         mainScreen(
@@ -39,9 +41,14 @@ fun ArduConHost(
                 qrScreen(
                     onShowBarcode = { barcode ->
                         coroutineScope.launch {
-                            onShowSnackbar(barcode, null)
+                            if (onShowSnackbar(barcode, null)) {
+                                Intent(
+                                    Intent.ACTION_VIEW,
+                                    Uri.parse(barcode),
+                                ).let { context.startActivity(it) }
+                            }
                         }
-                    }
+                    },
                 )
             },
         )

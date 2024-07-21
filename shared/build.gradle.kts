@@ -19,8 +19,8 @@ kotlin {
         }
     }
 
-    // apple
-    iosX64()
+    // apple do not need x64
+    // iosX64()
     iosArm64()
     iosSimulatorArm64()
 

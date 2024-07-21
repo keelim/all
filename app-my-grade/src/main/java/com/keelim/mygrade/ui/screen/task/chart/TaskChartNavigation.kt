@@ -4,18 +4,16 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import com.keelim.core.navigation.MyGradeRoute
 
-const val taskChartRoute = "task/chart"
 fun NavController.navigateTaskChart(
     navOptions: NavOptions? = null,
 ) {
-    this.navigate(taskChartRoute, navOptions)
+    this.navigate(MyGradeRoute.TaskChart, navOptions)
 }
 
 fun NavGraphBuilder.taskChartScreen() {
-    composable(
-        route = taskChartRoute,
-    ) {
+    composable<MyGradeRoute.TaskChart> {
         TaskChartRoute()
     }
 }

@@ -51,6 +51,48 @@ sealed interface ComssaRoute : AppRoute {
     data object Flash : ComssaRoute
 }
 
+sealed interface MyGradeRoute : AppRoute {
+    @Serializable
+    data class Edit(val subject: String) : MyGradeRoute
+
+    @Serializable
+    data object Notes : MyGradeRoute
+
+    @Serializable
+    data class Grade(
+        val subject: String,
+        val grade: String,
+        val point: String,
+    ): MyGradeRoute
+
+    @Serializable
+    data object History : MyGradeRoute
+
+    @Serializable
+    data object Main : MyGradeRoute
+
+    @Serializable
+    data object TaskChart : MyGradeRoute
+
+    @Serializable
+    data object Task : MyGradeRoute
+
+    @Serializable
+    data object TimerHistory : MyGradeRoute
+
+    @Serializable
+    data object Timer : MyGradeRoute
+
+    @Serializable
+    data object Water : MyGradeRoute
+
+    @Serializable
+    data object Word : MyGradeRoute
+
+    @Serializable
+    data object WordWrite : MyGradeRoute
+}
+
 sealed interface FeatureRoute : AppRoute {
     @Serializable
     data object Settings : FeatureRoute

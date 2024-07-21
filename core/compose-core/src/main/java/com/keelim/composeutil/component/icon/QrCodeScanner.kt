@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun rememberQrCodeScanner(
-    tintColor: Color = Color.Black
+    tintColor: Color = Color.Black,
 ): ImageVector {
     return remember {
         ImageVector.Builder(
@@ -21,7 +21,7 @@ fun rememberQrCodeScanner(
             defaultWidth = 40.0.dp,
             defaultHeight = 40.0.dp,
             viewportWidth = 40.0f,
-            viewportHeight = 40.0f
+            viewportHeight = 40.0f,
         ).apply {
             path(
                 fill = SolidColor(tintColor),
@@ -32,7 +32,7 @@ fun rememberQrCodeScanner(
                 strokeLineCap = StrokeCap.Butt,
                 strokeLineJoin = StrokeJoin.Miter,
                 strokeLineMiter = 1f,
-                pathFillType = PathFillType.NonZero
+                pathFillType = PathFillType.NonZero,
             ) {
                 moveTo(4.917f, 11.042f)
                 quadToRelative(-0.542f, 0f, -0.917f, -0.375f)

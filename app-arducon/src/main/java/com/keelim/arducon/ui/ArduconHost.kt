@@ -41,14 +41,14 @@ fun ArduConHost(
                 qrScreen(
                     onShowBarcode = { barcode ->
                         coroutineScope.launch {
-                            if(onShowSnackbar(barcode, null)) {
+                            if (onShowSnackbar(barcode, null)) {
                                 Intent(
                                     Intent.ACTION_VIEW,
                                     Uri.parse(barcode),
                                 ).let { context.startActivity(it) }
                             }
                         }
-                    }
+                    },
                 )
             },
         )

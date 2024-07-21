@@ -24,7 +24,7 @@ fun NavGraphBuilder.wordScreen(
     onWordWriteNavigate: () -> Unit,
     nestedGraphs: NavGraphBuilder.() -> Unit,
 ) {
-    composable<MyGradeRoute.Word>{
+    composable<MyGradeRoute.Word> {
         WordShowRoute(
             onWordWriteNavigate = onWordWriteNavigate,
         )

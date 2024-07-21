@@ -63,7 +63,7 @@ sealed interface MyGradeRoute : AppRoute {
         val subject: String,
         val grade: String,
         val point: String,
-    ): MyGradeRoute
+    ) : MyGradeRoute
 
     @Serializable
     data object History : MyGradeRoute

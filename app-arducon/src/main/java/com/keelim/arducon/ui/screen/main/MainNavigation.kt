@@ -6,7 +6,6 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import com.keelim.core.navigation.ArduconRoute
 
-
 fun NavController.navigateMain(navOptions: NavOptions? = null) {
     this.navigate(ArduconRoute.Main, navOptions)
 }

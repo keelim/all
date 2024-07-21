@@ -18,7 +18,7 @@ fun NavGraphBuilder.qrScreen(
         route = qrRoute,
     ) {
         QrRoute(
-            onShowBarcode = onShowBarcode
+            onShowBarcode = onShowBarcode,
         )
     }
 }

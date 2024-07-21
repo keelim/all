@@ -4,10 +4,10 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import com.keelim.core.navigation.FeatureRoute
 
-const val settingsRoute = "settings"
 fun NavController.navigateSettings(navOptions: NavOptions? = null) {
-    this.navigate(settingsRoute, navOptions)
+    this.navigate(FeatureRoute.Settings, navOptions)
 }
 
 fun NavGraphBuilder.settingsScreen(
@@ -18,9 +18,7 @@ fun NavGraphBuilder.settingsScreen(
     onAppUpdateClick: () -> Unit,
     nestedGraphs: NavGraphBuilder.() -> Unit,
 ) {
-    composable(
-        route = settingsRoute,
-    ) {
+    composable<FeatureRoute.Settings> {
         SettingsRoute(
             onThemeChangeClick = onThemeChangeClick,
             onNotificationsClick = onNotificationsClick,

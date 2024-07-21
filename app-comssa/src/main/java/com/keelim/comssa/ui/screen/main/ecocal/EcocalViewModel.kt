@@ -40,15 +40,26 @@ class EcocalViewModel @Inject constructor(
         }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), emptyList())
 
-    private val filter = MutableStateFlow<FabButtonItem>(All())
-    val items = combine(ref, filter) { data, filter ->
+    private val priorityFilter = MutableStateFlow<FabButtonItem>(Clear())
+
+    private val countryFilter = MutableStateFlow<String>("")
+
+    val items = combine(ref, priorityFilter, countryFilter) { data, filter, country ->
         Timber.d("data $data filter $filter")
         when (filter) {
-            is All -> data
+            is Clear -> data
             is High -> data.filter { it.priority == EcocalPriority.HIGH }
             is Medium -> data.filter { it.priority == EcocalPriority.MEDIUM }
             is Low -> data.filter { it.priority == EcocalPriority.LOW }
             else -> emptyList()
+        }.let {
+            if (country.isBlank()) {
+                it
+            } else {
+                it.filter { item ->
+                    item.country == country
+                }
+            }
         }
     }.map {
         it.groupBy { it.date }
@@ -61,7 +72,15 @@ class EcocalViewModel @Inject constructor(
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), SealedUiState.loading())
 
     fun updateFilter(item: FabButtonItem) {
-        filter.update { item }
-        Timber.d("lab filter ${filter.value}")
+        if(item is Clear) {
+            countryFilter.update { "" }
+        }
+        priorityFilter.update { item }
+        Timber.d("lab filter ${priorityFilter.value}")
+    }
+
+    fun updateCountry(country: String) {
+        countryFilter.update { country }
+        Timber.d("lab filter ${countryFilter.value}")
     }
 }

@@ -4,17 +4,14 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-
-const val calendarRoute = "calendar"
+import com.keelim.core.navigation.ComssaRoute
 
 fun NavController.navigateCalendar(navOptions: NavOptions? = null) {
-    this.navigate(calendarRoute, navOptions)
+    this.navigate(ComssaRoute.Calendar, navOptions)
 }
 
 fun NavGraphBuilder.calendarScreen() {
-    composable(
-        route = calendarRoute,
-    ) {
+    composable<ComssaRoute.Calendar> {
         CalendarRoute()
     }
 }

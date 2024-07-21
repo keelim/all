@@ -5,17 +5,14 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import com.keelim.comssa.ui.screen.main.calendar.CalendarRoute
-
-const val FlashRoute = "flash"
+import com.keelim.core.navigation.ComssaRoute
 
 fun NavController.navigateFlash(navOptions: NavOptions? = null) {
-    this.navigate(FlashRoute, navOptions)
+    this.navigate(ComssaRoute.Flash, navOptions)
 }
 
 fun NavGraphBuilder.flashScreen() {
-    composable(
-        route = FlashRoute,
-    ) {
+    composable<ComssaRoute.Flash> {
         CalendarRoute()
     }
 }

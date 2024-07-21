@@ -96,4 +96,19 @@ sealed interface MyGradeRoute : AppRoute {
 sealed interface FeatureRoute : AppRoute {
     @Serializable
     data object Settings : FeatureRoute
+
+    @Serializable
+    data object Theme : FeatureRoute
+
+    @Serializable
+    data object Lab : FeatureRoute
+
+    @Serializable
+    data object Welcome : FeatureRoute
+
+    @Serializable
+    data object Notification : FeatureRoute
+
+    @Serializable
+    data class Event(val eventId: Int) : FeatureRoute
 }

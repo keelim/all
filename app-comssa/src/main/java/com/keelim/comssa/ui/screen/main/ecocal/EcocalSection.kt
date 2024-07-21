@@ -135,13 +135,11 @@ fun EcocalMainSection(
 @Composable
 fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
     Column(
-        modifier = modifier,
-    ) {
-        val rowModifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .background(Color.Transparent)
-            .padding(horizontal = space16, vertical = space8)
-
+            .padding(horizontal = space16, vertical = space8),
+    ) {
         var now by remember {
             mutableStateOf(
                 Clock.System.now(),
@@ -154,27 +152,26 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
                 now = Clock.System.now()
             }
         }
+
         val timezone = remember {
             TimeZone.currentSystemDefault()
         }
-        Column(
-            modifier = rowModifier,
-        ) {
-            val time = now.toLocalDateTime(timezone)
-            Text(
-                text = "${time.year}-${String.format("%02d", time.monthNumber)}",
-                style = MaterialTheme.typography.bodyLarge,
-            )
-            Text(
-                modifier = Modifier.align(Alignment.End),
-                text = "${time.year}년 ${String.format("%02d", time.monthNumber)}월 ${time.dayOfMonth}일",
-            )
-            Text(
-                modifier = Modifier.align(Alignment.End),
-                text = "${time.hour}:${time.minute}:${time.second}",
-            )
-        }
+
+        val time = now.toLocalDateTime(timezone)
+        Text(
+            text = "${time.year}-${String.format("%02d", time.monthNumber)}",
+            style = MaterialTheme.typography.bodyLarge,
+        )
+        Text(
+            modifier = Modifier.align(Alignment.End),
+            text = "${time.year}년 ${String.format("%02d", time.monthNumber)}월 ${time.dayOfMonth}일",
+        )
+        Text(
+            modifier = Modifier.align(Alignment.End),
+            text = "${time.hour}:${time.minute}:${time.second}",
+        )
     }
+
 }
 
 @Composable

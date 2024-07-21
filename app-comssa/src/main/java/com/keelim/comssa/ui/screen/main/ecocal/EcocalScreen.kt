@@ -4,7 +4,10 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ExitToApp
 import androidx.compose.material.icons.automirrored.filled.List
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -38,6 +41,7 @@ fun EcocalRoute(viewModel: EcocalViewModel = hiltViewModel()) = trace("EcocalRou
     EcocalScreen(
         uiState = uiState,
         updateFilter = viewModel::updateFilter,
+        updateCountry = viewModel::updateCountry,
     )
 }
 
@@ -45,6 +49,7 @@ fun EcocalRoute(viewModel: EcocalViewModel = hiltViewModel()) = trace("EcocalRou
 fun EcocalScreen(
     uiState: SealedUiState<Map<String, List<EcoCalModel>>>,
     updateFilter: (FabButtonItem) -> Unit,
+    updateCountry: (String) -> Unit,
 ) = trace("EcocalScreen") {
     AnimatedContent(
         targetState = uiState,
@@ -66,7 +71,7 @@ fun EcocalScreen(
                                     High(),
                                     Medium(),
                                     Low(),
-                                    All(),
+                                    Clear(),
                                 ),
                             )
                         }
@@ -97,6 +102,7 @@ fun EcocalScreen(
                         entries = targetState.value,
                         modifier = Modifier
                             .padding(paddingValues),
+                        onCountryClick = updateCountry,
                     )
                 }
             }
@@ -119,9 +125,9 @@ data class Low(
     override val label: String = "하",
 ) : FabButtonItem
 
-data class All(
-    override val imageVector: ImageVector = Icons.AutoMirrored.Filled.List,
-    override val label: String = "전체",
+data class Clear(
+    override val imageVector: ImageVector = Icons.Filled.Close,
+    override val label: String = "초기화",
 ) : FabButtonItem
 
 @Preview(showBackground = true)
@@ -143,5 +149,6 @@ private fun PreviewEcocalScreen() {
 
         ),
         updateFilter = {},
+        updateCountry = {},
     )
 }

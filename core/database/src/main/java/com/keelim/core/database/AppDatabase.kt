@@ -17,7 +17,7 @@ import com.keelim.core.database.model.History
 import com.keelim.core.database.model.LocalTask
 import com.keelim.core.database.model.NandaEntity
 import com.keelim.core.database.model.NetworkCache
-import com.keelim.core.database.model.Notices
+import com.keelim.core.database.model.NoticesEntity
 import com.keelim.core.database.model.SimpleHistory
 import com.keelim.core.database.model.TimerHistory
 import java.util.Date
@@ -37,7 +37,7 @@ internal class MyGradeTypeConverters {
         SimpleHistory::class,
         TimerHistory::class,
         NetworkCache::class,
-        Notices::class,
+        NoticesEntity::class,
     ],
     version = 6,
     exportSchema = true,

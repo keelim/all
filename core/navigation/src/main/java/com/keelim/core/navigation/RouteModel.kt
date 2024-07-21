@@ -4,12 +4,12 @@ import kotlinx.serialization.Serializable
 
 interface AppRoute
 
-sealed interface ArduconRoute: AppRoute {
+sealed interface ArduconRoute : AppRoute {
     @Serializable
     data object Main : ArduconRoute
 }
 
-sealed interface CnuBusRoute: AppRoute {
+sealed interface CnuBusRoute : AppRoute {
     @Serializable
     data object Main : CnuBusRoute
 
@@ -17,7 +17,7 @@ sealed interface CnuBusRoute: AppRoute {
     data object Map : CnuBusRoute
 }
 
-sealed interface NandaRoute: AppRoute {
+sealed interface NandaRoute : AppRoute {
     @Serializable
     data object Main : NandaRoute
 
@@ -40,7 +40,18 @@ sealed interface NandaRoute: AppRoute {
     data object NutrientTimer : NandaRoute
 }
 
-sealed interface FeatureRoute: AppRoute {
+sealed interface ComssaRoute : AppRoute {
     @Serializable
-    data object Settings: FeatureRoute
+    data object Calendar : ComssaRoute
+
+    @Serializable
+    data object Ecocal : ComssaRoute
+
+    @Serializable
+    data object Flash : ComssaRoute
+}
+
+sealed interface FeatureRoute : AppRoute {
+    @Serializable
+    data object Settings : FeatureRoute
 }

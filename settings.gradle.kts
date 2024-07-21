@@ -38,6 +38,7 @@ include(
     ":core:common-android",
     ":core:compose-core",
     ":core:data",
+    ":core:data-api",
     ":core:database",
     ":core:datastore-proto",
     ":core:domain",

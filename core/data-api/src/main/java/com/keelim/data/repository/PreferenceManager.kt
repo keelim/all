@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.core.data.source.local
+package com.keelim.data.repository
 
 interface PreferenceManager {
     fun getString(key: String): String?

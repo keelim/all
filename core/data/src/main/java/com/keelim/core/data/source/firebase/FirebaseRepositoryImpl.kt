@@ -5,6 +5,7 @@ import com.google.firebase.database.Logger
 import com.google.firebase.database.database
 import com.keelim.common.di.IoDispatcher
 import com.keelim.core.data.BuildConfig
+import com.keelim.data.repository.FirebaseRepository
 import com.keelim.model.EcoCalEntry
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow

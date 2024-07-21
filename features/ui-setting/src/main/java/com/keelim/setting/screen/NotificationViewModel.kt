@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.keelim.common.Dispatcher
 import com.keelim.common.KeelimDispatchers
-import com.keelim.core.data.source.notification.NotificationRepository
+import com.keelim.data.repository.NotificationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.toPersistentList

@@ -7,7 +7,7 @@ import com.keelim.commonAndroid.model.SealedUiState
 import com.keelim.commonAndroid.model.asSealedUiState
 import com.keelim.composeutil.component.canvas.chart.PieChartEntry
 import com.keelim.composeutil.util.randomColor
-import com.keelim.core.data.source.DefaultTaskRepository
+import com.keelim.core.database.repository.DefaultTaskRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow

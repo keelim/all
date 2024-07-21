@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.core.data.source
+package com.keelim.core.database.repository
 
 import com.keelim.core.database.model.NandaEntity
 import kotlinx.coroutines.flow.Flow

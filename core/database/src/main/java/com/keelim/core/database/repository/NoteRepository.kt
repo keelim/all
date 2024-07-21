@@ -1,4 +1,4 @@
-package com.keelim.core.data.source.note
+package com.keelim.core.database.repository
 
 import com.keelim.core.database.model.Notices
 import kotlinx.coroutines.flow.Flow

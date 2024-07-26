@@ -7,7 +7,9 @@ import android.net.Uri
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -26,6 +28,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
@@ -44,9 +47,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.keelim.composeutil.resource.space2
 import com.keelim.composeutil.resource.space64
 import com.keelim.composeutil.resource.space8
@@ -280,11 +287,19 @@ private fun DeepLinkItem(
             .fillMaxWidth(),
     ) {
         Row {
-            Box(
-                modifier = Modifier
-                    .size(space64)
-                    .align(Alignment.Top)
-            )
+            if(deepLink.imageUrl.isEmpty()) {
+                Icon(
+                    imageVector = Icons.Default.Close,
+                    contentDescription = "",
+                )
+            } else {
+                AsyncImage(
+                    model = deepLink.imageUrl,
+                    modifier = Modifier
+                        .size(space64),
+                    contentDescription = null,
+                )
+            }
             Column(
                 modifier = Modifier
                     .fillMaxWidth()

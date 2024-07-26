@@ -5,4 +5,5 @@ data class DeepLink(
     val timestamp: Long,
     val isBookMarked: Boolean = false,
     val title: String = "",
+    val imageUrl: String = "",
 )

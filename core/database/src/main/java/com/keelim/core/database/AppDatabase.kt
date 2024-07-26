@@ -12,7 +12,7 @@ import com.keelim.core.database.dao.NetworkCacheDao
 import com.keelim.core.database.dao.NoteDao
 import com.keelim.core.database.dao.TaskDao
 import com.keelim.core.database.dao.TimerHistoryDao
-import com.keelim.core.database.model.DeepLink
+import com.keelim.core.database.model.DeepLinkEntity
 import com.keelim.core.database.model.History
 import com.keelim.core.database.model.LocalTask
 import com.keelim.core.database.model.NandaEntity
@@ -67,7 +67,7 @@ abstract class NandaAppDatabase : RoomDatabase() {
 }
 
 @Database(
-    entities = [DeepLink::class],
+    entities = [DeepLinkEntity::class],
     version = 3,
     exportSchema = true,
     autoMigrations = [

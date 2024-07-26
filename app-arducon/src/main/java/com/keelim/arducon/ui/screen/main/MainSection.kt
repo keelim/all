@@ -50,7 +50,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.keelim.composeutil.resource.space2
 import com.keelim.composeutil.resource.space64
 import com.keelim.composeutil.resource.space8
-import com.keelim.core.database.model.DeepLink
+import com.keelim.model.DeepLink
 
 private val schemeList = listOf(
     "http",

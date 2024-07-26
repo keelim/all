@@ -29,7 +29,7 @@ import com.keelim.composeutil.component.icon.rememberQrCodeScanner
 import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space8
-import com.keelim.core.database.model.DeepLink
+import com.keelim.model.DeepLink
 
 @Composable
 fun MainRoute(

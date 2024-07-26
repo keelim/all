@@ -3,7 +3,7 @@ package com.keelim.core.data.source
 import com.keelim.common.Dispatcher
 import com.keelim.common.KeelimDispatchers
 import com.keelim.core.database.repository.ArduconDataSource
-import com.keelim.core.database.model.DeepLink
+import com.keelim.model.DeepLink
 import com.keelim.core.database.repository.ArduconRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext

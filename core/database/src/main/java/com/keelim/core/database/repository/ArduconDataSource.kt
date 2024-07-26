@@ -1,6 +1,6 @@
 package com.keelim.core.database.repository
 
-import com.keelim.core.database.model.DeepLink
+import com.keelim.model.DeepLink
 import kotlinx.coroutines.flow.Flow
 
 interface ArduconDataSource {

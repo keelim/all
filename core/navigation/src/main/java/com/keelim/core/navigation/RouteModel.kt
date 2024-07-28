@@ -7,6 +7,8 @@ interface AppRoute
 sealed interface ArduconRoute : AppRoute {
     @Serializable
     data object Main : ArduconRoute
+    @Serializable
+    data object Qr : ArduconRoute
 }
 
 sealed interface CnuBusRoute : AppRoute {

@@ -4,19 +4,17 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import com.keelim.core.navigation.ArduconRoute
 
-const val qrRoute = "qr"
 
 fun NavController.navigateQr(navOptions: NavOptions? = null) {
-    this.navigate(qrRoute, navOptions)
+    this.navigate(ArduconRoute.Qr, navOptions)
 }
 
 fun NavGraphBuilder.qrScreen(
     onShowBarcode: (String) -> Unit,
 ) {
-    composable(
-        route = qrRoute,
-    ) {
+    composable<ArduconRoute.Qr> {
         QrRoute(
             onShowBarcode = onShowBarcode,
         )

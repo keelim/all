@@ -18,4 +18,3 @@ fun DeepLink.toDeepLinkEntity() = DeepLinkEntity(
     isBookMarked = isBookMarked,
     title = title,
 )
-

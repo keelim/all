@@ -7,7 +7,5 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    arduconRepository: ArduconRepository
-): ViewModel()  {
-
-}
+    arduconRepository: ArduconRepository,
+) : ViewModel()

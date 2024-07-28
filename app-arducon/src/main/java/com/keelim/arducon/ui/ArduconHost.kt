@@ -17,7 +17,6 @@ import com.keelim.core.navigation.ArduconRoute
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-
 @Composable
 fun ArduConHost(
     appState: AppState,
@@ -60,7 +59,7 @@ fun ArduConHost(
                         coroutineScope.launch {
                             onShowSnackbar("현재 업데이트 준비중입니다. ", null)
                         }
-                    }
+                    },
                 )
             },
         )

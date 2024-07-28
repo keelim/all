@@ -290,6 +290,8 @@ private fun DeepLinkItem(
             if(deepLink.imageUrl.isEmpty()) {
                 Icon(
                     imageVector = Icons.Default.Close,
+                    modifier = Modifier
+                        .size(space64),
                     contentDescription = "",
                 )
             } else {

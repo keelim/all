@@ -17,6 +17,9 @@ interface ArduconDao {
     @Query("SELECT * FROM deepLink  ORDER BY `timestamp` DESC")
     fun getDeepLinkUrls(): Flow<List<DeepLinkEntity>>
 
+    @Query("SELECT * FROM deepLink WHERE url LIKE '%' || :keyword || '%' ORDER BY `timestamp` DESC")
+    fun getDeepLinkUrlsFiltered(keyword: String): Flow<List<DeepLinkEntity>>
+
     @Delete
     suspend fun deleteDeepLinkUrl(deepLink: DeepLinkEntity)
 

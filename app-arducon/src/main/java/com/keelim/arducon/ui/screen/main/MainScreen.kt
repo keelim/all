@@ -29,6 +29,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.arducon.ui.component.AdBannerView
 import com.keelim.composeutil.component.icon.rememberQrCodeScanner
@@ -48,10 +49,10 @@ fun MainRoute(
     viewModel: MainViewModel = hiltViewModel(),
 ) {
     val items by viewModel.deepLinkList.collectAsStateWithLifecycle(
-        lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current,
+        lifecycleOwner = LocalLifecycleOwner.current,
     )
     val isSearched = viewModel.onClickSearch.collectAsStateWithLifecycle(
-        lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current,
+        lifecycleOwner = LocalLifecycleOwner.current,
     )
 
     val context = LocalContext.current

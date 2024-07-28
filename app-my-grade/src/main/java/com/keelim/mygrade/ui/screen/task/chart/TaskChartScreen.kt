@@ -21,6 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.trace
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.commonAndroid.model.SealedUiState
 import com.keelim.composeutil.component.canvas.chart.PieChartEntry
@@ -33,7 +34,7 @@ fun TaskChartRoute(
     viewModel: TaskChartViewModel = hiltViewModel(),
 ) = trace("TaskChartRoute") {
     val state by viewModel.state.collectAsStateWithLifecycle(
-        lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current,
+        lifecycleOwner = LocalLifecycleOwner.current,
     )
     TaskChartScreen(
         state = state,

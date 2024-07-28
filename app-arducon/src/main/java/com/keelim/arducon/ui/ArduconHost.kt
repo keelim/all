@@ -10,6 +10,8 @@ import androidx.navigation.compose.NavHost
 import com.keelim.arducon.ui.screen.main.mainScreen
 import com.keelim.arducon.ui.screen.qr.navigateQr
 import com.keelim.arducon.ui.screen.qr.qrScreen
+import com.keelim.arducon.ui.screen.search.navigateSearch
+import com.keelim.arducon.ui.screen.search.searchScreen
 import com.keelim.composeutil.AppState
 import com.keelim.core.navigation.ArduconRoute
 import kotlinx.coroutines.CoroutineScope
@@ -37,6 +39,7 @@ fun ArduConHost(
                 }
             },
             onQrCodeClick = navController::navigateQr,
+            onNavigateSearch = navController::navigateSearch,
             nestedGraphs = {
                 qrScreen(
                     onShowBarcode = { barcode ->
@@ -50,6 +53,7 @@ fun ArduConHost(
                         }
                     },
                 )
+                searchScreen()
             },
         )
     }

@@ -11,8 +11,11 @@ fun NavController.navigateSearch(navOptions: NavOptions? = null) {
 }
 
 fun NavGraphBuilder.searchScreen(
+    onUpdate: () -> Unit,
 ) {
     composable<ArduconRoute.Search> {
-        SearchRoute()
+        SearchRoute(
+            onUpdate = onUpdate,
+        )
     }
 }

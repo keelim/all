@@ -9,6 +9,8 @@ sealed interface ArduconRoute : AppRoute {
     data object Main : ArduconRoute
     @Serializable
     data object Qr : ArduconRoute
+    @Serializable
+    data object Search : ArduconRoute
 }
 
 sealed interface CnuBusRoute : AppRoute {

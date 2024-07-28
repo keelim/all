@@ -37,7 +37,6 @@ import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space32
 import com.keelim.composeutil.resource.space4
-import com.keelim.composeutil.resource.space64
 import com.keelim.composeutil.resource.space8
 import com.keelim.model.DeepLink
 
@@ -126,7 +125,7 @@ fun MainScreen(
                     .clickable { onNavigateSearch() },
             )
             Spacer(
-                modifier = Modifier.width(space12)
+                modifier = Modifier.width(space12),
             )
             Icon(
                 imageVector = rememberQrCodeScanner(

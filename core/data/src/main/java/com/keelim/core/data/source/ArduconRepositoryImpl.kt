@@ -19,7 +19,7 @@ class ArduconRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getDeepLinkUrls(keyword: String) = if(keyword.isEmpty()) {
+    override fun getDeepLinkUrls(keyword: String) = if (keyword.isEmpty()) {
         local.getDeepLinkUrls()
     } else {
         local.getDeepLinkUrlsFiltered(keyword)

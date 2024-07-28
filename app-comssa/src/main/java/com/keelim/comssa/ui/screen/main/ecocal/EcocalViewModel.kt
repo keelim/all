@@ -72,7 +72,7 @@ class EcocalViewModel @Inject constructor(
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), SealedUiState.loading())
 
     fun updateFilter(item: FabButtonItem) {
-        if(item is Clear) {
+        if (item is Clear) {
             countryFilter.update { "" }
         }
         priorityFilter.update { item }

@@ -14,7 +14,7 @@ fun DeepLinkSearchSection(
     items: List<DeepLink>,
 ) {
     LazyColumn(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
     ) {
         items(items) { items ->
             Text(

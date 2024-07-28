@@ -6,7 +6,6 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import com.keelim.core.navigation.ArduconRoute
 
-
 fun NavController.navigateQr(navOptions: NavOptions? = null) {
     this.navigate(ArduconRoute.Qr, navOptions)
 }

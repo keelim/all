@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
@@ -25,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -32,7 +34,9 @@ import com.keelim.arducon.ui.component.AdBannerView
 import com.keelim.composeutil.component.icon.rememberQrCodeScanner
 import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space16
+import com.keelim.composeutil.resource.space32
 import com.keelim.composeutil.resource.space4
+import com.keelim.composeutil.resource.space64
 import com.keelim.composeutil.resource.space8
 import com.keelim.model.DeepLink
 
@@ -97,20 +101,31 @@ fun MainScreen(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Text(
-                text = "Arducon Deeplink Tester",
-                style = MaterialTheme.typography.titleLarge,
+            Column(
                 modifier = Modifier.weight(1f),
-            )
+                verticalArrangement = Arrangement.spacedBy(space4),
+            ) {
+                Text(
+                    text = "Arducon",
+                    style = MaterialTheme.typography.titleLarge.copy(
+                        fontWeight = FontWeight.Bold,
+                    ),
+                )
+                Text(
+                    text = "Deeplink Tester",
+                    style = MaterialTheme.typography.titleMedium,
+                )
+            }
             val isDark = isSystemInDarkTheme()
             Icon(
                 imageVector = Icons.Default.Search,
                 contentDescription = "Search",
                 modifier = Modifier
+                    .size(space32)
                     .clickable { onNavigateSearch() },
             )
             Spacer(
-                modifier = Modifier.width(space8)
+                modifier = Modifier.width(space12)
             )
             Icon(
                 imageVector = rememberQrCodeScanner(

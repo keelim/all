@@ -13,12 +13,14 @@ fun NavController.navigateMain(navOptions: NavOptions? = null) {
 fun NavGraphBuilder.mainScreen(
     onShowMessage: (String) -> Unit,
     onQrCodeClick: () -> Unit,
+    onNavigateSearch: () -> Unit,
     nestedGraphs: NavGraphBuilder.() -> Unit,
 ) {
-    composable<ArduconRoute.Main>() {
+    composable<ArduconRoute.Main> {
         MainRoute(
             onShowMessage = onShowMessage,
             onQrCodeClick = onQrCodeClick,
+            onNavigateSearch = onNavigateSearch,
         )
     }
     nestedGraphs()

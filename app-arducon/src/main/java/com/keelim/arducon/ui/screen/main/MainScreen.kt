@@ -7,9 +7,13 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -28,6 +32,7 @@ import com.keelim.arducon.ui.component.AdBannerView
 import com.keelim.composeutil.component.icon.rememberQrCodeScanner
 import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space16
+import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
 import com.keelim.model.DeepLink
 
@@ -35,6 +40,7 @@ import com.keelim.model.DeepLink
 fun MainRoute(
     onShowMessage: (String) -> Unit,
     onQrCodeClick: () -> Unit,
+    onNavigateSearch: () -> Unit,
     viewModel: MainViewModel = hiltViewModel(),
 ) {
     val items by viewModel.deepLinkList.collectAsStateWithLifecycle(
@@ -67,6 +73,7 @@ fun MainRoute(
         onUpdate = viewModel::updateDeepLinkUrl,
         onDelete = viewModel::deleteDeepLinkUrl,
         onQrCodeClick = onQrCodeClick,
+        onNavigateSearch = onNavigateSearch,
     )
 }
 
@@ -78,6 +85,7 @@ fun MainScreen(
     onUpdate: (DeepLink) -> Unit,
     onDelete: (DeepLink) -> Unit,
     onQrCodeClick: () -> Unit,
+    onNavigateSearch: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -87,14 +95,23 @@ fun MainScreen(
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
                 text = "Arducon Deeplink Tester",
                 style = MaterialTheme.typography.titleLarge,
+                modifier = Modifier.weight(1f),
             )
             val isDark = isSystemInDarkTheme()
+            Icon(
+                imageVector = Icons.Default.Search,
+                contentDescription = "Search",
+                modifier = Modifier
+                    .clickable { onNavigateSearch() },
+            )
+            Spacer(
+                modifier = Modifier.width(space8)
+            )
             Icon(
                 imageVector = rememberQrCodeScanner(
                     tintColor = if (isDark) Color.White else Color.Black,
@@ -133,7 +150,6 @@ private fun PreviewMainScreen() {
         onSearch = { _, _ -> },
         onUpdate = {},
         onDelete = {},
-        onQrCodeClick = {},
         favoriteItems = listOf(
             DeepLink("https://www.google.com", 0),
             DeepLink("https://www.naver.com", 0),
@@ -144,5 +160,7 @@ private fun PreviewMainScreen() {
             DeepLink("https://www.naver.com", 0),
             DeepLink("https://www.daum.net", 0),
         ),
+        onQrCodeClick = {},
+        onNavigateSearch = {},
     )
 }

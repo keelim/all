@@ -17,6 +17,7 @@ import com.keelim.core.navigation.ArduconRoute
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
+
 @Composable
 fun ArduConHost(
     appState: AppState,
@@ -27,6 +28,7 @@ fun ArduConHost(
 ) {
     val navController = appState.navController
     val context = LocalContext.current
+
     NavHost(
         navController = navController,
         startDestination = ArduconRoute.Main,
@@ -53,7 +55,13 @@ fun ArduConHost(
                         }
                     },
                 )
-                searchScreen()
+                searchScreen(
+                    onUpdate = {
+                        coroutineScope.launch {
+                            onShowSnackbar("현재 업데이트 준비중입니다. ", null)
+                        }
+                    }
+                )
             },
         )
     }

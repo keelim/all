@@ -2,6 +2,7 @@ package com.keelim.core.data.source.prompt
 
 import com.google.ai.client.generativeai.GenerativeModel
 import com.keelim.common.di.IoDispatcher
+import com.keelim.data.repository.PromptRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import timber.log.Timber

@@ -27,7 +27,6 @@ dependencies {
 
     implementation(libs.activity.ktx)
     implementation(libs.androidx.activity.compose)
-    implementation(libs.accompanist.systemuicontroller)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.lifecycle.process)
@@ -36,16 +35,16 @@ dependencies {
     implementation(libs.androidx.metrics)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.navigation.ui)
-    implementation(libs.androidx.paging.compose)
     implementation(libs.androidx.profileinstaller)
     implementation(libs.androidx.window.manager)
     implementation(platform(libs.coil.bom))
     implementation(libs.bundles.coil)
+    implementation(libs.jsoup)
     implementation(libs.kotlinx.datetime)
-    implementation(libs.play.services.oss)
-    implementation(libs.timber)
     implementation(libs.play.services.ad)
     implementation(libs.play.services.code.scanner)
+    implementation(libs.play.services.oss)
+    implementation(libs.timber)
 }
 
 

@@ -34,6 +34,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.trace
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.composeutil.component.appbar.NavigationBackArrowBar
 import com.keelim.composeutil.resource.space12
@@ -48,10 +49,10 @@ fun GradeRoute(
     viewModel: GradeViewModel = hiltViewModel(),
 ) = trace("GradeRoute") {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle(
-        lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current,
+        lifecycleOwner = LocalLifecycleOwner.current,
     )
     val data by viewModel.data.collectAsStateWithLifecycle(
-        lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current,
+        lifecycleOwner = LocalLifecycleOwner.current,
     )
     if (uiState.isMessageShow) {
         Snackbar(dismissAction = { viewModel.dismissMessage() }) { Text(text = uiState.message) }

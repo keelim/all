@@ -47,6 +47,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.trace
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.composeutil.component.fab.FabButtonItem
 import com.keelim.composeutil.component.fab.FabButtonMain
@@ -73,25 +74,25 @@ fun MainRoute(
     viewModel: MainViewModel = hiltViewModel(),
 ) = trace("MainRoute") {
     val mainState by viewModel.mainScreenState.collectAsStateWithLifecycle(
-        lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current,
+        lifecycleOwner = LocalLifecycleOwner.current,
     )
     val subject by viewModel.subject.collectAsStateWithLifecycle(
-        lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current,
+        lifecycleOwner = LocalLifecycleOwner.current,
     )
     val state by viewModel.state.collectAsStateWithLifecycle(
-        lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current,
+        lifecycleOwner = LocalLifecycleOwner.current,
     )
     val origin by viewModel.origin.collectAsStateWithLifecycle(
-        lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current,
+        lifecycleOwner = LocalLifecycleOwner.current,
     )
     val average by viewModel.average.collectAsStateWithLifecycle(
-        lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current,
+        lifecycleOwner = LocalLifecycleOwner.current,
     )
     val number by viewModel.number.collectAsStateWithLifecycle(
-        lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current,
+        lifecycleOwner = LocalLifecycleOwner.current,
     )
     val student by viewModel.student.collectAsStateWithLifecycle(
-        lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current,
+        lifecycleOwner = LocalLifecycleOwner.current,
     )
     MainScreen(
         clear = viewModel::clear,

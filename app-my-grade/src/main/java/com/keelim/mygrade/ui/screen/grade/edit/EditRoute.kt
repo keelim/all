@@ -30,6 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.trace
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.commonAndroid.model.SealedUiState
 import com.keelim.composeutil.component.layout.EmptyView
@@ -43,7 +44,7 @@ fun EditRoute(
     viewModel: EditViewModel = hiltViewModel(),
 ) = trace("EditRoute") {
     val editUiState by viewModel.data.collectAsStateWithLifecycle(
-        lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current,
+        lifecycleOwner = LocalLifecycleOwner.current,
     )
 
     EditScreen(

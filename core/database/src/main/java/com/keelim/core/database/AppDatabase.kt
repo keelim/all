@@ -12,12 +12,12 @@ import com.keelim.core.database.dao.NetworkCacheDao
 import com.keelim.core.database.dao.NoteDao
 import com.keelim.core.database.dao.TaskDao
 import com.keelim.core.database.dao.TimerHistoryDao
-import com.keelim.core.database.model.DeepLink
+import com.keelim.core.database.model.DeepLinkEntity
 import com.keelim.core.database.model.History
 import com.keelim.core.database.model.LocalTask
 import com.keelim.core.database.model.NandaEntity
 import com.keelim.core.database.model.NetworkCache
-import com.keelim.core.database.model.Notices
+import com.keelim.core.database.model.NoticesEntity
 import com.keelim.core.database.model.SimpleHistory
 import com.keelim.core.database.model.TimerHistory
 import java.util.Date
@@ -37,7 +37,7 @@ internal class MyGradeTypeConverters {
         SimpleHistory::class,
         TimerHistory::class,
         NetworkCache::class,
-        Notices::class,
+        NoticesEntity::class,
     ],
     version = 6,
     exportSchema = true,
@@ -67,7 +67,7 @@ abstract class NandaAppDatabase : RoomDatabase() {
 }
 
 @Database(
-    entities = [DeepLink::class],
+    entities = [DeepLinkEntity::class],
     version = 3,
     exportSchema = true,
     autoMigrations = [

@@ -173,7 +173,6 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
             text = "${time.hour}:${time.minute}:${time.second}",
         )
     }
-
 }
 
 @Composable

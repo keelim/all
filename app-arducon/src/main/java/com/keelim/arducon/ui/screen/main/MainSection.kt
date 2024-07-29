@@ -25,6 +25,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
@@ -46,9 +47,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
+import coil.compose.AsyncImage
 import com.keelim.composeutil.resource.space2
+import com.keelim.composeutil.resource.space64
 import com.keelim.composeutil.resource.space8
-import com.keelim.core.database.model.DeepLink
+import com.keelim.model.DeepLink
 
 private val schemeList = listOf(
     "http",
@@ -277,55 +280,72 @@ private fun DeepLinkItem(
         modifier = modifier
             .fillMaxWidth(),
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(space8),
-        ) {
-            if (deepLink.title.isNotEmpty()) {
-                Text(
-                    text = deepLink.title,
-                    style = MaterialTheme.typography.headlineSmall,
+        Row {
+            if (deepLink.imageUrl.isEmpty()) {
+                Icon(
+                    imageVector = Icons.Default.Close,
+                    modifier = Modifier
+                        .size(space64),
+                    contentDescription = "",
+                )
+            } else {
+                AsyncImage(
+                    model = deepLink.imageUrl,
+                    modifier = Modifier
+                        .size(space64),
+                    contentDescription = null,
                 )
             }
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(space8),
             ) {
-                Text(
-                    text = deepLink.url,
-                    modifier = Modifier.weight(1f),
-                )
-                Spacer(
-                    modifier = Modifier.width(space8),
-                )
-                AnimatedContent(
-                    targetState = deepLink.isBookMarked,
-                    label = "bookmark",
-                ) { targetState ->
-                    Icon(
-                        imageVector = if (targetState) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
-                        contentDescription = "bookmark",
-                        modifier = Modifier.clickable {
-                            onUpdate(deepLink)
-                        },
+                if (deepLink.title.isNotEmpty()) {
+                    Text(
+                        text = deepLink.title,
+                        style = MaterialTheme.typography.headlineSmall,
                     )
                 }
-                Spacer(
-                    modifier = Modifier.width(space2),
-                )
-                Icon(
-                    imageVector = Icons.Default.PlayArrow,
-                    contentDescription = "play",
-                    modifier = Modifier.clickable { onPlay(deepLink.url) },
-                )
-                Spacer(
-                    modifier = Modifier.width(space2),
-                )
-                Icon(
-                    imageVector = Icons.Default.Delete,
-                    contentDescription = "delete",
-                    modifier = Modifier.clickable { onDelete(deepLink) },
-                )
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(
+                        text = deepLink.url,
+                        modifier = Modifier.weight(1f),
+                    )
+                    Spacer(
+                        modifier = Modifier.width(space8),
+                    )
+                    AnimatedContent(
+                        targetState = deepLink.isBookMarked,
+                        label = "bookmark",
+                    ) { targetState ->
+                        Icon(
+                            imageVector = if (targetState) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
+                            contentDescription = "bookmark",
+                            modifier = Modifier.clickable {
+                                onUpdate(deepLink)
+                            },
+                        )
+                    }
+                    Spacer(
+                        modifier = Modifier.width(space2),
+                    )
+                    Icon(
+                        imageVector = Icons.Default.PlayArrow,
+                        contentDescription = "play",
+                        modifier = Modifier.clickable { onPlay(deepLink.url) },
+                    )
+                    Spacer(
+                        modifier = Modifier.width(space2),
+                    )
+                    Icon(
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = "delete",
+                        modifier = Modifier.clickable { onDelete(deepLink) },
+                    )
+                }
             }
         }
     }
@@ -347,20 +367,20 @@ private fun PreviewDeepLinkSection() {
         generalItems = listOf(
             DeepLink(
                 url = "https://www.google.com",
-                timestamp = 2323L,
+                timestamp = 232121223L,
                 title = "naver",
             ),
             DeepLink(
                 url = "https://www.google.com",
-                timestamp = 2323L,
+                timestamp = 23232L,
             ),
             DeepLink(
                 url = "https://www.google.com",
-                timestamp = 2323L,
+                timestamp = 232123L,
             ),
             DeepLink(
                 url = "https://www.google.com",
-                timestamp = 2323L,
+                timestamp = 232323L,
             ),
         ),
         onDelete = {},

@@ -4,6 +4,8 @@ import com.keelim.common.di.IoDispatcher
 import com.keelim.core.data.BuildConfig
 import com.keelim.core.network.di.KtorNetworkModule
 import com.keelim.core.network.model.NoticeResponse
+import com.keelim.data.repository.Notification
+import com.keelim.data.repository.NotificationRepository
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get

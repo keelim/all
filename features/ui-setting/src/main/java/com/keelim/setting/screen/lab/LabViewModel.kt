@@ -3,7 +3,7 @@ package com.keelim.setting.screen.lab
 import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.keelim.core.data.source.prompt.PromptRepository
+import com.keelim.data.repository.PromptRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

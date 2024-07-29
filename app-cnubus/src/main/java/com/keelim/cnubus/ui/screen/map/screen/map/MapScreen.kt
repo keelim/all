@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEach
 import androidx.compose.ui.util.trace
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.google.android.gms.maps.model.CameraPosition
@@ -39,7 +40,7 @@ fun MapScreen(viewModel: MapViewModel = hiltViewModel()) = trace("MapScreen") {
     }
     GoogleMap(modifier = Modifier.fillMaxSize(), cameraPositionState = cameraPositionState) {
         val locations by viewModel.locations.collectAsStateWithLifecycle(
-            lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current,
+            lifecycleOwner = LocalLifecycleOwner.current,
         )
         locations.fastForEach { marker ->
             MarkerInfoWindowContent(

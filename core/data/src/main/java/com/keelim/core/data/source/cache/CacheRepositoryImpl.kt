@@ -3,6 +3,7 @@ package com.keelim.core.data.source.cache
 import com.keelim.core.database.dao.NetworkCacheDao
 import com.keelim.core.database.model.NetworkCache
 import com.keelim.core.network.di.KtorNetworkModule
+import com.keelim.data.repository.CacheRepository
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText

@@ -8,6 +8,7 @@ import com.keelim.core.database.dao.TimerHistoryDao
 import com.keelim.core.database.model.History
 import com.keelim.core.database.model.SimpleHistory
 import com.keelim.core.database.model.TimerHistory
+import com.keelim.core.database.repository.HistoryRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow

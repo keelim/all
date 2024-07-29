@@ -13,15 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.core.database.model
+package com.keelim.data.repository
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-
-@Entity
-data class CnuHistory(
-    val destination: String,
-    val root: String,
-    @PrimaryKey(autoGenerate = true)
-    val uid: Int = 0,
-)
+interface PreferenceManager {
+    fun getString(key: String): String?
+    fun putString(key: String, value: String)
+    fun getLong(key: String): Long?
+    fun putLong(key: String, value: Long)
+}

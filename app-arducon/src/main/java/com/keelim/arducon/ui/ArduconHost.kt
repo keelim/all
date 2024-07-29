@@ -10,6 +10,8 @@ import androidx.navigation.compose.NavHost
 import com.keelim.arducon.ui.screen.main.mainScreen
 import com.keelim.arducon.ui.screen.qr.navigateQr
 import com.keelim.arducon.ui.screen.qr.qrScreen
+import com.keelim.arducon.ui.screen.search.navigateSearch
+import com.keelim.arducon.ui.screen.search.searchScreen
 import com.keelim.composeutil.AppState
 import com.keelim.core.navigation.ArduconRoute
 import kotlinx.coroutines.CoroutineScope
@@ -25,6 +27,7 @@ fun ArduConHost(
 ) {
     val navController = appState.navController
     val context = LocalContext.current
+
     NavHost(
         navController = navController,
         startDestination = ArduconRoute.Main,
@@ -37,6 +40,7 @@ fun ArduConHost(
                 }
             },
             onQrCodeClick = navController::navigateQr,
+            onNavigateSearch = navController::navigateSearch,
             nestedGraphs = {
                 qrScreen(
                     onShowBarcode = { barcode ->
@@ -47,6 +51,13 @@ fun ArduConHost(
                                     Uri.parse(barcode),
                                 ).let { context.startActivity(it) }
                             }
+                        }
+                    },
+                )
+                searchScreen(
+                    onUpdate = {
+                        coroutineScope.launch {
+                            onShowSnackbar("현재 업데이트 준비중입니다. ", null)
                         }
                     },
                 )

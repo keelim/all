@@ -44,7 +44,7 @@ fun NandaHost(
     val context = LocalContext.current
     NavHost(
         navController = navController,
-        startDestination = NandaRoute.Nutrient,
+        startDestination = NandaRoute.Category,
         modifier = modifier,
     ) {
         webScreen(

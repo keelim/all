@@ -2,17 +2,22 @@
 
 package com.keelim.nandadiagnosis.ui.screen.category
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -37,6 +42,7 @@ import kotlinx.collections.immutable.persistentListOf
 fun CategoryStateSection(
     uiState: CategoryState,
     onCategoryClick: (Int, String) -> Unit,
+    onEditTypeClick: () -> Unit
 ) = trace("CategoryStateSection") {
     when (uiState) {
         CategoryState.Error,
@@ -51,14 +57,21 @@ fun CategoryStateSection(
                 Categories(
                     title = "먹고 있는 영양제",
                     items = listOf(),
+                    type = CategoriesType.GENERAL,
                     onCategoryClick = { _, _ -> },
-                    type = CategoriesType.GENERAL
+                    onEditTypeClick = {
+                        onEditTypeClick.invoke()
+                    },
                 )
                 Categories(
                     title = "Category",
                     items = uiState.items,
                     onCategoryClick = onCategoryClick,
-                    type = CategoriesType.FLOW
+                    type = CategoriesType.FLOW,
+                    onEditTypeClick = {
+
+
+                    },
                 )
             }
         }
@@ -74,8 +87,9 @@ enum class CategoriesType {
 private fun Categories(
     title: String,
     items: List<String>,
-    onCategoryClick: (Int, String) -> Unit,
     type: CategoriesType,
+    onCategoryClick: (Int, String) -> Unit,
+    onEditTypeClick: (CategoriesType) -> Unit,
     modifier: Modifier = Modifier,
 ) = trace("categories") {
     Column(
@@ -83,10 +97,23 @@ private fun Categories(
             .fillMaxWidth()
             .padding(space8),
     ) {
-        Text(
-            text = title,
-            style = MaterialTheme.typography.bodyMedium,
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.bodyMedium,
+            )
+            if(type == CategoriesType.GENERAL) {
+                Icon(
+                    imageVector = Icons.Rounded.Edit,
+                    contentDescription = "edit",
+                    modifier = Modifier.clickable { onEditTypeClick(type) },
+                )
+            }
+        }
+
         if (items.isEmpty()) {
             Text(
                 text = "데이터가 없습니다.",
@@ -176,8 +203,9 @@ private fun PreviewCategories() {
                 "e",
                 "efghijklmnop",
             ),
-            onCategoryClick = { _, _ -> },
             type = CategoriesType.FLOW,
+            onCategoryClick = { _, _ -> },
+            onEditTypeClick = { },
         )
 
         Categories(
@@ -191,16 +219,18 @@ private fun PreviewCategories() {
                 "e",
                 "efghijklmnop",
             ),
-            onCategoryClick = { _, _ -> },
             type = CategoriesType.GENERAL,
+            onCategoryClick = { _, _ -> },
+            onEditTypeClick = { },
         )
 
         Categories(
             title = "Category",
             modifier = Modifier.fillMaxWidth(),
             items = persistentListOf(),
-            onCategoryClick = { _, _ -> },
             type = CategoriesType.FLOW,
+            onCategoryClick = { _, _ -> },
+            onEditTypeClick = { },
         )
     }
 }

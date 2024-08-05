@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -27,6 +28,7 @@ import androidx.compose.ui.util.trace
 import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
 import com.keelim.composeutil.resource.space12
+import com.keelim.composeutil.resource.space32
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
 import kotlinx.collections.immutable.persistentListOf
@@ -46,6 +48,12 @@ fun CategoryStateSection(
             Column(
                 modifier = Modifier.fillMaxWidth(),
             ) {
+                Categories(
+                    title = "먹고 있는 영양제",
+                    items = listOf(),
+                    onCategoryClick = { _, _ -> },
+                    type = CategoriesType.GENERAL
+                )
                 Categories(
                     title = "Category",
                     items = uiState.items,
@@ -82,8 +90,13 @@ private fun Categories(
         if (items.isEmpty()) {
             Text(
                 text = "데이터가 없습니다.",
-                style = MaterialTheme.typography.bodyMedium,
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    fontWeight = FontWeight.Thin,
+                ),
                 textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(space32)
             )
         } else {
             when (type) {

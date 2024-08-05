@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -18,12 +19,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEachIndexed
 import androidx.compose.ui.util.trace
 import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
+import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
 import kotlinx.collections.immutable.persistentListOf
@@ -39,45 +42,84 @@ fun CategoryStateSection(
         -> EmptyView()
 
         CategoryState.Loading -> Loading()
-        is CategoryState.Success -> Categories(
-            uiState.items,
-            onCategoryClick,
-        )
+        is CategoryState.Success -> {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                Categories(
+                    title = "Category",
+                    items = uiState.items,
+                    onCategoryClick = onCategoryClick,
+                    type = CategoriesType.FLOW
+                )
+            }
+        }
     }
+}
+
+enum class CategoriesType {
+    GENERAL,
+    FLOW,
 }
 
 @Composable
 private fun Categories(
+    title: String,
     items: List<String>,
     onCategoryClick: (Int, String) -> Unit,
+    type: CategoriesType,
     modifier: Modifier = Modifier,
 ) = trace("categories") {
     Column(
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier
+            .fillMaxWidth()
             .padding(space8),
     ) {
         Text(
-            text = "Category",
+            text = title,
             style = MaterialTheme.typography.bodyMedium,
         )
-        FlowRow(
-            maxItemsInEachRow = 3,
-        ) {
-            val itemModifier =
-                Modifier
-                    .height(100.dp)
-                    .padding(space8)
-                    .clip(RoundedCornerShape(space8))
-            items.fastForEachIndexed { index, item ->
-                CategoryCard(
-                    index = index,
-                    categoryTitle = item,
-                    onCategoryClick = onCategoryClick,
-                    modifier = itemModifier,
-                )
+        if (items.isEmpty()) {
+            Text(
+                text = "데이터가 없습니다.",
+                style = MaterialTheme.typography.bodyMedium,
+                textAlign = TextAlign.Center,
+            )
+        } else {
+            when (type) {
+                CategoriesType.GENERAL -> {
+                    items.fastForEachIndexed { index, item ->
+                        CategoryCard(
+                            index = index,
+                            categoryTitle = item,
+                            onCategoryClick = onCategoryClick,
+                            modifier = Modifier.fillMaxWidth(),
+                        )
+                        Spacer(modifier = Modifier.height(space12))
+                    }
+                }
+
+                CategoriesType.FLOW -> {
+                    FlowRow(
+                        maxItemsInEachRow = 3,
+                    ) {
+                        val itemModifier =
+                            Modifier
+                                .height(100.dp)
+                                .padding(space8)
+                                .clip(RoundedCornerShape(space8))
+                        items.fastForEachIndexed { index, item ->
+                            CategoryCard(
+                                index = index,
+                                categoryTitle = item,
+                                onCategoryClick = onCategoryClick,
+                                modifier = itemModifier,
+                            )
+                        }
+                    }
+                }
             }
         }
-
     }
 }
 
@@ -109,18 +151,45 @@ private fun CategoryCard(
 @Preview
 @Composable
 private fun PreviewCategories() {
-    Categories(
-        modifier = Modifier.fillMaxWidth(),
-        items = persistentListOf(
-            "a",
-            "b",
-            "c",
-            "d",
-            "e",
-            "efghijklmnop",
-        ),
-        onCategoryClick = { _, _ -> },
-    )
+    Column {
+        Categories(
+            title = "Category",
+            modifier = Modifier.fillMaxWidth(),
+            items = persistentListOf(
+                "a",
+                "b",
+                "c",
+                "d",
+                "e",
+                "efghijklmnop",
+            ),
+            onCategoryClick = { _, _ -> },
+            type = CategoriesType.FLOW,
+        )
+
+        Categories(
+            title = "Category",
+            modifier = Modifier.fillMaxWidth(),
+            items = persistentListOf(
+                "a",
+                "b",
+                "c",
+                "d",
+                "e",
+                "efghijklmnop",
+            ),
+            onCategoryClick = { _, _ -> },
+            type = CategoriesType.GENERAL,
+        )
+
+        Categories(
+            title = "Category",
+            modifier = Modifier.fillMaxWidth(),
+            items = persistentListOf(),
+            onCategoryClick = { _, _ -> },
+            type = CategoriesType.FLOW,
+        )
+    }
 }
 
 @Preview

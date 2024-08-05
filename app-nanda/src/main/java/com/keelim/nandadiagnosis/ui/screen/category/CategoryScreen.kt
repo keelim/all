@@ -1,8 +1,5 @@
-@file:OptIn(ExperimentalLayoutApi::class)
-
 package com.keelim.nandadiagnosis.ui.screen.category
 
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
@@ -15,6 +12,7 @@ import kotlinx.collections.immutable.persistentListOf
 @Composable
 fun CategoryRoute(
     onCategoryClick: (Int, String) -> Unit,
+    onEditTypeClick: () -> Unit,
     viewModel: CategoryViewModel = hiltViewModel(),
 ) = trace("CategoryRoute") {
     val state by viewModel.state.collectAsStateWithLifecycle(
@@ -23,6 +21,7 @@ fun CategoryRoute(
     CategoryScreen(
         state = state,
         onCategoryClick = onCategoryClick,
+        onEditTypeClick = onEditTypeClick,
     )
 }
 
@@ -30,8 +29,13 @@ fun CategoryRoute(
 fun CategoryScreen(
     state: CategoryState,
     onCategoryClick: (Int, String) -> Unit,
+    onEditTypeClick: () -> Unit,
 ) = trace("CategoryScreen") {
-    CategoryStateSection(uiState = state, onCategoryClick = onCategoryClick)
+    CategoryStateSection(
+        uiState = state,
+        onCategoryClick = onCategoryClick,
+        onEditTypeClick = onEditTypeClick,
+    )
 }
 
 @Preview(showBackground = true)
@@ -44,5 +48,6 @@ private fun PreviewCategoryScreen() {
             ),
         ),
         onCategoryClick = { _, _ -> },
+        onEditTypeClick = { },
     )
 }

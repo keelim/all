@@ -19,12 +19,25 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
+private val defaultSchemeList = listOf(
+    "http",
+    "https",
+)
+
+
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val repository: ArduconRepository,
 ) : ViewModel() {
     private val _onClickSearch = MutableStateFlow("")
     val onClickSearch = _onClickSearch.asStateFlow()
+
+    val schemeList: StateFlow<List<String>> = repository.getSchemeList()
+        .map {
+            defaultSchemeList + it
+        }
+        .flowOn(Dispatchers.IO)
+        .stateIn(viewModelScope, started = SharingStarted.WhileSubscribed(), emptyList())
 
     val deepLinkList: StateFlow<Pair<List<DeepLink>, List<DeepLink>>> = repository.getDeepLinkUrls()
         .map {
@@ -93,5 +106,15 @@ class MainViewModel @Inject constructor(
 
     fun clear() {
         _onClickSearch.value = ""
+    }
+
+    fun onRegister(scheme: String) {
+        viewModelScope.launch {
+            runCatching {
+                repository.insertScheme(scheme)
+            }.onFailure {
+                Timber.d("onRegister() onError() -> " + it.localizedMessage)
+            }
+        }
     }
 }

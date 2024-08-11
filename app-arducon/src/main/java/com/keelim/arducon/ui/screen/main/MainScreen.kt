@@ -47,6 +47,9 @@ fun MainRoute(
     onNavigateSearch: () -> Unit,
     viewModel: MainViewModel = hiltViewModel(),
 ) {
+    val schemeList by viewModel.schemeList.collectAsStateWithLifecycle(
+        lifecycleOwner = LocalLifecycleOwner.current,
+    )
     val items by viewModel.deepLinkList.collectAsStateWithLifecycle(
         lifecycleOwner = LocalLifecycleOwner.current,
     )
@@ -71,6 +74,7 @@ fun MainRoute(
     }
 
     MainScreen(
+        schemeList = schemeList,
         favoriteItems = items.first,
         generalItems = items.second,
         onSearch = viewModel::onClickSearch,
@@ -78,6 +82,7 @@ fun MainRoute(
         onDelete = viewModel::deleteDeepLinkUrl,
         onQrCodeClick = onQrCodeClick,
         onNavigateSearch = onNavigateSearch,
+        onRegister = viewModel::onRegister,
     )
 }
 
@@ -85,11 +90,13 @@ fun MainRoute(
 fun MainScreen(
     favoriteItems: List<DeepLink>,
     generalItems: List<DeepLink>,
+    schemeList: List<String>,
     onSearch: (String, String) -> Unit,
     onUpdate: (DeepLink) -> Unit,
     onDelete: (DeepLink) -> Unit,
     onQrCodeClick: () -> Unit,
     onNavigateSearch: () -> Unit,
+    onRegister: (String) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -140,7 +147,9 @@ fun MainScreen(
         }
 
         MainTopSection(
+            schemeList = schemeList,
             onSearch = onSearch,
+            onRegister = onRegister,
         )
         HorizontalDivider()
         DeepLinkSection(
@@ -162,6 +171,7 @@ fun MainScreen(
 @Composable
 private fun PreviewMainScreen() {
     MainScreen(
+        schemeList = listOf("http", "https"),
         onSearch = { _, _ -> },
         onUpdate = {},
         onDelete = {},
@@ -177,5 +187,6 @@ private fun PreviewMainScreen() {
         ),
         onQrCodeClick = {},
         onNavigateSearch = {},
+        onRegister = {},
     )
 }

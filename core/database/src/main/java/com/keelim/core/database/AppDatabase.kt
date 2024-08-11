@@ -18,6 +18,7 @@ import com.keelim.core.database.model.LocalTask
 import com.keelim.core.database.model.NandaEntity
 import com.keelim.core.database.model.NetworkCache
 import com.keelim.core.database.model.NoticesEntity
+import com.keelim.core.database.model.SchemeEntity
 import com.keelim.core.database.model.SimpleHistory
 import com.keelim.core.database.model.TimerHistory
 import java.util.Date
@@ -67,12 +68,16 @@ abstract class NandaAppDatabase : RoomDatabase() {
 }
 
 @Database(
-    entities = [DeepLinkEntity::class],
-    version = 3,
+    entities = [
+        DeepLinkEntity::class,
+        SchemeEntity::class,
+   ],
+    version = 4,
     exportSchema = true,
     autoMigrations = [
         AutoMigration(from = 1, to = 2),
         AutoMigration(from = 2, to = 3),
+        AutoMigration(from = 3, to = 4),
     ],
 )
 abstract class ArduconDatabase : RoomDatabase() {

@@ -44,7 +44,7 @@ fun NandaHost(
     val context = LocalContext.current
     NavHost(
         navController = navController,
-        startDestination = NandaRoute.Nutrient,
+        startDestination = NandaRoute.Category,
         modifier = modifier,
     ) {
         webScreen(
@@ -61,6 +61,11 @@ fun NandaHost(
                 navController.navigateSettings()
             },
             onCategoryClick = { index, category -> navController.navigateToDiagnosis(index.toString(), category) },
+            onEditTypeClick = {
+                coroutineScope.launch {
+                    onShowSnackbar("현재 업데이트 준비중입니다. ", null)
+                }
+            },
             onDismiss = { coroutineScope.launch { bottomSheetState.hide() } },
             nestedGraphs = { diagnosisScreen() },
         )

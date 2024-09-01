@@ -10,6 +10,10 @@ import androidx.navigation.compose.NavHost
 import com.keelim.arducon.ui.screen.main.mainScreen
 import com.keelim.arducon.ui.screen.qr.navigateQr
 import com.keelim.arducon.ui.screen.qr.qrScreen
+import com.keelim.arducon.ui.screen.saastatus.main.navigateSaastatus
+import com.keelim.arducon.ui.screen.saastatus.main.saastatusScreen
+import com.keelim.arducon.ui.screen.saastatus.search.navigateSaastatusSearch
+import com.keelim.arducon.ui.screen.saastatus.search.saastatusSearchScreen
 import com.keelim.arducon.ui.screen.search.navigateSearch
 import com.keelim.arducon.ui.screen.search.searchScreen
 import com.keelim.composeutil.AppState
@@ -41,11 +45,12 @@ fun ArduConHost(
             },
             onQrCodeClick = navController::navigateQr,
             onNavigateSearch = navController::navigateSearch,
+            onNavigateSaastatus = navController::navigateSaastatus,
             nestedGraphs = {
                 qrScreen(
                     onShowBarcode = { barcode ->
                         coroutineScope.launch {
-                            if (onShowSnackbar(barcode, null)) {
+                            if (onShowSnackbar(barcode, ">")) {
                                 Intent(
                                     Intent.ACTION_VIEW,
                                     Uri.parse(barcode),
@@ -63,5 +68,11 @@ fun ArduConHost(
                 )
             },
         )
+        saastatusScreen(
+            onRegister = navController::navigateSaastatusSearch,
+        ) {
+            saastatusSearchScreen {
+            }
+        }
     }
 }

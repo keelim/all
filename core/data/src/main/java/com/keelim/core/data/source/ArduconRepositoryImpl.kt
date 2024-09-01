@@ -6,6 +6,7 @@ import com.keelim.core.database.repository.ArduconDataSource
 import com.keelim.core.database.repository.ArduconRepository
 import com.keelim.model.DeepLink
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -36,4 +37,12 @@ class ArduconRepositoryImpl @Inject constructor(
             local.updateDeepLinkUrl(deepLink)
         }
     }
+
+    override suspend fun insertScheme(scheme: String) {
+        withContext(dispatcher) {
+            local.insertScheme(scheme)
+        }
+    }
+
+    override fun getSchemeList(): Flow<List<String>> = local.getSchemeList()
 }

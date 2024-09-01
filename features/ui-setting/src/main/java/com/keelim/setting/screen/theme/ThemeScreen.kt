@@ -22,7 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.util.fastForEach
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.LocalLifecycleOwner
+
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.composeutil.resource.space8
 import com.keelim.shared.data.ThemeType
@@ -31,9 +31,7 @@ import com.keelim.shared.data.ThemeType
 fun ThemeRoute(
     viewModel: ThemeViewModel = hiltViewModel(),
 ) {
-    val themeTypeState by viewModel.themeTypeState.collectAsStateWithLifecycle(
-        lifecycleOwner = LocalLifecycleOwner.current,
-    )
+    val themeTypeState by viewModel.themeTypeState.collectAsStateWithLifecycle()
 
     ThemeScreen(
         themeTypeState = themeTypeState,

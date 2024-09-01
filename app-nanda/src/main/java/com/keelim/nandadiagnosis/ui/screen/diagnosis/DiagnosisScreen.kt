@@ -23,7 +23,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.util.trace
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.LocalLifecycleOwner
+
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
@@ -36,9 +36,7 @@ fun DiagnosisRoute(
     onDiagnosisClick: () -> Unit,
     viewModel: DiagnosisViewModel = hiltViewModel(),
 ) = trace("DiagnosisRoute") {
-    val screenState by viewModel.screenState.collectAsStateWithLifecycle(
-        lifecycleOwner = LocalLifecycleOwner.current,
-    )
+    val screenState by viewModel.screenState.collectAsStateWithLifecycle()
     DiagnosisScreen(
         screenState = screenState,
         onDiagnosisClick = onDiagnosisClick,

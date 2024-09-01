@@ -22,7 +22,7 @@ fun SaastatusEmpty(
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier
+        modifier = modifier,
     ) {
         Text(
             text = "지원 서비스 없음",
@@ -31,16 +31,16 @@ fun SaastatusEmpty(
             ),
         )
         Spacer(
-            modifier = Modifier.height(space4)
+            modifier = Modifier.height(space4),
         )
         Text(
             text = "서비스를 등록해보세요.",
-            style = MaterialTheme.typography.bodyMedium
+            style = MaterialTheme.typography.bodyMedium,
         )
 
         IconButton(
             onClick = onRegister,
-            modifier = Modifier.align(Alignment.CenterHorizontally)
+            modifier = Modifier.align(Alignment.CenterHorizontally),
         ) {
             Icon(imageVector = Icons.Filled.AddCircle, contentDescription = null)
         }

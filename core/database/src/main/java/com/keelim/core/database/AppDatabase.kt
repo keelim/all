@@ -71,7 +71,7 @@ abstract class NandaAppDatabase : RoomDatabase() {
     entities = [
         DeepLinkEntity::class,
         SchemeEntity::class,
-   ],
+    ],
     version = 4,
     exportSchema = true,
     autoMigrations = [

@@ -12,6 +12,8 @@ import com.keelim.arducon.ui.screen.qr.navigateQr
 import com.keelim.arducon.ui.screen.qr.qrScreen
 import com.keelim.arducon.ui.screen.saastatus.main.navigateSaastatus
 import com.keelim.arducon.ui.screen.saastatus.main.saastatusScreen
+import com.keelim.arducon.ui.screen.saastatus.search.navigateSaastatusSearch
+import com.keelim.arducon.ui.screen.saastatus.search.saastatusSearchScreen
 import com.keelim.arducon.ui.screen.search.navigateSearch
 import com.keelim.arducon.ui.screen.search.searchScreen
 import com.keelim.composeutil.AppState
@@ -67,13 +69,11 @@ fun ArduConHost(
             },
         )
         saastatusScreen(
-            onRegister = {
-                coroutineScope.launch {
-                    onShowSnackbar("현재 업데이트 준비중입니다. ", null)
-                }
-            },
+            onRegister = navController::navigateSaastatusSearch,
         ) {
+            saastatusSearchScreen {
 
+            }
         }
     }
 }

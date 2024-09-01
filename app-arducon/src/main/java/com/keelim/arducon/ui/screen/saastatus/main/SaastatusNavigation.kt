@@ -14,7 +14,7 @@ fun NavGraphBuilder.saastatusScreen(
     nestedGraphs: NavGraphBuilder.() -> Unit,
 ) {
     composable<SaastatusRoute.Main> {
-
+        SaastatusRoute()
     }
     nestedGraphs()
 }

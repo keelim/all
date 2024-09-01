@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -45,6 +46,7 @@ fun MainRoute(
     onShowMessage: (String) -> Unit,
     onQrCodeClick: () -> Unit,
     onNavigateSearch: () -> Unit,
+    onNavigateSaastatus: () -> Unit,
     viewModel: MainViewModel = hiltViewModel(),
 ) {
     val schemeList by viewModel.schemeList.collectAsStateWithLifecycle(
@@ -83,6 +85,7 @@ fun MainRoute(
         onQrCodeClick = onQrCodeClick,
         onNavigateSearch = onNavigateSearch,
         onRegister = viewModel::onRegister,
+        onNavigateSaastatus = onNavigateSaastatus
     )
 }
 
@@ -97,6 +100,7 @@ fun MainScreen(
     onQrCodeClick: () -> Unit,
     onNavigateSearch: () -> Unit,
     onRegister: (String) -> Unit,
+    onNavigateSaastatus: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -124,6 +128,16 @@ fun MainScreen(
                 )
             }
             val isDark = isSystemInDarkTheme()
+            Icon(
+                imageVector = Icons.Default.AddCircle,
+                contentDescription = "navigate saastatus",
+                modifier = Modifier
+                    .size(space32)
+                    .clickable { onNavigateSaastatus() },
+            )
+            Spacer(
+                modifier = Modifier.width(space12),
+            )
             Icon(
                 imageVector = Icons.Default.Search,
                 contentDescription = "Search",
@@ -188,5 +202,6 @@ private fun PreviewMainScreen() {
         onQrCodeClick = {},
         onNavigateSearch = {},
         onRegister = {},
+        onNavigateSaastatus = {},
     )
 }

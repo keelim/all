@@ -1,5 +1,6 @@
 package com.keelim.arducon.ui.screen.saastatus.main
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -68,12 +69,17 @@ fun SaastatusScreen(
             SaastatusState.Loading -> Loading()
             is SaastatusState.Success -> {
                 if (state.items.isEmpty()) {
-                    SaastatusEmpty(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(space12),
-                        onRegister = onRegister,
-                    )
+                    Column(
+                        modifier = Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.Center,
+                    ) {
+                        SaastatusEmpty(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(space12),
+                            onRegister = onRegister,
+                        )
+                    }
                 } else {
                     // not supported
                 }

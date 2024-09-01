@@ -11,10 +11,13 @@ fun NavController.navigateSaastatus(navOptions: NavOptions? = null) {
 }
 
 fun NavGraphBuilder.saastatusScreen(
+    onRegister: () -> Unit,
     nestedGraphs: NavGraphBuilder.() -> Unit,
 ) {
     composable<SaastatusRoute.Main> {
-        SaastatusRoute()
+        SaastatusRoute(
+            onRegister = onRegister,
+        )
     }
     nestedGraphs()
 }

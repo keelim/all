@@ -66,7 +66,13 @@ fun ArduConHost(
                 )
             },
         )
-        saastatusScreen {
+        saastatusScreen(
+            onRegister = {
+                coroutineScope.launch {
+                    onShowSnackbar("현재 업데이트 준비중입니다. ", null)
+                }
+            },
+        ) {
 
         }
     }

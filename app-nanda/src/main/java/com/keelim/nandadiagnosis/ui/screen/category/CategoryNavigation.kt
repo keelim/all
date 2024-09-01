@@ -21,11 +21,13 @@ fun NavGraphBuilder.categoryScreen(
     onAboutClick: () -> Unit,
     onDismiss: () -> Unit,
     onCategoryClick: (Int, String) -> Unit,
+    onEditTypeClick: () -> Unit,
     nestedGraphs: NavGraphBuilder.() -> Unit,
 ) {
     composable<NandaRoute.Category> {
         CategoryRoute(
             onCategoryClick = onCategoryClick,
+            onEditTypeClick = onEditTypeClick,
         )
         if (bottomSheetState.isVisible) {
             MainBottomSheet(

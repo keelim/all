@@ -9,4 +9,6 @@ interface ArduconDataSource {
     fun getDeepLinkUrlsFiltered(keyword: String): Flow<List<DeepLink>>
     suspend fun deleteDeepLinkUrl(deepLink: DeepLink)
     suspend fun updateDeepLinkUrl(deepLink: DeepLink)
+    suspend fun insertScheme(scheme: String)
+    fun getSchemeList(): Flow<List<String>>
 }

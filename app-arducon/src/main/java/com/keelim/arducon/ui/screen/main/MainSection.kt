@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalFoundationApi::class)
+@file:OptIn(ExperimentalFoundationApi::class, ExperimentalLayoutApi::class)
 
 package com.keelim.arducon.ui.screen.main
 
@@ -11,6 +11,8 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,7 +21,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -30,10 +31,12 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -47,19 +50,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.util.fastForEach
 import coil.compose.AsyncImage
 import com.keelim.composeutil.resource.space2
+import com.keelim.composeutil.resource.space24
+import com.keelim.composeutil.resource.space32
 import com.keelim.composeutil.resource.space64
 import com.keelim.composeutil.resource.space8
 import com.keelim.model.DeepLink
 
-private val schemeList = listOf(
-    "http",
-    "https",
-)
-
 @Composable
-fun MainTopSection(onSearch: (String, String) -> Unit) {
+fun MainTopSection(
+    schemeList: List<String>,
+    onSearch: (String, String) -> Unit,
+    onRegister: (String) -> Unit,
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -68,8 +73,10 @@ fun MainTopSection(onSearch: (String, String) -> Unit) {
         val (text, setText) = remember { mutableStateOf("") }
         val (title, setTitle) = remember { mutableStateOf("") }
         val (isError, setError) = remember { mutableStateOf(false) }
-
-        Row {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
             TextField(
                 modifier = Modifier.weight(1f),
                 value = text,
@@ -104,29 +111,30 @@ fun MainTopSection(onSearch: (String, String) -> Unit) {
             Spacer(
                 modifier = Modifier.width(space8),
             )
-            Button(
-                onClick = {
-                    if (text.isEmpty()) {
-                        setError(true)
-                    } else {
-                        setError(false)
-                        onSearch(text, title)
-                    }
-                },
-            ) {
-                Text("Search")
-            }
+            Icon(
+                imageVector = Icons.Default.Search,
+                modifier = Modifier
+                    .size(space32)
+                    .clickable {
+                        if (text.isEmpty()) {
+                            setError(true)
+                        } else {
+                            setError(false)
+                            onSearch(text, title)
+                        }
+                    },
+                contentDescription = "Search",
+            )
         }
-
         Spacer(
             modifier = Modifier.height(space8),
         )
-
         TextField(
+            modifier = Modifier.fillMaxWidth(),
             value = title,
             isError = isError,
             onValueChange = setTitle,
-            label = { Text("please write your title") },
+            label = { Text("please write title") },
             trailingIcon = {
                 if (title.isNotEmpty()) {
                     Icon(
@@ -142,31 +150,109 @@ fun MainTopSection(onSearch: (String, String) -> Unit) {
                 imeAction = ImeAction.Done,
             ),
         )
+        Spacer(
+            modifier = Modifier.height(space24),
+        )
+        HorizontalDivider()
+        Spacer(
+            modifier = Modifier.height(space24),
+        )
+        RegisterSchemeSection(
+            schemeList = schemeList,
+            setError = setError,
+            setText = setText,
+            onRegister = onRegister,
+        )
+    }
+}
 
-        LazyRow(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = space8),
-            horizontalArrangement = Arrangement.spacedBy(space8),
-        ) {
-            items(
-                items = schemeList,
-            ) { scheme ->
-                AssistChip(
-                    onClick = {
+@Composable
+fun RegisterSchemeSection(
+    schemeList: List<String>,
+    setError: (Boolean) -> Unit,
+    setText: (String) -> Unit,
+    onRegister: (String) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val (scheme, setScheme) = remember { mutableStateOf("") }
+
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        TextField(
+            modifier = Modifier.weight(1f),
+            value = scheme,
+            onValueChange = setScheme,
+            label = { Text("please write your scheme") },
+            trailingIcon = {
+                if (scheme.isNotEmpty()) {
+                    Icon(
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = "Clear",
+                        modifier = Modifier.clickable {
+                            setScheme("")
+                        },
+                    )
+                }
+            },
+            keyboardOptions = KeyboardOptions(
+                imeAction = ImeAction.Done,
+            ),
+            keyboardActions = KeyboardActions(
+                onDone = {
+                    if (scheme.isEmpty()) {
+                        setError(true)
+                    } else {
                         setError(false)
-                        setText("$scheme://")
-                    },
-                    label = { Text("$scheme://") },
-                    leadingIcon = {
-                        Icon(
-                            Icons.Filled.Add,
-                            contentDescription = "Add $scheme",
-                            Modifier.size(AssistChipDefaults.IconSize),
-                        )
-                    },
-                )
-            }
+                        onRegister(scheme)
+                    }
+                },
+            ),
+        )
+        Spacer(
+            modifier = Modifier.width(space8),
+        )
+        Icon(
+            imageVector = Icons.Default.Add,
+            modifier = Modifier
+                .size(space32)
+                .clickable {
+                    if (scheme.isEmpty()) {
+                        setError(true)
+                    } else {
+                        setError(false)
+                        onRegister(scheme)
+                    }
+                },
+            contentDescription = "Register",
+        )
+    }
+    Spacer(
+        modifier = Modifier.height(space8),
+    )
+    FlowRow(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = space8),
+        maxItemsInEachRow = 4,
+        horizontalArrangement = Arrangement.spacedBy(space8),
+    ) {
+        schemeList.fastForEach { scheme ->
+            AssistChip(
+                onClick = {
+                    setError(false)
+                    setText("$scheme://")
+                },
+                label = { Text("$scheme://") },
+                leadingIcon = {
+                    Icon(
+                        Icons.Filled.Add,
+                        contentDescription = "Add $scheme",
+                        Modifier.size(AssistChipDefaults.IconSize),
+                    )
+                },
+            )
         }
     }
 }
@@ -355,7 +441,9 @@ private fun DeepLinkItem(
 @Composable
 private fun PreviewMainTopSection() {
     MainTopSection(
+        schemeList = listOf("https", "http"),
         onSearch = { _, _ -> },
+        onRegister = {},
     )
 }
 

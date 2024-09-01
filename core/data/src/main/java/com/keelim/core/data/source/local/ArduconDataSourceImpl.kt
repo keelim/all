@@ -3,8 +3,11 @@ package com.keelim.core.data.source.local
 import com.keelim.core.database.dao.ArduconDao
 import com.keelim.core.database.mapper.toDeepLink
 import com.keelim.core.database.mapper.toDeepLinkEntity
+import com.keelim.core.database.mapper.toPlain
+import com.keelim.core.database.mapper.toSchemeEntity
 import com.keelim.core.database.repository.ArduconDataSource
 import com.keelim.model.DeepLink
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
@@ -16,4 +19,6 @@ class ArduconDataSourceImpl @Inject constructor(
     override fun getDeepLinkUrlsFiltered(keyword: String) = dao.getDeepLinkUrlsFiltered(keyword).map { it.toDeepLink() }
     override suspend fun deleteDeepLinkUrl(deepLink: DeepLink) = dao.deleteDeepLinkUrl(deepLink.toDeepLinkEntity())
     override suspend fun updateDeepLinkUrl(deepLink: DeepLink) = dao.updateDeepLink(deepLink.toDeepLinkEntity())
+    override suspend fun insertScheme(scheme: String) = dao.insertScheme(scheme.toSchemeEntity())
+    override fun getSchemeList(): Flow<List<String>> = dao.getSchemeList().map { it.toPlain() }
 }

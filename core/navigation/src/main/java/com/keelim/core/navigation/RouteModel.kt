@@ -4,6 +4,11 @@ import kotlinx.serialization.Serializable
 
 interface AppRoute
 
+sealed interface SaastatusRoute : AppRoute {
+    @Serializable
+    data object Main : SaastatusRoute
+}
+
 sealed interface ArduconRoute : AppRoute {
     @Serializable
     data object Main : ArduconRoute

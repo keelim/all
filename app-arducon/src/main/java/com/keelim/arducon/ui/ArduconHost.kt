@@ -10,6 +10,7 @@ import androidx.navigation.compose.NavHost
 import com.keelim.arducon.ui.screen.main.mainScreen
 import com.keelim.arducon.ui.screen.qr.navigateQr
 import com.keelim.arducon.ui.screen.qr.qrScreen
+import com.keelim.arducon.ui.screen.saastatus.main.saastatusScreen
 import com.keelim.arducon.ui.screen.search.navigateSearch
 import com.keelim.arducon.ui.screen.search.searchScreen
 import com.keelim.composeutil.AppState
@@ -63,5 +64,8 @@ fun ArduConHost(
                 )
             },
         )
+        saastatusScreen {
+
+        }
     }
 }

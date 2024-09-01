@@ -59,9 +59,8 @@ fun NotificationRoute() {
 @Composable
 private fun NotificationScreen(viewModel: NotificationViewModel = hiltViewModel()) {
     val notificationState: NotificationState by
-        viewModel.notificationState.collectAsStateWithLifecycle(
-            lifecycleOwner = LocalLifecycleOwner.current,
-        )
+        viewModel.notificationState.collectAsStateWithLifecycle()
+
     val listState = rememberLazyListState()
     val hasScrolled by remember { derivedStateOf { listState.firstVisibleItemScrollOffset > 0 } }
     val appBarElevation by

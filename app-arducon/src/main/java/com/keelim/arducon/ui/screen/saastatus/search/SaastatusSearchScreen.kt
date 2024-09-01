@@ -9,23 +9,17 @@ import com.keelim.arducon.ui.screen.saastatus.SaastatusColumn
 fun SaastatusSearchRoute(
     viewModel: SaastatusSearchViewModel = hiltViewModel(),
 ) {
-    SaastatusSearchScreen(
-
-    )
+    SaastatusSearchScreen()
 }
 
 @Composable
 fun SaastatusSearchScreen() {
     SaastatusColumn {
-
     }
 }
-
-
 
 @Preview
 @Composable
 private fun PreviewSaastatusSearchScreen() {
     SaastatusSearchScreen()
 }
-

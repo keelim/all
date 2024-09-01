@@ -5,8 +5,4 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class SaastatusSearchViewModel @Inject constructor(
-
-) : ViewModel() {
-
-}
+class SaastatusSearchViewModel @Inject constructor() : ViewModel()

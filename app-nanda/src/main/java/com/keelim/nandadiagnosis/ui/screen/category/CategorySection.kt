@@ -42,7 +42,7 @@ import kotlinx.collections.immutable.persistentListOf
 fun CategoryStateSection(
     uiState: CategoryState,
     onCategoryClick: (Int, String) -> Unit,
-    onEditTypeClick: () -> Unit
+    onEditTypeClick: () -> Unit,
 ) = trace("CategoryStateSection") {
     when (uiState) {
         CategoryState.Error,
@@ -69,8 +69,6 @@ fun CategoryStateSection(
                     onCategoryClick = onCategoryClick,
                     type = CategoriesType.FLOW,
                     onEditTypeClick = {
-
-
                     },
                 )
             }
@@ -105,7 +103,7 @@ private fun Categories(
                 text = title,
                 style = MaterialTheme.typography.bodyMedium,
             )
-            if(type == CategoriesType.GENERAL) {
+            if (type == CategoriesType.GENERAL) {
                 Icon(
                     imageVector = Icons.Rounded.Edit,
                     contentDescription = "edit",
@@ -123,7 +121,7 @@ private fun Categories(
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(space32)
+                    .height(space32),
             )
         } else {
             when (type) {
@@ -242,6 +240,6 @@ private fun PreviewCategoryCard() {
         categoryTitle = "병명",
         onCategoryClick = { _, _ -> },
         modifier = Modifier,
-        index = 4713
+        index = 4713,
     )
 }

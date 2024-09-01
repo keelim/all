@@ -64,4 +64,3 @@ private fun PreviewSaastatusScreen() {
         onRegister = {},
     )
 }
-

@@ -72,7 +72,6 @@ fun ArduConHost(
             onRegister = navController::navigateSaastatusSearch,
         ) {
             saastatusSearchScreen {
-
             }
         }
     }

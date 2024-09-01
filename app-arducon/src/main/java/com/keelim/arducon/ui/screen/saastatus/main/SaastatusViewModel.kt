@@ -18,9 +18,7 @@ sealed interface SaastatusState {
 }
 
 @HiltViewModel
-class SaastatusViewModel @Inject constructor(
-
-) : ViewModel() {
+class SaastatusViewModel @Inject constructor() : ViewModel() {
 
     private val _state = MutableStateFlow<SaastatusState>(SaastatusState.Loading)
     val state: StateFlow<SaastatusState> = _state.asStateFlow()

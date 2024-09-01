@@ -6,8 +6,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -57,13 +57,13 @@ fun SaastatusScreen(
             )
         }
         Spacer(
-            modifier = Modifier.width(space12),
+            modifier = Modifier.height(space12),
         )
         HorizontalDivider(
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(
-            modifier = Modifier.width(space24),
+            modifier = Modifier.height(space24),
         )
         when (state) {
             SaastatusState.Loading -> Loading()

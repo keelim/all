@@ -33,7 +33,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.trace
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.commonAndroid.model.SealedUiState
 import com.keelim.composeutil.component.layout.EmptyView
@@ -46,9 +45,7 @@ import com.keelim.model.Notices
 fun NotesRoute(
     viewModel: NotesViewModel = hiltViewModel(),
 ) = trace("NotesRoute") {
-    val uiState by viewModel.notesUiState.collectAsStateWithLifecycle(
-        lifecycleOwner = LocalLifecycleOwner.current,
-    )
+    val uiState by viewModel.notesUiState.collectAsStateWithLifecycle()
     NotesScreen(
         uiState = uiState,
         onDeleteClick = viewModel::deleteNote,

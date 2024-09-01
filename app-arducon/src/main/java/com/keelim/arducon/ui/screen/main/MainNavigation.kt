@@ -14,6 +14,7 @@ fun NavGraphBuilder.mainScreen(
     onShowMessage: (String) -> Unit,
     onQrCodeClick: () -> Unit,
     onNavigateSearch: () -> Unit,
+    onNavigateSaastatus: () -> Unit,
     nestedGraphs: NavGraphBuilder.() -> Unit,
 ) {
     composable<ArduconRoute.Main> {
@@ -21,6 +22,7 @@ fun NavGraphBuilder.mainScreen(
             onShowMessage = onShowMessage,
             onQrCodeClick = onQrCodeClick,
             onNavigateSearch = onNavigateSearch,
+            onNavigateSaastatus = onNavigateSaastatus,
         )
     }
     nestedGraphs()

@@ -43,7 +43,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.resource.space12
@@ -60,9 +59,8 @@ fun NotificationRoute() {
 @Composable
 private fun NotificationScreen(viewModel: NotificationViewModel = hiltViewModel()) {
     val notificationState: NotificationState by
-        viewModel.notificationState.collectAsStateWithLifecycle(
-            lifecycleOwner = LocalLifecycleOwner.current,
-        )
+        viewModel.notificationState.collectAsStateWithLifecycle()
+
     val listState = rememberLazyListState()
     val hasScrolled by remember { derivedStateOf { listState.firstVisibleItemScrollOffset > 0 } }
     val appBarElevation by

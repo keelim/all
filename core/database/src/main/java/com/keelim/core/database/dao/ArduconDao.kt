@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.keelim.core.database.model.DeepLinkEntity
+import com.keelim.core.database.model.SchemeEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -25,4 +26,10 @@ interface ArduconDao {
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateDeepLink(deepLink: DeepLinkEntity)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertScheme(scheme: SchemeEntity)
+
+    @Query("SELECT * FROM scheme  ORDER BY `timestamp` DESC")
+    fun getSchemeList(): Flow<List<SchemeEntity>>
 }

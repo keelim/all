@@ -40,7 +40,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.trace
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.composeutil.component.custom.NumberPickerList
 import com.keelim.composeutil.resource.space16
@@ -53,9 +52,7 @@ fun TimerScreen(
     onNavigateTimerHistory: () -> Unit,
     viewModel: TimerViewModel = hiltViewModel(),
 ) = trace("TimerScreen") {
-    val timerUiState by viewModel.timerUiState.collectAsStateWithLifecycle(
-        lifecycleOwner = LocalLifecycleOwner.current,
-    )
+    val timerUiState by viewModel.timerUiState.collectAsStateWithLifecycle()
     val isCountDownTimerVisible = viewModel.isRunning
     val addedTime = viewModel.addTime(System.currentTimeMillis())
     val dialogState = remember { mutableStateOf(false) }

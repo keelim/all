@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -29,7 +30,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.arducon.ui.component.AdBannerView
 import com.keelim.composeutil.component.icon.rememberQrCodeScanner
@@ -45,14 +45,12 @@ fun MainRoute(
     onShowMessage: (String) -> Unit,
     onQrCodeClick: () -> Unit,
     onNavigateSearch: () -> Unit,
+    onNavigateSaastatus: () -> Unit,
     viewModel: MainViewModel = hiltViewModel(),
 ) {
-    val items by viewModel.deepLinkList.collectAsStateWithLifecycle(
-        lifecycleOwner = LocalLifecycleOwner.current,
-    )
-    val isSearched = viewModel.onClickSearch.collectAsStateWithLifecycle(
-        lifecycleOwner = LocalLifecycleOwner.current,
-    )
+    val schemeList by viewModel.schemeList.collectAsStateWithLifecycle()
+    val items by viewModel.deepLinkList.collectAsStateWithLifecycle()
+    val isSearched = viewModel.onClickSearch.collectAsStateWithLifecycle()
 
     val context = LocalContext.current
     LaunchedEffect(isSearched.value) {
@@ -71,6 +69,7 @@ fun MainRoute(
     }
 
     MainScreen(
+        schemeList = schemeList,
         favoriteItems = items.first,
         generalItems = items.second,
         onSearch = viewModel::onClickSearch,
@@ -78,6 +77,8 @@ fun MainRoute(
         onDelete = viewModel::deleteDeepLinkUrl,
         onQrCodeClick = onQrCodeClick,
         onNavigateSearch = onNavigateSearch,
+        onRegister = viewModel::onRegister,
+        onNavigateSaastatus = onNavigateSaastatus,
     )
 }
 
@@ -85,11 +86,14 @@ fun MainRoute(
 fun MainScreen(
     favoriteItems: List<DeepLink>,
     generalItems: List<DeepLink>,
+    schemeList: List<String>,
     onSearch: (String, String) -> Unit,
     onUpdate: (DeepLink) -> Unit,
     onDelete: (DeepLink) -> Unit,
     onQrCodeClick: () -> Unit,
     onNavigateSearch: () -> Unit,
+    onRegister: (String) -> Unit,
+    onNavigateSaastatus: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -118,6 +122,16 @@ fun MainScreen(
             }
             val isDark = isSystemInDarkTheme()
             Icon(
+                imageVector = Icons.Default.AddCircle,
+                contentDescription = "navigate saastatus",
+                modifier = Modifier
+                    .size(space32)
+                    .clickable { onNavigateSaastatus() },
+            )
+            Spacer(
+                modifier = Modifier.width(space12),
+            )
+            Icon(
                 imageVector = Icons.Default.Search,
                 contentDescription = "Search",
                 modifier = Modifier
@@ -140,7 +154,9 @@ fun MainScreen(
         }
 
         MainTopSection(
+            schemeList = schemeList,
             onSearch = onSearch,
+            onRegister = onRegister,
         )
         HorizontalDivider()
         DeepLinkSection(
@@ -162,6 +178,7 @@ fun MainScreen(
 @Composable
 private fun PreviewMainScreen() {
     MainScreen(
+        schemeList = listOf("http", "https"),
         onSearch = { _, _ -> },
         onUpdate = {},
         onDelete = {},
@@ -177,5 +194,7 @@ private fun PreviewMainScreen() {
         ),
         onQrCodeClick = {},
         onNavigateSearch = {},
+        onRegister = {},
+        onNavigateSaastatus = {},
     )
 }

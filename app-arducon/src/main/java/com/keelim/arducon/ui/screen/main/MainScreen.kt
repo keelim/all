@@ -30,7 +30,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.arducon.ui.component.AdBannerView
 import com.keelim.composeutil.component.icon.rememberQrCodeScanner
@@ -49,15 +48,9 @@ fun MainRoute(
     onNavigateSaastatus: () -> Unit,
     viewModel: MainViewModel = hiltViewModel(),
 ) {
-    val schemeList by viewModel.schemeList.collectAsStateWithLifecycle(
-        lifecycleOwner = LocalLifecycleOwner.current,
-    )
-    val items by viewModel.deepLinkList.collectAsStateWithLifecycle(
-        lifecycleOwner = LocalLifecycleOwner.current,
-    )
-    val isSearched = viewModel.onClickSearch.collectAsStateWithLifecycle(
-        lifecycleOwner = LocalLifecycleOwner.current,
-    )
+    val schemeList by viewModel.schemeList.collectAsStateWithLifecycle()
+    val items by viewModel.deepLinkList.collectAsStateWithLifecycle()
+    val isSearched = viewModel.onClickSearch.collectAsStateWithLifecycle()
 
     val context = LocalContext.current
     LaunchedEffect(isSearched.value) {

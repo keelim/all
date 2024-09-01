@@ -5,7 +5,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.util.trace
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.LocalLifecycleOwner
+
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.collections.immutable.persistentListOf
 
@@ -15,9 +15,7 @@ fun CategoryRoute(
     onEditTypeClick: () -> Unit,
     viewModel: CategoryViewModel = hiltViewModel(),
 ) = trace("CategoryRoute") {
-    val state by viewModel.state.collectAsStateWithLifecycle(
-        lifecycleOwner = LocalLifecycleOwner.current,
-    )
+    val state by viewModel.state.collectAsStateWithLifecycle()
     CategoryScreen(
         state = state,
         onCategoryClick = onCategoryClick,

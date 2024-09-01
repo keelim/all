@@ -132,14 +132,14 @@ fun DrawText(
         }
     }
     Canvas(
-        modifier = modifier
+        modifier = modifier,
     ) {
         drawIntoCanvas {
             it.nativeCanvas.drawText(
                 text,
                 20f,
                 200f,
-                paint
+                paint,
             )
         }
     }
@@ -166,7 +166,7 @@ fun DrawArc(
     modifier: Modifier = Modifier,
 ) {
     Canvas(
-        modifier = modifier
+        modifier = modifier,
     ) {
         drawArc(
             color = color,
@@ -174,7 +174,7 @@ fun DrawArc(
             sweepAngle = 270f,
             useCenter = true,
             topLeft = Offset.Zero,
-            size = size
+            size = size,
         )
     }
 }
@@ -187,7 +187,7 @@ fun DrawShader(
         val shader = Brush.linearGradient(
             colors = listOf(Color.Red, Color.Blue),
             start = Offset.Zero,
-            end = Offset(size.width, size.height)
+            end = Offset(size.width, size.height),
         )
         drawRect(brush = shader)
     }
@@ -197,7 +197,7 @@ fun DrawShader(
 @Composable
 private fun PreviewDrawCanvas() {
     LazyColumn(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) {
         val modifier = Modifier.size(10.dp)
         item {

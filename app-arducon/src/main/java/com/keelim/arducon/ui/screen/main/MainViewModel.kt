@@ -24,7 +24,6 @@ private val defaultSchemeList = listOf(
     "https",
 )
 
-
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val repository: ArduconRepository,

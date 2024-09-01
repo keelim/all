@@ -18,7 +18,6 @@ import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space24
 
-
 @Composable
 inline fun SaastatusColumn(
     content: @Composable ColumnScope.() -> Unit,
@@ -30,7 +29,7 @@ inline fun SaastatusColumn(
     ) {
         Row(
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxWidth(),
         ) {
             Text(
                 text = "Saastatus",
@@ -43,7 +42,7 @@ inline fun SaastatusColumn(
             modifier = Modifier.height(space12),
         )
         HorizontalDivider(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
         Spacer(
             modifier = Modifier.height(space24),

@@ -78,7 +78,7 @@ fun MainRoute(
         onQrCodeClick = onQrCodeClick,
         onNavigateSearch = onNavigateSearch,
         onRegister = viewModel::onRegister,
-        onNavigateSaastatus = onNavigateSaastatus
+        onNavigateSaastatus = onNavigateSaastatus,
     )
 }
 

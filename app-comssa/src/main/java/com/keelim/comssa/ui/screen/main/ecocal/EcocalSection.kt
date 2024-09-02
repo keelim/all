@@ -204,6 +204,17 @@ fun ListItem(
                         fontWeight = FontWeight.Bold,
                     ),
                 )
+                Spacer(
+                    modifier = Modifier.height(space4),
+                )
+                Text(
+                    text = subtitle,
+                    style = MaterialTheme.typography.bodySmall.copy(
+                        fontWeight = FontWeight.Bold,
+                    ),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
             }
             else -> {
                 Text(

@@ -28,13 +28,14 @@ fun EcoCalEntry.toModel() = EcoCalModel(
 )
 
 enum class EcocalPriority {
-    HIGH, MEDIUM, LOW, NONE;
+    HIGH, MEDIUM, LOW, Holiday, NONE;
 
     companion object {
         fun find(priority: String): EcocalPriority = when (priority) {
             "상" -> HIGH
             "중" -> MEDIUM
             "하" -> LOW
+            "*" -> Holiday
             else -> NONE
         }
     }

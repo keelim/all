@@ -45,6 +45,11 @@ import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space2
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
+import com.keelim.comssa.ui.screen.main.ecocal.EcocalPriority.HIGH
+import com.keelim.comssa.ui.screen.main.ecocal.EcocalPriority.Holiday
+import com.keelim.comssa.ui.screen.main.ecocal.EcocalPriority.LOW
+import com.keelim.comssa.ui.screen.main.ecocal.EcocalPriority.MEDIUM
+import com.keelim.comssa.ui.screen.main.ecocal.EcocalPriority.NONE
 import kotlinx.coroutines.delay
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
@@ -191,36 +196,49 @@ fun ListItem(
             .clickable { onCardClick() }
             .padding(horizontal = space16, vertical = space8),
     ) {
-        Text(
-            text = title,
-            style = MaterialTheme.typography.headlineSmall,
-        )
-        Spacer(
-            modifier = Modifier.height(space4),
-        )
-        Text(
-            text = subtitle,
-            style = MaterialTheme.typography.bodyMedium,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-        )
-        Spacer(
-            modifier = Modifier.height(space2),
-        )
-        Text(
-            text = label,
-            style = MaterialTheme.typography.bodyMedium,
-            fontWeight = FontWeight.Bold,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.clickable { onCountryClick(label) },
-        )
+        when(priority) {
+            Holiday -> {
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.headlineMedium.copy(
+                        fontWeight = FontWeight.Bold,
+                    ),
+                )
+            }
+            else -> {
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.headlineSmall,
+                )
+                Spacer(
+                    modifier = Modifier.height(space4),
+                )
+                Text(
+                    text = subtitle,
+                    style = MaterialTheme.typography.bodyMedium,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
+                Spacer(
+                    modifier = Modifier.height(space2),
+                )
+                Text(
+                    text = label,
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = FontWeight.Bold,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.clickable { onCountryClick(label) },
+                )
+            }
+        }
 
         val color = when (priority) {
-            EcocalPriority.HIGH -> Color.Red
-            EcocalPriority.MEDIUM -> Color.Yellow
-            EcocalPriority.LOW -> Color.Green
-            EcocalPriority.NONE -> Color.Transparent
+            HIGH -> Color.Red
+            MEDIUM -> Color.Yellow
+            LOW -> Color.Green
+            NONE -> Color.Transparent
+            Holiday -> Color.Magenta
         }
         Box(
             modifier = Modifier
@@ -240,7 +258,7 @@ private fun PreviewListItem() {
             title = "fastidii",
             subtitle = "ultrices",
             label = "efficitur",
-            priority = EcocalPriority.LOW,
+            priority = LOW,
             onCardClick = {},
             onCountryClick = {},
             modifier = Modifier.background(MaterialTheme.colorScheme.surface),
@@ -258,7 +276,16 @@ private fun PreviewEcocalMainSection() {
                 EcoCalModel(
                     country = "Congo, Democratic Republic of the",
                     date = "ridiculus",
-                    priority = EcocalPriority.LOW,
+                    priority = LOW,
+                    time = "penatibus",
+                    title = "option",
+                ),
+            ),
+            "b" to listOf(
+                EcoCalModel(
+                    country = "Congo, Democratic Republic of the",
+                    date = "ridiculus",
+                    priority = Holiday,
                     time = "penatibus",
                     title = "option",
                 ),

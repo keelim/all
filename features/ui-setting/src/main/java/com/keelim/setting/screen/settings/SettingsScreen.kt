@@ -73,9 +73,9 @@ data class Category(
 
 @Composable
 fun SettingsRoute(
-    onFaqClick: () -> Unit,
     onThemeChangeClick: () -> Unit,
     onNotificationsClick: () -> Unit,
+    onFaqClick: () -> Unit,
     onOpenSourceClick: () -> Unit,
     onLabClick: () -> Unit,
     onAppUpdateClick: () -> Unit,
@@ -84,9 +84,9 @@ fun SettingsRoute(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     SettingsScreen(
         uiState = uiState,
-        onFaqClick = onFaqClick,
         onThemeChangeClick = onThemeChangeClick,
         onNotificationsClick = onNotificationsClick,
+        onFaqClick = onFaqClick,
         onOpenSourceClick = onOpenSourceClick,
         onLabClick = onLabClick,
         onAppUpdateClick = onAppUpdateClick,
@@ -96,9 +96,9 @@ fun SettingsRoute(
 @Composable
 fun SettingsScreen(
     uiState: SettingsUiState,
-    onFaqClick: () -> Unit,
     onThemeChangeClick: () -> Unit,
     onNotificationsClick: () -> Unit,
+    onFaqClick: () -> Unit,
     onOpenSourceClick: () -> Unit,
     onLabClick: () -> Unit,
     onAppUpdateClick: () -> Unit,
@@ -154,9 +154,9 @@ fun SettingsScreen(
             ) { padding ->
                 val items = remember {
                     listOf(
-                        Category("FAQ", Icons.Rounded.KeyboardArrowUp, onFaqClick),
                         Category("Theme Change", Icons.Rounded.ArrowDropDown, onThemeChangeClick),
                         Category("Notifications", Icons.Outlined.Notifications, onNotificationsClick),
+                        Category("FAQ", Icons.Rounded.KeyboardArrowUp, onFaqClick),
                         Category("OpenSource", Icons.AutoMirrored.Outlined.List, onOpenSourceClick),
                         Category("실험실", Icons.Outlined.Lock, onLabClick),
                         Category("앱 업데이트", Icons.Rounded.ThumbUp, onAppUpdateClick),

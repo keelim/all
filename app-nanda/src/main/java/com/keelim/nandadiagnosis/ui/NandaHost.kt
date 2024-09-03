@@ -72,9 +72,9 @@ fun NandaHost(
             nestedGraphs = { diagnosisScreen() },
         )
         settingsScreen(
-            onFaqClick = navController::navigateFaq,
             onThemeChangeClick = navController::navigateTheme,
             onNotificationsClick = navController::navigateNotification,
+            onFaqClick = navController::navigateFaq,
             onOpenSourceClick = {
                 context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
             },

@@ -16,4 +16,6 @@ data class NoticeResponse(
     val title: String = "", // 버전 업데이트
     @SerialName("fixed")
     val fixed: Boolean = false,
+    @SerialName("faq")
+    val faq: Boolean = false,
 )

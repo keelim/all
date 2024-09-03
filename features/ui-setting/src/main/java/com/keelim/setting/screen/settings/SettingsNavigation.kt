@@ -11,6 +11,7 @@ fun NavController.navigateSettings(navOptions: NavOptions? = null) {
 }
 
 fun NavGraphBuilder.settingsScreen(
+    onFaqClick: () -> Unit,
     onThemeChangeClick: () -> Unit,
     onNotificationsClick: () -> Unit,
     onOpenSourceClick: () -> Unit,
@@ -20,6 +21,7 @@ fun NavGraphBuilder.settingsScreen(
 ) {
     composable<FeatureRoute.Settings> {
         SettingsRoute(
+            onFaqClick = onFaqClick,
             onThemeChangeClick = onThemeChangeClick,
             onNotificationsClick = onNotificationsClick,
             onOpenSourceClick = onOpenSourceClick,

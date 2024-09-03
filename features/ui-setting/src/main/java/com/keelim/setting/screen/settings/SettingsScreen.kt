@@ -28,6 +28,7 @@ import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material.icons.outlined.ThumbUp
 import androidx.compose.material.icons.rounded.ArrowDropDown
+import androidx.compose.material.icons.rounded.KeyboardArrowUp
 import androidx.compose.material.icons.rounded.ThumbUp
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -72,6 +73,7 @@ data class Category(
 
 @Composable
 fun SettingsRoute(
+    onFaqClick: () -> Unit,
     onThemeChangeClick: () -> Unit,
     onNotificationsClick: () -> Unit,
     onOpenSourceClick: () -> Unit,
@@ -82,6 +84,7 @@ fun SettingsRoute(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     SettingsScreen(
         uiState = uiState,
+        onFaqClick = onFaqClick,
         onThemeChangeClick = onThemeChangeClick,
         onNotificationsClick = onNotificationsClick,
         onOpenSourceClick = onOpenSourceClick,
@@ -93,6 +96,7 @@ fun SettingsRoute(
 @Composable
 fun SettingsScreen(
     uiState: SettingsUiState,
+    onFaqClick: () -> Unit,
     onThemeChangeClick: () -> Unit,
     onNotificationsClick: () -> Unit,
     onOpenSourceClick: () -> Unit,
@@ -150,6 +154,7 @@ fun SettingsScreen(
             ) { padding ->
                 val items = remember {
                     listOf(
+                        Category("FAQ", Icons.Rounded.KeyboardArrowUp, onFaqClick),
                         Category("Theme Change", Icons.Rounded.ArrowDropDown, onThemeChangeClick),
                         Category("Notifications", Icons.Outlined.Notifications, onNotificationsClick),
                         Category("OpenSource", Icons.AutoMirrored.Outlined.List, onOpenSourceClick),
@@ -216,6 +221,7 @@ private fun PreviewSettingsScreen() {
             ),
 
         ),
+        onFaqClick = {},
         onThemeChangeClick = {},
         onNotificationsClick = {},
         onOpenSourceClick = {},

@@ -125,4 +125,7 @@ sealed interface FeatureRoute : AppRoute {
 
     @Serializable
     data class Event(val eventId: Int) : FeatureRoute
+
+    @Serializable
+    data object Faq : FeatureRoute
 }

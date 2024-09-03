@@ -33,6 +33,8 @@ import com.keelim.mygrade.ui.screen.word.navigateWordWrite
 import com.keelim.mygrade.ui.screen.word.wordScreen
 import com.keelim.mygrade.ui.screen.word.wordWriteScreen
 import com.keelim.setting.screen.event.eventScreen
+import com.keelim.setting.screen.faq.faqScreen
+import com.keelim.setting.screen.faq.navigateFaq
 import com.keelim.setting.screen.lab.labScreen
 import com.keelim.setting.screen.lab.navigateLab
 import com.keelim.setting.screen.navigateNotification
@@ -109,6 +111,7 @@ fun MyGradeHost(
         }
         notesScreen()
         settingsScreen(
+            onFaqClick = navController::navigateFaq,
             onThemeChangeClick = navController::navigateTheme,
             onNotificationsClick = navController::navigateNotification,
             onOpenSourceClick = {
@@ -124,6 +127,7 @@ fun MyGradeHost(
                 )
             },
             nestedGraphs = {
+                faqScreen {  }
                 themeScreen()
                 notificationScreen()
                 labScreen()

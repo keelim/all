@@ -12,9 +12,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.Icon
@@ -29,24 +31,47 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntSize
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.keelim.composeutil.component.layout.EmptyView
+import com.keelim.composeutil.component.layout.Loading
+import com.keelim.composeutil.resource.space16
 
 @Composable
 fun FaqRoute(
     viewModel: FaqViewModel = hiltViewModel(),
 ) {
-    FaqScreen()
+    val faqState by viewModel.faqState.collectAsStateWithLifecycle()
+    FaqScreen(
+        faqState = faqState,
+    )
 }
 
 @Composable
-fun FaqScreen() {
-    LazyColumn {
-        item {
-            ExpandableRow(
-                title = "현재 faq 준비 중입니다. ",
-                subtitle = "원할한 안내를 위한 준비 중입니다. "
-            )
+fun FaqScreen(
+    faqState: FaqState
+) {
+    when (faqState) {
+        FaqState.Error,
+        FaqState.Loading -> Loading()
+
+        is FaqState.Success -> {
+            if (faqState.faqItems.isEmpty()) {
+                EmptyView()
+            } else {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    items(
+                        faqState.faqItems,
+                    ) { faq ->
+                        ExpandableRow(
+                            title = faq.title,
+                            subtitle = faq.desc
+                        )
+                    }
+                }
+            }
         }
     }
 }
@@ -65,7 +90,7 @@ private fun ExpandableRow(
             modifier = Modifier
                 .clickable { expanded = expanded.not() }
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(space16),
             horizontalArrangement = Arrangement.SpaceBetween) {
             Text(
                 text = title,
@@ -91,7 +116,7 @@ private fun ExpandableRow(
             Box(
                 Modifier
                     .fillMaxWidth()
-                    .padding(16.dp)
+                    .padding(space16)
             ) {
                 Text(
                     text = subtitle,
@@ -106,6 +131,14 @@ private fun ExpandableRow(
 @Preview
 @Composable
 private fun PreviewFaqScreen() {
-    FaqScreen()
+    FaqScreen(
+        faqState = FaqState.Success(
+            listOf(
+                Faq("title1", "desc1"),
+                Faq("title2", "desc2"),
+                Faq("title3", "desc3"),
+            )
+        )
+    )
 }
 

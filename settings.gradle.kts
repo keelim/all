@@ -2,7 +2,7 @@ pluginManagement {
     includeBuild("build-logic")
     repositories {
         google {
-            content {
+            mavenContent {
                 includeGroupByRegex(".*google.*")
                 includeGroupByRegex(".*android.*")
             }
@@ -15,7 +15,7 @@ pluginManagement {
 dependencyResolutionManagement {
     repositories {
         google {
-            content {
+            mavenContent {
                 includeGroupByRegex(".*google.*")
                 includeGroupByRegex(".*android.*")
             }

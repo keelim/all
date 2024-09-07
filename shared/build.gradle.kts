@@ -36,6 +36,7 @@ kotlin {
             api(libs.androidx.dataStore.preferences)
             api(libs.androidx.dataStore.core.okio)
             implementation(libs.okio)
+            implementation(libs.circuit.foundation)
         }
         appleMain.dependencies {
             implementation(libs.sqldelight.native)

@@ -41,6 +41,7 @@ kotlin {
             implementation(libs.okio)
             implementation(libs.circuit.foundation)
             implementation(compose.components.resources)
+            implementation(compose.components.uiToolingPreview)
         }
         // appleMain.dependencies {
         //     implementation(libs.sqldelight.native)

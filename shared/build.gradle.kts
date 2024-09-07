@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.android.library)
     alias(libs.plugins.sqldelight)
+    alias(libs.plugins.compose.multiplatform)
+    alias(libs.plugins.compose.compiler)
     kotlin("plugin.serialization")
     kotlin("plugin.parcelize")
 }
@@ -38,6 +40,7 @@ kotlin {
             api(libs.androidx.dataStore.core.okio)
             implementation(libs.okio)
             implementation(libs.circuit.foundation)
+            implementation(compose.components.resources)
         }
         // appleMain.dependencies {
         //     implementation(libs.sqldelight.native)

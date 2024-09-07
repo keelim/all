@@ -38,6 +38,7 @@ arrow = "1.2.4"
 bio = "1.1.0"
 coil = "2.7.0"
 compose-multiplatform = "1.6.11"
+circuit = "0.23.1"
 deeplinkdispatch = "6.2.2"
 dependencyGuard = "0.5.0"
 emoji2-emojipicker = "1.5.0"
@@ -187,6 +188,7 @@ coil-gif = { group = "io.coil-kt", name = "coil-gif"}
 coil-network-ktor = { group = "io.coil-kt", name = "coil-video", version.ref = "coil"}
 coil-svg = { group = "io.coil-kt", name = "coil-svg"}
 coil-video = { group = "io.coil-kt", name = "coil-video"}
+circuit-foundation = { module = "com.slack.circuit:circuit-foundation", version.ref = "circuit" }
 compose-compiler-gradlePlugin = { group = "org.jetbrains.kotlin", name = "compose-compiler-gradle-plugin", version.ref = "kotlin" }
 deeplinkdispatch = { group = "com.airbnb", name = "deeplinkdispatch", version.ref = "deeplinkdispatch" }
 deeplinkdispatch-processor = { group = "com.airbnb", name = "deeplinkdispatch-processor", version.ref = "deeplinkdispatch" }

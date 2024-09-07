@@ -21,8 +21,8 @@ kotlin {
 
     // apple do not need x64
     // iosX64()
-    iosArm64()
-    iosSimulatorArm64()
+    // iosArm64()
+    // iosSimulatorArm64()
 
     sourceSets {
         androidMain.dependencies {
@@ -38,9 +38,9 @@ kotlin {
             implementation(libs.okio)
             implementation(libs.circuit.foundation)
         }
-        appleMain.dependencies {
-            implementation(libs.sqldelight.native)
-        }
+        // appleMain.dependencies {
+        //     implementation(libs.sqldelight.native)
+        // }
     }
 }
 

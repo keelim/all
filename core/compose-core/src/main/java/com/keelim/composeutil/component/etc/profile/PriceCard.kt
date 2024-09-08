@@ -121,7 +121,7 @@ private fun DrawScope.drawCurvyLine() {
     val stroke = Path().apply {
         moveTo(size.width.times(.9f), size.height.times(0f))
 
-        quadraticBezierTo(
+        quadraticTo(
             size.width.times(.9f),
             size.height.times(.28f),
             size.width.times(.73f),

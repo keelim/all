@@ -49,7 +49,6 @@ fun Project.configureAndroidCompose(
 
     with(composeCompilerGradlePluginExtension) {
         featureFlags = setOf(
-            ComposeFeatureFlag.StrongSkipping,
             ComposeFeatureFlag.OptimizeNonSkippingGroups,
             ComposeFeatureFlag.IntrinsicRemember
         )

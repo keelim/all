@@ -9,6 +9,11 @@ plugins {
 }
 
 kotlin {
+    // web
+    // js(IR) {
+    //     browser()
+    // }
+    // android
     androidTarget {
         compilations.all {
             kotlinOptions {
@@ -16,6 +21,11 @@ kotlin {
             }
         }
     }
+
+    // apple do not need x64
+    // iosX64()
+    // iosArm64()
+    // iosSimulatorArm64()
 
     sourceSets {
         androidMain.dependencies {
@@ -33,6 +43,9 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
         }
+        // appleMain.dependencies {
+        //     implementation(libs.sqldelight.native)
+        // }
     }
 }
 

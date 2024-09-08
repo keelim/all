@@ -13,8 +13,8 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.material.icons.rounded.ArrowForward
+import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.automirrored.rounded.ArrowForward
 import androidx.compose.material.icons.rounded.CheckCircle
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.Share
@@ -102,13 +102,13 @@ private fun PreviewSimpleTimeline() {
         items = listOf(
             Timeline(
                 randomColor(),
-                Icons.Rounded.ArrowForward,
+                Icons.AutoMirrored.Rounded.ArrowForward,
                 "Sent $50 to John",
                 "Sep 20",
             ),
             Timeline(
                 randomColor(),
-                Icons.Rounded.ArrowBack,
+                Icons.AutoMirrored.Rounded.ArrowBack,
                 "Received $30 from Sarah",
                 "Sep 18",
             ),
@@ -126,7 +126,7 @@ private fun PreviewSimpleTimeline() {
             ),
             Timeline(
                 randomColor(),
-                Icons.Rounded.ArrowForward,
+                Icons.AutoMirrored.Rounded.ArrowForward,
                 "Sent $70 to Robert",
                 "Sep 12",
             ),

@@ -28,6 +28,7 @@ import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material.icons.outlined.ThumbUp
 import androidx.compose.material.icons.rounded.ArrowDropDown
+import androidx.compose.material.icons.rounded.KeyboardArrowUp
 import androidx.compose.material.icons.rounded.ThumbUp
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -74,6 +75,7 @@ data class Category(
 fun SettingsRoute(
     onThemeChangeClick: () -> Unit,
     onNotificationsClick: () -> Unit,
+    onFaqClick: () -> Unit,
     onOpenSourceClick: () -> Unit,
     onLabClick: () -> Unit,
     onAppUpdateClick: () -> Unit,
@@ -84,6 +86,7 @@ fun SettingsRoute(
         uiState = uiState,
         onThemeChangeClick = onThemeChangeClick,
         onNotificationsClick = onNotificationsClick,
+        onFaqClick = onFaqClick,
         onOpenSourceClick = onOpenSourceClick,
         onLabClick = onLabClick,
         onAppUpdateClick = onAppUpdateClick,
@@ -95,6 +98,7 @@ fun SettingsScreen(
     uiState: SettingsUiState,
     onThemeChangeClick: () -> Unit,
     onNotificationsClick: () -> Unit,
+    onFaqClick: () -> Unit,
     onOpenSourceClick: () -> Unit,
     onLabClick: () -> Unit,
     onAppUpdateClick: () -> Unit,
@@ -152,6 +156,7 @@ fun SettingsScreen(
                     listOf(
                         Category("Theme Change", Icons.Rounded.ArrowDropDown, onThemeChangeClick),
                         Category("Notifications", Icons.Outlined.Notifications, onNotificationsClick),
+                        Category("FAQ", Icons.Rounded.KeyboardArrowUp, onFaqClick),
                         Category("OpenSource", Icons.AutoMirrored.Outlined.List, onOpenSourceClick),
                         Category("실험실", Icons.Outlined.Lock, onLabClick),
                         Category("앱 업데이트", Icons.Rounded.ThumbUp, onAppUpdateClick),
@@ -216,6 +221,7 @@ private fun PreviewSettingsScreen() {
             ),
 
         ),
+        onFaqClick = {},
         onThemeChangeClick = {},
         onNotificationsClick = {},
         onOpenSourceClick = {},

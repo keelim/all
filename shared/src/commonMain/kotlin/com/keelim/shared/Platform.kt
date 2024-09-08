@@ -2,6 +2,7 @@ package com.keelim.shared
 
 interface Platform {
     val name: String
+    val locale: String
 }
 
 expect fun getPlatform(): Platform

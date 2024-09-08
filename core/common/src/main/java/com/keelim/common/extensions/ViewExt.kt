@@ -17,10 +17,7 @@ import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
-import androidx.annotation.Px
 import androidx.core.content.res.use
-import androidx.core.graphics.applyCanvas
-import androidx.core.view.ViewCompat
 import androidx.core.view.doOnAttach
 import androidx.core.view.doOnDetach
 import androidx.core.view.drawToBitmap
@@ -282,22 +279,6 @@ fun View.findAncestorById(@IdRes ancestorId: Int): View {
         parent is View -> (parent as View).findAncestorById(ancestorId)
         else -> throw IllegalArgumentException("$ancestorId not a valid ancestor")
     }
-}
-
-/**
- * A copy of the KTX method, adding the ability to add extra padding the bottom of the [Bitmap];
- * useful when it will be used in a [android.graphics.BitmapShader][BitmapShader] with
- * a [android.graphics.Shader.TileMode.CLAMP][CLAMP tile mode].
- */
-fun View.drawToBitmap(@Px extraPaddingBottom: Int = 0): Bitmap {
-    if (!ViewCompat.isLaidOut(this)) {
-        throw IllegalStateException("View needs to be laid out before calling drawToBitmap()")
-    }
-    return Bitmap.createBitmap(width, height + extraPaddingBottom, Bitmap.Config.ARGB_8888)
-        .applyCanvas {
-            translate(-scrollX.toFloat(), -scrollY.toFloat())
-            draw(this)
-        }
 }
 
 interface ViewHolderLifecycleInitializer {

@@ -1,3 +1,5 @@
+import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.android.library)
@@ -9,11 +11,6 @@ plugins {
 }
 
 kotlin {
-    // web
-    // js(IR) {
-    //     browser()
-    // }
-    // android
     androidTarget {
         compilations.all {
             kotlinOptions {
@@ -22,12 +19,22 @@ kotlin {
         }
     }
 
-    // apple do not need x64
-    // iosX64()
-    // iosArm64()
-    // iosSimulatorArm64()
+    jvm("desktop")
+
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            baseName = "ALL"
+            isStatic = true
+        }
+    }
 
     sourceSets {
+        val desktopMain by getting
+
         androidMain.dependencies {
             implementation(libs.sqldelight.android)
         }
@@ -43,9 +50,12 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
         }
-        // appleMain.dependencies {
-        //     implementation(libs.sqldelight.native)
-        // }
+        desktopMain.dependencies {
+            implementation(compose.desktop.macos_arm64)
+        }
+        appleMain.dependencies {
+            implementation(libs.sqldelight.native)
+        }
     }
 }
 
@@ -62,5 +72,17 @@ android {
     compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
+    }
+}
+
+compose.desktop {
+    application {
+        mainClass = "MainKt"
+
+        nativeDistributions {
+            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
+            packageName = "com.keelim.all"
+            packageVersion = "1.0.0"
+        }
     }
 }

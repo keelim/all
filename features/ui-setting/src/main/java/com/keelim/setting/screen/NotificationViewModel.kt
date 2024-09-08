@@ -3,17 +3,13 @@ package com.keelim.setting.screen
 import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.keelim.common.Dispatcher
-import com.keelim.common.KeelimDispatchers
 import com.keelim.data.repository.NotificationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.toPersistentList
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
@@ -23,9 +19,8 @@ class NotificationViewModel
 @Inject
 constructor(
     private val notificationRepository: NotificationRepository,
-    @Dispatcher(KeelimDispatchers.DEFAULT) val dispatcher: CoroutineDispatcher,
 ) : ViewModel() {
-    // repository 만들 것
+
     val notificationState =
         flow {
             notificationRepository
@@ -45,9 +40,8 @@ constructor(
                     }
                 }
         }
-            .flowOn(dispatcher)
             .catch { emit(NotificationState.Empty) }
-            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), NotificationState.Empty)
+            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000L), NotificationState.Empty)
 }
 
 data class Notification(val date: String, val title: String, val desc: String, val fixed: Boolean)

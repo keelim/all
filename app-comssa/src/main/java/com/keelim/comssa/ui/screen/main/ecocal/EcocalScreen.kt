@@ -89,14 +89,14 @@ fun EcocalScreen(
                             AnimatedVisibility(
                                 visible = showButton,
                                 enter = fadeIn(),
-                                exit = fadeOut()
+                                exit = fadeOut(),
                             ) {
                                 TopScrollButton(
                                     onScrollToTop = {
                                         coroutineScope.launch {
                                             listState.animateScrollToItem(0)
                                         }
-                                    }
+                                    },
                                 )
                             }
                             MultiMainFab(
@@ -147,7 +147,7 @@ private fun TopScrollButton(
     ) {
         Icon(
             imageVector = Icons.Filled.KeyboardArrowUp,
-            contentDescription = "scroll to top"
+            contentDescription = "scroll to top",
         )
     }
 }

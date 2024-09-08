@@ -20,6 +20,8 @@ import com.keelim.nandadiagnosis.ui.screen.nutrients.nutrientScreen
 import com.keelim.nandadiagnosis.ui.screen.nutrients.timer.navigateNutrientTimer
 import com.keelim.nandadiagnosis.ui.screen.nutrients.timer.nutrientTimerScreen
 import com.keelim.setting.screen.event.eventScreen
+import com.keelim.setting.screen.faq.faqScreen
+import com.keelim.setting.screen.faq.navigateFaq
 import com.keelim.setting.screen.lab.labScreen
 import com.keelim.setting.screen.lab.navigateLab
 import com.keelim.setting.screen.navigateNotification
@@ -72,6 +74,7 @@ fun NandaHost(
         settingsScreen(
             onThemeChangeClick = navController::navigateTheme,
             onNotificationsClick = navController::navigateNotification,
+            onFaqClick = navController::navigateFaq,
             onOpenSourceClick = {
                 context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
             },
@@ -85,6 +88,7 @@ fun NandaHost(
                 )
             },
             nestedGraphs = {
+                faqScreen { }
                 themeScreen()
                 notificationScreen()
                 labScreen()

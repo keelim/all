@@ -50,7 +50,6 @@ fun Project.configureAndroidCompose(
     with(composeCompilerGradlePluginExtension) {
         featureFlags = setOf(
             ComposeFeatureFlag.OptimizeNonSkippingGroups,
-            ComposeFeatureFlag.IntrinsicRemember
         )
         reportsDestination = layout.buildDirectory.dir("compose_compiler")
         stabilityConfigurationFile = rootProject.layout.projectDirectory.file("compose_compiler_config.conf")

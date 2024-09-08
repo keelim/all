@@ -43,7 +43,7 @@ constructor(
                         title = it.title,
                         desc = it.description,
                         fixed = it.fixed,
-                        faq = it.faq
+                        faq = it.faq,
                     )
                 }
         }

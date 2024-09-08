@@ -49,25 +49,26 @@ fun FaqRoute(
 
 @Composable
 fun FaqScreen(
-    faqState: FaqState
+    faqState: FaqState,
 ) {
     when (faqState) {
         FaqState.Error,
-        FaqState.Loading -> Loading()
+        FaqState.Loading,
+        -> Loading()
 
         is FaqState.Success -> {
             if (faqState.faqItems.isEmpty()) {
                 EmptyView()
             } else {
                 LazyColumn(
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier.fillMaxSize(),
                 ) {
                     items(
                         faqState.faqItems,
                     ) { faq ->
                         ExpandableRow(
                             title = faq.title,
-                            subtitle = faq.desc
+                            subtitle = faq.desc,
                         )
                     }
                 }
@@ -80,27 +81,28 @@ fun FaqScreen(
 private fun ExpandableRow(
     title: String,
     subtitle: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     var expanded by remember { mutableStateOf(false) }
     Column(
-        modifier = modifier
+        modifier = modifier,
     ) {
         Row(
             modifier = Modifier
                 .clickable { expanded = expanded.not() }
                 .fillMaxWidth()
                 .padding(space16),
-            horizontalArrangement = Arrangement.SpaceBetween) {
+            horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
             Text(
                 text = title,
-                style = MaterialTheme.typography.bodyMedium
+                style = MaterialTheme.typography.bodyMedium,
             )
             val degrees by animateFloatAsState(if (expanded) -180f else 0f, label = "")
             Icon(
                 imageVector = Icons.Filled.KeyboardArrowDown,
                 contentDescription = null,
-                modifier = Modifier.rotate(degrees)
+                modifier = Modifier.rotate(degrees),
             )
         }
         AnimatedVisibility(
@@ -108,15 +110,15 @@ private fun ExpandableRow(
             enter = expandVertically(
                 spring(
                     stiffness = Spring.StiffnessMediumLow,
-                    visibilityThreshold = IntSize.VisibilityThreshold
-                )
+                    visibilityThreshold = IntSize.VisibilityThreshold,
+                ),
             ),
-            exit = shrinkVertically()
+            exit = shrinkVertically(),
         ) {
             Box(
                 Modifier
                     .fillMaxWidth()
-                    .padding(space16)
+                    .padding(space16),
             ) {
                 Text(
                     text = subtitle,
@@ -127,7 +129,6 @@ private fun ExpandableRow(
     }
 }
 
-
 @Preview
 @Composable
 private fun PreviewFaqScreen() {
@@ -137,8 +138,7 @@ private fun PreviewFaqScreen() {
                 Faq("title1", "desc1"),
                 Faq("title2", "desc2"),
                 Faq("title3", "desc3"),
-            )
-        )
+            ),
+        ),
     )
 }
-

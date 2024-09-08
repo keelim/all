@@ -196,7 +196,7 @@ fun ListItem(
             .clickable { onCardClick() }
             .padding(horizontal = space16, vertical = space8),
     ) {
-        when(priority) {
+        when (priority) {
             Holiday -> {
                 Text(
                     text = title,

@@ -67,7 +67,6 @@ fun CnubusHost(
             },
             nestedGraphs = {
                 faqScreen {
-
                 }
                 themeScreen()
                 notificationScreen()

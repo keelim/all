@@ -32,9 +32,8 @@ fun ProtectionMeter(
     innerGradient: Color,
     modifier: Modifier = Modifier,
     trackColor: Color = Color(0xFFE0E0E0),
-    percentageColor: Color = Color.White
+    percentageColor: Color = Color.White,
 ) {
-
     Box(modifier = modifier.size(196.dp)) {
         val meterValue = remember(inputValue) {
             inputValue.coerceIn(0, 100)
@@ -54,7 +53,7 @@ fun ProtectionMeter(
                 useCenter = false,
                 topLeft = Offset((width - height + 60f) / 2f, (height - arcHeight) / 2f),
                 size = Size(arcHeight, arcHeight),
-                style = Stroke(width = 50f, cap = StrokeCap.Round)
+                style = Stroke(width = 50f, cap = StrokeCap.Round),
             )
 
             drawArc(
@@ -64,16 +63,17 @@ fun ProtectionMeter(
                 useCenter = false,
                 topLeft = Offset((width - height + 60f) / 2f, (height - arcHeight) / 2),
                 size = Size(arcHeight, arcHeight),
-                style = Stroke(width = 50f, cap = StrokeCap.Round)
+                style = Stroke(width = 50f, cap = StrokeCap.Round),
             )
             val centerOffset = Offset(width / 2f, height / 2.09f)
             drawCircle(
                 Brush.radialGradient(
                     listOf(
                         innerGradient.copy(alpha = 0.2f),
-                        Color.Transparent
-                    )
-                ), width / 2f
+                        Color.Transparent,
+                    ),
+                ),
+                width / 2f,
             )
             drawCircle(Color.White, 24f, centerOffset)
 
@@ -82,28 +82,27 @@ fun ProtectionMeter(
             val needleLength = 160f // Adjust this value to control needle length
             val needleBaseWidth = 10f // Adjust this value to control the base width
 
-
             val needlePath = Path().apply {
                 // Calculate the top point of the needle
                 val topX = centerOffset.x + needleLength * cos(
-                    Math.toRadians(needleAngle.toDouble()).toFloat()
+                    Math.toRadians(needleAngle.toDouble()).toFloat(),
                 )
                 val topY = centerOffset.y + needleLength * sin(
-                    Math.toRadians(needleAngle.toDouble()).toFloat()
+                    Math.toRadians(needleAngle.toDouble()).toFloat(),
                 )
 
                 // Calculate the base points of the needle
                 val baseLeftX = centerOffset.x + needleBaseWidth * cos(
-                    Math.toRadians((needleAngle - 90).toDouble()).toFloat()
+                    Math.toRadians((needleAngle - 90).toDouble()).toFloat(),
                 )
                 val baseLeftY = centerOffset.y + needleBaseWidth * sin(
-                    Math.toRadians((needleAngle - 90).toDouble()).toFloat()
+                    Math.toRadians((needleAngle - 90).toDouble()).toFloat(),
                 )
                 val baseRightX = centerOffset.x + needleBaseWidth * cos(
-                    Math.toRadians((needleAngle + 90).toDouble()).toFloat()
+                    Math.toRadians((needleAngle + 90).toDouble()).toFloat(),
                 )
                 val baseRightY = centerOffset.y + needleBaseWidth * sin(
-                    Math.toRadians((needleAngle + 90).toDouble()).toFloat()
+                    Math.toRadians((needleAngle + 90).toDouble()).toFloat(),
                 )
 
                 moveTo(topX, topY)
@@ -114,27 +113,27 @@ fun ProtectionMeter(
 
             drawPath(
                 color = Color.White,
-                path = needlePath
+                path = needlePath,
             )
         }
 
         Column(
             modifier = Modifier
                 .padding(bottom = 5.dp)
-                .align(Alignment.BottomCenter), horizontalAlignment = Alignment.CenterHorizontally
+                .align(Alignment.BottomCenter),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
                 text = "$inputValue %",
                 style = MaterialTheme.typography.titleLarge,
-                color = percentageColor
+                color = percentageColor,
             )
             Text(
                 text = subTitle,
                 style = MaterialTheme.typography.titleMedium,
-                color = Color(0xFFB0B4CD)
+                color = Color(0xFFB0B4CD),
             )
         }
-
     }
 }
 
@@ -145,6 +144,6 @@ private fun PreviewProtectionMeter() {
         inputValue = 32,
         subTitle = "Protection",
         progressColors = listOf(Color(0xFF00FF00), Color(0xFF00FFFF)),
-        innerGradient = Color(0xFF00FF00)
+        innerGradient = Color(0xFF00FF00),
     )
 }

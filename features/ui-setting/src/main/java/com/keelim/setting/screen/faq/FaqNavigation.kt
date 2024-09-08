@@ -6,7 +6,6 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import com.keelim.core.navigation.FeatureRoute
 
-
 fun NavController.navigateFaq(navOptions: NavOptions? = null) {
     this.navigate(FeatureRoute.Faq, navOptions)
 }

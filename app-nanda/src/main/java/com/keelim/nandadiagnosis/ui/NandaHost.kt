@@ -88,7 +88,7 @@ fun NandaHost(
                 )
             },
             nestedGraphs = {
-                faqScreen {  }
+                faqScreen { }
                 themeScreen()
                 notificationScreen()
                 labScreen()

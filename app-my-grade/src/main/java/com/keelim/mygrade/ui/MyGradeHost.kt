@@ -127,7 +127,7 @@ fun MyGradeHost(
                 )
             },
             nestedGraphs = {
-                faqScreen {  }
+                faqScreen { }
                 themeScreen()
                 notificationScreen()
                 labScreen()

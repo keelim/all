@@ -48,6 +48,6 @@ constructor(
             .stateIn(
                 viewModelScope,
                 SharingStarted.WhileSubscribed(5_000L),
-                FaqState.Success(listOf())
+                FaqState.Success(listOf()),
             )
 }

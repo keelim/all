@@ -10,9 +10,8 @@ fun main() {
     application {
         Window(
             onCloseRequest = ::exitApplication,
-            title = stringResource(Res.string.project)
+            title = stringResource(Res.string.project),
         ) {
-
         }
     }
 }

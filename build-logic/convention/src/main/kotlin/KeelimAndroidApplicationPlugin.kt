@@ -43,14 +43,15 @@ class KeelimAndroidApplicationPlugin : Plugin<Project> {
                         getDefaultProguardFile("proguard-android-optimize.txt"),
                         "proguard-rules.pro"
                     )
-                    configure<BaselineProfileConsumerExtension> {
-                        automaticGenerationDuringBuild = true
-                        dexLayoutOptimization = true
-                    }
                 }
                 lint {
                     abortOnError = false
                 }
+            }
+
+            configure<BaselineProfileConsumerExtension> {
+                dexLayoutOptimization = true
+                automaticGenerationDuringBuild = true
             }
 
             dependencies {

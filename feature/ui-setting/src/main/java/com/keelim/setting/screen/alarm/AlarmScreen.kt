@@ -35,10 +35,11 @@ private fun PreviewAlarmScreen() {
         screenState = SealedUiState.Success(
             value = listOf(
                 Alarm(
-                    title = "propriae", subTitle = "no", receiveDate = "commune"
-                )
-            )
+                    title = "propriae",
+                    subTitle = "no",
+                    receiveDate = "commune",
+                ),
+            ),
         ),
     )
 }
-

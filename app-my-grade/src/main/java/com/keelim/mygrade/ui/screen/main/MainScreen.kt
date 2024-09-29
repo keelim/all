@@ -134,9 +134,8 @@ fun MainScreen(
     val scope = rememberCoroutineScope()
 
     SimpleAcquirePermissions(
-        permissions = appPermissions
+        permissions = appPermissions,
     ) {
-
     }
     BackHandler(
         enabled = backPressedState,

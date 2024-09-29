@@ -41,8 +41,10 @@ constructor(
                 }
         }
             .catch { emit(NotificationState.Empty) }
-            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000L),
-                NotificationState.Empty
+            .stateIn(
+                viewModelScope,
+                SharingStarted.WhileSubscribed(5_000L),
+                NotificationState.Empty,
             )
 }
 

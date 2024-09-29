@@ -47,7 +47,7 @@ fun CategoryScreen(
     )
 
     SimpleAcquirePermissions(
-        permissions = appPermissions
+        permissions = appPermissions,
     ) { }
 }
 

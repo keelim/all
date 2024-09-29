@@ -27,7 +27,7 @@ class AlarmRepositoryImpl @Inject constructor(
                     Alarm(
                         title = title,
                         subTitle = subTitle,
-                    ).toAlarmEntity()
+                    ).toAlarmEntity(),
                 )
             }
             true

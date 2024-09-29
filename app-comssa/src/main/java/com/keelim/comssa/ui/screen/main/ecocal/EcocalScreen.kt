@@ -63,7 +63,6 @@ fun EcocalScreen(
     updateFilter: (FabButtonItem) -> Unit,
     updateCountry: (String) -> Unit,
 ) = trace("EcocalScreen") {
-
     SimpleAcquirePermissions(
         permissions = appPermissions,
     ) { }

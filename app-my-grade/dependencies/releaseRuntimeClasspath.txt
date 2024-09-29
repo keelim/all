@@ -197,10 +197,12 @@ com.google.android.gms:play-services-ads:23.3.0
 com.google.android.gms:play-services-appset:16.0.1
 com.google.android.gms:play-services-base:18.5.0
 com.google.android.gms:play-services-basement:18.4.0
+com.google.android.gms:play-services-cloud-messaging:17.2.0
 com.google.android.gms:play-services-maps:19.0.0
 com.google.android.gms:play-services-measurement-base:20.1.2
 com.google.android.gms:play-services-measurement-sdk-api:20.1.2
 com.google.android.gms:play-services-oss-licenses:17.1.0
+com.google.android.gms:play-services-stats:17.0.2
 com.google.android.gms:play-services-tasks:18.2.0
 com.google.android.material:compose-theme-adapter-core:1.0.1
 com.google.android.material:compose-theme-adapter:1.2.1
@@ -237,9 +239,11 @@ com.google.firebase:firebase-encoders-json:18.0.1
 com.google.firebase:firebase-encoders-proto:16.0.0
 com.google.firebase:firebase-encoders:17.0.0
 com.google.firebase:firebase-firestore:25.1.0
+com.google.firebase:firebase-iid-interop:17.1.0
 com.google.firebase:firebase-installations-interop:17.2.0
 com.google.firebase:firebase-installations:18.0.0
 com.google.firebase:firebase-measurement-connector:20.0.1
+com.google.firebase:firebase-messaging:24.0.1
 com.google.firebase:firebase-sessions:2.0.4
 com.google.firebase:protolite-well-known-types:18.0.0
 com.google.guava:failureaccess:1.0.1

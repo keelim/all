@@ -25,6 +25,7 @@ dependencies {
 
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.common)
+    implementation(libs.firebase.messaging)
     implementation(libs.firebase.crashlytics)
     releaseImplementation(libs.firebase.appcheck)
     debugImplementation(libs.firebase.appcheck.debug)

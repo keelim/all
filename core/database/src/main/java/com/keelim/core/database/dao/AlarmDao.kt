@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface AlarmDao {
     @Upsert
-    suspend fun upsert(history: AlarmEntity)
+    suspend fun upsert(alarm: AlarmEntity)
 
     @Query("SELECT * FROM alarm")
     fun getAllAlarms(): Flow<List<AlarmEntity>>

@@ -13,6 +13,7 @@ import com.keelim.cnubus.ui.screen.map.screen.map.mapScreen
 import com.keelim.cnubus.ui.screen.map.screen.map.navigateMap
 import com.keelim.composeutil.AppState
 import com.keelim.core.navigation.CnuBusRoute
+import com.keelim.setting.screen.alarm.alarmScreen
 import com.keelim.setting.screen.event.eventScreen
 import com.keelim.setting.screen.faq.faqScreen
 import com.keelim.setting.screen.faq.navigateFaq
@@ -66,11 +67,11 @@ fun CnubusHost(
                 )
             },
             nestedGraphs = {
-                faqScreen {
-                }
+                faqScreen {}
                 themeScreen()
                 notificationScreen()
                 labScreen()
+                alarmScreen()
             },
         )
         eventScreen()

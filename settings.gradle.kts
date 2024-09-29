@@ -47,7 +47,7 @@ include(
     ":core:testing",
     ":core:navigation",
     // ":core:widget-glance",
-    ":features:ui-labs",
-    ":features:ui-setting",
+    ":feature:ui-labs",
+    ":feature:ui-setting",
     ":shared"
 )

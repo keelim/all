@@ -86,25 +86,25 @@ fun SettingsRoute(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     SettingsScreen(
         uiState = uiState,
-        onThemeChangeClick = onThemeChangeClick,
         onNotificationsClick = onNotificationsClick,
         onAlarmsClick = onAlarmsClick,
-        onFaqClick = onFaqClick,
-        onOpenSourceClick = onOpenSourceClick,
         onLabClick = onLabClick,
         onAppUpdateClick = onAppUpdateClick,
+        onFaqClick = onFaqClick,
+        onOpenSourceClick = onOpenSourceClick,
+        onThemeChangeClick = onThemeChangeClick,
     )
 }
 
 @Composable
 fun SettingsScreen(
     uiState: SettingsUiState,
-    onThemeChangeClick: () -> Unit,
     onNotificationsClick: () -> Unit,
     onAlarmsClick: () -> Unit,
+    onLabClick: () -> Unit,
     onFaqClick: () -> Unit,
     onOpenSourceClick: () -> Unit,
-    onLabClick: () -> Unit,
+    onThemeChangeClick: () -> Unit,
     onAppUpdateClick: () -> Unit,
 ) {
     when (uiState) {

@@ -10,3 +10,9 @@ fun AlarmEntity.toAlarm() = Alarm(
 )
 
 fun List<AlarmEntity>.toAlarm() = map(AlarmEntity::toAlarm)
+
+fun Alarm.toAlarmEntity() = AlarmEntity(
+    title = title,
+    subTitle = subTitle,
+    receiveDate = receiveDate,
+)

@@ -36,14 +36,14 @@ class MainViewModel @Inject constructor(
             defaultSchemeList + it
         }
         .flowOn(Dispatchers.IO)
-        .stateIn(viewModelScope, started = SharingStarted.WhileSubscribed(), emptyList())
+        .stateIn(viewModelScope, started = SharingStarted.WhileSubscribed(5_000L), emptyList())
 
     val deepLinkList: StateFlow<Pair<List<DeepLink>, List<DeepLink>>> = repository.getDeepLinkUrls()
         .map {
             it.partition { it.isBookMarked }
         }
         .flowOn(Dispatchers.IO)
-        .stateIn(viewModelScope, started = SharingStarted.WhileSubscribed(), Pair(emptyList(), emptyList()))
+        .stateIn(viewModelScope, started = SharingStarted.WhileSubscribed(5_000L), Pair(emptyList(), emptyList()))
 
     private val _isLoading = MutableLiveData(false)
     val isLoading: LiveData<Boolean> get() = _isLoading

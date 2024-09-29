@@ -28,7 +28,7 @@ class DiagnosisViewModel @Inject constructor(
         }
     }.catch {
         emit(DiagnosisScreenState.Error)
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), DiagnosisScreenState.Loading)
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000L), DiagnosisScreenState.Loading)
 
     fun initArray(targets: Array<String>) {
         _data.tryEmit(targets.toList())

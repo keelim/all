@@ -49,7 +49,7 @@ class RootViewModel @Inject constructor() : ViewModel() {
         _data.tryEmit(it.data)
     }.catch {
         emitAll(emptyFlow())
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), MapEvent.UnInitialized)
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000L), MapEvent.UnInitialized)
 
     private val _data = MutableStateFlow<List<Location>>(emptyList())
     val data: StateFlow<List<Location>> = _data.asStateFlow()

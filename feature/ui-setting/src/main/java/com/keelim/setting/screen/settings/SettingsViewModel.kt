@@ -44,5 +44,5 @@ class SettingsViewModel @Inject constructor(
             userState = userState,
             deviceInfo = deviceInfo ?: DeviceInfo.empty(),
         )
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), SettingsUiState.Initialized)
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000L), SettingsUiState.Initialized)
 }

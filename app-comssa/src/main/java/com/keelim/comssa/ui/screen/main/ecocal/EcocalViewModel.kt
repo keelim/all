@@ -38,7 +38,7 @@ class EcocalViewModel @Inject constructor(
             Timber.e(throwable)
             emitAll(emptyFlow())
         }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), emptyList())
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000L), emptyList())
 
     private val priorityFilter = MutableStateFlow<FabButtonItem>(Clear())
 
@@ -69,7 +69,7 @@ class EcocalViewModel @Inject constructor(
             Timber.e(throwable)
             emitAll(emptyFlow())
         }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), SealedUiState.loading())
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000L), SealedUiState.loading())
 
     fun updateFilter(item: FabButtonItem) {
         if (item is Clear) {

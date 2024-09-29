@@ -32,6 +32,7 @@ import com.keelim.mygrade.ui.screen.timer.timerScreen
 import com.keelim.mygrade.ui.screen.word.navigateWordWrite
 import com.keelim.mygrade.ui.screen.word.wordScreen
 import com.keelim.mygrade.ui.screen.word.wordWriteScreen
+import com.keelim.setting.screen.alarm.alarmScreen
 import com.keelim.setting.screen.event.eventScreen
 import com.keelim.setting.screen.faq.faqScreen
 import com.keelim.setting.screen.faq.navigateFaq
@@ -131,6 +132,7 @@ fun MyGradeHost(
                 themeScreen()
                 notificationScreen()
                 labScreen()
+                alarmScreen()
             },
         )
         eventScreen()

@@ -10,10 +10,11 @@ import com.google.accompanist.permissions.rememberMultiplePermissionsState
 @Composable
 fun SimpleAcquirePermissions(
     permissions: List<String>,
+    lifecycleEvent: Lifecycle.Event = Lifecycle.Event.ON_CREATE,
     onGrant: () -> Unit,
 ) {
     val permissionsState = rememberMultiplePermissionsState(permissions)
-    LifecycleEventEffect(Lifecycle.Event.ON_CREATE) {
+    LifecycleEventEffect(lifecycleEvent) {
         if(permissionsState.allPermissionsGranted) {
             onGrant()
         } else {

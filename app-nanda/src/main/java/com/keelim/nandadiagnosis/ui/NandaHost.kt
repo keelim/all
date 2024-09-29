@@ -19,6 +19,7 @@ import com.keelim.nandadiagnosis.ui.screen.inappweb.webScreen
 import com.keelim.nandadiagnosis.ui.screen.nutrients.nutrientScreen
 import com.keelim.nandadiagnosis.ui.screen.nutrients.timer.navigateNutrientTimer
 import com.keelim.nandadiagnosis.ui.screen.nutrients.timer.nutrientTimerScreen
+import com.keelim.setting.screen.alarm.alarmScreen
 import com.keelim.setting.screen.event.eventScreen
 import com.keelim.setting.screen.faq.faqScreen
 import com.keelim.setting.screen.faq.navigateFaq
@@ -93,6 +94,7 @@ fun NandaHost(
                 notificationScreen()
                 labScreen()
                 eventScreen()
+                alarmScreen()
             },
         )
         eventScreen()

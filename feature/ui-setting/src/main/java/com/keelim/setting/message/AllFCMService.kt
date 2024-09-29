@@ -12,7 +12,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class AllFCMService: FirebaseMessagingService() {
+class AllFCMService : FirebaseMessagingService() {
 
     @Inject
     lateinit var alarmRepository: AlarmRepository
@@ -31,7 +31,7 @@ class AllFCMService: FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         // TODO(developer): Handle FCM messages here.
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
-        Timber.d( "From: ${remoteMessage.from}")
+        Timber.d("From: ${remoteMessage.from}")
 
         // Check if message contains a data payload.
         if (remoteMessage.data.isNotEmpty()) {
@@ -47,7 +47,7 @@ class AllFCMService: FirebaseMessagingService() {
         alarmActionJob = applicationScope.launch {
             alarmRepository.insertAlarm(
                 title = remoteMessage.notification?.title ?: "title",
-                subTitle = remoteMessage.notification?.body ?: "body"
+                subTitle = remoteMessage.notification?.body ?: "body",
             )
         }.apply {
             invokeOnCompletion {

@@ -51,7 +51,7 @@ fun MainRoute(
     val context = LocalContext.current
 
     SimpleAcquirePermissions(
-        appPermissions
+        appPermissions,
     ) {
         context.toast("권한이 확인되었습니다.")
     }

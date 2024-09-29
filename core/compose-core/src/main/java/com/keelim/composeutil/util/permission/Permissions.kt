@@ -15,7 +15,7 @@ fun SimpleAcquirePermissions(
 ) {
     val permissionsState = rememberMultiplePermissionsState(permissions)
     LifecycleEventEffect(lifecycleEvent) {
-        if(permissionsState.allPermissionsGranted) {
+        if (permissionsState.allPermissionsGranted) {
             onGrant()
         } else {
             permissionsState.launchMultiplePermissionRequest()

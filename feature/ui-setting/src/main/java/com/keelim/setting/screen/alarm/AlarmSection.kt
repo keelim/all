@@ -29,14 +29,14 @@ fun AlarmSection(
     modifier: Modifier = Modifier,
 ) = trace("AlarmSection") {
     Column(
-        modifier = modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize(),
     ) {
         NavigationBackArrowBar(title = "알림 확인")
         Spacer(
-            modifier  = Modifier.height(space4)
+            modifier = Modifier.height(space4),
         )
         LazyColumn(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         ) {
             items(items) { item ->
                 AlarmItem(
@@ -50,7 +50,7 @@ fun AlarmSection(
 @Composable
 private fun AlarmItem(
     item: Alarm,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) = trace("AlarmItem") {
     Card(
         modifier = modifier
@@ -69,24 +69,23 @@ private fun AlarmItem(
             ) {
                 Text(
                     text = item.title,
-                    style = MaterialTheme.typography.headlineMedium
+                    style = MaterialTheme.typography.headlineMedium,
                 )
                 Spacer(
-                    modifier = Modifier.height(space4)
+                    modifier = Modifier.height(space4),
                 )
                 Text(
                     text = item.subTitle,
-                    style = MaterialTheme.typography.bodyMedium
+                    style = MaterialTheme.typography.bodyMedium,
                 )
                 Spacer(
-                    modifier = Modifier.height(space2)
+                    modifier = Modifier.height(space2),
                 )
                 Text(
                     text = item.receiveDate,
-                    style = MaterialTheme.typography.bodySmall
+                    style = MaterialTheme.typography.bodySmall,
                 )
             }
         }
     }
 }
-

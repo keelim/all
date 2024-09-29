@@ -94,6 +94,6 @@ abstract class ArduconDatabase : RoomDatabase() {
     exportSchema = true,
     // autoMigrations = []
 )
-abstract class AllDatabase: RoomDatabase() {
+abstract class AllDatabase : RoomDatabase() {
     abstract fun alarmDao(): AlarmDao
 }

@@ -4,6 +4,7 @@ import com.keelim.core.data.source.ArduconRepositoryImpl
 import com.keelim.core.data.source.DefaultTaskRepositoryImpl
 import com.keelim.core.data.source.HistoryRepositoryImpl
 import com.keelim.core.data.source.NandaIORepositoryImpl
+import com.keelim.core.data.source.alarm.AlarmRepositoryImpl
 import com.keelim.core.data.source.firebase.FirebaseRepositoryImpl
 import com.keelim.core.data.source.note.NoteRepositoryImpl
 import com.keelim.core.data.source.notification.NotificationRepositoryImpl
@@ -12,6 +13,7 @@ import com.keelim.core.database.repository.ArduconRepository
 import com.keelim.core.database.repository.DefaultTaskRepository
 import com.keelim.core.database.repository.HistoryRepository
 import com.keelim.core.database.repository.NandaIORepository
+import com.keelim.data.repository.AlarmRepository
 import com.keelim.data.repository.FirebaseRepository
 import com.keelim.data.repository.NoteRepository
 import com.keelim.data.repository.NotificationRepository
@@ -63,4 +65,9 @@ interface RepositoryModule {
     fun bindsArduconRepository(
         repository: ArduconRepositoryImpl,
     ): ArduconRepository
+
+    @Binds
+    fun bindsAlarmRepository(
+        repository: AlarmRepositoryImpl,
+    ): AlarmRepository
 }

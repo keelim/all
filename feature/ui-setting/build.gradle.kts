@@ -22,12 +22,17 @@ dependencies {
     implementation(projects.shared)
 
     implementation(libs.accompanist.webview)
+
     implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.navigation.compose)
+
     implementation(platform(libs.coil.bom))
     implementation(libs.bundles.coil)
+
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.messaging)
+
     implementation(libs.timber)
 }

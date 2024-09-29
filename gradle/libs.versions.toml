@@ -372,16 +372,16 @@ secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugi
 sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 
 # project plugin
-keelim-android-application = { id = "keelim.android.application", version = "unspecified" }
-keelim-android-application-firebase = {id = "keelim.android.application.firebase", version = "unspecified" }
-keelim-android-application-compose = {id = "keelim.android.application.compose", version = "unspecified" }
-keelim-android-application-jacoco = {id = "keelim.android.application.jacoco", version = "unspecified" }
-keelim-android-application-room = {id = "keelim.android.application.room", version = "unspecified" }
-keelim-android-library = {id = "keelim.android.library", version = "unspecified" }
-keelim-android-library-compose = {id = "keelim.android.library.compose", version = "unspecified" }
-keelim-android-library-jacoco = {id = "keelim.android.library.jacoco", version = "unspecified" }
-keelim-android-test = {id = "keelim.android.test", version = "unspecified" }
-keelim-android-hilt = {id = "keelim.android.hilt", version = "unspecified" }
-keelim-android-showkase = {id = "keelim.android.showkase", version = "unspecified" }
-keelim-jvm-library = {id = "keelim.jvm.library", version = "unspecified" }
+keelim-android-application = { id = "keelim.android.application" }
+keelim-android-application-firebase = {id = "keelim.android.application.firebase" }
+keelim-android-application-compose = {id = "keelim.android.application.compose" }
+keelim-android-application-jacoco = {id = "keelim.android.application.jacoco" }
+keelim-android-application-room = {id = "keelim.android.application.room" }
+keelim-android-library = {id = "keelim.android.library" }
+keelim-android-library-compose = {id = "keelim.android.library.compose" }
+keelim-android-library-jacoco = {id = "keelim.android.library.jacoco" }
+keelim-android-test = {id = "keelim.android.test" }
+keelim-android-hilt = {id = "keelim.android.hilt" }
+keelim-android-showkase = {id = "keelim.android.showkase" }
+keelim-jvm-library = {id = "keelim.jvm.library" }
 

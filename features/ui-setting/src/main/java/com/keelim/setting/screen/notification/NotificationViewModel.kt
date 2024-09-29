@@ -1,4 +1,4 @@
-package com.keelim.setting.screen
+package com.keelim.setting.screen.notification
 
 import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
@@ -41,7 +41,9 @@ constructor(
                 }
         }
             .catch { emit(NotificationState.Empty) }
-            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000L), NotificationState.Empty)
+            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000L),
+                NotificationState.Empty
+            )
 }
 
 data class Notification(val date: String, val title: String, val desc: String, val fixed: Boolean)

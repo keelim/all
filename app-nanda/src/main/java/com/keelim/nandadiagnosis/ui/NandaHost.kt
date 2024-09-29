@@ -24,8 +24,8 @@ import com.keelim.setting.screen.faq.faqScreen
 import com.keelim.setting.screen.faq.navigateFaq
 import com.keelim.setting.screen.lab.labScreen
 import com.keelim.setting.screen.lab.navigateLab
-import com.keelim.setting.screen.navigateNotification
-import com.keelim.setting.screen.notificationScreen
+import com.keelim.setting.screen.notification.navigateNotification
+import com.keelim.setting.screen.notification.notificationScreen
 import com.keelim.setting.screen.settings.navigateSettings
 import com.keelim.setting.screen.settings.settingsScreen
 import com.keelim.setting.screen.theme.navigateTheme

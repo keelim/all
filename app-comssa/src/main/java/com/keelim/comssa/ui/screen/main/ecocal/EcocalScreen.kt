@@ -1,5 +1,7 @@
 package com.keelim.comssa.ui.screen.main.ecocal
 
+import android.Manifest
+import android.os.Build
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -35,6 +37,7 @@ import com.keelim.composeutil.component.fab.FabButtonSub
 import com.keelim.composeutil.component.fab.MultiMainFab
 import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
+import com.keelim.composeutil.util.permission.SimpleAcquirePermissions
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -48,12 +51,23 @@ fun EcocalRoute(viewModel: EcocalViewModel = hiltViewModel()) = trace("EcocalRou
     )
 }
 
+private val appPermissions: List<String> = buildList {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        add(Manifest.permission.POST_NOTIFICATIONS)
+    }
+}
+
 @Composable
 fun EcocalScreen(
     uiState: SealedUiState<Map<String, List<EcoCalModel>>>,
     updateFilter: (FabButtonItem) -> Unit,
     updateCountry: (String) -> Unit,
 ) = trace("EcocalScreen") {
+
+    SimpleAcquirePermissions(
+        permissions = appPermissions,
+    ) { }
+
     AnimatedContent(
         targetState = uiState,
         label = "",

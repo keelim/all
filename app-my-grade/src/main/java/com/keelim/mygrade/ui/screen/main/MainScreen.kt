@@ -2,6 +2,8 @@
 
 package com.keelim.mygrade.ui.screen.main
 
+import android.Manifest
+import android.os.Build
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
@@ -57,6 +59,7 @@ import com.keelim.composeutil.component.pager.HorizontalPagerIndicator
 import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
+import com.keelim.composeutil.util.permission.SimpleAcquirePermissions
 import com.keelim.mygrade.ui.screen.timer.TimerScreen
 import kotlinx.coroutines.launch
 
@@ -100,6 +103,12 @@ fun MainRoute(
     )
 }
 
+private val appPermissions: List<String> = buildList {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        add(Manifest.permission.POST_NOTIFICATIONS)
+    }
+}
+
 @Composable
 fun MainScreen(
     mainState: MainScreenState,
@@ -123,6 +132,12 @@ fun MainScreen(
     val pagerState = rememberPagerState(pageCount = { pageCount })
     var backPressedState by remember { mutableStateOf(true) }
     val scope = rememberCoroutineScope()
+
+    SimpleAcquirePermissions(
+        permissions = appPermissions
+    ) {
+
+    }
     BackHandler(
         enabled = backPressedState,
         onBack = {

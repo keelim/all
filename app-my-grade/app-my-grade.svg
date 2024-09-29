@@ -34,8 +34,8 @@
             <text x="671" y="-156.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:data</text>
         </g>
         <g stroke="#000" class="edge">
-            <path fill="none" d="M496.16 30.78C603.69 46.53 826.56 86.06 869 148c36.61 53.42-67.19 75.38-136.74 83.94"/>
-            <path d="m732.83 235.4-10.34-2.33 9.53-4.63z"/>
+            <path fill="none" d="M496.17 30.77C603.72 46.51 826.61 86.02 869 148c36.56 53.46-67.22 75.4-136.76 83.95"/>
+            <path d="m732.82 235.41-10.34-2.33 9.53-4.63z"/>
         </g>
         <g class="node" transform="translate(4 400)">
             <ellipse cx="785" cy="-234" fill="none" stroke="#000" rx="70.8" ry="18"/>

@@ -16,11 +16,19 @@ import javax.inject.Inject
 class AlarmRepositoryImpl @Inject constructor(
     private val localDataSource: AlarmDao,
     @IoDispatcher private val io: CoroutineDispatcher,
-): AlarmRepository {
-    override suspend fun insertAlarm(alarm: Alarm): Boolean {
+) : AlarmRepository {
+    override suspend fun insertAlarm(
+        title: String,
+        subTitle: String,
+    ): Boolean {
         return try {
             withContext(io) {
-                localDataSource.upsert(alarm.toAlarmEntity())
+                localDataSource.upsert(
+                    Alarm(
+                        title = title,
+                        subTitle = subTitle,
+                    ).toAlarmEntity()
+                )
             }
             true
         } catch (throwable: Throwable) {

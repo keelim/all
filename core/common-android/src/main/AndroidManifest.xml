@@ -10,14 +10,6 @@
         android:usesCleartextTraffic="false"
         android:allowBackup="false">
 
-        <service
-            android:name=".message.AllFCMService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"

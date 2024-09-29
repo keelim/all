@@ -4,6 +4,6 @@ import com.keelim.model.Alarm
 import kotlinx.coroutines.flow.Flow
 
 interface AlarmRepository {
-    suspend fun insertAlarm(alarm: Alarm): Boolean
+    suspend fun insertAlarm(title: String, subTitle: String): Boolean
     fun getAlarms(): Flow<List<Alarm>>
 }

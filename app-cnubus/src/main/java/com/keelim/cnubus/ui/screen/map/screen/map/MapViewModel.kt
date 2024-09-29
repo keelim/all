@@ -53,5 +53,5 @@ class MapViewModel @Inject constructor() : ViewModel() {
             }.toPersistentList()
         }
         .flowOn(Dispatchers.Default)
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), persistentListOf())
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000L), persistentListOf())
 }

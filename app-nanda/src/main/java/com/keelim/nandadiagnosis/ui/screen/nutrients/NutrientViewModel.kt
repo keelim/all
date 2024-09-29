@@ -38,7 +38,7 @@ class NutrientViewModel @Inject constructor() : ViewModel() {
         )
     }.catch {
         emit(NutrientState.Error)
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), NutrientState.Empty)
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000L), NutrientState.Empty)
 }
 
 sealed interface NutrientState {

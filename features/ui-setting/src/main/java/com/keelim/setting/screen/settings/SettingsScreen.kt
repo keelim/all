@@ -24,6 +24,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.List
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.outlined.Build
+import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material.icons.outlined.ThumbUp
@@ -75,6 +76,7 @@ data class Category(
 fun SettingsRoute(
     onThemeChangeClick: () -> Unit,
     onNotificationsClick: () -> Unit,
+    onAlarmsClick: () -> Unit,
     onFaqClick: () -> Unit,
     onOpenSourceClick: () -> Unit,
     onLabClick: () -> Unit,
@@ -86,6 +88,7 @@ fun SettingsRoute(
         uiState = uiState,
         onThemeChangeClick = onThemeChangeClick,
         onNotificationsClick = onNotificationsClick,
+        onAlarmsClick = onAlarmsClick,
         onFaqClick = onFaqClick,
         onOpenSourceClick = onOpenSourceClick,
         onLabClick = onLabClick,
@@ -98,6 +101,7 @@ fun SettingsScreen(
     uiState: SettingsUiState,
     onThemeChangeClick: () -> Unit,
     onNotificationsClick: () -> Unit,
+    onAlarmsClick: () -> Unit,
     onFaqClick: () -> Unit,
     onOpenSourceClick: () -> Unit,
     onLabClick: () -> Unit,
@@ -154,12 +158,13 @@ fun SettingsScreen(
             ) { padding ->
                 val items = remember {
                     listOf(
-                        Category("Theme Change", Icons.Rounded.ArrowDropDown, onThemeChangeClick),
-                        Category("Notifications", Icons.Outlined.Notifications, onNotificationsClick),
-                        Category("FAQ", Icons.Rounded.KeyboardArrowUp, onFaqClick),
-                        Category("OpenSource", Icons.AutoMirrored.Outlined.List, onOpenSourceClick),
+                        Category("공지사항", Icons.Outlined.Check, onNotificationsClick),
+                        Category("알림내역", Icons.Outlined.Notifications, onAlarmsClick),
                         Category("실험실", Icons.Outlined.Lock, onLabClick),
                         Category("앱 업데이트", Icons.Rounded.ThumbUp, onAppUpdateClick),
+                        Category("FAQ", Icons.Rounded.KeyboardArrowUp, onFaqClick),
+                        Category("OpenSource", Icons.AutoMirrored.Outlined.List, onOpenSourceClick),
+                        Category("Theme Change", Icons.Rounded.ArrowDropDown, onThemeChangeClick),
                         Category("App Version: ${uiState.deviceInfo.versionName}", Icons.Outlined.Build) {},
                         Category("${uiState.userState.visitedTime} 번 방문하셨습니다.", Icons.Outlined.ThumbUp) {},
                     )
@@ -227,6 +232,7 @@ private fun PreviewSettingsScreen() {
         onOpenSourceClick = {},
         onLabClick = {},
         onAppUpdateClick = {},
+        onAlarmsClick = {},
     )
 }
 

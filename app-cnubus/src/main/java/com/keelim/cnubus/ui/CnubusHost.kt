@@ -14,6 +14,7 @@ import com.keelim.cnubus.ui.screen.map.screen.map.navigateMap
 import com.keelim.composeutil.AppState
 import com.keelim.core.navigation.CnuBusRoute
 import com.keelim.setting.screen.alarm.alarmScreen
+import com.keelim.setting.screen.alarm.navigateAlarm
 import com.keelim.setting.screen.event.eventScreen
 import com.keelim.setting.screen.faq.faqScreen
 import com.keelim.setting.screen.faq.navigateFaq
@@ -53,6 +54,7 @@ fun CnubusHost(
         settingsScreen(
             onThemeChangeClick = navController::navigateTheme,
             onNotificationsClick = navController::navigateNotification,
+            onAlarmsClick = navController::navigateAlarm,
             onFaqClick = navController::navigateFaq,
             onOpenSourceClick = {
                 context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))

@@ -33,6 +33,7 @@ import com.keelim.mygrade.ui.screen.word.navigateWordWrite
 import com.keelim.mygrade.ui.screen.word.wordScreen
 import com.keelim.mygrade.ui.screen.word.wordWriteScreen
 import com.keelim.setting.screen.alarm.alarmScreen
+import com.keelim.setting.screen.alarm.navigateAlarm
 import com.keelim.setting.screen.event.eventScreen
 import com.keelim.setting.screen.faq.faqScreen
 import com.keelim.setting.screen.faq.navigateFaq
@@ -114,6 +115,7 @@ fun MyGradeHost(
         settingsScreen(
             onThemeChangeClick = navController::navigateTheme,
             onNotificationsClick = navController::navigateNotification,
+            onAlarmsClick = navController::navigateAlarm,
             onFaqClick = navController::navigateFaq,
             onOpenSourceClick = {
                 context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))

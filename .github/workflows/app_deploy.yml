@@ -122,7 +122,7 @@ jobs:
           releaseFiles: app-cnubus/build/outputs/bundle/release/app-cnubus-release.aab
           track: production
           status: completed
-          changesNotSentForReview: true
+          changesNotSentForReview: false
 
       - name: Deploy to Play Store Comssa
         id: deploy_comssa

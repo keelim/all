@@ -1,5 +1,6 @@
 package com.keelim.core.database
 
+import com.keelim.core.database.dao.AlarmDao
 import com.keelim.core.database.dao.ArduconDao
 import com.keelim.core.database.dao.HistoryDao
 import com.keelim.core.database.dao.NandaDao
@@ -58,4 +59,10 @@ object DaoModule {
     fun providesArduconDao(
         database: ArduconDatabase,
     ): ArduconDao = database.dataDao()
+
+    @Provides
+    @Singleton
+    fun providesAlarmDao(
+        database: AllDatabase,
+    ): AlarmDao = database.alarmDao()
 }

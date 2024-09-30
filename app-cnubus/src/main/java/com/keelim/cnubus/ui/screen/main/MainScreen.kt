@@ -1,13 +1,9 @@
-@file:OptIn(ExperimentalFoundationApi::class)
-
 package com.keelim.cnubus.ui.screen.main
 
 import android.Manifest
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -19,7 +15,6 @@ import androidx.compose.material3.PrimaryScrollableTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -36,6 +31,7 @@ import com.keelim.cnubus.ui.screen.setting.SettingScreen
 import com.keelim.common.extensions.toast
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
+import com.keelim.composeutil.util.permission.SimpleAcquirePermissions
 import kotlinx.coroutines.launch
 
 private val appPermissions: List<String> = buildList {
@@ -53,16 +49,11 @@ fun MainRoute(
     viewModel: RootViewModel = hiltViewModel(),
 ) = trace("MainRoute") {
     val context = LocalContext.current
-    val launcher = rememberLauncherForActivityResult(
-        ActivityResultContracts.RequestMultiplePermissions(),
-    ) { permissions ->
-        val responsePermissions = permissions.entries.filter { appPermissions.contains(it.key) }
-        if (responsePermissions.filter { it.value }.size == appPermissions.size) {
-            context.toast("권한이 확인되었습니다.")
-        }
-    }
-    LaunchedEffect(launcher) {
-        launcher.launch(appPermissions.toTypedArray())
+
+    SimpleAcquirePermissions(
+        appPermissions,
+    ) {
+        context.toast("권한이 확인되었습니다.")
     }
 
     MainScreen(
@@ -167,11 +158,13 @@ fun PagerContent(
                                 ),
                             )
                         }
+
                         ScreenAction.Map -> onNavigateMap()
                         ScreenAction.AppSetting -> onNavigateAppSetting()
                     }
                 },
             )
+
             else -> RootRoute(
                 onRootClick = {},
             )

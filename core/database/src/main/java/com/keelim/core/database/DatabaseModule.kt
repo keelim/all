@@ -50,4 +50,17 @@ object DatabaseModule {
         ).fallbackToDestructiveMigration()
             .build()
     }
+
+    @Provides
+    @Singleton
+    fun provideAllDatabase(
+        @ApplicationContext context: Context,
+    ): AllDatabase {
+        return Room.databaseBuilder(
+            context,
+            AllDatabase::class.java,
+            "all.db",
+        ).fallbackToDestructiveMigration()
+            .build()
+    }
 }

@@ -15,14 +15,11 @@
  */
 package com.keelim.nandadiagnosis.ui.screen.main
 
-import android.Manifest
 import android.app.DownloadManager
 import android.content.IntentFilter
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.core.content.ContextCompat
@@ -55,23 +52,6 @@ class Main2Activity : ComponentActivity() {
     @Inject
     lateinit var userStateStore: Lazy<UserStateStore>
 
-    private val appPermissions: List<String> = buildList {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            add(Manifest.permission.POST_NOTIFICATIONS)
-        }
-    }
-
-    private val permissionLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-            val responsePermissions = permissions.entries.filter { appPermissions.contains(it.key) }
-            if (responsePermissions.filter { it.value }.size == appPermissions.size) {
-                toast("권한이 확인되었습니다.")
-            }
-        }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
@@ -90,7 +70,6 @@ class Main2Activity : ComponentActivity() {
 
     override fun onStart() {
         super.onStart()
-        permissionLauncher.launch(appPermissions.toTypedArray())
         fileChecking()
     }
 

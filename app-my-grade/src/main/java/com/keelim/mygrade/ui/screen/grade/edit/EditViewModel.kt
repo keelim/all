@@ -58,7 +58,7 @@ class EditViewModel @Inject constructor(
         ),
     )
     val data = _data.asSealedUiState()
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), SealedUiState.Loading)
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000L), SealedUiState.Loading)
     fun updateNote(descriptions: String) {
         val current = _data.value
         val title = current.editResult.subject

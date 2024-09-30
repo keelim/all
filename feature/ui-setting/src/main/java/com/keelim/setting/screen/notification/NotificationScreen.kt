@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 
-package com.keelim.setting.screen
+package com.keelim.setting.screen.notification
 
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.animation.core.animateDpAsState
@@ -146,8 +146,8 @@ private fun NotificationContent(
                             notificationDate = notification.date,
                             notificationTitle = notification.title,
                             notificationDesc = notification.desc,
-                            modifier = Modifier.animateItemPlacement(
-                                animationSpec = tween(
+                            modifier = Modifier.animateItem(
+                                placementSpec = tween(
                                     durationMillis = 500,
                                 ),
                             ),
@@ -173,8 +173,8 @@ private fun NotificationContent(
                         notificationDate = notification.date,
                         notificationTitle = notification.title,
                         notificationDesc = notification.desc,
-                        modifier = Modifier.animateItemPlacement(
-                            animationSpec = tween(
+                        modifier = Modifier.animateItem(
+                            placementSpec = tween(
                                 durationMillis = 500,
                             ),
                         ),

@@ -301,8 +301,8 @@ fun DeepLinkSection(
                 },
                 onUpdate = onUpdate,
                 onDelete = onDelete,
-                modifier = Modifier.animateItemPlacement(
-                    animationSpec = tween(
+                modifier = Modifier.animateItem(
+                    placementSpec = tween(
                         durationMillis = 500,
                         easing = LinearOutSlowInEasing,
                     ),
@@ -342,8 +342,8 @@ fun DeepLinkSection(
                 },
                 onUpdate = onUpdate,
                 onDelete = onDelete,
-                modifier = Modifier.animateItemPlacement(
-                    animationSpec = tween(
+                modifier = Modifier.animateItem(
+                    placementSpec = tween(
                         durationMillis = 500,
                         easing = LinearOutSlowInEasing,
                     ),

@@ -4,7 +4,6 @@ plugins {
     alias(libs.plugins.keelim.android.application.compose)
     alias(libs.plugins.keelim.android.application.jacoco)
     alias(libs.plugins.keelim.android.hilt)
-    alias(libs.plugins.baselineprofile)
 }
 
 android {
@@ -31,8 +30,8 @@ dependencies {
     implementation(projects.core.navigation)
     implementation(projects.shared)
     implementation(projects.core.domain)
-    implementation(projects.features.uiLabs)
-    implementation(projects.features.uiSetting)
+    implementation(projects.feature.uiLabs)
+    implementation(projects.feature.uiSetting)
 
     implementation(libs.activity.ktx)
     implementation(libs.androidx.activity.compose)

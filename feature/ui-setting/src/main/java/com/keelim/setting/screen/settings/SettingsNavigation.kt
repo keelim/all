@@ -13,6 +13,7 @@ fun NavController.navigateSettings(navOptions: NavOptions? = null) {
 fun NavGraphBuilder.settingsScreen(
     onThemeChangeClick: () -> Unit,
     onNotificationsClick: () -> Unit,
+    onAlarmsClick: () -> Unit,
     onFaqClick: () -> Unit,
     onOpenSourceClick: () -> Unit,
     onLabClick: () -> Unit,
@@ -23,6 +24,7 @@ fun NavGraphBuilder.settingsScreen(
         SettingsRoute(
             onThemeChangeClick = onThemeChangeClick,
             onNotificationsClick = onNotificationsClick,
+            onAlarmsClick = onAlarmsClick,
             onFaqClick = onFaqClick,
             onOpenSourceClick = onOpenSourceClick,
             onLabClick = onLabClick,

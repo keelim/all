@@ -24,7 +24,7 @@ class TaskViewModel @Inject constructor(
         .observeAll()
         .mapLatest { it.toTaskListSections().toTaskElement() }
         .asSealedUiState()
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), SealedUiState.Loading)
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000L), SealedUiState.Loading)
     fun addLocalTask() {
         viewModelScope.launch {
             taskRepository.create()

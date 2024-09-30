@@ -26,6 +26,7 @@ dependencies {
     compileOnly(libs.room.gradlePlugin)
     compileOnly(libs.dependencyGuard.gradlePlugin)
     compileOnly(libs.compose.compiler.gradlePlugin)
+    compileOnly(libs.androidx.benchmark.gradlePlugin)
 }
 
 tasks {

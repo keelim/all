@@ -3,29 +3,28 @@
 compileSdk = "35"
 minSdk = "26"
 targetSdk = "34"
-versionCode = "20240908"
+versionCode = "20240930"
 # library
 accompanist = "0.36.0"
-adaptive-navigation-suite = "1.3.0"
 androidDesugarJdkLibs = "2.1.2"
-androidGradlePlugin = "8.6.0"
+androidGradlePlugin = "8.6.1"
 androidxActivity = "1.9.2"
 androidxAppCompat = "1.7.0"
-androidxComposeBom = "2024.09.00"
-androidxComposeRuntimeTracing = "1.0.0-beta01"
+androidxComposeBom = "2024.09.02"
+androidxComposeRuntimeTracing = "1.7.0-rc01"
 androidxCore = "1.13.1"
 androidxCoreSplashscreen = "1.0.1"
 androidxDataStore = "1.1.1"
 androidxEspresso = "3.6.1"
 androidxFragment = "1.8.3"
 androidxHiltNavigationCompose = "1.2.0"
-androidxLifecycle = "2.8.5"
-androidxMacroBenchmark = "1.3.0"
+androidxLifecycle = "2.8.6"
+androidxMacroBenchmark = "1.3.1"
 androidxMetrics = "1.0.0-beta01"
-androidxNavigation = "2.8.0"
+androidxNavigation = "2.8.1"
 androidxPaging = "3.3.2"
-androidxProfileinstaller = "1.3.1"
-androidxStartup = "1.1.1"
+androidxProfileinstaller = "1.4.0"
+androidxStartup = "1.2.0"
 androidxTestCore = "1.6.1"
 androidxTestExt = "1.2.1"
 androidxTestRules = "1.6.1"
@@ -38,16 +37,16 @@ arrow = "1.2.4"
 bio = "1.1.0"
 coil = "2.7.0"
 compose-multiplatform = "1.6.11"
-circuit = "0.23.1"
+circuit = "0.24.0"
 deeplinkdispatch = "6.2.2"
 dependencyGuard = "0.5.0"
 emoji2-emojipicker = "1.5.0"
-errorprone = "2.31.0"
-firebase = "33.2.0"
+errorprone = "2.32.0"
+firebase = "33.3.0"
 firebase-ui = "8.0.2"
 firebaseCrashlyticsPlugin = "3.0.2"
 firebasePerfPlugin = "1.4.2"
-flipper = "0.265.0"
+flipper = "0.267.1"
 generativeai = "0.9.0"
 glance = "1.1.0"
 haze = "0.7.3"
@@ -59,13 +58,13 @@ junit4 = "4.13.2"
 jsoup = "1.18.1"
 kotlin = "2.0.20"
 kotlinxCollectionsImmutable = "0.3.8"
-kotlinxCoroutines = "1.8.1"
+kotlinxCoroutines = "1.9.0"
 kotlinxDatetime = "0.6.1"
-kotlinxSerializationJson = "1.7.2"
+kotlinxSerializationJson = "1.7.3"
 ksp = "2.0.20-1.0.25"
 ktor = "2.3.12"
 leakcanary = "2.14"
-lint = "31.6.0"
+lint = "31.6.1"
 lottie = "6.5.2"
 maps = "5.1.1"
 maps-compose = "6.1.2"
@@ -73,7 +72,7 @@ math3 = "3.6.1"
 modernstorageBom = "1.0.0-alpha06"
 moduleGraphAssertion = "2.7.1"
 okhttp = "4.12.0"
-okio = "3.9.0"
+okio = "3.9.1"
 paging-compose = "3.3.2"
 play-services-auth = "21.2.0"
 play-services-code-scanner = "16.1.0"
@@ -84,7 +83,7 @@ playoss = "17.1.0"
 playoss-plugin = "0.10.6"
 preference = "1.2.1"
 preferenceKtx = "1.2.1"
-protobuf = "4.28.0"
+protobuf = "4.28.2"
 protobufPlugin = "0.9.4"
 retrofit = "2.11.0"
 retrofitKotlinxSerializationJson = "1.0.0"
@@ -95,7 +94,7 @@ secrets = "2.0.1"
 showkase = "1.0.3"
 slackComposeLint = "1.3.1"
 slackLintChecks = "0.7.4"
-soloader = "0.11.0"
+soloader = "0.12.1"
 sqldelight = "2.0.2"
 themeAdapter = "1.2.1"
 timbers = "5.0.1"
@@ -127,7 +126,10 @@ androidx-compose-foundation-layout = { group = "androidx.compose.foundation", na
 androidx-compose-glance = { group = "androidx.glance", name = "glance-appwidget", version.ref = "glance" }
 androidx-compose-glance-material3 = { group = "androidx.glance", name = "glance-material3", version.ref = "glance" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
-androidx-compose-material3-adaptiveNavigationSuite = {group = "androidx.compose.material3", name = "material3-adaptive-navigation-suite-android", version.ref = "adaptive-navigation-suite" }
+androidx-compose-material3-navigationSuite = { group = "androidx.compose.material3", name = "material3-adaptive-navigation-suite" }
+androidx-compose-material3-adaptive = { group = "androidx.compose.material3.adaptive", name = "adaptive" }
+androidx-compose-material3-adaptive-layout = { group = "androidx.compose.material3.adaptive", name = "adaptive-layout" }
+androidx-compose-material3-adaptive-navigation = { group = "androidx.compose.material3.adaptive", name = "adaptive-navigation" }
 androidx-compose-material3-windowSizeClass = {group = "androidx.compose.material3", name = "material3-window-size-class" }
 androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime" }
 androidx-compose-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata" }
@@ -372,16 +374,16 @@ secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugi
 sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 
 # project plugin
-keelim-android-application = { id = "keelim.android.application", version = "unspecified" }
-keelim-android-application-firebase = {id = "keelim.android.application.firebase", version = "unspecified" }
-keelim-android-application-compose = {id = "keelim.android.application.compose", version = "unspecified" }
-keelim-android-application-jacoco = {id = "keelim.android.application.jacoco", version = "unspecified" }
-keelim-android-application-room = {id = "keelim.android.application.room", version = "unspecified" }
-keelim-android-library = {id = "keelim.android.library", version = "unspecified" }
-keelim-android-library-compose = {id = "keelim.android.library.compose", version = "unspecified" }
-keelim-android-library-jacoco = {id = "keelim.android.library.jacoco", version = "unspecified" }
-keelim-android-test = {id = "keelim.android.test", version = "unspecified" }
-keelim-android-hilt = {id = "keelim.android.hilt", version = "unspecified" }
-keelim-android-showkase = {id = "keelim.android.showkase", version = "unspecified" }
-keelim-jvm-library = {id = "keelim.jvm.library", version = "unspecified" }
+keelim-android-application = { id = "keelim.android.application" }
+keelim-android-application-firebase = {id = "keelim.android.application.firebase" }
+keelim-android-application-compose = {id = "keelim.android.application.compose" }
+keelim-android-application-jacoco = {id = "keelim.android.application.jacoco" }
+keelim-android-application-room = {id = "keelim.android.application.room" }
+keelim-android-library = {id = "keelim.android.library" }
+keelim-android-library-compose = {id = "keelim.android.library.compose" }
+keelim-android-library-jacoco = {id = "keelim.android.library.jacoco" }
+keelim-android-test = {id = "keelim.android.test" }
+keelim-android-hilt = {id = "keelim.android.hilt" }
+keelim-android-showkase = {id = "keelim.android.showkase" }
+keelim-jvm-library = {id = "keelim.jvm.library" }
 

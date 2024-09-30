@@ -29,5 +29,6 @@ plugins {
     alias(libs.plugins.firebase.perf) apply false
     alias(libs.plugins.room) apply false
     alias(libs.plugins.dependencyGuard) apply false
-    alias(libs.plugins.moduleGraphAssertion)  apply false
+    alias(libs.plugins.moduleGraphAssertion) apply false
+    alias(libs.plugins.baselineprofile) apply false
 }

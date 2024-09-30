@@ -5,7 +5,6 @@ package com.keelim.mygrade.ui.screen.task
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateRectAsState
-import androidx.compose.animation.core.spring
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
@@ -133,9 +132,7 @@ fun LocalTaskList(
                         LocalTaskHeader(
                             task = task,
                             modifier =
-                            Modifier.animateItemPlacement(
-                                animationSpec = spring(),
-                            ),
+                            Modifier.animateItem(),
                         )
 
                     is TaskElement.Item ->
@@ -144,9 +141,7 @@ fun LocalTaskList(
                             onChange = onChange,
                             onDelete = onDelete,
                             modifier =
-                            Modifier.animateItemPlacement(
-                                animationSpec = spring(),
-                            ),
+                            Modifier.animateItem(),
                             innerCornerSize = innerCornerSize,
                         )
                 }

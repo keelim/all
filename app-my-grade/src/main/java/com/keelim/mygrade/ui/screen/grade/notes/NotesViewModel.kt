@@ -24,7 +24,7 @@ class NotesViewModel @Inject constructor(
             it.getOrNull() ?: emptyList()
         }
         .asSealedUiState()
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), SealedUiState.loading())
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000L), SealedUiState.loading())
 
     fun deleteNote(note: Notices) {
         viewModelScope.launch {

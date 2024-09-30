@@ -35,5 +35,5 @@ constructor(
                 }
             }
             .asSealedUiState()
-            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), SealedUiState.Loading)
+            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000L), SealedUiState.Loading)
 }

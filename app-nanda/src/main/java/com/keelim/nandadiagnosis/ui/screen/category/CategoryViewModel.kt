@@ -38,7 +38,7 @@ class CategoryViewModel @Inject constructor() : ViewModel() {
         )
     }.catch {
         emit(CategoryState.Error)
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), CategoryState.Empty)
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000L), CategoryState.Empty)
 }
 
 sealed interface CategoryState {

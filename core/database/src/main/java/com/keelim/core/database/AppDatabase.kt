@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters
+import com.keelim.core.database.dao.AlarmDao
 import com.keelim.core.database.dao.ArduconDao
 import com.keelim.core.database.dao.HistoryDao
 import com.keelim.core.database.dao.NandaDao
@@ -12,6 +13,7 @@ import com.keelim.core.database.dao.NetworkCacheDao
 import com.keelim.core.database.dao.NoteDao
 import com.keelim.core.database.dao.TaskDao
 import com.keelim.core.database.dao.TimerHistoryDao
+import com.keelim.core.database.model.AlarmEntity
 import com.keelim.core.database.model.DeepLinkEntity
 import com.keelim.core.database.model.History
 import com.keelim.core.database.model.LocalTask
@@ -82,4 +84,16 @@ abstract class NandaAppDatabase : RoomDatabase() {
 )
 abstract class ArduconDatabase : RoomDatabase() {
     abstract fun dataDao(): ArduconDao
+}
+
+@Database(
+    entities = [
+        AlarmEntity::class,
+    ],
+    version = 1,
+    exportSchema = true,
+    // autoMigrations = []
+)
+abstract class AllDatabase : RoomDatabase() {
+    abstract fun alarmDao(): AlarmDao
 }

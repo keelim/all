@@ -8,8 +8,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.core.common)
     implementation(libs.androidx.compose.glance)
     implementation(libs.androidx.compose.glance.material3)
-    implementation(libs.androidx.compose.ui.tooling)
+    implementation(libs.glance.tools.appwidget.host)
 }

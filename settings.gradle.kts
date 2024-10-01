@@ -46,8 +46,8 @@ include(
     ":core:network",
     ":core:testing",
     ":core:navigation",
-    // ":core:widget-glance",
     ":feature:ui-labs",
     ":feature:ui-setting",
-    ":shared"
+    ":shared",
+    ":widget",
 )

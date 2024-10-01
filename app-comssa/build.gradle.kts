@@ -31,6 +31,7 @@ dependencies {
     implementation(projects.core.data)
     implementation(projects.core.navigation)
     implementation(projects.shared)
+    implementation(projects.widget)
 
     implementation(libs.activity.ktx)
     implementation(libs.androidx.activity.compose)

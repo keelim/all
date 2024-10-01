@@ -48,6 +48,7 @@ firebaseCrashlyticsPlugin = "3.0.2"
 firebasePerfPlugin = "1.4.2"
 flipper = "0.267.1"
 generativeai = "0.9.0"
+glanceExperimentalTools = "0.2.2"
 glance = "1.1.0"
 haze = "0.7.3"
 hilt = "2.52"
@@ -221,6 +222,7 @@ flipper-leakcanary = { group = "com.facebook.flipper", name = "flipper-leakcanar
 flipper-noop = { group = "com.facebook.flipper", name = "flipper-noop", version.ref = "flipper" }
 fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "androidxFragment" }
 generativeai = { group = "com.google.ai.client.generativeai", name = "generativeai", version.ref = "generativeai" }
+glance-tools-appwidget-host = { group = "com.google.android.glance.tools", name = "appwidget-host", version.ref = "glanceExperimentalTools" }
 haze = { group = "dev.chrisbanes.haze", name = "haze", version.ref = "haze" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }

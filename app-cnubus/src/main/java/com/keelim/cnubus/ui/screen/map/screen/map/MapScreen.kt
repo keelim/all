@@ -2,9 +2,15 @@ package com.keelim.cnubus.ui.screen.map.screen.map
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -25,50 +31,107 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MarkerInfoWindowContent
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
+import com.google.maps.android.compose.rememberMarkerState
+import com.keelim.composeutil.resource.space12
+import com.keelim.composeutil.resource.space24
+import com.keelim.composeutil.resource.space32
+import com.keelim.composeutil.resource.space8
 import com.keelim.core.data.model.Location
 
 @Composable
-fun MapRoute() {
-    MapScreen()
+fun MapRoute(
+    viewModel: MapViewModel = hiltViewModel(),
+) = trace("MapRoute") {
+    val locations by viewModel.locations.collectAsStateWithLifecycle()
+    MapScreen(
+        locations = locations,
+    )
 }
 
 @Composable
-fun MapScreen(viewModel: MapViewModel = hiltViewModel()) = trace("MapScreen") {
+fun MapScreen(
+    locations: List<MapState>,
+) = trace("MapScreen") {
     val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(Location.defaultLocation().latLng, 25f)
     }
-    GoogleMap(modifier = Modifier.fillMaxSize(), cameraPositionState = cameraPositionState) {
-        val locations by viewModel.locations.collectAsStateWithLifecycle()
-        locations.fastForEach { marker ->
-            MarkerInfoWindowContent(
-                state = MarkerState(position = marker.position),
-                title = marker.title,
-                snippet = marker.itemSnippet,
+    Box(
+        modifier = Modifier.fillMaxSize(),
+    ) {
+        Row(
+            modifier = Modifier.padding(
+                vertical = space24,
+                horizontal = space24,
+            )
+        ) {
+            Card(
+                modifier = Modifier.fillMaxWidth()
             ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Row(
+                    modifier = Modifier.padding(space8)
+                ) {
                     Text(
-                        modifier = Modifier.padding(top = 6.dp),
-                        text = marker.title,
-                        fontWeight = FontWeight.Bold,
-                    )
-                    AsyncImage(
-                        model = marker.imageUrl,
-                        modifier = Modifier
-                            .padding(top = 6.dp)
-                            .border(
-                                BorderStroke(3.dp, color = Color.Gray),
-                                shape = RectangleShape,
-                            ),
-                        contentDescription = null,
+                        text = "CNUBUS",
+                        modifier = Modifier.align(Alignment.CenterVertically),
+                        style = MaterialTheme.typography.titleSmall.copy(
+                            fontWeight = FontWeight.Bold,
+                        ),
                     )
                 }
             }
+        }
+        GoogleMap(
+            modifier = Modifier.fillMaxSize(),
+            cameraPositionState = cameraPositionState
+        ) {
+            locations.fastForEach { marker ->
+                CustomMarker(marker = marker)
+            }
+        }
+    }
+}
+
+@Composable
+private fun CustomMarker(
+    marker: MapState,
+    markerState: MarkerState = rememberMarkerState(position = marker.position),
+) {
+    MarkerInfoWindowContent(
+        state = markerState,
+        title = marker.title,
+        snippet = marker.itemSnippet,
+    ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(
+                modifier = Modifier.padding(top = 6.dp),
+                text = marker.title,
+                fontWeight = FontWeight.Bold,
+            )
+            AsyncImage(
+                model = marker.imageUrl,
+                modifier = Modifier
+                    .padding(top = 6.dp)
+                    .border(
+                        BorderStroke(3.dp, color = Color.Gray),
+                        shape = RectangleShape,
+                    ),
+                contentDescription = null,
+            )
         }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewMapScreen() {
-    MapScreen()
+private fun PreviewMapScreen() {
+    MapScreen(
+        locations = listOf(
+            MapState(
+                name = "",
+                latlng = Location.defaultLocation().latLng,
+                itemSnippet = "",
+                imageUrl = "",
+            ),
+        ),
+    )
 }

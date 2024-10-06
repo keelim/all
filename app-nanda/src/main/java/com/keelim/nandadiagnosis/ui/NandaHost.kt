@@ -10,6 +10,7 @@ import androidx.navigation.compose.NavHost
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.keelim.composeutil.AppState
 import com.keelim.core.navigation.NandaRoute
+import com.keelim.nandadiagnosis.ui.screen.category.CategoriesType
 import com.keelim.nandadiagnosis.ui.screen.category.categoryScreen
 import com.keelim.nandadiagnosis.ui.screen.category.navigateToCategory
 import com.keelim.nandadiagnosis.ui.screen.diagnosis.diagnosisScreen
@@ -64,9 +65,17 @@ fun NandaHost(
                 navController.navigateSettings()
             },
             onCategoryClick = { index, category -> navController.navigateToDiagnosis(index.toString(), category) },
-            onEditTypeClick = {
-                coroutineScope.launch {
-                    onShowSnackbar("현재 업데이트 준비중입니다. ", null)
+            onEditTypeClick = { type ->
+                when (type) {
+                    CategoriesType.EXERCISE -> {
+
+                    }
+
+                    else -> {
+                        coroutineScope.launch {
+                            onShowSnackbar("현재 업데이트 준비중입니다. ", null)
+                        }
+                    }
                 }
             },
             onDismiss = { coroutineScope.launch { bottomSheetState.hide() } },

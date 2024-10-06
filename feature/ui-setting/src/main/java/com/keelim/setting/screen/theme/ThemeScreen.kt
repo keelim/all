@@ -152,7 +152,7 @@ fun RadioButtons(
 @Composable
 private fun PreviewThemeScreen() {
     ThemeScreen(
-        themeTypeState = ThemeTypeState(selectedRadio = ThemeType.SYSTEM),
+        themeTypeState = ThemeTypeState(selectedRadio = ThemeType.LIGHT),
         onCurrentThemeClick = { },
         onDialogClick = { },
         onRadioClick = { },

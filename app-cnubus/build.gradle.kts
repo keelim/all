@@ -33,6 +33,7 @@ dependencies {
     implementation(projects.feature.uiLabs)
     implementation(projects.feature.uiSetting)
     implementation(projects.widget)
+    implementation(projects.shared)
 
     implementation(libs.activity.ktx)
     implementation(libs.androidx.activity.compose)

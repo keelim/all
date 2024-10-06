@@ -3,15 +3,20 @@
 package com.keelim.mygrade.ui.screen
 
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.core.os.BuildCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LifecycleEventEffect
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.airbnb.deeplinkdispatch.DeepLink
-import com.keelim.composeutil.util.setThemeContent
+import com.keelim.composeutil.ui.theme.KeelimTheme
 import com.keelim.shared.data.UserStateStore
+import com.keelim.shared.data.model.ThemeType
 import dagger.Lazy
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -23,7 +28,7 @@ import javax.inject.Inject
 @BuildCompat.PrereleaseSdkCheck
 @DeepLink("all://screen/{name}")
 @AndroidEntryPoint
-class CenterActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var userStateStore: Lazy<UserStateStore>
@@ -31,16 +36,28 @@ class CenterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
-        setThemeContent {
-            MyGradeApp(
-                windowSizeClass = calculateWindowSizeClass(this),
-            )
+        setContent {
+            val themeType = userStateStore.get().themeTypeFlow.collectAsStateWithLifecycle(ThemeType.LIGHT).value
+            val isDarkThem = when(themeType) {
+                ThemeType.DARK -> true
+                ThemeType.LIGHT -> false
+            }
+            KeelimTheme(
+                isDarkTheme = isDarkThem,
+            ) {
+                MyGradeApp(
+                    windowSizeClass = calculateWindowSizeClass(this),
+                )
+            }
+            LifecycleEventEffect(event = Lifecycle.Event.ON_CREATE) {
+                updateVisitedTime()
+            }
         }
+
         if (intent.getBooleanExtra(DeepLink.IS_DEEP_LINK, false)) {
             val parameters = intent.extras
             Timber.d("[deep link] name ${parameters?.getString("name")}")
         }
-        updateVisitedTime()
     }
 
     private fun updateVisitedTime() {

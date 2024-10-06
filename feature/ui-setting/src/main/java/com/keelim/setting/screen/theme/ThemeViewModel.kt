@@ -3,7 +3,7 @@ package com.keelim.setting.screen.theme
 import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.keelim.shared.data.ThemeType
+import com.keelim.shared.data.model.ThemeType
 import com.keelim.shared.data.UserStateStore
 import dagger.Lazy
 import dagger.hilt.android.lifecycle.HiltViewModel

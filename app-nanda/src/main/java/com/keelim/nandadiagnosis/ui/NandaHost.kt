@@ -17,9 +17,9 @@ import com.keelim.nandadiagnosis.ui.screen.diagnosis.diagnosisScreen
 import com.keelim.nandadiagnosis.ui.screen.diagnosis.navigateToDiagnosis
 import com.keelim.nandadiagnosis.ui.screen.inappweb.navigateToWeb
 import com.keelim.nandadiagnosis.ui.screen.inappweb.webScreen
-import com.keelim.nandadiagnosis.ui.screen.nutrients.nutrientScreen
-import com.keelim.nandadiagnosis.ui.screen.nutrients.timer.navigateNutrientTimer
-import com.keelim.nandadiagnosis.ui.screen.nutrients.timer.nutrientTimerScreen
+import com.keelim.nandadiagnosis.ui.screen.nutrient.nutrientScreen
+import com.keelim.nandadiagnosis.ui.screen.nutrient.timer.navigateNutrientTimer
+import com.keelim.nandadiagnosis.ui.screen.nutrient.timer.nutrientTimerScreen
 import com.keelim.setting.screen.alarm.alarmScreen
 import com.keelim.setting.screen.alarm.navigateAlarm
 import com.keelim.setting.screen.event.eventScreen

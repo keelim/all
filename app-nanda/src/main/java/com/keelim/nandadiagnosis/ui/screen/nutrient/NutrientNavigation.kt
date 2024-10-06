@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.ui.screen.nutrients
+package com.keelim.nandadiagnosis.ui.screen.nutrient
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder

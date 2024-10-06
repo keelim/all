@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.ui.screen.nutrients.timer
+package com.keelim.nandadiagnosis.ui.screen.nutrient.timer
 
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue

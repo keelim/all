@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.ui.screen.nutrients
+package com.keelim.nandadiagnosis.ui.screen.nutrient
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -121,7 +121,8 @@ private fun NutrientCard(title: String, uri: String, onNutrientClick: () -> Unit
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Column(
             modifier =
-            Modifier.widthIn(max = 400.dp)
+            Modifier
+                .widthIn(max = 400.dp)
                 .clip(MaterialTheme.shapes.large)
                 .clickable { onNutrientClick() }
                 .padding(space16),
@@ -132,13 +133,18 @@ private fun NutrientCard(title: String, uri: String, onNutrientClick: () -> Unit
                         model =
                         "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1024&q=80",
                         modifier =
-                        Modifier.clip(MaterialTheme.shapes.medium).aspectRatio(16 / 9f).fillMaxWidth(),
+                        Modifier
+                            .clip(MaterialTheme.shapes.medium)
+                            .aspectRatio(16 / 9f)
+                            .fillMaxWidth(),
                         contentScale = ContentScale.Crop,
                         contentDescription = "null",
                     )
                     Button(
                         onClick = { onNutrientClick() },
-                        modifier = Modifier.align(Alignment.TopEnd).padding(space16),
+                        modifier = Modifier
+                            .align(Alignment.TopEnd)
+                            .padding(space16),
                         colors =
                         ButtonDefaults.buttonColors(
                             containerColor = MaterialTheme.colorScheme.surface,

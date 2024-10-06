@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.ui.screen.nutrients
+package com.keelim.nandadiagnosis.ui.screen.nutrient
 
 import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel

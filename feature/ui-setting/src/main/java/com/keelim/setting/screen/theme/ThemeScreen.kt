@@ -73,7 +73,6 @@ fun CurrentThemeText(
 ) {
     val icon = remember(themeType) {
         when (themeType) {
-            ThemeType.SYSTEM -> "💻"
             ThemeType.LIGHT -> "🌞"
             ThemeType.DARK -> "🌚"
         }

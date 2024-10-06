@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.ui.screen.nutrients.timer
+package com.keelim.nandadiagnosis.ui.screen.nutrient.timer
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.foundation.layout.Arrangement

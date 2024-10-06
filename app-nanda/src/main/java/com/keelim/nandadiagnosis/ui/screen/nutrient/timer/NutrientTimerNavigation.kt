@@ -1,4 +1,4 @@
-package com.keelim.nandadiagnosis.ui.screen.nutrients.timer
+package com.keelim.nandadiagnosis.ui.screen.nutrient.timer
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder

@@ -17,6 +17,7 @@ package com.keelim.cnubus.ui.screen.main
 
 import android.os.Bundle
 import androidx.activity.compose.BackHandler
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -28,11 +29,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LifecycleEventEffect
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.airbnb.deeplinkdispatch.DeepLink
 import com.keelim.cnubus.ui.CnubusApp
-import com.keelim.composeutil.util.setThemeContent
+import com.keelim.composeutil.ui.theme.KeelimTheme
 import com.keelim.shared.data.UserStateStore
+import com.keelim.shared.data.model.ThemeType
 import dagger.Lazy
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -51,50 +56,63 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
-        setThemeContent {
-            CnubusApp(
-                windowSizeClass = calculateWindowSizeClass(this),
-            )
+        setContent {
+            val themeType = userStateStore.get().themeTypeFlow.collectAsStateWithLifecycle(ThemeType.LIGHT).value
+            val isDarkThem = when(themeType) {
+                ThemeType.DARK -> true
+                ThemeType.LIGHT -> false
+            }
 
-            var isDialogOpen by remember { mutableStateOf(false) }
-            BackHandler(
-                enabled = true,
-                onBack = {
-                    isDialogOpen = true
-                },
-            )
-            if (isDialogOpen) {
-                AlertDialog(
-                    onDismissRequest = {
-                        isDialogOpen = false
-                    },
-                    title = { Text(text = "안내") },
-                    text = { Text(text = "종료 하시겠습니까?") },
-                    confirmButton = {
-                        Button(
-                            onClick = {
-                                finish()
-                            },
-                        ) {
-                            Text(
-                                text = "확인",
-                            )
-                        }
-                    },
-                    dismissButton = {
-                        Button(onClick = {
-                            isDialogOpen = false
-                        }) {
-                            Text(
-                                text = "취소",
-                            )
-                        }
+            KeelimTheme(
+                isDarkTheme = isDarkThem,
+            ) {
+                CnubusApp(
+                    windowSizeClass = calculateWindowSizeClass(this),
+                )
+
+                var isDialogOpen by remember { mutableStateOf(false) }
+                BackHandler(
+                    enabled = true,
+                    onBack = {
+                        isDialogOpen = true
                     },
                 )
+                if (isDialogOpen) {
+                    AlertDialog(
+                        onDismissRequest = {
+                            isDialogOpen = false
+                        },
+                        title = { Text(text = "안내") },
+                        text = { Text(text = "종료 하시겠습니까?") },
+                        confirmButton = {
+                            Button(
+                                onClick = {
+                                    finish()
+                                },
+                            ) {
+                                Text(
+                                    text = "확인",
+                                )
+                            }
+                        },
+                        dismissButton = {
+                            Button(onClick = {
+                                isDialogOpen = false
+                            }) {
+                                Text(
+                                    text = "취소",
+                                )
+                            }
+                        },
+                    )
+                }
+            }
+            LifecycleEventEffect(
+                event = Lifecycle.Event.ON_CREATE
+            ) {
+                updateVisitedTime()
             }
         }
-
-        updateVisitedTime()
     }
 
     private fun updateVisitedTime() {

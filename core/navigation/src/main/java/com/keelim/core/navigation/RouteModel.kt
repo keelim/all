@@ -52,6 +52,9 @@ sealed interface NandaRoute : AppRoute {
 
     @Serializable
     data object NutrientTimer : NandaRoute
+
+    @Serializable
+    data object Exercise : NandaRoute
 }
 
 sealed interface ComssaRoute : AppRoute {

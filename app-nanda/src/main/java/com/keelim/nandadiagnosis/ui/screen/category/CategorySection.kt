@@ -42,7 +42,7 @@ import kotlinx.collections.immutable.persistentListOf
 fun CategoryStateSection(
     uiState: CategoryState,
     onCategoryClick: (Int, String) -> Unit,
-    onEditTypeClick: () -> Unit,
+    onEditTypeClick: (CategoriesType) -> Unit,
 ) = trace("CategoryStateSection") {
     when (uiState) {
         CategoryState.Error,
@@ -55,21 +55,25 @@ fun CategoryStateSection(
                 modifier = Modifier.fillMaxWidth(),
             ) {
                 Categories(
+                    title = "진행하는 운동",
+                    items = listOf(),
+                    type = CategoriesType.EXERCISE,
+                    onCategoryClick = { _, _ -> },
+                    onEditTypeClick = onEditTypeClick,
+                )
+                Categories(
                     title = "먹고 있는 영양제",
                     items = listOf(),
-                    type = CategoriesType.GENERAL,
+                    type = CategoriesType.NUTRIENT,
                     onCategoryClick = { _, _ -> },
-                    onEditTypeClick = {
-                        onEditTypeClick.invoke()
-                    },
+                    onEditTypeClick = onEditTypeClick,
                 )
                 Categories(
                     title = "Category",
                     items = uiState.items,
                     onCategoryClick = onCategoryClick,
-                    type = CategoriesType.FLOW,
-                    onEditTypeClick = {
-                    },
+                    type = CategoriesType.CATEGORY,
+                    onEditTypeClick = onEditTypeClick,
                 )
             }
         }
@@ -77,8 +81,9 @@ fun CategoryStateSection(
 }
 
 enum class CategoriesType {
-    GENERAL,
-    FLOW,
+    EXERCISE,
+    NUTRIENT,
+    CATEGORY,
 }
 
 @Composable
@@ -103,7 +108,7 @@ private fun Categories(
                 text = title,
                 style = MaterialTheme.typography.bodyMedium,
             )
-            if (type == CategoriesType.GENERAL) {
+            if (type == CategoriesType.NUTRIENT) {
                 Icon(
                     imageVector = Icons.Rounded.Edit,
                     contentDescription = "edit",
@@ -125,7 +130,7 @@ private fun Categories(
             )
         } else {
             when (type) {
-                CategoriesType.GENERAL -> {
+                CategoriesType.EXERCISE, CategoriesType.NUTRIENT -> {
                     items.fastForEachIndexed { index, item ->
                         CategoryCard(
                             index = index,
@@ -137,7 +142,7 @@ private fun Categories(
                     }
                 }
 
-                CategoriesType.FLOW -> {
+                CategoriesType.CATEGORY -> {
                     FlowRow(
                         maxItemsInEachRow = 3,
                     ) {
@@ -201,7 +206,7 @@ private fun PreviewCategories() {
                 "e",
                 "efghijklmnop",
             ),
-            type = CategoriesType.FLOW,
+            type = CategoriesType.CATEGORY,
             onCategoryClick = { _, _ -> },
             onEditTypeClick = { },
         )
@@ -217,7 +222,7 @@ private fun PreviewCategories() {
                 "e",
                 "efghijklmnop",
             ),
-            type = CategoriesType.GENERAL,
+            type = CategoriesType.NUTRIENT,
             onCategoryClick = { _, _ -> },
             onEditTypeClick = { },
         )
@@ -226,7 +231,7 @@ private fun PreviewCategories() {
             title = "Category",
             modifier = Modifier.fillMaxWidth(),
             items = persistentListOf(),
-            type = CategoriesType.FLOW,
+            type = CategoriesType.CATEGORY,
             onCategoryClick = { _, _ -> },
             onEditTypeClick = { },
         )

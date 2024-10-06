@@ -32,7 +32,6 @@ import com.keelim.setting.screen.settings.navigateSettings
 import com.keelim.setting.screen.settings.settingsScreen
 import com.keelim.setting.screen.theme.navigateTheme
 import com.keelim.setting.screen.theme.themeScreen
-import com.keelim.setting.screen.welcome.welcomeScreen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -112,8 +111,5 @@ fun NandaHost(
             onNutrientTimerClick = navController::navigateNutrientTimer,
         )
         nutrientTimerScreen()
-        welcomeScreen(
-            onNavigateMain = navController::navigateToCategory,
-        )
     }
 }

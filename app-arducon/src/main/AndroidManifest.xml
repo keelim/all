@@ -13,7 +13,7 @@
         android:hardwareAccelerated="true"
         >
         <activity
-            android:name="com.keelim.arducon.main.MainActivity"
+            android:name="com.keelim.arducon.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -20,7 +20,6 @@ import com.keelim.mygrade.ui.screen.history.navigateHistory
 import com.keelim.mygrade.ui.screen.main.Level
 import com.keelim.mygrade.ui.screen.main.grade
 import com.keelim.mygrade.ui.screen.main.mainScreen
-import com.keelim.mygrade.ui.screen.main.navigateToMain
 import com.keelim.mygrade.ui.screen.main.toProcess
 import com.keelim.mygrade.ui.screen.task.chart.navigateTaskChart
 import com.keelim.mygrade.ui.screen.task.chart.taskChartScreen
@@ -45,7 +44,6 @@ import com.keelim.setting.screen.settings.navigateSettings
 import com.keelim.setting.screen.settings.settingsScreen
 import com.keelim.setting.screen.theme.navigateTheme
 import com.keelim.setting.screen.theme.themeScreen
-import com.keelim.setting.screen.welcome.welcomeScreen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -149,8 +147,5 @@ fun MyGradeHost(
         ) {
             wordWriteScreen()
         }
-        welcomeScreen(
-            onNavigateMain = navController::navigateToMain,
-        )
     }
 }

@@ -30,6 +30,9 @@
             <meta-data
                 android:name="com.keelim.commonAndroid.initialize.FirebaseInitializer"
                 android:value="androidx.startup" />
+            <meta-data
+                android:name="com.keelim.commonAndroid.initialize.CrashInitializer"
+                android:value="androidx.startup" />
         </provider>
 
         <property

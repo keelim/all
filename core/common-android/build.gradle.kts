@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.keelim.android.library)
+    alias(libs.plugins.keelim.android.library.compose)
     alias(libs.plugins.keelim.android.hilt)
 }
 
@@ -17,6 +18,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.process)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.viewModel.ktx)
+    implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.test.core)
     implementation(libs.androidx.test.ext)
     implementation(libs.androidx.test.rules)

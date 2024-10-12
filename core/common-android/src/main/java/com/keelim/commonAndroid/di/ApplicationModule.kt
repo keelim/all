@@ -5,14 +5,14 @@ import com.keelim.commonAndroid.model.AppInfo
 import com.keelim.commonAndroid.util.ApplicationMonitor
 import com.keelim.commonAndroid.util.DownloadReceiver
 import com.keelim.shared.data.UserStateStore
-import dagger.Module
+import com.keelim.shared.di.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-@Module
+@dagger.Module
 @InstallIn(SingletonComponent::class)
 object ApplicationModule {
     @Provides
@@ -44,7 +44,7 @@ object ApplicationModule {
     @Singleton
     fun providesUserStateStore(
         @ApplicationContext context: Context,
-    ): UserStateStore = com.keelim.shared.di.Module(
+    ): UserStateStore = Module(
         context = context,
     ).createUserStateStore()
 }

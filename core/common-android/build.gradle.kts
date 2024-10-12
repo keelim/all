@@ -10,6 +10,7 @@ android {
 
 dependencies {
     implementation(projects.core.common)
+    implementation(projects.core.composeCore)
     implementation(projects.shared)
 
     implementation(libs.androidx.appcompat)

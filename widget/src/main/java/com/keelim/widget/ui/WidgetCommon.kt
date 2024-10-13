@@ -8,7 +8,6 @@ import androidx.glance.action.clickable
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
 
-
 @Composable
 fun WidgetCommon(
     title: String,
@@ -21,8 +20,8 @@ fun WidgetCommon(
         style = style,
         modifier = modifier.clickable {
             context.packageManager.getLaunchIntentForPackage(
-                context.packageName
+                context.packageName,
             )
-        }
+        },
     )
 }

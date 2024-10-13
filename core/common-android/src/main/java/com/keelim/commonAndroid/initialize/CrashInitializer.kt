@@ -35,11 +35,11 @@ class CrashInitializer : Initializer<Unit>, Thread.UncaughtExceptionHandler {
         crashHandleContext.startActivity(
             Intent(
                 crashHandleContext,
-                CrashReportActivity::class.java
+                CrashReportActivity::class.java,
             ).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 putExtra("error", e.stackTraceToString())
-            }
+            },
         )
     }
 }

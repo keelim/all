@@ -31,12 +31,12 @@ fun SwipeToDismiss(
                     SwipeToDismissBoxValue.Settled -> Color.LightGray
                     SwipeToDismissBoxValue.StartToEnd -> Color.Green
                     SwipeToDismissBoxValue.EndToStart -> Color.Red
-                }
+                },
             )
             Box(
                 Modifier
                     .fillMaxSize()
-                    .background(color)
+                    .background(color),
             )
         },
     ) {
@@ -45,7 +45,7 @@ fun SwipeToDismiss(
                 headlineContent = {
                     Text("Cupcake")
                 },
-                supportingContent = { Text("Swipe me left or right!") }
+                supportingContent = { Text("Swipe me left or right!") },
             )
             HorizontalDivider()
         }

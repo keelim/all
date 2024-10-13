@@ -30,7 +30,6 @@ import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.airbnb.deeplinkdispatch.DeepLink
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.keelim.common.extensions.toast
 import com.keelim.commonAndroid.util.DownloadReceiver
 import com.keelim.composeutil.ui.theme.KeelimTheme
@@ -98,23 +97,11 @@ class MainActivity : ComponentActivity() {
 
     private fun fileChecking() {
         takeIf { File(getExternalFilesDir(null), "nanda.db").exists() }
-            ?.run { databaseDownloadAlertDialog() }
+            ?.run { downloadDatabase() }
             ?: run { toast("데이터베이스가 존재합니다. 그대로 진행 합니다") }
     }
 
-    private fun databaseDownloadAlertDialog() {
-        MaterialAlertDialogBuilder(this)
-            .setTitle("다운로드 요청")
-            .setMessage("어플 사용을 위해 데이터베이스를 다운로드 합니다.")
-            .setPositiveButton("확인") { _, _ ->
-                toast("서버로부터 데이터베이스를 요청합니다.")
-                downloadDatabase2()
-            }
-            .create()
-            .show()
-    }
-
-    private fun downloadDatabase2() {
+    private fun downloadDatabase() {
         ContextCompat.registerReceiver(
             this,
             downloadReceiver,

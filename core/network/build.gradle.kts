@@ -21,8 +21,6 @@ android {
 
 dependencies {
     api(libs.kotlinx.datetime)
-    api(projects.core.common)
-    api(projects.core.model)
 
     implementation(platform(libs.coil.bom))
     implementation(libs.coil)
@@ -34,6 +32,4 @@ dependencies {
     implementation(libs.timber)
 
     implementation(libs.okhttp.logging)
-
-    implementation(libs.retrofit.core)
 }

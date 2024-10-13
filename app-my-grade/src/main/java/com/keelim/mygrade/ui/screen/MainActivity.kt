@@ -3,8 +3,8 @@
 package com.keelim.mygrade.ui.screen
 
 import android.os.Bundle
+import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.core.os.BuildCompat
@@ -28,7 +28,7 @@ import javax.inject.Inject
 @BuildCompat.PrereleaseSdkCheck
 @DeepLink("all://screen/{name}")
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var userStateStore: Lazy<UserStateStore>

@@ -1,3 +1,4 @@
+
 import androidx.baselineprofile.gradle.consumer.BaselineProfileConsumerExtension
 import com.android.build.api.dsl.ApplicationExtension
 import com.keelim.builds.configureDependencyGuard
@@ -21,6 +22,7 @@ class KeelimAndroidApplicationPlugin : Plugin<Project> {
                 apply("com.dropbox.dependency-guard")
                 apply("com.jraska.module.graph.assertion")
                 apply("androidx.baselineprofile")
+                apply("com.autonomousapps.dependency-analysis")
             }
 
 

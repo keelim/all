@@ -10,6 +10,7 @@ import com.keelim.arducon.ui.ArduconApp
 import com.keelim.composeutil.ui.theme.KeelimTheme
 import com.keelim.shared.data.UserStateStore
 import com.keelim.shared.data.model.ThemeType
+import dagger.Lazy
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -17,12 +18,13 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @Inject
-    lateinit var dataStore: Lazy<UserStateStore>
+    lateinit var userStateStore: Lazy<UserStateStore>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val themeType = dataStore.value.themeTypeFlow.collectAsStateWithLifecycle(ThemeType.LIGHT).value
+            val themeType =
+                userStateStore.get().themeTypeFlow.collectAsStateWithLifecycle(ThemeType.LIGHT).value
             val isDarkThem = when(themeType) {
                 ThemeType.DARK -> true
                 ThemeType.LIGHT -> false

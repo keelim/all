@@ -27,7 +27,6 @@ fun CrashRoute(
     onAppRefresh: () -> Unit,
     viewModel: CrashViewModel = hiltViewModel(),
 ) {
-
     val context = LocalContext.current
     val appVersion = context.packageManager
         .getPackageInfo(context.packageName, 0)
@@ -41,7 +40,7 @@ fun CrashRoute(
 
     CrashScreen(
         text = errorMsg,
-        onAppRefresh = onAppRefresh
+        onAppRefresh = onAppRefresh,
     )
 }
 
@@ -51,24 +50,24 @@ fun CrashScreen(
     onAppRefresh: () -> Unit,
 ) {
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) {
         NavigationBackArrowBar(
-            "에러 확인 중"
+            "에러 확인 중",
         )
         Text(
             text = text,
-            modifier = Modifier.padding(space8)
+            modifier = Modifier.padding(space8),
         )
         Spacer(
-            modifier = Modifier.height(space64)
+            modifier = Modifier.height(space64),
         )
         Icon(
             imageVector = Icons.Filled.Refresh,
             contentDescription = null,
             modifier = Modifier
                 .clickable { onAppRefresh() }
-                .align(Alignment.CenterHorizontally)
+                .align(Alignment.CenterHorizontally),
         )
     }
 }
@@ -81,4 +80,3 @@ private fun PreviewCrashScreen() {
         onAppRefresh = {},
     )
 }
-

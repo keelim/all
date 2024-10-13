@@ -33,7 +33,6 @@ dependencies {
     implementation(projects.shared)
     implementation(projects.widget)
 
-    implementation(libs.activity.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.core.splashscreen)
@@ -43,8 +42,6 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(platform(libs.coil.bom))
     implementation(libs.bundles.coil)
-    implementation(libs.firebase.database)
-    implementation(libs.firebase.firestore)
     implementation(libs.haze)
     implementation(libs.kotlinx.coroutines.play.services)
     implementation(libs.kotlinx.datetime)
@@ -52,4 +49,6 @@ dependencies {
     implementation(libs.timber)
 
     implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.database)
+    implementation(libs.firebase.firestore)
 }

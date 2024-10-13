@@ -8,12 +8,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 fun ExerciseRoute(
     viewModel: ExerciseViewModel = hiltViewModel(),
 ) {
-
 }
 
 @Composable
 fun ExerciseScreen() {
-
 }
 
 @Preview

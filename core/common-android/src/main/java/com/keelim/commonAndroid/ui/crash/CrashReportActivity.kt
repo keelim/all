@@ -21,7 +21,7 @@ class CrashReportActivity : ComponentActivity() {
             KeelimTheme {
                 CrashRoute(
                     errorMessage = errorMessage,
-                    onAppRefresh = { restartApp(this) }
+                    onAppRefresh = { restartApp(this) },
                 )
             }
         }
@@ -33,14 +33,14 @@ class CrashReportActivity : ComponentActivity() {
             context,
             0,
             intent,
-            PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE,
         )
 
         val alarmManager = context.getSystemService<AlarmManager>() ?: return
         alarmManager.set(
             AlarmManager.ELAPSED_REALTIME,
             SystemClock.elapsedRealtime() + 1000,
-            pendingIntent
+            pendingIntent,
         )
         // 앱 종료
         exitProcess(0)

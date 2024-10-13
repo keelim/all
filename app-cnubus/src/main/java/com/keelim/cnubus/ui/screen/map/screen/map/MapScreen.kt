@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
@@ -32,9 +31,7 @@ import com.google.maps.android.compose.MarkerInfoWindowContent
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.google.maps.android.compose.rememberMarkerState
-import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space24
-import com.keelim.composeutil.resource.space32
 import com.keelim.composeutil.resource.space8
 import com.keelim.core.data.model.Location
 
@@ -62,13 +59,13 @@ fun MapScreen(
             modifier = Modifier.padding(
                 vertical = space24,
                 horizontal = space24,
-            )
+            ),
         ) {
             Card(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             ) {
                 Row(
-                    modifier = Modifier.padding(space8)
+                    modifier = Modifier.padding(space8),
                 ) {
                     Text(
                         text = "CNUBUS",
@@ -82,7 +79,7 @@ fun MapScreen(
         }
         GoogleMap(
             modifier = Modifier.fillMaxSize(),
-            cameraPositionState = cameraPositionState
+            cameraPositionState = cameraPositionState,
         ) {
             locations.fastForEach { marker ->
                 CustomMarker(marker = marker)

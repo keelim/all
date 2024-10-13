@@ -25,7 +25,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val themeType =
                 userStateStore.get().themeTypeFlow.collectAsStateWithLifecycle(ThemeType.LIGHT).value
-            val isDarkThem = when(themeType) {
+            val isDarkThem = when (themeType) {
                 ThemeType.DARK -> true
                 ThemeType.LIGHT -> false
             }

@@ -26,14 +26,14 @@ class Widget : GlanceAppWidget() {
                     .fillMaxSize()
                     .padding(16.dp)
                     .background(GlanceTheme.colors.surface),
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 item {
                     WidgetCommon(
                         title = context.packageName,
                         style = TextDefaults.defaultTextStyle.copy(
                             fontSize = 24.sp,
-                            color = GlanceTheme.colors.onSurface
+                            color = GlanceTheme.colors.onSurface,
                         ),
                         context = context,
                     )
@@ -48,7 +48,7 @@ class Widget : GlanceAppWidget() {
                         title = "현재 준비 중입니다. ",
                         style = TextDefaults.defaultTextStyle.copy(
                             fontSize = 16.sp,
-                            color = GlanceTheme.colors.onSurface
+                            color = GlanceTheme.colors.onSurface,
                         ),
                         context = context,
                     )

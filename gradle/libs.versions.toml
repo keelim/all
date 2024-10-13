@@ -125,7 +125,8 @@ androidx-compose-animation-graphics = { group = "androidx.compose.animation", na
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidxComposeBom" }
 androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
 androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout" }
-androidx-compose-glance = { group = "androidx.glance", name = "glance-appwidget", version.ref = "glance" }
+androidx-compose-glance-widget = { group = "androidx.glance", name = "glance-appwidget", version.ref = "glance" }
+androidx-compose-glance = { group = "androidx.glance", name = "glance", version.ref = "glance" }
 androidx-compose-glance-material3 = { group = "androidx.glance", name = "glance-material3", version.ref = "glance" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-compose-material3-navigationSuite = { group = "androidx.compose.material3", name = "material3-adaptive-navigation-suite" }

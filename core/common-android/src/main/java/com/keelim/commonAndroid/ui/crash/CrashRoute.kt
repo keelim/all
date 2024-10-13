@@ -66,12 +66,13 @@ fun CrashScreen(
         Icon(
             imageVector = Icons.Filled.Refresh,
             contentDescription = null,
-            modifier = Modifier.clickable { onAppRefresh() }
+            modifier = Modifier
+                .clickable { onAppRefresh() }
                 .align(Alignment.CenterHorizontally)
         )
     }
 }
-x
+
 @Preview
 @Composable
 private fun PreviewCrashScreen() {

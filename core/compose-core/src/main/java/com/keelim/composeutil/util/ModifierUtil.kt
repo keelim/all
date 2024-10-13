@@ -1,5 +1,6 @@
 package com.keelim.composeutil.util
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.core.Easing
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.FloatAnimationSpec
@@ -27,6 +28,7 @@ import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.nanoseconds
 import kotlin.time.Duration.Companion.seconds
 
+@SuppressLint("ComposeModifierComposed")
 fun Modifier.onTouchHeld(
     pollDelay: Duration,
     onTouchHeld: (timeElapsed: Duration) -> Unit,
@@ -50,6 +52,7 @@ fun Modifier.onTouchHeld(
     }
 }
 
+@SuppressLint("ComposeModifierComposed")
 fun Modifier.onTouchHeldAnimated(
     easing: Easing = FastOutSlowInEasing,
     pollDelay: Duration = 500.milliseconds,
@@ -87,6 +90,7 @@ fun Modifier.onTouchHeldAnimated(
     }
 }
 
+@SuppressLint("ComposeModifierComposed")
 inline fun Modifier.conditional(
     condition: Boolean,
     ifTrue: Modifier.() -> Modifier,
@@ -97,6 +101,7 @@ inline fun Modifier.conditional(
     then(ifFalse(Modifier))
 }
 
+@SuppressLint("ComposeModifierComposed")
 inline fun <T> Modifier.conditional(
     condition: T?,
     ifNotNull: Modifier.(T) -> Modifier,
@@ -109,6 +114,7 @@ inline fun <T> Modifier.conditional(
     }
 }
 
+@SuppressLint("ComposeModifierComposed")
 fun Modifier.shimmer(
     showShimmer: Boolean = true,
     targetValue: Float = 1000f,

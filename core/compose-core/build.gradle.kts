@@ -8,13 +8,13 @@ plugins {
 
 android {
     namespace = "com.keelim.compose.core"
+    lint {
+        disable += "SuspiciousModifierThen"
+    }
 }
 
 dependencies {
-    implementation(projects.core.common)
-
     implementation(libs.accompanist.permissions)
-    implementation(libs.accompanist.systemuicontroller)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.emoji2.emojipicker)
     implementation(libs.androidx.hilt.navigation.compose)

@@ -11,10 +11,13 @@ fun NavController.navigateToFood(navOptions: NavOptions? = null) {
 }
 
 fun NavGraphBuilder.foodScreen(
+    onEditClick: (String) -> Unit,
     nestedGraphs: NavGraphBuilder.() -> Unit = {}
 ) {
     composable<NandaRoute.Food> {
-        FoodRoute()
+        FoodRoute(
+            onEditClick = onEditClick,
+        )
     }
     nestedGraphs()
 }

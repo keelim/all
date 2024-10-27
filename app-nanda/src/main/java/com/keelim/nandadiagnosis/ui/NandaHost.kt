@@ -17,6 +17,7 @@ import com.keelim.nandadiagnosis.ui.screen.diagnosis.diagnosisScreen
 import com.keelim.nandadiagnosis.ui.screen.diagnosis.navigateToDiagnosis
 import com.keelim.nandadiagnosis.ui.screen.exercise.exerciseScreen
 import com.keelim.nandadiagnosis.ui.screen.exercise.navigateToExercise
+import com.keelim.nandadiagnosis.ui.screen.food.foodScreen
 import com.keelim.nandadiagnosis.ui.screen.food.navigateToFood
 import com.keelim.nandadiagnosis.ui.screen.inappweb.navigateToWeb
 import com.keelim.nandadiagnosis.ui.screen.inappweb.webScreen
@@ -122,5 +123,6 @@ fun NandaHost(
         )
         nutrientTimerScreen()
         exerciseScreen()
+        foodScreen()
     }
 }

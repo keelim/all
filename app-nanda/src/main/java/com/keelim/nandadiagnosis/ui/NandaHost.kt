@@ -17,6 +17,7 @@ import com.keelim.nandadiagnosis.ui.screen.diagnosis.diagnosisScreen
 import com.keelim.nandadiagnosis.ui.screen.diagnosis.navigateToDiagnosis
 import com.keelim.nandadiagnosis.ui.screen.exercise.exerciseScreen
 import com.keelim.nandadiagnosis.ui.screen.exercise.navigateToExercise
+import com.keelim.nandadiagnosis.ui.screen.food.navigateToFood
 import com.keelim.nandadiagnosis.ui.screen.inappweb.navigateToWeb
 import com.keelim.nandadiagnosis.ui.screen.inappweb.webScreen
 import com.keelim.nandadiagnosis.ui.screen.nutrient.nutrientScreen
@@ -70,6 +71,7 @@ fun NandaHost(
             onEditTypeClick = { type ->
                 when (type) {
                     CategoriesType.EXERCISE -> navController.navigateToExercise()
+                    CategoriesType.NUTRIENT -> navController.navigateToFood()
                     else -> {
                         coroutineScope.launch {
                             onShowSnackbar("현재 업데이트 준비중입니다. ", null)

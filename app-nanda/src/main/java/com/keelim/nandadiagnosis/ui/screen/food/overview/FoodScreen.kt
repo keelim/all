@@ -7,14 +7,17 @@ import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 fun FoodRoute(
+    onEditClick: (String) -> Unit,
     viewModel: FoodViewModel = hiltViewModel(),
 ) {
-
+    FoodScreen(
+        onEditClick = onEditClick,
+    )
 }
 
 @Composable
 fun FoodScreen(
-
+    onEditClick: (String) -> Unit,
 ) {
 
 }
@@ -23,5 +26,7 @@ fun FoodScreen(
 @Preview
 @Composable
 private fun PreviewFoodScreen() {
-    FoodScreen()
+    FoodScreen(
+        onEditClick = {},
+    )
 }

@@ -71,7 +71,7 @@ fun NandaHost(
             onEditTypeClick = { type ->
                 when (type) {
                     CategoriesType.EXERCISE -> navController.navigateToExercise()
-                    CategoriesType.NUTRIENT -> navController.navigateToFood()
+                    CategoriesType.FOOD -> navController.navigateToFood()
                     else -> {
                         coroutineScope.launch {
                             onShowSnackbar("현재 업데이트 준비중입니다. ", null)

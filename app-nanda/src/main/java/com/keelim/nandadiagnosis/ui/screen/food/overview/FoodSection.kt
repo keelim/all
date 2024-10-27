@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalFoundationApi::class)
 
-package com.keelim.nandadiagnosis.ui.screen.food
+package com.keelim.nandadiagnosis.ui.screen.food.overview
 
 
 import androidx.compose.foundation.ExperimentalFoundationApi

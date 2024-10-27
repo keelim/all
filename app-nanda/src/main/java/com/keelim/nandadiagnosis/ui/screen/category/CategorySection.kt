@@ -57,7 +57,7 @@ fun CategoryStateSection(
                 Categories(
                     title = "먹고 있는 식단",
                     items = listOf(),
-                    type = CategoriesType.NUTRIENT,
+                    type = CategoriesType.FOOD,
                     onCategoryClick = { _, _ -> },
                     onEditTypeClick = onEditTypeClick,
                 )
@@ -82,7 +82,7 @@ fun CategoryStateSection(
 
 enum class CategoriesType {
     EXERCISE,
-    NUTRIENT,
+    FOOD,
     CATEGORY,
 }
 
@@ -108,7 +108,7 @@ private fun Categories(
                 text = title,
                 style = MaterialTheme.typography.bodyMedium,
             )
-            if (type == CategoriesType.NUTRIENT) {
+            if (type == CategoriesType.FOOD) {
                 Icon(
                     imageVector = Icons.Rounded.Edit,
                     contentDescription = "edit",
@@ -130,7 +130,7 @@ private fun Categories(
             )
         } else {
             when (type) {
-                CategoriesType.EXERCISE, CategoriesType.NUTRIENT -> {
+                CategoriesType.EXERCISE, CategoriesType.FOOD -> {
                     items.fastForEachIndexed { index, item ->
                         CategoryCard(
                             index = index,
@@ -222,7 +222,7 @@ private fun PreviewCategories() {
                 "e",
                 "efghijklmnop",
             ),
-            type = CategoriesType.NUTRIENT,
+            type = CategoriesType.FOOD,
             onCategoryClick = { _, _ -> },
             onEditTypeClick = { },
         )

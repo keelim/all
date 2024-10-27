@@ -11,8 +11,10 @@ fun NavController.navigateToFood(navOptions: NavOptions? = null) {
 }
 
 fun NavGraphBuilder.foodScreen(
+    nestedGraphs: NavGraphBuilder.() -> Unit = {}
 ) {
     composable<NandaRoute.Food> {
         FoodRoute()
     }
+    nestedGraphs()
 }

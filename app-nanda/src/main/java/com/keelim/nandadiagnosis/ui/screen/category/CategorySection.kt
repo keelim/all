@@ -55,16 +55,16 @@ fun CategoryStateSection(
                 modifier = Modifier.fillMaxWidth(),
             ) {
                 Categories(
-                    title = "진행하는 운동",
+                    title = "먹고 있는 식단",
                     items = listOf(),
-                    type = CategoriesType.EXERCISE,
+                    type = CategoriesType.NUTRIENT,
                     onCategoryClick = { _, _ -> },
                     onEditTypeClick = onEditTypeClick,
                 )
                 Categories(
-                    title = "먹고 있는 영양제",
+                    title = "진행하는 운동",
                     items = listOf(),
-                    type = CategoriesType.NUTRIENT,
+                    type = CategoriesType.EXERCISE,
                     onCategoryClick = { _, _ -> },
                     onEditTypeClick = onEditTypeClick,
                 )

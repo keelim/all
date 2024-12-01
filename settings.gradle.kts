@@ -33,7 +33,7 @@ include(
     ":app-my-grade",
     ":app-nanda",
     ":app-comssa",
-    ":catalog",
+    // ":catalog",
     ":core:common",
     ":core:common-android",
     ":core:compose-core",

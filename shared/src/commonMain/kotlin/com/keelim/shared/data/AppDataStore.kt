@@ -3,6 +3,7 @@ package com.keelim.shared.data
 import androidx.datastore.core.DataStoreFactory
 import androidx.datastore.core.okio.OkioSerializer
 import androidx.datastore.core.okio.OkioStorage
+import com.keelim.shared.data.model.ThemeType
 import com.keelim.shared.di.json
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -15,13 +16,11 @@ import okio.FileSystem
 import okio.Path.Companion.toPath
 import okio.use
 
-enum class ThemeType { SYSTEM, LIGHT, DARK }
-
 @Serializable
 data class UserState(
     val isFirstUser: Boolean = false,
     val visitedTime: Int = 0,
-    val themeType: ThemeType = ThemeType.SYSTEM,
+    val themeType: ThemeType = ThemeType.LIGHT,
 )
 
 internal object JsonSerializer : OkioSerializer<UserState> {
@@ -64,7 +63,7 @@ class UserStateStore(
     }
 
     val themeTypeFlow: Flow<ThemeType> = dataStore.data.map { userState ->
-        ThemeType.entries.find { it == userState.themeType } ?: ThemeType.SYSTEM
+        ThemeType.entries.find { it == userState.themeType } ?: ThemeType.LIGHT
     }
 
     fun setThemeType(value: ThemeType, scope: CoroutineScope) {

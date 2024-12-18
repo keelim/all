@@ -33,7 +33,7 @@ include(
     ":app-my-grade",
     ":app-nanda",
     ":app-comssa",
-    ":catalog",
+    // ":catalog",
     ":core:common",
     ":core:common-android",
     ":core:compose-core",
@@ -46,8 +46,8 @@ include(
     ":core:network",
     ":core:testing",
     ":core:navigation",
-    // ":core:widget-glance",
     ":feature:ui-labs",
     ":feature:ui-setting",
-    ":shared"
+    ":shared",
+    ":widget",
 )

@@ -13,6 +13,7 @@ class KeelimAndroidLibraryPlugin : Plugin<Project> {
                 apply("com.android.library")
                 apply("org.jetbrains.kotlin.android")
                 apply("org.gradle.android.cache-fix")
+                apply("com.autonomousapps.dependency-analysis")
             }
             extensions.getByType<LibraryExtension>().apply {
                 with(buildFeatures) {

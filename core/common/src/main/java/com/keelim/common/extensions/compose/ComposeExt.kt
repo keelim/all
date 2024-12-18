@@ -5,14 +5,12 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionContext
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.ComposeView
-import androidx.fragment.app.Fragment
 
 private fun addContentToView(
     viewGroup: ViewGroup,
@@ -88,23 +86,6 @@ inline fun SetUp(noinline content: @Composable () -> Unit) {
 inline fun ComponentActivity.activityComposeView(
     noinline content: @Composable () -> Unit,
 ) {
-    setContent {
-        SetUp {
-            content()
-        }
-    }
-}
-
-@Suppress("NOTHING_TO_INLINE")
-inline fun Fragment.fragmentComposeView(
-    parent: CompositionContext? = null,
-    noinline content: @Composable () -> Unit,
-) = ComposeView(requireContext()).apply {
-    setParentCompositionContext(parent)
-    layoutParams = ViewGroup.LayoutParams(
-        ViewGroup.LayoutParams.MATCH_PARENT,
-        ViewGroup.LayoutParams.MATCH_PARENT,
-    )
     setContent {
         SetUp {
             content()

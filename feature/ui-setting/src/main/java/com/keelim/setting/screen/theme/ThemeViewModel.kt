@@ -3,8 +3,8 @@ package com.keelim.setting.screen.theme
 import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.keelim.shared.data.ThemeType
 import com.keelim.shared.data.UserStateStore
+import com.keelim.shared.data.model.ThemeType
 import dagger.Lazy
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,7 +26,6 @@ data class ThemeTypeState(
     val selectedRadio: ThemeType,
     val isDialogVisible: Boolean = false,
     val items: List<RadioItem> = listOf(
-        RadioItem(ThemeType.SYSTEM, "System"),
         RadioItem(ThemeType.LIGHT, "Light"),
         RadioItem(ThemeType.DARK, "Dark"),
     ),
@@ -45,7 +44,7 @@ class ThemeViewModel @Inject constructor(
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = ThemeType.SYSTEM,
+            initialValue = ThemeType.LIGHT,
         )
 
     val themeTypeState = isDialogVisible.combine(themeType) { isDialogVisible, selectedTheme ->
@@ -53,7 +52,7 @@ class ThemeViewModel @Inject constructor(
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = ThemeTypeState(ThemeType.SYSTEM),
+        initialValue = ThemeTypeState(ThemeType.LIGHT),
     )
 
     fun setDialogVisibility(value: Boolean) {

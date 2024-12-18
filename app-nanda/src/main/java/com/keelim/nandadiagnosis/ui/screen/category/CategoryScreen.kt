@@ -23,7 +23,7 @@ private val appPermissions: List<String> = buildList {
 @Composable
 fun CategoryRoute(
     onCategoryClick: (Int, String) -> Unit,
-    onEditTypeClick: () -> Unit,
+    onEditTypeClick: (CategoriesType) -> Unit,
     viewModel: CategoryViewModel = hiltViewModel(),
 ) = trace("CategoryRoute") {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -38,7 +38,7 @@ fun CategoryRoute(
 fun CategoryScreen(
     state: CategoryState,
     onCategoryClick: (Int, String) -> Unit,
-    onEditTypeClick: () -> Unit,
+    onEditTypeClick: (CategoriesType) -> Unit,
 ) = trace("CategoryScreen") {
     CategoryStateSection(
         uiState = state,

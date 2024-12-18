@@ -26,7 +26,6 @@ import com.keelim.setting.screen.settings.navigateSettings
 import com.keelim.setting.screen.settings.settingsScreen
 import com.keelim.setting.screen.theme.navigateTheme
 import com.keelim.setting.screen.theme.themeScreen
-import com.keelim.setting.screen.welcome.welcomeScreen
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
@@ -77,7 +76,5 @@ fun CnubusHost(
             },
         )
         eventScreen()
-        welcomeScreen {
-        }
     }
 }

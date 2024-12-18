@@ -43,7 +43,7 @@
             android:theme="@android:style/Theme.Translucent"/>
 
         <activity
-            android:name=".ui.screen.main.Main2Activity"
+            android:name=".ui.screen.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

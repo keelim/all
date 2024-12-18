@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.keelim.android.library)
+    alias(libs.plugins.keelim.android.library.compose)
     alias(libs.plugins.keelim.android.hilt)
 }
 
@@ -9,17 +10,13 @@ android {
 
 dependencies {
     implementation(projects.core.common)
+    implementation(projects.core.composeCore)
     implementation(projects.shared)
 
-    implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.startup)
     implementation(libs.androidx.lifecycle.process)
-    implementation(libs.androidx.lifecycle.runtime.compose)
-    implementation(libs.androidx.lifecycle.viewModel.ktx)
-    implementation(libs.androidx.test.core)
-    implementation(libs.androidx.test.ext)
-    implementation(libs.androidx.test.rules)
+    implementation(libs.androidx.hilt.navigation.compose)
     implementation(platform(libs.coil.bom))
     implementation(libs.bundles.coil)
 
@@ -30,10 +27,8 @@ dependencies {
     debugImplementation(libs.firebase.appcheck.debug)
 
     implementation(libs.hilt.android)
-    implementation(libs.hilt.android.testing)
     implementation(libs.junit4)
     implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.kotlinx.coroutines.test)
     implementation(libs.kotlinx.datetime)
     implementation(libs.play.services.ad)
     implementation(libs.timber)
@@ -44,5 +39,10 @@ dependencies {
     debugImplementation(libs.soloader)
 
     testImplementation(projects.core.testing)
+    testImplementation(libs.androidx.test.core)
+    testImplementation(libs.androidx.test.ext)
+    testImplementation(libs.androidx.test.rules)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.hilt.android.testing)
 }
 

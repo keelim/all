@@ -17,7 +17,6 @@ dependencies {
     implementation(projects.core.commonAndroid)
     implementation(projects.core.composeCore)
     implementation(projects.core.data)
-    implementation(projects.core.domain)
     implementation(projects.core.navigation)
     implementation(projects.shared)
 
@@ -27,9 +26,6 @@ dependencies {
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.navigation.compose)
-
-    implementation(platform(libs.coil.bom))
-    implementation(libs.bundles.coil)
 
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.messaging)

@@ -53,6 +53,7 @@ fun Project.configureAndroidCompose(
         )
         reportsDestination = layout.buildDirectory.dir("compose_compiler")
         stabilityConfigurationFile = rootProject.layout.projectDirectory.file("compose_compiler_config.conf")
+        includeSourceInformation.set(true)
     }
 }
 

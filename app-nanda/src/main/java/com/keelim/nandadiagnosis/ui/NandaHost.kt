@@ -10,15 +10,22 @@ import androidx.navigation.compose.NavHost
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.keelim.composeutil.AppState
 import com.keelim.core.navigation.NandaRoute
+import com.keelim.nandadiagnosis.ui.screen.category.CategoriesType
 import com.keelim.nandadiagnosis.ui.screen.category.categoryScreen
 import com.keelim.nandadiagnosis.ui.screen.category.navigateToCategory
 import com.keelim.nandadiagnosis.ui.screen.diagnosis.diagnosisScreen
 import com.keelim.nandadiagnosis.ui.screen.diagnosis.navigateToDiagnosis
+import com.keelim.nandadiagnosis.ui.screen.exercise.exerciseScreen
+import com.keelim.nandadiagnosis.ui.screen.exercise.navigateToExercise
+import com.keelim.nandadiagnosis.ui.screen.food.edit.foodEditScreen
+import com.keelim.nandadiagnosis.ui.screen.food.edit.navigateToFoodEdit
+import com.keelim.nandadiagnosis.ui.screen.food.overview.foodScreen
+import com.keelim.nandadiagnosis.ui.screen.food.overview.navigateToFood
 import com.keelim.nandadiagnosis.ui.screen.inappweb.navigateToWeb
 import com.keelim.nandadiagnosis.ui.screen.inappweb.webScreen
-import com.keelim.nandadiagnosis.ui.screen.nutrients.nutrientScreen
-import com.keelim.nandadiagnosis.ui.screen.nutrients.timer.navigateNutrientTimer
-import com.keelim.nandadiagnosis.ui.screen.nutrients.timer.nutrientTimerScreen
+import com.keelim.nandadiagnosis.ui.screen.nutrient.nutrientScreen
+import com.keelim.nandadiagnosis.ui.screen.nutrient.timer.navigateNutrientTimer
+import com.keelim.nandadiagnosis.ui.screen.nutrient.timer.nutrientTimerScreen
 import com.keelim.setting.screen.alarm.alarmScreen
 import com.keelim.setting.screen.alarm.navigateAlarm
 import com.keelim.setting.screen.event.eventScreen
@@ -32,7 +39,6 @@ import com.keelim.setting.screen.settings.navigateSettings
 import com.keelim.setting.screen.settings.settingsScreen
 import com.keelim.setting.screen.theme.navigateTheme
 import com.keelim.setting.screen.theme.themeScreen
-import com.keelim.setting.screen.welcome.welcomeScreen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -65,9 +71,15 @@ fun NandaHost(
                 navController.navigateSettings()
             },
             onCategoryClick = { index, category -> navController.navigateToDiagnosis(index.toString(), category) },
-            onEditTypeClick = {
-                coroutineScope.launch {
-                    onShowSnackbar("현재 업데이트 준비중입니다. ", null)
+            onEditTypeClick = { type ->
+                when (type) {
+                    CategoriesType.EXERCISE -> navController.navigateToExercise()
+                    CategoriesType.FOOD -> navController.navigateToFood()
+                    else -> {
+                        coroutineScope.launch {
+                            onShowSnackbar("현재 업데이트 준비중입니다. ", null)
+                        }
+                    }
                 }
             },
             onDismiss = { coroutineScope.launch { bottomSheetState.hide() } },
@@ -112,8 +124,10 @@ fun NandaHost(
             onNutrientTimerClick = navController::navigateNutrientTimer,
         )
         nutrientTimerScreen()
-        welcomeScreen(
-            onNavigateMain = navController::navigateToCategory,
+        exerciseScreen()
+        foodScreen(
+            onEditClick = navController::navigateToFoodEdit,
+            nestedGraphs = { foodEditScreen() },
         )
     }
 }

@@ -24,7 +24,7 @@ import androidx.compose.ui.util.fastForEach
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.composeutil.resource.space8
-import com.keelim.shared.data.ThemeType
+import com.keelim.shared.data.model.ThemeType
 
 @Composable
 fun ThemeRoute(
@@ -73,7 +73,6 @@ fun CurrentThemeText(
 ) {
     val icon = remember(themeType) {
         when (themeType) {
-            ThemeType.SYSTEM -> "💻"
             ThemeType.LIGHT -> "🌞"
             ThemeType.DARK -> "🌚"
         }
@@ -153,7 +152,7 @@ fun RadioButtons(
 @Composable
 private fun PreviewThemeScreen() {
     ThemeScreen(
-        themeTypeState = ThemeTypeState(selectedRadio = ThemeType.SYSTEM),
+        themeTypeState = ThemeTypeState(selectedRadio = ThemeType.LIGHT),
         onCurrentThemeClick = { },
         onDialogClick = { },
         onRadioClick = { },

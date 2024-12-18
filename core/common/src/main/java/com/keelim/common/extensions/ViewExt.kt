@@ -6,7 +6,6 @@ import android.graphics.Bitmap.CompressFormat.JPEG
 import android.graphics.Color
 import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
-import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
 import android.view.View
 import android.view.View.GONE
@@ -15,7 +14,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
-import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
 import androidx.core.content.res.use
 import androidx.core.view.doOnAttach
@@ -27,9 +25,6 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.findViewTreeLifecycleOwner
-import coil.imageLoader
-import coil.load
-import coil.request.ImageRequest
 import java.io.File
 import java.io.FileOutputStream
 
@@ -62,42 +57,12 @@ fun View.toggleVisibility() {
     }
 }
 
-fun ImageView.loadAsync(url: String?, @DrawableRes placeholder: Int? = null) {
-    if (url == null) {
-        placeholder?.let { load(it) }
-    } else {
-        load(url) {
-            if (placeholder != null) {
-                placeholder(placeholder)
-            }
-            crossfade(true)
-        }
-    }
-}
-
-fun ImageView.loadAsync(url: String?, doOnEnd: () -> Unit) {
-    load(url) {
-        listener(
-            onSuccess = { _, _ -> doOnEnd() },
-            onError = { _, _ -> doOnEnd() },
-        )
-    }
-}
-
 fun ImageView.setGrayscale(enable: Boolean) {
     colorFilter = if (enable) {
         ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f) })
     } else {
         null
     }
-}
-
-suspend fun Context.loadAsync(url: String): Bitmap? {
-    val request = ImageRequest.Builder(this)
-        .data(url)
-        .build()
-    val result = imageLoader.execute(request).drawable
-    return (result as? BitmapDrawable)?.bitmap
 }
 
 fun View.animateVisible(

@@ -20,7 +20,7 @@ jobs:
             ${{ runner.os }}-gradle-
 
       - name: set up JDK 17
-        uses: actions/setup-java@v4.4.0
+        uses: actions/setup-java@v4.5.0
         with:
           distribution: "zulu" # See 'Supported distributions' for available options
           java-version: "17"
@@ -47,7 +47,7 @@ jobs:
 
       - name: Sign AAB
         id: sign
-        uses: keelim/upload-google-play@0.0.2
+        uses: keelim/upload-google-play@0.0.3
         with:
           type: sign
           releaseDirectory: app-arducon/build/outputs/bundle/release
@@ -62,7 +62,7 @@ jobs:
 
       - name: Deploy to Play Store
         id: deploy
-        uses: keelim/upload-google-play@0.0.2
+        uses: keelim/upload-google-play@0.0.3
         with:
           type: upload
           serviceAccountJson: service_account.json

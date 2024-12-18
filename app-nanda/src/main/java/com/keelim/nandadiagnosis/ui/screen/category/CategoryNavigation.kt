@@ -21,7 +21,7 @@ fun NavGraphBuilder.categoryScreen(
     onAboutClick: () -> Unit,
     onDismiss: () -> Unit,
     onCategoryClick: (Int, String) -> Unit,
-    onEditTypeClick: () -> Unit,
+    onEditTypeClick: (CategoriesType) -> Unit,
     nestedGraphs: NavGraphBuilder.() -> Unit,
 ) {
     composable<NandaRoute.Category> {

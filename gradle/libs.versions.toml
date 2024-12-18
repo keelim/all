@@ -3,27 +3,27 @@
 compileSdk = "35"
 minSdk = "26"
 targetSdk = "34"
-versionCode = "20240930"
+versionCode = "20241201"
 # library
-accompanist = "0.36.0"
-androidDesugarJdkLibs = "2.1.2"
-androidGradlePlugin = "8.6.1"
-androidxActivity = "1.9.2"
+accompanist = "0.37.0"
+androidDesugarJdkLibs = "2.1.3"
+androidGradlePlugin = "8.7.3"
+androidxActivity = "1.9.3"
 androidxAppCompat = "1.7.0"
-androidxComposeBom = "2024.09.02"
-androidxComposeRuntimeTracing = "1.7.0-rc01"
-androidxCore = "1.13.1"
+androidxComposeBom = "2024.12.01"
+androidxComposeRuntimeTracing = "1.7.6"
+androidxCore = "1.15.0"
 androidxCoreSplashscreen = "1.0.1"
 androidxDataStore = "1.1.1"
 androidxEspresso = "3.6.1"
-androidxFragment = "1.8.3"
+androidxFragment = "1.8.5"
 androidxHiltNavigationCompose = "1.2.0"
-androidxLifecycle = "2.8.6"
-androidxMacroBenchmark = "1.3.1"
+androidxLifecycle = "2.8.7"
+androidxMacroBenchmark = "1.3.3"
 androidxMetrics = "1.0.0-beta01"
-androidxNavigation = "2.8.1"
-androidxPaging = "3.3.2"
-androidxProfileinstaller = "1.4.0"
+androidxNavigation = "2.8.5"
+androidxPaging = "3.3.5"
+androidxProfileinstaller = "1.4.1"
 androidxStartup = "1.2.0"
 androidxTestCore = "1.6.1"
 androidxTestExt = "1.2.1"
@@ -32,74 +32,76 @@ androidxTestRunner = "1.6.2"
 androidxTracing = "1.2.0"
 androidxUiAutomator = "2.3.0"
 androidxWindowManager = "1.3.0"
-androidxWork = "2.9.1"
+androidxWork = "2.10.0"
 arrow = "1.2.4"
 bio = "1.1.0"
 coil = "2.7.0"
-compose-multiplatform = "1.6.11"
-circuit = "0.24.0"
+compose-multiplatform = "1.7.1"
+circuit = "0.25.0"
 deeplinkdispatch = "6.2.2"
 dependencyGuard = "0.5.0"
+dependency-analysis = "2.6.1"
 emoji2-emojipicker = "1.5.0"
-errorprone = "2.32.0"
-firebase = "33.3.0"
+errorprone = "2.36.0"
+firebase = "33.7.0"
 firebase-ui = "8.0.2"
 firebaseCrashlyticsPlugin = "3.0.2"
 firebasePerfPlugin = "1.4.2"
-flipper = "0.267.1"
+flipper = "0.273.0"
 generativeai = "0.9.0"
-glance = "1.1.0"
+glanceExperimentalTools = "0.2.2"
+glance = "1.1.1"
 haze = "0.7.3"
-hilt = "2.52"
+hilt = "2.53.1"
 hiltExt = "1.2.0"
 in-app-update = "2.1.0"
 jacoco = "0.8.7"
 junit4 = "4.13.2"
-jsoup = "1.18.1"
+jsoup = "1.18.3"
 kotlin = "2.0.20"
 kotlinxCollectionsImmutable = "0.3.8"
 kotlinxCoroutines = "1.9.0"
 kotlinxDatetime = "0.6.1"
 kotlinxSerializationJson = "1.7.3"
 ksp = "2.0.20-1.0.25"
-ktor = "2.3.12"
+ktor = "2.3.13"
 leakcanary = "2.14"
-lint = "31.6.1"
-lottie = "6.5.2"
+lint = "31.7.3"
+lottie = "6.6.2"
 maps = "5.1.1"
-maps-compose = "6.1.2"
+maps-compose = "6.4.0"
 math3 = "3.6.1"
 modernstorageBom = "1.0.0-alpha06"
 moduleGraphAssertion = "2.7.1"
 okhttp = "4.12.0"
 okio = "3.9.1"
-paging-compose = "3.3.2"
-play-services-auth = "21.2.0"
+paging-compose = "3.3.5"
+play-services-auth = "21.3.0"
 play-services-code-scanner = "16.1.0"
 play-services-location = "21.3.0"
 play-services-maps = "19.0.0"
-playad = "23.3.0"
+playad = "23.6.0"
 playoss = "17.1.0"
 playoss-plugin = "0.10.6"
 preference = "1.2.1"
 preferenceKtx = "1.2.1"
-protobuf = "4.28.2"
+protobuf = "4.29.1"
 protobufPlugin = "0.9.4"
 retrofit = "2.11.0"
 retrofitKotlinxSerializationJson = "1.0.0"
-robolectric = "4.13"
-roborazzi = "1.26.0"
+robolectric = "4.14.1"
+roborazzi = "1.37.0"
 room = "2.6.1"
 secrets = "2.0.1"
 showkase = "1.0.3"
-slackComposeLint = "1.3.1"
-slackLintChecks = "0.7.4"
+slackComposeLint = "1.4.2"
+slackLintChecks = "0.8.2"
 soloader = "0.12.1"
 sqldelight = "2.0.2"
 themeAdapter = "1.2.1"
 timbers = "5.0.1"
 truth = "1.4.4"
-turbine = "1.1.0"
+turbine = "1.2.0"
 
 [libraries]
 accompanist-flowlayout = { group = "com.google.accompanist", name = "accompanist-flowlayout", version.ref = "accompanist" }
@@ -123,7 +125,8 @@ androidx-compose-animation-graphics = { group = "androidx.compose.animation", na
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidxComposeBom" }
 androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
 androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout" }
-androidx-compose-glance = { group = "androidx.glance", name = "glance-appwidget", version.ref = "glance" }
+androidx-compose-glance-widget = { group = "androidx.glance", name = "glance-appwidget", version.ref = "glance" }
+androidx-compose-glance = { group = "androidx.glance", name = "glance", version.ref = "glance" }
 androidx-compose-glance-material3 = { group = "androidx.glance", name = "glance-material3", version.ref = "glance" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-compose-material3-navigationSuite = { group = "androidx.compose.material3", name = "material3-adaptive-navigation-suite" }
@@ -221,6 +224,7 @@ flipper-leakcanary = { group = "com.facebook.flipper", name = "flipper-leakcanar
 flipper-noop = { group = "com.facebook.flipper", name = "flipper-noop", version.ref = "flipper" }
 fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "androidxFragment" }
 generativeai = { group = "com.google.ai.client.generativeai", name = "generativeai", version.ref = "generativeai" }
+glance-tools-appwidget-host = { group = "com.google.android.glance.tools", name = "appwidget-host", version.ref = "glanceExperimentalTools" }
 haze = { group = "dev.chrisbanes.haze", name = "haze", version.ref = "haze" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
@@ -355,8 +359,9 @@ android-library = { id = "com.android.library", version.ref = "androidGradlePlug
 android-test = { id = "com.android.test", version.ref = "androidGradlePlugin" }
 baselineprofile = { id = "androidx.baselineprofile", version.ref = "androidxMacroBenchmark"}
 cacheFixPlugin = { id = "org.gradle.android.cache-fix", version = "3.0.1" }
-compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
+dependency-analysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependency-analysis" }
 dependencyGuard = { id = "com.dropbox.dependency-guard", version.ref = "dependencyGuard" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlyticsPlugin" }
 firebase-perf = { id = "com.google.firebase.firebase-perf", version.ref = "firebasePerfPlugin" }

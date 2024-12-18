@@ -7,7 +7,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.text.bold
 import androidx.core.text.buildSpannedString
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.ui.screen.main.Main2Activity
+import com.keelim.nandadiagnosis.ui.screen.main.MainActivity
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
@@ -32,7 +32,7 @@ class NotificationBuilderImpl @Inject constructor(
     }
 
     private fun Context.createLauncherIntent(): PendingIntent {
-        val intent = Intent(this, Main2Activity::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         return PendingIntent.getActivity(
             this,
             0,

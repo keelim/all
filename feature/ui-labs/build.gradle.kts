@@ -8,8 +8,3 @@ android{
     namespace = "com.keelim.labs"
 }
 
-dependencies {
-    implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.core.ktx)
-}
-

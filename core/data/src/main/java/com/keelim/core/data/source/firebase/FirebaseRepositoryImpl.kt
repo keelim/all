@@ -14,7 +14,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
-import kotlinx.coroutines.withContext
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -32,25 +31,20 @@ constructor(
                 setPersistenceEnabled(true)
             }
 
-        emit(
-            runCatching {
-                withContext(dispatcher) {
-                    database
-                        .getReference(ref)
-                        .get()
-                        .await()
-                        .takeIf { it.exists() }
-                        ?.children
-                        ?.mapNotNull {
-                            it.getValue(EcoCalEntry::class.java)
-                        } ?: emptyList()
-                }
-            }
-                .onFailure { throwable ->
-                    Timber.e(throwable)
-                    throwable.message
-                },
-        )
+        val refs = database
+            .getReference(ref)
+            .get()
+            .await()
+            .takeIf { it.exists() }
+            ?.children
+            ?.mapNotNull {
+                it.getValue(EcoCalEntry::class.java)
+            } ?: emptyList()
+
+        emit(Result.success(refs))
+    }.catch { throwable ->
+        Timber.e(throwable)
+        emit(Result.failure(throwable))
     }
 
     override fun getFCMToken(): Flow<Result<String>> = flow {

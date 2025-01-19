@@ -8,12 +8,10 @@
 -dontwarn org.openjsse.javax.net.ssl.SSLSocket
 -dontwarn org.openjsse.net.ssl.OpenJSSE
 -dontwarn org.slf4j.impl.StaticLoggerBinder
-
-# Add this global rule
--keepattributes Signature
-
-# This rule will properly ProGuard all the model classes in
-# Modify this rule to fit the structure of your app.
--keepclassmembers class com.keelim.model.EcoCalEntry {
-  *;
-}
+-dontwarn io.ktor.client.plugins.HttpTimeout$HttpTimeoutCapabilityConfiguration
+-dontwarn io.ktor.client.plugins.HttpTimeout$Plugin
+-dontwarn io.ktor.client.plugins.HttpTimeout
+-dontwarn io.ktor.client.plugins.contentnegotiation.ContentNegotiation$Config
+-dontwarn io.ktor.client.plugins.contentnegotiation.ContentNegotiation$Plugin
+-dontwarn io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+-keep @kotlinx.serialization.Serializable class * {*;}

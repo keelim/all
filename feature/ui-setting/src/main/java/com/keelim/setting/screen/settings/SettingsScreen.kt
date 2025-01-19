@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
+@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 
 package com.keelim.setting.screen.settings
 
@@ -7,7 +7,9 @@ import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
@@ -242,6 +244,7 @@ fun CategoryItem(
     icon: ImageVector,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    onLongClick: () -> Unit = {},
 ) {
     var clicked by remember { mutableStateOf(false) }
     val sizeScale by animateFloatAsState(
@@ -260,8 +263,11 @@ fun CategoryItem(
                     awaitRelease()
                     clicked = false
                 })
-            },
-        onClick = onClick,
+            }
+            .combinedClickable(
+                onClick = onClick,
+                onLongClick = onLongClick,
+            ),
         shape = MaterialTheme.shapes.medium,
     ) {
         Row(

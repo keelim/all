@@ -22,7 +22,7 @@ jobs:
             ${{ runner.os }}-gradle-
 
       - name: set up JDK 17
-        uses: actions/setup-java@v4.5.0
+        uses: actions/setup-java@v4.6.0
         with:
           distribution: "zulu"
           java-version: "17"
@@ -122,7 +122,7 @@ jobs:
           releaseFiles: app-cnubus/build/outputs/bundle/release/app-cnubus-release.aab
           track: production
           status: completed
-          changesNotSentForReview: false
+          changesNotSentForReview: true
 
       - name: Deploy to Play Store Comssa
         id: deploy_comssa
@@ -146,7 +146,7 @@ jobs:
           releaseFiles: app-my-grade/build/outputs/bundle/release/app-my-grade-release.aab
           track: production
           status: completed
-          changesNotSentForReview: false
+          changesNotSentForReview: true
 
       - name: Deploy to Play Store Nanda
         id: deplo_nanda

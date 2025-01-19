@@ -202,24 +202,23 @@ fun SettingsScreen(
                         )
                     }
                     item {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(60.dp)
-                                .padding(horizontal = space8, vertical = space4)
-                                .clip(RoundedCornerShape(space4))
-                                .background(
-                                    color = MaterialTheme.colorScheme.primaryContainer,
-                                ),
-                        ) {
-                            Text(
-                                text = "FCM Token: ${uiState.fcmToken}",
-                                fontWeight = FontWeight.Bold,
-                                style = MaterialTheme.typography.bodyLarge,
-                            )
-                        }
-
                         AnimatedVisibility(clicked) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(60.dp)
+                                    .padding(horizontal = space8, vertical = space4)
+                                    .clip(RoundedCornerShape(space4))
+                                    .background(
+                                        color = MaterialTheme.colorScheme.primaryContainer,
+                                    ),
+                            ) {
+                                Text(
+                                    text = "FCM Token: ${uiState.fcmToken}",
+                                    fontWeight = FontWeight.Bold,
+                                    style = MaterialTheme.typography.bodyLarge,
+                                )
+                            }
                         }
                     }
                     item {

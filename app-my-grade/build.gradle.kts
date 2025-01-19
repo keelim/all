@@ -39,7 +39,6 @@ dependencies {
 
     implementation(libs.activity.ktx)
     implementation(libs.androidx.activity.compose)
-    implementation(libs.accompanist.systemuicontroller)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.lifecycle.process)

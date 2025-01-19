@@ -14,7 +14,6 @@ dependencies {
     api(projects.core.common)
     api(projects.core.database)
     api(projects.core.dataApi)
-    api(projects.core.model)
     api(projects.core.network)
 
     implementation(libs.androidx.dataStore.preferences)

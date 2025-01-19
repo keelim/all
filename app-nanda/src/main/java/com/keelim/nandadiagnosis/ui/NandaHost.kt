@@ -17,6 +17,10 @@ import com.keelim.nandadiagnosis.ui.screen.diagnosis.diagnosisScreen
 import com.keelim.nandadiagnosis.ui.screen.diagnosis.navigateToDiagnosis
 import com.keelim.nandadiagnosis.ui.screen.exercise.exerciseScreen
 import com.keelim.nandadiagnosis.ui.screen.exercise.navigateToExercise
+import com.keelim.nandadiagnosis.ui.screen.food.edit.foodEditScreen
+import com.keelim.nandadiagnosis.ui.screen.food.edit.navigateToFoodEdit
+import com.keelim.nandadiagnosis.ui.screen.food.overview.foodScreen
+import com.keelim.nandadiagnosis.ui.screen.food.overview.navigateToFood
 import com.keelim.nandadiagnosis.ui.screen.inappweb.navigateToWeb
 import com.keelim.nandadiagnosis.ui.screen.inappweb.webScreen
 import com.keelim.nandadiagnosis.ui.screen.nutrient.nutrientScreen
@@ -70,6 +74,7 @@ fun NandaHost(
             onEditTypeClick = { type ->
                 when (type) {
                     CategoriesType.EXERCISE -> navController.navigateToExercise()
+                    CategoriesType.FOOD -> navController.navigateToFood()
                     else -> {
                         coroutineScope.launch {
                             onShowSnackbar("현재 업데이트 준비중입니다. ", null)
@@ -120,5 +125,9 @@ fun NandaHost(
         )
         nutrientTimerScreen()
         exerciseScreen()
+        foodScreen(
+            onEditClick = navController::navigateToFoodEdit,
+            nestedGraphs = { foodEditScreen() },
+        )
     }
 }

@@ -55,6 +55,12 @@ sealed interface NandaRoute : AppRoute {
 
     @Serializable
     data object Exercise : NandaRoute
+
+    @Serializable
+    data object Food : NandaRoute
+
+    @Serializable
+    data class FoodEdit(val title: String) : NandaRoute
 }
 
 sealed interface ComssaRoute : AppRoute {

@@ -1,13 +1,16 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
+@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 
 package com.keelim.setting.screen.settings
 
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
@@ -69,7 +72,8 @@ import com.keelim.shared.data.UserState
 data class Category(
     val title: String,
     val icon: ImageVector,
-    val onClick: () -> Unit,
+    val onClick: () -> Unit = {},
+    val onLongClick: () -> Unit = {},
 )
 
 @Composable
@@ -156,17 +160,30 @@ fun SettingsScreen(
                     )
                 },
             ) { padding ->
+                var clicked by remember { mutableStateOf(false) }
                 val items = remember {
                     listOf(
                         Category("공지사항", Icons.Outlined.Check, onNotificationsClick),
-                        Category("알림내역", Icons.Outlined.Notifications, onAlarmsClick),
+                        Category(
+                            title = "알림내역",
+                            icon = Icons.Outlined.Notifications,
+                            onClick = onAlarmsClick,
+                            onLongClick = {
+                                clicked = true
+                            }),
                         Category("실험실", Icons.Outlined.Lock, onLabClick),
                         Category("앱 업데이트", Icons.Rounded.ThumbUp, onAppUpdateClick),
                         Category("FAQ", Icons.Rounded.KeyboardArrowUp, onFaqClick),
                         Category("OpenSource", Icons.AutoMirrored.Outlined.List, onOpenSourceClick),
                         Category("Theme Change", Icons.Rounded.ArrowDropDown, onThemeChangeClick),
-                        Category("App Version: ${uiState.deviceInfo.versionName}", Icons.Outlined.Build) {},
-                        Category("${uiState.userState.visitedTime} 번 방문하셨습니다.", Icons.Outlined.ThumbUp) {},
+                        Category(
+                            "App Version: ${uiState.deviceInfo.versionName}",
+                            Icons.Outlined.Build
+                        ),
+                        Category(
+                            "${uiState.userState.visitedTime} 번 방문하셨습니다.",
+                            Icons.Outlined.ThumbUp
+                        )
                     )
                 }
                 LazyColumn(
@@ -183,6 +200,27 @@ fun SettingsScreen(
                             icon = item.icon,
                             onClick = item.onClick,
                         )
+                    }
+                    item {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(60.dp)
+                                .padding(horizontal = space8, vertical = space4)
+                                .clip(RoundedCornerShape(space4))
+                                .background(
+                                    color = MaterialTheme.colorScheme.primaryContainer,
+                                ),
+                        ) {
+                            Text(
+                                text = "FCM Token: ${uiState.fcmToken}",
+                                fontWeight = FontWeight.Bold,
+                                style = MaterialTheme.typography.bodyLarge,
+                            )
+                        }
+
+                        AnimatedVisibility(clicked) {
+                        }
                     }
                     item {
                         Row(
@@ -224,7 +262,7 @@ private fun PreviewSettingsScreen() {
                 platform = "nonumes",
                 isSupported = false,
             ),
-
+            fcmToken = "hello this fcm token"
         ),
         onFaqClick = {},
         onThemeChangeClick = {},
@@ -242,6 +280,7 @@ fun CategoryItem(
     icon: ImageVector,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    onLongClick: () -> Unit = {},
 ) {
     var clicked by remember { mutableStateOf(false) }
     val sizeScale by animateFloatAsState(
@@ -260,8 +299,11 @@ fun CategoryItem(
                     awaitRelease()
                     clicked = false
                 })
-            },
-        onClick = onClick,
+            }
+            .combinedClickable(
+                onClick = onClick,
+                onLongClick = onLongClick,
+            ),
         shape = MaterialTheme.shapes.medium,
     ) {
         Row(

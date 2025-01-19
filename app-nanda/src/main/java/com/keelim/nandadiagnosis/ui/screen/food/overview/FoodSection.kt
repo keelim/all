@@ -2,7 +2,6 @@
 
 package com.keelim.nandadiagnosis.ui.screen.food.overview
 
-
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -97,7 +96,7 @@ private fun FoodHeader(
                 contentDescription = "edit food",
                 modifier = Modifier.clickable {
                     onEditClick(title)
-                }
+                },
             )
         }
     }
@@ -129,7 +128,6 @@ private fun FoodItem(
         modifier = modifier,
     )
 }
-
 
 @Preview
 @Composable
@@ -205,4 +203,3 @@ private fun PreviewFoodSuccessSection() {
         onEditClick = {},
     )
 }
-

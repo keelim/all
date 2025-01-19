@@ -8,12 +8,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 fun FoodEditRoute(
     viewModel: FoodEditViewModel = hiltViewModel(),
 ) {
-
 }
 
 @Composable
 fun FoodEditScreen() {
-
 }
 
 @Preview

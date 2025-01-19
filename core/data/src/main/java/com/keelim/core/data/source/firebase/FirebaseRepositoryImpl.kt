@@ -1,14 +1,17 @@
 package com.keelim.core.data.source.firebase
 
 import com.google.firebase.Firebase
+import com.google.firebase.app
 import com.google.firebase.database.Logger
 import com.google.firebase.database.database
+import com.google.firebase.messaging.messaging
 import com.keelim.common.di.IoDispatcher
 import com.keelim.core.data.BuildConfig
 import com.keelim.data.repository.FirebaseRepository
 import com.keelim.model.EcoCalEntry
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
@@ -48,5 +51,12 @@ constructor(
                     throwable.message
                 },
         )
+    }
+
+    override fun getFCMToken(): Flow<Result<String>> = flow {
+        emit(Result.success(Firebase.messaging.token.await()))
+    }.catch { throwable ->
+        Timber.e(throwable)
+        emit(Result.failure(throwable))
     }
 }

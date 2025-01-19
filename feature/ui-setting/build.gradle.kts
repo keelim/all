@@ -20,8 +20,6 @@ dependencies {
     implementation(projects.core.navigation)
     implementation(projects.shared)
 
-    implementation(libs.accompanist.webview)
-
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.lifecycle.runtime.compose)

@@ -1,6 +1,5 @@
 package com.keelim.nandadiagnosis.ui.screen.food.overview
 
-
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -19,9 +18,7 @@ fun FoodRoute(
 fun FoodScreen(
     onEditClick: (String) -> Unit,
 ) {
-
 }
-
 
 @Preview
 @Composable

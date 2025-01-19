@@ -10,7 +10,7 @@ androidDesugarJdkLibs = "2.1.4"
 androidGradlePlugin = "8.8.0"
 androidxActivity = "1.10.0"
 androidxAppCompat = "1.7.0"
-androidxComposeBom = "2024.12.01"
+androidxComposeBom = "2025.01.00"
 androidxComposeRuntimeTracing = "1.7.6"
 androidxCore = "1.15.0"
 androidxCoreSplashscreen = "1.0.1"
@@ -62,7 +62,7 @@ kotlin = "2.1.0"
 kotlinxCollectionsImmutable = "0.3.8"
 kotlinxCoroutines = "1.10.1"
 kotlinxDatetime = "0.6.1"
-kotlinxSerializationJson = "1.7.3"
+kotlinxSerializationJson = "1.8.0"
 ksp = "2.1.0-1.0.29"
 ktor = "3.0.3"
 leakcanary = "2.14"
@@ -108,9 +108,6 @@ accompanist-flowlayout = { group = "com.google.accompanist", name = "accompanist
 accompanist-pager = { group = "com.google.accompanist", name = "accompanist-pager", version.ref = "accompanist" }
 accompanist-pager-indicators = { group = "com.google.accompanist", name = "accompanist-pager-indicators", version.ref = "accompanist" }
 accompanist-permissions = { group = "com.google.accompanist", name = "accompanist-permissions", version.ref = "accompanist" }
-accompanist-systemuicontroller = { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version.ref = "accompanist" }
-accompanist-testharness = { group = "com.google.accompanist", name = "accompanist-testharness", version.ref = "accompanist" }
-accompanist-webview = { group = "com.google.accompanist", name = "accompanist-webview", version.ref = "accompanist" }
 activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "androidxActivity" }
 android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }

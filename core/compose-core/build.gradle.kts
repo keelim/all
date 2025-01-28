@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.keelim.android.library)
     alias(libs.plugins.keelim.android.library.compose)
     alias(libs.plugins.keelim.android.hilt)
-    kotlin("plugin.serialization")
     alias(libs.plugins.keelim.android.showkase)
 }
 

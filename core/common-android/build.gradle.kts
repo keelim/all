@@ -9,8 +9,9 @@ android {
 }
 
 dependencies {
-    implementation(projects.core.common)
     implementation(projects.core.composeCore)
+    
+    api(projects.core.common)
     api(projects.shared)
 
     implementation(libs.androidx.core.ktx)

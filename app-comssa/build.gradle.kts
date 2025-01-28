@@ -30,7 +30,7 @@ dependencies {
     implementation(projects.core.composeCore)
     implementation(projects.core.data)
     implementation(projects.core.navigation)
-    implementation(projects.shared)
+
     implementation(projects.widget)
 
     implementation(libs.androidx.activity.compose)

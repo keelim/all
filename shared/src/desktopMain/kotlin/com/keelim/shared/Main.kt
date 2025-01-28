@@ -8,7 +8,7 @@ fun main() {
     application {
         Window(
             onCloseRequest = ::exitApplication,
-            title = Word.project.key,
+            title = Word.project,
         ) {
         }
     }

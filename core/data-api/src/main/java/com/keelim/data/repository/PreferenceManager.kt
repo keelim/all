@@ -15,9 +15,17 @@
  */
 package com.keelim.data.repository
 
+import com.keelim.model.RemindTime
+
 interface PreferenceManager {
     fun getString(key: String): String?
     fun putString(key: String, value: String)
     fun getLong(key: String): Long?
     fun putLong(key: String, value: Long)
+
+    // remind
+    fun getRemindTime(): RemindTime
+    fun setStartTime(value: String)
+    fun setWorkingTime(value: String)
+    fun setEndTime(value: String)
 }

@@ -51,4 +51,7 @@ include(
     ":feature:ui-setting",
     ":shared",
     ":widget",
+    ":temp-app",
+    ":temp-data",
+    ":temp-core",
 )

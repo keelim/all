@@ -18,6 +18,9 @@ package com.keelim.core.data.source.local
 import android.app.Activity
 import android.content.Context
 import androidx.core.content.edit
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import com.keelim.data.repository.PreferenceManager
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
@@ -47,6 +50,7 @@ class SharedPreferenceManager @Inject constructor(
 
     override fun putLong(key: String, value: Long) =
         sharedPreferences.edit { putLong(key, value) }
+
 
     companion object {
         private const val INVALID_LONG_VALUE = Long.MIN_VALUE

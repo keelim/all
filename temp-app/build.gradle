@@ -1,0 +1,144 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+}
+
+android {
+    signingConfigs {
+        release {
+            storeFile file(findProperty('pomodoro.storeFile') ?: 'mock')
+            storePassword findProperty('pomodoro.storePassword') ?: ''
+            keyPassword findProperty('pomodoro.keyPassword') ?: ''
+            keyAlias findProperty('pomodoro.keyAlias') ?: ''
+        }
+    }
+    compileSdk 31
+
+    defaultConfig {
+        applicationId "com.emenjivar.pomodoro"
+        minSdk 23
+        targetSdk 31
+        versionCode 5
+        versionName "1.0.3"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            // release.enableCrashlytics is set on github actions
+            // to enable|disable according the type of pipeline
+            ext.enableCrashlytics = findProperty('release.enableCrashlytics') ?: false
+            //
+
+            manifestPlaceholders = [enableCrashlytics: "${ext.enableCrashlytics}"]
+            signingConfig signingConfigs.release
+            buildConfigField "boolean", "enableCrashlytics", "$enableCrashlytics"
+        }
+        debug {
+            debuggable true
+
+            // debug.enableCrashlytics is set on github actions
+            // to enable|disable according the type of pipeline
+            ext.enableCrashlytics = findProperty('debug.enableCrashlytics') ?: false
+            manifestPlaceholders = [enableCrashlytics: "${ext.enableCrashlytics}"]
+            // applicationIdSuffix ".debug"
+            buildConfigField "boolean", "enableCrashlytics", "$enableCrashlytics"
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildFeatures {
+        compose true
+    }
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+
+    testOptions {
+        unitTests.all {
+            kover {
+                disabled = false
+                // true to disable instrumentation tests of this task, Kover reports will not depend on the results of their execution
+                excludes = [
+                    "com.emenjivar.pomodoro.components.*",
+                    "com.emenjivar.pomodoro.ui.theme.BuildConfig",
+                    "com.emenjivar.pomodoro.ui.theme.MainActivity",
+                    'com.emenjivar.pomodoro.ui.theme.*',
+                    'com.emenjivar.pomodoro.di.*',
+                ]
+            }
+        }
+    }
+}
+
+afterEvaluate {
+    android.buildTypes.each { build ->
+        println("buildName: ${build.name}, enableCrashlytics: ${build.ext.enableCrashlytics}")
+        if (build.ext.enableCrashlytics == 'true') {
+            println("Crashlytic enabled on ${build.name}")
+            apply plugin: 'com.google.gms.google-services'
+            apply plugin: 'com.google.firebase.crashlytics'
+        }
+    }
+}
+
+def core_version = "1.7.0"
+def koin_version = "3.2.0-beta-1"
+def mockito_version = "4.3.1"
+
+dependencies {
+    implementation project(':temp-core')
+    implementation project(':temp-data')
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+
+    // UI
+    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'androidx.activity:activity-compose:1.4.0'
+    implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0"
+
+
+    // Lifecycle
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.1'
+
+    // ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.5.0-beta01"
+
+    // DataStore
+    implementation 'androidx.datastore:datastore-preferences:1.0.0'
+
+    // Coroutine
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
+
+    // Dependency injection - global library
+    api "io.insert-koin:koin-core:$koin_version"
+    api "io.insert-koin:koin-android:$koin_version"
+    api "io.insert-koin:koin-androidx-compose:$koin_version"
+
+    // Google
+    implementation platform('com.google.firebase:firebase-bom:29.3.1')
+    implementation 'com.google.firebase:firebase-crashlytics'
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-core:20.1.2'
+    implementation 'com.google.android.play:core:1.10.3'
+
+    // Testing
+    testImplementation 'junit:junit:'
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0'
+    testImplementation "org.mockito:mockito-core:$mockito_version"
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+}

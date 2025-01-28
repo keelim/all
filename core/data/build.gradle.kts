@@ -11,7 +11,6 @@ plugins {
 android { namespace = "com.keelim.core.data" }
 
 dependencies {
-    api(projects.core.common)
     api(projects.core.database)
     api(projects.core.dataApi)
     api(projects.core.network)

@@ -11,7 +11,7 @@ android {
 dependencies {
     implementation(projects.core.common)
     implementation(projects.core.composeCore)
-    implementation(projects.shared)
+    api(projects.shared)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.startup)

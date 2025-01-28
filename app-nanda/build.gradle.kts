@@ -33,7 +33,7 @@ dependencies {
     implementation(projects.core.data)
     implementation(projects.core.domain)
     implementation(projects.core.navigation)
-    implementation(projects.shared)
+
     implementation(projects.feature.uiSetting)
     implementation(projects.widget)
 

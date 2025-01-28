@@ -43,12 +43,14 @@ kotlin {
             implementation(libs.sqldelight.paging)
             implementation(libs.sqldelight.primitive)
             implementation(libs.kotlinx.serialization.json)
-            api(libs.androidx.dataStore.preferences)
-            api(libs.androidx.dataStore.core.okio)
             implementation(libs.okio)
             implementation(libs.circuit.foundation)
-            implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
+            implementation(compose.components.resources)
+            
+            api(projects.core.string)
+            api(libs.androidx.dataStore.preferences)
+            api(libs.androidx.dataStore.core.okio)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.macos_arm64)

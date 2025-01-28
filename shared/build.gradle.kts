@@ -1,11 +1,7 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.android.library)
     alias(libs.plugins.sqldelight)
-    alias(libs.plugins.compose.multiplatform)
-    alias(libs.plugins.compose.compiler)
     kotlin("plugin.serialization")
     kotlin("plugin.parcelize")
 }
@@ -45,16 +41,12 @@ kotlin {
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.okio)
             implementation(libs.circuit.foundation)
-            implementation(compose.components.uiToolingPreview)
-            implementation(compose.components.resources)
-            
+
             api(projects.core.string)
             api(libs.androidx.dataStore.preferences)
             api(libs.androidx.dataStore.core.okio)
         }
-        desktopMain.dependencies {
-            implementation(compose.desktop.macos_arm64)
-        }
+
         appleMain.dependencies {
             implementation(libs.sqldelight.native)
         }
@@ -74,17 +66,5 @@ android {
     compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
-    }
-}
-
-compose.desktop {
-    application {
-        mainClass = "MainKt"
-
-        nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "com.keelim.all"
-            packageVersion = "1.0.0"
-        }
     }
 }

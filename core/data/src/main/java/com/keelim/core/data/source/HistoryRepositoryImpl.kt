@@ -1,8 +1,8 @@
 package com.keelim.core.data.source
 
-import com.keelim.common.di.ApplicationScope
-import com.keelim.common.di.DefaultDispatcher
-import com.keelim.common.di.IoDispatcher
+import com.keelim.core.network.Dispatcher
+import com.keelim.core.network.KeelimDispatchers
+import com.keelim.core.network.di.ApplicationScope
 import com.keelim.core.database.dao.HistoryDao
 import com.keelim.core.database.dao.TimerHistoryDao
 import com.keelim.core.database.model.History
@@ -19,8 +19,8 @@ import javax.inject.Inject
 class HistoryRepositoryImpl @Inject constructor(
     private val localDataSource: HistoryDao,
     private val timerHistoryDataSource: TimerHistoryDao,
-    @IoDispatcher private val io: CoroutineDispatcher,
-    @DefaultDispatcher private val default: CoroutineDispatcher,
+    @Dispatcher(KeelimDispatchers.IO) private val io: CoroutineDispatcher,
+    @Dispatcher(KeelimDispatchers.DEFAULT) private val default: CoroutineDispatcher,
     @ApplicationScope private val scope: CoroutineScope,
 ) : HistoryRepository {
     override fun observeAll(): Flow<List<History>> =

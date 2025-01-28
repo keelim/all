@@ -1,6 +1,7 @@
 package com.keelim.core.data.source.alarm
 
-import com.keelim.common.di.IoDispatcher
+import com.keelim.core.network.Dispatcher
+import com.keelim.core.network.KeelimDispatchers
 import com.keelim.core.database.dao.AlarmDao
 import com.keelim.core.database.mapper.toAlarm
 import com.keelim.core.database.mapper.toAlarmEntity
@@ -15,7 +16,7 @@ import javax.inject.Inject
 
 class AlarmRepositoryImpl @Inject constructor(
     private val localDataSource: AlarmDao,
-    @IoDispatcher private val io: CoroutineDispatcher,
+    @Dispatcher(KeelimDispatchers.IO) private val io: CoroutineDispatcher,
 ) : AlarmRepository {
     override suspend fun insertAlarm(
         title: String,

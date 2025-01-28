@@ -28,9 +28,9 @@ android {
 }
 
 dependencies {
-    implementation(projects.core.common)
+
     implementation(projects.core.commonAndroid)
-    implementation(projects.core.composeCore)
+
     implementation(projects.core.data)
     implementation(projects.core.navigation)
 

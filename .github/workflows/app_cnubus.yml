@@ -38,9 +38,6 @@ jobs:
           echo '${{ secrets.LOCAL_PROPERTIES }}' | base64 -d > ./local.properties
           echo '${{ secrets.FONTS }}' | base64 -d > ./core/compose-core/src/main/res/values/font_certs.xml
 
-      - name: Build with Gradle
-        run: ./gradlew app-cnubus:assembleRelease
-
       - name: Build Release AAB
         id: buildRelease
         run: ./gradlew app-cnubus:bundleRelease

@@ -1,6 +1,7 @@
 package com.keelim.core.data.source.notification
 
-import com.keelim.common.di.IoDispatcher
+import com.keelim.common.Dispatcher
+import com.keelim.common.KeelimDispatchers
 import com.keelim.core.data.BuildConfig
 import com.keelim.core.network.di.KtorNetworkModule
 import com.keelim.core.network.model.NoticeResponse
@@ -21,7 +22,7 @@ class NotificationRepositoryImpl
 @Inject
 constructor(
     @KtorNetworkModule.KtorAndroidClient val client: HttpClient,
-    @IoDispatcher private val dispatcher: CoroutineDispatcher,
+    @Dispatcher(KeelimDispatchers.IO) private val dispatcher: CoroutineDispatcher,
 ) : NotificationRepository {
     override suspend fun getNotification(): List<Notification> {
         return withContext(dispatcher) {

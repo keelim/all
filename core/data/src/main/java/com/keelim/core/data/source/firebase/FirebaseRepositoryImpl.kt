@@ -6,7 +6,8 @@ import com.google.firebase.FirebaseApp
 import com.google.firebase.database.Logger
 import com.google.firebase.database.database
 import com.google.firebase.messaging.messaging
-import com.keelim.common.di.IoDispatcher
+import com.keelim.common.Dispatcher
+import com.keelim.common.KeelimDispatchers
 import com.keelim.core.data.BuildConfig
 import com.keelim.data.repository.FirebaseRepository
 import com.keelim.model.EcoCalEntry
@@ -23,9 +24,9 @@ class FirebaseRepositoryImpl
 @Inject
 constructor(
     @ApplicationContext val context: Context,
-    @IoDispatcher val dispatcher: CoroutineDispatcher,
+    @Dispatcher(KeelimDispatchers.IO) val dispatcher: CoroutineDispatcher,
 ) : FirebaseRepository {
-    
+
     private val firebase by lazy {
         FirebaseApp.initializeApp(context)
         Firebase

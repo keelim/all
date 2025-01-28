@@ -1,7 +1,7 @@
 package com.keelim.core.data.source.alarm
 
-import com.keelim.common.Dispatcher
-import com.keelim.common.KeelimDispatchers
+import com.keelim.core.network.Dispatcher
+import com.keelim.core.network.KeelimDispatchers
 import com.keelim.core.database.dao.AlarmDao
 import com.keelim.core.database.mapper.toAlarm
 import com.keelim.core.database.mapper.toAlarmEntity

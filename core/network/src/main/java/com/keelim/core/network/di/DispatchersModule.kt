@@ -1,11 +1,11 @@
-package com.keelim.common.di
+package com.keelim.core.network.di
 
-import com.keelim.common.Dispatcher
-import com.keelim.common.KeelimDispatchers.DEFAULT
-import com.keelim.common.KeelimDispatchers.IO
-import com.keelim.common.KeelimDispatchers.MAIN
-import com.keelim.common.KeelimDispatchers.MAIN_IMMEDIATE
-import com.keelim.common.KeelimDispatchers.UNCONFINED
+import com.keelim.core.network.Dispatcher
+import com.keelim.core.network.KeelimDispatchers.DEFAULT
+import com.keelim.core.network.KeelimDispatchers.IO
+import com.keelim.core.network.KeelimDispatchers.MAIN
+import com.keelim.core.network.KeelimDispatchers.MAIN_IMMEDIATE
+import com.keelim.core.network.KeelimDispatchers.UNCONFINED
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

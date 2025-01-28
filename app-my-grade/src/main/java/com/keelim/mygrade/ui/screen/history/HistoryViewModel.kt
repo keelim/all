@@ -2,8 +2,8 @@ package com.keelim.mygrade.ui.screen.history
 
 import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
-import com.keelim.common.Dispatcher
-import com.keelim.common.KeelimDispatchers
+import com.keelim.core.network.Dispatcher
+import com.keelim.core.network.KeelimDispatchers
 import com.keelim.core.database.model.SimpleHistory
 import com.keelim.core.database.repository.HistoryRepository
 import dagger.hilt.android.lifecycle.HiltViewModel

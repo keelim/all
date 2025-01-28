@@ -1,13 +1,13 @@
 package com.keelim.core.data.source
 
-import com.keelim.common.Dispatcher
-import com.keelim.common.KeelimDispatchers
-import com.keelim.common.di.ApplicationScope
 import com.keelim.core.data.model.toLocal
 import com.keelim.core.data.model.toNetwork
 import com.keelim.core.database.dao.TaskDao
 import com.keelim.core.database.model.LocalTask
 import com.keelim.core.database.repository.DefaultTaskRepository
+import com.keelim.core.network.Dispatcher
+import com.keelim.core.network.KeelimDispatchers
+import com.keelim.core.network.di.ApplicationScope
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow

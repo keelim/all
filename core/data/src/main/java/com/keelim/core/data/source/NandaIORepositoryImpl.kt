@@ -15,8 +15,8 @@
  */
 package com.keelim.core.data.source
 
-import com.keelim.common.Dispatcher
-import com.keelim.common.KeelimDispatchers
+import com.keelim.core.network.Dispatcher
+import com.keelim.core.network.KeelimDispatchers
 import com.keelim.core.database.dao.NandaDao
 import com.keelim.core.database.model.NandaEntity
 import com.keelim.core.database.repository.NandaIORepository

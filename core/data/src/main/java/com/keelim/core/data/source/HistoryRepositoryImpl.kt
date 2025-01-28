@@ -1,8 +1,8 @@
 package com.keelim.core.data.source
 
-import com.keelim.common.Dispatcher
-import com.keelim.common.KeelimDispatchers
-import com.keelim.common.di.ApplicationScope
+import com.keelim.core.network.Dispatcher
+import com.keelim.core.network.KeelimDispatchers
+import com.keelim.core.network.di.ApplicationScope
 import com.keelim.core.database.dao.HistoryDao
 import com.keelim.core.database.dao.TimerHistoryDao
 import com.keelim.core.database.model.History

@@ -28,12 +28,12 @@ dependencies {
     implementation(projects.core.composeCore)
     implementation(projects.core.data)
     implementation(projects.core.navigation)
-    implementation(projects.shared)
+
     implementation(projects.core.domain)
     implementation(projects.feature.uiLabs)
     implementation(projects.feature.uiSetting)
     implementation(projects.widget)
-    implementation(projects.shared)
+
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.splashscreen)

@@ -44,14 +44,14 @@ jobs:
           echo '${{ secrets.LOCAL_PROPERTIES }}' | base64 -d > ./local.properties
           echo '${{ secrets.FONTS }}' | base64 -d > ./core/compose-core/src/main/res/values/font_certs.xml
 
-      - name: Build with Gradle
-        run: |
-          ./gradlew app-comssa:assembleRelease app-cnubus:assembleRelease app-my-grade:assembleRelease app-nanda:assembleRelease app-arducon:assembleRelease
-
       - name: Build Release AAB
         id: buildRelease
         run: |
-          ./gradlew app-comssa:bundleRelease app-cnubus:bundleRelease app-my-grade:bundleRelease app-nanda:bundleRelease app-arducon:bundleRelease
+          ./gradlew app-comssa:bundleRelease
+          ./gradlew app-cnubus:bundleRelease
+          ./gradlew app-my-grade:bundleRelease
+          ./gradlew app-nanda:bundleRelease
+          ./gradlew app-arducon:bundleRelease
 
       - name: Create service_account.json
         id: createServiceAccount

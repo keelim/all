@@ -15,7 +15,8 @@
  */
 package com.keelim.core.data.source
 
-import com.keelim.common.di.IoDispatcher
+import com.keelim.common.Dispatcher
+import com.keelim.common.KeelimDispatchers
 import com.keelim.core.database.dao.NandaDao
 import com.keelim.core.database.model.NandaEntity
 import com.keelim.core.database.repository.NandaIORepository
@@ -28,7 +29,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class NandaIORepositoryImpl @Inject constructor(
-    @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
+    @Dispatcher(KeelimDispatchers.IO) private val ioDispatcher: CoroutineDispatcher,
     private val nandaDao: NandaDao,
 ) : NandaIORepository {
     override val searchData: Flow<List<NandaEntity>> =

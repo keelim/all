@@ -33,6 +33,10 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 fun Project.configureKotlinAndroid(
     commonExtension: CommonExtension<*, *, *, *, *, *>,
 ) {
+    with(pluginManager) {
+        apply("org.jetbrains.kotlin.plugin.serialization")
+        apply("org.jetbrains.kotlin.plugin.parcelize")
+    }
     commonExtension.apply {
         compileSdk = libs.findVersion("compileSdk").get().displayName.toInt()
         // compileSdkExtension = ProjectConfiguration.compileSdkExtension

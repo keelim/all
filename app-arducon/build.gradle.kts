@@ -3,8 +3,6 @@ plugins {
     alias(libs.plugins.keelim.android.application.compose)
     alias(libs.plugins.keelim.android.application.jacoco)
     alias(libs.plugins.keelim.android.hilt)
-    kotlin("plugin.parcelize")
-    kotlin("kapt")
 }
 
 android {

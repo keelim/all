@@ -1,7 +1,6 @@
 package com.keelim.builds
 
 import com.android.build.api.variant.AndroidComponentsExtension
-import java.util.Locale
 import org.gradle.api.Project
 import org.gradle.api.tasks.testing.Test
 import org.gradle.kotlin.dsl.configure
@@ -10,6 +9,7 @@ import org.gradle.kotlin.dsl.withType
 import org.gradle.testing.jacoco.plugins.JacocoPluginExtension
 import org.gradle.testing.jacoco.plugins.JacocoTaskExtension
 import org.gradle.testing.jacoco.tasks.JacocoReport
+import java.util.Locale
 
 private val coverageExclusions = listOf(
     // Android
@@ -30,7 +30,7 @@ internal fun Project.configureJacoco(
         toolVersion = libs.findVersion("jacoco").get().toString()
     }
 
-    val jacocoTestReport = tasks.create("jacocoTestReport")
+    val jacocoTestReport = tasks.register("jacocoTestReport")
 
     androidComponentsExtension.onVariants { variant ->
         val testTaskName = "test${variant.name.capitalize()}UnitTest"
@@ -53,7 +53,7 @@ internal fun Project.configureJacoco(
             executionData.setFrom(file("$buildDir/jacoco/$testTaskName.exec"))
         }
 
-        jacocoTestReport.dependsOn(reportTask)
+        jacocoTestReport.get().dependsOn(reportTask)
     }
 
     tasks.withType<Test>().configureEach {

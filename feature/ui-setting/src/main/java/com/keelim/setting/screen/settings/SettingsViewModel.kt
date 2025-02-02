@@ -3,6 +3,7 @@ package com.keelim.setting.screen.settings
 import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.keelim.data.repository.FirebaseRepository
 import com.keelim.setting.di.DeviceInfo
 import com.keelim.setting.di.DeviceInfoSource
 import com.keelim.shared.data.UserState
@@ -22,6 +23,7 @@ sealed interface SettingsUiState {
     data class Success(
         val userState: UserState,
         val deviceInfo: DeviceInfo,
+        val fcmToken: String,
     ) : SettingsUiState
 }
 
@@ -30,6 +32,7 @@ sealed interface SettingsUiState {
 class SettingsViewModel @Inject constructor(
     deviceInfoSource: Lazy<DeviceInfoSource>,
     userStateStore: Lazy<UserStateStore>,
+    firebaseRepository: Lazy<FirebaseRepository>,
 ) : ViewModel() {
     private val userState = userStateStore
         .get()
@@ -39,10 +42,16 @@ class SettingsViewModel @Inject constructor(
         .get()
         .getDeviceInfo()
 
-    val uiState: StateFlow<SettingsUiState> = combine(userState, deviceInfo) { userState, deviceInfo ->
+    private val firebaseInfo = firebaseRepository
+        .get()
+        .getFCMToken()
+
+    val uiState: StateFlow<SettingsUiState> =
+        combine(userState, deviceInfo, firebaseInfo) { userState, deviceInfo, fcmToken ->
         SettingsUiState.Success(
             userState = userState,
             deviceInfo = deviceInfo ?: DeviceInfo.empty(),
+            fcmToken = fcmToken.getOrNull().orEmpty(),
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000L), SettingsUiState.Initialized)
 }

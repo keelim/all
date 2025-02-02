@@ -16,7 +16,7 @@ ksp {
 }
 
 dependencies {
-    implementation(projects.core.composeCore)
+
     implementation(libs.activity.ktx)
     implementation(libs.androidx.activity.compose)
 

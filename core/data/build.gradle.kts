@@ -11,7 +11,6 @@ plugins {
 android { namespace = "com.keelim.core.data" }
 
 dependencies {
-    api(projects.core.common)
     api(projects.core.database)
     api(projects.core.dataApi)
     api(projects.core.network)
@@ -29,6 +28,7 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.database)
+    implementation(libs.firebase.messaging)
 
     testImplementation(libs.kotlinx.coroutines.android)
     testImplementation(libs.kotlinx.coroutines.test)

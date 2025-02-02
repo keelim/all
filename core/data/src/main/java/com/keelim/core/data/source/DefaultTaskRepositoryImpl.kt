@@ -1,12 +1,13 @@
 package com.keelim.core.data.source
 
-import com.keelim.common.di.ApplicationScope
-import com.keelim.common.di.DefaultDispatcher
 import com.keelim.core.data.model.toLocal
 import com.keelim.core.data.model.toNetwork
 import com.keelim.core.database.dao.TaskDao
 import com.keelim.core.database.model.LocalTask
 import com.keelim.core.database.repository.DefaultTaskRepository
+import com.keelim.core.network.Dispatcher
+import com.keelim.core.network.KeelimDispatchers
+import com.keelim.core.network.di.ApplicationScope
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -20,7 +21,7 @@ import javax.inject.Inject
 class DefaultTaskRepositoryImpl @Inject constructor(
     private val localDataSource: TaskDao,
     private val networkDataSource: TaskNetworkDataSource,
-    @DefaultDispatcher private val dispatcher: CoroutineDispatcher,
+    @Dispatcher(KeelimDispatchers.IO) private val dispatcher: CoroutineDispatcher,
     @ApplicationScope private val scope: CoroutineScope,
 ) : DefaultTaskRepository {
 

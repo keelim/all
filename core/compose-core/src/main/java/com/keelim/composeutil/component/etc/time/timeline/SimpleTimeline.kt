@@ -1,4 +1,4 @@
-package com.keelim.composeutil.component.etc.timeline
+package com.keelim.composeutil.component.etc.time.timeline
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues

@@ -22,7 +22,7 @@ jobs:
             ${{ runner.os }}-gradle-
 
       - name: set up JDK 17
-        uses: actions/setup-java@v4.5.0
+        uses: actions/setup-java@v4.7.0
         with:
           distribution: "zulu"
           java-version: "17"
@@ -44,14 +44,18 @@ jobs:
           echo '${{ secrets.LOCAL_PROPERTIES }}' | base64 -d > ./local.properties
           echo '${{ secrets.FONTS }}' | base64 -d > ./core/compose-core/src/main/res/values/font_certs.xml
 
-      - name: Build with Gradle
-        run: |
-          ./gradlew app-comssa:assembleRelease app-cnubus:assembleRelease app-my-grade:assembleRelease app-nanda:assembleRelease app-arducon:assembleRelease
-
       - name: Build Release AAB
         id: buildRelease
         run: |
-          ./gradlew app-comssa:bundleRelease app-cnubus:bundleRelease app-my-grade:bundleRelease app-nanda:bundleRelease app-arducon:bundleRelease
+          ./gradlew app-comssa:bundleRelease
+          ./gradlew app-cnubus:bundleRelease
+          ./gradlew app-my-grade:bundleRelease
+          ./gradlew app-nanda:bundleRelease
+          ./gradlew app-arducon:bundleRelease
+
+      - name: Create service_account.json
+        id: createServiceAccount
+        run: echo '${{ secrets.SERVICE_ACCOUNT_JSON }}' > service_account.json
 
       - name: Sign Comssa AAB
         id: sign_comssa
@@ -63,66 +67,6 @@ jobs:
           alias: ${{ secrets.COMSSA_ALIAS }}
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
-
-      - name: Sign Cnubus AAB
-        id: sign_cnubus
-        uses: keelim/upload-google-play@0.0.3
-        with:
-          type: sign
-          releaseDirectory: app-cnubus/build/outputs/bundle/release
-          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
-          alias: ${{ secrets.CNUBUS_ALIAS }}
-          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
-          keyPassword: ${{ secrets.KEY_PASSWORD }}
-
-      - name: Sign MyGrade AAB
-        id: sign_mygrade
-        uses: keelim/upload-google-play@0.0.3
-        with:
-          type: sign
-          releaseDirectory: app-my-grade/build/outputs/bundle/release
-          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
-          alias: ${{ secrets.MYGRADE_ALIAS }}
-          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
-          keyPassword: ${{ secrets.KEY_PASSWORD }}
-
-      - name: Sign Nanda AAB
-        id: sign_nanda
-        uses: keelim/upload-google-play@0.0.3
-        with:
-          type: sign
-          releaseDirectory: app-nanda/build/outputs/bundle/release
-          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
-          alias: ${{ secrets.NANDA_ALIAS }}
-          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
-          keyPassword: ${{ secrets.KEY_PASSWORD }}
-
-      - name: Sign Arducon AAB
-        id: sign_arducon
-        uses: keelim/upload-google-play@0.0.3
-        with:
-          type: sign
-          releaseDirectory: app-arducon/build/outputs/bundle/release
-          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
-          alias: ${{ secrets.ARDUCON_ALIAS }}
-          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
-          keyPassword: ${{ secrets.KEY_PASSWORD }}
-
-      - name: Create service_account.json
-        id: createServiceAccount
-        run: echo '${{ secrets.SERVICE_ACCOUNT_JSON }}' > service_account.json
-
-      - name: Deploy to Play Store Cnubus
-        id: deploy_cnubus
-        uses: keelim/upload-google-play@0.0.3
-        with:
-          type: upload
-          serviceAccountJson: service_account.json
-          packageName: com.keelim.cnubus
-          releaseFiles: app-cnubus/build/outputs/bundle/release/app-cnubus-release.aab
-          track: production
-          status: completed
-          changesNotSentForReview: false
 
       - name: Deploy to Play Store Comssa
         id: deploy_comssa
@@ -136,6 +80,40 @@ jobs:
           status: completed
           changesNotSentForReview: false
 
+      - name: Sign Cnubus AAB
+        id: sign_cnubus
+        uses: keelim/upload-google-play@0.0.3
+        with:
+          type: sign
+          releaseDirectory: app-cnubus/build/outputs/bundle/release
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          alias: ${{ secrets.CNUBUS_ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+
+      - name: Deploy to Play Store Cnubus
+        id: deploy_cnubus
+        uses: keelim/upload-google-play@0.0.3
+        with:
+          type: upload
+          serviceAccountJson: service_account.json
+          packageName: com.keelim.cnubus
+          releaseFiles: app-cnubus/build/outputs/bundle/release/app-cnubus-release.aab
+          track: production
+          status: completed
+          changesNotSentForReview: true
+
+      - name: Sign MyGrade AAB
+        id: sign_mygrade
+        uses: keelim/upload-google-play@0.0.3
+        with:
+          type: sign
+          releaseDirectory: app-my-grade/build/outputs/bundle/release
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          alias: ${{ secrets.MYGRADE_ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+
       - name: Deploy to Play Store MyGrade
         id: deploy_mygrade
         uses: keelim/upload-google-play@0.0.3
@@ -146,7 +124,18 @@ jobs:
           releaseFiles: app-my-grade/build/outputs/bundle/release/app-my-grade-release.aab
           track: production
           status: completed
-          changesNotSentForReview: false
+          changesNotSentForReview: true
+
+      - name: Sign Nanda AAB
+        id: sign_nanda
+        uses: keelim/upload-google-play@0.0.3
+        with:
+          type: sign
+          releaseDirectory: app-nanda/build/outputs/bundle/release
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          alias: ${{ secrets.NANDA_ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
 
       - name: Deploy to Play Store Nanda
         id: deplo_nanda
@@ -159,6 +148,17 @@ jobs:
           track: production
           status: completed
           changesNotSentForReview: false
+
+      - name: Sign Arducon AAB
+        id: sign_arducon
+        uses: keelim/upload-google-play@0.0.3
+        with:
+          type: sign
+          releaseDirectory: app-arducon/build/outputs/bundle/release
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          alias: ${{ secrets.ARDUCON_ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
 
       - name: Deploy to Play Store Arducon
         id: deplo_arducon

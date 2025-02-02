@@ -6,7 +6,6 @@ import com.google.firebase.Firebase
 import com.google.firebase.database.database
 import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.firestoreSettings
-import com.keelim.commonAndroid.initialize.FirebaseInitializer
 
 internal const val isEmulatorEnable = false
 class FirestoreInitializer : Initializer<Unit> {
@@ -28,5 +27,5 @@ class FirestoreInitializer : Initializer<Unit> {
         }
     }
 
-    override fun dependencies() = listOf(FirebaseInitializer::class.java)
+    override fun dependencies(): List<Class<out Initializer<*>>> = emptyList()
 }

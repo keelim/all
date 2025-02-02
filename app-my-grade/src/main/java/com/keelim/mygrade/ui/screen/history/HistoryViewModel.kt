@@ -2,7 +2,8 @@ package com.keelim.mygrade.ui.screen.history
 
 import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
-import com.keelim.common.di.DefaultDispatcher
+import com.keelim.core.network.Dispatcher
+import com.keelim.core.network.KeelimDispatchers
 import com.keelim.core.database.model.SimpleHistory
 import com.keelim.core.database.repository.HistoryRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -40,7 +41,7 @@ fun SimpleHistory.toGradeHistory(): GradeHistory {
 @HiltViewModel
 class HistoryViewModel @Inject constructor(
     historyRepository: HistoryRepository,
-    @DefaultDispatcher val disPatcher: CoroutineDispatcher,
+    @Dispatcher(KeelimDispatchers.DEFAULT) val disPatcher: CoroutineDispatcher,
 ) : ViewModel() {
     val histories: Flow<PersistentList<GradeHistory>> =
         historyRepository

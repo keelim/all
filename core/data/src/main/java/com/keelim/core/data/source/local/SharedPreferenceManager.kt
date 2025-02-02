@@ -20,14 +20,21 @@ import android.content.Context
 import androidx.core.content.edit
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.keelim.core.string.Word
 import com.keelim.data.repository.PreferenceManager
+import com.keelim.model.RemindTime
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class SharedPreferenceManager @Inject constructor(
-    @ApplicationContext context: Context,
+    @ApplicationContext val context: Context,
 ) : PreferenceManager {
+    
     private val sharedPreferences =
         context.getSharedPreferences("preference", Activity.MODE_PRIVATE)
 
@@ -51,6 +58,36 @@ class SharedPreferenceManager @Inject constructor(
     override fun putLong(key: String, value: Long) =
         sharedPreferences.edit { putLong(key, value) }
 
+    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(Word.KEY_REMIND)
+    private val remindStartTime = stringPreferencesKey(Word.KEY_REMIND_START_TIME)
+    private val remindEndTime = stringPreferencesKey(Word.KEY_REMIND_END_TIME)
+    private val remindWorkingTime = stringPreferencesKey(Word.KEY_REMIND_WORKING_TIME)
+
+    override suspend fun getRemindTime(): RemindTime = context.dataStore.data.map { pref ->
+        RemindTime(
+            startTime = pref[remindStartTime] ?: "0",
+            workingTime = pref[remindWorkingTime] ?: "0",
+            endTime = pref[remindEndTime] ?: "0",
+        )
+    }.first()
+
+    override suspend fun setStartTime(value: String) {
+        context.dataStore.edit { pref ->
+            pref[remindStartTime] = value
+        }
+    }
+
+    override suspend fun setWorkingTime(value: String) {
+        context.dataStore.edit { pref ->
+            pref[remindWorkingTime] = value
+        }
+    }
+
+    override suspend fun setEndTime(value: String) {
+        context.dataStore.edit { pref ->
+            pref[remindEndTime] = value
+        }
+    }
 
     companion object {
         private const val INVALID_LONG_VALUE = Long.MIN_VALUE

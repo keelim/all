@@ -24,8 +24,8 @@ interface PreferenceManager {
     fun putLong(key: String, value: Long)
 
     // remind
-    fun getRemindTime(): RemindTime
-    fun setStartTime(value: String)
-    fun setWorkingTime(value: String)
-    fun setEndTime(value: String)
+    suspend fun getRemindTime(): RemindTime
+    suspend fun setStartTime(value: String)
+    suspend fun setWorkingTime(value: String)
+    suspend fun setEndTime(value: String)
 }

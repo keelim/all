@@ -20,21 +20,25 @@ android {
 
     useLibrary("android.test.mock")
     namespace = "com.keelim.mygrade"
+    buildTypes {
+        getByName("release") {
+            signingConfig = signingConfigs.getByName("debug")
+        }
+    }
 }
 
 dependencies {
-    implementation(projects.core.common)
+
     implementation(projects.core.commonAndroid)
-    implementation(projects.core.composeCore)
+
     implementation(projects.core.data)
     implementation(projects.core.navigation)
-    implementation(projects.shared)
+
     implementation(projects.feature.uiSetting)
     implementation(projects.widget)
 
     implementation(libs.activity.ktx)
     implementation(libs.androidx.activity.compose)
-    implementation(libs.accompanist.systemuicontroller)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.lifecycle.process)

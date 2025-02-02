@@ -10,7 +10,6 @@ android {
 }
 
 dependencies {
-    api(libs.accompanist.testharness)
     api(libs.androidx.activity.compose)
     api(libs.androidx.compose.ui.test)
     api(libs.androidx.test.core)
@@ -28,5 +27,5 @@ dependencies {
     debugApi(libs.androidx.compose.ui.testManifest)
     implementation(libs.kotlinx.datetime)
 
-    implementation(projects.core.common)
+
 }

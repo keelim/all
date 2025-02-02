@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="85pt" height="44pt" viewBox="0 0 85.11 44">
+    <g class="graph">
+        <path fill="#fff" d="M0 44V0h85.11v44z"/>
+        <g class="node" transform="translate(4 40)">
+            <ellipse cx="38.56" cy="-18" fill="none" stroke="#000" rx="38.56" ry="18"/>
+            <text x="38.56" y="-12.95" font-family="Times,serif" font-size="14" text-anchor="middle">:widget</text>
+        </g>
+    </g>
+</svg>

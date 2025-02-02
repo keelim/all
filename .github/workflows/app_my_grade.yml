@@ -20,7 +20,7 @@ jobs:
             ${{ runner.os }}-gradle-
 
       - name: set up JDK 17
-        uses: actions/setup-java@v4.5.0
+        uses: actions/setup-java@v4.7.0
         with:
           distribution: "zulu" # See 'Supported distributions' for available options
           java-version: "17"
@@ -37,9 +37,6 @@ jobs:
           echo '${{ secrets.GOOGLE_SERVICE_JSON }}' | base64 -d> ./app-my-grade/google-services.json
           echo '${{ secrets.LOCAL_PROPERTIES }}' | base64 -d > ./local.properties
           echo '${{ secrets.FONTS }}' | base64 -d > ./core/compose-core/src/main/res/values/font_certs.xml
-
-      - name: Build with Gradle
-        run: ./gradlew app-my-grade:assembleRelease
 
       - name: Build Release AAB
         id: buildRelease
@@ -70,4 +67,4 @@ jobs:
           releaseFiles: app-my-grade/build/outputs/bundle/release/app-my-grade-release.aab
           track: production
           status: completed
-          changesNotSentForReview: false
+          changesNotSentForReview: true

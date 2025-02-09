@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.keelim.android.application)
     alias(libs.plugins.keelim.android.application.compose)
     alias(libs.plugins.keelim.android.showkase)
+    alias(libs.plugins.storytale)
 }
 
 android {

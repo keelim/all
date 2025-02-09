@@ -9,6 +9,7 @@ pluginManagement {
         }
         mavenCentral()
         gradlePluginPortal()
+        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     }
 }
 
@@ -33,7 +34,7 @@ include(
     ":app-my-grade",
     ":app-nanda",
     ":app-comssa",
-    // ":catalog",
+    ":catalog",
     ":core:common",
     ":core:common-android",
     ":core:compose-core",

@@ -32,4 +32,5 @@ plugins {
     alias(libs.plugins.moduleGraphAssertion) apply false
     alias(libs.plugins.room) apply false
     alias(libs.plugins.secrets) apply false
+    alias(libs.plugins.storytale) apply false
 }

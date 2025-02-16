@@ -140,4 +140,7 @@ sealed interface FeatureRoute : AppRoute {
 
     @Serializable
     data object Alarm : FeatureRoute
+
+    @Serializable
+    data object Admin : FeatureRoute
 }

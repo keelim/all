@@ -255,6 +255,7 @@ ktor-client-resources = { group = "io.ktor", name = "ktor-client-resources" }
 ktor-client-serialization = { group = "io.ktor", name = "ktor-client-serialization" }
 ktor-client-serialization-kotlinx-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json" }
 ktor-client-websockets = { group = "io.ktor", name = "ktor-client-websockets" }
+ktor-client-encoding = { group = "io.ktor", name = "ktor-client-encoding" }
 leakcanary = { group = "com.squareup.leakcanary", name = "leakcanary-android", version.ref = "leakcanary" }
 lint-api = { group = "com.android.tools.lint", name = "lint-api", version.ref = "lint" }
 lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
@@ -316,6 +317,7 @@ ktor = [
     "ktor-client-serialization",
     "ktor-client-serialization-kotlinx-json",
     "ktor-client-websockets",
+    "ktor-client-encoding"
 ]
 compose = [
     "androidx-compose-animation",

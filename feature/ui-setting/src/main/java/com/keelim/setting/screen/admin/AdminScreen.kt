@@ -1,7 +1,6 @@
 package com.keelim.setting.screen.admin
 
 import android.content.Intent
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,8 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.util.trace
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.core.net.toUri
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.keelim.composeutil.component.appbar.NavigationBackArrowBar
 import com.keelim.composeutil.resource.space8
 
@@ -27,8 +26,7 @@ fun AdminRoute(
 }
 
 @Composable
-fun AdminScreen(
-) = trace("AdminScreen") {
+fun AdminScreen() = trace("AdminScreen") {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -46,17 +44,16 @@ fun AdminScreen(
                         context.startActivity(
                             Intent(
                                 Intent.ACTION_VIEW,
-                                uri.toUri()
-                            )
+                                uri.toUri(),
+                            ),
                         )
                     },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
                 )
             }
         }
     }
 }
-
 
 @Preview
 @Composable

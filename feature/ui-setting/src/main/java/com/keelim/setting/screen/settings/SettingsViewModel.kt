@@ -48,10 +48,10 @@ class SettingsViewModel @Inject constructor(
 
     val uiState: StateFlow<SettingsUiState> =
         combine(userState, deviceInfo, firebaseInfo) { userState, deviceInfo, fcmToken ->
-        SettingsUiState.Success(
-            userState = userState,
-            deviceInfo = deviceInfo ?: DeviceInfo.empty(),
-            fcmToken = fcmToken.getOrNull().orEmpty(),
-        )
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000L), SettingsUiState.Initialized)
+            SettingsUiState.Success(
+                userState = userState,
+                deviceInfo = deviceInfo ?: DeviceInfo.empty(),
+                fcmToken = fcmToken.getOrNull().orEmpty(),
+            )
+        }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000L), SettingsUiState.Initialized)
 }

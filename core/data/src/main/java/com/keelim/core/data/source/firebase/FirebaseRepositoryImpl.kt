@@ -6,9 +6,9 @@ import com.google.firebase.FirebaseApp
 import com.google.firebase.database.Logger
 import com.google.firebase.database.database
 import com.google.firebase.messaging.messaging
+import com.keelim.core.data.BuildConfig
 import com.keelim.core.network.Dispatcher
 import com.keelim.core.network.KeelimDispatchers
-import com.keelim.core.data.BuildConfig
 import com.keelim.data.repository.FirebaseRepository
 import com.keelim.model.EcoCalEntry
 import dagger.hilt.android.qualifiers.ApplicationContext

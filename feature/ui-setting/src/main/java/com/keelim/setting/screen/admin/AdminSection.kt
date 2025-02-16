@@ -20,7 +20,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import com.keelim.composeutil.resource.space32
 
-
 @Composable
 fun SchemeTestSection(
     onClick: (uri: String) -> Unit,

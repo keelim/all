@@ -172,7 +172,7 @@ fun SettingsScreen(
                         Category(
                             title = "공지사항",
                             icon = Icons.Outlined.Check,
-                            onClick = onNotificationsClick
+                            onClick = onNotificationsClick,
                         ),
                         Category(
                             title = "알림내역",
@@ -180,27 +180,28 @@ fun SettingsScreen(
                             onClick = onAlarmsClick,
                             onLongClick = {
                                 clicked = true
-                            }),
+                            },
+                        ),
                         Category(title = "실험실", icon = Icons.Outlined.Lock, onClick = onLabClick),
                         Category(
                             title = "앱 업데이트",
                             icon = Icons.Rounded.ThumbUp,
-                            onClick = onAppUpdateClick
+                            onClick = onAppUpdateClick,
                         ),
                         Category(
                             title = "FAQ",
                             icon = Icons.Rounded.KeyboardArrowUp,
-                            onClick = onFaqClick
+                            onClick = onFaqClick,
                         ),
                         Category(
                             title = "OpenSource",
                             icon = Icons.AutoMirrored.Outlined.List,
-                            onClick = onOpenSourceClick
+                            onClick = onOpenSourceClick,
                         ),
                         Category(
                             title = "Theme Change",
                             icon = Icons.Rounded.ArrowDropDown,
-                            onClick = onThemeChangeClick
+                            onClick = onThemeChangeClick,
                         ),
                         Category(
                             title = "Admin",
@@ -210,12 +211,12 @@ fun SettingsScreen(
                         ),
                         Category(
                             title = "App Version: ${uiState.deviceInfo.versionName}",
-                            icon = Icons.Outlined.Build
+                            icon = Icons.Outlined.Build,
                         ),
                         Category(
                             title = "${uiState.userState.visitedTime} 번 방문하셨습니다.",
-                            icon = Icons.Outlined.ThumbUp
-                        )
+                            icon = Icons.Outlined.ThumbUp,
+                        ),
                     )
                 }
                 LazyColumn(
@@ -293,7 +294,7 @@ private fun PreviewSettingsScreen() {
                 platform = "nonumes",
                 isSupported = false,
             ),
-            fcmToken = "hello this fcm token"
+            fcmToken = "hello this fcm token",
         ),
         onFaqClick = {},
         onThemeChangeClick = {},
@@ -313,7 +314,7 @@ fun CategoryItem(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     visible: Boolean = true,
-    onLongClick: () -> Unit = {}
+    onLongClick: () -> Unit = {},
 ) {
     AnimatedVisibility(visible) {
         var clicked by remember { mutableStateOf(false) }

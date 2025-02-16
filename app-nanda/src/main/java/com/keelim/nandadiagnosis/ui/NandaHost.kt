@@ -118,6 +118,5 @@ fun NandaHost(
             onEditClick = navController::navigateToFoodEdit,
             nestedGraphs = { foodEditScreen() },
         )
-
     }
 }

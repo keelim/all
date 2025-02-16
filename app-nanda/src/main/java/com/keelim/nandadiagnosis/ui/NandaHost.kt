@@ -26,19 +26,15 @@ import com.keelim.nandadiagnosis.ui.screen.inappweb.webScreen
 import com.keelim.nandadiagnosis.ui.screen.nutrient.nutrientScreen
 import com.keelim.nandadiagnosis.ui.screen.nutrient.timer.navigateNutrientTimer
 import com.keelim.nandadiagnosis.ui.screen.nutrient.timer.nutrientTimerScreen
-import com.keelim.setting.screen.alarm.alarmScreen
+import com.keelim.setting.screen.admin.navigateAdmin
 import com.keelim.setting.screen.alarm.navigateAlarm
 import com.keelim.setting.screen.event.eventScreen
-import com.keelim.setting.screen.faq.faqScreen
 import com.keelim.setting.screen.faq.navigateFaq
-import com.keelim.setting.screen.lab.labScreen
 import com.keelim.setting.screen.lab.navigateLab
 import com.keelim.setting.screen.notification.navigateNotification
-import com.keelim.setting.screen.notification.notificationScreen
 import com.keelim.setting.screen.settings.navigateSettings
 import com.keelim.setting.screen.settings.settingsScreen
 import com.keelim.setting.screen.theme.navigateTheme
-import com.keelim.setting.screen.theme.themeScreen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -102,14 +98,7 @@ fun NandaHost(
                     ),
                 )
             },
-            nestedGraphs = {
-                faqScreen { }
-                themeScreen()
-                notificationScreen()
-                labScreen()
-                eventScreen()
-                alarmScreen()
-            },
+            onAdminClick = navController::navigateAdmin,
         )
         eventScreen()
         nutrientScreen(

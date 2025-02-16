@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.keelim.jvm.library)
+    kotlin("plugin.serialization")
 }
 
 dependencies {

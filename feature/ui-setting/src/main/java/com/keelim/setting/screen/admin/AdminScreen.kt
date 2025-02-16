@@ -1,6 +1,7 @@
 package com.keelim.setting.screen.admin
 
 import android.content.Intent
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
@@ -25,6 +26,7 @@ fun AdminScreen(
     val context = LocalContext.current
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
     ) {
         item {
             SchemeTestSection(

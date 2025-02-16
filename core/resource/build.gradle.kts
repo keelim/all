@@ -11,7 +11,7 @@ kotlin {
             jvmTarget = JvmTarget.JVM_1_8
         }
     }
-    
+
     jvm("desktop")
 
     listOf(
@@ -27,7 +27,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.keelim.core.string"
+    namespace = "com.keelim.core.resource"
     compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()

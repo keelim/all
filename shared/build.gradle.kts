@@ -42,7 +42,7 @@ kotlin {
             implementation(libs.okio)
             implementation(libs.circuit.foundation)
 
-            api(projects.core.string)
+            api(projects.core.resource)
             api(libs.androidx.dataStore.preferences)
             api(libs.androidx.dataStore.core.okio)
         }

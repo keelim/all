@@ -44,7 +44,7 @@ include(
     ":core:domain",
     ":core:model",
     ":core:network",
-    ":core:string",
+    ":core:resource",
     ":core:testing",
     ":core:navigation",
     ":feature:ui-labs",

@@ -32,7 +32,7 @@ fun NavGraphBuilder.settingsScreen(
         labScreen()
         alarmScreen()
         adminScreen(nestedGraphs = {})
-    }
+    },
 ) {
     composable<FeatureRoute.Settings> {
         SettingsRoute(

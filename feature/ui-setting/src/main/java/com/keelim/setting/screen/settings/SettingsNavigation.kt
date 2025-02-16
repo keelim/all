@@ -5,6 +5,11 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import com.keelim.core.navigation.FeatureRoute
+import com.keelim.setting.screen.alarm.alarmScreen
+import com.keelim.setting.screen.faq.faqScreen
+import com.keelim.setting.screen.lab.labScreen
+import com.keelim.setting.screen.notification.notificationScreen
+import com.keelim.setting.screen.theme.themeScreen
 
 fun NavController.navigateSettings(navOptions: NavOptions? = null) {
     this.navigate(FeatureRoute.Settings, navOptions)
@@ -18,7 +23,13 @@ fun NavGraphBuilder.settingsScreen(
     onOpenSourceClick: () -> Unit,
     onLabClick: () -> Unit,
     onAppUpdateClick: () -> Unit,
-    nestedGraphs: NavGraphBuilder.() -> Unit,
+    nestedGraphs: NavGraphBuilder.() -> Unit = {
+        faqScreen(nestedGraphs = {})
+        themeScreen()
+        notificationScreen()
+        labScreen()
+        alarmScreen()
+    }
 ) {
     composable<FeatureRoute.Settings> {
         SettingsRoute(

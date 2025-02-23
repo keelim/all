@@ -27,12 +27,12 @@ rootProject.name = "all"
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(
-    //":app-benchmark",
     ":app-arducon",
     ":app-cnubus",
     ":app-my-grade",
     ":app-nanda",
     ":app-comssa",
+    ":benchmarks",
     // ":catalog",
     ":core:common",
     ":core:common-android",

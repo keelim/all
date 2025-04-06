@@ -1,0 +1,9 @@
+non_parallel {
+    tasks = [":app-arducon:assembleDebug"]
+    clear-build-cache-before = SCENARIO
+}
+parallel {
+    tasks = [":app-arducon:assembleDebug"]
+    gradle-args = ["--parallel"]
+    clear-build-cache-before = SCENARIO
+}

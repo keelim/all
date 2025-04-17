@@ -1,0 +1,28 @@
+# local test with act
+name: simple slack check
+
+on:
+  workflow_dispatch:
+
+jobs:
+  message:
+    name: simple slack message
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run script and set environment variable
+        run: |
+          echo "Running script..."
+          result=$(sh script/hello_world.sh)
+          echo "SCRIPT_RESULT=$result" >> $GITHUB_ENV
+
+      - name: post message to slack with result
+        uses: slackapi/slack-github-action@v2.0.0
+        with:
+          method: chat.postMessage
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          payload: |
+            channel: ${{ secrets.SLACK_CHANNEL }}
+            text: "${{ env.SCRIPT_RESULT }}"

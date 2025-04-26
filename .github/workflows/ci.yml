@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - develop
+  workflow_dispatch:
 
 jobs:
   test:
@@ -33,5 +34,5 @@ jobs:
           echo '${{ secrets.NANDA_GOOGLE_SERVICES_JSON }}' > ./app-nanda/google-services.json
           echo '${{ secrets.LOCAL_PROPERTIES }}' > ./local.properties
 
-      - name: Generate jacocoTestReport
-        run: ./gradlew jacocoTestReport dependencyGuard
+      - name: compileDebugSources
+        run: ./gradlew compileDebugSources

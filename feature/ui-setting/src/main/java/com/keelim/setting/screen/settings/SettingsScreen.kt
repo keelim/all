@@ -33,6 +33,7 @@ import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material.icons.outlined.ThumbUp
 import androidx.compose.material.icons.rounded.ArrowDropDown
 import androidx.compose.material.icons.rounded.KeyboardArrowUp
+import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.material.icons.rounded.ThumbUp
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -66,12 +67,14 @@ import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
+import com.keelim.setting.BuildConfig
 import com.keelim.setting.di.DeviceInfo
 import com.keelim.shared.data.UserState
 
 data class Category(
     val title: String,
     val icon: ImageVector,
+    val visible: Boolean = true,
     val onClick: () -> Unit = {},
     val onLongClick: () -> Unit = {},
 )
@@ -85,6 +88,7 @@ fun SettingsRoute(
     onOpenSourceClick: () -> Unit,
     onLabClick: () -> Unit,
     onAppUpdateClick: () -> Unit,
+    onAdminClick: () -> Unit,
     viewModel: SettingsViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -97,6 +101,7 @@ fun SettingsRoute(
         onFaqClick = onFaqClick,
         onOpenSourceClick = onOpenSourceClick,
         onThemeChangeClick = onThemeChangeClick,
+        onAdminClick = onAdminClick,
     )
 }
 
@@ -110,6 +115,7 @@ fun SettingsScreen(
     onOpenSourceClick: () -> Unit,
     onThemeChangeClick: () -> Unit,
     onAppUpdateClick: () -> Unit,
+    onAdminClick: () -> Unit,
 ) {
     when (uiState) {
         is SettingsUiState.Initialized -> EmptyView()
@@ -163,27 +169,54 @@ fun SettingsScreen(
                 var clicked by remember { mutableStateOf(false) }
                 val items = remember {
                     listOf(
-                        Category("공지사항", Icons.Outlined.Check, onNotificationsClick),
+                        Category(
+                            title = "공지사항",
+                            icon = Icons.Outlined.Check,
+                            onClick = onNotificationsClick,
+                        ),
                         Category(
                             title = "알림내역",
                             icon = Icons.Outlined.Notifications,
                             onClick = onAlarmsClick,
                             onLongClick = {
                                 clicked = true
-                            }),
-                        Category("실험실", Icons.Outlined.Lock, onLabClick),
-                        Category("앱 업데이트", Icons.Rounded.ThumbUp, onAppUpdateClick),
-                        Category("FAQ", Icons.Rounded.KeyboardArrowUp, onFaqClick),
-                        Category("OpenSource", Icons.AutoMirrored.Outlined.List, onOpenSourceClick),
-                        Category("Theme Change", Icons.Rounded.ArrowDropDown, onThemeChangeClick),
+                            },
+                        ),
+                        Category(title = "실험실", icon = Icons.Outlined.Lock, onClick = onLabClick),
                         Category(
-                            "App Version: ${uiState.deviceInfo.versionName}",
-                            Icons.Outlined.Build
+                            title = "앱 업데이트",
+                            icon = Icons.Rounded.ThumbUp,
+                            onClick = onAppUpdateClick,
                         ),
                         Category(
-                            "${uiState.userState.visitedTime} 번 방문하셨습니다.",
-                            Icons.Outlined.ThumbUp
-                        )
+                            title = "FAQ",
+                            icon = Icons.Rounded.KeyboardArrowUp,
+                            onClick = onFaqClick,
+                        ),
+                        Category(
+                            title = "OpenSource",
+                            icon = Icons.AutoMirrored.Outlined.List,
+                            onClick = onOpenSourceClick,
+                        ),
+                        Category(
+                            title = "Theme Change",
+                            icon = Icons.Rounded.ArrowDropDown,
+                            onClick = onThemeChangeClick,
+                        ),
+                        Category(
+                            title = "Admin",
+                            icon = Icons.Rounded.Lock,
+                            visible = BuildConfig.DEBUG == true,
+                            onClick = onAdminClick,
+                        ),
+                        Category(
+                            title = "App Version: ${uiState.deviceInfo.versionName}",
+                            icon = Icons.Outlined.Build,
+                        ),
+                        Category(
+                            title = "${uiState.userState.visitedTime} 번 방문하셨습니다.",
+                            icon = Icons.Outlined.ThumbUp,
+                        ),
                     )
                 }
                 LazyColumn(
@@ -261,7 +294,7 @@ private fun PreviewSettingsScreen() {
                 platform = "nonumes",
                 isSupported = false,
             ),
-            fcmToken = "hello this fcm token"
+            fcmToken = "hello this fcm token",
         ),
         onFaqClick = {},
         onThemeChangeClick = {},
@@ -270,6 +303,7 @@ private fun PreviewSettingsScreen() {
         onLabClick = {},
         onAppUpdateClick = {},
         onAlarmsClick = {},
+        onAdminClick = {},
     )
 }
 
@@ -279,47 +313,50 @@ fun CategoryItem(
     icon: ImageVector,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    visible: Boolean = true,
     onLongClick: () -> Unit = {},
 ) {
-    var clicked by remember { mutableStateOf(false) }
-    val sizeScale by animateFloatAsState(
-        targetValue = if (clicked) .9f else 1f,
-        animationSpec = spring(
-            dampingRatio = Spring.DampingRatioMediumBouncy,
-            stiffness = Spring.StiffnessMediumLow,
-        ),
-        label = "",
-    )
-    Surface(
-        modifier = modifier
-            .pointerInput(Unit) {
-                detectTapGestures(onPress = {
-                    clicked = true
-                    awaitRelease()
-                    clicked = false
-                })
-            }
-            .combinedClickable(
-                onClick = onClick,
-                onLongClick = onLongClick,
+    AnimatedVisibility(visible) {
+        var clicked by remember { mutableStateOf(false) }
+        val sizeScale by animateFloatAsState(
+            targetValue = if (clicked) .9f else 1f,
+            animationSpec = spring(
+                dampingRatio = Spring.DampingRatioMediumBouncy,
+                stiffness = Spring.StiffnessMediumLow,
             ),
-        shape = MaterialTheme.shapes.medium,
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = space16, vertical = space16)
-                .scale(sizeScale),
-            horizontalArrangement = Arrangement.spacedBy(30.dp),
+            label = "",
+        )
+        Surface(
+            modifier = modifier
+                .pointerInput(Unit) {
+                    detectTapGestures(onPress = {
+                        clicked = true
+                        awaitRelease()
+                        clicked = false
+                    })
+                }
+                .combinedClickable(
+                    onClick = onClick,
+                    onLongClick = onLongClick,
+                ),
+            shape = MaterialTheme.shapes.medium,
         ) {
-            Icon(
-                icon,
-                contentDescription = null,
-                modifier = Modifier.size(28.dp),
-                tint = MaterialTheme.colorScheme.onSurface,
-            )
-            Text(title, style = MaterialTheme.typography.bodyLarge)
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = space16, vertical = space16)
+                    .scale(sizeScale),
+                horizontalArrangement = Arrangement.spacedBy(30.dp),
+            ) {
+                Icon(
+                    icon,
+                    contentDescription = null,
+                    modifier = Modifier.size(28.dp),
+                    tint = MaterialTheme.colorScheme.onSurface,
+                )
+                Text(title, style = MaterialTheme.typography.bodyLarge)
+            }
         }
     }
 }

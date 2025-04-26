@@ -4,6 +4,7 @@ import com.keelim.core.data.source.ArduconRepositoryImpl
 import com.keelim.core.data.source.DefaultTaskRepositoryImpl
 import com.keelim.core.data.source.HistoryRepositoryImpl
 import com.keelim.core.data.source.NandaIORepositoryImpl
+import com.keelim.core.data.source.TimeRepositoryImpl
 import com.keelim.core.data.source.alarm.AlarmRepositoryImpl
 import com.keelim.core.data.source.firebase.FirebaseRepositoryImpl
 import com.keelim.core.data.source.note.NoteRepositoryImpl
@@ -18,6 +19,7 @@ import com.keelim.data.repository.FirebaseRepository
 import com.keelim.data.repository.NoteRepository
 import com.keelim.data.repository.NotificationRepository
 import com.keelim.data.repository.PromptRepository
+import com.keelim.data.repository.TimeRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -70,4 +72,9 @@ interface RepositoryModule {
     fun bindsAlarmRepository(
         repository: AlarmRepositoryImpl,
     ): AlarmRepository
+
+    @Binds
+    fun bindsTimeRepository(
+        repository: TimeRepositoryImpl,
+    ): TimeRepository
 }

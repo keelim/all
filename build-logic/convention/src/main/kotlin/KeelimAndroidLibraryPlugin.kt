@@ -6,6 +6,7 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 
+@Suppress("unused")
 class KeelimAndroidLibraryPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         with(project) {

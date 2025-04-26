@@ -28,11 +28,13 @@ jobs:
 
       - name: prepare properties and google-services.json
         run:
-          echo '${{ secrets.CNUBUS_GOOGLE_SERVICES_JSON }}' | base64 -d > ./app-cnubus/google-services.json
-          echo '${{ secrets.COMSSA_GOOGLE_SERVICES_JSON }}' | base64 -d > ./app-comssa/google-services.json
-          echo '${{ secrets.MYGRADE_GOOGLE_SERVICES_JSON }}' | base64 -d > ./app-my-grade/google-services.json
-          echo '${{ secrets.NANDA_GOOGLE_SERVICES_JSON }}' | base64 -d > ./app-nanda/google-services.json
+          echo '${{ secrets.GOOGLE_SERVICE_JSON }}' | base64 -d > ./app-cnubus/google-services.json
+          echo '${{ secrets.GOOGLE_SERVICE_JSON }}' | base64 -d > ./app-comssa/google-services.json
+          echo '${{ secrets.GOOGLE_SERVICE_JSON }}' | base64 -d > ./app-my-grade/google-services.json
+          echo '${{ secrets.GOOGLE_SERVICE_JSON }}' | base64 -d > ./app-nanda/google-services.json
+          echo '${{ secrets.GOOGLE_SERVICE_JSON }}' | base64 -d > ./app-arducon/google-services.json
           echo '${{ secrets.LOCAL_PROPERTIES }}' | base64 -d > ./local.properties
+          echo '${{ secrets.FONTS }}' | base64 -d > ./core/compose-core/src/main/res/values/font_certs.xml
 
       - name: compileDebugSources
         run: ./gradlew assembleDebug

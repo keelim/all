@@ -56,8 +56,8 @@ hilt = "2.56.2"
 hiltExt = "1.2.0"
 in-app-update = "2.1.0"
 jacoco = "0.8.7"
-junit4 = "4.13.2"
 jsoup = "1.19.1"
+junit4 = "4.13.2"
 kotlin = "2.1.10"
 kotlin-benchmark = "0.4.13"
 kotlinxCollectionsImmutable = "0.3.8"
@@ -72,16 +72,17 @@ lottie = "6.6.6"
 maps = "5.2.0"
 maps-compose = "6.6.0"
 math3 = "3.6.1"
+media3 = "1.6.1"
 modernstorageBom = "1.0.0-alpha06"
 moduleGraphAssertion = "2.8.0"
 okhttp = "4.12.0"
 okio = "3.11.0"
 paging-compose = "3.3.6"
-play-services-time = "16.0.1"
 play-services-auth = "21.3.0"
 play-services-code-scanner = "16.1.0"
 play-services-location = "21.3.0"
 play-services-maps = "19.2.0"
+play-services-time = "16.0.1"
 playad = "24.2.0"
 playoss = "17.1.0"
 playoss-plugin = "0.10.6"
@@ -133,6 +134,8 @@ androidx-compose-material3-adaptive = { group = "androidx.compose.material3.adap
 androidx-compose-material3-adaptive-layout = { group = "androidx.compose.material3.adaptive", name = "adaptive-layout" }
 androidx-compose-material3-adaptive-navigation = { group = "androidx.compose.material3.adaptive", name = "adaptive-navigation" }
 androidx-compose-material3-windowSizeClass = {group = "androidx.compose.material3", name = "material3-window-size-class" }
+androidx-media-compose = { group = "androidx.media3", name = "media3-ui-compose", version.ref = "media3" }
+androidx-media-exoplayer = { group = "androidx.media3", name = "media3-exoplayer", version.ref = "media3" }
 androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime" }
 androidx-compose-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata" }
 androidx-compose-runtime-saveable = { group = "androidx.compose.runtime", name = "runtime-saveable" }

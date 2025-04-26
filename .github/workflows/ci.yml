@@ -35,4 +35,4 @@ jobs:
           echo '${{ secrets.LOCAL_PROPERTIES }}' > ./local.properties
 
       - name: compileDebugSources
-        run: ./gradlew compileDebugSources
+        run: ./gradlew assembleDebug

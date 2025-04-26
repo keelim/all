@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "type": "module",
   "dependencies": {
-    "@typespec/compiler": "^0.64.0",
-    "@typespec/http": "^0.64.0",
-    "@typespec/openapi3": "^0.64.0",
-    "@typespec/protobuf": "^0.64.0"
+    "@typespec/compiler": "^0.67.0",
+    "@typespec/http": "^0.67.0",
+    "@typespec/openapi3": "^0.67.0",
+    "@typespec/protobuf": "^0.69.0"
   },
   "private": true
 }

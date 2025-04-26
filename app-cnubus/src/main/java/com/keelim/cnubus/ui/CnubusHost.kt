@@ -13,19 +13,15 @@ import com.keelim.cnubus.ui.screen.map.screen.map.mapScreen
 import com.keelim.cnubus.ui.screen.map.screen.map.navigateMap
 import com.keelim.composeutil.AppState
 import com.keelim.core.navigation.CnuBusRoute
-import com.keelim.setting.screen.alarm.alarmScreen
+import com.keelim.setting.screen.admin.navigateAdmin
 import com.keelim.setting.screen.alarm.navigateAlarm
 import com.keelim.setting.screen.event.eventScreen
-import com.keelim.setting.screen.faq.faqScreen
 import com.keelim.setting.screen.faq.navigateFaq
-import com.keelim.setting.screen.lab.labScreen
 import com.keelim.setting.screen.lab.navigateLab
 import com.keelim.setting.screen.notification.navigateNotification
-import com.keelim.setting.screen.notification.notificationScreen
 import com.keelim.setting.screen.settings.navigateSettings
 import com.keelim.setting.screen.settings.settingsScreen
 import com.keelim.setting.screen.theme.navigateTheme
-import com.keelim.setting.screen.theme.themeScreen
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
@@ -67,13 +63,7 @@ fun CnubusHost(
                     ),
                 )
             },
-            nestedGraphs = {
-                faqScreen {}
-                themeScreen()
-                notificationScreen()
-                labScreen()
-                alarmScreen()
-            },
+            onAdminClick = navController::navigateAdmin,
         )
         eventScreen()
     }

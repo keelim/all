@@ -2,6 +2,9 @@ package com.keelim.core.data.di
 
 import android.content.Context
 import com.google.ai.client.generativeai.GenerativeModel
+import com.google.android.gms.tasks.Task
+import com.google.android.gms.time.TrustedTime
+import com.google.android.gms.time.TrustedTimeClient
 import com.keelim.core.data.BuildConfig
 import com.keelim.core.data.source.local.ArduconDataSourceImpl
 import com.keelim.core.data.source.local.SharedPreferenceManager
@@ -46,5 +49,13 @@ object DataSourceModule {
     fun provideGenerativeModel(): GenerativeModel = GenerativeModel(
         modelName = "gemini-pro",
         apiKey = BuildConfig.GENERATIVE,
+    )
+
+    @Provides
+    @Singleton
+    fun provideTrustTimeClient(
+        @ApplicationContext context: Context,
+    ): Task<TrustedTimeClient> = TrustedTime.createClient(
+        context,
     )
 }

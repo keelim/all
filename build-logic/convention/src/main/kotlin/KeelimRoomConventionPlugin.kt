@@ -21,6 +21,7 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 
+@Suppress("unused")
 class KeelimRoomConventionPlugin : Plugin<Project> {
 
     override fun apply(target: Project) {

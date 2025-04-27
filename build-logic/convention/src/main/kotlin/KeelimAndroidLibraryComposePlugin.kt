@@ -6,6 +6,7 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.getByType
 import org.jetbrains.kotlin.compose.compiler.gradle.ComposeCompilerGradlePluginExtension
 
+@Suppress("unused")
 class KeelimAndroidLibraryComposePlugin : Plugin<Project> {
     override fun apply(project: Project) {
         with(project) {

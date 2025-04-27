@@ -3,9 +3,9 @@ name: Writerside Build Docs Job
 on:
   pull_request:
     branches:
-      - master
+      - main
     types: [ closed ]
-    
+
   workflow_dispatch:
 
 permissions:

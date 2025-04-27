@@ -1,6 +1,6 @@
 [versions]
 # project
-compileSdk = "35"
+compileSdk = "36"
 minSdk = "26"
 targetSdk = "34"
 versionCode = "20250128"

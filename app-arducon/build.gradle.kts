@@ -1,4 +1,4 @@
-wplugins {
+plugins {
     alias(libs.plugins.keelim.android.application)
     alias(libs.plugins.keelim.android.application.compose)
     alias(libs.plugins.keelim.android.application.jacoco)
@@ -39,6 +39,7 @@ dependencies {
     implementation(libs.play.services.code.scanner)
     implementation(libs.play.services.oss)
     implementation(libs.timber)
+    implementation(libs.jsoup)
 }
 
 

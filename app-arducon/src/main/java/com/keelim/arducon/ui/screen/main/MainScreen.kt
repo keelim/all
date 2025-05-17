@@ -7,15 +7,14 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -46,6 +45,7 @@ fun MainRoute(
     onQrCodeClick: () -> Unit,
     onNavigateSearch: () -> Unit,
     onNavigateSaastatus: () -> Unit,
+    onNavigateOgTagPreview: () -> Unit,
     viewModel: MainViewModel = hiltViewModel(),
 ) {
     val schemeList by viewModel.schemeList.collectAsStateWithLifecycle()
@@ -79,6 +79,7 @@ fun MainRoute(
         onNavigateSearch = onNavigateSearch,
         onRegister = viewModel::onRegister,
         onNavigateSaastatus = onNavigateSaastatus,
+        onNavigateOgTagPreview = onNavigateOgTagPreview,
     )
 }
 
@@ -94,6 +95,7 @@ fun MainScreen(
     onNavigateSearch: () -> Unit,
     onRegister: (String) -> Unit,
     onNavigateSaastatus: () -> Unit,
+    onNavigateOgTagPreview: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -104,6 +106,7 @@ fun MainScreen(
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(space12),
         ) {
             Column(
                 modifier = Modifier.weight(1f),
@@ -128,18 +131,12 @@ fun MainScreen(
                     .size(space32)
                     .clickable { onNavigateSaastatus() },
             )
-            Spacer(
-                modifier = Modifier.width(space12),
-            )
             Icon(
                 imageVector = Icons.Default.Search,
                 contentDescription = "Search",
                 modifier = Modifier
                     .size(space32)
                     .clickable { onNavigateSearch() },
-            )
-            Spacer(
-                modifier = Modifier.width(space12),
             )
             Icon(
                 imageVector = rememberQrCodeScanner(
@@ -150,6 +147,13 @@ fun MainScreen(
                     .clickable {
                         onQrCodeClick()
                     },
+            )
+            Icon(
+                imageVector = Icons.Default.ThumbUp,
+                contentDescription = "OG Tag Preview",
+                modifier = Modifier
+                    .size(space32)
+                    .clickable { onNavigateOgTagPreview() },
             )
         }
 
@@ -196,5 +200,6 @@ private fun PreviewMainScreen() {
         onNavigateSearch = {},
         onRegister = {},
         onNavigateSaastatus = {},
+        onNavigateOgTagPreview = {},
     )
 }

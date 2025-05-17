@@ -7,6 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
+import com.keelim.arducon.ui.screen.inappbrowser.inAppBrowserScreen
+import com.keelim.arducon.ui.screen.inappbrowser.navigateToInAppBrowser
 import com.keelim.arducon.ui.screen.main.mainScreen
 import com.keelim.arducon.ui.screen.ogtag.navigateOgTagPreview
 import com.keelim.arducon.ui.screen.ogtag.ogTagPreviewScreen
@@ -69,7 +71,12 @@ fun ArduConHost(
                         }
                     },
                 )
-                ogTagPreviewScreen()
+                ogTagPreviewScreen(
+                    onNavigateToBrowser = navController::navigateToInAppBrowser
+                )
+                inAppBrowserScreen(
+                    onBackClick = navController::popBackStack
+                )
             },
         )
         saastatusScreen(

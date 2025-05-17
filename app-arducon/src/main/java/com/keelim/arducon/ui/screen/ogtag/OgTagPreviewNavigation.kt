@@ -11,8 +11,12 @@ fun NavController.navigateOgTagPreview(navOptions: NavOptions? = null) {
     this.navigate(ArduconRoute.OgTagPreview, navOptions)
 }
 
-fun NavGraphBuilder.ogTagPreviewScreen() {
+fun NavGraphBuilder.ogTagPreviewScreen(
+    onNavigateToBrowser: (String) -> Unit,
+) {
     composable<ArduconRoute.OgTagPreview> {
-        OgTagPreviewRoute()
+        OgTagPreviewRoute(
+            onNavigateToBrowser = onNavigateToBrowser
+        )
     }
 }

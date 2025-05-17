@@ -24,6 +24,9 @@ sealed interface ArduconRoute : AppRoute {
 
     @Serializable
     data object OgTagPreview : ArduconRoute
+
+    @Serializable
+    data class InAppBrowser(val url: String) : ArduconRoute
 }
 
 sealed interface CnuBusRoute : AppRoute {

@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
+import com.keelim.arducon.ui.component.AdBannerView
 
 data class OgTagData(
     val title: String = "",
@@ -97,6 +98,12 @@ fun OgTagPreviewScreen(
                 }
             }
         }
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        AdBannerView(
+            modifier = Modifier.fillMaxWidth(),
+        )
     }
 }
 

@@ -50,7 +50,7 @@ jobs:
 
       - name: Sign Comssa AAB
         id: sign_comssa
-        uses: keelim/upload-google-play@0.0.3
+        uses: keelim/upload-google-play@v0.0.5
         with:
           type: sign
           releaseDirectory: app-comssa/build/outputs/bundle/release
@@ -61,7 +61,7 @@ jobs:
 
       - name: Deploy to Play Store Comssa
         id: deploy_comssa
-        uses: keelim/upload-google-play@0.0.3
+        uses: keelim/upload-google-play@v0.0.5
         with:
           type: upload
           serviceAccountJson: service_account.json
@@ -73,7 +73,7 @@ jobs:
 
       - name: Sign Cnubus AAB
         id: sign_cnubus
-        uses: keelim/upload-google-play@0.0.3
+        uses: keelim/upload-google-play@v0.0.5
         with:
           type: sign
           releaseDirectory: app-cnubus/build/outputs/bundle/release
@@ -84,7 +84,7 @@ jobs:
 
       - name: Deploy to Play Store Cnubus
         id: deploy_cnubus
-        uses: keelim/upload-google-play@0.0.3
+        uses: keelim/upload-google-play@v0.0.5
         with:
           type: upload
           serviceAccountJson: service_account.json
@@ -96,7 +96,7 @@ jobs:
 
       - name: Sign MyGrade AAB
         id: sign_mygrade
-        uses: keelim/upload-google-play@0.0.3
+        uses: keelim/upload-google-play@v0.0.5
         with:
           type: sign
           releaseDirectory: app-my-grade/build/outputs/bundle/release
@@ -107,7 +107,7 @@ jobs:
 
       - name: Deploy to Play Store MyGrade
         id: deploy_mygrade
-        uses: keelim/upload-google-play@0.0.3
+        uses: keelim/upload-google-play@v0.0.5
         with:
           type: upload
           serviceAccountJson: service_account.json
@@ -119,7 +119,7 @@ jobs:
 
       - name: Sign Nanda AAB
         id: sign_nanda
-        uses: keelim/upload-google-play@0.0.3
+        uses: keelim/upload-google-play@v0.0.5
         with:
           type: sign
           releaseDirectory: app-nanda/build/outputs/bundle/release
@@ -130,7 +130,7 @@ jobs:
 
       - name: Deploy to Play Store Nanda
         id: deplo_nanda
-        uses: keelim/upload-google-play@0.0.3
+        uses: keelim/upload-google-play@v0.0.5
         with:
           type: upload
           serviceAccountJson: service_account.json
@@ -142,7 +142,7 @@ jobs:
 
       - name: Sign Arducon AAB
         id: sign_arducon
-        uses: keelim/upload-google-play@0.0.3
+        uses: keelim/upload-google-play@v0.0.5
         with:
           type: sign
           releaseDirectory: app-arducon/build/outputs/bundle/release
@@ -153,7 +153,7 @@ jobs:
 
       - name: Deploy to Play Store Arducon
         id: deplo_arducon
-        uses: keelim/upload-google-play@0.0.3
+        uses: keelim/upload-google-play@v0.0.5
         with:
           type: upload
           serviceAccountJson: service_account.json

@@ -1,5 +1,6 @@
 package com.keelim.arducon.ui.screen
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -31,16 +32,19 @@ data class OgTagData(
 
 @Composable
 fun OgTagPreviewRoute(
-    viewModel: OgTagPreviewViewModel = hiltViewModel()
+    viewModel: OgTagPreviewViewModel = hiltViewModel(),
+    onNavigateToBrowser: (String) -> Unit
 ) {
     OgTagPreviewScreen(
-        parseTag = viewModel::parseOgTags
+        parseTag = viewModel::parseOgTags,
+        onNavigateToBrowser = onNavigateToBrowser
     )
 }
 
 @Composable
 fun OgTagPreviewScreen(
     parseTag: (url: String, (OgTagData) -> Unit) -> Unit,
+    onNavigateToBrowser: (String) -> Unit
 ) {
     var url by remember { mutableStateOf("") }
     var previewData by remember { mutableStateOf<OgTagData?>(null) }
@@ -74,7 +78,9 @@ fun OgTagPreviewScreen(
 
         previewData?.let { data ->
             Card(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { onNavigateToBrowser(url) }
             ) {
                 Column(
                     modifier = Modifier.padding(16.dp)
@@ -107,7 +113,8 @@ private fun OgTagPreviewScreenPreview() {
                         imageUrl = "https://picsum.photos/200/300"
                     )
                 )
-            }
+            },
+            onNavigateToBrowser = {}
         )
     }
 }

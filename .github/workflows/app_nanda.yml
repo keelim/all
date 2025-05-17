@@ -35,7 +35,7 @@ jobs:
 
       - name: Sign AAB
         id: sign
-        uses: keelim/upload-google-play@0.0.3
+        uses: keelim/upload-google-play@v0.0.5
         with:
           type: sign
           releaseDirectory: app-nanda/build/outputs/bundle/release
@@ -50,7 +50,7 @@ jobs:
 
       - name: Deploy to Play Store
         id: deploy
-        uses: keelim/upload-google-play@0.0.3
+        uses: keelim/upload-google-play@v0.0.5
         with:
           type: upload
           serviceAccountJson: service_account.json

@@ -21,6 +21,9 @@ sealed interface ArduconRoute : AppRoute {
 
     @Serializable
     data object Search : ArduconRoute
+
+    @Serializable
+    data object OgTagPreview : ArduconRoute
 }
 
 sealed interface CnuBusRoute : AppRoute {

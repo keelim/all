@@ -20,5 +20,8 @@ class ArduconDataSourceImpl @Inject constructor(
     override suspend fun deleteDeepLinkUrl(deepLink: DeepLink) = dao.deleteDeepLinkUrl(deepLink.toDeepLinkEntity())
     override suspend fun updateDeepLinkUrl(deepLink: DeepLink) = dao.updateDeepLink(deepLink.toDeepLinkEntity())
     override suspend fun insertScheme(scheme: String) = dao.insertScheme(scheme.toSchemeEntity())
+
+    override suspend fun deleteScheme(scheme: String) = dao.deleteScheme(scheme.toSchemeEntity())
+    
     override fun getSchemeList(): Flow<List<String>> = dao.getSchemeList().map { it.toPlain() }
 }

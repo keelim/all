@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -49,7 +50,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.util.fastForEach
 import coil.compose.AsyncImage
 import com.keelim.composeutil.resource.space2
 import com.keelim.composeutil.resource.space24
@@ -174,6 +174,7 @@ fun RegisterSchemeSection(
     modifier: Modifier = Modifier,
 ) {
     val (scheme, setScheme) = remember { mutableStateOf("") }
+    val (isExpanded, setIsExpanded) = remember { mutableStateOf(false) }
 
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -230,27 +231,66 @@ fun RegisterSchemeSection(
     Spacer(
         modifier = Modifier.height(space8),
     )
-    FlowRow(
+    Column(
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = space8),
-        maxItemsInEachRow = 4,
-        horizontalArrangement = Arrangement.spacedBy(space8),
     ) {
-        schemeList.fastForEach { scheme ->
-            AssistChip(
-                onClick = {
-                    setError(false)
-                    setText("$scheme://")
-                },
-                label = { Text("$scheme://") },
-                leadingIcon = {
-                    Icon(
-                        Icons.Filled.Add,
-                        contentDescription = "Add $scheme",
-                        Modifier.size(AssistChipDefaults.IconSize),
+        if (isExpanded) {
+            FlowRow(
+                modifier = Modifier.fillMaxWidth(),
+                maxItemsInEachRow = 4,
+                horizontalArrangement = Arrangement.spacedBy(space8),
+            ) {
+                schemeList.forEach { scheme ->
+                    AssistChip(
+                        onClick = {
+                            setError(false)
+                            setText("$scheme://")
+                        },
+                        label = { Text("$scheme://") },
+                        leadingIcon = {
+                            Icon(
+                                Icons.Filled.Add,
+                                contentDescription = "Add $scheme",
+                                Modifier.size(AssistChipDefaults.IconSize),
+                            )
+                        },
                     )
-                },
+                }
+            }
+        } else {
+            LazyRow(
+                horizontalArrangement = Arrangement.spacedBy(space8),
+            ) {
+                items(schemeList) { scheme ->
+                    AssistChip(
+                        onClick = {
+                            setError(false)
+                            setText("$scheme://")
+                        },
+                        label = { Text("$scheme://") },
+                        leadingIcon = {
+                            Icon(
+                                Icons.Filled.Add,
+                                contentDescription = "Add $scheme",
+                                Modifier.size(AssistChipDefaults.IconSize),
+                            )
+                        },
+                    )
+                }
+            }
+        }
+        Spacer(modifier = Modifier.height(space8))
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.End,
+        ) {
+            Icon(
+                imageVector = if (isExpanded) Icons.Default.Close else Icons.Default.Add,
+                contentDescription = if (isExpanded) "Close" else "Open",
+                modifier = Modifier
+                    .clickable { setIsExpanded(!isExpanded) },
             )
         }
     }

@@ -63,6 +63,7 @@ fun MainTopSection(
     schemeList: List<String>,
     onSearch: (String, String) -> Unit,
     onRegister: (String) -> Unit,
+    onDelete: (String) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -161,6 +162,7 @@ fun MainTopSection(
             setError = setError,
             setText = setText,
             onRegister = onRegister,
+            onDelete = onDelete,
         )
     }
 }
@@ -171,6 +173,7 @@ fun RegisterSchemeSection(
     setError: (Boolean) -> Unit,
     setText: (String) -> Unit,
     onRegister: (String) -> Unit,
+    onDelete: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val (scheme, setScheme) = remember { mutableStateOf("") }
@@ -256,6 +259,15 @@ fun RegisterSchemeSection(
                                 Modifier.size(AssistChipDefaults.IconSize),
                             )
                         },
+                        trailingIcon = {
+                            Icon(
+                                Icons.Default.Close,
+                                contentDescription = "Delete $scheme",
+                                modifier = Modifier
+                                    .size(AssistChipDefaults.IconSize)
+                                    .clickable { onDelete(scheme) },
+                            )
+                        },
                     )
                 }
             }
@@ -275,6 +287,15 @@ fun RegisterSchemeSection(
                                 Icons.Filled.Add,
                                 contentDescription = "Add $scheme",
                                 Modifier.size(AssistChipDefaults.IconSize),
+                            )
+                        },
+                        trailingIcon = {
+                            Icon(
+                                Icons.Default.Close,
+                                contentDescription = "Delete $scheme",
+                                modifier = Modifier
+                                    .size(AssistChipDefaults.IconSize)
+                                    .clickable { onDelete(scheme) },
                             )
                         },
                     )
@@ -483,6 +504,7 @@ private fun PreviewMainTopSection() {
         schemeList = listOf("https", "http"),
         onSearch = { _, _ -> },
         onRegister = {},
+        onDelete = {},
     )
 }
 

@@ -80,6 +80,7 @@ fun MainRoute(
         onRegister = viewModel::onRegister,
         onNavigateSaastatus = onNavigateSaastatus,
         onNavigateOgTagPreview = onNavigateOgTagPreview,
+        onDeleteScheme = viewModel::deleteScheme,
     )
 }
 
@@ -96,6 +97,7 @@ fun MainScreen(
     onRegister: (String) -> Unit,
     onNavigateSaastatus: () -> Unit,
     onNavigateOgTagPreview: () -> Unit,
+    onDeleteScheme: (String) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -161,6 +163,7 @@ fun MainScreen(
             schemeList = schemeList,
             onSearch = onSearch,
             onRegister = onRegister,
+            onDelete = onDeleteScheme,
         )
         HorizontalDivider()
         DeepLinkSection(
@@ -201,5 +204,6 @@ private fun PreviewMainScreen() {
         onRegister = {},
         onNavigateSaastatus = {},
         onNavigateOgTagPreview = {},
+        onDeleteScheme = {},
     )
 }

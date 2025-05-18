@@ -30,8 +30,8 @@ interface ArduconDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertScheme(scheme: SchemeEntity)
 
-    @Delete
-    suspend fun deleteScheme(scheme: SchemeEntity)
+    @Query("DELETE FROM scheme WHERE url = :scheme")
+    suspend fun deleteScheme(scheme: String)
 
     @Query("SELECT * FROM scheme  ORDER BY `timestamp` DESC")
     fun getSchemeList(): Flow<List<SchemeEntity>>

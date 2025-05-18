@@ -1,5 +1,6 @@
 package com.keelim.arducon.ui.screen
 
+import android.net.Uri
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -47,8 +48,9 @@ fun OgTagPreviewScreen(
     parseTag: (url: String, (OgTagData) -> Unit) -> Unit,
     onNavigateToBrowser: (String) -> Unit
 ) {
-    var url by remember { mutableStateOf("") }
+    var url by remember { mutableStateOf("https://") }
     var previewData by remember { mutableStateOf<OgTagData?>(null) }
+    var errorMessage by remember { mutableStateOf<String?>(null) }
 
     Column(
         modifier = Modifier
@@ -58,17 +60,38 @@ fun OgTagPreviewScreen(
     ) {
         OutlinedTextField(
             value = url,
-            onValueChange = { url = it },
+            onValueChange = { newValue ->
+                url = if (newValue.isEmpty()) {
+                    "https://"
+                } else {
+                    newValue
+                }
+                errorMessage = null
+            },
             label = { Text("URL 입력") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            isError = errorMessage != null,
+            supportingText = {
+                errorMessage?.let { Text(it) }
+            }
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
             onClick = {
-                parseTag(url) { data ->
-                    previewData = data
+                try {
+                    val uri = Uri.parse(url)
+                    if (uri.scheme == null || uri.host == null) {
+                        errorMessage = "올바른 URL 형식이 아닙니다"
+                        return@Button
+                    }
+                    parseTag(url) { data ->
+                        previewData = data
+                        errorMessage = null
+                    }
+                } catch (e: Exception) {
+                    errorMessage = "올바른 URL 형식이 아닙니다"
                 }
             }
         ) {

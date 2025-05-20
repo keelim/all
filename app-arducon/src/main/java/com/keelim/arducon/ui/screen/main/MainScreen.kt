@@ -1,28 +1,36 @@
+@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
+
 package com.keelim.arducon.ui.screen.main
 
 import android.content.Intent
 import android.net.Uri
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.ThumbUp
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.FloatingActionButtonMenu
+import androidx.compose.material3.FloatingActionButtonMenuItem
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.ToggleFloatingActionButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -33,9 +41,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.arducon.ui.component.AdBannerView
 import com.keelim.composeutil.component.icon.rememberQrCodeScanner
-import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space16
-import com.keelim.composeutil.resource.space32
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
 import com.keelim.model.DeepLink
@@ -46,6 +52,7 @@ fun MainRoute(
     onQrCodeClick: () -> Unit,
     onNavigateSearch: () -> Unit,
     onNavigateSaastatus: () -> Unit,
+    onNavigateOgTagPreview: () -> Unit,
     viewModel: MainViewModel = hiltViewModel(),
 ) {
     val schemeList by viewModel.schemeList.collectAsStateWithLifecycle()
@@ -79,6 +86,8 @@ fun MainRoute(
         onNavigateSearch = onNavigateSearch,
         onRegister = viewModel::onRegister,
         onNavigateSaastatus = onNavigateSaastatus,
+        onNavigateOgTagPreview = onNavigateOgTagPreview,
+        onDeleteScheme = viewModel::deleteScheme,
     )
 }
 
@@ -94,11 +103,13 @@ fun MainScreen(
     onNavigateSearch: () -> Unit,
     onRegister: (String) -> Unit,
     onNavigateSaastatus: () -> Unit,
+    onNavigateOgTagPreview: () -> Unit,
+    onDeleteScheme: (String) -> Unit,
 ) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = space16, vertical = space12),
+            .padding(horizontal = space8, vertical = space8),
         verticalArrangement = Arrangement.spacedBy(space8),
     ) {
         Row(
@@ -120,43 +131,17 @@ fun MainScreen(
                     style = MaterialTheme.typography.titleMedium,
                 )
             }
-            val isDark = isSystemInDarkTheme()
-            Icon(
-                imageVector = Icons.Default.AddCircle,
-                contentDescription = "navigate saastatus",
-                modifier = Modifier
-                    .size(space32)
-                    .clickable { onNavigateSaastatus() },
-            )
-            Spacer(
-                modifier = Modifier.width(space12),
-            )
-            Icon(
-                imageVector = Icons.Default.Search,
-                contentDescription = "Search",
-                modifier = Modifier
-                    .size(space32)
-                    .clickable { onNavigateSearch() },
-            )
-            Spacer(
-                modifier = Modifier.width(space12),
-            )
-            Icon(
-                imageVector = rememberQrCodeScanner(
-                    tintColor = if (isDark) Color.White else Color.Black,
-                ),
-                contentDescription = "QR Code Scanner",
-                modifier = Modifier
-                    .clickable {
-                        onQrCodeClick()
-                    },
-            )
         }
 
         MainTopSection(
             schemeList = schemeList,
             onSearch = onSearch,
             onRegister = onRegister,
+            onDelete = onDeleteScheme,
+        )
+        AdBannerView(
+            modifier = Modifier
+                .fillMaxWidth(),
         )
         HorizontalDivider()
         DeepLinkSection(
@@ -168,9 +153,88 @@ fun MainScreen(
                 .weight(1f)
                 .fillMaxWidth(),
         )
-        AdBannerView(
-            modifier = Modifier.fillMaxWidth(),
+        FloatingSection(
+            onNavigateOgTagPreview = onNavigateOgTagPreview,
+            onQrCodeClick = onQrCodeClick,
+            onNavigateSearch = onNavigateSearch,
+            onNavigateSaastatus = onNavigateSaastatus
         )
+    }
+}
+
+@Composable
+private fun FloatingSection(
+    onNavigateOgTagPreview: () -> Unit,
+    onQrCodeClick: () -> Unit,
+    onNavigateSearch: () -> Unit,
+    onNavigateSaastatus: () -> Unit
+) {
+    val (isExpanded, setIsExpanded) = remember { mutableStateOf(false) }
+
+    Box(
+        modifier = Modifier.fillMaxSize(),
+    ) {
+        FloatingActionButtonMenu(
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(bottom = space16, end = space16),
+            expanded = isExpanded,
+            button = {
+                ToggleFloatingActionButton(
+                    checked = isExpanded,
+                    onCheckedChange = setIsExpanded,
+                    content = {
+                        Icon(
+                            imageVector = if (isExpanded) Icons.Default.Close else Icons.Default.Add,
+                            contentDescription = if (isExpanded) "Close" else "Open",
+                        )
+                    }
+                )
+            },
+        ) {
+            FloatingActionButtonMenuItem(
+                onClick = onNavigateOgTagPreview,
+                icon = {
+                    Icon(
+                        imageVector = Icons.Default.ThumbUp,
+                        contentDescription = "OG Tag Preview",
+                    )
+                },
+                text = { Text("OG Tag Preview") },
+            )
+            FloatingActionButtonMenuItem(
+                onClick = onQrCodeClick,
+                icon = {
+                    Icon(
+                        imageVector = rememberQrCodeScanner(
+                            tintColor = if (isSystemInDarkTheme()) Color.White else Color.Black,
+                        ),
+                        contentDescription = "QR Code Scanner",
+                    )
+                },
+                text = { Text("QR Code Scanner") },
+            )
+            FloatingActionButtonMenuItem(
+                onClick = onNavigateSearch,
+                icon = {
+                    Icon(
+                        imageVector = Icons.Default.Search,
+                        contentDescription = "Search",
+                    )
+                },
+                text = { Text("Search") },
+            )
+            FloatingActionButtonMenuItem(
+                onClick = onNavigateSaastatus,
+                icon = {
+                    Icon(
+                        imageVector = Icons.Default.AddCircle,
+                        contentDescription = "navigate saastatus",
+                    )
+                },
+                text = { Text("SaaStatus") },
+            )
+        }
     }
 }
 
@@ -196,5 +260,7 @@ private fun PreviewMainScreen() {
         onNavigateSearch = {},
         onRegister = {},
         onNavigateSaastatus = {},
+        onNavigateOgTagPreview = {},
+        onDeleteScheme = {},
     )
 }

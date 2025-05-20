@@ -7,7 +7,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
+import com.keelim.arducon.ui.screen.inappbrowser.inAppBrowserScreen
+import com.keelim.arducon.ui.screen.inappbrowser.navigateToInAppBrowser
 import com.keelim.arducon.ui.screen.main.mainScreen
+import com.keelim.arducon.ui.screen.ogtag.navigateOgTagPreview
+import com.keelim.arducon.ui.screen.ogtag.ogTagPreviewScreen
 import com.keelim.arducon.ui.screen.qr.navigateQr
 import com.keelim.arducon.ui.screen.qr.qrScreen
 import com.keelim.arducon.ui.screen.saastatus.main.navigateSaastatus
@@ -46,6 +50,7 @@ fun ArduConHost(
             onQrCodeClick = navController::navigateQr,
             onNavigateSearch = navController::navigateSearch,
             onNavigateSaastatus = navController::navigateSaastatus,
+            onNavigateOgTagPreview = navController::navigateOgTagPreview,
             nestedGraphs = {
                 qrScreen(
                     onShowBarcode = { barcode ->
@@ -65,6 +70,12 @@ fun ArduConHost(
                             onShowSnackbar("현재 업데이트 준비중입니다. ", null)
                         }
                     },
+                )
+                ogTagPreviewScreen(
+                    onNavigateToBrowser = navController::navigateToInAppBrowser
+                )
+                inAppBrowserScreen(
+                    onBackClick = navController::popBackStack
                 )
             },
         )

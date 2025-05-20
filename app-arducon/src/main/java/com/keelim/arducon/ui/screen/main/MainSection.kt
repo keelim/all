@@ -5,8 +5,14 @@ package com.keelim.arducon.ui.screen.main
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -237,7 +243,10 @@ fun RegisterSchemeSection(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = space8),
+            .padding(horizontal = space8)
+            .animateContentSize(
+                animationSpec = tween(durationMillis = 300)
+            ),
     ) {
         if (isExpanded) {
             FlowRow(
@@ -246,29 +255,43 @@ fun RegisterSchemeSection(
                 horizontalArrangement = Arrangement.spacedBy(space8),
             ) {
                 schemeList.forEach { scheme ->
-                    AssistChip(
-                        onClick = {
-                            setError(false)
-                            setText("$scheme://")
-                        },
-                        label = { Text("$scheme://") },
-                        leadingIcon = {
-                            Icon(
-                                Icons.Filled.Add,
-                                contentDescription = "Add $scheme",
-                                Modifier.size(AssistChipDefaults.IconSize),
+                    AnimatedVisibility(
+                        visible = true,
+                        enter = fadeIn(animationSpec = tween(300)) + expandVertically(
+                            animationSpec = tween(
+                                300
                             )
-                        },
-                        trailingIcon = {
-                            Icon(
-                                Icons.Default.Close,
-                                contentDescription = "Delete $scheme",
-                                modifier = Modifier
-                                    .size(AssistChipDefaults.IconSize)
-                                    .clickable { onDelete(scheme) },
+                        ),
+                        exit = fadeOut(animationSpec = tween(300)) + shrinkVertically(
+                            animationSpec = tween(
+                                300
                             )
-                        },
-                    )
+                        )
+                    ) {
+                        AssistChip(
+                            onClick = {
+                                setError(false)
+                                setText("$scheme://")
+                            },
+                            label = { Text("$scheme://") },
+                            leadingIcon = {
+                                Icon(
+                                    Icons.Filled.Add,
+                                    contentDescription = "Add $scheme",
+                                    Modifier.size(AssistChipDefaults.IconSize),
+                                )
+                            },
+                            trailingIcon = {
+                                Icon(
+                                    Icons.Default.Close,
+                                    contentDescription = "Delete $scheme",
+                                    modifier = Modifier
+                                        .size(AssistChipDefaults.IconSize)
+                                        .clickable { onDelete(scheme) },
+                                )
+                            },
+                        )
+                    }
                 }
             }
         } else {
@@ -276,29 +299,43 @@ fun RegisterSchemeSection(
                 horizontalArrangement = Arrangement.spacedBy(space8),
             ) {
                 items(schemeList) { scheme ->
-                    AssistChip(
-                        onClick = {
-                            setError(false)
-                            setText("$scheme://")
-                        },
-                        label = { Text("$scheme://") },
-                        leadingIcon = {
-                            Icon(
-                                Icons.Filled.Add,
-                                contentDescription = "Add $scheme",
-                                Modifier.size(AssistChipDefaults.IconSize),
+                    AnimatedVisibility(
+                        visible = true,
+                        enter = fadeIn(animationSpec = tween(300)) + expandVertically(
+                            animationSpec = tween(
+                                300
                             )
-                        },
-                        trailingIcon = {
-                            Icon(
-                                Icons.Default.Close,
-                                contentDescription = "Delete $scheme",
-                                modifier = Modifier
-                                    .size(AssistChipDefaults.IconSize)
-                                    .clickable { onDelete(scheme) },
+                        ),
+                        exit = fadeOut(animationSpec = tween(300)) + shrinkVertically(
+                            animationSpec = tween(
+                                300
                             )
-                        },
-                    )
+                        )
+                    ) {
+                        AssistChip(
+                            onClick = {
+                                setError(false)
+                                setText("$scheme://")
+                            },
+                            label = { Text("$scheme://") },
+                            leadingIcon = {
+                                Icon(
+                                    Icons.Filled.Add,
+                                    contentDescription = "Add $scheme",
+                                    Modifier.size(AssistChipDefaults.IconSize),
+                                )
+                            },
+                            trailingIcon = {
+                                Icon(
+                                    Icons.Default.Close,
+                                    contentDescription = "Delete $scheme",
+                                    modifier = Modifier
+                                        .size(AssistChipDefaults.IconSize)
+                                        .clickable { onDelete(scheme) },
+                                )
+                            },
+                        )
+                    }
                 }
             }
         }

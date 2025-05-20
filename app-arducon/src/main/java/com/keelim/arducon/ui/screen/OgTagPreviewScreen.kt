@@ -26,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.keelim.arducon.ui.component.AdBannerView
@@ -55,6 +56,7 @@ fun OgTagPreviewScreen(
     var url by remember { mutableStateOf("https://") }
     var previewData by remember { mutableStateOf<OgTagData?>(null) }
     var errorMessage by remember { mutableStateOf<String?>(null) }
+    var urlInfo by remember { mutableStateOf<Uri?>(null) }
 
     Column(
         modifier = Modifier
@@ -65,12 +67,16 @@ fun OgTagPreviewScreen(
         OutlinedTextField(
             value = url,
             onValueChange = { newValue ->
-                url = if (newValue.isEmpty()) {
+                url = newValue.ifEmpty {
                     "https://"
-                } else {
-                    newValue
                 }
                 errorMessage = null
+
+                urlInfo = try {
+                    url.toUri()
+                } catch (e: Exception) {
+                    null
+                }
             },
             label = { Text("URL 입력") },
             modifier = Modifier.fillMaxWidth(),
@@ -84,6 +90,7 @@ fun OgTagPreviewScreen(
                         url = "https://"
                         errorMessage = null
                         previewData = null
+                        urlInfo = null
                     }
                 ) {
                     Icon(
@@ -104,6 +111,7 @@ fun OgTagPreviewScreen(
                         errorMessage = "올바른 URL 형식이 아닙니다"
                         return@Button
                     }
+                    urlInfo = uri
                     parseTag(url) { data ->
                         previewData = data
                         errorMessage = null
@@ -117,6 +125,29 @@ fun OgTagPreviewScreen(
         }
 
         Spacer(modifier = Modifier.height(16.dp))
+
+        urlInfo?.let { uri ->
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 16.dp)
+            ) {
+                Column(
+                    modifier = Modifier.padding(16.dp)
+                ) {
+                    Text(
+                        text = "URL 정보",
+                        style = MaterialTheme.typography.titleMedium,
+                        modifier = Modifier.padding(bottom = 8.dp)
+                    )
+                    Text("Scheme: ${uri.scheme ?: "없음"}")
+                    Text("Host: ${uri.host ?: "없음"}")
+                    Text("Path: ${uri.path ?: "없음"}")
+                    Text("Query: ${uri.query ?: "없음"}")
+                    Text("Fragment: ${uri.fragment ?: "없음"}")
+                }
+            }
+        }
 
         previewData?.let { data ->
             Card(

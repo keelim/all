@@ -16,9 +16,10 @@ pluginManagement {
 dependencyResolutionManagement {
     repositories {
         google {
-            mavenContent {
-                includeGroupByRegex(".*google.*")
-                includeGroupByRegex(".*android.*")
+            content {
+                includeGroupByRegex("com\\.android.*")
+                includeGroupByRegex("com\\.google.*")
+                includeGroupByRegex("androidx.*")
             }
         }
         mavenCentral()

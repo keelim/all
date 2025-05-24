@@ -64,7 +64,7 @@ class AppState(
 }
 
 @Composable
-fun <T : Any> rememberMutableStateListOf(vararg elements: T): SnapshotStateList<Any> {
+fun <T : Any> rememberMutableStateListOf(vararg elements: T): SnapshotStateList<T> {
     return rememberSaveable(saver = snapshotStateListSaver(serializableListSaver())) {
         elements.toList().toMutableStateList()
     }

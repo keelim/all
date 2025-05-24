@@ -59,7 +59,6 @@ dependencies {
     implementation(libs.hilt.ext.work)
     implementation(libs.play.services.ad)
     implementation(libs.play.services.auth)
-    implementation(libs.play.services.oss)
     implementation(libs.timber)
     implementation(libs.deeplinkdispatch)
     ksp(libs.deeplinkdispatch.processor)

@@ -44,5 +44,11 @@ class ArduconRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun deleteScheme(scheme: String) {
+        withContext(dispatcher) {
+            local.deleteScheme(scheme)
+        }
+    }
+
     override fun getSchemeList(): Flow<List<String>> = local.getSchemeList()
 }

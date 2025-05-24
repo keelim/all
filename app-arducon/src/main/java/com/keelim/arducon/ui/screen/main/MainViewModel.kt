@@ -116,4 +116,14 @@ class MainViewModel @Inject constructor(
             }
         }
     }
+
+    fun deleteScheme(scheme: String) {
+        viewModelScope.launch {
+            runCatching {
+                repository.deleteScheme(scheme)
+            }.onFailure {
+                Timber.d("deleteScheme() onError() -> " + it.localizedMessage)
+            }
+        }
+    }
 }

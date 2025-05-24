@@ -33,7 +33,6 @@ import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.compose.PlayerSurface
 import androidx.media3.ui.compose.state.rememberPlayPauseButtonState
 
-
 @Composable
 fun ExoPlayer(
     videoUri: String,
@@ -79,7 +78,7 @@ fun ExoPlayer(
 @Composable
 fun PlayPauseButton(
     player: Player,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val state = rememberPlayPauseButtonState(player)
     val icon = if (state.showPlay) Icons.Default.PlayArrow else Icons.Rounded.PlayArrow
@@ -95,10 +94,9 @@ fun PlayPauseButton(
             modifier = Modifier
                 .size(100.dp)
                 .background(graySemiTransparentBG, CircleShape),
-            enabled = state.isEnabled
+            enabled = state.isEnabled,
         ) {
             Icon(icon, contentDescription = null)
         }
     }
 }
-

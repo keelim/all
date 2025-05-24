@@ -1,27 +1,34 @@
+@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
+
 package com.keelim.arducon.ui
 
 import android.content.Intent
 import android.net.Uri
+import androidx.compose.animation.ContentTransform
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleOut
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.navigation.compose.NavHost
-import com.keelim.arducon.ui.screen.inappbrowser.inAppBrowserScreen
-import com.keelim.arducon.ui.screen.inappbrowser.navigateToInAppBrowser
-import com.keelim.arducon.ui.screen.main.mainScreen
-import com.keelim.arducon.ui.screen.ogtag.navigateOgTagPreview
-import com.keelim.arducon.ui.screen.ogtag.ogTagPreviewScreen
-import com.keelim.arducon.ui.screen.qr.navigateQr
-import com.keelim.arducon.ui.screen.qr.qrScreen
-import com.keelim.arducon.ui.screen.saastatus.main.navigateSaastatus
-import com.keelim.arducon.ui.screen.saastatus.main.saastatusScreen
-import com.keelim.arducon.ui.screen.saastatus.search.navigateSaastatusSearch
-import com.keelim.arducon.ui.screen.saastatus.search.saastatusSearchScreen
-import com.keelim.arducon.ui.screen.search.navigateSearch
-import com.keelim.arducon.ui.screen.search.searchScreen
+import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
+import androidx.navigation3.runtime.entry
+import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.runtime.rememberSavedStateNavEntryDecorator
+import androidx.navigation3.ui.NavDisplay
+import com.keelim.arducon.ui.screen.inappbrowser.InAppBrowserRoute
+import com.keelim.arducon.ui.screen.main.MainRoute
+import com.keelim.arducon.ui.screen.ogtag.OgTagPreviewRoute
+import com.keelim.arducon.ui.screen.qr.QrRoute
+import com.keelim.arducon.ui.screen.saastatus.main.SaastatusRoute
+import com.keelim.arducon.ui.screen.search.SearchRoute
 import com.keelim.composeutil.AppState
+import com.keelim.composeutil.rememberMutableStateListOf
 import com.keelim.core.navigation.ArduconRoute
+import com.keelim.core.navigation.SaastatusRoute
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -33,26 +40,56 @@ fun ArduConHost(
     onShowSnackbar: suspend (String, String?) -> Boolean,
     modifier: Modifier = Modifier,
 ) {
-    val navController = appState.navController
     val context = LocalContext.current
 
-    NavHost(
-        navController = navController,
-        startDestination = ArduconRoute.Main,
-        modifier = modifier,
-    ) {
-        mainScreen(
-            onShowMessage = { message ->
-                coroutineScope.launch {
-                    onShowSnackbar(message, null)
-                }
-            },
-            onQrCodeClick = navController::navigateQr,
-            onNavigateSearch = navController::navigateSearch,
-            onNavigateSaastatus = navController::navigateSaastatus,
-            onNavigateOgTagPreview = navController::navigateOgTagPreview,
-            nestedGraphs = {
-                qrScreen(
+    val backStack = rememberMutableStateListOf<ArduconRoute>(ArduconRoute.Main)
+    val motionScheme = MaterialTheme.motionScheme
+
+    NavDisplay(
+        backStack = backStack,
+        onBack = { backStack.removeLastOrNull() },
+        entryDecorators = listOf(
+            rememberSavedStateNavEntryDecorator(),
+            rememberViewModelStoreNavEntryDecorator(),
+        ),
+        transitionSpec = {
+            ContentTransform(
+                fadeIn(motionScheme.defaultEffectsSpec()),
+                fadeOut(motionScheme.defaultEffectsSpec()),
+            )
+        },
+        popTransitionSpec = {
+            ContentTransform(
+                fadeIn(motionScheme.defaultEffectsSpec()),
+                scaleOut(
+                    targetScale = 0.7f,
+                ),
+            )
+        },
+        entryProvider = entryProvider {
+            entry<ArduconRoute.Main> {
+                MainRoute(
+                    onShowMessage = { message ->
+                        coroutineScope.launch {
+                            onShowSnackbar(message, null)
+                        }
+                    },
+                    onQrCodeClick = {
+                        backStack.add(ArduconRoute.Qr)
+                    },
+                    onNavigateSearch = {
+                        backStack.add(ArduconRoute.Search)
+                    },
+                    onNavigateSaastatus = {
+                        backStack.add(SaastatusRoute.Main)
+                    },
+                    onNavigateOgTagPreview = {
+                        backStack.add(ArduconRoute.OgTagPreview)
+                    },
+                )
+            }
+            entry<ArduconRoute.Qr> {
+                QrRoute(
                     onShowBarcode = { barcode ->
                         coroutineScope.launch {
                             if (onShowSnackbar(barcode, ">")) {
@@ -64,26 +101,36 @@ fun ArduConHost(
                         }
                     },
                 )
-                searchScreen(
+            }
+            entry<ArduconRoute.Search> {
+                SearchRoute(
                     onUpdate = {
                         coroutineScope.launch {
                             onShowSnackbar("현재 업데이트 준비중입니다. ", null)
                         }
                     },
                 )
-                ogTagPreviewScreen(
-                    onNavigateToBrowser = navController::navigateToInAppBrowser
-                )
-                inAppBrowserScreen(
-                    onBackClick = navController::popBackStack
-                )
-            },
-        )
-        saastatusScreen(
-            onRegister = navController::navigateSaastatusSearch,
-        ) {
-            saastatusSearchScreen {
             }
-        }
-    }
+            entry<ArduconRoute.OgTagPreview> {
+                OgTagPreviewRoute(
+                    onNavigateToBrowser = { url ->
+                        backStack.add(ArduconRoute.InAppBrowser(url))
+                    },
+                )
+            }
+            entry<ArduconRoute.InAppBrowser> { backStackEntry ->
+                InAppBrowserRoute(
+                    url = backStackEntry.url,
+                    onBackClick = {
+                        backStack.removeLastOrNull()
+                    },
+                )
+            }
+            entry<SaastatusRoute.Main> {
+                SaastatusRoute(
+                    onRegister = { backStack.add(SaastatusRoute.Search) },
+                )
+            }
+        },
+    )
 }

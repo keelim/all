@@ -9,5 +9,7 @@ interface ArduconRepository {
     suspend fun deleteDeepLinkUrl(deepLink: DeepLink)
     suspend fun updateDeepLinkUrl(deepLink: DeepLink)
     suspend fun insertScheme(scheme: String)
+
+    suspend fun deleteScheme(scheme: String)
     fun getSchemeList(): Flow<List<String>>
 }

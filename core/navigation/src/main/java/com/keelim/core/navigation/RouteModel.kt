@@ -39,9 +39,6 @@ sealed interface CnuBusRoute : AppRoute {
 
 sealed interface NandaRoute : AppRoute {
     @Serializable
-    data object Main : NandaRoute
-
-    @Serializable
     data object Category : NandaRoute
 
     @Serializable

@@ -1,4 +1,4 @@
-package com.keelim.arducon.ui.screen
+package com.keelim.arducon.ui.screen.ogtag
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

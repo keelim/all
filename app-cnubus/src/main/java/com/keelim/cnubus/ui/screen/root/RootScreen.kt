@@ -167,7 +167,7 @@ val roots = listOf(
 
 @Preview
 @Composable
-fun ExposedDropdownMenuSample() {
+private fun ExposedDropdownMenuSample() {
     var expanded by remember { mutableStateOf(false) }
     var selectedOptionText by remember { mutableStateOf(roots[0]) }
     ExposedDropdownMenuBox(

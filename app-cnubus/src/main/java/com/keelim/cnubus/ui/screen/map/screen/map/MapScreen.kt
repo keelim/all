@@ -30,7 +30,7 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MarkerInfoWindowContent
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
-import com.google.maps.android.compose.rememberMarkerState
+import com.google.maps.android.compose.rememberUpdatedMarkerState
 import com.keelim.composeutil.resource.space24
 import com.keelim.composeutil.resource.space8
 import com.keelim.core.data.model.Location
@@ -91,7 +91,7 @@ fun MapScreen(
 @Composable
 private fun CustomMarker(
     marker: MapState,
-    markerState: MarkerState = rememberMarkerState(position = marker.position),
+    markerState: MarkerState = rememberUpdatedMarkerState(position = marker.position)
 ) {
     MarkerInfoWindowContent(
         state = markerState,

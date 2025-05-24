@@ -3,14 +3,17 @@ package com.keelim.arducon.ui.screen.ogtag
 import android.net.Uri
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
@@ -39,6 +42,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.keelim.arducon.ui.component.AdBannerView
 import com.keelim.composeutil.resource.space8
+import androidx.compose.foundation.verticalScroll
 
 data class OgTagData(
     val title: String = "",
@@ -67,203 +71,211 @@ fun OgTagPreviewScreen(
     var errorMessage by remember { mutableStateOf<String?>(null) }
     var urlInfo by remember { mutableStateOf<Uri?>(null) }
 
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+            .padding(16.dp)
     ) {
-        OutlinedTextField(
-            value = url,
-            onValueChange = { newValue ->
-                url = newValue.ifEmpty {
-                    "https://"
-                }
-                errorMessage = null
-
-                urlInfo = try {
-                    url.toUri()
-                } catch (e: Exception) {
-                    null
-                }
-            },
-            label = { Text("URL 입력") },
-            modifier = Modifier.fillMaxWidth(),
-            isError = errorMessage != null,
-            supportingText = {
-                errorMessage?.let { Text(it) }
-            },
-            trailingIcon = {
-                IconButton(
-                    onClick = {
-                        url = "https://"
-                        errorMessage = null
-                        previewData = null
-                        urlInfo = null
-                    }
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Clear,
-                        contentDescription = "Clear URL"
-                    )
-                }
-            }
-        )
-
-        Spacer(modifier = Modifier.height(space8))
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.End
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .verticalScroll(rememberScrollState())
+                .padding(bottom = 60.dp), // AdBannerView를 위한 여백
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Button(
-                onClick = {
-                    try {
-                        val uri = Uri.parse(url)
-                        if (uri.scheme == null || uri.host == null) {
-                            errorMessage = "올바른 URL 형식이 아닙니다"
-                            return@Button
-                        }
-                        urlInfo = uri
-                        parseTag(url) { data ->
-                            previewData = data
-                            errorMessage = null
-                        }
+            OutlinedTextField(
+                value = url,
+                onValueChange = { newValue ->
+                    url = newValue.ifEmpty {
+                        "https://"
+                    }
+                    errorMessage = null
+
+                    urlInfo = try {
+                        url.toUri()
                     } catch (e: Exception) {
-                        errorMessage = "올바른 URL 형식이 아닙니다"
+                        null
                     }
-                }
-            ) {
-                Text("미리보기")
-            }
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        urlInfo?.let { uri ->
-            Surface(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 16.dp)
-                    .clip(MaterialTheme.shapes.medium),
-                color = MaterialTheme.colorScheme.surfaceVariant,
-                tonalElevation = 2.dp
-            ) {
-                Column(
-                    modifier = Modifier.padding(16.dp)
-                ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.padding(bottom = 12.dp)
+                },
+                label = { Text("URL 입력") },
+                modifier = Modifier.fillMaxWidth(),
+                isError = errorMessage != null,
+                supportingText = {
+                    errorMessage?.let { Text(it) }
+                },
+                trailingIcon = {
+                    IconButton(
+                        onClick = {
+                            url = "https://"
+                            errorMessage = null
+                            previewData = null
+                            urlInfo = null
+                        }
                     ) {
                         Icon(
-                            imageVector = Icons.Default.Info,
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.primary
-                        )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text(
-                            text = "URL 정보",
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.primary
+                            imageVector = Icons.Default.Clear,
+                            contentDescription = "Clear URL"
                         )
                     }
-
-                    Divider(
-                        modifier = Modifier.padding(bottom = 12.dp),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.2f)
-                    )
-
-                    UrlInfoItem("Scheme", uri.scheme)
-                    UrlInfoItem("Host", uri.host)
-                    UrlInfoItem("Path", uri.path)
-                    UrlInfoItem("Query", uri.query)
-                    UrlInfoItem("Fragment", uri.fragment)
                 }
-            }
-        }
+            )
 
-        previewData?.let { data ->
-            Surface(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable { onNavigateToBrowser(url) }
-                    .clip(RoundedCornerShape(12.dp)),
-                color = MaterialTheme.colorScheme.surfaceVariant,
-                tonalElevation = 2.dp
+            Spacer(modifier = Modifier.height(space8))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.End
             ) {
-                Column(
-                    modifier = Modifier.padding(16.dp)
+                Button(
+                    onClick = {
+                        try {
+                            val uri = Uri.parse(url)
+                            if (uri.scheme == null || uri.host == null) {
+                                errorMessage = "올바른 URL 형식이 아닙니다"
+                                return@Button
+                            }
+                            urlInfo = uri
+                            parseTag(url) { data ->
+                                previewData = data
+                                errorMessage = null
+                            }
+                        } catch (e: Exception) {
+                            errorMessage = "올바른 URL 형식이 아닙니다"
+                        }
+                    }
                 ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.padding(bottom = 12.dp)
+                    Text("미리보기")
+                }
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            urlInfo?.let { uri ->
+                Surface(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 16.dp)
+                        .clip(MaterialTheme.shapes.medium),
+                    color = MaterialTheme.colorScheme.surfaceVariant,
+                    tonalElevation = 2.dp
+                ) {
+                    Column(
+                        modifier = Modifier.padding(16.dp)
                     ) {
-                        Icon(
-                            imageVector = Icons.Default.Info,
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.primary
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.padding(bottom = 12.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Info,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.primary
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(
+                                text = "URL 정보",
+                                style = MaterialTheme.typography.titleMedium,
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                        }
+
+                        Divider(
+                            modifier = Modifier.padding(bottom = 12.dp),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.2f)
                         )
-                        Spacer(modifier = Modifier.width(8.dp))
+
+                        UrlInfoItem("Scheme", uri.scheme)
+                        UrlInfoItem("Host", uri.host)
+                        UrlInfoItem("Path", uri.path)
+                        UrlInfoItem("Query", uri.query)
+                        UrlInfoItem("Fragment", uri.fragment)
+                    }
+                }
+            }
+
+            previewData?.let { data ->
+                Surface(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable { onNavigateToBrowser(url) }
+                        .clip(RoundedCornerShape(12.dp)),
+                    color = MaterialTheme.colorScheme.surfaceVariant,
+                    tonalElevation = 2.dp
+                ) {
+                    Column(
+                        modifier = Modifier.padding(16.dp)
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.padding(bottom = 12.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Info,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.primary
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(
+                                text = "OG 태그 미리보기",
+                                style = MaterialTheme.typography.titleMedium,
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                        }
+
+                        Divider(
+                            modifier = Modifier.padding(bottom = 12.dp),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.2f)
+                        )
+
+                        if (data.title.isNotEmpty()) {
+                            Text(
+                                text = data.title,
+                                style = MaterialTheme.typography.titleLarge,
+                                fontWeight = FontWeight.Bold,
+                                modifier = Modifier.padding(bottom = 8.dp)
+                            )
+                        }
+
+                        if (data.description.isNotEmpty()) {
+                            Text(
+                                text = data.description,
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                modifier = Modifier.padding(bottom = 16.dp)
+                            )
+                        }
+
+                        if (data.imageUrl.isNotEmpty()) {
+                            AsyncImage(
+                                model = data.imageUrl,
+                                contentDescription = "Preview Image",
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(200.dp)
+                                    .clip(RoundedCornerShape(8.dp))
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.height(8.dp))
+
                         Text(
-                            text = "OG 태그 미리보기",
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.primary
+                            text = "클릭하여 브라우저에서 열기",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier.align(Alignment.End)
                         )
                     }
-
-                    Divider(
-                        modifier = Modifier.padding(bottom = 12.dp),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.2f)
-                    )
-
-                    if (data.title.isNotEmpty()) {
-                        Text(
-                            text = data.title,
-                            style = MaterialTheme.typography.titleLarge,
-                            fontWeight = FontWeight.Bold,
-                            modifier = Modifier.padding(bottom = 8.dp)
-                        )
-                    }
-
-                    if (data.description.isNotEmpty()) {
-                        Text(
-                            text = data.description,
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            modifier = Modifier.padding(bottom = 16.dp)
-                        )
-                    }
-
-                    if (data.imageUrl.isNotEmpty()) {
-                        AsyncImage(
-                            model = data.imageUrl,
-                            contentDescription = "Preview Image",
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(200.dp)
-                                .clip(RoundedCornerShape(8.dp))
-                        )
-                    }
-
-                    Spacer(modifier = Modifier.height(8.dp))
-
-                    Text(
-                        text = "클릭하여 브라우저에서 열기",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.align(Alignment.End)
-                    )
                 }
             }
         }
-
-        Spacer(modifier = Modifier.weight(1f))
 
         AdBannerView(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.BottomCenter)
         )
     }
 }

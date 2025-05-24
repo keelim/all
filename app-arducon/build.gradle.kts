@@ -36,7 +36,6 @@ dependencies {
     implementation(libs.bundles.coil)
     implementation(libs.play.services.ad)
     implementation(libs.play.services.code.scanner)
-    implementation(libs.play.services.oss)
     implementation(libs.timber)
     implementation(libs.jsoup)
 }

@@ -43,7 +43,6 @@ dependencies {
     implementation(libs.bundles.coil)
     implementation(libs.maps.compose.utils)
     implementation(libs.maps.compose.widget)
-    implementation(libs.play.services.oss)
     implementation(libs.timber)
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.messaging)

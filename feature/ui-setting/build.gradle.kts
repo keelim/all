@@ -23,6 +23,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.navigation.compose)
 
+    implementation(libs.play.services.oss)
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.messaging)
 

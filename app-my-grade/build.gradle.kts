@@ -48,7 +48,6 @@ dependencies {
     implementation(platform(libs.coil.bom))
     implementation(libs.bundles.coil)
     implementation(libs.play.services.ad)
-    implementation(libs.play.services.oss)
     implementation(libs.timber)
     implementation(libs.deeplinkdispatch)
     implementation(libs.firebase.common)

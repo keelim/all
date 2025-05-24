@@ -59,6 +59,6 @@ fun ComssaHost(
             entry<ComssaRoute.Ecocal> {
                 EcocalRoute()
             }
-        }
+        },
     )
 }

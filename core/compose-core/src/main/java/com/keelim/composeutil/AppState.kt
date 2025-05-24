@@ -124,5 +124,3 @@ class UnsafePolymorphicSerializer<T : Any> : KSerializer<T> {
         }
     }
 }
-
-

@@ -78,6 +78,6 @@ fun CnubusHost(
                 backStack = backStack,
                 context = context,
             )
-        }
+        },
     )
 }

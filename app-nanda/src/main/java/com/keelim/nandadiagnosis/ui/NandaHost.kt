@@ -152,6 +152,6 @@ fun NandaHost(
                 backStack = backStack,
                 context = context,
             )
-        }
+        },
     )
 }

@@ -91,7 +91,7 @@ fun MapScreen(
 @Composable
 private fun CustomMarker(
     marker: MapState,
-    markerState: MarkerState = rememberUpdatedMarkerState(position = marker.position)
+    markerState: MarkerState = rememberUpdatedMarkerState(position = marker.position),
 ) {
     MarkerInfoWindowContent(
         state = markerState,

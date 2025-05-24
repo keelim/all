@@ -43,5 +43,4 @@ class OgTagPreviewViewModel @Inject constructor(
             onComplete(OgTagData())
         }
     }
-
 }

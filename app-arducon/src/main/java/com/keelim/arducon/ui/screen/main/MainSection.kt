@@ -165,7 +165,7 @@ fun RegisterSchemeSection(
             .fillMaxWidth()
             .padding(horizontal = space8)
             .animateContentSize(
-                animationSpec = tween(durationMillis = 300)
+                animationSpec = tween(durationMillis = 300),
             ),
         verticalArrangement = Arrangement.spacedBy(space8),
     ) {
@@ -230,11 +230,11 @@ fun RegisterSchemeSection(
                     AnimatedVisibility(
                         visible = true,
                         enter = fadeIn(animationSpec = tween(300)) + expandVertically(
-                            animationSpec = tween(300)
+                            animationSpec = tween(300),
                         ),
                         exit = fadeOut(animationSpec = tween(300)) + shrinkVertically(
-                            animationSpec = tween(300)
-                        )
+                            animationSpec = tween(300),
+                        ),
                     ) {
                         AssistChip(
                             onClick = {
@@ -270,11 +270,11 @@ fun RegisterSchemeSection(
                     AnimatedVisibility(
                         visible = true,
                         enter = fadeIn(animationSpec = tween(300)) + expandVertically(
-                            animationSpec = tween(300)
+                            animationSpec = tween(300),
                         ),
                         exit = fadeOut(animationSpec = tween(300)) + shrinkVertically(
-                            animationSpec = tween(300)
-                        )
+                            animationSpec = tween(300),
+                        ),
                     ) {
                         AssistChip(
                             onClick = {

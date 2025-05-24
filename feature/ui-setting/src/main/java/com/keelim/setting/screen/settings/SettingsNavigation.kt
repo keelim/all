@@ -53,7 +53,7 @@ fun EntryProviderBuilder<Any>.settingsEntry(
             },
             onAdminClick = {
                 backStack.add(FeatureRoute.Admin)
-            }
+            },
         )
     }
     entry<FeatureRoute.Faq> {

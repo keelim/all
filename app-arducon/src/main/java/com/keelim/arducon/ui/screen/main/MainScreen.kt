@@ -143,9 +143,9 @@ fun MainScreen(
                 onNavigateOgTagPreview = onNavigateOgTagPreview,
                 onQrCodeClick = onQrCodeClick,
                 onNavigateSearch = onNavigateSearch,
-                onNavigateSaastatus = onNavigateSaastatus
+                onNavigateSaastatus = onNavigateSaastatus,
             )
-        }
+        },
     ) { paddingValues ->
         Column(
             modifier = Modifier
@@ -181,7 +181,7 @@ private fun FloatingSection(
     onNavigateOgTagPreview: () -> Unit,
     onQrCodeClick: () -> Unit,
     onNavigateSearch: () -> Unit,
-    onNavigateSaastatus: () -> Unit
+    onNavigateSaastatus: () -> Unit,
 ) {
     val (isExpanded, setIsExpanded) = remember { mutableStateOf(false) }
 
@@ -197,7 +197,7 @@ private fun FloatingSection(
                             imageVector = if (isExpanded) Icons.Default.Close else Icons.Default.Add,
                             contentDescription = if (isExpanded) "Close" else "Open",
                         )
-                    }
+                    },
                 )
             },
         ) {

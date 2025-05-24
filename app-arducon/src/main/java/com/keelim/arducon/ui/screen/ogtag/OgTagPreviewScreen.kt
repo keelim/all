@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Info
@@ -42,29 +43,28 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.keelim.arducon.ui.component.AdBannerView
 import com.keelim.composeutil.resource.space8
-import androidx.compose.foundation.verticalScroll
 
 data class OgTagData(
     val title: String = "",
     val description: String = "",
-    val imageUrl: String = ""
+    val imageUrl: String = "",
 )
 
 @Composable
 fun OgTagPreviewRoute(
     viewModel: OgTagPreviewViewModel = hiltViewModel(),
-    onNavigateToBrowser: (String) -> Unit
+    onNavigateToBrowser: (String) -> Unit,
 ) {
     OgTagPreviewScreen(
         parseTag = viewModel::parseOgTags,
-        onNavigateToBrowser = onNavigateToBrowser
+        onNavigateToBrowser = onNavigateToBrowser,
     )
 }
 
 @Composable
 fun OgTagPreviewScreen(
     parseTag: (url: String, (OgTagData) -> Unit) -> Unit,
-    onNavigateToBrowser: (String) -> Unit
+    onNavigateToBrowser: (String) -> Unit,
 ) {
     var url by remember { mutableStateOf("https://") }
     var previewData by remember { mutableStateOf<OgTagData?>(null) }
@@ -74,7 +74,7 @@ fun OgTagPreviewScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(16.dp),
     ) {
         Column(
             modifier = Modifier
@@ -82,7 +82,7 @@ fun OgTagPreviewScreen(
                 .fillMaxHeight()
                 .verticalScroll(rememberScrollState())
                 .padding(bottom = 60.dp), // AdBannerView를 위한 여백
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             OutlinedTextField(
                 value = url,
@@ -111,21 +111,21 @@ fun OgTagPreviewScreen(
                             errorMessage = null
                             previewData = null
                             urlInfo = null
-                        }
+                        },
                     ) {
                         Icon(
                             imageVector = Icons.Default.Clear,
-                            contentDescription = "Clear URL"
+                            contentDescription = "Clear URL",
                         )
                     }
-                }
+                },
             )
 
             Spacer(modifier = Modifier.height(space8))
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.End
+                horizontalArrangement = Arrangement.End,
             ) {
                 Button(
                     onClick = {
@@ -143,7 +143,7 @@ fun OgTagPreviewScreen(
                         } catch (e: Exception) {
                             errorMessage = "올바른 URL 형식이 아닙니다"
                         }
-                    }
+                    },
                 ) {
                     Text("미리보기")
                 }
@@ -158,32 +158,32 @@ fun OgTagPreviewScreen(
                         .padding(bottom = 16.dp)
                         .clip(MaterialTheme.shapes.medium),
                     color = MaterialTheme.colorScheme.surfaceVariant,
-                    tonalElevation = 2.dp
+                    tonalElevation = 2.dp,
                 ) {
                     Column(
-                        modifier = Modifier.padding(16.dp)
+                        modifier = Modifier.padding(16.dp),
                     ) {
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.padding(bottom = 12.dp)
+                            modifier = Modifier.padding(bottom = 12.dp),
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Info,
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.primary
+                                tint = MaterialTheme.colorScheme.primary,
                             )
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(
                                 text = "URL 정보",
                                 style = MaterialTheme.typography.titleMedium,
                                 fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.primary
+                                color = MaterialTheme.colorScheme.primary,
                             )
                         }
 
                         Divider(
                             modifier = Modifier.padding(bottom = 12.dp),
-                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.2f)
+                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.2f),
                         )
 
                         UrlInfoItem("Scheme", uri.scheme)
@@ -202,32 +202,32 @@ fun OgTagPreviewScreen(
                         .clickable { onNavigateToBrowser(url) }
                         .clip(RoundedCornerShape(12.dp)),
                     color = MaterialTheme.colorScheme.surfaceVariant,
-                    tonalElevation = 2.dp
+                    tonalElevation = 2.dp,
                 ) {
                     Column(
-                        modifier = Modifier.padding(16.dp)
+                        modifier = Modifier.padding(16.dp),
                     ) {
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.padding(bottom = 12.dp)
+                            modifier = Modifier.padding(bottom = 12.dp),
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Info,
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.primary
+                                tint = MaterialTheme.colorScheme.primary,
                             )
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(
                                 text = "OG 태그 미리보기",
                                 style = MaterialTheme.typography.titleMedium,
                                 fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.primary
+                                color = MaterialTheme.colorScheme.primary,
                             )
                         }
 
                         Divider(
                             modifier = Modifier.padding(bottom = 12.dp),
-                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.2f)
+                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.2f),
                         )
 
                         if (data.title.isNotEmpty()) {
@@ -235,7 +235,7 @@ fun OgTagPreviewScreen(
                                 text = data.title,
                                 style = MaterialTheme.typography.titleLarge,
                                 fontWeight = FontWeight.Bold,
-                                modifier = Modifier.padding(bottom = 8.dp)
+                                modifier = Modifier.padding(bottom = 8.dp),
                             )
                         }
 
@@ -244,7 +244,7 @@ fun OgTagPreviewScreen(
                                 text = data.description,
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                modifier = Modifier.padding(bottom = 16.dp)
+                                modifier = Modifier.padding(bottom = 16.dp),
                             )
                         }
 
@@ -255,7 +255,7 @@ fun OgTagPreviewScreen(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .height(200.dp)
-                                    .clip(RoundedCornerShape(8.dp))
+                                    .clip(RoundedCornerShape(8.dp)),
                             )
                         }
 
@@ -265,7 +265,7 @@ fun OgTagPreviewScreen(
                             text = "클릭하여 브라우저에서 열기",
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.primary,
-                            modifier = Modifier.align(Alignment.End)
+                            modifier = Modifier.align(Alignment.End),
                         )
                     }
                 }
@@ -275,7 +275,7 @@ fun OgTagPreviewScreen(
         AdBannerView(
             modifier = Modifier
                 .fillMaxWidth()
-                .align(Alignment.BottomCenter)
+                .align(Alignment.BottomCenter),
         )
     }
 }
@@ -283,25 +283,25 @@ fun OgTagPreviewScreen(
 @Composable
 private fun UrlInfoItem(
     label: String,
-    value: String?
+    value: String?,
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 4.dp)
+            .padding(vertical = 4.dp),
     ) {
         Text(
             text = "$label:",
             style = MaterialTheme.typography.bodyMedium,
             fontWeight = FontWeight.Medium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.weight(0.3f)
+            modifier = Modifier.weight(0.3f),
         )
         Text(
             text = value ?: "없음",
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurface,
-            modifier = Modifier.weight(0.7f)
+            modifier = Modifier.weight(0.7f),
         )
     }
 }
@@ -316,14 +316,11 @@ private fun OgTagPreviewScreenPreview() {
                     OgTagData(
                         title = "미리보기 제목",
                         description = "미리보기 설명입니다. 이 텍스트는 미리보기용입니다.",
-                        imageUrl = "https://picsum.photos/200/300"
-                    )
+                        imageUrl = "https://picsum.photos/200/300",
+                    ),
                 )
             },
-            onNavigateToBrowser = {}
+            onNavigateToBrowser = {},
         )
     }
 }
-
-
-

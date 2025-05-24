@@ -26,7 +26,7 @@ fun InAppBrowserRoute(
 ) {
     InAppBrowserScreen(
         url = url,
-        onBackClick = onBackClick
+        onBackClick = onBackClick,
     )
 }
 
@@ -39,23 +39,23 @@ fun InAppBrowserScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { 
+                title = {
                     Text(
                         text = url,
                         maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
+                        overflow = TextOverflow.Ellipsis,
                     )
                 },
                 actions = {
                     IconButton(onClick = onBackClick) {
                         Icon(
                             imageVector = Icons.Default.Close,
-                            contentDescription = "닫기"
+                            contentDescription = "닫기",
                         )
                     }
-                }
+                },
             )
-        }
+        },
     ) { paddingValues ->
         val context = LocalContext.current
         AndroidView(
@@ -63,7 +63,7 @@ fun InAppBrowserScreen(
                 WebView(context).apply {
                     layoutParams = ViewGroup.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT
+                        ViewGroup.LayoutParams.MATCH_PARENT,
                     )
                     webViewClient = WebViewClient()
                     settings.apply {
@@ -78,7 +78,7 @@ fun InAppBrowserScreen(
                 .padding(paddingValues),
             update = { webView ->
                 webView.loadUrl(url)
-            }
+            },
         )
     }
 }

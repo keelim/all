@@ -44,7 +44,6 @@ dependencies {
     implementation(libs.deeplinkdispatch)
     implementation(libs.firebase.config)
     implementation(libs.kotlinx.datetime)
-    implementation(libs.play.services.oss)
     implementation(libs.timber)
     implementation(platform(libs.androidx.compose.bom))
     implementation(platform(libs.firebase.bom))

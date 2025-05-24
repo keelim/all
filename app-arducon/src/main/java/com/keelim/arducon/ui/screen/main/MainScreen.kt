@@ -24,6 +24,7 @@ import androidx.compose.material3.FloatingActionButtonMenuItem
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.ToggleFloatingActionButton
 import androidx.compose.runtime.Composable
@@ -106,59 +107,70 @@ fun MainScreen(
     onNavigateOgTagPreview: () -> Unit,
     onDeleteScheme: (String) -> Unit,
 ) {
-    Column(
+    Scaffold(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = space8, vertical = space8),
-        verticalArrangement = Arrangement.spacedBy(space8),
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Column(
-                modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(space4),
+            .padding(horizontal = space16),
+        topBar = {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
             ) {
-                Text(
-                    text = "Arducon",
-                    style = MaterialTheme.typography.titleLarge.copy(
-                        fontWeight = FontWeight.Bold,
-                    ),
-                )
-                Text(
-                    text = "Deeplink Tester",
-                    style = MaterialTheme.typography.titleMedium,
-                )
+                Column(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(space4),
+                ) {
+                    Text(
+                        text = "Arducon",
+                        style = MaterialTheme.typography.titleLarge.copy(
+                            fontWeight = FontWeight.Bold,
+                        ),
+                    )
+                    Text(
+                        text = "Deeplink Tester",
+                        style = MaterialTheme.typography.titleMedium,
+                    )
+                }
             }
+        },
+        bottomBar = {
+            AdBannerView(
+                modifier = Modifier
+                    .fillMaxWidth(),
+            )
+        },
+        floatingActionButton = {
+            FloatingSection(
+                onNavigateOgTagPreview = onNavigateOgTagPreview,
+                onQrCodeClick = onQrCodeClick,
+                onNavigateSearch = onNavigateSearch,
+                onNavigateSaastatus = onNavigateSaastatus
+            )
         }
-
-        MainTopSection(
-            schemeList = schemeList,
-            onSearch = onSearch,
-            onRegister = onRegister,
-            onDelete = onDeleteScheme,
-        )
-        AdBannerView(
+    ) { paddingValues ->
+        Column(
             modifier = Modifier
-                .fillMaxWidth(),
-        )
-        HorizontalDivider()
-        DeepLinkSection(
-            favoriteItems = favoriteItems,
-            generalItems = generalItems,
-            onUpdate = onUpdate,
-            onDelete = onDelete,
-            modifier = Modifier
-                .weight(1f)
-                .fillMaxWidth(),
-        )
-        FloatingSection(
-            onNavigateOgTagPreview = onNavigateOgTagPreview,
-            onQrCodeClick = onQrCodeClick,
-            onNavigateSearch = onNavigateSearch,
-            onNavigateSaastatus = onNavigateSaastatus
-        )
+                .fillMaxSize()
+                .padding(paddingValues = paddingValues),
+            verticalArrangement = Arrangement.spacedBy(space8),
+        ) {
+            MainTopSection(
+                schemeList = schemeList,
+                onSearch = onSearch,
+                onRegister = onRegister,
+                onDelete = onDeleteScheme,
+            )
+            HorizontalDivider()
+            DeepLinkSection(
+                favoriteItems = favoriteItems,
+                generalItems = generalItems,
+                onUpdate = onUpdate,
+                onDelete = onDelete,
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth(),
+            )
+        }
     }
 }
 
@@ -171,13 +183,8 @@ private fun FloatingSection(
 ) {
     val (isExpanded, setIsExpanded) = remember { mutableStateOf(false) }
 
-    Box(
-        modifier = Modifier.fillMaxSize(),
-    ) {
+    Box {
         FloatingActionButtonMenu(
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(bottom = space16, end = space16),
             expanded = isExpanded,
             button = {
                 ToggleFloatingActionButton(

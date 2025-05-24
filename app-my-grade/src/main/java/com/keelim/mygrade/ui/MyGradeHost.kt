@@ -88,9 +88,9 @@ fun MyGradeHost(
                                 subject = subject,
                                 grade = normalProbability.grade(),
                                 point = Level((normalProbability.value * student) / 100).toProcess(
-                                    student.toString()
+                                    student.toString(),
                                 ),
-                            )
+                            ),
                         )
                     },
                     onFloatingButtonClick1 = {
@@ -126,7 +126,7 @@ fun MyGradeHost(
                                 subject = subject,
                                 grade = grade,
                                 point = point,
-                            )
+                            ),
                         )
                     },
                 )
@@ -138,7 +138,7 @@ fun MyGradeHost(
                     },
                     onEditClick = { subject ->
                         backStack.add(
-                            MyGradeRoute.Edit(subject = subject)
+                            MyGradeRoute.Edit(subject = subject),
                         )
                     },
                     onShareClick = {
@@ -174,7 +174,6 @@ fun MyGradeHost(
             entry<MyGradeRoute.WordWrite> {
                 WordWriteRoute()
             }
-
-        }
+        },
     )
 }

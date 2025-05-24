@@ -99,7 +99,7 @@ fun ArduConHost(
                                 ).let { context.startActivity(it) }
                             }
                         }
-                    }
+                    },
                 )
             }
             entry<ArduconRoute.Search> {
@@ -115,7 +115,7 @@ fun ArduConHost(
                 OgTagPreviewRoute(
                     onNavigateToBrowser = { url ->
                         backStack.add(ArduconRoute.InAppBrowser(url))
-                    }
+                    },
                 )
             }
             entry<ArduconRoute.InAppBrowser> { backStackEntry ->
@@ -123,7 +123,7 @@ fun ArduConHost(
                     url = backStackEntry.url,
                     onBackClick = {
                         backStack.removeLastOrNull()
-                    }
+                    },
                 )
             }
             entry<SaastatusRoute.Main> {
@@ -131,6 +131,6 @@ fun ArduConHost(
                     onRegister = { backStack.add(SaastatusRoute.Search) },
                 )
             }
-        }
+        },
     )
 }

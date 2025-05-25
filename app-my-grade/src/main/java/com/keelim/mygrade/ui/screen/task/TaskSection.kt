@@ -23,7 +23,7 @@ import androidx.compose.ui.Modifier
 import com.keelim.commonAndroid.model.SealedUiState
 import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.resource.space4
-import com.keelim.core.database.model.LocalTask
+import com.keelim.shared.data.database.model.LocalTask
 
 sealed interface TaskElement {
     data class Header(

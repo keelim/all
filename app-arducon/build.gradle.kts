@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.keelim.android.application)
     alias(libs.plugins.keelim.android.application.compose)
+    alias(libs.plugins.keelim.android.application.firebase)
     alias(libs.plugins.keelim.android.application.jacoco)
     alias(libs.plugins.keelim.android.hilt)
 }

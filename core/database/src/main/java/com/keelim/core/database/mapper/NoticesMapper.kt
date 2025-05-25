@@ -1,7 +1,7 @@
 package com.keelim.core.database.mapper
 
-import com.keelim.core.database.model.NoticesEntity
 import com.keelim.model.Notices
+import com.keelim.shared.data.database.model.NoticesEntity
 
 fun NoticesEntity.toNotices() = Notices(
     uid = uid,

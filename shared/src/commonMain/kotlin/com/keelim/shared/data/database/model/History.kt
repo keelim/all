@@ -1,12 +1,18 @@
-package com.keelim.core.database.model
+@file:OptIn(ExperimentalObjCName::class)
+
+package com.keelim.shared.data.database.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import kotlin.experimental.ExperimentalObjCName
+import kotlin.native.ObjCName
 
 @Entity(tableName = "history")
+@ObjCName("history")
+
 data class History(
     var subject: String,
     var origin: Int,
@@ -19,6 +25,8 @@ data class History(
 )
 
 @Entity(tableName = "simpleHistory")
+@ObjCName("simpleHistory")
+
 data class SimpleHistory(
     @PrimaryKey(autoGenerate = true) val uid: Int = 0,
     val subject: String = "not supported",
@@ -29,6 +37,8 @@ data class SimpleHistory(
 )
 
 @Entity(tableName = "timerHistory")
+
+@ObjCName("timerHistory")
 data class TimerHistory(
     @PrimaryKey(autoGenerate = true) val uid: Int = 0,
     val date: String = Clock.System.now().toLocalDateTime(TimeZone.UTC).toString(),

@@ -1,14 +1,15 @@
 package com.keelim.core.data.source
 
-import com.keelim.core.database.dao.HistoryDao
-import com.keelim.core.database.dao.TimerHistoryDao
-import com.keelim.core.database.model.History
-import com.keelim.core.database.model.SimpleHistory
-import com.keelim.core.database.model.TimerHistory
+
 import com.keelim.core.database.repository.HistoryRepository
 import com.keelim.core.network.Dispatcher
 import com.keelim.core.network.KeelimDispatchers
 import com.keelim.core.network.di.ApplicationScope
+import com.keelim.shared.data.database.dao.HistoryDao
+import com.keelim.shared.data.database.dao.TimerHistoryDao
+import com.keelim.shared.data.database.model.History
+import com.keelim.shared.data.database.model.SimpleHistory
+import com.keelim.shared.data.database.model.TimerHistory
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow

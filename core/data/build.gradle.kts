@@ -12,6 +12,7 @@ dependencies {
     api(projects.core.database)
     api(projects.core.dataApi)
     api(projects.core.network)
+    implementation(projects.shared)
 
     implementation(libs.androidx.dataStore.preferences)
     implementation(libs.androidx.startup)

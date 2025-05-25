@@ -13,13 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.keelim.core.database.model
+@file:OptIn(ExperimentalObjCName::class)
+
+package com.keelim.shared.data.database.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.*
+import kotlin.experimental.ExperimentalObjCName
+import kotlin.native.ObjCName
 
 @Entity(tableName = "nanda")
+@ObjCName("nanda")
+
 data class NandaEntity(
     @PrimaryKey val nanda_id: Int,
     val reason: String,
@@ -33,15 +38,3 @@ data class NandaEntity(
         return "$nanda_id \n $reason \n $diagnosis \n $class_name \n $domain_name \n $category"
     }
 }
-
-@Entity(tableName = "nanda")
-data class NandaEntity2(
-    @PrimaryKey val nanda_id: Int,
-    val reason: String,
-    val diagnosis: String,
-    val class_name: String,
-    val domain_name: String,
-    val category: Int,
-    val favorite: Int,
-    val created_at: Date,
-)

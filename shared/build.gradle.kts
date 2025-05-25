@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.android.library)
-    alias(libs.plugins.sqldelight)
     alias(libs.plugins.keelim.android.application.room)
     kotlin("plugin.serialization")
     kotlin("plugin.parcelize")
@@ -33,12 +32,9 @@ kotlin {
         val desktopMain by getting
 
         androidMain.dependencies {
-            implementation(libs.sqldelight.android)
+
         }
         commonMain.dependencies {
-            implementation(libs.sqldelight.coroutines)
-            implementation(libs.sqldelight.paging)
-            implementation(libs.sqldelight.primitive)
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.okio)
             implementation(libs.circuit.foundation)
@@ -53,7 +49,7 @@ kotlin {
         }
 
         appleMain.dependencies {
-            implementation(libs.sqldelight.native)
+
         }
     }
 }
@@ -63,14 +59,6 @@ dependencies {
     add("kspIosSimulatorArm64", libs.room.compiler)
     add("kspIosX64", libs.room.compiler)
     add("kspIosArm64", libs.room.compiler)
-}
-
-sqldelight {
-    databases {
-        create("Database") {
-            packageName = "com.keelim.kmp.data"
-        }
-    }
 }
 
 android {

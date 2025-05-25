@@ -1,6 +1,6 @@
 package com.keelim.core.database.mapper
 
-import com.keelim.core.database.model.SchemeEntity
+import com.keelim.shared.data.database.model.SchemeEntity
 
 fun SchemeEntity.toPlain() = url
 

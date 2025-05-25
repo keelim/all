@@ -15,11 +15,11 @@
  */
 package com.keelim.core.data.source
 
-import com.keelim.core.database.dao.NandaDao
-import com.keelim.core.database.model.NandaEntity
 import com.keelim.core.database.repository.NandaIORepository
 import com.keelim.core.network.Dispatcher
 import com.keelim.core.network.KeelimDispatchers
+import com.keelim.shared.data.database.dao.NandaDao
+import com.keelim.shared.data.database.model.NandaEntity
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged

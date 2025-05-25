@@ -5,6 +5,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.database.Logger
 import com.google.firebase.database.database
 import com.google.firebase.messaging.messaging
+import com.google.firebase.remoteconfig.remoteConfig
 import com.keelim.core.data.BuildConfig
 import com.keelim.core.network.Dispatcher
 import com.keelim.core.network.KeelimDispatchers
@@ -56,5 +57,11 @@ constructor(
     }.catch { throwable ->
         Timber.e(throwable)
         emit(Result.failure(throwable))
+    }
+
+    override fun getValue(key: String): String {
+        return runCatching {
+            Firebase.remoteConfig.getString(key)
+        }.getOrDefault("")
     }
 }

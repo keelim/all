@@ -9,7 +9,5 @@ class TimberInitializer : Initializer<Unit> {
         Timber.plant(Timber.DebugTree())
     }
 
-    override fun dependencies() = listOf(
-        FirebaseInitializer::class.java,
-    )
+    override fun dependencies(): List<Class<out Initializer<*>>> = emptyList()
 }

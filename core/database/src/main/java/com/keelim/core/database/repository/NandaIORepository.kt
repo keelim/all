@@ -15,7 +15,7 @@
  */
 package com.keelim.core.database.repository
 
-import com.keelim.core.database.model.NandaEntity
+import com.keelim.shared.data.database.model.NandaEntity
 import kotlinx.coroutines.flow.Flow
 
 interface NandaIORepository {

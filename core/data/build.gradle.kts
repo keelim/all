@@ -14,6 +14,7 @@ dependencies {
     api(projects.core.network)
 
     implementation(libs.androidx.dataStore.preferences)
+    implementation(libs.androidx.startup)
     implementation(libs.androidx.paging.common)
     implementation(libs.generativeai)
     implementation(libs.kotlinx.coroutines.android)

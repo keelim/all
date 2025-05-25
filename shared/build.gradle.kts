@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.android.library)
     alias(libs.plugins.sqldelight)
+    alias(libs.plugins.keelim.android.application.room)
     kotlin("plugin.serialization")
     kotlin("plugin.parcelize")
 }
@@ -45,12 +46,23 @@ kotlin {
             api(projects.core.resource)
             api(libs.androidx.dataStore.preferences)
             api(libs.androidx.dataStore.core.okio)
+
+            implementation(libs.room.runtime)
+            implementation(libs.androidx.sqlite.bundled)
+            implementation(libs.kotlinx.datetime)
         }
 
         appleMain.dependencies {
             implementation(libs.sqldelight.native)
         }
     }
+}
+
+dependencies {
+    add("kspAndroid", libs.room.compiler)
+    add("kspIosSimulatorArm64", libs.room.compiler)
+    add("kspIosX64", libs.room.compiler)
+    add("kspIosArm64", libs.room.compiler)
 }
 
 sqldelight {

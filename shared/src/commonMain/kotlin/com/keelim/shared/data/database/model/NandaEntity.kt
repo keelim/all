@@ -13,12 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+@file:OptIn(ExperimentalObjCName::class)
+
 package com.keelim.shared.data.database.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlin.experimental.ExperimentalObjCName
+import kotlin.native.ObjCName
 
 @Entity(tableName = "nanda")
+@ObjCName("nanda")
+
 data class NandaEntity(
     @PrimaryKey val nanda_id: Int,
     val reason: String,

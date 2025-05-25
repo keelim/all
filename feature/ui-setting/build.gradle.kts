@@ -25,8 +25,6 @@ dependencies {
     implementation(libs.androidx.navigation3.runtime)
     implementation(libs.androidx.navigation3.ui)
     implementation(libs.play.services.oss)
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.messaging)
 
     implementation(libs.timber)
 }

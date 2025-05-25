@@ -1,4 +1,4 @@
-package com.keelim.setting.message
+package com.keelim.core.data.message
 
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage

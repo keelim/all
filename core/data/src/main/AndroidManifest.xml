@@ -18,6 +18,9 @@
             <meta-data
                 android:name="com.keelim.core.data.initialize.FirebaseInitializer"
                 android:value="androidx.startup" />
+            <meta-data
+                android:name="com.keelim.core.data.initialize.FirebaseRemoteConfigInitializer"
+                android:value="androidx.startup" />
         </provider>
     </application>
 </manifest>

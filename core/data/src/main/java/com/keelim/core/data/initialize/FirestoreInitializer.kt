@@ -25,6 +25,6 @@ class FirestoreInitializer : Initializer<Unit> {
     }
 
     override fun dependencies(): List<Class<out Initializer<*>>> = listOf(
-        FirestoreInitializer::class.java,
+        FirebaseInitializer::class.java,
     )
 }

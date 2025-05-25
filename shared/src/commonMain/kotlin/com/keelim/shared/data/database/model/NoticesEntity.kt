@@ -1,4 +1,4 @@
-package com.keelim.core.database.model
+package com.keelim.shared.data.database.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

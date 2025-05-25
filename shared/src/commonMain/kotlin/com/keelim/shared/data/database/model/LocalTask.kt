@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 @Entity(
     tableName = "task",
 )
+
 data class LocalTask(
     @PrimaryKey val id: String,
     val title: String,

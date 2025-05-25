@@ -1,12 +1,12 @@
 package com.keelim.core.data.source.local
 
-import com.keelim.core.database.dao.ArduconDao
 import com.keelim.core.database.mapper.toDeepLink
 import com.keelim.core.database.mapper.toDeepLinkEntity
 import com.keelim.core.database.mapper.toPlain
 import com.keelim.core.database.mapper.toSchemeEntity
 import com.keelim.core.database.repository.ArduconDataSource
 import com.keelim.model.DeepLink
+import com.keelim.shared.data.database.dao.ArduconDao
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

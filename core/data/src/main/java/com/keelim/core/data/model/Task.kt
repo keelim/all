@@ -1,6 +1,6 @@
 package com.keelim.core.data.model
 
-import com.keelim.core.database.model.LocalTask
+import com.keelim.shared.data.database.model.LocalTask
 import kotlinx.datetime.Clock
 
 data class Task(

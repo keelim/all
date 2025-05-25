@@ -1,7 +1,7 @@
 package com.keelim.core.database.mapper
 
-import com.keelim.core.database.model.DeepLinkEntity
 import com.keelim.model.DeepLink
+import com.keelim.shared.data.database.model.DeepLinkEntity
 
 fun DeepLinkEntity.toDeepLink() = DeepLink(
     url = url,

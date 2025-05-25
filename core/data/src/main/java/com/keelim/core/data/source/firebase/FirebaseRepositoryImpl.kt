@@ -2,7 +2,6 @@ package com.keelim.core.data.source.firebase
 
 import android.content.Context
 import com.google.firebase.Firebase
-import com.google.firebase.FirebaseApp
 import com.google.firebase.database.Logger
 import com.google.firebase.database.database
 import com.google.firebase.messaging.messaging
@@ -24,17 +23,12 @@ class FirebaseRepositoryImpl
 @Inject
 constructor(
     @ApplicationContext val context: Context,
-    @Dispatcher(KeelimDispatchers.IO) val dispatcher: CoroutineDispatcher,
+    @Dispatcher(KeelimDispatchers.IO) val dispatcher: CoroutineDispatcher
 ) : FirebaseRepository {
-
-    private val firebase by lazy {
-        FirebaseApp.initializeApp(context)
-        Firebase
-    }
 
     override fun getRef(ref: String): Flow<Result<List<EcoCalEntry>>> = flow {
         val database =
-            firebase.database.apply {
+            Firebase.database.apply {
                 if (BuildConfig.DEBUG) {
                     setLogLevel(Logger.Level.DEBUG)
                 }
@@ -58,7 +52,7 @@ constructor(
     }
 
     override fun getFCMToken(): Flow<Result<String>> = flow {
-        emit(Result.success(firebase.messaging.token.await()))
+        emit(Result.success(Firebase.messaging.token.await()))
     }.catch { throwable ->
         Timber.e(throwable)
         emit(Result.failure(throwable))

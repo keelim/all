@@ -2,6 +2,7 @@ package com.keelim.core.database
 
 import android.content.Context
 import androidx.room.Room
+import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,6 +23,7 @@ object DatabaseModule {
         MyGradeAppDatabase::class.java,
         "mygrade",
     ).fallbackToDestructiveMigration(false)
+        .setDriver(BundledSQLiteDriver())
         .build()
 
     @Provides
@@ -34,6 +36,7 @@ object DatabaseModule {
             NandaAppDatabase::class.java,
             "nanda",
         ).createFromFile(File(context.getExternalFilesDir(null), "nanda.db"))
+            .setDriver(BundledSQLiteDriver())
             .fallbackToDestructiveMigration(false)
             .build()
     }
@@ -48,6 +51,7 @@ object DatabaseModule {
             ArduconDatabase::class.java,
             "arducon.db",
         ).fallbackToDestructiveMigration(false)
+            .setDriver(BundledSQLiteDriver())
             .build()
     }
 
@@ -61,6 +65,7 @@ object DatabaseModule {
             AllDatabase::class.java,
             "all.db",
         ).fallbackToDestructiveMigration(false)
+            .setDriver(BundledSQLiteDriver())
             .build()
     }
 }

@@ -22,10 +22,7 @@ dependencies {
     implementation(libs.bundles.coil)
 
     implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.common)
     implementation(libs.firebase.crashlytics)
-    releaseImplementation(libs.firebase.appcheck)
-    debugImplementation(libs.firebase.appcheck.debug)
 
     implementation(libs.hilt.android)
     implementation(libs.junit4)

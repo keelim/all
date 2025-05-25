@@ -2,11 +2,9 @@ package com.keelim.core.data.source.firebase
 
 import android.content.Context
 import com.google.firebase.Firebase
-import com.google.firebase.database.Logger
 import com.google.firebase.database.database
 import com.google.firebase.messaging.messaging
 import com.google.firebase.remoteconfig.remoteConfig
-import com.keelim.core.data.BuildConfig
 import com.keelim.core.network.Dispatcher
 import com.keelim.core.network.KeelimDispatchers
 import com.keelim.data.repository.FirebaseRepository
@@ -28,15 +26,7 @@ constructor(
 ) : FirebaseRepository {
 
     override fun getRef(ref: String): Flow<Result<List<EcoCalEntry>>> = flow {
-        val database =
-            Firebase.database.apply {
-                if (BuildConfig.DEBUG) {
-                    setLogLevel(Logger.Level.DEBUG)
-                }
-                setPersistenceEnabled(true)
-            }
-
-        val refs = database
+        val refs = Firebase.database
             .getReference(ref)
             .get()
             .await()

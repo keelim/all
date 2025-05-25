@@ -1,4 +1,4 @@
-package com.keelim.core.database.dao
+package com.keelim.shared.data.database.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -6,8 +6,8 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.keelim.core.database.model.DeepLinkEntity
-import com.keelim.core.database.model.SchemeEntity
+import com.keelim.shared.data.database.model.DeepLinkEntity
+import com.keelim.shared.data.database.model.SchemeEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

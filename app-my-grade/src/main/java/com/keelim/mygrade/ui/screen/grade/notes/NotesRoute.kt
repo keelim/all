@@ -201,7 +201,7 @@ fun NotesItem(
                     modifier = Modifier.padding(bottom = 1.dp),
                 )
                 Text(
-                    text = data.createdAt.toString(),
+                    text = data.createdAt,
                     maxLines = 1,
                     style = MaterialTheme.typography.bodySmall,
                     overflow = TextOverflow.Ellipsis,

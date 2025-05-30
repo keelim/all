@@ -1,0 +1,43 @@
+<!--
+ Copyright 2025 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<resources>
+    <string name="app_name">Google AI Edge Gallery</string>
+    <string name="model_manager">Model Manager</string>
+    <string name="downloaded_size">%1$s downloaded</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="confirm_delete_model_dialog_title">Delete download</string>
+    <string name="confirm_delete_model_dialog_content">Are you sure you want to delete the downloaded model \"%s\"?</string>
+    <string name="notification_title_success">Model download succeeded</string>
+    <string name="notification_content_success">Model \"%s\" has been downloaded</string>
+    <string name="notification_title_fail">Model download failed</string>
+    <string name="notification_content_fail">Failed to download model \"%s\"</string>
+    <string name="chat_textinput_placeholder">Type message…</string>
+    <string name="chat_you">You</string>
+    <string name="chat_llm_agent_name">LLM</string>
+    <string name="chat_generic_agent_name">Model</string>
+    <string name="chat_generic_result_name">Result</string>
+    <string name="model_not_downloaded_msg">Model not downloaded yet</string>
+    <string name="model_is_initializing_msg">Initializing model…</string>
+    <string name="text_input_placeholder_text_classification">Type movie review to classify…</string>
+    <string name="text_image_generation_text_field_placeholder">Type prompt…</string>
+    <string name="text_input_placeholder_llm_chat">Type prompt…</string>
+    <string name="run_again">Run again</string>
+    <string name="benchmark">Run benchmark</string>
+    <string name="warming_up">warming up…</string>
+    <string name="running">running</string>
+</resources>

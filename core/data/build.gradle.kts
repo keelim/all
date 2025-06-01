@@ -12,8 +12,10 @@ dependencies {
     api(projects.core.database)
     api(projects.core.dataApi)
     api(projects.core.network)
+    implementation(projects.shared)
 
     implementation(libs.androidx.dataStore.preferences)
+    implementation(libs.androidx.startup)
     implementation(libs.androidx.paging.common)
     implementation(libs.generativeai)
     implementation(libs.kotlinx.coroutines.android)
@@ -27,6 +29,9 @@ dependencies {
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.database)
     implementation(libs.firebase.messaging)
+    implementation(libs.firebase.config)
+    implementation(libs.firebase.appcheck)
+    implementation(libs.firebase.appcheck.debug)
 
     testImplementation(libs.kotlinx.coroutines.android)
     testImplementation(libs.kotlinx.coroutines.test)

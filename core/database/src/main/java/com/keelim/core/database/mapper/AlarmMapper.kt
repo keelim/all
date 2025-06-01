@@ -1,7 +1,8 @@
 package com.keelim.core.database.mapper
 
-import com.keelim.core.database.model.AlarmEntity
+
 import com.keelim.model.Alarm
+import com.keelim.shared.data.database.model.AlarmEntity
 
 fun AlarmEntity.toAlarm() = Alarm(
     title = title,

@@ -1,10 +1,11 @@
-@file:OptIn(ExperimentalFoundationApi::class)
+@file:OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3ExpressiveApi::class)
 
 package com.keelim.comssa.ui.screen.main.ecocal
 
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
@@ -30,11 +31,18 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.FloatingActionButtonMenu
+import androidx.compose.material3.FloatingActionButtonMenuItem
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.ToggleFloatingActionButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -50,7 +58,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.util.fastForEach
 import androidx.compose.ui.util.trace
+import com.keelim.composeutil.component.fab.FabButtonItem
 import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space2
@@ -61,10 +71,13 @@ import com.keelim.comssa.ui.screen.main.ecocal.EcocalPriority.Holiday
 import com.keelim.comssa.ui.screen.main.ecocal.EcocalPriority.LOW
 import com.keelim.comssa.ui.screen.main.ecocal.EcocalPriority.MEDIUM
 import com.keelim.comssa.ui.screen.main.ecocal.EcocalPriority.NONE
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import timber.log.Timber
 
 @Composable
 fun EcocalMainSection(
@@ -402,4 +415,82 @@ private fun PreviewEcocalMainSection() {
         onCountryClick = {},
         modifier = Modifier.background(MaterialTheme.colorScheme.surface),
     )
+}
+
+@Composable
+fun EcocalFloatingButton(
+    showButton: Boolean,
+    coroutineScope: CoroutineScope,
+    listState: LazyListState,
+    updateFilter: (FabButtonItem) -> Unit
+) {
+    val items by remember {
+        mutableStateOf(
+            listOf(
+                High(),
+                Medium(),
+                Low(),
+                Clear(),
+            ),
+        )
+    }
+
+    val (isExpanded, setIsExpanded) = remember { mutableStateOf(false) }
+
+    FloatingActionButtonMenu(
+        expanded = isExpanded,
+        button = {
+            ToggleFloatingActionButton(
+                checked = isExpanded,
+                onCheckedChange = setIsExpanded,
+                content = {
+                    Icon(
+                        imageVector = if (isExpanded) Icons.Default.Close else Icons.Default.Add,
+                        contentDescription = if (isExpanded) "Close" else "Open",
+                    )
+                },
+            )
+        },
+    ) {
+        AnimatedVisibility(
+            visible = showButton,
+            enter = fadeIn(),
+            exit = fadeOut(),
+        ) {
+            FloatingActionButtonMenuItem(
+                onClick = {
+                    coroutineScope.launch {
+                        listState.animateScrollToItem(0)
+                    }
+                },
+                icon = {
+                    Icon(
+                        imageVector = Icons.Filled.KeyboardArrowUp,
+                        contentDescription = "scroll to top",
+                    )
+
+                },
+                text = { },
+            )
+        }
+
+        items.fastForEach { item ->
+            FloatingActionButtonMenuItem(
+                onClick = {
+                    Timber.Forest.d("item $item")
+                    updateFilter(item)
+                    coroutineScope.launch {
+                        listState.scrollToItem(0)
+                    }
+                },
+                icon = {
+                    Icon(
+                        imageVector = item.imageVector,
+                        contentDescription = item.label,
+                    )
+                },
+                text = { Text(item.label) },
+            )
+        }
+    }
 }

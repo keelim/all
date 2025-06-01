@@ -47,7 +47,4 @@ dependencies {
 
     implementation(platform(libs.coil.bom))
     implementation(libs.bundles.coil)
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.database)
-    implementation(libs.firebase.firestore)
 }

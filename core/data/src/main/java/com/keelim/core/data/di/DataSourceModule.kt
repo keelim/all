@@ -9,9 +9,9 @@ import com.keelim.core.data.BuildConfig
 import com.keelim.core.data.source.local.ArduconDataSourceImpl
 import com.keelim.core.data.source.local.SharedPreferenceManager
 import com.keelim.core.data.source.local.TokenManager
-import com.keelim.core.database.dao.ArduconDao
 import com.keelim.core.database.repository.ArduconDataSource
 import com.keelim.data.repository.PreferenceManager
+import com.keelim.shared.data.database.dao.ArduconDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

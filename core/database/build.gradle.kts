@@ -9,6 +9,7 @@ android { namespace = "com.keelim.database" }
 
 dependencies {
     api(projects.core.model)
+    implementation(projects.shared)
 
     implementation(libs.kotlinx.datetime)
 

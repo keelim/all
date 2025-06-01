@@ -85,7 +85,6 @@ fun EcocalScreen(
                 }
 
                 Scaffold(
-                    topBar = { HeaderItem() },
                     floatingActionButton = {
                         var fabState by remember { mutableStateOf<FabButtonState>(FabButtonState.Collapsed) }
                         val items by remember {

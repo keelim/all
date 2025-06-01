@@ -85,6 +85,9 @@ fun EcocalMainSection(
                 state = state,
                 modifier = Modifier.fillMaxSize(),
             ) {
+                item {
+                    HeaderItem()
+                }
                 entries.forEach { (header, entries) ->
                     stickyHeader {
                         Text(

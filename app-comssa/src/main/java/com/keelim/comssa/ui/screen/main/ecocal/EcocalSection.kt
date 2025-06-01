@@ -23,11 +23,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -190,17 +195,27 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
             Column(
                 horizontalAlignment = Alignment.End
             ) {
-                Text(
-                    text = "${time.year}년 ${
-                        String.format(
-                            "%02d",
-                            time.monthNumber
-                        )
-                    }월 ${time.dayOfMonth}일",
-                    style = MaterialTheme.typography.bodyMedium.copy(
-                        color = MaterialTheme.colorScheme.onPrimaryContainer
-                    ),
-                )
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        imageVector = Icons.Filled.DateRange,
+                        contentDescription = "Calendar Icon",
+                        tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                        modifier = Modifier.size(20.dp)
+                    )
+                    Spacer(modifier = Modifier.width(space4))
+                    Text(
+                        text = "${time.year}년 ${
+                            String.format(
+                                "%02d",
+                                time.monthNumber
+                            )
+                        }월 ${time.dayOfMonth}일",
+                        style = MaterialTheme.typography.bodyMedium.copy(
+                            color = MaterialTheme.colorScheme.onPrimaryContainer,
+                            fontWeight = FontWeight.Medium
+                        ),
+                    )
+                }
 
                 Row(verticalAlignment = Alignment.Bottom) {
                     AnimatedContent(
@@ -209,10 +224,10 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
                             (slideInVertically { height -> height } + fadeIn()) togetherWith
                                 (slideOutVertically { height -> -height } + fadeOut())
                         },
-                        label = "Hour Minute animation"
-                    ) { targetHourMinute ->
+                        label = "Hour animation"
+                    ) { targetHour ->
                         Text(
-                            text = targetHourMinute,
+                            text = targetHour,
                             style = MaterialTheme.typography.bodySmall.copy(
                                 fontWeight = FontWeight.Bold,
                                 color = MaterialTheme.colorScheme.onPrimaryContainer
@@ -232,10 +247,10 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
                             (slideInVertically { height -> height } + fadeIn()) togetherWith
                                 (slideOutVertically { height -> -height } + fadeOut())
                         },
-                        label = "Hour Minute animation",
-                    ) { targetHourMinute ->
+                        label = "Minute animation",
+                    ) { targetMinute ->
                         Text(
-                            text = targetHourMinute,
+                            text = targetMinute,
                             style = MaterialTheme.typography.bodySmall.copy(
                                 fontWeight = FontWeight.Bold,
                                 color = MaterialTheme.colorScheme.onPrimaryContainer
@@ -267,6 +282,11 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
                 }
             }
         }
+        Spacer(modifier = Modifier.height(space8))
+        HorizontalDivider(
+            color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.1f),
+            thickness = 1.dp
+        )
     }
 }
 

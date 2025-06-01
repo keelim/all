@@ -2,7 +2,6 @@ package com.keelim.comssa.ui.screen.main.ecocal
 
 import android.Manifest
 import android.os.Build
-import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -67,81 +66,76 @@ fun EcocalScreen(
         permissions = appPermissions,
     ) { }
 
-    AnimatedContent(
-        targetState = uiState,
-        label = "",
-    ) { targetState ->
-        when (targetState) {
-            is SealedUiState.Error -> EmptyView()
-            SealedUiState.Loading -> Loading()
-            is SealedUiState.Success -> {
-                val listState = rememberLazyListState()
-                val coroutineScope = rememberCoroutineScope()
+    when (uiState) {
+        is SealedUiState.Error -> EmptyView()
+        SealedUiState.Loading -> Loading()
+        is SealedUiState.Success -> {
+            val listState = rememberLazyListState()
+            val coroutineScope = rememberCoroutineScope()
 
-                val showButton by remember {
-                    derivedStateOf {
-                        listState.firstVisibleItemIndex > 0
-                    }
+            val showButton by remember {
+                derivedStateOf {
+                    listState.firstVisibleItemIndex > 0
                 }
+            }
 
-                Scaffold(
-                    floatingActionButton = {
-                        var fabState by remember { mutableStateOf<FabButtonState>(FabButtonState.Collapsed) }
-                        val items by remember {
-                            mutableStateOf(
-                                listOf(
-                                    High(),
-                                    Medium(),
-                                    Low(),
-                                    Clear(),
-                                ),
-                            )
-                        }
-                        Column {
-                            AnimatedVisibility(
-                                visible = showButton,
-                                enter = fadeIn(),
-                                exit = fadeOut(),
-                            ) {
-                                TopScrollButton(
-                                    onScrollToTop = {
-                                        coroutineScope.launch {
-                                            listState.animateScrollToItem(0)
-                                        }
-                                    },
-                                )
-                            }
-                            MultiMainFab(
-                                fabState = fabState,
-                                items = items,
-                                fabIcon = FabButtonMain(),
-                                fabOption = FabButtonSub(
-                                    backgroundTint = MaterialTheme.colorScheme.primary,
-                                    iconTint = MaterialTheme.colorScheme.onPrimary,
-                                ),
-                                onFabItemClicked = { item ->
-                                    Timber.d("item $item")
-                                    updateFilter(item)
-                                    fabState = fabState.toggleValue()
+            Scaffold(
+                floatingActionButton = {
+                    var fabState by remember { mutableStateOf<FabButtonState>(FabButtonState.Collapsed) }
+                    val items by remember {
+                        mutableStateOf(
+                            listOf(
+                                High(),
+                                Medium(),
+                                Low(),
+                                Clear(),
+                            ),
+                        )
+                    }
+                    Column {
+                        AnimatedVisibility(
+                            visible = showButton,
+                            enter = fadeIn(),
+                            exit = fadeOut(),
+                        ) {
+                            TopScrollButton(
+                                onScrollToTop = {
                                     coroutineScope.launch {
-                                        listState.scrollToItem(0)
+                                        listState.animateScrollToItem(0)
                                     }
                                 },
-                                stateChanged = {
-                                    fabState = it
-                                },
                             )
                         }
-                    },
-                ) { paddingValues ->
-                    EcocalMainSection(
-                        state = listState,
-                        entries = targetState.value,
-                        modifier = Modifier
-                            .padding(paddingValues),
-                        onCountryClick = updateCountry,
-                    )
-                }
+                        MultiMainFab(
+                            fabState = fabState,
+                            items = items,
+                            fabIcon = FabButtonMain(),
+                            fabOption = FabButtonSub(
+                                backgroundTint = MaterialTheme.colorScheme.primary,
+                                iconTint = MaterialTheme.colorScheme.onPrimary,
+                            ),
+                            onFabItemClicked = { item ->
+                                Timber.d("item $item")
+                                updateFilter(item)
+                                fabState = fabState.toggleValue()
+                                coroutineScope.launch {
+                                    listState.scrollToItem(0)
+                                }
+                            },
+                            stateChanged = {
+                                fabState = it
+                            },
+                        )
+                    }
+                },
+            ) { paddingValues ->
+                EcocalMainSection(
+                    state = listState,
+                    entries = uiState.value,
+                    modifier = Modifier
+                        .padding(paddingValues),
+                    onCountryClick = updateCountry,
+                )
             }
         }
     }

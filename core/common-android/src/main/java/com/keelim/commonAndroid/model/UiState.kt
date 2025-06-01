@@ -33,3 +33,16 @@ fun <T> Flow<T>.asSealedUiState(): Flow<SealedUiState<T>> {
         .onStart { emit(SealedUiState.loading()) }
         .catch { emit(SealedUiState.error(it)) }
 }
+
+fun <T : Collection<Any>> Flow<T>.asSealedUiState(
+    emptyToLoading: Boolean = true
+): Flow<SealedUiState<T>> {
+    return map {
+        if (it.isEmpty() && emptyToLoading) {
+            SealedUiState.loading()
+        } else {
+            SealedUiState.success(it)
+        }
+    }.onStart { emit(SealedUiState.loading()) }
+        .catch { emit(SealedUiState.error(it)) }
+}

@@ -2,8 +2,8 @@ package com.keelim.core.data.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.keelim.core.database.dao.HistoryDao
-import com.keelim.core.database.model.History
+import com.keelim.shared.data.database.dao.HistoryDao
+import com.keelim.shared.data.database.model.History
 import javax.inject.Inject
 
 class DBPagingSource @Inject constructor(

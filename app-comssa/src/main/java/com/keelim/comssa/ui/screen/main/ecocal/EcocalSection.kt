@@ -4,6 +4,12 @@ package com.keelim.comssa.ui.screen.main.ecocal
 
 import android.content.Intent
 import android.net.Uri
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -147,8 +153,8 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .background(Color.Transparent)
-            .padding(horizontal = space16, vertical = space8),
+            .background(MaterialTheme.colorScheme.primaryContainer)
+            .padding(horizontal = space16, vertical = space16),
     ) {
         var now by remember {
             mutableStateOf(
@@ -168,18 +174,99 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
         }
 
         val time = now.toLocalDateTime(timezone)
-        Text(
-            text = "${time.year}-${String.format("%02d", time.monthNumber)}",
-            style = MaterialTheme.typography.bodyLarge,
-        )
-        Text(
-            modifier = Modifier.align(Alignment.End),
-            text = "${time.year}년 ${String.format("%02d", time.monthNumber)}월 ${time.dayOfMonth}일",
-        )
-        Text(
-            modifier = Modifier.align(Alignment.End),
-            text = "${time.hour}:${time.minute}:${time.second}",
-        )
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.Bottom
+        ) {
+            Text(
+                text = "${time.year} ${String.format("%02d", time.monthNumber)}",
+                style = MaterialTheme.typography.headlineMedium.copy(
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer
+                ),
+            )
+            Column(
+                horizontalAlignment = Alignment.End
+            ) {
+                Text(
+                    text = "${time.year}년 ${
+                        String.format(
+                            "%02d",
+                            time.monthNumber
+                        )
+                    }월 ${time.dayOfMonth}일",
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        color = MaterialTheme.colorScheme.onPrimaryContainer
+                    ),
+                )
+
+                Row(verticalAlignment = Alignment.Bottom) {
+                    AnimatedContent(
+                        targetState = String.format("%02d", time.hour),
+                        transitionSpec = {
+                            (slideInVertically { height -> height } + fadeIn()) togetherWith
+                                (slideOutVertically { height -> -height } + fadeOut())
+                        },
+                        label = "Hour Minute animation"
+                    ) { targetHourMinute ->
+                        Text(
+                            text = targetHourMinute,
+                            style = MaterialTheme.typography.bodySmall.copy(
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.onPrimaryContainer
+                            ),
+                        )
+                    }
+                    Text(
+                        text = ":",
+                        style = MaterialTheme.typography.bodySmall.copy(
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer
+                        ),
+                    )
+                    AnimatedContent(
+                        targetState = String.format("%02d", time.minute),
+                        transitionSpec = {
+                            (slideInVertically { height -> height } + fadeIn()) togetherWith
+                                (slideOutVertically { height -> -height } + fadeOut())
+                        },
+                        label = "Hour Minute animation",
+                    ) { targetHourMinute ->
+                        Text(
+                            text = targetHourMinute,
+                            style = MaterialTheme.typography.bodySmall.copy(
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.onPrimaryContainer
+                            ),
+                        )
+                    }
+                    Text(
+                        text = ":",
+                        style = MaterialTheme.typography.bodySmall.copy(
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer
+                        ),
+                    )
+                    AnimatedContent(
+                        targetState = String.format("%02d", time.second),
+                        transitionSpec = {
+                            (slideInVertically { height -> height } + fadeIn()) togetherWith
+                                (slideOutVertically { height -> -height } + fadeOut())
+                        },
+                        label = "Second animation"
+                    ) { second ->
+                        Text(
+                            text = second,
+                            style = MaterialTheme.typography.bodySmall.copy(
+                                color = MaterialTheme.colorScheme.onPrimaryContainer
+                            ),
+                        )
+                    }
+                }
+            }
+        }
     }
 }
 

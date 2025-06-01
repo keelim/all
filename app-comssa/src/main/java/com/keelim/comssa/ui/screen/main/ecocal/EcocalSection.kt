@@ -35,16 +35,20 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FloatingActionButtonMenu
 import androidx.compose.material3.FloatingActionButtonMenuItem
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ShortNavigationBar
+import androidx.compose.material3.ShortNavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.material3.ToggleFloatingActionButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableIntState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -494,3 +498,44 @@ fun EcocalFloatingButton(
         }
     }
 }
+
+@Composable
+fun EcocalNavigationBar(
+    navigationIndex: MutableIntState,
+) {
+    ShortNavigationBar {
+
+        ShortNavigationBarItem(
+            selected = navigationIndex.value == 0,
+            onClick = {
+                navigationIndex.value = 0
+            },
+            icon = {
+                Icon(
+                    imageVector = Icons.Filled.DateRange,
+                    contentDescription = "캘린더"
+                )
+            },
+            label = {
+                Text(text = "캘린더")
+            }
+        )
+
+        ShortNavigationBarItem(
+            selected = navigationIndex.value == 1,
+            onClick = {
+                navigationIndex.value = 1
+            },
+            icon = {
+                Icon(
+                    imageVector = Icons.Filled.Menu,
+                    contentDescription = "환율"
+                )
+            },
+            label = {
+                Text(text = "환율")
+            }
+        )
+    }
+}
+

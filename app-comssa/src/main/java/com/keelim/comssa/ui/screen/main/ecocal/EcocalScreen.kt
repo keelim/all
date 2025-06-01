@@ -4,13 +4,17 @@ package com.keelim.comssa.ui.screen.main.ecocal
 
 import android.Manifest
 import android.os.Build
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -63,24 +67,47 @@ fun EcocalScreen(
                 }
             }
 
+            val navigationIndex = mutableIntStateOf(0)
+
             Scaffold(
                 floatingActionButton = {
-                    EcocalFloatingButton(
-                        showButton = showButton,
-                        coroutineScope = coroutineScope,
-                        listState = listState,
-                        updateFilter = updateFilter
-                    )
+                    if (navigationIndex.value == 0) {
+                        EcocalFloatingButton(
+                            showButton = showButton,
+                            coroutineScope = coroutineScope,
+                            listState = listState,
+                            updateFilter = updateFilter
+                        )
 
+                    }
                 },
+
+                bottomBar = {
+                    EcocalNavigationBar(
+                        navigationIndex = navigationIndex
+                    )
+                }
             ) { paddingValues ->
-                EcocalMainSection(
-                    state = listState,
-                    entries = uiState.value,
-                    modifier = Modifier
-                        .padding(paddingValues),
-                    onCountryClick = updateCountry,
-                )
+                if (navigationIndex.value == 0) {
+                    EcocalMainSection(
+                        state = listState,
+                        entries = uiState.value,
+                        modifier = Modifier
+                            .padding(paddingValues),
+                        onCountryClick = updateCountry,
+                    )
+                } else {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(paddingValues),
+                    ) {
+                        Loading()
+                        Text(
+                            text = "현재 준비 중입니다. "
+                        )
+                    }
+                }
             }
         }
     }

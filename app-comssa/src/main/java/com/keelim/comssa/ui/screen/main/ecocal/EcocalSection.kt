@@ -80,73 +80,60 @@ fun EcocalMainSection(
         Spacer(
             modifier = Modifier.height(space12),
         )
-        if (entries.isEmpty()) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center,
-            ) {
-                Text(
-                    text = "검색된 내용이 없습니다.",
-                    style = MaterialTheme.typography.bodyLarge,
-                )
+        LazyColumn(
+            state = state,
+            modifier = Modifier.fillMaxSize(),
+        ) {
+            item {
+                HeaderItem()
             }
-        } else {
-            LazyColumn(
-                state = state,
-                modifier = Modifier.fillMaxSize(),
-            ) {
-                item {
-                    HeaderItem()
-                }
-                entries.forEach { (header, entries) ->
-                    stickyHeader {
-                        Text(
-                            text = header,
-                            style = MaterialTheme.typography.bodyMedium.copy(
-                                fontWeight = FontWeight.Bold,
-                            ),
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .background(MaterialTheme.colorScheme.primaryContainer)
-                                .padding(horizontal = space16, vertical = space8),
-                        )
-                    }
-                    items(entries) { entry ->
-                        ListItem(
-                            title = entry.title,
-                            subtitle = "${entry.date} ${entry.time}",
-                            label = entry.country,
-                            priority = entry.priority,
-                            onCardClick = {
-                                context.startActivity(
-                                    Intent(
-                                        Intent.ACTION_VIEW,
-                                        Uri.parse("https://www.google.com/search?q=${entry.country}-${entry.title} ${entry.date} ${entry.time}"),
-                                    ),
-                                )
-                            },
-                            onCountryClick = onCountryClick,
-                        )
-                    }
-                }
-
-                item {
-                    Row(
+            entries.forEach { (header, entries) ->
+                stickyHeader {
+                    Text(
+                        text = header,
+                        style = MaterialTheme.typography.bodyMedium.copy(
+                            fontWeight = FontWeight.Bold,
+                        ),
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(60.dp)
-                            .background(MaterialTheme.colorScheme.primaryContainer),
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        Text(
-                            text = "여기가 마지막 일정입니다.",
-                            style = MaterialTheme.typography.bodyMedium.copy(
-                                fontWeight = FontWeight.Bold,
-                            ),
-                        )
-                    }
+                            .background(MaterialTheme.colorScheme.primaryContainer)
+                            .padding(horizontal = space16, vertical = space8),
+                    )
+                }
+                items(entries) { entry ->
+                    ListItem(
+                        title = entry.title,
+                        subtitle = "${entry.date} ${entry.time}",
+                        label = entry.country,
+                        priority = entry.priority,
+                        onCardClick = {
+                            context.startActivity(
+                                Intent(
+                                    Intent.ACTION_VIEW,
+                                    Uri.parse("https://www.google.com/search?q=${entry.country}-${entry.title} ${entry.date} ${entry.time}"),
+                                ),
+                            )
+                        },
+                        onCountryClick = onCountryClick,
+                    )
+                }
+            }
+
+            item {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(60.dp)
+                        .background(MaterialTheme.colorScheme.primaryContainer),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(
+                        text = "여기가 마지막 일정입니다.",
+                        style = MaterialTheme.typography.bodyMedium.copy(
+                            fontWeight = FontWeight.Bold,
+                        ),
+                    )
                 }
             }
         }

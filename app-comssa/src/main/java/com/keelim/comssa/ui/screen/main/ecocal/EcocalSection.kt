@@ -506,9 +506,9 @@ fun EcocalNavigationBar(
     ShortNavigationBar {
 
         ShortNavigationBarItem(
-            selected = navigationIndex.value == 0,
+            selected = navigationIndex.intValue == 0,
             onClick = {
-                navigationIndex.value = 0
+                navigationIndex.intValue = 0
             },
             icon = {
                 Icon(
@@ -522,9 +522,9 @@ fun EcocalNavigationBar(
         )
 
         ShortNavigationBarItem(
-            selected = navigationIndex.value == 1,
+            selected = navigationIndex.intValue == 1,
             onClick = {
-                navigationIndex.value = 1
+                navigationIndex.intValue = 1
             },
             icon = {
                 Icon(

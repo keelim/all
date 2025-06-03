@@ -36,6 +36,7 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FloatingActionButtonMenu
 import androidx.compose.material3.FloatingActionButtonMenuItem
@@ -55,7 +56,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
@@ -106,16 +106,26 @@ fun EcocalMainSection(
             }
             entries.forEach { (header, entries) ->
                 stickyHeader {
-                    Text(
-                        text = header,
-                        style = MaterialTheme.typography.bodyMedium.copy(
-                            fontWeight = FontWeight.Bold,
-                        ),
+                    Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .background(MaterialTheme.colorScheme.primaryContainer)
-                            .padding(horizontal = space16, vertical = space8),
-                    )
+                            .background(
+                                MaterialTheme.colorScheme.primaryContainer,
+                                shape = CircleShape,
+                            ),
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Text(
+                            text = header,
+                            style = MaterialTheme.typography.bodyLarge.copy(
+                                fontWeight = FontWeight.Bold,
+                            ),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = space16, vertical = space8)
+                        )
+                    }
                 }
                 items(entries) { entry ->
                     ListItem(
@@ -304,74 +314,83 @@ fun ListItem(
     onCountryClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) = trace("ListItem") {
-    Column(
+    Card(
         modifier = modifier
             .fillMaxWidth()
             .clickable { onCardClick() }
             .padding(horizontal = space16, vertical = space8),
     ) {
-        when (priority) {
-            Holiday -> {
-                Text(
-                    text = title,
-                    style = MaterialTheme.typography.headlineMedium.copy(
-                        fontWeight = FontWeight.Bold,
-                    ),
-                )
-                Spacer(
-                    modifier = Modifier.height(space4),
-                )
-                Text(
-                    text = subtitle,
-                    style = MaterialTheme.typography.bodySmall.copy(
-                        fontWeight = FontWeight.Bold,
-                    ),
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                )
-            }
-            else -> {
-                Text(
-                    text = title,
-                    style = MaterialTheme.typography.headlineSmall,
-                )
-                Spacer(
-                    modifier = Modifier.height(space4),
-                )
-                Text(
-                    text = subtitle,
-                    style = MaterialTheme.typography.bodyMedium,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                )
-                Spacer(
-                    modifier = Modifier.height(space2),
-                )
-                Text(
-                    text = label,
-                    style = MaterialTheme.typography.bodyMedium,
-                    fontWeight = FontWeight.Bold,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.clickable { onCountryClick(label) },
-                )
-            }
-        }
-
-        val color = when (priority) {
-            HIGH -> Color.Red
-            MEDIUM -> Color.Yellow
-            LOW -> Color.Green
-            NONE -> Color.Transparent
-            Holiday -> Color.Magenta
-        }
-        Box(
+        Column(
             modifier = Modifier
-                .size(space12)
-                .clip(CircleShape)
-                .background(color)
-                .align(Alignment.End),
-        )
+                .fillMaxWidth()
+                .padding(horizontal = space16, vertical = space8),
+        ) {
+            when (priority) {
+                Holiday -> {
+                    Text(
+                        text = title,
+                        style = MaterialTheme.typography.headlineMedium.copy(
+                            fontWeight = FontWeight.Bold,
+                        ),
+                    )
+                    Spacer(
+                        modifier = Modifier.height(space4),
+                    )
+                    Text(
+                        text = subtitle,
+                        style = MaterialTheme.typography.bodySmall.copy(
+                            fontWeight = FontWeight.Bold,
+                        ),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                }
+
+                else -> {
+                    Text(
+                        text = title,
+                        style = MaterialTheme.typography.headlineSmall,
+                    )
+                    Spacer(
+                        modifier = Modifier.height(space4),
+                    )
+                    Text(
+                        text = subtitle,
+                        style = MaterialTheme.typography.bodyMedium,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                    Spacer(
+                        modifier = Modifier.height(space2),
+                    )
+                    Text(
+                        text = label,
+                        style = MaterialTheme.typography.bodyMedium,
+                        fontWeight = FontWeight.Bold,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.clickable { onCountryClick(label) },
+                    )
+                }
+
+            }
+            val color = remember(priority) {
+                when (priority) {
+                    HIGH -> Color.Red
+                    MEDIUM -> Color.Yellow
+                    LOW -> Color.Green
+                    NONE -> Color.Transparent
+                    Holiday -> Color.Magenta
+                }
+            }
+
+            Box(
+                modifier = Modifier
+                    .size(space12)
+                    .background(color, shape = CircleShape)
+                    .align(Alignment.End),
+            )
+        }
     }
 }
 

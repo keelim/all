@@ -71,7 +71,7 @@ fun EcocalScreen(
 
             Scaffold(
                 floatingActionButton = {
-                    if (navigationIndex.value == 0) {
+                    if (navigationIndex.intValue == 0) {
                         EcocalFloatingButton(
                             showButton = showButton,
                             coroutineScope = coroutineScope,
@@ -88,7 +88,7 @@ fun EcocalScreen(
                     )
                 }
             ) { paddingValues ->
-                if (navigationIndex.value == 0) {
+                if (navigationIndex.intValue == 0) {
                     EcocalMainSection(
                         state = listState,
                         entries = uiState.value,

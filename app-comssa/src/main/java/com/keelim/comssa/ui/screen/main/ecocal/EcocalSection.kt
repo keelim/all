@@ -42,6 +42,7 @@ import androidx.compose.material3.FloatingActionButtonMenu
 import androidx.compose.material3.FloatingActionButtonMenuItem
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ShortNavigationBar
 import androidx.compose.material3.ShortNavigationBarItem
@@ -67,7 +68,6 @@ import androidx.compose.ui.util.trace
 import com.keelim.composeutil.component.fab.FabButtonItem
 import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space16
-import com.keelim.composeutil.resource.space2
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
 import com.keelim.comssa.ui.screen.main.ecocal.EcocalPriority.HIGH
@@ -314,83 +314,85 @@ fun ListItem(
     onCountryClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) = trace("ListItem") {
-    Card(
-        modifier = modifier
-            .fillMaxWidth()
-            .clickable { onCardClick() }
-            .padding(horizontal = space16, vertical = space8),
-    ) {
-        Column(
-            modifier = Modifier
+    if (priority == Holiday) {
+        Card(
+            modifier = modifier
                 .fillMaxWidth()
+                .clickable { onCardClick() }
                 .padding(horizontal = space16, vertical = space8),
         ) {
-            when (priority) {
-                Holiday -> {
-                    Text(
-                        text = title,
-                        style = MaterialTheme.typography.headlineMedium.copy(
-                            fontWeight = FontWeight.Bold,
-                        ),
-                    )
-                    Spacer(
-                        modifier = Modifier.height(space4),
-                    )
-                    Text(
-                        text = subtitle,
-                        style = MaterialTheme.typography.bodySmall.copy(
-                            fontWeight = FontWeight.Bold,
-                        ),
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                    )
-                }
-
-                else -> {
-                    Text(
-                        text = title,
-                        style = MaterialTheme.typography.headlineSmall,
-                    )
-                    Spacer(
-                        modifier = Modifier.height(space4),
-                    )
-                    Text(
-                        text = subtitle,
-                        style = MaterialTheme.typography.bodyMedium,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                    )
-                    Spacer(
-                        modifier = Modifier.height(space2),
-                    )
-                    Text(
-                        text = label,
-                        style = MaterialTheme.typography.bodyMedium,
-                        fontWeight = FontWeight.Bold,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                        modifier = Modifier.clickable { onCountryClick(label) },
-                    )
-                }
-
-            }
-            val color = remember(priority) {
-                when (priority) {
-                    HIGH -> Color.Red
-                    MEDIUM -> Color.Yellow
-                    LOW -> Color.Green
-                    NONE -> Color.Transparent
-                    Holiday -> Color.Magenta
-                }
-            }
-
-            Box(
-                modifier = Modifier
-                    .size(space12)
-                    .background(color, shape = CircleShape)
-                    .align(Alignment.End),
+            Text(
+                text = title,
+                style = MaterialTheme.typography.headlineMedium.copy(
+                    fontWeight = FontWeight.Bold,
+                ),
+            )
+            Spacer(
+                modifier = Modifier.height(space4),
+            )
+            Text(
+                text = subtitle,
+                style = MaterialTheme.typography.bodySmall.copy(
+                    fontWeight = FontWeight.Bold,
+                ),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
             )
         }
+
+    } else {
+        ListItem(
+            modifier = modifier
+                .fillMaxWidth()
+                .clickable { onCardClick() },
+            headlineContent = {
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.headlineSmall
+                )
+            },
+            supportingContent = {
+                Column(
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = subtitle,
+                        style = MaterialTheme.typography.bodySmall,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+
+                    val color = remember(priority) {
+                        when (priority) {
+                            HIGH -> Color.Red
+                            MEDIUM -> Color.Yellow
+                            LOW -> Color.Green
+                            NONE -> Color.Transparent
+                            Holiday -> Color.Magenta
+                        }
+                    }
+                    Spacer(
+                        modifier = Modifier.height(space8),
+                    )
+                    Box(
+                        modifier = Modifier
+                            .size(space12)
+                            .background(color, shape = CircleShape)
+                            .align(Alignment.Start),
+                    )
+                }
+            },
+            trailingContent = {
+                Text(
+                    text = label,
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = FontWeight.Bold,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.clickable { onCountryClick(label) },
+                )
+            }
+        )
     }
 }
 

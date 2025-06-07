@@ -11,8 +11,8 @@ import kotlin.native.ObjCName
 @Entity(tableName = "deepLink")
 @ObjCName("DeepLinkEntity")
 data class DeepLinkEntity(
-    @PrimaryKey val url: String,
-    val timestamp: Long,
+    @PrimaryKey val timestamp: Long,
+    val url: String,
     @ColumnInfo(defaultValue = "0") val isBookMarked: Boolean = false,
     @ColumnInfo(defaultValue = "") val title: String = "",
 )

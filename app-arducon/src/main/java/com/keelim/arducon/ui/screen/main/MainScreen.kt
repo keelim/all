@@ -4,18 +4,19 @@ package com.keelim.arducon.ui.screen.main
 
 import android.content.Intent
 import android.net.Uri
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.HorizontalFloatingToolbar
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -24,6 +25,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -32,7 +34,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.arducon.ui.component.AdBannerView
@@ -102,6 +103,12 @@ fun MainScreen(
     onNavigateOgTagPreview: () -> Unit,
     onDeleteScheme: (String) -> Unit,
 ) {
+    val listState = rememberLazyListState()
+    val isScrollInProgress = remember {
+        derivedStateOf {
+            listState.isScrollInProgress || listState.canScrollForward.not()
+        }
+    }
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -135,34 +142,30 @@ fun MainScreen(
             )
         },
         floatingActionButton = {
-            HorizontalFloatingToolbarSection(
-                onNavigateOgTagPreview = onNavigateOgTagPreview,
-                onQrCodeClick = onQrCodeClick,
-                onNavigateSearch = onNavigateSearch,
-                onNavigateSaastatus = onNavigateSaastatus,
-            )
+            AnimatedVisibility(visible = isScrollInProgress.value.not()) {
+                HorizontalFloatingToolbarSection(
+                    onNavigateOgTagPreview = onNavigateOgTagPreview,
+                    onQrCodeClick = onQrCodeClick,
+                    onNavigateSearch = onNavigateSearch,
+                    onNavigateSaastatus = onNavigateSaastatus,
+                )
+            }
         },
     ) { paddingValues ->
-        Column(
+        DeepLinkSection(
+            schemeList = schemeList,
+            favoriteItems = favoriteItems,
+            generalItems = generalItems,
+            onSearch = onSearch,
+            onRegister = onRegister,
+            onDeleteScheme = onDeleteScheme,
+            onUpdate = onUpdate,
+            onDelete = onDelete,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues = paddingValues),
-            verticalArrangement = Arrangement.spacedBy(space16),
-        ) {
-            DeepLinkSection(
-                schemeList = schemeList,
-                favoriteItems = favoriteItems,
-                generalItems = generalItems,
-                onSearch = onSearch,
-                onRegister = onRegister,
-                onDeleteScheme = onDeleteScheme,
-                onUpdate = onUpdate,
-                onDelete = onDelete,
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxWidth(),
-            )
-        }
+            listState = listState
+        )
     }
 }
 

@@ -3,7 +3,6 @@
 package com.keelim.arducon.ui.screen.main
 
 import android.content.Intent
-import android.net.Uri
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
@@ -34,6 +33,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.arducon.ui.component.AdBannerView
@@ -62,7 +62,7 @@ fun MainRoute(
         try {
             Intent(
                 Intent.ACTION_VIEW,
-                Uri.parse(isSearched.value),
+                isSearched.value.toUri(),
             ).let { context.startActivity(it) }
             viewModel.clear()
         } catch (throwable: Throwable) {

@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -27,6 +28,7 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.HorizontalFloatingToolbar
 import androidx.compose.material3.Icon
@@ -246,6 +248,7 @@ private fun HorizontalFloatingToolbarSection(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun DeepLinkBottomSheet(
     deepLink: DeepLink,
@@ -253,7 +256,12 @@ private fun DeepLinkBottomSheet(
     onDelete: (DeepLink) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val sheetState = rememberModalBottomSheetState()
+    val sheetState = rememberModalBottomSheetState(
+        skipPartiallyExpanded = true
+    )
+    LaunchedEffect(Unit) {
+        sheetState.show()
+    }
 
     ModalBottomSheet(
         onDismissRequest = onDismiss,
@@ -263,15 +271,17 @@ private fun DeepLinkBottomSheet(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
+                .fillMaxHeight(0.5f)
                 .padding(horizontal = space16, vertical = space8),
-            verticalArrangement = Arrangement.spacedBy(space12),
+            verticalArrangement = Arrangement.spacedBy(space8),
         ) {
+            val context = LocalContext.current
             ElevatedCard(
                 modifier = Modifier.fillMaxWidth(),
                 shape = MaterialTheme.shapes.large
             ) {
                 Column(
-                    modifier = Modifier.padding(space16)
+                    modifier = Modifier.padding(space12)
                 ) {
                     deepLink.imageUrl.takeIf { it.isNotEmpty() }?.let { imageUrl ->
                         AsyncImage(
@@ -279,11 +289,18 @@ private fun DeepLinkBottomSheet(
                             contentDescription = null,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(200.dp)
+                                .height(120.dp)
                                 .clip(MaterialTheme.shapes.medium)
                         )
-                        Spacer(modifier = Modifier.height(space16))
+                        Spacer(modifier = Modifier.height(space12))
                     }
+
+                    Text(
+                        text = "딥링크 정보",
+                        style = MaterialTheme.typography.headlineSmall,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
 
                     Text(
                         text = deepLink.title.takeIf { it.isNotEmpty() } ?: "제목 없음",
@@ -291,9 +308,7 @@ private fun DeepLinkBottomSheet(
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSurface
                     )
-                    Spacer(modifier = Modifier.height(space8))
-
-                    val context = LocalContext.current
+                    Spacer(modifier = Modifier.height(space4))
                     Text(
                         text = deepLink.url,
                         style = MaterialTheme.typography.bodyLarge,

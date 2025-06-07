@@ -1,6 +1,5 @@
 package com.keelim.arducon.ui
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.consumeWindowInsets
@@ -44,7 +43,17 @@ fun ArduconApp(
             )
         }
     ) { padding ->
-        Column(
+        ArduConHost(
+            appState = appState,
+            coroutineScope = coroutineScope,
+            bottomSheetState = bottomSheetState,
+            onShowSnackbar = { message, action ->
+                snackbarHostState.showSnackbar(
+                    message = message,
+                    actionLabel = action,
+                    duration = SnackbarDuration.Short,
+                ) == SnackbarResult.ActionPerformed
+            },
             modifier = Modifier
                 .fillMaxSize()
                 .systemBarsPadding()
@@ -55,19 +64,7 @@ fun ArduconApp(
                         WindowInsetsSides.Horizontal,
                     ),
                 ),
-        ) {
-            ArduConHost(
-                appState = appState,
-                coroutineScope = coroutineScope,
-                bottomSheetState = bottomSheetState,
-                onShowSnackbar = { message, action ->
-                    snackbarHostState.showSnackbar(
-                        message = message,
-                        actionLabel = action,
-                        duration = SnackbarDuration.Short,
-                    ) == SnackbarResult.ActionPerformed
-                },
-            )
-        }
+        )
+
     }
 }

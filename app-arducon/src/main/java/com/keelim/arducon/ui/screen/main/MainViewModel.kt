@@ -51,6 +51,9 @@ class MainViewModel @Inject constructor(
     private val _showBottomSheet = MutableStateFlow<DeepLink>(DeepLink.EMPTY)
     val showBottomSheet = _showBottomSheet.asStateFlow()
 
+    private val _editDeepLink = MutableStateFlow<DeepLink?>(null)
+    val editDeepLink = _editDeepLink.asStateFlow()
+
     fun showProgress() {
         _isLoading.value = true
     }
@@ -136,5 +139,13 @@ class MainViewModel @Inject constructor(
 
     fun hideBottomSheet() {
         _showBottomSheet.value = DeepLink.EMPTY
+    }
+
+    fun onEditDeepLink(deepLink: DeepLink) {
+        _editDeepLink.value = deepLink
+    }
+
+    fun clearEditDeepLink() {
+        _editDeepLink.value = null
     }
 }

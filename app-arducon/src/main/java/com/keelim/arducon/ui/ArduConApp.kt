@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
@@ -21,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import com.keelim.arducon.ui.component.AdBannerView
 import com.keelim.composeutil.AppState
 import com.keelim.composeutil.rememberAppState
 
@@ -35,6 +37,12 @@ fun ArduconApp(
     Scaffold(
         contentWindowInsets = WindowInsets(0, 0, 0, 0),
         snackbarHost = { SnackbarHost(snackbarHostState) },
+        bottomBar = {
+            AdBannerView(
+                modifier = Modifier
+                    .fillMaxWidth()
+            )
+        }
     ) { padding ->
         Column(
             modifier = Modifier

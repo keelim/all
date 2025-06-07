@@ -46,6 +46,7 @@ fun ArduConHost(
     val motionScheme = MaterialTheme.motionScheme
 
     NavDisplay(
+        modifier = modifier,
         backStack = backStack,
         onBack = { backStack.removeLastOrNull() },
         entryDecorators = listOf(

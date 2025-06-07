@@ -126,4 +126,8 @@ class MainViewModel @Inject constructor(
             }
         }
     }
+
+    fun onItemLongClick(deepLink: DeepLink) {
+        
+    }
 }

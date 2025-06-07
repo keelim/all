@@ -48,6 +48,9 @@ class MainViewModel @Inject constructor(
     private val _isLoading = MutableLiveData(false)
     val isLoading: LiveData<Boolean> get() = _isLoading
 
+    private val _showBottomSheet = MutableStateFlow<DeepLink>(DeepLink.EMPTY)
+    val showBottomSheet = _showBottomSheet.asStateFlow()
+
     fun showProgress() {
         _isLoading.value = true
     }
@@ -128,6 +131,10 @@ class MainViewModel @Inject constructor(
     }
 
     fun onItemLongClick(deepLink: DeepLink) {
-        
+        _showBottomSheet.value = deepLink
+    }
+
+    fun hideBottomSheet() {
+        _showBottomSheet.value = DeepLink.EMPTY
     }
 }

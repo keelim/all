@@ -20,8 +20,10 @@ import androidx.compose.material3.HorizontalFloatingToolbar
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
@@ -39,6 +41,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.composeutil.component.icon.rememberQrCodeScanner
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space4
+import com.keelim.composeutil.resource.space8
 import com.keelim.model.DeepLink
 
 @Composable
@@ -53,6 +56,7 @@ fun MainRoute(
     val schemeList by viewModel.schemeList.collectAsStateWithLifecycle()
     val items by viewModel.deepLinkList.collectAsStateWithLifecycle()
     val isSearched = viewModel.onClickSearch.collectAsStateWithLifecycle()
+    val showBottomSheet by viewModel.showBottomSheet.collectAsStateWithLifecycle()
 
     val context = LocalContext.current
     LaunchedEffect(isSearched.value) {
@@ -85,6 +89,23 @@ fun MainRoute(
         onNavigateOgTagPreview = onNavigateOgTagPreview,
         onDeleteScheme = viewModel::deleteScheme,
     )
+
+    if (showBottomSheet != DeepLink.EMPTY) {
+        val sheetState = rememberModalBottomSheetState()
+        ModalBottomSheet(
+            onDismissRequest = viewModel::hideBottomSheet,
+            sheetState = sheetState
+        ) {
+            Column(
+                modifier = Modifier.padding(space16),
+                verticalArrangement = Arrangement.spacedBy(space8)
+            ) {
+                Text(text = "딥링크 정보", style = MaterialTheme.typography.titleLarge)
+                Text(text = "제목: ${showBottomSheet.title}")
+                Text(text = "URL: ${showBottomSheet.url}")
+            }
+        }
+    }
 }
 
 @Composable
@@ -236,5 +257,6 @@ private fun PreviewMainScreen() {
         onNavigateSaastatus = {},
         onNavigateOgTagPreview = {},
         onDeleteScheme = {},
+        onItemLongClick = { },
     )
 }

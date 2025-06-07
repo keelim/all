@@ -6,26 +6,22 @@ import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.AddCircle
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.FloatingActionButtonMenu
-import androidx.compose.material3.FloatingActionButtonMenuItem
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.HorizontalFloatingToolbar
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.ToggleFloatingActionButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -139,7 +135,7 @@ fun MainScreen(
             )
         },
         floatingActionButton = {
-            FloatingSection(
+            HorizontalFloatingToolbarSection(
                 onNavigateOgTagPreview = onNavigateOgTagPreview,
                 onQrCodeClick = onQrCodeClick,
                 onNavigateSearch = onNavigateSearch,
@@ -153,19 +149,13 @@ fun MainScreen(
                 .padding(paddingValues = paddingValues),
             verticalArrangement = Arrangement.spacedBy(space16),
         ) {
-            MainTopSection(
-                schemeList = schemeList,
-                onSearch = onSearch,
-                onRegister = onRegister,
-                onDelete = onDeleteScheme,
-            )
-            HorizontalDivider(
-                color = MaterialTheme.colorScheme.outlineVariant,
-                thickness = 1.dp,
-            )
             DeepLinkSection(
+                schemeList = schemeList,
                 favoriteItems = favoriteItems,
                 generalItems = generalItems,
+                onSearch = onSearch,
+                onRegister = onRegister,
+                onDeleteScheme = onDeleteScheme,
                 onUpdate = onUpdate,
                 onDelete = onDelete,
                 modifier = Modifier
@@ -177,7 +167,7 @@ fun MainScreen(
 }
 
 @Composable
-private fun FloatingSection(
+private fun HorizontalFloatingToolbarSection(
     onNavigateOgTagPreview: () -> Unit,
     onQrCodeClick: () -> Unit,
     onNavigateSearch: () -> Unit,
@@ -185,63 +175,41 @@ private fun FloatingSection(
 ) {
     val (isExpanded, setIsExpanded) = remember { mutableStateOf(false) }
 
-    Box {
-        FloatingActionButtonMenu(
-            expanded = isExpanded,
-            button = {
-                ToggleFloatingActionButton(
-                    checked = isExpanded,
-                    onCheckedChange = setIsExpanded,
-                    content = {
-                        Icon(
-                            imageVector = if (isExpanded) Icons.Default.Close else Icons.Default.Add,
-                            contentDescription = if (isExpanded) "Close" else "Open",
-                        )
-                    },
-                )
-            },
+    HorizontalFloatingToolbar(
+        expanded = isExpanded
+    ) {
+        IconButton(
+            onClick = onNavigateOgTagPreview,
         ) {
-            FloatingActionButtonMenuItem(
-                onClick = onNavigateOgTagPreview,
-                icon = {
-                    Icon(
-                        imageVector = Icons.Default.ThumbUp,
-                        contentDescription = "OG Tag Preview",
-                    )
-                },
-                text = { Text("OG Tag Preview") },
+            Icon(
+                imageVector = Icons.Default.ThumbUp,
+                contentDescription = "OG Tag Preview",
             )
-            FloatingActionButtonMenuItem(
-                onClick = onQrCodeClick,
-                icon = {
-                    Icon(
-                        imageVector = rememberQrCodeScanner(
-                            tintColor = if (isSystemInDarkTheme()) Color.White else Color.Black,
-                        ),
-                        contentDescription = "QR Code Scanner",
-                    )
-                },
-                text = { Text("QR Code Scanner") },
+        }
+        IconButton(
+            onClick = onQrCodeClick,
+        ) {
+            Icon(
+                imageVector = rememberQrCodeScanner(
+                    tintColor = if (isSystemInDarkTheme()) Color.White else Color.Black,
+                ),
+                contentDescription = "QR Code Scanner",
             )
-            FloatingActionButtonMenuItem(
-                onClick = onNavigateSearch,
-                icon = {
-                    Icon(
-                        imageVector = Icons.Default.Search,
-                        contentDescription = "Search",
-                    )
-                },
-                text = { Text("Search") },
+        }
+        IconButton(
+            onClick = onNavigateSearch,
+        ) {
+            Icon(
+                imageVector = Icons.Default.Search,
+                contentDescription = "Search",
             )
-            FloatingActionButtonMenuItem(
-                onClick = onNavigateSaastatus,
-                icon = {
-                    Icon(
-                        imageVector = Icons.Default.AddCircle,
-                        contentDescription = "navigate saastatus",
-                    )
-                },
-                text = { Text("SaaStatus") },
+        }
+        IconButton(
+            onClick = onNavigateSaastatus,
+        ) {
+            Icon(
+                imageVector = Icons.Default.AddCircle,
+                contentDescription = "navigate saastatus",
             )
         }
     }

@@ -15,6 +15,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -332,6 +333,7 @@ fun DeepLinkSection(
     onDeleteScheme: (String) -> Unit,
     onUpdate: (DeepLink) -> Unit,
     onDelete: (DeepLink) -> Unit,
+    onItemLongClick: (DeepLink) -> Unit,
     modifier: Modifier = Modifier,
     listState: LazyListState = rememberLazyListState(),
 ) {
@@ -385,6 +387,7 @@ fun DeepLinkSection(
                 },
                 onUpdate = onUpdate,
                 onDelete = onDelete,
+                onItemLongClick = onItemLongClick,
                 modifier = Modifier.animateItem(
                     placementSpec = tween(
                         durationMillis = 500,
@@ -425,6 +428,7 @@ fun DeepLinkSection(
                 },
                 onUpdate = onUpdate,
                 onDelete = onDelete,
+                onItemLongClick = onItemLongClick,
                 modifier = Modifier.animateItem(
                     placementSpec = tween(
                         durationMillis = 500,
@@ -442,10 +446,18 @@ private fun DeepLinkItem(
     onPlay: (String) -> Unit,
     onUpdate: (DeepLink) -> Unit,
     onDelete: (DeepLink) -> Unit,
+    onItemLongClick: (DeepLink) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Card(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .fillMaxWidth()
+            .combinedClickable(
+                onClick = {},
+                onLongClick = {
+                    onItemLongClick(deepLink)
+                }
+            ),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant,
         ),
@@ -569,5 +581,6 @@ private fun PreviewDeepLinkSection() {
         onSearch = { _, _ -> },
         onRegister = {},
         onDeleteScheme = {},
+        onItemLongClick = {},
     )
 }

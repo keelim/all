@@ -77,6 +77,7 @@ fun MainRoute(
         onSearch = viewModel::onClickSearch,
         onUpdate = viewModel::updateDeepLinkUrl,
         onDelete = viewModel::deleteDeepLinkUrl,
+        onItemLongClick = viewModel::onItemLongClick,
         onQrCodeClick = onQrCodeClick,
         onNavigateSearch = onNavigateSearch,
         onRegister = viewModel::onRegister,
@@ -94,6 +95,7 @@ fun MainScreen(
     onSearch: (String, String) -> Unit,
     onUpdate: (DeepLink) -> Unit,
     onDelete: (DeepLink) -> Unit,
+    onItemLongClick: (DeepLink) -> Unit,
     onQrCodeClick: () -> Unit,
     onNavigateSearch: () -> Unit,
     onRegister: (String) -> Unit,
@@ -152,6 +154,7 @@ fun MainScreen(
             onDeleteScheme = onDeleteScheme,
             onUpdate = onUpdate,
             onDelete = onDelete,
+            onItemLongClick = onItemLongClick,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues = paddingValues),

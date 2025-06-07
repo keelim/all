@@ -77,6 +77,7 @@ import com.keelim.model.DeepLink
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import androidx.compose.material3.SheetValue
 
 @Composable
 fun MainRoute(
@@ -135,50 +136,14 @@ fun MainRoute(
     }
 
     editDeepLink?.let { deepLinkToEdit ->
-        var editedTitle by remember { mutableStateOf(deepLinkToEdit.title) }
-        var editedUrl by remember { mutableStateOf(deepLinkToEdit.url) }
-
-        AlertDialog(
-            onDismissRequest = viewModel::clearEditDeepLink,
-            title = { Text("딥링크 편집") },
-            text = {
-                Column {
-                    TextField(
-                        value = editedTitle,
-                        onValueChange = { editedTitle = it },
-                        label = { Text("제목") },
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                    Spacer(modifier = Modifier.height(space8))
-                    TextField(
-                        value = editedUrl,
-                        onValueChange = { editedUrl = it },
-                        label = { Text("URL") },
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                }
+        DeepLinkEditDialog(
+            deepLinkToEdit = deepLinkToEdit,
+            onSave = { updatedDeepLink ->
+                viewModel.updateDeepLinkUrl(updatedDeepLink)
+                viewModel.clearEditDeepLink()
+                viewModel.hideBottomSheet()
             },
-            confirmButton = {
-                Button(
-                    onClick = {
-                        viewModel.updateDeepLinkUrl(
-                            deepLinkToEdit.copy(
-                                title = editedTitle,
-                                url = editedUrl
-                            )
-                        )
-                        viewModel.clearEditDeepLink()
-                        viewModel.hideBottomSheet()
-                    }
-                ) {
-                    Text("저장")
-                }
-            },
-            dismissButton = {
-                Button(onClick = viewModel::clearEditDeepLink) {
-                    Text("취소")
-                }
-            }
+            onDismiss = viewModel::clearEditDeepLink
         )
     }
 }
@@ -496,6 +461,50 @@ private fun DeepLinkBottomSheet(
             }
         }
     }
+}
+
+@Composable
+private fun DeepLinkEditDialog(
+    deepLinkToEdit: DeepLink,
+    onSave: (DeepLink) -> Unit,
+    onDismiss: () -> Unit
+) {
+    var editedTitle by remember { mutableStateOf(deepLinkToEdit.title) }
+    var editedUrl by remember { mutableStateOf(deepLinkToEdit.url) }
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text("딥링크 편집") },
+        text = {
+            Column {
+                TextField(
+                    value = editedTitle,
+                    onValueChange = { editedTitle = it },
+                    label = { Text("제목") },
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Spacer(modifier = Modifier.height(space8))
+                TextField(
+                    value = editedUrl,
+                    onValueChange = { editedUrl = it },
+                    label = { Text("URL") },
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+        },
+        confirmButton = {
+            Button(
+                onClick = { onSave(deepLinkToEdit.copy(title = editedTitle, url = editedUrl)) }
+            ) {
+                Text("저장")
+            }
+        },
+        dismissButton = {
+            Button(onClick = onDismiss) {
+                Text("취소")
+            }
+        }
+    )
 }
 
 @Preview

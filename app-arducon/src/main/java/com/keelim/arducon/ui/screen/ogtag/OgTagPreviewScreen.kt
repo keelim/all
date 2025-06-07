@@ -271,12 +271,6 @@ fun OgTagPreviewScreen(
                 }
             }
         }
-
-        AdBannerView(
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.BottomCenter),
-        )
     }
 }
 

@@ -36,11 +36,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.keelim.arducon.ui.component.AdBannerView
 import com.keelim.composeutil.component.icon.rememberQrCodeScanner
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space4
-import com.keelim.composeutil.resource.space8
 import com.keelim.model.DeepLink
 
 @Composable
@@ -133,13 +131,6 @@ fun MainScreen(
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
-        },
-        bottomBar = {
-            AdBannerView(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = space8),
-            )
         },
         floatingActionButton = {
             AnimatedVisibility(visible = isScrollInProgress.value.not()) {

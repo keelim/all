@@ -26,8 +26,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -324,16 +326,18 @@ fun RegisterSchemeSection(
 fun DeepLinkSection(
     favoriteItems: List<DeepLink>,
     generalItems: List<DeepLink>,
-    onUpdate: (DeepLink) -> Unit,
-    onDelete: (DeepLink) -> Unit,
     schemeList: List<String>,
     onSearch: (String, String) -> Unit,
     onRegister: (String) -> Unit,
     onDeleteScheme: (String) -> Unit,
+    onUpdate: (DeepLink) -> Unit,
+    onDelete: (DeepLink) -> Unit,
     modifier: Modifier = Modifier,
+    listState: LazyListState = rememberLazyListState(),
 ) {
     LazyColumn(
         modifier = modifier,
+        state = listState,
         verticalArrangement = Arrangement.spacedBy(space8),
     ) {
         item {
@@ -347,6 +351,7 @@ fun DeepLinkSection(
                 color = MaterialTheme.colorScheme.outlineVariant,
                 thickness = 1.dp,
             )
+
         }
         stickyHeader {
             Text(

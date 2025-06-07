@@ -4,15 +4,23 @@ package com.keelim.arducon.ui.screen.main
 
 import android.content.Intent
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
@@ -23,6 +31,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -30,19 +39,27 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import coil.compose.AsyncImage
 import com.keelim.composeutil.component.icon.rememberQrCodeScanner
 import com.keelim.composeutil.resource.space16
+import com.keelim.composeutil.resource.space24
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
 import com.keelim.model.DeepLink
+import kotlinx.datetime.Instant
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 
 @Composable
 fun MainRoute(
@@ -91,20 +108,13 @@ fun MainRoute(
     )
 
     if (showBottomSheet != DeepLink.EMPTY) {
-        val sheetState = rememberModalBottomSheetState()
-        ModalBottomSheet(
-            onDismissRequest = viewModel::hideBottomSheet,
-            sheetState = sheetState
-        ) {
-            Column(
-                modifier = Modifier.padding(space16),
-                verticalArrangement = Arrangement.spacedBy(space8)
-            ) {
-                Text(text = "딥링크 정보", style = MaterialTheme.typography.titleLarge)
-                Text(text = "제목: ${showBottomSheet.title}")
-                Text(text = "URL: ${showBottomSheet.url}")
+        DeepLinkBottomSheet(
+            deepLink = showBottomSheet,
+            onDismiss = viewModel::hideBottomSheet,
+            onUrlClick = { url ->
+                context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
             }
-        }
+        )
     }
 }
 
@@ -229,6 +239,105 @@ private fun HorizontalFloatingToolbarSection(
                 imageVector = Icons.Default.AddCircle,
                 contentDescription = "navigate saastatus",
             )
+        }
+    }
+}
+
+@Composable
+private fun DeepLinkBottomSheet(
+    deepLink: DeepLink,
+    onDismiss: () -> Unit,
+    onUrlClick: (String) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val sheetState = rememberModalBottomSheetState()
+    ModalBottomSheet(
+        onDismissRequest = onDismiss,
+        sheetState = sheetState,
+        modifier = modifier,
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(space16),
+            verticalArrangement = Arrangement.spacedBy(space8)
+        ) {
+            Text(
+                text = "딥링크 정보",
+                style = MaterialTheme.typography.headlineSmall,
+                fontWeight = FontWeight.Bold
+            )
+            Spacer(modifier = Modifier.padding(space8))
+
+            deepLink.imageUrl.takeIf { it.isNotEmpty() }?.let { imageUrl ->
+                AsyncImage(
+                    model = imageUrl,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(200.dp)
+                        .clip(MaterialTheme.shapes.medium)
+                )
+                Spacer(modifier = Modifier.padding(space8))
+            }
+
+            Text(
+                text = deepLink.title.takeIf { it.isNotEmpty() } ?: "제목 없음",
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold
+            )
+
+            Text(
+                text = deepLink.url,
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.clickable {
+                    onUrlClick(deepLink.url)
+                }
+            )
+
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(
+                    imageVector = if (deepLink.isBookMarked) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
+                    contentDescription = "즐겨찾기",
+                    tint = if (deepLink.isBookMarked) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.size(space24)
+                )
+                Spacer(modifier = Modifier.width(space8))
+                Text(
+                    text = if (deepLink.isBookMarked) "즐겨찾기 추가됨" else "즐겨찾기 아님",
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
+
+            val formattedTimestamp = remember(deepLink.timestamp) {
+                val instant = Instant.fromEpochMilliseconds(deepLink.timestamp)
+                val dateTime = instant.toLocalDateTime(TimeZone.currentSystemDefault())
+                "${dateTime.year}년 ${dateTime.monthNumber}월 ${dateTime.dayOfMonth}일 ${
+                    String.format(
+                        "%02d",
+                        dateTime.hour
+                    )
+                }:${String.format("%02d", dateTime.minute)}"
+            }
+            Text(
+                text = "생성일: $formattedTimestamp",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
+            )
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.End,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                TextButton(onClick = { /* TODO: 편집 기능 구현 */ }) {
+                    Text("편집")
+                }
+                TextButton(onClick = { /* TODO: 삭제 기능 구현 */ }) {
+                    Text("삭제")
+                }
+            }
         }
     }
 }

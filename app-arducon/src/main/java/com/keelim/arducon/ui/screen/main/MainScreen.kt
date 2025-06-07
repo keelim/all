@@ -3,6 +3,8 @@
 package com.keelim.arducon.ui.screen.main
 
 import android.content.Intent
+import android.webkit.URLUtil
+import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -23,6 +25,8 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.ThumbUp
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.HorizontalFloatingToolbar
 import androidx.compose.material3.Icon
@@ -52,6 +56,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.keelim.composeutil.component.icon.rememberQrCodeScanner
+import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space24
 import com.keelim.composeutil.resource.space4
@@ -111,9 +116,7 @@ fun MainRoute(
         DeepLinkBottomSheet(
             deepLink = showBottomSheet,
             onDismiss = viewModel::hideBottomSheet,
-            onUrlClick = { url ->
-                context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
-            }
+            onDelete = viewModel::deleteDeepLinkUrl,
         )
     }
 }
@@ -247,10 +250,11 @@ private fun HorizontalFloatingToolbarSection(
 private fun DeepLinkBottomSheet(
     deepLink: DeepLink,
     onDismiss: () -> Unit,
-    onUrlClick: (String) -> Unit,
+    onDelete: (DeepLink) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val sheetState = rememberModalBottomSheetState()
+
     ModalBottomSheet(
         onDismissRequest = onDismiss,
         sheetState = sheetState,
@@ -259,82 +263,116 @@ private fun DeepLinkBottomSheet(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(space16),
-            verticalArrangement = Arrangement.spacedBy(space8)
+                .padding(horizontal = space16, vertical = space8),
+            verticalArrangement = Arrangement.spacedBy(space12),
         ) {
-            Text(
-                text = "딥링크 정보",
-                style = MaterialTheme.typography.headlineSmall,
-                fontWeight = FontWeight.Bold
-            )
-            Spacer(modifier = Modifier.padding(space8))
+            ElevatedCard(
+                modifier = Modifier.fillMaxWidth(),
+                shape = MaterialTheme.shapes.large
+            ) {
+                Column(
+                    modifier = Modifier.padding(space16)
+                ) {
+                    deepLink.imageUrl.takeIf { it.isNotEmpty() }?.let { imageUrl ->
+                        AsyncImage(
+                            model = imageUrl,
+                            contentDescription = null,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(200.dp)
+                                .clip(MaterialTheme.shapes.medium)
+                        )
+                        Spacer(modifier = Modifier.height(space16))
+                    }
 
-            deepLink.imageUrl.takeIf { it.isNotEmpty() }?.let { imageUrl ->
-                AsyncImage(
-                    model = imageUrl,
-                    contentDescription = null,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(200.dp)
-                        .clip(MaterialTheme.shapes.medium)
-                )
-                Spacer(modifier = Modifier.padding(space8))
-            }
-
-            Text(
-                text = deepLink.title.takeIf { it.isNotEmpty() } ?: "제목 없음",
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
-            )
-
-            Text(
-                text = deepLink.url,
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.clickable {
-                    onUrlClick(deepLink.url)
-                }
-            )
-
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(
-                    imageVector = if (deepLink.isBookMarked) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
-                    contentDescription = "즐겨찾기",
-                    tint = if (deepLink.isBookMarked) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.size(space24)
-                )
-                Spacer(modifier = Modifier.width(space8))
-                Text(
-                    text = if (deepLink.isBookMarked) "즐겨찾기 추가됨" else "즐겨찾기 아님",
-                    style = MaterialTheme.typography.bodyMedium
-                )
-            }
-
-            val formattedTimestamp = remember(deepLink.timestamp) {
-                val instant = Instant.fromEpochMilliseconds(deepLink.timestamp)
-                val dateTime = instant.toLocalDateTime(TimeZone.currentSystemDefault())
-                "${dateTime.year}년 ${dateTime.monthNumber}월 ${dateTime.dayOfMonth}일 ${
-                    String.format(
-                        "%02d",
-                        dateTime.hour
+                    Text(
+                        text = deepLink.title.takeIf { it.isNotEmpty() } ?: "제목 없음",
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onSurface
                     )
-                }:${String.format("%02d", dateTime.minute)}"
+                    Spacer(modifier = Modifier.height(space8))
+
+                    val context = LocalContext.current
+                    Text(
+                        text = deepLink.url,
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.clickable {
+                            if (URLUtil.isValidUrl(deepLink.url)) {
+                                context.startActivity(
+                                    Intent(
+                                        Intent.ACTION_VIEW,
+                                        deepLink.url.toUri()
+                                    )
+                                )
+                            } else {
+                                Toast.makeText(context, "유효하지 않은 URL입니다.", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+                        }
+                    )
+                }
             }
-            Text(
-                text = "생성일: $formattedTimestamp",
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
-            )
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.End,
+                horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                TextButton(onClick = { /* TODO: 편집 기능 구현 */ }) {
-                    Text("편집")
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        imageVector = if (deepLink.isBookMarked) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
+                        contentDescription = "즐겨찾기",
+                        tint = if (deepLink.isBookMarked) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.size(space24)
+                    )
+                    Spacer(modifier = Modifier.width(space8))
+                    Text(
+                        text = if (deepLink.isBookMarked) "즐겨찾기 추가됨" else "즐겨찾기 아님",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
                 }
-                TextButton(onClick = { /* TODO: 삭제 기능 구현 */ }) {
+
+                val formattedTimestamp = remember(deepLink.timestamp) {
+                    val instant = Instant.fromEpochMilliseconds(deepLink.timestamp)
+                    val dateTime = instant.toLocalDateTime(TimeZone.currentSystemDefault())
+                    "${dateTime.year}년 ${dateTime.monthNumber}월 ${dateTime.dayOfMonth}일 ${
+                        String.format(
+                            "%02d",
+                            dateTime.hour
+                        )
+                    }:${String.format("%02d", dateTime.minute)}"
+                }
+                Text(
+                    text = "생성일: $formattedTimestamp",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
+                )
+            }
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceAround,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                // OutlinedButton(
+                //     onClick = { /* TODO: 편집 기능 구현 */ },
+                //     modifier = Modifier.weight(1f),
+                //     shape = RoundedCornerShape(8.dp)
+                // ) {
+                //     Text("편집")
+                // }
+                // Spacer(modifier = Modifier.width(space16))
+                TextButton(
+                    onClick = {
+                        onDelete(deepLink)
+                        onDismiss()
+                    },
+                    modifier = Modifier.weight(1f),
+                    colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)
+                ) {
                     Text("삭제")
                 }
             }

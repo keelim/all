@@ -15,6 +15,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -26,8 +27,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -41,6 +44,7 @@ import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -55,6 +59,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space32
@@ -322,14 +327,34 @@ fun RegisterSchemeSection(
 fun DeepLinkSection(
     favoriteItems: List<DeepLink>,
     generalItems: List<DeepLink>,
+    schemeList: List<String>,
+    onSearch: (String, String) -> Unit,
+    onRegister: (String) -> Unit,
+    onDeleteScheme: (String) -> Unit,
     onUpdate: (DeepLink) -> Unit,
     onDelete: (DeepLink) -> Unit,
+    onItemLongClick: (DeepLink) -> Unit,
     modifier: Modifier = Modifier,
+    listState: LazyListState = rememberLazyListState(),
 ) {
     LazyColumn(
         modifier = modifier,
+        state = listState,
         verticalArrangement = Arrangement.spacedBy(space8),
     ) {
+        item {
+            MainTopSection(
+                schemeList = schemeList,
+                onSearch = onSearch,
+                onRegister = onRegister,
+                onDelete = onDeleteScheme,
+            )
+            HorizontalDivider(
+                color = MaterialTheme.colorScheme.outlineVariant,
+                thickness = 1.dp,
+            )
+
+        }
         stickyHeader {
             Text(
                 text = "Favorite",
@@ -362,6 +387,7 @@ fun DeepLinkSection(
                 },
                 onUpdate = onUpdate,
                 onDelete = onDelete,
+                onItemLongClick = onItemLongClick,
                 modifier = Modifier.animateItem(
                     placementSpec = tween(
                         durationMillis = 500,
@@ -402,6 +428,7 @@ fun DeepLinkSection(
                 },
                 onUpdate = onUpdate,
                 onDelete = onDelete,
+                onItemLongClick = onItemLongClick,
                 modifier = Modifier.animateItem(
                     placementSpec = tween(
                         durationMillis = 500,
@@ -419,10 +446,18 @@ private fun DeepLinkItem(
     onPlay: (String) -> Unit,
     onUpdate: (DeepLink) -> Unit,
     onDelete: (DeepLink) -> Unit,
+    onItemLongClick: (DeepLink) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Card(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .fillMaxWidth()
+            .combinedClickable(
+                onClick = {},
+                onLongClick = {
+                    onItemLongClick(deepLink)
+                }
+            ),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant,
         ),
@@ -540,7 +575,12 @@ private fun PreviewDeepLinkSection() {
                 timestamp = 232323L,
             ),
         ),
-        onDelete = {},
         onUpdate = {},
+        onDelete = {},
+        schemeList = emptyList(),
+        onSearch = { _, _ -> },
+        onRegister = {},
+        onDeleteScheme = {},
+        onItemLongClick = {},
     )
 }

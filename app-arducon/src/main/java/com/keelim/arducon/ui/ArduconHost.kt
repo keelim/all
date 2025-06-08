@@ -3,7 +3,6 @@
 package com.keelim.arducon.ui
 
 import android.content.Intent
-import android.net.Uri
 import androidx.compose.animation.ContentTransform
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -14,6 +13,7 @@ import androidx.compose.material3.SheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.core.net.toUri
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.entry
 import androidx.navigation3.runtime.entryProvider
@@ -46,6 +46,7 @@ fun ArduConHost(
     val motionScheme = MaterialTheme.motionScheme
 
     NavDisplay(
+        modifier = modifier,
         backStack = backStack,
         onBack = { backStack.removeLastOrNull() },
         entryDecorators = listOf(
@@ -95,7 +96,7 @@ fun ArduConHost(
                             if (onShowSnackbar(barcode, ">")) {
                                 Intent(
                                     Intent.ACTION_VIEW,
-                                    Uri.parse(barcode),
+                                    barcode.toUri(),
                                 ).let { context.startActivity(it) }
                             }
                         }

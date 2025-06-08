@@ -5,10 +5,17 @@ package com.keelim.arducon.ui.screen.main
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -16,13 +23,14 @@ import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -32,10 +40,10 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -47,13 +55,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.keelim.composeutil.resource.space2
-import com.keelim.composeutil.resource.space24
+import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space32
+import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space64
 import com.keelim.composeutil.resource.space8
 import com.keelim.model.DeepLink
@@ -69,20 +79,21 @@ fun MainTopSection(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = space8),
+        verticalArrangement = Arrangement.spacedBy(space16),
     ) {
         val (text, setText) = remember { mutableStateOf("") }
         val (title, setTitle) = remember { mutableStateOf("") }
         val (isError, setError) = remember { mutableStateOf(false) }
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
+
+        Column(
+            verticalArrangement = Arrangement.spacedBy(space8),
         ) {
             TextField(
-                modifier = Modifier.weight(1f),
+                modifier = Modifier.fillMaxWidth(),
                 value = text,
                 isError = isError,
                 onValueChange = setText,
-                label = { Text("please write your deeplink") },
+                label = { Text("Deeplink URL") },
                 trailingIcon = {
                     if (text.isNotEmpty()) {
                         Icon(
@@ -108,55 +119,30 @@ fun MainTopSection(
                     },
                 ),
             )
-            Spacer(
-                modifier = Modifier.width(space8),
-            )
-            Icon(
-                imageVector = Icons.Default.Search,
-                modifier = Modifier
-                    .size(space32)
-                    .clickable {
-                        if (text.isEmpty()) {
-                            setError(true)
-                        } else {
-                            setError(false)
-                            onSearch(text, title)
-                        }
-                    },
-                contentDescription = "Search",
+
+            TextField(
+                modifier = Modifier.fillMaxWidth(),
+                value = title,
+                isError = isError,
+                onValueChange = setTitle,
+                label = { Text("Title") },
+                trailingIcon = {
+                    if (title.isNotEmpty()) {
+                        Icon(
+                            imageVector = Icons.Default.Delete,
+                            contentDescription = "Clear",
+                            modifier = Modifier.clickable {
+                                setTitle("")
+                            },
+                        )
+                    }
+                },
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Done,
+                ),
             )
         }
-        Spacer(
-            modifier = Modifier.height(space8),
-        )
-        TextField(
-            modifier = Modifier.fillMaxWidth(),
-            value = title,
-            isError = isError,
-            onValueChange = setTitle,
-            label = { Text("please write title") },
-            trailingIcon = {
-                if (title.isNotEmpty()) {
-                    Icon(
-                        imageVector = Icons.Default.Delete,
-                        contentDescription = "Clear",
-                        modifier = Modifier.clickable {
-                            setTitle("")
-                        },
-                    )
-                }
-            },
-            keyboardOptions = KeyboardOptions(
-                imeAction = ImeAction.Done,
-            ),
-        )
-        Spacer(
-            modifier = Modifier.height(space24),
-        )
-        HorizontalDivider()
-        Spacer(
-            modifier = Modifier.height(space24),
-        )
+
         RegisterSchemeSection(
             schemeList = schemeList,
             setError = setError,
@@ -179,66 +165,66 @@ fun RegisterSchemeSection(
     val (scheme, setScheme) = remember { mutableStateOf("") }
     val (isExpanded, setIsExpanded) = remember { mutableStateOf(false) }
 
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        TextField(
-            modifier = Modifier.weight(1f),
-            value = scheme,
-            onValueChange = setScheme,
-            label = { Text("please write your scheme") },
-            trailingIcon = {
-                if (scheme.isNotEmpty()) {
-                    Icon(
-                        imageVector = Icons.Default.Delete,
-                        contentDescription = "Clear",
-                        modifier = Modifier.clickable {
-                            setScheme("")
-                        },
-                    )
-                }
-            },
-            keyboardOptions = KeyboardOptions(
-                imeAction = ImeAction.Done,
-            ),
-            keyboardActions = KeyboardActions(
-                onDone = {
-                    if (scheme.isEmpty()) {
-                        setError(true)
-                    } else {
-                        setError(false)
-                        onRegister(scheme)
-                    }
-                },
-            ),
-        )
-        Spacer(
-            modifier = Modifier.width(space8),
-        )
-        Icon(
-            imageVector = Icons.Default.Add,
-            modifier = Modifier
-                .size(space32)
-                .clickable {
-                    if (scheme.isEmpty()) {
-                        setError(true)
-                    } else {
-                        setError(false)
-                        onRegister(scheme)
-                    }
-                },
-            contentDescription = "Register",
-        )
-    }
-    Spacer(
-        modifier = Modifier.height(space8),
-    )
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = space8),
+            .padding(horizontal = space8)
+            .animateContentSize(
+                animationSpec = tween(durationMillis = 300),
+            ),
+        verticalArrangement = Arrangement.spacedBy(space8),
     ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            TextField(
+                modifier = Modifier.weight(1f),
+                value = scheme,
+                onValueChange = setScheme,
+                label = { Text("Scheme") },
+                trailingIcon = {
+                    if (scheme.isNotEmpty()) {
+                        Icon(
+                            imageVector = Icons.Default.Delete,
+                            contentDescription = "Clear",
+                            modifier = Modifier.clickable {
+                                setScheme("")
+                            },
+                        )
+                    }
+                },
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Done,
+                ),
+                keyboardActions = KeyboardActions(
+                    onDone = {
+                        if (scheme.isEmpty()) {
+                            setError(true)
+                        } else {
+                            setError(false)
+                            onRegister(scheme)
+                        }
+                    },
+                ),
+            )
+            Spacer(modifier = Modifier.width(space8))
+            Icon(
+                imageVector = Icons.Default.Add,
+                modifier = Modifier
+                    .size(space32)
+                    .clickable {
+                        if (scheme.isEmpty()) {
+                            setError(true)
+                        } else {
+                            setError(false)
+                            onRegister(scheme)
+                        }
+                    },
+                contentDescription = "Register",
+            )
+        }
+
         if (isExpanded) {
             FlowRow(
                 modifier = Modifier.fillMaxWidth(),
@@ -246,29 +232,39 @@ fun RegisterSchemeSection(
                 horizontalArrangement = Arrangement.spacedBy(space8),
             ) {
                 schemeList.forEach { scheme ->
-                    AssistChip(
-                        onClick = {
-                            setError(false)
-                            setText("$scheme://")
-                        },
-                        label = { Text("$scheme://") },
-                        leadingIcon = {
-                            Icon(
-                                Icons.Filled.Add,
-                                contentDescription = "Add $scheme",
-                                Modifier.size(AssistChipDefaults.IconSize),
-                            )
-                        },
-                        trailingIcon = {
-                            Icon(
-                                Icons.Default.Close,
-                                contentDescription = "Delete $scheme",
-                                modifier = Modifier
-                                    .size(AssistChipDefaults.IconSize)
-                                    .clickable { onDelete(scheme) },
-                            )
-                        },
-                    )
+                    AnimatedVisibility(
+                        visible = true,
+                        enter = fadeIn(animationSpec = tween(300)) + expandVertically(
+                            animationSpec = tween(300),
+                        ),
+                        exit = fadeOut(animationSpec = tween(300)) + shrinkVertically(
+                            animationSpec = tween(300),
+                        ),
+                    ) {
+                        AssistChip(
+                            onClick = {
+                                setError(false)
+                                setText("$scheme://")
+                            },
+                            label = { Text("$scheme://") },
+                            leadingIcon = {
+                                Icon(
+                                    Icons.Filled.Add,
+                                    contentDescription = "Add $scheme",
+                                    Modifier.size(AssistChipDefaults.IconSize),
+                                )
+                            },
+                            trailingIcon = {
+                                Icon(
+                                    Icons.Default.Close,
+                                    contentDescription = "Delete $scheme",
+                                    modifier = Modifier
+                                        .size(AssistChipDefaults.IconSize)
+                                        .clickable { onDelete(scheme) },
+                                )
+                            },
+                        )
+                    }
                 }
             }
         } else {
@@ -276,33 +272,43 @@ fun RegisterSchemeSection(
                 horizontalArrangement = Arrangement.spacedBy(space8),
             ) {
                 items(schemeList) { scheme ->
-                    AssistChip(
-                        onClick = {
-                            setError(false)
-                            setText("$scheme://")
-                        },
-                        label = { Text("$scheme://") },
-                        leadingIcon = {
-                            Icon(
-                                Icons.Filled.Add,
-                                contentDescription = "Add $scheme",
-                                Modifier.size(AssistChipDefaults.IconSize),
-                            )
-                        },
-                        trailingIcon = {
-                            Icon(
-                                Icons.Default.Close,
-                                contentDescription = "Delete $scheme",
-                                modifier = Modifier
-                                    .size(AssistChipDefaults.IconSize)
-                                    .clickable { onDelete(scheme) },
-                            )
-                        },
-                    )
+                    AnimatedVisibility(
+                        visible = true,
+                        enter = fadeIn(animationSpec = tween(300)) + expandVertically(
+                            animationSpec = tween(300),
+                        ),
+                        exit = fadeOut(animationSpec = tween(300)) + shrinkVertically(
+                            animationSpec = tween(300),
+                        ),
+                    ) {
+                        AssistChip(
+                            onClick = {
+                                setError(false)
+                                setText("$scheme://")
+                            },
+                            label = { Text("$scheme://") },
+                            leadingIcon = {
+                                Icon(
+                                    Icons.Filled.Add,
+                                    contentDescription = "Add $scheme",
+                                    Modifier.size(AssistChipDefaults.IconSize),
+                                )
+                            },
+                            trailingIcon = {
+                                Icon(
+                                    Icons.Default.Close,
+                                    contentDescription = "Delete $scheme",
+                                    modifier = Modifier
+                                        .size(AssistChipDefaults.IconSize)
+                                        .clickable { onDelete(scheme) },
+                                )
+                            },
+                        )
+                    }
                 }
             }
         }
-        Spacer(modifier = Modifier.height(space8))
+
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.End,
@@ -321,22 +327,41 @@ fun RegisterSchemeSection(
 fun DeepLinkSection(
     favoriteItems: List<DeepLink>,
     generalItems: List<DeepLink>,
+    schemeList: List<String>,
+    onSearch: (String, String) -> Unit,
+    onRegister: (String) -> Unit,
+    onDeleteScheme: (String) -> Unit,
     onUpdate: (DeepLink) -> Unit,
     onDelete: (DeepLink) -> Unit,
+    onItemLongClick: (DeepLink) -> Unit,
     modifier: Modifier = Modifier,
+    listState: LazyListState = rememberLazyListState(),
 ) {
     LazyColumn(
         modifier = modifier,
+        state = listState,
         verticalArrangement = Arrangement.spacedBy(space8),
     ) {
+        item {
+            MainTopSection(
+                schemeList = schemeList,
+                onSearch = onSearch,
+                onRegister = onRegister,
+                onDelete = onDeleteScheme,
+            )
+            HorizontalDivider(
+                color = MaterialTheme.colorScheme.outlineVariant,
+                thickness = 1.dp,
+            )
+
+        }
         stickyHeader {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-            ) {
-                Text(
-                    text = "Favorite",
-                )
-            }
+            Text(
+                text = "Favorite",
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.padding(vertical = space8),
+            )
         }
         items(
             items = favoriteItems,
@@ -362,6 +387,7 @@ fun DeepLinkSection(
                 },
                 onUpdate = onUpdate,
                 onDelete = onDelete,
+                onItemLongClick = onItemLongClick,
                 modifier = Modifier.animateItem(
                     placementSpec = tween(
                         durationMillis = 500,
@@ -371,13 +397,12 @@ fun DeepLinkSection(
             )
         }
         stickyHeader {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-            ) {
-                Text(
-                    text = "General",
-                )
-            }
+            Text(
+                text = "General",
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.padding(vertical = space8),
+            )
         }
         items(
             items = generalItems,
@@ -403,6 +428,7 @@ fun DeepLinkSection(
                 },
                 onUpdate = onUpdate,
                 onDelete = onDelete,
+                onItemLongClick = onItemLongClick,
                 modifier = Modifier.animateItem(
                     placementSpec = tween(
                         durationMillis = 500,
@@ -420,78 +446,95 @@ private fun DeepLinkItem(
     onPlay: (String) -> Unit,
     onUpdate: (DeepLink) -> Unit,
     onDelete: (DeepLink) -> Unit,
+    onItemLongClick: (DeepLink) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Card(
         modifier = modifier
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .combinedClickable(
+                onClick = {},
+                onLongClick = {
+                    onItemLongClick(deepLink)
+                }
+            ),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant,
+        ),
     ) {
-        Row {
+        Row(
+            modifier = Modifier.padding(space8),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
             if (deepLink.imageUrl.isEmpty()) {
                 Icon(
                     imageVector = Icons.Default.Close,
                     modifier = Modifier
-                        .size(space64),
+                        .size(space64)
+                        .padding(space8),
                     contentDescription = "",
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             } else {
                 AsyncImage(
                     model = deepLink.imageUrl,
                     modifier = Modifier
-                        .size(space64),
+                        .size(space64)
+                        .clip(MaterialTheme.shapes.medium),
                     contentDescription = null,
                 )
             }
             Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(space8),
+                    .weight(1f)
+                    .padding(horizontal = space8),
+                verticalArrangement = Arrangement.spacedBy(space4),
             ) {
                 if (deepLink.title.isNotEmpty()) {
                     Text(
                         text = deepLink.title,
-                        style = MaterialTheme.typography.headlineSmall,
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                 }
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Text(
-                        text = deepLink.url,
-                        modifier = Modifier.weight(1f),
-                    )
-                    Spacer(
-                        modifier = Modifier.width(space8),
-                    )
-                    AnimatedContent(
-                        targetState = deepLink.isBookMarked,
-                        label = "bookmark",
-                    ) { targetState ->
-                        Icon(
-                            imageVector = if (targetState) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
-                            contentDescription = "bookmark",
-                            modifier = Modifier.clickable {
-                                onUpdate(deepLink)
-                            },
-                        )
-                    }
-                    Spacer(
-                        modifier = Modifier.width(space2),
-                    )
+                Text(
+                    text = deepLink.url,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
+                )
+            }
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(space4),
+            ) {
+                AnimatedContent(
+                    targetState = deepLink.isBookMarked,
+                    label = "bookmark",
+                ) { targetState ->
                     Icon(
-                        imageVector = Icons.Default.PlayArrow,
-                        contentDescription = "play",
-                        modifier = Modifier.clickable { onPlay(deepLink.url) },
-                    )
-                    Spacer(
-                        modifier = Modifier.width(space2),
-                    )
-                    Icon(
-                        imageVector = Icons.Default.Delete,
-                        contentDescription = "delete",
-                        modifier = Modifier.clickable { onDelete(deepLink) },
+                        imageVector = if (targetState) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
+                        contentDescription = "bookmark",
+                        modifier = Modifier
+                            .size(space32)
+                            .clickable { onUpdate(deepLink) },
+                        tint = if (targetState) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                 }
+                Icon(
+                    imageVector = Icons.Default.PlayArrow,
+                    contentDescription = "play",
+                    modifier = Modifier
+                        .size(space32)
+                        .clickable { onPlay(deepLink.url) },
+                    tint = MaterialTheme.colorScheme.primary,
+                )
+                Icon(
+                    imageVector = Icons.Default.Delete,
+                    contentDescription = "delete",
+                    modifier = Modifier
+                        .size(space32)
+                        .clickable { onDelete(deepLink) },
+                    tint = MaterialTheme.colorScheme.error,
+                )
             }
         }
     }
@@ -532,7 +575,12 @@ private fun PreviewDeepLinkSection() {
                 timestamp = 232323L,
             ),
         ),
-        onDelete = {},
         onUpdate = {},
+        onDelete = {},
+        schemeList = emptyList(),
+        onSearch = { _, _ -> },
+        onRegister = {},
+        onDeleteScheme = {},
+        onItemLongClick = {},
     )
 }

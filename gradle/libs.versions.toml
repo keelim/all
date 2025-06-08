@@ -2,26 +2,27 @@
 # project
 compileSdk = "36"
 minSdk = "26"
-targetSdk = "34"
-versionCode = "20250517"
+targetSdk = "36"
+versionCode = "20250601"
 # library
 accompanist = "0.37.3"
 androidDesugarJdkLibs = "2.1.5"
-androidGradlePlugin = "8.10.0"
+androidGradlePlugin = "8.10.1"
 androidxActivity = "1.10.1"
-androidxAppCompat = "1.7.0"
-androidxComposeBom = "2025.05.01"
+androidxAppCompat = "1.7.1"
+androidxComposeBom = "2025.06.00"
 androidxComposeRuntimeTracing = "1.8.2"
 androidxCore = "1.16.0"
 androidxCoreSplashscreen = "1.0.1"
 androidxDataStore = "1.1.7"
 androidxEspresso = "3.6.1"
-androidxFragment = "1.8.7"
+androidxFragment = "1.8.8"
 androidxHiltNavigationCompose = "1.2.0"
-androidxLifecycle = "2.9.0"
+androidxLifecycle = "2.9.1"
 androidxMacroBenchmark = "1.3.4"
-androidxMetrics = "1.0.0-beta02"
+androidxMetrics = "1.0.0-SNAPSHOT"
 androidxNavigation = "2.9.0"
+androidxNavigation3 = "1.0.0-SNAPSHOT"
 androidxPaging = "3.3.6"
 androidxProfileinstaller = "1.4.1"
 androidxStartup = "1.2.0"
@@ -33,6 +34,7 @@ androidxTracing = "1.3.0"
 androidxUiAutomator = "2.3.0"
 androidxWindowManager = "1.4.0"
 androidxWork = "2.10.1"
+androidx-sqlite = "2.5.1"
 arrow = "2.1.2"
 bio = "1.1.0"
 coil = "2.7.0"
@@ -40,18 +42,18 @@ compose-multiplatform = "1.8.1"
 circuit = "0.28.0"
 deeplinkdispatch = "6.2.2"
 dependencyGuard = "0.5.0"
-dependency-analysis = "2.17.0"
+dependency-analysis = "2.18.0"
 emoji2-emojipicker = "1.5.0"
 errorprone = "2.38.0"
-firebase = "33.14.0"
+firebase = "33.15.0"
 firebase-ui = "9.0.0"
-firebaseCrashlyticsPlugin = "3.0.3"
+firebaseCrashlyticsPlugin = "3.0.4"
 firebasePerfPlugin = "1.4.2"
 flipper = "0.273.0"
 generativeai = "0.9.0"
 glanceExperimentalTools = "0.2.2"
 glance = "1.1.1"
-haze = "1.6.2"
+haze = "1.6.4"
 hilt = "2.56.2"
 hiltExt = "1.2.0"
 in-app-update = "2.1.0"
@@ -67,7 +69,7 @@ kotlinxSerializationJson = "1.8.1"
 ksp = "2.1.21-2.0.1"
 ktor = "3.1.3"
 leakcanary = "2.14"
-lint = "31.10.0"
+lint = "31.10.1"
 lottie = "6.6.6"
 maps = "5.2.0"
 maps-compose = "6.6.0"
@@ -76,7 +78,7 @@ media3 = "1.7.1"
 modernstorageBom = "1.0.0-alpha06"
 moduleGraphAssertion = "2.8.0"
 okhttp = "4.12.0"
-okio = "3.11.0"
+okio = "3.12.0"
 paging-compose = "3.3.6"
 play-services-auth = "21.3.0"
 play-services-code-scanner = "16.1.0"
@@ -88,12 +90,12 @@ playoss = "17.1.0"
 playoss-plugin = "0.10.6"
 preference = "1.2.1"
 preferenceKtx = "1.2.1"
-protobuf = "4.31.0"
+protobuf = "4.31.1"
 protobufPlugin = "0.9.5"
 retrofit = "3.0.0"
 retrofitKotlinxSerializationJson = "1.0.0"
 robolectric = "4.14.1"
-roborazzi = "1.43.1"
+roborazzi = "1.44.0"
 room = "2.7.1"
 secrets = "2.0.1"
 showkase = "1.0.3"
@@ -128,7 +130,7 @@ androidx-compose-foundation-layout = { group = "androidx.compose.foundation", na
 androidx-compose-glance-widget = { group = "androidx.glance", name = "glance-appwidget", version.ref = "glance" }
 androidx-compose-glance = { group = "androidx.glance", name = "glance", version.ref = "glance" }
 androidx-compose-glance-material3 = { group = "androidx.glance", name = "glance-material3", version.ref = "glance" }
-androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3", version = "1.4.0-alpha15" }
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3", version = "1.4.0-SNAPSHOT" }
 androidx-compose-material = { group = "androidx.compose.material", name = "material-icons-core" }
 androidx-compose-material3-navigationSuite = { group = "androidx.compose.material3", name = "material3-adaptive-navigation-suite" }
 androidx-compose-material3-adaptive = { group = "androidx.compose.material3.adaptive", name = "adaptive" }
@@ -164,6 +166,7 @@ androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecy
 androidx-lifecycle-process = { group = "androidx.lifecycle", name = "lifecycle-process", version.ref = "androidxLifecycle" }
 androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidxLifecycle" }
 androidx-lifecycle-rutime = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
+androidx-lifecycle-viewmodel-navigation3 = { module = "androidx.lifecycle:lifecycle-viewmodel-navigation3", version.ref = "androidxNavigation3" }
 androidx-lifecycle-viewModel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "androidxLifecycle" }
 androidx-lifecycle-viewModelCompose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "androidxLifecycle" }
 androidx-metrics = { group = "androidx.metrics", name = "metrics-performance", version.ref = "androidxMetrics" }
@@ -171,12 +174,15 @@ androidx-navigation-compose = { group = "androidx.navigation", name = "navigatio
 androidx-navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "androidxNavigation" }
 androidx-navigation-testing = { group = "androidx.navigation", name = "navigation-testing", version.ref = "androidxNavigation" }
 androidx-navigation-ui = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "androidxNavigation" }
+androidx-navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "androidxNavigation3" }
+androidx-navigation3-ui = { module = "androidx.navigation3:navigation3-ui", version.ref = "androidxNavigation3" }
 androidx-paging-common = { group = "androidx.paging", name = "paging-common-ktx", version.ref = "androidxPaging" }
 androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "paging-compose" }
 androidx-paging-runtime = { group = "androidx.paging", name = "paging-runtime-ktx", version.ref = "androidxPaging" }
 androidx-preference-ktx = { module = "androidx.preference:preference-ktx", version.ref = "preferenceKtx" }
 androidx-profileinstaller = { group = "androidx.profileinstaller", name = "profileinstaller", version.ref = "androidxProfileinstaller" }
 androidx-startup = { group = "androidx.startup", name = "startup-runtime", version.ref = "androidxStartup" }
+androidx-sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "androidx-sqlite" }
 androidx-test-core = { group = "androidx.test", name = "core", version.ref = "androidxTestCore" }
 androidx-test-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "androidxEspresso" }
 androidx-test-ext = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "androidxTestExt" }
@@ -289,7 +295,6 @@ robolectric-shadows = { group = "org.robolectric", name = "shadows-framework", v
 roborazzi = { group = "io.github.takahirom.roborazzi", name = "roborazzi", version.ref = "roborazzi" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 room-gradlePlugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "room" }
-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room-testing = { group = "androidx.room", name = "room-testing", version.ref = "room" }
 showkase = { group = "com.airbnb.android", name = "showkase", version.ref = "showkase" }

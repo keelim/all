@@ -6,4 +6,14 @@ data class DeepLink(
     val isBookMarked: Boolean = false,
     val title: String = "",
     val imageUrl: String = "",
-)
+) {
+    companion object {
+        val EMPTY = DeepLink(
+            url = "",
+            timestamp = 0L,
+            isBookMarked = false,
+            title = "",
+            imageUrl = "",
+        )
+    }
+}

@@ -25,12 +25,9 @@ android {
 }
 
 dependencies {
-
     implementation(projects.core.commonAndroid)
-
     implementation(projects.core.data)
     implementation(projects.core.navigation)
-
     implementation(projects.widget)
 
     implementation(libs.androidx.activity.compose)
@@ -39,16 +36,15 @@ dependencies {
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.rutime)
-    implementation(libs.androidx.navigation.compose)
-    implementation(platform(libs.coil.bom))
-    implementation(libs.bundles.coil)
+    implementation(libs.androidx.lifecycle.viewmodel.navigation3)
+    implementation(libs.androidx.navigation3.runtime)
+    implementation(libs.androidx.navigation3.ui)
     implementation(libs.haze)
     implementation(libs.kotlinx.coroutines.play.services)
     implementation(libs.kotlinx.datetime)
     implementation(libs.play.services.ad)
     implementation(libs.timber)
 
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.database)
-    implementation(libs.firebase.firestore)
+    implementation(platform(libs.coil.bom))
+    implementation(libs.bundles.coil)
 }

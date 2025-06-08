@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.keelim.android.application)
     alias(libs.plugins.keelim.android.application.compose)
+    alias(libs.plugins.keelim.android.application.firebase)
     alias(libs.plugins.keelim.android.application.jacoco)
     alias(libs.plugins.keelim.android.hilt)
 }
@@ -12,9 +13,6 @@ android {
 
     useLibrary("android.test.mock")
     namespace = "com.keelim.arducon"
-    buildFeatures {
-        dataBinding = true
-    }
 }
 
 dependencies {
@@ -31,13 +29,14 @@ dependencies {
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.lifecycle.process)
     implementation(libs.androidx.lifecycle.runtime.compose)
-    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.navigation3)
+    implementation(libs.androidx.navigation3.runtime)
+    implementation(libs.androidx.navigation3.ui)
     implementation(libs.androidx.profileinstaller)
     implementation(platform(libs.coil.bom))
     implementation(libs.bundles.coil)
     implementation(libs.play.services.ad)
     implementation(libs.play.services.code.scanner)
-    implementation(libs.play.services.oss)
     implementation(libs.timber)
     implementation(libs.jsoup)
 }

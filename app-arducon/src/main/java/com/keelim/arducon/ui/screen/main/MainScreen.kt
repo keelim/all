@@ -3,48 +3,80 @@
 package com.keelim.arducon.ui.screen.main
 
 import android.content.Intent
-import android.net.Uri
+import android.webkit.URLUtil
+import android.widget.Toast
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.AddCircle
-import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.ThumbUp
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.FloatingActionButtonMenu
-import androidx.compose.material3.FloatingActionButtonMenuItem
-import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.HorizontalFloatingToolbar
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.ToggleFloatingActionButton
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TooltipBox
+import androidx.compose.material3.TooltipDefaults
+import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.material3.rememberTooltipState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.keelim.arducon.ui.component.AdBannerView
+import coil.compose.AsyncImage
 import com.keelim.composeutil.component.icon.rememberQrCodeScanner
+import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space16
+import com.keelim.composeutil.resource.space24
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
 import com.keelim.model.DeepLink
+import kotlinx.datetime.Instant
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 
 @Composable
 fun MainRoute(
@@ -58,6 +90,8 @@ fun MainRoute(
     val schemeList by viewModel.schemeList.collectAsStateWithLifecycle()
     val items by viewModel.deepLinkList.collectAsStateWithLifecycle()
     val isSearched = viewModel.onClickSearch.collectAsStateWithLifecycle()
+    val showBottomSheet by viewModel.showBottomSheet.collectAsStateWithLifecycle()
+    val editDeepLink by viewModel.editDeepLink.collectAsStateWithLifecycle()
 
     val context = LocalContext.current
     LaunchedEffect(isSearched.value) {
@@ -65,7 +99,7 @@ fun MainRoute(
         try {
             Intent(
                 Intent.ACTION_VIEW,
-                Uri.parse(isSearched.value),
+                isSearched.value.toUri(),
             ).let { context.startActivity(it) }
             viewModel.clear()
         } catch (throwable: Throwable) {
@@ -82,6 +116,7 @@ fun MainRoute(
         onSearch = viewModel::onClickSearch,
         onUpdate = viewModel::updateDeepLinkUrl,
         onDelete = viewModel::deleteDeepLinkUrl,
+        onItemLongClick = viewModel::onItemLongClick,
         onQrCodeClick = onQrCodeClick,
         onNavigateSearch = onNavigateSearch,
         onRegister = viewModel::onRegister,
@@ -89,6 +124,27 @@ fun MainRoute(
         onNavigateOgTagPreview = onNavigateOgTagPreview,
         onDeleteScheme = viewModel::deleteScheme,
     )
+
+    if (showBottomSheet != DeepLink.EMPTY) {
+        DeepLinkBottomSheet(
+            deepLink = showBottomSheet,
+            onDismiss = viewModel::hideBottomSheet,
+            onDelete = viewModel::deleteDeepLinkUrl,
+            onEdit = viewModel::onEditDeepLink,
+        )
+    }
+
+    editDeepLink?.let { deepLinkToEdit ->
+        DeepLinkEditDialog(
+            deepLinkToEdit = deepLinkToEdit,
+            onSave = { updatedDeepLink ->
+                viewModel.updateDeepLinkUrl(updatedDeepLink)
+                viewModel.clearEditDeepLink()
+                viewModel.hideBottomSheet()
+            },
+            onDismiss = viewModel::clearEditDeepLink
+        )
+    }
 }
 
 @Composable
@@ -99,6 +155,7 @@ fun MainScreen(
     onSearch: (String, String) -> Unit,
     onUpdate: (DeepLink) -> Unit,
     onDelete: (DeepLink) -> Unit,
+    onItemLongClick: (DeepLink) -> Unit,
     onQrCodeClick: () -> Unit,
     onNavigateSearch: () -> Unit,
     onRegister: (String) -> Unit,
@@ -106,136 +163,347 @@ fun MainScreen(
     onNavigateOgTagPreview: () -> Unit,
     onDeleteScheme: (String) -> Unit,
 ) {
-    Column(
+    val listState = rememberLazyListState()
+    val isScrollInProgress = remember {
+        derivedStateOf {
+            listState.isScrollInProgress || listState.canScrollForward.not()
+        }
+    }
+    Scaffold(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = space8, vertical = space8),
-        verticalArrangement = Arrangement.spacedBy(space8),
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
+            .padding(horizontal = space16),
+        topBar = {
             Column(
-                modifier = Modifier.weight(1f),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = space16),
                 verticalArrangement = Arrangement.spacedBy(space4),
             ) {
                 Text(
                     text = "Arducon",
-                    style = MaterialTheme.typography.titleLarge.copy(
+                    style = MaterialTheme.typography.headlineMedium.copy(
                         fontWeight = FontWeight.Bold,
                     ),
+                    color = MaterialTheme.colorScheme.primary,
                 )
                 Text(
                     text = "Deeplink Tester",
                     style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
-        }
-
-        MainTopSection(
-            schemeList = schemeList,
-            onSearch = onSearch,
-            onRegister = onRegister,
-            onDelete = onDeleteScheme,
-        )
-        AdBannerView(
-            modifier = Modifier
-                .fillMaxWidth(),
-        )
-        HorizontalDivider()
+        },
+        floatingActionButton = {
+            AnimatedVisibility(visible = isScrollInProgress.value.not()) {
+                HorizontalFloatingToolbarSection(
+                    onNavigateOgTagPreview = onNavigateOgTagPreview,
+                    onQrCodeClick = onQrCodeClick,
+                    onNavigateSearch = onNavigateSearch,
+                    onNavigateSaastatus = onNavigateSaastatus,
+                )
+            }
+        },
+    ) { paddingValues ->
         DeepLinkSection(
+            schemeList = schemeList,
             favoriteItems = favoriteItems,
             generalItems = generalItems,
+            onSearch = onSearch,
+            onRegister = onRegister,
+            onDeleteScheme = onDeleteScheme,
             onUpdate = onUpdate,
             onDelete = onDelete,
+            onItemLongClick = onItemLongClick,
             modifier = Modifier
-                .weight(1f)
-                .fillMaxWidth(),
-        )
-        FloatingSection(
-            onNavigateOgTagPreview = onNavigateOgTagPreview,
-            onQrCodeClick = onQrCodeClick,
-            onNavigateSearch = onNavigateSearch,
-            onNavigateSaastatus = onNavigateSaastatus
+                .fillMaxSize()
+                .padding(paddingValues = paddingValues),
+            listState = listState
         )
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun FloatingSection(
+private fun HorizontalFloatingToolbarSection(
     onNavigateOgTagPreview: () -> Unit,
     onQrCodeClick: () -> Unit,
     onNavigateSearch: () -> Unit,
-    onNavigateSaastatus: () -> Unit
+    onNavigateSaastatus: () -> Unit,
 ) {
     val (isExpanded, setIsExpanded) = remember { mutableStateOf(false) }
 
-    Box(
-        modifier = Modifier.fillMaxSize(),
+    HorizontalFloatingToolbar(
+        expanded = isExpanded
     ) {
-        FloatingActionButtonMenu(
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(bottom = space16, end = space16),
-            expanded = isExpanded,
-            button = {
-                ToggleFloatingActionButton(
-                    checked = isExpanded,
-                    onCheckedChange = setIsExpanded,
-                    content = {
-                        Icon(
-                            imageVector = if (isExpanded) Icons.Default.Close else Icons.Default.Add,
-                            contentDescription = if (isExpanded) "Close" else "Open",
-                        )
-                    }
-                )
-            },
-        ) {
-            FloatingActionButtonMenuItem(
-                onClick = onNavigateOgTagPreview,
-                icon = {
+        TooltipIcon(
+            tooltipText = "OG Tag Preview",
+            content = {
+                IconButton(
+                    onClick = onNavigateOgTagPreview,
+                ) {
                     Icon(
                         imageVector = Icons.Default.ThumbUp,
                         contentDescription = "OG Tag Preview",
                     )
-                },
-                text = { Text("OG Tag Preview") },
-            )
-            FloatingActionButtonMenuItem(
-                onClick = onQrCodeClick,
-                icon = {
+                }
+            }
+        )
+        TooltipIcon(
+            tooltipText = "QR Code Scanner",
+            content = {
+                IconButton(
+                    onClick = onQrCodeClick,
+                ) {
                     Icon(
                         imageVector = rememberQrCodeScanner(
                             tintColor = if (isSystemInDarkTheme()) Color.White else Color.Black,
                         ),
                         contentDescription = "QR Code Scanner",
                     )
-                },
-                text = { Text("QR Code Scanner") },
-            )
-            FloatingActionButtonMenuItem(
-                onClick = onNavigateSearch,
-                icon = {
+                }
+            }
+        )
+        TooltipIcon(
+            tooltipText = "Search",
+            content = {
+                IconButton(
+                    onClick = onNavigateSearch,
+                ) {
                     Icon(
                         imageVector = Icons.Default.Search,
                         contentDescription = "Search",
                     )
-                },
-                text = { Text("Search") },
-            )
-            FloatingActionButtonMenuItem(
-                onClick = onNavigateSaastatus,
-                icon = {
+                }
+            }
+        )
+        TooltipIcon(
+            tooltipText = "Navigate Saastatus",
+            content = {
+                IconButton(
+                    onClick = onNavigateSaastatus,
+                ) {
                     Icon(
                         imageVector = Icons.Default.AddCircle,
                         contentDescription = "navigate saastatus",
                     )
-                },
-                text = { Text("SaaStatus") },
-            )
+                }
+            }
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun TooltipIcon(
+    tooltipText: String,
+    content: @Composable () -> Unit
+) {
+    TooltipBox(
+        positionProvider = TooltipDefaults.rememberTooltipPositionProvider(),
+        tooltip = {
+            Surface(
+                color = MaterialTheme.colorScheme.surfaceVariant,
+                shape = MaterialTheme.shapes.small,
+                tonalElevation = 4.dp
+            ) {
+                Text(
+                    text = tooltipText,
+                    modifier = Modifier.padding(horizontal = space8, vertical = space4),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+        },
+        state = rememberTooltipState()
+    ) {
+        content()
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun DeepLinkBottomSheet(
+    deepLink: DeepLink,
+    onDismiss: () -> Unit,
+    onDelete: (DeepLink) -> Unit,
+    onEdit: (DeepLink) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val sheetState = rememberModalBottomSheetState(
+        skipPartiallyExpanded = true
+    )
+    LaunchedEffect(Unit) {
+        sheetState.show()
+    }
+
+    ModalBottomSheet(
+        onDismissRequest = onDismiss,
+        sheetState = sheetState,
+        modifier = modifier,
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.5f)
+                .padding(horizontal = space16, vertical = space8),
+            verticalArrangement = Arrangement.spacedBy(space8),
+        ) {
+            val context = LocalContext.current
+            ElevatedCard(
+                modifier = Modifier.fillMaxWidth(),
+                shape = MaterialTheme.shapes.large
+            ) {
+                Column(
+                    modifier = Modifier.padding(space12)
+                ) {
+                    deepLink.imageUrl.takeIf { it.isNotEmpty() }?.let { imageUrl ->
+                        AsyncImage(
+                            model = imageUrl,
+                            contentDescription = null,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(120.dp)
+                                .clip(MaterialTheme.shapes.medium)
+                        )
+                        Spacer(modifier = Modifier.height(space12))
+                    }
+
+                    Text(
+                        text = deepLink.title.takeIf { it.isNotEmpty() } ?: "제목 없음",
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                    Spacer(modifier = Modifier.height(space4))
+                    Text(
+                        text = deepLink.url,
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.clickable {
+                            if (URLUtil.isValidUrl(deepLink.url)) {
+                                context.startActivity(
+                                    Intent(
+                                        Intent.ACTION_VIEW,
+                                        deepLink.url.toUri()
+                                    )
+                                )
+                            } else {
+                                Toast.makeText(context, "유효하지 않은 URL입니다.", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+                        }
+                    )
+                }
+            }
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        imageVector = if (deepLink.isBookMarked) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
+                        contentDescription = "즐겨찾기",
+                        tint = if (deepLink.isBookMarked) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.size(space24)
+                    )
+                    Spacer(modifier = Modifier.width(space8))
+                    Text(
+                        text = if (deepLink.isBookMarked) "즐겨찾기 추가됨" else "즐겨찾기 아님",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+
+                val formattedTimestamp = remember(deepLink.timestamp) {
+                    val instant = Instant.fromEpochMilliseconds(deepLink.timestamp)
+                    val dateTime = instant.toLocalDateTime(TimeZone.currentSystemDefault())
+                    "${dateTime.year}년 ${dateTime.monthNumber}월 ${dateTime.dayOfMonth}일 ${
+                        String.format(
+                            "%02d",
+                            dateTime.hour
+                        )
+                    }:${String.format("%02d", dateTime.minute)}"
+                }
+                Text(
+                    text = "생성일: $formattedTimestamp",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
+                )
+            }
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceAround,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                OutlinedButton(
+                    onClick = { onEdit(deepLink) },
+                    modifier = Modifier.weight(1f),
+                    shape = RoundedCornerShape(8.dp)
+                ) {
+                    Text("편집")
+                }
+                Spacer(modifier = Modifier.width(space16))
+                TextButton(
+                    onClick = {
+                        onDelete(deepLink)
+                        onDismiss()
+                    },
+                    modifier = Modifier.weight(1f),
+                    colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)
+                ) {
+                    Text("삭제")
+                }
+            }
         }
     }
+}
+
+@Composable
+private fun DeepLinkEditDialog(
+    deepLinkToEdit: DeepLink,
+    onSave: (DeepLink) -> Unit,
+    onDismiss: () -> Unit
+) {
+    var editedTitle by remember { mutableStateOf(deepLinkToEdit.title) }
+    var editedUrl by remember { mutableStateOf(deepLinkToEdit.url) }
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text("딥링크 편집") },
+        text = {
+            Column {
+                TextField(
+                    value = editedTitle,
+                    onValueChange = { editedTitle = it },
+                    label = { Text("제목") },
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Spacer(modifier = Modifier.height(space8))
+                TextField(
+                    value = editedUrl,
+                    onValueChange = { editedUrl = it },
+                    label = { Text("URL") },
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+        },
+        confirmButton = {
+            Button(
+                onClick = { onSave(deepLinkToEdit.copy(title = editedTitle, url = editedUrl)) }
+            ) {
+                Text("저장")
+            }
+        },
+        dismissButton = {
+            Button(onClick = onDismiss) {
+                Text("취소")
+            }
+        }
+    )
 }
 
 @Preview
@@ -262,5 +530,6 @@ private fun PreviewMainScreen() {
         onNavigateSaastatus = {},
         onNavigateOgTagPreview = {},
         onDeleteScheme = {},
+        onItemLongClick = { },
     )
 }

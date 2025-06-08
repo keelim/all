@@ -10,7 +10,7 @@
             android:exported="false"
             tools:node="merge">
             <meta-data
-                android:name="com.keelim.comssa.initialize.FirestoreInitializer"
+                android:name="com.keelim.core.data.initialize.FirestoreInitializer"
                 android:value="androidx.startup" />
         </provider>
     </application>

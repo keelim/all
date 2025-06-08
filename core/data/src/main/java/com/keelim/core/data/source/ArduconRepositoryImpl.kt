@@ -46,7 +46,7 @@ class ArduconRepositoryImpl @Inject constructor(
 
     override suspend fun deleteScheme(scheme: String) {
         withContext(dispatcher) {
-            local.insertScheme(scheme)
+            local.deleteScheme(scheme)
         }
     }
 

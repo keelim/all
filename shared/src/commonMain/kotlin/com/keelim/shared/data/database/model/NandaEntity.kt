@@ -24,7 +24,6 @@ import kotlin.native.ObjCName
 
 @Entity(tableName = "nanda")
 @ObjCName("nanda")
-
 data class NandaEntity(
     @PrimaryKey val nanda_id: Int,
     val reason: String,

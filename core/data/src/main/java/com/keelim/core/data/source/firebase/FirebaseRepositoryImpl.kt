@@ -25,7 +25,7 @@ class FirebaseRepositoryImpl
 @Inject
 constructor(
     @ApplicationContext val context: Context,
-    @Dispatcher(KeelimDispatchers.IO) val dispatcher: CoroutineDispatcher
+    @Dispatcher(KeelimDispatchers.IO) val dispatcher: CoroutineDispatcher,
 ) : FirebaseRepository {
 
     private val documentPath by lazy {

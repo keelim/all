@@ -142,7 +142,7 @@ fun MainRoute(
                 viewModel.clearEditDeepLink()
                 viewModel.hideBottomSheet()
             },
-            onDismiss = viewModel::clearEditDeepLink
+            onDismiss = viewModel::clearEditDeepLink,
         )
     }
 }
@@ -218,7 +218,7 @@ fun MainScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues = paddingValues),
-            listState = listState
+            listState = listState,
         )
     }
 }
@@ -234,7 +234,7 @@ private fun HorizontalFloatingToolbarSection(
     val (isExpanded, setIsExpanded) = remember { mutableStateOf(false) }
 
     HorizontalFloatingToolbar(
-        expanded = isExpanded
+        expanded = isExpanded,
     ) {
         TooltipIcon(
             tooltipText = "OG Tag Preview",
@@ -247,7 +247,7 @@ private fun HorizontalFloatingToolbarSection(
                         contentDescription = "OG Tag Preview",
                     )
                 }
-            }
+            },
         )
         TooltipIcon(
             tooltipText = "QR Code Scanner",
@@ -262,7 +262,7 @@ private fun HorizontalFloatingToolbarSection(
                         contentDescription = "QR Code Scanner",
                     )
                 }
-            }
+            },
         )
         TooltipIcon(
             tooltipText = "Search",
@@ -275,7 +275,7 @@ private fun HorizontalFloatingToolbarSection(
                         contentDescription = "Search",
                     )
                 }
-            }
+            },
         )
         TooltipIcon(
             tooltipText = "Navigate Saastatus",
@@ -288,7 +288,7 @@ private fun HorizontalFloatingToolbarSection(
                         contentDescription = "navigate saastatus",
                     )
                 }
-            }
+            },
         )
     }
 }
@@ -297,7 +297,7 @@ private fun HorizontalFloatingToolbarSection(
 @Composable
 private fun TooltipIcon(
     tooltipText: String,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     TooltipBox(
         positionProvider = TooltipDefaults.rememberTooltipPositionProvider(),
@@ -305,17 +305,17 @@ private fun TooltipIcon(
             Surface(
                 color = MaterialTheme.colorScheme.surfaceVariant,
                 shape = MaterialTheme.shapes.small,
-                tonalElevation = 4.dp
+                tonalElevation = 4.dp,
             ) {
                 Text(
                     text = tooltipText,
                     modifier = Modifier.padding(horizontal = space8, vertical = space4),
                     style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
         },
-        state = rememberTooltipState()
+        state = rememberTooltipState(),
     ) {
         content()
     }
@@ -331,7 +331,7 @@ private fun DeepLinkBottomSheet(
     modifier: Modifier = Modifier,
 ) {
     val sheetState = rememberModalBottomSheetState(
-        skipPartiallyExpanded = true
+        skipPartiallyExpanded = true,
     )
     LaunchedEffect(Unit) {
         sheetState.show()
@@ -352,10 +352,10 @@ private fun DeepLinkBottomSheet(
             val context = LocalContext.current
             ElevatedCard(
                 modifier = Modifier.fillMaxWidth(),
-                shape = MaterialTheme.shapes.large
+                shape = MaterialTheme.shapes.large,
             ) {
                 Column(
-                    modifier = Modifier.padding(space12)
+                    modifier = Modifier.padding(space12),
                 ) {
                     deepLink.imageUrl.takeIf { it.isNotEmpty() }?.let { imageUrl ->
                         AsyncImage(
@@ -364,7 +364,7 @@ private fun DeepLinkBottomSheet(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .height(120.dp)
-                                .clip(MaterialTheme.shapes.medium)
+                                .clip(MaterialTheme.shapes.medium),
                         )
                         Spacer(modifier = Modifier.height(space12))
                     }
@@ -373,7 +373,7 @@ private fun DeepLinkBottomSheet(
                         text = deepLink.title.takeIf { it.isNotEmpty() } ?: "제목 없음",
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSurface
+                        color = MaterialTheme.colorScheme.onSurface,
                     )
                     Spacer(modifier = Modifier.height(space4))
                     Text(
@@ -385,14 +385,14 @@ private fun DeepLinkBottomSheet(
                                 context.startActivity(
                                     Intent(
                                         Intent.ACTION_VIEW,
-                                        deepLink.url.toUri()
-                                    )
+                                        deepLink.url.toUri(),
+                                    ),
                                 )
                             } else {
                                 Toast.makeText(context, "유효하지 않은 URL입니다.", Toast.LENGTH_SHORT)
                                     .show()
                             }
-                        }
+                        },
                     )
                 }
             }
@@ -400,20 +400,20 @@ private fun DeepLinkBottomSheet(
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(
                         imageVector = if (deepLink.isBookMarked) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
                         contentDescription = "즐겨찾기",
                         tint = if (deepLink.isBookMarked) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.size(space24)
+                        modifier = Modifier.size(space24),
                     )
                     Spacer(modifier = Modifier.width(space8))
                     Text(
                         text = if (deepLink.isBookMarked) "즐겨찾기 추가됨" else "즐겨찾기 아님",
                         style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                 }
 
@@ -423,26 +423,26 @@ private fun DeepLinkBottomSheet(
                     "${dateTime.year}년 ${dateTime.monthNumber}월 ${dateTime.dayOfMonth}일 ${
                         String.format(
                             "%02d",
-                            dateTime.hour
+                            dateTime.hour,
                         )
                     }:${String.format("%02d", dateTime.minute)}"
                 }
                 Text(
                     text = "생성일: $formattedTimestamp",
                     style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
+                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
                 )
             }
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceAround,
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 OutlinedButton(
                     onClick = { onEdit(deepLink) },
                     modifier = Modifier.weight(1f),
-                    shape = RoundedCornerShape(8.dp)
+                    shape = RoundedCornerShape(8.dp),
                 ) {
                     Text("편집")
                 }
@@ -453,7 +453,7 @@ private fun DeepLinkBottomSheet(
                         onDismiss()
                     },
                     modifier = Modifier.weight(1f),
-                    colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)
+                    colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error),
                 ) {
                     Text("삭제")
                 }
@@ -466,7 +466,7 @@ private fun DeepLinkBottomSheet(
 private fun DeepLinkEditDialog(
     deepLinkToEdit: DeepLink,
     onSave: (DeepLink) -> Unit,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
 ) {
     var editedTitle by remember { mutableStateOf(deepLinkToEdit.title) }
     var editedUrl by remember { mutableStateOf(deepLinkToEdit.url) }
@@ -480,20 +480,20 @@ private fun DeepLinkEditDialog(
                     value = editedTitle,
                     onValueChange = { editedTitle = it },
                     label = { Text("제목") },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
                 )
                 Spacer(modifier = Modifier.height(space8))
                 TextField(
                     value = editedUrl,
                     onValueChange = { editedUrl = it },
                     label = { Text("URL") },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
                 )
             }
         },
         confirmButton = {
             Button(
-                onClick = { onSave(deepLinkToEdit.copy(title = editedTitle, url = editedUrl)) }
+                onClick = { onSave(deepLinkToEdit.copy(title = editedTitle, url = editedUrl)) },
             ) {
                 Text("저장")
             }
@@ -502,7 +502,7 @@ private fun DeepLinkEditDialog(
             Button(onClick = onDismiss) {
                 Text("취소")
             }
-        }
+        },
     )
 }
 

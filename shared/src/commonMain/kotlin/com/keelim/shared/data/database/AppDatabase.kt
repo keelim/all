@@ -30,7 +30,6 @@ expect object MyGradeAppDatabaseConstructor : RoomDatabaseConstructor<MyGradeApp
     override fun initialize(): MyGradeAppDatabase
 }
 
-
 @Database(
     entities = [
         History::class,
@@ -77,6 +76,7 @@ abstract class NandaAppDatabase : RoomDatabase() {
 expect object ArduconDatabaseConstructor : RoomDatabaseConstructor<ArduconDatabase> {
     override fun initialize(): ArduconDatabase
 }
+
 @Database(
     entities = [
         DeepLinkEntity::class,
@@ -100,6 +100,7 @@ abstract class ArduconDatabase : RoomDatabase() {
 expect object AllDatabaseConstructor : RoomDatabaseConstructor<AllDatabase> {
     override fun initialize(): AllDatabase
 }
+
 @Database(
     entities = [
         AlarmEntity::class,

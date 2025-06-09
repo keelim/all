@@ -12,7 +12,6 @@ import kotlin.native.ObjCName
 
 @Entity(tableName = "history")
 @ObjCName("history")
-
 data class History(
     var subject: String,
     var origin: Int,

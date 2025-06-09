@@ -39,9 +39,9 @@ fun ArduconApp(
         bottomBar = {
             AdBannerView(
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .fillMaxWidth(),
             )
-        }
+        },
     ) { padding ->
         ArduConHost(
             appState = appState,
@@ -65,6 +65,5 @@ fun ArduconApp(
                     ),
                 ),
         )
-
     }
 }

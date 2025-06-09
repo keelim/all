@@ -76,17 +76,16 @@ fun EcocalScreen(
                             showButton = showButton,
                             coroutineScope = coroutineScope,
                             listState = listState,
-                            updateFilter = updateFilter
+                            updateFilter = updateFilter,
                         )
-
                     }
                 },
 
                 bottomBar = {
                     EcocalNavigationBar(
-                        navigationIndex = navigationIndex
+                        navigationIndex = navigationIndex,
                     )
-                }
+                },
             ) { paddingValues ->
                 if (navigationIndex.intValue == 0) {
                     EcocalMainSection(
@@ -104,7 +103,7 @@ fun EcocalScreen(
                     ) {
                         Loading()
                         Text(
-                            text = "현재 준비 중입니다. "
+                            text = "현재 준비 중입니다. ",
                         )
                     }
                 }
@@ -112,7 +111,6 @@ fun EcocalScreen(
         }
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable

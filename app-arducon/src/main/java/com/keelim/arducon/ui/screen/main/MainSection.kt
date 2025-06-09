@@ -353,7 +353,6 @@ fun DeepLinkSection(
                 color = MaterialTheme.colorScheme.outlineVariant,
                 thickness = 1.dp,
             )
-
         }
         stickyHeader {
             Text(
@@ -456,7 +455,7 @@ private fun DeepLinkItem(
                 onClick = {},
                 onLongClick = {
                     onItemLongClick(deepLink)
-                }
+                },
             ),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant,

@@ -22,7 +22,7 @@ object DatabaseModule {
         @ApplicationContext context: Context,
     ): MyGradeAppDatabase = createDatabase<MyGradeAppDatabase>(
         context,
-        "mygrade"
+        "mygrade",
     )
 
     @Provides
@@ -32,7 +32,7 @@ object DatabaseModule {
     ): NandaAppDatabase = createDatabase<NandaAppDatabase>(
         context,
         "nanda",
-        "nanda.db"
+        "nanda.db",
     )
 
     @Provides
@@ -50,6 +50,6 @@ object DatabaseModule {
         @ApplicationContext context: Context,
     ): AllDatabase = createDatabase<AllDatabase>(
         context,
-        "all.db"
+        "all.db",
     )
 }

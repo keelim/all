@@ -123,7 +123,7 @@ fun EcocalMainSection(
                             ),
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(horizontal = space16, vertical = space8)
+                                .padding(horizontal = space16, vertical = space8),
                         )
                     }
                 }
@@ -197,36 +197,36 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.Bottom
+            verticalAlignment = Alignment.Bottom,
         ) {
             Text(
                 text = "${time.year} ${String.format("%02d", time.monthNumber)}",
                 style = MaterialTheme.typography.headlineMedium.copy(
                     fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
                 ),
             )
             Column(
-                horizontalAlignment = Alignment.End
+                horizontalAlignment = Alignment.End,
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(
                         imageVector = Icons.Filled.DateRange,
                         contentDescription = "Calendar Icon",
                         tint = MaterialTheme.colorScheme.onPrimaryContainer,
-                        modifier = Modifier.size(20.dp)
+                        modifier = Modifier.size(20.dp),
                     )
                     Spacer(modifier = Modifier.width(space4))
                     Text(
                         text = "${time.year}년 ${
                             String.format(
                                 "%02d",
-                                time.monthNumber
+                                time.monthNumber,
                             )
                         }월 ${time.dayOfMonth}일",
                         style = MaterialTheme.typography.bodyMedium.copy(
                             color = MaterialTheme.colorScheme.onPrimaryContainer,
-                            fontWeight = FontWeight.Medium
+                            fontWeight = FontWeight.Medium,
                         ),
                     )
                 }
@@ -238,13 +238,13 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
                             (slideInVertically { height -> height } + fadeIn()) togetherWith
                                 (slideOutVertically { height -> -height } + fadeOut())
                         },
-                        label = "Hour animation"
+                        label = "Hour animation",
                     ) { targetHour ->
                         Text(
                             text = targetHour,
                             style = MaterialTheme.typography.bodySmall.copy(
                                 fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.onPrimaryContainer
+                                color = MaterialTheme.colorScheme.onPrimaryContainer,
                             ),
                         )
                     }
@@ -252,7 +252,7 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
                         text = ":",
                         style = MaterialTheme.typography.bodySmall.copy(
                             fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onPrimaryContainer
+                            color = MaterialTheme.colorScheme.onPrimaryContainer,
                         ),
                     )
                     AnimatedContent(
@@ -267,7 +267,7 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
                             text = targetMinute,
                             style = MaterialTheme.typography.bodySmall.copy(
                                 fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.onPrimaryContainer
+                                color = MaterialTheme.colorScheme.onPrimaryContainer,
                             ),
                         )
                     }
@@ -275,7 +275,7 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
                         text = ":",
                         style = MaterialTheme.typography.bodySmall.copy(
                             fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onPrimaryContainer
+                            color = MaterialTheme.colorScheme.onPrimaryContainer,
                         ),
                     )
                     AnimatedContent(
@@ -284,12 +284,12 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
                             (slideInVertically { height -> height } + fadeIn()) togetherWith
                                 (slideOutVertically { height -> -height } + fadeOut())
                         },
-                        label = "Second animation"
+                        label = "Second animation",
                     ) { second ->
                         Text(
                             text = second,
                             style = MaterialTheme.typography.bodySmall.copy(
-                                color = MaterialTheme.colorScheme.onPrimaryContainer
+                                color = MaterialTheme.colorScheme.onPrimaryContainer,
                             ),
                         )
                     }
@@ -299,7 +299,7 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
         Spacer(modifier = Modifier.height(space8))
         HorizontalDivider(
             color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.1f),
-            thickness = 1.dp
+            thickness = 1.dp,
         )
     }
 }
@@ -339,7 +339,6 @@ fun ListItem(
                 overflow = TextOverflow.Ellipsis,
             )
         }
-
     } else {
         ListItem(
             modifier = modifier
@@ -348,12 +347,12 @@ fun ListItem(
             headlineContent = {
                 Text(
                     text = title,
-                    style = MaterialTheme.typography.headlineSmall
+                    style = MaterialTheme.typography.headlineSmall,
                 )
             },
             supportingContent = {
                 Column(
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
                 ) {
                     Text(
                         text = subtitle,
@@ -391,7 +390,7 @@ fun ListItem(
                     overflow = TextOverflow.Ellipsis,
                     modifier = Modifier.clickable { onCountryClick(label) },
                 )
-            }
+            },
         )
     }
 }
@@ -447,7 +446,7 @@ fun EcocalFloatingButton(
     showButton: Boolean,
     coroutineScope: CoroutineScope,
     listState: LazyListState,
-    updateFilter: (FabButtonItem) -> Unit
+    updateFilter: (FabButtonItem) -> Unit,
 ) {
     val items by remember {
         mutableStateOf(
@@ -493,7 +492,6 @@ fun EcocalFloatingButton(
                         imageVector = Icons.Filled.KeyboardArrowUp,
                         contentDescription = "scroll to top",
                     )
-
                 },
                 text = { },
             )
@@ -525,7 +523,6 @@ fun EcocalNavigationBar(
     navigationIndex: MutableIntState,
 ) {
     ShortNavigationBar {
-
         ShortNavigationBarItem(
             selected = navigationIndex.intValue == 0,
             onClick = {
@@ -534,12 +531,12 @@ fun EcocalNavigationBar(
             icon = {
                 Icon(
                     imageVector = Icons.Filled.DateRange,
-                    contentDescription = "캘린더"
+                    contentDescription = "캘린더",
                 )
             },
             label = {
                 Text(text = "캘린더")
-            }
+            },
         )
 
         ShortNavigationBarItem(
@@ -550,13 +547,12 @@ fun EcocalNavigationBar(
             icon = {
                 Icon(
                     imageVector = Icons.Filled.Menu,
-                    contentDescription = "환율"
+                    contentDescription = "환율",
                 )
             },
             label = {
                 Text(text = "환율")
-            }
+            },
         )
     }
 }
-

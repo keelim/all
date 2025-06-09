@@ -1,6 +1,5 @@
 package com.keelim.core.database.mapper
 
-
 import com.keelim.model.Alarm
 import com.keelim.shared.data.database.model.AlarmEntity
 

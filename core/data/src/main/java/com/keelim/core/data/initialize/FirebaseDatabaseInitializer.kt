@@ -19,6 +19,6 @@ class FirebaseDatabaseInitializer : Initializer<FirebaseDatabase> {
     }
 
     override fun dependencies(): List<Class<out Initializer<*>?>?> = listOf(
-        FirebaseInitializer::class.java
+        FirebaseInitializer::class.java,
     )
 }

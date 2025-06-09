@@ -25,7 +25,6 @@ data class History(
 
 @Entity(tableName = "simpleHistory")
 @ObjCName("simpleHistory")
-
 data class SimpleHistory(
     @PrimaryKey(autoGenerate = true) val uid: Int = 0,
     val subject: String = "not supported",
@@ -36,7 +35,6 @@ data class SimpleHistory(
 )
 
 @Entity(tableName = "timerHistory")
-
 @ObjCName("timerHistory")
 data class TimerHistory(
     @PrimaryKey(autoGenerate = true) val uid: Int = 0,

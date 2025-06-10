@@ -23,6 +23,8 @@ dependencies {
     api(libs.robolectric.shadows)
     api(libs.truth)
     api(libs.turbine)
+    api(libs.mockk.agent)
+    api(libs.mockk.android)
 
     debugApi(libs.androidx.compose.ui.testManifest)
     implementation(libs.kotlinx.datetime)

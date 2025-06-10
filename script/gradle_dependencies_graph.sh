@@ -20,7 +20,6 @@ modules=(
     "feature:ui-labs"
     "feature:ui-setting"
     "shared"
-    "widget"
 )
 
 

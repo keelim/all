@@ -21,6 +21,7 @@ dependencies {
 
     implementation(projects.core.data)
     implementation(projects.core.navigation)
+    implementation(projects.feature.uiScheme)
 
     implementation(projects.widget)
 

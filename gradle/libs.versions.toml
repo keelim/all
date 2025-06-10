@@ -102,7 +102,6 @@ showkase = "1.0.3"
 slackComposeLint = "1.4.2"
 slackLintChecks = "0.9.0"
 soloader = "0.12.1"
-sqldelight = "2.1.0"
 themeAdapter = "1.2.1"
 timbers = "5.0.1"
 truth = "1.4.4"
@@ -302,13 +301,6 @@ showkase-processor = { group = "com.airbnb.android", name = "showkase-processor"
 slack-lint-checks =  { group = "com.slack.lint", name = "slack-lint-checks", version.ref = "slackLintChecks" }
 slack-compose-lint =  { group = "com.slack.lint.compose", name = "compose-lint-checks", version.ref = "slackComposeLint" }
 soloader = { group = "com.facebook.soloader", name = "soloader", version.ref = "soloader" }
-sqldelight-android = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
-sqldelight-coroutines = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
-sqldelight-native = { module = "app.cash.sqldelight:native-driver", version.ref = "sqldelight" }
-sqldelight-paging = { module = "app.cash.sqldelight:androidx-paging3-extensions", version.ref = "sqldelight" }
-sqldelight-primitive = { module = "app.cash.sqldelight:primitive-adapters", version.ref = "sqldelight" }
-sqldelight-sqlite = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqldelight" }
-sqldelight-web-worker = {module = "app.cash.sqldelight:web-worker-driver", version.ref = "sqldelight" }
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timbers" }
 truth = { module = "com.google.truth:truth", version.ref = "truth" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
@@ -390,7 +382,6 @@ moduleGraphAssertion = { id = "com.jraska.module.graph.assertion", version.ref =
 protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
 room = { id = "androidx.room", version.ref = "room" }
 secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secrets" }
-sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 
 # project plugin
 keelim-android-application = { id = "keelim.android.application" }

@@ -52,7 +52,7 @@ include(
     ":core:resource",
     ":core:testing",
     ":core:navigation",
-    ":feature:ui-labs",
+    ":feature:ui-scheme",
     ":feature:ui-setting",
     ":shared",
     ":widget",

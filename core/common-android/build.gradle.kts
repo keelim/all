@@ -25,7 +25,6 @@ dependencies {
     implementation(libs.firebase.crashlytics)
 
     implementation(libs.hilt.android)
-    implementation(libs.junit4)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.datetime)
     implementation(libs.play.services.ad)

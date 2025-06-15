@@ -1,4 +1,4 @@
-package com.keelim.arducon.ui.screen.inappbrowser
+package com.keelim.setting.screen.inappbrowser
 
 import android.view.ViewGroup
 import android.webkit.WebView
@@ -15,7 +15,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.viewinterop.AndroidView
 
@@ -57,7 +56,6 @@ fun InAppBrowserScreen(
             )
         },
     ) { paddingValues ->
-        val context = LocalContext.current
         AndroidView(
             factory = { context ->
                 WebView(context).apply {

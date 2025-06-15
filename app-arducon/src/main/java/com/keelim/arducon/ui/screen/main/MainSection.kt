@@ -422,6 +422,7 @@ fun DeepLinkSection(
                         easing = LinearOutSlowInEasing,
                     ),
                 ),
+                onCategoryClick = onCategorySelected,
             )
         }
         stickyHeader {
@@ -463,6 +464,7 @@ fun DeepLinkSection(
                         easing = LinearOutSlowInEasing,
                     ),
                 ),
+                onCategoryClick = onCategorySelected,
             )
         }
     }
@@ -476,6 +478,7 @@ private fun DeepLinkItem(
     onDelete: (DeepLink) -> Unit,
     onItemLongClick: (DeepLink) -> Unit,
     modifier: Modifier = Modifier,
+    onCategoryClick: (String) -> Unit,
 ) {
     Card(
         modifier = modifier
@@ -529,12 +532,22 @@ private fun DeepLinkItem(
                     text = deepLink.url,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
+                    maxLines = 1,
                 )
                 if (deepLink.category.isNotEmpty()) {
-                    Text(
-                        text = deepLink.category,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
+                    AssistChip(
+                        onClick = { onCategoryClick(deepLink.category) },
+                        label = {
+                            Text(
+                                text = deepLink.category,
+                                style = MaterialTheme.typography.bodySmall,
+                            )
+                        },
+                        colors = AssistChipDefaults.assistChipColors(
+                            containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                            labelColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                        ),
+                        modifier = Modifier.padding(top = space4),
                     )
                 }
             }

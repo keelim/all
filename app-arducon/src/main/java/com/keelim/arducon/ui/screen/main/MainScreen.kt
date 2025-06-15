@@ -92,6 +92,8 @@ fun MainRoute(
     val isSearched = viewModel.onClickSearch.collectAsStateWithLifecycle()
     val showBottomSheet by viewModel.showBottomSheet.collectAsStateWithLifecycle()
     val editDeepLink by viewModel.editDeepLink.collectAsStateWithLifecycle()
+    val categories by viewModel.categories.collectAsStateWithLifecycle()
+    val selectedCategory by viewModel.selectedCategory.collectAsStateWithLifecycle()
 
     val context = LocalContext.current
     LaunchedEffect(isSearched.value) {
@@ -113,6 +115,9 @@ fun MainRoute(
         schemeList = schemeList,
         favoriteItems = items.first,
         generalItems = items.second,
+        categories = categories,
+        selectedCategory = selectedCategory,
+        onCategorySelected = viewModel::updateSelectedCategory,
         onSearch = viewModel::onClickSearch,
         onUpdate = viewModel::updateDeepLinkUrl,
         onDelete = viewModel::deleteDeepLinkUrl,
@@ -152,7 +157,10 @@ fun MainScreen(
     favoriteItems: List<DeepLink>,
     generalItems: List<DeepLink>,
     schemeList: List<String>,
-    onSearch: (String, String) -> Unit,
+    categories: List<String>,
+    selectedCategory: String,
+    onCategorySelected: (String) -> Unit,
+    onSearch: (String, String, String) -> Unit,
     onUpdate: (DeepLink) -> Unit,
     onDelete: (DeepLink) -> Unit,
     onItemLongClick: (DeepLink) -> Unit,
@@ -206,15 +214,18 @@ fun MainScreen(
         },
     ) { paddingValues ->
         DeepLinkSection(
-            schemeList = schemeList,
             favoriteItems = favoriteItems,
             generalItems = generalItems,
+            schemeList = schemeList,
             onSearch = onSearch,
-            onRegister = onRegister,
-            onDeleteScheme = onDeleteScheme,
             onUpdate = onUpdate,
             onDelete = onDelete,
             onItemLongClick = onItemLongClick,
+            onRegister = onRegister,
+            onDeleteScheme = onDeleteScheme,
+            categories = categories,
+            selectedCategory = selectedCategory,
+            onCategorySelected = onCategorySelected,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues = paddingValues),
@@ -434,6 +445,25 @@ private fun DeepLinkBottomSheet(
                 )
             }
 
+            if (deepLink.category.isNotEmpty()) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(
+                        text = "카테고리: ",
+                        style = MaterialTheme.typography.bodyMedium,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                    Text(
+                        text = deepLink.category,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurface,
+                    )
+                }
+            }
+
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceAround,
@@ -470,6 +500,7 @@ private fun DeepLinkEditDialog(
 ) {
     var editedTitle by remember { mutableStateOf(deepLinkToEdit.title) }
     var editedUrl by remember { mutableStateOf(deepLinkToEdit.url) }
+    var editedCategory by remember { mutableStateOf(deepLinkToEdit.category) }
 
     AlertDialog(
         onDismissRequest = onDismiss,
@@ -489,11 +520,26 @@ private fun DeepLinkEditDialog(
                     label = { Text("URL") },
                     modifier = Modifier.fillMaxWidth(),
                 )
+                Spacer(modifier = Modifier.height(space8))
+                TextField(
+                    value = editedCategory,
+                    onValueChange = { editedCategory = it },
+                    label = { Text("카테고리") },
+                    modifier = Modifier.fillMaxWidth(),
+                )
             }
         },
         confirmButton = {
             Button(
-                onClick = { onSave(deepLinkToEdit.copy(title = editedTitle, url = editedUrl)) },
+                onClick = {
+                    onSave(
+                        deepLinkToEdit.copy(
+                            title = editedTitle,
+                            url = editedUrl,
+                            category = editedCategory
+                        )
+                    )
+                },
             ) {
                 Text("저장")
             }
@@ -511,7 +557,7 @@ private fun DeepLinkEditDialog(
 private fun PreviewMainScreen() {
     MainScreen(
         schemeList = listOf("http", "https"),
-        onSearch = { _, _ -> },
+        onSearch = { _, _, _ -> },
         onUpdate = {},
         onDelete = {},
         favoriteItems = listOf(
@@ -531,5 +577,8 @@ private fun PreviewMainScreen() {
         onNavigateOgTagPreview = {},
         onDeleteScheme = {},
         onItemLongClick = { },
+        categories = listOf("Category1", "Category2"),
+        selectedCategory = "Category1",
+        onCategorySelected = { },
     )
 }

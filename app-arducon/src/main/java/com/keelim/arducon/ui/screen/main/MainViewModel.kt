@@ -1,17 +1,18 @@
 package com.keelim.arducon.ui.screen.main
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.keelim.core.database.repository.ArduconRepository
+import com.keelim.core.network.Dispatcher
+import com.keelim.core.network.KeelimDispatchers
 import com.keelim.model.DeepLink
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -26,27 +27,38 @@ private val defaultSchemeList = listOf(
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
+    @Dispatcher(KeelimDispatchers.DEFAULT) private val default: CoroutineDispatcher,
     private val repository: ArduconRepository,
 ) : ViewModel() {
     private val _onClickSearch = MutableStateFlow("")
     val onClickSearch = _onClickSearch.asStateFlow()
 
+    private val _selectedCategory = MutableStateFlow("")
+    val selectedCategory: StateFlow<String> = _selectedCategory.asStateFlow()
+
+    val categories: StateFlow<List<String>> = repository.getCategories()
+        .map { it.sorted() }
+        .flowOn(default)
+        .stateIn(viewModelScope, started = SharingStarted.WhileSubscribed(5_000L), emptyList())
+
     val schemeList: StateFlow<List<String>> = repository.getSchemeList()
         .map {
             defaultSchemeList + it
         }
-        .flowOn(Dispatchers.IO)
+        .flowOn(default)
         .stateIn(viewModelScope, started = SharingStarted.WhileSubscribed(5_000L), emptyList())
 
     val deepLinkList: StateFlow<Pair<List<DeepLink>, List<DeepLink>>> = repository.getDeepLinkUrls()
-        .map {
-            it.partition { it.isBookMarked }
+        .combine(_selectedCategory) { deeplinks, category ->
+            val filtered = if (category.isEmpty()) {
+                deeplinks
+            } else {
+                deeplinks.filter { it.category == category }
+            }
+            filtered.partition { deeplink -> deeplink.isBookMarked }
         }
-        .flowOn(Dispatchers.IO)
+        .flowOn(default)
         .stateIn(viewModelScope, started = SharingStarted.WhileSubscribed(5_000L), Pair(emptyList(), emptyList()))
-
-    private val _isLoading = MutableLiveData(false)
-    val isLoading: LiveData<Boolean> get() = _isLoading
 
     private val _showBottomSheet = MutableStateFlow<DeepLink>(DeepLink.EMPTY)
     val showBottomSheet = _showBottomSheet.asStateFlow()
@@ -54,18 +66,11 @@ class MainViewModel @Inject constructor(
     private val _editDeepLink = MutableStateFlow<DeepLink?>(null)
     val editDeepLink = _editDeepLink.asStateFlow()
 
-    fun showProgress() {
-        _isLoading.value = true
-    }
-
-    fun hideProgress() {
-        _isLoading.value = false
-    }
-
     // 딥링크 검색 버튼 클릭
     fun onClickSearch(
         uri: String,
         title: String,
+        category: String,
     ) {
         viewModelScope.launch {
             runCatching {
@@ -74,6 +79,7 @@ class MainViewModel @Inject constructor(
                         url = uri,
                         timestamp = System.currentTimeMillis(),
                         title = title,
+                        category = category,
                     ),
                 )
             }.onSuccess {
@@ -88,24 +94,20 @@ class MainViewModel @Inject constructor(
     fun updateDeepLinkUrl(deepLink: DeepLink) {
         viewModelScope.launch {
             runCatching {
-                showProgress()
                 repository.updateDeepLinkUrl(deepLink.copy(isBookMarked = deepLink.isBookMarked.not()))
             }.onFailure {
                 Timber.d("updateDeepLinkUrl() onError() -> " + it.localizedMessage)
             }
-            hideProgress()
         }
     }
 
     fun deleteDeepLinkUrl(deepLink: DeepLink) {
         viewModelScope.launch {
             runCatching {
-                showProgress()
                 repository.deleteDeepLinkUrl(deepLink)
             }.onFailure {
                 Timber.d("deleteDeepLinkUrl() onError() -> " + it.localizedMessage)
             }
-            hideProgress()
         }
     }
 
@@ -147,5 +149,9 @@ class MainViewModel @Inject constructor(
 
     fun clearEditDeepLink() {
         _editDeepLink.value = null
+    }
+
+    fun updateSelectedCategory(category: String) {
+        _selectedCategory.value = category
     }
 }

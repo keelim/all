@@ -51,4 +51,6 @@ class ArduconRepositoryImpl @Inject constructor(
     }
 
     override fun getSchemeList(): Flow<List<String>> = local.getSchemeList()
+
+    override fun getCategories(): Flow<List<String>> = local.getCategories()
 }

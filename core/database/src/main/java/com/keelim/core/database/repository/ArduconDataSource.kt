@@ -14,4 +14,6 @@ interface ArduconDataSource {
     suspend fun deleteScheme(scheme: String)
 
     fun getSchemeList(): Flow<List<String>>
+
+    fun getCategories(): Flow<List<String>>
 }

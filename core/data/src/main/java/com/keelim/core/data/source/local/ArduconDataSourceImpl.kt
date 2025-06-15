@@ -24,4 +24,6 @@ class ArduconDataSourceImpl @Inject constructor(
     override suspend fun deleteScheme(scheme: String) = dao.deleteScheme(scheme)
 
     override fun getSchemeList(): Flow<List<String>> = dao.getSchemeList().map { it.toPlain() }
+
+    override fun getCategories(): Flow<List<String>> = dao.getCategories()
 }

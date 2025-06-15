@@ -39,6 +39,7 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
@@ -338,6 +339,7 @@ fun DeepLinkSection(
     onItemLongClick: (DeepLink) -> Unit,
     selectedCategory: String,
     onCategorySelected: (String) -> Unit,
+    onShowNotification: (Int, String, String, String) -> Unit,
     modifier: Modifier = Modifier,
     listState: LazyListState = rememberLazyListState(),
 ) {
@@ -423,6 +425,7 @@ fun DeepLinkSection(
                     ),
                 ),
                 onCategoryClick = onCategorySelected,
+                onShowNotification = onShowNotification,
             )
         }
         stickyHeader {
@@ -465,6 +468,7 @@ fun DeepLinkSection(
                     ),
                 ),
                 onCategoryClick = onCategorySelected,
+                onShowNotification = onShowNotification,
             )
         }
     }
@@ -477,9 +481,11 @@ private fun DeepLinkItem(
     onUpdate: (DeepLink) -> Unit,
     onDelete: (DeepLink) -> Unit,
     onItemLongClick: (DeepLink) -> Unit,
-    modifier: Modifier = Modifier,
     onCategoryClick: (String) -> Unit,
+    onShowNotification: (Int, String, String, String) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
+
     Card(
         modifier = modifier
             .fillMaxWidth()
@@ -568,6 +574,21 @@ private fun DeepLinkItem(
                     )
                 }
                 Icon(
+                    imageVector = Icons.Default.Notifications,
+                    contentDescription = "show notification",
+                    modifier = Modifier
+                        .size(space32)
+                        .clickable {
+                            onShowNotification(
+                                deepLink.hashCode(),
+                                deepLink.title.ifEmpty { "Deep Link Notification" },
+                                "Click to open: ${deepLink.url}",
+                                deepLink.url,
+                            )
+                        },
+                    tint = MaterialTheme.colorScheme.primary,
+                )
+                Icon(
                     imageVector = Icons.Default.PlayArrow,
                     contentDescription = "play",
                     modifier = Modifier
@@ -633,5 +654,6 @@ private fun PreviewDeepLinkSection() {
         categories = emptyList(),
         selectedCategory = "",
         onCategorySelected = {},
+        onShowNotification = { _, _, _, _ -> },
     )
 }

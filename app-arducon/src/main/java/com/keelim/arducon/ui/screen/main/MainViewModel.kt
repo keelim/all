@@ -6,6 +6,8 @@ import com.keelim.core.database.repository.ArduconRepository
 import com.keelim.core.network.Dispatcher
 import com.keelim.core.network.KeelimDispatchers
 import com.keelim.model.DeepLink
+import com.keelim.scheme.notification.SchemeNotificationManager
+import dagger.Lazy
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,6 +31,7 @@ private val defaultSchemeList = listOf(
 class MainViewModel @Inject constructor(
     @Dispatcher(KeelimDispatchers.DEFAULT) private val default: CoroutineDispatcher,
     private val repository: ArduconRepository,
+    private val schemeNotificationManager: Lazy<SchemeNotificationManager>
 ) : ViewModel() {
     private val _onClickSearch = MutableStateFlow("")
     val onClickSearch = _onClickSearch.asStateFlow()
@@ -153,5 +156,19 @@ class MainViewModel @Inject constructor(
 
     fun updateSelectedCategory(category: String) {
         _selectedCategory.value = category
+    }
+
+    fun showNotification(
+        notificationId: Int,
+        title: String,
+        message: String,
+        deepLinkUri: String,
+    ) {
+        schemeNotificationManager.get().showDeepLinkNotification(
+            notificationId = notificationId,
+            title = title,
+            message = message,
+            deepLinkUri = deepLinkUri,
+        )
     }
 }

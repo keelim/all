@@ -2,7 +2,9 @@
 
 package com.keelim.arducon.ui.screen.main
 
+import android.Manifest
 import android.content.Intent
+import android.os.Build
 import android.webkit.URLUtil
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
@@ -73,10 +75,19 @@ import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space24
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
+import com.keelim.composeutil.util.permission.SimpleAcquirePermissions
 import com.keelim.model.DeepLink
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+
+val appPermissions: List<String> by lazy {
+    buildList {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            add(Manifest.permission.POST_NOTIFICATIONS)
+        }
+    }
+}
 
 @Composable
 fun MainRoute(
@@ -111,6 +122,12 @@ fun MainRoute(
         }
     }
 
+    SimpleAcquirePermissions(
+        permissions = appPermissions,
+        onGrant = {}
+    )
+
+
     MainScreen(
         schemeList = schemeList,
         favoriteItems = items.first,
@@ -128,6 +145,7 @@ fun MainRoute(
         onNavigateSaastatus = onNavigateSaastatus,
         onNavigateOgTagPreview = onNavigateOgTagPreview,
         onDeleteScheme = viewModel::deleteScheme,
+        onShowNotification = viewModel::showNotification
     )
 
     if (showBottomSheet != DeepLink.EMPTY) {
@@ -170,6 +188,7 @@ fun MainScreen(
     onNavigateSaastatus: () -> Unit,
     onNavigateOgTagPreview: () -> Unit,
     onDeleteScheme: (String) -> Unit,
+    onShowNotification: (Int, String, String, String) -> Unit,
 ) {
     val listState = rememberLazyListState()
     val isScrollInProgress = remember {
@@ -226,6 +245,7 @@ fun MainScreen(
             categories = categories,
             selectedCategory = selectedCategory,
             onCategorySelected = onCategorySelected,
+            onShowNotification = onShowNotification,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues = paddingValues),
@@ -580,5 +600,6 @@ private fun PreviewMainScreen() {
         categories = listOf("Category1", "Category2"),
         selectedCategory = "Category1",
         onCategorySelected = { },
+        onShowNotification = { _, _, _, _ -> },
     )
 }

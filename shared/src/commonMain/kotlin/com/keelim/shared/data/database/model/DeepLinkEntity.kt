@@ -15,4 +15,5 @@ data class DeepLinkEntity(
     val url: String,
     @ColumnInfo(defaultValue = "0") val isBookMarked: Boolean = false,
     @ColumnInfo(defaultValue = "") val title: String = "",
+    @ColumnInfo(defaultValue = "") val category: String = "",
 )

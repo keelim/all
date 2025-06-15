@@ -16,6 +16,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.net.toUri
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.entry
 import androidx.navigation3.runtime.entryProvider
@@ -26,6 +27,7 @@ import com.keelim.arducon.ui.screen.ogtag.OgTagPreviewRoute
 import com.keelim.arducon.ui.screen.qr.QrRoute
 import com.keelim.arducon.ui.screen.saastatus.main.SaastatusRoute
 import com.keelim.arducon.ui.screen.search.SearchRoute
+import com.keelim.commonAndroid.ui.AppViewModel
 import com.keelim.composeutil.AppState
 import com.keelim.composeutil.rememberMutableStateListOf
 import com.keelim.core.navigation.ArduconRoute
@@ -40,6 +42,7 @@ fun ArduConHost(
     coroutineScope: CoroutineScope,
     onShowSnackbar: suspend (String, String?) -> Boolean,
     modifier: Modifier = Modifier,
+    viewModel: AppViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
 

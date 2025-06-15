@@ -21,5 +21,5 @@ class AppViewModel @Inject constructor(
     val newNotification = suspend { firebaseRepository.getRef("new_notification") }
         .asFlow()
         .flowOn(default)
-        .stateIn(viewModelScope, SharingStarted.Companion.WhileSubscribed(5_000L), "")
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000L), "")
 }

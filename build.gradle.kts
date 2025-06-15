@@ -8,6 +8,7 @@ buildscript {
         classpath(libs.play.services.oss.plugin) {
             exclude(group = "com.google.protobuf")
         }
+        classpath(libs.react.native.gradle.plugin)
     }
 }
 

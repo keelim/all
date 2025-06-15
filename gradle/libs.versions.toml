@@ -1,7 +1,9 @@
 [versions]
 # project
 compileSdk = "36"
+hermesAndroid = "0.80.0"
 minSdk = "26"
+reactAndroid = "0.80.0"
 targetSdk = "36"
 versionCode = "20250615"
 # library
@@ -235,6 +237,7 @@ fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref
 generativeai = { group = "com.google.ai.client.generativeai", name = "generativeai", version.ref = "generativeai" }
 glance-tools-appwidget-host = { group = "com.google.android.glance.tools", name = "appwidget-host", version.ref = "glanceExperimentalTools" }
 haze = { group = "dev.chrisbanes.haze", name = "haze", version.ref = "haze" }
+hermes-android = { module = "com.facebook.react:hermes-android", version.ref = "hermesAndroid" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
@@ -291,6 +294,8 @@ play-services-time = { group = "com.google.android.gms", name = "play-services-t
 preferences = { group = "androidx.preference", name = "preference", version.ref = "preference" }
 protobuf-kotlin-lite = { group = "com.google.protobuf", name = "protobuf-kotlin-lite", version.ref = "protobuf" }
 protobuf-protoc = { group = "com.google.protobuf", name = "protoc", version.ref = "protobuf" }
+react-android = { module = "com.facebook.react:react-android", version.ref = "reactAndroid" }
+react-native-gradle-plugin = { module = "com.facebook.react:react-native-gradle-plugin" }
 retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 retrofit-kotlin-serialization = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "retrofitKotlinxSerializationJson" }
 robolectric-shadows = { group = "org.robolectric", name = "shadows-framework", version.ref = "robolectric" }

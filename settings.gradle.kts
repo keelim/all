@@ -1,5 +1,8 @@
+import com.facebook.react.ReactSettingsExtension
+
 pluginManagement {
     includeBuild("build-logic")
+    includeBuild("feature/rn/node_modules/@react-native/gradle-plugin")
     repositories {
         google {
             content {
@@ -28,6 +31,14 @@ dependencyResolutionManagement {
         }
     }
 }
+plugins { id("com.facebook.react.settings") }
+extensions.configure<ReactSettingsExtension> {
+    autolinkLibrariesFromCommand(
+        workingDirectory = file("feature/rn")
+    )
+}
+includeBuild("feature/rn/node_modules/@react-native/gradle-plugin")
+
 rootProject.name = "all"
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")

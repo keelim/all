@@ -52,7 +52,7 @@ fun Project.configureAndroidCompose(
             ComposeFeatureFlag.OptimizeNonSkippingGroups,
         )
         reportsDestination = layout.buildDirectory.dir("compose_compiler")
-        stabilityConfigurationFiles = listOf(
+        stabilityConfigurationFiles.add(
             rootProject.layout.projectDirectory.file("compose_compiler_config.conf")
         )
         includeSourceInformation.set(true)

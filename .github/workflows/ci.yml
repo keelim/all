@@ -8,7 +8,7 @@ on:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-cancel-in-progress: true
+  cancel-in-progress: true
 
 jobs:
   test:
@@ -47,4 +47,5 @@ jobs:
 
       - name: Build Release AAB
         run: |
-          ./gradlew app-comssa:bundleDebug app-cnubus:bundleDebug app-my-grade:bundleDebug app-nanda:bundleDebug app-arducon:bundleDebug
+          ./gradlew app-comssa:compileDebugSources app-cnubus:compileDebugSources app-my-grade:compileDebugSources app-nanda:compileDebugSources app-arducon:compileDebugSources
+

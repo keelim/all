@@ -10,7 +10,6 @@ android {
     defaultConfig {
         applicationId = "com.keelim.cnubus"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables { useSupportLibrary = true }
     }
     buildTypes {
         // create("cnubus-benchmark") {

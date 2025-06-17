@@ -23,9 +23,10 @@ import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.kotlin.dsl.assign
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
+import org.jetbrains.kotlin.gradle.dsl.KotlinBaseExtension
+import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 
 /**
  * Configure base Kotlin with Android options
@@ -51,7 +52,7 @@ fun Project.configureKotlinAndroid(
             // isCoreLibraryDesugaringEnabled = true
         }
     }
-    configureKotlin()
+    configureKotlin<KotlinAndroidProjectExtension>()
 
     dependencies {
         // add("coreLibraryDesugaring", libs.findLibrary("android.desugarJdkLibs").get())
@@ -64,28 +65,32 @@ internal fun Project.configureKotlinJvm() {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    configureKotlin()
+    configureKotlin<KotlinJvmProjectExtension>()
 }
 
-private fun Project.configureKotlin() {
-    // Use withType to workaround https://youtrack.jetbrains.com/issue/KT-55947
-    tasks.withType<KotlinCompile>().configureEach {
-        compilerOptions {
-            // Treat all Kotlin warnings as errors (disabled by default)
-            allWarningsAsErrors = properties["warningsAsErrors"] as? Boolean ?: false
-            freeCompilerArgs.addAll(
-                listOf(
-                    "-opt-in=kotlin.RequiresOptIn",
-                    // Enable experimental coroutines APIs, including Flow
-                    "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-                    "-opt-in=kotlinx.coroutines.FlowPreview",
-                    "-opt-in=kotlin.Experimental",
-                    "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api"
-                    // Enable experimental kotlinx serialization APIs
+private inline fun <reified T : KotlinBaseExtension> Project.configureKotlin() = configure<T> {
+    val warningsAsErrors = providers.gradleProperty("warningsAsErrors").map {
+        it.toBoolean()
+    }.orElse(false)
+    when (this) {
+        is KotlinAndroidProjectExtension -> compilerOptions
+        is KotlinJvmProjectExtension -> compilerOptions
+        else -> TODO("Unsupported project extension $this ${T::class}")
+    }.apply {
+        jvmTarget = JvmTarget.JVM_17
+        allWarningsAsErrors = warningsAsErrors
+        freeCompilerArgs.addAll(
+            listOf(
+                "-opt-in=kotlin.RequiresOptIn",
+                // Enable experimental coroutines APIs, including Flow
+                "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+                "-opt-in=kotlinx.coroutines.FlowPreview",
+                "-opt-in=kotlin.Experimental",
+                "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api"
+                // Enable experimental kotlinx serialization APIs
 //                "-opt-in=kotlinx.serialization.ExperimentalSerializationApi"
-                )
             )
-            jvmTarget = JvmTarget.JVM_17
-        }
+        )
+
     }
 }

@@ -20,6 +20,7 @@ import com.android.build.api.dsl.CommonExtension
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginExtension
+import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.assign
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
@@ -33,10 +34,9 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 fun Project.configureKotlinAndroid(
     commonExtension: CommonExtension<*, *, *, *, *, *>,
 ) {
-    with(pluginManager) {
-        apply("org.jetbrains.kotlin.plugin.serialization")
-        apply("org.jetbrains.kotlin.plugin.parcelize")
-    }
+    apply(plugin = "org.jetbrains.kotlin.plugin.serialization")
+    apply(plugin = "org.jetbrains.kotlin.plugin.parcelize")
+
     commonExtension.apply {
         compileSdk = libs.findVersion("compileSdk").get().displayName.toInt()
         // compileSdkExtension = ProjectConfiguration.compileSdkExtension

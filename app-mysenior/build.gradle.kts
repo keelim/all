@@ -9,9 +9,6 @@ plugins {
 android {
     defaultConfig {
         applicationId = "com.keelim.mysenior"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
         buildTypes {
             create("my-mysenior-benchmark") {
                 signingConfig = signingConfigs.getByName("debug")

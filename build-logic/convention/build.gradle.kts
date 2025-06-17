@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     `kotlin-dsl`
@@ -41,51 +40,51 @@ tasks {
 gradlePlugin {
     plugins {
         register("androidApplication") {
-            id = "keelim.android.application"
+            id = libs.plugins.keelim.android.application.asProvider().get().pluginId
             implementationClass = "KeelimAndroidApplicationPlugin"
         }
         register("androidApplicationFirebase") {
-            id = "keelim.android.application.firebase"
+            id = libs.plugins.keelim.android.application.firebase.get().pluginId
             implementationClass = "KeelimApplicationFirebasePlugin"
         }
         register("androidApplicationCompose") {
-            id = "keelim.android.application.compose"
+            id = libs.plugins.keelim.android.application.compose.get().pluginId
             implementationClass = "KeelimAndroidApplicationComposePlugin"
         }
         register("androidApplicationJacoco") {
-            id = "keelim.android.application.jacoco"
+            id = libs.plugins.keelim.android.application.jacoco.get().pluginId
             implementationClass = "KeelimApplicationJacocoPlugin"
         }
         register("androidApplicationRoom") {
-            id = "keelim.android.application.room"
+            id = libs.plugins.keelim.android.application.room.get().pluginId
             implementationClass = "KeelimRoomConventionPlugin"
         }
         register("androidLibrary") {
-            id = "keelim.android.library"
+            id = libs.plugins.keelim.android.library.asProvider().get().pluginId
             implementationClass = "KeelimAndroidLibraryPlugin"
         }
         register("androidLibraryCompose") {
-            id = "keelim.android.library.compose"
+            id = libs.plugins.keelim.android.library.compose.get().pluginId
             implementationClass = "KeelimAndroidLibraryComposePlugin"
         }
         register("androidLibraryJacoco") {
-            id = "keelim.android.library.jacoco"
+            id = libs.plugins.keelim.android.library.jacoco.get().pluginId
             implementationClass = "KeelimLibraryJacocoPlugin"
         }
         register("jvmLibrary") {
-            id = "keelim.jvm.library"
+            id = libs.plugins.keelim.jvm.library.get().pluginId
             implementationClass = "KeelimJvmLibraryPlugin"
         }
         register("androidTest") {
-            id = "keelim.android.test"
+            id = libs.plugins.keelim.android.test.get().pluginId
             implementationClass = "KeelimAndroidTestPlugin"
         }
         register("androidHilt") {
-            id = "keelim.android.hilt"
+            id = libs.plugins.keelim.android.hilt.get().pluginId
             implementationClass = "KeelimHiltPlugin"
         }
         register("showkase") {
-            id = "keelim.android.showkase"
+            id = libs.plugins.keelim.android.showkase.get().pluginId
             implementationClass = "KeelimShowkasePlugin"
         }
     }

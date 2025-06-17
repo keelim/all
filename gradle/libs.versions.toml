@@ -124,7 +124,7 @@ androidx-bio = { group = "androidx.biometric", name = "biometric", version.ref =
 androidx-compose-animation = { group = "androidx.compose.animation", name = "animation" }
 androidx-compose-animation-core = { group = "androidx.compose.animation", name = "animation-core" }
 androidx-compose-animation-graphics = { group = "androidx.compose.animation", name = "animation-graphics" }
-androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidxComposeBom" }
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom-alpha", version.ref = "androidxComposeBom" }
 androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
 androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout" }
 androidx-compose-glance = { group = "androidx.glance", name = "glance", version.ref = "glance" }

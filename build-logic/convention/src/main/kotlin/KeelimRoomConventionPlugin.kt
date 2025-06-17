@@ -18,6 +18,7 @@ import androidx.room.gradle.RoomExtension
 import com.keelim.builds.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 
@@ -26,10 +27,8 @@ class KeelimRoomConventionPlugin : Plugin<Project> {
 
     override fun apply(target: Project) {
         with(target) {
-            with(pluginManager) {
-                apply("com.google.devtools.ksp")
-                apply("androidx.room")
-            }
+            apply(plugin = "com.google.devtools.ksp")
+            apply(plugin = "androidx.room")
 
             extensions.configure<RoomExtension> {
                 // The schemas directory contains a schema file for each version of the Room database.

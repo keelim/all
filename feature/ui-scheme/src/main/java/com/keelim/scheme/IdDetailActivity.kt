@@ -33,10 +33,10 @@ class IdDetailActivity : ComponentActivity() {
                 Column(
                     modifier = Modifier.fillMaxSize(),
                     verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
+                    horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     Spacer(
-                        modifier = Modifier.height(130.dp)
+                        modifier = Modifier.height(130.dp),
                     )
                     Text(
                         text = name,
@@ -47,7 +47,6 @@ class IdDetailActivity : ComponentActivity() {
             }
         }
     }
-
 
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putString(EXTRA_NAME, name)
@@ -68,14 +67,13 @@ class IdDetailActivity : ComponentActivity() {
         }
     }
 
-
     companion object {
         private const val QUERY_NAME = "name"
         private const val EXTRA_NAME = "EXTRA_NAME"
 
         fun startActivity(context: Context, name: String) {
             context.startActivity<IdDetailActivity>(
-                EXTRA_NAME to name
+                EXTRA_NAME to name,
             )
         }
 

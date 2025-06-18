@@ -42,7 +42,7 @@ fun ArduConHost(
     coroutineScope: CoroutineScope,
     onShowSnackbar: suspend (String, String?) -> Boolean,
     modifier: Modifier = Modifier,
-    viewModel: AppViewModel = hiltViewModel()
+    viewModel: AppViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
 
@@ -120,7 +120,7 @@ fun ArduConHost(
                 val customTabsIntent = remember {
                     CustomTabsIntent.Builder().build()
                 }
-                
+
                 OgTagPreviewRoute(
                     onNavigateToBrowser = { url ->
                         customTabsIntent.launchUrl(context, url.toUri())

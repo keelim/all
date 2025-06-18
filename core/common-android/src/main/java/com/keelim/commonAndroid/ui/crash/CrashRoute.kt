@@ -47,7 +47,7 @@ fun CrashScreen(
     onAppRefresh: () -> Unit,
 ) {
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) {
         NavigationBackArrowBar(
             "에러 확인 중",
@@ -64,7 +64,7 @@ fun CrashScreen(
                     imageVector = Icons.Filled.Refresh,
                     contentDescription = null,
                     modifier = Modifier
-                        .clickable { onAppRefresh() }
+                        .clickable { onAppRefresh() },
                 )
             }
         }

@@ -124,9 +124,8 @@ fun MainRoute(
 
     SimpleAcquirePermissions(
         permissions = appPermissions,
-        onGrant = {}
+        onGrant = {},
     )
-
 
     MainScreen(
         schemeList = schemeList,
@@ -145,7 +144,7 @@ fun MainRoute(
         onNavigateSaastatus = onNavigateSaastatus,
         onNavigateOgTagPreview = onNavigateOgTagPreview,
         onDeleteScheme = viewModel::deleteScheme,
-        onShowNotification = viewModel::showNotification
+        onShowNotification = viewModel::showNotification,
     )
 
     if (showBottomSheet != DeepLink.EMPTY) {
@@ -556,8 +555,8 @@ private fun DeepLinkEditDialog(
                         deepLinkToEdit.copy(
                             title = editedTitle,
                             url = editedUrl,
-                            category = editedCategory
-                        )
+                            category = editedCategory,
+                        ),
                     )
                 },
             ) {

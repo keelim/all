@@ -38,7 +38,6 @@ class SchemeActivity : ComponentActivity() {
             }.run {
                 addNextIntent(deepLinkIntent)
             }
-
         } else {
             // 앱이 이미 실행 중인 경우, 현재 태스크에 딥링크 인텐트를 시작합니다.
             Log.d("[lab]", "isTaskRoot is false, starting activity directly")

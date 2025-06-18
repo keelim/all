@@ -28,38 +28,35 @@ class SchemeTestActivity : ComponentActivity() {
                 Column(
                     modifier = Modifier.fillMaxSize(),
                     verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
+                    horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     Button(
                         onClick = {
                             IdDetailActivity.Companion.startActivity(activity, "Main")
-                        }
+                        },
                     ) {
                         Text(
                             text = "Main",
                             style = MaterialTheme.typography.titleMedium,
                             modifier = Modifier.padding(vertical = space8),
                         )
-
                     }
 
                     Button(
                         onClick = {
                             IdActivity.Companion.startActivity(activity, "Main Korea")
-                        }
+                        },
                     ) {
                         Text(
                             text = "Main Korea",
                             style = MaterialTheme.typography.titleMedium,
                             modifier = Modifier.padding(vertical = space8),
                         )
-
                     }
                 }
             }
         }
     }
-
 
     companion object {
 
@@ -68,7 +65,7 @@ class SchemeTestActivity : ComponentActivity() {
                 addFlags(
                     Intent.FLAG_ACTIVITY_CLEAR_TOP
                         or Intent.FLAG_ACTIVITY_SINGLE_TOP
-                        or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        or Intent.FLAG_ACTIVITY_CLEAR_TASK,
                 )
             }
     }

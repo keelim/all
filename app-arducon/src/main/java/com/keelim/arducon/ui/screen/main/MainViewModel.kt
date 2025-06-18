@@ -31,7 +31,7 @@ private val defaultSchemeList = listOf(
 class MainViewModel @Inject constructor(
     @Dispatcher(KeelimDispatchers.DEFAULT) private val default: CoroutineDispatcher,
     private val repository: ArduconRepository,
-    private val schemeNotificationManager: Lazy<SchemeNotificationManager>
+    private val schemeNotificationManager: Lazy<SchemeNotificationManager>,
 ) : ViewModel() {
     private val _onClickSearch = MutableStateFlow("")
     val onClickSearch = _onClickSearch.asStateFlow()

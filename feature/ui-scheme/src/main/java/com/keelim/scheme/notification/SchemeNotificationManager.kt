@@ -11,7 +11,6 @@ import androidx.core.net.toUri
 import com.keelim.scheme.SchemeActivity
 import javax.inject.Inject
 
-
 class SchemeNotificationManager @Inject constructor(
     private val context: Context,
 ) {
@@ -28,7 +27,7 @@ class SchemeNotificationManager @Inject constructor(
         NotificationChannel(
             CHANNEL_ID,
             CHANNEL_NAME,
-            NotificationManager.IMPORTANCE_DEFAULT
+            NotificationManager.IMPORTANCE_DEFAULT,
         ).apply {
             description = CHANNEL_DESCRIPTION
         }.also { channel ->
@@ -40,13 +39,13 @@ class SchemeNotificationManager @Inject constructor(
         notificationId: Int,
         title: String,
         message: String,
-        deepLinkUri: String
+        deepLinkUri: String,
     ) {
         val intent = Intent(
             Intent.ACTION_VIEW,
             deepLinkUri.toUri(),
             context,
-            SchemeActivity::class.java
+            SchemeActivity::class.java,
         ).apply {
             flags += Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
@@ -55,7 +54,7 @@ class SchemeNotificationManager @Inject constructor(
             context,
             0,
             intent,
-            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
         )
 
         val notification = NotificationCompat.Builder(context, CHANNEL_ID)

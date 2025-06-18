@@ -17,6 +17,6 @@ object Module {
     fun providesSchemeNotificationManager(
         @ApplicationContext context: Context,
     ): SchemeNotificationManager = SchemeNotificationManager(
-        context
+        context,
     )
 }

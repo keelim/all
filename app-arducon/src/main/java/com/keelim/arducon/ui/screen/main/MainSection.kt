@@ -485,7 +485,6 @@ private fun DeepLinkItem(
     onShowNotification: (Int, String, String, String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-
     Card(
         modifier = modifier
             .fillMaxWidth()

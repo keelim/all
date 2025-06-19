@@ -57,6 +57,7 @@ haze = "1.6.4"
 hilt = "2.56.2"
 hiltExt = "1.2.0"
 in-app-update = "2.1.0"
+insightsLint = "0.1.3"
 jacoco = "0.8.7"
 jsoup = "1.20.1"
 junit4 = "4.13.2"
@@ -241,6 +242,7 @@ hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", v
 hilt-ext-compiler = { group = "androidx.hilt", name = "hilt-compiler", version.ref = "hiltExt" }
 hilt-ext-work = { group = "androidx.hilt", name = "hilt-work", version.ref = "hiltExt" }
 inapp-update = { group = "com.google.android.play", name = "app-update-ktx", version.ref = "in-app-update" }
+insights-lint = { module = "com.google.play.policy.insights:insights-lint", version.ref = "insightsLint" }
 jsoup = { module = "org.jsoup:jsoup", version.ref = "jsoup"}
 junit4 = { group = "junit", name = "junit", version.ref = "junit4" }
 kotlin-becnhmark-runtime = { group = "org.jetbrains.kotlinx", name = "kotlinx-benchmark-runtime", version.ref = "kotlin-benchmark" }
@@ -301,8 +303,8 @@ room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "
 room-testing = { group = "androidx.room", name = "room-testing", version.ref = "room" }
 showkase = { group = "com.airbnb.android", name = "showkase", version.ref = "showkase" }
 showkase-processor = { group = "com.airbnb.android", name = "showkase-processor", version.ref = "showkase" }
-slack-lint-checks =  { group = "com.slack.lint", name = "slack-lint-checks", version.ref = "slackLintChecks" }
 slack-compose-lint =  { group = "com.slack.lint.compose", name = "compose-lint-checks", version.ref = "slackComposeLint" }
+slack-lint-checks = { group = "com.slack.lint", name = "slack-lint-checks", version.ref = "slackLintChecks" }
 soloader = { group = "com.facebook.soloader", name = "soloader", version.ref = "soloader" }
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timbers" }
 truth = { module = "com.google.truth:truth", version.ref = "truth" }

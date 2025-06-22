@@ -2,7 +2,7 @@ package com.keelim.core.data.message
 
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import com.keelim.core.network.di.ApplicationScope
+import com.keelim.common.di.ApplicationScope
 import com.keelim.data.repository.AlarmRepository
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope

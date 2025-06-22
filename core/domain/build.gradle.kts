@@ -9,7 +9,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.core.data)
+    implementation(projects.core.dataApi)
     testImplementation(libs.junit4)
     testImplementation(libs.turbine)
     testImplementation(libs.truth)

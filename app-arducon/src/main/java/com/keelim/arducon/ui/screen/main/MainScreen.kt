@@ -4,13 +4,16 @@ package com.keelim.arducon.ui.screen.main
 
 import android.Manifest
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Build
 import android.webkit.URLUtil
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -38,6 +41,7 @@ import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.HorizontalFloatingToolbar
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
@@ -52,6 +56,7 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.material3.rememberTooltipState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -61,6 +66,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -69,6 +75,8 @@ import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
+import com.keelim.arducon.ui.screen.main.MainViewModel.QrDialogState
+import com.keelim.common.extensions.saveQrBitmapToGallery
 import com.keelim.composeutil.component.icon.rememberQrCodeScanner
 import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space16
@@ -105,6 +113,7 @@ fun MainRoute(
     val editDeepLink by viewModel.editDeepLink.collectAsStateWithLifecycle()
     val categories by viewModel.categories.collectAsStateWithLifecycle()
     val selectedCategory by viewModel.selectedCategory.collectAsStateWithLifecycle()
+    val qrDialogState by viewModel.qrDialogState.collectAsState()
 
     val context = LocalContext.current
     LaunchedEffect(isSearched.value) {
@@ -145,6 +154,7 @@ fun MainRoute(
         onNavigateOgTagPreview = onNavigateOgTagPreview,
         onDeleteScheme = viewModel::deleteScheme,
         onShowNotification = viewModel::showNotification,
+        onGenerateQrCode = viewModel::generateQrCode,
     )
 
     if (showBottomSheet != DeepLink.EMPTY) {
@@ -167,6 +177,14 @@ fun MainRoute(
             onDismiss = viewModel::clearEditDeepLink,
         )
     }
+
+    QrDialog(
+        qrDialogState = qrDialogState,
+        onDismiss = viewModel::hideQrDialog,
+        onSaveImage = { bitmap ->
+            context.saveQrBitmapToGallery(bitmap)
+        }
+    )
 }
 
 @Composable
@@ -188,6 +206,7 @@ fun MainScreen(
     onNavigateOgTagPreview: () -> Unit,
     onDeleteScheme: (String) -> Unit,
     onShowNotification: (Int, String, String, String) -> Unit,
+    onGenerateQrCode: (DeepLink) -> Unit,
 ) {
     val listState = rememberLazyListState()
     val isScrollInProgress = remember {
@@ -245,6 +264,7 @@ fun MainScreen(
             selectedCategory = selectedCategory,
             onCategorySelected = onCategorySelected,
             onShowNotification = onShowNotification,
+            onGenerateQrCode = onGenerateQrCode,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues = paddingValues),
@@ -600,5 +620,59 @@ private fun PreviewMainScreen() {
         selectedCategory = "Category1",
         onCategorySelected = { },
         onShowNotification = { _, _, _, _ -> },
+        onGenerateQrCode = { },
     )
 }
+
+@Composable
+fun QrDialog(
+    qrDialogState: QrDialogState,
+    onDismiss: () -> Unit,
+    onSaveImage: (Bitmap) -> Unit,
+) {
+    when (qrDialogState) {
+        is QrDialogState.Loading -> {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                LoadingIndicator()
+            }
+        }
+
+        is QrDialogState.Success -> {
+            AlertDialog(
+                onDismissRequest = onDismiss,
+                text = {
+                    Image(
+                        bitmap = qrDialogState.bitmap.asImageBitmap(),
+                        contentDescription = "QR 코드"
+                    )
+                },
+                confirmButton = {
+                    Button(onClick = { onSaveImage(qrDialogState.bitmap) }) {
+                        Text("이미지 저장")
+                    }
+                },
+                dismissButton = {
+                    Button(onClick = onDismiss) { Text("닫기") }
+                }
+            )
+        }
+
+        is QrDialogState.Error -> {
+            AlertDialog(
+                onDismissRequest = onDismiss,
+                title = { Text("에러") },
+                text = { Text(qrDialogState.message) },
+                confirmButton = {},
+                dismissButton = {
+                    Button(onClick = onDismiss) { Text("닫기") }
+                }
+            )
+        }
+
+        QrDialogState.Hidden -> Unit
+    }
+}
+

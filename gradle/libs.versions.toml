@@ -108,6 +108,7 @@ themeAdapter = "1.2.1"
 timbers = "5.0.1"
 truth = "1.4.4"
 turbine = "1.2.1"
+zxing = "3.5.3"
 
 [libraries]
 accompanist-flowlayout = { group = "com.google.accompanist", name = "accompanist-flowlayout", version.ref = "accompanist" }
@@ -205,6 +206,7 @@ coil-network-ktor = { group = "io.coil-kt", name = "coil-video", version.ref = "
 coil-svg = { group = "io.coil-kt", name = "coil-svg"}
 coil-video = { group = "io.coil-kt", name = "coil-video"}
 compose-compiler-gradlePlugin = { group = "org.jetbrains.kotlin", name = "compose-compiler-gradle-plugin", version.ref = "kotlin" }
+zxing = { module = "com.google.zxing:core", version.ref = "zxing" }
 deeplinkdispatch = { group = "com.airbnb", name = "deeplinkdispatch", version.ref = "deeplinkdispatch" }
 deeplinkdispatch-processor = { group = "com.airbnb", name = "deeplinkdispatch-processor", version.ref = "deeplinkdispatch" }
 dependencyGuard-gradlePlugin = { group = "com.dropbox.dependency-guard", name = "com.dropbox.dependency-guard.gradle.plugin", version.ref = "dependencyGuard" }

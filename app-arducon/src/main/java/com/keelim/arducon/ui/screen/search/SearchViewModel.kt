@@ -1,7 +1,7 @@
 package com.keelim.arducon.ui.screen.search
 
 import androidx.lifecycle.ViewModel
-import com.keelim.core.database.repository.ArduconRepository
+import com.keelim.data.repository.ArduconRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

@@ -2,9 +2,9 @@ package com.keelim.arducon.ui.screen.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.keelim.core.database.repository.ArduconRepository
 import com.keelim.core.network.Dispatcher
 import com.keelim.core.network.KeelimDispatchers
+import com.keelim.data.repository.ArduconRepository
 import com.keelim.model.DeepLink
 import com.keelim.scheme.notification.SchemeNotificationManager
 import dagger.Lazy

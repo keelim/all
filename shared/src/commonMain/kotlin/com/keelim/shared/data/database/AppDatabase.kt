@@ -8,7 +8,6 @@ import androidx.room.RoomDatabaseConstructor
 import com.keelim.shared.data.database.dao.AlarmDao
 import com.keelim.shared.data.database.dao.ArduconDao
 import com.keelim.shared.data.database.dao.HistoryDao
-import com.keelim.shared.data.database.dao.NandaDao
 import com.keelim.shared.data.database.dao.NetworkCacheDao
 import com.keelim.shared.data.database.dao.NoteDao
 import com.keelim.shared.data.database.dao.TaskDao
@@ -17,7 +16,6 @@ import com.keelim.shared.data.database.model.AlarmEntity
 import com.keelim.shared.data.database.model.DeepLinkEntity
 import com.keelim.shared.data.database.model.History
 import com.keelim.shared.data.database.model.LocalTask
-import com.keelim.shared.data.database.model.NandaEntity
 import com.keelim.shared.data.database.model.NetworkCache
 import com.keelim.shared.data.database.model.NoticesEntity
 import com.keelim.shared.data.database.model.SchemeEntity
@@ -55,21 +53,6 @@ abstract class MyGradeAppDatabase : RoomDatabase() {
     abstract fun timerHistoryDao(): TimerHistoryDao
     abstract fun networkCacheDao(): NetworkCacheDao
     abstract fun noteDao(): NoteDao
-}
-
-@Suppress("NO_ACTUAL_FOR_EXPECT")
-expect object NandaAppDatabaseConstructor : RoomDatabaseConstructor<NandaAppDatabase> {
-    override fun initialize(): NandaAppDatabase
-}
-
-@Database(
-    entities = [NandaEntity::class],
-    version = 1,
-    exportSchema = true,
-)
-@ConstructedBy(NandaAppDatabaseConstructor::class)
-abstract class NandaAppDatabase : RoomDatabase() {
-    abstract fun dataDao(): NandaDao
 }
 
 @Suppress("NO_ACTUAL_FOR_EXPECT")

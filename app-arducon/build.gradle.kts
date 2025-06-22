@@ -40,6 +40,7 @@ dependencies {
     implementation(libs.play.services.code.scanner)
     implementation(libs.timber)
     implementation(libs.jsoup)
+    implementation(libs.zxing)
 }
 
 

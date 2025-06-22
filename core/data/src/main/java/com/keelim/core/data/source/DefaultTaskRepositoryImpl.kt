@@ -1,12 +1,12 @@
 package com.keelim.core.data.source
 
+import com.keelim.common.Dispatcher
+import com.keelim.common.KeelimDispatchers
+import com.keelim.common.di.ApplicationScope
 import com.keelim.core.data.model.toLocal
 import com.keelim.core.data.model.toNetwork
 import com.keelim.core.database.mapper.toLocalTask
 import com.keelim.core.database.mapper.toLocalTaskEntity
-import com.keelim.core.network.Dispatcher
-import com.keelim.core.network.KeelimDispatchers
-import com.keelim.core.network.di.ApplicationScope
 import com.keelim.data.repository.DefaultTaskRepository
 import com.keelim.shared.data.database.dao.TaskDao
 import com.keelim.shared.data.database.model.LocalTask

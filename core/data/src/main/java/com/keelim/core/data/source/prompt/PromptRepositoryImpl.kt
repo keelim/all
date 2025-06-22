@@ -1,8 +1,8 @@
 package com.keelim.core.data.source.prompt
 
 import com.google.ai.client.generativeai.GenerativeModel
-import com.keelim.core.network.Dispatcher
-import com.keelim.core.network.KeelimDispatchers
+import com.keelim.common.Dispatcher
+import com.keelim.common.KeelimDispatchers
 import com.keelim.data.repository.PromptRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext

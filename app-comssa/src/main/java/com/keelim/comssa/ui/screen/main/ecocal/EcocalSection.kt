@@ -3,7 +3,6 @@
 package com.keelim.comssa.ui.screen.main.ecocal
 
 import android.content.Intent
-import android.net.Uri
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -65,6 +64,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEach
 import androidx.compose.ui.util.trace
+import androidx.core.net.toUri
 import com.keelim.composeutil.component.fab.FabButtonItem
 import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space16
@@ -112,7 +112,8 @@ fun EcocalMainSection(
                             .background(
                                 MaterialTheme.colorScheme.primaryContainer,
                                 shape = CircleShape,
-                            ),
+                            )
+                            .animateItem(),
                         horizontalArrangement = Arrangement.Center,
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
@@ -137,11 +138,12 @@ fun EcocalMainSection(
                             context.startActivity(
                                 Intent(
                                     Intent.ACTION_VIEW,
-                                    Uri.parse("https://www.google.com/search?q=${entry.country}-${entry.title} ${entry.date} ${entry.time}"),
+                                    "https://www.google.com/search?q=${entry.country}-${entry.title} ${entry.date} ${entry.time}".toUri(),
                                 ),
                             )
                         },
                         onCountryClick = onCountryClick,
+                        modifier = Modifier.animateItem(),
                     )
                 }
             }

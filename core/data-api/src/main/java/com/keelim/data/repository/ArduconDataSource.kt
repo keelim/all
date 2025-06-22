@@ -1,4 +1,4 @@
-package com.keelim.core.database.repository
+package com.keelim.data.repository
 
 import com.keelim.model.DeepLink
 import kotlinx.coroutines.flow.Flow

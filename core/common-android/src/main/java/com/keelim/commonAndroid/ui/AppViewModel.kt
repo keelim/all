@@ -2,8 +2,8 @@ package com.keelim.commonAndroid.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.keelim.core.network.Dispatcher
-import com.keelim.core.network.KeelimDispatchers
+import com.keelim.common.Dispatcher
+import com.keelim.common.KeelimDispatchers
 import com.keelim.data.repository.FirebaseRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher

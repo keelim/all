@@ -1,4 +1,4 @@
-package com.keelim.core.network
+package com.keelim.common
 
 import javax.inject.Qualifier
 

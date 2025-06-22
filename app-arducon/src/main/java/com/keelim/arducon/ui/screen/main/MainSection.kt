@@ -41,6 +41,7 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.rounded.Share
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.Card
@@ -340,6 +341,7 @@ fun DeepLinkSection(
     selectedCategory: String,
     onCategorySelected: (String) -> Unit,
     onShowNotification: (Int, String, String, String) -> Unit,
+    onGenerateQrCode: (DeepLink) -> Unit,
     modifier: Modifier = Modifier,
     listState: LazyListState = rememberLazyListState(),
 ) {
@@ -426,6 +428,7 @@ fun DeepLinkSection(
                 ),
                 onCategoryClick = onCategorySelected,
                 onShowNotification = onShowNotification,
+                onGenerateQrCode = onGenerateQrCode,
             )
         }
         stickyHeader {
@@ -469,6 +472,7 @@ fun DeepLinkSection(
                 ),
                 onCategoryClick = onCategorySelected,
                 onShowNotification = onShowNotification,
+                onGenerateQrCode = onGenerateQrCode,
             )
         }
     }
@@ -483,6 +487,7 @@ private fun DeepLinkItem(
     onItemLongClick: (DeepLink) -> Unit,
     onCategoryClick: (String) -> Unit,
     onShowNotification: (Int, String, String, String) -> Unit,
+    onGenerateQrCode: (DeepLink) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Card(
@@ -596,6 +601,14 @@ private fun DeepLinkItem(
                     tint = MaterialTheme.colorScheme.primary,
                 )
                 Icon(
+                    imageVector = Icons.Rounded.Share,
+                    contentDescription = "QR 코드 생성",
+                    modifier = Modifier
+                        .size(space32)
+                        .clickable { onGenerateQrCode(deepLink) },
+                    tint = MaterialTheme.colorScheme.primary,
+                )
+                Icon(
                     imageVector = Icons.Default.Delete,
                     contentDescription = "delete",
                     modifier = Modifier
@@ -654,5 +667,6 @@ private fun PreviewDeepLinkSection() {
         selectedCategory = "",
         onCategorySelected = {},
         onShowNotification = { _, _, _, _ -> },
+        onGenerateQrCode = {},
     )
 }

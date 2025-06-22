@@ -1,7 +1,13 @@
 package com.keelim.arducon.ui.screen.main
 
+import android.graphics.Bitmap
+import android.graphics.Color
+import androidx.core.graphics.createBitmap
+import androidx.core.graphics.set
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.qrcode.QRCodeWriter
 import com.keelim.common.Dispatcher
 import com.keelim.common.KeelimDispatchers
 import com.keelim.data.repository.ArduconRepository
@@ -10,6 +16,8 @@ import com.keelim.scheme.notification.SchemeNotificationManager
 import dagger.Lazy
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -19,6 +27,7 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -68,6 +77,16 @@ class MainViewModel @Inject constructor(
 
     private val _editDeepLink = MutableStateFlow<DeepLink?>(null)
     val editDeepLink = _editDeepLink.asStateFlow()
+
+    sealed interface QrDialogState {
+        data object Hidden : QrDialogState
+        data class Loading(val deepLink: DeepLink) : QrDialogState
+        data class Success(val deepLink: DeepLink, val bitmap: Bitmap) : QrDialogState
+        data class Error(val message: String) : QrDialogState
+    }
+
+    private val _qrDialogState = MutableStateFlow<QrDialogState>(QrDialogState.Hidden)
+    val qrDialogState: StateFlow<QrDialogState> = _qrDialogState.asStateFlow()
 
     // 딥링크 검색 버튼 클릭
     fun onClickSearch(
@@ -170,5 +189,36 @@ class MainViewModel @Inject constructor(
             message = message,
             deepLinkUri = deepLinkUri,
         )
+    }
+
+    fun generateQrCode(deepLink: DeepLink) {
+        _qrDialogState.value = QrDialogState.Loading(deepLink)
+        viewModelScope.launch {
+            try {
+                val bitmap = withContext(Dispatchers.Default) {
+                    generateQrBitmap(deepLink.url)
+                }
+                delay(1_000)
+                _qrDialogState.value = QrDialogState.Success(deepLink, bitmap)
+            } catch (e: Exception) {
+                _qrDialogState.value = QrDialogState.Error("QR 코드 생성 실패: ${e.message}")
+            }
+        }
+    }
+
+    fun hideQrDialog() {
+        _qrDialogState.value = QrDialogState.Hidden
+    }
+
+    private fun generateQrBitmap(content: String): Bitmap {
+        val size = 1024
+        val bits = QRCodeWriter().encode(content, BarcodeFormat.QR_CODE, size, size)
+        val bmp = createBitmap(size, size)
+        for (x in 0 until size) {
+            for (y in 0 until size) {
+                bmp[x, y] = if (bits[x, y]) Color.BLACK else Color.WHITE
+            }
+        }
+        return bmp
     }
 }

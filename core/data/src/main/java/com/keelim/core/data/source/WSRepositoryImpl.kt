@@ -1,7 +1,7 @@
 package com.keelim.core.data.source
 
-import com.keelim.core.network.Dispatcher
-import com.keelim.core.network.KeelimDispatchers
+import com.keelim.common.Dispatcher
+import com.keelim.common.KeelimDispatchers
 import com.keelim.core.network.di.KtorNetworkModule
 import com.keelim.data.repository.WSRepository
 import io.ktor.client.HttpClient

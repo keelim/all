@@ -5,8 +5,8 @@ import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 import com.google.firebase.messaging.messaging
 import com.google.firebase.remoteconfig.remoteConfig
-import com.keelim.core.network.Dispatcher
-import com.keelim.core.network.KeelimDispatchers
+import com.keelim.common.Dispatcher
+import com.keelim.common.KeelimDispatchers
 import com.keelim.data.repository.FirebaseRepository
 import com.keelim.model.EcoCalEntry
 import dagger.hilt.android.qualifiers.ApplicationContext

@@ -2,16 +2,19 @@ package com.keelim.core.data.source
 
 import com.keelim.core.data.model.toLocal
 import com.keelim.core.data.model.toNetwork
-import com.keelim.core.database.repository.DefaultTaskRepository
+import com.keelim.core.database.mapper.toLocalTask
+import com.keelim.core.database.mapper.toLocalTaskEntity
 import com.keelim.core.network.Dispatcher
 import com.keelim.core.network.KeelimDispatchers
 import com.keelim.core.network.di.ApplicationScope
+import com.keelim.data.repository.DefaultTaskRepository
 import com.keelim.shared.data.database.dao.TaskDao
 import com.keelim.shared.data.database.model.LocalTask
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.datetime.Clock
@@ -25,8 +28,10 @@ class DefaultTaskRepositoryImpl @Inject constructor(
     @ApplicationScope private val scope: CoroutineScope,
 ) : DefaultTaskRepository {
 
-    override fun observeAll(): Flow<List<LocalTask>> {
-        return localDataSource.observeAll()
+    override fun observeAll(): Flow<List<com.keelim.model.LocalTask>> {
+        return localDataSource.observeAll().map {
+            it.toLocalTask()
+        }
     }
 
     override suspend fun create() {
@@ -67,8 +72,8 @@ class DefaultTaskRepositoryImpl @Inject constructor(
         saveTasksToNetwork()
     }
 
-    override suspend fun upsert(task: LocalTask) {
-        localDataSource.upsert(task)
+    override suspend fun upsert(task: com.keelim.model.LocalTask) {
+        localDataSource.upsert(task.toLocalTaskEntity())
         saveTasksToNetwork()
     }
 
@@ -81,7 +86,7 @@ class DefaultTaskRepositoryImpl @Inject constructor(
         localDataSource.upsertAll(networkTasks.toLocal())
     }
 
-    override fun delete(task: LocalTask) {
+    override fun delete(task: com.keelim.model.LocalTask) {
         scope.launch {
             withContext(dispatcher) {
                 localDataSource.delete(task.id)

@@ -1,7 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="83pt" height="44pt" viewBox="0 0 83 44">
-    <g class="graph">
-        <path fill="#fff" d="M0 44V0h83.07v44z"/>
-        <g class="node" transform="translate(4 40)">
+    <g class="graph" transform="translate(4 40)">
+        <title>G</title>
+        <path fill="#fff" d="M-4 4v-44h83.07V4z"/>
+        <g class="node">
+            <title>:shared</title>
             <ellipse cx="37.53" cy="-18" fill="none" stroke="#000" rx="37.53" ry="18"/>
             <text xml:space="preserve" x="37.53" y="-12.95" font-family="Times,serif" font-size="14" text-anchor="middle">:shared</text>
         </g>

@@ -13,7 +13,7 @@ dependencies {
     api(projects.core.common)
     api(projects.core.composeCore)
     api(projects.shared)
-    implementation(projects.core.data)
+    implementation(projects.core.dataApi)
     implementation(projects.core.network)
 
     implementation(libs.androidx.core.ktx)

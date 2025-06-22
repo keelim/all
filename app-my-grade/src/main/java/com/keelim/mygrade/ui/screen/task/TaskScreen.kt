@@ -48,7 +48,7 @@ import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space8
-import com.keelim.shared.data.database.model.LocalTask
+import com.keelim.model.LocalTask
 
 @Composable
 fun TaskRoute(onNavigateChart: () -> Unit, viewModel: TaskViewModel = hiltViewModel()) = trace("TaskRoute") {
@@ -75,7 +75,6 @@ fun TaskScreen(
     AnimatedContent(
         targetState = state,
         label = "",
-        contentKey = { state },
     ) { targetState ->
         when (targetState) {
             SealedUiState.Loading -> Loading()

@@ -9,11 +9,11 @@ import com.keelim.core.data.source.firebase.FirebaseRepositoryImpl
 import com.keelim.core.data.source.note.NoteRepositoryImpl
 import com.keelim.core.data.source.notification.NotificationRepositoryImpl
 import com.keelim.core.data.source.prompt.PromptRepositoryImpl
-import com.keelim.core.database.repository.DefaultTaskRepository
-import com.keelim.core.database.repository.HistoryRepository
 import com.keelim.data.repository.AlarmRepository
 import com.keelim.data.repository.ArduconRepository
+import com.keelim.data.repository.DefaultTaskRepository
 import com.keelim.data.repository.FirebaseRepository
+import com.keelim.data.repository.HistoryRepository
 import com.keelim.data.repository.NoteRepository
 import com.keelim.data.repository.NotificationRepository
 import com.keelim.data.repository.PromptRepository

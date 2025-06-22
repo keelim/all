@@ -1,6 +1,6 @@
-package com.keelim.core.database.repository
+package com.keelim.data.repository
 
-import com.keelim.shared.data.database.model.LocalTask
+import com.keelim.model.LocalTask
 import kotlinx.coroutines.flow.Flow
 
 interface DefaultTaskRepository {

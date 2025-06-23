@@ -19,6 +19,6 @@ class FirebaseRemoteConfigInitializer : Initializer<FirebaseRemoteConfig> {
     }
 
     override fun dependencies(): List<Class<out Initializer<*>?>?> = listOf(
-        FirebaseInitializer::class.java
+        FirebaseInitializer::class.java,
     )
 }

@@ -39,7 +39,9 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.rounded.Share
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.Card
@@ -71,7 +73,7 @@ import com.keelim.model.DeepLink
 @Composable
 fun MainTopSection(
     schemeList: List<String>,
-    onSearch: (String, String) -> Unit,
+    onSearch: (String, String, String) -> Unit,
     onRegister: (String) -> Unit,
     onDelete: (String) -> Unit,
 ) {
@@ -84,6 +86,7 @@ fun MainTopSection(
         val (text, setText) = remember { mutableStateOf("") }
         val (title, setTitle) = remember { mutableStateOf("") }
         val (isError, setError) = remember { mutableStateOf(false) }
+        val (category, setCategory) = remember { mutableStateOf("") }
 
         Column(
             verticalArrangement = Arrangement.spacedBy(space8),
@@ -114,7 +117,7 @@ fun MainTopSection(
                             setError(true)
                         } else {
                             setError(false)
-                            onSearch(text, title)
+                            onSearch(text, title, category)
                         }
                     },
                 ),
@@ -328,12 +331,17 @@ fun DeepLinkSection(
     favoriteItems: List<DeepLink>,
     generalItems: List<DeepLink>,
     schemeList: List<String>,
-    onSearch: (String, String) -> Unit,
+    categories: List<String>,
+    onSearch: (String, String, String) -> Unit,
     onRegister: (String) -> Unit,
     onDeleteScheme: (String) -> Unit,
     onUpdate: (DeepLink) -> Unit,
     onDelete: (DeepLink) -> Unit,
     onItemLongClick: (DeepLink) -> Unit,
+    selectedCategory: String,
+    onCategorySelected: (String) -> Unit,
+    onShowNotification: (Int, String, String, String) -> Unit,
+    onGenerateQrCode: (DeepLink) -> Unit,
     modifier: Modifier = Modifier,
     listState: LazyListState = rememberLazyListState(),
 ) {
@@ -353,7 +361,31 @@ fun DeepLinkSection(
                 color = MaterialTheme.colorScheme.outlineVariant,
                 thickness = 1.dp,
             )
-
+        }
+        item {
+            LazyRow(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = space8),
+                horizontalArrangement = Arrangement.spacedBy(space8),
+            ) {
+                items(categories) { category ->
+                    val isSelected = selectedCategory == category
+                    AssistChip(
+                        onClick = { onCategorySelected(category) },
+                        label = {
+                            Text(
+                                text = if (category.isEmpty()) "모두" else category,
+                                style = MaterialTheme.typography.labelLarge,
+                            )
+                        },
+                        colors = AssistChipDefaults.assistChipColors(
+                            containerColor = if (isSelected) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceVariant,
+                            labelColor = if (isSelected) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurfaceVariant,
+                        ),
+                    )
+                }
+            }
         }
         stickyHeader {
             Text(
@@ -394,6 +426,9 @@ fun DeepLinkSection(
                         easing = LinearOutSlowInEasing,
                     ),
                 ),
+                onCategoryClick = onCategorySelected,
+                onShowNotification = onShowNotification,
+                onGenerateQrCode = onGenerateQrCode,
             )
         }
         stickyHeader {
@@ -435,6 +470,9 @@ fun DeepLinkSection(
                         easing = LinearOutSlowInEasing,
                     ),
                 ),
+                onCategoryClick = onCategorySelected,
+                onShowNotification = onShowNotification,
+                onGenerateQrCode = onGenerateQrCode,
             )
         }
     }
@@ -447,6 +485,9 @@ private fun DeepLinkItem(
     onUpdate: (DeepLink) -> Unit,
     onDelete: (DeepLink) -> Unit,
     onItemLongClick: (DeepLink) -> Unit,
+    onCategoryClick: (String) -> Unit,
+    onShowNotification: (Int, String, String, String) -> Unit,
+    onGenerateQrCode: (DeepLink) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Card(
@@ -456,7 +497,7 @@ private fun DeepLinkItem(
                 onClick = {},
                 onLongClick = {
                     onItemLongClick(deepLink)
-                }
+                },
             ),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant,
@@ -501,7 +542,24 @@ private fun DeepLinkItem(
                     text = deepLink.url,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
+                    maxLines = 1,
                 )
+                if (deepLink.category.isNotEmpty()) {
+                    AssistChip(
+                        onClick = { onCategoryClick(deepLink.category) },
+                        label = {
+                            Text(
+                                text = deepLink.category,
+                                style = MaterialTheme.typography.bodySmall,
+                            )
+                        },
+                        colors = AssistChipDefaults.assistChipColors(
+                            containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                            labelColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                        ),
+                        modifier = Modifier.padding(top = space4),
+                    )
+                }
             }
             Row(
                 horizontalArrangement = Arrangement.spacedBy(space4),
@@ -520,11 +578,34 @@ private fun DeepLinkItem(
                     )
                 }
                 Icon(
+                    imageVector = Icons.Default.Notifications,
+                    contentDescription = "show notification",
+                    modifier = Modifier
+                        .size(space32)
+                        .clickable {
+                            onShowNotification(
+                                deepLink.hashCode(),
+                                deepLink.title.ifEmpty { "Deep Link Notification" },
+                                "Click to open: ${deepLink.url}",
+                                deepLink.url,
+                            )
+                        },
+                    tint = MaterialTheme.colorScheme.primary,
+                )
+                Icon(
                     imageVector = Icons.Default.PlayArrow,
                     contentDescription = "play",
                     modifier = Modifier
                         .size(space32)
                         .clickable { onPlay(deepLink.url) },
+                    tint = MaterialTheme.colorScheme.primary,
+                )
+                Icon(
+                    imageVector = Icons.Rounded.Share,
+                    contentDescription = "QR 코드 생성",
+                    modifier = Modifier
+                        .size(space32)
+                        .clickable { onGenerateQrCode(deepLink) },
                     tint = MaterialTheme.colorScheme.primary,
                 )
                 Icon(
@@ -545,7 +626,7 @@ private fun DeepLinkItem(
 private fun PreviewMainTopSection() {
     MainTopSection(
         schemeList = listOf("https", "http"),
-        onSearch = { _, _ -> },
+        onSearch = { _, _, _ -> },
         onRegister = {},
         onDelete = {},
     )
@@ -578,9 +659,14 @@ private fun PreviewDeepLinkSection() {
         onUpdate = {},
         onDelete = {},
         schemeList = emptyList(),
-        onSearch = { _, _ -> },
+        onSearch = { _, _, _ -> },
         onRegister = {},
         onDeleteScheme = {},
         onItemLongClick = {},
+        categories = emptyList(),
+        selectedCategory = "",
+        onCategorySelected = {},
+        onShowNotification = { _, _, _, _ -> },
+        onGenerateQrCode = {},
     )
 }

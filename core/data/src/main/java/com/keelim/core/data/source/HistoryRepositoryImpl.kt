@@ -1,18 +1,17 @@
 package com.keelim.core.data.source
 
-
-import com.keelim.core.database.repository.HistoryRepository
-import com.keelim.core.network.Dispatcher
-import com.keelim.core.network.KeelimDispatchers
-import com.keelim.core.network.di.ApplicationScope
+import com.keelim.common.Dispatcher
+import com.keelim.common.KeelimDispatchers
+import com.keelim.common.di.ApplicationScope
+import com.keelim.core.database.mapper.toSimpleHistoryModel
+import com.keelim.data.repository.HistoryRepository
 import com.keelim.shared.data.database.dao.HistoryDao
 import com.keelim.shared.data.database.dao.TimerHistoryDao
-import com.keelim.shared.data.database.model.History
 import com.keelim.shared.data.database.model.SimpleHistory
-import com.keelim.shared.data.database.model.TimerHistory
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 import javax.inject.Inject
@@ -24,19 +23,12 @@ class HistoryRepositoryImpl @Inject constructor(
     @Dispatcher(KeelimDispatchers.DEFAULT) private val default: CoroutineDispatcher,
     @ApplicationScope private val scope: CoroutineScope,
 ) : HistoryRepository {
-    override fun observeAll(): Flow<List<History>> =
-        localDataSource.observeAll()
 
-    override fun observeSimpleHistories(): Flow<List<SimpleHistory>> =
+    override fun observeSimpleHistories(): Flow<List<com.keelim.model.SimpleHistory>> =
         localDataSource.observeSimpleHistories()
-
-    override fun observeTimerHistories(): Flow<List<TimerHistory>> =
-        timerHistoryDataSource.observeAll()
-
-    override suspend fun create(history: History): String {
-        localDataSource.upsert(history)
-        return history.uid.toString()
-    }
+            .map {
+                it.toSimpleHistoryModel()
+            }
 
     override suspend fun create(subject: String, grade: String, point: String): Boolean {
         return try {

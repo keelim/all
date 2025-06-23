@@ -1,9 +1,9 @@
 package com.keelim.core.data.source
 
-import com.keelim.core.database.repository.ArduconDataSource
-import com.keelim.core.database.repository.ArduconRepository
-import com.keelim.core.network.Dispatcher
-import com.keelim.core.network.KeelimDispatchers
+import com.keelim.common.Dispatcher
+import com.keelim.common.KeelimDispatchers
+import com.keelim.data.repository.ArduconDataSource
+import com.keelim.data.repository.ArduconRepository
 import com.keelim.model.DeepLink
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
@@ -51,4 +51,6 @@ class ArduconRepositoryImpl @Inject constructor(
     }
 
     override fun getSchemeList(): Flow<List<String>> = local.getSchemeList()
+
+    override fun getCategories(): Flow<List<String>> = local.getCategories()
 }

@@ -107,7 +107,9 @@ object KtorNetworkModule {
     @Provides
     @Singleton
     fun provideKtorWebsocketHttpClient(): HttpClient = HttpClient {
-        install(WebSockets)
+        install(WebSockets) {
+            pingIntervalMillis = 20_000
+        }
     }
 
     // add CertificatePinner

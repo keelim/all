@@ -6,7 +6,7 @@
     "@typespec/compiler": "^1.0.0",
     "@typespec/http": "^1.0.0",
     "@typespec/openapi3": "^1.0.0",
-    "@typespec/protobuf": "^0.70.0"
+    "@typespec/protobuf": "^0.71.0"
   },
   "private": true
 }

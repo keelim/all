@@ -35,4 +35,7 @@ interface ArduconDao {
 
     @Query("SELECT * FROM scheme  ORDER BY `timestamp` DESC")
     fun getSchemeList(): Flow<List<SchemeEntity>>
+
+    @Query("SELECT DISTINCT category FROM deepLink")
+    fun getCategories(): Flow<List<String>>
 }

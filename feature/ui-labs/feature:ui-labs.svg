@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="188" height="44pt" viewBox="0 0 141.41 44">
-    <g class="graph">
-        <path fill="#fff" d="M0 44V0h141.41v44z"/>
-        <g class="node" transform="translate(4 40)">
-            <ellipse cx="66.71" cy="-18" fill="none" stroke="#000" rx="66.71" ry="18"/>
-            <text x="66.71" y="-12.95" font-family="Times,serif" font-size="14" text-anchor="middle">:feature:ui-labs</text>
-        </g>
-    </g>
-</svg>

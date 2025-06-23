@@ -8,6 +8,7 @@ fun DeepLinkEntity.toDeepLink() = DeepLink(
     timestamp = timestamp,
     isBookMarked = isBookMarked,
     title = title,
+    category = category,
 )
 
 fun List<DeepLinkEntity>.toDeepLink() = map(DeepLinkEntity::toDeepLink)
@@ -17,4 +18,5 @@ fun DeepLink.toDeepLinkEntity() = DeepLinkEntity(
     timestamp = timestamp,
     isBookMarked = isBookMarked,
     title = title,
+    category = category,
 )

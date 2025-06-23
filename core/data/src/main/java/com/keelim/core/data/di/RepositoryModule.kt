@@ -3,19 +3,17 @@ package com.keelim.core.data.di
 import com.keelim.core.data.source.ArduconRepositoryImpl
 import com.keelim.core.data.source.DefaultTaskRepositoryImpl
 import com.keelim.core.data.source.HistoryRepositoryImpl
-import com.keelim.core.data.source.NandaIORepositoryImpl
 import com.keelim.core.data.source.TimeRepositoryImpl
 import com.keelim.core.data.source.alarm.AlarmRepositoryImpl
 import com.keelim.core.data.source.firebase.FirebaseRepositoryImpl
 import com.keelim.core.data.source.note.NoteRepositoryImpl
 import com.keelim.core.data.source.notification.NotificationRepositoryImpl
 import com.keelim.core.data.source.prompt.PromptRepositoryImpl
-import com.keelim.core.database.repository.ArduconRepository
-import com.keelim.core.database.repository.DefaultTaskRepository
-import com.keelim.core.database.repository.HistoryRepository
-import com.keelim.core.database.repository.NandaIORepository
 import com.keelim.data.repository.AlarmRepository
+import com.keelim.data.repository.ArduconRepository
+import com.keelim.data.repository.DefaultTaskRepository
 import com.keelim.data.repository.FirebaseRepository
+import com.keelim.data.repository.HistoryRepository
 import com.keelim.data.repository.NoteRepository
 import com.keelim.data.repository.NotificationRepository
 import com.keelim.data.repository.PromptRepository
@@ -37,11 +35,6 @@ interface RepositoryModule {
     fun bindsDefaultTaskRepository(
         repository: DefaultTaskRepositoryImpl,
     ): DefaultTaskRepository
-
-    @Binds
-    fun bindsNandaIoRepository(
-        repository: NandaIORepositoryImpl,
-    ): NandaIORepository
 
     @Binds
     fun bindsNotificationRepository(

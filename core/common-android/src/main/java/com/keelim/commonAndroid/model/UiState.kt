@@ -35,7 +35,7 @@ fun <T> Flow<T>.asSealedUiState(): Flow<SealedUiState<T>> {
 }
 
 fun <T : Collection<Any>> Flow<T>.asSealedUiState(
-    emptyToLoading: Boolean = true
+    emptyToLoading: Boolean = true,
 ): Flow<SealedUiState<T>> {
     return map {
         if (it.isEmpty() && emptyToLoading) {

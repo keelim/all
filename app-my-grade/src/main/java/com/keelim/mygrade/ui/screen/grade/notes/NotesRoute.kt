@@ -113,7 +113,7 @@ fun NoteSuccessSection(
             items = uiState.value,
             key = { it.uid },
         ) { item ->
-            var isMarked by rememberSaveable(key = item.uid.toString()) {
+            var isMarked by rememberSaveable {
                 mutableStateOf(false)
             }
             NotesItem(
@@ -175,7 +175,8 @@ fun NotesItem(
             label = "",
         )
         Box(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .padding(start = boxStartPadding)
                 .background(MaterialTheme.colorScheme.surface),
         ) {

@@ -23,9 +23,6 @@ dependencyResolutionManagement {
             }
         }
         mavenCentral()
-        maven {
-            url = uri("https://androidx.dev/snapshots/builds/13511472/artifacts/repository")
-        }
     }
 }
 rootProject.name = "all"
@@ -52,7 +49,7 @@ include(
     ":core:resource",
     ":core:testing",
     ":core:navigation",
-    ":feature:ui-labs",
+    ":feature:ui-scheme",
     ":feature:ui-setting",
     ":shared",
     ":widget",

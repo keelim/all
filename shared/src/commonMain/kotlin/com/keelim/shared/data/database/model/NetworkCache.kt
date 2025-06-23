@@ -10,7 +10,6 @@ import kotlin.native.ObjCName
 
 @Entity(tableName = "network_cache")
 @ObjCName("network_cache")
-
 data class NetworkCache(
     @PrimaryKey val url: String,
     val json: String,

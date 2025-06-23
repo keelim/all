@@ -2,11 +2,14 @@ package com.keelim.common.extensions
 
 import android.app.Activity
 import android.content.ActivityNotFoundException
+import android.content.ContentValues
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
+import android.provider.MediaStore
 import android.widget.Toast
 import androidx.annotation.ColorRes
 import androidx.annotation.Px
@@ -109,3 +112,43 @@ fun Context.findActivity(): Activity {
     }
     throw IllegalStateException("no activity")
 }
+
+fun Context.saveQrBitmapToGallery(
+    bitmap: Bitmap,
+    fileName: String = "qr_code.png"
+) {
+    val resolver = contentResolver
+    val imageCollection = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
+    } else {
+        MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+    }
+
+    val contentValues = ContentValues().apply {
+        put(MediaStore.Images.Media.DISPLAY_NAME, fileName)
+        put(MediaStore.Images.Media.MIME_TYPE, "image/png")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            put(MediaStore.Images.Media.IS_PENDING, 1)
+        }
+    }
+
+    val imageUri = resolver.insert(imageCollection, contentValues)
+    if (imageUri != null) {
+        resolver.openOutputStream(imageUri)?.use { outStream ->
+            val saved = bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, outStream)
+            if (saved) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    contentValues.clear()
+                    contentValues.put(MediaStore.Images.Media.IS_PENDING, 0)
+                    resolver.update(imageUri, contentValues, null, null)
+                }
+                Toast.makeText(this, "이미지가 갤러리에 저장되었습니다.", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "저장에 실패했습니다.", Toast.LENGTH_SHORT).show()
+            }
+        }
+    } else {
+        Toast.makeText(this, "이미지 저장에 실패했습니다.", Toast.LENGTH_SHORT).show()
+    }
+}
+

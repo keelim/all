@@ -3,7 +3,6 @@
 package com.keelim.comssa.ui.screen.main.ecocal
 
 import android.content.Intent
-import android.net.Uri
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -65,6 +64,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEach
 import androidx.compose.ui.util.trace
+import androidx.core.net.toUri
 import com.keelim.composeutil.component.fab.FabButtonItem
 import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space16
@@ -112,7 +112,8 @@ fun EcocalMainSection(
                             .background(
                                 MaterialTheme.colorScheme.primaryContainer,
                                 shape = CircleShape,
-                            ),
+                            )
+                            .animateItem(),
                         horizontalArrangement = Arrangement.Center,
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
@@ -123,7 +124,7 @@ fun EcocalMainSection(
                             ),
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(horizontal = space16, vertical = space8)
+                                .padding(horizontal = space16, vertical = space8),
                         )
                     }
                 }
@@ -137,11 +138,12 @@ fun EcocalMainSection(
                             context.startActivity(
                                 Intent(
                                     Intent.ACTION_VIEW,
-                                    Uri.parse("https://www.google.com/search?q=${entry.country}-${entry.title} ${entry.date} ${entry.time}"),
+                                    "https://www.google.com/search?q=${entry.country}-${entry.title} ${entry.date} ${entry.time}".toUri(),
                                 ),
                             )
                         },
                         onCountryClick = onCountryClick,
+                        modifier = Modifier.animateItem(),
                     )
                 }
             }
@@ -197,36 +199,36 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.Bottom
+            verticalAlignment = Alignment.Bottom,
         ) {
             Text(
                 text = "${time.year} ${String.format("%02d", time.monthNumber)}",
                 style = MaterialTheme.typography.headlineMedium.copy(
                     fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
                 ),
             )
             Column(
-                horizontalAlignment = Alignment.End
+                horizontalAlignment = Alignment.End,
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(
                         imageVector = Icons.Filled.DateRange,
                         contentDescription = "Calendar Icon",
                         tint = MaterialTheme.colorScheme.onPrimaryContainer,
-                        modifier = Modifier.size(20.dp)
+                        modifier = Modifier.size(20.dp),
                     )
                     Spacer(modifier = Modifier.width(space4))
                     Text(
                         text = "${time.year}년 ${
                             String.format(
                                 "%02d",
-                                time.monthNumber
+                                time.monthNumber,
                             )
                         }월 ${time.dayOfMonth}일",
                         style = MaterialTheme.typography.bodyMedium.copy(
                             color = MaterialTheme.colorScheme.onPrimaryContainer,
-                            fontWeight = FontWeight.Medium
+                            fontWeight = FontWeight.Medium,
                         ),
                     )
                 }
@@ -238,13 +240,13 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
                             (slideInVertically { height -> height } + fadeIn()) togetherWith
                                 (slideOutVertically { height -> -height } + fadeOut())
                         },
-                        label = "Hour animation"
+                        label = "Hour animation",
                     ) { targetHour ->
                         Text(
                             text = targetHour,
                             style = MaterialTheme.typography.bodySmall.copy(
                                 fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.onPrimaryContainer
+                                color = MaterialTheme.colorScheme.onPrimaryContainer,
                             ),
                         )
                     }
@@ -252,7 +254,7 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
                         text = ":",
                         style = MaterialTheme.typography.bodySmall.copy(
                             fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onPrimaryContainer
+                            color = MaterialTheme.colorScheme.onPrimaryContainer,
                         ),
                     )
                     AnimatedContent(
@@ -267,7 +269,7 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
                             text = targetMinute,
                             style = MaterialTheme.typography.bodySmall.copy(
                                 fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.onPrimaryContainer
+                                color = MaterialTheme.colorScheme.onPrimaryContainer,
                             ),
                         )
                     }
@@ -275,7 +277,7 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
                         text = ":",
                         style = MaterialTheme.typography.bodySmall.copy(
                             fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onPrimaryContainer
+                            color = MaterialTheme.colorScheme.onPrimaryContainer,
                         ),
                     )
                     AnimatedContent(
@@ -284,12 +286,12 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
                             (slideInVertically { height -> height } + fadeIn()) togetherWith
                                 (slideOutVertically { height -> -height } + fadeOut())
                         },
-                        label = "Second animation"
+                        label = "Second animation",
                     ) { second ->
                         Text(
                             text = second,
                             style = MaterialTheme.typography.bodySmall.copy(
-                                color = MaterialTheme.colorScheme.onPrimaryContainer
+                                color = MaterialTheme.colorScheme.onPrimaryContainer,
                             ),
                         )
                     }
@@ -299,7 +301,7 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
         Spacer(modifier = Modifier.height(space8))
         HorizontalDivider(
             color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.1f),
-            thickness = 1.dp
+            thickness = 1.dp,
         )
     }
 }
@@ -339,7 +341,6 @@ fun ListItem(
                 overflow = TextOverflow.Ellipsis,
             )
         }
-
     } else {
         ListItem(
             modifier = modifier
@@ -348,12 +349,12 @@ fun ListItem(
             headlineContent = {
                 Text(
                     text = title,
-                    style = MaterialTheme.typography.headlineSmall
+                    style = MaterialTheme.typography.headlineSmall,
                 )
             },
             supportingContent = {
                 Column(
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
                 ) {
                     Text(
                         text = subtitle,
@@ -391,7 +392,7 @@ fun ListItem(
                     overflow = TextOverflow.Ellipsis,
                     modifier = Modifier.clickable { onCountryClick(label) },
                 )
-            }
+            },
         )
     }
 }
@@ -447,7 +448,7 @@ fun EcocalFloatingButton(
     showButton: Boolean,
     coroutineScope: CoroutineScope,
     listState: LazyListState,
-    updateFilter: (FabButtonItem) -> Unit
+    updateFilter: (FabButtonItem) -> Unit,
 ) {
     val items by remember {
         mutableStateOf(
@@ -493,7 +494,6 @@ fun EcocalFloatingButton(
                         imageVector = Icons.Filled.KeyboardArrowUp,
                         contentDescription = "scroll to top",
                     )
-
                 },
                 text = { },
             )
@@ -525,7 +525,6 @@ fun EcocalNavigationBar(
     navigationIndex: MutableIntState,
 ) {
     ShortNavigationBar {
-
         ShortNavigationBarItem(
             selected = navigationIndex.intValue == 0,
             onClick = {
@@ -534,12 +533,12 @@ fun EcocalNavigationBar(
             icon = {
                 Icon(
                     imageVector = Icons.Filled.DateRange,
-                    contentDescription = "캘린더"
+                    contentDescription = "캘린더",
                 )
             },
             label = {
                 Text(text = "캘린더")
-            }
+            },
         )
 
         ShortNavigationBarItem(
@@ -550,13 +549,12 @@ fun EcocalNavigationBar(
             icon = {
                 Icon(
                     imageVector = Icons.Filled.Menu,
-                    contentDescription = "환율"
+                    contentDescription = "환율",
                 )
             },
             label = {
                 Text(text = "환율")
-            }
+            },
         )
     }
 }
-

@@ -1,17 +1,31 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="180" height="116pt" viewBox="0 0 135.27 116">
-    <g class="graph">
-        <path fill="#fff" d="M0 116V0h135.27v116z"/>
-        <g class="node" transform="translate(4 112)">
-            <ellipse cx="63.63" cy="-90" fill="none" stroke="#000" rx="63.63" ry="18"/>
-            <text x="63.63" y="-84.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:database</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="212pt" height="116pt" viewBox="0 0 212 116">
+    <g class="graph" transform="translate(4 112)">
+        <title>G</title>
+        <path fill="#fff" d="M-4 4v-116h211.98V4z"/>
+        <g class="node">
+            <title>:core:database</title>
+            <ellipse cx="110.45" cy="-90" fill="none" stroke="#000" rx="63.63" ry="18"/>
+            <text xml:space="preserve" x="110.45" y="-84.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:database</text>
         </g>
-        <g class="node" transform="translate(4 112)">
-            <ellipse cx="63.63" cy="-18" fill="none" stroke="#000" rx="55.45" ry="18"/>
-            <text x="63.63" y="-12.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:model</text>
+        <g class="node">
+            <title>:core:model</title>
+            <ellipse cx="55.45" cy="-18" fill="none" stroke="#000" rx="55.45" ry="18"/>
+            <text xml:space="preserve" x="55.45" y="-12.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:model</text>
         </g>
-        <g stroke="red" stroke-width="2" class="edge">
-            <path fill="none" d="M67.63 40.3v24.16"/>
-            <path fill="red" d="m71.13 62.87-3.5 10-3.5-10z"/>
+        <g class="edge">
+            <title>:core:database-&gt;:core:model</title>
+            <path fill="none" stroke="red" stroke-width="2" d="M97.13-72.05c-6.42 8.16-14.25 18.14-21.39 27.23"/>
+            <path fill="red" stroke="red" stroke-width="2" d="m79.44-43.87-8.93 5.7 3.42-10.02z"/>
+        </g>
+        <g class="node">
+            <title>:shared</title>
+            <ellipse cx="166.45" cy="-18" fill="none" stroke="#000" rx="37.53" ry="18"/>
+            <text xml:space="preserve" x="166.45" y="-12.95" font-family="Times,serif" font-size="14" text-anchor="middle">:shared</text>
+        </g>
+        <g class="edge">
+            <title>:core:database-&gt;:shared</title>
+            <path fill="none" stroke="#000" d="M124-72.05c6.7 8.37 14.92 18.65 22.34 27.92"/>
+            <path stroke="#000" d="m148.94-46.48 3.51 9.99-8.98-5.62z"/>
         </g>
     </g>
 </svg>

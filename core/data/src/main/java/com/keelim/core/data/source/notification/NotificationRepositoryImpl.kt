@@ -1,8 +1,8 @@
 package com.keelim.core.data.source.notification
 
+import com.keelim.common.Dispatcher
+import com.keelim.common.KeelimDispatchers
 import com.keelim.core.data.BuildConfig
-import com.keelim.core.network.Dispatcher
-import com.keelim.core.network.KeelimDispatchers
 import com.keelim.core.network.di.KtorNetworkModule
 import com.keelim.core.network.model.NoticeResponse
 import com.keelim.data.repository.NotificationRepository

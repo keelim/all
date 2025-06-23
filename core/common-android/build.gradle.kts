@@ -13,6 +13,8 @@ dependencies {
     api(projects.core.common)
     api(projects.core.composeCore)
     api(projects.shared)
+    implementation(projects.core.dataApi)
+    implementation(projects.core.network)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.startup)
@@ -25,7 +27,6 @@ dependencies {
     implementation(libs.firebase.crashlytics)
 
     implementation(libs.hilt.android)
-    implementation(libs.junit4)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.datetime)
     implementation(libs.play.services.ad)

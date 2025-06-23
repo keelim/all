@@ -9,7 +9,6 @@ import kotlin.native.ObjCName
 
 @Entity(tableName = "scheme")
 @ObjCName("scheme")
-
 data class SchemeEntity(
     @PrimaryKey
     val url: String,

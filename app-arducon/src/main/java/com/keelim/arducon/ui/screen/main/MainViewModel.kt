@@ -1,21 +1,33 @@
 package com.keelim.arducon.ui.screen.main
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import android.graphics.Bitmap
+import android.graphics.Color
+import androidx.core.graphics.createBitmap
+import androidx.core.graphics.set
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.keelim.core.database.repository.ArduconRepository
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.qrcode.QRCodeWriter
+import com.keelim.common.Dispatcher
+import com.keelim.common.KeelimDispatchers
+import com.keelim.data.repository.ArduconRepository
 import com.keelim.model.DeepLink
+import com.keelim.scheme.notification.SchemeNotificationManager
+import dagger.Lazy
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -26,27 +38,39 @@ private val defaultSchemeList = listOf(
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
+    @Dispatcher(KeelimDispatchers.DEFAULT) private val default: CoroutineDispatcher,
     private val repository: ArduconRepository,
+    private val schemeNotificationManager: Lazy<SchemeNotificationManager>,
 ) : ViewModel() {
     private val _onClickSearch = MutableStateFlow("")
     val onClickSearch = _onClickSearch.asStateFlow()
+
+    private val _selectedCategory = MutableStateFlow("")
+    val selectedCategory: StateFlow<String> = _selectedCategory.asStateFlow()
+
+    val categories: StateFlow<List<String>> = repository.getCategories()
+        .map { it.sorted() }
+        .flowOn(default)
+        .stateIn(viewModelScope, started = SharingStarted.WhileSubscribed(5_000L), emptyList())
 
     val schemeList: StateFlow<List<String>> = repository.getSchemeList()
         .map {
             defaultSchemeList + it
         }
-        .flowOn(Dispatchers.IO)
+        .flowOn(default)
         .stateIn(viewModelScope, started = SharingStarted.WhileSubscribed(5_000L), emptyList())
 
     val deepLinkList: StateFlow<Pair<List<DeepLink>, List<DeepLink>>> = repository.getDeepLinkUrls()
-        .map {
-            it.partition { it.isBookMarked }
+        .combine(_selectedCategory) { deeplinks, category ->
+            val filtered = if (category.isEmpty()) {
+                deeplinks
+            } else {
+                deeplinks.filter { it.category == category }
+            }
+            filtered.partition { deeplink -> deeplink.isBookMarked }
         }
-        .flowOn(Dispatchers.IO)
+        .flowOn(default)
         .stateIn(viewModelScope, started = SharingStarted.WhileSubscribed(5_000L), Pair(emptyList(), emptyList()))
-
-    private val _isLoading = MutableLiveData(false)
-    val isLoading: LiveData<Boolean> get() = _isLoading
 
     private val _showBottomSheet = MutableStateFlow<DeepLink>(DeepLink.EMPTY)
     val showBottomSheet = _showBottomSheet.asStateFlow()
@@ -54,18 +78,21 @@ class MainViewModel @Inject constructor(
     private val _editDeepLink = MutableStateFlow<DeepLink?>(null)
     val editDeepLink = _editDeepLink.asStateFlow()
 
-    fun showProgress() {
-        _isLoading.value = true
+    sealed interface QrDialogState {
+        data object Hidden : QrDialogState
+        data class Loading(val deepLink: DeepLink) : QrDialogState
+        data class Success(val deepLink: DeepLink, val bitmap: Bitmap) : QrDialogState
+        data class Error(val message: String) : QrDialogState
     }
 
-    fun hideProgress() {
-        _isLoading.value = false
-    }
+    private val _qrDialogState = MutableStateFlow<QrDialogState>(QrDialogState.Hidden)
+    val qrDialogState: StateFlow<QrDialogState> = _qrDialogState.asStateFlow()
 
     // 딥링크 검색 버튼 클릭
     fun onClickSearch(
         uri: String,
         title: String,
+        category: String,
     ) {
         viewModelScope.launch {
             runCatching {
@@ -74,6 +101,7 @@ class MainViewModel @Inject constructor(
                         url = uri,
                         timestamp = System.currentTimeMillis(),
                         title = title,
+                        category = category,
                     ),
                 )
             }.onSuccess {
@@ -88,24 +116,20 @@ class MainViewModel @Inject constructor(
     fun updateDeepLinkUrl(deepLink: DeepLink) {
         viewModelScope.launch {
             runCatching {
-                showProgress()
                 repository.updateDeepLinkUrl(deepLink.copy(isBookMarked = deepLink.isBookMarked.not()))
             }.onFailure {
                 Timber.d("updateDeepLinkUrl() onError() -> " + it.localizedMessage)
             }
-            hideProgress()
         }
     }
 
     fun deleteDeepLinkUrl(deepLink: DeepLink) {
         viewModelScope.launch {
             runCatching {
-                showProgress()
                 repository.deleteDeepLinkUrl(deepLink)
             }.onFailure {
                 Timber.d("deleteDeepLinkUrl() onError() -> " + it.localizedMessage)
             }
-            hideProgress()
         }
     }
 
@@ -147,5 +171,54 @@ class MainViewModel @Inject constructor(
 
     fun clearEditDeepLink() {
         _editDeepLink.value = null
+    }
+
+    fun updateSelectedCategory(category: String) {
+        _selectedCategory.value = category
+    }
+
+    fun showNotification(
+        notificationId: Int,
+        title: String,
+        message: String,
+        deepLinkUri: String,
+    ) {
+        schemeNotificationManager.get().showDeepLinkNotification(
+            notificationId = notificationId,
+            title = title,
+            message = message,
+            deepLinkUri = deepLinkUri,
+        )
+    }
+
+    fun generateQrCode(deepLink: DeepLink) {
+        _qrDialogState.value = QrDialogState.Loading(deepLink)
+        viewModelScope.launch {
+            try {
+                val bitmap = withContext(Dispatchers.Default) {
+                    generateQrBitmap(deepLink.url)
+                }
+                delay(1_000)
+                _qrDialogState.value = QrDialogState.Success(deepLink, bitmap)
+            } catch (e: Exception) {
+                _qrDialogState.value = QrDialogState.Error("QR 코드 생성 실패: ${e.message}")
+            }
+        }
+    }
+
+    fun hideQrDialog() {
+        _qrDialogState.value = QrDialogState.Hidden
+    }
+
+    private fun generateQrBitmap(content: String): Bitmap {
+        val size = 1024
+        val bits = QRCodeWriter().encode(content, BarcodeFormat.QR_CODE, size, size)
+        val bmp = createBitmap(size, size)
+        for (x in 0 until size) {
+            for (y in 0 until size) {
+                bmp[x, y] = if (bits[x, y]) Color.BLACK else Color.WHITE
+            }
+        }
+        return bmp
     }
 }

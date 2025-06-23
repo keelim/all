@@ -24,4 +24,3 @@ fun CommonScreenStateView(
         is CommonScreenState.Success -> successContent(uiState.items)
     }
 }
-

@@ -3,6 +3,7 @@
 package com.keelim.arducon.ui
 
 import android.content.Intent
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.animation.ContentTransform
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -11,20 +12,22 @@ import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.net.toUri
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.entry
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberSavedStateNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
-import com.keelim.arducon.ui.screen.inappbrowser.InAppBrowserRoute
 import com.keelim.arducon.ui.screen.main.MainRoute
 import com.keelim.arducon.ui.screen.ogtag.OgTagPreviewRoute
 import com.keelim.arducon.ui.screen.qr.QrRoute
 import com.keelim.arducon.ui.screen.saastatus.main.SaastatusRoute
 import com.keelim.arducon.ui.screen.search.SearchRoute
+import com.keelim.commonAndroid.ui.AppViewModel
 import com.keelim.composeutil.AppState
 import com.keelim.composeutil.rememberMutableStateListOf
 import com.keelim.core.navigation.ArduconRoute
@@ -39,6 +42,7 @@ fun ArduConHost(
     coroutineScope: CoroutineScope,
     onShowSnackbar: suspend (String, String?) -> Boolean,
     modifier: Modifier = Modifier,
+    viewModel: AppViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
 
@@ -113,17 +117,13 @@ fun ArduConHost(
                 )
             }
             entry<ArduconRoute.OgTagPreview> {
+                val customTabsIntent = remember {
+                    CustomTabsIntent.Builder().build()
+                }
+
                 OgTagPreviewRoute(
                     onNavigateToBrowser = { url ->
-                        backStack.add(ArduconRoute.InAppBrowser(url))
-                    },
-                )
-            }
-            entry<ArduconRoute.InAppBrowser> { backStackEntry ->
-                InAppBrowserRoute(
-                    url = backStackEntry.url,
-                    onBackClick = {
-                        backStack.removeLastOrNull()
+                        customTabsIntent.launchUrl(context, url.toUri())
                     },
                 )
             }

@@ -36,7 +36,7 @@ jobs:
 
       - name: Sign AAB
         id: sign
-        uses: keelim/upload-google-play@v0.0.5
+        uses: keelim/upload-google-play@v0.0.8
         with:
           type: sign
           releaseDirectory: app-my-grade/build/outputs/bundle/release
@@ -51,7 +51,7 @@ jobs:
 
       - name: Deploy to Play Store
         id: deploy
-        uses: keelim/upload-google-play@v0.0.5
+        uses: keelim/upload-google-play@v0.0.8
         with:
           type: upload
           serviceAccountJson: service_account.json

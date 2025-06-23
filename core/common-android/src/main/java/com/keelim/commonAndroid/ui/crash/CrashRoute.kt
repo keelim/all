@@ -3,22 +3,19 @@ package com.keelim.commonAndroid.ui.crash
 import android.os.Build
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.keelim.composeutil.component.appbar.NavigationBackArrowBar
-import com.keelim.composeutil.resource.space64
 import com.keelim.composeutil.resource.space8
 
 @Composable
@@ -55,20 +52,22 @@ fun CrashScreen(
         NavigationBackArrowBar(
             "에러 확인 중",
         )
-        Text(
-            text = text,
-            modifier = Modifier.padding(space8),
-        )
-        Spacer(
-            modifier = Modifier.height(space64),
-        )
-        Icon(
-            imageVector = Icons.Filled.Refresh,
-            contentDescription = null,
-            modifier = Modifier
-                .clickable { onAppRefresh() }
-                .align(Alignment.CenterHorizontally),
-        )
+        LazyColumn {
+            item {
+                Text(
+                    text = text,
+                    modifier = Modifier.padding(space8),
+                )
+            }
+            item {
+                Icon(
+                    imageVector = Icons.Filled.Refresh,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .clickable { onAppRefresh() },
+                )
+            }
+        }
     }
 }
 

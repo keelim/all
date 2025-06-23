@@ -39,7 +39,7 @@ fun documentDirectory(): String {
             return requireNotNull(documentDirectory.path) {
                 """Couldn't determine the document directory.
                   URL $documentDirectory does not conform to RFC 1808.
-               """.trimIndent()
+                """.trimIndent()
             }
         } else {
             val error = errorPtr.value

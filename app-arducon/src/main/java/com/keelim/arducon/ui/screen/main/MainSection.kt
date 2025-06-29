@@ -561,22 +561,26 @@ private fun DeepLinkItem(
                     )
                 }
             }
-            Row(
+
+            AnimatedContent(
+                targetState = deepLink.isBookMarked,
+                label = "bookmark",
+            ) { targetState ->
+                Icon(
+                    imageVector = if (targetState) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
+                    contentDescription = "bookmark",
+                    modifier = Modifier
+                        .size(space32)
+                        .clickable { onUpdate(deepLink) },
+                    tint = if (targetState) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+            
+            FlowRow(
+                modifier = Modifier.padding(start = space8),
                 horizontalArrangement = Arrangement.spacedBy(space4),
+                maxItemsInEachRow = 2,
             ) {
-                AnimatedContent(
-                    targetState = deepLink.isBookMarked,
-                    label = "bookmark",
-                ) { targetState ->
-                    Icon(
-                        imageVector = if (targetState) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
-                        contentDescription = "bookmark",
-                        modifier = Modifier
-                            .size(space32)
-                            .clickable { onUpdate(deepLink) },
-                        tint = if (targetState) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                }
                 Icon(
                     imageVector = Icons.Default.Notifications,
                     contentDescription = "show notification",

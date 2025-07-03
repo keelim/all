@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.keelim.jvm.library)
     // please migrate version catalog
     id("org.jetbrains.kotlinx.benchmark") version "0.4.14"
-    kotlin("plugin.allopen") version "2.1.21"
+    kotlin("plugin.allopen") version "2.2.0"
 }
 
 dependencies {

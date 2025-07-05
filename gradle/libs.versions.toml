@@ -105,6 +105,7 @@ slackComposeLint = "1.4.2"
 slackLintChecks = "0.10.0"
 soloader = "0.12.1"
 themeAdapter = "1.2.1"
+store = "5.1.0"
 timbers = "5.0.1"
 truth = "1.4.4"
 turbine = "1.2.1"
@@ -308,6 +309,7 @@ showkase-processor = { group = "com.airbnb.android", name = "showkase-processor"
 slack-compose-lint =  { group = "com.slack.lint.compose", name = "compose-lint-checks", version.ref = "slackComposeLint" }
 slack-lint-checks = { group = "com.slack.lint", name = "slack-lint-checks", version.ref = "slackLintChecks" }
 soloader = { group = "com.facebook.soloader", name = "soloader", version.ref = "soloader" }
+store = { module = "org.mobilenativefoundation.store:store5", version.ref = "store" }
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timbers" }
 truth = { module = "com.google.truth:truth", version.ref = "truth" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }

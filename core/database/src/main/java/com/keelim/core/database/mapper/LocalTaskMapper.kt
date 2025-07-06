@@ -2,7 +2,6 @@ package com.keelim.core.database.mapper
 
 import com.keelim.model.LocalTask
 
-
 fun LocalTask.toLocalTaskEntity() = com.keelim.shared.data.database.model.LocalTask(
     id = id,
     description = description,
@@ -20,7 +19,7 @@ fun List<com.keelim.shared.data.database.model.LocalTask>.toLocalTask(): List<Lo
             description = localTask.description,
             isCompleted = localTask.isCompleted,
             date = localTask.date,
-            isEditing = localTask.isEditing
+            isEditing = localTask.isEditing,
         )
     }
 }

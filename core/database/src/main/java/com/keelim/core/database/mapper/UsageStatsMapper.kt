@@ -5,7 +5,7 @@ import com.keelim.shared.data.database.model.UsageStatEntity
 
 fun UsageStatEntity.toUsageStat() = UsageStat(
     day = day,
-    count = count
+    count = count,
 )
 
 fun List<UsageStatEntity>.toUsageStat() = map(UsageStatEntity::toUsageStat)

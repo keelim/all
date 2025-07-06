@@ -94,7 +94,7 @@ fun ArduConHost(
                     },
                     onNavigateStats = {
                         backStack.add(ArduconRoute.Stats)
-                    }
+                    },
                 )
             }
             entry<ArduconRoute.Qr> {

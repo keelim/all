@@ -28,6 +28,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.datetime.Clock
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -227,7 +228,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             val updated = deepLink.copy(
                 usageCount = deepLink.usageCount + 1,
-                lastUsed = System.currentTimeMillis()
+                lastUsed = Clock.System.now().toEpochMilliseconds(),
             )
             repository.updateDeepLinkUrl(updated)
         }

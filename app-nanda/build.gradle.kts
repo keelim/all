@@ -35,6 +35,7 @@ dependencies {
     implementation(projects.core.navigation)
 
     implementation(projects.feature.uiSetting)
+    implementation(projects.feature.uiWeb)
     implementation(projects.widget)
 
     implementation(libs.androidx.activity.compose)

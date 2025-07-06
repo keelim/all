@@ -104,6 +104,7 @@ fun MainRoute(
     onNavigateSearch: () -> Unit,
     onNavigateSaastatus: () -> Unit,
     onNavigateOgTagPreview: () -> Unit,
+    onNavigateStats: () -> Unit,
     viewModel: MainViewModel = hiltViewModel(),
 ) {
     val schemeList by viewModel.schemeList.collectAsStateWithLifecycle()
@@ -156,6 +157,7 @@ fun MainRoute(
         onShowNotification = viewModel::showNotification,
         onGenerateQrCode = viewModel::generateQrCode,
         recordDeepLinkUsage = viewModel::recordDeepLinkUsage,
+        onNavigateStats = onNavigateStats,
     )
 
     if (showBottomSheet != DeepLink.EMPTY) {
@@ -209,6 +211,7 @@ fun MainScreen(
     onShowNotification: (Int, String, String, String) -> Unit,
     onGenerateQrCode: (DeepLink) -> Unit,
     recordDeepLinkUsage: (DeepLink) -> Unit,
+    onNavigateStats: () -> Unit,
 ) {
     val listState = rememberLazyListState()
     val isScrollInProgress = remember {
@@ -252,27 +255,34 @@ fun MainScreen(
             }
         },
     ) { paddingValues ->
-        DeepLinkSection(
-            favoriteItems = favoriteItems,
-            generalItems = generalItems,
-            schemeList = schemeList,
-            onSearch = onSearch,
-            onUpdate = onUpdate,
-            onDelete = onDelete,
-            onItemLongClick = onItemLongClick,
-            onRegister = onRegister,
-            onDeleteScheme = onDeleteScheme,
-            categories = categories,
-            selectedCategory = selectedCategory,
-            onCategorySelected = onCategorySelected,
-            onShowNotification = onShowNotification,
-            onGenerateQrCode = onGenerateQrCode,
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues = paddingValues),
-            listState = listState,
-            recordDeepLinkUsage = recordDeepLinkUsage,
-        )
+        Column(modifier = Modifier.fillMaxSize()) {
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+                Button(onClick = onNavigateStats) {
+                    Text("통계 보기")
+                }
+            }
+            DeepLinkSection(
+                favoriteItems = favoriteItems,
+                generalItems = generalItems,
+                schemeList = schemeList,
+                onSearch = onSearch,
+                onUpdate = onUpdate,
+                onDelete = onDelete,
+                onItemLongClick = onItemLongClick,
+                onRegister = onRegister,
+                onDeleteScheme = onDeleteScheme,
+                categories = categories,
+                selectedCategory = selectedCategory,
+                onCategorySelected = onCategorySelected,
+                onShowNotification = onShowNotification,
+                onGenerateQrCode = onGenerateQrCode,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues = paddingValues),
+                listState = listState,
+                recordDeepLinkUsage = recordDeepLinkUsage,
+            )
+        }
     }
 }
 
@@ -625,6 +635,7 @@ private fun PreviewMainScreen() {
         onShowNotification = { _, _, _, _ -> },
         onGenerateQrCode = { },
         recordDeepLinkUsage = {},
+        onNavigateStats = {},
     )
 }
 

@@ -65,7 +65,6 @@ class ArduconRepositoryImpl @Inject constructor(
         emit(local.getRecentUsedLinks(limit))
     }.flowOn(dispatcher)
 
-
     override fun getDailyUsageStats(limit: Int): Flow<List<UsageStat>> = flow {
         emit(local.getDailyUsageStats(limit))
     }.flowOn(dispatcher)

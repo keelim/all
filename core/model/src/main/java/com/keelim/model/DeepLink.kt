@@ -26,5 +26,5 @@ data class DeepLink(
 
 data class UsageStat(
     val day: String,
-    val count: Int
+    val count: Int,
 )

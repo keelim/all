@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class StatsViewModel @Inject constructor(
-    repository: ArduconRepository
+    repository: ArduconRepository,
 ) : ViewModel() {
     val topUsedLinks: StateFlow<List<DeepLink>> = repository.getTopUsedLinks(limit = 5)
         .stateIn(viewModelScope, started = WhileSubscribed(5_000L), emptyList())

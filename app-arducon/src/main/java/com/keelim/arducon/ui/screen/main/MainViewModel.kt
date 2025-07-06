@@ -221,4 +221,15 @@ class MainViewModel @Inject constructor(
         }
         return bmp
     }
+
+    // 딥링크 사용 기록 저장
+    fun recordDeepLinkUsage(deepLink: DeepLink) {
+        viewModelScope.launch {
+            val updated = deepLink.copy(
+                usageCount = deepLink.usageCount + 1,
+                lastUsed = System.currentTimeMillis()
+            )
+            repository.updateDeepLinkUrl(updated)
+        }
+    }
 }

@@ -18,6 +18,7 @@ android {
 dependencies {
 
     implementation(projects.core.commonAndroid)
+    implementation(projects.feature.uiWeb)
 
     implementation(projects.core.data)
     implementation(projects.core.navigation)

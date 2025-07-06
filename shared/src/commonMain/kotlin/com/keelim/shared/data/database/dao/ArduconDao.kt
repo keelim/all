@@ -8,6 +8,7 @@ import androidx.room.Query
 import androidx.room.Update
 import com.keelim.shared.data.database.model.DeepLinkEntity
 import com.keelim.shared.data.database.model.SchemeEntity
+import com.keelim.shared.data.database.model.UsageStatEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -38,4 +39,13 @@ interface ArduconDao {
 
     @Query("SELECT DISTINCT category FROM deepLink")
     fun getCategories(): Flow<List<String>>
+
+    @Query("SELECT * FROM deepLink ORDER BY usageCount DESC LIMIT :limit")
+    fun getTopUsedLinks(limit: Int): List<DeepLinkEntity>
+
+    @Query("SELECT * FROM deepLink ORDER BY lastUsed DESC LIMIT :limit")
+    fun getRecentUsedLinks(limit: Int): List<DeepLinkEntity>
+
+    @Query("SELECT strftime('%Y-%m-%d', datetime(lastUsed/1000, 'unixepoch')) as day, SUM(usageCount) as count FROM deepLink GROUP BY day ORDER BY day DESC LIMIT :limit")
+    fun getDailyUsageStats(limit: Int): List<UsageStatEntity>
 }

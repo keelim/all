@@ -4,8 +4,10 @@ import com.keelim.core.database.mapper.toDeepLink
 import com.keelim.core.database.mapper.toDeepLinkEntity
 import com.keelim.core.database.mapper.toPlain
 import com.keelim.core.database.mapper.toSchemeEntity
+import com.keelim.core.database.mapper.toUsageStat
 import com.keelim.data.repository.ArduconDataSource
 import com.keelim.model.DeepLink
+import com.keelim.model.UsageStat
 import com.keelim.shared.data.database.dao.ArduconDao
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -26,4 +28,13 @@ class ArduconDataSourceImpl @Inject constructor(
     override fun getSchemeList(): Flow<List<String>> = dao.getSchemeList().map { it.toPlain() }
 
     override fun getCategories(): Flow<List<String>> = dao.getCategories()
+
+    override suspend fun getTopUsedLinks(limit: Int): List<DeepLink> =
+        dao.getTopUsedLinks(limit).toDeepLink()
+
+    override suspend fun getRecentUsedLinks(limit: Int): List<DeepLink> =
+        dao.getRecentUsedLinks(limit).toDeepLink()
+
+    override suspend fun getDailyUsageStats(limit: Int): List<UsageStat> =
+        dao.getDailyUsageStats(limit).toUsageStat()
 }

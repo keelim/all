@@ -16,4 +16,11 @@ data class DeepLinkEntity(
     @ColumnInfo(defaultValue = "0") val isBookMarked: Boolean = false,
     @ColumnInfo(defaultValue = "") val title: String = "",
     @ColumnInfo(defaultValue = "") val category: String = "",
+    @ColumnInfo(defaultValue = "0") val usageCount: Int = 0,
+    @ColumnInfo(defaultValue = "0") val lastUsed: Long = 0L,
+)
+
+data class UsageStatEntity(
+    val day: String,
+    val count: Int,
 )

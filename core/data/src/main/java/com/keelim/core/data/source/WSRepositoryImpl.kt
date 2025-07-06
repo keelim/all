@@ -16,7 +16,7 @@ class WSRepositoryImpl @Inject constructor(
     override suspend fun connect(host: String) {
         client.webSocket(
             host = host,
-            port = 8080
+            port = 8080,
         ) {
             // TODO: if you want
         }

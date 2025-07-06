@@ -5,8 +5,11 @@ import com.keelim.common.KeelimDispatchers
 import com.keelim.data.repository.ArduconDataSource
 import com.keelim.data.repository.ArduconRepository
 import com.keelim.model.DeepLink
+import com.keelim.model.UsageStat
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -54,15 +57,16 @@ class ArduconRepositoryImpl @Inject constructor(
 
     override fun getCategories(): Flow<List<String>> = local.getCategories()
 
-    override suspend fun getTopUsedLinks(limit: Int): List<DeepLink> = withContext(dispatcher) {
-        local.getTopUsedLinks(limit)
-    }
+    override fun getTopUsedLinks(limit: Int): Flow<List<DeepLink>> = flow {
+        emit(local.getTopUsedLinks(limit))
+    }.flowOn(dispatcher)
 
-    override suspend fun getRecentUsedLinks(limit: Int): List<DeepLink> = withContext(dispatcher) {
-        local.getRecentUsedLinks(limit)
-    }
+    override fun getRecentUsedLinks(limit: Int): Flow<List<DeepLink>> = flow {
+        emit(local.getRecentUsedLinks(limit))
+    }.flowOn(dispatcher)
 
-    override suspend fun getDailyUsageStats(limit: Int): List<com.keelim.model.UsageStat> = withContext(dispatcher) {
-        local.getDailyUsageStats(limit)
-    }
+
+    override fun getDailyUsageStats(limit: Int): Flow<List<UsageStat>> = flow {
+        emit(local.getDailyUsageStats(limit))
+    }.flowOn(dispatcher)
 }

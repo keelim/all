@@ -41,6 +41,7 @@ dependencies {
     implementation(libs.timber)
     implementation(libs.jsoup)
     implementation(libs.zxing)
+    implementation(libs.tehras.chart)
 }
 
 

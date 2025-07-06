@@ -19,6 +19,7 @@ modules=(
     "core:navigation"
     "feature:ui-labs"
     "feature:ui-setting"
+    "feature:ui-web"
     "shared"
 )
 

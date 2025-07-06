@@ -22,5 +22,5 @@ data class DeepLinkEntity(
 
 data class UsageStatEntity(
     val day: String,
-    val count: Int
+    val count: Int,
 )

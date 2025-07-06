@@ -115,7 +115,7 @@ fun Context.findActivity(): Activity {
 
 fun Context.saveQrBitmapToGallery(
     bitmap: Bitmap,
-    fileName: String = "qr_code.png"
+    fileName: String = "qr_code.png",
 ) {
     val resolver = contentResolver
     val imageCollection = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -151,4 +151,3 @@ fun Context.saveQrBitmapToGallery(
         Toast.makeText(this, "이미지 저장에 실패했습니다.", Toast.LENGTH_SHORT).show()
     }
 }
-

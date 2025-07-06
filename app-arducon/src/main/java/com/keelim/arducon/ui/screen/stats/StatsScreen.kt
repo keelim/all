@@ -49,7 +49,7 @@ import java.util.Locale
 
 @Composable
 fun StatsScreen(
-    viewModel: StatsViewModel = hiltViewModel()
+    viewModel: StatsViewModel = hiltViewModel(),
 ) {
     val topUsedLinks by viewModel.topUsedLinks.collectAsState()
     val recentUsedLinks by viewModel.recentUsedLinks.collectAsState()
@@ -62,13 +62,13 @@ fun StatsScreen(
 private fun StatsScreen(
     topUsedLinks: List<DeepLink>,
     recentUsedLinks: List<DeepLink>,
-    dailyUsageStats: List<UsageStat>
+    dailyUsageStats: List<UsageStat>,
 ) {
     Column(
         modifier = Modifier
             .verticalScroll(rememberScrollState())
             .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(20.dp)
+        verticalArrangement = Arrangement.spacedBy(20.dp),
     ) {
         StatsSectionCard(
             title = "가장 많이 사용한 링크",
@@ -79,14 +79,16 @@ private fun StatsScreen(
                 } else {
                     topUsedLinks.forEachIndexed { idx, item ->
                         StatsLinkItem(item, highlight = idx == 0)
-                        if (idx != topUsedLinks.lastIndex) Divider(
-                            modifier = Modifier.padding(
-                                vertical = 4.dp
+                        if (idx != topUsedLinks.lastIndex) {
+                            Divider(
+                                modifier = Modifier.padding(
+                                    vertical = 4.dp,
+                                ),
                             )
-                        )
+                        }
                     }
                 }
-            }
+            },
         )
         StatsSectionCard(
             title = "최근 사용한 링크",
@@ -97,21 +99,23 @@ private fun StatsScreen(
                 } else {
                     recentUsedLinks.forEachIndexed { idx, item ->
                         StatsLinkItem(item, highlight = false)
-                        if (idx != recentUsedLinks.lastIndex) Divider(
-                            modifier = Modifier.padding(
-                                vertical = 4.dp
+                        if (idx != recentUsedLinks.lastIndex) {
+                            Divider(
+                                modifier = Modifier.padding(
+                                    vertical = 4.dp,
+                                ),
                             )
-                        )
+                        }
                     }
                 }
-            }
+            },
         )
         StatsSectionCard(
             title = "일별 사용량",
             icon = Icons.Default.DateRange,
             content = {
                 StatsBarChart(dailyUsageStats)
-            }
+            },
         )
     }
 }
@@ -135,42 +139,43 @@ private fun StatsScreenPreview() {
     StatsScreen(
         topUsedLinks = topUsedLinks,
         recentUsedLinks = recentUsedLinks,
-        dailyUsageStats = dailyUsageStats
+        dailyUsageStats = dailyUsageStats,
     )
 }
+
 @Composable
 private fun StatsSectionCard(
     title: String,
     icon: androidx.compose.ui.graphics.vector.ImageVector,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(18.dp),
         elevation = CardDefaults.cardElevation(6.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(start = 20.dp, top = 20.dp, end = 20.dp, bottom = 8.dp)
+            modifier = Modifier.padding(start = 20.dp, top = 20.dp, end = 20.dp, bottom = 8.dp),
         ) {
             Surface(
                 modifier = Modifier.size(36.dp),
                 shape = CircleShape,
-                color = MaterialTheme.colorScheme.primaryContainer
+                color = MaterialTheme.colorScheme.primaryContainer,
             ) {
                 Icon(
                     imageVector = icon,
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.padding(8.dp)
+                    modifier = Modifier.padding(8.dp),
                 )
             }
             Spacer(modifier = Modifier.width(12.dp))
             Text(
                 text = title,
                 style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                color = MaterialTheme.colorScheme.primary
+                color = MaterialTheme.colorScheme.primary,
             )
         }
         Divider(modifier = Modifier.padding(horizontal = 20.dp, vertical = 4.dp))
@@ -189,21 +194,21 @@ private fun StatsLinkItem(item: DeepLink, highlight: Boolean) {
             .fillMaxWidth()
             .background(
                 if (highlight) MaterialTheme.colorScheme.primary.copy(alpha = 0.08f) else Color.Transparent,
-                shape = RoundedCornerShape(10.dp)
+                shape = RoundedCornerShape(10.dp),
             )
             .padding(vertical = 8.dp, horizontal = 4.dp),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Surface(
             modifier = Modifier.size(36.dp),
             shape = CircleShape,
-            color = if (highlight) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondaryContainer
+            color = if (highlight) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondaryContainer,
         ) {
             Icon(
                 imageVector = Icons.Default.Star,
                 contentDescription = null,
                 tint = if (highlight) Color.White else MaterialTheme.colorScheme.primary,
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier.padding(8.dp),
             )
         }
         Spacer(modifier = Modifier.width(10.dp))
@@ -211,24 +216,24 @@ private fun StatsLinkItem(item: DeepLink, highlight: Boolean) {
             Text(
                 text = item.title.ifEmpty { item.url },
                 style = MaterialTheme.typography.bodyLarge.copy(fontWeight = if (highlight) FontWeight.Bold else FontWeight.Normal),
-                color = if (highlight) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
+                color = if (highlight) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
             )
             Text(
                 text = item.url,
                 style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
         Column(horizontalAlignment = Alignment.End) {
             Text(
                 text = "${item.usageCount}회",
                 style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.primary
+                color = MaterialTheme.colorScheme.primary,
             )
             Text(
                 text = lastUsed,
                 style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
     }
@@ -248,11 +253,11 @@ fun StatsBarChart(stats: List<UsageStat>) {
                     value = it.count.toFloat(),
                     color = Color(
                         android.graphics.Color.HSVToColor(
-                            floatArrayOf((it.day.hashCode() % 360).toFloat(), 0.5f, 0.85f)
-                        )
-                    )
+                            floatArrayOf((it.day.hashCode() % 360).toFloat(), 0.5f, 0.85f),
+                        ),
+                    ),
                 )
-            }
+            },
         ),
         modifier = Modifier
             .fillMaxWidth()
@@ -263,4 +268,3 @@ fun StatsBarChart(stats: List<UsageStat>) {
         yAxisDrawer = SimpleYAxisDrawer(),
     )
 }
-

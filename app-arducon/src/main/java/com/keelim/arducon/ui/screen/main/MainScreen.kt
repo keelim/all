@@ -186,7 +186,7 @@ fun MainRoute(
         onDismiss = viewModel::hideQrDialog,
         onSaveImage = { bitmap ->
             context.saveQrBitmapToGallery(bitmap)
-        }
+        },
     )
 }
 
@@ -649,7 +649,7 @@ fun QrDialog(
         is QrDialogState.Loading -> {
             Box(
                 modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
+                contentAlignment = Alignment.Center,
             ) {
                 LoadingIndicator()
             }
@@ -661,7 +661,7 @@ fun QrDialog(
                 text = {
                     Image(
                         bitmap = qrDialogState.bitmap.asImageBitmap(),
-                        contentDescription = "QR 코드"
+                        contentDescription = "QR 코드",
                     )
                 },
                 confirmButton = {
@@ -671,7 +671,7 @@ fun QrDialog(
                 },
                 dismissButton = {
                     Button(onClick = onDismiss) { Text("닫기") }
-                }
+                },
             )
         }
 
@@ -683,7 +683,7 @@ fun QrDialog(
                 confirmButton = {},
                 dismissButton = {
                     Button(onClick = onDismiss) { Text("닫기") }
-                }
+                },
             )
         }
 

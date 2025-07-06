@@ -11,6 +11,6 @@ interface HistoryRepository {
     suspend fun complete(historyId: String, grade: String)
 
     suspend fun completedTimerHistory(historyId: String)
-    
+
     suspend fun refresh()
 }

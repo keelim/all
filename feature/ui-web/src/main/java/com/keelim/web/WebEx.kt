@@ -8,6 +8,7 @@ fun Context.navigateToWebModule(
     uri: Uri,
 ) {
     CustomTabsIntent.Builder()
+        .setShowTitle(true)
         .build()
         .launchUrl(this, uri)
 }

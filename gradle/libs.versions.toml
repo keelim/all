@@ -11,6 +11,7 @@ androidGradlePlugin = "8.11.0"
 androidx-sqlite = "2.5.2"
 androidxActivity = "1.10.1"
 androidxAppCompat = "1.7.1"
+androidxBrowser = "1.8.0"
 androidxComposeBom = "2025.06.02"
 androidxComposeRuntimeTracing = "1.8.3"
 androidxCore = "1.16.0"
@@ -125,6 +126,7 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 androidx-benchmark-gradlePlugin = { group = "androidx.benchmark", name = "benchmark-baseline-profile-gradle-plugin", version.ref = "androidxMacroBenchmark" }
 androidx-benchmark-macro = { group = "androidx.benchmark", name = "benchmark-macro-junit4", version.ref = "androidxMacroBenchmark" }
 androidx-bio = { group = "androidx.biometric", name = "biometric", version.ref = "bio" }
+androidx-browser = { group = "androidx.browser", name = "browser", version.ref = "androidxBrowser" }
 androidx-compose-animation = { group = "androidx.compose.animation", name = "animation" }
 androidx-compose-animation-core = { group = "androidx.compose.animation", name = "animation-core" }
 androidx-compose-animation-graphics = { group = "androidx.compose.animation", name = "animation-graphics" }

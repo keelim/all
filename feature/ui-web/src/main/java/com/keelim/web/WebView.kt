@@ -2,7 +2,6 @@ package com.keelim.web
 
 import android.view.ViewGroup
 import android.webkit.WebView
-import android.webkit.WebViewClient
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
@@ -23,7 +22,7 @@ fun WebView(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT,
                 )
-                webViewClient = WebViewClient()
+                webViewClient = KeelimWebViewClient()
                 settings.apply {
                     javaScriptEnabled = true
                     domStorageEnabled = true

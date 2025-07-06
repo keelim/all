@@ -1,6 +1,7 @@
 package com.keelim.data.repository
 
 import com.keelim.model.DeepLink
+import com.keelim.model.UsageStat
 import kotlinx.coroutines.flow.Flow
 
 interface ArduconRepository {
@@ -14,4 +15,8 @@ interface ArduconRepository {
     fun getSchemeList(): Flow<List<String>>
 
     fun getCategories(): Flow<List<String>>
+
+    fun getTopUsedLinks(limit: Int): Flow<List<DeepLink>>
+    fun getRecentUsedLinks(limit: Int): Flow<List<DeepLink>>
+    fun getDailyUsageStats(limit: Int): Flow<List<UsageStat>>
 }

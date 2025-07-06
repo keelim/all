@@ -104,6 +104,7 @@ fun MainRoute(
     onNavigateSearch: () -> Unit,
     onNavigateSaastatus: () -> Unit,
     onNavigateOgTagPreview: () -> Unit,
+    onNavigateStats: () -> Unit,
     viewModel: MainViewModel = hiltViewModel(),
 ) {
     val schemeList by viewModel.schemeList.collectAsStateWithLifecycle()
@@ -155,6 +156,8 @@ fun MainRoute(
         onDeleteScheme = viewModel::deleteScheme,
         onShowNotification = viewModel::showNotification,
         onGenerateQrCode = viewModel::generateQrCode,
+        recordDeepLinkUsage = viewModel::recordDeepLinkUsage,
+        onNavigateStats = onNavigateStats,
     )
 
     if (showBottomSheet != DeepLink.EMPTY) {
@@ -183,7 +186,7 @@ fun MainRoute(
         onDismiss = viewModel::hideQrDialog,
         onSaveImage = { bitmap ->
             context.saveQrBitmapToGallery(bitmap)
-        }
+        },
     )
 }
 
@@ -207,6 +210,8 @@ fun MainScreen(
     onDeleteScheme: (String) -> Unit,
     onShowNotification: (Int, String, String, String) -> Unit,
     onGenerateQrCode: (DeepLink) -> Unit,
+    recordDeepLinkUsage: (DeepLink) -> Unit,
+    onNavigateStats: () -> Unit,
 ) {
     val listState = rememberLazyListState()
     val isScrollInProgress = remember {
@@ -250,26 +255,34 @@ fun MainScreen(
             }
         },
     ) { paddingValues ->
-        DeepLinkSection(
-            favoriteItems = favoriteItems,
-            generalItems = generalItems,
-            schemeList = schemeList,
-            onSearch = onSearch,
-            onUpdate = onUpdate,
-            onDelete = onDelete,
-            onItemLongClick = onItemLongClick,
-            onRegister = onRegister,
-            onDeleteScheme = onDeleteScheme,
-            categories = categories,
-            selectedCategory = selectedCategory,
-            onCategorySelected = onCategorySelected,
-            onShowNotification = onShowNotification,
-            onGenerateQrCode = onGenerateQrCode,
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues = paddingValues),
-            listState = listState,
-        )
+        Column(modifier = Modifier.fillMaxSize()) {
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+                Button(onClick = onNavigateStats) {
+                    Text("통계 보기")
+                }
+            }
+            DeepLinkSection(
+                favoriteItems = favoriteItems,
+                generalItems = generalItems,
+                schemeList = schemeList,
+                onSearch = onSearch,
+                onUpdate = onUpdate,
+                onDelete = onDelete,
+                onItemLongClick = onItemLongClick,
+                onRegister = onRegister,
+                onDeleteScheme = onDeleteScheme,
+                categories = categories,
+                selectedCategory = selectedCategory,
+                onCategorySelected = onCategorySelected,
+                onShowNotification = onShowNotification,
+                onGenerateQrCode = onGenerateQrCode,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues = paddingValues),
+                listState = listState,
+                recordDeepLinkUsage = recordDeepLinkUsage,
+            )
+        }
     }
 }
 
@@ -621,6 +634,8 @@ private fun PreviewMainScreen() {
         onCategorySelected = { },
         onShowNotification = { _, _, _, _ -> },
         onGenerateQrCode = { },
+        recordDeepLinkUsage = {},
+        onNavigateStats = {},
     )
 }
 
@@ -634,7 +649,7 @@ fun QrDialog(
         is QrDialogState.Loading -> {
             Box(
                 modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
+                contentAlignment = Alignment.Center,
             ) {
                 LoadingIndicator()
             }
@@ -646,7 +661,7 @@ fun QrDialog(
                 text = {
                     Image(
                         bitmap = qrDialogState.bitmap.asImageBitmap(),
-                        contentDescription = "QR 코드"
+                        contentDescription = "QR 코드",
                     )
                 },
                 confirmButton = {
@@ -656,7 +671,7 @@ fun QrDialog(
                 },
                 dismissButton = {
                     Button(onClick = onDismiss) { Text("닫기") }
-                }
+                },
             )
         }
 
@@ -668,11 +683,10 @@ fun QrDialog(
                 confirmButton = {},
                 dismissButton = {
                     Button(onClick = onDismiss) { Text("닫기") }
-                }
+                },
             )
         }
 
         QrDialogState.Hidden -> Unit
     }
 }
-

@@ -27,6 +27,7 @@ import com.keelim.arducon.ui.screen.ogtag.OgTagPreviewRoute
 import com.keelim.arducon.ui.screen.qr.QrRoute
 import com.keelim.arducon.ui.screen.saastatus.main.SaastatusRoute
 import com.keelim.arducon.ui.screen.search.SearchRoute
+import com.keelim.arducon.ui.screen.stats.StatsScreen
 import com.keelim.commonAndroid.ui.AppViewModel
 import com.keelim.composeutil.AppState
 import com.keelim.composeutil.rememberMutableStateListOf
@@ -91,6 +92,9 @@ fun ArduConHost(
                     onNavigateOgTagPreview = {
                         backStack.add(ArduconRoute.OgTagPreview)
                     },
+                    onNavigateStats = {
+                        backStack.add(ArduconRoute.Stats)
+                    },
                 )
             }
             entry<ArduconRoute.Qr> {
@@ -131,6 +135,9 @@ fun ArduConHost(
                 SaastatusRoute(
                     onRegister = { backStack.add(SaastatusRoute.Search) },
                 )
+            }
+            entry<ArduconRoute.Stats> {
+                StatsScreen()
             }
         },
     )

@@ -9,7 +9,7 @@ fun List<SimpleHistory>.toSimpleHistoryModel(): List<com.keelim.model.SimpleHist
             date = history.date,
             grade = history.grade,
             gradeRank = history.gradeRank,
-            totalRank = history.totalRank
+            totalRank = history.totalRank,
         )
     }
 }

@@ -342,6 +342,7 @@ fun DeepLinkSection(
     onCategorySelected: (String) -> Unit,
     onShowNotification: (Int, String, String, String) -> Unit,
     onGenerateQrCode: (DeepLink) -> Unit,
+    recordDeepLinkUsage: (DeepLink) -> Unit,
     modifier: Modifier = Modifier,
     listState: LazyListState = rememberLazyListState(),
 ) {
@@ -415,6 +416,7 @@ fun DeepLinkSection(
             DeepLinkItem(
                 deepLink = it,
                 onPlay = { uri ->
+                    recordDeepLinkUsage(it)
                     setMoved(uri)
                 },
                 onUpdate = onUpdate,
@@ -561,22 +563,26 @@ private fun DeepLinkItem(
                     )
                 }
             }
-            Row(
+
+            AnimatedContent(
+                targetState = deepLink.isBookMarked,
+                label = "bookmark",
+            ) { targetState ->
+                Icon(
+                    imageVector = if (targetState) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
+                    contentDescription = "bookmark",
+                    modifier = Modifier
+                        .size(space32)
+                        .clickable { onUpdate(deepLink) },
+                    tint = if (targetState) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+
+            FlowRow(
+                modifier = Modifier.padding(start = space8),
                 horizontalArrangement = Arrangement.spacedBy(space4),
+                maxItemsInEachRow = 2,
             ) {
-                AnimatedContent(
-                    targetState = deepLink.isBookMarked,
-                    label = "bookmark",
-                ) { targetState ->
-                    Icon(
-                        imageVector = if (targetState) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
-                        contentDescription = "bookmark",
-                        modifier = Modifier
-                            .size(space32)
-                            .clickable { onUpdate(deepLink) },
-                        tint = if (targetState) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                }
                 Icon(
                     imageVector = Icons.Default.Notifications,
                     contentDescription = "show notification",
@@ -668,5 +674,6 @@ private fun PreviewDeepLinkSection() {
         onCategorySelected = {},
         onShowNotification = { _, _, _, _ -> },
         onGenerateQrCode = {},
+        recordDeepLinkUsage = { },
     )
 }

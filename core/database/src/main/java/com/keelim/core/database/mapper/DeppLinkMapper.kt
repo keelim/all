@@ -9,6 +9,8 @@ fun DeepLinkEntity.toDeepLink() = DeepLink(
     isBookMarked = isBookMarked,
     title = title,
     category = category,
+    usageCount = usageCount,
+    lastUsed = lastUsed,
 )
 
 fun List<DeepLinkEntity>.toDeepLink() = map(DeepLinkEntity::toDeepLink)
@@ -19,4 +21,6 @@ fun DeepLink.toDeepLinkEntity() = DeepLinkEntity(
     isBookMarked = isBookMarked,
     title = title,
     category = category,
+    usageCount = usageCount,
+    lastUsed = lastUsed,
 )

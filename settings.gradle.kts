@@ -52,6 +52,7 @@ include(
     ":core:navigation",
     ":feature:ui-scheme",
     ":feature:ui-setting",
+    ":feature:ui-web",
     ":shared",
     ":widget",
 )

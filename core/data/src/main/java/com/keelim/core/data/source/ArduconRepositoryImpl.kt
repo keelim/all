@@ -53,4 +53,16 @@ class ArduconRepositoryImpl @Inject constructor(
     override fun getSchemeList(): Flow<List<String>> = local.getSchemeList()
 
     override fun getCategories(): Flow<List<String>> = local.getCategories()
+
+    override suspend fun getTopUsedLinks(limit: Int): List<DeepLink> = withContext(dispatcher) {
+        local.getTopUsedLinks(limit)
+    }
+
+    override suspend fun getRecentUsedLinks(limit: Int): List<DeepLink> = withContext(dispatcher) {
+        local.getRecentUsedLinks(limit)
+    }
+
+    override suspend fun getDailyUsageStats(limit: Int): List<com.keelim.model.UsageStat> = withContext(dispatcher) {
+        local.getDailyUsageStats(limit)
+    }
 }

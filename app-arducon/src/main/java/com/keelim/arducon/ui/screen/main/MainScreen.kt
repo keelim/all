@@ -155,6 +155,7 @@ fun MainRoute(
         onDeleteScheme = viewModel::deleteScheme,
         onShowNotification = viewModel::showNotification,
         onGenerateQrCode = viewModel::generateQrCode,
+        recordDeepLinkUsage = viewModel::recordDeepLinkUsage,
     )
 
     if (showBottomSheet != DeepLink.EMPTY) {
@@ -207,6 +208,7 @@ fun MainScreen(
     onDeleteScheme: (String) -> Unit,
     onShowNotification: (Int, String, String, String) -> Unit,
     onGenerateQrCode: (DeepLink) -> Unit,
+    recordDeepLinkUsage: (DeepLink) -> Unit,
 ) {
     val listState = rememberLazyListState()
     val isScrollInProgress = remember {
@@ -269,6 +271,7 @@ fun MainScreen(
                 .fillMaxSize()
                 .padding(paddingValues = paddingValues),
             listState = listState,
+            recordDeepLinkUsage = recordDeepLinkUsage,
         )
     }
 }
@@ -621,6 +624,7 @@ private fun PreviewMainScreen() {
         onCategorySelected = { },
         onShowNotification = { _, _, _, _ -> },
         onGenerateQrCode = { },
+        recordDeepLinkUsage = {},
     )
 }
 
@@ -675,4 +679,3 @@ fun QrDialog(
         QrDialogState.Hidden -> Unit
     }
 }
-

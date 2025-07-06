@@ -342,6 +342,7 @@ fun DeepLinkSection(
     onCategorySelected: (String) -> Unit,
     onShowNotification: (Int, String, String, String) -> Unit,
     onGenerateQrCode: (DeepLink) -> Unit,
+    recordDeepLinkUsage: (DeepLink) -> Unit,
     modifier: Modifier = Modifier,
     listState: LazyListState = rememberLazyListState(),
 ) {
@@ -415,6 +416,7 @@ fun DeepLinkSection(
             DeepLinkItem(
                 deepLink = it,
                 onPlay = { uri ->
+                    recordDeepLinkUsage(it)
                     setMoved(uri)
                 },
                 onUpdate = onUpdate,
@@ -575,7 +577,7 @@ private fun DeepLinkItem(
                     tint = if (targetState) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
-            
+
             FlowRow(
                 modifier = Modifier.padding(start = space8),
                 horizontalArrangement = Arrangement.spacedBy(space4),
@@ -672,5 +674,6 @@ private fun PreviewDeepLinkSection() {
         onCategorySelected = {},
         onShowNotification = { _, _, _, _ -> },
         onGenerateQrCode = {},
+        recordDeepLinkUsage = { },
     )
 }

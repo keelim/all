@@ -7,6 +7,8 @@ data class DeepLink(
     val title: String = "",
     val imageUrl: String = "",
     val category: String = "",
+    val usageCount: Int = 0,
+    val lastUsed: Long = 0L,
 ) {
     companion object {
         val EMPTY = DeepLink(
@@ -16,6 +18,13 @@ data class DeepLink(
             title = "",
             imageUrl = "",
             category = "",
+            usageCount = 0,
+            lastUsed = 0L,
         )
     }
 }
+
+data class UsageStat(
+    val day: String,
+    val count: Int
+)

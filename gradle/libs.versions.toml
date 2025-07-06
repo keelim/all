@@ -104,8 +104,9 @@ showkase = "1.0.4"
 slackComposeLint = "1.4.2"
 slackLintChecks = "0.10.0"
 soloader = "0.12.1"
-themeAdapter = "1.2.1"
 store = "5.1.0"
+tehras-chart = "0.2.4-alpha"
+themeAdapter = "1.2.1"
 timbers = "5.0.1"
 truth = "1.4.4"
 turbine = "1.2.1"
@@ -198,6 +199,7 @@ androidx-work-ktx = { group = "androidx.work", name = "work-runtime-ktx", versio
 androidx-work-testing = { group = "androidx.work", name = "work-testing", version.ref = "androidxWork" }
 apache-math = { group = "org.apache.commons", name = "commons-math3", version.ref = "math3" }
 arrow-core = { group = "io.arrow-kt", name = "arrow-core", version.ref = "arrow" }
+tehras-chart = { module = "com.github.tehras:charts", version.ref = "tehras-chart" }
 circuit-foundation = { module = "com.slack.circuit:circuit-foundation", version.ref = "circuit" }
 coil = { group = "io.coil-kt", name = "coil"}
 coil-bom = { group = "io.coil-kt", name = "coil-bom", version.ref = "coil"}

@@ -17,7 +17,7 @@ jobs:
           echo "SCRIPT_RESULT=$(sh script/hello_world.sh | tail -n 1)" >> $GITHUB_ENV
 
       - name: post message to slack with result
-        uses: slackapi/slack-github-action@v2.1.0
+        uses: slackapi/slack-github-action@v2.1.1
         with:
           method: chat.postMessage
           token: ${{ secrets.SLACK_BOT_TOKEN }}

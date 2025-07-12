@@ -1,4 +1,3 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
@@ -7,17 +6,10 @@ plugins {
     alias(libs.plugins.keelim.android.application.room)
     kotlin("plugin.serialization")
     kotlin("plugin.parcelize")
+    alias(libs.plugins.keelim.multiplatform)
 }
 
 kotlin {
-    androidTarget {
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_17)
-        }
-    }
-
-    jvm("desktop")
-
     targets
         .filterIsInstance<KotlinNativeTarget>()
         .forEach { target ->
@@ -30,11 +22,6 @@ kotlin {
         }
 
     sourceSets {
-        val desktopMain by getting
-
-        androidMain.dependencies {
-
-        }
         commonMain.dependencies {
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.okio)
@@ -47,10 +34,6 @@ kotlin {
             implementation(libs.room.runtime)
             implementation(libs.androidx.sqlite.bundled)
             implementation(libs.kotlinx.datetime)
-        }
-
-        appleMain.dependencies {
-
         }
     }
 }

@@ -411,4 +411,5 @@ keelim-android-test = {id = "keelim.android.test" }
 keelim-android-hilt = {id = "keelim.android.hilt" }
 keelim-android-showkase = {id = "keelim.android.showkase" }
 keelim-jvm-library = {id = "keelim.jvm.library" }
+keelim-multiplatform = { id = "keelim.multiplatform" }
 

@@ -37,6 +37,7 @@ include(
     ":app-comssa",
     ":benchmarks",
     // ":catalog",
+    ":composeApp",
     ":core:common",
     ":core:common-android",
     ":core:compose-core",

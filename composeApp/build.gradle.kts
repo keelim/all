@@ -43,7 +43,7 @@ composeCompiler {
 
 compose.desktop {
     application {
-        mainClass = "com.keelim.all.main.kt"
+        mainClass = "com.keelim.all.Main.kt"
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)

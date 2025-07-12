@@ -1,216 +1,226 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="845pt" height="332pt" viewBox="0 0 845 332">
     <g class="graph" transform="translate(4 328)">
         <title>G</title>
-        <path fill="#fff" d="M-4 4v-332h845.44V4z"/>
+        <path fill="#fff" d="M-4 4v-332h844.67V4z"/>
         <g class="node">
             <title>:app-cnubus</title>
-            <ellipse cx="546.34" cy="-306" fill="none" stroke="#000" rx="55.96" ry="18"/>
-            <text xml:space="preserve" x="546.34" y="-300.95" font-family="Times,serif" font-size="14" text-anchor="middle">:app-cnubus</text>
+            <ellipse cx="447.56" cy="-306" fill="none" stroke="#000" rx="55.96" ry="18"/>
+            <text xml:space="preserve" x="447.56" y="-300.95" font-family="Times,serif" font-size="14" text-anchor="middle">:app-cnubus</text>
         </g>
         <g class="node">
             <title>:core:common-android</title>
-            <ellipse cx="356.34" cy="-162" fill="none" stroke="#000" rx="96.39" ry="18"/>
-            <text xml:space="preserve" x="356.34" y="-156.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:common-android</text>
+            <ellipse cx="544.56" cy="-162" fill="none" stroke="#000" rx="96.39" ry="18"/>
+            <text xml:space="preserve" x="544.56" y="-156.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:common-android</text>
         </g>
         <g class="edge">
             <title>:app-cnubus-&gt;:core:common-android</title>
-            <path fill="none" stroke="#000" d="M495.86-297.75C445.8-289.4 374.19-273.97 357.34-252c-13.01 16.96-12.26 41.57-8.81 60.61"/>
-            <path stroke="#000" d="m351.9-192.36-1.3 10.51-5.54-9.03z"/>
+            <path fill="none" stroke="#000" d="M459.07-288.15c16.61 24.31 47.47 69.49 67.22 98.4"/>
+            <path stroke="#000" d="m529.16-191.75 2.75 10.23-8.53-6.28z"/>
         </g>
         <g class="node">
             <title>:core:data</title>
-            <ellipse cx="194.34" cy="-162" fill="none" stroke="#000" rx="47.26" ry="18"/>
-            <text xml:space="preserve" x="194.34" y="-156.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:data</text>
+            <ellipse cx="223.56" cy="-162" fill="none" stroke="#000" rx="47.26" ry="18"/>
+            <text xml:space="preserve" x="223.56" y="-156.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:data</text>
         </g>
         <g class="edge">
             <title>:app-cnubus-&gt;:core:data</title>
-            <path fill="none" stroke="#000" d="M498.08-296.53c-42.16 8.34-104.47 22.98-155.74 44.53-43.22 18.16-88.84 47.33-117.82 67.29"/>
-            <path stroke="#000" d="m226.8-182.04-10.2 2.85 6.2-8.59z"/>
+            <path fill="none" stroke="#000" d="M392.46-302.43c-41.47 4.7-97.23 17.3-133.9 50.43-17.32 15.65-26.17 40.96-30.63 60.6"/>
+            <path stroke="#000" d="m231.4-190.94-5.38 9.12-1.48-10.49z"/>
         </g>
         <g class="node">
             <title>:core:navigation</title>
-            <ellipse cx="541.34" cy="-162" fill="none" stroke="#000" rx="70.8" ry="18"/>
-            <text xml:space="preserve" x="541.34" y="-156.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:navigation</text>
+            <ellipse cx="359.56" cy="-162" fill="none" stroke="#000" rx="70.8" ry="18"/>
+            <text xml:space="preserve" x="359.56" y="-156.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:navigation</text>
         </g>
         <g class="edge">
             <title>:app-cnubus-&gt;:core:navigation</title>
-            <path fill="none" stroke="#000" d="M545.72-287.59c-.84 23.98-2.37 67.45-3.38 96.17"/>
-            <path stroke="#000" d="m545.84-191.49-3.85 9.87-3.14-10.12z"/>
+            <path fill="none" stroke="#000" d="M447.34-287.61c-.99 18.97-4.86 49.57-18.78 71.61-7.62 12.07-19.02 22.46-30.37 30.75"/>
+            <path stroke="#000" d="M400.23-182.4 390-179.63l6.27-8.54z"/>
         </g>
         <g class="node">
             <title>:core:domain</title>
-            <ellipse cx="634.34" cy="-234" fill="none" stroke="#000" rx="60.05" ry="18"/>
-            <text xml:space="preserve" x="634.34" y="-228.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:domain</text>
+            <ellipse cx="144.56" cy="-234" fill="none" stroke="#000" rx="60.05" ry="18"/>
+            <text xml:space="preserve" x="144.56" y="-228.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:domain</text>
         </g>
         <g class="edge">
             <title>:app-cnubus-&gt;:core:domain</title>
-            <path fill="none" stroke="#000" d="M566.75-288.76c11.35 9.03 25.69 20.43 38.23 30.41"/>
-            <path stroke="#000" d="m606.9-261.3 5.65 8.97-10.01-3.49z"/>
+            <path fill="none" stroke="#000" d="M403.18-294.75c-53.28 12.31-142.74 32.98-201.22 46.49"/>
+            <path stroke="#000" d="m203.06-244.92-10.53-1.16 8.96-5.66z"/>
         </g>
         <g class="node">
             <title>:feature:ui-scheme</title>
-            <ellipse cx="748.34" cy="-162" fill="none" stroke="#000" rx="80.01" ry="18"/>
-            <text xml:space="preserve" x="748.34" y="-156.95" font-family="Times,serif" font-size="14" text-anchor="middle">:feature:ui-scheme</text>
+            <ellipse cx="738.56" cy="-162" fill="none" stroke="#000" rx="80.01" ry="18"/>
+            <text xml:space="preserve" x="738.56" y="-156.95" font-family="Times,serif" font-size="14" text-anchor="middle">:feature:ui-scheme</text>
         </g>
         <g class="edge">
             <title>:app-cnubus-&gt;:feature:ui-scheme</title>
-            <path fill="none" stroke="#000" d="M597.26-298.02c33.42 6.84 76.29 20.21 106.08 46.02 18.48 16.02 30.27 41.46 37.12 61.05"/>
-            <path stroke="#000" d="m743.72-192.24-.25 10.59-6.41-8.44z"/>
+            <path fill="none" stroke="#000" d="M467.65-288.88c12.41 10.21 28.47 23.89 41.91 36.88 15.62 15.08 14.46 24.72 33 36 21.47 13.06 79.82 28.01 127.31 38.7"/>
+            <path stroke="#000" d="m670.58-180.73 9 5.58-10.52 1.25z"/>
         </g>
         <g class="node">
             <title>:feature:ui-setting</title>
-            <ellipse cx="442.34" cy="-234" fill="none" stroke="#000" rx="76.43" ry="18"/>
-            <text xml:space="preserve" x="442.34" y="-228.95" font-family="Times,serif" font-size="14" text-anchor="middle">:feature:ui-setting</text>
+            <ellipse cx="343.56" cy="-234" fill="none" stroke="#000" rx="76.43" ry="18"/>
+            <text xml:space="preserve" x="343.56" y="-228.95" font-family="Times,serif" font-size="14" text-anchor="middle">:feature:ui-setting</text>
         </g>
         <g class="edge">
             <title>:app-cnubus-&gt;:feature:ui-setting</title>
-            <path fill="none" stroke="red" stroke-width="2" d="M523-289.29c-13.89 9.35-31.74 21.36-47.12 31.71"/>
-            <path fill="red" stroke="red" stroke-width="2" d="m479.44-255.76-10.25 2.68 6.34-8.48z"/>
+            <path fill="none" stroke="red" stroke-width="2" d="M424.22-289.29c-13.88 9.35-31.73 21.36-47.11 31.71"/>
+            <path fill="red" stroke="red" stroke-width="2" d="m380.67-255.76-10.25 2.68 6.34-8.48z"/>
         </g>
         <g class="node">
             <title>:widget</title>
-            <ellipse cx="789.34" cy="-234" fill="none" stroke="#000" rx="38.56" ry="18"/>
-            <text xml:space="preserve" x="789.34" y="-228.95" font-family="Times,serif" font-size="14" text-anchor="middle">:widget</text>
+            <ellipse cx="590.56" cy="-234" fill="none" stroke="#000" rx="38.56" ry="18"/>
+            <text xml:space="preserve" x="590.56" y="-228.95" font-family="Times,serif" font-size="14" text-anchor="middle">:widget</text>
         </g>
         <g class="edge">
             <title>:app-cnubus-&gt;:widget</title>
-            <path fill="none" stroke="#000" d="M588.35-293.78c38.59 10.43 97.3 26.59 147.99 41.78 3.67 1.1 7.48 2.27 11.29 3.46"/>
-            <path stroke="#000" d="m748.36-251.98 8.49 6.35-10.59.32z"/>
+            <path fill="none" stroke="#000" d="M477.54-290.33c22.55 11.04 53.52 26.2 77.34 37.86"/>
+            <path stroke="#000" d="m556.13-255.75 7.44 7.54-10.52-1.25z"/>
         </g>
         <g class="node">
             <title>:core:common</title>
-            <ellipse cx="586.34" cy="-90" fill="none" stroke="#000" rx="65.17" ry="18"/>
-            <text xml:space="preserve" x="586.34" y="-84.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:common</text>
+            <ellipse cx="547.56" cy="-90" fill="none" stroke="#000" rx="65.17" ry="18"/>
+            <text xml:space="preserve" x="547.56" y="-84.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:common</text>
         </g>
         <g class="edge">
             <title>:core:common-android-&gt;:core:common</title>
-            <path fill="none" stroke="#000" d="M405.39-146.07c37.35 11.37 88.7 27 127.17 38.7"/>
-            <path stroke="#000" d="m533.55-110.72 8.54 6.26-10.58.43z"/>
+            <path fill="none" stroke="#000" d="m545.31-143.7 1.03 24.16"/>
+            <path stroke="#000" d="m549.83-119.76-3.06 10.14-3.93-9.84z"/>
         </g>
         <g class="node">
             <title>:core:compose-core</title>
-            <ellipse cx="753.34" cy="-90" fill="none" stroke="#000" rx="84.11" ry="18"/>
-            <text xml:space="preserve" x="753.34" y="-84.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:compose-core</text>
+            <ellipse cx="752.56" cy="-90" fill="none" stroke="#000" rx="84.11" ry="18"/>
+            <text xml:space="preserve" x="752.56" y="-84.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:compose-core</text>
         </g>
         <g class="edge">
             <title>:core:common-android-&gt;:core:compose-core</title>
-            <path fill="none" stroke="#000" d="M425.49-149.11c61.63 10.64 154.29 26.72 234.85 41.11 6.36 1.14 12.97 2.33 19.6 3.53"/>
-            <path stroke="#000" d="m680.36-107.95 9.22 5.22-10.47 1.66z"/>
+            <path fill="none" stroke="red" stroke-width="2" d="M589.95-145.72c31.82 10.7 74.51 25.07 108.16 36.4"/>
+            <path fill="red" stroke="red" stroke-width="2" d="m697.47-113.24 8.36 6.51-10.6.13z"/>
         </g>
         <g class="node">
             <title>:shared</title>
-            <ellipse cx="69.34" cy="-18" fill="none" stroke="#000" rx="37.53" ry="18"/>
-            <text xml:space="preserve" x="69.34" y="-12.95" font-family="Times,serif" font-size="14" text-anchor="middle">:shared</text>
+            <ellipse cx="312.56" cy="-18" fill="none" stroke="#000" rx="37.53" ry="18"/>
+            <text xml:space="preserve" x="312.56" y="-12.95" font-family="Times,serif" font-size="14" text-anchor="middle">:shared</text>
         </g>
         <g class="edge">
             <title>:core:common-android-&gt;:shared</title>
-            <path fill="none" stroke="#000" d="M356.85-143.8c-.39 20.28-4.36 53.53-24.51 71.8-72.12 65.36-121.85 11.35-216 36-2.72.71-5.5 1.52-8.29 2.38"/>
-            <path stroke="#000" d="m109.44-30.4-10.6-.17 8.39-6.47z"/>
+            <path fill="none" stroke="#000" d="M581.81-145.06c15.22 8.6 31.22 20.83 39.75 37.06 7.45 14.16 10.32 23.77 0 36-32.68 38.77-181.49 49.18-260.06 51.97"/>
+            <path stroke="#000" d="m362.06-16.54-10.11-3.17 9.88-3.83z"/>
         </g>
         <g class="node">
             <title>:core:data-api</title>
-            <ellipse cx="441.34" cy="-90" fill="none" stroke="#000" rx="61.59" ry="18"/>
-            <text xml:space="preserve" x="441.34" y="-84.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:data-api</text>
+            <ellipse cx="77.56" cy="-90" fill="none" stroke="#000" rx="61.59" ry="18"/>
+            <text xml:space="preserve" x="77.56" y="-84.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:data-api</text>
         </g>
         <g class="edge">
             <title>:core:common-android-&gt;:core:data-api</title>
-            <path fill="none" stroke="red" stroke-width="2" d="M376.91-144.05c10.81 8.89 24.22 19.94 36 29.64"/>
-            <path fill="red" stroke="red" stroke-width="2" d="m413.7-118.29 5.5 9.06-9.95-3.66z"/>
+            <path fill="none" stroke="#000" d="M474.58-149.29c-11.68 1.84-23.68 3.67-35.02 5.29-129.45 18.45-163.36 12.53-292 36-4.63.85-9.42 1.81-14.22 2.84"/>
+            <path stroke="#000" d="m134.21-101.77-10.52-1.22 8.99-5.61z"/>
         </g>
         <g class="node">
             <title>:core:network</title>
-            <ellipse cx="261.34" cy="-90" fill="none" stroke="#000" rx="62.1" ry="18"/>
-            <text xml:space="preserve" x="261.34" y="-84.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:network</text>
+            <ellipse cx="402.56" cy="-90" fill="none" stroke="#000" rx="62.1" ry="18"/>
+            <text xml:space="preserve" x="402.56" y="-84.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:network</text>
         </g>
         <g class="edge">
             <title>:core:common-android-&gt;:core:network</title>
-            <path fill="none" stroke="#000" d="M333.34-144.05c-12.4 9.13-27.88 20.54-41.3 30.42"/>
-            <path stroke="#000" d="m294.49-111.08-10.13 3.11 5.97-8.75z"/>
+            <path fill="none" stroke="#000" d="M511.63-144.76c-20.42 10.06-46.8 23.07-68.5 33.76"/>
+            <path stroke="#000" d="m444.77-107.9-10.52 1.28 7.43-7.56z"/>
         </g>
         <g class="edge">
             <title>:core:data-&gt;:core:common</title>
-            <path fill="none" stroke="#000" d="M229.39-149.63c7.2 2.08 14.78 4.08 21.95 5.63 114.44 24.81 145.82 14.87 261 36 4.94.91 10.06 1.92 15.18 2.99"/>
-            <path stroke="#000" d="m528.18-108.45 9.04 5.53-10.52 1.32z"/>
+            <path fill="none" stroke="#000" d="M258.95-149.61c6.8 2.01 13.9 3.97 20.61 5.61 85.2 20.77 108.14 18.18 194 36 4.65.96 9.45 1.99 14.28 3.05"/>
+            <path stroke="#000" d="m488.59-108.37 9 5.59-10.52 1.24z"/>
         </g>
         <g class="edge">
             <title>:core:data-&gt;:shared</title>
-            <path fill="none" stroke="#000" d="M150.39-154.78C100.48-146.72 23.68-130.91 6.34-108c-9.66 12.76-6.76 21.49 0 36 6.33 13.6 18.05 24.95 29.69 33.62"/>
-            <path stroke="#000" d="m37.76-41.44 6.23 8.57-10.21-2.81z"/>
+            <path fill="none" stroke="#000" d="M250.71-146.85c14.88 9.14 32.38 22.39 42.85 38.85 11.48 18.04 16.13 41.89 17.97 60.35"/>
+            <path stroke="#000" d="m315-48.15-2.74 10.24-4.24-9.71z"/>
         </g>
         <g class="edge">
             <title>:core:data-&gt;:core:data-api</title>
-            <path fill="none" stroke="#000" d="M230.49-150.11c6.91 2.05 14.1 4.16 20.85 6.11 45.51 13.14 97.32 27.55 135.33 38.03"/>
-            <path stroke="#000" d="m387.33-109.42 8.71 6.03-10.57.72z"/>
+            <path fill="none" stroke="#000" d="M195.07-147.34c-21.62 10.37-51.65 24.76-75.94 36.41"/>
+            <path stroke="#000" d="m120.66-107.78-10.53 1.16 7.51-7.48z"/>
         </g>
         <g class="edge">
             <title>:core:data-&gt;:core:network</title>
-            <path fill="none" stroke="#000" d="M209.87-144.76c8.26 8.62 18.57 19.4 27.8 29.03"/>
-            <path stroke="#000" d="m239.98-118.37 4.39 9.64-9.44-4.8z"/>
+            <path fill="none" stroke="#000" d="M255.57-148.49c28 10.96 69.04 27 100.64 39.36"/>
+            <path stroke="#000" d="m357.08-112.54 8.04 6.9-10.59-.38z"/>
         </g>
         <g class="node">
             <title>:core:model</title>
-            <ellipse cx="180.34" cy="-18" fill="none" stroke="#000" rx="55.45" ry="18"/>
-            <text xml:space="preserve" x="180.34" y="-12.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:model</text>
+            <ellipse cx="77.56" cy="-18" fill="none" stroke="#000" rx="55.45" ry="18"/>
+            <text xml:space="preserve" x="77.56" y="-12.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:model</text>
         </g>
         <g class="edge">
             <title>:core:data-&gt;:core:model</title>
-            <path fill="none" stroke="#000" d="M192.62-143.59c-2.37 23.98-6.65 67.45-9.48 96.17"/>
-            <path stroke="#000" d="m186.64-47.23-4.47 9.61-2.5-10.29z"/>
+            <path fill="none" stroke="#000" d="M178.43-156.46c-57.2 6.8-150.91 21.77-171.87 48.46-9.88 12.58-7.17 21.7 0 36 6.7 13.35 18.52 24.19 30.62 32.51"/>
+            <path stroke="#000" d="m39-42.48 6.57 8.31-10.32-2.4z"/>
         </g>
         <g class="node">
             <title>:core:database</title>
-            <ellipse cx="79.34" cy="-90" fill="none" stroke="#000" rx="63.63" ry="18"/>
-            <text xml:space="preserve" x="79.34" y="-84.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:database</text>
+            <ellipse cx="220.56" cy="-90" fill="none" stroke="#000" rx="63.63" ry="18"/>
+            <text xml:space="preserve" x="220.56" y="-84.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:database</text>
         </g>
         <g class="edge">
             <title>:core:data-&gt;:core:database</title>
-            <path fill="none" stroke="#000" d="m169.95-146.15-55.13 33.55"/>
-            <path stroke="#000" d="m116.94-109.79-10.36 2.21 6.72-8.19z"/>
+            <path fill="none" stroke="#000" d="m222.82-143.7-1.03 24.16"/>
+            <path stroke="#000" d="m225.29-119.46-3.93 9.84-3.07-10.14z"/>
         </g>
         <g class="edge">
             <title>:core:domain-&gt;:core:data-api</title>
-            <path fill="none" stroke="#000" d="M636.88-215.7c1.88 19.75 1.65 51.89-15.54 71.7-8.29 9.55-72.73 27.01-122.17 39.27"/>
-            <path stroke="#000" d="m500.26-101.39-10.55-1.01 8.88-5.79z"/>
+            <path fill="none" stroke="#000" d="M136.48-215.87c-11.42 24.2-32.39 68.66-45.99 97.48"/>
+            <path stroke="#000" d="m93.75-117.11-7.43 7.55 1.1-10.54z"/>
         </g>
         <g class="edge">
             <title>:feature:ui-scheme-&gt;:core:common</title>
-            <path fill="none" stroke="#000" d="M712.38-145.46c-23.98 10.36-55.68 24.06-81.29 35.12"/>
-            <path stroke="#000" d="m632.48-107.13-10.57.76 7.8-7.18z"/>
+            <path fill="none" stroke="#000" d="M698.06-146.15c-29.68 10.87-70.11 25.69-101.6 37.23"/>
+            <path stroke="#000" d="m597.75-105.67-10.59.16 8.18-6.73z"/>
         </g>
         <g class="edge">
             <title>:feature:ui-scheme-&gt;:core:compose-core</title>
-            <path fill="none" stroke="#000" d="M749.57-143.7c.52 7.29 1.14 15.97 1.73 24.16"/>
-            <path stroke="#000" d="m754.78-119.84-2.77 10.23-4.21-9.73z"/>
+            <path fill="none" stroke="#000" d="M742.02-143.7c1.48 7.38 3.24 16.18 4.89 24.45"/>
+            <path stroke="#000" d="m750.32-120.08-1.47 10.49-5.4-9.12z"/>
         </g>
         <g class="edge">
             <title>:feature:ui-setting-&gt;:core:common-android</title>
-            <path fill="none" stroke="red" stroke-width="2" d="M421.95-216.41c-10.76 8.76-24.17 19.68-36.06 29.35"/>
-            <path fill="red" stroke="red" stroke-width="2" d="m389.48-185.47-9.96 3.6 5.54-9.02z"/>
+            <path fill="none" stroke="red" stroke-width="2" d="M385.21-218.5c30.27 10.55 71.54 24.92 104.49 36.39"/>
+            <path fill="red" stroke="red" stroke-width="2" d="m489.38-185.92 8.29 6.59-10.59.02z"/>
         </g>
         <g class="edge">
             <title>:feature:ui-setting-&gt;:core:data</title>
-            <path fill="none" stroke="#000" d="M393.59-219.75c-38.64 10.57-93.97 25.85-142.25 39.75-3.27.94-6.64 1.92-10.04 2.91"/>
-            <path stroke="#000" d="m242.52-173.8-10.58-.52 8.6-6.19z"/>
+            <path fill="none" stroke="#000" d="M315.73-216.76c-17.17 10.01-39.34 22.95-57.63 33.62"/>
+            <path stroke="#000" d="m260.1-180.26-10.4 2.01 6.87-8.06z"/>
         </g>
         <g class="edge">
             <title>:feature:ui-setting-&gt;:core:navigation</title>
-            <path fill="none" stroke="#000" d="M465.8-216.41c12.82 9.07 28.9 20.44 42.93 30.35"/>
-            <path stroke="#000" d="m510.66-188.97 6.15 8.63-10.19-2.92z"/>
+            <path fill="none" stroke="#000" d="M347.52-215.7c1.68 7.38 3.7 16.18 5.59 24.45"/>
+            <path stroke="#000" d="m356.5-192.11-1.18 10.53-5.64-8.97z"/>
+        </g>
+        <g class="node">
+            <title>:core:component</title>
+            <ellipse cx="752.56" cy="-18" fill="none" stroke="#000" rx="73.36" ry="18"/>
+            <text xml:space="preserve" x="752.56" y="-12.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:component</text>
+        </g>
+        <g class="edge">
+            <title>:core:compose-core-&gt;:core:component</title>
+            <path fill="none" stroke="red" stroke-width="2" d="M752.56-71.7v24.16"/>
+            <path fill="red" stroke="red" stroke-width="2" d="m756.06-49.13-3.5 10-3.5-10z"/>
         </g>
         <g class="edge">
             <title>:core:data-api-&gt;:core:model</title>
-            <path fill="none" stroke="red" stroke-width="2" d="M397.06-77.13c-45.34 12.16-115.8 31.06-163.99 43.99"/>
-            <path fill="red" stroke="red" stroke-width="2" d="m235.72-30.23-10.56-.79 8.75-5.97z"/>
+            <path fill="none" stroke="#000" d="M77.56-71.7v24.16"/>
+            <path stroke="#000" d="m81.06-47.62-3.5 10-3.5-10z"/>
         </g>
         <g class="edge">
             <title>:core:database-&gt;:shared</title>
-            <path fill="none" stroke="#000" d="M76.86-71.7c-1.05 7.38-2.31 16.18-3.49 24.45"/>
-            <path stroke="#000" d="m76.87-47.01-4.88 9.41L69.94-48z"/>
+            <path fill="none" stroke="#000" d="M241.9-72.76c12.6 9.58 28.69 21.82 42.34 32.21"/>
+            <path stroke="#000" d="m286.18-43.47 5.84 8.84-10.08-3.27z"/>
         </g>
         <g class="edge">
             <title>:core:database-&gt;:core:model</title>
-            <path fill="none" stroke="#000" d="m102.51-72.94 45.76 31.72"/>
-            <path stroke="#000" d="m150.15-44.18 6.23 8.57-10.22-2.82z"/>
+            <path fill="none" stroke="#000" d="M189.54-73.81c-21.23 10.39-49.56 24.26-72.41 35.44"/>
+            <path stroke="#000" d="m118.95-35.36-10.52 1.25 7.44-7.54z"/>
         </g>
     </g>
 </svg>

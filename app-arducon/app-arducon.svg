@@ -84,18 +84,18 @@
         </g>
         <g class="edge">
             <title>:core:common-android-&gt;:core:compose-core</title>
-            <path fill="none" stroke="#000" d="M540.08-146.75c43.69 11.41 105.02 27.43 150.73 39.37"/>
-            <path stroke="#000" d="m691.52-110.81 8.79 5.91-10.56.86z"/>
+            <path fill="none" stroke="red" stroke-width="2" d="M540.08-146.75c43.69 11.41 105.02 27.43 150.73 39.37"/>
+            <path fill="red" stroke="red" stroke-width="2" d="m690.06-111.2 8.79 5.92-10.56.86z"/>
         </g>
         <g class="node">
             <title>:shared</title>
-            <ellipse cx="69.53" cy="-18" fill="none" stroke="#000" rx="37.53" ry="18"/>
-            <text xml:space="preserve" x="69.53" y="-12.95" font-family="Times,serif" font-size="14" text-anchor="middle">:shared</text>
+            <ellipse cx="180.53" cy="-18" fill="none" stroke="#000" rx="37.53" ry="18"/>
+            <text xml:space="preserve" x="180.53" y="-12.95" font-family="Times,serif" font-size="14" text-anchor="middle">:shared</text>
         </g>
         <g class="edge">
             <title>:core:common-android-&gt;:shared</title>
-            <path fill="none" stroke="#000" d="M558.29-149.94c24.55 7.59 49.46 20.38 64.24 41.94 9.04 13.2 10.9 24.29 0 36-38.42 41.25-450.87 24.3-506 36-2.82.6-5.71 1.33-8.59 2.15"/>
-            <path stroke="#000" d="m109.03-30.53-10.6-.29 8.47-6.37z"/>
+            <path fill="none" stroke="#000" d="M558.29-149.94c24.55 7.59 49.46 20.38 64.24 41.94 9.04 13.2 10.62 24.03 0 36-25.77 29.04-283.37 45.14-393.02 50.73"/>
+            <path stroke="#000" d="m229.81-17.78-10.16-3 9.81-3.99z"/>
         </g>
         <g class="node">
             <title>:core:data-api</title>
@@ -104,8 +104,8 @@
         </g>
         <g class="edge">
             <title>:core:common-android-&gt;:core:data-api</title>
-            <path fill="none" stroke="red" stroke-width="2" d="M437.47-145.98c-36.62 11.44-86.96 27.17-124.41 38.88"/>
-            <path fill="red" stroke="red" stroke-width="2" d="m315.85-104.31-10.59-.36 8.5-6.32z"/>
+            <path fill="none" stroke="#000" d="M437.47-145.98c-36.62 11.44-86.96 27.17-124.41 38.88"/>
+            <path stroke="#000" d="m314.4-103.86-10.59-.35 8.51-6.33z"/>
         </g>
         <g class="node">
             <title>:core:network</title>
@@ -124,8 +124,8 @@
         </g>
         <g class="edge">
             <title>:core:data-&gt;:shared</title>
-            <path fill="none" stroke="#000" d="M215.07-158.17C148.81-153.06 32.32-139.7 6.53-108c-10.1 12.41-6.75 21.49 0 36 6.33 13.6 18.06 24.95 29.69 33.62"/>
-            <path stroke="#000" d="m37.95-41.44 6.23 8.57-10.21-2.81z"/>
+            <path fill="none" stroke="#000" d="M233.37-147.31c-15.3 8.98-33.05 22.23-42.84 39.31-10.42 18.17-12.65 41.86-12.41 60.23"/>
+            <path stroke="#000" d="m181.61-47.95-3.09 10.13-3.9-9.85z"/>
         </g>
         <g class="edge">
             <title>:core:data-&gt;:core:data-api</title>
@@ -139,13 +139,13 @@
         </g>
         <g class="node">
             <title>:core:model</title>
-            <ellipse cx="180.53" cy="-18" fill="none" stroke="#000" rx="55.45" ry="18"/>
-            <text xml:space="preserve" x="180.53" y="-12.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:model</text>
+            <ellipse cx="69.53" cy="-18" fill="none" stroke="#000" rx="55.45" ry="18"/>
+            <text xml:space="preserve" x="69.53" y="-12.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:model</text>
         </g>
         <g class="edge">
             <title>:core:data-&gt;:core:model</title>
-            <path fill="none" stroke="#000" d="M233.37-147.31c-15.3 8.98-33.05 22.23-42.84 39.31-10.42 18.17-12.65 41.86-12.41 60.23"/>
-            <path stroke="#000" d="m181.61-47.95-3.09 10.13-3.9-9.85z"/>
+            <path fill="none" stroke="#000" d="M215.07-158.17C148.81-153.06 32.32-139.7 6.53-108c-10.1 12.41-6.75 21.49 0 36 5.78 12.43 16.08 22.98 26.69 31.32"/>
+            <path stroke="#000" d="m35.26-43.52 6.03 8.7-10.15-3.04z"/>
         </g>
         <g class="node">
             <title>:core:database</title>
@@ -167,20 +167,30 @@
             <path fill="none" stroke="#000" d="M697.44-144.05c8.93 8.44 19.91 18.83 29.78 28.16"/>
             <path stroke="#000" d="m729.56-118.49 4.86 9.42-9.67-4.33z"/>
         </g>
+        <g class="node">
+            <title>:core:component</title>
+            <ellipse cx="753.53" cy="-18" fill="none" stroke="#000" rx="73.36" ry="18"/>
+            <text xml:space="preserve" x="753.53" y="-12.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:component</text>
+        </g>
+        <g class="edge">
+            <title>:core:compose-core-&gt;:core:component</title>
+            <path fill="none" stroke="red" stroke-width="2" d="M753.53-71.7v24.16"/>
+            <path fill="red" stroke="red" stroke-width="2" d="m757.03-49.13-3.5 10-3.5-10z"/>
+        </g>
         <g class="edge">
             <title>:core:data-api-&gt;:core:model</title>
-            <path fill="none" stroke="red" stroke-width="2" d="M242.33-72.41c-10.26 8.87-23.07 19.94-34.37 29.7"/>
-            <path fill="red" stroke="red" stroke-width="2" d="m211.45-41.1-9.85 3.89 5.27-9.18z"/>
+            <path fill="none" stroke="#000" d="M224.05-75.34c-30.88 11.26-74.84 27.29-107.98 39.37"/>
+            <path stroke="#000" d="m117.3-32.69-10.59.13 8.19-6.71z"/>
         </g>
         <g class="edge">
             <title>:core:database-&gt;:shared</title>
-            <path fill="none" stroke="#000" d="M77.06-71.7c-1.06 7.38-2.31 16.18-3.5 24.45"/>
-            <path stroke="#000" d="m77.06-47.01-4.87 9.41L70.13-48z"/>
+            <path fill="none" stroke="#000" d="M102.7-72.94c14.28 9.89 32.72 22.68 48.07 33.32"/>
+            <path stroke="#000" d="m152.39-42.76 6.23 8.58L148.41-37z"/>
         </g>
         <g class="edge">
             <title>:core:database-&gt;:core:model</title>
-            <path fill="none" stroke="#000" d="M102.7-72.94c13.57 9.4 30.9 21.42 45.77 31.72"/>
-            <path stroke="#000" d="m150.34-44.18 6.23 8.57-10.21-2.82z"/>
+            <path fill="none" stroke="#000" d="M77.06-71.7c-1.06 7.38-2.31 16.18-3.5 24.45"/>
+            <path stroke="#000" d="m77.06-47.01-4.87 9.41L70.13-48z"/>
         </g>
     </g>
 </svg>

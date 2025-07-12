@@ -1,11 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="176pt" height="44pt" viewBox="0 0 176 44">
-    <g class="graph" transform="translate(4 40)">
+<svg xmlns="http://www.w3.org/2000/svg" width="176pt" height="116pt" viewBox="0 0 176 116">
+    <g class="graph" transform="translate(4 112)">
         <title>G</title>
-        <path fill="#fff" d="M-4 4v-44h176.21V4z"/>
+        <path fill="#fff" d="M-4 4v-116h176.21V4z"/>
         <g class="node">
             <title>:core:compose-core</title>
-            <ellipse cx="84.11" cy="-18" fill="none" stroke="#000" rx="84.11" ry="18"/>
-            <text xml:space="preserve" x="84.11" y="-12.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:compose-core</text>
+            <ellipse cx="84.11" cy="-90" fill="none" stroke="#000" rx="84.11" ry="18"/>
+            <text xml:space="preserve" x="84.11" y="-84.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:compose-core</text>
+        </g>
+        <g class="node">
+            <title>:core:component</title>
+            <ellipse cx="84.11" cy="-18" fill="none" stroke="#000" rx="73.36" ry="18"/>
+            <text xml:space="preserve" x="84.11" y="-12.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:component</text>
+        </g>
+        <g class="edge">
+            <title>:core:compose-core-&gt;:core:component</title>
+            <path fill="none" stroke="red" stroke-width="2" d="M84.11-71.7v24.16"/>
+            <path fill="red" stroke="red" stroke-width="2" d="m87.61-49.13-3.5 10-3.5-10z"/>
         </g>
     </g>
 </svg>

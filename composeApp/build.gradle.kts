@@ -6,5 +6,5 @@ plugins {
 }
 
 kotlin {
-
+    jvm("desktop")
 }

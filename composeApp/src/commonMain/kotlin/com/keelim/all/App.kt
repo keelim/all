@@ -10,11 +10,11 @@ import androidx.compose.ui.Modifier
 @Composable
 fun App() {
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) {
         Text(
             text = "Hello, All!",
-            style = MaterialTheme.typography.headlineLarge
+            style = MaterialTheme.typography.headlineLarge,
         )
     }
 }

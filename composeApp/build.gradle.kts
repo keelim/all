@@ -1,3 +1,10 @@
+@file:OptIn(ExperimentalWasmDsl::class)
+
+import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import org.jetbrains.kotlin.compose.compiler.gradle.ComposeFeatureFlag
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
+
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.compose.hot.reload)
@@ -7,4 +14,82 @@ plugins {
 
 kotlin {
     jvm("desktop")
+
+    wasmJs {
+        outputModuleName.set("composeApp")
+        browser {
+            val rootDirPath = project.rootDir.path
+            val projectDirPath = project.projectDir.path
+
+            commonWebpackConfig {
+                outputFileName = "composeApp.js"
+                devServer = (devServer ?: KotlinWebpackConfig.DevServer()).apply {
+                    static = (static ?: mutableListOf()).apply {
+                        // Serve sources to debug inside browser
+                        add(rootDirPath)
+                        add(projectDirPath)
+                    }
+                }
+            }
+
+        }
+        binaries.executable()
+    }
+
+    sourceSets {
+        val desktopMain by getting
+        commonMain.dependencies {
+            implementation(compose.runtime)
+            implementation(compose.foundation)
+            implementation(compose.material3)
+            implementation(compose.materialIconsExtended)
+            implementation(compose.ui)
+            implementation(compose.components.resources)
+            implementation(compose.components.uiToolingPreview)
+        }
+        desktopMain.dependencies {
+            implementation(compose.desktop.currentOs)
+        }
+    }
+}
+
+// Enable Compose Hot Reload optimization
+// https://github.com/JetBrains/compose-hot-reload?tab=readme-ov-file#optimization-enable-optimizenonskippinggroups-not-required
+composeCompiler {
+    featureFlags.add(ComposeFeatureFlag.OptimizeNonSkippingGroups)
+}
+
+compose.desktop {
+    application {
+        mainClass = "com.keelim.all.app.MainKt"
+
+        nativeDistributions {
+            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
+            packageName = "com.keelim.all"
+            packageVersion = "1.0.0"
+
+            macOS {
+                dockName = "all"
+            }
+            windows {
+                packageName = "all"
+            }
+            linux {
+                packageName = "all"
+            }
+        }
+    }
+}
+
+
+// From KotlinConf App
+// https://github.com/JetBrains/kotlinconf-app/blob/c81492ee57a8da67390d84ad29f41b08128fe0e1/shared/build.gradle.kts#L193
+val buildWebApp by tasks.registering(Copy::class) {
+    val wasmDist = "wasmJsBrowserDistribution"
+
+    from(tasks.named(wasmDist).get().outputs.files)
+
+    into(layout.buildDirectory.dir("webApp"))
+
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }

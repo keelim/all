@@ -3,7 +3,6 @@
 package com.keelim.arducon.ui
 
 import android.content.Intent
-import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.animation.ContentTransform
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -12,7 +11,6 @@ import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.net.toUri
@@ -33,6 +31,7 @@ import com.keelim.composeutil.AppState
 import com.keelim.composeutil.rememberMutableStateListOf
 import com.keelim.core.navigation.ArduconRoute
 import com.keelim.core.navigation.SaastatusRoute
+import com.keelim.web.navigateToWebModule
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -121,13 +120,9 @@ fun ArduConHost(
                 )
             }
             entry<ArduconRoute.OgTagPreview> {
-                val customTabsIntent = remember {
-                    CustomTabsIntent.Builder().build()
-                }
-
                 OgTagPreviewRoute(
                     onNavigateToBrowser = { url ->
-                        customTabsIntent.launchUrl(context, url.toUri())
+                        context.navigateToWebModule(url.toUri())
                     },
                 )
             }

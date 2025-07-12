@@ -18,6 +18,7 @@ plugins {
     alias(libs.plugins.cacheFixPlugin) apply false
     alias(libs.plugins.compose.compiler) apply false
     alias(libs.plugins.compose.multiplatform) apply false
+    alias(libs.plugins.compose.hot.reload) apply false
     alias(libs.plugins.dependency.analysis) apply false
     alias(libs.plugins.dependencyGuard) apply false
     alias(libs.plugins.firebase.crashlytics) apply false

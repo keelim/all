@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -17,16 +18,16 @@ kotlin {
 
     jvm("desktop")
 
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach { iosTarget ->
-        iosTarget.binaries.framework {
-            baseName = "ALL"
-            isStatic = true
+    targets
+        .filterIsInstance<KotlinNativeTarget>()
+        .forEach { target ->
+            target.binaries {
+                framework {
+                    baseName = "ALL"
+                    isStatic = true
+                }
+            }
         }
-    }
 
     sourceSets {
         val desktopMain by getting

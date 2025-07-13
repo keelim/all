@@ -11,12 +11,10 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.Shape
-import org.jetbrains.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import kotlin.math.cos
-import kotlin.math.sin
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 class Polygon(val slides: Int, val rotation: Float = 0f) : Shape {
     override fun createOutline(
@@ -24,24 +22,25 @@ class Polygon(val slides: Int, val rotation: Float = 0f) : Shape {
         layoutDirection: LayoutDirection,
         density: Density,
     ): Outline = Outline.Generic(
-        path = Path().apply {
-            val radius = if (size.width > size.height) size.width else size.height
-            val angle = 2.0 * Math.PI / slides
-            val cx = size.width / 2f
-            val cy = size.height / 2f
-            val r = rotation * (Math.PI / 180)
-            moveTo(
-                cx + (radius * cos(0.0 + r).toFloat()),
-                cy + (radius + sin(0.0 + r).toFloat()),
-            )
-            for (i in 1 until slides) {
-                lineTo(
-                    cx + (radius * cos(angle + r).toFloat()),
-                    cy + (radius + sin(angle + r).toFloat()),
-                )
-            }
-            close()
-        },
+        path = Path()
+        // .apply {
+        // val radius = if (size.width > size.height) size.width else size.height
+        // val angle = 2.0 * Math.PI / slides
+        // val cx = size.width / 2f
+        // val cy = size.height / 2f
+        // val r = rotation * (Math.PI / 180)
+        // moveTo(
+        //     cx + (radius * cos(0.0 + r).toFloat()),
+        //     cy + (radius + sin(0.0 + r).toFloat()),
+        // )
+        // for (i in 1 until slides) {
+        //     lineTo(
+        //         cx + (radius * cos(angle + r).toFloat()),
+        //         cy + (radius + sin(angle + r).toFloat()),
+        //     )
+        // }
+        // close()
+        //},
     )
 }
 

@@ -19,10 +19,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
-import org.jetbrains.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import kotlin.math.cos
-import kotlin.math.sin
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun ProtectionMeter(
@@ -82,33 +80,34 @@ fun ProtectionMeter(
             val needleLength = 160f // Adjust this value to control needle length
             val needleBaseWidth = 10f // Adjust this value to control the base width
 
-            val needlePath = Path().apply {
+            val needlePath = Path()
+                .apply {
                 // Calculate the top point of the needle
-                val topX = centerOffset.x + needleLength * cos(
-                    Math.toRadians(needleAngle.toDouble()).toFloat(),
-                )
-                val topY = centerOffset.y + needleLength * sin(
-                    Math.toRadians(needleAngle.toDouble()).toFloat(),
-                )
-
-                // Calculate the base points of the needle
-                val baseLeftX = centerOffset.x + needleBaseWidth * cos(
-                    Math.toRadians((needleAngle - 90).toDouble()).toFloat(),
-                )
-                val baseLeftY = centerOffset.y + needleBaseWidth * sin(
-                    Math.toRadians((needleAngle - 90).toDouble()).toFloat(),
-                )
-                val baseRightX = centerOffset.x + needleBaseWidth * cos(
-                    Math.toRadians((needleAngle + 90).toDouble()).toFloat(),
-                )
-                val baseRightY = centerOffset.y + needleBaseWidth * sin(
-                    Math.toRadians((needleAngle + 90).toDouble()).toFloat(),
-                )
-
-                moveTo(topX, topY)
-                lineTo(baseLeftX, baseLeftY)
-                lineTo(baseRightX, baseRightY)
-                close()
+                    // val topX = centerOffset.x + needleLength * cos(
+                    //     Math.toRadians(needleAngle.toDouble()).toFloat(),
+                    // )
+                    // val topY = centerOffset.y + needleLength * sin(
+                    //     Math.toRadians(needleAngle.toDouble()).toFloat(),
+                    // )
+//
+                    // // Calculate the base points of the needle
+                    // val baseLeftX = centerOffset.x + needleBaseWidth * cos(
+                    //     Math.toRadians((needleAngle - 90).toDouble()).toFloat(),
+                    // )
+                    // val baseLeftY = centerOffset.y + needleBaseWidth * sin(
+                    //     Math.toRadians((needleAngle - 90).toDouble()).toFloat(),
+                    // )
+                    // val baseRightX = centerOffset.x + needleBaseWidth * cos(
+                    //     Math.toRadians((needleAngle + 90).toDouble()).toFloat(),
+                    // )
+                    // val baseRightY = centerOffset.y + needleBaseWidth * sin(
+                    //     Math.toRadians((needleAngle + 90).toDouble()).toFloat(),
+                    // )
+//
+                    // moveTo(topX, topY)
+                    // lineTo(baseLeftX, baseLeftY)
+                    // lineTo(baseRightX, baseRightY)
+                    // close()
             }
 
             drawPath(

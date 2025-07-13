@@ -1,4 +1,4 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -6,34 +6,22 @@ plugins {
     alias(libs.plugins.keelim.android.application.room)
     kotlin("plugin.serialization")
     kotlin("plugin.parcelize")
+    alias(libs.plugins.keelim.multiplatform)
 }
 
 kotlin {
-    androidTarget {
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_17)
+    targets
+        .filterIsInstance<KotlinNativeTarget>()
+        .forEach { target ->
+            target.binaries {
+                framework {
+                    baseName = "ALL"
+                    isStatic = true
+                }
+            }
         }
-    }
-
-    jvm("desktop")
-
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach { iosTarget ->
-        iosTarget.binaries.framework {
-            baseName = "ALL"
-            isStatic = true
-        }
-    }
 
     sourceSets {
-        val desktopMain by getting
-
-        androidMain.dependencies {
-
-        }
         commonMain.dependencies {
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.okio)
@@ -47,18 +35,11 @@ kotlin {
             implementation(libs.androidx.sqlite.bundled)
             implementation(libs.kotlinx.datetime)
         }
-
-        appleMain.dependencies {
-
-        }
     }
 }
 
 dependencies {
     add("kspAndroid", libs.room.compiler)
-    add("kspIosSimulatorArm64", libs.room.compiler)
-    add("kspIosX64", libs.room.compiler)
-    add("kspIosArm64", libs.room.compiler)
 }
 
 android {

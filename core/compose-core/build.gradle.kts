@@ -28,4 +28,6 @@ dependencies {
 
     debugImplementation(libs.androidx.compose.ui.testManifest)
     androidTestImplementation(libs.androidx.compose.ui.test)
+
+    api(projects.core.component)
 }

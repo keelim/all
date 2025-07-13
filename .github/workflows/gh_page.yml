@@ -1,0 +1,82 @@
+name: Publish Wasm App on GitHub Pages
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  # Build job
+  build:
+    name: Build Kotlin/Wasm
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: set up JDK 17
+        uses: actions/setup-java@v4.7.1
+        with:
+          distribution: "zulu" # See 'Supported distributions' for available options
+          java-version: "17"
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+
+      - name: Cache WiX Toolset
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches/modules-2/files-2.1/org.jetbrains.compose/native-wix
+          key: wix-${{ runner.os }}-v3.11.2
+          restore-keys: |
+            wix-${{ runner.os }}-
+
+      - name: Set Konan Cache Key
+        id: konan-cache-key
+        shell: bash
+        run: echo "KOTLIN_VERSION=$(grep -oE 'kotlin\s*=\s*"[0-9.]*"' gradle/libs.versions.toml | grep -oE '[0-9.]+')" >> $GITHUB_OUTPUT
+
+      - name: Cache Konan
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.konan
+          key: v1-konan-${{ runner.os }}-${{ hashFiles('.xcode-version') }}-${{ steps.konan-cache-key.outputs.KOTLIN_VERSION }}
+
+      - name: Run Gradle Tasks
+        run: ./gradlew :composeApp:buildWebApp
+
+      - name: Fix permissions
+        run: |
+          chmod -v -R +rX "composeApp/build/webApp/" | while read line; do
+            echo "::warning title=Invalid file permissions automatically fixed::$line"
+          done
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: composeApp/build/webApp/
+
+  deploy:
+    needs: build
+
+    permissions:
+      contents: read
+      pages: write      # to deploy to Pages
+      id-token: write   # to verify the deployment originates from an appropriate source
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Debug Permissions
+        run: env | grep ACTIONS_ID_TOKEN_REQUEST_URL || echo "ACTIONS_ID_TOKEN_REQUEST_URL not set"
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

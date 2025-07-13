@@ -1,6 +1,7 @@
+@file:OptIn(ExperimentalTime::class)
+
 package com.keelim.composeutil.util
 
-import android.annotation.SuppressLint
 import androidx.compose.animation.core.Easing
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.FloatAnimationSpec
@@ -23,12 +24,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.time.Clock
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
-import kotlin.time.Duration.Companion.nanoseconds
 import kotlin.time.Duration.Companion.seconds
+import kotlin.time.ExperimentalTime
 
-@SuppressLint("ComposeModifierComposed")
 fun Modifier.onTouchHeld(
     pollDelay: Duration,
     onTouchHeld: (timeElapsed: Duration) -> Unit,
@@ -37,12 +38,12 @@ fun Modifier.onTouchHeld(
     pointerInput(onTouchHeld) {
         awaitEachGesture {
             val initialDown = awaitFirstDown(requireUnconsumed = false)
-            val initialDownTime = System.nanoTime()
+            val initialDownTime = Clock.System.now()
             val initialTouchHeldJob =
                 scope.launch {
                     while (initialDown.pressed) {
-                        val timeElapsed = System.nanoTime() - initialDownTime
-                        onTouchHeld.invoke(timeElapsed.nanoseconds)
+                        val timeElapsed = Clock.System.now() - initialDownTime
+                        onTouchHeld.invoke(timeElapsed)
                         delay(pollDelay)
                     }
                 }
@@ -52,7 +53,6 @@ fun Modifier.onTouchHeld(
     }
 }
 
-@SuppressLint("ComposeModifierComposed")
 fun Modifier.onTouchHeldAnimated(
     easing: Easing = FastOutSlowInEasing,
     pollDelay: Duration = 500.milliseconds,
@@ -90,7 +90,6 @@ fun Modifier.onTouchHeldAnimated(
     }
 }
 
-@SuppressLint("ComposeModifierComposed")
 inline fun Modifier.conditional(
     condition: Boolean,
     ifTrue: Modifier.() -> Modifier,
@@ -101,7 +100,6 @@ inline fun Modifier.conditional(
     then(ifFalse(Modifier))
 }
 
-@SuppressLint("ComposeModifierComposed")
 inline fun <T> Modifier.conditional(
     condition: T?,
     ifNotNull: Modifier.(T) -> Modifier,
@@ -114,7 +112,6 @@ inline fun <T> Modifier.conditional(
     }
 }
 
-@SuppressLint("ComposeModifierComposed")
 fun Modifier.shimmer(
     showShimmer: Boolean = true,
     targetValue: Float = 1000f,

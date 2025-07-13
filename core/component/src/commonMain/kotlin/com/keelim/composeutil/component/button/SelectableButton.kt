@@ -13,10 +13,10 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.keelim.composeutil.resource.space24
 import com.keelim.composeutil.resource.space8
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun SelectableButton(modifier: Modifier = Modifier, isSelected: Boolean = false) {
@@ -45,13 +45,13 @@ fun SelectableButton(modifier: Modifier = Modifier, isSelected: Boolean = false)
     }
 }
 
-@Preview("selected on")
+@Preview
 @Composable
 fun PreviewSelectedButton() {
     SelectableButton(modifier = Modifier.size(space24), isSelected = true)
 }
 
-@Preview("selected false")
+@Preview
 @Composable
 fun PreviewUnSelectedButton() {
     SelectableButton(modifier = Modifier.size(space24), isSelected = false)

@@ -146,7 +146,4 @@ sealed interface FeatureRoute : AppRoute {
 
     @Serializable
     data object Admin : FeatureRoute
-
-    @Serializable
-    data class InAppBrowser(val url: String) : FeatureRoute
 }

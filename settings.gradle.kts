@@ -37,8 +37,10 @@ include(
     ":app-comssa",
     ":benchmarks",
     // ":catalog",
+    ":composeApp",
     ":core:common",
     ":core:common-android",
+    ":core:component",
     ":core:compose-core",
     ":core:data",
     ":core:data-api",
@@ -52,6 +54,7 @@ include(
     ":core:navigation",
     ":feature:ui-scheme",
     ":feature:ui-setting",
+    ":feature:ui-web",
     ":shared",
     ":widget",
 )

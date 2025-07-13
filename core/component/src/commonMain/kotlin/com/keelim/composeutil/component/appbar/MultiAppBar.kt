@@ -11,9 +11,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun MultiAppBar(title: String) {
@@ -30,7 +30,7 @@ fun MultiAppBar(title: String) {
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 fun PreviewMultiAppBar() {
     MultiAppBar("App Name")

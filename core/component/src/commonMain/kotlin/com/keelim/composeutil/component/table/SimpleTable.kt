@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
+import org.jetbrains.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.keelim.composeutil.resource.space8
 
@@ -106,7 +106,7 @@ fun RowScope.TableCell(
     )
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 fun PreviewSimpleTableScreen() {
     SimpleTableScreen()

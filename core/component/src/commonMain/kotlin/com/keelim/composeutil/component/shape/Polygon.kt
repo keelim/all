@@ -11,7 +11,7 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.tooling.preview.Preview
+import org.jetbrains.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
@@ -45,7 +45,7 @@ class Polygon(val slides: Int, val rotation: Float = 0f) : Shape {
     )
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 fun PreviewPolygon() {
     Image(

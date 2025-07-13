@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.MeasurePolicy
-import androidx.compose.ui.tooling.preview.Preview
+import org.jetbrains.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
 import com.keelim.composeutil.resource.space2
@@ -67,7 +67,7 @@ private fun simpleFlexBoxMeasurePolicy(): MeasurePolicy =
         }
     }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 fun PreviewColorBox() {
     ColorBox()
@@ -85,7 +85,7 @@ fun SimpleFlexBox(
     )
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 fun PreviewSimpleFlexBox() {
     SimpleFlexBox {

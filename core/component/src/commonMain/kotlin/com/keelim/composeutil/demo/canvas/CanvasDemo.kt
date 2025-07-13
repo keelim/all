@@ -18,11 +18,10 @@ import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.drawscope.rotate
-import androidx.compose.ui.graphics.nativeCanvas
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space8
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun DrawLine(
@@ -128,19 +127,19 @@ fun DrawText(
     val paint = remember {
         Paint().asFrameworkPaint().apply {
             // paint configuration
-            this.textSize = 60f
+            // this.textSize = 60f
         }
     }
     Canvas(
         modifier = modifier,
     ) {
         drawIntoCanvas {
-            it.nativeCanvas.drawText(
-                text,
-                20f,
-                200f,
-                paint,
-            )
+            // it.nativeCanvas.drawText(
+            //     text,
+            //     20f,
+            //     200f,
+            //     paint,
+            // )
         }
     }
 }
@@ -193,7 +192,7 @@ fun DrawShader(
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 private fun PreviewDrawCanvas() {
     LazyColumn(

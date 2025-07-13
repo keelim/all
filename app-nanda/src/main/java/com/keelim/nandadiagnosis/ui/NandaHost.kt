@@ -14,6 +14,7 @@ import androidx.compose.material3.SheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.core.net.toUri
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.entry
 import androidx.navigation3.runtime.entryProvider
@@ -35,6 +36,7 @@ import com.keelim.nandadiagnosis.ui.screen.nutrient.NutrientRoute
 import com.keelim.nandadiagnosis.ui.screen.nutrient.timer.NutrientTimerRoute
 import com.keelim.setting.screen.event.EventRoute
 import com.keelim.setting.screen.settings.settingsEntry
+import com.keelim.web.navigateToWebModule
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -147,6 +149,9 @@ fun NandaHost(
                         backStack.add(NandaRoute.NutrientTimer)
                     },
                 )
+            }
+            entry<NandaRoute.Web> { route ->
+                context.navigateToWebModule(route.uri.toUri())
             }
             settingsEntry(
                 backStack = backStack,

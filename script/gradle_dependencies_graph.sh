@@ -8,6 +8,7 @@ modules=(
     "app-comssa"
     "core:common"
     "core:common-android"
+    "core:component"
     "core:compose-core"
     "core:data"
     "core:data-api"
@@ -19,6 +20,7 @@ modules=(
     "core:navigation"
     "feature:ui-labs"
     "feature:ui-setting"
+    "feature:ui-web"
     "shared"
 )
 

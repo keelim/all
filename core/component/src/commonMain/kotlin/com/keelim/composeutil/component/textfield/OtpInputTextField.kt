@@ -22,7 +22,7 @@ import com.keelim.composeutil.resource.space2
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Stable
-value class Otp(val value: String)
+data class Otp(val value: String)
 
 @Composable
 fun OtpInputTextField(

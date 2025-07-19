@@ -1,11 +1,14 @@
+@file:OptIn(ExperimentalTime::class)
+
 package com.keelim.model
 
-import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
 
-val month = Clock.System.now().toLocalDateTime(TimeZone.UTC).month.value.toString()
-val day = Clock.System.now().toLocalDateTime(TimeZone.UTC).dayOfMonth.toString()
+val month = Clock.System.now().toLocalDateTime(TimeZone.UTC).month.toString()
+val day = Clock.System.now().toLocalDateTime(TimeZone.UTC).day.toString()
 
 data class EcoCalEntry(
     val country: String = "",

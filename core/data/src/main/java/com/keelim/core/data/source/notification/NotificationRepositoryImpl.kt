@@ -38,7 +38,12 @@ constructor(
                 }
                 .map {
                     val localDate = it.createdAt.toLocalDateTime(TimeZone.UTC)
-                    val formattedDate = String.format("%d-%02d-%02d", localDate.year, localDate.month.value, localDate.dayOfMonth)
+                    val formattedDate = String.format(
+                        "%d-%02d-%02d",
+                        localDate.year,
+                        localDate.month.name,
+                        localDate.dayOfMonth
+                    )
                     Notification(
                         date = formattedDate,
                         title = it.title,

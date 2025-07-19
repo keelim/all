@@ -78,7 +78,12 @@ fun LengthScreen(
         Spacer(Modifier.height(24.dp))
 
         // 그래프
-        LengthLineChart(points = chartPoints, modifier = Modifier.fillMaxWidth())
+        LengthLineChart(
+            mainColor = MaterialTheme.colorScheme.primary,
+            subColor = MaterialTheme.colorScheme.primary,
+            points = chartPoints,
+            modifier = Modifier.fillMaxWidth()
+        )
         Spacer(Modifier.height(24.dp))
 
         // 기록 리스트
@@ -87,7 +92,9 @@ fun LengthScreen(
         LazyColumn {
             items(records) { record ->
                 Row(
-                    modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 4.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(text = "${record.date} : ${record.length}cm")

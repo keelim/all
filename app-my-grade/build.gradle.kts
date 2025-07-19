@@ -55,6 +55,8 @@ dependencies {
     implementation(libs.firebase.common)
     implementation(platform(libs.firebase.bom))
     ksp(libs.deeplinkdispatch.processor)
+
+    implementation(libs.play.services.oss)
 }
 
 

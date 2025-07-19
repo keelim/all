@@ -24,7 +24,7 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.datetime)
     implementation(libs.play.services.maps)
-    // implementation(libs.store)
+    implementation(libs.store)
     implementation(libs.timber)
     implementation(platform(libs.ktor.bom))
 

@@ -25,8 +25,6 @@ import androidx.navigation3.runtime.rememberSavedStateNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.keelim.composeutil.AppState
-import com.keelim.composeutil.rememberMutableStateListOf
-import com.keelim.core.navigation.AppRoute
 import com.keelim.core.navigation.FeatureRoute
 import com.keelim.core.navigation.NandaRoute
 import com.keelim.nandadiagnosis.ui.screen.category.CategoriesType
@@ -35,6 +33,7 @@ import com.keelim.nandadiagnosis.ui.screen.diagnosis.DiagnosisRoute
 import com.keelim.nandadiagnosis.ui.screen.exercise.ExerciseRoute
 import com.keelim.nandadiagnosis.ui.screen.food.edit.FoodEditRoute
 import com.keelim.nandadiagnosis.ui.screen.food.overview.FoodRoute
+import com.keelim.nandadiagnosis.ui.screen.length.LengthScreen
 import com.keelim.nandadiagnosis.ui.screen.main.MainBottomSheet
 import com.keelim.nandadiagnosis.ui.screen.nutrient.NutrientRoute
 import com.keelim.nandadiagnosis.ui.screen.nutrient.timer.NutrientTimerRoute
@@ -56,10 +55,10 @@ fun NandaHost(
     bottomSheetState: SheetState,
     coroutineScope: CoroutineScope,
     onShowSnackbar: suspend (String, String?) -> Boolean,
+    backStack: SnapshotStateList<Any>,
     modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
-    val backStack = rememberMutableStateListOf<AppRoute>(NandaRoute.Category)
     val motionScheme = MaterialTheme.motionScheme
 
     NavDisplay(
@@ -162,6 +161,9 @@ fun NandaHost(
             }
             entry<NandaRoute.Web> { route ->
                 context.navigateToWebModule(route.uri.toUri())
+            }
+            entry<NandaRoute.Length> {
+                LengthScreen()
             }
             settingsEntry(
                 backStack = backStack,

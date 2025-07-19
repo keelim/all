@@ -18,6 +18,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.sharp.ArrowBack
 import androidx.compose.material.icons.rounded.DateRange
+import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material.icons.rounded.Person
@@ -71,6 +72,11 @@ private val nandaNavItems =
             name = "Category",
             route = NandaRoute.Category,
             icon = Icons.Rounded.Home,
+        ),
+        NandaNavItem.BigType(
+            name = "Length 기록",
+            route = NandaRoute.Length,
+            icon = Icons.Rounded.Favorite,
         ),
         NandaNavItem.BigType(
             name = "Web",

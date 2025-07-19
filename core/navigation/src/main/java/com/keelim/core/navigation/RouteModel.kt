@@ -64,6 +64,10 @@ sealed interface NandaRoute : AppRoute {
 
     @Serializable
     data class FoodEdit(val title: String) : NandaRoute
+
+    // 길이 기록 화면 추가
+    @Serializable
+    data object Length : NandaRoute
 }
 
 sealed interface ComssaRoute : AppRoute {

@@ -47,4 +47,6 @@ dependencies {
 
     implementation(platform(libs.coil.bom))
     implementation(libs.bundles.coil)
+
+    implementation(libs.play.services.oss)
 }

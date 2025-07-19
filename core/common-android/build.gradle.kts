@@ -14,6 +14,7 @@ dependencies {
     api(projects.core.composeCore)
     api(projects.shared)
     implementation(projects.core.dataApi)
+    implementation(projects.core.data)
     implementation(projects.core.network)
 
     implementation(libs.androidx.core.ktx)

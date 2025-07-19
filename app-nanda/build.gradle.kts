@@ -59,4 +59,6 @@ dependencies {
     implementation(libs.timber)
     implementation(libs.deeplinkdispatch)
     ksp(libs.deeplinkdispatch.processor)
+
+    implementation(libs.play.services.oss)
 }

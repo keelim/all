@@ -24,7 +24,6 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.navigation3.runtime)
     implementation(libs.androidx.navigation3.ui)
-    implementation(libs.play.services.oss)
 
     implementation(libs.timber)
 }

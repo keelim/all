@@ -3,6 +3,7 @@ package com.keelim.core.database
 import com.keelim.shared.data.database.AllDatabase
 import com.keelim.shared.data.database.ArduconDatabase
 import com.keelim.shared.data.database.MyGradeAppDatabase
+import com.keelim.shared.data.database.NandaAppDatabase
 import com.keelim.shared.data.database.dao.AlarmDao
 import com.keelim.shared.data.database.dao.ArduconDao
 import com.keelim.shared.data.database.dao.HistoryDao
@@ -10,6 +11,7 @@ import com.keelim.shared.data.database.dao.NetworkCacheDao
 import com.keelim.shared.data.database.dao.NoteDao
 import com.keelim.shared.data.database.dao.TaskDao
 import com.keelim.shared.data.database.dao.TimerHistoryDao
+import com.keelim.shared.data.database.dao.LengthRecordDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -61,4 +63,10 @@ object DaoModule {
     fun providesAlarmDao(
         database: AllDatabase,
     ): AlarmDao = database.alarmDao()
+
+    @Provides
+    @Singleton
+    fun providesLengthRecordDao(
+        database: NandaAppDatabase,
+    ): LengthRecordDao = database.lengthRecordDao()
 }

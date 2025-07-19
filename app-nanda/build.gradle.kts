@@ -12,9 +12,6 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
-        getByName("release") {
-            signingConfig = signingConfigs.getByName("debug")
-        }
         // create("nanda-benchmark") {
         //     signingConfig = signingConfigs.getByName("debug")
         //     matchingFallbacks += listOf("release")

@@ -19,11 +19,6 @@ android {
 
     useLibrary("android.test.mock")
     namespace = "com.keelim.mygrade"
-    buildTypes {
-        getByName("release") {
-            signingConfig = signingConfigs.getByName("debug")
-        }
-    }
 }
 
 dependencies {

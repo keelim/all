@@ -15,7 +15,6 @@
  */
 package com.keelim.composeutil.component.custom
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -32,7 +31,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import com.keelim.composeutil.resource.space16
-import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun Roll() {

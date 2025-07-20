@@ -50,4 +50,7 @@ dependencies {
     implementation(libs.bundles.coil)
 
     implementation(libs.play.services.oss)
+
+    // Test dependencies
+    testImplementation(projects.core.testing)
 }

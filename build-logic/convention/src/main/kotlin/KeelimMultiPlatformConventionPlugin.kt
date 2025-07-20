@@ -13,7 +13,7 @@ class KeelimMultiPlatformConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             apply(plugin = libs.findPlugin("kotlinMultiplatform").get().get().pluginId)
-            extensions.configure<KotlinMultiplatformExtension>() {
+            extensions.configure<KotlinMultiplatformExtension> {
                 jvm("desktop")
                 if (project.name.contains("shared").not()) {
                     wasmJs {

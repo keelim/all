@@ -2,7 +2,11 @@
 
 package com.keelim.comssa.ui.screen.main.finance
 
-import android.content.Intent
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -28,6 +32,7 @@ import com.keelim.composeutil.component.fab.FabButtonItem
 import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
 import com.keelim.core.model.finance.FinanceRssItem
+import com.keelim.web.navigateToWebModule
 
 @Composable
 fun FinanceRoute(
@@ -69,13 +74,18 @@ fun FinanceScreen(
             Scaffold(
                 floatingActionButton = {
                     if (navigationIndex.intValue == 0) {
-                        FinanceFloatingButton(
-                            showButton = showButton,
-                            coroutineScope = coroutineScope,
-                            listState = listState,
-                            updateFilter = updateFilter,
-                            refresh = refresh,
-                        )
+                        AnimatedVisibility(
+                            visible = showButton,
+                            enter = slideInVertically(initialOffsetY = { it }) + fadeIn(),
+                            exit = slideOutVertically(targetOffsetY = { it }) + fadeOut(),
+                        ) {
+                            FinanceFloatingButton(
+                                coroutineScope = coroutineScope,
+                                listState = listState,
+                                updateFilter = updateFilter,
+                                refresh = refresh,
+                            )
+                        }
                     }
                 },
                 bottomBar = {
@@ -91,9 +101,7 @@ fun FinanceScreen(
                         modifier = Modifier.padding(paddingValues),
                         onSourceClick = updateSource,
                         onItemClick = { item ->
-                            context.startActivity(
-                                Intent(Intent.ACTION_VIEW, item.link.toUri())
-                            )
+                            context.navigateToWebModule(item.link.toUri())
                         },
                     )
                 } else {

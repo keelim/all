@@ -135,7 +135,7 @@ fun Context.saveQrBitmapToGallery(
     val imageUri = resolver.insert(imageCollection, contentValues)
     if (imageUri != null) {
         resolver.openOutputStream(imageUri)?.use { outStream ->
-            val saved = bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, outStream)
+            val saved = bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream)
             if (saved) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                     contentValues.clear()

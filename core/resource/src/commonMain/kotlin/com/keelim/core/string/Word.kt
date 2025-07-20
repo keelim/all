@@ -1,5 +1,5 @@
 package com.keelim.core.string
 
 object Word {
-    val project = "All"
+    const val project = "All"
 }

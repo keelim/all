@@ -37,7 +37,7 @@ fun CircularLayout(
         val center = IntOffset(boundedRectangle.width / 2, boundedRectangle.height / 2)
 
         layout(boundedRectangle.width, boundedRectangle.height) {
-            var requiredAngle = 0.0
+            val requiredAngle = 0.0
 
             placeables.forEach { placeable ->
                 // val x = center.x + (radius * sin(Math.toRadians(requiredAngle))).toInt()

@@ -1,9 +1,8 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
-package com.keelim.comssa.ui.screen.main.ecocal
+package com.keelim.comssa.ui.screen.main.finance
 
-import android.Manifest
-import android.os.Build
+import android.content.Intent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -18,42 +17,39 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.util.trace
+import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.commonAndroid.model.SealedUiState
 import com.keelim.composeutil.component.fab.FabButtonItem
 import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
-import com.keelim.composeutil.util.permission.SimpleAcquirePermissions
-import com.keelim.comssa.ui.screen.main.finance.FinanceRoute
+import com.keelim.core.model.finance.FinanceRssItem
 
 @Composable
-fun EcocalRoute(viewModel: EcocalViewModel = hiltViewModel()) = trace("EcocalRoute") {
+fun FinanceRoute(
+    viewModel: FinanceViewModel = hiltViewModel(),
+) = trace("FinanceRoute") {
     val uiState by viewModel.items.collectAsStateWithLifecycle()
-    EcocalScreen(
+    FinanceScreen(
         uiState = uiState,
         updateFilter = viewModel::updateFilter,
-        updateCountry = viewModel::updateCountry,
+        updateSource = viewModel::updateSource,
+        refresh = viewModel::refresh,
     )
 }
 
-private val appPermissions: List<String> = buildList {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        add(Manifest.permission.POST_NOTIFICATIONS)
-    }
-}
-
 @Composable
-fun EcocalScreen(
-    uiState: SealedUiState<Map<String, List<EcoCalModel>>>,
+fun FinanceScreen(
+    uiState: SealedUiState<List<FinanceRssItem>>,
     updateFilter: (FabButtonItem) -> Unit,
-    updateCountry: (String) -> Unit,
-) = trace("EcocalScreen") {
-    SimpleAcquirePermissions(
-        permissions = appPermissions,
-    ) { }
+    updateSource: (String) -> Unit,
+    refresh: () -> Unit,
+) = trace("FinanceScreen") {
+    val context = LocalContext.current
 
     when (uiState) {
         is SealedUiState.Error -> EmptyView()
@@ -73,45 +69,41 @@ fun EcocalScreen(
             Scaffold(
                 floatingActionButton = {
                     if (navigationIndex.intValue == 0) {
-                        EcocalFloatingButton(
+                        FinanceFloatingButton(
                             showButton = showButton,
                             coroutineScope = coroutineScope,
                             listState = listState,
                             updateFilter = updateFilter,
+                            refresh = refresh,
                         )
                     }
                 },
-
                 bottomBar = {
-                    EcocalNavigationBar(
+                    FinanceNavigationBar(
                         navigationIndex = navigationIndex,
                     )
                 },
             ) { paddingValues ->
-                when (navigationIndex.intValue) {
-                    0 -> {
-                        EcocalMainSection(
-                            state = listState,
-                            entries = uiState.value,
-                            modifier = Modifier
-                                .padding(paddingValues),
-                            onCountryClick = updateCountry,
-                        )
-                    }
-                    1 -> {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(paddingValues),
-                        ) {
-                            Loading()
-                            Text(
-                                text = "현재 준비 중입니다. ",
+                if (navigationIndex.intValue == 0) {
+                    FinanceMainSection(
+                        state = listState,
+                        items = uiState.value,
+                        modifier = Modifier.padding(paddingValues),
+                        onSourceClick = updateSource,
+                        onItemClick = { item ->
+                            context.startActivity(
+                                Intent(Intent.ACTION_VIEW, item.link.toUri())
                             )
-                        }
-                    }
-                    2 -> {
-                        FinanceRoute()
+                        },
+                    )
+                } else {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(paddingValues),
+                    ) {
+                        Loading()
+                        Text(text = "설정 화면은 준비 중입니다.")
                     }
                 }
             }
@@ -121,23 +113,28 @@ fun EcocalScreen(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewEcocalScreen() {
-    EcocalScreen(
+private fun PreviewFinanceScreen() {
+    FinanceScreen(
         uiState = SealedUiState.success(
-            mapOf(
-                "a" to listOf(
-                    EcoCalModel(
-                        country = "Congo, Democratic Republic of the",
-                        date = "ridiculus",
-                        priority = EcocalPriority.LOW,
-                        time = "penatibus",
-                        title = "option",
-                    ),
+            listOf(
+                FinanceRssItem(
+                    title = "삼성전자 주가 상승",
+                    description = "삼성전자 주가가 전일 대비 2% 상승했습니다.",
+                    link = "https://example.com",
+                    source = "한국경제",
+                    category = "주식"
                 ),
-            ),
-
+                FinanceRssItem(
+                    title = "비트코인 가격 변동",
+                    description = "비트코인 가격이 5만 달러를 돌파했습니다.",
+                    link = "https://example.com",
+                    source = "코인데스크",
+                    category = "암호화폐"
+                )
+            )
         ),
         updateFilter = {},
-        updateCountry = {},
+        updateSource = {},
+        refresh = {},
     )
 }

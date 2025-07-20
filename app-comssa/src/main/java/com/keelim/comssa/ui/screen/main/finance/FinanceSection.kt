@@ -5,6 +5,8 @@ package com.keelim.comssa.ui.screen.main.finance
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -70,7 +72,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.compose.material.icons.filled.Clear
 
 @Composable
 fun FinanceMainSection(
@@ -253,7 +254,6 @@ fun FinanceListItem(
 
 @Composable
 fun FinanceFloatingButton(
-    showButton: Boolean,
     coroutineScope: CoroutineScope,
     listState: LazyListState,
     updateFilter: (FabButtonItem) -> Unit,
@@ -279,26 +279,20 @@ fun FinanceFloatingButton(
             )
         },
     ) {
-        AnimatedVisibility(
-            visible = showButton,
-            enter = fadeIn(),
-            exit = fadeOut(),
-        ) {
-            FloatingActionButtonMenuItem(
-                onClick = {
-                    coroutineScope.launch {
-                        listState.animateScrollToItem(0)
-                    }
-                },
-                icon = {
-                    Icon(
-                        imageVector = Icons.Filled.KeyboardArrowUp,
-                        contentDescription = "scroll to top",
-                    )
-                },
-                text = { },
-            )
-        }
+        FloatingActionButtonMenuItem(
+            onClick = {
+                coroutineScope.launch {
+                    listState.animateScrollToItem(0)
+                }
+            },
+            icon = {
+                Icon(
+                    imageVector = Icons.Filled.KeyboardArrowUp,
+                    contentDescription = "scroll to top",
+                )
+            },
+            text = { },
+        )
 
         FloatingActionButtonMenuItem(
             onClick = {
@@ -314,20 +308,7 @@ fun FinanceFloatingButton(
             text = { Text("새로고침") },
         )
 
-        FloatingActionButtonMenuItem(
-            onClick = {
-                viewModel.clearCache()
-                refresh()
-                Timber.d("Finance cache cleared and refresh clicked")
-            },
-            icon = {
-                Icon(
-                    imageVector = Icons.Filled.Clear,
-                    contentDescription = "clear cache",
-                )
-            },
-            text = { Text("캐시 초기화") },
-        )
+
 
         items.fastForEach { item ->
             FloatingActionButtonMenuItem(

@@ -6,4 +6,4 @@
     android:minResizeWidth="40dp"
     android:minResizeHeight="40dp"
     android:resizeMode="horizontal|vertical"
-    android:widgetCategory="home_screen"></appwidget-provider>
+    android:widgetCategory="home_screen" />

@@ -25,7 +25,6 @@ dependencies {
     implementation(projects.feature.uiScheme)
 
     implementation(projects.widget)
-    implementation(projects.core.testing)
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.ktx)
@@ -44,6 +43,8 @@ dependencies {
     implementation(libs.jsoup)
     implementation(libs.zxing)
     implementation(libs.tehras.chart)
+
+    testImplementation(projects.core.testing)
 }
 
 

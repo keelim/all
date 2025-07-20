@@ -111,4 +111,19 @@ class FinanceViewModel @Inject constructor(
         refreshTrigger.update { it + 1 }
         Timber.d("Finance RSS refresh triggered")
     }
+
+    // 캐시 관련 메서드들
+    fun clearCache() {
+        financeRssRepository.clearCache()
+        Timber.d("Finance cache cleared from ViewModel")
+    }
+
+    fun invalidateCacheForSource(sourceUrl: String) {
+        financeRssRepository.invalidateCacheForSource(sourceUrl)
+        Timber.d("Finance cache invalidated for source: $sourceUrl")
+    }
+
+    fun getCacheInfo(): Map<String, Long> {
+        return financeRssRepository.getCacheInfo()
+    }
 }

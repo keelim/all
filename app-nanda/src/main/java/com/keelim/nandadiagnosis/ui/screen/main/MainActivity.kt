@@ -45,6 +45,7 @@ import kotlinx.coroutines.withContext
 import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
+import androidx.core.net.toUri
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @DeepLink("all://screen/{name}")
@@ -112,7 +113,7 @@ class MainActivity : ComponentActivity() {
             ContextCompat.RECEIVER_NOT_EXPORTED,
         )
 
-        DownloadManager.Request(Uri.parse(applicationContext.getString(R.string.db_path)))
+        DownloadManager.Request(applicationContext.getString(R.string.db_path).toUri())
             .setTitle("Downloading")
             .setDescription("Downloading Database file")
             .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)

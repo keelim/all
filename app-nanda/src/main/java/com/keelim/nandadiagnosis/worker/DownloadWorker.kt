@@ -44,6 +44,7 @@ import dagger.assisted.AssistedInject
 import java.io.File
 import java.util.UUID
 import java.util.concurrent.TimeUnit
+import androidx.core.net.toUri
 
 @HiltWorker
 class DownloadWorker @AssistedInject constructor(
@@ -56,7 +57,7 @@ class DownloadWorker @AssistedInject constructor(
             setForeground(createForegroundInfo())
             (context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager).run {
                 enqueue(
-                    DownloadManager.Request(Uri.parse(applicationContext.getString(R.string.db_path)))
+                    DownloadManager.Request(applicationContext.getString(R.string.db_path).toUri())
                         .setTitle("Downloading")
                         .setDescription("Downloading Database file")
                         .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)

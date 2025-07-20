@@ -6,6 +6,7 @@ import com.keelim.core.data.source.HistoryRepositoryImpl
 import com.keelim.core.data.source.TimeRepositoryImpl
 import com.keelim.core.data.source.alarm.AlarmRepositoryImpl
 import com.keelim.core.data.source.firebase.FirebaseRepositoryImpl
+import com.keelim.core.data.source.finance.FinanceRssRepositoryImpl
 import com.keelim.core.data.source.length.LengthRepositoryImpl
 import com.keelim.core.data.source.note.NoteRepositoryImpl
 import com.keelim.core.data.source.notification.NotificationRepositoryImpl
@@ -13,6 +14,7 @@ import com.keelim.core.data.source.prompt.PromptRepositoryImpl
 import com.keelim.data.repository.AlarmRepository
 import com.keelim.data.repository.ArduconRepository
 import com.keelim.data.repository.DefaultTaskRepository
+import com.keelim.data.repository.FinanceRssRepository
 import com.keelim.data.repository.FirebaseRepository
 import com.keelim.data.repository.HistoryRepository
 import com.keelim.data.repository.LengthRepository
@@ -77,4 +79,9 @@ interface RepositoryModule {
     fun bindsLengthRepository(
         repository: LengthRepositoryImpl,
     ): LengthRepository
+
+    @Binds
+    fun bindsFinanceRssRepository(
+        repository: FinanceRssRepositoryImpl,
+    ): FinanceRssRepository
 }

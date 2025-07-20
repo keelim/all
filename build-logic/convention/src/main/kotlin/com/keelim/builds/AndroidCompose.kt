@@ -21,6 +21,7 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.assign
 import org.gradle.kotlin.dsl.dependencies
 import org.jetbrains.kotlin.compose.compiler.gradle.ComposeCompilerGradlePluginExtension
+import org.jetbrains.kotlin.compose.compiler.gradle.ComposeFeatureFlag
 
 /**
  * Configure Compose-specific options
@@ -47,6 +48,9 @@ fun Project.configureAndroidCompose(
     }
 
     with(composeCompilerGradlePluginExtension) {
+        featureFlags.add(
+            ComposeFeatureFlag.PausableComposition.disabled()
+        )
         reportsDestination = layout.buildDirectory.dir("compose_compiler")
         stabilityConfigurationFiles.add(
             rootProject.layout.projectDirectory.file("compose_compiler_config.conf")

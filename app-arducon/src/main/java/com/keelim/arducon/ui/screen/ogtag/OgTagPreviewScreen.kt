@@ -129,7 +129,7 @@ fun OgTagPreviewScreen(
                 Button(
                     onClick = {
                         try {
-                            val uri = Uri.parse(url)
+                            val uri = url.toUri()
                             if (uri.scheme == null || uri.host == null) {
                                 errorMessage = "올바른 URL 형식이 아닙니다"
                                 return@Button

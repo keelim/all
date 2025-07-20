@@ -25,6 +25,7 @@ dependencies {
     implementation(projects.feature.uiScheme)
 
     implementation(projects.widget)
+    implementation(projects.core.testing)
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.ktx)

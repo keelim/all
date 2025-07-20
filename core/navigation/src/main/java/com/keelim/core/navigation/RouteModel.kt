@@ -27,6 +27,9 @@ sealed interface ArduconRoute : AppRoute {
 
     @Serializable
     data object Stats : ArduconRoute
+
+    @Serializable
+    data class CreateDeepLink(val scheme: String) : ArduconRoute
 }
 
 sealed interface CnuBusRoute : AppRoute {

@@ -150,7 +150,7 @@ fun NandaHost(
                         coroutineScope.launch {
                             val result = onShowSnackbar("$title 로 이동하시겠습니까?", "move")
                             if (result) {
-                                context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(uri)))
+                                context.startActivity(Intent(Intent.ACTION_VIEW, uri.toUri()))
                             }
                         }
                     },

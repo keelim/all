@@ -3,7 +3,6 @@
 package com.keelim.arducon.ui.screen.main
 
 import android.content.Intent
-import android.net.Uri
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
@@ -62,6 +61,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.net.toUri
 import coil.compose.AsyncImage
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space32
@@ -407,7 +407,7 @@ fun DeepLinkSection(
                     context.startActivity(
                         Intent(
                             Intent.ACTION_VIEW,
-                            Uri.parse(isMoved),
+                            isMoved.toUri(),
                         ),
                     )
                     setMoved("")
@@ -452,7 +452,7 @@ fun DeepLinkSection(
                     context.startActivity(
                         Intent(
                             Intent.ACTION_VIEW,
-                            Uri.parse(isMoved),
+                            isMoved.toUri(),
                         ),
                     )
                     setMoved("")

@@ -70,6 +70,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.compose.material.icons.filled.Clear
 
 @Composable
 fun FinanceMainSection(
@@ -311,6 +312,21 @@ fun FinanceFloatingButton(
                 )
             },
             text = { Text("새로고침") },
+        )
+
+        FloatingActionButtonMenuItem(
+            onClick = {
+                viewModel.clearCache()
+                refresh()
+                Timber.d("Finance cache cleared and refresh clicked")
+            },
+            icon = {
+                Icon(
+                    imageVector = Icons.Filled.Clear,
+                    contentDescription = "clear cache",
+                )
+            },
+            text = { Text("캐시 초기화") },
         )
 
         items.fastForEach { item ->

@@ -1,6 +1,5 @@
 package com.keelim.core.data.source.finance
 
-import android.util.Xml
 import com.keelim.core.model.finance.FinanceCategory
 import com.keelim.core.model.finance.FinanceRssItem
 import com.keelim.core.model.finance.FinanceSource
@@ -11,12 +10,18 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.datetime.Instant
 import org.xmlpull.v1.XmlPullParser
+import org.xmlpull.v1.XmlPullParserFactory
+import timber.log.Timber
 import java.net.URL
 import javax.inject.Inject
+import javax.inject.Singleton
 
-class FinanceRssRepositoryImpl @Inject constructor(
+@Singleton
+class FinanceRssRepositoryImpl @Inject constructor() : FinanceRssRepository {
 
-): FinanceRssRepository {
+    // 메모리 캐시
+    private val cache = mutableMapOf<String, CachedRssData>()
+    private val cacheExpiryTime = 5 * 60 * 1000L // 5분
 
     private val defaultSources = listOf(
         FinanceSource(
@@ -61,11 +66,10 @@ class FinanceRssRepositoryImpl @Inject constructor(
 
         sources.filter { it.isEnabled }.forEach { source ->
             try {
-                val items = fetchRssFromUrl(source.url, source.name, source.category)
+                val items = getRssItemsWithCache(source)
                 allItems.addAll(items)
             } catch (e: Exception) {
-                // 에러 로깅만 하고 계속 진행
-                println("RSS fetch error for ${source.name}: ${e.message}")
+                Timber.e(e, "RSS fetch error for ${source.name}: ${e.message}")
             }
         }
 
@@ -74,14 +78,45 @@ class FinanceRssRepositoryImpl @Inject constructor(
         emit(allItems)
     }.flowOn(Dispatchers.IO)
 
-        private suspend fun fetchRssFromUrl(
+    private suspend fun getRssItemsWithCache(source: FinanceSource): List<FinanceRssItem> {
+        val cacheKey = source.url
+        val cachedData = cache[cacheKey]
+
+        // 캐시가 유효한 경우 캐시된 데이터 반환
+        if (cachedData != null && !isCacheExpired(cachedData.timestamp)) {
+            Timber.d("Using cached data for ${source.name}")
+            return cachedData.items
+        }
+
+        // 캐시가 없거나 만료된 경우 네트워크에서 새로 가져오기
+        return try {
+            val items = fetchRssFromUrl(source.url, source.name, source.category)
+            // 캐시에 저장
+            cache[cacheKey] = CachedRssData(items, System.currentTimeMillis())
+            Timber.d("Fetched and cached new data for ${source.name}: ${items.size} items")
+            items
+        } catch (e: Exception) {
+            // 네트워크 실패 시 캐시된 데이터가 있으면 반환
+            cachedData?.items?.let { cachedItems ->
+                Timber.w("Network failed for ${source.name}, using stale cache")
+                return cachedItems
+            } ?: emptyList()
+        }
+    }
+
+    private fun isCacheExpired(timestamp: Long): Boolean {
+        return System.currentTimeMillis() - timestamp > cacheExpiryTime
+    }
+
+    private suspend fun fetchRssFromUrl(
         url: String,
         sourceName: String,
         category: FinanceCategory
     ): List<FinanceRssItem> {
         return try {
-            val parser = Xml.newPullParser()
-            parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, true)
+            val factory = XmlPullParserFactory.newInstance()
+            factory.isNamespaceAware = true
+            val parser = factory.newPullParser()
 
             val connection = URL(url).openConnection()
             connection.connectTimeout = 10000
@@ -128,6 +163,7 @@ class FinanceRssRepositoryImpl @Inject constructor(
 
             items
         } catch (e: Exception) {
+            Timber.e(e, "Error fetching RSS from $url")
             emptyList()
         }
     }
@@ -148,4 +184,27 @@ class FinanceRssRepositoryImpl @Inject constructor(
     }
 
     override fun getSources(): List<FinanceSource> = defaultSources
+
+    // 캐시 무효화 메서드
+    override fun clearCache() {
+        cache.clear()
+        Timber.d("Finance RSS cache cleared")
+    }
+
+    // 특정 소스의 캐시만 무효화
+    override fun invalidateCacheForSource(sourceUrl: String) {
+        cache.remove(sourceUrl)
+        Timber.d("Cache invalidated for source: $sourceUrl")
+    }
+
+    // 캐시 상태 확인
+    override fun getCacheInfo(): Map<String, Long> {
+        return cache.mapValues { it.value.timestamp }
+    }
 }
+
+// 캐시 데이터 클래스
+private data class CachedRssData(
+    val items: List<FinanceRssItem>,
+    val timestamp: Long
+)

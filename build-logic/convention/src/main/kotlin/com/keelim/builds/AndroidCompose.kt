@@ -48,8 +48,8 @@ fun Project.configureAndroidCompose(
     }
 
     with(composeCompilerGradlePluginExtension) {
-        featureFlags = setOf(
-            ComposeFeatureFlag.OptimizeNonSkippingGroups,
+        featureFlags.add(
+            ComposeFeatureFlag.PausableComposition.disabled()
         )
         reportsDestination = layout.buildDirectory.dir("compose_compiler")
         stabilityConfigurationFiles.add(

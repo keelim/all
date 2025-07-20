@@ -27,6 +27,9 @@ sealed interface ArduconRoute : AppRoute {
 
     @Serializable
     data object Stats : ArduconRoute
+
+    @Serializable
+    data class CreateDeepLink(val scheme: String) : ArduconRoute
 }
 
 sealed interface CnuBusRoute : AppRoute {
@@ -64,6 +67,10 @@ sealed interface NandaRoute : AppRoute {
 
     @Serializable
     data class FoodEdit(val title: String) : NandaRoute
+
+    // 길이 기록 화면 추가
+    @Serializable
+    data object Length : NandaRoute
 }
 
 sealed interface ComssaRoute : AppRoute {
@@ -75,6 +82,9 @@ sealed interface ComssaRoute : AppRoute {
 
     @Serializable
     data object Flash : ComssaRoute
+
+    @Serializable
+    data object Finance : ComssaRoute
 }
 
 sealed interface MyGradeRoute : AppRoute {

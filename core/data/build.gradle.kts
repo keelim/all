@@ -24,7 +24,7 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.datetime)
     implementation(libs.play.services.maps)
-    // implementation(libs.store)
+    implementation(libs.store)
     implementation(libs.timber)
     implementation(platform(libs.ktor.bom))
 
@@ -41,6 +41,5 @@ dependencies {
 
     implementation(libs.play.services.time)
 
-    testImplementation(libs.junit4)
-    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(projects.core.testing)
 }

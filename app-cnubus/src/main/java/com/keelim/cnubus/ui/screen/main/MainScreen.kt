@@ -2,7 +2,6 @@ package com.keelim.cnubus.ui.screen.main
 
 import android.Manifest
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
@@ -23,6 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.util.fastForEachIndexed
 import androidx.compose.ui.util.trace
+import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.keelim.cnubus.ui.screen.root.RootRoute
 import com.keelim.cnubus.ui.screen.root.RootViewModel
@@ -154,7 +154,7 @@ fun PagerContent(
                             context.startActivity(
                                 Intent(
                                     Intent.ACTION_VIEW,
-                                    Uri.parse("https://plus.cnu.ac.kr/html/kr/sub05/sub05_050403.html"),
+                                    "https://plus.cnu.ac.kr/html/kr/sub05/sub05_050403.html".toUri(),
                                 ),
                             )
                         }

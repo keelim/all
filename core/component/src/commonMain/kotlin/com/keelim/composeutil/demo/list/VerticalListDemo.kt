@@ -11,10 +11,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.keelim.composeutil.resource.space2
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun VerticalListDemo() {
@@ -61,7 +61,7 @@ fun VerticalListDemo() {
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview
 @Composable
 private fun VerticalListDemoPreview() {
     VerticalListDemo()

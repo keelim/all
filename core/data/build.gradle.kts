@@ -41,6 +41,5 @@ dependencies {
 
     implementation(libs.play.services.time)
 
-    testImplementation(libs.junit4)
-    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(projects.core.testing)
 }

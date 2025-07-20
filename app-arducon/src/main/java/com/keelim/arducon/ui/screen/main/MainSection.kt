@@ -376,7 +376,7 @@ fun DeepLinkSection(
                         onClick = { onCategorySelected(category) },
                         label = {
                             Text(
-                                text = if (category.isEmpty()) "모두" else category,
+                                text = category.ifEmpty { "모두" },
                                 style = MaterialTheme.typography.labelLarge,
                             )
                         },

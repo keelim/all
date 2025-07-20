@@ -40,17 +40,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.keelim.composeutil.resource.space24
+import org.jetbrains.compose.ui.tooling.preview.Preview
 import kotlin.random.Random
 
 @Composable
-fun Heart(modifier: Modifier, horizontalPadding: Int, bottomMargin: Int) {
-    val w = LocalConfiguration.current.screenWidthDp
-    val h = LocalConfiguration.current.screenHeightDp - bottomMargin
+fun Heart(
+    width: Int,
+    height: Int,
+    horizontalPadding: Int,
+    bottomMargin: Int,
+    modifier: Modifier = Modifier,
+) {
+    val w = width
+    val h = height
 
     val yRandom = Random.nextInt(0, h / 2)
     val xRandom = Random.nextInt(horizontalPadding, (w - horizontalPadding))
@@ -170,6 +175,8 @@ fun HeartScreen() {
                     .padding(bottom = 36.dp),
                 horizontalPadding = 24,
                 bottomMargin = 110,
+                width = 360,
+                height = 640,
             )
         }
 

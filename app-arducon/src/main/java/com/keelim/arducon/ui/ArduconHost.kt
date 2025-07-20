@@ -20,6 +20,7 @@ import androidx.navigation3.runtime.entry
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberSavedStateNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
+import com.keelim.arducon.ui.screen.deeplink.CreateDeepLinkRoute
 import com.keelim.arducon.ui.screen.main.MainRoute
 import com.keelim.arducon.ui.screen.ogtag.OgTagPreviewRoute
 import com.keelim.arducon.ui.screen.qr.QrRoute
@@ -114,7 +115,23 @@ fun ArduConHost(
                 SearchRoute(
                     onUpdate = {
                         coroutineScope.launch {
-                            onShowSnackbar("현재 업데이트 준비중입니다. ", null)
+                            onShowSnackbar("스킴 검색 화면이 로드되었습니다.", null)
+                        }
+                    },
+                    onNavigateToCreateDeepLink = { scheme ->
+                        backStack.add(ArduconRoute.CreateDeepLink(scheme))
+                    },
+                )
+            }
+            entry<ArduconRoute.CreateDeepLink> { route ->
+                CreateDeepLinkRoute(
+                    scheme = route.scheme,
+                    onNavigateBack = {
+                        backStack.removeLastOrNull()
+                    },
+                    onShowMessage = { message ->
+                        coroutineScope.launch {
+                            onShowSnackbar(message, null)
                         }
                     },
                 )

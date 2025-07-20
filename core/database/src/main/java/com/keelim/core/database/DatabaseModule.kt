@@ -4,6 +4,7 @@ import android.content.Context
 import com.keelim.shared.data.database.AllDatabase
 import com.keelim.shared.data.database.ArduconDatabase
 import com.keelim.shared.data.database.MyGradeAppDatabase
+import com.keelim.shared.data.database.NandaAppDatabase
 import com.keelim.shared.data.database.createDatabase
 import dagger.Module
 import dagger.Provides
@@ -40,5 +41,14 @@ object DatabaseModule {
     ): AllDatabase = createDatabase<AllDatabase>(
         context,
         "all.db",
+    )
+
+    @Provides
+    @Singleton
+    fun provideNandaAppDatabase(
+        @ApplicationContext context: Context,
+    ): NandaAppDatabase = createDatabase<NandaAppDatabase>(
+        context,
+        "nanda.db",
     )
 }

@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AlarmViewModel @Inject constructor(
-    private val alarmRepository: AlarmRepository,
+    alarmRepository: AlarmRepository,
 ) : ViewModel() {
 
     val screenState: StateFlow<SealedUiState<List<Alarm>>> = alarmRepository

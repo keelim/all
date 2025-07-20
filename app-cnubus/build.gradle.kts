@@ -51,4 +51,6 @@ dependencies {
     implementation(libs.firebase.messaging)
     implementation(libs.deeplinkdispatch)
     ksp(libs.deeplinkdispatch.processor)
+
+    implementation(libs.play.services.oss)
 }

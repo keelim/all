@@ -12,9 +12,6 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
-        getByName("release") {
-            signingConfig = signingConfigs.getByName("debug")
-        }
         // create("nanda-benchmark") {
         //     signingConfig = signingConfigs.getByName("debug")
         //     matchingFallbacks += listOf("release")
@@ -59,4 +56,8 @@ dependencies {
     implementation(libs.timber)
     implementation(libs.deeplinkdispatch)
     ksp(libs.deeplinkdispatch.processor)
+
+    implementation(libs.play.services.oss)
+
+    testImplementation(projects.core.testing)
 }

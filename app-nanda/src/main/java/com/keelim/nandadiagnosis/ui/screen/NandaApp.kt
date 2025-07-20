@@ -35,7 +35,10 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import com.keelim.composeutil.AppState
 import com.keelim.composeutil.rememberAppState
+import com.keelim.composeutil.rememberMutableStateListOf
 import com.keelim.composeutil.resource.space12
+import com.keelim.core.navigation.AppRoute
+import com.keelim.core.navigation.NandaRoute
 import com.keelim.nandadiagnosis.ui.NandaHost
 import com.keelim.nandadiagnosis.ui.screen.main.NandaDrawer
 import kotlinx.coroutines.launch
@@ -49,6 +52,7 @@ fun NandaApp(
     val coroutineScope = rememberCoroutineScope()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val bottomSheetState = rememberModalBottomSheetState()
+    val backStack = rememberMutableStateListOf<AppRoute>(NandaRoute.Category)
     ModalNavigationDrawer(
         drawerContent = {
             Spacer(
@@ -60,7 +64,7 @@ fun NandaApp(
                         coroutineScope.launch {
                             drawerState.close()
                         }
-                        appState.navController.navigate(route)
+                        backStack.add(route)
                     },
                     onAboutClick = {
                         coroutineScope.launch {
@@ -115,6 +119,7 @@ fun NandaApp(
                                 duration = SnackbarDuration.Short,
                             ) == SnackbarResult.ActionPerformed
                         },
+                        backStack = backStack
                     )
                 }
             }

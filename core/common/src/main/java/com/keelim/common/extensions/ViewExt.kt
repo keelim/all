@@ -50,7 +50,7 @@ fun View.toInvisible() {
 }
 
 fun View.toggleVisibility() {
-    if (visibility == View.INVISIBLE) {
+    if (isInvisible) {
         toVisible()
     } else {
         toInvisible()

@@ -206,7 +206,7 @@ fun SettingsScreen(
                         Category(
                             title = "Admin",
                             icon = Icons.Rounded.Lock,
-                            visible = BuildConfig.DEBUG == true,
+                            visible = BuildConfig.DEBUG,
                             onClick = onAdminClick,
                         ),
                         Category(

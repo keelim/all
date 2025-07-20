@@ -19,11 +19,6 @@ android {
 
     useLibrary("android.test.mock")
     namespace = "com.keelim.mygrade"
-    buildTypes {
-        getByName("release") {
-            signingConfig = signingConfigs.getByName("debug")
-        }
-    }
 }
 
 dependencies {
@@ -55,6 +50,8 @@ dependencies {
     implementation(libs.firebase.common)
     implementation(platform(libs.firebase.bom))
     ksp(libs.deeplinkdispatch.processor)
+
+    implementation(libs.play.services.oss)
 }
 
 

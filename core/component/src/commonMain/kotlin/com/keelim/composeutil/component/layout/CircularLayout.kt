@@ -10,13 +10,11 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.Layout
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.roundToIntRect
 import androidx.compose.ui.util.fastMap
-import kotlin.math.cos
-import kotlin.math.sin
+import org.jetbrains.compose.ui.tooling.preview.Preview
 import kotlin.random.Random
 
 @Composable
@@ -39,15 +37,15 @@ fun CircularLayout(
         val center = IntOffset(boundedRectangle.width / 2, boundedRectangle.height / 2)
 
         layout(boundedRectangle.width, boundedRectangle.height) {
-            var requiredAngle = 0.0
+            val requiredAngle = 0.0
 
             placeables.forEach { placeable ->
-                val x = center.x + (radius * sin(Math.toRadians(requiredAngle))).toInt()
-                val y = center.y + (radius * cos(Math.toRadians(requiredAngle))).toInt()
-
-                placeable.placeRelative(x - placeable.width / 2, y - placeable.height / 2)
-
-                requiredAngle += angularSeparation
+                // val x = center.x + (radius * sin(Math.toRadians(requiredAngle))).toInt()
+                // val y = center.y + (radius * cos(Math.toRadians(requiredAngle))).toInt()
+//
+                // placeable.placeRelative(x - placeable.width / 2, y - placeable.height / 2)
+//
+                // requiredAngle += angularSeparation
             }
         }
     }

@@ -249,14 +249,29 @@ fun MainScreen(
                 HorizontalFloatingToolbarSection(
                     onNavigateOgTagPreview = onNavigateOgTagPreview,
                     onQrCodeClick = onQrCodeClick,
-                    onNavigateSearch = onNavigateSearch,
                     onNavigateSaastatus = onNavigateSaastatus,
                 )
             }
         },
     ) { paddingValues ->
         Column(modifier = Modifier.fillMaxSize()) {
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.End,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                // 검색 아이콘
+                IconButton(
+                    onClick = onNavigateSearch,
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Search,
+                        contentDescription = "스킴 검색",
+                        tint = MaterialTheme.colorScheme.primary,
+                    )
+                }
+                Spacer(modifier = Modifier.width(space4))
+                // 통계보기 버튼
                 Button(onClick = onNavigateStats) {
                     Text("통계 보기")
                 }
@@ -291,7 +306,6 @@ fun MainScreen(
 private fun HorizontalFloatingToolbarSection(
     onNavigateOgTagPreview: () -> Unit,
     onQrCodeClick: () -> Unit,
-    onNavigateSearch: () -> Unit,
     onNavigateSaastatus: () -> Unit,
 ) {
     val (isExpanded, setIsExpanded) = remember { mutableStateOf(false) }
@@ -323,19 +337,6 @@ private fun HorizontalFloatingToolbarSection(
                             tintColor = if (isSystemInDarkTheme()) Color.White else Color.Black,
                         ),
                         contentDescription = "QR Code Scanner",
-                    )
-                }
-            },
-        )
-        TooltipIcon(
-            tooltipText = "Search",
-            content = {
-                IconButton(
-                    onClick = onNavigateSearch,
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Search,
-                        contentDescription = "Search",
                     )
                 }
             },

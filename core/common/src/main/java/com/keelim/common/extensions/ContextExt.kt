@@ -18,6 +18,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.core.net.toUri
 
 inline fun <reified T : Activity> Context.buildIntent(
     vararg argument: Pair<String, Any?>,
@@ -87,7 +88,7 @@ private fun startBrowserActivity(url: String) {
 private fun Context.startNonBrowserActivity(url: String, fallback: () -> Unit) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
         try {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
+            val intent = Intent(Intent.ACTION_VIEW, url.toUri()).apply {
                 addCategory(Intent.CATEGORY_BROWSABLE)
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_REQUIRE_NON_BROWSER
             }
@@ -135,7 +136,7 @@ fun Context.saveQrBitmapToGallery(
     val imageUri = resolver.insert(imageCollection, contentValues)
     if (imageUri != null) {
         resolver.openOutputStream(imageUri)?.use { outStream ->
-            val saved = bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, outStream)
+            val saved = bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream)
             if (saved) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                     contentValues.clear()

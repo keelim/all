@@ -61,8 +61,8 @@ class EcocalViewModel @Inject constructor(
                 }
             }
         }
-    }.map {
-        it.groupBy { it.date }
+    }.map { items ->
+        items.groupBy { it.date }
     }.flowOn(Dispatchers.Default)
         .asSealedUiState()
         .catch { throwable ->

@@ -1,6 +1,5 @@
 package com.keelim.composeutil.component.list
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -25,10 +24,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.keelim.composeutil.resource.space16
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 data class AppItem(
     val message: String,
@@ -127,7 +126,7 @@ private fun PreviewListItem(
                     Color.White
                 },
                 onItemClick = {
-                    Log.d("Compose", "Compose ListItem clicked")
+
                 },
             )
         }

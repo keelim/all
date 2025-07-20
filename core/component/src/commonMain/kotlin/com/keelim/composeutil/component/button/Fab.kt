@@ -16,7 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
+import org.jetbrains.compose.ui.tooling.preview.Preview
 import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space8
 
@@ -76,7 +76,7 @@ fun ExtendedFAB() {
     )
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 private fun FabScreenPreview() {
     FabScreen()

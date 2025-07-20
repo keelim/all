@@ -25,7 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
+import org.jetbrains.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space16
@@ -141,7 +141,7 @@ private fun ProfileText(title: String, description: String) {
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 fun PreviewProfileCard() {
     ProfileCard(

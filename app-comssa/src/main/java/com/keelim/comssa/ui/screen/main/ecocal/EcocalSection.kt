@@ -556,5 +556,18 @@ fun EcocalNavigationBar(
                 Text(text = "환율")
             },
         )
+
+        ShortNavigationBarItem(
+            selected = navigationIndex.intValue == 2,
+            onClick = {
+                navigationIndex.intValue = 2
+            },
+            icon = {
+                // Icon temporarily removed
+            },
+            label = {
+                Text(text = "금융")
+            },
+        )
     }
 }

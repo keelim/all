@@ -17,7 +17,6 @@
 
 package com.keelim.composeutil.screen
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -28,12 +27,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
@@ -47,13 +44,10 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space8
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun SearchBar(
@@ -93,14 +87,6 @@ fun AlignYourBodyElement(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Image(
-            painter = painterResource(id = android.R.drawable.sym_def_app_icon),
-            contentDescription = "sample",
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .size(88.dp)
-                .clip(CircleShape),
-        )
         Text(text = "Sample")
     }
 }
@@ -123,12 +109,6 @@ fun FavoriteCollectionCard(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.width(192.dp),
         ) {
-            Image(
-                painter = painterResource(id = android.R.drawable.sym_def_app_icon),
-                contentDescription = "Sample",
-                contentScale = ContentScale.Crop,
-                modifier = Modifier.size(56.dp),
-            )
             Text(
                 text = "Sample",
                 style = MaterialTheme.typography.titleMedium,
@@ -214,7 +194,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
     }
 }
 
-@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2, heightDp = 180)
+@Preview
 @Composable
 fun HomeScreenPreview() {
     HomeScreen()

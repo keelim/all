@@ -29,6 +29,7 @@ dependencies {
     implementation(projects.core.data)
     implementation(projects.core.navigation)
     implementation(projects.widget)
+    implementation(projects.feature.uiWeb)
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.ktx)
@@ -47,4 +48,9 @@ dependencies {
 
     implementation(platform(libs.coil.bom))
     implementation(libs.bundles.coil)
+
+    implementation(libs.play.services.oss)
+
+    // Test dependencies
+    testImplementation(projects.core.testing)
 }

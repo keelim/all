@@ -27,6 +27,7 @@ import com.keelim.composeutil.component.fab.FabButtonItem
 import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
 import com.keelim.composeutil.util.permission.SimpleAcquirePermissions
+import com.keelim.comssa.ui.screen.main.finance.FinanceRoute
 
 @Composable
 fun EcocalRoute(viewModel: EcocalViewModel = hiltViewModel()) = trace("EcocalRoute") {
@@ -87,24 +88,30 @@ fun EcocalScreen(
                     )
                 },
             ) { paddingValues ->
-                if (navigationIndex.intValue == 0) {
-                    EcocalMainSection(
-                        state = listState,
-                        entries = uiState.value,
-                        modifier = Modifier
-                            .padding(paddingValues),
-                        onCountryClick = updateCountry,
-                    )
-                } else {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(paddingValues),
-                    ) {
-                        Loading()
-                        Text(
-                            text = "현재 준비 중입니다. ",
+                when (navigationIndex.intValue) {
+                    0 -> {
+                        EcocalMainSection(
+                            state = listState,
+                            entries = uiState.value,
+                            modifier = Modifier
+                                .padding(paddingValues),
+                            onCountryClick = updateCountry,
                         )
+                    }
+                    1 -> {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(paddingValues),
+                        ) {
+                            Loading()
+                            Text(
+                                text = "현재 준비 중입니다. ",
+                            )
+                        }
+                    }
+                    2 -> {
+                        FinanceRoute()
                     }
                 }
             }

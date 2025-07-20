@@ -17,7 +17,6 @@
 package com.keelim.composeutil.screen
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -49,26 +48,18 @@ import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space2
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun ImageProfile(modifier: Modifier = Modifier) {
     Surface {
-        Image(
-            painter = painterResource(id = android.R.drawable.sym_def_app_icon),
-            contentDescription = "profile image",
-            modifier = modifier.size(135.dp),
-            contentScale = ContentScale.Crop,
-        )
     }
 }
 

@@ -49,7 +49,7 @@ fun KeelimTheme(
         }
     }
 
-    LifecycleEventEffect(event = Lifecycle.Event.ON_CREATE) {
+    LifecycleEventEffect(event = Lifecycle.Event.ON_RESUME) {
         val updateManager = AppUpdateManagerFactory.create(context)
         val updateInfo = updateManager.appUpdateInfo
 
@@ -61,7 +61,7 @@ fun KeelimTheme(
                     updateManager.startUpdateFlowForResult(
                         info,
                         this,
-                        AppUpdateOptions.newBuilder(AppUpdateType.FLEXIBLE)
+                        AppUpdateOptions.newBuilder(AppUpdateType.IMMEDIATE)
                             .setAllowAssetPackDeletion(true)
                             .build(),
                         IN_APP_UPDATE,

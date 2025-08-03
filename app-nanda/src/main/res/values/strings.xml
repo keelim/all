@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">난다진단</string>
+    <string name="category_food_title">먹고 있는 식단</string>
+    <string name="category_exercise_title">진행하는 운동</string>
 
     <string-array name="diagnosis1">
         <item>여가 활동 부족</item>

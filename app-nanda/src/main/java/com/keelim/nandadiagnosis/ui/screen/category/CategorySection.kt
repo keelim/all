@@ -25,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -36,6 +37,7 @@ import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space32
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
+import com.keelim.nandadiagnosis.R
 import kotlinx.collections.immutable.persistentListOf
 
 @Composable
@@ -55,14 +57,14 @@ fun CategoryStateSection(
                 modifier = Modifier.fillMaxWidth(),
             ) {
                 Categories(
-                    title = "먹고 있는 식단",
+                    title = stringResource(R.string.category_food_title),
                     items = listOf(),
                     type = CategoriesType.FOOD,
                     onCategoryClick = { _, _ -> },
                     onEditTypeClick = onEditTypeClick,
                 )
                 Categories(
-                    title = "진행하는 운동",
+                    title = stringResource(R.string.category_exercise_title),
                     items = listOf(),
                     type = CategoriesType.EXERCISE,
                     onCategoryClick = { _, _ -> },
@@ -71,9 +73,8 @@ fun CategoryStateSection(
                 Categories(
                     title = "Category",
                     items = uiState.items,
-                    onCategoryClick = onCategoryClick,
                     type = CategoriesType.CATEGORY,
-                    onEditTypeClick = onEditTypeClick,
+                    onCategoryClick = onCategoryClick,
                 )
             }
         }
@@ -92,8 +93,8 @@ private fun Categories(
     items: List<String>,
     type: CategoriesType,
     onCategoryClick: (Int, String) -> Unit,
-    onEditTypeClick: (CategoriesType) -> Unit,
     modifier: Modifier = Modifier,
+    onEditTypeClick: ((CategoriesType) -> Unit)? = null,
 ) = trace("categories") {
     Column(
         modifier = modifier
@@ -108,7 +109,7 @@ private fun Categories(
                 text = title,
                 style = MaterialTheme.typography.bodyMedium,
             )
-            if (type == CategoriesType.FOOD) {
+            if (onEditTypeClick != null && (type == CategoriesType.FOOD || type == CategoriesType.EXERCISE)) {
                 Icon(
                     imageVector = Icons.Rounded.Edit,
                     contentDescription = "edit",

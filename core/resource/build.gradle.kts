@@ -1,9 +1,8 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    alias(libs.plugins.android.library)
     alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.compose.multiplatform)
+    alias(libs.plugins.android.library)
 }
 
 kotlin {
@@ -25,21 +24,6 @@ kotlin {
             isStatic = true
         }
     }
-    sourceSets {
-        commonMain.dependencies {
-            implementation(compose.components.resources)
-        }
-    }
-}
-
-compose.resources {
-    publicResClass = true
-    packageOfResClass = "com.keelim.core.resource"
-    generateResClass = auto
-    customDirectory(
-        sourceSetName = "desktopMain",
-        directoryProvider = provider { layout.projectDirectory.dir("desktopResources") }
-    )
 }
 
 android {

@@ -33,6 +33,7 @@ import com.keelim.composeutil.rememberMutableStateListOf
 import com.keelim.core.navigation.ArduconRoute
 import com.keelim.core.navigation.SaastatusRoute
 import com.keelim.web.navigateToWebModule
+import com.keelim.arducon.ui.screen.playground.PlaygroundRoute
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -95,6 +96,9 @@ fun ArduConHost(
                     onNavigateStats = {
                         backStack.add(ArduconRoute.Stats)
                     },
+                    onNavigatePlayground = {
+                        backStack.add(ArduconRoute.Playground)
+                    },
                 )
             }
             entry<ArduconRoute.Qr> {
@@ -150,6 +154,11 @@ fun ArduConHost(
             }
             entry<ArduconRoute.Stats> {
                 StatsScreen()
+            }
+            entry<ArduconRoute.Playground> {
+                PlaygroundRoute(
+                    onNavigateBack = { backStack.removeLastOrNull() },
+                )
             }
         },
     )

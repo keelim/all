@@ -40,6 +40,7 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
 
     implementation(libs.play.services.time)
+    implementation(libs.jsoup)
 
     testImplementation(projects.core.testing)
 }

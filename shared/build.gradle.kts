@@ -7,7 +7,6 @@ plugins {
     kotlin("plugin.serialization")
     kotlin("plugin.parcelize")
     alias(libs.plugins.keelim.multiplatform)
-    alias(libs.plugins.compose.multiplatform)
 }
 
 kotlin {
@@ -35,8 +34,6 @@ kotlin {
             implementation(libs.room.runtime)
             implementation(libs.androidx.sqlite.bundled)
             implementation(libs.kotlinx.datetime)
-
-            implementation(compose.components.resources)
         }
     }
 }

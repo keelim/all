@@ -1,3 +1,10 @@
 <resources>
     <string name="project">All</string>
+    
+    <!-- Basic Screen -->
+    <string name="greeting_hello">Hello,</string>
+    <string name="button_show_more">Show more</string>
+    <string name="button_show_less">Show less</string>
+    <string name="welcome_message">Welcome to the basic Codelab!</string>
+    <string name="button_continue">Continue</string>
 </resources>

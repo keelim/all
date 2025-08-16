@@ -13,11 +13,21 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.keelim.commonAndroid.R
 import com.keelim.composeutil.component.appbar.NavigationBackArrowBar
 import com.keelim.composeutil.resource.space8
 
+/**
+ * Composable route for displaying crash reports and error information
+ * Follows MVVM pattern with Hilt dependency injection
+ *
+ * @param errorMessage The error message to display
+ * @param onAppRefresh Callback for refreshing/restarting the app
+ * @param viewModel ViewModel for crash reporting functionality
+ */
 @Composable
 fun CrashRoute(
     errorMessage: String,
@@ -28,12 +38,29 @@ fun CrashRoute(
     val appVersion = context.packageManager
         .getPackageInfo(context.packageName, 0)
         .versionName
-    val deviceModel = "${Build.MANUFACTURER} ${Build.MODEL}"
-    val androidVersion =
-        "Android ${Build.VERSION.RELEASE} (API ${Build.VERSION.SDK_INT})"
+    
+    val deviceModel = stringResource(
+        id = R.string.crash_report_device_format,
+        Build.MANUFACTURER,
+        Build.MODEL
+    )
+    
+    val androidVersion = stringResource(
+        id = R.string.crash_report_android_version_format,
+        Build.VERSION.RELEASE,
+        Build.VERSION.SDK_INT
+    )
+    
+    val crashMessage = stringResource(id = R.string.crash_report_message)
 
-    val errorMsg =
-        "Version: $appVersion\nDevice: $deviceModel\nSystem: $androidVersion\n\nStack trace: \n\n$errorMessage\n\n\"현재 에러가 발생했습니다. 앱을 재시작해주시기 바랍니다."
+    val errorMsg = stringResource(
+        id = R.string.crash_report_version_format,
+        appVersion ?: "",
+        deviceModel,
+        androidVersion,
+        errorMessage,
+        crashMessage
+    )
 
     CrashScreen(
         text = errorMsg,
@@ -41,6 +68,12 @@ fun CrashRoute(
     )
 }
 
+/**
+ * Internal composable for displaying crash screen UI
+ * 
+ * @param text The formatted error message to display
+ * @param onAppRefresh Callback for refreshing/restarting the app
+ */
 @Composable
 fun CrashScreen(
     text: String,
@@ -50,7 +83,7 @@ fun CrashScreen(
         modifier = Modifier.fillMaxSize(),
     ) {
         NavigationBackArrowBar(
-            "에러 확인 중",
+            title = stringResource(id = R.string.crash_report_title),
         )
         LazyColumn {
             item {
@@ -62,7 +95,7 @@ fun CrashScreen(
             item {
                 Icon(
                     imageVector = Icons.Filled.Refresh,
-                    contentDescription = null,
+                    contentDescription = stringResource(id = R.string.crash_report_refresh_description),
                     modifier = Modifier
                         .clickable { onAppRefresh() },
                 )
@@ -75,7 +108,7 @@ fun CrashScreen(
 @Composable
 private fun PreviewCrashScreen() {
     CrashScreen(
-        text = "현재 에러가 발생했습니다. 앱을 재시작해주시기 바랍니다.",
+        text = "Sample error message for preview",
         onAppRefresh = {},
     )
 }

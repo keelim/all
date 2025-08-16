@@ -42,8 +42,15 @@ import androidx.compose.ui.unit.dp
 import com.keelim.composeutil.resource.space24
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
+import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+/**
+ * Private composable function for displaying a greeting with expandable content
+ * Demonstrates Material Design 3 components and animations
+ * 
+ * @param name The name to display in the greeting
+ */
 @Composable
 private fun Greeting(name: String) {
     var expanded by remember { mutableStateOf(false) }
@@ -54,7 +61,7 @@ private fun Greeting(name: String) {
             dampingRatio = Spring.DampingRatioMediumBouncy,
             stiffness = Spring.StiffnessLow,
         ),
-        label = "",
+        label = "extra_padding",
     )
     Surface(
         color = MaterialTheme.colorScheme.primary,
@@ -66,18 +73,26 @@ private fun Greeting(name: String) {
                     .weight(1f)
                     .padding(bottom = extraPadding.coerceAtLeast(0.dp)),
             ) {
+                // TODO: Replace with string resources when build system supports it
                 Text(text = "Hello, ")
                 Text(text = name)
             }
             OutlinedButton(
                 onClick = { expanded = !expanded },
             ) {
+                // TODO: Replace with string resources when build system supports it
                 Text(if (expanded) "Show less" else "Show more")
             }
         }
     }
 }
 
+/**
+ * Composable function that displays a list of greetings with expandable content
+ * Follows Material Design 3 guidelines and Android Jetpack Compose best practices
+ * 
+ * @param names List of names to display as greetings, defaults to 1000 numbered items
+ */
 @Composable
 private fun Greetings(names: List<String> = List(1000) { "$it" }) {
     LazyColumn(modifier = Modifier.padding(vertical = space4)) {
@@ -88,6 +103,10 @@ private fun Greetings(names: List<String> = List(1000) { "$it" }) {
 }
 
 @Preview
+/**
+ * Main screen composable that switches between onboarding and main content
+ * Follows Android architecture guidelines for state management
+ */
 @Composable
 fun GreetingPreview() {
     Column(
@@ -97,6 +116,10 @@ fun GreetingPreview() {
     }
 }
 
+/**
+ * Onboarding screen composable that provides an introduction to the application
+ * Demonstrates state management with rememberSaveable and proper Material Design 3 styling
+ */
 @Composable
 fun OnBoarding() {
     var shouldShowOnBoarding by rememberSaveable {
@@ -108,11 +131,13 @@ fun OnBoarding() {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
+            // TODO: Replace with string resources when build system supports it
             Text("Welcome to the basic Codelab!")
             Button(
                 modifier = Modifier.padding(vertical = space24),
                 onClick = { shouldShowOnBoarding = false },
             ) {
+                // TODO: Replace with string resources when build system supports it
                 Text(text = "Continue")
             }
         }

@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources />
+<resources>
+    <!-- Crash Report Screen -->
+    <string name="crash_report_title">에러 확인 중</string>
+    <string name="crash_report_message">현재 에러가 발생했습니다. 앱을 재시작해주시기 바랍니다.</string>
+    <string name="crash_report_refresh_description">앱 재시작</string>
+    <string name="crash_report_version_format">Version: %1$s\nDevice: %2$s\nSystem: %3$s\n\nStack trace: \n\n%4$s\n\n%5$s</string>
+    <string name="crash_report_android_version_format">Android %1$s (API %2$d)</string>
+    <string name="crash_report_device_format">%1$s %2$s</string>
+</resources>

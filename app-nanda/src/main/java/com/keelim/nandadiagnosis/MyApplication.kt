@@ -15,25 +15,8 @@
  */
 package com.keelim.nandadiagnosis
 
-import android.app.Application
-import coil.ImageLoader
-import coil.ImageLoaderFactory
-import com.keelim.commonAndroid.util.ComponentLogger
+import com.keelim.commonAndroid.BaseApplication
 import dagger.hilt.android.HiltAndroidApp
-import javax.inject.Inject
 
 @HiltAndroidApp
-class MyApplication : Application(), ImageLoaderFactory {
-    @Inject
-    lateinit var imageLoader: dagger.Lazy<ImageLoader>
-
-    @Inject
-    lateinit var componentLogger: dagger.Lazy<ComponentLogger>
-
-    override fun onCreate() {
-        super.onCreate()
-        componentLogger.get().initialize(this)
-    }
-
-    override fun newImageLoader(): ImageLoader = imageLoader.get()
-}
+class MyApplication : BaseApplication()

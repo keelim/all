@@ -1,5 +1,6 @@
 package com.keelim.mysenior
 
-import android.app.Application
+import com.keelim.commonAndroid.BaseApplication
 
-class MyApplication : Application()
+class MyApplication : BaseApplication()
+

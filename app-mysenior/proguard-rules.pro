@@ -15,3 +15,4 @@
 -dontwarn io.ktor.client.plugins.contentnegotiation.ContentNegotiation$Plugin
 -dontwarn io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 -keep @kotlinx.serialization.Serializable class * {*;}
+-repackageclasses

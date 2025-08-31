@@ -15,4 +15,4 @@ The main Android apps live in the `app-*/` folders. Feature modules live in `fea
 ## Continuous integration
 - The workflows are defined in `.github/workflows/*.yml` and they contain various checks.
 ## Version control and code location
-- The project uses git and is hosted in https://github.com/keelim/all.
+- The project uses git and is hosted on [GitHub](https://github.com/keelim/all).

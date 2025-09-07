@@ -1,42 +1,41 @@
 package com.keelim.setting.worker
 
-import android.content.Context
+import android.app.Application
 import android.content.Intent
-import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
-import com.keelim.common.Dispatcher
-import com.keelim.common.KeelimDispatchers
+import androidx.lifecycle.ProcessLifecycleOwner
+import com.keelim.common.di.ApplicationScope
 import com.keelim.data.repository.NotificationRepository
 import com.keelim.domain.MaintenanceChecker
 import com.keelim.setting.screen.maintenance.MaintenanceActivity
-import dagger.hilt.android.qualifiers.ApplicationContext
-import javax.inject.Inject
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.cancelChildren
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class MaintenanceCheckerImpl
 @Inject
 constructor(
-    @ApplicationContext private val context: Context,
+    private val application: Application,
     private val notificationRepository: NotificationRepository,
-    @Dispatcher(KeelimDispatchers.DEFAULT) private val dispatcher: CoroutineDispatcher,
-) : MaintenanceChecker, DefaultLifecycleObserver {
+    @ApplicationScope
+    private val applicationScope: CoroutineScope,
+) : MaintenanceChecker {
     private val _isUnderMaintenance = MutableStateFlow(false)
     override val isUnderMaintenance: StateFlow<Boolean> = _isUnderMaintenance
-
-    private val scope = CoroutineScope(dispatcher + SupervisorJob())
     private var previousValue = false
 
+    override fun initialize() {
+        ProcessLifecycleOwner.get().lifecycle.addObserver(this)
+    }
+
     override fun onStart(owner: LifecycleOwner) {
-        scope.launch {
+        applicationScope.launch {
             while (true) {
                 try {
                     val notifications = notificationRepository.getNotification()
@@ -49,19 +48,19 @@ constructor(
         }
         isUnderMaintenance
             .onEach { isUnderMaintenance ->
-                if (isUnderMaintenance && !previousValue) {
-                    context.startActivity(
-                        Intent(context, MaintenanceActivity::class.java).apply {
+                if (isUnderMaintenance && previousValue.not()) {
+                    application.startActivity(
+                        Intent(application, MaintenanceActivity::class.java).apply {
                             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         },
                     )
                 }
                 previousValue = isUnderMaintenance
             }
-            .launchIn(scope)
+            .launchIn(applicationScope)
     }
 
     override fun onStop(owner: LifecycleOwner) {
-        scope.coroutineContext.cancelChildren()
+        applicationScope.cancel()
     }
 }

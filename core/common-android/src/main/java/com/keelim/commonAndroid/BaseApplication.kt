@@ -1,7 +1,6 @@
 package com.keelim.commonAndroid
 
 import android.app.Application
-import androidx.lifecycle.ProcessLifecycleOwner
 import coil.ImageLoader
 import coil.ImageLoaderFactory
 import com.keelim.commonAndroid.util.ComponentLogger
@@ -25,7 +24,7 @@ open class BaseApplication : Application(), ImageLoaderFactory {
     override fun onCreate() {
         super.onCreate()
         componentLogger.get().initialize()
-        ProcessLifecycleOwner.get().lifecycle.addObserver(maintenanceChecker.get())
+        maintenanceChecker.get().initialize()
         Thread.setDefaultUncaughtExceptionHandler(crashHandler.get())
     }
 

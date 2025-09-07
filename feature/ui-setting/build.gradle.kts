@@ -27,4 +27,5 @@ dependencies {
     implementation(libs.androidx.navigation3.ui)
 
     implementation(libs.timber)
+    implementation(libs.androidx.lifecycle.process)
 }

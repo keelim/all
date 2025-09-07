@@ -19,5 +19,8 @@
                 <data android:mimeType="image/*" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".screen.maintenance.MaintenanceActivity"
+            android:exported="false" />
     </application>
 </manifest>

@@ -43,7 +43,7 @@ object DispatchersModule {
     @Singleton
     @ApplicationScope
     fun providesCoroutineScope(
-        @com.keelim.common.Dispatcher(IO) dispatcher: CoroutineDispatcher,
+        @com.keelim.common.Dispatcher(DEFAULT) dispatcher: CoroutineDispatcher,
     ): CoroutineScope = CoroutineScope(SupervisorJob() + dispatcher)
 }
 

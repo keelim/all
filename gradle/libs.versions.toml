@@ -110,7 +110,7 @@ store = "5.1.0-alpha06"
 tehras-chart = "0.2.4-alpha"
 themeAdapter = "1.2.1"
 timbers = "5.0.1"
-truth = "1.4.4"
+truth = "1.4.5"
 turbine = "1.2.1"
 zxing = "3.5.3"
 

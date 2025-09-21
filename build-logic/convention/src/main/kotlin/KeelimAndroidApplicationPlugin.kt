@@ -37,14 +37,20 @@ class KeelimAndroidApplicationPlugin : Plugin<Project> {
                 with(buildFeatures) {
                     buildConfig = true
                 }
-                buildTypes.getByName("release").apply {
-                    isMinifyEnabled = true
-                    isShrinkResources = true
-                    vcsInfo.include = true
-                    proguardFiles(
-                        getDefaultProguardFile("proguard-android-optimize.txt"),
-                        "proguard-rules.pro"
-                    )
+                buildTypes {
+                    getByName("debug") {
+                        isMinifyEnabled = false
+                        isShrinkResources = false
+                        isCrunchPngs = false
+                    }
+                    getByName("release") {
+                        isMinifyEnabled = true
+                        isShrinkResources = true
+                        proguardFiles(
+                            getDefaultProguardFile("proguard-android-optimize.txt"),
+                            "proguard-rules.pro"
+                        )
+                    }
                 }
                 lint {
                     abortOnError = false

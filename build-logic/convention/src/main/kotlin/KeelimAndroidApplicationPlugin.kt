@@ -38,6 +38,11 @@ class KeelimAndroidApplicationPlugin : Plugin<Project> {
                     buildConfig = true
                 }
                 buildTypes {
+                    getByName("debug") {
+                        isMinifyEnabled = false
+                        isShrinkResources = false
+                        isCrunchPngs = false
+                    }
                     getByName("release") {
                         isMinifyEnabled = true
                         isShrinkResources = true

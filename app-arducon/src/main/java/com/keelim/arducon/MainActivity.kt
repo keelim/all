@@ -22,8 +22,8 @@ class MainActivity : ComponentActivity() {
     lateinit var userStateStore: Lazy<UserStateStore>
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        super.onCreate(savedInstanceState)
         setContent {
             val themeType =
                 userStateStore.get().themeTypeFlow.collectAsStateWithLifecycle(ThemeType.LIGHT).value

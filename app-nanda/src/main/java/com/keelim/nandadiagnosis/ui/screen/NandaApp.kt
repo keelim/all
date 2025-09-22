@@ -1,17 +1,10 @@
 package com.keelim.nandadiagnosis.ui.screen
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.WindowInsetsSides
-import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawing
-import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Menu
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -78,7 +71,9 @@ fun NandaApp(
         drawerState = drawerState,
     ) {
         Scaffold(
-            contentWindowInsets = WindowInsets(0, 0, 0, 0),
+            modifier = Modifier
+                .fillMaxSize()
+                .safeDrawingPadding(),
             topBar = {
                 CenterAlignedTopAppBar(
                     title = { Text(text = "난다진다") },
@@ -94,35 +89,20 @@ fun NandaApp(
             },
             snackbarHost = { SnackbarHost(snackbarHostState) },
         ) { padding ->
-            Row(
-                Modifier
-                    .fillMaxSize()
-                    .padding(padding)
-                    .consumeWindowInsets(padding)
-                    .windowInsetsPadding(
-                        WindowInsets.safeDrawing.only(
-                            WindowInsetsSides.Horizontal,
-                        ),
-                    ),
-            ) {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                ) {
-                    NandaHost(
-                        appState = appState,
-                        bottomSheetState = bottomSheetState,
-                        coroutineScope = coroutineScope,
-                        onShowSnackbar = { message, action ->
-                            snackbarHostState.showSnackbar(
-                                message = message,
-                                actionLabel = action,
-                                duration = SnackbarDuration.Short,
-                            ) == SnackbarResult.ActionPerformed
-                        },
-                        backStack = backStack
-                    )
-                }
-            }
+            NandaHost(
+                modifier = Modifier.padding(padding),
+                appState = appState,
+                bottomSheetState = bottomSheetState,
+                coroutineScope = coroutineScope,
+                onShowSnackbar = { message, action ->
+                    snackbarHostState.showSnackbar(
+                        message = message,
+                        actionLabel = action,
+                        duration = SnackbarDuration.Short,
+                    ) == SnackbarResult.ActionPerformed
+                },
+                backStack = backStack
+            )
         }
     }
 }

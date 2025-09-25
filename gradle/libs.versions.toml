@@ -13,7 +13,7 @@ androidxActivity = "1.11.0"
 androidxAppCompat = "1.7.1"
 androidxBrowser = "1.9.0"
 androidxComposeBom = "2025.09.00"
-androidxComposeRuntimeTracing = "1.9.1"
+androidxComposeRuntimeTracing = "1.9.2"
 androidxCore = "1.17.0"
 androidxCoreSplashscreen = "1.0.1"
 androidxDataStore = "1.1.7"
@@ -138,7 +138,7 @@ androidx-compose-glance = { group = "androidx.glance", name = "glance", version.
 androidx-compose-glance-material3 = { group = "androidx.glance", name = "glance-material3", version.ref = "glance" }
 androidx-compose-glance-widget = { group = "androidx.glance", name = "glance-appwidget", version.ref = "glance" }
 androidx-compose-material = { group = "androidx.compose.material", name = "material-icons-core" }
-androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3", version = "1.4.0-SNAPSHOT" }
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3", version = "1.4.0" }
 androidx-compose-material3-adaptive = { group = "androidx.compose.material3.adaptive", name = "adaptive" }
 androidx-compose-material3-adaptive-layout = { group = "androidx.compose.material3.adaptive", name = "adaptive-layout" }
 androidx-compose-material3-adaptive-navigation = { group = "androidx.compose.material3.adaptive", name = "adaptive-navigation" }

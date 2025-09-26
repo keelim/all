@@ -23,9 +23,9 @@ import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.graphics.graphicsLayer
-import org.jetbrains.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.keelim.composeutil.resource.space12
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun RedDot(

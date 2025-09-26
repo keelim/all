@@ -101,7 +101,7 @@ fun NandaApp(
                         duration = SnackbarDuration.Short,
                     ) == SnackbarResult.ActionPerformed
                 },
-                backStack = backStack
+                backStack = backStack,
             )
         }
     }

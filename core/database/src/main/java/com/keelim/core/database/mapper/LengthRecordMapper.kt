@@ -6,11 +6,11 @@ import com.keelim.shared.data.database.model.LengthRecord as EntityLengthRecord
 fun EntityLengthRecord.toDomain(): LengthRecord =
     LengthRecord(
         date = this.date,
-        length = this.length
+        length = this.length,
     )
 
 fun LengthRecord.toEntity(): EntityLengthRecord =
     EntityLengthRecord(
         date = this.date,
-        length = this.length
+        length = this.length,
     )

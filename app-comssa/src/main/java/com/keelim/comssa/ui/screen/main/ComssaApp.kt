@@ -43,7 +43,7 @@ fun ComssaApp(
                     duration = SnackbarDuration.Short,
                 ) == SnackbarResult.ActionPerformed
             },
-            modifier = Modifier.padding(padding)
+            modifier = Modifier.padding(padding),
         )
     }
 }

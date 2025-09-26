@@ -40,7 +40,7 @@ private fun Activity.printLifecycle(lifecycleScope: String) {
 }
 
 class ComponentLogger @Inject constructor(
-    private val application: Application
+    private val application: Application,
 ) {
     fun initialize() {
         application.registerActivityLifecycleCallbacks(

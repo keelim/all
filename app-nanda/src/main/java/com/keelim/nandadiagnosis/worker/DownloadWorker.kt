@@ -22,6 +22,7 @@ import android.app.NotificationManager
 import android.content.Context
 import android.net.Uri
 import androidx.core.app.NotificationCompat
+import androidx.core.net.toUri
 import androidx.hilt.work.HiltWorker
 import androidx.lifecycle.LifecycleOwner
 import androidx.work.BackoffPolicy
@@ -44,7 +45,6 @@ import dagger.assisted.AssistedInject
 import java.io.File
 import java.util.UUID
 import java.util.concurrent.TimeUnit
-import androidx.core.net.toUri
 
 @HiltWorker
 class DownloadWorker @AssistedInject constructor(

@@ -7,11 +7,11 @@ import com.keelim.shared.data.database.NandaAppDatabase
 import com.keelim.shared.data.database.dao.AlarmDao
 import com.keelim.shared.data.database.dao.ArduconDao
 import com.keelim.shared.data.database.dao.HistoryDao
+import com.keelim.shared.data.database.dao.LengthRecordDao
 import com.keelim.shared.data.database.dao.NetworkCacheDao
 import com.keelim.shared.data.database.dao.NoteDao
 import com.keelim.shared.data.database.dao.TaskDao
 import com.keelim.shared.data.database.dao.TimerHistoryDao
-import com.keelim.shared.data.database.dao.LengthRecordDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

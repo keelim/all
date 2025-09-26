@@ -51,7 +51,7 @@ fun ArduconApp(
                 ) == SnackbarResult.ActionPerformed
             },
             modifier = Modifier
-                .padding(padding)
+                .padding(padding),
         )
     }
 }

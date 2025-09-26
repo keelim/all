@@ -89,7 +89,7 @@ class CrashHandler @Inject constructor(
             return
         }
 
-        val window =  activity.window
+        val window = activity.window
         if (window == null) {
             Timber.d("Phone window is null, not capturing screenshot")
             return
@@ -107,7 +107,7 @@ class CrashHandler @Inject constructor(
                         Timber.d("Failed to capture screenshot")
                     }
                 },
-                Handler(Looper.getMainLooper())
+                Handler(Looper.getMainLooper()),
             )
         } catch (e: Exception) {
             e.printStackTrace()
@@ -127,7 +127,7 @@ class CrashHandler @Inject constructor(
                 val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
                 val timestamp = "${now.year}${now.month.number.toString().padStart(2, '0')}${now.day.toString().padStart(2, '0')}_${now.hour.toString().padStart(2, '0')}${now.minute.toString().padStart(2, '0')}${now.second.toString().padStart(2, '0')}"
                 val exceptionName = throwable.javaClass.simpleName
-                val filename = "${timestamp}_${exceptionName}.jpg"
+                val filename = "${timestamp}_$exceptionName.jpg"
                 val screenshotFile = File(screenshotsDir, filename)
                 FileOutputStream(screenshotFile).use { out ->
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 80, out)

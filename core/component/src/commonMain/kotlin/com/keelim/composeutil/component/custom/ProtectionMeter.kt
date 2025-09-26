@@ -82,7 +82,7 @@ fun ProtectionMeter(
 
             val needlePath = Path()
                 .apply {
-                // Calculate the top point of the needle
+                    // Calculate the top point of the needle
                     // val topX = centerOffset.x + needleLength * cos(
                     //     Math.toRadians(needleAngle.toDouble()).toFloat(),
                     // )
@@ -108,7 +108,7 @@ fun ProtectionMeter(
                     // lineTo(baseLeftX, baseLeftY)
                     // lineTo(baseRightX, baseRightY)
                     // close()
-            }
+                }
 
             drawPath(
                 color = Color.White,

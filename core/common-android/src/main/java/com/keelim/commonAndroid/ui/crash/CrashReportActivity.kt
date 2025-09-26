@@ -16,9 +16,9 @@ import kotlin.system.exitProcess
 @AndroidEntryPoint
 class CrashReportActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         val errorMessage: String = intent.getStringExtra("error").toString()
-        enableEdgeToEdge()
         setContent {
             KeelimTheme {
                 CrashRoute(

@@ -44,7 +44,7 @@ class FinanceViewModel @Inject constructor(
     val items = combine(
         refreshTrigger,
         categoryFilter,
-        sourceFilter
+        sourceFilter,
     ) { _, category, source ->
         financeRssRepository.getRssItems(financeRssRepository.getSources())
             .map { items ->
@@ -60,7 +60,7 @@ class FinanceViewModel @Inject constructor(
         .stateIn(
             viewModelScope,
             SharingStarted.WhileSubscribed(5_000L),
-            SealedUiState.loading()
+            SealedUiState.loading(),
         )
 
     val filterButtons = listOf(
@@ -75,7 +75,7 @@ class FinanceViewModel @Inject constructor(
     private fun filterItems(
         items: List<FinanceRssItem>,
         categoryFilter: FabButtonItem,
-        sourceFilter: String
+        sourceFilter: String,
     ): List<FinanceRssItem> {
         var filteredItems = when (categoryFilter) {
             filterAll -> items

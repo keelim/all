@@ -23,6 +23,7 @@ import androidx.navigation3.ui.NavDisplay
 import com.keelim.arducon.ui.screen.deeplink.CreateDeepLinkRoute
 import com.keelim.arducon.ui.screen.main.MainRoute
 import com.keelim.arducon.ui.screen.ogtag.OgTagPreviewRoute
+import com.keelim.arducon.ui.screen.playground.PlaygroundRoute
 import com.keelim.arducon.ui.screen.qr.QrRoute
 import com.keelim.arducon.ui.screen.saastatus.main.SaastatusRoute
 import com.keelim.arducon.ui.screen.search.SearchRoute
@@ -33,7 +34,6 @@ import com.keelim.composeutil.rememberMutableStateListOf
 import com.keelim.core.navigation.ArduconRoute
 import com.keelim.core.navigation.SaastatusRoute
 import com.keelim.web.navigateToWebModule
-import com.keelim.arducon.ui.screen.playground.PlaygroundRoute
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 

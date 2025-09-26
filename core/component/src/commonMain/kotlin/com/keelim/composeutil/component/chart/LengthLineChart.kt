@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 // 순수 UI용 primitive 모델
 data class LengthChartPoint(
     val date: String,
-    val value: Float
+    val value: Float,
 )
 
 @Composable
@@ -22,7 +22,7 @@ fun LengthLineChart(
     mainColor: Color,
     subColor: Color,
     points: List<LengthChartPoint>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     if (points.isEmpty()) return
     val maxLength = points.maxOf { it.value }
@@ -42,7 +42,7 @@ fun LengthLineChart(
                     color = Color.LightGray,
                     start = Offset(0f, y),
                     end = Offset(size.width, y),
-                    strokeWidth = 1f
+                    strokeWidth = 1f,
                 )
             }
 
@@ -51,13 +51,16 @@ fun LengthLineChart(
             points.forEachIndexed { i, point ->
                 val x = i * stepX
                 val y = size.height - ((point.value - minLength) * stepY)
-                if (i == 0) path.moveTo(x, y)
-                else path.lineTo(x, y)
+                if (i == 0) {
+                    path.moveTo(x, y)
+                } else {
+                    path.lineTo(x, y)
+                }
             }
             drawPath(
                 path,
                 color = mainColor,
-                style = androidx.compose.ui.graphics.drawscope.Stroke(width = 6f)
+                style = androidx.compose.ui.graphics.drawscope.Stroke(width = 6f),
             )
 
             // 점 강조
@@ -68,12 +71,12 @@ fun LengthLineChart(
                     color = if (i == points.lastIndex) Color.Red else Color.White,
                     radius = if (i == points.lastIndex) 10f else 7f,
                     center = Offset(x, y),
-                    style = androidx.compose.ui.graphics.drawscope.Stroke(width = 3f)
+                    style = androidx.compose.ui.graphics.drawscope.Stroke(width = 3f),
                 )
                 drawCircle(
                     color = subColor,
                     radius = if (i == points.lastIndex) 7f else 5f,
-                    center = Offset(x, y)
+                    center = Offset(x, y),
                 )
             }
         }

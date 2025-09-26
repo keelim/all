@@ -10,7 +10,7 @@ data class FinanceRssItem(
     val category: String = "",
     val source: String = "",
 ) {
-    val isRecent: Boolean = pubDate?.let { 
+    val isRecent: Boolean = pubDate?.let {
         val now = Instant.fromEpochMilliseconds(System.currentTimeMillis())
         (now.epochSeconds - it.epochSeconds) < 24 * 60 * 60 // 24시간 이내
     } ?: false
@@ -35,4 +35,4 @@ data class FinanceSource(
     val url: String,
     val category: FinanceCategory,
     val isEnabled: Boolean = true,
-) 
+)

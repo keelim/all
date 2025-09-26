@@ -22,7 +22,7 @@ class Polygon(val slides: Int, val rotation: Float = 0f) : Shape {
         layoutDirection: LayoutDirection,
         density: Density,
     ): Outline = Outline.Generic(
-        path = Path()
+        path = Path(),
         // .apply {
         // val radius = if (size.width > size.height) size.width else size.height
         // val angle = 2.0 * Math.PI / slides
@@ -40,7 +40,7 @@ class Polygon(val slides: Int, val rotation: Float = 0f) : Shape {
         //     )
         // }
         // close()
-        //},
+        // },
     )
 }
 

@@ -4,7 +4,6 @@ package com.keelim.nandadiagnosis.ui
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import androidx.compose.animation.ContentTransform
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -176,7 +175,7 @@ fun NandaHost(
 @Composable
 private fun EntryProviderBuilder<Any>.settingsEntry(
     backStack: SnapshotStateList<Any>,
-    context: Context
+    context: Context,
 ) {
     entry<FeatureRoute.Settings> {
         SettingsRoute(
@@ -228,4 +227,3 @@ private fun EntryProviderBuilder<Any>.settingsEntry(
         AdminRoute()
     }
 }
-

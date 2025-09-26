@@ -123,12 +123,12 @@ internal fun TimelineItem(
 ) = trace("TimelineItem") {
     Row(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(space12)
+        horizontalArrangement = Arrangement.spacedBy(space12),
     ) {
         // 타임라인 연결선과 아이콘
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.width(40.dp)
+            modifier = Modifier.width(40.dp),
         ) {
             // 타임라인 아이콘
             Box(
@@ -136,7 +136,7 @@ internal fun TimelineItem(
                     .size(32.dp)
                     .clip(CircleShape)
                     .background(MaterialTheme.colorScheme.primary),
-                contentAlignment = Alignment.Center
+                contentAlignment = Alignment.Center,
             ) {
                 Icon(
                     imageVector = when {
@@ -146,7 +146,7 @@ internal fun TimelineItem(
                     },
                     contentDescription = null,
                     tint = Color.White,
-                    modifier = Modifier.size(20.dp)
+                    modifier = Modifier.size(20.dp),
                 )
             }
 
@@ -157,7 +157,7 @@ internal fun TimelineItem(
                     modifier = Modifier
                         .width(2.dp)
                         .height(40.dp)
-                        .background(MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
+                        .background(MaterialTheme.colorScheme.outline.copy(alpha = 0.3f)),
                 )
             }
         }
@@ -180,13 +180,13 @@ internal fun TimelineItem(
                 Text(
                     text = rootTitle,
                     style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onSurface
+                    color = MaterialTheme.colorScheme.onSurface,
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = "클릭하여 상세 정보 확인",
                     style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
         }
@@ -200,7 +200,7 @@ private fun PreviewTimelineItem() {
         onRootClick = {},
         position = 0,
         rootTitle = "A노선",
-        isLast = false
+        isLast = false,
     )
 }
 

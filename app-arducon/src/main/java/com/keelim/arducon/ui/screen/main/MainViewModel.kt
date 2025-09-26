@@ -1,11 +1,11 @@
 package com.keelim.arducon.ui.screen.main
 
 import android.graphics.Bitmap
-import com.keelim.common.qr.generateQrBitmap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.keelim.common.Dispatcher
 import com.keelim.common.KeelimDispatchers
+import com.keelim.common.qr.generateQrBitmap
 import com.keelim.data.repository.ArduconRepository
 import com.keelim.model.DeepLink
 import com.keelim.scheme.notification.SchemeNotificationManager

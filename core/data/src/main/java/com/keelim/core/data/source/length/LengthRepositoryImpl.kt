@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class LengthRepositoryImpl @Inject constructor(
-    private val dao: LengthRecordDao
+    private val dao: LengthRecordDao,
 ) : LengthRepository {
     override fun getAllRecords(): Flow<List<LengthRecord>> =
         dao.getAll().map { list -> list.map { it.toDomain() } }

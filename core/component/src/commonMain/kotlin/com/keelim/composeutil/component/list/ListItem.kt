@@ -126,7 +126,6 @@ private fun PreviewListItem(
                     Color.White
                 },
                 onItemClick = {
-
                 },
             )
         }

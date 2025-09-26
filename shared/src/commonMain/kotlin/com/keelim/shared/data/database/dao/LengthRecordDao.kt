@@ -1,6 +1,9 @@
 package com.keelim.shared.data.database.dao
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.keelim.shared.data.database.model.LengthRecord
 import kotlinx.coroutines.flow.Flow
 
@@ -14,4 +17,4 @@ interface LengthRecordDao {
 
     @Query("DELETE FROM length_record WHERE date = :date")
     suspend fun deleteByDate(date: String)
-} 
+}

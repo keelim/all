@@ -27,38 +27,38 @@ class FinanceRssRepositoryImpl @Inject constructor() : FinanceRssRepository {
         FinanceSource(
             name = "한국경제",
             url = "https://www.hankyung.com/feed/economy",
-            category = FinanceCategory.ECONOMY
+            category = FinanceCategory.ECONOMY,
         ),
         FinanceSource(
             name = "매일경제",
             url = "https://www.mk.co.kr/rss/30000001/",
-            category = FinanceCategory.ECONOMY
+            category = FinanceCategory.ECONOMY,
         ),
         FinanceSource(
             name = "서울경제",
             url = "https://www.sedaily.com/RSS/S11.xml",
-            category = FinanceCategory.STOCK
+            category = FinanceCategory.STOCK,
         ),
         FinanceSource(
             name = "이데일리",
             url = "https://www.edaily.co.kr/rss/rss_01.xml",
-            category = FinanceCategory.STOCK
+            category = FinanceCategory.STOCK,
         ),
         FinanceSource(
             name = "비트코인뉴스",
             url = "https://www.bitcoinnews.com/feed/",
-            category = FinanceCategory.CRYPTO
+            category = FinanceCategory.CRYPTO,
         ),
         FinanceSource(
             name = "코인데스크",
             url = "https://www.coindesk.com/arc/outboundfeeds/rss/",
-            category = FinanceCategory.CRYPTO
+            category = FinanceCategory.CRYPTO,
         ),
         FinanceSource(
             name = "부동산뉴스",
             url = "https://www.reb.or.kr/rss/rss_news.xml",
-            category = FinanceCategory.REAL_ESTATE
-        )
+            category = FinanceCategory.REAL_ESTATE,
+        ),
     )
 
     override fun getRssItems(sources: List<FinanceSource>): Flow<List<FinanceRssItem>> = flow {
@@ -111,7 +111,7 @@ class FinanceRssRepositoryImpl @Inject constructor() : FinanceRssRepository {
     private suspend fun fetchRssFromUrl(
         url: String,
         sourceName: String,
-        category: FinanceCategory
+        category: FinanceCategory,
     ): List<FinanceRssItem> {
         return try {
             val factory = XmlPullParserFactory.newInstance()
@@ -151,8 +151,8 @@ class FinanceRssRepositoryImpl @Inject constructor() : FinanceRssRepository {
                                     link = currentItem["link"] ?: "",
                                     pubDate = parseDate(currentItem["pubDate"]),
                                     category = currentItem["category"] ?: category.displayName,
-                                    source = sourceName
-                                )
+                                    source = sourceName,
+                                ),
                             )
                             currentItem = null
                         }
@@ -206,5 +206,5 @@ class FinanceRssRepositoryImpl @Inject constructor() : FinanceRssRepository {
 // 캐시 데이터 클래스
 private data class CachedRssData(
     val items: List<FinanceRssItem>,
-    val timestamp: Long
+    val timestamp: Long,
 )

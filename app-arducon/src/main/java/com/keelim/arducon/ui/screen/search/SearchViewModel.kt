@@ -21,17 +21,17 @@ class SearchViewModel @Inject constructor(
     private val repository: ArduconRepository,
     @Dispatcher(KeelimDispatchers.DEFAULT) private val default: CoroutineDispatcher,
 ) : ViewModel() {
-    
+
     private val _searchQuery = MutableStateFlow("")
     val searchQuery: StateFlow<String> = _searchQuery.asStateFlow()
-    
+
     val schemeList: StateFlow<List<String>> = repository.getSchemeList()
         .flowOn(default)
         .stateIn(viewModelScope, started = SharingStarted.WhileSubscribed(5_000L), emptyList())
-    
+
     val filteredSchemes: StateFlow<List<String>> = combine(
         schemeList,
-        _searchQuery
+        _searchQuery,
     ) { schemes, query ->
         if (query.isEmpty()) {
             schemes
@@ -41,13 +41,13 @@ class SearchViewModel @Inject constructor(
             }
         }
     }
-    .flowOn(default)
-    .stateIn(viewModelScope, started = SharingStarted.WhileSubscribed(5_000L), emptyList())
-    
+        .flowOn(default)
+        .stateIn(viewModelScope, started = SharingStarted.WhileSubscribed(5_000L), emptyList())
+
     fun updateSearchQuery(query: String) {
         _searchQuery.value = query
     }
-    
+
     fun clearSearch() {
         _searchQuery.value = ""
     }

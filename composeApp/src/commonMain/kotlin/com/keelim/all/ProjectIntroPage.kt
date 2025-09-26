@@ -37,7 +37,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-
 @Composable
 fun ProjectIntroPage() {
     Box(
@@ -45,14 +44,14 @@ fun ProjectIntroPage() {
             .fillMaxSize()
             .background(
                 Brush.verticalGradient(
-                    listOf(Color(0xFFe3f2fd), Color(0xFFbbdefb))
-                )
-            )
+                    listOf(Color(0xFFe3f2fd), Color(0xFFbbdefb)),
+                ),
+            ),
     ) {
         Column(
             modifier = Modifier.align(Alignment.Center),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(32.dp)
+            verticalArrangement = Arrangement.spacedBy(32.dp),
         ) {
             ProjectTitleAndDescription()
             MainFeaturesCard()
@@ -69,14 +68,14 @@ fun ProjectTitleAndDescription() {
         text = "ALL Project",
         style = MaterialTheme.typography.headlineLarge,
         fontWeight = FontWeight.ExtraBold,
-        color = Color(0xFF0d47a1)
+        color = Color(0xFF0d47a1),
     )
     Text(
         text = "All-in-one project based on Kotlin Multiplatform + Compose",
         style = MaterialTheme.typography.titleMedium,
         color = Color(0xFF1976d2),
         fontWeight = FontWeight.Medium,
-        modifier = Modifier.padding(horizontal = 16.dp)
+        modifier = Modifier.padding(horizontal = 16.dp),
     )
 }
 
@@ -88,20 +87,20 @@ fun MainFeaturesCard() {
             .heightIn(min = 220.dp)
             .shadow(8.dp, RoundedCornerShape(32.dp)),
         colors = CardDefaults.cardColors(
-            containerColor = Color.White.copy(alpha = 0.85f)
+            containerColor = Color.White.copy(alpha = 0.85f),
         ),
         shape = RoundedCornerShape(32.dp),
-        elevation = CardDefaults.cardElevation(8.dp)
+        elevation = CardDefaults.cardElevation(8.dp),
     ) {
         Column(
             modifier = Modifier.padding(40.dp),
-            horizontalAlignment = Alignment.Start
+            horizontalAlignment = Alignment.Start,
         ) {
             Text(
                 "Main Features",
                 fontWeight = FontWeight.Bold,
                 fontSize = 24.sp,
-                color = Color(0xFF1565c0)
+                color = Color(0xFF1565c0),
             )
             Spacer(Modifier.height(20.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -134,13 +133,13 @@ fun TechStackCard() {
         modifier = Modifier.padding(top = 8.dp).shadow(4.dp, RoundedCornerShape(24.dp)),
         colors = CardDefaults.cardColors(containerColor = Color.White.copy(alpha = 0.9f)),
         shape = RoundedCornerShape(24.dp),
-        elevation = CardDefaults.cardElevation(4.dp)
+        elevation = CardDefaults.cardElevation(4.dp),
     ) {
         Column(modifier = Modifier.padding(24.dp)) {
             Text("Tech Stack", fontWeight = FontWeight.SemiBold, fontSize = 18.sp)
             Spacer(Modifier.height(12.dp))
             FlowRow(
-                maxItemsInEachRow = 5
+                maxItemsInEachRow = 5,
             ) {
                 TechChip("Kotlin", Color(0xFF7F52FF))
                 TechChip("Compose", Color(0xFF4285F4))
@@ -163,11 +162,11 @@ fun TeamMembersCard() {
         modifier = Modifier.padding(top = 8.dp).shadow(4.dp, RoundedCornerShape(24.dp)),
         colors = CardDefaults.cardColors(containerColor = Color.White.copy(alpha = 0.9f)),
         shape = RoundedCornerShape(24.dp),
-        elevation = CardDefaults.cardElevation(4.dp)
+        elevation = CardDefaults.cardElevation(4.dp),
     ) {
         Column(
             modifier = Modifier.padding(24.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text("Team", fontWeight = FontWeight.SemiBold, fontSize = 18.sp)
             Spacer(Modifier.height(12.dp))
@@ -181,7 +180,7 @@ fun TeamMembersCard() {
 
 @Composable
 fun BoxScope.FooterButtons(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val uriHandler = LocalUriHandler.current
     Surface(
@@ -191,20 +190,20 @@ fun BoxScope.FooterButtons(
             .shadow(8.dp, RoundedCornerShape(32.dp)),
         color = Color.White.copy(alpha = 0.7f),
         shape = RoundedCornerShape(32.dp),
-        tonalElevation = 8.dp
+        tonalElevation = 8.dp,
     ) {
         Row(
             modifier = Modifier.padding(horizontal = 32.dp, vertical = 8.dp),
             horizontalArrangement = Arrangement.spacedBy(24.dp),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Button(
                 onClick = { uriHandler.openUri("https://github.com/keelim/all") },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFF24292f),
-                    contentColor = Color.White
+                    contentColor = Color.White,
                 ),
-                shape = RoundedCornerShape(20.dp)
+                shape = RoundedCornerShape(20.dp),
             ) {
                 Spacer(Modifier.size(8.dp))
                 Text("GitHub")
@@ -213,14 +212,14 @@ fun BoxScope.FooterButtons(
                 onClick = { uriHandler.openUri("mailto:contact@keelim.com") },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFF1976d2),
-                    contentColor = Color.White
+                    contentColor = Color.White,
                 ),
-                shape = RoundedCornerShape(20.dp)
+                shape = RoundedCornerShape(20.dp),
             ) {
                 Icon(
                     Icons.Filled.AlternateEmail,
                     contentDescription = null,
-                    modifier = Modifier.size(20.dp)
+                    modifier = Modifier.size(20.dp),
                 )
                 Spacer(Modifier.size(8.dp))
                 Text("Contact")
@@ -235,7 +234,7 @@ fun TechChip(text: String, color: Color) {
         modifier = Modifier
             .background(color.copy(alpha = 0.15f), RoundedCornerShape(50))
             .padding(horizontal = 16.dp, vertical = 6.dp),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Text(text, color = color, fontWeight = FontWeight.Bold, fontSize = 14.sp)
     }
@@ -250,7 +249,7 @@ fun MemberProfile(initial: String, name: String, color: Color) {
                 .clip(CircleShape)
                 .background(color)
                 .shadow(8.dp, CircleShape),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             Text(initial, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 22.sp)
         }

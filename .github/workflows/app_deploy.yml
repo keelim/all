@@ -41,11 +41,7 @@ jobs:
       - name: Build Release AAB
         id: buildRelease
         run: |
-          ./gradlew app-comssa:bundleRelease
-          ./gradlew app-cnubus:bundleRelease
-          ./gradlew app-my-grade:bundleRelease
-          ./gradlew app-nanda:bundleRelease
-          ./gradlew app-arducon:bundleRelease
+          ./gradlew app-comssa:bundleRelease app-cnubus:bundleRelease app-my-grade:bundleRelease app-nanda:bundleRelease app-arducon:bundleRelease
 
       - name: Create service_account.json
         id: createServiceAccount

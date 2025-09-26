@@ -1,15 +1,9 @@
 package com.keelim.arducon.ui
 
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.WindowInsetsSides
-import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawing
-import androidx.compose.foundation.layout.systemBarsPadding
-import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
@@ -34,7 +28,9 @@ fun ArduconApp(
     val coroutineScope = rememberCoroutineScope()
     val bottomSheetState = rememberModalBottomSheetState()
     Scaffold(
-        contentWindowInsets = WindowInsets(0, 0, 0, 0),
+        modifier = Modifier
+            .fillMaxSize()
+            .safeDrawingPadding(),
         snackbarHost = { SnackbarHost(snackbarHostState) },
         bottomBar = {
             AdBannerView(
@@ -55,15 +51,7 @@ fun ArduconApp(
                 ) == SnackbarResult.ActionPerformed
             },
             modifier = Modifier
-                .fillMaxSize()
-                .systemBarsPadding()
                 .padding(padding)
-                .consumeWindowInsets(padding)
-                .windowInsetsPadding(
-                    WindowInsets.safeDrawing.only(
-                        WindowInsetsSides.Horizontal,
-                    ),
-                ),
         )
     }
 }

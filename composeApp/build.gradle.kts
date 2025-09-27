@@ -13,6 +13,7 @@ plugins {
 }
 
 kotlin {
+    androidTarget()
     sourceSets {
         val desktopMain by getting
         commonMain.dependencies {

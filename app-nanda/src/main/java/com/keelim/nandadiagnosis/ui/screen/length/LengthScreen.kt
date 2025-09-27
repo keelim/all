@@ -38,7 +38,7 @@ import java.time.LocalDate
 
 @Composable
 fun LengthScreen(
-    viewModel: LengthViewModel = hiltViewModel()
+    viewModel: LengthViewModel = hiltViewModel(),
 ) {
     var input by remember { mutableStateOf("") }
     val records by viewModel.records.collectAsState()
@@ -57,7 +57,7 @@ fun LengthScreen(
                 onValueChange = { input = it },
                 label = { Text("(cm)") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f),
             )
             Spacer(Modifier.width(8.dp))
             Button(onClick = {
@@ -66,8 +66,8 @@ fun LengthScreen(
                     viewModel.addRecord(
                         LengthRecord(
                             date = LocalDate.now().toString(),
-                            length = value
-                        )
+                            length = value,
+                        ),
                     )
                     input = ""
                 }
@@ -82,7 +82,7 @@ fun LengthScreen(
             mainColor = MaterialTheme.colorScheme.primary,
             subColor = MaterialTheme.colorScheme.primary,
             points = chartPoints,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
         Spacer(Modifier.height(24.dp))
 
@@ -95,7 +95,7 @@ fun LengthScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 4.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Text(text = "${record.date} : ${record.length}cm")
                     IconButton(onClick = { viewModel.deleteRecord(record.date) }) {

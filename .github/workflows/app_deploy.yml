@@ -9,18 +9,21 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
-      - name: set up JDK 17
-        uses: actions/setup-java@v4.7.1
+      - name: set up JDK 21
+        uses: actions/setup-java@v5.0.0
         with:
           distribution: "zulu"
-          java-version: "17"
+          java-version: "21"
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
           cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+          build-scan-publish: true
+          build-scan-terms-of-use-url: "https://gradle.com/terms-of-service"
+          build-scan-terms-of-use-agree: "yes"
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
@@ -38,11 +41,7 @@ jobs:
       - name: Build Release AAB
         id: buildRelease
         run: |
-          ./gradlew app-comssa:bundleRelease
-          ./gradlew app-cnubus:bundleRelease
-          ./gradlew app-my-grade:bundleRelease
-          ./gradlew app-nanda:bundleRelease
-          ./gradlew app-arducon:bundleRelease
+          ./gradlew app-comssa:bundleRelease app-cnubus:bundleRelease app-my-grade:bundleRelease app-nanda:bundleRelease app-arducon:bundleRelease
 
       - name: Create service_account.json
         id: createServiceAccount

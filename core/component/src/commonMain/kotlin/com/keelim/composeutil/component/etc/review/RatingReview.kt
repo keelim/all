@@ -27,7 +27,6 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.graphics.Shape
-import org.jetbrains.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
@@ -37,6 +36,7 @@ import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space8
 import com.keelim.composeutil.util.conditional
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 private val fillColor = Color(0xFFFFC107)
 private val emptyColor = Color(0xFFEEEEEE)

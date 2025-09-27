@@ -94,7 +94,7 @@ fun CnubusHost(
 @Composable
 fun EntryProviderBuilder<Any>.settingsEntry(
     backStack: SnapshotStateList<Any>,
-    context: Context
+    context: Context,
 ) {
     entry<FeatureRoute.Settings> {
         SettingsRoute(
@@ -146,4 +146,3 @@ fun EntryProviderBuilder<Any>.settingsEntry(
         AdminRoute()
     }
 }
-

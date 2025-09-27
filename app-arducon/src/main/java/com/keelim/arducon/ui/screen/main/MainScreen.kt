@@ -28,6 +28,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Search
@@ -105,6 +106,7 @@ fun MainRoute(
     onNavigateSaastatus: () -> Unit,
     onNavigateOgTagPreview: () -> Unit,
     onNavigateStats: () -> Unit,
+    onNavigatePlayground: () -> Unit,
     viewModel: MainViewModel = hiltViewModel(),
 ) {
     val schemeList by viewModel.schemeList.collectAsStateWithLifecycle()
@@ -153,6 +155,7 @@ fun MainRoute(
         onRegister = viewModel::onRegister,
         onNavigateSaastatus = onNavigateSaastatus,
         onNavigateOgTagPreview = onNavigateOgTagPreview,
+        onNavigatePlayground = onNavigatePlayground,
         onDeleteScheme = viewModel::deleteScheme,
         onShowNotification = viewModel::showNotification,
         onGenerateQrCode = viewModel::generateQrCode,
@@ -207,6 +210,7 @@ fun MainScreen(
     onRegister: (String) -> Unit,
     onNavigateSaastatus: () -> Unit,
     onNavigateOgTagPreview: () -> Unit,
+    onNavigatePlayground: () -> Unit,
     onDeleteScheme: (String) -> Unit,
     onShowNotification: (Int, String, String, String) -> Unit,
     onGenerateQrCode: (DeepLink) -> Unit,
@@ -250,6 +254,7 @@ fun MainScreen(
                     onNavigateOgTagPreview = onNavigateOgTagPreview,
                     onQrCodeClick = onQrCodeClick,
                     onNavigateSaastatus = onNavigateSaastatus,
+                    onNavigatePlayground = onNavigatePlayground,
                 )
             }
         },
@@ -307,6 +312,7 @@ private fun HorizontalFloatingToolbarSection(
     onNavigateOgTagPreview: () -> Unit,
     onQrCodeClick: () -> Unit,
     onNavigateSaastatus: () -> Unit,
+    onNavigatePlayground: () -> Unit,
 ) {
     val (isExpanded, setIsExpanded) = remember { mutableStateOf(false) }
 
@@ -350,6 +356,19 @@ private fun HorizontalFloatingToolbarSection(
                     Icon(
                         imageVector = Icons.Default.AddCircle,
                         contentDescription = "navigate saastatus",
+                    )
+                }
+            },
+        )
+        TooltipIcon(
+            tooltipText = "Playground",
+            content = {
+                IconButton(
+                    onClick = onNavigatePlayground,
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Build,
+                        contentDescription = "navigate playground",
                     )
                 }
             },
@@ -628,6 +647,7 @@ private fun PreviewMainScreen() {
         onRegister = {},
         onNavigateSaastatus = {},
         onNavigateOgTagPreview = {},
+        onNavigatePlayground = {},
         onDeleteScheme = {},
         onItemLongClick = { },
         categories = listOf("Category1", "Category2"),

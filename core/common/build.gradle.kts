@@ -17,6 +17,7 @@ dependencies {
     implementation(libs.kotlinx.coroutines.test)
     implementation(libs.material.themAdapter)
     implementation(libs.timber)
+    implementation(libs.zxing)
 
     testImplementation(libs.androidx.test.core)
     testImplementation(libs.androidx.test.ext)

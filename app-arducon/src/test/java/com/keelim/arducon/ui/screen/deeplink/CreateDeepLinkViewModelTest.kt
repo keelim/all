@@ -3,9 +3,6 @@ package com.keelim.arducon.ui.screen.deeplink
 import app.cash.turbine.test
 import com.google.common.truth.Truth.assertThat
 import com.keelim.data.repository.ArduconRepository
-import com.keelim.model.DeepLink
-import io.mockk.coEvery
-import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
@@ -30,10 +27,10 @@ class CreateDeepLinkViewModelTest {
     fun setup() {
         Dispatchers.setMain(testDispatcher)
         mockRepository = mockk()
-        
+
         // ViewModel 생성자에서 호출되는 메서드 모킹
         every { mockRepository.getCategories() } returns flowOf(emptyList())
-        
+
         viewModel = CreateDeepLinkViewModel(mockRepository, testDispatcher)
     }
 

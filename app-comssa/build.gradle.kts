@@ -30,6 +30,7 @@ dependencies {
     implementation(projects.core.navigation)
     implementation(projects.widget)
     implementation(projects.feature.uiWeb)
+    implementation(projects.feature.uiSetting)
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.ktx)

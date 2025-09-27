@@ -42,7 +42,7 @@ constructor(
                         "%d-%02d-%02d",
                         localDate.year,
                         localDate.month.name,
-                        localDate.dayOfMonth
+                        localDate.dayOfMonth,
                     )
                     Notification(
                         date = formattedDate,

@@ -23,6 +23,7 @@ import androidx.navigation3.ui.NavDisplay
 import com.keelim.arducon.ui.screen.deeplink.CreateDeepLinkRoute
 import com.keelim.arducon.ui.screen.main.MainRoute
 import com.keelim.arducon.ui.screen.ogtag.OgTagPreviewRoute
+import com.keelim.arducon.ui.screen.playground.PlaygroundRoute
 import com.keelim.arducon.ui.screen.qr.QrRoute
 import com.keelim.arducon.ui.screen.saastatus.main.SaastatusRoute
 import com.keelim.arducon.ui.screen.search.SearchRoute
@@ -95,6 +96,9 @@ fun ArduConHost(
                     onNavigateStats = {
                         backStack.add(ArduconRoute.Stats)
                     },
+                    onNavigatePlayground = {
+                        backStack.add(ArduconRoute.Playground)
+                    },
                 )
             }
             entry<ArduconRoute.Qr> {
@@ -150,6 +154,11 @@ fun ArduConHost(
             }
             entry<ArduconRoute.Stats> {
                 StatsScreen()
+            }
+            entry<ArduconRoute.Playground> {
+                PlaygroundRoute(
+                    onNavigateBack = { backStack.removeLastOrNull() },
+                )
             }
         },
     )

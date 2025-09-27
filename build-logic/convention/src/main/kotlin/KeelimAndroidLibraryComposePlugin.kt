@@ -14,6 +14,7 @@ class KeelimAndroidLibraryComposePlugin : Plugin<Project> {
 
             apply(plugin = "com.android.library")
             apply(plugin = "org.jetbrains.kotlin.plugin.compose")
+            apply(plugin = "org.jetbrains.kotlin.plugin.compose")
 
             configureAndroidCompose(
                 commonExtension = extensions.getByType<LibraryExtension>(),

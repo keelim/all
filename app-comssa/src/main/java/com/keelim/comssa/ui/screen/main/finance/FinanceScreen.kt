@@ -130,16 +130,16 @@ private fun PreviewFinanceScreen() {
                     description = "삼성전자 주가가 전일 대비 2% 상승했습니다.",
                     link = "https://example.com",
                     source = "한국경제",
-                    category = "주식"
+                    category = "주식",
                 ),
                 FinanceRssItem(
                     title = "비트코인 가격 변동",
                     description = "비트코인 가격이 5만 달러를 돌파했습니다.",
                     link = "https://example.com",
                     source = "코인데스크",
-                    category = "암호화폐"
-                )
-            )
+                    category = "암호화폐",
+                ),
+            ),
         ),
         updateFilter = {},
         updateSource = {},

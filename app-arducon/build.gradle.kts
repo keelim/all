@@ -23,6 +23,7 @@ dependencies {
     implementation(projects.core.data)
     implementation(projects.core.navigation)
     implementation(projects.feature.uiScheme)
+    implementation(projects.feature.uiSetting)
 
     implementation(projects.widget)
 
@@ -41,7 +42,6 @@ dependencies {
     implementation(libs.play.services.code.scanner)
     implementation(libs.timber)
     implementation(libs.jsoup)
-    implementation(libs.zxing)
     implementation(libs.tehras.chart)
 
     testImplementation(projects.core.testing)

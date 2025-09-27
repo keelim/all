@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LengthViewModel @Inject constructor(
-    private val repository: LengthRepository
+    private val repository: LengthRepository,
 ) : ViewModel() {
     private val _records = MutableStateFlow<List<LengthRecord>>(emptyList())
     val records: StateFlow<List<LengthRecord>> = _records.asStateFlow()
@@ -39,4 +39,4 @@ class LengthViewModel @Inject constructor(
             fetchRecords()
         }
     }
-} 
+}

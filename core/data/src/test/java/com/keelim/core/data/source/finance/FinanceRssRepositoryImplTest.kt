@@ -143,14 +143,14 @@ class FinanceRssRepositoryImplTest {
                 name = "활성화된 소스",
                 url = "https://active.com/feed",
                 category = FinanceCategory.ECONOMY,
-                isEnabled = true
+                isEnabled = true,
             ),
             FinanceSource(
                 name = "비활성화된 소스",
                 url = "https://inactive.com/feed",
                 category = FinanceCategory.STOCK,
-                isEnabled = false
-            )
+                isEnabled = false,
+            ),
         )
 
         // 실제 네트워크 호출 없이 테스트하기 위해 예외를 발생시켜 캐시 폴백 테스트

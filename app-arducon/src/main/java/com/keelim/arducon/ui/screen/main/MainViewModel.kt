@@ -1,15 +1,11 @@
 package com.keelim.arducon.ui.screen.main
 
 import android.graphics.Bitmap
-import android.graphics.Color
-import androidx.core.graphics.createBitmap
-import androidx.core.graphics.set
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.zxing.BarcodeFormat
-import com.google.zxing.qrcode.QRCodeWriter
 import com.keelim.common.Dispatcher
 import com.keelim.common.KeelimDispatchers
+import com.keelim.common.qr.generateQrBitmap
 import com.keelim.data.repository.ArduconRepository
 import com.keelim.model.DeepLink
 import com.keelim.scheme.notification.SchemeNotificationManager
@@ -196,9 +192,7 @@ class MainViewModel @Inject constructor(
         _qrDialogState.value = QrDialogState.Loading(deepLink)
         viewModelScope.launch {
             try {
-                val bitmap = withContext(Dispatchers.Default) {
-                    generateQrBitmap(deepLink.url)
-                }
+                val bitmap = withContext(Dispatchers.Default) { generateQrBitmap(deepLink.url) }
                 delay(1_000)
                 _qrDialogState.value = QrDialogState.Success(deepLink, bitmap)
             } catch (e: Exception) {
@@ -211,17 +205,7 @@ class MainViewModel @Inject constructor(
         _qrDialogState.value = QrDialogState.Hidden
     }
 
-    private fun generateQrBitmap(content: String): Bitmap {
-        val size = 1024
-        val bits = QRCodeWriter().encode(content, BarcodeFormat.QR_CODE, size, size)
-        val bmp = createBitmap(size, size)
-        for (x in 0 until size) {
-            for (y in 0 until size) {
-                bmp[x, y] = if (bits[x, y]) Color.BLACK else Color.WHITE
-            }
-        }
-        return bmp
-    }
+    // generateQrBitmap moved to core-common util
 
     // 딥링크 사용 기록 저장
     fun recordDeepLinkUsage(deepLink: DeepLink) {

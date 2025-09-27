@@ -48,7 +48,7 @@ fun SchemeSearchSection(
                     modifier = Modifier.padding(horizontal = space16, vertical = space8),
                 )
             }
-            
+
             items(schemes) { scheme ->
                 SchemeItem(
                     scheme = scheme,

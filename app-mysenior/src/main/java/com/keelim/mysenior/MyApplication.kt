@@ -1,5 +1,8 @@
 package com.keelim.mysenior
 
-import android.app.Application
+import com.keelim.commonAndroid.BaseApplication
+import dagger.hilt.android.HiltAndroidApp
 
-class MyApplication : Application()
+@HiltAndroidApp
+class MyApplication : BaseApplication()
+

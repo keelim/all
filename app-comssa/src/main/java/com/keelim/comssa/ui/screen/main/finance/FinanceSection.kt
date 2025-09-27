@@ -2,11 +2,6 @@
 
 package com.keelim.comssa.ui.screen.main.finance
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -20,7 +15,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
@@ -30,19 +24,16 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.List
-import com.keelim.core.model.finance.FinanceRssItem
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FloatingActionButtonMenu
 import androidx.compose.material3.FloatingActionButtonMenuItem
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ShortNavigationBar
 import androidx.compose.material3.ShortNavigationBarItem
@@ -63,15 +54,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEach
 import androidx.compose.ui.util.trace
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.keelim.composeutil.component.fab.FabButtonItem
 import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
+import com.keelim.core.model.finance.FinanceRssItem
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 fun FinanceMainSection(
@@ -94,7 +86,7 @@ fun FinanceMainSection(
             item {
                 FinanceHeaderItem()
             }
-            
+
             items(items) { item ->
                 FinanceListItem(
                     item = item,
@@ -153,10 +145,10 @@ fun FinanceHeaderItem(modifier: Modifier = Modifier) = trace("FinanceHeaderItem"
                     ),
                 )
             }
-            
+
             // Icon temporarily removed
         }
-        
+
         Spacer(modifier = Modifier.height(space8))
         HorizontalDivider(
             color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.1f),
@@ -200,9 +192,9 @@ fun FinanceListItem(
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis,
                     )
-                    
+
                     Spacer(modifier = Modifier.height(space4))
-                    
+
                     Text(
                         text = item.description,
                         style = MaterialTheme.typography.bodyMedium,
@@ -211,7 +203,7 @@ fun FinanceListItem(
                         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
                     )
                 }
-                
+
                 if (item.isRecent) {
                     Box(
                         modifier = Modifier
@@ -223,9 +215,9 @@ fun FinanceListItem(
                     )
                 }
             }
-            
+
             Spacer(modifier = Modifier.height(space12))
-            
+
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -239,7 +231,7 @@ fun FinanceListItem(
                     ),
                     modifier = Modifier.clickable { onSourceClick(item.source) },
                 )
-                
+
                 Text(
                     text = item.category,
                     style = MaterialTheme.typography.bodySmall.copy(
@@ -307,8 +299,6 @@ fun FinanceFloatingButton(
             },
             text = { Text("새로고침") },
         )
-
-
 
         items.fastForEach { item ->
             FloatingActionButtonMenuItem(
@@ -380,7 +370,7 @@ private fun PreviewFinanceListItem() {
                 description = "삼성전자 주가가 전일 대비 2% 상승했습니다. 이는 최근 실적 개선과 새로운 제품 출시에 대한 기대감이 반영된 것으로 분석됩니다.",
                 link = "https://example.com",
                 source = "한국경제",
-                category = "주식"
+                category = "주식",
             ),
             onItemClick = {},
             onSourceClick = {},
@@ -400,18 +390,18 @@ private fun PreviewFinanceMainSection() {
                 description = "삼성전자 주가가 전일 대비 2% 상승했습니다.",
                 link = "https://example.com",
                 source = "한국경제",
-                category = "주식"
+                category = "주식",
             ),
             FinanceRssItem(
                 title = "비트코인 가격 변동",
                 description = "비트코인 가격이 5만 달러를 돌파했습니다.",
                 link = "https://example.com",
                 source = "코인데스크",
-                category = "암호화폐"
+                category = "암호화폐",
             ),
         ),
         onSourceClick = {},
         onItemClick = {},
         modifier = Modifier.background(MaterialTheme.colorScheme.surface),
     )
-} 
+}

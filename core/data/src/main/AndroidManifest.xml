@@ -24,9 +24,6 @@
             <meta-data
                 android:name="com.keelim.core.data.initialize.FirebaseDatabaseInitializer"
                 android:value="androidx.startup" />
-            <meta-data
-                android:name="com.keelim.core.data.initialize.FirebaseAppCheckInitializer"
-                android:value="androidx.startup" />
         </provider>
     </application>
 </manifest>

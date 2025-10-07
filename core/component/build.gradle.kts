@@ -3,15 +3,11 @@
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
-    alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.compose.multiplatform)
-    alias(libs.plugins.compose.compiler)
     alias(libs.plugins.android.library)
     alias(libs.plugins.keelim.multiplatform)
 }
 
 kotlin {
-    androidTarget()
     sourceSets {
         androidMain.dependencies {
             implementation(libs.accompanist.permissions)

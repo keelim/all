@@ -30,7 +30,6 @@ import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space2
 import com.keelim.composeutil.resource.space24
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Stable
 data class Profile(
@@ -139,19 +138,4 @@ private fun ProfileText(title: String, description: String) {
             style = MaterialTheme.typography.labelLarge,
         )
     }
-}
-
-@Preview
-@Composable
-fun PreviewProfileCard() {
-    ProfileCard(
-        profile =
-        Profile(
-            username = "Janelle Dickson",
-            snsId = "tortor",
-            userId = "fringilla",
-            date = "dicam",
-            time = "est",
-        ),
-    )
 }

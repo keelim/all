@@ -13,7 +13,6 @@ import androidx.compose.ui.layout.MeasurePolicy
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
 import com.keelim.composeutil.resource.space2
-import org.jetbrains.compose.ui.tooling.preview.Preview
 import kotlin.random.Random
 
 @Composable
@@ -67,12 +66,6 @@ private fun simpleFlexBoxMeasurePolicy(): MeasurePolicy =
         }
     }
 
-@Preview
-@Composable
-fun PreviewColorBox() {
-    ColorBox()
-}
-
 @Composable
 fun SimpleFlexBox(
     modifier: Modifier = Modifier,
@@ -83,14 +76,4 @@ fun SimpleFlexBox(
         content = content,
         measurePolicy = simpleFlexBoxMeasurePolicy(),
     )
-}
-
-@Preview
-@Composable
-fun PreviewSimpleFlexBox() {
-    SimpleFlexBox {
-        for (i in 0..1000) {
-            ColorBox()
-        }
-    }
 }

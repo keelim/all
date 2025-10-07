@@ -21,9 +21,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.sp
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
-@Preview
 @Composable
 fun OneTwoThreeRow() {
     Row {
@@ -42,7 +40,6 @@ fun OneTwoThreeRow() {
     }
 }
 
-@Preview
 @Composable
 fun OneTwoThreeRow2() {
     Row(horizontalArrangement = Arrangement.Center) {
@@ -61,7 +58,6 @@ fun OneTwoThreeRow2() {
     }
 }
 
-@Preview
 @Composable
 fun OneTwoThreeColumn() {
     Column {
@@ -80,7 +76,6 @@ fun OneTwoThreeColumn() {
     }
 }
 
-@Preview
 @Composable
 fun OneTwoThreeColumn2() {
     Column(verticalArrangement = Arrangement.Center) {

@@ -47,7 +47,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space8
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun SearchBar(
@@ -73,12 +72,6 @@ fun SearchBar(
     )
 }
 
-@Preview
-@Composable
-fun SearchBarPreview() {
-    SearchBar()
-}
-
 @Composable
 fun AlignYourBodyElement(
     modifier: Modifier = Modifier,
@@ -89,12 +82,6 @@ fun AlignYourBodyElement(
     ) {
         Text(text = "Sample")
     }
-}
-
-@Preview
-@Composable
-fun AlignYourBodyElementPreview() {
-    AlignYourBodyElement()
 }
 
 @Composable
@@ -118,12 +105,6 @@ fun FavoriteCollectionCard(
     }
 }
 
-@Preview
-@Composable
-fun FavoriteCollectionCardPreview() {
-    FavoriteCollectionCard()
-}
-
 @Composable
 fun AlignYourBodyRow(
     modifier: Modifier = Modifier,
@@ -137,12 +118,6 @@ fun AlignYourBodyRow(
             AlignYourBodyElement()
         }
     }
-}
-
-@Preview
-@Composable
-fun AlignYourBodyRowPreview() {
-    AlignYourBodyRow()
 }
 
 @Composable
@@ -166,14 +141,6 @@ fun HomeSection(
     }
 }
 
-@Preview
-@Composable
-fun HomeSectionPreview() {
-    HomeSection(title = "안녕하세요") {
-        AlignYourBodyRow()
-    }
-}
-
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier) {
     Column(
@@ -192,10 +159,4 @@ fun HomeScreen(modifier: Modifier = Modifier) {
         }
         Spacer(Modifier.height(space16))
     }
-}
-
-@Preview
-@Composable
-fun HomeScreenPreview() {
-    HomeScreen()
 }

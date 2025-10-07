@@ -84,11 +84,7 @@ fun ClockAnimation() {
     )
 }
 
-@Preview
-@Composable
-private fun ClockPreview() {
-    ClockAnimation()
-}
+
 
 private fun calculateClockHandLength(maxHeight: Float, currentHour: Int): Float {
     val stepHeight = maxHeight / 12

@@ -42,7 +42,6 @@ import androidx.compose.ui.unit.dp
 import com.keelim.composeutil.resource.space24
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 private fun Greeting(name: String) {
@@ -79,21 +78,11 @@ private fun Greeting(name: String) {
 }
 
 @Composable
-private fun Greetings(names: List<String> = List(1000) { "$it" }) {
+fun Greetings(names: List<String> = List(1000) { "$it" }) {
     LazyColumn(modifier = Modifier.padding(vertical = space4)) {
         items(items = names) { name ->
             Greeting(name = name)
         }
-    }
-}
-
-@Preview
-@Composable
-fun GreetingPreview() {
-    Column(
-        modifier = Modifier.padding(vertical = space4),
-    ) {
-        Greetings()
     }
 }
 
@@ -117,9 +106,4 @@ fun OnBoarding() {
             }
         }
     }
-}
-
-@Composable
-fun OnBoardingPreview() {
-    OnBoarding()
 }

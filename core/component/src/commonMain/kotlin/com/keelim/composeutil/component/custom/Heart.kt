@@ -43,7 +43,6 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.keelim.composeutil.resource.space24
-import org.jetbrains.compose.ui.tooling.preview.Preview
 import kotlin.random.Random
 
 @Composable
@@ -159,43 +158,6 @@ fun Path.heartPath(size: Size): Path {
         height / 5,
     )
     return this
-}
-
-@Preview
-@Composable
-fun HeartScreen() {
-    val heartCount = remember { mutableIntStateOf(0) }
-
-    Box(modifier = Modifier.fillMaxSize()) {
-        repeat(heartCount.intValue) {
-            Heart(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .align(Alignment.BottomCenter)
-                    .padding(bottom = 36.dp),
-                horizontalPadding = 24,
-                bottomMargin = 110,
-                width = 360,
-                height = 640,
-            )
-        }
-
-        Button(
-            onClick = {
-                heartCount.intValue++
-            },
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(space24)
-                .wrapContentHeight()
-                .wrapContentWidth(),
-        ) {
-            Text(
-                text = "Like",
-                color = Color.White,
-            )
-        }
-    }
 }
 
 enum class HearState {

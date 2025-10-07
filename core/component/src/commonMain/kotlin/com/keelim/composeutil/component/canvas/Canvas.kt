@@ -9,7 +9,6 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.LayoutDirection
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun Circle(
@@ -22,12 +21,6 @@ fun Circle(
             color = color,
         )
     }
-}
-
-@Preview
-@Composable
-fun PreviewCircle() {
-    Circle(Color.Red)
 }
 
 @Composable
@@ -45,10 +38,4 @@ fun SemiRect(color: Color, lookingLeft: Boolean = true) {
 
         drawRect(size = size, topLeft = offset, color = color)
     }
-}
-
-@Preview
-@Composable
-fun PreviewSemiRect() {
-    SemiRect(Color.Red)
 }

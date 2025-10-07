@@ -92,17 +92,4 @@ fun PieChart(
     }
 }
 
-@Preview
-@Composable
-fun PreviewPieChart() {
-    PieChart(
-        listOf(
-            PieChartEntry(name = "1", randomColor(), 0.5f),
-            PieChartEntry(name = "1", randomColor(), 0.3f),
-            PieChartEntry(name = "1", randomColor(), 0.2f),
-        ),
-        radiusOuter = 20.dp,
-        chartBarWidth = 20.dp,
-        duration = 5892,
-    )
-}
+

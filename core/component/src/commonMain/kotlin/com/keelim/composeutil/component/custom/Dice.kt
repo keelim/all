@@ -30,7 +30,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.keelim.composeutil.resource.space16
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun Roll() {
@@ -41,7 +40,6 @@ fun Roll() {
     )
 }
 
-@Preview
 @Composable
 fun DiceWithButtonAndImage(modifier: Modifier = Modifier) {
     var result by remember { mutableIntStateOf(1) }

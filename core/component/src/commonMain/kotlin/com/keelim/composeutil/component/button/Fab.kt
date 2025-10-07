@@ -18,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space8
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun FabScreen() {
@@ -74,10 +73,4 @@ fun ExtendedFAB() {
         expanded = true,
         containerColor = Color.Green,
     )
-}
-
-@Preview
-@Composable
-private fun FabScreenPreview() {
-    FabScreen()
 }

@@ -17,7 +17,6 @@
 
 package com.keelim.composeutil.screen
 
-import androidx.annotation.StringRes
 import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -45,14 +44,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.keelim.compose.core.R
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space24
 import com.keelim.composeutil.resource.space32
@@ -73,13 +70,13 @@ fun TipTimeScreen() {
         verticalArrangement = Arrangement.spacedBy(space8),
     ) {
         Text(
-            text = stringResource(R.string.appname),
+            text = "compose",
             fontSize = 24.sp,
             modifier = Modifier.align(Alignment.CenterHorizontally),
         )
         Spacer(Modifier.height(space16))
         EditNumberField(
-            label = R.string.appname,
+            label = "compose",
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Next,
@@ -98,7 +95,7 @@ fun TipTimeScreen() {
         RoundTheTipRow(roundUp = roundUp, onRoundUpChanged = { roundUp = it })
         Spacer(Modifier.height(space24))
         Text(
-            text = stringResource(R.string.appname, tip),
+            text = "compose",
             modifier = Modifier.align(Alignment.CenterHorizontally),
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
@@ -108,7 +105,7 @@ fun TipTimeScreen() {
 
 @Composable
 fun EditNumberField(
-    @StringRes label: Int,
+    label: String,
     keyboardOptions: KeyboardOptions,
     keyboardActions: KeyboardActions,
     value: String,
@@ -117,7 +114,7 @@ fun EditNumberField(
     TextField(
         value = value,
         onValueChange = onValueChange,
-        label = { Text(stringResource(label)) },
+        label = { Text(label) },
         modifier = Modifier.fillMaxWidth(),
         singleLine = true,
         keyboardOptions = keyboardOptions,
@@ -137,7 +134,7 @@ fun RoundTheTipRow(
             .size(48.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Text(text = stringResource(id = R.string.appname))
+        Text(text = "compose")
         Switch(
             modifier = modifier
                 .fillMaxWidth()

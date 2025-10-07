@@ -22,10 +22,12 @@ kotlin {
             implementation(libs.androidx.navigation.compose)
             implementation(libs.inapp.update)
             implementation(libs.material.themAdapter)
-            implementation(project.dependencies.platform(libs.coil.bom))
+            implementation(libs.bundles.compose)
             implementation(libs.bundles.coil)
             implementation(libs.androidx.media.compose)
+            implementation(libs.kotlinx.collections.immutable)
             implementation(libs.androidx.media.exoplayer)
+            implementation(project.dependencies.platform(libs.androidx.compose.bom))
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -35,6 +37,7 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
+            implementation(project.dependencies.platform(libs.coil.bom))
         }
     }
 }

@@ -13,21 +13,6 @@ android {
 }
 
 dependencies {
-    implementation(libs.accompanist.permissions)
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.emoji2.emojipicker)
-    implementation(libs.androidx.hilt.navigation.compose)
-    implementation(libs.androidx.lifecycle.runtime.compose)
-    implementation(libs.androidx.navigation.compose)
-    implementation(libs.inapp.update)
-    implementation(libs.material.themAdapter)
-    implementation(platform(libs.coil.bom))
-    implementation(libs.bundles.coil)
-    implementation(libs.androidx.media.compose)
-    implementation(libs.androidx.media.exoplayer)
-
-    debugImplementation(libs.androidx.compose.ui.testManifest)
-    androidTestImplementation(libs.androidx.compose.ui.test)
 
     api(projects.core.component)
 }

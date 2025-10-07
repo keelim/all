@@ -7,7 +7,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun SimpleSnackBar(message: String) {
@@ -17,10 +16,4 @@ fun SimpleSnackBar(message: String) {
     SnackbarHost(hostState = hostState) { snackbarData ->
         Snackbar { Text(text = snackbarData.visuals.message) }
     }
-}
-
-@Preview
-@Composable
-fun PreviewSimpleSnackbar() {
-    SimpleSnackBar(message = "hello world")
 }

@@ -33,7 +33,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space8
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Stable
 interface FabButtonItem {
@@ -124,24 +123,6 @@ fun MultiSubFab(
             )
         }
     }
-}
-
-@Preview
-@Composable
-private fun PreviewSubFab() {
-    MultiSubFab(
-        item = object : FabButtonItem {
-            override val imageVector: ImageVector
-                get() = Icons.Filled.Add
-            override val label: String
-                get() = "Add"
-        },
-        option = FabButtonSub(
-            backgroundTint = Color(0xFFE91E63),
-            iconTint = Color.White,
-        ),
-        onClick = {},
-    )
 }
 
 @Composable

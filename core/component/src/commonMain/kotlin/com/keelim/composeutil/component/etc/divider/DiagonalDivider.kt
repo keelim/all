@@ -2,7 +2,6 @@ package com.keelim.composeutil.component.etc.divider
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.DividerDefaults
 import androidx.compose.runtime.Composable
@@ -10,8 +9,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun DiagnoalDivider(
@@ -28,17 +25,5 @@ fun DiagnoalDivider(
         strokeWidth = thickness.toPx(),
         start = Offset(startRatio, size.height),
         end = Offset(endRatio, 0f),
-    )
-}
-
-@Preview
-@Composable
-fun PreviewDiagnoalDivider() {
-    DiagnoalDivider(
-        width = 100.dp,
-        ratio = 0.2f,
-        modifier = Modifier.height(32.dp),
-        thickness = 2.dp,
-        color = Color.Red,
     )
 }

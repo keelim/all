@@ -3,7 +3,6 @@ package com.keelim.composeutil.component.row
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.Layout
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 enum class OverlappingState {
     Normal,
@@ -40,16 +39,6 @@ fun OverlappingRow(
                     x += (placeable.width * factor).toInt()
                 }
             }
-        },
-    )
-}
-
-@Preview
-@Composable
-fun PreviewOverlappingRow() {
-    OverlappingRow(
-        content = {
-            // Your content here
         },
     )
 }

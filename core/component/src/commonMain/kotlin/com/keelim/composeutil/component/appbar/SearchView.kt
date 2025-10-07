@@ -15,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun SearchView(
@@ -60,10 +59,4 @@ fun SearchView(
         keyboardActions = KeyboardActions(onSearch = { onSearch() }),
         modifier = modifier,
     )
-}
-
-@Preview
-@Composable
-fun SearchViewPreview() {
-    SearchView(query = "Test", onQueryChanged = { }, onSearch = { }, onClearQuery = { })
 }

@@ -39,8 +39,4 @@ fun SearchBar(
     )
 }
 
-@Preview
-@Composable
-fun PreviewSearchBar() {
-    SearchBar(value = "electram", onValueChange = {}, placeHolder = "inani")
-}
+

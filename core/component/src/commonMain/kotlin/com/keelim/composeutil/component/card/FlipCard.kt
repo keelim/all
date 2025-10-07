@@ -31,7 +31,6 @@ import androidx.compose.ui.unit.dp
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space8
 import com.keelim.composeutil.util.randomColor
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun FlipCard(
@@ -74,7 +73,7 @@ fun FlipCard(
 }
 
 @Composable
-private fun FrontCard(
+fun FrontCard(
     title: String,
     name: String,
     description: String,
@@ -140,7 +139,7 @@ private fun FrontCard(
 }
 
 @Composable
-private fun BackCard(
+fun BackCard(
     title: String,
     subtitle: String,
     modifier: Modifier = Modifier,
@@ -190,36 +189,4 @@ private fun BackCard(
             )
         }
     }
-}
-
-@Preview
-@Composable
-fun PreviewFlipCard() {
-    FlipCard(
-        title = "ullamcorper",
-        name = "Meghan Roberson",
-        description = "arcu",
-        title2 = "elementum",
-        subtitle = "natum",
-    )
-}
-
-@Preview
-@Composable
-fun PreviewFontCard() {
-    FrontCard(
-        title = "ullamcorper",
-        name = "Meghan Roberson",
-        description = "arcu",
-        color = randomColor(),
-    )
-}
-
-@Preview
-@Composable
-fun PreviewBackCard() {
-    BackCard(
-        title = "elementum",
-        subtitle = "natum",
-    )
 }

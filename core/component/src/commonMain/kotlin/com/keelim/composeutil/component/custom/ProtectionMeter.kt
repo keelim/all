@@ -20,7 +20,6 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.dp
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun ProtectionMeter(
@@ -134,15 +133,4 @@ fun ProtectionMeter(
             )
         }
     }
-}
-
-@Preview
-@Composable
-private fun PreviewProtectionMeter() {
-    ProtectionMeter(
-        inputValue = 32,
-        subTitle = "Protection",
-        progressColors = listOf(Color(0xFF00FF00), Color(0xFF00FFFF)),
-        innerGradient = Color(0xFF00FF00),
-    )
 }

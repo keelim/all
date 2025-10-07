@@ -24,7 +24,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun TemperatureView(
@@ -69,12 +68,6 @@ fun TemperatureView(
     }
 }
 
-@Preview
-@Composable
-private fun TemperatureViewPreview() {
-    TemperatureView(false, "", {}, {})
-}
-
 @Composable
 fun InputRow(
     isFahrenheit: Boolean,
@@ -114,10 +107,4 @@ fun InputRow(
             Text(if (visible) "\u2109" else "\u2103", style = MaterialTheme.typography.titleLarge)
         }
     }
-}
-
-@Preview
-@Composable
-private fun InputRowPreview() {
-    InputRow(false, "", {}, {})
 }

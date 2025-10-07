@@ -15,8 +15,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import com.keelim.composeutil.resource.space2
-import com.keelim.composeutil.resource.space4
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun DotIndicator(size: Dp, color: Color, modifier: Modifier = Modifier) {
@@ -26,12 +24,6 @@ fun DotIndicator(size: Dp, color: Color, modifier: Modifier = Modifier) {
             .clip(CircleShape)
             .background(color),
     )
-}
-
-@Preview
-@Composable
-private fun DotIndicatorPreview() {
-    DotIndicator(size = space4, color = Color.Black)
 }
 
 @Composable
@@ -64,14 +56,4 @@ fun DotsIndicator(
             }
         }
     }
-}
-
-@Preview
-@Composable
-private fun DotsIndicatorPreview() {
-    DotsIndicator(
-        dotCount = 5,
-        dotSize = space4,
-        selectedIndex = 3,
-    )
 }

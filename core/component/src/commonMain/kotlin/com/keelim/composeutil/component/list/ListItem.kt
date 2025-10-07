@@ -5,13 +5,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.PlayArrow
@@ -27,7 +24,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.keelim.composeutil.resource.space16
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 data class AppItem(
     val message: String,
@@ -92,42 +88,6 @@ fun ListItem(
                     )
                 }
             }
-        }
-    }
-}
-
-@Preview
-@Composable
-private fun PreviewListItem(
-    mockItems: List<AppItem> = (0..20).map { index ->
-        AppItem(
-            id = index,
-            message = "index $index",
-            state = if (index % 2 == 0) ItemState.Visible else ItemState.Progress,
-        )
-    },
-) {
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White),
-        verticalArrangement = Arrangement.Top,
-    ) {
-        items(
-            items = mockItems,
-            key = { it.id },
-        ) { item ->
-            ListItem(
-                item = item,
-                backgroundColor =
-                if (item.id % 2 == 0) {
-                    Color.LightGray
-                } else {
-                    Color.White
-                },
-                onItemClick = {
-                },
-            )
         }
     }
 }

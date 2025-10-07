@@ -12,12 +12,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.rounded.ArrowBack
-import androidx.compose.material.icons.automirrored.rounded.ArrowForward
-import androidx.compose.material.icons.rounded.CheckCircle
-import androidx.compose.material.icons.rounded.Close
-import androidx.compose.material.icons.rounded.Share
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -36,8 +30,6 @@ import com.keelim.composeutil.resource.space2
 import com.keelim.composeutil.resource.space24
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
-import com.keelim.composeutil.util.randomColor
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Immutable
 data class Timeline(
@@ -93,49 +85,4 @@ fun SimpleTimeline(
             }
         }
     }
-}
-
-@Preview
-@Composable
-private fun PreviewSimpleTimeline() {
-    SimpleTimeline(
-        items = listOf(
-            Timeline(
-                randomColor(),
-                Icons.AutoMirrored.Rounded.ArrowForward,
-                "Sent $50 to John",
-                "Sep 20",
-            ),
-            Timeline(
-                randomColor(),
-                Icons.AutoMirrored.Rounded.ArrowBack,
-                "Received $30 from Sarah",
-                "Sep 18",
-            ),
-            Timeline(
-                randomColor(),
-                Icons.Rounded.Share,
-                "Pending payment of $25 to Alex",
-                "Sep 16",
-            ),
-            Timeline(
-                randomColor(),
-                Icons.Rounded.Close,
-                "Cancelled payment to Lisa",
-                "Sep 14",
-            ),
-            Timeline(
-                randomColor(),
-                Icons.AutoMirrored.Rounded.ArrowForward,
-                "Sent $70 to Robert",
-                "Sep 12",
-            ),
-            Timeline(
-                randomColor(),
-                Icons.Rounded.CheckCircle,
-                "Opened account",
-                "Sep 10",
-            ),
-        ),
-    )
 }

@@ -11,7 +11,7 @@ android {
 dependencies {
 
     api(projects.core.common)
-    api(projects.core.composeCore)
+    api(projects.core.component)
     api(projects.shared)
     implementation(projects.core.dataApi)
     implementation(projects.core.data)

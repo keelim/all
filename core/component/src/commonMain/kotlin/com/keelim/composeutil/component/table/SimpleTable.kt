@@ -106,8 +106,4 @@ fun RowScope.TableCell(
     )
 }
 
-@Preview
-@Composable
-fun PreviewSimpleTableScreen() {
-    SimpleTableScreen()
-}
+

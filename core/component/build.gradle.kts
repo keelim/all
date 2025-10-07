@@ -22,7 +22,7 @@ kotlin {
             implementation(libs.androidx.navigation.compose)
             implementation(libs.inapp.update)
             implementation(libs.material.themAdapter)
-            implementation(platform(libs.coil.bom))
+            implementation(project.dependencies.platform(libs.coil.bom))
             implementation(libs.bundles.coil)
             implementation(libs.androidx.media.compose)
             implementation(libs.androidx.media.exoplayer)

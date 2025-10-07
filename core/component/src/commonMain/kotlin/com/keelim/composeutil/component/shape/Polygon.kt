@@ -1,20 +1,11 @@
 package com.keelim.composeutil.component.shape
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
-import androidx.compose.ui.unit.dp
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 class Polygon(val slides: Int, val rotation: Float = 0f) : Shape {
     override fun createOutline(
@@ -41,17 +32,5 @@ class Polygon(val slides: Int, val rotation: Float = 0f) : Shape {
         // }
         // close()
         // },
-    )
-}
-
-@Preview
-@Composable
-fun PreviewPolygon() {
-    Image(
-        imageVector = Icons.Filled.Check,
-        contentDescription = null,
-        modifier = Modifier
-            .size(100.dp)
-            .clip(Polygon(3, 0f)),
     )
 }

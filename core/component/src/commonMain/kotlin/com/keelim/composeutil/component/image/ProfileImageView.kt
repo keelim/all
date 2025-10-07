@@ -45,7 +45,6 @@ import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space2
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun ProfileImage(
@@ -60,12 +59,6 @@ fun ProfileImage(
         shadowElevation = space4,
     ) {
     }
-}
-
-@Preview
-@Composable
-private fun ProfileImagePreview() {
-    ProfileImage()
 }
 
 @Composable
@@ -95,12 +88,6 @@ fun ProfileDescription() {
             color = Color.Black,
         )
     }
-}
-
-@Preview
-@Composable
-private fun ProfileDescriptionPreview() {
-    ProfileDescription()
 }
 
 @Composable
@@ -133,10 +120,4 @@ fun ProfileCard() {
             }
         }
     }
-}
-
-@Preview
-@Composable
-private fun ProfileCardPreview() {
-    ProfileCard()
 }

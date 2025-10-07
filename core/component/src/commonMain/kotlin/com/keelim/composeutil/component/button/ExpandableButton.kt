@@ -21,7 +21,6 @@ import androidx.compose.ui.unit.dp
 import com.keelim.composeutil.resource.space24
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun ExpandableButton(
@@ -74,16 +73,4 @@ fun ExpandableButton(
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun PreviewExpandableButton() {
-    ExpandableButton(
-        title = "pellentesque",
-        subtitle = "parturient",
-        buttonHint = "postea",
-        clickedButtonHint = "periculis",
-        onClick = {},
-    )
 }

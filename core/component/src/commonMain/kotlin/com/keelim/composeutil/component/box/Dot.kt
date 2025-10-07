@@ -25,7 +25,6 @@ import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 import com.keelim.composeutil.resource.space12
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun RedDot(
@@ -53,12 +52,6 @@ fun RedDot(
             .clip(CircleShape)
             .background(Color.Red),
     )
-}
-
-@Preview
-@Composable
-fun PreviewRedDot() {
-    RedDot()
 }
 
 @Composable
@@ -105,10 +98,4 @@ fun GradientDot(
             }
             .size(125.dp),
     )
-}
-
-@Preview
-@Composable
-fun PreviewGradientDot() {
-    GradientDot()
 }

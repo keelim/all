@@ -17,7 +17,6 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
-import org.jetbrains.compose.ui.tooling.preview.Preview
 import kotlin.math.roundToInt
 
 @Composable
@@ -48,10 +47,4 @@ fun MoveBox(modifier: Modifier = Modifier) {
                 .size(40.dp),
         )
     }
-}
-
-@Preview
-@Composable
-fun PreviewMoveBox() {
-    MoveBox()
 }

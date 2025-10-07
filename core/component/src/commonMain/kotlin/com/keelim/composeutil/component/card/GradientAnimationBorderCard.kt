@@ -7,11 +7,9 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -21,7 +19,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.unit.dp
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun GradientAnimationBorderCard(
@@ -61,23 +58,5 @@ fun GradientAnimationBorderCard(
             shape = CircleShape,
             content = content,
         )
-    }
-}
-
-@Preview
-@Composable
-fun PreviewGradientAnimationBorderCard() {
-    Column {
-        GradientAnimationBorderCard(
-            colors = listOf(Color.Red, Color.Blue),
-            duration = 5000,
-            onClick = {},
-            modifier = Modifier.padding(16.dp),
-        ) {
-            Text(
-                modifier = Modifier.padding(16.dp),
-                text = "Hello, World!",
-            )
-        }
     }
 }

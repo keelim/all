@@ -72,7 +72,7 @@ fun KeelimTheme(
     }
 
     MaterialExpressiveTheme(
-        typography = keelimTypography,
+        // typography = keelimTypography,
         colorScheme = colorScheme,
         content = content,
     )

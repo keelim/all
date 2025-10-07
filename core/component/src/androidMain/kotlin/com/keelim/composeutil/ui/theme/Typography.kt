@@ -6,12 +6,13 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.googlefonts.Font
 import androidx.compose.ui.text.googlefonts.GoogleFont
-import com.keelim.compose.core.R
 
 private val provider = GoogleFont.Provider(
     providerAuthority = "com.google.android.gms.fonts",
     providerPackage = "com.google.android.gms",
-    certificates = R.array.com_google_android_gms_fonts_certs,
+    // TODO: please fix me google cert fonts
+    certificates = 0,
+    // certificates = R.array.com_google_android_gms_fonts_certs,
 )
 
 private fun KeelimFont(name: String = "Noto Sans KR", weight: FontWeight): Font {

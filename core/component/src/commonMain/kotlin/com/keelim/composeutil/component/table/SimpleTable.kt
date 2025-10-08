@@ -19,7 +19,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.keelim.composeutil.resource.space8
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Stable
 data class Columns(
@@ -105,5 +104,3 @@ fun RowScope.TableCell(
         textAlign = alignment,
     )
 }
-
-

@@ -8,4 +8,3 @@ import androidx.compose.ui.tooling.preview.Preview
 fun PreviewSearchBar() {
     SearchBar(value = "electram", onValueChange = {}, placeHolder = "inani")
 }
-

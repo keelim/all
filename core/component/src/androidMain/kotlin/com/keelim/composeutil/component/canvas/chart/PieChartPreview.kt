@@ -19,4 +19,3 @@ fun PreviewPieChart() {
         duration = 5892,
     )
 }
-

@@ -8,4 +8,3 @@ import androidx.compose.ui.tooling.preview.Preview
 private fun PreviewSwipeToDismiss() {
     SwipeToDismiss()
 }
-

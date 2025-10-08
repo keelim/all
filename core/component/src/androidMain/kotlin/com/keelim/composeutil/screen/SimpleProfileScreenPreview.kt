@@ -14,4 +14,3 @@ fun PreviewInfo() {
 fun PreviewProfileCard() {
     ProfileCard()
 }
-

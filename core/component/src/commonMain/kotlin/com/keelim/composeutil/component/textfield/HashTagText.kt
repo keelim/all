@@ -56,5 +56,3 @@ fun HashTagTextField(
         )
     }
 }
-
-

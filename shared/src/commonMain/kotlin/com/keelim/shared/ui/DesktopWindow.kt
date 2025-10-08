@@ -10,11 +10,11 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun DesktopWindow(
     onCloseRequest: () -> Unit,
-    content: @Composable FrameWindowScope.() -> Unit
+    content: @Composable FrameWindowScope.() -> Unit,
 ) {
     Window(
         onCloseRequest = onCloseRequest,
         title = stringResource(Res.string.project),
-        content = content
+        content = content,
     )
 }

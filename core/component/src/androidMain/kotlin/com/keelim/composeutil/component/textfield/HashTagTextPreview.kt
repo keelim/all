@@ -43,4 +43,3 @@ fun SampleHashTagScreen() {
 fun PreviewSampleHashTagScreen() {
     SampleHashTagScreen()
 }
-

@@ -22,4 +22,3 @@ fun GreetingPreview() {
 fun OnBoardingPreview() {
     OnBoarding()
 }
-

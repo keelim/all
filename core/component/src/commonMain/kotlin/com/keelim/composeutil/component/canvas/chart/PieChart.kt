@@ -23,8 +23,6 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEachIndexed
-import com.keelim.composeutil.util.randomColor
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Stable
 data class PieChartEntry(
@@ -91,5 +89,3 @@ fun PieChart(
         }
     }
 }
-
-

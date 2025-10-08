@@ -115,7 +115,6 @@ fun SettingScreen(
                 displayKey = "logcat",
                 value = "",
             )
-
         }
     }
 }

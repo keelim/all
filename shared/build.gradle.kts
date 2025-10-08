@@ -1,7 +1,6 @@
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
-    alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.android.library)
     alias(libs.plugins.keelim.android.application.room)
     kotlin("plugin.serialization")
@@ -26,6 +25,7 @@ kotlin {
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.okio)
             implementation(libs.circuit.foundation)
+            implementation(compose.components.resources)
 
             api(projects.core.resource)
             api(libs.androidx.dataStore.preferences)

@@ -21,6 +21,11 @@ kotlin {
     }
 }
 
+compose.resources {
+    publicResClass = true
+    packageOfResClass = "com.keelim.core.resource"
+}
+
 android {
     namespace = "com.keelim.core.resource"
     compileSdk = libs.versions.compileSdk.get().toInt()

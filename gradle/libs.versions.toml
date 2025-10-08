@@ -85,6 +85,7 @@ okhttp = "5.2.0"
 okio = "3.16.0"
 paging-compose = "3.3.6"
 play-services-auth = "21.4.0"
+play-services-auth-api-phone = "18.2.0"
 play-services-code-scanner = "16.1.0"
 play-services-location = "21.3.0"
 play-services-maps = "19.2.0"
@@ -292,6 +293,7 @@ okio = { group = "com.squareup.okio", name = "okio" }
 okio-bom = { group = "com.squareup.okio", name = "okio-bom", version.ref = "okio" }
 play-services-ad = { group = "com.google.android.gms", name = "play-services-ads", version.ref = "playad" }
 play-services-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "play-services-auth" }
+play-services-auth-api-phone = { group = "com.google.android.gms", name = "play-services-auth-api-phone", version.ref = "play-services-auth-api-phone" }
 play-services-code-scanner = { module = "com.google.android.gms:play-services-code-scanner", version.ref = "play-services-code-scanner" }
 play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "play-services-location" }
 play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "play-services-maps" }
@@ -412,4 +414,3 @@ keelim-android-hilt = {id = "keelim.android.hilt" }
 keelim-android-showkase = {id = "keelim.android.showkase" }
 keelim-jvm-library = {id = "keelim.jvm.library" }
 keelim-multiplatform = { id = "keelim.multiplatform" }
-

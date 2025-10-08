@@ -40,4 +40,3 @@ fun HomeSectionPreview() {
 fun HomeScreenPreview() {
     HomeScreen()
 }
-

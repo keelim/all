@@ -6,9 +6,8 @@ import com.keelim.shared.ui.DesktopWindow
 fun main() {
     application {
         DesktopWindow(
-            onCloseRequest = ::exitApplication
+            onCloseRequest = ::exitApplication,
         ) {
-            
         }
     }
 }

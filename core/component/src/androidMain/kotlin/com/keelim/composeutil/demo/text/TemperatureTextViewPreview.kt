@@ -14,4 +14,3 @@ private fun TemperatureViewPreview() {
 private fun InputRowPreview() {
     InputRow(false, "", {}, {})
 }
-

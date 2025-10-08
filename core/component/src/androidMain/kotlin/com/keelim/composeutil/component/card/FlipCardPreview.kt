@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.keelim.composeutil.util.randomColor
 
-
 @Preview
 @Composable
 fun PreviewFlipCard() {

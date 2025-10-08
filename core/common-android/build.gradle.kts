@@ -46,5 +46,7 @@ dependencies {
     testImplementation(libs.androidx.test.rules)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.hilt.android.testing)
-}
 
+    implementation(libs.play.services.auth)
+    implementation(libs.play.services.auth.api.phone)
+}

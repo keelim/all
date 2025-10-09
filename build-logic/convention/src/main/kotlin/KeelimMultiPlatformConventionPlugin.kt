@@ -3,6 +3,9 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
+import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.getByType
+import org.jetbrains.compose.ComposeExtension
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
@@ -14,8 +17,11 @@ class KeelimMultiPlatformConventionPlugin : Plugin<Project> {
             apply(plugin = libs.findPlugin("kotlinMultiplatform").get().get().pluginId)
             apply(plugin = libs.findPlugin("compose-multiplatform").get().get().pluginId)
             apply(plugin = libs.findPlugin("compose-compiler").get().get().pluginId)
+
+            val composeDependencies = extensions.getByType<ComposeExtension>().dependencies
             extensions.configure<KotlinMultiplatformExtension> {
                 jvm("desktop")
+                androidTarget()
                 if (project.name.contains("shared").not()) {
                     wasmJs {
                         outputModuleName.set("composeApp")
@@ -38,7 +44,23 @@ class KeelimMultiPlatformConventionPlugin : Plugin<Project> {
                         binaries.executable()
                     }
                 }
-                androidTarget()
+                sourceSets.apply {
+                    commonMain {
+                        dependencies {
+                            implementation(composeDependencies.runtime)
+                            implementation(composeDependencies.foundation)
+                            implementation(composeDependencies.material3)
+                            implementation(composeDependencies.materialIconsExtended)
+                            implementation(composeDependencies.ui)
+                            implementation(composeDependencies.components.resources)
+                            implementation(composeDependencies.components.uiToolingPreview)
+                        }
+                    }
+                }
+            }
+            dependencies {
+                "debugImplementation"(composeDependencies.uiTooling)
+                "debugImplementation"(composeDependencies.preview)
             }
         }
     }

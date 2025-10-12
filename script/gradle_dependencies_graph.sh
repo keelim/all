@@ -9,7 +9,6 @@ modules=(
     "core:common"
     "core:common-android"
     "core:component"
-    "core:compose-core"
     "core:data"
     "core:data-api"
     "core:database"

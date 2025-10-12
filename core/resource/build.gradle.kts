@@ -1,19 +1,9 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-
 plugins {
-    alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.android.library)
+    alias(libs.plugins.keelim.multiplatform)
 }
 
 kotlin {
-    androidTarget {
-        compilerOptions {
-            jvmTarget = JvmTarget.JVM_1_8
-        }
-    }
-
-    jvm("desktop")
-
     listOf(
         iosX64(),
         iosArm64(),
@@ -24,6 +14,16 @@ kotlin {
             isStatic = true
         }
     }
+    sourceSets {
+        commonMain.dependencies {
+            implementation(compose.components.resources)
+        }
+    }
+}
+
+compose.resources {
+    publicResClass = true
+    packageOfResClass = "com.keelim.core.resource"
 }
 
 android {

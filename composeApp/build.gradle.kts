@@ -2,12 +2,8 @@
 
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
-
 plugins {
-    alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.compose.hot.reload)
-    alias(libs.plugins.compose.multiplatform)
-    alias(libs.plugins.compose.compiler)
     alias(libs.plugins.android.application)
     alias(libs.plugins.keelim.multiplatform)
 }
@@ -17,13 +13,6 @@ kotlin {
     sourceSets {
         val desktopMain by getting
         commonMain.dependencies {
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material3)
-            implementation(compose.materialIconsExtended)
-            implementation(compose.ui)
-            implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
             implementation(projects.core.component)
         }
         desktopMain.dependencies {

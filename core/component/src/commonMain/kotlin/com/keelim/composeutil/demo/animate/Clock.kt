@@ -19,7 +19,6 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.layout.onGloballyPositioned
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun ClockAnimation() {
@@ -82,12 +81,6 @@ fun ClockAnimation() {
                 }
             },
     )
-}
-
-@Preview
-@Composable
-private fun ClockPreview() {
-    ClockAnimation()
 }
 
 private fun calculateClockHandLength(maxHeight: Float, currentHour: Int): Float {

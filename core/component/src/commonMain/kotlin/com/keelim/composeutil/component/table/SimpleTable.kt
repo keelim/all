@@ -19,7 +19,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.keelim.composeutil.resource.space8
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Stable
 data class Columns(
@@ -104,10 +103,4 @@ fun RowScope.TableCell(
         fontWeight = if (title) FontWeight.Bold else FontWeight.Normal,
         textAlign = alignment,
     )
-}
-
-@Preview
-@Composable
-fun PreviewSimpleTableScreen() {
-    SimpleTableScreen()
 }

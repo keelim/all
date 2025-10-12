@@ -20,7 +20,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.util.fastForEachIndexed
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun TabScreen() {
@@ -80,10 +79,4 @@ fun TabScreen() {
         //     2 -> SettingsScreen()
         // }
     }
-}
-
-@Preview
-@Composable
-private fun TabScreenPreview() {
-    TabScreen()
 }

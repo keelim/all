@@ -14,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.keelim.composeutil.resource.space2
 import kotlinx.coroutines.launch
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun VerticalListDemo() {
@@ -59,10 +58,4 @@ fun VerticalListDemo() {
             }
         }
     }
-}
-
-@Preview
-@Composable
-private fun VerticalListDemoPreview() {
-    VerticalListDemo()
 }

@@ -36,7 +36,6 @@ import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space8
 import com.keelim.composeutil.util.conditional
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 private val fillColor = Color(0xFFFFC107)
 private val emptyColor = Color(0xFFEEEEEE)
@@ -184,22 +183,4 @@ private fun RatingBar(
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun PreviewReviewsSection() {
-    ReviewsSection(
-        rating = 4.5f,
-        maxRating = 5,
-        totalReviews = "3",
-        reviews = listOf(
-            Review("5", 46),
-            Review("4", 28),
-            Review("3", 13),
-            Review("2", 9),
-            Review("1", 4),
-        ),
-        onMoreReviewsClick = { },
-    )
 }

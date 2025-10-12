@@ -15,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun SwipeToDismiss(
@@ -50,10 +49,4 @@ fun SwipeToDismiss(
             HorizontalDivider()
         }
     }
-}
-
-@Preview
-@Composable
-private fun PreviewSwipeToDismiss() {
-    SwipeToDismiss()
 }

@@ -11,7 +11,7 @@ android {
 dependencies {
 
     api(projects.core.common)
-    api(projects.core.composeCore)
+    api(projects.core.component)
     api(projects.shared)
     implementation(projects.core.dataApi)
     implementation(projects.core.data)
@@ -35,10 +35,7 @@ dependencies {
     implementation(libs.play.services.ad)
     implementation(libs.timber)
 
-    debugImplementation(libs.flipper)
-    debugImplementation(libs.flipper.leakcanary)
     debugImplementation(libs.leakcanary)
-    debugImplementation(libs.soloader)
 
     testImplementation(projects.core.testing)
     testImplementation(libs.androidx.test.core)
@@ -46,5 +43,7 @@ dependencies {
     testImplementation(libs.androidx.test.rules)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.hilt.android.testing)
-}
 
+    implementation(libs.play.services.auth)
+    implementation(libs.play.services.auth.api.phone)
+}

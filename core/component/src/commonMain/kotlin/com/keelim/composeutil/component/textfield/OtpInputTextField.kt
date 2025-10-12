@@ -19,7 +19,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.keelim.composeutil.resource.space2
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Stable
 data class Otp(val value: String)
@@ -62,10 +61,4 @@ fun OtpInputTextField(
             }
         }
     }
-}
-
-@Preview
-@Composable
-private fun PreviewOtpInputTextField() {
-    OtpInputTextField(otp = Otp(value = "alienum"), onOtpValueChange = {})
 }

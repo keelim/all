@@ -6,6 +6,8 @@ import org.gradle.kotlin.dsl.configure
 
 internal fun Project.configureDependencyGuard() {
     configure<DependencyGuardPluginExtension> {
-        configuration("releaseRuntimeClasspath")
+        configuration("releaseRuntimeClasspath") {
+            tree = true
+        }
     }
 }

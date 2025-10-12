@@ -16,7 +16,7 @@ jobs:
           java-version: "21"
 
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v5
         with:
           cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
           build-scan-publish: true
@@ -30,7 +30,8 @@ jobs:
         run: |
           echo '${{ secrets.GOOGLE_SERVICE_JSON }}' | base64 -d > ./app-comssa/google-services.json
           echo '${{ secrets.LOCAL_PROPERTIES }}' | base64 -d > ./local.properties
-          echo '${{ secrets.FONTS }}' | base64 -d > ./core/compose-core/src/main/res/values/font_certs.xml
+          mkdir -p ./core/component/src/commonMain/res/values/
+          echo '${{ secrets.FONTS }}' | base64 -d > ./core/component/src/commonMain/res/values/font_certs.xml
 
       - name: Build Release AAB
         id: buildRelease

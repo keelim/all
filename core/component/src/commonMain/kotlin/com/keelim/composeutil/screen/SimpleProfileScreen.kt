@@ -27,7 +27,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -55,18 +54,11 @@ import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space2
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun ImageProfile(modifier: Modifier = Modifier) {
     Surface {
     }
-}
-
-@Preview
-@Composable
-fun PreviewImageProfile() {
-    ImageProfile()
 }
 
 @Composable
@@ -92,12 +84,6 @@ fun Info() {
             modifier = Modifier.padding(3.dp),
         )
     }
-}
-
-@Preview
-@Composable
-fun PreviewInfo() {
-    Info()
 }
 
 @Composable
@@ -147,12 +133,6 @@ fun ProfileCard() {
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun PreviewProfileCard() {
-    ProfileCard()
 }
 
 @Composable
@@ -205,7 +185,6 @@ fun Portfolio(data: List<String>) {
                         .background(MaterialTheme.colorScheme.surface)
                         .padding(7.dp),
                 ) {
-                    ImageProfile(modifier = Modifier.size(50.dp))
                     Column(
                         modifier = Modifier
                             .padding(7.dp)

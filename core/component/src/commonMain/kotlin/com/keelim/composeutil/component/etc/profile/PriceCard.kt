@@ -26,7 +26,6 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Stable
 data class PriceCardState(
@@ -135,24 +134,6 @@ private fun DrawScope.drawCurvyLine() {
         style = Stroke(
             width = 50f,
             cap = StrokeCap.Round,
-        ),
-    )
-}
-
-@Preview
-@Composable
-fun PreviewPriceCard() {
-    PriceCard(
-        priceCardState = PriceCardState(
-            value = 2.3f,
-            suffix = "adolescens",
-            previews = listOf(
-                Pair("Jan", 15000f),
-                Pair("Feb", 20000f),
-                Pair("Mar", 38000f),
-                Pair("Apr", 8000f),
-                Pair("May", 10000f),
-            ),
         ),
     )
 }

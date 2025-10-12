@@ -26,10 +26,12 @@ class CrashlyticsTree : Timber.Tree() {
         if (priority == Log.VERBOSE || priority == Log.DEBUG || priority == Log.INFO) {
             return
         }
-        when {
-            t != null -> Firebase.crashlytics.recordException(t)
-            tag != null -> Firebase.crashlytics.log("$tag: $message")
-            else -> Firebase.crashlytics.log(message)
+        runCatching {
+            when {
+                t != null -> Firebase.crashlytics.recordException(t)
+                tag != null -> Firebase.crashlytics.log("$tag: $message")
+                else -> Firebase.crashlytics.log(message)
+            }
         }
     }
 }

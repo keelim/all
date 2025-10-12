@@ -11,7 +11,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun SampleCard() {
@@ -35,10 +34,4 @@ fun SampleCard() {
             )
         }
     }
-}
-
-@Preview
-@Composable
-private fun SampleCardPreview() {
-    SampleCard()
 }

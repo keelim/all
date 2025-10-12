@@ -10,7 +10,7 @@ android{
 
 dependencies {
     implementation(projects.core.common)
-    implementation(projects.core.composeCore)
+    implementation(projects.core.component)
     implementation(libs.androidx.activity.compose)
 }
 

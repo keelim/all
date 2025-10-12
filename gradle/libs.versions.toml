@@ -51,7 +51,6 @@ firebase = "33.16.0"
 firebase-ui = "9.0.0"
 firebaseCrashlyticsPlugin = "3.0.6"
 firebasePerfPlugin = "2.0.1"
-flipper = "0.273.0"
 generativeai = "0.9.0"
 glance = "1.1.1"
 glanceExperimentalTools = "0.2.2"
@@ -106,7 +105,6 @@ secrets = "2.0.1"
 showkase = "1.0.5"
 slackComposeLint = "1.4.2"
 slackLintChecks = "0.11.1"
-soloader = "0.12.1"
 store = "5.1.0-alpha07"
 tehras-chart = "0.2.4-alpha"
 themeAdapter = "1.2.1"
@@ -239,9 +237,6 @@ firebase-ui-auth = { group = "com.firebaseui", name = "firebase-ui-auth", versio
 firebase-ui-database = { group = "com.firebaseui", name = "firebase-ui-database", version.ref = "firebase-ui" }
 firebase-ui-firestore = { group = "com.firebaseui", name = "firebase-ui-firestore", version.ref = "firebase-ui" }
 firebase-ui-storage = { group = "com.firebaseui", name = "firebase-ui-storage", version.ref = "firebase-ui" }
-flipper = { group = "com.facebook.flipper", name = "flipper", version.ref = "flipper" }
-flipper-leakcanary = { group = "com.facebook.flipper", name = "flipper-leakcanary2-plugin", version.ref = "flipper" }
-flipper-noop = { group = "com.facebook.flipper", name = "flipper-noop", version.ref = "flipper" }
 fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "androidxFragment" }
 generativeai = { group = "com.google.ai.client.generativeai", name = "generativeai", version.ref = "generativeai" }
 glance-tools-appwidget-host = { group = "com.google.android.glance.tools", name = "appwidget-host", version.ref = "glanceExperimentalTools" }
@@ -316,7 +311,6 @@ showkase = { group = "com.airbnb.android", name = "showkase", version.ref = "sho
 showkase-processor = { group = "com.airbnb.android", name = "showkase-processor", version.ref = "showkase" }
 slack-compose-lint =  { group = "com.slack.lint.compose", name = "compose-lint-checks", version.ref = "slackComposeLint" }
 slack-lint-checks = { group = "com.slack.lint", name = "slack-lint-checks", version.ref = "slackLintChecks" }
-soloader = { group = "com.facebook.soloader", name = "soloader", version.ref = "soloader" }
 store = { group = "org.mobilenativefoundation.store", name = "store5", version.ref = "store" }
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timbers" }
 truth = { module = "com.google.truth:truth", version.ref = "truth" }

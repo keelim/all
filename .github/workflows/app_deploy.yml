@@ -92,7 +92,7 @@ jobs:
           releaseFiles: app-cnubus/build/outputs/bundle/release/app-cnubus-release.aab
           track: production
           status: completed
-          changesNotSentForReview: true
+          changesNotSentForReview: false
 
       - name: Sign MyGrade AAB
         id: sign_mygrade
@@ -115,7 +115,7 @@ jobs:
           releaseFiles: app-my-grade/build/outputs/bundle/release/app-my-grade-release.aab
           track: production
           status: completed
-          changesNotSentForReview: true
+          changesNotSentForReview: false
 
       - name: Sign Nanda AAB
         id: sign_nanda

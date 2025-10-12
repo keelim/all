@@ -24,7 +24,6 @@ androidxLifecycle = "2.9.4"
 androidxMacroBenchmark = "1.4.1"
 androidxMetrics = "1.0.0"
 androidxNavigation = "2.9.5"
-androidxNavigation3 = "1.0.0-alpha10"
 androidxPaging = "3.3.6"
 androidxProfileinstaller = "1.4.1"
 androidxStartup = "1.2.0"
@@ -172,7 +171,6 @@ androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lif
 androidx-lifecycle-rutime = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
 androidx-lifecycle-viewModel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "androidxLifecycle" }
 androidx-lifecycle-viewModelCompose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "androidxLifecycle" }
-androidx-lifecycle-viewmodel-navigation3 = { module = "androidx.lifecycle:lifecycle-viewmodel-navigation3", version.ref = "androidxNavigation3" }
 androidx-media-compose = { group = "androidx.media3", name = "media3-ui-compose", version.ref = "media3" }
 androidx-media-exoplayer = { group = "androidx.media3", name = "media3-exoplayer", version.ref = "media3" }
 androidx-metrics = { group = "androidx.metrics", name = "metrics-performance", version.ref = "androidxMetrics" }

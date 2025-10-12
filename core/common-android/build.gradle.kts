@@ -35,10 +35,7 @@ dependencies {
     implementation(libs.play.services.ad)
     implementation(libs.timber)
 
-    debugImplementation(libs.flipper)
-    debugImplementation(libs.flipper.leakcanary)
     debugImplementation(libs.leakcanary)
-    debugImplementation(libs.soloader)
 
     testImplementation(projects.core.testing)
     testImplementation(libs.androidx.test.core)

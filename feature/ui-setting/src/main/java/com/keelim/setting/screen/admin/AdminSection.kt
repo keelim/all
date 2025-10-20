@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Search
@@ -32,11 +33,10 @@ fun SchemeTestSection(
         val (text, setText) = remember { mutableStateOf("") }
         val (isError, setError) = remember { mutableStateOf(false) }
 
+        val textState = rememberTextFieldState()
         TextField(
-            modifier = Modifier.weight(1f),
-            value = text,
+            textState,
             isError = isError,
-            onValueChange = setText,
             label = { Text("please write your deeplink") },
             trailingIcon = {
                 if (text.isNotEmpty()) {
@@ -52,16 +52,18 @@ fun SchemeTestSection(
             keyboardOptions = KeyboardOptions(
                 imeAction = ImeAction.Done,
             ),
-            keyboardActions = KeyboardActions(
-                onDone = {
-                    if (text.isEmpty()) {
-                        setError(true)
-                    } else {
-                        setError(false)
-                        onClick(text)
-                    }
-                },
-            ),
+            onKeyboardAction = {
+                KeyboardActions(
+                    onDone = {
+                        if (text.isEmpty()) {
+                            setError(true)
+                        } else {
+                            setError(false)
+                            onClick(text)
+                        }
+                    },
+                )
+            }
         )
 
         Icon(

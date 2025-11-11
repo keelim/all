@@ -374,7 +374,7 @@ android-application = { id = "com.android.application", version.ref = "androidGr
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 android-test = { id = "com.android.test", version.ref = "androidGradlePlugin" }
 baselineprofile = { id = "androidx.baselineprofile", version.ref = "androidxMacroBenchmark"}
-cacheFixPlugin = { id = "org.gradle.android.cache-fix", version = "3.0.2" }
+cacheFixPlugin = { id = "org.gradle.android.cache-fix", version = "3.0.3" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
 compose-hot-reload = { id = "org.jetbrains.compose.hot-reload", version.ref = "composeHotReload" }

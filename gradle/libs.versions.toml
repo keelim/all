@@ -111,7 +111,7 @@ themeAdapter = "1.2.1"
 timbers = "5.0.1"
 truth = "1.4.5"
 turbine = "1.2.1"
-zxing = "3.5.3"
+zxing = "3.5.4"
 
 [libraries]
 accompanist-flowlayout = { group = "com.google.accompanist", name = "accompanist-flowlayout", version.ref = "accompanist" }

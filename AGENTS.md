@@ -30,3 +30,28 @@ The main Android apps live in the `app-*/` folders. Feature modules live in `fea
     - Tax Calculator
     - Save and Share Calculation Results
 - **Tech Stack:** Jetpack Compose for UI, DataStore for history persistence.
+
+### app-nanda
+#### Nanda Diagnosis
+- **Description:** Provides NANDA nursing diagnosis information and search functionality.
+- **Key Features:**
+    - Diagnosis Search
+    - Category-based browsing
+    - Detailed diagnosis information
+- **Tech Stack:** Jetpack Compose for UI, Room (Shared Module) for data persistence, Hilt for DI.
+
+## Conventions
+
+### UI Guidelines
+
+#### Text Composable
+- **Rule**: All `Text` Composables MUST explicitly specify `style` (typography) and `color`.
+- **Reason**: To ensure consistent typography and color usage across the application and prevent accidental fallback to default styles that might not match the design system.
+- **Example**:
+  ```kotlin
+  Text(
+      text = "Example",
+      style = MaterialTheme.typography.bodyMedium,
+      color = MaterialTheme.colorScheme.onSurface
+  )
+  ```

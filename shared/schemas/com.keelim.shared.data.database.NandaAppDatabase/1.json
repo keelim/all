@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "bd91e347f731c10ae3b09ad7475510f5",
+    "identityHash": "ef0f7e6bbd7fa0aacaefe9b2a2d3143c",
     "entities": [
       {
         "tableName": "length_record",
@@ -27,11 +27,65 @@
             "date"
           ]
         }
+      },
+      {
+        "tableName": "nanda",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`nanda_id` INTEGER NOT NULL, `reason` TEXT NOT NULL, `diagnosis` TEXT NOT NULL, `class_name` TEXT NOT NULL, `domain_name` TEXT NOT NULL, `category` INTEGER NOT NULL, `favorite` INTEGER NOT NULL, PRIMARY KEY(`nanda_id`))",
+        "fields": [
+          {
+            "fieldPath": "nanda_id",
+            "columnName": "nanda_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "reason",
+            "columnName": "reason",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "diagnosis",
+            "columnName": "diagnosis",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "class_name",
+            "columnName": "class_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "domain_name",
+            "columnName": "domain_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "category",
+            "columnName": "category",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "favorite",
+            "columnName": "favorite",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "nanda_id"
+          ]
+        }
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'bd91e347f731c10ae3b09ad7475510f5')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ef0f7e6bbd7fa0aacaefe9b2a2d3143c')"
     ]
   }
 }

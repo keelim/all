@@ -12,6 +12,7 @@ import com.keelim.shared.data.database.dao.NetworkCacheDao
 import com.keelim.shared.data.database.dao.NoteDao
 import com.keelim.shared.data.database.dao.TaskDao
 import com.keelim.shared.data.database.dao.TimerHistoryDao
+import com.keelim.shared.data.database.dao.NandaDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -69,4 +70,10 @@ object DaoModule {
     fun providesLengthRecordDao(
         database: NandaAppDatabase,
     ): LengthRecordDao = database.lengthRecordDao()
+
+    @Provides
+    @Singleton
+    fun providesNandaDao(
+        database: NandaAppDatabase,
+    ): NandaDao = database.nandaDao()
 }

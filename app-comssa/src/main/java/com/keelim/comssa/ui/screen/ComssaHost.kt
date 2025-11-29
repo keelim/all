@@ -17,6 +17,7 @@ import androidx.navigation3.runtime.rememberSavedStateNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import com.keelim.composeutil.AppState
 import com.keelim.composeutil.rememberMutableStateListOf
+import com.keelim.comssa.ui.screen.main.calculator.CalculatorRoute
 import com.keelim.comssa.ui.screen.main.ecocal.EcocalRoute
 import com.keelim.core.navigation.AppRoute
 import com.keelim.core.navigation.ComssaRoute
@@ -56,7 +57,14 @@ fun ComssaHost(
         },
         entryProvider = entryProvider {
             entry<ComssaRoute.Ecocal> {
-                EcocalRoute()
+                EcocalRoute(
+                    onNavigateToFinancialCalculators = {
+                        backStack.add(ComssaRoute.FinancialCalculators)
+                    },
+                )
+            }
+            entry<ComssaRoute.FinancialCalculators> {
+                CalculatorRoute()
             }
         },
     )

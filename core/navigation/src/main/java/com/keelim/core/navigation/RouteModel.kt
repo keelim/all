@@ -88,6 +88,9 @@ sealed interface ComssaRoute : AppRoute {
 
     @Serializable
     data object Finance : ComssaRoute
+
+    @Serializable
+    data object FinancialCalculators : ComssaRoute
 }
 
 sealed interface MyGradeRoute : AppRoute {

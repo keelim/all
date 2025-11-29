@@ -13,6 +13,7 @@ import com.keelim.shared.data.database.dao.NetworkCacheDao
 import com.keelim.shared.data.database.dao.NoteDao
 import com.keelim.shared.data.database.dao.TaskDao
 import com.keelim.shared.data.database.dao.TimerHistoryDao
+import com.keelim.shared.data.database.dao.NandaDao
 import com.keelim.shared.data.database.model.AlarmEntity
 import com.keelim.shared.data.database.model.DeepLinkEntity
 import com.keelim.shared.data.database.model.History
@@ -23,6 +24,7 @@ import com.keelim.shared.data.database.model.NoticesEntity
 import com.keelim.shared.data.database.model.SchemeEntity
 import com.keelim.shared.data.database.model.SimpleHistory
 import com.keelim.shared.data.database.model.TimerHistory
+import com.keelim.shared.data.database.model.NandaEntity
 
 // The Room compiler generates the `actual` implementations.
 @Suppress("NO_ACTUAL_FOR_EXPECT")
@@ -109,6 +111,7 @@ expect object NandaAppDatabaseConstructor : RoomDatabaseConstructor<NandaAppData
 @Database(
     entities = [
         LengthRecord::class,
+        NandaEntity::class,
     ],
     version = 1,
     exportSchema = true,
@@ -116,4 +119,5 @@ expect object NandaAppDatabaseConstructor : RoomDatabaseConstructor<NandaAppData
 @ConstructedBy(NandaAppDatabaseConstructor::class)
 abstract class NandaAppDatabase : RoomDatabase() {
     abstract fun lengthRecordDao(): LengthRecordDao
+    abstract fun nandaDao(): NandaDao
 }

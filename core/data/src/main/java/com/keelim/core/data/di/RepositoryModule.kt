@@ -26,6 +26,8 @@ import com.keelim.data.repository.PromptRepository
 import com.keelim.data.repository.TimeRepository
 import com.keelim.data.repository.calculator.CalculatorHistoryRepository
 import com.keelim.data.repository.linkinspector.LinkInspectorRepository
+import com.keelim.core.data.source.NandaRepositoryImpl
+import com.keelim.data.repository.NandaRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -98,4 +100,9 @@ interface RepositoryModule {
     fun bindsCalculatorHistoryRepository(
         repository: CalculatorHistoryRepositoryImpl,
     ): CalculatorHistoryRepository
+
+    @Binds
+    fun bindsNandaRepository(
+        repository: NandaRepositoryImpl,
+    ): NandaRepository
 }

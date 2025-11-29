@@ -5,6 +5,7 @@ import com.keelim.core.data.source.DefaultTaskRepositoryImpl
 import com.keelim.core.data.source.HistoryRepositoryImpl
 import com.keelim.core.data.source.TimeRepositoryImpl
 import com.keelim.core.data.source.alarm.AlarmRepositoryImpl
+import com.keelim.core.data.source.calculator.CalculatorHistoryRepositoryImpl
 import com.keelim.core.data.source.finance.FinanceRssRepositoryImpl
 import com.keelim.core.data.source.firebase.FirebaseRepositoryImpl
 import com.keelim.core.data.source.length.LengthRepositoryImpl
@@ -23,6 +24,7 @@ import com.keelim.data.repository.NoteRepository
 import com.keelim.data.repository.NotificationRepository
 import com.keelim.data.repository.PromptRepository
 import com.keelim.data.repository.TimeRepository
+import com.keelim.data.repository.calculator.CalculatorHistoryRepository
 import com.keelim.data.repository.linkinspector.LinkInspectorRepository
 import dagger.Binds
 import dagger.Module
@@ -91,4 +93,9 @@ interface RepositoryModule {
     fun bindsLinkInspectorRepository(
         repository: LinkInspectorRepositoryImpl,
     ): LinkInspectorRepository
+
+    @Binds
+    fun bindsCalculatorHistoryRepository(
+        repository: CalculatorHistoryRepositoryImpl,
+    ): CalculatorHistoryRepository
 }

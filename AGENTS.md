@@ -16,3 +16,17 @@ The main Android apps live in the `app-*/` folders. Feature modules live in `fea
 - The workflows are defined in `.github/workflows/*.yml` and they contain various checks.
 ## Version control and code location
 - The project uses git and is hosted on [GitHub](https://github.com/keelim/all).
+
+## Apps
+
+### app-comssa
+#### Financial Calculators
+- **Description:** Provides various financial calculation tools.
+- **Key Features:**
+    - Compound Interest Calculator
+    - Loan Repayment Calculator
+    - Investment Return Calculator
+    - Currency Converter
+    - Tax Calculator
+    - Save and Share Calculation Results
+- **Tech Stack:** Jetpack Compose for UI, DataStore for history persistence.

@@ -12,12 +12,11 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,7 +27,6 @@ import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space4
-import com.keelim.nandadiagnosis.R
 
 @Composable
 fun DiagnosisRoute(
@@ -36,23 +34,40 @@ fun DiagnosisRoute(
     viewModel: DiagnosisViewModel = hiltViewModel(),
 ) = trace("DiagnosisRoute") {
     val screenState by viewModel.screenState.collectAsStateWithLifecycle()
+    val query by viewModel.query.collectAsStateWithLifecycle()
     DiagnosisScreen(
         screenState = screenState,
         onDiagnosisClick = onDiagnosisClick,
+        query = query,
+        onQueryChange = viewModel::search,
     )
-
-    val context = LocalContext.current
-    LaunchedEffect(context) {
-        viewModel.initArray(context.resources.getStringArray(R.array.diagnosis1))
-    }
 }
 
 @Composable
 fun DiagnosisScreen(
     screenState: DiagnosisScreenState,
     onDiagnosisClick: () -> Unit,
+    query: String,
+    onQueryChange: (String) -> Unit,
 ) = trace("DiagnosisScreen") {
-    DiagnosisStateView(state = screenState, onDiagnosisClick = onDiagnosisClick)
+    Column {
+        TextField(
+            value = query,
+            onValueChange = onQueryChange,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(space16),
+            placeholder = {
+                Text(
+                    text = "Search Diagnosis",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            },
+            singleLine = true,
+        )
+        DiagnosisStateView(state = screenState, onDiagnosisClick = onDiagnosisClick)
+    }
 }
 
 @Composable
@@ -87,6 +102,8 @@ fun PreviewDiagnosisScreen() {
     DiagnosisScreen(
         screenState = DiagnosisScreenState.Empty,
         onDiagnosisClick = {},
+        query = "",
+        onQueryChange = {},
     )
 }
 
@@ -115,13 +132,20 @@ fun DiagnosisItem(
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                         fontWeight = FontWeight.SemiBold,
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.onSurface,
                     )
-                    Text(text = label, style = MaterialTheme.typography.labelLarge)
+                    Text(
+                        text = label,
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
                 }
                 Spacer(Modifier.height(space4))
                 Text(
                     text = content,
                     style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
                 )

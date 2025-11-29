@@ -98,7 +98,7 @@ private fun DiagnosisStateView(
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewDiagnosisScreen() {
+private fun PreviewDiagnosisScreen() {
     DiagnosisScreen(
         screenState = DiagnosisScreenState.Empty,
         onDiagnosisClick = {},

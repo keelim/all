@@ -39,9 +39,6 @@ sealed interface ArduconRoute : AppRoute {
 
     @Serializable
     data object Base64Encoder : ArduconRoute
-
-    @Serializable
-    data object DeviceInfo : ArduconRoute
 }
 
 sealed interface CnuBusRoute : AppRoute {
@@ -171,4 +168,7 @@ sealed interface FeatureRoute : AppRoute {
 
     @Serializable
     data object Admin : FeatureRoute
+
+    @Serializable
+    data object DeviceInfo : FeatureRoute
 }

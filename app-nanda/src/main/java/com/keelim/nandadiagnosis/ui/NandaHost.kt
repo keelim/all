@@ -37,6 +37,7 @@ import com.keelim.nandadiagnosis.ui.screen.nutrient.NutrientRoute
 import com.keelim.nandadiagnosis.ui.screen.nutrient.timer.NutrientTimerRoute
 import com.keelim.setting.screen.admin.AdminRoute
 import com.keelim.setting.screen.alarm.AlarmRoute
+import com.keelim.setting.screen.device.DeviceInfoScreen
 import com.keelim.setting.screen.event.EventRoute
 import com.keelim.setting.screen.faq.FaqRoute
 import com.keelim.setting.screen.lab.LabRoute
@@ -205,6 +206,9 @@ private fun EntryProviderBuilder<Any>.settingsEntry(
             onAdminClick = {
                 backStack.add(FeatureRoute.Admin)
             },
+            onDeviceInfoClick = {
+                backStack.add(FeatureRoute.DeviceInfo)
+            },
         )
     }
     entry<FeatureRoute.Faq> {
@@ -224,5 +228,10 @@ private fun EntryProviderBuilder<Any>.settingsEntry(
     }
     entry<FeatureRoute.Admin> {
         AdminRoute()
+    }
+    entry<FeatureRoute.DeviceInfo> {
+        DeviceInfoScreen(
+            onNavigateBack = { backStack.removeLastOrNull() },
+        )
     }
 }

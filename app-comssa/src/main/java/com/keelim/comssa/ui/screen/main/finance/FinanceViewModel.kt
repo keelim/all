@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.keelim.commonAndroid.model.SealedUiState
 import com.keelim.commonAndroid.model.asSealedUiState
 import com.keelim.composeutil.component.fab.FabButtonItem
-import com.keelim.core.model.finance.FinanceRssItem
+import com.keelim.model.finance.FinanceRssItem
 import com.keelim.data.repository.FinanceRssRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

@@ -1,4 +1,4 @@
-package com.keelim.core.model
+package com.keelim.model
 
 data class NandaDiagnosis(
     val reason: String,

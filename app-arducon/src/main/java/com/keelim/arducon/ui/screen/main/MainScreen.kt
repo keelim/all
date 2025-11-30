@@ -29,8 +29,12 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Build
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material3.AlertDialog
@@ -107,6 +111,9 @@ fun MainRoute(
     onNavigateOgTagPreview: () -> Unit,
     onNavigateStats: () -> Unit,
     onNavigatePlayground: () -> Unit,
+    onNavigateJsonFormatter: () -> Unit,
+    onNavigateBase64Encoder: () -> Unit,
+    onNavigateDeviceInfo: () -> Unit,
     viewModel: MainViewModel = hiltViewModel(),
 ) {
     val schemeList by viewModel.schemeList.collectAsStateWithLifecycle()
@@ -156,6 +163,9 @@ fun MainRoute(
         onNavigateSaastatus = onNavigateSaastatus,
         onNavigateOgTagPreview = onNavigateOgTagPreview,
         onNavigatePlayground = onNavigatePlayground,
+        onNavigateJsonFormatter = onNavigateJsonFormatter,
+        onNavigateBase64Encoder = onNavigateBase64Encoder,
+        onNavigateDeviceInfo = onNavigateDeviceInfo,
         onDeleteScheme = viewModel::deleteScheme,
         onShowNotification = viewModel::showNotification,
         onGenerateQrCode = viewModel::generateQrCode,
@@ -211,6 +221,9 @@ fun MainScreen(
     onNavigateSaastatus: () -> Unit,
     onNavigateOgTagPreview: () -> Unit,
     onNavigatePlayground: () -> Unit,
+    onNavigateJsonFormatter: () -> Unit,
+    onNavigateBase64Encoder: () -> Unit,
+    onNavigateDeviceInfo: () -> Unit,
     onDeleteScheme: (String) -> Unit,
     onShowNotification: (Int, String, String, String) -> Unit,
     onGenerateQrCode: (DeepLink) -> Unit,
@@ -220,7 +233,7 @@ fun MainScreen(
     val listState = rememberLazyListState()
     val isScrollInProgress = remember {
         derivedStateOf {
-            listState.isScrollInProgress || listState.canScrollForward.not()
+            listState.isScrollInProgress
         }
     }
     Scaffold(
@@ -255,6 +268,9 @@ fun MainScreen(
                     onQrCodeClick = onQrCodeClick,
                     onNavigateSaastatus = onNavigateSaastatus,
                     onNavigatePlayground = onNavigatePlayground,
+                    onNavigateJsonFormatter = onNavigateJsonFormatter,
+                    onNavigateBase64Encoder = onNavigateBase64Encoder,
+                    onNavigateDeviceInfo = onNavigateDeviceInfo,
                 )
             }
         },
@@ -313,11 +329,22 @@ private fun HorizontalFloatingToolbarSection(
     onQrCodeClick: () -> Unit,
     onNavigateSaastatus: () -> Unit,
     onNavigatePlayground: () -> Unit,
+    onNavigateJsonFormatter: () -> Unit,
+    onNavigateBase64Encoder: () -> Unit,
+    onNavigateDeviceInfo: () -> Unit,
 ) {
-    val (isExpanded, setIsExpanded) = remember { mutableStateOf(false) }
+    val (isExpanded, setIsExpanded) = remember { mutableStateOf(true) }
 
     HorizontalFloatingToolbar(
         expanded = isExpanded,
+        leadingContent = {
+            IconButton(onClick = { setIsExpanded(!isExpanded) }) {
+                Icon(
+                    imageVector = if (isExpanded) Icons.Default.CheckCircle else Icons.Default.AddCircle,
+                    contentDescription = "Toggle Toolbar",
+                )
+            }
+        },
     ) {
         TooltipIcon(
             tooltipText = "OG Tag Preview",
@@ -369,6 +396,45 @@ private fun HorizontalFloatingToolbarSection(
                     Icon(
                         imageVector = Icons.Default.Build,
                         contentDescription = "navigate playground",
+                    )
+                }
+            },
+        )
+        TooltipIcon(
+            tooltipText = "JSON Formatter",
+            content = {
+                IconButton(
+                    onClick = onNavigateJsonFormatter,
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Create,
+                        contentDescription = "navigate json formatter",
+                    )
+                }
+            },
+        )
+        TooltipIcon(
+            tooltipText = "Base64 Tool",
+            content = {
+                IconButton(
+                    onClick = onNavigateBase64Encoder,
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Lock,
+                        contentDescription = "navigate base64 tool",
+                    )
+                }
+            },
+        )
+        TooltipIcon(
+            tooltipText = "Device Info",
+            content = {
+                IconButton(
+                    onClick = onNavigateDeviceInfo,
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Info,
+                        contentDescription = "navigate device info",
                     )
                 }
             },
@@ -648,6 +714,9 @@ private fun PreviewMainScreen() {
         onNavigateSaastatus = {},
         onNavigateOgTagPreview = {},
         onNavigatePlayground = {},
+        onNavigateJsonFormatter = {},
+        onNavigateBase64Encoder = {},
+        onNavigateDeviceInfo = {},
         onDeleteScheme = {},
         onItemLongClick = { },
         categories = listOf("Category1", "Category2"),

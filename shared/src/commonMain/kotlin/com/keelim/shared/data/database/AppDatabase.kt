@@ -24,6 +24,8 @@ import com.keelim.shared.data.database.model.NoticesEntity
 import com.keelim.shared.data.database.model.SchemeEntity
 import com.keelim.shared.data.database.model.SimpleHistory
 import com.keelim.shared.data.database.model.TimerHistory
+import com.keelim.shared.data.database.dao.Base64Dao
+import com.keelim.shared.data.database.model.Base64History
 import com.keelim.shared.data.database.model.NandaEntity
 
 // The Room compiler generates the `actual` implementations.
@@ -68,8 +70,9 @@ expect object ArduconDatabaseConstructor : RoomDatabaseConstructor<ArduconDataba
     entities = [
         DeepLinkEntity::class,
         SchemeEntity::class,
+        Base64History::class,
     ],
-    version = 7,
+    version = 8,
     exportSchema = true,
     autoMigrations = [
         AutoMigration(from = 1, to = 2),
@@ -78,11 +81,13 @@ expect object ArduconDatabaseConstructor : RoomDatabaseConstructor<ArduconDataba
         AutoMigration(from = 4, to = 5),
         AutoMigration(from = 5, to = 6),
         AutoMigration(from = 6, to = 7),
+        AutoMigration(from = 7, to = 8),
     ],
 )
 @ConstructedBy(ArduconDatabaseConstructor::class)
 abstract class ArduconDatabase : RoomDatabase() {
     abstract fun dataDao(): ArduconDao
+    abstract fun base64Dao(): Base64Dao
 }
 
 @Suppress("NO_ACTUAL_FOR_EXPECT")

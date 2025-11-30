@@ -19,7 +19,10 @@ import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDe
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberSavedStateNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
+import com.keelim.arducon.ui.screen.base64.Base64Screen
 import com.keelim.arducon.ui.screen.deeplink.CreateDeepLinkRoute
+import com.keelim.arducon.ui.screen.device.DeviceInfoScreen
+import com.keelim.arducon.ui.screen.json.JsonFormatterScreen
 import com.keelim.arducon.ui.screen.main.MainRoute
 import com.keelim.arducon.ui.screen.ogtag.OgTagPreviewRoute
 import com.keelim.arducon.ui.screen.playground.PlaygroundRoute
@@ -98,6 +101,15 @@ fun ArduConHost(
                     onNavigatePlayground = {
                         backStack.add(ArduconRoute.Playground)
                     },
+                    onNavigateJsonFormatter = {
+                        backStack.add(ArduconRoute.JsonFormatter)
+                    },
+                    onNavigateBase64Encoder = {
+                        backStack.add(ArduconRoute.Base64Encoder)
+                    },
+                    onNavigateDeviceInfo = {
+                        backStack.add(ArduconRoute.DeviceInfo)
+                    },
                 )
             }
             entry<ArduconRoute.Qr> {
@@ -156,6 +168,21 @@ fun ArduConHost(
             }
             entry<ArduconRoute.Playground> {
                 PlaygroundRoute(
+                    onNavigateBack = { backStack.removeLastOrNull() },
+                )
+            }
+            entry<ArduconRoute.JsonFormatter> {
+                JsonFormatterScreen(
+                    onNavigateBack = { backStack.removeLastOrNull() },
+                )
+            }
+            entry<ArduconRoute.Base64Encoder> {
+                Base64Screen(
+                    onNavigateBack = { backStack.removeLastOrNull() },
+                )
+            }
+            entry<ArduconRoute.DeviceInfo> {
+                DeviceInfoScreen(
                     onNavigateBack = { backStack.removeLastOrNull() },
                 )
             }

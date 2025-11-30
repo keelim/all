@@ -33,6 +33,15 @@ sealed interface ArduconRoute : AppRoute {
 
     @Serializable
     data object Playground : ArduconRoute
+
+    @Serializable
+    data object JsonFormatter : ArduconRoute
+
+    @Serializable
+    data object Base64Encoder : ArduconRoute
+
+    @Serializable
+    data object DeviceInfo : ArduconRoute
 }
 
 sealed interface CnuBusRoute : AppRoute {

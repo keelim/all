@@ -25,6 +25,7 @@ import kotlin.math.pow
 @Composable
 fun CompoundInterestCalculator(
     onCalculate: (Map<String, String>, Map<String, String>) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     var principal by remember { mutableStateOf("") }
     var rate by remember { mutableStateOf("") }
@@ -32,7 +33,7 @@ fun CompoundInterestCalculator(
     var result by remember { mutableStateOf("") }
 
     Column(
-        modifier = Modifier.padding(16.dp),
+        modifier = modifier.padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         OutlinedTextField(
@@ -86,7 +87,8 @@ fun CompoundInterestCalculator(
 
 @Composable
 fun LoanRepaymentCalculator(
-    onCalculate: (Map<String, String>, Map<String, String>) -> Unit
+    onCalculate: (Map<String, String>, Map<String, String>) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     // Simple implementation for example
     Text("대출 상환 계산기 준비 중")
@@ -94,21 +96,24 @@ fun LoanRepaymentCalculator(
 
 @Composable
 fun InvestmentReturnCalculator(
-    onCalculate: (Map<String, String>, Map<String, String>) -> Unit
+    onCalculate: (Map<String, String>, Map<String, String>) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Text("투자 수익률 계산기 준비 중")
 }
 
 @Composable
 fun CurrencyConverter(
-    onCalculate: (Map<String, String>, Map<String, String>) -> Unit
+    onCalculate: (Map<String, String>, Map<String, String>) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Text("환율 변환기 준비 중")
 }
 
 @Composable
 fun TaxCalculator(
-    onCalculate: (Map<String, String>, Map<String, String>) -> Unit
+    onCalculate: (Map<String, String>, Map<String, String>) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Text("세금 계산기 준비 중")
 }

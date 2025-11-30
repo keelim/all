@@ -31,7 +31,7 @@ import com.keelim.commonAndroid.model.SealedUiState
 import com.keelim.composeutil.component.fab.FabButtonItem
 import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
-import com.keelim.core.model.finance.FinanceRssItem
+import com.keelim.model.finance.FinanceRssItem
 import com.keelim.web.navigateToWebModule
 
 @Composable

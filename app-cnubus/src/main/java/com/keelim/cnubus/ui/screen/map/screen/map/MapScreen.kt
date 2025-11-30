@@ -73,6 +73,7 @@ fun MapScreen(
                         style = MaterialTheme.typography.titleSmall.copy(
                             fontWeight = FontWeight.Bold,
                         ),
+                        color = MaterialTheme.colorScheme.onSurface,
                     )
                 }
             }
@@ -103,6 +104,7 @@ private fun CustomMarker(
                 modifier = Modifier.padding(top = 6.dp),
                 text = marker.title,
                 fontWeight = FontWeight.Bold,
+                color = Color.Black,
             )
             AsyncImage(
                 model = marker.imageUrl,

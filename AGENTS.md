@@ -40,6 +40,18 @@ The main Android apps live in the `app-*/` folders. Feature modules live in `fea
     - Detailed diagnosis information
 - **Tech Stack:** Jetpack Compose for UI, Room (Shared Module) for data persistence, Hilt for DI.
 
+### app-cnubus
+#### CNU Bus
+- **Description:** Provides real-time bus information for Chungnam National University.
+- **Key Features:**
+    - Real-time Bus Locations
+    - Route Maps (A, B, C, Night Routes)
+    - **Favorites**: Save frequently used bus stops for quick access.
+    - **Search**: Quickly find bus stops by name.
+    - **Modern UI**: Clean, card-based interface with floating search bar and intuitive settings.
+    - Settings and Shortcuts
+- **Tech Stack:** Jetpack Compose for UI (Material 3), Hilt for DI, Google Maps, DataStore (for Favorites).
+
 ## Conventions
 
 ### UI Guidelines

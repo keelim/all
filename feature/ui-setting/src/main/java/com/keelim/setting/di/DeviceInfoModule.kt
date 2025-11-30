@@ -17,6 +17,14 @@ data class DeviceInfo(
     val versionName: String,
     val platform: String,
     val isSupported: Boolean,
+    val board: String,
+    val hardware: String,
+    val product: String,
+    val sdkLevel: Int,
+    val screenDensity: Int,
+    val screenWidthDp: Int,
+    val screenHeightDp: Int,
+    val supportedAbis: List<String>,
 ) {
     companion object {
         fun empty(): DeviceInfo = DeviceInfo(
@@ -26,6 +34,14 @@ data class DeviceInfo(
             versionName = "",
             platform = "",
             isSupported = false,
+            board = "",
+            hardware = "",
+            product = "",
+            sdkLevel = 0,
+            screenDensity = 0,
+            screenWidthDp = 0,
+            screenHeightDp = 0,
+            supportedAbis = emptyList(),
         )
     }
 }
@@ -46,6 +62,9 @@ class DeviceInfoSourceImpl @Inject constructor(
                 context.packageName,
                 0,
             )?.versionName
+            val displayMetrics = context.resources.displayMetrics
+            val configuration = context.resources.configuration
+
             val info = DeviceInfo(
                 deviceModel = deviceModel,
                 deviceBrand = deviceBrand,
@@ -53,6 +72,14 @@ class DeviceInfoSourceImpl @Inject constructor(
                 versionName = versionName ?: "",
                 platform = getPlatform().name,
                 isSupported = getAppSupported().isSupported,
+                board = Build.BOARD,
+                hardware = Build.HARDWARE,
+                product = Build.PRODUCT,
+                sdkLevel = Build.VERSION.SDK_INT,
+                screenDensity = displayMetrics.densityDpi,
+                screenWidthDp = configuration.screenWidthDp,
+                screenHeightDp = configuration.screenHeightDp,
+                supportedAbis = Build.SUPPORTED_ABIS.toList(),
             )
             info
         } catch (e: Throwable) {

@@ -21,6 +21,22 @@ import com.keelim.comssa.ui.screen.main.calculator.CalculatorRoute
 import com.keelim.comssa.ui.screen.main.ecocal.EcocalRoute
 import com.keelim.core.navigation.AppRoute
 import com.keelim.core.navigation.ComssaRoute
+import android.content.Context
+import android.content.Intent
+import androidx.compose.runtime.snapshots.SnapshotStateList
+import androidx.compose.ui.platform.LocalContext
+import androidx.core.net.toUri
+import androidx.navigation3.runtime.EntryProviderBuilder
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
+import com.keelim.core.navigation.FeatureRoute
+import com.keelim.setting.screen.admin.AdminRoute
+import com.keelim.setting.screen.alarm.AlarmRoute
+import com.keelim.setting.screen.device.DeviceInfoScreen
+import com.keelim.setting.screen.faq.FaqRoute
+import com.keelim.setting.screen.lab.LabRoute
+import com.keelim.setting.screen.notification.NotificationRoute
+import com.keelim.setting.screen.settings.SettingsRoute
+import com.keelim.setting.screen.theme.ThemeRoute
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
@@ -66,6 +82,71 @@ fun ComssaHost(
             entry<ComssaRoute.FinancialCalculators> {
                 CalculatorRoute()
             }
+            settingsEntry(backStack, LocalContext.current)
         },
     )
+}
+
+@Composable
+fun EntryProviderBuilder<Any>.settingsEntry(
+    backStack: SnapshotStateList<Any>,
+    context: Context,
+) {
+    entry<FeatureRoute.Settings> {
+        SettingsRoute(
+            onThemeChangeClick = { backStack.add(FeatureRoute.Theme) },
+            onNotificationsClick = {
+                backStack.add(FeatureRoute.Notification)
+            },
+            onAlarmsClick = {
+                backStack.add(FeatureRoute.Alarm)
+            },
+            onFaqClick = {
+                backStack.add(FeatureRoute.Faq)
+            },
+            onOpenSourceClick = {
+                context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
+            },
+            onLabClick = {
+                backStack.add(FeatureRoute.Lab)
+            },
+            onAppUpdateClick = {
+                context.startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        "https://play.google.com/store/apps/details?id=${context.packageName}".toUri(),
+                    ),
+                )
+            },
+            onAdminClick = {
+                backStack.add(FeatureRoute.Admin)
+            },
+            onDeviceInfoClick = {
+                backStack.add(FeatureRoute.DeviceInfo)
+            },
+        )
+    }
+    entry<FeatureRoute.Faq> {
+        FaqRoute()
+    }
+    entry<FeatureRoute.Theme> {
+        ThemeRoute()
+    }
+    entry<FeatureRoute.Notification> {
+        NotificationRoute()
+    }
+    entry<FeatureRoute.Lab> {
+        LabRoute()
+    }
+    entry<FeatureRoute.Alarm> {
+        AlarmRoute()
+    }
+    entry<FeatureRoute.Admin> {
+        AdminRoute()
+    }
+    entry<FeatureRoute.DeviceInfo> {
+        DeviceInfoScreen(
+            onNavigateBack = { backStack.removeLastOrNull() },
+        )
+    }
 }

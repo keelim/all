@@ -1,4 +1,4 @@
-package com.keelim.core.model.finance
+package com.keelim.model.finance
 
 import kotlinx.datetime.Instant
 

@@ -75,6 +75,8 @@ private val tabItems =
         TabItem(title = "B 노선", mode = "b"),
         TabItem(title = "C 노선", mode = "c"),
         TabItem(title = "야간 노선", mode = "d"),
+        TabItem(title = "즐겨찾기", mode = "f"),
+        TabItem(title = "검색", mode = "s"),
         TabItem(title = "설정", mode = "e"),
     )
 
@@ -125,6 +127,7 @@ fun TabBarLayout(
                         style = MaterialTheme.typography.bodyLarge.copy(
                             fontWeight = if (selected) FontWeight.Bold else FontWeight.Normal,
                         ),
+                        color = MaterialTheme.colorScheme.onSurface,
                     )
                 },
             )
@@ -147,7 +150,7 @@ fun PagerContent(
         contentPadding = paddingValues,
     ) { index ->
         when (index) {
-            4 -> SettingScreen(
+            6 -> SettingScreen(
                 onScreenAction = { action ->
                     when (action) {
                         ScreenAction.Homepage -> {

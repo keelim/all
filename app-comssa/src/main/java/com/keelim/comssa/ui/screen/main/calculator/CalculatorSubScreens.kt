@@ -18,6 +18,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.keelim.common.extensions.toFormattedMoneyOrEmpty
 import com.keelim.common.extensions.toMoneyOrZero
+import java.text.DecimalFormat
 import kotlin.math.ceil
 import kotlin.math.pow
 

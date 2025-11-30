@@ -28,6 +28,8 @@ import com.keelim.data.repository.calculator.CalculatorHistoryRepository
 import com.keelim.data.repository.linkinspector.LinkInspectorRepository
 import com.keelim.core.data.source.NandaRepositoryImpl
 import com.keelim.data.repository.NandaRepository
+import com.keelim.core.data.source.StationRepositoryImpl
+import com.keelim.data.repository.StationRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -105,4 +107,9 @@ interface RepositoryModule {
     fun bindsNandaRepository(
         repository: NandaRepositoryImpl,
     ): NandaRepository
+
+    @Binds
+    fun bindsStationRepository(
+        repository: StationRepositoryImpl,
+    ): StationRepository
 }

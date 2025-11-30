@@ -87,7 +87,6 @@ fun CompoundInterestCalculator(
 @Composable
 fun LoanRepaymentCalculator(
     onCalculate: (Map<String, String>, Map<String, String>) -> Unit,
-    modifier: Modifier = Modifier,
 ) {
     // Simple implementation for example
     Text("대출 상환 계산기 준비 중")
@@ -96,7 +95,6 @@ fun LoanRepaymentCalculator(
 @Composable
 fun InvestmentReturnCalculator(
     onCalculate: (Map<String, String>, Map<String, String>) -> Unit,
-    modifier: Modifier = Modifier,
 ) {
     Text("투자 수익률 계산기 준비 중")
 }
@@ -104,7 +102,6 @@ fun InvestmentReturnCalculator(
 @Composable
 fun CurrencyConverter(
     onCalculate: (Map<String, String>, Map<String, String>) -> Unit,
-    modifier: Modifier = Modifier,
 ) {
     Text("환율 변환기 준비 중")
 }
@@ -112,7 +109,6 @@ fun CurrencyConverter(
 @Composable
 fun TaxCalculator(
     onCalculate: (Map<String, String>, Map<String, String>) -> Unit,
-    modifier: Modifier = Modifier,
 ) {
     Text("세금 계산기 준비 중")
 }

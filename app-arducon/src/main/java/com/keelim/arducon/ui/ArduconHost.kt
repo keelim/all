@@ -21,7 +21,6 @@ import androidx.navigation3.runtime.rememberSavedStateNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import com.keelim.arducon.ui.screen.base64.Base64Screen
 import com.keelim.arducon.ui.screen.deeplink.CreateDeepLinkRoute
-import com.keelim.arducon.ui.screen.device.DeviceInfoScreen
 import com.keelim.arducon.ui.screen.json.JsonFormatterScreen
 import com.keelim.arducon.ui.screen.main.MainRoute
 import com.keelim.arducon.ui.screen.ogtag.OgTagPreviewRoute
@@ -33,8 +32,11 @@ import com.keelim.arducon.ui.screen.stats.StatsScreen
 import com.keelim.commonAndroid.ui.AppViewModel
 import com.keelim.composeutil.AppState
 import com.keelim.composeutil.rememberMutableStateListOf
+import com.keelim.core.navigation.AppRoute
 import com.keelim.core.navigation.ArduconRoute
+import com.keelim.core.navigation.FeatureRoute
 import com.keelim.core.navigation.SaastatusRoute
+import com.keelim.setting.screen.device.DeviceInfoScreen
 import com.keelim.web.navigateToWebModule
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -50,7 +52,7 @@ fun ArduConHost(
 ) {
     val context = LocalContext.current
 
-    val backStack = rememberMutableStateListOf<ArduconRoute>(ArduconRoute.Main)
+    val backStack = rememberMutableStateListOf<AppRoute>(ArduconRoute.Main)
     val motionScheme = MaterialTheme.motionScheme
 
     NavDisplay(
@@ -108,7 +110,7 @@ fun ArduConHost(
                         backStack.add(ArduconRoute.Base64Encoder)
                     },
                     onNavigateDeviceInfo = {
-                        backStack.add(ArduconRoute.DeviceInfo)
+                        backStack.add(FeatureRoute.DeviceInfo)
                     },
                 )
             }
@@ -181,7 +183,7 @@ fun ArduConHost(
                     onNavigateBack = { backStack.removeLastOrNull() },
                 )
             }
-            entry<ArduconRoute.DeviceInfo> {
+            entry<FeatureRoute.DeviceInfo> {
                 DeviceInfoScreen(
                     onNavigateBack = { backStack.removeLastOrNull() },
                 )

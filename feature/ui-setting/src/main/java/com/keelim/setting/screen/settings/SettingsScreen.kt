@@ -30,7 +30,6 @@ import androidx.compose.material.icons.outlined.Build
 import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Notifications
-import androidx.compose.material.icons.outlined.ThumbUp
 import androidx.compose.material.icons.rounded.ArrowDropDown
 import androidx.compose.material.icons.rounded.KeyboardArrowUp
 import androidx.compose.material.icons.rounded.Lock
@@ -68,7 +67,6 @@ import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
 import com.keelim.setting.BuildConfig
-import com.keelim.setting.di.DeviceInfo
 import com.keelim.shared.data.UserState
 
 data class Category(
@@ -89,6 +87,7 @@ fun SettingsRoute(
     onLabClick: () -> Unit,
     onAppUpdateClick: () -> Unit,
     onAdminClick: () -> Unit,
+    onDeviceInfoClick: () -> Unit,
     viewModel: SettingsViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -102,6 +101,7 @@ fun SettingsRoute(
         onOpenSourceClick = onOpenSourceClick,
         onThemeChangeClick = onThemeChangeClick,
         onAdminClick = onAdminClick,
+        onDeviceInfoClick = onDeviceInfoClick,
     )
 }
 
@@ -116,6 +116,7 @@ fun SettingsScreen(
     onThemeChangeClick: () -> Unit,
     onAppUpdateClick: () -> Unit,
     onAdminClick: () -> Unit,
+    onDeviceInfoClick: () -> Unit,
 ) {
     when (uiState) {
         is SettingsUiState.Initialized -> EmptyView()
@@ -210,12 +211,9 @@ fun SettingsScreen(
                             onClick = onAdminClick,
                         ),
                         Category(
-                            title = "App Version: ${uiState.deviceInfo.versionName}",
+                            title = "Device Info",
                             icon = Icons.Outlined.Build,
-                        ),
-                        Category(
-                            title = "${uiState.userState.visitedTime} 번 방문하셨습니다.",
-                            icon = Icons.Outlined.ThumbUp,
+                            onClick = onDeviceInfoClick,
                         ),
                     )
                 }
@@ -254,26 +252,6 @@ fun SettingsScreen(
                             }
                         }
                     }
-                    item {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(60.dp)
-                                .padding(horizontal = space8, vertical = space4)
-                                .clip(RoundedCornerShape(space4))
-                                .background(
-                                    color = MaterialTheme.colorScheme.primaryContainer,
-                                ),
-                            horizontalArrangement = Arrangement.Center,
-                            verticalAlignment = Alignment.CenterVertically,
-                        ) {
-                            Text(
-                                text = "Platform: ${uiState.deviceInfo.platform}",
-                                fontWeight = FontWeight.Bold,
-                                style = MaterialTheme.typography.bodyLarge,
-                            )
-                        }
-                    }
                 }
             }
         }
@@ -286,14 +264,6 @@ private fun PreviewSettingsScreen() {
     SettingsScreen(
         uiState = SettingsUiState.Success(
             userState = UserState(),
-            deviceInfo = DeviceInfo(
-                deviceName = "Ned Pruitt",
-                deviceBrand = "dolore",
-                deviceModel = "tale",
-                versionName = "2023.12.25",
-                platform = "nonumes",
-                isSupported = false,
-            ),
             fcmToken = "hello this fcm token",
         ),
         onFaqClick = {},
@@ -304,6 +274,7 @@ private fun PreviewSettingsScreen() {
         onAppUpdateClick = {},
         onAlarmsClick = {},
         onAdminClick = {},
+        onDeviceInfoClick = {},
     )
 }
 

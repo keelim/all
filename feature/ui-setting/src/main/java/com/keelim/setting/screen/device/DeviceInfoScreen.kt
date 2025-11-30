@@ -1,6 +1,5 @@
-package com.keelim.arducon.ui.screen.device
+package com.keelim.setting.screen.device
 
-import android.os.Build
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,7 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -20,13 +19,13 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space2
 import com.keelim.composeutil.resource.space8
@@ -42,25 +41,29 @@ fun DeviceInfoScreen(
     onNavigateBack: () -> Unit,
     viewModel: DeviceInfoViewModel = hiltViewModel(),
 ) {
-    val context = LocalContext.current
-    val configuration = LocalConfiguration.current
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    val deviceInfos = remember(configuration) {
-        listOf(
-            DeviceInfoItem("Model", Build.MODEL),
-            DeviceInfoItem("Manufacturer", Build.MANUFACTURER),
-            DeviceInfoItem("Device", Build.DEVICE),
-            DeviceInfoItem("Brand", Build.BRAND),
-            DeviceInfoItem("Board", Build.BOARD),
-            DeviceInfoItem("Hardware", Build.HARDWARE),
-            DeviceInfoItem("Product", Build.PRODUCT),
-            DeviceInfoItem("Android Version", Build.VERSION.RELEASE),
-            DeviceInfoItem("SDK Level", Build.VERSION.SDK_INT.toString()),
-            DeviceInfoItem("Screen Density", "${configuration.densityDpi} dpi"),
-            DeviceInfoItem("Screen Width", "${configuration.screenWidthDp} dp"),
-            DeviceInfoItem("Screen Height", "${configuration.screenHeightDp} dp"),
-            DeviceInfoItem("Supported ABIs", Build.SUPPORTED_ABIS.joinToString(", ")),
-        )
+    val deviceInfos = remember(uiState) {
+        if (uiState.deviceName.isEmpty()) {
+            emptyList()
+        } else {
+            listOf(
+                DeviceInfoItem("Model", uiState.deviceModel),
+                DeviceInfoItem("Manufacturer", uiState.deviceBrand),
+                DeviceInfoItem("Device", uiState.deviceName),
+                DeviceInfoItem("Brand", uiState.deviceBrand),
+                DeviceInfoItem("Board", uiState.board),
+                DeviceInfoItem("Hardware", uiState.hardware),
+                DeviceInfoItem("Product", uiState.product),
+                DeviceInfoItem("Android Version", uiState.versionName),
+                DeviceInfoItem("App Version", uiState.versionName),
+                DeviceInfoItem("SDK Level", uiState.sdkLevel.toString()),
+                DeviceInfoItem("Screen Density", "${uiState.screenDensity} dpi"),
+                DeviceInfoItem("Screen Width", "${uiState.screenWidthDp} dp"),
+                DeviceInfoItem("Screen Height", "${uiState.screenHeightDp} dp"),
+                DeviceInfoItem("Supported ABIs", uiState.supportedAbis.joinToString(", ")),
+            )
+        }
     }
 
     Scaffold(
@@ -74,7 +77,7 @@ fun DeviceInfoScreen(
                 },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
-                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "back")
+                        Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "back")
                     }
                 },
             )

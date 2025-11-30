@@ -25,7 +25,6 @@ import kotlin.math.pow
 @Composable
 fun CompoundInterestCalculator(
     onCalculate: (Map<String, String>, Map<String, String>) -> Unit,
-    modifier: Modifier = Modifier,
 ) {
     var principal by remember { mutableStateOf("") }
     var rate by remember { mutableStateOf("") }
@@ -33,7 +32,7 @@ fun CompoundInterestCalculator(
     var result by remember { mutableStateOf("") }
 
     Column(
-        modifier = modifier.padding(16.dp),
+        modifier = Modifier.padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         OutlinedTextField(

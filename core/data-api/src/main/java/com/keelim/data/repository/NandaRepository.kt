@@ -1,6 +1,6 @@
 package com.keelim.data.repository
 
-import com.keelim.core.model.NandaDiagnosis
+import com.keelim.model.NandaDiagnosis
 import kotlinx.coroutines.flow.Flow
 
 interface NandaRepository {

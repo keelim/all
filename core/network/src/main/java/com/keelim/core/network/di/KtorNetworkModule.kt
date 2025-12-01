@@ -121,17 +121,6 @@ object KtorNetworkModule {
             .build()
     }
 
-    @Provides
-    @Singleton
-    fun providesJsonFormatter(): Json {
-        return Json {
-            encodeDefaults = true
-            ignoreUnknownKeys = true
-            prettyPrint = true
-            isLenient = true
-        }
-    }
-
     @KtorAndroidClient
     @Provides
     @Singleton

@@ -41,10 +41,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.ToggleFloatingActionButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableIntState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -60,7 +58,7 @@ import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
-import com.keelim.core.model.finance.FinanceRssItem
+import com.keelim.model.finance.FinanceRssItem
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import timber.log.Timber

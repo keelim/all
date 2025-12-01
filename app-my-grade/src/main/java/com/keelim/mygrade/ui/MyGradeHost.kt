@@ -41,6 +41,7 @@ import com.keelim.mygrade.ui.screen.word.show.WordShowRoute
 import com.keelim.mygrade.ui.screen.word.write.WordWriteRoute
 import com.keelim.setting.screen.admin.AdminRoute
 import com.keelim.setting.screen.alarm.AlarmRoute
+import com.keelim.setting.screen.device.DeviceInfoScreen
 import com.keelim.setting.screen.event.EventRoute
 import com.keelim.setting.screen.faq.FaqRoute
 import com.keelim.setting.screen.lab.LabRoute
@@ -57,12 +58,12 @@ fun MyGradeHost(
     onShowSnackbar: suspend (String, String?) -> Boolean,
     modifier: Modifier = Modifier,
 ) {
-    val navController = appState.navController
     val context = LocalContext.current
     val backStack = rememberMutableStateListOf<AppRoute>(MyGradeRoute.Main)
     val motionScheme = MaterialTheme.motionScheme
 
     NavDisplay(
+        modifier = modifier,
         backStack = backStack,
         onBack = { backStack.removeLastOrNull() },
         entryDecorators = listOf(
@@ -112,10 +113,7 @@ fun MyGradeHost(
                     },
                     onLabClick = {
                         coroutineScope.launch {
-                            val result = onShowSnackbar("새로운 기능으로 준비중입니다 😀", null)
-                            // if (result) {
-                            //     navController.navigateTask()
-                            // }
+                            onShowSnackbar("새로운 기능으로 준비중입니다 😀", null)
                         }
                     },
                     onNavigateTimerHistory = {
@@ -223,6 +221,9 @@ fun EntryProviderBuilder<Any>.settingsEntry(
             onAdminClick = {
                 backStack.add(FeatureRoute.Admin)
             },
+            onDeviceInfoClick = {
+                backStack.add(FeatureRoute.DeviceInfo)
+            }
         )
     }
     entry<FeatureRoute.Faq> {
@@ -242,5 +243,10 @@ fun EntryProviderBuilder<Any>.settingsEntry(
     }
     entry<FeatureRoute.Admin> {
         AdminRoute()
+    }
+    entry<FeatureRoute.DeviceInfo> {
+        DeviceInfoScreen(
+            onNavigateBack = { backStack.removeLastOrNull() },
+        )
     }
 }

@@ -33,6 +33,12 @@ sealed interface ArduconRoute : AppRoute {
 
     @Serializable
     data object Playground : ArduconRoute
+
+    @Serializable
+    data object JsonFormatter : ArduconRoute
+
+    @Serializable
+    data object Base64Encoder : ArduconRoute
 }
 
 sealed interface CnuBusRoute : AppRoute {
@@ -88,6 +94,9 @@ sealed interface ComssaRoute : AppRoute {
 
     @Serializable
     data object Finance : ComssaRoute
+
+    @Serializable
+    data object FinancialCalculators : ComssaRoute
 }
 
 sealed interface MyGradeRoute : AppRoute {
@@ -159,4 +168,7 @@ sealed interface FeatureRoute : AppRoute {
 
     @Serializable
     data object Admin : FeatureRoute
+
+    @Serializable
+    data object DeviceInfo : FeatureRoute
 }

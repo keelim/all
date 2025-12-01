@@ -17,7 +17,9 @@ package com.keelim.cnubus.ui.screen.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.BackHandler
+import androidx.activity.compose.PredictiveBackHandler
+import kotlinx.coroutines.flow.collect
+import java.util.concurrent.CancellationException
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.material3.AlertDialog
@@ -73,12 +75,16 @@ class MainActivity : ComponentActivity() {
                 )
 
                 var isDialogOpen by remember { mutableStateOf(false) }
-                BackHandler(
+                PredictiveBackHandler(
                     enabled = true,
-                    onBack = {
+                ) { progress ->
+                    try {
+                        progress.collect()
                         isDialogOpen = true
-                    },
-                )
+                    } catch (e: CancellationException) {
+                        // no-op
+                    }
+                }
                 if (isDialogOpen) {
                     AlertDialog(
                         onDismissRequest = {

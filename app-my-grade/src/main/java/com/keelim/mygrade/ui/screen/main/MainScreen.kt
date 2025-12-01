@@ -4,7 +4,9 @@ package com.keelim.mygrade.ui.screen.main
 
 import android.Manifest
 import android.os.Build
-import androidx.activity.compose.BackHandler
+import androidx.activity.compose.PredictiveBackHandler
+import kotlinx.coroutines.flow.collect
+import java.util.concurrent.CancellationException
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -137,9 +139,11 @@ fun MainScreen(
         permissions = appPermissions,
     ) {
     }
-    BackHandler(
+    PredictiveBackHandler(
         enabled = backPressedState,
-        onBack = {
+    ) { progress ->
+        try {
+            progress.collect()
             if (pagerState.currentPage == 0) {
                 backPressedState = false
             } else {
@@ -147,8 +151,10 @@ fun MainScreen(
                     pagerState.animateScrollToPage(page = 0)
                 }
             }
-        },
-    )
+        } catch (e: CancellationException) {
+            // no-op
+        }
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()

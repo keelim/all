@@ -1,7 +1,7 @@
 package com.keelim.data.repository
 
-import com.keelim.core.model.finance.FinanceRssItem
-import com.keelim.core.model.finance.FinanceSource
+import com.keelim.model.finance.FinanceRssItem
+import com.keelim.model.finance.FinanceSource
 import kotlinx.coroutines.flow.Flow
 
 interface FinanceRssRepository {

@@ -27,15 +27,18 @@ import com.keelim.composeutil.component.fab.FabButtonItem
 import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
 import com.keelim.composeutil.util.permission.SimpleAcquirePermissions
-import com.keelim.comssa.ui.screen.main.finance.FinanceRoute
 
 @Composable
-fun EcocalRoute(viewModel: EcocalViewModel = hiltViewModel()) = trace("EcocalRoute") {
+fun EcocalRoute(
+    viewModel: EcocalViewModel = hiltViewModel(),
+    onNavigateToFinancialCalculators: () -> Unit = {},
+) = trace("EcocalRoute") {
     val uiState by viewModel.items.collectAsStateWithLifecycle()
     EcocalScreen(
         uiState = uiState,
         updateFilter = viewModel::updateFilter,
         updateCountry = viewModel::updateCountry,
+        onNavigateToFinancialCalculators = onNavigateToFinancialCalculators,
     )
 }
 
@@ -50,6 +53,7 @@ fun EcocalScreen(
     uiState: SealedUiState<Map<String, List<EcoCalModel>>>,
     updateFilter: (FabButtonItem) -> Unit,
     updateCountry: (String) -> Unit,
+    onNavigateToFinancialCalculators: () -> Unit = {},
 ) = trace("EcocalScreen") {
     SimpleAcquirePermissions(
         permissions = appPermissions,
@@ -111,7 +115,7 @@ fun EcocalScreen(
                         }
                     }
                     2 -> {
-                        FinanceRoute()
+                        onNavigateToFinancialCalculators()
                     }
                 }
             }

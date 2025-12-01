@@ -31,6 +31,7 @@ import com.keelim.core.navigation.CnuBusRoute
 import com.keelim.core.navigation.FeatureRoute
 import com.keelim.setting.screen.admin.AdminRoute
 import com.keelim.setting.screen.alarm.AlarmRoute
+import com.keelim.setting.screen.device.DeviceInfoScreen
 import com.keelim.setting.screen.faq.FaqRoute
 import com.keelim.setting.screen.lab.LabRoute
 import com.keelim.setting.screen.notification.NotificationRoute
@@ -124,6 +125,9 @@ fun EntryProviderBuilder<Any>.settingsEntry(
             onAdminClick = {
                 backStack.add(FeatureRoute.Admin)
             },
+            onDeviceInfoClick = {
+                backStack.add(FeatureRoute.DeviceInfo)
+            },
         )
     }
     entry<FeatureRoute.Faq> {
@@ -143,5 +147,10 @@ fun EntryProviderBuilder<Any>.settingsEntry(
     }
     entry<FeatureRoute.Admin> {
         AdminRoute()
+    }
+    entry<FeatureRoute.DeviceInfo> {
+        DeviceInfoScreen(
+            onNavigateBack = { backStack.removeLastOrNull() },
+        )
     }
 }

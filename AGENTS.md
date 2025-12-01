@@ -16,3 +16,73 @@ The main Android apps live in the `app-*/` folders. Feature modules live in `fea
 - The workflows are defined in `.github/workflows/*.yml` and they contain various checks.
 ## Version control and code location
 - The project uses git and is hosted on [GitHub](https://github.com/keelim/all).
+
+## Apps
+
+### app-comssa
+#### Financial Calculators
+- **Description:** Provides various financial calculation tools.
+- **Key Features:**
+    - Compound Interest Calculator
+    - Loan Repayment Calculator
+    - Investment Return Calculator
+    - Currency Converter
+    - Tax Calculator
+    - Save and Share Calculation Results
+- **Tech Stack:** Jetpack Compose for UI, DataStore for history persistence.
+
+### app-nanda
+#### Nanda Diagnosis
+- **Description:** Provides NANDA nursing diagnosis information and search functionality.
+- **Key Features:**
+    - Diagnosis Search
+    - Category-based browsing
+    - Detailed diagnosis information
+- **Tech Stack:** Jetpack Compose for UI, Room (Shared Module) for data persistence, Hilt for DI.
+
+### app-cnubus
+#### CNU Bus
+- **Description:** Provides real-time bus information for Chungnam National University.
+- **Key Features:**
+    - Real-time Bus Locations
+    - Route Maps (A, B, C, Night Routes)
+    - **Favorites**: Save frequently used bus stops for quick access.
+    - **Search**: Quickly find bus stops by name.
+    - **Modern UI**: Clean, card-based interface with floating search bar and intuitive settings.
+    - Settings and Shortcuts
+- **Tech Stack:** Jetpack Compose for UI (Material 3), Hilt for DI, Google Maps, DataStore (for Favorites).
+
+### app-arducon
+#### DeepLink Tester & Utility App
+- **Description:** A utility application for testing deep links and managing development tools.
+- **Key Features:**
+    - **DeepLink Management**: Create, read, update, and delete deep links. Support for categories and search.
+    - **QR Code Scanner & Generator**: Scan QR codes to open links and generate QR codes from deep links.
+    - **OG Tag Preview**: Preview Open Graph tags for URLs.
+    - **SaaS Status**: Monitor service status.
+    - **Statistics**: View usage statistics with charts.
+    - **JSON Formatter**: Format and validate JSON strings.
+    - **Base64 Tool**: Encode/Decode Base64 strings with history persistence.
+    - **Device Info**: View detailed device information (Model, SDK, Screen, etc.).
+- **Tech Stack:** Jetpack Compose for UI (Material 3), Hilt for DI, Room/DataStore for persistence, Coil for image loading, Jsoup for OG tag parsing.
+
+## Conventions
+
+### UI Guidelines
+
+#### Text Composable
+- **Rule**: All `Text` Composables MUST explicitly specify `style` (typography) and `color`.
+- **Reason**: To ensure consistent typography and color usage across the application and prevent accidental fallback to default styles that might not match the design system.
+- **Example**:
+  ```kotlin
+  Text(
+      text = "Example",
+      style = MaterialTheme.typography.bodyMedium,
+      color = MaterialTheme.colorScheme.onSurface
+  )
+  ```
+
+#### Animation
+- **Rule**: All user actions (e.g., list item deletion, visibility changes) MUST be animation-friendly.
+- **Reason**: To provide a smooth and engaging user experience.
+- **Example**: Use `LazyColumn` with `animateItem` for lists, or `AnimatedVisibility` for visibility changes.

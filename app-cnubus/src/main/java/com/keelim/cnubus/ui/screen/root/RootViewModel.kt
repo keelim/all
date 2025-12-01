@@ -31,18 +31,32 @@ import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.launch
+import com.keelim.data.repository.StationRepository
 import javax.inject.Inject
 @Stable
 @HiltViewModel
-class RootViewModel @Inject constructor() : ViewModel() {
+class RootViewModel @Inject constructor(
+    private val stationRepository: StationRepository,
+) : ViewModel() {
     private val modes = MutableStateFlow("a")
+    private val _query = MutableStateFlow("")
+    val query: StateFlow<String> = _query.asStateFlow()
 
-    val state: StateFlow<MapEvent> = modes.mapLatest { mode ->
+    val state: StateFlow<MapEvent> = combine(
+        modes,
+        _query,
+        stationRepository.favoriteStations
+    ) { mode, query, favorites ->
         val locations = when (mode) {
             "a" -> locationList.filter { it.roota != 999 }.sortedBy { it.roota }
             "b" -> locationList.filter { it.rootb != 999 }.sortedBy { it.rootb }
             "c" -> locationList.filter { it.rootc != 999 }.sortedBy { it.rootc }
-            else -> locationList.filter { it.root_night != 999 }.sortedBy { it.root_night }
+            "d" -> locationList.filter { it.root_night != 999 }.sortedBy { it.root_night }
+            "f" -> locationList.filter { favorites.contains(it.name) }
+            "s" -> if (query.isEmpty()) emptyList() else locationList.filter { it.name.contains(query) }
+            else -> emptyList()
         }
         MapEvent.MigrateSuccess(locations)
     }.onEach {
@@ -54,7 +68,25 @@ class RootViewModel @Inject constructor() : ViewModel() {
     private val _data = MutableStateFlow<List<Location>>(emptyList())
     val data: StateFlow<List<Location>> = _data.asStateFlow()
 
+    val favorites: StateFlow<Set<String>> = stationRepository.favoriteStations
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000L), emptySet())
+
     fun setMode(mode: String) {
         modes.tryEmit(mode)
+    }
+
+    fun updateQuery(newQuery: String) {
+        _query.tryEmit(newQuery)
+    }
+
+    fun toggleFavorite(stationName: String) {
+        viewModelScope.launch {
+            val currentFavorites = favorites.value
+            if (currentFavorites.contains(stationName)) {
+                stationRepository.removeFavorite(stationName)
+            } else {
+                stationRepository.addFavorite(stationName)
+            }
+        }
     }
 }

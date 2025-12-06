@@ -31,13 +31,35 @@ The main Android apps live in the `app-*/` folders. Feature modules live in `fea
     - Save and Share Calculation Results
 - **Tech Stack:** Jetpack Compose for UI, DataStore for history persistence.
 
-### app-nanda
-#### Nanda Diagnosis
-- **Description:** Provides NANDA nursing diagnosis information and search functionality.
+#### Ecocal (Economic Calendar)
+- **Description:** Provides important economic events and calendar.
 - **Key Features:**
-    - Diagnosis Search
-    - Category-based browsing
-    - Detailed diagnosis information
+    - Economic Events Calendar
+    - Country-specific Filter
+    - Importance Level Filter
+
+#### FlashCard
+- **Description:** A simple flashcard study tool.
+- **Key Features:**
+    - Create and Study Flashcards
+    - Randomized Reviews
+    - Progress Tracking
+
+#### Calendar
+- **Description:** General purpose calendar view.
+- **Key Features:**
+    - Month View
+    - Event Marking
+
+### app-nanda
+#### Nanda Diagnosis & Health Tools
+- **Description:** Provides NANDA nursing diagnosis information along with various health tracking and utility tools.
+- **Key Features:**
+    - **Diagnosis**: Search and browse NANDA nursing diagnoses with detailed information.
+    - **Food Manager**: Track daily food intake and manage nutritional data.
+    - **Exercise Tracker**: Log and monitor exercise routines.
+    - **Nutrient Info**: Database of nutrient information.
+    - **Unit Converter**: Utility tools for length and other conversions.
 - **Tech Stack:** Jetpack Compose for UI, Room (Shared Module) for data persistence, Hilt for DI.
 
 ### app-cnubus
@@ -65,6 +87,16 @@ The main Android apps live in the `app-*/` folders. Feature modules live in `fea
     - **Base64 Tool**: Encode/Decode Base64 strings with history persistence.
     - **Device Info**: View detailed device information (Model, SDK, Screen, etc.).
 - **Tech Stack:** Jetpack Compose for UI (Material 3), Hilt for DI, Room/DataStore for persistence, Coil for image loading, Jsoup for OG tag parsing.
+
+### app-my-grade
+#### Grade Calculator & Manager
+- **Description:** A comprehensive tool for calculating school grades, managing academic history, and tracking study tasks.
+- **Key Features:**
+    - **Grade Calculation**: Calculate grades based on raw scores and student distribution using standard deviation principles.
+    - **History**: Save and review past grade calculations.
+    - **Timer & Task**: Integrated focus timer and task management with visual charts.
+    - **Word**: Simple vocabulary management system.
+- **Tech Stack:** Jetpack Compose, Hilt, Room, Apache Commons Math (for statistics).
 
 ## Conventions
 

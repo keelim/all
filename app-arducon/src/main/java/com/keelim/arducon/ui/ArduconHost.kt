@@ -29,6 +29,7 @@ import com.keelim.arducon.ui.screen.qr.QrRoute
 import com.keelim.arducon.ui.screen.saastatus.main.SaastatusRoute
 import com.keelim.arducon.ui.screen.search.SearchRoute
 import com.keelim.arducon.ui.screen.stats.StatsScreen
+import com.keelim.arducon.ui.screen.urlshortener.UrlShortenerScreen
 import com.keelim.commonAndroid.ui.AppViewModel
 import com.keelim.composeutil.AppState
 import com.keelim.composeutil.rememberMutableStateListOf
@@ -112,6 +113,9 @@ fun ArduConHost(
                     onNavigateDeviceInfo = {
                         backStack.add(FeatureRoute.DeviceInfo)
                     },
+                    onNavigateUrlShortener = {
+                        backStack.add(ArduconRoute.UrlShortener)
+                    },
                 )
             }
             entry<ArduconRoute.Qr> {
@@ -185,6 +189,11 @@ fun ArduConHost(
             }
             entry<FeatureRoute.DeviceInfo> {
                 DeviceInfoScreen(
+                    onNavigateBack = { backStack.removeLastOrNull() },
+                )
+            }
+            entry<ArduconRoute.UrlShortener> {
+                UrlShortenerScreen(
                     onNavigateBack = { backStack.removeLastOrNull() },
                 )
             }

@@ -14,6 +14,8 @@ import com.keelim.shared.data.database.dao.NoteDao
 import com.keelim.shared.data.database.dao.TaskDao
 import com.keelim.shared.data.database.dao.TimerHistoryDao
 import com.keelim.shared.data.database.dao.NandaDao
+import com.keelim.shared.data.database.dao.ShortenedUrlDao
+import com.keelim.shared.data.database.model.ShortenedUrlEntity
 import com.keelim.shared.data.database.model.AlarmEntity
 import com.keelim.shared.data.database.model.DeepLinkEntity
 import com.keelim.shared.data.database.model.History
@@ -71,8 +73,9 @@ expect object ArduconDatabaseConstructor : RoomDatabaseConstructor<ArduconDataba
         DeepLinkEntity::class,
         SchemeEntity::class,
         Base64History::class,
+        ShortenedUrlEntity::class,
     ],
-    version = 8,
+    version = 9,
     exportSchema = true,
     autoMigrations = [
         AutoMigration(from = 1, to = 2),
@@ -82,12 +85,14 @@ expect object ArduconDatabaseConstructor : RoomDatabaseConstructor<ArduconDataba
         AutoMigration(from = 5, to = 6),
         AutoMigration(from = 6, to = 7),
         AutoMigration(from = 7, to = 8),
+        AutoMigration(from = 8, to = 9),
     ],
 )
 @ConstructedBy(ArduconDatabaseConstructor::class)
 abstract class ArduconDatabase : RoomDatabase() {
     abstract fun dataDao(): ArduconDao
     abstract fun base64Dao(): Base64Dao
+    abstract fun shortenedUrlDao(): ShortenedUrlDao
 }
 
 @Suppress("NO_ACTUAL_FOR_EXPECT")

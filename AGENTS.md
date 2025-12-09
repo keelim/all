@@ -86,6 +86,7 @@ The main Android apps live in the `app-*/` folders. Feature modules live in `fea
     - **JSON Formatter**: Format and validate JSON strings.
     - **Base64 Tool**: Encode/Decode Base64 strings with history persistence.
     - **Device Info**: View detailed device information (Model, SDK, Screen, etc.).
+    - **URL Shortener**: Shorten URLs locally, track click analytics, and set expiration dates.
 - **Tech Stack:** Jetpack Compose for UI (Material 3), Hilt for DI, Room/DataStore for persistence, Coil for image loading, Jsoup for OG tag parsing.
 
 ### app-my-grade

@@ -34,6 +34,7 @@ import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.ThumbUp
@@ -114,6 +115,7 @@ fun MainRoute(
     onNavigateJsonFormatter: () -> Unit,
     onNavigateBase64Encoder: () -> Unit,
     onNavigateDeviceInfo: () -> Unit,
+    onNavigateUrlShortener: () -> Unit,
     viewModel: MainViewModel = hiltViewModel(),
 ) {
     val schemeList by viewModel.schemeList.collectAsStateWithLifecycle()
@@ -171,6 +173,7 @@ fun MainRoute(
         onGenerateQrCode = viewModel::generateQrCode,
         recordDeepLinkUsage = viewModel::recordDeepLinkUsage,
         onNavigateStats = onNavigateStats,
+        onNavigateUrlShortener = onNavigateUrlShortener,
     )
 
     if (showBottomSheet != DeepLink.EMPTY) {
@@ -229,6 +232,7 @@ fun MainScreen(
     onGenerateQrCode: (DeepLink) -> Unit,
     recordDeepLinkUsage: (DeepLink) -> Unit,
     onNavigateStats: () -> Unit,
+    onNavigateUrlShortener: () -> Unit,
 ) {
     val listState = rememberLazyListState()
     val isScrollInProgress = remember {
@@ -271,6 +275,7 @@ fun MainScreen(
                     onNavigateJsonFormatter = onNavigateJsonFormatter,
                     onNavigateBase64Encoder = onNavigateBase64Encoder,
                     onNavigateDeviceInfo = onNavigateDeviceInfo,
+                    onNavigateUrlShortener = onNavigateUrlShortener,
                 )
             }
         },
@@ -332,6 +337,7 @@ private fun HorizontalFloatingToolbarSection(
     onNavigateJsonFormatter: () -> Unit,
     onNavigateBase64Encoder: () -> Unit,
     onNavigateDeviceInfo: () -> Unit,
+    onNavigateUrlShortener: () -> Unit,
 ) {
     val (isExpanded, setIsExpanded) = remember { mutableStateOf(true) }
 
@@ -435,6 +441,19 @@ private fun HorizontalFloatingToolbarSection(
                     Icon(
                         imageVector = Icons.Default.Info,
                         contentDescription = "navigate device info",
+                    )
+                }
+            },
+        )
+        TooltipIcon(
+            tooltipText = "URL Shortener",
+            content = {
+                IconButton(
+                    onClick = onNavigateUrlShortener,
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.List,
+                        contentDescription = "navigate url shortener",
                     )
                 }
             },
@@ -726,6 +745,7 @@ private fun PreviewMainScreen() {
         onGenerateQrCode = { },
         recordDeepLinkUsage = {},
         onNavigateStats = {},
+        onNavigateUrlShortener = {},
     )
 }
 

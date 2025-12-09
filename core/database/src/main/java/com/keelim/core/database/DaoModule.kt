@@ -14,6 +14,7 @@ import com.keelim.shared.data.database.dao.TaskDao
 import com.keelim.shared.data.database.dao.TimerHistoryDao
 import com.keelim.shared.data.database.dao.Base64Dao
 import com.keelim.shared.data.database.dao.NandaDao
+import com.keelim.shared.data.database.dao.ShortenedUrlDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -82,4 +83,11 @@ object DaoModule {
     fun provideBase64Dao(
         database: ArduconDatabase,
     ): Base64Dao = database.base64Dao()
+
+    @Provides
+    @Singleton
+    fun provideShortenedUrlDao(
+        database: ArduconDatabase,
+    ): ShortenedUrlDao = database.shortenedUrlDao()
 }
+

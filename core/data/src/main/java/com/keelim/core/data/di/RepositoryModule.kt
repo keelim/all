@@ -32,6 +32,8 @@ import com.keelim.core.data.source.StationRepositoryImpl
 import com.keelim.data.repository.StationRepository
 import com.keelim.core.data.repository.Base64Repository
 import com.keelim.core.data.source.Base64RepositoryImpl
+import com.keelim.core.data.repository.ShortenedUrlRepository
+import com.keelim.core.data.source.ShortenedUrlRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -114,8 +116,15 @@ interface RepositoryModule {
     fun bindsStationRepository(
         repository: StationRepositoryImpl,
     ): StationRepository
+
     @Binds
     abstract fun bindsBase64Repository(
         repository: Base64RepositoryImpl,
     ): Base64Repository
+
+    @Binds
+    abstract fun bindsShortenedUrlRepository(
+        repository: ShortenedUrlRepositoryImpl,
+    ): ShortenedUrlRepository
 }
+

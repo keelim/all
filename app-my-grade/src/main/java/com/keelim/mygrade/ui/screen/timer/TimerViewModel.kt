@@ -130,6 +130,14 @@ class TimerViewModel @Inject constructor(
         }
     }
 
+    fun clear() {
+        _hour = 0
+        _minute = 0
+        _second = 0
+        leftTime.intValue = 0
+        initialTotalSeconds = 0
+    }
+
     fun clearDialog() {
         _timerUiState.update { old ->
             old.copy(

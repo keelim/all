@@ -37,8 +37,11 @@ import androidx.compose.material.icons.rounded.DateRange
 import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledIconButton
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -50,8 +53,10 @@ import androidx.compose.material3.rememberStandardBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -75,6 +80,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun TimerRoute(
     onNavigateTimerHistory: () -> Unit,
+    onNavigateAnalytics: () -> Unit = {},
     viewModel: TimerViewModel = hiltViewModel(),
 ) = trace("TimerRoute") {
     val timerUiState by viewModel.timerUiState.collectAsStateWithLifecycle()
@@ -86,6 +92,8 @@ fun TimerRoute(
         totalTimeSeconds = viewModel.getTotalTimeInSeconds(),
         addedTime = viewModel.addTime(System.currentTimeMillis()),
         onNavigateTimerHistory = onNavigateTimerHistory,
+        onNavigateAnalytics = onNavigateAnalytics,
+        onResetTimer = viewModel::clear,
         onStart = viewModel::start,
         onStop = viewModel::stop,
         onTimerComplete = viewModel::onTimerComplete,
@@ -116,6 +124,8 @@ fun TimerScreen(
     onHourChange: (Int) -> Unit,
     onMinuteChange: (Int) -> Unit,
     onSecondChange: (Int) -> Unit,
+    onNavigateAnalytics: () -> Unit = {},
+    onResetTimer: () -> Unit = {},
 ) = trace("TimerScreen") {
     val scope = rememberCoroutineScope()
 
@@ -171,7 +181,11 @@ fun TimerScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 // Header
-                TimerHeader(onNavigateTimerHistory = onNavigateTimerHistory)
+                TimerHeader(
+                    onNavigateTimerHistory = onNavigateTimerHistory,
+                    onNavigateAnalytics = onNavigateAnalytics,
+                    onResetTimer = onResetTimer,
+                )
 
                 Spacer(modifier = Modifier.height(32.dp))
 
@@ -233,7 +247,11 @@ fun TimerScreen(
 @Composable
 private fun TimerHeader(
     onNavigateTimerHistory: () -> Unit,
+    onNavigateAnalytics: () -> Unit = {},
+    onResetTimer: () -> Unit = {},
 ) {
+    var menuExpanded by remember { mutableStateOf(false) }
+
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -252,17 +270,66 @@ private fun TimerHeader(
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
-        FilledIconButton(
-            onClick = onNavigateTimerHistory,
-            colors = IconButtonDefaults.filledIconButtonColors(
-                containerColor = MaterialTheme.colorScheme.secondaryContainer,
-            ),
-        ) {
-            Icon(
-                imageVector = Icons.Outlined.MoreVert,
-                contentDescription = "History",
-                tint = MaterialTheme.colorScheme.onSecondaryContainer,
-            )
+
+        Box {
+            FilledIconButton(
+                onClick = { menuExpanded = true },
+                colors = IconButtonDefaults.filledIconButtonColors(
+                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                ),
+            ) {
+                Icon(
+                    imageVector = Icons.Outlined.MoreVert,
+                    contentDescription = "Menu",
+                    tint = MaterialTheme.colorScheme.onSecondaryContainer,
+                )
+            }
+
+            DropdownMenu(
+                expanded = menuExpanded,
+                onDismissRequest = { menuExpanded = false },
+            ) {
+                DropdownMenuItem(
+                    text = {
+                        Text(
+                            text = "📊 Study Analytics",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurface,
+                        )
+                    },
+                    onClick = {
+                        menuExpanded = false
+                        onNavigateAnalytics()
+                    },
+                )
+                DropdownMenuItem(
+                    text = {
+                        Text(
+                            text = "📜 Timer History",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurface,
+                        )
+                    },
+                    onClick = {
+                        menuExpanded = false
+                        onNavigateTimerHistory()
+                    },
+                )
+                HorizontalDivider()
+                DropdownMenuItem(
+                    text = {
+                        Text(
+                            text = "🔄 Reset Timer",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.error,
+                        )
+                    },
+                    onClick = {
+                        menuExpanded = false
+                        onResetTimer()
+                    },
+                )
+            }
         }
     }
 }

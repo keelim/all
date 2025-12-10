@@ -39,6 +39,7 @@ import com.keelim.mygrade.ui.screen.task.chart.TaskChartRoute
 import com.keelim.mygrade.ui.screen.timer.history.TimerHistoryRoute
 import com.keelim.mygrade.ui.screen.word.show.WordShowRoute
 import com.keelim.mygrade.ui.screen.word.write.WordWriteRoute
+import com.keelim.mygrade.ui.screen.analytics.StudyAnalyticsRoute
 import com.keelim.setting.screen.admin.AdminRoute
 import com.keelim.setting.screen.alarm.AlarmRoute
 import com.keelim.setting.screen.device.DeviceInfoScreen
@@ -122,6 +123,9 @@ fun MyGradeHost(
                     onNavigateTask = {
                         backStack.add(MyGradeRoute.Task)
                     },
+                    onNavigateAnalytics = {
+                        backStack.add(MyGradeRoute.StudyAnalytics)
+                    },
                 )
             }
             entry<MyGradeRoute.TimerHistory> {
@@ -182,6 +186,9 @@ fun MyGradeHost(
             }
             entry<MyGradeRoute.WordWrite> {
                 WordWriteRoute()
+            }
+            entry<MyGradeRoute.StudyAnalytics> {
+                StudyAnalyticsRoute()
             }
         },
     )

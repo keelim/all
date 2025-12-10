@@ -7,6 +7,8 @@ import com.keelim.shared.data.UserStateStore
 import com.keelim.shared.data.model.ThemeType
 import dagger.Lazy
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -25,7 +27,7 @@ data class RadioItem(
 data class ThemeTypeState(
     val selectedRadio: ThemeType,
     val isDialogVisible: Boolean = false,
-    val items: List<RadioItem> = listOf(
+    val items: ImmutableList<RadioItem> = persistentListOf(
         RadioItem(ThemeType.LIGHT, "Light"),
         RadioItem(ThemeType.DARK, "Dark"),
     ),

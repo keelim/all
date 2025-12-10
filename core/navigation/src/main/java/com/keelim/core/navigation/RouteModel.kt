@@ -142,6 +142,9 @@ sealed interface MyGradeRoute : AppRoute {
 
     @Serializable
     data object WordWrite : MyGradeRoute
+
+    @Serializable
+    data object StudyAnalytics : MyGradeRoute
 }
 
 sealed interface FeatureRoute : AppRoute {

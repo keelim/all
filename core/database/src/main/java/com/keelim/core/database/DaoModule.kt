@@ -15,6 +15,7 @@ import com.keelim.shared.data.database.dao.TimerHistoryDao
 import com.keelim.shared.data.database.dao.Base64Dao
 import com.keelim.shared.data.database.dao.NandaDao
 import com.keelim.shared.data.database.dao.ShortenedUrlDao
+import com.keelim.shared.data.database.dao.StudySessionDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -57,6 +58,12 @@ object DaoModule {
 
     @Provides
     @Singleton
+    fun providesStudySessionDao(
+        database: MyGradeAppDatabase,
+    ): StudySessionDao = database.studySessionDao()
+
+    @Provides
+    @Singleton
     fun providesArduconDao(
         database: ArduconDatabase,
     ): ArduconDao = database.dataDao()
@@ -90,4 +97,3 @@ object DaoModule {
         database: ArduconDatabase,
     ): ShortenedUrlDao = database.shortenedUrlDao()
 }
-

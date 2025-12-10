@@ -97,6 +97,7 @@ The main Android apps live in the `app-*/` folders. Feature modules live in `fea
     - **History**: Save and review past grade calculations.
     - **Timer & Task**: Integrated focus timer and task management with visual charts.
     - **Word**: Simple vocabulary management system.
+    - **Study Analytics**: Dashboard with activity heatmap, weekly study charts, subject distribution, streak tracking, and gamification elements.
 - **Tech Stack:** Jetpack Compose, Hilt, Room, Apache Commons Math (for statistics).
 
 ## Conventions
@@ -119,3 +120,13 @@ The main Android apps live in the `app-*/` folders. Feature modules live in `fea
 - **Rule**: All user actions (e.g., list item deletion, visibility changes) MUST be animation-friendly.
 - **Reason**: To provide a smooth and engaging user experience.
 - **Example**: Use `LazyColumn` with `animateItem` for lists, or `AnimatedVisibility` for visibility changes.
+
+#### Build Verification
+- **Rule**: After making code changes to any module, always run `./gradlew :<module>:assembleDebug` to verify the build.
+- **Reason**: To catch compile errors early and ensure the code integrates correctly.
+- **Example**:
+  ```bash
+  ./gradlew :app-my-grade:assembleDebug
+  ./gradlew :core:data:assembleDebug
+  ./gradlew :feature:ui-setting:assembleDebug
+  ```

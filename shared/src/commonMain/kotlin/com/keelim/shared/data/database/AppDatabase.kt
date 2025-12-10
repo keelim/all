@@ -15,6 +15,7 @@ import com.keelim.shared.data.database.dao.TaskDao
 import com.keelim.shared.data.database.dao.TimerHistoryDao
 import com.keelim.shared.data.database.dao.NandaDao
 import com.keelim.shared.data.database.dao.ShortenedUrlDao
+import com.keelim.shared.data.database.dao.StudySessionDao
 import com.keelim.shared.data.database.model.ShortenedUrlEntity
 import com.keelim.shared.data.database.model.AlarmEntity
 import com.keelim.shared.data.database.model.DeepLinkEntity
@@ -26,6 +27,7 @@ import com.keelim.shared.data.database.model.NoticesEntity
 import com.keelim.shared.data.database.model.SchemeEntity
 import com.keelim.shared.data.database.model.SimpleHistory
 import com.keelim.shared.data.database.model.TimerHistory
+import com.keelim.shared.data.database.model.StudySession
 import com.keelim.shared.data.database.dao.Base64Dao
 import com.keelim.shared.data.database.model.Base64History
 import com.keelim.shared.data.database.model.NandaEntity
@@ -44,14 +46,16 @@ expect object MyGradeAppDatabaseConstructor : RoomDatabaseConstructor<MyGradeApp
         TimerHistory::class,
         NetworkCache::class,
         NoticesEntity::class,
+        StudySession::class,
     ],
-    version = 6,
+    version = 7,
     exportSchema = true,
     autoMigrations = [
         AutoMigration(from = 2, to = 3),
         AutoMigration(from = 3, to = 4),
         AutoMigration(from = 4, to = 5),
         AutoMigration(from = 5, to = 6),
+        AutoMigration(from = 6, to = 7),
     ],
 )
 @ConstructedBy(MyGradeAppDatabaseConstructor::class)
@@ -61,6 +65,7 @@ abstract class MyGradeAppDatabase : RoomDatabase() {
     abstract fun timerHistoryDao(): TimerHistoryDao
     abstract fun networkCacheDao(): NetworkCacheDao
     abstract fun noteDao(): NoteDao
+    abstract fun studySessionDao(): StudySessionDao
 }
 
 @Suppress("NO_ACTUAL_FOR_EXPECT")

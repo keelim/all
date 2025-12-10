@@ -131,3 +131,16 @@ The main Android apps live in the `app-*/` folders. Feature modules live in `fea
   ./gradlew :core:data:assembleDebug
   ./gradlew :feature:ui-setting:assembleDebug
   ```
+
+## Feature Modules
+
+### feature/ui-setting
+#### ThemeScreen
+- **Description**: Modern theme selection screen with animated UI.
+- **Key Features**:
+    - **Header Section**: Gradient icon with palette and clear title/subtitle.
+    - **Theme Selection Cards**: Inline card-based theme selection (Light/Dark) with scale animation and border animation on selection.
+    - **Preview Panel**: Live preview of selected theme with animated color transitions.
+    - **Smooth Animations**: Uses `animateFloatAsState` for scale, `animateColorAsState` for colors with `tween` duration.
+- **Tech Stack**: Jetpack Compose (Material 3), Material Icons Extended, Animation APIs.
+

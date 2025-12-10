@@ -1,5 +1,0 @@
----
-trigger: always_on
----
-
-모든 기능은 AGENTS.md 를 기반으로 생성을 해주고 기능 생성이 완료된다면 AGENTS.md 를 작성해줘모든 기능은 convention.md 를 기반으로 생성을 해주고 기능 생성이 완료된다면 AGENTS.md 를 작성해줘

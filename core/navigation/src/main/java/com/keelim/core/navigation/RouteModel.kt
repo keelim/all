@@ -120,7 +120,11 @@ sealed interface MyGradeRoute : AppRoute {
     data object History : MyGradeRoute
 
     @Serializable
-    data object Main : MyGradeRoute
+    data class Main(
+        val timerHours: Int = -1,
+        val timerMinutes: Int = -1,
+        val timerSeconds: Int = -1,
+    ) : MyGradeRoute
 
     @Serializable
     data object TaskChart : MyGradeRoute

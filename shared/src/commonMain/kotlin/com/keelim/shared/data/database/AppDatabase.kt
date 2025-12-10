@@ -7,30 +7,30 @@ import androidx.room.RoomDatabase
 import androidx.room.RoomDatabaseConstructor
 import com.keelim.shared.data.database.dao.AlarmDao
 import com.keelim.shared.data.database.dao.ArduconDao
+import com.keelim.shared.data.database.dao.Base64Dao
 import com.keelim.shared.data.database.dao.HistoryDao
 import com.keelim.shared.data.database.dao.LengthRecordDao
+import com.keelim.shared.data.database.dao.NandaDao
 import com.keelim.shared.data.database.dao.NetworkCacheDao
 import com.keelim.shared.data.database.dao.NoteDao
-import com.keelim.shared.data.database.dao.TaskDao
-import com.keelim.shared.data.database.dao.TimerHistoryDao
-import com.keelim.shared.data.database.dao.NandaDao
 import com.keelim.shared.data.database.dao.ShortenedUrlDao
 import com.keelim.shared.data.database.dao.StudySessionDao
-import com.keelim.shared.data.database.model.ShortenedUrlEntity
+import com.keelim.shared.data.database.dao.TaskDao
+import com.keelim.shared.data.database.dao.TimerHistoryDao
 import com.keelim.shared.data.database.model.AlarmEntity
+import com.keelim.shared.data.database.model.Base64History
 import com.keelim.shared.data.database.model.DeepLinkEntity
 import com.keelim.shared.data.database.model.History
 import com.keelim.shared.data.database.model.LengthRecord
 import com.keelim.shared.data.database.model.LocalTask
+import com.keelim.shared.data.database.model.NandaEntity
 import com.keelim.shared.data.database.model.NetworkCache
 import com.keelim.shared.data.database.model.NoticesEntity
 import com.keelim.shared.data.database.model.SchemeEntity
+import com.keelim.shared.data.database.model.ShortenedUrlEntity
 import com.keelim.shared.data.database.model.SimpleHistory
-import com.keelim.shared.data.database.model.TimerHistory
 import com.keelim.shared.data.database.model.StudySession
-import com.keelim.shared.data.database.dao.Base64Dao
-import com.keelim.shared.data.database.model.Base64History
-import com.keelim.shared.data.database.model.NandaEntity
+import com.keelim.shared.data.database.model.TimerHistory
 
 // The Room compiler generates the `actual` implementations.
 @Suppress("NO_ACTUAL_FOR_EXPECT")
@@ -48,7 +48,7 @@ expect object MyGradeAppDatabaseConstructor : RoomDatabaseConstructor<MyGradeApp
         NoticesEntity::class,
         StudySession::class,
     ],
-    version = 7,
+    version = 8,
     exportSchema = true,
     autoMigrations = [
         AutoMigration(from = 2, to = 3),
@@ -56,6 +56,7 @@ expect object MyGradeAppDatabaseConstructor : RoomDatabaseConstructor<MyGradeApp
         AutoMigration(from = 4, to = 5),
         AutoMigration(from = 5, to = 6),
         AutoMigration(from = 6, to = 7),
+        AutoMigration(from = 7, to = 8),
     ],
 )
 @ConstructedBy(MyGradeAppDatabaseConstructor::class)

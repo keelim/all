@@ -4,7 +4,9 @@ import com.keelim.common.Dispatcher
 import com.keelim.common.KeelimDispatchers
 import com.keelim.common.di.ApplicationScope
 import com.keelim.core.database.mapper.toSimpleHistoryModel
+import com.keelim.core.database.mapper.toTimerHistoryModels
 import com.keelim.data.repository.HistoryRepository
+import com.keelim.model.TimerHistoryModel
 import com.keelim.shared.data.database.dao.HistoryDao
 import com.keelim.shared.data.database.dao.TimerHistoryDao
 import com.keelim.shared.data.database.model.SimpleHistory
@@ -30,6 +32,11 @@ class HistoryRepositoryImpl @Inject constructor(
                 it.toSimpleHistoryModel()
             }
 
+    override fun observeTimerHistories(): Flow<List<TimerHistoryModel>> =
+        timerHistoryDataSource.observeAll()
+            .map { it.toTimerHistoryModels() }
+
+
     override suspend fun create(subject: String, grade: String, point: String): Boolean {
         return try {
             withContext(io) {
@@ -54,9 +61,45 @@ class HistoryRepositoryImpl @Inject constructor(
         localDataSource.updateCompleted(historyId, grade)
     }
 
-    override suspend fun completedTimerHistory(historyId: String) {
-        timerHistoryDataSource
-            .updateCompleted(historyId)
+    override suspend fun completedTimerHistory(historyId: Int) {
+        timerHistoryDataSource.updateCompleted(historyId)
+    }
+
+    override suspend fun deleteTimerHistory(historyId: Int) {
+        withContext(io) {
+            timerHistoryDataSource.deleteById(historyId)
+        }
+    }
+
+    override suspend fun deleteAllTimerHistories() {
+        withContext(io) {
+            timerHistoryDataSource.deleteAll()
+        }
+    }
+
+    override suspend fun updateTimerHistoryDescription(historyId: Int, description: String) {
+        withContext(io) {
+            timerHistoryDataSource.updateDescription(historyId, description)
+        }
+    }
+
+    override suspend fun createTimerHistory(
+        hours: Int,
+        minutes: Int,
+        seconds: Int,
+        description: String,
+    ) {
+        withContext(io) {
+            timerHistoryDataSource.upsert(
+                com.keelim.shared.data.database.model.TimerHistory(
+                    hours = hours,
+                    minutes = minutes,
+                    seconds = seconds,
+                    description = description,
+                    isCompleted = true,
+                )
+            )
+        }
     }
 
     override suspend fun refresh() {

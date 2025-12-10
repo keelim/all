@@ -96,6 +96,7 @@ The main Android apps live in the `app-*/` folders. Feature modules live in `fea
     - **Grade Calculation**: Calculate grades based on raw scores and student distribution using standard deviation principles.
     - **History**: Save and review past grade calculations.
     - **Timer & Task**: Integrated focus timer and task management with visual charts.
+    - **Timer History**: View, edit, and manage past timer sessions. Supports swipe-to-delete, description editing, and tap-to-restore timer settings.
     - **Word**: Simple vocabulary management system.
     - **Study Analytics**: Dashboard with activity heatmap, weekly study charts, subject distribution, streak tracking, and gamification elements.
 - **Tech Stack:** Jetpack Compose, Hilt, Room, Apache Commons Math (for statistics).

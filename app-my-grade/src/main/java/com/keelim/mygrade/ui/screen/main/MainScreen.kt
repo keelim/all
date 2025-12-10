@@ -77,6 +77,9 @@ fun MainRoute(
     onNavigateTask: () -> Unit,
     onNavigateAnalytics: () -> Unit,
     viewModel: MainViewModel = hiltViewModel(),
+    timerPresetHours: Int? = null,
+    timerPresetMinutes: Int? = null,
+    timerPresetSeconds: Int? = null,
 ) = trace("MainRoute") {
     val mainState by viewModel.mainScreenState.collectAsStateWithLifecycle()
     val subject by viewModel.subject.collectAsStateWithLifecycle()
@@ -86,6 +89,9 @@ fun MainRoute(
     val number by viewModel.number.collectAsStateWithLifecycle()
     val student by viewModel.student.collectAsStateWithLifecycle()
     MainScreen(
+        timerPresetHours = timerPresetHours,
+        timerPresetMinutes = timerPresetMinutes,
+        timerPresetSeconds = timerPresetSeconds,
         clear = viewModel::clear,
         submit = viewModel::submit,
         moveState = viewModel::moveState,
@@ -115,6 +121,9 @@ private val appPermissions: List<String> = buildList {
 
 @Composable
 fun MainScreen(
+    timerPresetHours: Int? = null,
+    timerPresetMinutes: Int? = null,
+    timerPresetSeconds: Int? = null,
     mainState: MainScreenState,
     subject: String,
     state: MainState,
@@ -176,6 +185,9 @@ fun MainScreen(
                     backPressedState = true
                 }
                 TimerRoute(
+                    presetHours = timerPresetHours,
+                    presetMinutes = timerPresetMinutes,
+                    presetSeconds = timerPresetSeconds,
                     onNavigateTimerHistory = onNavigateTimerHistory,
                 )
             } else {
@@ -328,7 +340,7 @@ private fun ColumnScope.MainBottomSection(
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewMainScreen() {
+private fun PreviewMainScreen() {
     MainScreen(
         onSubmitClick = { _, _, _ -> },
         onFloatingButtonClick1 = {},
@@ -395,7 +407,7 @@ internal fun ScoreTextRow(
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewScoreTextRow() {
+private fun PreviewScoreTextRow() {
     ScoreTextRow(text = "원점수", value = "", onValueChange = {}, isError = false)
 }
 

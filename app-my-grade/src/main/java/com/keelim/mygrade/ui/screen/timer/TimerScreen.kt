@@ -79,11 +79,21 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TimerRoute(
+    presetHours: Int? = null,
+    presetMinutes: Int? = null,
+    presetSeconds: Int? = null,
     onNavigateTimerHistory: () -> Unit,
     onNavigateAnalytics: () -> Unit = {},
     viewModel: TimerViewModel = hiltViewModel(),
 ) = trace("TimerRoute") {
     val timerUiState by viewModel.timerUiState.collectAsStateWithLifecycle()
+
+    // Apply preset values if provided
+    LaunchedEffect(presetHours, presetMinutes, presetSeconds) {
+        if (presetHours != null) viewModel.hour = presetHours
+        if (presetMinutes != null) viewModel.minute = presetMinutes
+        if (presetSeconds != null) viewModel.second = presetSeconds
+    }
 
     TimerScreen(
         isRunning = viewModel.isRunning,

@@ -26,6 +26,7 @@ import com.keelim.composeutil.rememberMutableStateListOf
 import com.keelim.core.navigation.AppRoute
 import com.keelim.core.navigation.FeatureRoute
 import com.keelim.core.navigation.MyGradeRoute
+import com.keelim.mygrade.ui.screen.analytics.StudyAnalyticsRoute
 import com.keelim.mygrade.ui.screen.grade.GradeRoute
 import com.keelim.mygrade.ui.screen.grade.edit.EditRoute
 import com.keelim.mygrade.ui.screen.grade.notes.NotesRoute
@@ -39,7 +40,6 @@ import com.keelim.mygrade.ui.screen.task.chart.TaskChartRoute
 import com.keelim.mygrade.ui.screen.timer.history.TimerHistoryRoute
 import com.keelim.mygrade.ui.screen.word.show.WordShowRoute
 import com.keelim.mygrade.ui.screen.word.write.WordWriteRoute
-import com.keelim.mygrade.ui.screen.analytics.StudyAnalyticsRoute
 import com.keelim.setting.screen.admin.AdminRoute
 import com.keelim.setting.screen.alarm.AlarmRoute
 import com.keelim.setting.screen.device.DeviceInfoScreen
@@ -60,7 +60,7 @@ fun MyGradeHost(
     modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
-    val backStack = rememberMutableStateListOf<AppRoute>(MyGradeRoute.Main)
+    val backStack = rememberMutableStateListOf<AppRoute>(MyGradeRoute.Main())
     val motionScheme = MaterialTheme.motionScheme
 
     NavDisplay(
@@ -93,7 +93,7 @@ fun MyGradeHost(
             entry<FeatureRoute.Event> {
                 EventRoute()
             }
-            entry<MyGradeRoute.Main> {
+            entry<MyGradeRoute.Main> { route ->
                 MainRoute(
                     onSubmitClick = { subject, normalProbability, student ->
                         backStack.add(
@@ -126,10 +126,24 @@ fun MyGradeHost(
                     onNavigateAnalytics = {
                         backStack.add(MyGradeRoute.StudyAnalytics)
                     },
+                    timerPresetHours = route.timerHours.takeIf { it >= 0 },
+                    timerPresetMinutes = route.timerMinutes.takeIf { it >= 0 },
+                    timerPresetSeconds = route.timerSeconds.takeIf { it >= 0 },
                 )
             }
             entry<MyGradeRoute.TimerHistory> {
-                TimerHistoryRoute()
+                TimerHistoryRoute(
+                    onSetTimer = { hours, minutes, seconds ->
+                        backStack.removeLastOrNull()
+                        backStack.add(
+                            MyGradeRoute.Main(
+                                timerHours = hours,
+                                timerMinutes = minutes,
+                                timerSeconds = seconds,
+                            ),
+                        )
+                    },
+                )
             }
             entry<MyGradeRoute.History> {
                 HistoryRoute(

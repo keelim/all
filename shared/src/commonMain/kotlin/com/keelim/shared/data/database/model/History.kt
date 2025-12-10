@@ -2,6 +2,7 @@
 
 package com.keelim.shared.data.database.model
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.datetime.Clock
@@ -40,5 +41,21 @@ data class TimerHistory(
     @PrimaryKey(autoGenerate = true) val uid: Int = 0,
     val date: String = Clock.System.now().toLocalDateTime(TimeZone.UTC).toString(),
     val historyTime: String = "",
+    @ColumnInfo(defaultValue = "0")
+    val hours: Int = 0,
+    @ColumnInfo(defaultValue = "0")
+    val minutes: Int = 0,
+    @ColumnInfo(defaultValue = "0")
+    val seconds: Int = 0,
+    @ColumnInfo(defaultValue = "")
+    val description: String = "",
+    @ColumnInfo(defaultValue = "false")
     val isCompleted: Boolean = false,
-)
+) {
+    val formattedTime: String
+        get() = buildString {
+            if (hours > 0) append("${hours}h ")
+            if (minutes > 0) append("${minutes}m ")
+            if (seconds > 0) append("${seconds}s")
+        }.trim().ifEmpty { "0s" }
+}

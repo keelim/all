@@ -7,6 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.keelim.data.repository.HistoryRepository
 import com.keelim.data.repository.StudyAnalyticsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -50,6 +51,7 @@ data class TimerUiState(
 @HiltViewModel
 class TimerViewModel @Inject constructor(
     private val studyAnalyticsRepository: StudyAnalyticsRepository,
+    private val historyRepository: HistoryRepository,
 ) : ViewModel() {
     private var countTimeJob: Job? = null
     private var _isRunning by mutableStateOf(RunningState.STOPPED)
@@ -121,10 +123,19 @@ class TimerViewModel @Inject constructor(
 
     fun onTimerComplete() {
         if (initialTotalSeconds > 0) {
+            val completedHours = initialTotalSeconds / 3600
+            val completedMinutes = (initialTotalSeconds % 3600) / 60
+            val completedSeconds = initialTotalSeconds % 60
+            
             viewModelScope.launch {
                 studyAnalyticsRepository.recordSession(
                     subject = "Default",
                     durationSeconds = initialTotalSeconds,
+                )
+                historyRepository.createTimerHistory(
+                    hours = completedHours,
+                    minutes = completedMinutes,
+                    seconds = completedSeconds,
                 )
             }
         }

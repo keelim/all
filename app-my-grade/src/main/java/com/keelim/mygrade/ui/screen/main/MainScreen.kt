@@ -5,8 +5,6 @@ package com.keelim.mygrade.ui.screen.main
 import android.Manifest
 import android.os.Build
 import androidx.activity.compose.PredictiveBackHandler
-import kotlinx.coroutines.flow.collect
-import java.util.concurrent.CancellationException
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -62,8 +60,10 @@ import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
 import com.keelim.composeutil.util.permission.SimpleAcquirePermissions
-import com.keelim.mygrade.ui.screen.timer.TimerScreen
+import com.keelim.mygrade.ui.screen.timer.TimerRoute
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.util.concurrent.CancellationException
 
 private const val pageCount = 2
 
@@ -75,6 +75,7 @@ fun MainRoute(
     onLabClick: () -> Unit,
     onNavigateTimerHistory: () -> Unit,
     onNavigateTask: () -> Unit,
+    onNavigateAnalytics: () -> Unit,
     viewModel: MainViewModel = hiltViewModel(),
 ) = trace("MainRoute") {
     val mainState by viewModel.mainScreenState.collectAsStateWithLifecycle()
@@ -95,6 +96,7 @@ fun MainRoute(
         onLabClick = onLabClick,
         onNavigateTimerHistory = onNavigateTimerHistory,
         onNavigateTask = onNavigateTask,
+        onNavigateAnalytics = onNavigateAnalytics,
         mainState = mainState,
         subject = subject,
         state = state,
@@ -130,6 +132,7 @@ fun MainScreen(
     onLabClick: () -> Unit,
     onNavigateTimerHistory: () -> Unit,
     onNavigateTask: () -> Unit,
+    onNavigateAnalytics: () -> Unit,
 ) = trace("MainScreen") {
     val pagerState = rememberPagerState(pageCount = { pageCount })
     var backPressedState by remember { mutableStateOf(true) }
@@ -172,7 +175,7 @@ fun MainScreen(
                 LaunchedEffect(page) {
                     backPressedState = true
                 }
-                TimerScreen(
+                TimerRoute(
                     onNavigateTimerHistory = onNavigateTimerHistory,
                 )
             } else {
@@ -224,6 +227,7 @@ fun MainScreen(
                         onFloatingButtonClick1 = onFloatingButtonClick1,
                         onFloatingButtonClick2 = onFloatingButtonClick2,
                         onNavigateWord = onNavigateTask,
+                        onNavigateAnalytics = onNavigateAnalytics,
                     )
                 }
             }
@@ -269,6 +273,7 @@ private fun ColumnScope.MainBottomSection(
     onFloatingButtonClick1: () -> Unit,
     onFloatingButtonClick2: () -> Unit,
     onNavigateWord: () -> Unit,
+    onNavigateAnalytics: () -> Unit,
 ) = trace("MainBottomSection") {
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -287,6 +292,7 @@ private fun ColumnScope.MainBottomSection(
         mutableStateOf(
             listOf(
                 History(),
+                Analytics(),
                 Other(),
                 Setting(),
             ),
@@ -310,6 +316,7 @@ private fun ColumnScope.MainBottomSection(
                     is History -> onFloatingButtonClick1()
                     is Setting -> onFloatingButtonClick2()
                     is Other -> onNavigateWord()
+                    is Analytics -> onNavigateAnalytics()
                 }
             },
             stateChanged = {
@@ -344,6 +351,7 @@ fun PreviewMainScreen() {
         average = "23",
         number = "23",
         student = "23",
+        onNavigateAnalytics = {},
     )
 }
 
@@ -404,4 +412,9 @@ data class Setting(
 data class Other(
     override val imageVector: ImageVector = Icons.Filled.ThumbUp,
     override val label: String = "Task",
+) : FabButtonItem
+
+data class Analytics(
+    override val imageVector: ImageVector = Icons.Filled.Build,
+    override val label: String = "Analytics",
 ) : FabButtonItem

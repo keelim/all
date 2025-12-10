@@ -7,6 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.keelim.data.repository.StudyAnalyticsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -18,6 +19,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -46,7 +48,9 @@ data class TimerUiState(
 
 @Stable
 @HiltViewModel
-class TimerViewModel @Inject constructor() : ViewModel() {
+class TimerViewModel @Inject constructor(
+    private val studyAnalyticsRepository: StudyAnalyticsRepository,
+) : ViewModel() {
     private var countTimeJob: Job? = null
     private var _isRunning by mutableStateOf(RunningState.STOPPED)
 
@@ -79,6 +83,8 @@ class TimerViewModel @Inject constructor() : ViewModel() {
 
     val leftTime = mutableIntStateOf(0)
 
+    private var initialTotalSeconds = 0
+
     fun getTotalTimeInSeconds(): Int {
         return (hour * 3600 + minute * 60 + second)
     }
@@ -91,6 +97,7 @@ class TimerViewModel @Inject constructor() : ViewModel() {
 
     fun start() {
         leftTime.intValue = getTotalTimeInSeconds()
+        initialTotalSeconds = leftTime.intValue
         if (leftTime.intValue <= 0) {
             _timerUiState.update { old ->
                 old.copy(
@@ -110,6 +117,17 @@ class TimerViewModel @Inject constructor() : ViewModel() {
     fun stop() {
         countTimeJob?.cancel()
         _isRunning = RunningState.STOPPED
+    }
+
+    fun onTimerComplete() {
+        if (initialTotalSeconds > 0) {
+            viewModelScope.launch {
+                studyAnalyticsRepository.recordSession(
+                    subject = "Default",
+                    durationSeconds = initialTotalSeconds,
+                )
+            }
+        }
     }
 
     fun clearDialog() {

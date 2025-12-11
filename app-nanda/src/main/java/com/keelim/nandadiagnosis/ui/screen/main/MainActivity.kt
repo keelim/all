@@ -57,6 +57,8 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var userStateStore: Lazy<UserStateStore>
 
+    private var isReceiverRegistered = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
@@ -93,13 +95,17 @@ class MainActivity : ComponentActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        unregisterReceiver(downloadReceiver)
+        if (isReceiverRegistered) {
+            unregisterReceiver(downloadReceiver)
+        }
     }
 
     private fun fileChecking() {
-        takeIf { File(getExternalFilesDir(null), "nanda.db").exists() }
-            ?.run { downloadDatabase() }
-            ?: run { toast("데이터베이스가 존재합니다. 그대로 진행 합니다") }
+        if (File(getExternalFilesDir(null), "nanda.db").exists().not()) {
+            downloadDatabase()
+        } else {
+            toast("데이터베이스가 존재합니다. 그대로 진행 합니다")
+        }
     }
 
     private fun downloadDatabase() {
@@ -112,6 +118,7 @@ class MainActivity : ComponentActivity() {
             },
             ContextCompat.RECEIVER_NOT_EXPORTED,
         )
+        isReceiverRegistered = true
 
         DownloadManager.Request(applicationContext.getString(R.string.db_path).toUri())
             .setTitle("Downloading")

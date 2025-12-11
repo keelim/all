@@ -16,6 +16,7 @@ import com.keelim.shared.data.database.dao.Base64Dao
 import com.keelim.shared.data.database.dao.NandaDao
 import com.keelim.shared.data.database.dao.ShortenedUrlDao
 import com.keelim.shared.data.database.dao.StudySessionDao
+import com.keelim.shared.data.database.dao.WaterIntakeDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -96,4 +97,10 @@ object DaoModule {
     fun provideShortenedUrlDao(
         database: ArduconDatabase,
     ): ShortenedUrlDao = database.shortenedUrlDao()
+
+    @Provides
+    @Singleton
+    fun providesWaterIntakeDao(
+        database: NandaAppDatabase,
+    ): WaterIntakeDao = database.waterIntakeDao()
 }

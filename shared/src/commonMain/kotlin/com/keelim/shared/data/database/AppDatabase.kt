@@ -11,6 +11,7 @@ import com.keelim.shared.data.database.dao.Base64Dao
 import com.keelim.shared.data.database.dao.HistoryDao
 import com.keelim.shared.data.database.dao.LengthRecordDao
 import com.keelim.shared.data.database.dao.NandaDao
+import com.keelim.shared.data.database.dao.WaterIntakeDao
 import com.keelim.shared.data.database.dao.NetworkCacheDao
 import com.keelim.shared.data.database.dao.NoteDao
 import com.keelim.shared.data.database.dao.ShortenedUrlDao
@@ -22,6 +23,7 @@ import com.keelim.shared.data.database.model.Base64History
 import com.keelim.shared.data.database.model.DeepLinkEntity
 import com.keelim.shared.data.database.model.History
 import com.keelim.shared.data.database.model.LengthRecord
+import com.keelim.shared.data.database.model.WaterIntake
 import com.keelim.shared.data.database.model.LocalTask
 import com.keelim.shared.data.database.model.NandaEntity
 import com.keelim.shared.data.database.model.NetworkCache
@@ -128,12 +130,17 @@ expect object NandaAppDatabaseConstructor : RoomDatabaseConstructor<NandaAppData
     entities = [
         LengthRecord::class,
         NandaEntity::class,
+        WaterIntake::class,
     ],
-    version = 1,
+    version = 2,
     exportSchema = true,
+    autoMigrations = [
+        AutoMigration(from = 1, to = 2),
+    ],
 )
 @ConstructedBy(NandaAppDatabaseConstructor::class)
 abstract class NandaAppDatabase : RoomDatabase() {
     abstract fun lengthRecordDao(): LengthRecordDao
     abstract fun nandaDao(): NandaDao
+    abstract fun waterIntakeDao(): WaterIntakeDao
 }

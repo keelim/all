@@ -35,6 +35,7 @@ import com.keelim.nandadiagnosis.ui.screen.length.LengthScreen
 import com.keelim.nandadiagnosis.ui.screen.main.MainBottomSheet
 import com.keelim.nandadiagnosis.ui.screen.nutrient.NutrientRoute
 import com.keelim.nandadiagnosis.ui.screen.nutrient.timer.NutrientTimerRoute
+import com.keelim.nandadiagnosis.ui.screen.water.WaterIntakeRoute
 import com.keelim.setting.screen.admin.AdminRoute
 import com.keelim.setting.screen.alarm.AlarmRoute
 import com.keelim.setting.screen.device.DeviceInfoScreen
@@ -163,6 +164,9 @@ fun NandaHost(
             }
             entry<NandaRoute.Length> {
                 LengthScreen()
+            }
+            entry<NandaRoute.WaterIntake> {
+                WaterIntakeRoute()
             }
             settingsEntry(
                 backStack = backStack,

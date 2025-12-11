@@ -79,6 +79,11 @@ private val nandaNavItems =
             icon = Icons.Rounded.Favorite,
         ),
         NandaNavItem.BigType(
+            name = "수분 섭취",
+            route = NandaRoute.WaterIntake,
+            icon = Icons.Rounded.DateRange,
+        ),
+        NandaNavItem.BigType(
             name = "Web",
             route = NandaRoute.Web(uri = "nanda"),
             icon = Icons.Rounded.Info,

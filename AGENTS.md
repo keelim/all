@@ -60,6 +60,7 @@ The main Android apps live in the `app-*/` folders. Feature modules live in `fea
     - **Exercise Tracker**: Log and monitor exercise routines.
     - **Nutrient Info**: Database of nutrient information.
     - **Unit Converter**: Utility tools for length and other conversions.
+    - **Water Intake Tracker**: Daily hydration tracking with animated progress ring, quick add buttons (100ml, 200ml, 250ml, 500ml), weekly history chart, and intake records list.
 - **Tech Stack:** Jetpack Compose for UI, Room (Shared Module) for data persistence, Hilt for DI.
 
 ### app-cnubus

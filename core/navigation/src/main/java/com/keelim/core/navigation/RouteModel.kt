@@ -83,6 +83,10 @@ sealed interface NandaRoute : AppRoute {
     // 길이 기록 화면 추가
     @Serializable
     data object Length : NandaRoute
+
+    // 수분 섭취 기록 화면 추가
+    @Serializable
+    data object WaterIntake : NandaRoute
 }
 
 sealed interface ComssaRoute : AppRoute {

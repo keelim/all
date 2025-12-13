@@ -24,6 +24,7 @@ kotlin {
             implementation(libs.kotlinx.collections.immutable)
             implementation(libs.androidx.media.exoplayer)
             implementation(project.dependencies.platform(libs.androidx.compose.bom))
+            implementation(projects.shared)
         }
         commonMain.dependencies {
             implementation(project.dependencies.platform(libs.coil.bom))

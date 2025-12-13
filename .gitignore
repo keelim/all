@@ -1,0 +1,25 @@
+# Gradle files
+.gradle/
+build/
+**/build/
+
+# Local configuration files
+local.properties
+*.local.*
+
+# IDE files
+.idea/
+*.iml
+.vscode/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Kotlin
+*.class
+
+# JetBrains
+*.swp
+*.swo
+*~

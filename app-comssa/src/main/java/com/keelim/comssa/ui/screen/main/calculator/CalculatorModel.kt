@@ -15,6 +15,8 @@ enum class CalculatorTypeUi(val title: String, val domainType: CalculatorType) {
     CURRENCY_CONVERTER("환율 변환기", CalculatorType.CURRENCY_CONVERTER),
     // 세금 계산기
     TAX("세금 계산기", CalculatorType.TAX),
+    // 노후 자금 계산기
+    RETIREMENT("노후 자금", CalculatorType.RETIREMENT),
 }
 
 @Serializable

@@ -19,7 +19,6 @@ import androidx.compose.ui.unit.dp
 import com.keelim.common.extensions.toFormattedMoneyOrEmpty
 import com.keelim.common.extensions.toMoneyOrZero
 import java.text.DecimalFormat
-import kotlin.math.ceil
 import kotlin.math.pow
 
 @Composable
@@ -64,9 +63,9 @@ fun CompoundInterestCalculator(
                 val p = principal.toMoneyOrZero()
                 val r = rate.toDoubleOrNull() ?: 0.0
                 val t = years.toDoubleOrNull() ?: 0.0
+                // Simple Compound Interest: A = P(1 + r/100)^t
                 val amount = p * (1 + r / 100).pow(t)
-                // Round up to nearest integer
-                val roundedAmount = ceil(amount).toLong()
+                val roundedAmount = kotlin.math.ceil(amount).toLong()
                 result = DecimalFormat("#,###").format(roundedAmount)
 
                 onCalculate(
@@ -111,4 +110,105 @@ fun TaxCalculator(
     onCalculate: (Map<String, String>, Map<String, String>) -> Unit,
 ) {
     Text("세금 계산기 준비 중")
+}
+
+@Composable
+fun RetirementCalculator(
+    onCalculate: (Map<String, String>, Map<String, String>) -> Unit,
+) {
+    var currentAge by remember { mutableStateOf("") }
+    var retirementAge by remember { mutableStateOf("") }
+    var currentSavings by remember { mutableStateOf("") }
+    var annualContribution by remember { mutableStateOf("") }
+    var expectedReturn by remember { mutableStateOf("") }
+    var result by remember { mutableStateOf("") }
+
+    Column(
+        modifier = Modifier.padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        OutlinedTextField(
+            value = currentAge,
+            onValueChange = { currentAge = it },
+            label = { Text("현재 나이") },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            modifier = Modifier.fillMaxWidth()
+        )
+        OutlinedTextField(
+            value = retirementAge,
+            onValueChange = { retirementAge = it },
+            label = { Text("은퇴 목표 나이") },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            modifier = Modifier.fillMaxWidth()
+        )
+        OutlinedTextField(
+            value = currentSavings,
+            onValueChange = {
+               val filtered = it.filter { char -> char.isDigit() }
+               currentSavings = filtered.toFormattedMoneyOrEmpty()
+            },
+            label = { Text("현재 자산 (원)") },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            modifier = Modifier.fillMaxWidth()
+        )
+        OutlinedTextField(
+            value = annualContribution,
+            onValueChange = {
+                val filtered = it.filter { char -> char.isDigit() }
+                annualContribution = filtered.toFormattedMoneyOrEmpty()
+            },
+            label = { Text("연간 저축액 (원)") },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            modifier = Modifier.fillMaxWidth()
+        )
+         OutlinedTextField(
+            value = expectedReturn,
+            onValueChange = { expectedReturn = it },
+            label = { Text("예상 연 수익률 (%)") },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Button(
+            onClick = {
+                val age = currentAge.toIntOrNull() ?: 0
+                val retAge = retirementAge.toIntOrNull() ?: 0
+                val savings = currentSavings.toMoneyOrZero()
+                val contribution = annualContribution.toMoneyOrZero()
+                val rate = expectedReturn.toDoubleOrNull() ?: 0.0
+
+                if (retAge > age) {
+                    val years = retAge - age
+                    val r = rate / 100.0
+                    // FV = PV * (1+r)^n + PMT * [((1+r)^n - 1) / r]
+                    // If r = 0, FV = PV + PMT * n
+                    val futureValue = if (r == 0.0) {
+                        savings + contribution * years
+                    } else {
+                        (savings * (1 + r).pow(years)) + (contribution * (((1 + r).pow(years) - 1) / r))
+                    }
+                    
+                    val roundedAmount = kotlin.math.ceil(futureValue).toLong()
+                    result = DecimalFormat("#,###").format(roundedAmount)
+
+                    onCalculate(
+                         mapOf(
+                            "현재 나이" to currentAge,
+                            "은퇴 나이" to retirementAge,
+                            "현재 자산" to currentSavings,
+                             "연간 저축" to annualContribution,
+                             "수익률" to expectedReturn
+                         ),
+                        mapOf("은퇴 시 예상 자산" to result)
+                    )
+                }
+            },
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Text("계산하기")
+        }
+        if (result.isNotEmpty()) {
+            Text("은퇴 시 예상 자산: $result 원")
+        }
+    }
 }

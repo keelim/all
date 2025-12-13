@@ -9,6 +9,7 @@ enum class CalculatorType {
     INVESTMENT_RETURN,
     CURRENCY_CONVERTER,
     TAX,
+    RETIREMENT,
 }
 
 @Serializable

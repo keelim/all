@@ -116,6 +116,9 @@ fun CalculatorScreen(
                 CalculatorTypeUi.TAX -> TaxCalculator { input, result ->
                     onCalculate(CalculatorTypeUi.TAX, input, result)
                 }
+                CalculatorTypeUi.RETIREMENT -> RetirementCalculator { input, result ->
+                    onCalculate(CalculatorTypeUi.RETIREMENT, input, result)
+                }
             }
 
             if (history.isNotEmpty()) {

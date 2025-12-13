@@ -25,33 +25,19 @@ fun ComponentActivity.setThemeContent(
     content: @Composable (WindowSizeClass) -> Unit,
 ) {
     setContent {
-        val isDarkTheme = userStateStore?.themeTypeFlow
-            ?.collectAsStateWithLifecycle(ThemeType.LIGHT)
-            ?.value
-            ?.isDarkTheme()
-            ?: false
+        val isDarkTheme = if (userStateStore != null) {
+            val themeType = userStateStore.themeTypeFlow
+                .collectAsStateWithLifecycle(ThemeType.LIGHT)
+                .value
+            themeType.isDarkTheme()
+        } else {
+            false
+        }
 
         KeelimTheme(
             isDarkTheme = isDarkTheme,
         ) {
             content(calculateWindowSizeClass(this@setThemeContent))
-        }
-    }
-}
-
-/**
- * Sets the content of this activity with the KeelimTheme applied.
- * This is a simpler overload that uses the default light theme.
- *
- * @param content The composable content to display.
- */
-@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
-fun ComponentActivity.setThemeContent(
-    content: @Composable () -> Unit,
-) {
-    setContent {
-        KeelimTheme {
-            content()
         }
     }
 }

@@ -24,15 +24,15 @@ class CacheInterceptor @Inject constructor() : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
         val useCache = request.header(HEADER_USE_CACHE_PREFIX) != null
-        return chain
-            .proceed(request).apply {
-                if (useCache) {
-                    newBuilder()
-                        .header(HEADER_CACHE_CONTROL, HEADER_CACHE_MAX_AGE)
-                        .removeHeader(HEADER_USE_CACHE_PREFIX)
-                        .build()
-                }
-            }
+        val response = chain.proceed(request)
+        return if (useCache) {
+            response.newBuilder()
+                .header(HEADER_CACHE_CONTROL, HEADER_CACHE_MAX_AGE)
+                .removeHeader(HEADER_USE_CACHE_PREFIX)
+                .build()
+        } else {
+            response
+        }
     }
 
     companion object {

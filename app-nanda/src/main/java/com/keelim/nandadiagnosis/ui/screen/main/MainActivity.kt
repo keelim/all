@@ -65,12 +65,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             val themeType =
                 userStateStore.get().themeTypeFlow.collectAsStateWithLifecycle(ThemeType.LIGHT).value
-            val isDarkThem = when (themeType) {
-                ThemeType.DARK -> true
-                ThemeType.LIGHT -> false
-            }
             KeelimTheme(
-                isDarkTheme = isDarkThem,
+                isDarkTheme = themeType.isDarkTheme(),
             ) {
                 NandaApp(
                     windowSizeClass = calculateWindowSizeClass(this),

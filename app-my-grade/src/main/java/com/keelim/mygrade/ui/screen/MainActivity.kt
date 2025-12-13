@@ -38,12 +38,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val themeType = userStateStore.get().themeTypeFlow.collectAsStateWithLifecycle(ThemeType.LIGHT).value
-            val isDarkThem = when (themeType) {
-                ThemeType.DARK -> true
-                ThemeType.LIGHT -> false
-            }
             KeelimTheme(
-                isDarkTheme = isDarkThem,
+                isDarkTheme = themeType.isDarkTheme(),
             ) {
                 MyGradeApp(
                     windowSizeClass = calculateWindowSizeClass(this),

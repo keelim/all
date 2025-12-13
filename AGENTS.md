@@ -26,6 +26,7 @@ The main Android apps live in the `app-*/` folders. Feature modules live in `fea
     - Compound Interest Calculator
     - Loan Repayment Calculator
     - Investment Return Calculator
+    - Retirement Calculator
     - Currency Converter
     - Tax Calculator
     - Save and Share Calculation Results

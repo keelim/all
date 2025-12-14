@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.keelim.android.library.compose)
     alias(libs.plugins.keelim.android.library.jacoco)
     alias(libs.plugins.keelim.android.hilt)
+    alias(libs.plugins.kotlin.serialization)
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
@@ -25,6 +26,7 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.navigation3.runtime)
     implementation(libs.androidx.navigation3.ui)
+    implementation(projects.feature.uiWeb)
 
     implementation(libs.timber)
     implementation(libs.androidx.lifecycle.process)

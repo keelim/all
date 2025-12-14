@@ -2,6 +2,7 @@
 
 package com.keelim.setting.screen.settings
 
+import android.net.Uri
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Spring
@@ -43,6 +44,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.carousel.HorizontalMultiBrowseCarousel
+import androidx.compose.material3.carousel.rememberCarouselState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -56,6 +59,7 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -68,6 +72,7 @@ import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
 import com.keelim.setting.BuildConfig
 import com.keelim.shared.data.UserState
+import com.keelim.web.navigateToWebModule
 
 data class Category(
     val title: String,
@@ -136,6 +141,7 @@ fun SettingsScreen(
             val onBackPressedDispatcher =
                 checkNotNull(LocalOnBackPressedDispatcherOwner.current) { "this is not null" }
                     .onBackPressedDispatcher
+            val context = LocalContext.current
 
             Scaffold(
                 containerColor = MaterialTheme.colorScheme.surface,
@@ -222,6 +228,16 @@ fun SettingsScreen(
                     state = listState,
                     verticalArrangement = Arrangement.spacedBy(space12),
                 ) {
+                    item {
+                        FamilyServiceCarousel(
+                            services = uiState.familyServices,
+                            onServiceClick = { service ->
+                                if (service.actionUrl.isNotBlank()) {
+                                    context.navigateToWebModule(Uri.parse(service.actionUrl))
+                                }
+                            },
+                        )
+                    }
                     items(
                         items = items,
                         key = { it.title },
@@ -328,6 +344,58 @@ fun CategoryItem(
                 )
                 Text(title, style = MaterialTheme.typography.bodyLarge)
             }
+        }
+    }
+}
+
+@Composable
+fun FamilyServiceCarousel(
+    services: List<FamilyService>,
+    onServiceClick: (FamilyService) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    if (services.isEmpty()) return
+    HorizontalMultiBrowseCarousel(
+        state = rememberCarouselState { services.count() },
+        preferredItemWidth = 200.dp,
+        itemSpacing = space8,
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(vertical = space8),
+    ) { i ->
+        val service = services[i]
+        FamilyServiceItem(
+            service = service,
+            onClick = { onServiceClick(service) }
+        )
+    }
+}
+
+@Composable
+fun FamilyServiceItem(
+    service: FamilyService,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Surface(
+        onClick = onClick,
+        shape = MaterialTheme.shapes.medium,
+        color = if (service.actionUrl.isBlank()) MaterialTheme.colorScheme.surfaceVariant else MaterialTheme.colorScheme.primaryContainer,
+        modifier = modifier
+            .height(100.dp)
+            .fillMaxWidth()
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center,
+            modifier = Modifier.padding(space16)
+        ) {
+            Text(
+                text = service.title,
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
+                color = if (service.actionUrl.isBlank()) MaterialTheme.colorScheme.onSurfaceVariant else MaterialTheme.colorScheme.onPrimaryContainer
+            )
         }
     }
 }

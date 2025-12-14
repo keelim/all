@@ -52,6 +52,17 @@ The main Android apps live in the `app-*/` folders. Feature modules live in `fea
     - Month View
     - Event Marking
 
+#### Market Notification
+- **Description:** Stock market open time notification system with support for Android 16+ Live Updates.
+- **Key Features:**
+    - **Default Markets**: Korea (KOSPI/KOSDAQ 09:00 KST), US (NYSE/NASDAQ 23:30 KST)
+    - **Custom Notifications**: Add custom time-based notifications via TimePicker
+    - **Toggle Control**: Enable/disable individual market notifications
+    - **Swipe-to-Delete**: Remove custom notifications with swipe gesture
+    - **Android 16+ Live Updates**: Uses `Notification.ProgressStyle` for live notification on API 36+
+    - **AlarmManager Scheduling**: Precise scheduling using `setExactAndAllowWhileIdle`
+- **Tech Stack:** Jetpack Compose (Material 3), Hilt for DI, DataStore for persistence, AlarmManager for scheduling.
+- **DI Pattern**: Json parser is provided via `JsonModule` and injected into repositories.
 ### app-nanda
 #### Nanda Diagnosis & Health Tools
 - **Description:** Provides NANDA nursing diagnosis information along with various health tracking and utility tools.

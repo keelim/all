@@ -43,7 +43,6 @@ dependencies {
     implementation(libs.timber)
     implementation(libs.jsoup)
     implementation(libs.tehras.chart)
-    implementation(libs.kotlinx.serialization.json)
 
     testImplementation(projects.core.testing)
 }

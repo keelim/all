@@ -36,6 +36,8 @@ import com.keelim.core.data.repository.Base64Repository
 import com.keelim.core.data.source.Base64RepositoryImpl
 import com.keelim.core.data.repository.ShortenedUrlRepository
 import com.keelim.core.data.source.ShortenedUrlRepositoryImpl
+import com.keelim.core.data.repository.MarketNotificationRepositoryImpl
+import com.keelim.data.repository.MarketNotificationRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -133,4 +135,9 @@ interface RepositoryModule {
     fun bindsStudyAnalyticsRepository(
         repository: StudyAnalyticsRepositoryImpl,
     ): StudyAnalyticsRepository
+
+    @Binds
+    fun bindsMarketNotificationRepository(
+        repository: MarketNotificationRepositoryImpl,
+    ): MarketNotificationRepository
 }

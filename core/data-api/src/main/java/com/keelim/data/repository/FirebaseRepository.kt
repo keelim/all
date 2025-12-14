@@ -7,5 +7,5 @@ interface FirebaseRepository {
     fun getRef(ref: String): Flow<Result<List<EcoCalEntry>>>
     fun getFCMToken(): Flow<Result<String>>
 
-    fun getValue(key: String): String
+    suspend fun getValue(key: String): String
 }

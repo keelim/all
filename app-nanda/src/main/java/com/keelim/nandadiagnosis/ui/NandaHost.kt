@@ -41,7 +41,7 @@ import com.keelim.setting.screen.alarm.AlarmRoute
 import com.keelim.nandadiagnosis.ui.screen.medication.MedicationRoute
 import com.keelim.setting.screen.device.DeviceInfoScreen
 import com.keelim.setting.screen.event.EventRoute
-import com.keelim.setting.screen.faq.FaqRoute
+
 import com.keelim.setting.screen.lab.LabRoute
 import com.keelim.setting.screen.notification.NotificationRoute
 import com.keelim.setting.screen.settings.SettingsRoute
@@ -198,7 +198,7 @@ private fun EntryProviderBuilder<Any>.settingsEntry(
                 backStack.add(FeatureRoute.Alarm)
             },
             onFaqClick = {
-                backStack.add(FeatureRoute.Faq)
+                context.navigateToWebModule("https://keelim-vercel.vercel.app/faq".toUri())
             },
             onOpenSourceClick = {
                 context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
@@ -222,9 +222,7 @@ private fun EntryProviderBuilder<Any>.settingsEntry(
             },
         )
     }
-    entry<FeatureRoute.Faq> {
-        FaqRoute()
-    }
+
     entry<FeatureRoute.Theme> {
         ThemeRoute()
     }

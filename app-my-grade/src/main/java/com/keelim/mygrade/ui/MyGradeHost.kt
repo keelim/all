@@ -16,9 +16,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.net.toUri
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
-import androidx.navigation3.runtime.EntryProviderBuilder
+import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.runtime.entryProvider
-import androidx.navigation3.runtime.rememberSavedStateNavEntryDecorator
+import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.keelim.composeutil.AppState
@@ -44,11 +44,11 @@ import com.keelim.setting.screen.admin.AdminRoute
 import com.keelim.setting.screen.alarm.AlarmRoute
 import com.keelim.setting.screen.device.DeviceInfoScreen
 import com.keelim.setting.screen.event.EventRoute
-import com.keelim.web.navigateToWebModule
 import com.keelim.setting.screen.lab.LabRoute
 import com.keelim.setting.screen.notification.NotificationRoute
 import com.keelim.setting.screen.settings.SettingsRoute
 import com.keelim.setting.screen.theme.ThemeRoute
+import com.keelim.web.navigateToWebModule
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -68,7 +68,7 @@ fun MyGradeHost(
         backStack = backStack,
         onBack = { backStack.removeLastOrNull() },
         entryDecorators = listOf(
-            rememberSavedStateNavEntryDecorator(),
+            rememberSaveableStateHolderNavEntryDecorator(),
             rememberViewModelStoreNavEntryDecorator(),
         ),
         transitionSpec = {
@@ -209,7 +209,7 @@ fun MyGradeHost(
 }
 
 @Composable
-fun EntryProviderBuilder<Any>.settingsEntry(
+fun EntryProviderScope<Any>.settingsEntry(
     backStack: SnapshotStateList<Any>,
     context: Context,
 ) {

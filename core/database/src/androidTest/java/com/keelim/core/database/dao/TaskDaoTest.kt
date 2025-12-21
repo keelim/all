@@ -7,7 +7,7 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 @HiltAndroidTest
 class TaskDaoTest {

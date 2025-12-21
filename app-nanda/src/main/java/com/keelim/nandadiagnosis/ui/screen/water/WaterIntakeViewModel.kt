@@ -18,7 +18,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Date
 import java.util.Locale
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 data class WaterIntakeUiModel(
     val id: Long,

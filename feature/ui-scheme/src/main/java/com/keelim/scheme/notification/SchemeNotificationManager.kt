@@ -9,7 +9,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.getSystemService
 import androidx.core.net.toUri
 import com.keelim.scheme.SchemeActivity
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 class SchemeNotificationManager @Inject constructor(
     private val context: Context,

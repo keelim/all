@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.serialization.Serializable
 import timber.log.Timber
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 @Serializable
 data class FamilyService(

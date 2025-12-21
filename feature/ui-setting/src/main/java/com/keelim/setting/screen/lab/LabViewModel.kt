@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
+import jakarta.inject.Inject
 @Stable
 @HiltViewModel
 class LabViewModel @Inject constructor(

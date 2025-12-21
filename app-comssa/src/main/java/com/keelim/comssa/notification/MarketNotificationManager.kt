@@ -16,7 +16,7 @@ import com.keelim.data.model.MarketSchedule
 import dagger.hilt.android.qualifiers.ApplicationContext
 import timber.log.Timber
 import java.util.Calendar
-import javax.inject.Inject
+import jakarta.inject.Inject
 import javax.inject.Singleton
 
 @Singleton

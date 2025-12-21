@@ -4,7 +4,7 @@ import com.keelim.core.data.repository.Base64Repository
 import com.keelim.shared.data.database.dao.Base64Dao
 import com.keelim.shared.data.database.model.Base64History
 import kotlinx.coroutines.flow.Flow
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 class Base64RepositoryImpl @Inject constructor(
     private val base64Dao: Base64Dao,

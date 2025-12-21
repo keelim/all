@@ -26,7 +26,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.datetime.Clock
 import timber.log.Timber
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 private val defaultSchemeList = listOf(
     "http",

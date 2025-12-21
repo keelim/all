@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
-import javax.inject.Inject
+import jakarta.inject.Inject
 @Stable
 @HiltViewModel
 class CategoryViewModel @Inject constructor() : ViewModel() {

@@ -13,7 +13,7 @@ import com.keelim.shared.data.UserStateStore
 import com.keelim.shared.data.model.ThemeType
 import dagger.Lazy
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @AndroidEntryPoint

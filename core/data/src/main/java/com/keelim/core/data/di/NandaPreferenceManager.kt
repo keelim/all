@@ -18,7 +18,7 @@ package com.keelim.core.data.di
 import android.content.Context
 import android.content.SharedPreferences
 import dagger.hilt.android.qualifiers.ApplicationContext
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 class NandaPreferenceManager @Inject constructor(
     @ApplicationContext private val context: Context,

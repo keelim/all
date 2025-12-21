@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.stateIn
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 @HiltViewModel
 class AppViewModel @Inject constructor(

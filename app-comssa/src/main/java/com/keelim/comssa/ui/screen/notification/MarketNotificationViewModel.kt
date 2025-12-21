@@ -12,29 +12,29 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.util.UUID
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 @HiltViewModel
 class MarketNotificationViewModel @Inject constructor(
     private val repository: MarketNotificationRepository,
     private val notificationManager: MarketNotificationManager
 ) : ViewModel() {
-    
+
     val schedules: StateFlow<List<MarketSchedule>> = repository.getSchedules()
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = emptyList()
         )
-    
+
     private val _showTimePicker = MutableStateFlow(false)
     val showTimePicker: StateFlow<Boolean> = _showTimePicker
-    
+
     fun toggleSchedule(schedule: MarketSchedule) {
         viewModelScope.launch {
             val updated = schedule.copy(isEnabled = !schedule.isEnabled)
             repository.updateSchedule(updated)
-            
+
             if (updated.isEnabled) {
                 notificationManager.scheduleNotification(updated)
             } else {
@@ -42,7 +42,7 @@ class MarketNotificationViewModel @Inject constructor(
             }
         }
     }
-    
+
     fun addCustomSchedule(name: String, hour: Int, minute: Int) {
         viewModelScope.launch {
             val schedule = MarketSchedule(
@@ -57,22 +57,22 @@ class MarketNotificationViewModel @Inject constructor(
             notificationManager.scheduleNotification(schedule)
         }
     }
-    
+
     fun removeSchedule(schedule: MarketSchedule) {
         viewModelScope.launch {
             notificationManager.cancelNotification(schedule)
             repository.removeSchedule(schedule.id)
         }
     }
-    
+
     fun showTimePicker() {
         _showTimePicker.value = true
     }
-    
+
     fun hideTimePicker() {
         _showTimePicker.value = false
     }
-    
+
     fun rescheduleAllEnabled() {
         viewModelScope.launch {
             schedules.value.filter { it.isEnabled }.forEach { schedule ->

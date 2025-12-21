@@ -15,7 +15,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
+import jakarta.inject.Inject
 import javax.inject.Singleton
 
 private val Context.medicationDataStore: DataStore<Preferences> by preferencesDataStore(name = "medication_prefs")

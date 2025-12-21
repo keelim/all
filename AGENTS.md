@@ -68,8 +68,8 @@ The main Android apps live in the `app-*/` folders. Feature modules live in `fea
 - **Description:** Provides NANDA nursing diagnosis information along with various health tracking and utility tools.
 - **Key Features:**
     - **Diagnosis**: Search and browse NANDA nursing diagnoses with detailed information.
-    - **Food Manager**: Track daily food intake and manage nutritional data.
-    - **Exercise Tracker**: Log and monitor exercise routines.
+    - **Food Manager**: Track daily food intake and total calories.
+    - **Exercise Tracker**: Log exercise name and duration.
     - **Nutrient Info**: Database of nutrient information.
     - **Unit Converter**: Utility tools for length and other conversions.
     - **Water Intake Tracker**: Daily hydration tracking with animated progress ring, quick add buttons (100ml, 200ml, 250ml, 500ml), weekly history chart, and intake records list.

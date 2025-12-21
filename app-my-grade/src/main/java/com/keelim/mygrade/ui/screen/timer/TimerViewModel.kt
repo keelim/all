@@ -24,7 +24,7 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 @Stable
 enum class RunningState {
@@ -126,7 +126,7 @@ class TimerViewModel @Inject constructor(
             val completedHours = initialTotalSeconds / 3600
             val completedMinutes = (initialTotalSeconds % 3600) / 60
             val completedSeconds = initialTotalSeconds % 60
-            
+
             viewModelScope.launch {
                 studyAnalyticsRepository.recordSession(
                     subject = "Default",

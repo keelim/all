@@ -11,7 +11,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 class NoteRepositoryImpl @Inject constructor(
     private val noteDao: NoteDao,

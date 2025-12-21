@@ -6,7 +6,7 @@ import com.keelim.shared.data.database.dao.NandaDao
 import com.keelim.shared.data.database.model.NandaEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 class NandaRepositoryImpl @Inject constructor(
     private val nandaDao: NandaDao,

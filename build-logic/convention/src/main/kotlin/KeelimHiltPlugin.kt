@@ -18,6 +18,7 @@ class KeelimHiltPlugin : Plugin<Project> {
                 "ksp"(libs.findLibrary("hilt.compiler").get())
                 "kspTest"(libs.findLibrary("hilt.compiler").get())
                 "kspAndroidTest"(libs.findLibrary("hilt.compiler").get())
+                "implementation"("jakarta.inject:jakarta.inject-api:2.0.1")
             }
         }
     }

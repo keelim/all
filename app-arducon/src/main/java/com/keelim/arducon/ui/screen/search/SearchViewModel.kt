@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.stateIn
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(

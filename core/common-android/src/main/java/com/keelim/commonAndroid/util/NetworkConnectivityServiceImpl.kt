@@ -12,7 +12,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 class NetworkConnectivityServiceImpl @Inject constructor(
     @ApplicationContext context: Context,

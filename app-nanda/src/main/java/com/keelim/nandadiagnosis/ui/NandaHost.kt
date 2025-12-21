@@ -38,6 +38,7 @@ import com.keelim.nandadiagnosis.ui.screen.nutrient.timer.NutrientTimerRoute
 import com.keelim.nandadiagnosis.ui.screen.water.WaterIntakeRoute
 import com.keelim.setting.screen.admin.AdminRoute
 import com.keelim.setting.screen.alarm.AlarmRoute
+import com.keelim.nandadiagnosis.ui.screen.medication.MedicationRoute
 import com.keelim.setting.screen.device.DeviceInfoScreen
 import com.keelim.setting.screen.event.EventRoute
 import com.keelim.setting.screen.faq.FaqRoute
@@ -105,6 +106,9 @@ fun NandaHost(
                             }
                         }
                     },
+                    onMedicationClick = {
+                        backStack.add(NandaRoute.Medication)
+                    },
                 )
                 if (bottomSheetState.isVisible) {
                     MainBottomSheet(
@@ -167,6 +171,9 @@ fun NandaHost(
             }
             entry<NandaRoute.WaterIntake> {
                 WaterIntakeRoute()
+            }
+            entry<NandaRoute.Medication> {
+                MedicationRoute()
             }
             settingsEntry(
                 backStack = backStack,

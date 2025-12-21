@@ -24,9 +24,9 @@ import androidx.datastore.preferences.preferencesDataStore
 import com.keelim.core.data.source.ThemeRepository.Companion.STORE_NAME
 import com.keelim.core.data.source.ThemeRepository.PreferencesKeys.USER_THEME
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.flow.map
 import jakarta.inject.Inject
-import javax.inject.Singleton
+import jakarta.inject.Singleton
+import kotlinx.coroutines.flow.map
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = STORE_NAME)
 

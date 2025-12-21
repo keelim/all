@@ -12,11 +12,11 @@ import com.keelim.data.json.encode
 import com.keelim.data.model.Medication
 import com.keelim.data.repository.MedicationRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
+import jakarta.inject.Inject
+import jakarta.inject.Singleton
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
-import jakarta.inject.Inject
-import javax.inject.Singleton
 
 private val Context.medicationDataStore: DataStore<Preferences> by preferencesDataStore(name = "medication_prefs")
 

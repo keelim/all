@@ -31,6 +31,7 @@ dependencies {
     implementation(projects.core.domain)
     implementation(projects.feature.uiScheme)
     implementation(projects.feature.uiSetting)
+    implementation(projects.feature.uiWeb)
     implementation(projects.widget)
 
 

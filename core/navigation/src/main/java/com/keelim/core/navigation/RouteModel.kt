@@ -87,6 +87,10 @@ sealed interface NandaRoute : AppRoute {
     // 수분 섭취 기록 화면 추가
     @Serializable
     data object WaterIntake : NandaRoute
+
+    // 복약 알림 관리 화면 추가
+    @Serializable
+    data object Medication : NandaRoute
 }
 
 sealed interface ComssaRoute : AppRoute {

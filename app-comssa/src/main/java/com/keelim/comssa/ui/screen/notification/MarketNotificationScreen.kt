@@ -47,7 +47,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.data.model.MarketSchedule
 
@@ -59,15 +59,15 @@ fun MarketNotificationScreen(
 ) {
     val schedules by viewModel.schedules.collectAsStateWithLifecycle()
     val showTimePicker by viewModel.showTimePicker.collectAsStateWithLifecycle()
-    
+
     var showAddDialog by remember { mutableStateOf(false) }
     var customName by remember { mutableStateOf("") }
     val timePickerState = rememberTimePickerState(initialHour = 9, initialMinute = 0)
-    
+
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { 
+                title = {
                     Text(
                         text = "📈 Market Notifications",
                         style = MaterialTheme.typography.titleLarge,
@@ -100,7 +100,7 @@ fun MarketNotificationScreen(
                     modifier = Modifier.padding(bottom = 8.dp)
                 )
             }
-            
+
             items(schedules, key = { it.id }) { schedule ->
                 MarketScheduleItem(
                     schedule = schedule,
@@ -112,11 +112,11 @@ fun MarketNotificationScreen(
             }
         }
     }
-    
+
     if (showAddDialog) {
         AlertDialog(
             onDismissRequest = { showAddDialog = false },
-            title = { 
+            title = {
                 Text(
                     text = "Add Custom Notification",
                     style = MaterialTheme.typography.titleMedium,
@@ -128,7 +128,7 @@ fun MarketNotificationScreen(
                     OutlinedTextField(
                         value = customName,
                         onValueChange = { customName = it },
-                        label = { 
+                        label = {
                             Text(
                                 text = "Name",
                                 style = MaterialTheme.typography.labelMedium,
@@ -192,7 +192,7 @@ private fun MarketScheduleItem(
             }
         }
     )
-    
+
     if (onDelete != null) {
         SwipeToDismissBox(
             state = dismissState,
@@ -276,7 +276,7 @@ private fun ScheduleCard(
                     )
                 }
             }
-            
+
             Row(verticalAlignment = Alignment.CenterVertically) {
                 if (onDelete != null) {
                     IconButton(onClick = onDelete) {

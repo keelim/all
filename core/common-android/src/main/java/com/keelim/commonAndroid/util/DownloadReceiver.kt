@@ -6,8 +6,8 @@ import android.content.Context
 import android.content.Intent
 import com.keelim.common.extensions.toast
 import dagger.hilt.android.qualifiers.ApplicationContext
-import javax.inject.Inject
-import javax.inject.Singleton
+import jakarta.inject.Inject
+import jakarta.inject.Singleton
 
 @Singleton
 class DownloadReceiver @Inject constructor(

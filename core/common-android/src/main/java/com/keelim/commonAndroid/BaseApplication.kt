@@ -6,7 +6,7 @@ import coil.ImageLoaderFactory
 import com.keelim.commonAndroid.util.ComponentLogger
 import com.keelim.commonAndroid.util.CrashHandler
 import com.keelim.domain.MaintenanceChecker
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 open class BaseApplication : Application(), ImageLoaderFactory {
     @Inject

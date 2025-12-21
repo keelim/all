@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.util.UUID
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 @HiltViewModel
 class MedicationViewModel @Inject constructor(

@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.map
 import androidx.datastore.preferences.core.emptyPreferences
 import kotlinx.coroutines.flow.catch
 import java.io.IOException
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 val Context.stationDataStore: DataStore<Preferences> by preferencesDataStore(name = "station_preferences")
 

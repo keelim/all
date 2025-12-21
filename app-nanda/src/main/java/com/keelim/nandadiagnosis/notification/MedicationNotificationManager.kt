@@ -14,11 +14,11 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.keelim.data.model.Medication
 import dagger.hilt.android.qualifiers.ApplicationContext
+import jakarta.inject.Inject
+import jakarta.inject.Singleton
 import timber.log.Timber
 import java.time.ZoneId
 import java.time.ZonedDateTime
-import javax.inject.Inject
-import javax.inject.Singleton
 
 @Singleton
 class MedicationNotificationManager @Inject constructor(

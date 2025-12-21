@@ -9,11 +9,11 @@ import androidx.datastore.preferences.preferencesDataStore
 import com.keelim.data.repository.calculator.CalculatorHistoryRepository
 import com.keelim.model.CalculatorHistory
 import dagger.hilt.android.qualifiers.ApplicationContext
+import jakarta.inject.Inject
+import jakarta.inject.Singleton
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.serialization.json.Json
-import javax.inject.Inject
-import javax.inject.Singleton
 
 val Context.calculatorDataStore: DataStore<Preferences> by preferencesDataStore(name = "calculator_history")
 

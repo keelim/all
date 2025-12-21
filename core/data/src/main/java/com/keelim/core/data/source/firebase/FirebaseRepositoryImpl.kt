@@ -20,7 +20,7 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import timber.log.Timber
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 class FirebaseRepositoryImpl
 @Inject

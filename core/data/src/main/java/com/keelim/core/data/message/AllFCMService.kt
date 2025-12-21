@@ -9,7 +9,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 @AndroidEntryPoint
 class AllFCMService : FirebaseMessagingService() {

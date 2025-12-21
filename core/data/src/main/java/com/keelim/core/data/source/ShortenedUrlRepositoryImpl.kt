@@ -4,7 +4,7 @@ import com.keelim.core.data.repository.ShortenedUrlRepository
 import com.keelim.shared.data.database.dao.ShortenedUrlDao
 import com.keelim.shared.data.database.model.ShortenedUrlEntity
 import kotlinx.coroutines.flow.Flow
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 class ShortenedUrlRepositoryImpl @Inject constructor(
     private val shortenedUrlDao: ShortenedUrlDao,

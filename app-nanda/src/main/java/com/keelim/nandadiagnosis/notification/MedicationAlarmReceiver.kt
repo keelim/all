@@ -4,7 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 @AndroidEntryPoint
 class MedicationAlarmReceiver : BroadcastReceiver() {

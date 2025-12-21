@@ -14,10 +14,10 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.keelim.data.model.MarketSchedule
 import dagger.hilt.android.qualifiers.ApplicationContext
+import jakarta.inject.Inject
+import jakarta.inject.Singleton
 import timber.log.Timber
 import java.util.Calendar
-import javax.inject.Inject
-import javax.inject.Singleton
 
 @Singleton
 class MarketNotificationManager @Inject constructor(

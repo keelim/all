@@ -5,7 +5,7 @@ import kotlinx.serialization.DeserializationStrategy
 import kotlinx.serialization.SerializationStrategy
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonElement
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 class DefaultJsonParser @Inject constructor(
     private val json: Json,

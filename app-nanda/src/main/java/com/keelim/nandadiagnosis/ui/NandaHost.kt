@@ -19,7 +19,7 @@ import androidx.core.net.toUri
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.EntryProviderBuilder
 import androidx.navigation3.runtime.entryProvider
-import androidx.navigation3.runtime.rememberSavedStateNavEntryDecorator
+import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.keelim.composeutil.AppState
@@ -33,15 +33,14 @@ import com.keelim.nandadiagnosis.ui.screen.food.edit.FoodEditRoute
 import com.keelim.nandadiagnosis.ui.screen.food.overview.FoodRoute
 import com.keelim.nandadiagnosis.ui.screen.length.LengthScreen
 import com.keelim.nandadiagnosis.ui.screen.main.MainBottomSheet
+import com.keelim.nandadiagnosis.ui.screen.medication.MedicationRoute
 import com.keelim.nandadiagnosis.ui.screen.nutrient.NutrientRoute
 import com.keelim.nandadiagnosis.ui.screen.nutrient.timer.NutrientTimerRoute
 import com.keelim.nandadiagnosis.ui.screen.water.WaterIntakeRoute
 import com.keelim.setting.screen.admin.AdminRoute
 import com.keelim.setting.screen.alarm.AlarmRoute
-import com.keelim.nandadiagnosis.ui.screen.medication.MedicationRoute
 import com.keelim.setting.screen.device.DeviceInfoScreen
 import com.keelim.setting.screen.event.EventRoute
-
 import com.keelim.setting.screen.lab.LabRoute
 import com.keelim.setting.screen.notification.NotificationRoute
 import com.keelim.setting.screen.settings.SettingsRoute
@@ -66,7 +65,7 @@ fun NandaHost(
         backStack = backStack,
         onBack = { backStack.removeLastOrNull() },
         entryDecorators = listOf(
-            rememberSavedStateNavEntryDecorator(),
+            rememberSaveableStateHolderNavEntryDecorator(),
             rememberViewModelStoreNavEntryDecorator(),
         ),
         transitionSpec = {

@@ -4,7 +4,7 @@ import com.keelim.core.data.model.NetworkTask
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 class TaskNetworkDataSource @Inject constructor() {
 

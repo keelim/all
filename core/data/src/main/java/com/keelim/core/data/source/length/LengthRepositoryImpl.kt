@@ -7,7 +7,7 @@ import com.keelim.model.LengthRecord
 import com.keelim.shared.data.database.dao.LengthRecordDao
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 class LengthRepositoryImpl @Inject constructor(
     private val dao: LengthRecordDao,

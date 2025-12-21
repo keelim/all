@@ -11,7 +11,7 @@ import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import timber.log.Timber
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 @HiltViewModel
 class OgTagPreviewViewModel @Inject constructor(

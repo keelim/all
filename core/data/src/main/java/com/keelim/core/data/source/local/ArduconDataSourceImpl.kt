@@ -11,7 +11,7 @@ import com.keelim.model.UsageStat
 import com.keelim.shared.data.database.dao.ArduconDao
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 class ArduconDataSourceImpl @Inject constructor(
     private val dao: ArduconDao,

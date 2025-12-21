@@ -45,7 +45,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 import java.io.File
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @DeepLink("all://screen/{name}")

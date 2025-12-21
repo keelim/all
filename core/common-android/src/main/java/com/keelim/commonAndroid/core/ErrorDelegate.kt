@@ -4,7 +4,7 @@ import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 interface ErrorDelegate {
     val error: SharedFlow<Throwable>

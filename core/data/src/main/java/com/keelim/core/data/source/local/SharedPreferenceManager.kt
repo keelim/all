@@ -20,7 +20,7 @@ import android.content.Context
 import androidx.core.content.edit
 import com.keelim.data.repository.PreferenceManager
 import dagger.hilt.android.qualifiers.ApplicationContext
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 class SharedPreferenceManager @Inject constructor(
     @ApplicationContext context: Context,

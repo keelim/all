@@ -21,7 +21,7 @@ import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import timber.log.Timber
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 @Stable
 @HiltViewModel

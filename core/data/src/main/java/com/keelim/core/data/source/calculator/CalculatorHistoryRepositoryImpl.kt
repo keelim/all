@@ -12,7 +12,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.serialization.json.Json
-import javax.inject.Inject
+import jakarta.inject.Inject
 import javax.inject.Singleton
 
 val Context.calculatorDataStore: DataStore<Preferences> by preferencesDataStore(name = "calculator_history")

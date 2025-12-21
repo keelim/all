@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 data class StudyAnalyticsUiState(
     val dailyStats: List<DailyStudyStats> = emptyList(),

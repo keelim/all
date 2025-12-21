@@ -17,7 +17,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import timber.log.Timber
 import java.time.ZoneId
 import java.time.ZonedDateTime
-import javax.inject.Inject
+import jakarta.inject.Inject
 import javax.inject.Singleton
 
 @Singleton

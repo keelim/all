@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.isActive
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 class SimpleFlowTicker @Inject constructor() : DefaultLifecycleObserver {
 

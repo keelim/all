@@ -15,7 +15,7 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.minus
 import kotlinx.datetime.toLocalDateTime
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 class StudyAnalyticsRepositoryImpl @Inject constructor(
     private val studySessionDao: StudySessionDao,

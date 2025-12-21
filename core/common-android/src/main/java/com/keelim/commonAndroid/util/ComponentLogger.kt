@@ -24,7 +24,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import timber.log.Timber
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 private const val loggerTag = "[Lifecycle Logger]"
 

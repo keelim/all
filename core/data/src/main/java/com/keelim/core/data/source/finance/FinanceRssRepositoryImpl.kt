@@ -13,7 +13,7 @@ import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserFactory
 import timber.log.Timber
 import java.net.URL
-import javax.inject.Inject
+import jakarta.inject.Inject
 import javax.inject.Singleton
 
 @Singleton

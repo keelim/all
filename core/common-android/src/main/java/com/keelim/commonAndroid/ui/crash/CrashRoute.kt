@@ -1,21 +1,52 @@
 package com.keelim.commonAndroid.ui.crash
 
 import android.os.Build
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.PathFillType
+import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.StrokeJoin
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import com.keelim.composeutil.component.appbar.NavigationBackArrowBar
+import com.keelim.composeutil.resource.space12
+import com.keelim.composeutil.resource.space16
+import com.keelim.composeutil.resource.space24
 import com.keelim.composeutil.resource.space8
 
 @Composable
@@ -27,55 +58,246 @@ fun CrashRoute(
     val context = LocalContext.current
     val appVersion = context.packageManager
         .getPackageInfo(context.packageName, 0)
-        .versionName
+        .versionName ?: "Unknown"
     val deviceModel = "${Build.MANUFACTURER} ${Build.MODEL}"
-    val androidVersion =
-        "Android ${Build.VERSION.RELEASE} (API ${Build.VERSION.SDK_INT})"
-
-    val errorMsg =
-        "Version: $appVersion\nDevice: $deviceModel\nSystem: $androidVersion\n\nStack trace: \n\n$errorMessage\n\n\"현재 에러가 발생했습니다. 앱을 재시작해주시기 바랍니다."
+    val androidVersion = "Android ${Build.VERSION.RELEASE} (API ${Build.VERSION.SDK_INT})"
 
     CrashScreen(
-        text = errorMsg,
+        appVersion = appVersion,
+        deviceModel = deviceModel,
+        androidVersion = androidVersion,
+        stackTrace = errorMessage,
         onAppRefresh = onAppRefresh,
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CrashScreen(
-    text: String,
+    appVersion: String,
+    deviceModel: String,
+    androidVersion: String,
+    stackTrace: String,
     onAppRefresh: () -> Unit,
 ) {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-    ) {
-        NavigationBackArrowBar(
-            "에러 확인 중",
-        )
-        LazyColumn {
+    Scaffold(
+        modifier = Modifier
+            .fillMaxSize()
+            .safeDrawingPadding(),
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(
+                        text = "오류가 발생했습니다",
+                        fontWeight = FontWeight.Bold,
+                    )
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.errorContainer,
+                    titleContentColor = MaterialTheme.colorScheme.onErrorContainer,
+                ),
+            )
+        },
+    ) { innerPadding ->
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .padding(horizontal = space16),
+            verticalArrangement = Arrangement.spacedBy(space16),
+        ) {
             item {
-                Text(
-                    text = text,
-                    modifier = Modifier.padding(space8),
+                Spacer(modifier = Modifier.height(space8))
+            }
+
+            // Error Header Section
+            item {
+                ErrorHeaderSection()
+            }
+
+            // Device Info Card
+            item {
+                DeviceInfoCard(
+                    appVersion = appVersion,
+                    deviceModel = deviceModel,
+                    androidVersion = androidVersion,
                 )
             }
+
+            // Stack Trace Card
             item {
-                Icon(
-                    imageVector = Icons.Filled.Refresh,
-                    contentDescription = null,
+                StackTraceCard(stackTrace = stackTrace)
+            }
+
+            // Restart Button
+            item {
+                Button(
+                    onClick = onAppRefresh,
                     modifier = Modifier
-                        .clickable { onAppRefresh() },
+                        .fillMaxWidth()
+                        .height(56.dp),
+                    shape = RoundedCornerShape(space12),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.primary,
+                    ),
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.Refresh,
+                        contentDescription = null,
+                        modifier = Modifier.size(24.dp),
+                    )
+                    Spacer(modifier = Modifier.size(space8))
+                    Text(
+                        text = "앱 다시 시작하기",
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold,
+                    )
+                }
+            }
+
+            item {
+                Spacer(modifier = Modifier.height(space24))
+            }
+        }
+    }
+}
+
+@Composable
+private fun ErrorHeaderSection() {
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Surface(
+            modifier = Modifier.size(80.dp),
+            shape = RoundedCornerShape(40.dp),
+            color = MaterialTheme.colorScheme.errorContainer,
+        ) {
+            Icon(
+                imageVector = BugIcon,
+                contentDescription = null,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(space16),
+                tint = MaterialTheme.colorScheme.onErrorContainer,
+            )
+        }
+        Spacer(modifier = Modifier.height(space16))
+        Text(
+            text = "예기치 않은 오류가 발생했습니다",
+            style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Center,
+            color = MaterialTheme.colorScheme.onSurface,
+        )
+        Spacer(modifier = Modifier.height(space8))
+        Text(
+            text = "앱을 다시 시작해 주세요.\n문제가 지속되면 개발팀에 문의해 주세요.",
+            style = MaterialTheme.typography.bodyMedium,
+            textAlign = TextAlign.Center,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+    }
+}
+
+@Composable
+private fun DeviceInfoCard(
+    appVersion: String,
+    deviceModel: String,
+    androidVersion: String,
+) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(space12),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant,
+        ),
+    ) {
+        Column(
+            modifier = Modifier.padding(space16),
+            verticalArrangement = Arrangement.spacedBy(space8),
+        ) {
+            Text(
+                text = "기기 정보",
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            Spacer(modifier = Modifier.height(space8))
+            DeviceInfoRow(label = "앱 버전", value = appVersion)
+            DeviceInfoRow(label = "기기 모델", value = deviceModel)
+            DeviceInfoRow(label = "OS 버전", value = androidVersion)
+        }
+    }
+}
+
+@Composable
+private fun DeviceInfoRow(
+    label: String,
+    value: String,
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+    ) {
+        Text(
+            text = label,
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        Text(
+            text = value,
+            style = MaterialTheme.typography.bodyMedium,
+            fontWeight = FontWeight.Medium,
+            color = MaterialTheme.colorScheme.onSurface,
+        )
+    }
+}
+
+@Composable
+private fun StackTraceCard(stackTrace: String) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(space12),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceContainerHighest,
+        ),
+    ) {
+        Column(
+            modifier = Modifier.padding(space16),
+        ) {
+            Text(
+                text = "오류 상세 정보",
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onSurface,
+            )
+            Spacer(modifier = Modifier.height(space12))
+            Surface(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(space8),
+                color = MaterialTheme.colorScheme.surfaceContainerLow,
+            ) {
+                Text(
+                    text = stackTrace,
+                    modifier = Modifier.padding(space12),
+                    style = MaterialTheme.typography.bodySmall,
+                    fontFamily = FontFamily.Monospace,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
         }
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun PreviewCrashScreen() {
     CrashScreen(
-        text = "현재 에러가 발생했습니다. 앱을 재시작해주시기 바랍니다.",
+        appVersion = "1.0.0",
+        deviceModel = "Samsung SM-S911N",
+        androidVersion = "Android 14 (API 34)",
+        stackTrace = "java.lang.NullPointerException: Attempt to invoke virtual method...\n    at com.example.app.MainActivity.onCreate(MainActivity.kt:42)\n    at android.app.Activity.performCreate(Activity.java:8051)",
         onAppRefresh = {},
     )
 }

@@ -3,7 +3,7 @@
 compileSdk = "36"
 minSdk = "26"
 targetSdk = "36"
-versionCode = "20251214"
+versionCode = "20251221"
 # library
 accompanist = "0.37.3"
 androidDesugarJdkLibs = "2.1.5"
@@ -209,7 +209,7 @@ coil = { group = "io.coil-kt", name = "coil"}
 coil-bom = { group = "io.coil-kt", name = "coil-bom", version.ref = "coil"}
 coil-compose = { group = "io.coil-kt", name = "coil-compose"}
 coil-gif = { group = "io.coil-kt", name = "coil-gif"}
-coil-network-ktor = { group = "io.coil-kt", name = "coil-video", version.ref = "coil"}
+coil-network-ktor = { group = "io.coil-kt", name = "coil-video" }
 coil-svg = { group = "io.coil-kt", name = "coil-svg"}
 coil-video = { group = "io.coil-kt", name = "coil-video"}
 compose-compiler-gradlePlugin = { group = "org.jetbrains.kotlin", name = "compose-compiler-gradle-plugin", version.ref = "kotlin" }
@@ -316,6 +316,7 @@ timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "tim
 truth = { module = "com.google.truth:truth", version.ref = "truth" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
 
+[bundles]
 ktor = [
     "ktor-client-android",
     "ktor-client-cio",

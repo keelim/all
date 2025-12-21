@@ -17,6 +17,8 @@ import com.keelim.shared.data.database.dao.StudySessionDao
 import com.keelim.shared.data.database.dao.TaskDao
 import com.keelim.shared.data.database.dao.TimerHistoryDao
 import com.keelim.shared.data.database.dao.WaterIntakeDao
+import com.keelim.shared.data.database.dao.ExerciseDao
+import com.keelim.shared.data.database.dao.FoodDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -103,4 +105,16 @@ object DaoModule {
     fun providesWaterIntakeDao(
         database: NandaAppDatabase,
     ): WaterIntakeDao = database.waterIntakeDao()
+
+    @Provides
+    @Singleton
+    fun providesFoodDao(
+        database: NandaAppDatabase,
+    ): FoodDao = database.foodDao()
+
+    @Provides
+    @Singleton
+    fun providesExerciseDao(
+        database: NandaAppDatabase,
+    ): ExerciseDao = database.exerciseDao()
 }

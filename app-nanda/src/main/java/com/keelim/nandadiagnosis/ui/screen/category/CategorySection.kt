@@ -2,30 +2,51 @@
 
 package com.keelim.nandadiagnosis.ui.screen.category
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.ArrowForward
+import androidx.compose.material.icons.automirrored.rounded.List
+import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Edit
+import androidx.compose.material.icons.rounded.Notifications
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.ListItem
+import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedCard
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEachIndexed
@@ -34,7 +55,7 @@ import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
 import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space16
-import com.keelim.composeutil.resource.space32
+import com.keelim.composeutil.resource.space24
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
 import kotlinx.collections.immutable.persistentListOf
@@ -54,33 +75,93 @@ fun CategoryStateSection(
         CategoryState.Loading -> Loading()
         is CategoryState.Success -> {
             Column(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
+                    .padding(space12), // Outer padding
+                verticalArrangement = Arrangement.spacedBy(space24),
             ) {
-                Categories(
-                    title = "먹고 있는 식단",
-                    items = listOf(),
-                    type = CategoriesType.FOOD,
-                    onCategoryClick = { _, _ -> },
-                    onEditTypeClick = onEditTypeClick,
-                )
-                Categories(
-                    title = "진행하는 운동",
-                    items = listOf(),
-                    type = CategoriesType.EXERCISE,
-                    onCategoryClick = { _, _ -> },
-                    onEditTypeClick = onEditTypeClick,
-                )
-                Categories(
-                    title = "Category",
-                    items = uiState.items,
-                    onCategoryClick = onCategoryClick,
-                    type = CategoriesType.CATEGORY,
-                    onEditTypeClick = onEditTypeClick,
-                )
-                Spacer(modifier = Modifier.height(space16))
+                // 1. Hero Section: Medication
                 MedicationEntryCard(
                     onMedicationClick = onMedicationClick,
                 )
+
+                // 2. Activity Section: Food & Exercise
+                SectionCard(title = "나의 활동") {
+                    Categories(
+                        title = "식단 기록",
+                        items = listOf(),
+                        type = CategoriesType.FOOD,
+                        onCategoryClick = { _, _ -> },
+                        onEditTypeClick = onEditTypeClick,
+                        emptyMessage = "오늘 먹은 음식을 기록해보세요.",
+                        icon = Icons.Rounded.Add,
+                    )
+                    Spacer(modifier = Modifier.height(space16))
+                    Categories(
+                        title = "운동 기록",
+                        items = listOf(),
+                        type = CategoriesType.EXERCISE,
+                        onCategoryClick = { _, _ -> },
+                        onEditTypeClick = onEditTypeClick,
+                        emptyMessage = "오늘 한 운동을 기록해보세요.",
+                        icon = Icons.Rounded.Add,
+                    )
+                }
+
+                // 3. Main Grid: NANDA Categories
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(space12),
+                ) {
+                    Text(
+                        text = "NANDA 진단 분류",
+                        style = MaterialTheme.typography.titleLarge.copy(
+                            fontWeight = FontWeight.Bold,
+                        ),
+                        modifier = Modifier.padding(start = space4),
+                    )
+                    Categories(
+                        title = "NANDA", // Not used in grid mode effectively but kept for sig
+                        items = uiState.items,
+                        onCategoryClick = onCategoryClick,
+                        type = CategoriesType.CATEGORY,
+                        onEditTypeClick = onEditTypeClick,
+                    )
+                }
+                Spacer(modifier = Modifier.height(space24))
+            }
+        }
+    }
+}
+
+@Composable
+private fun SectionCard(
+    title: String,
+    content: @Composable () -> Unit,
+) {
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(space12),
+    ) {
+        Text(
+            text = title,
+            style = MaterialTheme.typography.titleLarge.copy(
+                fontWeight = FontWeight.Bold,
+            ),
+            modifier = Modifier.padding(start = space4),
+        )
+        OutlinedCard(
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(space16),
+            colors = CardDefaults.outlinedCardColors(
+                containerColor = MaterialTheme.colorScheme.surface,
+            ),
+        ) {
+            Column(
+                modifier = Modifier.padding(space16),
+            ) {
+                content()
             }
         }
     }
@@ -93,45 +174,66 @@ private fun MedicationEntryCard(
 ) = trace("MedicationEntryCard") {
     Card(
         modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = space8),
-        shape = RoundedCornerShape(space12),
+            .fillMaxWidth(),
+        shape = RoundedCornerShape(space16),
+//        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f),
+            containerColor = Color.Transparent,
         ),
         onClick = onMedicationClick,
     ) {
-        Row(
+        Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(space16),
-            horizontalArrangement = Arrangement.spacedBy(space12),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Text(
-                text = "💊",
-                style = MaterialTheme.typography.headlineMedium,
-            )
-            Column(
-                modifier = Modifier.weight(1f),
-            ) {
-                Text(
-                    text = "복약 알림",
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onSurface,
-                    fontWeight = FontWeight.Medium,
+                .background(
+                    brush = Brush.linearGradient(
+                        colors = listOf(
+                            MaterialTheme.colorScheme.primary,
+                            MaterialTheme.colorScheme.tertiary,
+                        ),
+                    ),
                 )
-                Text(
-                    text = "약물 복용 시간에 알림을 받아보세요",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                .padding(space24), // Increased padding
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(space16),
+            ) {
+                Surface(
+                    shape = CircleShape,
+                    color = MaterialTheme.colorScheme.surface.copy(alpha = 0.2f),
+                    modifier = Modifier.size(48.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Rounded.Notifications,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .padding(12.dp)
+                            .fillMaxSize(),
+                        tint = MaterialTheme.colorScheme.onPrimary,
+                    )
+                }
+
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = "복약 알림 설정",
+                        style = MaterialTheme.typography.titleLarge.copy(
+                            fontWeight = FontWeight.Bold,
+                        ),
+                        color = MaterialTheme.colorScheme.onPrimary,
+                    )
+                    Spacer(modifier = Modifier.height(space4))
+                    Text(
+                        text = "약 먹을 시간을 잊지 마세요!",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.8f),
+                    )
+                }
+                Icon(
+                    imageVector = Icons.AutoMirrored.Rounded.ArrowForward,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onPrimary,
                 )
             }
-            Text(
-                text = "→",
-                style = MaterialTheme.typography.titleLarge,
-                color = MaterialTheme.colorScheme.primary,
-            )
         }
     }
 }
@@ -150,72 +252,92 @@ private fun Categories(
     onCategoryClick: (Int, String) -> Unit,
     onEditTypeClick: (CategoriesType) -> Unit,
     modifier: Modifier = Modifier,
+    emptyMessage: String = "데이터가 없습니다.",
+    icon: ImageVector = Icons.AutoMirrored.Rounded.List,
 ) = trace("categories") {
-    Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(space8),
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-        ) {
-            Text(
-                text = title,
-                style = MaterialTheme.typography.bodyMedium,
-            )
-            if (type == CategoriesType.FOOD) {
-                Icon(
-                    imageVector = Icons.Rounded.Edit,
-                    contentDescription = "edit",
-                    modifier = Modifier.clickable { onEditTypeClick(type) },
-                )
-            }
-        }
-
-        if (items.isEmpty()) {
-            Text(
-                text = "데이터가 없습니다.",
-                style = MaterialTheme.typography.bodyMedium.copy(
-                    fontWeight = FontWeight.Thin,
-                ),
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(space32),
-            )
-        } else {
-            when (type) {
-                CategoriesType.EXERCISE, CategoriesType.FOOD -> {
-                    items.fastForEachIndexed { index, item ->
-                        CategoryCard(
-                            index = index,
-                            categoryTitle = item,
-                            onCategoryClick = onCategoryClick,
-                            modifier = Modifier.fillMaxWidth(),
-                        )
-                        Spacer(modifier = Modifier.height(space12))
+    when (type) {
+        CategoriesType.FOOD, CategoriesType.EXERCISE -> {
+            Column(modifier = modifier) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = space8),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(
+                        text = title,
+                        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
+                    )
+                    IconButton(onClick = { onEditTypeClick(type) }) {
+                        Icon(imageVector = Icons.Rounded.Edit, contentDescription = "Edit")
                     }
                 }
 
-                CategoriesType.CATEGORY -> {
-                    FlowRow(
-                        maxItemsInEachRow = 3,
+                if (items.isEmpty()) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(space12))
+                            .background(MaterialTheme.colorScheme.surfaceContainerHigh)
+                            .clickable { onEditTypeClick(type) }
+                            .padding(vertical = space24),
+                        contentAlignment = Alignment.Center,
                     ) {
-                        val itemModifier =
-                            Modifier
-                                .height(100.dp)
-                                .padding(space8)
-                                .clip(RoundedCornerShape(space8))
-                        items.fastForEachIndexed { index, item ->
-                            CategoryCard(
-                                index = index,
-                                categoryTitle = item,
-                                onCategoryClick = onCategoryClick,
-                                modifier = itemModifier,
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Icon(
+                                imageVector = icon,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                modifier = Modifier.size(32.dp),
+                            )
+                            Spacer(modifier = Modifier.height(space8))
+                            Text(
+                                text = emptyMessage,
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
                             )
                         }
                     }
+                } else {
+                    items.fastForEachIndexed { index, item ->
+                        ListItem(
+                            headlineContent = { Text(item) },
+                            leadingContent = {
+                                Icon(
+                                    imageVector = Icons.Outlined.Info,
+                                    contentDescription = null,
+                                )
+                            },
+                            colors = ListItemDefaults.colors(
+                                containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
+                            ),
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(space12))
+                                .clickable { onCategoryClick(index + 1, item) },
+                        )
+                        Spacer(modifier = Modifier.height(space8))
+                    }
+                }
+            }
+        }
+
+        CategoriesType.CATEGORY -> {
+            FlowRow(
+                modifier = Modifier.fillMaxWidth(),
+                maxItemsInEachRow = 2,
+                horizontalArrangement = Arrangement.spacedBy(space12),
+                verticalArrangement = Arrangement.spacedBy(space12),
+            ) {
+                items.fastForEachIndexed { index, item ->
+                    CategoryGridCard(
+                        index = index,
+                        categoryTitle = item,
+                        onCategoryClick = onCategoryClick,
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxWidth(),
+                    )
                 }
             }
         }
@@ -223,26 +345,55 @@ private fun Categories(
 }
 
 @Composable
-private fun CategoryCard(
+private fun CategoryGridCard(
     index: Int,
     categoryTitle: String,
     onCategoryClick: (Int, String) -> Unit,
     modifier: Modifier = Modifier,
-) = trace("CategoryCard") {
+) {
+    // Generate a consistent color based on index or just use a nice variety
+    // For now, we use a subtle surface variant or a primary container
+    val containerColor = MaterialTheme.colorScheme.surfaceContainer
+
     Card(
-        modifier = modifier.clip(RoundedCornerShape(space8)),
-        elevation = CardDefaults.cardElevation(defaultElevation = space4),
-        onClick = { onCategoryClick(index + 1, categoryTitle) },
+        modifier = modifier
+            .aspectRatio(1.4f)
+            .clip(RoundedCornerShape(space16))
+            .clickable { onCategoryClick(index + 1, categoryTitle) },
+        colors = CardDefaults.cardColors(containerColor = containerColor),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
     ) {
-        Column(
-            modifier = modifier.padding(space8),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center,
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(space12),
         ) {
-            Text(
-                text = categoryTitle,
-                style = MaterialTheme.typography.headlineMedium,
+            // Background Decorative Circle
+            Box(
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .size(60.dp)
+                    .clip(CircleShape)
+                    .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.1f))
             )
+
+            Column(
+                modifier = Modifier.align(Alignment.CenterStart),
+            ) {
+                Text(
+                    text = "${index + 1}",
+                    style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                Spacer(modifier = Modifier.height(space4))
+                Text(
+                    text = categoryTitle,
+                    style = MaterialTheme.typography.titleMedium.copy(
+                        fontWeight = FontWeight.Bold,
+                    ),
+                    color = MaterialTheme.colorScheme.onSurface,
+                )
+            }
         }
     }
 }
@@ -292,15 +443,4 @@ private fun PreviewCategories() {
             onEditTypeClick = { },
         )
     }
-}
-
-@Preview
-@Composable
-private fun PreviewCategoryCard() {
-    CategoryCard(
-        categoryTitle = "병명",
-        onCategoryClick = { _, _ -> },
-        modifier = Modifier,
-        index = 4713,
-    )
 }

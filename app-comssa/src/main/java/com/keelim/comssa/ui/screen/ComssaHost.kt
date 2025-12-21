@@ -2,6 +2,8 @@
 
 package com.keelim.comssa.ui.screen
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.animation.ContentTransform
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -10,33 +12,31 @@ import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.core.net.toUri
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
+import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.runtime.entryProvider
-import androidx.navigation3.runtime.rememberSavedStateNavEntryDecorator
+import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.keelim.composeutil.AppState
 import com.keelim.composeutil.rememberMutableStateListOf
 import com.keelim.comssa.ui.screen.main.calculator.CalculatorRoute
 import com.keelim.comssa.ui.screen.main.ecocal.EcocalRoute
 import com.keelim.core.navigation.AppRoute
 import com.keelim.core.navigation.ComssaRoute
-import android.content.Context
-import android.content.Intent
-import androidx.compose.runtime.snapshots.SnapshotStateList
-import androidx.compose.ui.platform.LocalContext
-import androidx.core.net.toUri
-import androidx.navigation3.runtime.EntryProviderBuilder
-import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.keelim.core.navigation.FeatureRoute
 import com.keelim.setting.screen.admin.AdminRoute
 import com.keelim.setting.screen.alarm.AlarmRoute
 import com.keelim.setting.screen.device.DeviceInfoScreen
-import com.keelim.web.navigateToWebModule
 import com.keelim.setting.screen.lab.LabRoute
 import com.keelim.setting.screen.notification.NotificationRoute
 import com.keelim.setting.screen.settings.SettingsRoute
 import com.keelim.setting.screen.theme.ThemeRoute
+import com.keelim.web.navigateToWebModule
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
@@ -54,7 +54,7 @@ fun ComssaHost(
         backStack = backStack,
         onBack = { backStack.removeLastOrNull() },
         entryDecorators = listOf(
-            rememberSavedStateNavEntryDecorator(),
+            rememberSaveableStateHolderNavEntryDecorator(),
             rememberViewModelStoreNavEntryDecorator(),
         ),
         transitionSpec = {
@@ -88,7 +88,7 @@ fun ComssaHost(
 }
 
 @Composable
-fun EntryProviderBuilder<Any>.settingsEntry(
+fun EntryProviderScope<Any>.settingsEntry(
     backStack: SnapshotStateList<Any>,
     context: Context,
 ) {

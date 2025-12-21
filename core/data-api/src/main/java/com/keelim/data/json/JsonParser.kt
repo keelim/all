@@ -47,3 +47,23 @@ interface JsonParser {
     fun formatJson(jsonString: String): String
 }
 
+/**
+ * JSON 문자열을 자동으로 타입 추론하여 디코딩합니다.
+ * serializer를 명시적으로 전달하지 않아도 됩니다.
+ */
+inline fun <reified T> JsonParser.decode(jsonString: String): T =
+    decodeFromString(jsonString, kotlinx.serialization.serializer())
+
+/**
+ * JSON 문자열을 자동으로 타입 추론하여 디코딩합니다. 실패 시 null을 반환합니다.
+ * serializer를 명시적으로 전달하지 않아도 됩니다.
+ */
+inline fun <reified T> JsonParser.decodeOrNull(jsonString: String): T? =
+    decodeFromStringOrNull(jsonString, kotlinx.serialization.serializer())
+
+/**
+ * 객체를 자동으로 타입 추론하여 JSON 문자열로 인코딩합니다.
+ * serializer를 명시적으로 전달하지 않아도 됩니다.
+ */
+inline fun <reified T> JsonParser.encode(value: T): String =
+    encodeToString(kotlinx.serialization.serializer(), value)

@@ -4,6 +4,7 @@ import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.keelim.data.json.JsonParser
+import com.keelim.data.json.decode
 import com.keelim.data.repository.FirebaseRepository
 import com.keelim.shared.data.UserState
 import com.keelim.shared.data.UserStateStore
@@ -16,7 +17,6 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.builtins.ListSerializer
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -58,9 +58,8 @@ class SettingsViewModel @Inject constructor(
         Timber.d("[SettingsViewModel] Remote config 'family_services' fetched, length: ${remoteConfigString.length}")
         val services: List<FamilyService> = try {
             if (remoteConfigString.isNotEmpty()) {
-                val list = jsonParser.decodeFromString(
-                    remoteConfigString,
-                    ListSerializer(FamilyService.serializer()),
+                val list = jsonParser.decode<List<FamilyService>>(
+                    remoteConfigString
                 )
                 Timber.d("[SettingsViewModel] Parsed ${list.size} family services")
                 list

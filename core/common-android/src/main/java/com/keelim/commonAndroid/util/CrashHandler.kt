@@ -20,7 +20,7 @@ import java.io.FileOutputStream
 import java.lang.ref.WeakReference
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledExecutorService
-import javax.inject.Inject
+import jakarta.inject.Inject
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 

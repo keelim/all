@@ -24,6 +24,7 @@ private val appPermissions: List<String> = buildList {
 fun CategoryRoute(
     onCategoryClick: (Int, String) -> Unit,
     onEditTypeClick: (CategoriesType) -> Unit,
+    onMedicationClick: () -> Unit = {},
     viewModel: CategoryViewModel = hiltViewModel(),
 ) = trace("CategoryRoute") {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -31,6 +32,7 @@ fun CategoryRoute(
         state = state,
         onCategoryClick = onCategoryClick,
         onEditTypeClick = onEditTypeClick,
+        onMedicationClick = onMedicationClick,
     )
 }
 
@@ -39,11 +41,13 @@ fun CategoryScreen(
     state: CategoryState,
     onCategoryClick: (Int, String) -> Unit,
     onEditTypeClick: (CategoriesType) -> Unit,
+    onMedicationClick: () -> Unit = {},
 ) = trace("CategoryScreen") {
     CategoryStateSection(
         uiState = state,
         onCategoryClick = onCategoryClick,
         onEditTypeClick = onEditTypeClick,
+        onMedicationClick = onMedicationClick,
     )
 
     SimpleAcquirePermissions(

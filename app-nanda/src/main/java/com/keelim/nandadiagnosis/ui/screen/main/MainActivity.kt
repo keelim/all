@@ -45,7 +45,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 import java.io.File
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @DeepLink("all://screen/{name}")
@@ -56,6 +56,8 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var userStateStore: Lazy<UserStateStore>
+
+    private var isReceiverRegistered = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
@@ -93,13 +95,17 @@ class MainActivity : ComponentActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        unregisterReceiver(downloadReceiver)
+        if (isReceiverRegistered) {
+            unregisterReceiver(downloadReceiver)
+        }
     }
 
     private fun fileChecking() {
-        takeIf { File(getExternalFilesDir(null), "nanda.db").exists() }
-            ?.run { downloadDatabase() }
-            ?: run { toast("데이터베이스가 존재합니다. 그대로 진행 합니다") }
+        if (File(getExternalFilesDir(null), "nanda.db").exists().not()) {
+            downloadDatabase()
+        } else {
+            toast("데이터베이스가 존재합니다. 그대로 진행 합니다")
+        }
     }
 
     private fun downloadDatabase() {
@@ -112,6 +118,7 @@ class MainActivity : ComponentActivity() {
             },
             ContextCompat.RECEIVER_NOT_EXPORTED,
         )
+        isReceiverRegistered = true
 
         DownloadManager.Request(applicationContext.getString(R.string.db_path).toUri())
             .setTitle("Downloading")

@@ -26,18 +26,53 @@ The main Android apps live in the `app-*/` folders. Feature modules live in `fea
     - Compound Interest Calculator
     - Loan Repayment Calculator
     - Investment Return Calculator
+    - Retirement Calculator
     - Currency Converter
     - Tax Calculator
     - Save and Share Calculation Results
 - **Tech Stack:** Jetpack Compose for UI, DataStore for history persistence.
 
-### app-nanda
-#### Nanda Diagnosis
-- **Description:** Provides NANDA nursing diagnosis information and search functionality.
+#### Ecocal (Economic Calendar)
+- **Description:** Provides important economic events and calendar.
 - **Key Features:**
-    - Diagnosis Search
-    - Category-based browsing
-    - Detailed diagnosis information
+    - Economic Events Calendar
+    - Country-specific Filter
+    - Importance Level Filter
+
+#### FlashCard
+- **Description:** A simple flashcard study tool.
+- **Key Features:**
+    - Create and Study Flashcards
+    - Randomized Reviews
+    - Progress Tracking
+
+#### Calendar
+- **Description:** General purpose calendar view.
+- **Key Features:**
+    - Month View
+    - Event Marking
+
+#### Market Notification
+- **Description:** Stock market open time notification system with support for Android 16+ Live Updates.
+- **Key Features:**
+    - **Default Markets**: Korea (KOSPI/KOSDAQ 09:00 KST), US (NYSE/NASDAQ 23:30 KST)
+    - **Custom Notifications**: Add custom time-based notifications via TimePicker
+    - **Toggle Control**: Enable/disable individual market notifications
+    - **Swipe-to-Delete**: Remove custom notifications with swipe gesture
+    - **Android 16+ Live Updates**: Uses `Notification.ProgressStyle` for live notification on API 36+
+    - **AlarmManager Scheduling**: Precise scheduling using `setExactAndAllowWhileIdle`
+- **Tech Stack:** Jetpack Compose (Material 3), Hilt for DI, DataStore for persistence, AlarmManager for scheduling.
+- **DI Pattern**: Json parser is provided via `JsonModule` and injected into repositories.
+### app-nanda
+#### Nanda Diagnosis & Health Tools
+- **Description:** Provides NANDA nursing diagnosis information along with various health tracking and utility tools.
+- **Key Features:**
+    - **Diagnosis**: Search and browse NANDA nursing diagnoses with detailed information.
+    - **Food Manager**: Track daily food intake and manage nutritional data.
+    - **Exercise Tracker**: Log and monitor exercise routines.
+    - **Nutrient Info**: Database of nutrient information.
+    - **Unit Converter**: Utility tools for length and other conversions.
+    - **Water Intake Tracker**: Daily hydration tracking with animated progress ring, quick add buttons (100ml, 200ml, 250ml, 500ml), weekly history chart, and intake records list.
 - **Tech Stack:** Jetpack Compose for UI, Room (Shared Module) for data persistence, Hilt for DI.
 
 ### app-cnubus
@@ -64,7 +99,20 @@ The main Android apps live in the `app-*/` folders. Feature modules live in `fea
     - **JSON Formatter**: Format and validate JSON strings.
     - **Base64 Tool**: Encode/Decode Base64 strings with history persistence.
     - **Device Info**: View detailed device information (Model, SDK, Screen, etc.).
+    - **URL Shortener**: Shorten URLs locally, track click analytics, and set expiration dates.
 - **Tech Stack:** Jetpack Compose for UI (Material 3), Hilt for DI, Room/DataStore for persistence, Coil for image loading, Jsoup for OG tag parsing.
+
+### app-my-grade
+#### Grade Calculator & Manager
+- **Description:** A comprehensive tool for calculating school grades, managing academic history, and tracking study tasks.
+- **Key Features:**
+    - **Grade Calculation**: Calculate grades based on raw scores and student distribution using standard deviation principles.
+    - **History**: Save and review past grade calculations.
+    - **Timer & Task**: Integrated focus timer and task management with visual charts.
+    - **Timer History**: View, edit, and manage past timer sessions. Supports swipe-to-delete, description editing, and tap-to-restore timer settings.
+    - **Word**: Simple vocabulary management system.
+    - **Study Analytics**: Dashboard with activity heatmap, weekly study charts, subject distribution, streak tracking, and gamification elements.
+- **Tech Stack:** Jetpack Compose, Hilt, Room, Apache Commons Math (for statistics).
 
 ## Conventions
 
@@ -86,3 +134,26 @@ The main Android apps live in the `app-*/` folders. Feature modules live in `fea
 - **Rule**: All user actions (e.g., list item deletion, visibility changes) MUST be animation-friendly.
 - **Reason**: To provide a smooth and engaging user experience.
 - **Example**: Use `LazyColumn` with `animateItem` for lists, or `AnimatedVisibility` for visibility changes.
+
+#### Build Verification
+- **Rule**: After making code changes to any module, always run `./gradlew :<module>:assembleDebug` to verify the build.
+- **Reason**: To catch compile errors early and ensure the code integrates correctly.
+- **Example**:
+  ```bash
+  ./gradlew :app-my-grade:assembleDebug
+  ./gradlew :core:data:assembleDebug
+  ./gradlew :feature:ui-setting:assembleDebug
+  ```
+
+## Feature Modules
+
+### feature/ui-setting
+#### ThemeScreen
+- **Description**: Modern theme selection screen with animated UI.
+- **Key Features**:
+    - **Header Section**: Gradient icon with palette and clear title/subtitle.
+    - **Theme Selection Cards**: Inline card-based theme selection (Light/Dark) with scale animation and border animation on selection.
+    - **Preview Panel**: Live preview of selected theme with animated color transitions.
+    - **Smooth Animations**: Uses `animateFloatAsState` for scale, `animateColorAsState` for colors with `tween` duration.
+- **Tech Stack**: Jetpack Compose (Material 3), Material Icons Extended, Animation APIs.
+

@@ -18,7 +18,7 @@ import io.ktor.client.statement.request
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 class LinkInspectorRepositoryImpl @Inject constructor(
     @ApplicationContext private val context: Context,

@@ -7,26 +7,32 @@ import androidx.room.RoomDatabase
 import androidx.room.RoomDatabaseConstructor
 import com.keelim.shared.data.database.dao.AlarmDao
 import com.keelim.shared.data.database.dao.ArduconDao
+import com.keelim.shared.data.database.dao.Base64Dao
 import com.keelim.shared.data.database.dao.HistoryDao
 import com.keelim.shared.data.database.dao.LengthRecordDao
+import com.keelim.shared.data.database.dao.NandaDao
+import com.keelim.shared.data.database.dao.WaterIntakeDao
 import com.keelim.shared.data.database.dao.NetworkCacheDao
 import com.keelim.shared.data.database.dao.NoteDao
+import com.keelim.shared.data.database.dao.ShortenedUrlDao
+import com.keelim.shared.data.database.dao.StudySessionDao
 import com.keelim.shared.data.database.dao.TaskDao
 import com.keelim.shared.data.database.dao.TimerHistoryDao
-import com.keelim.shared.data.database.dao.NandaDao
 import com.keelim.shared.data.database.model.AlarmEntity
+import com.keelim.shared.data.database.model.Base64History
 import com.keelim.shared.data.database.model.DeepLinkEntity
 import com.keelim.shared.data.database.model.History
 import com.keelim.shared.data.database.model.LengthRecord
+import com.keelim.shared.data.database.model.WaterIntake
 import com.keelim.shared.data.database.model.LocalTask
+import com.keelim.shared.data.database.model.NandaEntity
 import com.keelim.shared.data.database.model.NetworkCache
 import com.keelim.shared.data.database.model.NoticesEntity
 import com.keelim.shared.data.database.model.SchemeEntity
+import com.keelim.shared.data.database.model.ShortenedUrlEntity
 import com.keelim.shared.data.database.model.SimpleHistory
+import com.keelim.shared.data.database.model.StudySession
 import com.keelim.shared.data.database.model.TimerHistory
-import com.keelim.shared.data.database.dao.Base64Dao
-import com.keelim.shared.data.database.model.Base64History
-import com.keelim.shared.data.database.model.NandaEntity
 
 // The Room compiler generates the `actual` implementations.
 @Suppress("NO_ACTUAL_FOR_EXPECT")
@@ -42,14 +48,17 @@ expect object MyGradeAppDatabaseConstructor : RoomDatabaseConstructor<MyGradeApp
         TimerHistory::class,
         NetworkCache::class,
         NoticesEntity::class,
+        StudySession::class,
     ],
-    version = 6,
+    version = 8,
     exportSchema = true,
     autoMigrations = [
         AutoMigration(from = 2, to = 3),
         AutoMigration(from = 3, to = 4),
         AutoMigration(from = 4, to = 5),
         AutoMigration(from = 5, to = 6),
+        AutoMigration(from = 6, to = 7),
+        AutoMigration(from = 7, to = 8),
     ],
 )
 @ConstructedBy(MyGradeAppDatabaseConstructor::class)
@@ -59,6 +68,7 @@ abstract class MyGradeAppDatabase : RoomDatabase() {
     abstract fun timerHistoryDao(): TimerHistoryDao
     abstract fun networkCacheDao(): NetworkCacheDao
     abstract fun noteDao(): NoteDao
+    abstract fun studySessionDao(): StudySessionDao
 }
 
 @Suppress("NO_ACTUAL_FOR_EXPECT")
@@ -71,8 +81,9 @@ expect object ArduconDatabaseConstructor : RoomDatabaseConstructor<ArduconDataba
         DeepLinkEntity::class,
         SchemeEntity::class,
         Base64History::class,
+        ShortenedUrlEntity::class,
     ],
-    version = 8,
+    version = 9,
     exportSchema = true,
     autoMigrations = [
         AutoMigration(from = 1, to = 2),
@@ -82,12 +93,14 @@ expect object ArduconDatabaseConstructor : RoomDatabaseConstructor<ArduconDataba
         AutoMigration(from = 5, to = 6),
         AutoMigration(from = 6, to = 7),
         AutoMigration(from = 7, to = 8),
+        AutoMigration(from = 8, to = 9),
     ],
 )
 @ConstructedBy(ArduconDatabaseConstructor::class)
 abstract class ArduconDatabase : RoomDatabase() {
     abstract fun dataDao(): ArduconDao
     abstract fun base64Dao(): Base64Dao
+    abstract fun shortenedUrlDao(): ShortenedUrlDao
 }
 
 @Suppress("NO_ACTUAL_FOR_EXPECT")
@@ -117,12 +130,17 @@ expect object NandaAppDatabaseConstructor : RoomDatabaseConstructor<NandaAppData
     entities = [
         LengthRecord::class,
         NandaEntity::class,
+        WaterIntake::class,
     ],
-    version = 1,
+    version = 2,
     exportSchema = true,
+    autoMigrations = [
+        AutoMigration(from = 1, to = 2),
+    ],
 )
 @ConstructedBy(NandaAppDatabaseConstructor::class)
 abstract class NandaAppDatabase : RoomDatabase() {
     abstract fun lengthRecordDao(): LengthRecordDao
     abstract fun nandaDao(): NandaDao
+    abstract fun waterIntakeDao(): WaterIntakeDao
 }

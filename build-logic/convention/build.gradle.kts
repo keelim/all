@@ -83,10 +83,6 @@ gradlePlugin {
             id = libs.plugins.keelim.android.hilt.get().pluginId
             implementationClass = "KeelimHiltPlugin"
         }
-        register("showkase") {
-            id = libs.plugins.keelim.android.showkase.get().pluginId
-            implementationClass = "KeelimShowkasePlugin"
-        }
         register("multiplatform") {
             id = libs.plugins.keelim.multiplatform.get().pluginId
             implementationClass = "KeelimMultiPlatformConventionPlugin"

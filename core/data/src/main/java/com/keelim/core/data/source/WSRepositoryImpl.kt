@@ -7,7 +7,7 @@ import com.keelim.data.repository.WSRepository
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.websocket.webSocket
 import kotlinx.coroutines.CoroutineDispatcher
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 class WSRepositoryImpl @Inject constructor(
     @Dispatcher(KeelimDispatchers.IO) private val io: CoroutineDispatcher,

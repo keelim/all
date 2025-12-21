@@ -6,7 +6,7 @@ import android.util.Base64
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.nio.charset.StandardCharsets
 import java.security.MessageDigest
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 class AppSignatureHashUtil @Inject constructor(
     @ApplicationContext private val context: Context

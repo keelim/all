@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 @HiltViewModel
 class CreateDeepLinkViewModel @Inject constructor(

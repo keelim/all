@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 // Simple holder for theme type and its title (for radio buttons).
 data class RadioItem(

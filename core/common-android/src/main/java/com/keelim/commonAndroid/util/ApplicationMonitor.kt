@@ -14,7 +14,7 @@ import com.keelim.commonAndroid.BuildConfig
 import com.keelim.commonAndroid.model.AppInfo
 import kotlinx.datetime.Clock
 import timber.log.Timber
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 class ApplicationMonitor @Inject constructor(
     private val appInfo: AppInfo,

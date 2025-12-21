@@ -34,7 +34,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import com.keelim.data.repository.StationRepository
-import javax.inject.Inject
+import jakarta.inject.Inject
 @Stable
 @HiltViewModel
 class RootViewModel @Inject constructor(

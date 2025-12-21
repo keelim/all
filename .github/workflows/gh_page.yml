@@ -29,7 +29,7 @@ jobs:
           build-scan-terms-of-use-agree: "yes"
 
       - name: Cache WiX Toolset
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             ~/.gradle/caches/modules-2/files-2.1/org.jetbrains.compose/native-wix
@@ -43,7 +43,7 @@ jobs:
         run: echo "KOTLIN_VERSION=$(grep -oE 'kotlin\s*=\s*"[0-9.]*"' gradle/libs.versions.toml | grep -oE '[0-9.]+')" >> $GITHUB_OUTPUT
 
       - name: Cache Konan
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             ~/.konan

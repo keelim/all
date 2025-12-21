@@ -3,7 +3,7 @@ package com.keelim.setting.screen.maintenance
 import androidx.lifecycle.ViewModel
 import com.keelim.domain.MaintenanceChecker
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 @HiltViewModel
 class MaintenanceViewModel @Inject constructor(

@@ -35,11 +35,13 @@ import com.keelim.nandadiagnosis.ui.screen.length.LengthScreen
 import com.keelim.nandadiagnosis.ui.screen.main.MainBottomSheet
 import com.keelim.nandadiagnosis.ui.screen.nutrient.NutrientRoute
 import com.keelim.nandadiagnosis.ui.screen.nutrient.timer.NutrientTimerRoute
+import com.keelim.nandadiagnosis.ui.screen.water.WaterIntakeRoute
 import com.keelim.setting.screen.admin.AdminRoute
 import com.keelim.setting.screen.alarm.AlarmRoute
+import com.keelim.nandadiagnosis.ui.screen.medication.MedicationRoute
 import com.keelim.setting.screen.device.DeviceInfoScreen
 import com.keelim.setting.screen.event.EventRoute
-import com.keelim.setting.screen.faq.FaqRoute
+
 import com.keelim.setting.screen.lab.LabRoute
 import com.keelim.setting.screen.notification.NotificationRoute
 import com.keelim.setting.screen.settings.SettingsRoute
@@ -104,6 +106,9 @@ fun NandaHost(
                             }
                         }
                     },
+                    onMedicationClick = {
+                        backStack.add(NandaRoute.Medication)
+                    },
                 )
                 if (bottomSheetState.isVisible) {
                     MainBottomSheet(
@@ -164,6 +169,12 @@ fun NandaHost(
             entry<NandaRoute.Length> {
                 LengthScreen()
             }
+            entry<NandaRoute.WaterIntake> {
+                WaterIntakeRoute()
+            }
+            entry<NandaRoute.Medication> {
+                MedicationRoute()
+            }
             settingsEntry(
                 backStack = backStack,
                 context = context,
@@ -187,7 +198,7 @@ private fun EntryProviderBuilder<Any>.settingsEntry(
                 backStack.add(FeatureRoute.Alarm)
             },
             onFaqClick = {
-                backStack.add(FeatureRoute.Faq)
+                context.navigateToWebModule("https://keelim-vercel.vercel.app/faq".toUri())
             },
             onOpenSourceClick = {
                 context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
@@ -211,9 +222,7 @@ private fun EntryProviderBuilder<Any>.settingsEntry(
             },
         )
     }
-    entry<FeatureRoute.Faq> {
-        FaqRoute()
-    }
+
     entry<FeatureRoute.Theme> {
         ThemeRoute()
     }

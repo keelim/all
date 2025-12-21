@@ -33,6 +33,7 @@ import androidx.compose.ui.util.trace
 import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
 import com.keelim.composeutil.resource.space12
+import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space32
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
@@ -43,6 +44,7 @@ fun CategoryStateSection(
     uiState: CategoryState,
     onCategoryClick: (Int, String) -> Unit,
     onEditTypeClick: (CategoriesType) -> Unit,
+    onMedicationClick: () -> Unit = {},
 ) = trace("CategoryStateSection") {
     when (uiState) {
         CategoryState.Error,
@@ -75,7 +77,61 @@ fun CategoryStateSection(
                     type = CategoriesType.CATEGORY,
                     onEditTypeClick = onEditTypeClick,
                 )
+                Spacer(modifier = Modifier.height(space16))
+                MedicationEntryCard(
+                    onMedicationClick = onMedicationClick,
+                )
             }
+        }
+    }
+}
+
+@Composable
+private fun MedicationEntryCard(
+    onMedicationClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) = trace("MedicationEntryCard") {
+    Card(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = space8),
+        shape = RoundedCornerShape(space12),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f),
+        ),
+        onClick = onMedicationClick,
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(space16),
+            horizontalArrangement = Arrangement.spacedBy(space12),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(
+                text = "💊",
+                style = MaterialTheme.typography.headlineMedium,
+            )
+            Column(
+                modifier = Modifier.weight(1f),
+            ) {
+                Text(
+                    text = "복약 알림",
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    fontWeight = FontWeight.Medium,
+                )
+                Text(
+                    text = "약물 복용 시간에 알림을 받아보세요",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+            Text(
+                text = "→",
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.primary,
+            )
         }
     }
 }

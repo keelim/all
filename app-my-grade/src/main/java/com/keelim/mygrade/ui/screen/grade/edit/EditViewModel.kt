@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import timber.log.Timber
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 @Parcelize
 data class EditResult(

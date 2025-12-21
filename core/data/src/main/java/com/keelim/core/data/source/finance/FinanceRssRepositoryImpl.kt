@@ -4,6 +4,8 @@ import com.keelim.data.repository.FinanceRssRepository
 import com.keelim.model.finance.FinanceCategory
 import com.keelim.model.finance.FinanceRssItem
 import com.keelim.model.finance.FinanceSource
+import jakarta.inject.Inject
+import jakarta.inject.Singleton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -13,8 +15,6 @@ import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserFactory
 import timber.log.Timber
 import java.net.URL
-import javax.inject.Inject
-import javax.inject.Singleton
 
 @Singleton
 class FinanceRssRepositoryImpl @Inject constructor() : FinanceRssRepository {

@@ -13,6 +13,7 @@ import com.keelim.core.data.source.linkinspector.LinkInspectorRepositoryImpl
 import com.keelim.core.data.source.note.NoteRepositoryImpl
 import com.keelim.core.data.source.notification.NotificationRepositoryImpl
 import com.keelim.core.data.source.prompt.PromptRepositoryImpl
+import com.keelim.core.data.source.analytics.StudyAnalyticsRepositoryImpl
 import com.keelim.data.repository.AlarmRepository
 import com.keelim.data.repository.ArduconRepository
 import com.keelim.data.repository.DefaultTaskRepository
@@ -24,6 +25,7 @@ import com.keelim.data.repository.NoteRepository
 import com.keelim.data.repository.NotificationRepository
 import com.keelim.data.repository.PromptRepository
 import com.keelim.data.repository.TimeRepository
+import com.keelim.data.repository.StudyAnalyticsRepository
 import com.keelim.data.repository.calculator.CalculatorHistoryRepository
 import com.keelim.data.repository.linkinspector.LinkInspectorRepository
 import com.keelim.core.data.source.NandaRepositoryImpl
@@ -32,6 +34,12 @@ import com.keelim.core.data.source.StationRepositoryImpl
 import com.keelim.data.repository.StationRepository
 import com.keelim.core.data.repository.Base64Repository
 import com.keelim.core.data.source.Base64RepositoryImpl
+import com.keelim.core.data.repository.ShortenedUrlRepository
+import com.keelim.core.data.source.ShortenedUrlRepositoryImpl
+import com.keelim.core.data.repository.MarketNotificationRepositoryImpl
+import com.keelim.data.repository.MarketNotificationRepository
+import com.keelim.core.data.repository.MedicationRepositoryImpl
+import com.keelim.data.repository.MedicationRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -114,8 +122,29 @@ interface RepositoryModule {
     fun bindsStationRepository(
         repository: StationRepositoryImpl,
     ): StationRepository
+
     @Binds
     abstract fun bindsBase64Repository(
         repository: Base64RepositoryImpl,
     ): Base64Repository
+
+    @Binds
+    abstract fun bindsShortenedUrlRepository(
+        repository: ShortenedUrlRepositoryImpl,
+    ): ShortenedUrlRepository
+
+    @Binds
+    fun bindsStudyAnalyticsRepository(
+        repository: StudyAnalyticsRepositoryImpl,
+    ): StudyAnalyticsRepository
+
+    @Binds
+    fun bindsMarketNotificationRepository(
+        repository: MarketNotificationRepositoryImpl,
+    ): MarketNotificationRepository
+
+    @Binds
+    fun bindsMedicationRepository(
+        repository: MedicationRepositoryImpl,
+    ): MedicationRepository
 }

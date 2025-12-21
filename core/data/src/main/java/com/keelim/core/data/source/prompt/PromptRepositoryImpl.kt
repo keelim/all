@@ -7,7 +7,7 @@ import com.keelim.data.repository.PromptRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import timber.log.Timber
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 class PromptRepositoryImpl @Inject constructor(
     val generativeModel: GenerativeModel,

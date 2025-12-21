@@ -15,11 +15,12 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import timber.log.Timber
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 class FirebaseRepositoryImpl
 @Inject
@@ -63,9 +64,9 @@ constructor(
         emit(Result.failure(throwable))
     }
 
-    override fun getValue(key: String): String {
-        return runCatching {
+    override suspend fun getValue(key: String): String {
+        return withContext(dispatcher) {
             Firebase.remoteConfig.getString(key)
-        }.getOrDefault("")
+        }
     }
 }

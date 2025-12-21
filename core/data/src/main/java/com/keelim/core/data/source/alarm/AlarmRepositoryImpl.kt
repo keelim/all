@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import timber.log.Timber
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 class AlarmRepositoryImpl @Inject constructor(
     private val localDataSource: AlarmDao,

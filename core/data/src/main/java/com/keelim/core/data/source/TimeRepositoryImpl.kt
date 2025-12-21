@@ -7,7 +7,7 @@ import com.keelim.common.KeelimDispatchers
 import com.keelim.data.repository.TimeRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.tasks.await
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 class TimeRepositoryImpl @Inject constructor(
     private val timeClient: Task<TrustedTimeClient>,

@@ -7,7 +7,7 @@ import com.keelim.shared.data.database.model.NetworkCache
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 const val CACHE_VALIDITY = 60000L
 

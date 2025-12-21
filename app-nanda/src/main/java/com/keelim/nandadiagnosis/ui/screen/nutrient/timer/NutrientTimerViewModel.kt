@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import java.text.SimpleDateFormat
 import java.util.*
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 @Stable
 enum class RunningState {

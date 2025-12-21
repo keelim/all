@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.net.toUri
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
-import androidx.navigation3.runtime.EntryProviderBuilder
+import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
@@ -183,7 +183,7 @@ fun NandaHost(
 }
 
 @Composable
-private fun EntryProviderBuilder<Any>.settingsEntry(
+private fun EntryProviderScope<Any>.settingsEntry(
     backStack: SnapshotStateList<Any>,
     context: Context,
 ) {

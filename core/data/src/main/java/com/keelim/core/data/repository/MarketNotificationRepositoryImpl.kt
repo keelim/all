@@ -9,12 +9,11 @@ import androidx.datastore.preferences.preferencesDataStore
 import com.keelim.data.model.MarketSchedule
 import com.keelim.data.repository.MarketNotificationRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
+import jakarta.inject.Inject
+import jakarta.inject.Singleton
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import jakarta.inject.Inject
-import javax.inject.Singleton
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "market_notification_prefs")
 

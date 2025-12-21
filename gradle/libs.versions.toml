@@ -104,7 +104,6 @@ robolectric = "4.16"
 roborazzi = "1.52.0"
 room = "2.8.4"
 secrets = "2.0.1"
-showkase = "1.0.5"
 slackComposeLint = "1.4.2"
 slackLintChecks = "0.11.1"
 store = "5.1.0-alpha07"
@@ -310,8 +309,6 @@ room-compiler = { group = "androidx.room", name = "room-compiler", version.ref =
 room-gradlePlugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "room" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room-testing = { group = "androidx.room", name = "room-testing", version.ref = "room" }
-showkase = { group = "com.airbnb.android", name = "showkase", version.ref = "showkase" }
-showkase-processor = { group = "com.airbnb.android", name = "showkase-processor", version.ref = "showkase" }
 slack-compose-lint =  { group = "com.slack.lint.compose", name = "compose-lint-checks", version.ref = "slackComposeLint" }
 slack-lint-checks = { group = "com.slack.lint", name = "slack-lint-checks", version.ref = "slackLintChecks" }
 store = { group = "org.mobilenativefoundation.store", name = "store5", version.ref = "store" }
@@ -319,8 +316,6 @@ timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "tim
 truth = { module = "com.google.truth:truth", version.ref = "truth" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
 
-[bundles]
-showkase = ["showkase", "showkase-processor"]
 ktor = [
     "ktor-client-android",
     "ktor-client-cio",
@@ -409,6 +404,5 @@ keelim-android-library-compose = {id = "keelim.android.library.compose" }
 keelim-android-library-jacoco = {id = "keelim.android.library.jacoco" }
 keelim-android-test = {id = "keelim.android.test" }
 keelim-android-hilt = {id = "keelim.android.hilt" }
-keelim-android-showkase = {id = "keelim.android.showkase" }
 keelim-jvm-library = {id = "keelim.jvm.library" }
 keelim-multiplatform = { id = "keelim.multiplatform" }

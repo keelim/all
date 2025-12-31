@@ -3,8 +3,8 @@ import kotlinx.benchmark.gradle.JvmBenchmarkTarget
 plugins {
     alias(libs.plugins.keelim.jvm.library)
     // please migrate version catalog
-    id("org.jetbrains.kotlinx.benchmark") version "0.4.14"
-    kotlin("plugin.allopen") version "2.2.20"
+    id("org.jetbrains.kotlinx.benchmark") version "0.4.15"
+    kotlin("plugin.allopen") version "2.3.0"
 }
 
 dependencies {

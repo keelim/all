@@ -1,4 +1,20 @@
 <resources>
     <string name="app_name">MyGrade</string>
-    <string name="ready_service">현재 서비스 준비중입니다.</string>
+    <string name="my_score">점수 입력</string>
+    <string name="average">평균</string>
+    <string name="standard_deviation">표준 편차</string>
+    <string name="total_students">총 인원</string>
+    <string name="submit">Submit</string>
+    <string name="edit_student_score">학생 점수 입력</string>
+    <string name="student_scores">학생 점수</string>
+    <string name="submit_button">제출</string>
+    <string name="menu_settings">설정</string>
+    <string name="menu_history">기록</string>
+    <string name="clear_button">초기화</string>
+    
+    <!-- TaskScreen strings -->
+    <string name="delete_title">삭제</string>
+    <string name="delete_message">LocalTask 삭제</string>
+    <string name="confirm_button">확인</string>
+    <string name="cancel_button">취소</string>
 </resources>

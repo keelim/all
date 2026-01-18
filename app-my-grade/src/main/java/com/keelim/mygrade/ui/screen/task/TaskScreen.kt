@@ -16,8 +16,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
@@ -44,6 +42,7 @@ import androidx.compose.ui.util.trace
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.commonAndroid.model.SealedUiState
+import com.keelim.composeutil.component.dialog.ConfirmDialog
 import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
 import com.keelim.composeutil.resource.space16
@@ -258,28 +257,13 @@ private fun TaskElement.Role.toShape(outerCornerSize: Dp, innerCornerSize: Dp): 
 
 @Composable
 fun DeleteDialog(setShowDialog: (Boolean) -> Unit, onConfirm: () -> Unit) = trace("DeleteDialog") {
-    AlertDialog(
-        onDismissRequest = { setShowDialog(false) },
-        title = { Text(text = "삭제") },
-        text = { Text(text = "LocalTask 삭제") },
-        confirmButton = {
-            Button(
-                onClick = {
-                    onConfirm()
-                    setShowDialog(false)
-                },
-            ) {
-                Text(
-                    text = "확인",
-                )
-            }
+    ConfirmDialog(
+        title = "삭제",
+        message = "LocalTask 삭제",
+        onConfirm = {
+            onConfirm()
+            setShowDialog(false)
         },
-        dismissButton = {
-            Button(onClick = { setShowDialog(false) }) {
-                Text(
-                    text = "취소",
-                )
-            }
-        },
+        onDismiss = { setShowDialog(false) },
     )
 }

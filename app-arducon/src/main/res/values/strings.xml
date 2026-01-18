@@ -25,4 +25,8 @@
     <string name="qr_save_image">이미지 저장</string>
     <string name="qr_share_image">이미지 공유</string>
     <string name="qr_content_description">QR 코드</string>
+    
+    <!-- MainScreen strings -->
+    <string name="stats_button">통계 보기</string>
+    <string name="invalid_url_error">유효하지 않은 URL입니다.</string>
 </resources>

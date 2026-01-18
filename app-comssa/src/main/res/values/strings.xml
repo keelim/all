@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Comssa</string>
+    
+    <!-- MarketNotificationScreen strings -->
+    <string name="market_notifications_title">📈 Market Notifications</string>
+    <string name="stock_market_open_alerts">Stock Market Open Alerts</string>
+    <string name="add_custom_notification">Add Custom Notification</string>
+    <string name="notification_name_label">Name</string>
+    <string name="add_button">Add</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="default_label">Default</string>
+    <string name="add_custom_time">Add custom time</string>
 </resources>

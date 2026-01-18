@@ -1,9 +1,14 @@
+@file:OptIn(ExperimentalFoundationApi::class)
+
 package com.keelim.nandadiagnosis.ui.screen.length
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -90,11 +95,15 @@ fun LengthScreen(
         Text("기록 리스트", style = MaterialTheme.typography.titleMedium)
         Spacer(Modifier.height(8.dp))
         LazyColumn {
-            items(records) { record ->
+            items(
+                items = records,
+                key = { it.date }
+            ) { record ->
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 4.dp),
+                        .padding(vertical = 4.dp)
+                        .animateItem(),
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Text(text = "${record.date} : ${record.length}cm")

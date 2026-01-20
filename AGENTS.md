@@ -1,127 +1,78 @@
 # all Project
-all is a native Android mobile application written in Kotlin. It is a multi-module project that contains several apps.
-## Architecture
-This project is a modern Android application that follows the official architecture guidance from Google. It is a reactive, single-activity app that uses the following:
-- **UI:** Built entirely with Jetpack Compose, including Material 3 components and adaptive layouts for different screen sizes.
-- **State Management:** Unidirectional Data Flow (UDF) is implemented using Kotlin Coroutines and `Flow`s. `ViewModel`s act as state holders, exposing UI state as streams of data.
-- **Dependency Injection:** Hilt is used for dependency injection throughout the app, simplifying the management of dependencies and improving testability.
-- **Navigation:** Navigation is handled by Jetpack Navigation for Compose, allowing for a declarative and type-safe way to navigate between screens.
-- **Data:** The data layer is implemented using the repository pattern.
-- **Local Data:** Room and DataStore are used for local data persistence.
-- **Remote Data:** Retrofit and OkHttp are used for fetching data from the network.
-- **Background Processing:** WorkManager is used for deferrable background tasks.
-## Modules
-The main Android apps live in the `app-*/` folders. Feature modules live in `feature/` and core and shared modules in `core/`.
-## Continuous integration
-- The workflows are defined in `.github/workflows/*.yml` and they contain various checks.
-## Version control and code location
-- The project uses git and is hosted on [GitHub](https://github.com/keelim/all).
 
-## Apps
+**Generated:** 2026-01-21 00:24:37 KST  
+**Commit:** 78a33baf7  
+**Branch:** develop
 
-### app-comssa
-#### Financial Calculators
-- **Description:** Provides various financial calculation tools.
-- **Key Features:**
-    - Compound Interest Calculator
-    - Loan Repayment Calculator
-    - Investment Return Calculator
-    - Retirement Calculator
-    - Currency Converter
-    - Tax Calculator
-    - Save and Share Calculation Results
-- **Tech Stack:** Jetpack Compose for UI, DataStore for history persistence.
+## OVERVIEW
 
-#### Ecocal (Economic Calendar)
-- **Description:** Provides important economic events and calendar.
-- **Key Features:**
-    - Economic Events Calendar
-    - Country-specific Filter
-    - Importance Level Filter
+Multi-app Android monorepo with 6 apps (grade calculator, deeplink tester, health tracker, bus info, finance tools, senior helper). Modern architecture: Jetpack Compose, Hilt DI, Room/DataStore, MVVM + UDF, multi-module Gradle with custom convention plugins.
 
-#### FlashCard
-- **Description:** A simple flashcard study tool.
-- **Key Features:**
-    - Create and Study Flashcards
-    - Randomized Reviews
-    - Progress Tracking
+## STRUCTURE
 
-#### Calendar
-- **Description:** General purpose calendar view.
-- **Key Features:**
-    - Month View
-    - Event Marking
+```
+all/
+├── app-*/              # 6 independent apps (my-grade, arducon, nanda, comssa, cnubus, mysenior)
+├── core/               # 14 shared modules (component, data, database, model, etc.)
+├── feature/            # 5 shared feature modules (ui-setting, ui-scheme, etc.)
+├── shared/             # Kotlin Multiplatform shared code (89 files, database models/DAOs)
+├── build-logic/        # Custom Gradle convention plugins (17 plugins)
+└── .github/workflows/  # Per-app CI + shared workflows
+```
 
-#### Market Notification
-- **Description:** Stock market open time notification system with support for Android 16+ Live Updates.
-- **Key Features:**
-    - **Default Markets**: Korea (KOSPI/KOSDAQ 09:00 KST), US (NYSE/NASDAQ 23:30 KST)
-    - **Custom Notifications**: Add custom time-based notifications via TimePicker
-    - **Toggle Control**: Enable/disable individual market notifications
-    - **Swipe-to-Delete**: Remove custom notifications with swipe gesture
-    - **Android 16+ Live Updates**: Uses `Notification.ProgressStyle` for live notification on API 36+
-    - **AlarmManager Scheduling**: Precise scheduling using `setExactAndAllowWhileIdle`
-- **Tech Stack:** Jetpack Compose (Material 3), Hilt for DI, DataStore for persistence, AlarmManager for scheduling.
-- **DI Pattern**: Json parser is provided via `JsonModule` and injected into repositories.
-### app-nanda
-#### Nanda Diagnosis & Health Tools
-- **Description:** Provides NANDA nursing diagnosis information along with various health tracking and utility tools.
-- **Key Features:**
-    - **Diagnosis**: Search and browse NANDA nursing diagnoses with detailed information.
-    - **Food Manager**: Track daily food intake and total calories.
-    - **Exercise Tracker**: Log exercise name and duration.
-    - **Nutrient Info**: Database of nutrient information.
-    - **Unit Converter**: Utility tools for length and other conversions.
-    - **Water Intake Tracker**: Daily hydration tracking with animated progress ring, quick add buttons (100ml, 200ml, 250ml, 500ml), weekly history chart, and intake records list.
-- **Tech Stack:** Jetpack Compose for UI, Room (Shared Module) for data persistence, Hilt for DI.
+## WHERE TO LOOK
 
-### app-cnubus
-#### CNU Bus
-- **Description:** Provides real-time bus information for Chungnam National University.
-- **Key Features:**
-    - Real-time Bus Locations
-    - Route Maps (A, B, C, Night Routes)
-    - **Favorites**: Save frequently used bus stops for quick access.
-    - **Search**: Quickly find bus stops by name.
-    - **Modern UI**: Clean, card-based interface with floating search bar and intuitive settings.
-    - Settings and Shortcuts
-- **Tech Stack:** Jetpack Compose for UI (Material 3), Hilt for DI, Google Maps, DataStore (for Favorites).
+| Task | Location | Notes |
+|------|----------|-------|
+| Add new app | `app-*/` | Clone existing app structure, update settings.gradle.kts |
+| Shared UI components | `core/component/` | 144 files, Compose Material 3 components |
+| Data layer | `core/data/`, `core/data-api/` | Repository pattern, API definitions |
+| Database | `core/database/`, `shared/` | Room (core), KMP database models (shared) |
+| Theme/Design system | `core/designsystem/`, `core/component/` | Material 3 theming |
+| Navigation | `core/navigation/` | Jetpack Navigation for Compose |
+| Settings screen | `feature/ui-setting/` | 104 files, animated theme selector |
+| Build conventions | `build-logic/convention/` | Custom Gradle plugins, version catalog |
+| CI/CD | `.github/workflows/` | Per-app builds + shared workflows |
 
-### app-arducon
-#### DeepLink Tester & Utility App
-- **Description:** A utility application for testing deep links and managing development tools.
-- **Key Features:**
-    - **DeepLink Management**: Create, read, update, and delete deep links. Support for categories and search.
-    - **QR Code Scanner & Generator**: Scan QR codes to open links and generate QR codes from deep links.
-    - **OG Tag Preview**: Preview Open Graph tags for URLs.
-    - **SaaS Status**: Monitor service status.
-    - **Statistics**: View usage statistics with charts.
-    - **JSON Formatter**: Format and validate JSON strings.
-    - **Base64 Tool**: Encode/Decode Base64 strings with history persistence.
-    - **Device Info**: View detailed device information (Model, SDK, Screen, etc.).
-    - **URL Shortener**: Shorten URLs locally, track click analytics, and set expiration dates.
-- **Tech Stack:** Jetpack Compose for UI (Material 3), Hilt for DI, Room/DataStore for persistence, Coil for image loading, Jsoup for OG tag parsing.
+## MODULES
 
-### app-my-grade
-#### Grade Calculator & Manager
-- **Description:** A comprehensive tool for calculating school grades, managing academic history, and tracking study tasks.
-- **Key Features:**
-    - **Grade Calculation**: Calculate grades based on raw scores and student distribution using standard deviation principles.
-    - **History**: Save and review past grade calculations.
-    - **Timer & Task**: Integrated focus timer and task management with visual charts.
-    - **Timer History**: View, edit, and manage past timer sessions. Supports swipe-to-delete, description editing, and tap-to-restore timer settings.
-    - **Word**: Simple vocabulary management system.
-    - **Study Analytics**: Dashboard with activity heatmap, weekly study charts, subject distribution, streak tracking, and gamification elements.
-- **Tech Stack:** Jetpack Compose, Hilt, Room, Apache Commons Math (for statistics).
+### Apps (app-*)
+- **app-my-grade** (237 files): Grade calculator, timer, study analytics, vocabulary
+- **app-arducon** (210 files): DeepLink tester, QR scanner, JSON formatter, device info
+- **app-nanda** (206 files): NANDA diagnosis, food/exercise tracker, water intake
+- **app-comssa** (28 files): Financial calculators, economic calendar, flashcards
+- **app-cnubus** (12 files): CNU bus real-time info, Google Maps integration
+- **app-mysenior** (4 files): Minimal app for seniors
 
-## Conventions
+### Core Modules (core/*)
+- **component** (144 files): Shared Compose UI, custom components, theme utilities
+- **data** (85 files): Repository implementations, data sources, FCM service
+- **common-android** (61 files): Android utilities, extensions, helpers
+- **model** (38 files): Data models shared across modules
+- **database** (35 files): Room database, entities, DAOs, mappers
+- **data-api** (25 files): Repository interfaces, API contracts
+- **common** (24 files): Pure Kotlin utilities, no Android deps
+- **network** (18 files): Retrofit, OkHttp, network layer
+- **resource** (9 files): Shared resources
+- **designsystem** (5 files): Material 3 design tokens
+- **domain** (4 files): Use cases (if used)
+- **navigation** (2 files): Navigation graphs
+- **testing** (2 files): Test utilities
 
-### UI Guidelines
+### Feature Modules (feature/*)
+- **ui-setting** (104 files): Settings screens, theme selection with animations
+- **ui-scheme** (14 files): Scheme-related UI
+- **ui-web** (4 files): WebView screens
+- **ui-labs** (0 files): Experimental features (empty)
+- **ui-auth** (0 files): Auth UI (empty)
 
-#### Text Composable
-- **Rule**: All `Text` Composables MUST explicitly specify `style` (typography) and `color`.
-- **Reason**: To ensure consistent typography and color usage across the application and prevent accidental fallback to default styles that might not match the design system.
-- **Example**:
+### Shared Module
+- **shared/** (89 files): Kotlin Multiplatform code, database models/DAOs, desktop window (compose-multiplatform)
+
+## CONVENTIONS
+
+### UI (CRITICAL - from existing AGENTS.md)
+- **Text Composables MUST specify `style` and `color` explicitly**
   ```kotlin
   Text(
       text = "Example",
@@ -129,31 +80,81 @@ The main Android apps live in the `app-*/` folders. Feature modules live in `fea
       color = MaterialTheme.colorScheme.onSurface
   )
   ```
+- **All user actions MUST be animation-friendly**: Use `LazyColumn` with `animateItem`, `AnimatedVisibility` for visibility changes
 
-#### Animation
-- **Rule**: All user actions (e.g., list item deletion, visibility changes) MUST be animation-friendly.
-- **Reason**: To provide a smooth and engaging user experience.
-- **Example**: Use `LazyColumn` with `animateItem` for lists, or `AnimatedVisibility` for visibility changes.
+### Build
+- **Always verify builds**: Run `./gradlew :<module>:assembleDebug` after changes
+- **Version catalog**: All dependencies in `gradle/libs.versions.toml`
+- **Convention plugins**: Apply via `build-logic/convention/` (e.g., `keelim.android.application`, `keelim.android.library.compose`)
 
-#### Build Verification
-- **Rule**: After making code changes to any module, always run `./gradlew :<module>:assembleDebug` to verify the build.
-- **Reason**: To catch compile errors early and ensure the code integrates correctly.
-- **Example**:
-  ```bash
-  ./gradlew :app-my-grade:assembleDebug
-  ./gradlew :core:data:assembleDebug
-  ./gradlew :feature:ui-setting:assembleDebug
-  ```
+### Code Style
+- **Google Android Kotlin Style Guide**: 4 spaces, camelCase, UpperCamelCase for files
+- **No hardcoded strings**: Use string resources
+- **No deprecated APIs**
+- **Hilt for DI**: All apps use Hilt
+- **MVVM + UDF**: ViewModels expose StateFlow/Flow
 
-## Feature Modules
+### Compiler Flags (from build-logic)
+- Kotlin 1.9+, JVM 17 target
+- Opt-ins: `@OptIn(ExperimentalCoroutinesApi::class)`, `@OptIn(ExperimentalMaterial3Api::class)`
+- Context parameters enabled: `-Xcontext-parameters`
+- Parcelize plugin auto-applied
 
-### feature/ui-setting
-#### ThemeScreen
-- **Description**: Modern theme selection screen with animated UI.
-- **Key Features**:
-    - **Header Section**: Gradient icon with palette and clear title/subtitle.
-    - **Theme Selection Cards**: Inline card-based theme selection (Light/Dark) with scale animation and border animation on selection.
-    - **Preview Panel**: Live preview of selected theme with animated color transitions.
-    - **Smooth Animations**: Uses `animateFloatAsState` for scale, `animateColorAsState` for colors with `tween` duration.
-- **Tech Stack**: Jetpack Compose (Material 3), Material Icons Extended, Animation APIs.
+## ANTI-PATTERNS
 
+- **No `as any`, `@Suppress` without justification**
+- **No network/DB on main thread**
+- **No global mutable state**
+- **No string concatenation in SQL** (use parameterized queries)
+- **Don't bypass convention plugins** (use them for consistency)
+
+## BUILD COMMANDS
+
+```bash
+# Build specific app
+./gradlew :app-my-grade:assembleDebug
+./gradlew :app-arducon:assembleDebug
+
+# Build all apps
+./gradlew assembleDebug
+
+# Run tests
+./gradlew test
+
+# Check dependencies
+./gradlew dependencyGuard
+
+# Jacoco coverage (if configured)
+./gradlew jacocoTestReport
+```
+
+## CI/CD
+
+Per-app workflows in `.github/workflows/`:
+- `app_my_grade.yml`, `app_arducon.yml`, `app_nanda.yml`, `app_comssa.yml`, `app_cnubus.yml`
+- `ci.yml` - Main CI checks
+- `app_deploy.yml` - Deployment
+- `release.yml`, `release_tag.yml` - Release automation
+- `gh_page.yml` - GitHub Pages
+- `slack.yml` - Slack notifications
+
+## GOTCHAS
+
+- **Android 16 (API 36) target**: Uses latest APIs (e.g., `Notification.ProgressStyle` for live updates in app-comssa)
+- **Multiplatform shared module**: Desktop window code in `shared/` - only used in compose-desktop contexts
+- **6 apps, independent builds**: Each app has its own workflow, can be deployed separately
+- **TODOs in code**: 11 TODOs found (mostly non-critical, see grep results)
+- **Version catalog**: `libs.versions.toml` is the source of truth for all versions
+- **Min SDK 26**: Supports Android 8.0+
+- **Desugaring enabled**: Core library desugaring for Java 17 APIs on older Android
+
+## DETAILED DOCS
+
+For module-specific details, see:
+- `app-my-grade/AGENTS.md` - Grade calculator internals
+- `app-arducon/AGENTS.md` - DeepLink tester internals
+- `app-nanda/AGENTS.md` - Health tracker internals
+- `core/component/AGENTS.md` - Compose component library
+- `feature/ui-setting/AGENTS.md` - Settings UI patterns
+- `shared/AGENTS.md` - KMP shared code
+- `core/data/AGENTS.md` - Data layer architecture

@@ -40,6 +40,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -324,16 +325,15 @@ private fun MedicationItem(
     onDelete: () -> Unit,
     onEdit: () -> Unit
 ) {
-    val dismissState = rememberSwipeToDismissBoxState(
-        confirmValueChange = { value ->
-            if (value == SwipeToDismissBoxValue.EndToStart) {
-                onDelete()
-                true
-            } else {
-                false
-            }
+    val dismissState = rememberSwipeToDismissBoxState()
+    var hasHandledDelete by remember { mutableStateOf(false) }
+
+    LaunchedEffect(dismissState.currentValue) {
+        if (!hasHandledDelete && dismissState.currentValue == SwipeToDismissBoxValue.EndToStart) {
+            hasHandledDelete = true
+            onDelete()
         }
-    )
+    }
 
     SwipeToDismissBox(
         state = dismissState,

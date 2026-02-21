@@ -28,6 +28,7 @@ dependencies {
     implementation(projects.core.commonAndroid)
     implementation(projects.core.data)
     implementation(projects.core.navigation)
+    implementation(projects.core.resource)
     implementation(projects.widget)
     implementation(projects.feature.uiWeb)
     implementation(projects.feature.uiSetting)

@@ -30,6 +30,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.keelim.core.resource.Res
+import com.keelim.core.resource.calculator_history_title
+import com.keelim.core.resource.calculator_result_prefix
+import com.keelim.core.resource.calculator_subtitle
+import com.keelim.core.resource.calculator_title
+import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -62,11 +68,11 @@ fun CalculatorScreen(
                 title = {
                     Column {
                         Text(
-                            text = "금융 계산기",
+                            text = stringResource(Res.string.calculator_title),
                             style = MaterialTheme.typography.titleLarge,
                         )
                         Text(
-                            text = "다양한 재무 계산을 한 곳에서",
+                            text = stringResource(Res.string.calculator_subtitle),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
@@ -124,7 +130,7 @@ fun CalculatorScreen(
             if (history.isNotEmpty()) {
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "계산 기록",
+                    text = stringResource(Res.string.calculator_history_title),
                     style = MaterialTheme.typography.titleMedium,
                 )
                 HorizontalDivider(modifier = Modifier.fillMaxWidth().padding(top = 4.dp, bottom = 8.dp))
@@ -149,7 +155,10 @@ fun CalculatorScreen(
                                 },
                                 supportingContent = {
                                     Text(
-                                        text = "결과: ${item.result.values.joinToString()}",
+                                        text = stringResource(
+                                            Res.string.calculator_result_prefix,
+                                            item.result.values.joinToString(),
+                                        ),
                                         style = MaterialTheme.typography.bodyMedium,
                                         maxLines = 2,
                                         overflow = TextOverflow.Ellipsis,

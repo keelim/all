@@ -9,8 +9,6 @@ import android.os.Handler
 import android.os.Looper
 import android.view.PixelCopy
 import androidx.core.graphics.createBitmap
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withTimeout
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.number
 import kotlinx.datetime.toLocalDateTime
@@ -18,8 +16,11 @@ import timber.log.Timber
 import java.io.File
 import java.io.FileOutputStream
 import java.lang.ref.WeakReference
+import java.util.concurrent.CountDownLatch
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledExecutorService
+import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicInteger
 import jakarta.inject.Inject
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
@@ -63,15 +64,10 @@ class CrashHandler @Inject constructor(
     override fun uncaughtException(thread: Thread, throwable: Throwable) {
         Timber.e("Uncaught exception detected on thread: ${'$'}{thread.name}")
         try {
-            runBlocking {
-                withTimeout(SCREENSHOT_TIMEOUT_MS) {
-                    captureScreenshot(throwable)
-                }
-            }
-            defaultHandler?.uncaughtException(thread, throwable)
+            captureScreenshot(throwable)
         } catch (e: Exception) {
             Timber.e(e, "Failed to handle crash with screenshot")
-            // Call the original handler
+        } finally {
             defaultHandler?.uncaughtException(thread, throwable)
         }
     }
@@ -96,24 +92,32 @@ class CrashHandler @Inject constructor(
         }
 
         val screenshot = createBitmap(root.width, root.height)
+        val copyResult = AtomicInteger(PixelCopy.ERROR_UNKNOWN)
+        val latch = CountDownLatch(1)
         try {
             PixelCopy.request(
                 window,
                 screenshot,
-                { copyResult: Int ->
-                    if (copyResult == PixelCopy.SUCCESS) {
-                        Timber.d("Screenshot captured successfully")
-                    } else {
-                        Timber.d("Failed to capture screenshot")
-                    }
+                { result ->
+                    copyResult.set(result)
+                    latch.countDown()
                 },
                 Handler(Looper.getMainLooper()),
             )
+            val copiedInTime = latch.await(SCREENSHOT_TIMEOUT_MS, TimeUnit.MILLISECONDS)
+            if (!copiedInTime) {
+                Timber.d("Timed out waiting for screenshot capture")
+                return
+            }
+
+            if (copyResult.get() == PixelCopy.SUCCESS) {
+                Timber.d("Screenshot captured successfully")
+                saveScreenshotToFile(screenshot, throwable)
+            } else {
+                Timber.d("Failed to capture screenshot: ${copyResult.get()}")
+            }
         } catch (e: Exception) {
-            e.printStackTrace()
             Timber.e(e, "Failed to capture screenshot")
-        } finally {
-            saveScreenshotToFile(screenshot, throwable)
         }
     }
 

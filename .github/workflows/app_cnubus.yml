@@ -35,7 +35,7 @@ jobs:
 
       - name: Build Release AAB
         id: buildRelease
-        run: ./gradlew app-cnubus:bundleRelease
+        run: ./gradlew -PenableOssLicenses=true app-cnubus:bundleRelease
 
       - name: Sign AAB
         id: sign

@@ -35,7 +35,7 @@ jobs:
 
       - name: Build Release AAB
         id: buildRelease
-        run: ./gradlew app-arducon:bundleRelease
+        run: ./gradlew -PenableOssLicenses=true app-arducon:bundleRelease
 
       - name: Sign AAB
         id: sign

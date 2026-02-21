@@ -5,12 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.keelim.data.repository.PromptRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import jakarta.inject.Inject
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import jakarta.inject.Inject
+
 @Stable
 @HiltViewModel
 class LabViewModel @Inject constructor(
@@ -28,13 +30,14 @@ class LabViewModel @Inject constructor(
         val prompt = "Summarize the following text for me: $inputText"
 
         viewModelScope.launch {
-            runCatching {
-                promptRepository
+            try {
+                val content = promptRepository
                     .getContent(prompt = prompt)
                     .getOrThrow()
-            }.onSuccess { content ->
                 _uiState.value = LabUiState.Success(content)
-            }.onFailure { throwable ->
+            } catch (e: CancellationException) {
+                throw e
+            } catch (throwable: Throwable) {
                 Timber.e(throwable)
                 _uiState.value = LabUiState.Error(throwable.localizedMessage ?: "")
             }

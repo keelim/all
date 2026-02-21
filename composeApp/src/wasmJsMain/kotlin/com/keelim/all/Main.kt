@@ -7,7 +7,10 @@ import androidx.compose.ui.window.ComposeViewport
 import kotlinx.browser.document
 
 fun main() {
-    ComposeViewport(document.body!!) {
+    val rootElement = document.getElementById("root") ?: requireNotNull(document.body) {
+        "No root element available for compose viewport"
+    }
+    ComposeViewport(rootElement) {
         App()
     }
 }

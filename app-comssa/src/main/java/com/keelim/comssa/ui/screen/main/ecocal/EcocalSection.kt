@@ -202,7 +202,7 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
             verticalAlignment = Alignment.Bottom,
         ) {
             Text(
-                text = "${time.year} ${String.format("%02d", time.monthNumber)}",
+                text = "${time.year} ${String.format("%02d", time.month)}",
                 style = MaterialTheme.typography.headlineMedium.copy(
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onPrimaryContainer,
@@ -223,9 +223,9 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
                         text = "${time.year}년 ${
                             String.format(
                                 "%02d",
-                                time.monthNumber,
+                                time.month,
                             )
-                        }월 ${time.dayOfMonth}일",
+                        }월 ${time.day}일",
                         style = MaterialTheme.typography.bodyMedium.copy(
                             color = MaterialTheme.colorScheme.onPrimaryContainer,
                             fontWeight = FontWeight.Medium,

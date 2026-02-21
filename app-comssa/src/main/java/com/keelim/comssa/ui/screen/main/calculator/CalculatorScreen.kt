@@ -1,5 +1,6 @@
 package com.keelim.comssa.ui.screen.main.calculator
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -15,8 +16,8 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.PrimaryScrollableTabRow
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -30,6 +31,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.keelim.core.resource.Res
+import com.keelim.core.resource.calculator_history_title
+import com.keelim.core.resource.calculator_result_prefix
+import com.keelim.core.resource.calculator_subtitle
+import com.keelim.core.resource.calculator_title
+import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -62,11 +69,11 @@ fun CalculatorScreen(
                 title = {
                     Column {
                         Text(
-                            text = "금융 계산기",
+                            text = stringResource(Res.string.calculator_title),
                             style = MaterialTheme.typography.titleLarge,
                         )
                         Text(
-                            text = "다양한 재무 계산을 한 곳에서",
+                            text = stringResource(Res.string.calculator_subtitle),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
@@ -82,7 +89,7 @@ fun CalculatorScreen(
                 .padding(horizontal = 16.dp, vertical = 8.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            ScrollableTabRow(
+            PrimaryScrollableTabRow(
                 selectedTabIndex = selectedTabIndex,
                 edgePadding = 0.dp,
             ) {
@@ -121,10 +128,10 @@ fun CalculatorScreen(
                 }
             }
 
-            if (history.isNotEmpty()) {
+            AnimatedVisibility(visible = history.isNotEmpty()) {
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "계산 기록",
+                    text = stringResource(Res.string.calculator_history_title),
                     style = MaterialTheme.typography.titleMedium,
                 )
                 HorizontalDivider(modifier = Modifier.fillMaxWidth().padding(top = 4.dp, bottom = 8.dp))
@@ -133,9 +140,14 @@ fun CalculatorScreen(
                     modifier = Modifier.fillMaxSize(),
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
-                    items(history) { item ->
+                    items(
+                        items = history,
+                        key = { it.id },
+                    ) { item ->
                         Card(
-                            modifier = Modifier.fillMaxWidth(),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .animateItem(),
                             colors = CardDefaults.cardColors(
                                 containerColor = MaterialTheme.colorScheme.surfaceVariant,
                             ),
@@ -149,7 +161,10 @@ fun CalculatorScreen(
                                 },
                                 supportingContent = {
                                     Text(
-                                        text = "결과: ${item.result.values.joinToString()}",
+                                        text = stringResource(
+                                            Res.string.calculator_result_prefix,
+                                            item.result.values.joinToString(),
+                                        ),
                                         style = MaterialTheme.typography.bodyMedium,
                                         maxLines = 2,
                                         overflow = TextOverflow.Ellipsis,

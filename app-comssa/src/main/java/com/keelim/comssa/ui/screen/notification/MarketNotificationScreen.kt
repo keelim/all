@@ -38,6 +38,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -49,7 +50,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.keelim.core.resource.Res
+import com.keelim.core.resource.market_notifications_add
+import com.keelim.core.resource.market_notifications_add_custom_notification
+import com.keelim.core.resource.market_notifications_add_custom_time
+import com.keelim.core.resource.market_notifications_cancel
+import com.keelim.core.resource.market_notifications_default
+import com.keelim.core.resource.market_notifications_delete
+import com.keelim.core.resource.market_notifications_name_label
+import com.keelim.core.resource.market_notifications_open_alerts
+import com.keelim.core.resource.market_notifications_title
 import com.keelim.data.model.MarketSchedule
+import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -69,7 +81,7 @@ fun MarketNotificationScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = "📈 Market Notifications",
+                        text = stringResource(Res.string.market_notifications_title),
                         style = MaterialTheme.typography.titleLarge,
                         color = MaterialTheme.colorScheme.onSurface
                     )
@@ -80,7 +92,10 @@ fun MarketNotificationScreen(
             FloatingActionButton(
                 onClick = { showAddDialog = true }
             ) {
-                Icon(Icons.Default.Add, contentDescription = "Add custom time")
+                Icon(
+                    Icons.Default.Add,
+                    contentDescription = stringResource(Res.string.market_notifications_add_custom_time)
+                )
             }
         }
     ) { paddingValues ->
@@ -93,7 +108,7 @@ fun MarketNotificationScreen(
         ) {
             item {
                 Text(
-                    text = "Stock Market Open Alerts",
+                    text = stringResource(Res.string.market_notifications_open_alerts),
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.primary,
                     fontWeight = FontWeight.Bold,
@@ -118,7 +133,7 @@ fun MarketNotificationScreen(
             onDismissRequest = { showAddDialog = false },
             title = {
                 Text(
-                    text = "Add Custom Notification",
+                    text = stringResource(Res.string.market_notifications_add_custom_notification),
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onSurface
                 )
@@ -130,7 +145,7 @@ fun MarketNotificationScreen(
                         onValueChange = { customName = it },
                         label = {
                             Text(
-                                text = "Name",
+                                text = stringResource(Res.string.market_notifications_name_label),
                                 style = MaterialTheme.typography.labelMedium,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
@@ -156,7 +171,7 @@ fun MarketNotificationScreen(
                     }
                 ) {
                     Text(
-                        text = "Add",
+                        text = stringResource(Res.string.market_notifications_add),
                         style = MaterialTheme.typography.labelLarge,
                         color = MaterialTheme.colorScheme.primary
                     )
@@ -165,7 +180,7 @@ fun MarketNotificationScreen(
             dismissButton = {
                 TextButton(onClick = { showAddDialog = false }) {
                     Text(
-                        text = "Cancel",
+                        text = stringResource(Res.string.market_notifications_cancel),
                         style = MaterialTheme.typography.labelLarge,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -182,16 +197,18 @@ private fun MarketScheduleItem(
     onToggle: () -> Unit,
     onDelete: (() -> Unit)?
 ) {
-    val dismissState = rememberSwipeToDismissBoxState(
-        confirmValueChange = { value ->
-            if (value == SwipeToDismissBoxValue.EndToStart && onDelete != null) {
-                onDelete()
-                true
-            } else {
-                false
-            }
+    val dismissState = rememberSwipeToDismissBoxState()
+    var hasHandledDelete by remember { mutableStateOf(false) }
+
+    LaunchedEffect(dismissState.currentValue, onDelete) {
+        if (!hasHandledDelete &&
+            dismissState.currentValue == SwipeToDismissBoxValue.EndToStart &&
+            onDelete != null
+        ) {
+            hasHandledDelete = true
+            onDelete()
         }
-    )
+    }
 
     if (onDelete != null) {
         SwipeToDismissBox(
@@ -213,7 +230,7 @@ private fun MarketScheduleItem(
                 ) {
                     Icon(
                         Icons.Default.Delete,
-                        contentDescription = "Delete",
+                        contentDescription = stringResource(Res.string.market_notifications_delete),
                         tint = Color.White
                     )
                 }
@@ -270,7 +287,7 @@ private fun ScheduleCard(
                 )
                 if (schedule.isDefault) {
                     Text(
-                        text = "Default",
+                        text = stringResource(Res.string.market_notifications_default),
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.outline
                     )
@@ -282,7 +299,7 @@ private fun ScheduleCard(
                     IconButton(onClick = onDelete) {
                         Icon(
                             Icons.Default.Delete,
-                            contentDescription = "Delete",
+                            contentDescription = stringResource(Res.string.market_notifications_delete),
                             tint = MaterialTheme.colorScheme.error
                         )
                     }

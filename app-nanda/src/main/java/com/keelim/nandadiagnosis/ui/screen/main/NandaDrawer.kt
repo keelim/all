@@ -1,5 +1,8 @@
+@file:OptIn(ExperimentalFoundationApi::class)
+
 package com.keelim.nandadiagnosis.ui.screen.main
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -124,8 +127,15 @@ fun NandaDrawer(
             )
             Spacer(modifier = Modifier.height(space24))
             LazyColumn {
-                items(nandaNavItems) { item ->
-                    NavigationCard(item, onRouteClick)
+                items(
+                    items = nandaNavItems,
+                    key = { it.route }
+                ) { item ->
+                    NavigationCard(
+                        item,
+                        onRouteClick,
+                        modifier = Modifier.animateItem()
+                    )
                     Spacer(modifier = Modifier.height(space8))
                 }
             }
@@ -153,9 +163,10 @@ fun NandaDrawer(
 private fun NavigationCard(
     item: NandaNavItem,
     onRouteClick: (AppRoute) -> Unit,
+    modifier: Modifier = Modifier,
 ) = trace("NavigationCard") {
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
     ) {
         Card(
             modifier = Modifier

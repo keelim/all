@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v6
 
       - name: set up JDK 21
-        uses: actions/setup-java@v5.1.0
+        uses: actions/setup-java@v5.2.0
         with:
           distribution: "zulu"
           java-version: "21"
@@ -42,7 +42,7 @@ jobs:
       - name: Build Release AAB
         id: buildRelease
         run: |
-          ./gradlew app-comssa:bundleRelease app-cnubus:bundleRelease app-my-grade:bundleRelease app-nanda:bundleRelease app-arducon:bundleRelease
+          ./gradlew -PenableOssLicenses=true app-comssa:bundleRelease app-cnubus:bundleRelease app-my-grade:bundleRelease app-nanda:bundleRelease app-arducon:bundleRelease
 
       - name: Create service_account.json
         id: createServiceAccount

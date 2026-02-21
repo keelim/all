@@ -379,7 +379,7 @@ private fun formatDate(timestamp: Long): String {
     return try {
         val instant = Instant.fromEpochMilliseconds(timestamp)
         val dateTime = instant.toLocalDateTime(TimeZone.currentSystemDefault())
-        "${dateTime.year}.${dateTime.monthNumber.toString().padStart(2, '0')}.${dateTime.dayOfMonth.toString().padStart(2, '0')}"
+        "${dateTime.year}.${dateTime.month.toString().padStart(2, '0')}.${dateTime.day.toString().padStart(2, '0')}"
     } catch (e: Exception) {
         ""
     }

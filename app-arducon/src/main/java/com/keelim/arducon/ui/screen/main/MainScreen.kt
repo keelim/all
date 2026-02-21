@@ -62,7 +62,6 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.material3.rememberTooltipState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -80,7 +79,9 @@ import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.compose.ui.res.stringResource
 import coil.compose.AsyncImage
+import com.keelim.arducon.R
 import com.keelim.arducon.ui.screen.main.MainViewModel.QrDialogState
 import com.keelim.common.extensions.saveQrBitmapToGallery
 import com.keelim.composeutil.component.icon.rememberQrCodeScanner
@@ -125,7 +126,7 @@ fun MainRoute(
     val editDeepLink by viewModel.editDeepLink.collectAsStateWithLifecycle()
     val categories by viewModel.categories.collectAsStateWithLifecycle()
     val selectedCategory by viewModel.selectedCategory.collectAsStateWithLifecycle()
-    val qrDialogState by viewModel.qrDialogState.collectAsState()
+    val qrDialogState by viewModel.qrDialogState.collectAsStateWithLifecycle()
 
     val context = LocalContext.current
     LaunchedEffect(isSearched.value) {
@@ -299,7 +300,11 @@ fun MainScreen(
                 Spacer(modifier = Modifier.width(space4))
                 // 통계보기 버튼
                 Button(onClick = onNavigateStats) {
-                    Text("통계 보기")
+                    Text(
+                        text = stringResource(R.string.stats_button),
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.onPrimary,
+                    )
                 }
             }
             DeepLinkSection(
@@ -554,12 +559,15 @@ private fun DeepLinkBottomSheet(
                                     Intent(
                                         Intent.ACTION_VIEW,
                                         deepLink.url.toUri(),
-                                    ),
-                                )
-                            } else {
-                                Toast.makeText(context, "유효하지 않은 URL입니다.", Toast.LENGTH_SHORT)
-                                    .show()
-                            }
+                        ),
+                    )
+                } else {
+                    Toast.makeText(
+                        context,
+                        context.getString(R.string.invalid_url_error),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
                         },
                     )
                 }
@@ -588,7 +596,7 @@ private fun DeepLinkBottomSheet(
                 val formattedTimestamp = remember(deepLink.timestamp) {
                     val instant = Instant.fromEpochMilliseconds(deepLink.timestamp)
                     val dateTime = instant.toLocalDateTime(TimeZone.currentSystemDefault())
-                    "${dateTime.year}년 ${dateTime.monthNumber}월 ${dateTime.dayOfMonth}일 ${
+                    "${dateTime.year}년 ${dateTime.month}월 ${dateTime.day}일 ${
                         String.format(
                             "%02d",
                             dateTime.hour,

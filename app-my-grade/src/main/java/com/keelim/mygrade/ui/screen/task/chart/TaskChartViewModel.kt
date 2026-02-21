@@ -9,12 +9,15 @@ import com.keelim.composeutil.component.canvas.chart.PieChartEntry
 import com.keelim.composeutil.util.randomColor
 import com.keelim.data.repository.DefaultTaskRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
 import jakarta.inject.Inject
+
 @Stable
+@OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class TaskChartViewModel
 @Inject

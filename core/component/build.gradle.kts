@@ -3,13 +3,16 @@
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
-    alias(libs.plugins.android.library)
     alias(libs.plugins.keelim.multiplatform)
 }
 
 kotlin {
+    androidLibrary {
+        namespace = "com.keelim.core.component"
+    }
     sourceSets {
         androidMain.dependencies {
+            implementation(projects.core.designsystem)
             implementation(libs.accompanist.permissions)
             implementation(libs.androidx.activity.compose)
             implementation(libs.androidx.emoji2.emojipicker)
@@ -28,13 +31,5 @@ kotlin {
         commonMain.dependencies {
             implementation(project.dependencies.platform(libs.coil.bom))
         }
-    }
-}
-
-android {
-    namespace = "com.keelim.core.component"
-    compileSdk = libs.versions.compileSdk.get().toInt()
-    defaultConfig {
-        minSdk = libs.versions.minSdk.get().toInt()
     }
 }

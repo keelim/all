@@ -8,6 +8,7 @@ import com.keelim.commonAndroid.model.asSealedUiState
 import com.keelim.data.repository.DefaultTaskRepository
 import com.keelim.model.LocalTask
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.mapLatest
@@ -16,6 +17,7 @@ import kotlinx.coroutines.launch
 import jakarta.inject.Inject
 
 @Stable
+@OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class TaskViewModel @Inject constructor(
     val taskRepository: DefaultTaskRepository,

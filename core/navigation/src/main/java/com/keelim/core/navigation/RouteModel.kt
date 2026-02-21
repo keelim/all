@@ -160,20 +160,22 @@ sealed interface MyGradeRoute : AppRoute {
 }
 
 sealed interface FeatureRoute : AppRoute {
-    @Serializable
-    data object Settings : FeatureRoute
+    sealed interface SettingsDestination : FeatureRoute
 
     @Serializable
-    data object Theme : FeatureRoute
+    data object Settings : SettingsDestination
 
     @Serializable
-    data object Lab : FeatureRoute
+    data object Theme : SettingsDestination
+
+    @Serializable
+    data object Lab : SettingsDestination
 
     @Serializable
     data object Welcome : FeatureRoute
 
     @Serializable
-    data object Notification : FeatureRoute
+    data object Notification : SettingsDestination
 
     @Serializable
     data class Event(val eventId: Int) : FeatureRoute
@@ -182,11 +184,11 @@ sealed interface FeatureRoute : AppRoute {
     data object Faq : FeatureRoute
 
     @Serializable
-    data object Alarm : FeatureRoute
+    data object Alarm : SettingsDestination
 
     @Serializable
-    data object Admin : FeatureRoute
+    data object Admin : SettingsDestination
 
     @Serializable
-    data object DeviceInfo : FeatureRoute
+    data object DeviceInfo : SettingsDestination
 }

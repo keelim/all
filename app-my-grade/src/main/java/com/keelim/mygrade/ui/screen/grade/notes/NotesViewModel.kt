@@ -7,12 +7,14 @@ import com.keelim.commonAndroid.model.asSealedUiState
 import com.keelim.data.repository.NoteRepository
 import com.keelim.model.Notices
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import jakarta.inject.Inject
 
+@OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class NotesViewModel @Inject constructor(
     val noteRepository: NoteRepository,

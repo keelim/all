@@ -2,8 +2,8 @@ package com.keelim.composeutil.component.tab
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Tab
-import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -21,11 +21,9 @@ fun MultiTab(
     val selectedTabIndex by remember {
         mutableIntStateOf(0)
     }
-    TabRow(
+    PrimaryTabRow(
         modifier = Modifier.fillMaxWidth(),
         selectedTabIndex = selectedTabIndex,
-        indicator = { positions ->
-        },
     ) {
         tabs.forEachIndexed { index, data ->
             Tab(

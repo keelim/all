@@ -31,7 +31,6 @@ import com.keelim.arducon.ui.screen.search.SearchRoute
 import com.keelim.arducon.ui.screen.stats.StatsScreen
 import com.keelim.arducon.ui.screen.urlshortener.UrlShortenerScreen
 import com.keelim.commonAndroid.ui.AppViewModel
-import com.keelim.composeutil.AppState
 import com.keelim.composeutil.rememberMutableStateListOf
 import com.keelim.core.navigation.AppRoute
 import com.keelim.core.navigation.ArduconRoute
@@ -44,7 +43,6 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun ArduConHost(
-    appState: AppState,
     bottomSheetState: SheetState,
     coroutineScope: CoroutineScope,
     onShowSnackbar: suspend (String, String?) -> Boolean,

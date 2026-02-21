@@ -31,7 +31,7 @@ constructor(
 
     private val documentPath by lazy {
         Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).run {
-            "%d-%02d".format(year, monthNumber)
+            "%d-%02d".format(year, month)
         }
     }
 

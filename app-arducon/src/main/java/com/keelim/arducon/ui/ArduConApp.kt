@@ -16,13 +16,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import com.keelim.arducon.ui.component.AdBannerView
-import com.keelim.composeutil.AppState
-import com.keelim.composeutil.rememberAppState
 
 @Composable
 fun ArduconApp(
     windowSizeClass: WindowSizeClass,
-    appState: AppState = rememberAppState(windowSizeClass = windowSizeClass),
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
@@ -40,7 +37,6 @@ fun ArduconApp(
         },
     ) { padding ->
         ArduConHost(
-            appState = appState,
             coroutineScope = coroutineScope,
             bottomSheetState = bottomSheetState,
             onShowSnackbar = { message, action ->

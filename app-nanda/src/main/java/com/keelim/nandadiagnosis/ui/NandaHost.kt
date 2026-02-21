@@ -20,7 +20,6 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import com.google.android.gms.oss.licenses.v2.OssLicensesMenuActivity
-import com.keelim.composeutil.AppState
 import com.keelim.core.navigation.FeatureRoute
 import com.keelim.core.navigation.NandaRoute
 import com.keelim.nandadiagnosis.ui.screen.category.CategoriesType
@@ -43,7 +42,6 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun NandaHost(
-    appState: AppState,
     bottomSheetState: SheetState,
     coroutineScope: CoroutineScope,
     onShowSnackbar: suspend (String, String?) -> Boolean,

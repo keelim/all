@@ -13,13 +13,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import com.keelim.composeutil.AppState
-import com.keelim.composeutil.rememberAppState
 
 @Composable
 fun CnubusApp(
     windowSizeClass: WindowSizeClass,
-    appState: AppState = rememberAppState(windowSizeClass = windowSizeClass),
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
@@ -30,7 +27,6 @@ fun CnubusApp(
     ) { padding ->
         CnubusHost(
             modifier = Modifier.padding(padding),
-            appState = appState,
             coroutineScope = coroutineScope,
             bottomSheetState = bottomSheetState,
             onShowSnackbar = { message, action ->

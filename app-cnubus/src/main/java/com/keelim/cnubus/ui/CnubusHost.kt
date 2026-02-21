@@ -20,7 +20,6 @@ import androidx.navigation3.ui.NavDisplay
 import com.google.android.gms.oss.licenses.v2.OssLicensesMenuActivity
 import com.keelim.cnubus.ui.screen.main.MainRoute
 import com.keelim.cnubus.ui.screen.map.screen.map.MapRoute
-import com.keelim.composeutil.AppState
 import com.keelim.composeutil.rememberMutableStateListOf
 import com.keelim.core.navigation.AppRoute
 import com.keelim.core.navigation.CnuBusRoute
@@ -30,7 +29,6 @@ import kotlinx.coroutines.CoroutineScope
 
 @Composable
 fun CnubusHost(
-    appState: AppState,
     bottomSheetState: SheetState,
     coroutineScope: CoroutineScope,
     onShowSnackbar: suspend (String, String?) -> Boolean,

@@ -1,5 +1,6 @@
 package com.keelim.comssa.ui.screen.main.calculator
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -127,7 +128,7 @@ fun CalculatorScreen(
                 }
             }
 
-            if (history.isNotEmpty()) {
+            AnimatedVisibility(visible = history.isNotEmpty()) {
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = stringResource(Res.string.calculator_history_title),
@@ -139,9 +140,14 @@ fun CalculatorScreen(
                     modifier = Modifier.fillMaxSize(),
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
-                    items(history) { item ->
+                    items(
+                        items = history,
+                        key = { it.id },
+                    ) { item ->
                         Card(
-                            modifier = Modifier.fillMaxWidth(),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .animateItem(),
                             colors = CardDefaults.cardColors(
                                 containerColor = MaterialTheme.colorScheme.surfaceVariant,
                             ),

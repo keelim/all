@@ -82,11 +82,6 @@ private inline fun <reified T : KotlinBaseExtension> Project.configureKotlin() =
         freeCompilerArgs.addAll(
             listOf(
                 "-opt-in=kotlin.RequiresOptIn",
-                // Enable experimental coroutines APIs, including Flow
-                "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-                "-opt-in=kotlinx.coroutines.FlowPreview",
-                "-opt-in=kotlin.Experimental",
-                "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
                 // Enable experimental kotlinx serialization APIs
 //                "-opt-in=kotlinx.serialization.ExperimentalSerializationApi"
                 "-Xcontext-parameters"

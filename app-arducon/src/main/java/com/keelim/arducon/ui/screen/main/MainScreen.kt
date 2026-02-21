@@ -62,7 +62,6 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.material3.rememberTooltipState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -127,7 +126,7 @@ fun MainRoute(
     val editDeepLink by viewModel.editDeepLink.collectAsStateWithLifecycle()
     val categories by viewModel.categories.collectAsStateWithLifecycle()
     val selectedCategory by viewModel.selectedCategory.collectAsStateWithLifecycle()
-    val qrDialogState by viewModel.qrDialogState.collectAsState()
+    val qrDialogState by viewModel.qrDialogState.collectAsStateWithLifecycle()
 
     val context = LocalContext.current
     LaunchedEffect(isSearched.value) {

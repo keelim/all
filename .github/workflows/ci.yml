@@ -11,8 +11,61 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test:
-    name: Run CI when build release
+  detect_changes:
+    name: Detect Changed Apps
+    runs-on: ubuntu-latest
+    outputs:
+      apps: ${{ steps.resolve.outputs.apps }}
+      should_run: ${{ steps.resolve.outputs.should_run }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Resolve app matrix
+        id: resolve
+        shell: bash
+        run: |
+          set -eo pipefail
+          all_apps='["app-arducon","app-cnubus","app-comssa","app-my-grade","app-nanda","app-mysenior"]'
+
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            echo "apps=$all_apps" >> "$GITHUB_OUTPUT"
+            echo "should_run=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          base_sha="${{ github.event.pull_request.base.sha }}"
+          head_sha="${{ github.sha }}"
+          changed_files="$(git diff --name-only --diff-filter=ACMR "$base_sha" "$head_sha")"
+
+          if [[ -z "$changed_files" ]]; then
+            echo "apps=[]" >> "$GITHUB_OUTPUT"
+            echo "should_run=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          if echo "$changed_files" | grep -Eq '^(core/|feature/|shared/|widget/|build-logic/|gradle/|settings\.gradle\.kts|build\.gradle\.kts|gradle\.properties|\.github/workflows/)'; then
+            echo "apps=$all_apps" >> "$GITHUB_OUTPUT"
+            echo "should_run=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          apps_json="$(echo "$changed_files" | sed -nE 's#^(app-[^/]+)/.*#\1#p' | sort -u | jq -R -s -c 'split("\n") | map(select(length > 0))')"
+
+          if [[ "$apps_json" == "[]" ]]; then
+            echo "apps=[]" >> "$GITHUB_OUTPUT"
+            echo "should_run=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "apps=$apps_json" >> "$GITHUB_OUTPUT"
+            echo "should_run=true" >> "$GITHUB_OUTPUT"
+          fi
+
+  quality_gate:
+    name: Run PR Quality Gate
+    needs: detect_changes
+    if: needs.detect_changes.outputs.should_run == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -50,10 +103,50 @@ jobs:
         run: |
           ./gradlew \
             test \
-            lint \
-            app-comssa:assembleDebug \
-            app-cnubus:assembleDebug \
-            app-my-grade:assembleDebug \
-            app-nanda:assembleDebug \
-            app-arducon:assembleDebug \
-            app-mysenior:assembleDebug
+            lint
+
+  assemble_apps:
+    name: Assemble Changed Apps
+    needs:
+      - detect_changes
+      - quality_gate
+    if: needs.detect_changes.outputs.should_run == 'true'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        app: ${{ fromJson(needs.detect_changes.outputs.apps) }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: set up JDK 21
+        uses: actions/setup-java@v5.2.0
+        with:
+          distribution: "zulu" # See 'Supported distributions' for available options
+          java-version: "21"
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v5
+        with:
+          cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+          build-scan-publish: true
+          build-scan-terms-of-use-url: "https://gradle.com/terms-of-service"
+          build-scan-terms-of-use-agree: "yes"
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Set environment
+        run: |
+          echo '${{ secrets.GOOGLE_SERVICE_JSON }}' | base64 -d > ./app-cnubus/google-services.json
+          echo '${{ secrets.GOOGLE_SERVICE_JSON }}' | base64 -d > ./app-comssa/google-services.json
+          echo '${{ secrets.GOOGLE_SERVICE_JSON }}' | base64 -d > ./app-my-grade/google-services.json
+          echo '${{ secrets.GOOGLE_SERVICE_JSON }}' | base64 -d > ./app-nanda/google-services.json
+          echo '${{ secrets.GOOGLE_SERVICE_JSON }}' | base64 -d > ./app-arducon/google-services.json
+          echo '${{ secrets.LOCAL_PROPERTIES }}' | base64 -d > ./local.properties
+          mkdir -p ./core/component/src/commonMain/res/values/
+          echo '${{ secrets.FONTS }}' | base64 -d > ./core/component/src/commonMain/res/values/font_certs.xml
+
+      - name: Assemble ${{ matrix.app }}
+        run: ./gradlew :${{ matrix.app }}:assembleDebug

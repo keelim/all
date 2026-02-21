@@ -4,12 +4,13 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 plugins {
     alias(libs.plugins.compose.hot.reload)
-    alias(libs.plugins.android.application)
     alias(libs.plugins.keelim.multiplatform)
 }
 
 kotlin {
-    androidTarget()
+    androidLibrary {
+        namespace = "com.keelim.all"
+    }
     sourceSets {
         val desktopMain by getting
         commonMain.dependencies {
@@ -57,12 +58,4 @@ val buildWebApp by tasks.registering(Copy::class) {
     into(layout.buildDirectory.dir("webApp"))
 
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
-}
-
-android {
-    namespace = "com.keelim.all"
-    compileSdk = libs.versions.compileSdk.get().toInt()
-    defaultConfig {
-        minSdk = libs.versions.minSdk.get().toInt()
-    }
 }

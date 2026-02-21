@@ -13,10 +13,10 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.util.Date
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import java.util.Locale
 import jakarta.inject.Inject
 
@@ -31,9 +31,8 @@ class WaterIntakeViewModel @Inject constructor(
     private val waterIntakeDao: WaterIntakeDao,
 ) : ViewModel() {
 
-    private val dateFormatter = DateTimeFormatter.ISO_LOCAL_DATE
-    private val timeFormatter = SimpleDateFormat("HH:mm", Locale.getDefault())
-    private val today: String get() = LocalDate.now().format(dateFormatter)
+    private val today: String
+        get() = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date.toString()
 
     // 일일 목표 (ml) - 기본값 2000ml
     private val _dailyGoal = MutableStateFlow(2000)
@@ -55,7 +54,16 @@ class WaterIntakeViewModel @Inject constructor(
                 WaterIntakeUiModel(
                     id = record.id,
                     amount = record.amount,
-                    formattedTime = timeFormatter.format(Date(record.timestamp)),
+                    formattedTime = Instant.fromEpochMilliseconds(record.timestamp)
+                        .toLocalDateTime(TimeZone.currentSystemDefault())
+                        .let { dateTime ->
+                            String.format(
+                                Locale.getDefault(),
+                                "%02d:%02d",
+                                dateTime.hour,
+                                dateTime.minute,
+                            )
+                        },
                 )
             }
         }
@@ -95,4 +103,3 @@ class WaterIntakeViewModel @Inject constructor(
         _dailyGoal.value = goal
     }
 }
-

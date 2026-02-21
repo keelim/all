@@ -43,8 +43,9 @@ import com.github.tehras.charts.bar.renderer.xaxis.SimpleXAxisDrawer
 import com.github.tehras.charts.bar.renderer.yaxis.SimpleYAxisDrawer
 import com.keelim.model.DeepLink
 import com.keelim.model.UsageStat
-import java.text.SimpleDateFormat
-import java.util.Date
+import kotlinx.datetime.Instant
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import java.util.Locale
 
 @Composable
@@ -187,8 +188,21 @@ private fun StatsSectionCard(
 
 @Composable
 private fun StatsLinkItem(item: DeepLink, highlight: Boolean) {
-    val dateFormat = SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.getDefault())
-    val lastUsed = if (item.lastUsed > 0) dateFormat.format(Date(item.lastUsed)) else "-"
+    val lastUsed = if (item.lastUsed > 0) {
+        val localDateTime = Instant.fromEpochMilliseconds(item.lastUsed)
+            .toLocalDateTime(TimeZone.currentSystemDefault())
+        String.format(
+            Locale.getDefault(),
+            "%04d.%02d.%02d %02d:%02d",
+            localDateTime.year,
+            localDateTime.monthNumber,
+            localDateTime.dayOfMonth,
+            localDateTime.hour,
+            localDateTime.minute,
+        )
+    } else {
+        "-"
+    }
     Row(
         modifier = Modifier
             .fillMaxWidth()

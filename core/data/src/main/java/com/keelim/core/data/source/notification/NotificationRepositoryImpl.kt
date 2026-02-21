@@ -41,8 +41,8 @@ constructor(
                     val formattedDate = String.format(
                         "%d-%02d-%02d",
                         localDate.year,
-                        localDate.month.name,
-                        localDate.dayOfMonth,
+                        localDate.month,
+                        localDate.day,
                     )
                     Notification(
                         date = formattedDate,

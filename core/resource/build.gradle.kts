@@ -1,9 +1,11 @@
 plugins {
-    alias(libs.plugins.android.library)
     alias(libs.plugins.keelim.multiplatform)
 }
 
 kotlin {
+    androidLibrary {
+        namespace = "com.keelim.core.resource"
+    }
     listOf(
         iosX64(),
         iosArm64(),
@@ -24,12 +26,4 @@ kotlin {
 compose.resources {
     publicResClass = true
     packageOfResClass = "com.keelim.core.resource"
-}
-
-android {
-    namespace = "com.keelim.core.resource"
-    compileSdk = libs.versions.compileSdk.get().toInt()
-    defaultConfig {
-        minSdk = libs.versions.minSdk.get().toInt()
-    }
 }

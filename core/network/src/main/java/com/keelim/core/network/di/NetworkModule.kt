@@ -20,6 +20,8 @@ import coil.ImageLoader
 import coil.decode.SvgDecoder
 import coil.util.DebugLogger
 import com.keelim.core.network.BuildConfig
+import com.keelim.core.network.interceptor.CacheInterceptor
+import com.keelim.core.network.interceptor.RetryingInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,28 +31,48 @@ import jakarta.inject.Singleton
 import kotlinx.serialization.json.Json
 import okhttp3.Call
 import okhttp3.OkHttpClient
-import okhttp3.internal.cache.CacheInterceptor
 import okhttp3.logging.HttpLoggingInterceptor
 import java.util.concurrent.TimeUnit
 
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-    private const val CONNECT_TIMEOUT = 10L
-    private const val WRITE_TIMEOUT = 1L
-    private const val READ_TIMEOUT = 20L
+    @Provides
+    @Singleton
+    fun provideRetryPolicy(): RetryPolicy {
+        return RetryPolicy(
+            maxRetries = 3,
+            baseDelayMillis = 2_000L,
+            retryOnServerErrors = true,
+            retryOnConnectionErrors = true,
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideTimeoutPolicy(): TimeoutPolicy {
+        return TimeoutPolicy(
+            connectTimeoutMillis = 10_000L,
+            writeTimeoutMillis = 1_000L,
+            readTimeoutMillis = 20_000L,
+            requestTimeoutMillis = 30_000L,
+        )
+    }
 
     @Provides
     @Singleton
     fun provideOkHttpClient(
         cacheInterceptor: CacheInterceptor,
+        retryingInterceptor: RetryingInterceptor,
+        timeoutPolicy: TimeoutPolicy,
     ): OkHttpClient {
         return OkHttpClient.Builder().apply {
-            connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
-            writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
-            readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
+            connectTimeout(timeoutPolicy.connectTimeoutMillis, TimeUnit.MILLISECONDS)
+            writeTimeout(timeoutPolicy.writeTimeoutMillis, TimeUnit.MILLISECONDS)
+            readTimeout(timeoutPolicy.readTimeoutMillis, TimeUnit.MILLISECONDS)
             retryOnConnectionFailure(true)
             addInterceptor(cacheInterceptor)
+            addInterceptor(retryingInterceptor)
         }.build()
     }
 

@@ -1,48 +1,56 @@
 package com.keelim.core.network.interceptor
 
+import com.keelim.core.network.di.RetryPolicy
 import okhttp3.Interceptor
 import okhttp3.Response
 import jakarta.inject.Inject
+import java.io.IOException
 
-class RetryingInterceptor @Inject constructor() : Interceptor {
+class RetryingInterceptor
+@Inject
+constructor(
+    private val retryPolicy: RetryPolicy,
+) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        return process(chain, attempt = 1)
-    }
+        val request = chain.request()
+        var attempt = 0
+        var lastException: IOException? = null
 
-    private fun process(chain: Interceptor.Chain, attempt: Int): Response {
-        var response: Response? = null
-        try {
-            val request = chain.request()
-            response = chain.proceed(request)
-            if (attempt < TRY_CNT && !response.isSuccessful) {
-                return delayedAttempt(chain, response, attempt)
+        while (attempt <= retryPolicy.maxRetries) {
+            try {
+                val response = chain.proceed(request)
+                if (shouldRetryResponse(response = response, attempt = attempt)) {
+                    response.close()
+                    attempt++
+                    continue
+                }
+                return response
+            } catch (e: IOException) {
+                if (shouldRetryException(exception = e, attempt = attempt).not()) {
+                    throw e
+                }
+                lastException = e
+                attempt++
             }
-            return response
-        } catch (e: Exception) {
-            if (attempt < TRY_CNT && networkRetryCheck(e)) {
-                return delayedAttempt(chain, response, attempt)
-            }
-            throw e
         }
+
+        throw lastException ?: IOException("Request failed after ${retryPolicy.maxRetries} retries")
     }
 
-    private fun delayedAttempt(
-        chain: Interceptor.Chain,
-        response: Response?,
+    private fun shouldRetryResponse(
+        response: Response,
         attempt: Int,
-    ): Response {
-        response?.body?.close()
-        Thread.sleep(BASE_INTERVAL * attempt)
-        return process(chain, attempt = attempt + 1)
+    ): Boolean {
+        return retryPolicy.retryOnServerErrors &&
+            response.isSuccessful.not() &&
+            attempt < retryPolicy.maxRetries
     }
 
-    private fun networkRetryCheck(throwable: Throwable): Boolean {
-        return true
-    }
-
-    companion object {
-        const val TRY_CNT = 3
-        const val BASE_INTERVAL = 2000L
+    private fun shouldRetryException(
+        exception: IOException,
+        attempt: Int,
+    ): Boolean {
+        return retryPolicy.shouldRetryOn(exception) && attempt < retryPolicy.maxRetries
     }
 }

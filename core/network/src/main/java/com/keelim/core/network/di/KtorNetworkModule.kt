@@ -24,7 +24,6 @@ import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.engine.cio.endpoint
-import io.ktor.client.plugins.DefaultRequest
 import io.ktor.client.plugins.HttpRequestRetry
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.UserAgent
@@ -54,46 +53,42 @@ object KtorNetworkModule {
     @KtorHttpClient
     @Provides
     @Singleton
-    fun provideKtorClient(): HttpClient = HttpClient(CIO) {
+    fun provideKtorClient(
+        retryPolicy: RetryPolicy,
+        timeoutPolicy: TimeoutPolicy,
+    ): HttpClient = HttpClient(CIO) {
         engine {
-            maxConnectionsCount = 1000
+            maxConnectionsCount = 100
             endpoint {
                 // this: EndpointConfig
-                maxConnectionsPerRoute = 100
+                maxConnectionsPerRoute = 20
                 pipelineMaxSize = 20
                 keepAliveTime = 5000
-                connectTimeout = 5000
-                connectAttempts = 5
+                connectTimeout = timeoutPolicy.connectTimeoutMillis
+                connectAttempts = 3
             }
         }
-        install(Resources) {
-        }
-        install(DefaultRequest) {
-        }
+        install(Resources)
         install(UserAgent) {
             agent = "Ktor client"
         }
         install(HttpRequestRetry) {
-            retryOnServerErrors(maxRetries = 5)
-            exponentialDelay()
-            maxRetries = 5
-            retryIf { request, response ->
-                !response.status.isSuccess()
+            maxRetries = retryPolicy.maxRetries
+            retryOnServerErrors(maxRetries = retryPolicy.maxRetries)
+            retryIf { _, response ->
+                retryPolicy.retryOnServerErrors && response.status.isSuccess().not()
             }
-            retryOnExceptionIf { request, cause ->
-                // cause is NetworkError
-                false
+            retryOnExceptionIf { _, cause ->
+                retryPolicy.shouldRetryOn(cause)
             }
             delayMillis { retry ->
-                retry * 3000L
-            }
-            modifyRequest { request ->
-                // request.headers.append("x-retry-count", retryCount.toString())
+                retry * retryPolicy.baseDelayMillis
             }
         }
         install(HttpTimeout) {
-            requestTimeoutMillis = 1000L
-            connectTimeoutMillis = 10_000L
+            connectTimeoutMillis = timeoutPolicy.connectTimeoutMillis
+            requestTimeoutMillis = timeoutPolicy.requestTimeoutMillis
+            socketTimeoutMillis = timeoutPolicy.readTimeoutMillis
         }
         if (BuildConfig.DEBUG) {
             install(Logging) {
@@ -126,7 +121,9 @@ object KtorNetworkModule {
     @Singleton
     fun providesKtorAndroidClient(
         jsonFormatter: Json,
-        certificatePinner: CertificatePinner,
+        _certificatePinner: CertificatePinner,
+        retryPolicy: RetryPolicy,
+        timeoutPolicy: TimeoutPolicy,
     ): HttpClient {
         return HttpClient(Android) {
             install(ContentNegotiation) {
@@ -145,26 +142,21 @@ object KtorNetworkModule {
                 }
             }
             install(HttpTimeout) {
-                connectTimeoutMillis = 30_000L
-                requestTimeoutMillis = 30_000L
-                socketTimeoutMillis = 30_000L
+                connectTimeoutMillis = timeoutPolicy.connectTimeoutMillis
+                requestTimeoutMillis = timeoutPolicy.requestTimeoutMillis
+                socketTimeoutMillis = timeoutPolicy.readTimeoutMillis
             }
             install(HttpRequestRetry) {
-                retryOnServerErrors(maxRetries = 3)
-                exponentialDelay()
-                maxRetries = 3
-                retryIf { request, response ->
-                    !response.status.isSuccess()
+                maxRetries = retryPolicy.maxRetries
+                retryOnServerErrors(maxRetries = retryPolicy.maxRetries)
+                retryIf { _, response ->
+                    retryPolicy.retryOnServerErrors && response.status.isSuccess().not()
                 }
-                retryOnExceptionIf { request, cause ->
-                    // cause is NetworkError
-                    false
+                retryOnExceptionIf { _, cause ->
+                    retryPolicy.shouldRetryOn(cause)
                 }
                 delayMillis { retry ->
-                    retry * 3000L
-                }
-                modifyRequest { request ->
-                    // request.headers.append("x-retry-count", retryCount.toString())
+                    retry * retryPolicy.baseDelayMillis
                 }
             }
             install(UserAgent) {

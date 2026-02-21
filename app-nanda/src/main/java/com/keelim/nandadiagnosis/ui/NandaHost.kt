@@ -2,7 +2,6 @@
 
 package com.keelim.nandadiagnosis.ui
 
-import android.content.Context
 import android.content.Intent
 import androidx.compose.animation.ContentTransform
 import androidx.compose.animation.fadeIn
@@ -17,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.net.toUri
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
-import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
@@ -37,14 +35,8 @@ import com.keelim.nandadiagnosis.ui.screen.medication.MedicationRoute
 import com.keelim.nandadiagnosis.ui.screen.nutrient.NutrientRoute
 import com.keelim.nandadiagnosis.ui.screen.nutrient.timer.NutrientTimerRoute
 import com.keelim.nandadiagnosis.ui.screen.water.WaterIntakeRoute
-import com.keelim.setting.screen.admin.AdminRoute
-import com.keelim.setting.screen.alarm.AlarmRoute
-import com.keelim.setting.screen.device.DeviceInfoScreen
 import com.keelim.setting.screen.event.EventRoute
-import com.keelim.setting.screen.lab.LabRoute
-import com.keelim.setting.screen.notification.NotificationRoute
-import com.keelim.setting.screen.settings.SettingsRoute
-import com.keelim.setting.screen.theme.ThemeRoute
+import com.keelim.setting.navigation.registerSettingsEntries
 import com.keelim.web.navigateToWebModule
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -175,72 +167,13 @@ fun NandaHost(
             entry<NandaRoute.Medication> {
                 MedicationRoute()
             }
-            settingsEntry(
+            registerSettingsEntries(
                 backStack = backStack,
                 context = context,
+                onOpenSourceClick = {
+                    context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
+                },
             )
         },
     )
-}
-
-@Composable
-private fun EntryProviderScope<Any>.settingsEntry(
-    backStack: SnapshotStateList<Any>,
-    context: Context,
-) {
-    entry<FeatureRoute.Settings> {
-        SettingsRoute(
-            onThemeChangeClick = { backStack.add(FeatureRoute.Theme) },
-            onNotificationsClick = {
-                backStack.add(FeatureRoute.Notification)
-            },
-            onAlarmsClick = {
-                backStack.add(FeatureRoute.Alarm)
-            },
-            onFaqClick = {
-                context.navigateToWebModule("https://keelim-vercel.vercel.app/faq".toUri())
-            },
-            onOpenSourceClick = {
-                context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
-            },
-            onLabClick = {
-                backStack.add(FeatureRoute.Lab)
-            },
-            onAppUpdateClick = {
-                context.startActivity(
-                    Intent(
-                        Intent.ACTION_VIEW,
-                        "https://play.google.com/store/apps/details?id=${context.packageName}".toUri(),
-                    ),
-                )
-            },
-            onAdminClick = {
-                backStack.add(FeatureRoute.Admin)
-            },
-            onDeviceInfoClick = {
-                backStack.add(FeatureRoute.DeviceInfo)
-            },
-        )
-    }
-
-    entry<FeatureRoute.Theme> {
-        ThemeRoute()
-    }
-    entry<FeatureRoute.Notification> {
-        NotificationRoute()
-    }
-    entry<FeatureRoute.Lab> {
-        LabRoute()
-    }
-    entry<FeatureRoute.Alarm> {
-        AlarmRoute()
-    }
-    entry<FeatureRoute.Admin> {
-        AdminRoute()
-    }
-    entry<FeatureRoute.DeviceInfo> {
-        DeviceInfoScreen(
-            onNavigateBack = { backStack.removeLastOrNull() },
-        )
-    }
 }

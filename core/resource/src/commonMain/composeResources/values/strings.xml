@@ -1,3 +1,19 @@
 <resources>
     <string name="project">All</string>
+    <string name="calculator_title">금융 계산기</string>
+    <string name="calculator_subtitle">다양한 재무 계산을 한 곳에서</string>
+    <string name="calculator_history_title">계산 기록</string>
+    <string name="calculator_result_prefix">결과: %1$s</string>
+    <string name="settings_title">Settings</string>
+    <string name="settings_back_description">Go back</string>
+    <string name="settings_category_notice">공지사항</string>
+    <string name="settings_category_notification_history">알림내역</string>
+    <string name="settings_category_lab">실험실</string>
+    <string name="settings_category_app_update">앱 업데이트</string>
+    <string name="settings_category_faq">FAQ</string>
+    <string name="settings_category_open_source">OpenSource</string>
+    <string name="settings_category_theme_change">Theme Change</string>
+    <string name="settings_category_admin">Admin</string>
+    <string name="settings_category_device_info">Device Info</string>
+    <string name="settings_fcm_token">FCM Token: %1$s</string>
 </resources>

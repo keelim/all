@@ -38,6 +38,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -182,16 +183,18 @@ private fun MarketScheduleItem(
     onToggle: () -> Unit,
     onDelete: (() -> Unit)?
 ) {
-    val dismissState = rememberSwipeToDismissBoxState(
-        confirmValueChange = { value ->
-            if (value == SwipeToDismissBoxValue.EndToStart && onDelete != null) {
-                onDelete()
-                true
-            } else {
-                false
-            }
+    val dismissState = rememberSwipeToDismissBoxState()
+    var hasHandledDelete by remember { mutableStateOf(false) }
+
+    LaunchedEffect(dismissState.currentValue, onDelete) {
+        if (!hasHandledDelete &&
+            dismissState.currentValue == SwipeToDismissBoxValue.EndToStart &&
+            onDelete != null
+        ) {
+            hasHandledDelete = true
+            onDelete()
         }
-    )
+    }
 
     if (onDelete != null) {
         SwipeToDismissBox(

@@ -2,9 +2,8 @@ import kotlinx.benchmark.gradle.JvmBenchmarkTarget
 
 plugins {
     alias(libs.plugins.keelim.jvm.library)
-    // please migrate version catalog
-    id("org.jetbrains.kotlinx.benchmark") version "0.4.15"
-    kotlin("plugin.allopen") version "2.3.0"
+    alias(libs.plugins.kotlin.benchmark)
+    alias(libs.plugins.kotlin.allopen)
 }
 
 dependencies {
@@ -27,7 +26,7 @@ benchmark {
     targets {
         register("main") {
             this as JvmBenchmarkTarget
-            jmhVersion = "1.21"
+            jmhVersion = libs.versions.jmh.get()
         }
     }
 }

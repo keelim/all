@@ -10,7 +10,9 @@ android {
 
 dependencies {
     implementation(projects.core.dataApi)
-    testImplementation(libs.junit4)
+    testImplementation(libs.kotest.assertions.core)
+    testImplementation(libs.kotest.runner.junit5)
+    testImplementation(libs.kotest.property)
     testImplementation(libs.turbine)
     testImplementation(libs.truth)
 }

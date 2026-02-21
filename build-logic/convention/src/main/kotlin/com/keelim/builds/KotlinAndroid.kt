@@ -20,10 +20,12 @@ import com.android.build.api.dsl.CommonExtension
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginExtension
+import org.gradle.api.tasks.testing.Test
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.assign
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinBaseExtension
@@ -57,7 +59,10 @@ fun Project.configureKotlinAndroid(
     dependencies {
         add("coreLibraryDesugaring", libs.findLibrary("android.desugarJdkLibs").get())
         add("implementation", libs.findLibrary("kotlinx-collections-immutable").get())
+        add("testRuntimeOnly", libs.findLibrary("junit-platform-launcher").get())
     }
+
+    configureUnitTests()
 }
 
 internal fun Project.configureKotlinJvm() {
@@ -66,6 +71,18 @@ internal fun Project.configureKotlinJvm() {
         targetCompatibility = JavaVersion.VERSION_17
     }
     configureKotlin<KotlinJvmProjectExtension>()
+
+    dependencies {
+        add("testRuntimeOnly", libs.findLibrary("junit-platform-launcher").get())
+    }
+
+    configureUnitTests()
+}
+
+private fun Project.configureUnitTests() {
+    tasks.withType<Test>().configureEach {
+        useJUnitPlatform()
+    }
 }
 
 private inline fun <reified T : KotlinBaseExtension> Project.configureKotlin() = configure<T> {

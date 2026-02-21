@@ -53,8 +53,9 @@ dependencies {
     ksp(libs.deeplinkdispatch.processor)
 
     implementation(libs.play.services.oss)
-}
 
+    testImplementation(projects.core.testing)
+}
 
 
 

@@ -597,7 +597,7 @@ private fun DeepLinkBottomSheet(
                 val formattedTimestamp = remember(deepLink.timestamp) {
                     val instant = Instant.fromEpochMilliseconds(deepLink.timestamp)
                     val dateTime = instant.toLocalDateTime(TimeZone.currentSystemDefault())
-                    "${dateTime.year}년 ${dateTime.monthNumber}월 ${dateTime.dayOfMonth}일 ${
+                    "${dateTime.year}년 ${dateTime.month}월 ${dateTime.day}일 ${
                         String.format(
                             "%02d",
                             dateTime.hour,

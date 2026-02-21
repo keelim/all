@@ -39,14 +39,30 @@ import androidx.work.WorkerParameters
 import androidx.work.workDataOf
 import com.keelim.common.extensions.toast
 import com.keelim.commonAndroid.util.DownloadReceiver
+import com.keelim.core.resource.Res
+import com.keelim.core.resource.nanda_download_cancel_action
+import com.keelim.core.resource.nanda_download_channel_description
+import com.keelim.core.resource.nanda_download_channel_name
+import com.keelim.core.resource.nanda_download_description
+import com.keelim.core.resource.nanda_download_failed_toast
+import com.keelim.core.resource.nanda_download_foreground_ticker
+import com.keelim.core.resource.nanda_download_foreground_title
+import com.keelim.core.resource.nanda_download_start_toast
+import com.keelim.core.resource.nanda_download_title
+import com.keelim.core.resource.nanda_download_url
 import com.keelim.nandadiagnosis.R
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
+import kotlinx.coroutines.runBlocking
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.StringResource
+import org.jetbrains.compose.resources.getString
 import java.io.File
 import java.util.UUID
 import java.util.concurrent.TimeUnit
 
 @HiltWorker
+@OptIn(ExperimentalResourceApi::class)
 class DownloadWorker @AssistedInject constructor(
     @Assisted val context: Context,
     @Assisted workerParameters: WorkerParameters,
@@ -54,12 +70,15 @@ class DownloadWorker @AssistedInject constructor(
 ) : CoroutineWorker(context, workerParameters) {
     override suspend fun doWork(): Result {
         return try {
+            val downloadUrl = getString(Res.string.nanda_download_url)
+            val downloadTitle = getString(Res.string.nanda_download_title)
+            val downloadDescription = getString(Res.string.nanda_download_description)
             setForeground(createForegroundInfo())
             (context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager).run {
                 enqueue(
-                    DownloadManager.Request(applicationContext.getString(R.string.db_path).toUri())
-                        .setTitle("Downloading")
-                        .setDescription("Downloading Database file")
+                    DownloadManager.Request(downloadUrl.toUri())
+                        .setTitle(downloadTitle)
+                        .setDescription(downloadDescription)
                         .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
                         .setDestinationUri(Uri.fromFile(File(applicationContext.getExternalFilesDir(null), "nanda.db")))
                         .setAllowedOverMetered(true)
@@ -80,27 +99,39 @@ class DownloadWorker @AssistedInject constructor(
         }
     }
 
-    private fun createForegroundInfo(): ForegroundInfo {
+    private suspend fun createForegroundInfo(): ForegroundInfo {
         val intent = WorkManager.getInstance(applicationContext)
             .createCancelPendingIntent(id)
+        val foregroundTitle = getString(Res.string.nanda_download_foreground_title)
+        val foregroundTicker = getString(Res.string.nanda_download_foreground_ticker)
+        val cancelAction = getString(Res.string.nanda_download_cancel_action)
+        val channelName = getString(Res.string.nanda_download_channel_name)
+        val channelDescription = getString(Res.string.nanda_download_channel_description)
 
         val notification = NotificationCompat.Builder(
             applicationContext,
             "workDownload",
         )
-            .setContentTitle("Downloading Your Image")
-            .setTicker("Downloading Your Image")
+            .setContentTitle(foregroundTitle)
+            .setTicker(foregroundTicker)
             .setSmallIcon(R.mipmap.ic_launcher_round)
             .setOngoing(true)
-            .addAction(android.R.drawable.ic_delete, "Cancel Download", intent)
+            .addAction(android.R.drawable.ic_delete, cancelAction, intent)
         // 3
-        createChannel(notification, "workDownload")
+        createChannel(
+            notificationBuilder = notification,
+            id = "workDownload",
+            channelName = channelName,
+            channelDescription = channelDescription
+        )
         return ForegroundInfo(1, notification.build())
     }
 
     private fun createChannel(
         notificationBuilder: NotificationCompat.Builder,
         id: String,
+        channelName: String,
+        channelDescription: String
     ) {
         val notificationManager =
             applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as
@@ -108,10 +139,10 @@ class DownloadWorker @AssistedInject constructor(
         notificationBuilder.setDefaults(Notification.DEFAULT_VIBRATE)
         val channel = NotificationChannel(
             id,
-            "NandaDiagnosis",
+            channelName,
             NotificationManager.IMPORTANCE_HIGH,
         )
-        channel.description = "NandaDiagnosis Notifications"
+        channel.description = channelDescription
         notificationManager.createNotificationChannel(channel)
     }
 
@@ -152,15 +183,27 @@ class DownloadWorker @AssistedInject constructor(
                     // 2
                     info?.let {
                         when (it.state) {
-                            WorkInfo.State.ENQUEUED -> ctx.toast("다운로드를 시작합니다.")
+                            WorkInfo.State.ENQUEUED -> {
+                                ctx.toast(resolveString(Res.string.nanda_download_start_toast))
+                            }
                             WorkInfo.State.RUNNING -> Unit
                             WorkInfo.State.SUCCEEDED -> Unit
-                            WorkInfo.State.FAILED -> ctx.toast("다운로드를 완료하지 못했습니다..")
-                            WorkInfo.State.BLOCKED -> ctx.toast("다운로드를 완료하지 못했습니다..")
-                            WorkInfo.State.CANCELLED -> ctx.toast("다운로드를 완료하지 못했습니다..")
+                            WorkInfo.State.FAILED -> {
+                                ctx.toast(resolveString(Res.string.nanda_download_failed_toast))
+                            }
+                            WorkInfo.State.BLOCKED -> {
+                                ctx.toast(resolveString(Res.string.nanda_download_failed_toast))
+                            }
+                            WorkInfo.State.CANCELLED -> {
+                                ctx.toast(resolveString(Res.string.nanda_download_failed_toast))
+                            }
                         }
                     }
                 }
+        }
+
+        private fun resolveString(resource: StringResource): String = runBlocking {
+            getString(resource)
         }
     }
 }

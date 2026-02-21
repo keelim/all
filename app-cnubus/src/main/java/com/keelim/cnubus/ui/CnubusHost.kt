@@ -21,7 +21,7 @@ import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
-import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
+import com.google.android.gms.oss.licenses.v2.OssLicensesMenuActivity
 import com.keelim.cnubus.ui.screen.main.MainRoute
 import com.keelim.cnubus.ui.screen.map.screen.map.MapRoute
 import com.keelim.composeutil.AppState

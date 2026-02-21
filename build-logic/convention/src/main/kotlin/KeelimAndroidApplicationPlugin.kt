@@ -18,7 +18,11 @@ class KeelimAndroidApplicationPlugin : Plugin<Project> {
             apply(plugin = "com.android.application")
             apply(plugin = "org.jetbrains.kotlin.android")
             apply(plugin = "org.gradle.android.cache-fix")
-            apply(plugin = "com.google.android.gms.oss-licenses-plugin")
+            // OSS licenses plugin is not configuration-cache compatible.
+            // Apply it only for release/publish paths or when explicitly requested.
+            if (shouldApplyOssLicensesPlugin()) {
+                apply(plugin = "com.google.android.gms.oss-licenses-plugin")
+            }
             apply(plugin = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
             apply(plugin = "com.dropbox.dependency-guard")
             apply(plugin = "com.jraska.module.graph.assertion")
@@ -67,6 +71,23 @@ class KeelimAndroidApplicationPlugin : Plugin<Project> {
                 add("lintChecks", libs.findLibrary("insights-lint").get())
                 add("implementation", libs.findLibrary("androidx-tracing-ktx").get())
             }
+        }
+    }
+
+    private fun Project.shouldApplyOssLicensesPlugin(): Boolean {
+        val enabledByProperty = providers.gradleProperty("enableOssLicenses")
+            .orNull
+            ?.toBooleanStrictOrNull() == true
+        if (enabledByProperty) {
+            return true
+        }
+
+        return gradle.startParameter.taskNames.any { taskName ->
+            val normalized = taskName.lowercase()
+            normalized.contains("bundlerelease") ||
+                normalized.contains("assemblerelease") ||
+                normalized.contains("publish") ||
+                normalized.contains("upload")
         }
     }
 }

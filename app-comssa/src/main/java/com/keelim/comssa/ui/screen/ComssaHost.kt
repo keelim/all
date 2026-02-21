@@ -2,7 +2,6 @@
 
 package com.keelim.comssa.ui.screen
 
-import android.content.Context
 import android.content.Intent
 import androidx.compose.animation.ContentTransform
 import androidx.compose.animation.fadeIn
@@ -12,12 +11,9 @@ import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.core.net.toUri
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
-import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
@@ -28,15 +24,7 @@ import com.keelim.comssa.ui.screen.main.calculator.CalculatorRoute
 import com.keelim.comssa.ui.screen.main.ecocal.EcocalRoute
 import com.keelim.core.navigation.AppRoute
 import com.keelim.core.navigation.ComssaRoute
-import com.keelim.core.navigation.FeatureRoute
-import com.keelim.setting.screen.admin.AdminRoute
-import com.keelim.setting.screen.alarm.AlarmRoute
-import com.keelim.setting.screen.device.DeviceInfoScreen
-import com.keelim.setting.screen.lab.LabRoute
-import com.keelim.setting.screen.notification.NotificationRoute
-import com.keelim.setting.screen.settings.SettingsRoute
-import com.keelim.setting.screen.theme.ThemeRoute
-import com.keelim.web.navigateToWebModule
+import com.keelim.setting.navigation.registerSettingsEntries
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
@@ -47,6 +35,7 @@ fun ComssaHost(
     onShowSnackbar: suspend (String, String?) -> Boolean,
     modifier: Modifier = Modifier,
 ) {
+    val context = LocalContext.current
     val backStack = rememberMutableStateListOf<AppRoute>(ComssaRoute.Ecocal)
     val motionScheme = MaterialTheme.motionScheme
 
@@ -82,69 +71,13 @@ fun ComssaHost(
             entry<ComssaRoute.FinancialCalculators> {
                 CalculatorRoute()
             }
-            settingsEntry(backStack, LocalContext.current)
+            registerSettingsEntries(
+                backStack = backStack,
+                context = context,
+                onOpenSourceClick = {
+                    context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
+                },
+            )
         },
     )
-}
-
-@Composable
-fun EntryProviderScope<Any>.settingsEntry(
-    backStack: SnapshotStateList<Any>,
-    context: Context,
-) {
-    entry<FeatureRoute.Settings> {
-        SettingsRoute(
-            onThemeChangeClick = { backStack.add(FeatureRoute.Theme) },
-            onNotificationsClick = {
-                backStack.add(FeatureRoute.Notification)
-            },
-            onAlarmsClick = {
-                backStack.add(FeatureRoute.Alarm)
-            },
-            onFaqClick = {
-                context.navigateToWebModule("https://keelim-vercel.vercel.app/faq".toUri())
-            },
-            onOpenSourceClick = {
-                context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
-            },
-            onLabClick = {
-                backStack.add(FeatureRoute.Lab)
-            },
-            onAppUpdateClick = {
-                context.startActivity(
-                    Intent(
-                        Intent.ACTION_VIEW,
-                        "https://play.google.com/store/apps/details?id=${context.packageName}".toUri(),
-                    ),
-                )
-            },
-            onAdminClick = {
-                backStack.add(FeatureRoute.Admin)
-            },
-            onDeviceInfoClick = {
-                backStack.add(FeatureRoute.DeviceInfo)
-            },
-        )
-    }
-
-    entry<FeatureRoute.Theme> {
-        ThemeRoute()
-    }
-    entry<FeatureRoute.Notification> {
-        NotificationRoute()
-    }
-    entry<FeatureRoute.Lab> {
-        LabRoute()
-    }
-    entry<FeatureRoute.Alarm> {
-        AlarmRoute()
-    }
-    entry<FeatureRoute.Admin> {
-        AdminRoute()
-    }
-    entry<FeatureRoute.DeviceInfo> {
-        DeviceInfoScreen(
-            onNavigateBack = { backStack.removeLastOrNull() },
-        )
-    }
 }

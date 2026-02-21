@@ -27,7 +27,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -36,6 +35,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.tehras.charts.bar.BarChart
 import com.github.tehras.charts.bar.BarChartData
 import com.github.tehras.charts.bar.renderer.label.SimpleValueDrawer
@@ -43,17 +43,18 @@ import com.github.tehras.charts.bar.renderer.xaxis.SimpleXAxisDrawer
 import com.github.tehras.charts.bar.renderer.yaxis.SimpleYAxisDrawer
 import com.keelim.model.DeepLink
 import com.keelim.model.UsageStat
-import java.text.SimpleDateFormat
-import java.util.Date
+import kotlinx.datetime.Instant
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import java.util.Locale
 
 @Composable
 fun StatsScreen(
     viewModel: StatsViewModel = hiltViewModel(),
 ) {
-    val topUsedLinks by viewModel.topUsedLinks.collectAsState()
-    val recentUsedLinks by viewModel.recentUsedLinks.collectAsState()
-    val dailyUsageStats by viewModel.dailyUsageStats.collectAsState()
+    val topUsedLinks by viewModel.topUsedLinks.collectAsStateWithLifecycle()
+    val recentUsedLinks by viewModel.recentUsedLinks.collectAsStateWithLifecycle()
+    val dailyUsageStats by viewModel.dailyUsageStats.collectAsStateWithLifecycle()
 
     StatsScreen(topUsedLinks, recentUsedLinks, dailyUsageStats)
 }
@@ -187,8 +188,21 @@ private fun StatsSectionCard(
 
 @Composable
 private fun StatsLinkItem(item: DeepLink, highlight: Boolean) {
-    val dateFormat = SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.getDefault())
-    val lastUsed = if (item.lastUsed > 0) dateFormat.format(Date(item.lastUsed)) else "-"
+    val lastUsed = if (item.lastUsed > 0) {
+        val localDateTime = Instant.fromEpochMilliseconds(item.lastUsed)
+            .toLocalDateTime(TimeZone.currentSystemDefault())
+        String.format(
+            Locale.getDefault(),
+            "%04d.%02d.%02d %02d:%02d",
+            localDateTime.year,
+            localDateTime.monthNumber,
+            localDateTime.dayOfMonth,
+            localDateTime.hour,
+            localDateTime.minute,
+        )
+    } else {
+        "-"
+    }
     Row(
         modifier = Modifier
             .fillMaxWidth()

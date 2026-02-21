@@ -73,6 +73,7 @@ fun DeviceInfoScreen(
                     Text(
                         text = "Device Info",
                         style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+                        color = MaterialTheme.colorScheme.onSurface,
                     )
                 },
                 navigationIcon = {

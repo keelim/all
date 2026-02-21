@@ -12,6 +12,11 @@ import org.gradle.kotlin.dsl.getByType
 class KeelimAndroidLibraryPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         with(project) {
+            val isCiBuild = providers.environmentVariable("CI")
+                .map { it.equals("true", ignoreCase = true) }
+                .orElse(false)
+                .get()
+
             apply(plugin = "com.android.library")
             apply(plugin = "org.jetbrains.kotlin.android")
             apply(plugin = "org.gradle.android.cache-fix")
@@ -24,7 +29,7 @@ class KeelimAndroidLibraryPlugin : Plugin<Project> {
                 }
                 configureKotlinAndroid(this)
                 lint {
-                    abortOnError = false
+                    abortOnError = isCiBuild
                 }
             }
             dependencies {

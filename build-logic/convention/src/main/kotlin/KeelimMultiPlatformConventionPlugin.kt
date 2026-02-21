@@ -1,3 +1,4 @@
+import com.android.build.api.dsl.androidLibrary
 import com.keelim.builds.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -17,11 +18,15 @@ class KeelimMultiPlatformConventionPlugin : Plugin<Project> {
             apply(plugin = libs.findPlugin("kotlinMultiplatform").get().get().pluginId)
             apply(plugin = libs.findPlugin("compose-multiplatform").get().get().pluginId)
             apply(plugin = libs.findPlugin("compose-compiler").get().get().pluginId)
+            apply(plugin = "com.android.kotlin.multiplatform.library")
 
             val composeDependencies = extensions.getByType<ComposeExtension>().dependencies
             extensions.configure<KotlinMultiplatformExtension> {
                 jvm("desktop")
-                androidTarget()
+                androidLibrary {
+                    compileSdk = libs.findVersion("compileSdk").get().displayName.toInt()
+                    minSdk = libs.findVersion("minSdk").get().displayName.toInt()
+                }
                 if (project.name.contains("shared").not()) {
                     wasmJs {
                         outputModuleName.set("composeApp")
@@ -57,10 +62,6 @@ class KeelimMultiPlatformConventionPlugin : Plugin<Project> {
                         }
                     }
                 }
-            }
-            dependencies {
-                "debugImplementation"(composeDependencies.uiTooling)
-                "debugImplementation"(composeDependencies.preview)
             }
         }
     }

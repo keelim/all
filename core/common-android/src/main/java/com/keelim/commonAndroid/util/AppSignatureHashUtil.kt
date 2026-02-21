@@ -2,6 +2,8 @@ package com.keelim.commonAndroid.util
 
 import android.content.Context
 import android.content.pm.PackageManager
+import android.content.pm.Signature
+import android.os.Build
 import android.util.Base64
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.nio.charset.StandardCharsets
@@ -14,17 +16,39 @@ class AppSignatureHashUtil @Inject constructor(
 
     val appSignatures: List<String>
         get() = runCatching {
-            val packageInfo = context.packageManager.getPackageInfo(
-                context.packageName,
-                PackageManager.GET_SIGNATURES
-            )
-            packageInfo.signatures?.mapNotNull { signature ->
+            resolveSignatures().mapNotNull { signature ->
                 hash(context.packageName, signature.toCharsString())
-            } ?: emptyList()
+            }
         }.getOrElse { throwable ->
             throwable.logError()
             emptyList()
         }
+
+    private fun resolveSignatures(): List<Signature> {
+        val packageManager = context.packageManager
+        val packageName = context.packageName
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            val packageInfo = packageManager.getPackageInfo(
+                packageName,
+                PackageManager.GET_SIGNING_CERTIFICATES,
+            )
+            val signingInfo = packageInfo.signingInfo ?: return emptyList()
+            val signatures = if (signingInfo.hasMultipleSigners()) {
+                signingInfo.apkContentsSigners
+            } else {
+                signingInfo.signingCertificateHistory
+            }
+            signatures?.toList().orEmpty()
+        } else {
+            @Suppress("DEPRECATION")
+            val packageInfo = packageManager.getPackageInfo(
+                packageName,
+                PackageManager.GET_SIGNATURES,
+            )
+            @Suppress("DEPRECATION")
+            packageInfo.signatures?.toList().orEmpty()
+        }
+    }
 
     private fun hash(packageName: String, signature: String): String? {
         val appInfo = "$packageName $signature"

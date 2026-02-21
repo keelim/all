@@ -20,7 +20,6 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
-import org.gradle.kotlin.dsl.dependencies
 
 @Suppress("unused")
 class KeelimRoomConventionPlugin : Plugin<Project> {
@@ -37,12 +36,32 @@ class KeelimRoomConventionPlugin : Plugin<Project> {
                 schemaDirectory("$projectDir/schemas")
             }
 
-            dependencies {
-                add("implementation", libs.findLibrary("room.runtime").get())
-                add("implementation", libs.findLibrary("androidx.sqlite.bundled").get())
-                add("androidTestImplementation", libs.findLibrary("room.testing").get())
-                add("ksp", libs.findLibrary("room.compiler").get())
+            val roomRuntime = libs.findLibrary("room.runtime").get()
+            val bundledSqlite = libs.findLibrary("androidx.sqlite.bundled").get()
+            val roomTesting = libs.findLibrary("room.testing").get()
+            val roomCompiler = libs.findLibrary("room.compiler").get()
+
+            pluginManager.withPlugin("org.jetbrains.kotlin.android") {
+                addDependencyIfConfigExists("implementation", roomRuntime)
+                addDependencyIfConfigExists("implementation", bundledSqlite)
+                addDependencyIfConfigExists("androidTestImplementation", roomTesting)
+                addDependencyIfConfigExists("ksp", roomCompiler)
             }
+
+            pluginManager.withPlugin("org.jetbrains.kotlin.multiplatform") {
+                addDependencyIfConfigExists("commonMainImplementation", roomRuntime)
+                addDependencyIfConfigExists("commonMainImplementation", bundledSqlite)
+                addDependencyIfConfigExists("androidTestImplementation", roomTesting)
+                addDependencyIfConfigExists("androidInstrumentedTestImplementation", roomTesting)
+                addDependencyIfConfigExists("kspAndroid", roomCompiler)
+                addDependencyIfConfigExists("kspCommonMainMetadata", roomCompiler)
+            }
+        }
+    }
+
+    private fun Project.addDependencyIfConfigExists(configuration: String, dependencyNotation: Any) {
+        if (configurations.findByName(configuration) != null) {
+            dependencies.add(configuration, dependencyNotation)
         }
     }
 }

@@ -50,11 +50,12 @@ fun rememberAppState(
 
 @Stable
 class AppState(
-    // TODO: change androidx navigation 3
+    @Deprecated("Legacy navigation2 holder. Navigation3 hosts should use route back stacks directly.")
     val navController: NavHostController,
     val coroutineScope: CoroutineScope,
     private val windowSizeClass: WindowSizeClass,
 ) {
+    @Deprecated("Legacy navigation2 destination accessor.")
     val currentDestinations: NavDestination?
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination

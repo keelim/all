@@ -13,14 +13,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import com.keelim.composeutil.AppState
-import com.keelim.composeutil.rememberAppState
 import com.keelim.mygrade.ui.MyGradeHost
 
 @Composable
 fun MyGradeApp(
     windowSizeClass: WindowSizeClass,
-    appState: AppState = rememberAppState(windowSizeClass = windowSizeClass),
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
@@ -32,7 +29,6 @@ fun MyGradeApp(
     ) { padding ->
         MyGradeHost(
             modifier = Modifier.padding(padding),
-            appState = appState,
             coroutineScope = coroutineScope,
             onShowSnackbar = { message, action ->
                 snackbarHostState.showSnackbar(

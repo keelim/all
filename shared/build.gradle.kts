@@ -2,15 +2,14 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
-    alias(libs.plugins.android.library)
     alias(libs.plugins.keelim.android.application.room)
     kotlin("plugin.serialization")
-    kotlin("plugin.parcelize")
     alias(libs.plugins.keelim.multiplatform)
 }
 
 kotlin {
-    androidTarget {
+    androidLibrary {
+        namespace = "com.keelim.kmp.shared"
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_17)
         }
@@ -48,12 +47,4 @@ kotlin {
 
 dependencies {
     add("kspAndroid", libs.room.compiler)
-}
-
-android {
-    namespace = "com.keelim.kmp.shared"
-    compileSdk = libs.versions.compileSdk.get().toInt()
-    defaultConfig {
-        minSdk = libs.versions.minSdk.get().toInt()
-    }
 }

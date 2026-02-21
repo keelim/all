@@ -3,6 +3,7 @@ package com.keelim.commonAndroid.receiver
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import androidx.core.os.BundleCompat
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.common.api.Status
@@ -16,8 +17,12 @@ class SmsBroadcastReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
         if (intent?.action == SmsRetriever.SMS_RETRIEVED_ACTION) {
-            val extras = intent.extras
-            val smsRetrieverStatus = extras?.get(SmsRetriever.EXTRA_STATUS) as Status
+            val extras = intent.extras ?: return
+            val smsRetrieverStatus = BundleCompat.getParcelable(
+                extras,
+                SmsRetriever.EXTRA_STATUS,
+                Status::class.java,
+            ) ?: return
             val otp = when (smsRetrieverStatus.statusCode) {
                 CommonStatusCodes.SUCCESS -> {
                     val sms = extras.getString(SmsRetriever.EXTRA_SMS_MESSAGE)

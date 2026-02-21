@@ -70,9 +70,23 @@ import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
+import com.keelim.core.resource.Res
+import com.keelim.core.resource.settings_back_description
+import com.keelim.core.resource.settings_category_admin
+import com.keelim.core.resource.settings_category_app_update
+import com.keelim.core.resource.settings_category_device_info
+import com.keelim.core.resource.settings_category_faq
+import com.keelim.core.resource.settings_category_lab
+import com.keelim.core.resource.settings_category_notice
+import com.keelim.core.resource.settings_category_notification_history
+import com.keelim.core.resource.settings_category_open_source
+import com.keelim.core.resource.settings_category_theme_change
+import com.keelim.core.resource.settings_fcm_token
+import com.keelim.core.resource.settings_title
 import com.keelim.setting.BuildConfig
 import com.keelim.shared.data.UserState
 import com.keelim.web.navigateToWebModule
+import org.jetbrains.compose.resources.stringResource
 
 data class Category(
     val title: String,
@@ -142,6 +156,18 @@ fun SettingsScreen(
                 checkNotNull(LocalOnBackPressedDispatcherOwner.current) { "this is not null" }
                     .onBackPressedDispatcher
             val context = LocalContext.current
+            val settingsTitle = stringResource(Res.string.settings_title)
+            val settingsBackDescription = stringResource(Res.string.settings_back_description)
+            val settingsNotice = stringResource(Res.string.settings_category_notice)
+            val settingsNotificationHistory =
+                stringResource(Res.string.settings_category_notification_history)
+            val settingsLab = stringResource(Res.string.settings_category_lab)
+            val settingsAppUpdate = stringResource(Res.string.settings_category_app_update)
+            val settingsFaq = stringResource(Res.string.settings_category_faq)
+            val settingsOpenSource = stringResource(Res.string.settings_category_open_source)
+            val settingsThemeChange = stringResource(Res.string.settings_category_theme_change)
+            val settingsAdmin = stringResource(Res.string.settings_category_admin)
+            val settingsDeviceInfo = stringResource(Res.string.settings_category_device_info)
 
             Scaffold(
                 containerColor = MaterialTheme.colorScheme.surface,
@@ -160,12 +186,12 @@ fun SettingsScreen(
                             },
                         ),
                         modifier = Modifier.shadow(appBarElevation),
-                        title = { Text(text = "Settings") },
+                        title = { Text(text = settingsTitle) },
                         navigationIcon = {
                             IconButton(onClick = { onBackPressedDispatcher.onBackPressed() }) {
                                 Icon(
                                     Icons.AutoMirrored.Rounded.ArrowBack,
-                                    contentDescription = "Go back",
+                                    contentDescription = settingsBackDescription,
                                 )
                             }
                         },
@@ -174,55 +200,53 @@ fun SettingsScreen(
                 },
             ) { padding ->
                 var clicked by remember { mutableStateOf(false) }
-                val items = remember {
-                    listOf(
-                        Category(
-                            title = "공지사항",
-                            icon = Icons.Outlined.Check,
-                            onClick = onNotificationsClick,
-                        ),
-                        Category(
-                            title = "알림내역",
-                            icon = Icons.Outlined.Notifications,
-                            onClick = onAlarmsClick,
-                            onLongClick = {
-                                clicked = true
-                            },
-                        ),
-                        Category(title = "실험실", icon = Icons.Outlined.Lock, onClick = onLabClick),
-                        Category(
-                            title = "앱 업데이트",
-                            icon = Icons.Rounded.ThumbUp,
-                            onClick = onAppUpdateClick,
-                        ),
-                        Category(
-                            title = "FAQ",
-                            icon = Icons.Rounded.KeyboardArrowUp,
-                            onClick = onFaqClick,
-                        ),
-                        Category(
-                            title = "OpenSource",
-                            icon = Icons.AutoMirrored.Outlined.List,
-                            onClick = onOpenSourceClick,
-                        ),
-                        Category(
-                            title = "Theme Change",
-                            icon = Icons.Rounded.ArrowDropDown,
-                            onClick = onThemeChangeClick,
-                        ),
-                        Category(
-                            title = "Admin",
-                            icon = Icons.Rounded.Lock,
-                            visible = BuildConfig.DEBUG,
-                            onClick = onAdminClick,
-                        ),
-                        Category(
-                            title = "Device Info",
-                            icon = Icons.Outlined.Build,
-                            onClick = onDeviceInfoClick,
-                        ),
-                    )
-                }
+                val items = listOf(
+                    Category(
+                        title = settingsNotice,
+                        icon = Icons.Outlined.Check,
+                        onClick = onNotificationsClick,
+                    ),
+                    Category(
+                        title = settingsNotificationHistory,
+                        icon = Icons.Outlined.Notifications,
+                        onClick = onAlarmsClick,
+                        onLongClick = {
+                            clicked = true
+                        },
+                    ),
+                    Category(title = settingsLab, icon = Icons.Outlined.Lock, onClick = onLabClick),
+                    Category(
+                        title = settingsAppUpdate,
+                        icon = Icons.Rounded.ThumbUp,
+                        onClick = onAppUpdateClick,
+                    ),
+                    Category(
+                        title = settingsFaq,
+                        icon = Icons.Rounded.KeyboardArrowUp,
+                        onClick = onFaqClick,
+                    ),
+                    Category(
+                        title = settingsOpenSource,
+                        icon = Icons.AutoMirrored.Outlined.List,
+                        onClick = onOpenSourceClick,
+                    ),
+                    Category(
+                        title = settingsThemeChange,
+                        icon = Icons.Rounded.ArrowDropDown,
+                        onClick = onThemeChangeClick,
+                    ),
+                    Category(
+                        title = settingsAdmin,
+                        icon = Icons.Rounded.Lock,
+                        visible = BuildConfig.DEBUG,
+                        onClick = onAdminClick,
+                    ),
+                    Category(
+                        title = settingsDeviceInfo,
+                        icon = Icons.Outlined.Build,
+                        onClick = onDeviceInfoClick,
+                    ),
+                )
                 LazyColumn(
                     contentPadding = padding,
                     state = listState,
@@ -261,7 +285,7 @@ fun SettingsScreen(
                                     ),
                             ) {
                                 Text(
-                                    text = "FCM Token: ${uiState.fcmToken}",
+                                    text = stringResource(Res.string.settings_fcm_token, uiState.fcmToken),
                                     fontWeight = FontWeight.Bold,
                                     style = MaterialTheme.typography.bodyLarge,
                                 )

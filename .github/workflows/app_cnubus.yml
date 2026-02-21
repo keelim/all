@@ -10,7 +10,7 @@ jobs:
         uses: actions/checkout@v6
 
       - name: set up JDK 21
-        uses: actions/setup-java@v5.1.0
+        uses: actions/setup-java@v5.2.0
         with:
           distribution: "zulu" # See 'Supported distributions' for available options
           java-version: "21"
@@ -35,7 +35,7 @@ jobs:
 
       - name: Build Release AAB
         id: buildRelease
-        run: ./gradlew app-cnubus:bundleRelease
+        run: ./gradlew -PenableOssLicenses=true app-cnubus:bundleRelease
 
       - name: Sign AAB
         id: sign

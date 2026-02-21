@@ -12,7 +12,6 @@ import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.appopen.AppOpenAd
 import com.keelim.commonAndroid.BuildConfig
 import com.keelim.commonAndroid.model.AppInfo
-import kotlinx.datetime.Clock
 import timber.log.Timber
 import jakarta.inject.Inject
 
@@ -93,7 +92,7 @@ class ApplicationMonitor @Inject constructor(
                  */
                 override fun onAdLoaded(ad: AppOpenAd) {
                     appOpenAd = ad
-                    loadTime = Clock.System.now().epochSeconds
+                    loadTime = System.currentTimeMillis()
                 }
 
                 /**
@@ -147,8 +146,8 @@ class ApplicationMonitor @Inject constructor(
     }
 
     private fun wasLoadTimeLessThanNHoursAgo(numHours: Long = 4): Boolean {
-        val dateDifference = Clock.System.now().epochSeconds - loadTime
-        val numMilliSecondsPerHour = 3600000
+        val dateDifference = System.currentTimeMillis() - loadTime
+        val numMilliSecondsPerHour = 3_600_000L
         return dateDifference < numMilliSecondsPerHour * numHours
     }
 

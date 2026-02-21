@@ -1,5 +1,8 @@
+@file:OptIn(ExperimentalFoundationApi::class)
+
 package com.keelim.nandadiagnosis.ui.screen.diagnosis
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -83,12 +86,16 @@ private fun DiagnosisStateView(
         DiagnosisScreenState.Loading -> Loading()
         is DiagnosisScreenState.Success -> {
             LazyColumn {
-                items(state.items) {
+                items(
+                    items = state.items,
+                    key = { it.diagnosis }
+                ) { item ->
                     DiagnosisItem(
-                        title = it.diagnosis,
+                        title = item.diagnosis,
                         content = "",
                         label = "",
                         onDiagnosisClick = onDiagnosisClick,
+                        modifier = Modifier.animateItem(),
                     )
                 }
             }
@@ -113,8 +120,13 @@ fun DiagnosisItem(
     content: String,
     label: String,
     onDiagnosisClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) = trace("DiagnosisItem") {
-    Surface(onClick = { onDiagnosisClick() }, shape = MaterialTheme.shapes.large) {
+    Surface(
+        onClick = { onDiagnosisClick() },
+        shape = MaterialTheme.shapes.large,
+        modifier = modifier,
+    ) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(space16),
             modifier = Modifier

@@ -22,9 +22,6 @@ import kotlinx.coroutines.flow.collect
 import java.util.concurrent.CancellationException
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.getValue
@@ -38,6 +35,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.airbnb.deeplinkdispatch.DeepLink
 import com.keelim.cnubus.ui.CnubusApp
+import com.keelim.composeutil.component.dialog.ConfirmDialog
 import com.keelim.composeutil.ui.theme.KeelimTheme
 import com.keelim.shared.data.UserStateStore
 import com.keelim.shared.data.model.ThemeType
@@ -86,32 +84,11 @@ class MainActivity : ComponentActivity() {
                     }
                 }
                 if (isDialogOpen) {
-                    AlertDialog(
-                        onDismissRequest = {
-                            isDialogOpen = false
-                        },
-                        title = { Text(text = "안내") },
-                        text = { Text(text = "종료 하시겠습니까?") },
-                        confirmButton = {
-                            Button(
-                                onClick = {
-                                    finish()
-                                },
-                            ) {
-                                Text(
-                                    text = "확인",
-                                )
-                            }
-                        },
-                        dismissButton = {
-                            Button(onClick = {
-                                isDialogOpen = false
-                            }) {
-                                Text(
-                                    text = "취소",
-                                )
-                            }
-                        },
+                    ConfirmDialog(
+                        title = "안내",
+                        message = "종료 하시겠습니까?",
+                        onConfirm = { finish() },
+                        onDismiss = { isDialogOpen = false },
                     )
                 }
             }

@@ -249,18 +249,13 @@ private fun SwipeableHistoryItem(
     modifier: Modifier = Modifier,
 ) {
     var isRemoved by remember { mutableStateOf(false) }
-    val dismissState = rememberSwipeToDismissBoxState(
-        confirmValueChange = { dismissValue ->
-            if (dismissValue == SwipeToDismissBoxValue.StartToEnd ||
-                dismissValue == SwipeToDismissBoxValue.EndToStart
-            ) {
-                isRemoved = true
-                true
-            } else {
-                false
-            }
-        },
-    )
+    val dismissState = rememberSwipeToDismissBoxState()
+
+    LaunchedEffect(dismissState.currentValue) {
+        if (dismissState.currentValue != SwipeToDismissBoxValue.Settled) {
+            isRemoved = true
+        }
+    }
 
     LaunchedEffect(isRemoved) {
         if (isRemoved) {
@@ -459,7 +454,7 @@ private fun EditDescriptionDialog(
 private fun formatDate(dateString: String): String {
     return try {
         val dateTime = LocalDateTime.parse(dateString)
-        "${dateTime.year}년 ${dateTime.monthNumber}월 ${dateTime.dayOfMonth}일 ${
+        "${dateTime.year}년 ${dateTime.month}월 ${dateTime.day}일 ${
             String.format(
                 "%02d:%02d",
                 dateTime.hour,

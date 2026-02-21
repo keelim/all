@@ -14,14 +14,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import com.keelim.composeutil.AppState
-import com.keelim.composeutil.rememberAppState
 import com.keelim.comssa.ui.screen.ComssaHost
 
 @Composable
 fun ComssaApp(
     windowSizeClass: WindowSizeClass,
-    appState: AppState = rememberAppState(windowSizeClass = windowSizeClass),
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
@@ -33,7 +30,6 @@ fun ComssaApp(
         snackbarHost = { SnackbarHost(snackbarHostState) },
     ) { padding ->
         ComssaHost(
-            appState = appState,
             bottomSheetState = bottomSheetState,
             coroutineScope = coroutineScope,
             onShowSnackbar = { message, action ->

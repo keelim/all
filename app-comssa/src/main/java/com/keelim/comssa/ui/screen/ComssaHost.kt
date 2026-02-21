@@ -18,7 +18,6 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import com.google.android.gms.oss.licenses.v2.OssLicensesMenuActivity
-import com.keelim.composeutil.AppState
 import com.keelim.composeutil.rememberMutableStateListOf
 import com.keelim.comssa.ui.screen.main.calculator.CalculatorRoute
 import com.keelim.comssa.ui.screen.main.ecocal.EcocalRoute
@@ -29,7 +28,6 @@ import kotlinx.coroutines.CoroutineScope
 
 @Composable
 fun ComssaHost(
-    appState: AppState,
     bottomSheetState: SheetState,
     coroutineScope: CoroutineScope,
     onShowSnackbar: suspend (String, String?) -> Boolean,

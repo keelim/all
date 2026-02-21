@@ -17,7 +17,6 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import com.google.android.gms.oss.licenses.v2.OssLicensesMenuActivity
-import com.keelim.composeutil.AppState
 import com.keelim.composeutil.rememberMutableStateListOf
 import com.keelim.core.navigation.AppRoute
 import com.keelim.core.navigation.FeatureRoute
@@ -43,7 +42,6 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun MyGradeHost(
-    appState: AppState,
     coroutineScope: CoroutineScope,
     onShowSnackbar: suspend (String, String?) -> Boolean,
     modifier: Modifier = Modifier,

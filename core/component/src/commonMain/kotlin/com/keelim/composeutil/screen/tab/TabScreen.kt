@@ -10,7 +10,7 @@ import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Icon
-import androidx.compose.material3.ScrollableTabRow
+import androidx.compose.material3.PrimaryScrollableTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,7 +29,7 @@ fun TabScreen() {
     Column(
         modifier = Modifier.fillMaxWidth(),
     ) {
-        ScrollableTabRow(
+        PrimaryScrollableTabRow(
             selectedTabIndex = tabIndex,
         ) {
             tabs.fastForEachIndexed { index, title ->

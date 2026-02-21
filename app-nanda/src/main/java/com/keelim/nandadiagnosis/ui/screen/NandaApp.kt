@@ -26,8 +26,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import com.keelim.composeutil.AppState
-import com.keelim.composeutil.rememberAppState
 import com.keelim.composeutil.rememberMutableStateListOf
 import com.keelim.composeutil.resource.space12
 import com.keelim.core.navigation.AppRoute
@@ -39,7 +37,6 @@ import kotlinx.coroutines.launch
 @Composable
 fun NandaApp(
     windowSizeClass: WindowSizeClass,
-    appState: AppState = rememberAppState(windowSizeClass = windowSizeClass),
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
@@ -91,7 +88,6 @@ fun NandaApp(
         ) { padding ->
             NandaHost(
                 modifier = Modifier.padding(padding),
-                appState = appState,
                 bottomSheetState = bottomSheetState,
                 coroutineScope = coroutineScope,
                 onShowSnackbar = { message, action ->

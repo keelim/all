@@ -14,10 +14,17 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.keelim.data.model.MarketSchedule
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.datetime.Clock
+import kotlinx.datetime.DatePeriod
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.LocalTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.plus
+import kotlinx.datetime.toInstant
+import kotlinx.datetime.toLocalDateTime
 import jakarta.inject.Inject
 import jakarta.inject.Singleton
 import timber.log.Timber
-import java.util.Calendar
 
 @Singleton
 class MarketNotificationManager @Inject constructor(
@@ -50,16 +57,27 @@ class MarketNotificationManager @Inject constructor(
             return
         }
 
-        val calendar = Calendar.getInstance().apply {
-            set(Calendar.HOUR_OF_DAY, schedule.hour)
-            set(Calendar.MINUTE, schedule.minute)
-            set(Calendar.SECOND, 0)
-            set(Calendar.MILLISECOND, 0)
+        val timeZone = TimeZone.currentSystemDefault()
+        val nowMillis = Clock.System.now().toEpochMilliseconds()
+        val nowLocal = Clock.System.now().toLocalDateTime(timeZone)
+        var scheduledDateTime = LocalDateTime(
+            date = nowLocal.date,
+            time = LocalTime(
+                hour = schedule.hour,
+                minute = schedule.minute,
+                second = 0,
+                nanosecond = 0,
+            ),
+        )
+        var scheduledAtMillis = scheduledDateTime.toInstant(timeZone).toEpochMilliseconds()
 
-            // If time has passed today, schedule for tomorrow
-            if (timeInMillis <= System.currentTimeMillis()) {
-                add(Calendar.DAY_OF_YEAR, 1)
-            }
+        // If time has passed today, schedule for tomorrow.
+        if (scheduledAtMillis <= nowMillis) {
+            scheduledDateTime = LocalDateTime(
+                date = scheduledDateTime.date.plus(DatePeriod(days = 1)),
+                time = scheduledDateTime.time,
+            )
+            scheduledAtMillis = scheduledDateTime.toInstant(timeZone).toEpochMilliseconds()
         }
 
         val intent = Intent(context, MarketAlarmReceiver::class.java).apply {
@@ -80,25 +98,25 @@ class MarketNotificationManager @Inject constructor(
                 if (alarmManager.canScheduleExactAlarms()) {
                     alarmManager.setExactAndAllowWhileIdle(
                         AlarmManager.RTC_WAKEUP,
-                        calendar.timeInMillis,
+                        scheduledAtMillis,
                         pendingIntent
                     )
                 } else {
                     // Fallback to inexact alarm
                     alarmManager.setAndAllowWhileIdle(
                         AlarmManager.RTC_WAKEUP,
-                        calendar.timeInMillis,
+                        scheduledAtMillis,
                         pendingIntent
                     )
                 }
             } else {
                 alarmManager.setExactAndAllowWhileIdle(
                     AlarmManager.RTC_WAKEUP,
-                    calendar.timeInMillis,
+                    scheduledAtMillis,
                     pendingIntent
                 )
             }
-            Timber.d("Scheduled notification for ${schedule.name} at ${calendar.time}")
+            Timber.d("Scheduled notification for ${schedule.name} at $scheduledDateTime")
         } catch (e: SecurityException) {
             Timber.e(e, "Failed to schedule exact alarm")
         }

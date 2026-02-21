@@ -14,8 +14,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import java.text.SimpleDateFormat
-import java.util.*
+import kotlinx.datetime.Instant
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
+import java.util.Locale
 import jakarta.inject.Inject
 
 @Stable
@@ -74,7 +76,22 @@ class NutrientTimerViewModel @Inject constructor() : ViewModel() {
     fun addTime(currTime: Long): String {
         val setTime = getTotalTimeInSeconds() * 1000
         val addedTime = setTime + currTime
-        return SimpleDateFormat("hh:mm:ss a", Locale.getDefault()).format(Date(addedTime))
+        val localDateTime = Instant.fromEpochMilliseconds(addedTime)
+            .toLocalDateTime(TimeZone.currentSystemDefault())
+        val hour = when (localDateTime.hour) {
+            0 -> 12
+            in 13..23 -> localDateTime.hour - 12
+            else -> localDateTime.hour
+        }
+        val period = if (localDateTime.hour < 12) "AM" else "PM"
+        return String.format(
+            Locale.getDefault(),
+            "%02d:%02d:%02d %s",
+            hour,
+            localDateTime.minute,
+            localDateTime.second,
+            period,
+        )
     }
 
     fun start() {

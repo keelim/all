@@ -12,6 +12,12 @@ import android.content.pm.PackageManager
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
+import com.keelim.core.resource.Res
+import com.keelim.core.resource.market_notifications_default_schedule_name
+import com.keelim.core.resource.market_notifications_live_text
+import com.keelim.core.resource.market_notifications_live_title
+import com.keelim.core.resource.market_notifications_standard_text
+import com.keelim.core.resource.market_notifications_standard_title
 import com.keelim.data.model.MarketSchedule
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.datetime.Clock
@@ -24,9 +30,12 @@ import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 import jakarta.inject.Inject
 import jakarta.inject.Singleton
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.getString
 import timber.log.Timber
 
 @Singleton
+@OptIn(ExperimentalResourceApi::class)
 class MarketNotificationManager @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
@@ -138,15 +147,18 @@ class MarketNotificationManager @Inject constructor(
         Timber.d("Cancelled notification for ${schedule.name}")
     }
 
-    fun showNotification(scheduleId: String, scheduleName: String) {
+    suspend fun showNotification(scheduleId: String, scheduleName: String?) {
         val notificationId = scheduleId.hashCode()
+        val resolvedScheduleName = scheduleName ?: getString(
+            Res.string.market_notifications_default_schedule_name
+        )
 
         val notification = if (Build.VERSION.SDK_INT >= 36) {
             // Android 16+ with ProgressStyle for Live Updates
-            createLiveNotification(scheduleName)
+            createLiveNotification(resolvedScheduleName)
         } else {
             // Standard notification for older versions
-            createStandardNotification(scheduleName)
+            createStandardNotification(resolvedScheduleName)
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -162,7 +174,7 @@ class MarketNotificationManager @Inject constructor(
         }
     }
 
-    private fun createStandardNotification(scheduleName: String): Notification {
+    private suspend fun createStandardNotification(scheduleName: String): Notification {
         val launchIntent = context.packageManager.getLaunchIntentForPackage(context.packageName)?.apply {
             flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
         }
@@ -175,8 +187,13 @@ class MarketNotificationManager @Inject constructor(
 
         return NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(android.R.drawable.ic_dialog_info)
-            .setContentTitle("📈 Market Opening!")
-            .setContentText("$scheduleName is now open for trading")
+            .setContentTitle(getString(Res.string.market_notifications_standard_title))
+            .setContentText(
+                getString(
+                    Res.string.market_notifications_standard_text,
+                    scheduleName
+                )
+            )
             .setAutoCancel(true)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setContentIntent(pendingIntent)
@@ -184,7 +201,7 @@ class MarketNotificationManager @Inject constructor(
     }
 
     @Suppress("NewApi")
-    private fun createLiveNotification(scheduleName: String): Notification {
+    private suspend fun createLiveNotification(scheduleName: String): Notification {
         val launchIntent = context.packageManager.getLaunchIntentForPackage(context.packageName)?.apply {
             flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
         }
@@ -202,8 +219,13 @@ class MarketNotificationManager @Inject constructor(
 
         return Notification.Builder(context, CHANNEL_ID)
             .setSmallIcon(android.R.drawable.ic_dialog_info)
-            .setContentTitle("📈 $scheduleName")
-            .setContentText("Market is now open for trading!")
+            .setContentTitle(
+                getString(
+                    Res.string.market_notifications_live_title,
+                    scheduleName
+                )
+            )
+            .setContentText(getString(Res.string.market_notifications_live_text))
             .setStyle(style)
             .setAutoCancel(true)
             .setContentIntent(pendingIntent)

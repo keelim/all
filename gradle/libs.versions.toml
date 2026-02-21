@@ -66,6 +66,7 @@ jsoup = "1.22.1"
 junit4 = "4.13.2"
 kotlin = "2.3.0"
 kotlin-benchmark = "0.4.15"
+jmh = "1.37"
 kotlinxCollectionsImmutable = "0.4.0"
 kotlinxCoroutines = "1.10.2"
 kotlinxDatetime = "0.7.1-0.6.x-compat"
@@ -384,8 +385,9 @@ firebase-perf = { id = "com.google.firebase.firebase-perf", version.ref = "fireb
 gms-googleServices = "com.google.gms.google-services:4.4.4"
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-kotlin-benchmark = { id = "org.jetbrains.kotlin.benchmark", version.ref = "kotlin-benchmark" }
+kotlin-benchmark = { id = "org.jetbrains.kotlinx.benchmark", version.ref = "kotlin-benchmark" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-allopen = { id = "org.jetbrains.kotlin.plugin.allopen", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

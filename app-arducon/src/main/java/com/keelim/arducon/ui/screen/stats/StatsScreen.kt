@@ -41,12 +41,10 @@ import com.github.tehras.charts.bar.BarChartData
 import com.github.tehras.charts.bar.renderer.label.SimpleValueDrawer
 import com.github.tehras.charts.bar.renderer.xaxis.SimpleXAxisDrawer
 import com.github.tehras.charts.bar.renderer.yaxis.SimpleYAxisDrawer
+import com.keelim.commonAndroid.extensions.toUiDateTime
 import com.keelim.model.DeepLink
 import com.keelim.model.UsageStat
 import kotlinx.datetime.Instant
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
-import java.util.Locale
 
 @Composable
 fun StatsScreen(
@@ -189,17 +187,7 @@ private fun StatsSectionCard(
 @Composable
 private fun StatsLinkItem(item: DeepLink, highlight: Boolean) {
     val lastUsed = if (item.lastUsed > 0) {
-        val localDateTime = Instant.fromEpochMilliseconds(item.lastUsed)
-            .toLocalDateTime(TimeZone.currentSystemDefault())
-        String.format(
-            Locale.getDefault(),
-            "%04d.%02d.%02d %02d:%02d",
-            localDateTime.year,
-            localDateTime.monthNumber,
-            localDateTime.dayOfMonth,
-            localDateTime.hour,
-            localDateTime.minute,
-        )
+        Instant.fromEpochMilliseconds(item.lastUsed).toUiDateTime()
     } else {
         "-"
     }

@@ -65,6 +65,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEach
 import androidx.compose.ui.util.trace
 import androidx.core.net.toUri
+import com.keelim.common.extensions.toUiTwoDigits
+import com.keelim.commonAndroid.extensions.toUiDate
 import com.keelim.composeutil.component.fab.FabButtonItem
 import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space16
@@ -80,6 +82,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
+import kotlinx.datetime.number
 import kotlinx.datetime.toLocalDateTime
 import timber.log.Timber
 
@@ -202,7 +205,7 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
             verticalAlignment = Alignment.Bottom,
         ) {
             Text(
-                text = "${time.year} ${String.format("%02d", time.month)}",
+                text = "${time.year} ${time.month.number.toUiTwoDigits()}",
                 style = MaterialTheme.typography.headlineMedium.copy(
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onPrimaryContainer,
@@ -220,12 +223,7 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
                     )
                     Spacer(modifier = Modifier.width(space4))
                     Text(
-                        text = "${time.year}년 ${
-                            String.format(
-                                "%02d",
-                                time.month,
-                            )
-                        }월 ${time.day}일",
+                        text = time.toUiDate(),
                         style = MaterialTheme.typography.bodyMedium.copy(
                             color = MaterialTheme.colorScheme.onPrimaryContainer,
                             fontWeight = FontWeight.Medium,
@@ -235,7 +233,7 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
 
                 Row(verticalAlignment = Alignment.Bottom) {
                     AnimatedContent(
-                        targetState = String.format("%02d", time.hour),
+                        targetState = time.hour.toUiTwoDigits(),
                         transitionSpec = {
                             (slideInVertically { height -> height } + fadeIn()) togetherWith
                                 (slideOutVertically { height -> -height } + fadeOut())
@@ -258,7 +256,7 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
                         ),
                     )
                     AnimatedContent(
-                        targetState = String.format("%02d", time.minute),
+                        targetState = time.minute.toUiTwoDigits(),
                         transitionSpec = {
                             (slideInVertically { height -> height } + fadeIn()) togetherWith
                                 (slideOutVertically { height -> -height } + fadeOut())
@@ -281,7 +279,7 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
                         ),
                     )
                     AnimatedContent(
-                        targetState = String.format("%02d", time.second),
+                        targetState = time.second.toUiTwoDigits(),
                         transitionSpec = {
                             (slideInVertically { height -> height } + fadeIn()) togetherWith
                                 (slideOutVertically { height -> -height } + fadeOut())

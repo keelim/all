@@ -71,6 +71,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.trace
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.keelim.common.extensions.formatUiTime
+import com.keelim.common.extensions.toUiTwoDigits
 import com.keelim.composeutil.component.custom.NumberPickerList
 import kotlinx.coroutines.launch
 
@@ -577,7 +579,7 @@ private fun formatTimeDisplay(seconds: Int): String {
     val hours = seconds / 3600
     val minutes = (seconds % 3600) / 60
     val secs = seconds % 60
-    return "%02d:%02d:%02d".format(hours, minutes, secs)
+    return "${formatUiTime(hour = hours, minute = minutes)}:${secs.toUiTwoDigits()}"
 }
 
 @Composable

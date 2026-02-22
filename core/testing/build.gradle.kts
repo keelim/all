@@ -17,7 +17,6 @@ dependencies {
     api(libs.androidx.test.rules)
     api(libs.androidx.test.runner)
     api(libs.hilt.android.testing)
-    api(libs.junit4)
     api(libs.kotest.assertions.core)
     api(libs.kotest.runner.junit5)
     api(libs.kotest.property)

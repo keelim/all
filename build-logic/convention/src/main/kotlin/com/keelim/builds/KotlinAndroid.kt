@@ -82,6 +82,9 @@ internal fun Project.configureKotlinJvm() {
 private fun Project.configureUnitTests() {
     tasks.withType<Test>().configureEach {
         useJUnitPlatform()
+        // Several Android modules have generated unit-test classes but no user-authored tests.
+        // Keep platform migration stable by not failing such tasks on empty discovery.
+        failOnNoDiscoveredTests = false
     }
 }
 

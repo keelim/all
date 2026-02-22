@@ -82,6 +82,22 @@ all/
   ```
 - **All user actions MUST be animation-friendly**: Use `LazyColumn` with `animateItem`, `AnimatedVisibility` for visibility changes
 
+### Formatting (Date/Currency/Number)
+- **Single Rule**: User-facing date/currency/number strings MUST go through shared formatters.
+- **Date/Time (UI)**: Use fixed patterns `yyyy.MM.dd`, `yyyy.MM.dd HH:mm`, `HH:mm` in 24-hour format.
+- **Timezone (UI)**: Use system timezone (`TimeZone.currentSystemDefault()` or Android system default).
+- **Number (UI)**: Use `NumberFormat.getNumberInstance(Locale.getDefault())` via shared extensions.
+- **Currency (UI)**: Use locale-based currency by default; pass explicit `Currency` when domain data includes currency code.
+- **Hardcoded Units**: Do not hardcode units like `"원"` in screen strings; use resources or formatter output.
+- **Storage/Transport Values**: Keep ISO/epoch formats for persistence and APIs (`yyyy-MM-dd`, ISO-8601, epoch).
+- **Forbidden Patterns**: UI date composition via `String.format`, and direct UI money formatting via `DecimalFormat("#,###")`.
+- **Allowed Exception**: File names, logs, and debug-only text may use ad-hoc formatting.
+- **Timer/Picker Rule**: Zero-padding (`%02d` equivalent) MUST use a shared helper, not inline `String.format`.
+- **Phase 1 Migration Targets**:
+  - Date/Time: `app-arducon/.../MainScreen.kt`, `app-arducon/.../StatsScreen.kt`, `core/data/.../NotificationRepositoryImpl.kt`, `app-comssa/.../EcocalSection.kt`, `app-comssa/.../MarketNotificationScreen.kt`
+  - Number/Currency: `app-comssa/.../CalculatorSubScreens.kt`, `core/common/.../MoneyExt.kt`, `core/component/.../TipTimeScreen.kt`
+  - Timer Helpers: `core/component/.../NumberPickerList.kt`, `app-nanda/.../MedicationScreen.kt`, `app-my-grade/.../TimerViewModel.kt`, `app-nanda/.../NutrientTimerViewModel.kt`
+
 ### Build
 - **Always verify builds**: Run `./gradlew :<module>:assembleDebug` after changes
 - **Version catalog**: All dependencies in `gradle/libs.versions.toml`

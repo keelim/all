@@ -82,6 +82,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.keelim.arducon.ui.screen.main.MainViewModel.QrDialogState
 import com.keelim.common.extensions.saveQrBitmapToGallery
+import com.keelim.commonAndroid.extensions.toUiDateTime
 import com.keelim.composeutil.component.icon.rememberQrCodeScanner
 import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space16
@@ -92,8 +93,6 @@ import com.keelim.composeutil.util.permission.SimpleAcquirePermissions
 import com.keelim.core.resource.*
 import com.keelim.model.DeepLink
 import kotlinx.datetime.Instant
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.resources.stringResource
 
 val appPermissions: List<String> by lazy {
@@ -595,14 +594,7 @@ private fun DeepLinkBottomSheet(
                 }
 
                 val formattedTimestamp = remember(deepLink.timestamp) {
-                    val instant = Instant.fromEpochMilliseconds(deepLink.timestamp)
-                    val dateTime = instant.toLocalDateTime(TimeZone.currentSystemDefault())
-                    "${dateTime.year}년 ${dateTime.month}월 ${dateTime.day}일 ${
-                        String.format(
-                            "%02d",
-                            dateTime.hour,
-                        )
-                    }:${String.format("%02d", dateTime.minute)}"
+                    Instant.fromEpochMilliseconds(deepLink.timestamp).toUiDateTime()
                 }
                 Text(
                     text = "생성일: $formattedTimestamp",

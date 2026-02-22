@@ -3,12 +3,14 @@ package com.keelim.commonAndroid.util
 import android.app.Activity
 import android.app.Application
 import android.app.Application.ActivityLifecycleCallbacks
+import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.PixelCopy
 import androidx.core.graphics.createBitmap
+import com.keelim.commonAndroid.ui.crash.CrashReportActivity
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.number
 import kotlinx.datetime.toLocalDateTime
@@ -29,7 +31,6 @@ import kotlin.time.ExperimentalTime
 class CrashHandler @Inject constructor(
     private val application: Application,
 ) : Thread.UncaughtExceptionHandler {
-    private val defaultHandler = Thread.getDefaultUncaughtExceptionHandler()
     private var currentActivity: WeakReference<Activity>? = null
     private val executor: ScheduledExecutorService = Executors.newSingleThreadScheduledExecutor()
 
@@ -62,14 +63,30 @@ class CrashHandler @Inject constructor(
     }
 
     override fun uncaughtException(thread: Thread, throwable: Throwable) {
-        Timber.e("Uncaught exception detected on thread: ${'$'}{thread.name}")
+        Timber.e(throwable, "Uncaught exception detected on thread: ${thread.name}")
         try {
             captureScreenshot(throwable)
         } catch (e: Exception) {
             Timber.e(e, "Failed to handle crash with screenshot")
-        } finally {
-            defaultHandler?.uncaughtException(thread, throwable)
         }
+
+        try {
+            showCrashReport(throwable)
+        } catch (e: Exception) {
+            Timber.e(e, "Failed to launch crash report activity")
+        }
+    }
+
+    private fun showCrashReport(throwable: Throwable) {
+        application.startActivity(
+            Intent(
+                application,
+                CrashReportActivity::class.java,
+            ).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                putExtra(ERROR_EXTRA_KEY, throwable.stackTraceToString())
+            },
+        )
     }
 
     private fun captureScreenshot(throwable: Throwable) {
@@ -144,6 +161,7 @@ class CrashHandler @Inject constructor(
     }
 
     companion object {
+        private const val ERROR_EXTRA_KEY = "error"
         private const val SCREENSHOTS_DIR = "crash_all_screenshots"
         private const val SCREENSHOT_TIMEOUT_MS = 3000L
     }

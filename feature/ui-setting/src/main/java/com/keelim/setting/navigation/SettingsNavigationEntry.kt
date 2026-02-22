@@ -2,7 +2,6 @@ package com.keelim.setting.navigation
 
 import android.content.Context
 import android.content.Intent
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.core.net.toUri
 import androidx.navigation3.runtime.EntryProviderScope
@@ -16,7 +15,6 @@ import com.keelim.setting.screen.settings.SettingsRoute
 import com.keelim.setting.screen.theme.ThemeRoute
 import com.keelim.web.navigateToWebModule
 
-@Composable
 fun EntryProviderScope<Any>.registerSettingsEntries(
     backStack: SnapshotStateList<Any>,
     context: Context,

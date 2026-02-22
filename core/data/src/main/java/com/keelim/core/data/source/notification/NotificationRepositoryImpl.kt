@@ -26,16 +26,13 @@ constructor(
 ) : NotificationRepository {
     override suspend fun getNotification(): List<Notification> {
         return withContext(dispatcher) {
-            client
-                .use<HttpClient, List<NoticeResponse>> {
-                    it.get {
-                        url("${BuildConfig.NOTIFICATION_URL}/rest/v1/notice")
-                        headers {
-                            append("apikey", BuildConfig.SHEET_KEY)
-                            append("Authorization", "Bearer ${BuildConfig.SHEET_KEY}")
-                        }
-                    }.body()
+            client.get {
+                url("${BuildConfig.NOTIFICATION_URL}/rest/v1/notice")
+                headers {
+                    append("apikey", BuildConfig.SHEET_KEY)
+                    append("Authorization", "Bearer ${BuildConfig.SHEET_KEY}")
                 }
+            }.body<List<NoticeResponse>>()
                 .map {
                     val localDate = it.createdAt.toLocalDateTime(TimeZone.UTC)
                     val formattedDate = String.format(

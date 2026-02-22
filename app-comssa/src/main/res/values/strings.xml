@@ -1,4 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Comssa</string>
+    <string name="calculator_label_principal">원금</string>
+    <string name="calculator_label_annual_interest_rate">연이율 (%)</string>
+    <string name="calculator_label_period_years">기간 (년)</string>
+    <string name="calculator_action_calculate">계산하기</string>
+    <string name="calculator_result_final_amount">최종 금액: %1$s</string>
+    <string name="calculator_key_principal">원금</string>
+    <string name="calculator_key_annual_rate">연이율</string>
+    <string name="calculator_key_period">기간</string>
+    <string name="calculator_key_final_amount">최종 금액</string>
+    <string name="loan_repayment_calculator_pending">대출 상환 계산기 준비 중</string>
+    <string name="investment_return_calculator_pending">투자 수익률 계산기 준비 중</string>
+    <string name="currency_converter_pending">환율 변환기 준비 중</string>
+    <string name="tax_calculator_pending">세금 계산기 준비 중</string>
+    <string name="retirement_label_current_age">현재 나이</string>
+    <string name="retirement_label_target_age">은퇴 목표 나이</string>
+    <string name="retirement_label_current_savings">현재 자산 (원)</string>
+    <string name="retirement_label_annual_contribution">연간 저축액 (원)</string>
+    <string name="retirement_label_expected_annual_return">예상 연 수익률 (%)</string>
+    <string name="retirement_result_expected_assets">은퇴 시 예상 자산: %1$s 원</string>
+    <string name="retirement_key_current_age">현재 나이</string>
+    <string name="retirement_key_retirement_age">은퇴 나이</string>
+    <string name="retirement_key_current_savings">현재 자산</string>
+    <string name="retirement_key_annual_savings">연간 저축</string>
+    <string name="retirement_key_return_rate">수익률</string>
+    <string name="retirement_key_expected_assets">은퇴 시 예상 자산</string>
 </resources>

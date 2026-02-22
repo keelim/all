@@ -37,22 +37,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.content.FileProvider
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.keelim.arducon.R
 import com.keelim.common.extensions.saveQrBitmapToGallery
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space8
+import com.keelim.core.resource.*
 import com.keelim.model.linkinspector.HttpResult
 import com.keelim.model.linkinspector.OgResult
 import com.keelim.model.linkinspector.ResolvedApp
 import java.io.File
 import java.io.FileOutputStream
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun PlaygroundRoute(
@@ -62,6 +62,7 @@ fun PlaygroundRoute(
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val context = androidx.compose.ui.platform.LocalContext.current
     val qrState by viewModel.qrDialogState.collectAsStateWithLifecycle()
+    val playgroundTitle = stringResource(Res.string.playground_title)
     PlaygroundScreen(
         state = state,
         onNavigateBack = onNavigateBack,
@@ -75,7 +76,7 @@ fun PlaygroundRoute(
                 type = "text/plain"
                 putExtra(android.content.Intent.EXTRA_TEXT, text)
             }
-            val chooser = android.content.Intent.createChooser(shareIntent, context.getString(R.string.playground_title))
+            val chooser = android.content.Intent.createChooser(shareIntent, playgroundTitle)
             context.startActivity(chooser)
             text
         },
@@ -106,7 +107,7 @@ fun PlaygroundScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = stringResource(id = R.string.playground_title),
+                        text = stringResource(Res.string.playground_title),
                         style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
                     )
                 },
@@ -131,7 +132,7 @@ fun PlaygroundScreen(
                 value = state.url,
                 onValueChange = onUrlChange,
                 modifier = Modifier.fillMaxWidth(),
-                label = { Text(stringResource(id = R.string.label_url)) },
+                label = { Text(stringResource(Res.string.label_url)) },
                 singleLine = true,
             )
             Row(horizontalArrangement = Arrangement.spacedBy(space8)) {
@@ -139,14 +140,14 @@ fun PlaygroundScreen(
                     value = state.paramKey,
                     onValueChange = onParamKeyChange,
                     modifier = Modifier.weight(1f),
-                    label = { Text(stringResource(id = R.string.label_param_key)) },
+                    label = { Text(stringResource(Res.string.label_param_key)) },
                     singleLine = true,
                 )
                 OutlinedTextField(
                     value = state.paramValue,
                     onValueChange = onParamValueChange,
                     modifier = Modifier.weight(1f),
-                    label = { Text(stringResource(id = R.string.label_param_value)) },
+                    label = { Text(stringResource(Res.string.label_param_value)) },
                     singleLine = true,
                 )
             }
@@ -155,7 +156,7 @@ fun PlaygroundScreen(
 
             Button(onClick = onRunValidation, enabled = state.url.isNotBlank()) {
                 Icon(imageVector = Icons.Default.PlayArrow, contentDescription = null)
-                Text(text = stringResource(id = R.string.action_run_validation), modifier = Modifier.padding(start = space8))
+                Text(text = stringResource(Res.string.action_run_validation), modifier = Modifier.padding(start = space8))
             }
 
             if (state.isLoading) {
@@ -181,11 +182,11 @@ fun PlaygroundScreen(
                         // sharing will be handled in Route if we pass a callback with context, but for now we just build text
                         snackbarHostState.currentSnackbarData?.dismiss()
                     }) {
-                        Text(stringResource(id = R.string.action_share_report))
+                        Text(stringResource(Res.string.action_share_report))
                     }
                     Spacer(modifier = Modifier.height(8.dp))
                     Button(onClick = onGenerateQr, enabled = state.preview.isNotBlank() || state.url.isNotBlank()) {
-                        Text(stringResource(id = R.string.action_generate_qr))
+                        Text(stringResource(Res.string.action_generate_qr))
                     }
                 }
             }
@@ -207,23 +208,24 @@ private fun QrDialogSection(
                 onDismissRequest = onDismiss,
                 text = { androidx.compose.material3.CircularProgressIndicator() },
                 confirmButton = {},
-                dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(id = R.string.dialog_close)) } },
+                dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(Res.string.dialog_close)) } },
             )
         }
         is PlaygroundViewModel.QrDialogState.Success -> {
             val context = LocalContext.current
+            val playgroundTitle = stringResource(Res.string.playground_title)
             androidx.compose.material3.AlertDialog(
                 onDismissRequest = onDismiss,
                 text = {
                     Image(
                         bitmap = qrDialogState.bitmap.asImageBitmap(),
-                        contentDescription = stringResource(id = R.string.qr_content_description),
+                        contentDescription = stringResource(Res.string.qr_content_description),
                     )
                 },
                 confirmButton = {
                     Row(horizontalArrangement = Arrangement.spacedBy(space8)) {
                         Button(onClick = { context.saveQrBitmapToGallery(qrDialogState.bitmap) }) {
-                            Text(stringResource(id = R.string.qr_save_image))
+                            Text(stringResource(Res.string.qr_save_image))
                         }
                         Button(onClick = {
                             val cacheDir = File(context.cacheDir, "images").apply { mkdirs() }
@@ -237,24 +239,24 @@ private fun QrDialogSection(
                                 putExtra(android.content.Intent.EXTRA_STREAM, uri)
                                 addFlags(android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION)
                             }
-                            context.startActivity(android.content.Intent.createChooser(share, context.getString(R.string.playground_title)))
+                            context.startActivity(android.content.Intent.createChooser(share, playgroundTitle))
                         }) {
-                            Text(stringResource(id = R.string.qr_share_image))
+                            Text(stringResource(Res.string.qr_share_image))
                         }
                     }
                 },
                 dismissButton = {
-                    TextButton(onClick = onDismiss) { Text(stringResource(id = R.string.dialog_close)) }
+                    TextButton(onClick = onDismiss) { Text(stringResource(Res.string.dialog_close)) }
                 },
             )
         }
         is PlaygroundViewModel.QrDialogState.Error -> {
             androidx.compose.material3.AlertDialog(
                 onDismissRequest = onDismiss,
-                title = { Text(stringResource(id = R.string.dialog_error)) },
+                title = { Text(stringResource(Res.string.dialog_error)) },
                 text = { Text(qrDialogState.message) },
                 confirmButton = {},
-                dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(id = R.string.dialog_close)) } },
+                dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(Res.string.dialog_close)) } },
             )
         }
     }
@@ -267,7 +269,7 @@ private fun ResolvedAppsCard(apps: List<ResolvedApp>) {
     Card(elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)) {
         Column(modifier = Modifier.padding(space16), verticalArrangement = Arrangement.spacedBy(space8)) {
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-                Text(text = stringResource(id = R.string.label_resolved_apps), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                Text(text = stringResource(Res.string.label_resolved_apps), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                 Row {
                     IconButton(onClick = {
                         val text = apps.joinToString("\n") { "${'$'}{it.label} (${ '$'}{it.packageName})" }
@@ -302,7 +304,7 @@ private fun HttpResultCard(http: HttpResult) {
     Card(elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)) {
         Column(modifier = Modifier.padding(space16), verticalArrangement = Arrangement.spacedBy(space8)) {
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-                Text(text = stringResource(id = R.string.label_http_result), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                Text(text = stringResource(Res.string.label_http_result), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                 Row {
                     IconButton(onClick = {
                         val headers = http.headers.entries.joinToString("\n") { (k, v) -> "$k: ${'$'}{v.joinToString()}" }
@@ -319,15 +321,15 @@ private fun HttpResultCard(http: HttpResult) {
                     }
                 }
             }
-            Text(text = stringResource(id = R.string.label_status_code, http.statusCode))
-            Text(text = stringResource(id = R.string.label_final_url, http.finalUrl))
+            Text(text = stringResource(Res.string.label_status_code, http.statusCode))
+            Text(text = stringResource(Res.string.label_final_url, http.finalUrl))
             if (expanded) {
                 if (http.redirects.isNotEmpty()) {
-                    Text(stringResource(id = R.string.label_redirects))
+                    Text(stringResource(Res.string.label_redirects))
                     http.redirects.forEach { Text("- ${'$'}it") }
                 }
                 if (http.headers.isNotEmpty()) {
-                    Text(stringResource(id = R.string.label_headers))
+                    Text(stringResource(Res.string.label_headers))
                     http.headers.forEach { (k, v) -> Text("${'$'}k: ${'$'}{v.joinToString()}") }
                 }
             }
@@ -342,7 +344,7 @@ private fun OgResultCard(og: OgResult) {
     Card(elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)) {
         Column(modifier = Modifier.padding(space16), verticalArrangement = Arrangement.spacedBy(space8)) {
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-                Text(text = stringResource(id = R.string.label_og_result), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                Text(text = stringResource(Res.string.label_og_result), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                 Row {
                     IconButton(onClick = {
                         val text = "title=${'$'}{og.title}\ndesc=${'$'}{og.description}\nimage=${'$'}{og.image}"
@@ -358,10 +360,10 @@ private fun OgResultCard(og: OgResult) {
                     }
                 }
             }
-            Text(text = stringResource(id = R.string.label_og_title, og.title ?: "-"))
+            Text(text = stringResource(Res.string.label_og_title, og.title ?: "-"))
             if (expanded) {
-                Text(text = stringResource(id = R.string.label_og_desc, og.description ?: "-"))
-                Text(text = stringResource(id = R.string.label_og_image, og.image ?: "-"))
+                Text(text = stringResource(Res.string.label_og_desc, og.description ?: "-"))
+                Text(text = stringResource(Res.string.label_og_image, og.image ?: "-"))
             }
         }
     }

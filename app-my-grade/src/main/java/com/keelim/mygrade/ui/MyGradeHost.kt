@@ -13,6 +13,8 @@ import com.keelim.composeutil.rememberMutableStateListOf
 import com.keelim.core.navigation.AppRoute
 import com.keelim.core.navigation.FeatureRoute
 import com.keelim.core.navigation.MyGradeRoute
+import com.keelim.core.resource.Res
+import com.keelim.core.resource.my_grade_feature_preparing
 import com.keelim.mygrade.ui.screen.analytics.StudyAnalyticsRoute
 import com.keelim.mygrade.ui.screen.grade.GradeRoute
 import com.keelim.mygrade.ui.screen.grade.edit.EditRoute
@@ -31,6 +33,7 @@ import com.keelim.setting.screen.event.EventRoute
 import com.keelim.setting.navigation.registerSettingsEntries
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun MyGradeHost(
@@ -39,6 +42,7 @@ fun MyGradeHost(
     modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
+    val featurePreparingMessage = stringResource(Res.string.my_grade_feature_preparing)
     val backStack = rememberMutableStateListOf<AppRoute>(MyGradeRoute.Main())
 
     KeelimNavDisplay(
@@ -76,7 +80,7 @@ fun MyGradeHost(
                     },
                     onLabClick = {
                         coroutineScope.launch {
-                            onShowSnackbar("새로운 기능으로 준비중입니다 😀", null)
+                            onShowSnackbar(featurePreparingMessage, null)
                         }
                     },
                     onNavigateTimerHistory = {
@@ -132,7 +136,7 @@ fun MyGradeHost(
                     },
                     onShareClick = {
                         coroutineScope.launch {
-                            onShowSnackbar("새로운 기능으로 준비중입니다 😀", null)
+                            onShowSnackbar(featurePreparingMessage, null)
                         }
                     },
                 )

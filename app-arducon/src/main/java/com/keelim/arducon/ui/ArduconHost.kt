@@ -28,10 +28,13 @@ import com.keelim.core.navigation.AppRoute
 import com.keelim.core.navigation.ArduconRoute
 import com.keelim.core.navigation.FeatureRoute
 import com.keelim.core.navigation.SaastatusRoute
+import com.keelim.core.resource.Res
+import com.keelim.core.resource.arducon_search_screen_loaded
 import com.keelim.setting.screen.device.DeviceInfoScreen
 import com.keelim.web.navigateToWebModule
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun ArduConHost(
@@ -42,6 +45,7 @@ fun ArduConHost(
     viewModel: AppViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
+    val searchScreenLoaded = stringResource(Res.string.arducon_search_screen_loaded)
 
     val backStack = rememberMutableStateListOf<AppRoute>(ArduconRoute.Main)
 
@@ -106,7 +110,7 @@ fun ArduConHost(
                 SearchRoute(
                     onUpdate = {
                         coroutineScope.launch {
-                            onShowSnackbar("스킴 검색 화면이 로드되었습니다.", null)
+                            onShowSnackbar(searchScreenLoaded, null)
                         }
                     },
                     onNavigateToCreateDeepLink = { scheme ->

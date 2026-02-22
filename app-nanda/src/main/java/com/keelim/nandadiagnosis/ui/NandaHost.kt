@@ -14,6 +14,10 @@ import com.google.android.gms.oss.licenses.v2.OssLicensesMenuActivity
 import com.keelim.composeutil.navigation.KeelimNavDisplay
 import com.keelim.core.navigation.FeatureRoute
 import com.keelim.core.navigation.NandaRoute
+import com.keelim.core.resource.Res
+import com.keelim.core.resource.nanda_feature_preparing
+import com.keelim.core.resource.nanda_move_action
+import com.keelim.core.resource.nanda_move_confirmation
 import com.keelim.nandadiagnosis.ui.screen.category.CategoriesType
 import com.keelim.nandadiagnosis.ui.screen.category.CategoryRoute
 import com.keelim.nandadiagnosis.ui.screen.diagnosis.DiagnosisRoute
@@ -31,8 +35,12 @@ import com.keelim.setting.navigation.registerSettingsEntries
 import com.keelim.web.navigateToWebModule
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.getString
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
+@OptIn(ExperimentalResourceApi::class)
 fun NandaHost(
     bottomSheetState: SheetState,
     coroutineScope: CoroutineScope,
@@ -41,6 +49,8 @@ fun NandaHost(
     modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
+    val featurePreparingMessage = stringResource(Res.string.nanda_feature_preparing)
+    val moveAction = stringResource(Res.string.nanda_move_action)
 
     KeelimNavDisplay(
         modifier = modifier,
@@ -63,7 +73,7 @@ fun NandaHost(
 
                             else -> {
                                 coroutineScope.launch {
-                                    onShowSnackbar("현재 업데이트 준비중입니다. ", null)
+                                    onShowSnackbar(featurePreparingMessage, null)
                                 }
                             }
                         }
@@ -114,7 +124,10 @@ fun NandaHost(
                 NutrientRoute(
                     onNutrientClick = { title, uri ->
                         coroutineScope.launch {
-                            val result = onShowSnackbar("$title 로 이동하시겠습니까?", "move")
+                            val result = onShowSnackbar(
+                                getString(Res.string.nanda_move_confirmation, title),
+                                moveAction,
+                            )
                             if (result) {
                                 context.startActivity(Intent(Intent.ACTION_VIEW, uri.toUri()))
                             }

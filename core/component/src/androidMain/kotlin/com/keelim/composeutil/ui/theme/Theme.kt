@@ -52,23 +52,34 @@ fun KeelimTheme(
     }
 
     LifecycleEventEffect(event = Lifecycle.Event.ON_RESUME) {
+        val currentActivity = activity ?: return@LifecycleEventEffect
         val updateManager = AppUpdateManagerFactory.create(context)
         val updateInfo = updateManager.appUpdateInfo
+        val immediateUpdateOptions =
+            AppUpdateOptions.newBuilder(AppUpdateType.IMMEDIATE)
+                .setAllowAssetPackDeletion(true)
+                .build()
 
         updateInfo.addOnSuccessListener { info ->
-            if (info.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE &&
-                info.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)
-            ) {
-                activity?.run {
+            when (info.updateAvailability()) {
+                UpdateAvailability.UPDATE_AVAILABLE ->
+                    if (info.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
+                        updateManager.startUpdateFlowForResult(
+                            info,
+                            currentActivity,
+                            immediateUpdateOptions,
+                            IN_APP_UPDATE,
+                        )
+                    }
+                UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS -> {
                     updateManager.startUpdateFlowForResult(
                         info,
-                        this,
-                        AppUpdateOptions.newBuilder(AppUpdateType.IMMEDIATE)
-                            .setAllowAssetPackDeletion(true)
-                            .build(),
+                        currentActivity,
+                        immediateUpdateOptions,
                         IN_APP_UPDATE,
                     )
                 }
+                else -> Unit
             }
         }
     }

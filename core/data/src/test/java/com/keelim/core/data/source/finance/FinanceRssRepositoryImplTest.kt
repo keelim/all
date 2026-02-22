@@ -2,15 +2,13 @@ package com.keelim.core.data.source.finance
 
 import com.keelim.model.finance.FinanceCategory
 import com.keelim.model.finance.FinanceSource
+import com.keelim.testing.util.MainDispatcherRule
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.test.setMain
 import kotlinx.datetime.Instant
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -18,6 +16,9 @@ class FinanceRssRepositoryImplTest : FunSpec({
 
     lateinit var repository: FinanceRssRepositoryImpl
     val testDispatcher = StandardTestDispatcher()
+    val mainDispatcherRule = MainDispatcherRule(testDispatcher)
+
+    extension(mainDispatcherRule)
 
     fun parseDate(dateString: String?): Instant? {
         if (dateString.isNullOrBlank()) return null
@@ -33,12 +34,7 @@ class FinanceRssRepositoryImplTest : FunSpec({
     }
 
     beforeTest {
-        Dispatchers.setMain(testDispatcher)
         repository = FinanceRssRepositoryImpl()
-    }
-
-    afterTest {
-        Dispatchers.resetMain()
     }
 
     test("getSources는 기본 소스 목록을 반환해야 한다") {

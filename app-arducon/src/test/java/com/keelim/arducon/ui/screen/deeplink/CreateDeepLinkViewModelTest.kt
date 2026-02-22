@@ -2,17 +2,15 @@ package com.keelim.arducon.ui.screen.deeplink
 
 import app.cash.turbine.test
 import com.keelim.data.repository.ArduconRepository
+import com.keelim.testing.util.MainDispatcherRule
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.test.setMain
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class CreateDeepLinkViewModelTest : FunSpec({
@@ -20,18 +18,16 @@ class CreateDeepLinkViewModelTest : FunSpec({
     lateinit var viewModel: CreateDeepLinkViewModel
     lateinit var mockRepository: ArduconRepository
     val testDispatcher = StandardTestDispatcher()
+    val mainDispatcherRule = MainDispatcherRule(testDispatcher)
+
+    extension(mainDispatcherRule)
 
     beforeTest {
-        Dispatchers.setMain(testDispatcher)
         mockRepository = mockk()
 
         every { mockRepository.getCategories() } returns flowOf(emptyList())
 
         viewModel = CreateDeepLinkViewModel(mockRepository, testDispatcher)
-    }
-
-    afterTest {
-        Dispatchers.resetMain()
     }
 
     test("URL 업데이트가 정상적으로 작동해야 한다") {

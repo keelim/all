@@ -1,9 +1,9 @@
 package com.keelim.arducon.ui.screen.deeplink
 
 import app.cash.turbine.test
-import com.google.common.truth.Truth.assertThat
 import com.keelim.data.repository.ArduconRepository
 import io.kotest.core.spec.style.FunSpec
+import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
@@ -39,7 +39,7 @@ class CreateDeepLinkViewModelTest : FunSpec({
             viewModel.updateUrl("https://example.com")
 
             viewModel.url.test {
-                assertThat(awaitItem()).isEqualTo("https://example.com")
+                awaitItem() shouldBe "https://example.com"
             }
         }
     }
@@ -49,7 +49,7 @@ class CreateDeepLinkViewModelTest : FunSpec({
             viewModel.updateTitle("테스트 딥링크")
 
             viewModel.title.test {
-                assertThat(awaitItem()).isEqualTo("테스트 딥링크")
+                awaitItem() shouldBe "테스트 딥링크"
             }
         }
     }
@@ -59,23 +59,23 @@ class CreateDeepLinkViewModelTest : FunSpec({
             viewModel.updateCategory("웹사이트")
 
             viewModel.category.test {
-                assertThat(awaitItem()).isEqualTo("웹사이트")
+                awaitItem() shouldBe "웹사이트"
             }
         }
     }
 
     test("전체 URL 가져오기가 정상적으로 작동해야 한다") {
         viewModel.updateUrl("https://example.com")
-        assertThat(viewModel.getFullUrl()).isEqualTo("https://example.com")
+        viewModel.getFullUrl() shouldBe "https://example.com"
     }
 
     test("유효한 URL 검증이 정상적으로 작동해야 한다") {
         viewModel.updateUrl("https://example.com")
-        assertThat(viewModel.isValidUrl()).isTrue()
+        viewModel.isValidUrl() shouldBe true
     }
 
     test("유효하지 않은 URL 검증이 정상적으로 작동해야 한다") {
         viewModel.updateUrl("invalid-url")
-        assertThat(viewModel.isValidUrl()).isFalse()
+        viewModel.isValidUrl() shouldBe false
     }
 })

@@ -1,9 +1,9 @@
 package com.keelim.arducon.ui.screen.search
 
 import app.cash.turbine.test
-import com.google.common.truth.Truth.assertThat
 import com.keelim.data.repository.ArduconRepository
 import io.kotest.core.spec.style.FunSpec
+import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
@@ -40,7 +40,7 @@ class SearchViewModelTest : FunSpec({
             viewModel.clearSearch()
 
             viewModel.searchQuery.test {
-                assertThat(awaitItem()).isEqualTo("")
+                awaitItem() shouldBe ""
             }
         }
     }
@@ -50,7 +50,7 @@ class SearchViewModelTest : FunSpec({
             viewModel.updateSearchQuery("test")
 
             viewModel.searchQuery.test {
-                assertThat(awaitItem()).isEqualTo("test")
+                awaitItem() shouldBe "test"
             }
         }
     }

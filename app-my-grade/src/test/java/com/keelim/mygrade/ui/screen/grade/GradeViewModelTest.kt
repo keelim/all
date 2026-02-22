@@ -3,18 +3,16 @@ package com.keelim.mygrade.ui.screen.grade
 import androidx.lifecycle.SavedStateHandle
 import app.cash.turbine.test
 import com.keelim.data.repository.HistoryRepository
+import com.keelim.testing.util.MainDispatcherRule
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.advanceUntilIdle
-import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.test.setMain
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class GradeViewModelTest : FunSpec({
@@ -22,9 +20,11 @@ class GradeViewModelTest : FunSpec({
     lateinit var savedStateHandle: SavedStateHandle
     lateinit var historyRepository: HistoryRepository
     val testDispatcher = StandardTestDispatcher()
+    val mainDispatcherRule = MainDispatcherRule(testDispatcher)
+
+    extension(mainDispatcherRule)
 
     beforeTest {
-        Dispatchers.setMain(testDispatcher)
         savedStateHandle = SavedStateHandle(
             mapOf(
                 "subject" to "Math",
@@ -33,10 +33,6 @@ class GradeViewModelTest : FunSpec({
             )
         )
         historyRepository = mockk(relaxed = true)
-    }
-
-    afterTest {
-        Dispatchers.resetMain()
     }
 
     test("initial state should be empty") {

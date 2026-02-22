@@ -5,18 +5,16 @@ import com.keelim.data.repository.FinanceRssRepository
 import com.keelim.model.finance.FinanceCategory
 import com.keelim.model.finance.FinanceRssItem
 import com.keelim.model.finance.FinanceSource
+import com.keelim.testing.util.MainDispatcherRule
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.coEvery
 import io.mockk.mockk
 import io.mockk.verify
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.test.setMain
 import kotlinx.datetime.Instant
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -25,6 +23,9 @@ class FinanceViewModelTest : FunSpec({
     lateinit var viewModel: FinanceViewModel
     lateinit var mockRepository: FinanceRssRepository
     val testDispatcher = StandardTestDispatcher()
+    val mainDispatcherRule = MainDispatcherRule(testDispatcher)
+
+    extension(mainDispatcherRule)
 
     val testSources = listOf(
         FinanceSource(
@@ -69,7 +70,6 @@ class FinanceViewModelTest : FunSpec({
     )
 
     beforeTest {
-        Dispatchers.setMain(testDispatcher)
         mockRepository = mockk()
         coEvery { mockRepository.getSources() } returns testSources
         coEvery { mockRepository.getRssItems(any()) } returns flowOf(testItems)
@@ -78,10 +78,6 @@ class FinanceViewModelTest : FunSpec({
         coEvery { mockRepository.getCacheInfo() } returns mapOf("test" to 1000L)
 
         viewModel = FinanceViewModel(mockRepository)
-    }
-
-    afterTest {
-        Dispatchers.resetMain()
     }
 
     test("초기 상태는 로딩 상태여야 한다") {

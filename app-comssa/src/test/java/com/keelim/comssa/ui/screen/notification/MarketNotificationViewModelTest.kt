@@ -4,19 +4,17 @@ import app.cash.turbine.test
 import com.keelim.comssa.notification.MarketNotificationManager
 import com.keelim.data.model.MarketSchedule
 import com.keelim.data.repository.MarketNotificationRepository
+import com.keelim.testing.util.MainDispatcherRule
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.advanceUntilIdle
-import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.test.setMain
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class MarketNotificationViewModelTest : FunSpec({
@@ -24,6 +22,9 @@ class MarketNotificationViewModelTest : FunSpec({
     lateinit var repository: MarketNotificationRepository
     lateinit var notificationManager: MarketNotificationManager
     val testDispatcher = StandardTestDispatcher()
+    val mainDispatcherRule = MainDispatcherRule(testDispatcher)
+
+    extension(mainDispatcherRule)
 
     val testSchedule = MarketSchedule(
         id = "test-1",
@@ -35,15 +36,10 @@ class MarketNotificationViewModelTest : FunSpec({
     )
 
     beforeTest {
-        Dispatchers.setMain(testDispatcher)
         repository = mockk(relaxed = true)
         notificationManager = mockk(relaxed = true)
 
         coEvery { repository.getSchedules() } returns flowOf(listOf(testSchedule))
-    }
-
-    afterTest {
-        Dispatchers.resetMain()
     }
 
     test("schedules flow emits list from repository") {

@@ -64,7 +64,6 @@ insightsLint = "0.1.4"
 jacoco = "0.8.13"
 junitPlatform = "1.12.2"
 jsoup = "1.22.1"
-junit4 = "4.13.2"
 kotlin = "2.3.0"
 kotest = "5.9.1"
 kotlin-benchmark = "0.4.15"
@@ -113,7 +112,6 @@ store = "5.1.0-alpha08"
 tehras-chart = "0.2.4-alpha"
 themeAdapter = "1.2.1"
 timbers = "5.0.1"
-truth = "1.4.5"
 turbine = "1.2.1"
 zxing = "3.5.4"
 
@@ -254,7 +252,6 @@ hilt-ext-work = { group = "androidx.hilt", name = "hilt-work", version.ref = "hi
 inapp-update = { group = "com.google.android.play", name = "app-update-ktx", version.ref = "in-app-update" }
 insights-lint = { module = "com.google.play.policy.insights:insights-lint", version.ref = "insightsLint" }
 jsoup = { module = "org.jsoup:jsoup", version.ref = "jsoup"}
-junit4 = { group = "junit", name = "junit", version.ref = "junit4" }
 junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher", version.ref = "junitPlatform" }
 kotest-assertions-core = { group = "io.kotest", name = "kotest-assertions-core", version.ref = "kotest" }
 kotest-runner-junit5 = { group = "io.kotest", name = "kotest-runner-junit5", version.ref = "kotest" }
@@ -320,7 +317,6 @@ slack-compose-lint =  { group = "com.slack.lint.compose", name = "compose-lint-c
 slack-lint-checks = { group = "com.slack.lint", name = "slack-lint-checks", version.ref = "slackLintChecks" }
 store = { group = "org.mobilenativefoundation.store", name = "store5", version.ref = "store" }
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timbers" }
-truth = { module = "com.google.truth:truth", version.ref = "truth" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
 
 [bundles]

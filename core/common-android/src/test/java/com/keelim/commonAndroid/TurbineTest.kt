@@ -1,8 +1,8 @@
 import app.cash.turbine.test
-import com.google.common.truth.Truth
 import com.keelim.commonAndroid.model.SealedUiState
 import com.keelim.commonAndroid.model.asSealedUiState
 import io.kotest.core.spec.style.FunSpec
+import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest
 
@@ -15,12 +15,12 @@ class TurbineTest : FunSpec({
             }
                 .asSealedUiState()
                 .test {
-                    Truth.assertThat(SealedUiState.Loading).isEqualTo(awaitItem())
-                    Truth.assertThat(SealedUiState.Success(0)).isEqualTo(awaitItem())
+                    awaitItem() shouldBe SealedUiState.Loading
+                    awaitItem() shouldBe SealedUiState.Success(0)
 
                     when (val errorResult = awaitItem()) {
                         is SealedUiState.Error ->
-                            Truth.assertThat("Test Complete").isEqualTo(errorResult.throwable?.message)
+                            errorResult.throwable?.message shouldBe "Test Complete"
 
                         is SealedUiState.Loading, is SealedUiState.Success -> throw IllegalStateException(
                             "Error Result 를 emit 한다.",

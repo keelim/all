@@ -23,7 +23,6 @@ dependencies {
     api(libs.kotlinx.coroutines.test)
     api(libs.roborazzi)
     api(libs.robolectric.shadows)
-    api(libs.truth)
     api(libs.turbine)
     api(libs.mockk.agent)
     api(libs.mockk.android)

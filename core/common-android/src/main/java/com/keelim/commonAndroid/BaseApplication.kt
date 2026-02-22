@@ -10,16 +10,16 @@ import jakarta.inject.Inject
 
 open class BaseApplication : Application(), ImageLoaderFactory {
     @Inject
-    lateinit var imageLoader: dagger.Lazy<ImageLoader>
+    internal lateinit var imageLoader: dagger.Lazy<ImageLoader>
 
     @Inject
-    lateinit var componentLogger: dagger.Lazy<ComponentLogger>
+    internal lateinit var componentLogger: dagger.Lazy<ComponentLogger>
 
     @Inject
-    lateinit var crashHandler: dagger.Lazy<CrashHandler>
+    internal lateinit var crashHandler: dagger.Lazy<CrashHandler>
 
     @Inject
-    lateinit var maintenanceChecker: dagger.Lazy<MaintenanceChecker>
+    internal lateinit var maintenanceChecker: dagger.Lazy<MaintenanceChecker>
 
     override fun onCreate() {
         super.onCreate()

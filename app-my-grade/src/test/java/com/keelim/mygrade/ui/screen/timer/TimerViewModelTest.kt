@@ -3,20 +3,18 @@ package com.keelim.mygrade.ui.screen.timer
 import app.cash.turbine.test
 import com.keelim.data.repository.HistoryRepository
 import com.keelim.data.repository.StudyAnalyticsRepository
+import com.keelim.testing.util.MainDispatcherRule
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.advanceUntilIdle
-import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.runCurrent
-import kotlinx.coroutines.test.setMain
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class TimerViewModelTest : FunSpec({
@@ -24,16 +22,14 @@ class TimerViewModelTest : FunSpec({
     lateinit var studyAnalyticsRepository: StudyAnalyticsRepository
     lateinit var historyRepository: HistoryRepository
     val testDispatcher = StandardTestDispatcher()
+    val mainDispatcherRule = MainDispatcherRule(testDispatcher)
+
+    extension(mainDispatcherRule)
 
     beforeTest {
-        Dispatchers.setMain(testDispatcher)
         studyAnalyticsRepository = mockk(relaxed = true)
         historyRepository = mockk(relaxed = true)
         viewModel = TimerViewModel(studyAnalyticsRepository, historyRepository)
-    }
-
-    afterTest {
-        Dispatchers.resetMain()
     }
 
     test("getTotalTimeInSeconds calculates correct total from hours minutes and seconds") {

@@ -1,9 +1,13 @@
 package com.keelim.core.data.source.finance
 
+import com.keelim.core.network.di.KtorNetworkModule
 import com.keelim.data.repository.FinanceRssRepository
 import com.keelim.model.finance.FinanceCategory
 import com.keelim.model.finance.FinanceRssItem
 import com.keelim.model.finance.FinanceSource
+import io.ktor.client.HttpClient
+import io.ktor.client.request.get
+import io.ktor.client.statement.bodyAsText
 import jakarta.inject.Inject
 import jakarta.inject.Singleton
 import kotlinx.coroutines.Dispatchers
@@ -14,10 +18,12 @@ import kotlinx.datetime.Instant
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserFactory
 import timber.log.Timber
-import java.net.URL
+import java.io.StringReader
 
 @Singleton
-class FinanceRssRepositoryImpl @Inject constructor() : FinanceRssRepository {
+class FinanceRssRepositoryImpl @Inject constructor(
+    @KtorNetworkModule.KtorAndroidClient private val client: HttpClient,
+) : FinanceRssRepository {
 
     // 메모리 캐시
     private val cache = mutableMapOf<String, CachedRssData>()
@@ -118,11 +124,8 @@ class FinanceRssRepositoryImpl @Inject constructor() : FinanceRssRepository {
             factory.isNamespaceAware = true
             val parser = factory.newPullParser()
 
-            val connection = URL(url).openConnection()
-            connection.connectTimeout = 10000
-            connection.readTimeout = 10000
-
-            parser.setInput(connection.getInputStream(), null)
+            val responseBody = client.get(url).bodyAsText()
+            parser.setInput(StringReader(responseBody))
 
             val items = mutableListOf<FinanceRssItem>()
             var eventType = parser.eventType

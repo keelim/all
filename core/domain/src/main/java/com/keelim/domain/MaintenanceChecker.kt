@@ -1,10 +1,8 @@
 package com.keelim.domain
 
-import androidx.lifecycle.DefaultLifecycleObserver
 import kotlinx.coroutines.flow.StateFlow
 
-interface MaintenanceChecker : DefaultLifecycleObserver {
-
+interface MaintenanceChecker {
     fun initialize()
     val isUnderMaintenance: StateFlow<Boolean>
 }

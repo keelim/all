@@ -24,24 +24,24 @@ android {
 dependencies {
 
     implementation(projects.core.commonAndroid)
+    implementation(projects.core.common)
+    implementation(projects.core.component)
 
     implementation(projects.core.data)
+    implementation(projects.core.model)
     implementation(projects.core.navigation)
     implementation(projects.core.resource)
+    implementation(projects.shared)
 
     implementation(projects.feature.uiSetting)
-    implementation(projects.feature.uiWeb)
     implementation(projects.widget)
 
-    implementation(libs.activity.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.lifecycle.process)
     implementation(libs.androidx.lifecycle.runtime.compose)
-    implementation(libs.androidx.lifecycle.viewmodel.navigation3)
     implementation(libs.androidx.navigation3.runtime)
-    implementation(libs.androidx.navigation3.ui)
     implementation(libs.androidx.profileinstaller)
     implementation(libs.apache.math)
     implementation(platform(libs.coil.bom))
@@ -57,5 +57,3 @@ dependencies {
 
     testImplementation(projects.core.testing)
 }
-
-

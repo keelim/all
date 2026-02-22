@@ -12,10 +12,6 @@ import androidx.compose.runtime.saveable.listSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.runtime.toMutableStateList
-import androidx.navigation.NavDestination
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
 import androidx.savedstate.serialization.decodeFromSavedState
 import androidx.savedstate.serialization.encodeToSavedState
 import kotlinx.coroutines.CoroutineScope
@@ -33,15 +29,12 @@ import kotlinx.serialization.serializer
 fun rememberAppState(
     windowSizeClass: WindowSizeClass,
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
-    navController: NavHostController = rememberNavController(),
 ): AppState {
     return remember(
-        navController,
         coroutineScope,
         windowSizeClass,
     ) {
         AppState(
-            navController,
             coroutineScope,
             windowSizeClass,
         )
@@ -50,16 +43,9 @@ fun rememberAppState(
 
 @Stable
 class AppState(
-    @Deprecated("Legacy navigation2 holder. Navigation3 hosts should use route back stacks directly.")
-    val navController: NavHostController,
     val coroutineScope: CoroutineScope,
     private val windowSizeClass: WindowSizeClass,
 ) {
-    @Deprecated("Legacy navigation2 destination accessor.")
-    val currentDestinations: NavDestination?
-        @Composable get() = navController
-            .currentBackStackEntryAsState().value?.destination
-
     val shouldShowBottomBar: Boolean
         get() = windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact
 }

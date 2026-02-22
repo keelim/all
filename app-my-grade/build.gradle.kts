@@ -27,6 +27,7 @@ dependencies {
 
     implementation(projects.core.data)
     implementation(projects.core.navigation)
+    implementation(projects.core.resource)
 
     implementation(projects.feature.uiSetting)
     implementation(projects.feature.uiWeb)
@@ -56,6 +57,5 @@ dependencies {
 
     testImplementation(projects.core.testing)
 }
-
 
 

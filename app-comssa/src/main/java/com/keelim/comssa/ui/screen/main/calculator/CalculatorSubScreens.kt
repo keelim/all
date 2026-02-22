@@ -14,14 +14,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.keelim.comssa.R
 import com.keelim.common.extensions.toFormattedMoneyOrEmpty
 import com.keelim.common.extensions.toMoneyOrZero
+import com.keelim.core.resource.*
 import java.text.DecimalFormat
 import kotlin.math.pow
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun CompoundInterestCalculator(
@@ -31,15 +31,15 @@ fun CompoundInterestCalculator(
     var rate by remember { mutableStateOf("") }
     var years by remember { mutableStateOf("") }
     var result by remember { mutableStateOf("") }
-    val principalLabel = stringResource(R.string.calculator_label_principal)
-    val annualInterestRateLabel = stringResource(R.string.calculator_label_annual_interest_rate)
-    val periodYearsLabel = stringResource(R.string.calculator_label_period_years)
-    val calculateLabel = stringResource(R.string.calculator_action_calculate)
-    val finalAmountKey = stringResource(R.string.calculator_key_final_amount)
-    val finalAmountLabel = stringResource(R.string.calculator_result_final_amount, result)
-    val annualRateKey = stringResource(R.string.calculator_key_annual_rate)
-    val principalKey = stringResource(R.string.calculator_key_principal)
-    val periodKey = stringResource(R.string.calculator_key_period)
+    val principalLabel = stringResource(Res.string.calculator_label_principal)
+    val annualInterestRateLabel = stringResource(Res.string.calculator_label_annual_interest_rate)
+    val periodYearsLabel = stringResource(Res.string.calculator_label_period_years)
+    val calculateLabel = stringResource(Res.string.calculator_action_calculate)
+    val finalAmountKey = stringResource(Res.string.calculator_key_final_amount)
+    val finalAmountLabel = stringResource(Res.string.calculator_result_final_amount, result)
+    val annualRateKey = stringResource(Res.string.calculator_key_annual_rate)
+    val principalKey = stringResource(Res.string.calculator_key_principal)
+    val periodKey = stringResource(Res.string.calculator_key_period)
 
     Column(
         modifier = Modifier.padding(16.dp),
@@ -99,28 +99,28 @@ fun LoanRepaymentCalculator(
     onCalculate: (Map<String, String>, Map<String, String>) -> Unit,
 ) {
     // Simple implementation for example
-    Text(stringResource(R.string.loan_repayment_calculator_pending))
+    Text(stringResource(Res.string.loan_repayment_calculator_pending))
 }
 
 @Composable
 fun InvestmentReturnCalculator(
     onCalculate: (Map<String, String>, Map<String, String>) -> Unit,
 ) {
-    Text(stringResource(R.string.investment_return_calculator_pending))
+    Text(stringResource(Res.string.investment_return_calculator_pending))
 }
 
 @Composable
 fun CurrencyConverter(
     onCalculate: (Map<String, String>, Map<String, String>) -> Unit,
 ) {
-    Text(stringResource(R.string.currency_converter_pending))
+    Text(stringResource(Res.string.currency_converter_pending))
 }
 
 @Composable
 fun TaxCalculator(
     onCalculate: (Map<String, String>, Map<String, String>) -> Unit,
 ) {
-    Text(stringResource(R.string.tax_calculator_pending))
+    Text(stringResource(Res.string.tax_calculator_pending))
 }
 
 @Composable
@@ -133,19 +133,19 @@ fun RetirementCalculator(
     var annualContribution by remember { mutableStateOf("") }
     var expectedReturn by remember { mutableStateOf("") }
     var result by remember { mutableStateOf("") }
-    val currentAgeLabel = stringResource(R.string.retirement_label_current_age)
-    val targetAgeLabel = stringResource(R.string.retirement_label_target_age)
-    val currentSavingsLabel = stringResource(R.string.retirement_label_current_savings)
-    val annualContributionLabel = stringResource(R.string.retirement_label_annual_contribution)
-    val expectedAnnualReturnLabel = stringResource(R.string.retirement_label_expected_annual_return)
-    val calculateLabel = stringResource(R.string.calculator_action_calculate)
-    val expectedAssetResultLabel = stringResource(R.string.retirement_result_expected_assets, result)
-    val currentAgeKey = stringResource(R.string.retirement_key_current_age)
-    val retirementAgeKey = stringResource(R.string.retirement_key_retirement_age)
-    val currentSavingsKey = stringResource(R.string.retirement_key_current_savings)
-    val annualSavingsKey = stringResource(R.string.retirement_key_annual_savings)
-    val returnRateKey = stringResource(R.string.retirement_key_return_rate)
-    val expectedAssetsKey = stringResource(R.string.retirement_key_expected_assets)
+    val currentAgeLabel = stringResource(Res.string.retirement_label_current_age)
+    val targetAgeLabel = stringResource(Res.string.retirement_label_target_age)
+    val currentSavingsLabel = stringResource(Res.string.retirement_label_current_savings)
+    val annualContributionLabel = stringResource(Res.string.retirement_label_annual_contribution)
+    val expectedAnnualReturnLabel = stringResource(Res.string.retirement_label_expected_annual_return)
+    val calculateLabel = stringResource(Res.string.calculator_action_calculate)
+    val expectedAssetResultLabel = stringResource(Res.string.retirement_result_expected_assets, result)
+    val currentAgeKey = stringResource(Res.string.retirement_key_current_age)
+    val retirementAgeKey = stringResource(Res.string.retirement_key_retirement_age)
+    val currentSavingsKey = stringResource(Res.string.retirement_key_current_savings)
+    val annualSavingsKey = stringResource(Res.string.retirement_key_annual_savings)
+    val returnRateKey = stringResource(Res.string.retirement_key_return_rate)
+    val expectedAssetsKey = stringResource(Res.string.retirement_key_expected_assets)
 
     Column(
         modifier = Modifier.padding(16.dp),

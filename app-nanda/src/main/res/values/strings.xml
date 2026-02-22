@@ -243,4 +243,10 @@
     <string name="db_path">https://github.com/keelim/Keelim.github.io/raw/master/assets/nanda.db</string>
 
     <string name="notification_channel_notice">NOTIFICATION</string>
+    <string name="medication_notification_channel_name">Medication Reminders</string>
+    <string name="medication_notification_channel_description">Notifications for medication reminders</string>
+    <string name="medication_notification_title">💊 복약 시간!</string>
+    <string name="medication_notification_content">%1$s (%2$s) 복용 시간입니다</string>
+    <string name="medication_live_notification_title">💊 %1$s</string>
+    <string name="medication_live_notification_content">%1$s 복용 시간입니다!</string>
 </resources>

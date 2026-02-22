@@ -7,8 +7,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.buffer
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.runBlocking
 import kotlin.system.measureTimeMillis
@@ -51,12 +51,10 @@ class FlowTest : FunSpec({
 
     test("turbineTest") {
         runBlocking {
-            val number = (0..2).asFlow().onEach { delay(10) }
-            val intro = listOf("Hello").asFlow()
-
-            val combined = combine(intro, number) { one, two ->
-                "$one $two"
-            }
+            val combined = (0..2)
+                .asFlow()
+                .onEach { delay(10) }
+                .map { "Hello $it" }
 
             combined.test {
                 awaitItem() shouldBe "Hello 0"

@@ -3,6 +3,8 @@ package com.keelim.core.data.source.finance
 import com.keelim.model.finance.FinanceCategory
 import com.keelim.model.finance.FinanceSource
 import com.keelim.testing.util.MainDispatcherRule
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.cio.CIO
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -34,7 +36,7 @@ class FinanceRssRepositoryImplTest : FunSpec({
     }
 
     beforeTest {
-        repository = FinanceRssRepositoryImpl()
+        repository = FinanceRssRepositoryImpl(createTestClient())
     }
 
     test("getSources는 기본 소스 목록을 반환해야 한다") {
@@ -108,7 +110,7 @@ class FinanceRssRepositoryImplTest : FunSpec({
             val sources = listOf(
                 FinanceSource(
                     name = "활성화된 소스",
-                    url = "https://active.com/feed",
+                    url = "invalid://active/feed",
                     category = FinanceCategory.ECONOMY,
                     isEnabled = true,
                 ),
@@ -139,5 +141,6 @@ class FinanceRssRepositoryImplTest : FunSpec({
         val isOldExpired = currentTime - oldCacheTime > expectedExpiryTime
         isOldExpired shouldBe true
     }
-
 })
+
+private fun createTestClient(): HttpClient = HttpClient(CIO)

@@ -3,22 +3,14 @@
 package com.keelim.arducon.ui
 
 import android.content.Intent
-import androidx.compose.animation.ContentTransform
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.scaleOut
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
-import androidx.navigation3.runtime.entryProvider
-import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
-import androidx.navigation3.ui.NavDisplay
+import com.keelim.composeutil.navigation.KeelimNavDisplay
 import com.keelim.arducon.ui.screen.base64.Base64Screen
 import com.keelim.arducon.ui.screen.deeplink.CreateDeepLinkRoute
 import com.keelim.arducon.ui.screen.json.JsonFormatterScreen
@@ -52,31 +44,11 @@ fun ArduConHost(
     val context = LocalContext.current
 
     val backStack = rememberMutableStateListOf<AppRoute>(ArduconRoute.Main)
-    val motionScheme = MaterialTheme.motionScheme
 
-    NavDisplay(
+    KeelimNavDisplay(
         modifier = modifier,
         backStack = backStack,
-        onBack = { backStack.removeLastOrNull() },
-        entryDecorators = listOf(
-            rememberSaveableStateHolderNavEntryDecorator(),
-            rememberViewModelStoreNavEntryDecorator(),
-        ),
-        transitionSpec = {
-            ContentTransform(
-                fadeIn(motionScheme.defaultEffectsSpec()),
-                fadeOut(motionScheme.defaultEffectsSpec()),
-            )
-        },
-        popTransitionSpec = {
-            ContentTransform(
-                fadeIn(motionScheme.defaultEffectsSpec()),
-                scaleOut(
-                    targetScale = 0.7f,
-                ),
-            )
-        },
-        entryProvider = entryProvider {
+    ) {
             entry<ArduconRoute.Main> {
                 MainRoute(
                     onShowMessage = { message ->
@@ -195,6 +167,5 @@ fun ArduConHost(
                     onNavigateBack = { backStack.removeLastOrNull() },
                 )
             }
-        },
-    )
+    }
 }

@@ -113,6 +113,78 @@ jobs:
             exit 1
           fi
 
+      - name: Enforce Compose Text style/color in changed Kotlin files
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: |
+          set -eo pipefail
+          base_sha="${{ github.event.pull_request.base.sha }}"
+          head_sha="${{ github.sha }}"
+
+          mapfile -t changed_kotlin_files < <(
+            git diff --name-only --diff-filter=ACMR "$base_sha" "$head_sha" \
+              | rg '\.kt$' \
+              | rg -v '(^|/)(build|src/androidTest|src/test)/' || true
+          )
+
+          if [[ ${#changed_kotlin_files[@]} -eq 0 ]]; then
+            echo "No changed Kotlin source files to validate."
+            exit 0
+          fi
+
+          failed=0
+          for file in "${changed_kotlin_files[@]}"; do
+            if ! awk '
+              BEGIN { inText = 0; depth = 0; missing = 0 }
+              {
+                line = $0
+                if (!inText) {
+                  if (match(line, /(^|[^[:alnum:]_])Text[[:space:]]*\(/)) {
+                    inText = 1
+                    startLine = NR
+                    hasStyle = (line ~ /style[[:space:]]*=/)
+                    hasColor = (line ~ /color[[:space:]]*=/)
+                    tmp = line
+                    openCount = gsub(/\(/, "(", tmp)
+                    tmp = line
+                    closeCount = gsub(/\)/, ")", tmp)
+                    depth = openCount - closeCount
+                    if (depth <= 0) {
+                      if (!hasStyle || !hasColor) {
+                        printf "%s:%d: Text missing %s%s\n", FILENAME, startLine, (!hasStyle ? "style " : ""), (!hasColor ? "color" : "")
+                        missing = 1
+                      }
+                      inText = 0
+                    }
+                  }
+                } else {
+                  if (line ~ /style[[:space:]]*=/) hasStyle = 1
+                  if (line ~ /color[[:space:]]*=/) hasColor = 1
+                  tmp = line
+                  openCount = gsub(/\(/, "(", tmp)
+                  tmp = line
+                  closeCount = gsub(/\)/, ")", tmp)
+                  depth += openCount - closeCount
+                  if (depth <= 0) {
+                    if (!hasStyle || !hasColor) {
+                      printf "%s:%d: Text missing %s%s\n", FILENAME, startLine, (!hasStyle ? "style " : ""), (!hasColor ? "color" : "")
+                      missing = 1
+                    }
+                    inText = 0
+                  }
+                }
+              }
+              END { exit missing }
+            ' "$file"; then
+              failed=1
+            fi
+          done
+
+          if [[ "$failed" -ne 0 ]]; then
+            echo "Compose Text() calls must specify both style and color."
+            exit 1
+          fi
+
       - name: Run PR Quality Gate
         run: |
           ./gradlew \

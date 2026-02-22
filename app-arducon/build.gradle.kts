@@ -18,6 +18,10 @@ android {
 dependencies {
 
     implementation(projects.core.commonAndroid)
+    implementation(projects.core.common)
+    implementation(projects.core.component)
+    implementation(projects.core.model)
+    implementation(projects.shared)
     implementation(projects.feature.uiWeb)
 
     implementation(projects.core.data)
@@ -33,9 +37,7 @@ dependencies {
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.lifecycle.process)
     implementation(libs.androidx.lifecycle.runtime.compose)
-    implementation(libs.androidx.lifecycle.viewmodel.navigation3)
     implementation(libs.androidx.navigation3.runtime)
-    implementation(libs.androidx.navigation3.ui)
     implementation(libs.androidx.profileinstaller)
     implementation(platform(libs.coil.bom))
     implementation(libs.bundles.coil)
@@ -47,6 +49,3 @@ dependencies {
 
     testImplementation(projects.core.testing)
 }
-
-
-

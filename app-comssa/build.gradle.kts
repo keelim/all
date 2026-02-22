@@ -26,28 +26,25 @@ android {
 
 dependencies {
     implementation(projects.core.commonAndroid)
+    implementation(projects.core.common)
+    implementation(projects.core.component)
     implementation(projects.core.data)
+    implementation(projects.core.model)
     implementation(projects.core.navigation)
     implementation(projects.core.resource)
+    implementation(projects.shared)
     implementation(projects.widget)
     implementation(projects.feature.uiWeb)
     implementation(projects.feature.uiSetting)
 
     implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.lifecycle.runtime.compose)
-    implementation(libs.androidx.lifecycle.rutime)
-    implementation(libs.androidx.lifecycle.viewmodel.navigation3)
     implementation(libs.androidx.navigation3.runtime)
-    implementation(libs.androidx.navigation3.ui)
-    implementation(libs.haze)
-    implementation(libs.kotlinx.coroutines.play.services)
     implementation(libs.kotlinx.datetime)
     implementation(libs.play.services.ad)
     implementation(libs.timber)
-
     implementation(platform(libs.coil.bom))
     implementation(libs.bundles.coil)
 

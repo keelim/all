@@ -2,6 +2,7 @@ package com.keelim.setting.worker
 
 import android.app.Application
 import android.content.Intent
+import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ProcessLifecycleOwner
 import com.keelim.common.di.ApplicationScope
@@ -28,7 +29,7 @@ constructor(
     private val notificationRepository: NotificationRepository,
     @ApplicationScope
     private val applicationScope: CoroutineScope,
-) : MaintenanceChecker {
+) : MaintenanceChecker, DefaultLifecycleObserver {
     private val _isUnderMaintenance = MutableStateFlow(false)
     override val isUnderMaintenance: StateFlow<Boolean> = _isUnderMaintenance
     private var previousValue = false

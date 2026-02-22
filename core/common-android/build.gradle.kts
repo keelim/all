@@ -10,14 +10,14 @@ android {
 
 dependencies {
 
-    api(projects.core.common)
-    api(projects.core.component)
-    api(projects.shared)
+    implementation(projects.core.common)
+    implementation(projects.core.component)
+    implementation(projects.shared)
     implementation(projects.core.dataApi)
     implementation(projects.core.data)
     implementation(projects.core.network)
     implementation(projects.core.model)
-    api(projects.core.domain)
+    implementation(projects.core.domain)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.startup)

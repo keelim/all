@@ -99,6 +99,20 @@ jobs:
           mkdir -p ./core/component/src/commonMain/res/values/
           echo '${{ secrets.FONTS }}' | base64 -d > ./core/component/src/commonMain/res/values/font_certs.xml
 
+      - name: Block Mockito usage
+        shell: bash
+        run: |
+          set -eo pipefail
+          if rg -n \
+            --glob '!**/src/androidTest/**' \
+            --glob '!**/build/**' \
+            '(org\.mockito|mockito)' \
+            app-* core feature shared build-logic gradle *.gradle.kts settings.gradle.kts
+          then
+            echo "Mockito usage detected. Use MockK for unit tests."
+            exit 1
+          fi
+
       - name: Run PR Quality Gate
         run: |
           ./gradlew \

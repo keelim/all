@@ -32,7 +32,17 @@ import com.keelim.common.extensions.toast
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
 import com.keelim.composeutil.util.permission.SimpleAcquirePermissions
+import com.keelim.core.resource.Res
+import com.keelim.core.resource.cnubus_permission_granted
+import com.keelim.core.resource.cnubus_tab_favorite
+import com.keelim.core.resource.cnubus_tab_route_a
+import com.keelim.core.resource.cnubus_tab_route_b
+import com.keelim.core.resource.cnubus_tab_route_c
+import com.keelim.core.resource.cnubus_tab_route_night
+import com.keelim.core.resource.cnubus_tab_search
+import com.keelim.core.resource.cnubus_tab_settings
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.stringResource
 
 private val appPermissions: List<String> = buildList {
     add(Manifest.permission.ACCESS_FINE_LOCATION)
@@ -49,11 +59,12 @@ fun MainRoute(
     viewModel: RootViewModel = hiltViewModel(),
 ) = trace("MainRoute") {
     val context = LocalContext.current
+    val permissionGrantedMessage = stringResource(Res.string.cnubus_permission_granted)
 
     SimpleAcquirePermissions(
         appPermissions,
     ) {
-        context.toast("권한이 확인되었습니다.")
+        context.toast(permissionGrantedMessage)
     }
 
     MainScreen(
@@ -69,33 +80,33 @@ data class TabItem(
     val mode: String,
 )
 
-private val tabItems =
-    listOf(
-        TabItem(title = "A 노선", mode = "a"),
-        TabItem(title = "B 노선", mode = "b"),
-        TabItem(title = "C 노선", mode = "c"),
-        TabItem(title = "야간 노선", mode = "d"),
-        TabItem(title = "즐겨찾기", mode = "f"),
-        TabItem(title = "검색", mode = "s"),
-        TabItem(title = "설정", mode = "e"),
-    )
-
 @Composable
 fun MainScreen(
     onNavigateMap: () -> Unit,
     onSetMode: (String) -> Unit,
     onNavigateAppSetting: () -> Unit,
 ) = trace("MainScreen") {
+    val tabItems = listOf(
+        TabItem(title = stringResource(Res.string.cnubus_tab_route_a), mode = "a"),
+        TabItem(title = stringResource(Res.string.cnubus_tab_route_b), mode = "b"),
+        TabItem(title = stringResource(Res.string.cnubus_tab_route_c), mode = "c"),
+        TabItem(title = stringResource(Res.string.cnubus_tab_route_night), mode = "d"),
+        TabItem(title = stringResource(Res.string.cnubus_tab_favorite), mode = "f"),
+        TabItem(title = stringResource(Res.string.cnubus_tab_search), mode = "s"),
+        TabItem(title = stringResource(Res.string.cnubus_tab_settings), mode = "e"),
+    )
     val pagerState = rememberPagerState { tabItems.size }
     Column {
         TabBarLayout(
             state = pagerState,
             onSetMode = onSetMode,
+            tabItems = tabItems,
         )
         PagerContent(
             state = pagerState,
             onNavigateAppSetting = onNavigateAppSetting,
             onNavigateMap = onNavigateMap,
+            tabItems = tabItems,
         )
     }
 }
@@ -104,6 +115,7 @@ fun MainScreen(
 fun TabBarLayout(
     state: PagerState,
     onSetMode: (String) -> Unit,
+    tabItems: List<TabItem>,
     modifier: Modifier = Modifier,
 ) = trace("TabBarLayout") {
     val coroutineScope = rememberCoroutineScope()
@@ -141,6 +153,7 @@ fun PagerContent(
     state: PagerState,
     onNavigateMap: () -> Unit,
     onNavigateAppSetting: () -> Unit,
+    tabItems: List<TabItem>,
     paddingValues: PaddingValues = PaddingValues(horizontal = space8, vertical = space4),
 ) = trace("PagerContent") {
     val context = LocalContext.current

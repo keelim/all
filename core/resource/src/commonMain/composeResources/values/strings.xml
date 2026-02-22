@@ -40,4 +40,84 @@
     <string name="nanda_download_channel_description">NandaDiagnosis Notifications</string>
     <string name="nanda_download_start_toast">다운로드를 시작합니다.</string>
     <string name="nanda_download_failed_toast">다운로드를 완료하지 못했습니다..</string>
+
+    <!-- Arducon -->
+    <string name="stats_button">통계 보기</string>
+    <string name="invalid_url_error">유효하지 않은 URL입니다.</string>
+    <string name="playground_title">Playground</string>
+    <string name="label_url">URL</string>
+    <string name="label_param_key">Param Key</string>
+    <string name="label_param_value">Param Value</string>
+    <string name="action_run_validation">검증 실행</string>
+    <string name="action_share_report">결과 공유</string>
+    <string name="label_resolved_apps">핸들 가능한 앱</string>
+    <string name="label_http_result">HTTP 결과</string>
+    <string name="label_status_code">상태 코드: %1$d</string>
+    <string name="label_final_url">최종 URL: %1$s</string>
+    <string name="label_og_result">OG 태그</string>
+    <string name="label_og_title">제목: %1$s</string>
+    <string name="label_og_desc">설명: %1$s</string>
+    <string name="label_og_image">이미지: %1$s</string>
+    <string name="action_generate_qr">QR 생성</string>
+    <string name="label_redirects">Redirects:</string>
+    <string name="label_headers">Headers:</string>
+    <string name="dialog_close">닫기</string>
+    <string name="dialog_error">에러</string>
+    <string name="qr_save_image">이미지 저장</string>
+    <string name="qr_share_image">이미지 공유</string>
+    <string name="qr_content_description">QR 코드</string>
+    <string name="arducon_search_screen_loaded">스킴 검색 화면이 로드되었습니다.</string>
+
+    <!-- Comssa Calculators -->
+    <string name="calculator_label_principal">원금</string>
+    <string name="calculator_label_annual_interest_rate">연이율 (%)</string>
+    <string name="calculator_label_period_years">기간 (년)</string>
+    <string name="calculator_action_calculate">계산하기</string>
+    <string name="calculator_result_final_amount">최종 금액: %1$s</string>
+    <string name="calculator_key_principal">원금</string>
+    <string name="calculator_key_annual_rate">연이율</string>
+    <string name="calculator_key_period">기간</string>
+    <string name="calculator_key_final_amount">최종 금액</string>
+    <string name="loan_repayment_calculator_pending">대출 상환 계산기 준비 중</string>
+    <string name="investment_return_calculator_pending">투자 수익률 계산기 준비 중</string>
+    <string name="currency_converter_pending">환율 변환기 준비 중</string>
+    <string name="tax_calculator_pending">세금 계산기 준비 중</string>
+    <string name="retirement_label_current_age">현재 나이</string>
+    <string name="retirement_label_target_age">은퇴 목표 나이</string>
+    <string name="retirement_label_current_savings">현재 자산 (원)</string>
+    <string name="retirement_label_annual_contribution">연간 저축액 (원)</string>
+    <string name="retirement_label_expected_annual_return">예상 연 수익률 (%)</string>
+    <string name="retirement_result_expected_assets">은퇴 시 예상 자산: %1$s 원</string>
+    <string name="retirement_key_current_age">현재 나이</string>
+    <string name="retirement_key_retirement_age">은퇴 나이</string>
+    <string name="retirement_key_current_savings">현재 자산</string>
+    <string name="retirement_key_annual_savings">연간 저축</string>
+    <string name="retirement_key_return_rate">수익률</string>
+    <string name="retirement_key_expected_assets">은퇴 시 예상 자산</string>
+
+    <!-- Nanda -->
+    <string name="nanda_app_name">난다진단</string>
+    <string name="medication_notification_channel_name">Medication Reminders</string>
+    <string name="medication_notification_channel_description">Notifications for medication reminders</string>
+    <string name="medication_notification_title">💊 복약 시간!</string>
+    <string name="medication_notification_content">%1$s (%2$s) 복용 시간입니다</string>
+    <string name="medication_live_notification_title">💊 %1$s</string>
+    <string name="medication_live_notification_content">%1$s 복용 시간입니다!</string>
+    <string name="nanda_database_exists_toast">데이터베이스가 존재합니다. 그대로 진행 합니다</string>
+    <string name="nanda_feature_preparing">현재 업데이트 준비중입니다.</string>
+    <string name="nanda_move_confirmation">%1$s 로 이동하시겠습니까?</string>
+    <string name="nanda_move_action">move</string>
+
+    <!-- MyGrade -->
+    <string name="my_grade_feature_preparing">새로운 기능으로 준비중입니다 😀</string>
+
+    <!-- Cnubus -->
+    <string name="cnubus_permission_granted">권한이 확인되었습니다.</string>
+    <string name="cnubus_tab_route_a">A 노선</string>
+    <string name="cnubus_tab_route_b">B 노선</string>
+    <string name="cnubus_tab_route_c">C 노선</string>
+    <string name="cnubus_tab_route_night">야간 노선</string>
+    <string name="cnubus_tab_favorite">즐겨찾기</string>
+    <string name="cnubus_tab_search">검색</string>
+    <string name="cnubus_tab_settings">설정</string>
 </resources>

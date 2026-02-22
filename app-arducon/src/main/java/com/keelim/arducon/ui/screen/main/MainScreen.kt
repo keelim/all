@@ -79,9 +79,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.compose.ui.res.stringResource
 import coil.compose.AsyncImage
-import com.keelim.arducon.R
 import com.keelim.arducon.ui.screen.main.MainViewModel.QrDialogState
 import com.keelim.common.extensions.saveQrBitmapToGallery
 import com.keelim.composeutil.component.icon.rememberQrCodeScanner
@@ -91,10 +89,12 @@ import com.keelim.composeutil.resource.space24
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
 import com.keelim.composeutil.util.permission.SimpleAcquirePermissions
+import com.keelim.core.resource.*
 import com.keelim.model.DeepLink
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import org.jetbrains.compose.resources.stringResource
 
 val appPermissions: List<String> by lazy {
     buildList {
@@ -301,7 +301,7 @@ fun MainScreen(
                 // 통계보기 버튼
                 Button(onClick = onNavigateStats) {
                     Text(
-                        text = stringResource(R.string.stats_button),
+                        text = stringResource(Res.string.stats_button),
                         style = MaterialTheme.typography.labelLarge,
                         color = MaterialTheme.colorScheme.onPrimary,
                     )
@@ -523,6 +523,7 @@ private fun DeepLinkBottomSheet(
             verticalArrangement = Arrangement.spacedBy(space8),
         ) {
             val context = LocalContext.current
+            val invalidUrlError = stringResource(Res.string.invalid_url_error)
             ElevatedCard(
                 modifier = Modifier.fillMaxWidth(),
                 shape = MaterialTheme.shapes.large,
@@ -564,7 +565,7 @@ private fun DeepLinkBottomSheet(
                 } else {
                     Toast.makeText(
                         context,
-                        context.getString(R.string.invalid_url_error),
+                        invalidUrlError,
                         Toast.LENGTH_SHORT
                     ).show()
                 }

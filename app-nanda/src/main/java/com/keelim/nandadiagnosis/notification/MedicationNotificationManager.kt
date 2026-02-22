@@ -12,16 +12,27 @@ import android.content.pm.PackageManager
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
+import com.keelim.core.resource.Res
+import com.keelim.core.resource.medication_live_notification_content
+import com.keelim.core.resource.medication_live_notification_title
+import com.keelim.core.resource.medication_notification_channel_description
+import com.keelim.core.resource.medication_notification_channel_name
+import com.keelim.core.resource.medication_notification_content
+import com.keelim.core.resource.medication_notification_title
 import com.keelim.data.model.Medication
-import com.keelim.nandadiagnosis.R
 import dagger.hilt.android.qualifiers.ApplicationContext
 import jakarta.inject.Inject
 import jakarta.inject.Singleton
+import kotlinx.coroutines.runBlocking
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.StringResource
+import org.jetbrains.compose.resources.getString as getComposeString
 import timber.log.Timber
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
 @Singleton
+@OptIn(ExperimentalResourceApi::class)
 class MedicationNotificationManager @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
@@ -36,10 +47,10 @@ class MedicationNotificationManager @Inject constructor(
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 CHANNEL_ID,
-                context.getString(R.string.medication_notification_channel_name),
+                readString(Res.string.medication_notification_channel_name),
                 NotificationManager.IMPORTANCE_HIGH
             ).apply {
-                description = context.getString(R.string.medication_notification_channel_description)
+                description = readString(Res.string.medication_notification_channel_description)
                 enableVibration(true)
             }
             notificationManager.createNotificationChannel(channel)
@@ -144,10 +155,10 @@ class MedicationNotificationManager @Inject constructor(
 
         return NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(android.R.drawable.ic_dialog_info)
-            .setContentTitle(context.getString(R.string.medication_notification_title))
+            .setContentTitle(readString(Res.string.medication_notification_title))
             .setContentText(
-                context.getString(
-                    R.string.medication_notification_content,
+                readString(
+                    Res.string.medication_notification_content,
                     medicationName,
                     medicationDosage,
                 ),
@@ -176,13 +187,16 @@ class MedicationNotificationManager @Inject constructor(
 
         return Notification.Builder(context, CHANNEL_ID)
             .setSmallIcon(android.R.drawable.ic_dialog_info)
-            .setContentTitle(context.getString(R.string.medication_live_notification_title, medicationName))
-            .setContentText(context.getString(R.string.medication_live_notification_content, medicationDosage))
+            .setContentTitle(readString(Res.string.medication_live_notification_title, medicationName))
+            .setContentText(readString(Res.string.medication_live_notification_content, medicationDosage))
             .setStyle(style)
             .setAutoCancel(true)
             .setContentIntent(pendingIntent)
             .build()
     }
+
+    private fun readString(resource: StringResource, vararg args: Any): String =
+        runBlocking { getComposeString(resource, *args) }
 
     companion object {
         const val CHANNEL_ID = "medication_notification_channel"

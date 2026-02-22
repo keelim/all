@@ -18,8 +18,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.keelim.common.extensions.toFormattedMoneyOrEmpty
 import com.keelim.common.extensions.toMoneyOrZero
+import com.keelim.common.extensions.toUiNumber
 import com.keelim.core.resource.*
-import java.text.DecimalFormat
 import kotlin.math.pow
 import org.jetbrains.compose.resources.stringResource
 
@@ -77,7 +77,7 @@ fun CompoundInterestCalculator(
                 // Simple Compound Interest: A = P(1 + r/100)^t
                 val amount = p * (1 + r / 100).pow(t)
                 val roundedAmount = kotlin.math.ceil(amount).toLong()
-                result = DecimalFormat("#,###").format(roundedAmount)
+                result = roundedAmount.toUiNumber()
 
                 onCalculate(
                     mapOf(principalKey to principal, annualRateKey to rate, periodKey to years),
@@ -213,7 +213,7 @@ fun RetirementCalculator(
                     }
                     
                     val roundedAmount = kotlin.math.ceil(futureValue).toLong()
-                    result = DecimalFormat("#,###").format(roundedAmount)
+                    result = roundedAmount.toUiNumber()
 
                     onCalculate(
                         mapOf(

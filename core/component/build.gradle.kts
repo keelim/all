@@ -12,6 +12,7 @@ kotlin {
     }
     sourceSets {
         androidMain.dependencies {
+            implementation(projects.core.common)
             implementation(projects.core.designsystem)
             implementation(libs.accompanist.permissions)
             implementation(libs.androidx.activity.compose)

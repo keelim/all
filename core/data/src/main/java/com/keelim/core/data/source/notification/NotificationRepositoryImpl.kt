@@ -2,6 +2,7 @@ package com.keelim.core.data.source.notification
 
 import com.keelim.common.Dispatcher
 import com.keelim.common.KeelimDispatchers
+import com.keelim.common.extensions.formatUiDate
 import com.keelim.core.data.BuildConfig
 import com.keelim.core.network.di.KtorNetworkModule
 import com.keelim.core.network.model.NoticeResponse
@@ -15,6 +16,7 @@ import io.ktor.client.request.url
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import kotlinx.datetime.TimeZone
+import kotlinx.datetime.number
 import kotlinx.datetime.toLocalDateTime
 import jakarta.inject.Inject
 
@@ -35,11 +37,10 @@ constructor(
             }.body<List<NoticeResponse>>()
                 .map {
                     val localDate = it.createdAt.toLocalDateTime(TimeZone.UTC)
-                    val formattedDate = String.format(
-                        "%d-%02d-%02d",
-                        localDate.year,
-                        localDate.month,
-                        localDate.day,
+                    val formattedDate = formatUiDate(
+                        year = localDate.year,
+                        month = localDate.month.number,
+                        day = localDate.day,
                     )
                     Notification(
                         date = formattedDate,

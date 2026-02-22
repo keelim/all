@@ -50,11 +50,11 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.keelim.common.extensions.toUiCurrency
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space24
 import com.keelim.composeutil.resource.space32
 import com.keelim.composeutil.resource.space8
-import java.text.NumberFormat
 
 @Preview
 @Composable
@@ -154,5 +154,5 @@ internal fun calculateTip(amount: Double, tipPercent: Double = 15.0, roundUp: Bo
     if (roundUp) {
         tip = kotlin.math.ceil(tip)
     }
-    return NumberFormat.getCurrencyInstance().format(tip)
+    return tip.toUiCurrency()
 }

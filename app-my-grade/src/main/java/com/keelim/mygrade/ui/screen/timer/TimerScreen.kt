@@ -96,9 +96,9 @@ fun TimerRoute(
     }
 
     TimerScreen(
-        isRunning = viewModel.isRunning,
+        isRunning = timerUiState.runningState,
         timerUiState = timerUiState,
-        leftTime = viewModel.leftTime.intValue,
+        leftTime = timerUiState.leftTime,
         totalTimeSeconds = viewModel.getTotalTimeInSeconds(),
         addedTime = viewModel.addTime(System.currentTimeMillis()),
         onNavigateTimerHistory = onNavigateTimerHistory,

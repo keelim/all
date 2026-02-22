@@ -65,7 +65,7 @@ class TimerViewModelTest : FunSpec({
             viewModel.start()
 
             viewModel.isRunning shouldBe RunningState.STARTED
-            viewModel.leftTime.intValue shouldBe 60
+            viewModel.leftTime shouldBe 60
         }
     }
 
@@ -109,7 +109,7 @@ class TimerViewModelTest : FunSpec({
             advanceTimeBy(1000L)
             runCurrent()
 
-            viewModel.leftTime.intValue shouldBe 2
+            viewModel.leftTime shouldBe 2
         }
     }
 
@@ -135,14 +135,14 @@ class TimerViewModelTest : FunSpec({
         viewModel.hour = 1
         viewModel.minute = 30
         viewModel.second = 45
-        viewModel.leftTime.intValue = 5445
+        viewModel.start()
 
         viewModel.clear()
 
         viewModel.hour shouldBe 0
         viewModel.minute shouldBe 0
         viewModel.second shouldBe 0
-        viewModel.leftTime.intValue shouldBe 0
+        viewModel.leftTime shouldBe 0
     }
 
     test("clearDialog sets isUnsetDialog to false") {

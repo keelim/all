@@ -171,6 +171,7 @@ For module-specific details, see:
 - `app-arducon/AGENTS.md` - DeepLink tester internals
 - `app-nanda/AGENTS.md` - Health tracker internals
 - `core/component/AGENTS.md` - Compose component library
+- `core/navigation/AGENTS.md` - Route model and extension rules
 - `feature/ui-setting/AGENTS.md` - Settings UI patterns
 - `shared/AGENTS.md` - KMP shared code
 - `core/data/AGENTS.md` - Data layer architecture

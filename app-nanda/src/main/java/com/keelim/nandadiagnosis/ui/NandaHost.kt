@@ -12,6 +12,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.core.net.toUri
 import com.google.android.gms.oss.licenses.v2.OssLicensesMenuActivity
 import com.keelim.composeutil.navigation.KeelimNavDisplay
+import com.keelim.core.navigation.AppRoute
 import com.keelim.core.navigation.FeatureRoute
 import com.keelim.core.navigation.NandaRoute
 import com.keelim.core.resource.Res
@@ -45,7 +46,7 @@ fun NandaHost(
     bottomSheetState: SheetState,
     coroutineScope: CoroutineScope,
     onShowSnackbar: suspend (String, String?) -> Boolean,
-    backStack: SnapshotStateList<Any>,
+    backStack: SnapshotStateList<AppRoute>,
     modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current

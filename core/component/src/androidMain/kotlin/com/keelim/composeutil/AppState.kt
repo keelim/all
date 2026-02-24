@@ -51,19 +51,26 @@ class AppState(
 }
 
 @Composable
-fun <T : Any> rememberMutableStateListOf(vararg elements: T): SnapshotStateList<Any> {
-    return rememberSaveable(saver = snapshotStateListSaver(serializableListSaver())) {
+fun <T : Any> rememberMutableStateListOf(vararg elements: T): SnapshotStateList<T> {
+    return rememberSaveable(
+        saver = snapshotStateListSaver(
+            listSaver = serializableListSaver(serializer = UnsafePolymorphicSerializer<T>()),
+        ),
+    ) {
         elements.toList().toMutableStateList()
     }
 }
 
-inline fun <reified T : Any> serializableListSaver(
-    serializer: KSerializer<T> = UnsafePolymorphicSerializer(),
+fun <T : Any> serializableListSaver(
+    serializer: KSerializer<T>,
 ) =
     listSaver(
         save = { list -> list.map { encodeToSavedState(serializer, it) } },
         restore = { list -> list.map { decodeFromSavedState(serializer, it) } },
     )
+
+inline fun <reified T : Any> serializableListSaver() =
+    serializableListSaver(serializer = UnsafePolymorphicSerializer<T>())
 
 @Suppress("UNCHECKED_CAST")
 fun <T> snapshotStateListSaver(

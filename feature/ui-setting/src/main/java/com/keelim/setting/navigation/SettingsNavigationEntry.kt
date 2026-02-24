@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.core.net.toUri
 import androidx.navigation3.runtime.EntryProviderScope
+import com.keelim.core.navigation.AppRoute
 import com.keelim.core.navigation.FeatureRoute
 import com.keelim.setting.screen.admin.AdminRoute
 import com.keelim.setting.screen.alarm.AlarmRoute
@@ -15,8 +16,8 @@ import com.keelim.setting.screen.settings.SettingsRoute
 import com.keelim.setting.screen.theme.ThemeRoute
 import com.keelim.web.navigateToWebModule
 
-fun EntryProviderScope<Any>.registerSettingsEntries(
-    backStack: SnapshotStateList<Any>,
+fun EntryProviderScope<AppRoute>.registerSettingsEntries(
+    backStack: SnapshotStateList<AppRoute>,
     context: Context,
     onOpenSourceClick: () -> Unit,
 ) {

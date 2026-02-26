@@ -20,7 +20,14 @@ class KeelimApplicationFirebasePlugin : Plugin<Project> {
                 val bom = libs.findLibrary("firebase-bom").get()
                 add("implementation", platform(bom))
                 "implementation"(libs.findLibrary("firebase.analytics").get())
-                "implementation"(libs.findLibrary("firebase.performance").get())
+                "implementation"(libs.findLibrary("firebase.performance").get()) {
+                    exclude(
+                        mapOf(
+                            "group" to "com.google.firebase",
+                            "module" to "protolite-well-known-types",
+                        ),
+                    )
+                }
                 "implementation"(libs.findLibrary("firebase.crashlytics").get())
             }
 

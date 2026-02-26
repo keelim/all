@@ -8,11 +8,9 @@ import com.google.android.gms.time.TrustedTimeClient
 import com.keelim.core.data.BuildConfig
 import com.keelim.core.data.json.DefaultJsonParser
 import com.keelim.core.data.source.local.ArduconDataSourceImpl
-import com.keelim.core.data.source.local.SharedPreferenceManager
 import com.keelim.core.data.source.local.TokenManager
 import com.keelim.data.json.JsonParser
 import com.keelim.data.repository.ArduconDataSource
-import com.keelim.data.repository.PreferenceManager
 import com.keelim.shared.data.database.dao.ArduconDao
 import dagger.Module
 import dagger.Provides
@@ -25,14 +23,6 @@ import kotlinx.serialization.json.Json
 @Module
 @InstallIn(SingletonComponent::class)
 object DataModule {
-
-    @Provides
-    @Singleton
-    fun providePreferenceManager(
-        @ApplicationContext context: Context,
-    ): PreferenceManager = SharedPreferenceManager(
-        context = context,
-    )
 
     @Provides
     @Singleton

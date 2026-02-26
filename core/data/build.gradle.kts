@@ -8,6 +8,14 @@ plugins {
 
 android { namespace = "com.keelim.core.data" }
 
+android {
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
+}
+
 dependencies {
     api(projects.core.model)
     api(projects.core.dataApi)
@@ -29,7 +37,9 @@ dependencies {
     implementation(platform(libs.ktor.bom))
 
     implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.firestore)
+    implementation(libs.firebase.firestore) {
+        exclude(group = "com.google.firebase", module = "protolite-well-known-types")
+    }
     implementation(libs.firebase.database)
     implementation(libs.firebase.messaging)
     implementation(libs.firebase.config)
@@ -38,6 +48,8 @@ dependencies {
 
     testImplementation(libs.kotlinx.coroutines.android)
     testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.robolectric)
+    testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.12.2")
 
     implementation(libs.play.services.time)
     implementation(libs.jsoup)

@@ -32,6 +32,7 @@ dependencies {
     implementation(projects.core.navigation)
     implementation(projects.core.resource)
 
+    implementation(projects.feature.appFunction)
     implementation(projects.feature.uiScheme)
     implementation(projects.feature.uiSetting)
     implementation(projects.widget)

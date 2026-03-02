@@ -33,6 +33,7 @@ dependencies {
     implementation(projects.core.resource)
     implementation(projects.shared)
 
+    implementation(projects.feature.appFunction)
     implementation(projects.feature.uiSetting)
     implementation(projects.widget)
 

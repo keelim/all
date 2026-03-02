@@ -34,6 +34,7 @@ dependencies {
     implementation(projects.core.resource)
     implementation(projects.shared)
     implementation(projects.widget)
+    implementation(projects.feature.appFunction)
     implementation(projects.feature.uiWeb)
     implementation(projects.feature.uiSetting)
 

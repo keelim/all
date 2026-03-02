@@ -52,6 +52,7 @@ include(
     ":core:resource",
     ":core:testing",
     ":core:navigation",
+    ":feature:app-function",
     ":feature:ui-scheme",
     ":feature:ui-setting",
     ":feature:ui-web",

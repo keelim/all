@@ -20,6 +20,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import com.keelim.composeutil.resource.space32
+import com.keelim.core.resource.*
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun SchemeTestSection(
@@ -37,12 +39,12 @@ fun SchemeTestSection(
         TextField(
             textState,
             isError = isError,
-            label = { Text("please write your deeplink") },
+            label = { Text(stringResource(Res.string.settings_admin_deeplink_label)) },
             trailingIcon = {
                 if (text.isNotEmpty()) {
                     Icon(
                         imageVector = Icons.Default.Delete,
-                        contentDescription = "Clear",
+                        contentDescription = stringResource(Res.string.common_action_clear),
                         modifier = Modifier.clickable {
                             setText("")
                         },
@@ -78,7 +80,7 @@ fun SchemeTestSection(
                         onClick(text)
                     }
                 },
-            contentDescription = "Search",
+            contentDescription = stringResource(Res.string.common_action_search),
         )
     }
 }

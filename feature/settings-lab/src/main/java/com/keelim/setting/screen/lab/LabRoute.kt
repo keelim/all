@@ -25,6 +25,8 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
+import com.keelim.core.resource.*
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun LabRoute(viewModel: LabViewModel = hiltViewModel()) {
@@ -51,12 +53,12 @@ fun LabScreen(
                 value = prompt,
                 label = {
                     Text(
-                        text = "prompt 를 입력해주세요",
+                        text = stringResource(Res.string.settings_lab_prompt_label),
                     )
                 },
                 placeholder = {
                     Text(
-                        text = "요약해드립니다.",
+                        text = stringResource(Res.string.settings_lab_prompt_placeholder),
                     )
                 },
                 onValueChange = setPrompt,
@@ -75,7 +77,7 @@ fun LabScreen(
                     .align(Alignment.CenterVertically),
             ) {
                 Text(
-                    text = "Queue!",
+                    text = stringResource(Res.string.settings_lab_queue),
                 )
             }
         }
@@ -94,7 +96,7 @@ fun LabScreen(
             is LabUiState.Success -> Row(modifier = Modifier.padding(all = space8)) {
                 Icon(
                     Icons.Outlined.Person,
-                    contentDescription = "Person Icon",
+                    contentDescription = null,
                 )
                 Text(
                     text = uiState.outputText,

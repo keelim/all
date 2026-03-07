@@ -50,6 +50,8 @@ import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space2
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
+import com.keelim.core.resource.*
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun NotificationRoute() {
@@ -90,10 +92,10 @@ private fun NotificationScreen(viewModel: NotificationViewModel = hiltViewModel(
                     },
                 ),
                 modifier = Modifier.shadow(appBarElevation),
-                title = { Text(text = "Notifications") },
+                title = { Text(text = stringResource(Res.string.settings_notification_title)) },
                 navigationIcon = {
                     IconButton(onClick = { onBackPressedDispatcher.onBackPressed() }) {
-                        Icon(Icons.AutoMirrored.Rounded.ArrowBack, contentDescription = "Go back")
+                        Icon(Icons.AutoMirrored.Rounded.ArrowBack, contentDescription = stringResource(Res.string.settings_back_description))
                     }
                 },
                 actions = {},
@@ -135,7 +137,7 @@ private fun NotificationContent(
                     stickyHeader {
                         Icon(
                             imageVector = Icons.Default.Check,
-                            contentDescription = "Fixed",
+                            contentDescription = stringResource(Res.string.settings_notification_fixed),
                         )
                     }
                     items(

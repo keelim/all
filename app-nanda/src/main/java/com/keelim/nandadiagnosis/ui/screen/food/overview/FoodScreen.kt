@@ -37,6 +37,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.shared.data.database.model.FoodEntity
+import com.keelim.common.extensions.toUiNumber
+import com.keelim.core.resource.*
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun FoodRoute(
@@ -66,7 +69,7 @@ fun FoodScreen(
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(onClick = { showDialog = true }) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = "Add Food")
+                Icon(imageVector = Icons.Default.Add, contentDescription = stringResource(Res.string.nanda_food_add_description))
             }
         }
     ) { paddingValues ->
@@ -87,13 +90,13 @@ fun FoodScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "Total Calories Today",
+                        text = stringResource(Res.string.nanda_food_total_calories_today),
                         style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.onPrimaryContainer
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
-                        text = "$totalCalories kcal",
+                        text = stringResource(Res.string.nanda_food_calories_value, totalCalories.toUiNumber()),
                         style = MaterialTheme.typography.displayMedium,
                         color = MaterialTheme.colorScheme.onPrimaryContainer
                     )
@@ -146,7 +149,7 @@ fun FoodItem(
                     color = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
-                    text = "${food.calories} kcal",
+                    text = stringResource(Res.string.nanda_food_calories_value, food.calories.toUiNumber()),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -154,7 +157,7 @@ fun FoodItem(
             IconButton(onClick = onDelete) {
                 Icon(
                     imageVector = Icons.Default.Delete,
-                    contentDescription = "Delete",
+                    contentDescription = stringResource(Res.string.common_action_delete),
                     tint = MaterialTheme.colorScheme.error
                 )
             }
@@ -172,19 +175,19 @@ fun AddFoodDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text(text = "Add Food") },
+        title = { Text(text = stringResource(Res.string.nanda_food_dialog_title)) },
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 OutlinedTextField(
                     value = title,
                     onValueChange = { title = it },
-                    label = { Text("Food Name") },
+                    label = { Text(stringResource(Res.string.nanda_food_name_label)) },
                     singleLine = true
                 )
                 OutlinedTextField(
                     value = calories,
                     onValueChange = { calories = it },
-                    label = { Text("Calories") },
+                    label = { Text(stringResource(Res.string.nanda_food_calories_label)) },
                     singleLine = true,
                 )
             }
@@ -194,12 +197,12 @@ fun AddFoodDialog(
                 onClick = { onConfirm(title, calories) },
                 enabled = title.isNotBlank() && calories.toIntOrNull() != null
             ) {
-                Text("Add")
+                Text(stringResource(Res.string.common_action_add))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("Cancel")
+                Text(stringResource(Res.string.common_action_cancel))
             }
         }
     )

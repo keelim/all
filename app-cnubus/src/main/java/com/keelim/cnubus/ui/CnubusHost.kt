@@ -8,7 +8,7 @@ import androidx.compose.material3.SheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import com.google.android.gms.oss.licenses.v2.OssLicensesMenuActivity
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.keelim.composeutil.navigation.KeelimNavDisplay
 import com.keelim.cnubus.ui.screen.main.MainRoute
 import com.keelim.cnubus.ui.screen.map.screen.map.MapRoute

@@ -10,7 +10,7 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.net.toUri
-import com.google.android.gms.oss.licenses.v2.OssLicensesMenuActivity
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.keelim.composeutil.navigation.KeelimNavDisplay
 import com.keelim.core.navigation.AppRoute
 import com.keelim.core.navigation.FeatureRoute

@@ -37,9 +37,7 @@ dependencies {
     implementation(platform(libs.ktor.bom))
 
     implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.firestore) {
-        exclude(group = "com.google.firebase", module = "protolite-well-known-types")
-    }
+    implementation(libs.firebase.firestore)
     implementation(libs.firebase.database)
     implementation(libs.firebase.messaging)
     implementation(libs.firebase.config)
@@ -53,6 +51,7 @@ dependencies {
 
     implementation(libs.play.services.time)
     implementation(libs.jsoup)
+    implementation(libs.re2j)
 
     testImplementation(projects.core.testing)
 }

@@ -13,6 +13,14 @@ android {
 
 dependencies {
 
+    api(projects.feature.settingsCore)
+    api(projects.feature.settingsTheme)
+    api(projects.feature.settingsNotification)
+    api(projects.feature.settingsAlarm)
+    api(projects.feature.settingsDevice)
+    api(projects.feature.settingsAdmin)
+    api(projects.feature.settingsLab)
+
     implementation(projects.core.commonAndroid)
     implementation(projects.core.common)
     implementation(projects.core.component)
@@ -33,4 +41,7 @@ dependencies {
 
     implementation(libs.timber)
     implementation(libs.androidx.lifecycle.process)
+
+    testImplementation(projects.core.testing)
 }
+

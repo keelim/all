@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="185pt" height="44pt" viewBox="0 0 185 44">
+    <g class="graph" transform="translate(4 40)">
+        <title>G</title>
+        <path fill="#fff" d="M-4 4v-44h185.43V4z"/>
+        <g class="node">
+            <title>:feature:app-function</title>
+            <ellipse cx="88.71" cy="-18" fill="none" stroke="#000" rx="88.71" ry="18"/>
+            <text xml:space="preserve" x="88.71" y="-12.95" font-family="Times,serif" font-size="14" text-anchor="middle">:feature:app-function</text>
+        </g>
+    </g>
+</svg>

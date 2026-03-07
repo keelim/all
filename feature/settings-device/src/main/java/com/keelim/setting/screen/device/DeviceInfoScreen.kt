@@ -20,7 +20,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -29,6 +28,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space2
 import com.keelim.composeutil.resource.space8
+import com.keelim.common.extensions.toUiNumber
+import com.keelim.core.resource.*
+import org.jetbrains.compose.resources.stringResource
 
 data class DeviceInfoItem(
     val label: String,
@@ -43,27 +45,25 @@ fun DeviceInfoScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    val deviceInfos = remember(uiState) {
-        if (uiState.deviceName.isEmpty()) {
-            emptyList()
-        } else {
-            listOf(
-                DeviceInfoItem("Model", uiState.deviceModel),
-                DeviceInfoItem("Manufacturer", uiState.deviceBrand),
-                DeviceInfoItem("Device", uiState.deviceName),
-                DeviceInfoItem("Brand", uiState.deviceBrand),
-                DeviceInfoItem("Board", uiState.board),
-                DeviceInfoItem("Hardware", uiState.hardware),
-                DeviceInfoItem("Product", uiState.product),
-                DeviceInfoItem("Android Version", uiState.versionName),
-                DeviceInfoItem("App Version", uiState.versionName),
-                DeviceInfoItem("SDK Level", uiState.sdkLevel.toString()),
-                DeviceInfoItem("Screen Density", "${uiState.screenDensity} dpi"),
-                DeviceInfoItem("Screen Width", "${uiState.screenWidthDp} dp"),
-                DeviceInfoItem("Screen Height", "${uiState.screenHeightDp} dp"),
-                DeviceInfoItem("Supported ABIs", uiState.supportedAbis.joinToString(", ")),
-            )
-        }
+    val deviceInfos = if (uiState.deviceName.isEmpty()) {
+        emptyList()
+    } else {
+        listOf(
+            DeviceInfoItem(stringResource(Res.string.settings_device_label_model), uiState.deviceModel),
+            DeviceInfoItem(stringResource(Res.string.settings_device_label_manufacturer), uiState.deviceBrand),
+            DeviceInfoItem(stringResource(Res.string.settings_device_label_device), uiState.deviceName),
+            DeviceInfoItem(stringResource(Res.string.settings_device_label_brand), uiState.deviceBrand),
+            DeviceInfoItem(stringResource(Res.string.settings_device_label_board), uiState.board),
+            DeviceInfoItem(stringResource(Res.string.settings_device_label_hardware), uiState.hardware),
+            DeviceInfoItem(stringResource(Res.string.settings_device_label_product), uiState.product),
+            DeviceInfoItem(stringResource(Res.string.settings_device_label_android_version), uiState.versionName),
+            DeviceInfoItem(stringResource(Res.string.settings_device_label_app_version), uiState.versionName),
+            DeviceInfoItem(stringResource(Res.string.settings_device_label_sdk_level), uiState.sdkLevel.toUiNumber()),
+            DeviceInfoItem(stringResource(Res.string.settings_device_screen_density), stringResource(Res.string.settings_device_screen_density_value, uiState.screenDensity.toUiNumber())),
+            DeviceInfoItem(stringResource(Res.string.settings_device_screen_width), stringResource(Res.string.settings_device_screen_width_value, uiState.screenWidthDp.toUiNumber())),
+            DeviceInfoItem(stringResource(Res.string.settings_device_screen_height), stringResource(Res.string.settings_device_screen_height_value, uiState.screenHeightDp.toUiNumber())),
+            DeviceInfoItem(stringResource(Res.string.settings_device_supported_abis), uiState.supportedAbis.joinToString(", ")),
+        )
     }
 
     Scaffold(
@@ -71,14 +71,14 @@ fun DeviceInfoScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = "Device Info",
+                        text = stringResource(Res.string.settings_category_device_info),
                         style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
                         color = MaterialTheme.colorScheme.onSurface,
                     )
                 },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
-                        Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "back")
+                        Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(Res.string.settings_back_description))
                     }
                 },
             )

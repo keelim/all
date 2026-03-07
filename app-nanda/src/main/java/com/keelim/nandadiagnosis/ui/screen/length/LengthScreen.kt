@@ -39,6 +39,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.composeutil.component.chart.LengthChartPoint
 import com.keelim.composeutil.component.chart.LengthLineChart
 import com.keelim.model.LengthRecord
+import com.keelim.common.extensions.toUiNumber
+import com.keelim.core.resource.*
+import org.jetbrains.compose.resources.stringResource
 import java.time.LocalDate
 
 @Composable
@@ -60,7 +63,7 @@ fun LengthScreen(
             TextField(
                 value = input,
                 onValueChange = { input = it },
-                label = { Text("(cm)") },
+                label = { Text(stringResource(Res.string.nanda_length_unit_label)) },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 modifier = Modifier.weight(1f),
             )
@@ -77,7 +80,7 @@ fun LengthScreen(
                     input = ""
                 }
             }) {
-                Text("저장")
+                Text(stringResource(Res.string.common_action_save))
             }
         }
         Spacer(Modifier.height(24.dp))
@@ -92,7 +95,7 @@ fun LengthScreen(
         Spacer(Modifier.height(24.dp))
 
         // 기록 리스트
-        Text("기록 리스트", style = MaterialTheme.typography.titleMedium)
+        Text(stringResource(Res.string.nanda_length_records_title), style = MaterialTheme.typography.titleMedium)
         Spacer(Modifier.height(8.dp))
         LazyColumn {
             items(
@@ -106,9 +109,9 @@ fun LengthScreen(
                         .animateItem(),
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
-                    Text(text = "${record.date} : ${record.length}cm")
+                    Text(text = stringResource(Res.string.nanda_length_record_item, record.date, record.length.toUiNumber()))
                     IconButton(onClick = { viewModel.deleteRecord(record.date) }) {
-                        Icon(Icons.Default.Delete, contentDescription = "삭제")
+                        Icon(Icons.Default.Delete, contentDescription = stringResource(Res.string.nanda_length_delete))
                     }
                 }
             }

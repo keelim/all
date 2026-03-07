@@ -34,6 +34,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.shared.data.database.model.ExerciseEntity
+import com.keelim.core.resource.*
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun ExerciseRoute(
@@ -59,7 +61,7 @@ fun ExerciseScreen(
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(onClick = { showDialog = true }) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = "Add Exercise")
+                Icon(imageVector = Icons.Default.Add, contentDescription = stringResource(Res.string.nanda_exercise_add_description))
             }
         }
     ) { paddingValues ->
@@ -72,7 +74,7 @@ fun ExerciseScreen(
         ) {
              if (exercises.isEmpty()) {
                 Text(
-                    text = "No exercises recorded today.",
+                    text = stringResource(Res.string.nanda_exercise_empty),
                     style = MaterialTheme.typography.bodyLarge,
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
@@ -131,7 +133,7 @@ fun ExerciseItem(
             IconButton(onClick = onDelete) {
                 Icon(
                     imageVector = Icons.Default.Delete,
-                    contentDescription = "Delete",
+                    contentDescription = stringResource(Res.string.common_action_delete),
                     tint = MaterialTheme.colorScheme.error
                 )
             }
@@ -149,19 +151,19 @@ fun AddExerciseDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text(text = "Add Exercise") },
+        title = { Text(text = stringResource(Res.string.nanda_exercise_dialog_title)) },
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 OutlinedTextField(
                     value = title,
                     onValueChange = { title = it },
-                    label = { Text("Exercise Name") },
+                    label = { Text(stringResource(Res.string.nanda_exercise_name_label)) },
                     singleLine = true
                 )
                 OutlinedTextField(
                     value = duration,
                     onValueChange = { duration = it },
-                    label = { Text("Duration (e.g. 30 min)") },
+                    label = { Text(stringResource(Res.string.nanda_exercise_duration_label)) },
                     singleLine = true,
                 )
             }
@@ -171,12 +173,12 @@ fun AddExerciseDialog(
                 onClick = { onConfirm(title, duration) },
                 enabled = title.isNotBlank() && duration.isNotBlank()
             ) {
-                Text("Add")
+                Text(stringResource(Res.string.common_action_add))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("Cancel")
+                Text(stringResource(Res.string.common_action_cancel))
             }
         }
     )

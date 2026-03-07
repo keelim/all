@@ -59,6 +59,8 @@ import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
 import com.keelim.model.finance.FinanceRssItem
+import com.keelim.core.resource.*
+import org.jetbrains.compose.resources.stringResource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -104,7 +106,7 @@ fun FinanceMainSection(
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Text(
-                        text = "더 이상 뉴스가 없습니다.",
+                        text = stringResource(Res.string.comssa_finance_empty_state_end),
                         style = MaterialTheme.typography.bodyMedium.copy(
                             fontWeight = FontWeight.Bold,
                         ),
@@ -130,14 +132,14 @@ fun FinanceHeaderItem(modifier: Modifier = Modifier) = trace("FinanceHeaderItem"
         ) {
             Column {
                 Text(
-                    text = "금융 뉴스",
+                    text = stringResource(Res.string.comssa_finance_header_title),
                     style = MaterialTheme.typography.headlineMedium.copy(
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onPrimaryContainer,
                     ),
                 )
                 Text(
-                    text = "실시간 금융 정보를 확인하세요",
+                    text = stringResource(Res.string.comssa_finance_header_subtitle),
                     style = MaterialTheme.typography.bodyMedium.copy(
                         color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f),
                     ),
@@ -263,7 +265,7 @@ fun FinanceFloatingButton(
                 content = {
                     Icon(
                         imageVector = if (isExpanded) Icons.Filled.Menu else Icons.Filled.Add,
-                        contentDescription = if (isExpanded) "Close" else "Open",
+                        contentDescription = if (isExpanded) stringResource(Res.string.common_menu_close) else stringResource(Res.string.common_menu_open),
                     )
                 },
             )
@@ -278,7 +280,7 @@ fun FinanceFloatingButton(
             icon = {
                 Icon(
                     imageVector = Icons.Filled.KeyboardArrowUp,
-                    contentDescription = "scroll to top",
+                    contentDescription = stringResource(Res.string.comssa_finance_scroll_to_top),
                 )
             },
             text = { },
@@ -292,10 +294,10 @@ fun FinanceFloatingButton(
             icon = {
                 Icon(
                     imageVector = Icons.Filled.Refresh,
-                    contentDescription = "refresh",
+                    contentDescription = stringResource(Res.string.common_action_refresh),
                 )
             },
-            text = { Text("새로고침") },
+            text = { Text(text = stringResource(Res.string.common_action_refresh)) },
         )
 
         items.fastForEach { item ->
@@ -332,11 +334,11 @@ fun FinanceNavigationBar(
             icon = {
                 Icon(
                     imageVector = Icons.Filled.List,
-                    contentDescription = "뉴스",
+                    contentDescription = stringResource(Res.string.comssa_finance_tab_news),
                 )
             },
             label = {
-                Text(text = "뉴스")
+                Text(text = stringResource(Res.string.comssa_finance_tab_news))
             },
         )
 
@@ -348,11 +350,11 @@ fun FinanceNavigationBar(
             icon = {
                 Icon(
                     imageVector = Icons.Filled.Settings,
-                    contentDescription = "설정",
+                    contentDescription = stringResource(Res.string.comssa_finance_tab_settings),
                 )
             },
             label = {
-                Text(text = "설정")
+                Text(text = stringResource(Res.string.comssa_finance_tab_settings))
             },
         )
     }

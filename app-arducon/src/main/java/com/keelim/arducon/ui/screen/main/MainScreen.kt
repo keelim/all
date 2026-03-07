@@ -252,14 +252,14 @@ fun MainScreen(
                 verticalArrangement = Arrangement.spacedBy(space4),
             ) {
                 Text(
-                    text = "Arducon",
+                    text = stringResource(Res.string.arducon_main_title),
                     style = MaterialTheme.typography.headlineMedium.copy(
                         fontWeight = FontWeight.Bold,
                     ),
                     color = MaterialTheme.colorScheme.primary,
                 )
                 Text(
-                    text = "Deeplink Tester",
+                    text = stringResource(Res.string.arducon_main_subtitle),
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
@@ -292,7 +292,7 @@ fun MainScreen(
                 ) {
                     Icon(
                         imageVector = Icons.Default.Search,
-                        contentDescription = "스킴 검색",
+                        contentDescription = stringResource(Res.string.arducon_search_title),
                         tint = MaterialTheme.colorScheme.primary,
                     )
                 }
@@ -351,26 +351,26 @@ private fun HorizontalFloatingToolbarSection(
             IconButton(onClick = { setIsExpanded(!isExpanded) }) {
                 Icon(
                     imageVector = if (isExpanded) Icons.Default.CheckCircle else Icons.Default.AddCircle,
-                    contentDescription = "Toggle Toolbar",
+                    contentDescription = stringResource(Res.string.arducon_main_toggle_toolbar),
                 )
             }
         },
     ) {
         TooltipIcon(
-            tooltipText = "OG Tag Preview",
+            tooltipText = stringResource(Res.string.arducon_main_og_tag_preview),
             content = {
                 IconButton(
                     onClick = onNavigateOgTagPreview,
                 ) {
                     Icon(
                         imageVector = Icons.Default.ThumbUp,
-                        contentDescription = "OG Tag Preview",
+                        contentDescription = stringResource(Res.string.arducon_main_og_tag_preview),
                     )
                 }
             },
         )
         TooltipIcon(
-            tooltipText = "QR Code Scanner",
+            tooltipText = stringResource(Res.string.arducon_main_qr_code_scanner),
             content = {
                 IconButton(
                     onClick = onQrCodeClick,
@@ -379,85 +379,85 @@ private fun HorizontalFloatingToolbarSection(
                         imageVector = rememberQrCodeScanner(
                             tintColor = if (isSystemInDarkTheme()) Color.White else Color.Black,
                         ),
-                        contentDescription = "QR Code Scanner",
+                        contentDescription = stringResource(Res.string.arducon_main_qr_code_scanner),
                     )
                 }
             },
         )
         TooltipIcon(
-            tooltipText = "Navigate Saastatus",
+            tooltipText = stringResource(Res.string.arducon_main_navigate_saastatus),
             content = {
                 IconButton(
                     onClick = onNavigateSaastatus,
                 ) {
                     Icon(
                         imageVector = Icons.Default.AddCircle,
-                        contentDescription = "navigate saastatus",
+                        contentDescription = stringResource(Res.string.arducon_main_navigate_saastatus),
                     )
                 }
             },
         )
         TooltipIcon(
-            tooltipText = "Playground",
+            tooltipText = stringResource(Res.string.arducon_main_navigate_playground),
             content = {
                 IconButton(
                     onClick = onNavigatePlayground,
                 ) {
                     Icon(
                         imageVector = Icons.Default.Build,
-                        contentDescription = "navigate playground",
+                        contentDescription = stringResource(Res.string.arducon_main_navigate_playground),
                     )
                 }
             },
         )
         TooltipIcon(
-            tooltipText = "JSON Formatter",
+            tooltipText = stringResource(Res.string.arducon_main_navigate_json_formatter),
             content = {
                 IconButton(
                     onClick = onNavigateJsonFormatter,
                 ) {
                     Icon(
                         imageVector = Icons.Default.Create,
-                        contentDescription = "navigate json formatter",
+                        contentDescription = stringResource(Res.string.arducon_main_navigate_json_formatter),
                     )
                 }
             },
         )
         TooltipIcon(
-            tooltipText = "Base64 Tool",
+            tooltipText = stringResource(Res.string.arducon_main_navigate_base64_tool),
             content = {
                 IconButton(
                     onClick = onNavigateBase64Encoder,
                 ) {
                     Icon(
                         imageVector = Icons.Default.Lock,
-                        contentDescription = "navigate base64 tool",
+                        contentDescription = stringResource(Res.string.arducon_main_navigate_base64_tool),
                     )
                 }
             },
         )
         TooltipIcon(
-            tooltipText = "Device Info",
+            tooltipText = stringResource(Res.string.arducon_main_navigate_device_info),
             content = {
                 IconButton(
                     onClick = onNavigateDeviceInfo,
                 ) {
                     Icon(
                         imageVector = Icons.Default.Info,
-                        contentDescription = "navigate device info",
+                        contentDescription = stringResource(Res.string.arducon_main_navigate_device_info),
                     )
                 }
             },
         )
         TooltipIcon(
-            tooltipText = "URL Shortener",
+            tooltipText = stringResource(Res.string.arducon_main_navigate_url_shortener),
             content = {
                 IconButton(
                     onClick = onNavigateUrlShortener,
                 ) {
                     Icon(
                         imageVector = Icons.Default.List,
-                        contentDescription = "navigate url shortener",
+                        contentDescription = stringResource(Res.string.arducon_main_navigate_url_shortener),
                     )
                 }
             },
@@ -543,7 +543,7 @@ private fun DeepLinkBottomSheet(
                     }
 
                     Text(
-                        text = deepLink.title.takeIf { it.isNotEmpty() } ?: "제목 없음",
+                        text = deepLink.title.takeIf { it.isNotEmpty() } ?: stringResource(Res.string.arducon_main_no_title),
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSurface,
@@ -581,13 +581,13 @@ private fun DeepLinkBottomSheet(
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(
                         imageVector = if (deepLink.isBookMarked) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
-                        contentDescription = "즐겨찾기",
+                        contentDescription = stringResource(Res.string.arducon_main_favorite),
                         tint = if (deepLink.isBookMarked) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.size(space24),
                     )
                     Spacer(modifier = Modifier.width(space8))
                     Text(
-                        text = if (deepLink.isBookMarked) "즐겨찾기 추가됨" else "즐겨찾기 아님",
+                        text = if (deepLink.isBookMarked) stringResource(Res.string.arducon_main_favorite_added) else stringResource(Res.string.arducon_main_favorite_not_added),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
@@ -597,7 +597,7 @@ private fun DeepLinkBottomSheet(
                     Instant.fromEpochMilliseconds(deepLink.timestamp).toUiDateTime()
                 }
                 Text(
-                    text = "생성일: $formattedTimestamp",
+                    text = stringResource(Res.string.arducon_main_created_at, formattedTimestamp),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
                 )
@@ -609,7 +609,7 @@ private fun DeepLinkBottomSheet(
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Text(
-                        text = "카테고리: ",
+                        text = stringResource(Res.string.arducon_main_category),
                         style = MaterialTheme.typography.bodyMedium,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -632,7 +632,7 @@ private fun DeepLinkBottomSheet(
                     modifier = Modifier.weight(1f),
                     shape = RoundedCornerShape(8.dp),
                 ) {
-                    Text("편집")
+                    Text(stringResource(Res.string.common_action_edit))
                 }
                 Spacer(modifier = Modifier.width(space16))
                 TextButton(
@@ -643,7 +643,7 @@ private fun DeepLinkBottomSheet(
                     modifier = Modifier.weight(1f),
                     colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error),
                 ) {
-                    Text("삭제")
+                    Text(stringResource(Res.string.common_action_delete))
                 }
             }
         }
@@ -662,27 +662,27 @@ private fun DeepLinkEditDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("딥링크 편집") },
+        title = { Text(stringResource(Res.string.arducon_main_edit_deeplink)) },
         text = {
             Column {
                 TextField(
                     value = editedTitle,
                     onValueChange = { editedTitle = it },
-                    label = { Text("제목") },
+                    label = { Text(stringResource(Res.string.arducon_main_title_label)) },
                     modifier = Modifier.fillMaxWidth(),
                 )
                 Spacer(modifier = Modifier.height(space8))
                 TextField(
                     value = editedUrl,
                     onValueChange = { editedUrl = it },
-                    label = { Text("URL") },
+                    label = { Text(stringResource(Res.string.label_url)) },
                     modifier = Modifier.fillMaxWidth(),
                 )
                 Spacer(modifier = Modifier.height(space8))
                 TextField(
                     value = editedCategory,
                     onValueChange = { editedCategory = it },
-                    label = { Text("카테고리") },
+                    label = { Text(stringResource(Res.string.arducon_main_category_label)) },
                     modifier = Modifier.fillMaxWidth(),
                 )
             }
@@ -699,12 +699,12 @@ private fun DeepLinkEditDialog(
                     )
                 },
             ) {
-                Text("저장")
+                Text(stringResource(Res.string.common_action_save))
             }
         },
         dismissButton = {
             Button(onClick = onDismiss) {
-                Text("취소")
+                Text(stringResource(Res.string.common_action_cancel))
             }
         },
     )
@@ -772,16 +772,16 @@ fun QrDialog(
                 text = {
                     Image(
                         bitmap = qrDialogState.bitmap.asImageBitmap(),
-                        contentDescription = "QR 코드",
+                        contentDescription = stringResource(Res.string.qr_content_description),
                     )
                 },
                 confirmButton = {
                     Button(onClick = { onSaveImage(qrDialogState.bitmap) }) {
-                        Text("이미지 저장")
+                        Text(stringResource(Res.string.qr_save_image))
                     }
                 },
                 dismissButton = {
-                    Button(onClick = onDismiss) { Text("닫기") }
+                    Button(onClick = onDismiss) { Text(stringResource(Res.string.dialog_close)) }
                 },
             )
         }
@@ -789,11 +789,11 @@ fun QrDialog(
         is QrDialogState.Error -> {
             AlertDialog(
                 onDismissRequest = onDismiss,
-                title = { Text("에러") },
+                title = { Text(stringResource(Res.string.dialog_error)) },
                 text = { Text(qrDialogState.message) },
                 confirmButton = {},
                 dismissButton = {
-                    Button(onClick = onDismiss) { Text("닫기") }
+                    Button(onClick = onDismiss) { Text(stringResource(Res.string.dialog_close)) }
                 },
             )
         }

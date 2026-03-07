@@ -48,6 +48,8 @@ import com.keelim.composeutil.resource.space24
 import com.keelim.composeutil.resource.space32
 import com.keelim.composeutil.resource.space8
 import com.keelim.shared.data.model.ThemeType
+import com.keelim.core.resource.*
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun ThemeRoute(
@@ -135,13 +137,13 @@ private fun ThemeHeader(
 
             Column {
                 Text(
-                    text = "Appearance",
+                    text = stringResource(Res.string.settings_theme_appearance_title),
                     style = MaterialTheme.typography.headlineMedium,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onBackground,
                 )
                 Text(
-                    text = "Customize your app theme",
+                    text = stringResource(Res.string.settings_theme_appearance_subtitle),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
@@ -161,7 +163,7 @@ private fun ThemeSelectionSection(
         verticalArrangement = Arrangement.spacedBy(space12),
     ) {
         Text(
-            text = "Choose Theme",
+            text = stringResource(Res.string.settings_theme_choose),
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.SemiBold,
             color = MaterialTheme.colorScheme.onBackground,
@@ -175,8 +177,8 @@ private fun ThemeSelectionSection(
         ) {
             ThemeOptionCard(
                 modifier = Modifier.weight(1f),
-                title = "Light",
-                subtitle = "Bright & Clean",
+                title = stringResource(Res.string.settings_theme_light),
+                subtitle = stringResource(Res.string.settings_theme_light_subtitle),
                 isSelected = selectedTheme == ThemeType.LIGHT,
                 gradientColors = listOf(
                     Color(0xFFFFF3E0),
@@ -188,8 +190,8 @@ private fun ThemeSelectionSection(
 
             ThemeOptionCard(
                 modifier = Modifier.weight(1f),
-                title = "Dark",
-                subtitle = "Easy on eyes",
+                title = stringResource(Res.string.settings_theme_dark),
+                subtitle = stringResource(Res.string.settings_theme_dark_subtitle),
                 isSelected = selectedTheme == ThemeType.DARK,
                 gradientColors = listOf(
                     Color(0xFF263238),
@@ -278,7 +280,7 @@ private fun ThemeOptionCard(
                 ) {
                     Icon(
                         imageVector = Icons.Default.Check,
-                        contentDescription = "Selected",
+                        contentDescription = stringResource(Res.string.settings_theme_selected),
                         tint = MaterialTheme.colorScheme.onPrimary,
                         modifier = Modifier.size(16.dp),
                     )
@@ -331,7 +333,7 @@ private fun ThemePreviewCard(
             modifier = Modifier.padding(space16),
         ) {
             Text(
-                text = "Preview",
+                text = stringResource(Res.string.settings_theme_preview),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.onSurface,
@@ -380,8 +382,8 @@ private fun ThemePreviewCard(
 
             Text(
                 text = when (selectedTheme) {
-                    ThemeType.LIGHT -> "☀️ Light mode - Perfect for daytime use"
-                    ThemeType.DARK -> "🌙 Dark mode - Easier on the eyes at night"
+                    ThemeType.LIGHT -> stringResource(Res.string.settings_theme_preview_light)
+                    ThemeType.DARK -> stringResource(Res.string.settings_theme_preview_dark)
                 },
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,

@@ -65,6 +65,7 @@ insightsLint = "0.1.4"
 jacoco = "0.8.13"
 junitPlatform = "1.12.2"
 jsoup = "1.22.1"
+re2j = "1.8"
 kotlin = "2.3.0"
 kotest = "5.9.1"
 kotlin-benchmark = "0.4.15"
@@ -99,7 +100,7 @@ playoss = "17.3.0"
 playoss-plugin = "0.10.10"
 preference = "1.2.1"
 preferenceKtx = "1.2.1"
-protobuf = "4.33.5"
+protobuf = "4.26.1"
 protobufPlugin = "0.9.6"
 retrofit = "3.0.0"
 retrofitKotlinxSerializationJson = "1.0.0"
@@ -255,6 +256,7 @@ hilt-ext-work = { group = "androidx.hilt", name = "hilt-work", version.ref = "hi
 inapp-update = { group = "com.google.android.play", name = "app-update-ktx", version.ref = "in-app-update" }
 insights-lint = { module = "com.google.play.policy.insights:insights-lint", version.ref = "insightsLint" }
 jsoup = { module = "org.jsoup:jsoup", version.ref = "jsoup"}
+re2j = { group = "com.google.re2j", name = "re2j", version.ref = "re2j" }
 junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher", version.ref = "junitPlatform" }
 kotest-assertions-core = { group = "io.kotest", name = "kotest-assertions-core", version.ref = "kotest" }
 kotest-runner-junit5 = { group = "io.kotest", name = "kotest-runner-junit5", version.ref = "kotest" }

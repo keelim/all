@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="121pt" height="44pt" viewBox="0 0 121 44">
+    <g class="graph" transform="translate(4 40)">
+        <title>G</title>
+        <path fill="#fff" d="M-4 4v-44h120.94V4z"/>
+        <g class="node">
+            <title>:core:testing</title>
+            <ellipse cx="56.47" cy="-18" fill="none" stroke="#000" rx="56.47" ry="18"/>
+            <text xml:space="preserve" x="56.47" y="-12.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:testing</text>
+        </g>
+    </g>
+</svg>

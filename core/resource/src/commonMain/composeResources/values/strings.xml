@@ -1,5 +1,34 @@
 <resources>
     <string name="project">All</string>
+
+    <!-- Common -->
+    <string name="common_action_accept">Accept</string>
+    <string name="common_action_add">Add</string>
+    <string name="common_action_cancel">Cancel</string>
+    <string name="common_action_clear">Clear</string>
+    <string name="common_action_copy">Copy</string>
+    <string name="common_action_delete">Delete</string>
+    <string name="common_action_edit">Edit</string>
+    <string name="common_action_refresh">새로고침</string>
+    <string name="common_action_save">저장</string>
+    <string name="common_action_search">Search</string>
+    <string name="common_action_share">공유</string>
+    <string name="common_copied_to_clipboard">Copied to clipboard</string>
+    <string name="common_date_label">Date</string>
+    <string name="common_error_with_message">Error: %1$s</string>
+    <string name="common_menu_close">Close menu</string>
+    <string name="common_menu_open">Open menu</string>
+    <string name="common_reviews_count">%1$s reviews</string>
+
+    <!-- Comssa Finance -->
+    <string name="comssa_finance_empty_state_end">더 이상 뉴스가 없습니다.</string>
+    <string name="comssa_finance_header_subtitle">실시간 금융 정보를 확인하세요</string>
+    <string name="comssa_finance_header_title">금융 뉴스</string>
+    <string name="comssa_finance_scroll_to_top">맨 위로 이동</string>
+    <string name="comssa_finance_settings_pending">설정 화면은 준비 중입니다.</string>
+    <string name="comssa_finance_tab_news">뉴스</string>
+    <string name="comssa_finance_tab_settings">설정</string>
+
     <string name="calculator_title">금융 계산기</string>
     <string name="calculator_subtitle">다양한 재무 계산을 한 곳에서</string>
     <string name="calculator_history_title">계산 기록</string>
@@ -42,6 +71,60 @@
     <string name="nanda_download_failed_toast">다운로드를 완료하지 못했습니다..</string>
 
     <!-- Arducon -->
+    <string name="arducon_back_description">뒤로 가기</string>
+    <string name="arducon_create_deeplink_category_label_optional">카테고리 (선택사항)</string>
+    <string name="arducon_create_deeplink_category_placeholder">카테고리를 선택하거나 입력하세요</string>
+    <string name="arducon_create_deeplink_title">딥링크 생성</string>
+    <string name="arducon_create_deeplink_selected_scheme">선택된 스킴</string>
+    <string name="arducon_create_deeplink_success">딥링크가 성공적으로 생성되었습니다!</string>
+    <string name="arducon_create_deeplink_title_label_optional">제목 (선택사항)</string>
+    <string name="arducon_create_deeplink_title_placeholder">딥링크 제목을 입력하세요</string>
+    <string name="arducon_create_deeplink_url_placeholder">예: https://example.com</string>
+    <string name="arducon_json_formatter_format_validate">Format &amp; Validate</string>
+    <string name="arducon_json_formatter_input_placeholder">Paste your JSON here...</string>
+    <string name="arducon_json_formatter_raw_json">Raw JSON</string>
+    <string name="arducon_json_formatter_output_title">Formatted JSON</string>
+    <string name="arducon_json_formatter_title">JSON Formatter</string>
+    <string name="arducon_main_category">카테고리:</string>
+    <string name="arducon_main_category_label">카테고리</string>
+    <string name="arducon_main_created_at">생성일: %1$s</string>
+    <string name="arducon_main_edit_deeplink">딥링크 편집</string>
+    <string name="arducon_main_favorite_added">즐겨찾기 추가됨</string>
+    <string name="arducon_main_favorite">즐겨찾기</string>
+    <string name="arducon_main_favorite_not_added">즐겨찾기 아님</string>
+    <string name="arducon_main_navigate_base64_tool">Navigate Base64 Tool</string>
+    <string name="arducon_main_navigate_device_info">Navigate Device Info</string>
+    <string name="arducon_main_navigate_json_formatter">Navigate JSON Formatter</string>
+    <string name="arducon_main_navigate_playground">Navigate Playground</string>
+    <string name="arducon_main_navigate_saastatus">Navigate Saastatus</string>
+    <string name="arducon_main_navigate_url_shortener">Navigate URL Shortener</string>
+    <string name="arducon_main_subtitle">Deeplink Tester</string>
+    <string name="arducon_main_title">Arducon</string>
+    <string name="arducon_main_no_title">제목 없음</string>
+    <string name="arducon_main_og_tag_preview">OG Tag Preview</string>
+    <string name="arducon_main_qr_code_scanner">QR Code Scanner</string>
+    <string name="arducon_main_title_label">제목</string>
+    <string name="arducon_main_toggle_toolbar">Toggle Toolbar</string>
+    <string name="arducon_search_clear_query">검색어 지우기</string>
+    <string name="arducon_search_placeholder">예: http, https, tel, mailto</string>
+    <string name="arducon_search_title">스킴 검색</string>
+    <string name="arducon_url_shortener_click_count">클릭: %1$s회</string>
+    <string name="arducon_url_shortener_expiration_at">만료: %1$s</string>
+    <string name="arducon_url_shortener_expiration_label">만료:</string>
+    <string name="arducon_url_shortener_expiration_one_day">1일</string>
+    <string name="arducon_url_shortener_expiration_one_month">1개월</string>
+    <string name="arducon_url_shortener_expiration_one_week">1주일</string>
+    <string name="arducon_url_shortener_expiration_three_months">3개월</string>
+    <string name="arducon_url_shortener_generate">단축 URL 생성</string>
+    <string name="arducon_url_shortener_generated_title">생성 완료!</string>
+    <string name="arducon_url_shortener_no_expiration">만료 없음</string>
+    <string name="arducon_url_shortener_original_url_copied">원본 URL 복사됨</string>
+    <string name="arducon_url_shortener_saved_links">저장된 링크 (%1$s)</string>
+    <string name="arducon_url_shortener_short_code">Short Code: %1$s</string>
+    <string name="arducon_url_shortener_title">URL Shortener</string>
+    <string name="arducon_url_shortener_title_optional">제목 (선택)</string>
+    <string name="arducon_url_shortener_title_placeholder">링크 제목</string>
+    <string name="arducon_url_shortener_url_placeholder">https://example.com/long-url</string>
     <string name="stats_button">통계 보기</string>
     <string name="invalid_url_error">유효하지 않은 URL입니다.</string>
     <string name="playground_title">Playground</string>
@@ -96,6 +179,21 @@
     <string name="retirement_key_expected_assets">은퇴 시 예상 자산</string>
 
     <!-- Nanda -->
+    <string name="nanda_exercise_add_description">Add Exercise</string>
+    <string name="nanda_exercise_dialog_title">Add Exercise</string>
+    <string name="nanda_exercise_duration_label">Duration (e.g. 30 min)</string>
+    <string name="nanda_exercise_empty">No exercises recorded today.</string>
+    <string name="nanda_exercise_name_label">Exercise Name</string>
+    <string name="nanda_food_add_description">Add Food</string>
+    <string name="nanda_food_calories_label">Calories</string>
+    <string name="nanda_food_calories_value">%1$s kcal</string>
+    <string name="nanda_food_dialog_title">Add Food</string>
+    <string name="nanda_food_name_label">Food Name</string>
+    <string name="nanda_food_total_calories_today">Total Calories Today</string>
+    <string name="nanda_length_delete">삭제</string>
+    <string name="nanda_length_record_item">%1$s : %2$scm</string>
+    <string name="nanda_length_records_title">기록 리스트</string>
+    <string name="nanda_length_unit_label">(cm)</string>
     <string name="nanda_app_name">난다진단</string>
     <string name="medication_notification_channel_name">Medication Reminders</string>
     <string name="medication_notification_channel_description">Notifications for medication reminders</string>
@@ -109,9 +207,21 @@
     <string name="nanda_move_action">move</string>
 
     <!-- MyGrade -->
+    <string name="my_grade_timer_history_delete_all_description">Delete All</string>
+    <string name="my_grade_timer_history_delete_all_message">모든 타이머 기록을 삭제하시겠습니까?</string>
+    <string name="my_grade_timer_history_delete_all_title">모두 삭제</string>
+    <string name="my_grade_timer_history_description_label">설명</string>
+    <string name="my_grade_timer_history_description_placeholder">예: 수학 공부, 독서 등</string>
+    <string name="my_grade_timer_history_edit_description">Edit</string>
+    <string name="my_grade_timer_history_edit_title">설명 수정</string>
+    <string name="my_grade_timer_history_empty">아직 저장된 기록이 없습니다</string>
+    <string name="my_grade_timer_history_subtitle">저장된 타이머 기록</string>
+    <string name="my_grade_timer_history_title">Timer History</string>
     <string name="my_grade_feature_preparing">새로운 기능으로 준비중입니다 😀</string>
 
     <!-- Cnubus -->
+    <string name="cnubus_search_station_placeholder">정류장 검색</string>
+    <string name="cnubus_click_for_details">클릭하여 상세 정보 확인</string>
     <string name="cnubus_permission_granted">권한이 확인되었습니다.</string>
     <string name="cnubus_tab_route_a">A 노선</string>
     <string name="cnubus_tab_route_b">B 노선</string>
@@ -120,4 +230,40 @@
     <string name="cnubus_tab_favorite">즐겨찾기</string>
     <string name="cnubus_tab_search">검색</string>
     <string name="cnubus_tab_settings">설정</string>
+
+    <!-- Settings -->
+    <string name="settings_admin_deeplink_label">please write your deeplink</string>
+    <string name="settings_device_label_android_version">Android Version</string>
+    <string name="settings_device_label_app_version">App Version</string>
+    <string name="settings_device_label_board">Board</string>
+    <string name="settings_device_label_brand">Brand</string>
+    <string name="settings_device_label_device">Device</string>
+    <string name="settings_device_label_hardware">Hardware</string>
+    <string name="settings_device_label_manufacturer">Manufacturer</string>
+    <string name="settings_device_label_model">Model</string>
+    <string name="settings_device_label_product">Product</string>
+    <string name="settings_device_label_sdk_level">SDK Level</string>
+    <string name="settings_device_screen_density">Screen Density</string>
+    <string name="settings_device_screen_density_value">%1$s dpi</string>
+    <string name="settings_device_screen_height">Screen Height</string>
+    <string name="settings_device_screen_height_value">%1$s dp</string>
+    <string name="settings_device_screen_width">Screen Width</string>
+    <string name="settings_device_screen_width_value">%1$s dp</string>
+    <string name="settings_device_supported_abis">Supported ABIs</string>
+    <string name="settings_lab_prompt_label">prompt 를 입력해주세요</string>
+    <string name="settings_lab_prompt_placeholder">요약해드립니다.</string>
+    <string name="settings_lab_queue">Queue!</string>
+    <string name="settings_notification_fixed">Fixed</string>
+    <string name="settings_notification_title">Notifications</string>
+    <string name="settings_theme_appearance_subtitle">Customize your app theme</string>
+    <string name="settings_theme_appearance_title">Appearance</string>
+    <string name="settings_theme_choose">Choose Theme</string>
+    <string name="settings_theme_dark">Dark</string>
+    <string name="settings_theme_dark_subtitle">Easy on eyes</string>
+    <string name="settings_theme_light">Light</string>
+    <string name="settings_theme_light_subtitle">Bright &amp; Clean</string>
+    <string name="settings_theme_preview">Preview</string>
+    <string name="settings_theme_preview_dark">🌙 Dark mode - Easier on the eyes at night</string>
+    <string name="settings_theme_preview_light">☀️ Light mode - Perfect for daytime use</string>
+    <string name="settings_theme_selected">Selected</string>
 </resources>

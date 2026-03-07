@@ -61,6 +61,9 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
+import com.keelim.commonAndroid.extensions.toUiDateTime
+import com.keelim.core.resource.*
+import org.jetbrains.compose.resources.stringResource
 import com.keelim.model.TimerHistoryModel
 import kotlinx.datetime.LocalDateTime
 
@@ -99,14 +102,14 @@ fun TimerHistoryScreen(
             onDismissRequest = { showDeleteAllDialog = false },
             title = {
                 Text(
-                    text = "모두 삭제",
+                    text = stringResource(Res.string.my_grade_timer_history_delete_all_title),
                     style = MaterialTheme.typography.titleLarge,
                     color = MaterialTheme.colorScheme.onSurface,
                 )
             },
             text = {
                 Text(
-                    text = "모든 타이머 기록을 삭제하시겠습니까?",
+                    text = stringResource(Res.string.my_grade_timer_history_delete_all_message),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
@@ -119,14 +122,14 @@ fun TimerHistoryScreen(
                     },
                 ) {
                     Text(
-                        text = "삭제",
+                        text = stringResource(Res.string.common_action_delete),
                         color = MaterialTheme.colorScheme.error,
                     )
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showDeleteAllDialog = false }) {
-                    Text(text = "취소")
+                    Text(text = stringResource(Res.string.common_action_cancel))
                 }
             },
         )
@@ -168,13 +171,13 @@ fun TimerHistoryScreen(
             ) {
                 Column {
                     Text(
-                        text = "Timer History",
+                        text = stringResource(Res.string.my_grade_timer_history_title),
                         style = MaterialTheme.typography.headlineMedium,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSurface,
                     )
                     Text(
-                        text = "저장된 타이머 기록",
+                        text = stringResource(Res.string.my_grade_timer_history_subtitle),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
@@ -188,7 +191,7 @@ fun TimerHistoryScreen(
                     ) {
                         Icon(
                             imageVector = Icons.Default.Close,
-                            contentDescription = "Delete All",
+                            contentDescription = stringResource(Res.string.my_grade_timer_history_delete_all_description),
                             tint = MaterialTheme.colorScheme.onErrorContainer,
                         )
                     }
@@ -210,7 +213,7 @@ fun TimerHistoryScreen(
                 enter = fadeIn(),
                 exit = fadeOut(),
             ) {
-                EmptyView(text = "아직 저장된 기록이 없습니다")
+                EmptyView(text = stringResource(Res.string.my_grade_timer_history_empty))
             }
 
             AnimatedVisibility(
@@ -297,7 +300,7 @@ private fun SwipeableHistoryItem(
                 ) {
                     Icon(
                         imageVector = Icons.Default.Delete,
-                        contentDescription = "Delete",
+                        contentDescription = stringResource(Res.string.common_action_delete),
                         tint = MaterialTheme.colorScheme.onErrorContainer,
                         modifier = Modifier.scale(scale),
                     )
@@ -390,7 +393,7 @@ private fun HistoryItemCard(
             ) {
                 Icon(
                     imageVector = Icons.Default.Edit,
-                    contentDescription = "Edit",
+                    contentDescription = stringResource(Res.string.my_grade_timer_history_edit_description),
                     tint = MaterialTheme.colorScheme.onSecondaryContainer,
                     modifier = Modifier.size(20.dp),
                 )
@@ -411,7 +414,7 @@ private fun EditDescriptionDialog(
         onDismissRequest = onDismiss,
         title = {
             Text(
-                text = "설명 수정",
+                text = stringResource(Res.string.my_grade_timer_history_edit_title),
                 style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.onSurface,
             )
@@ -422,14 +425,14 @@ private fun EditDescriptionDialog(
                 onValueChange = { description = it },
                 label = {
                     Text(
-                        text = "설명",
+                        text = stringResource(Res.string.my_grade_timer_history_description_label),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                 },
                 placeholder = {
                     Text(
-                        text = "예: 수학 공부, 독서 등",
+                        text = stringResource(Res.string.my_grade_timer_history_description_placeholder),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
@@ -440,12 +443,12 @@ private fun EditDescriptionDialog(
         },
         confirmButton = {
             TextButton(onClick = { onConfirm(description) }) {
-                Text(text = "저장")
+                Text(text = stringResource(Res.string.common_action_save))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text(text = "취소")
+                Text(text = stringResource(Res.string.common_action_cancel))
             }
         },
     )
@@ -453,14 +456,7 @@ private fun EditDescriptionDialog(
 
 private fun formatDate(dateString: String): String {
     return try {
-        val dateTime = LocalDateTime.parse(dateString)
-        "${dateTime.year}년 ${dateTime.month}월 ${dateTime.day}일 ${
-            String.format(
-                "%02d:%02d",
-                dateTime.hour,
-                dateTime.minute
-            )
-        }"
+        LocalDateTime.parse(dateString).toUiDateTime()
     } catch (e: Exception) {
         dateString
     }

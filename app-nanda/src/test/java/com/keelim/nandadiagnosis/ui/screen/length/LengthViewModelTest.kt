@@ -3,6 +3,7 @@ package com.keelim.nandadiagnosis.ui.screen.length
 import app.cash.turbine.test
 import com.keelim.data.repository.LengthRepository
 import com.keelim.model.LengthRecord
+import com.keelim.testing.util.MainDispatcherRule
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.coEvery
@@ -11,12 +12,18 @@ import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class LengthViewModelTest : FunSpec({
     lateinit var mockRepo: LengthRepository
     lateinit var viewModel: LengthViewModel
+    val testDispatcher = StandardTestDispatcher()
+    val mainDispatcherRule = MainDispatcherRule(testDispatcher)
+
+    extension(mainDispatcherRule)
 
     beforeTest {
         mockRepo = mockk(relaxed = true)
@@ -24,7 +31,7 @@ class LengthViewModelTest : FunSpec({
     }
 
     test("기록_추가_시_리스트에_반영된다") {
-        runTest {
+        runTest(testDispatcher) {
             val record = LengthRecord(date = "2024-06-01", length = 12.3f)
             val flow = MutableStateFlow(emptyList<LengthRecord>())
             every { mockRepo.getAllRecords() } returns flow
@@ -32,6 +39,7 @@ class LengthViewModelTest : FunSpec({
 
             viewModel.addRecord(record)
             viewModel.fetchRecords()
+            advanceUntilIdle()
 
             viewModel.records.test {
                 val result = awaitItem()
@@ -43,7 +51,7 @@ class LengthViewModelTest : FunSpec({
     }
 
     test("기록_삭제_시_리스트에서_사라진다") {
-        runTest {
+        runTest(testDispatcher) {
             val record1 = LengthRecord(date = "2024-06-01", length = 12.3f)
             val record2 = LengthRecord(date = "2024-06-02", length = 13.0f)
             val flow = MutableStateFlow(listOf(record1, record2))
@@ -52,6 +60,7 @@ class LengthViewModelTest : FunSpec({
 
             viewModel.deleteRecord("2024-06-01")
             viewModel.fetchRecords()
+            advanceUntilIdle()
 
             viewModel.records.test {
                 val result = awaitItem()
@@ -63,9 +72,10 @@ class LengthViewModelTest : FunSpec({
     }
 
     test("빈_상태에서_fetchRecords_호출_시_빈_리스트_반환") {
-        runTest {
+        runTest(testDispatcher) {
             every { mockRepo.getAllRecords() } returns MutableStateFlow(emptyList())
             viewModel.fetchRecords()
+            advanceUntilIdle()
 
             viewModel.records.test {
                 val result = awaitItem()

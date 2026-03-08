@@ -5,8 +5,6 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.getByType
-import org.jetbrains.compose.ComposeExtension
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
@@ -20,7 +18,14 @@ class KeelimMultiPlatformConventionPlugin : Plugin<Project> {
             apply(plugin = libs.findPlugin("compose-compiler").get().get().pluginId)
             apply(plugin = "com.android.kotlin.multiplatform.library")
 
-            val composeDependencies = extensions.getByType<ComposeExtension>().dependencies
+            val composeRuntime = libs.findLibrary("jetbrains-compose-runtime").get()
+            val composeFoundation = libs.findLibrary("jetbrains-compose-foundation").get()
+            val composeMaterial3 = libs.findLibrary("jetbrains-compose-material3").get()
+            val composeMaterialIconsExtended = libs.findLibrary("jetbrains-compose-materialIconsExtended").get()
+            val composeUi = libs.findLibrary("jetbrains-compose-ui").get()
+            val composeResources = libs.findLibrary("jetbrains-compose-components-resources").get()
+            val composeUiToolingPreview = libs.findLibrary("jetbrains-compose-components-uiToolingPreview").get()
+
             extensions.configure<KotlinMultiplatformExtension> {
                 jvm("desktop")
                 androidLibrary {
@@ -52,13 +57,13 @@ class KeelimMultiPlatformConventionPlugin : Plugin<Project> {
                 sourceSets.apply {
                     commonMain {
                         dependencies {
-                            implementation(composeDependencies.runtime)
-                            implementation(composeDependencies.foundation)
-                            implementation(composeDependencies.material3)
-                            implementation(composeDependencies.materialIconsExtended)
-                            implementation(composeDependencies.ui)
-                            implementation(composeDependencies.components.resources)
-                            implementation(composeDependencies.components.uiToolingPreview)
+                            implementation(composeRuntime)
+                            implementation(composeFoundation)
+                            implementation(composeMaterial3)
+                            implementation(composeMaterialIconsExtended)
+                            implementation(composeUi)
+                            implementation(composeResources)
+                            implementation(composeUiToolingPreview)
                         }
                     }
                 }

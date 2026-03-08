@@ -19,7 +19,7 @@ kotlin {
     }
     sourceSets {
         commonMain.dependencies {
-            api(compose.components.resources)
+            api(libs.jetbrains.compose.components.resources)
         }
     }
 }

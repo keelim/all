@@ -2,6 +2,7 @@ import org.gradle.testing.jacoco.tasks.JacocoReport
 
 plugins {
     alias(libs.plugins.keelim.android.application)
+    alias(libs.plugins.keelim.android.application.firebase)
     alias(libs.plugins.keelim.android.application.compose)
     alias(libs.plugins.keelim.android.application.jacoco)
     alias(libs.plugins.keelim.android.hilt)

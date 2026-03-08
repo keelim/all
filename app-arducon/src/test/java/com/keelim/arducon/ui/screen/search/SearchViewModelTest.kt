@@ -10,6 +10,7 @@ import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -19,13 +20,18 @@ class SearchViewModelTest : FunSpec({
     lateinit var mockRepository: ArduconRepository
     val testDispatcher = StandardTestDispatcher()
     val mainDispatcherRule = MainDispatcherRule(testDispatcher)
+    val schemes = listOf(
+        "market://details?id=com.example.app",
+        "mailto:test@example.com",
+        "geo:0,0?q=Market",
+    )
 
     extension(mainDispatcherRule)
 
     beforeTest {
-        mockRepository = mockk()
+        mockRepository = mockk(relaxed = true)
 
-        every { mockRepository.getSchemeList() } returns flowOf(emptyList())
+        every { mockRepository.getSchemeList() } returns flowOf(schemes)
 
         viewModel = SearchViewModel(mockRepository, testDispatcher)
     }
@@ -47,6 +53,32 @@ class SearchViewModelTest : FunSpec({
 
             viewModel.searchQuery.test {
                 awaitItem() shouldBe "test"
+            }
+        }
+    }
+
+    test("검색어가 비어 있으면 전체 스킴 목록을 노출해야 한다") {
+        runTest {
+            viewModel.filteredSchemes.test {
+                awaitItem() shouldBe emptyList()
+                advanceUntilIdle()
+                awaitItem() shouldBe schemes
+            }
+        }
+    }
+
+    test("검색어에 맞는 스킴만 대소문자 구분 없이 필터링해야 한다") {
+        runTest {
+            viewModel.filteredSchemes.test {
+                awaitItem() shouldBe emptyList()
+                advanceUntilIdle()
+                awaitItem() shouldBe schemes
+
+                viewModel.updateSearchQuery("MAR")
+                awaitItem() shouldBe listOf(
+                    "market://details?id=com.example.app",
+                    "geo:0,0?q=Market",
+                )
             }
         }
     }

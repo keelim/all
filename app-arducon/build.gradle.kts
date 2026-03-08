@@ -1,3 +1,5 @@
+import org.gradle.testing.jacoco.tasks.JacocoReport
+
 plugins {
     alias(libs.plugins.keelim.android.application)
     alias(libs.plugins.keelim.android.application.compose)
@@ -49,4 +51,35 @@ dependencies {
     implementation(libs.tehras.chart)
 
     testImplementation(projects.core.testing)
+}
+
+private val viewModelCoverageIncludes = listOf(
+    "**/com/keelim/arducon/ui/screen/**/*ViewModel.class",
+    "**/com/keelim/arducon/ui/screen/**/*ViewModel$*.class",
+)
+
+tasks.register<JacocoReport>("jacocoViewModelDebugUnitTestReport") {
+    val debugReportTask = tasks.named<JacocoReport>("jacocoTestDebugUnitTestReport")
+
+    dependsOn(debugReportTask)
+
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+    }
+
+    classDirectories.setFrom(
+        debugReportTask.map { reportTask ->
+            reportTask.classDirectories.asFileTree.matching {
+                include(viewModelCoverageIncludes)
+            }
+        }
+    )
+    sourceDirectories.setFrom(
+        files(
+            "$projectDir/src/main/java",
+            "$projectDir/src/main/kotlin",
+        )
+    )
+    executionData.setFrom(debugReportTask.map { it.executionData })
 }

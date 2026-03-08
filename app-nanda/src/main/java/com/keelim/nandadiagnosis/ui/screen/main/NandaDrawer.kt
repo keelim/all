@@ -130,7 +130,7 @@ fun NandaDrawer(
             LazyColumn {
                 items(
                     items = nandaNavItems,
-                    key = { it.route }
+                    key = { it.route.toSaveableKey() }
                 ) { item ->
                     NavigationCard(
                         item,
@@ -208,4 +208,9 @@ private fun NavigationCard(
 @Composable
 fun PreviewNandaDrawer() {
     NandaDrawer(onRouteClick = {}, onAboutClick = {})
+}
+
+internal fun AppRoute.toSaveableKey(): String {
+    val routeName = this::class.qualifiedName ?: this::class.simpleName ?: "AppRoute"
+    return "$routeName:$this"
 }

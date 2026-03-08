@@ -28,4 +28,6 @@ dependencies {
 
     implementation(libs.timber)
     implementation(libs.androidx.lifecycle.process)
+
+    testImplementation(projects.core.testing)
 }

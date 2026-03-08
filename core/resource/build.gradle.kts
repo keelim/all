@@ -5,6 +5,7 @@ plugins {
 kotlin {
     androidLibrary {
         namespace = "com.keelim.core.resource"
+        androidResources.enable = true
     }
     listOf(
         iosX64(),

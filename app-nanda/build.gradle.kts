@@ -61,4 +61,5 @@ dependencies {
 
     implementation(libs.play.services.oss)
 
+    testImplementation(projects.core.testing)
 }

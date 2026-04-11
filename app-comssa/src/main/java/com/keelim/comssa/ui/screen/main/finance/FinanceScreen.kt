@@ -32,6 +32,8 @@ import com.keelim.composeutil.component.fab.FabButtonItem
 import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
 import com.keelim.model.finance.FinanceRssItem
+import com.keelim.core.resource.*
+import org.jetbrains.compose.resources.stringResource
 import com.keelim.web.navigateToWebModule
 
 @Composable
@@ -111,7 +113,7 @@ fun FinanceScreen(
                             .padding(paddingValues),
                     ) {
                         Loading()
-                        Text(text = "설정 화면은 준비 중입니다.")
+                        Text(text = stringResource(Res.string.comssa_finance_settings_pending))
                     }
                 }
             }

@@ -35,7 +35,6 @@ import androidx.compose.runtime.Stable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.trace
@@ -47,8 +46,10 @@ import com.keelim.composeutil.resource.space8
 import com.keelim.core.navigation.AppRoute
 import com.keelim.core.navigation.FeatureRoute
 import com.keelim.core.navigation.NandaRoute
-import com.keelim.nandadiagnosis.R
+import com.keelim.core.resource.Res
+import com.keelim.core.resource.nanda_app_name
 import kotlinx.collections.immutable.persistentListOf
+import org.jetbrains.compose.resources.stringResource
 
 @Stable
 sealed interface NandaNavItem {
@@ -121,7 +122,7 @@ fun NandaDrawer(
         Column(modifier = Modifier.align(Alignment.TopCenter)) {
             Spacer(modifier = Modifier.height(space8))
             Text(
-                text = stringResource(R.string.app_name),
+                text = stringResource(Res.string.nanda_app_name),
                 modifier = Modifier.padding(start = space8),
                 style = MaterialTheme.typography.titleMedium,
             )
@@ -129,7 +130,7 @@ fun NandaDrawer(
             LazyColumn {
                 items(
                     items = nandaNavItems,
-                    key = { it.route }
+                    key = { it.route.toSaveableKey() }
                 ) { item ->
                     NavigationCard(
                         item,
@@ -207,4 +208,9 @@ private fun NavigationCard(
 @Composable
 fun PreviewNandaDrawer() {
     NandaDrawer(onRouteClick = {}, onAboutClick = {})
+}
+
+internal fun AppRoute.toSaveableKey(): String {
+    val routeName = this::class.qualifiedName ?: this::class.simpleName ?: "AppRoute"
+    return "$routeName:$this"
 }

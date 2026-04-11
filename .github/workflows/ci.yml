@@ -11,8 +11,61 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test:
-    name: Run CI when build release
+  detect_changes:
+    name: Detect Changed Apps
+    runs-on: ubuntu-latest
+    outputs:
+      apps: ${{ steps.resolve.outputs.apps }}
+      should_run: ${{ steps.resolve.outputs.should_run }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Resolve app matrix
+        id: resolve
+        shell: bash
+        run: |
+          set -eo pipefail
+          all_apps='["app-arducon","app-cnubus","app-comssa","app-my-grade","app-nanda","app-mysenior"]'
+
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            echo "apps=$all_apps" >> "$GITHUB_OUTPUT"
+            echo "should_run=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          base_sha="${{ github.event.pull_request.base.sha }}"
+          head_sha="${{ github.sha }}"
+          changed_files="$(git diff --name-only --diff-filter=ACMR "$base_sha" "$head_sha")"
+
+          if [[ -z "$changed_files" ]]; then
+            echo "apps=[]" >> "$GITHUB_OUTPUT"
+            echo "should_run=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          if echo "$changed_files" | grep -Eq '^(core/|feature/|shared/|widget/|build-logic/|gradle/|settings\.gradle\.kts|build\.gradle\.kts|gradle\.properties|\.github/workflows/)'; then
+            echo "apps=$all_apps" >> "$GITHUB_OUTPUT"
+            echo "should_run=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          apps_json="$(echo "$changed_files" | sed -nE 's#^(app-[^/]+)/.*#\1#p' | sort -u | jq -R -s -c 'split("\n") | map(select(length > 0))')"
+
+          if [[ "$apps_json" == "[]" ]]; then
+            echo "apps=[]" >> "$GITHUB_OUTPUT"
+            echo "should_run=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "apps=$apps_json" >> "$GITHUB_OUTPUT"
+            echo "should_run=true" >> "$GITHUB_OUTPUT"
+          fi
+
+  quality_gate:
+    name: Run PR Quality Gate
+    needs: detect_changes
+    if: needs.detect_changes.outputs.should_run == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -46,7 +99,140 @@ jobs:
           mkdir -p ./core/component/src/commonMain/res/values/
           echo '${{ secrets.FONTS }}' | base64 -d > ./core/component/src/commonMain/res/values/font_certs.xml
 
-      - name: Build Release AAB
+      - name: Block Mockito usage
+        shell: bash
         run: |
-          ./gradlew app-comssa:compileDebugSources app-cnubus:compileDebugSources app-my-grade:compileDebugSources app-nanda:compileDebugSources app-arducon:compileDebugSources
+          set -eo pipefail
+          if rg -n \
+            --glob '!**/src/androidTest/**' \
+            --glob '!**/build/**' \
+            '(org\.mockito|mockito)' \
+            app-* core feature shared build-logic gradle *.gradle.kts settings.gradle.kts
+          then
+            echo "Mockito usage detected. Use MockK for unit tests."
+            exit 1
+          fi
 
+      - name: Enforce Compose Text style/color in changed Kotlin files
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: |
+          set -eo pipefail
+          base_sha="${{ github.event.pull_request.base.sha }}"
+          head_sha="${{ github.sha }}"
+
+          mapfile -t changed_kotlin_files < <(
+            git diff --name-only --diff-filter=ACMR "$base_sha" "$head_sha" \
+              | rg '\.kt$' \
+              | rg -v '(^|/)(build|src/androidTest|src/test)/' || true
+          )
+
+          if [[ ${#changed_kotlin_files[@]} -eq 0 ]]; then
+            echo "No changed Kotlin source files to validate."
+            exit 0
+          fi
+
+          failed=0
+          for file in "${changed_kotlin_files[@]}"; do
+            if ! awk '
+              BEGIN { inText = 0; depth = 0; missing = 0 }
+              {
+                line = $0
+                if (!inText) {
+                  if (match(line, /(^|[^[:alnum:]_])Text[[:space:]]*\(/)) {
+                    inText = 1
+                    startLine = NR
+                    hasStyle = (line ~ /style[[:space:]]*=/)
+                    hasColor = (line ~ /color[[:space:]]*=/)
+                    tmp = line
+                    openCount = gsub(/\(/, "(", tmp)
+                    tmp = line
+                    closeCount = gsub(/\)/, ")", tmp)
+                    depth = openCount - closeCount
+                    if (depth <= 0) {
+                      if (!hasStyle || !hasColor) {
+                        printf "%s:%d: Text missing %s%s\n", FILENAME, startLine, (!hasStyle ? "style " : ""), (!hasColor ? "color" : "")
+                        missing = 1
+                      }
+                      inText = 0
+                    }
+                  }
+                } else {
+                  if (line ~ /style[[:space:]]*=/) hasStyle = 1
+                  if (line ~ /color[[:space:]]*=/) hasColor = 1
+                  tmp = line
+                  openCount = gsub(/\(/, "(", tmp)
+                  tmp = line
+                  closeCount = gsub(/\)/, ")", tmp)
+                  depth += openCount - closeCount
+                  if (depth <= 0) {
+                    if (!hasStyle || !hasColor) {
+                      printf "%s:%d: Text missing %s%s\n", FILENAME, startLine, (!hasStyle ? "style " : ""), (!hasColor ? "color" : "")
+                      missing = 1
+                    }
+                    inText = 0
+                  }
+                }
+              }
+              END { exit missing }
+            ' "$file"; then
+              failed=1
+            fi
+          done
+
+          if [[ "$failed" -ne 0 ]]; then
+            echo "Compose Text() calls must specify both style and color."
+            exit 1
+          fi
+
+      - name: Run PR Quality Gate
+        run: |
+          ./gradlew \
+            test \
+            lint
+
+  assemble_apps:
+    name: Assemble Changed Apps
+    needs:
+      - detect_changes
+      - quality_gate
+    if: needs.detect_changes.outputs.should_run == 'true'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        app: ${{ fromJson(needs.detect_changes.outputs.apps) }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: set up JDK 21
+        uses: actions/setup-java@v5.2.0
+        with:
+          distribution: "zulu" # See 'Supported distributions' for available options
+          java-version: "21"
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v5
+        with:
+          cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+          build-scan-publish: true
+          build-scan-terms-of-use-url: "https://gradle.com/terms-of-service"
+          build-scan-terms-of-use-agree: "yes"
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Set environment
+        run: |
+          echo '${{ secrets.GOOGLE_SERVICE_JSON }}' | base64 -d > ./app-cnubus/google-services.json
+          echo '${{ secrets.GOOGLE_SERVICE_JSON }}' | base64 -d > ./app-comssa/google-services.json
+          echo '${{ secrets.GOOGLE_SERVICE_JSON }}' | base64 -d > ./app-my-grade/google-services.json
+          echo '${{ secrets.GOOGLE_SERVICE_JSON }}' | base64 -d > ./app-nanda/google-services.json
+          echo '${{ secrets.GOOGLE_SERVICE_JSON }}' | base64 -d > ./app-arducon/google-services.json
+          echo '${{ secrets.LOCAL_PROPERTIES }}' | base64 -d > ./local.properties
+          mkdir -p ./core/component/src/commonMain/res/values/
+          echo '${{ secrets.FONTS }}' | base64 -d > ./core/component/src/commonMain/res/values/font_certs.xml
+
+      - name: Assemble ${{ matrix.app }}
+        run: ./gradlew :${{ matrix.app }}:assembleDebug

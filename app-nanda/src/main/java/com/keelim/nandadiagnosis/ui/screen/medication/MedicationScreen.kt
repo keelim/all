@@ -52,6 +52,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.keelim.common.extensions.formatUiTime
 import com.keelim.composeutil.util.permission.SimpleAcquirePermissions
 import com.keelim.data.model.Medication
 import com.keelim.data.model.MedicationFrequency
@@ -418,7 +419,7 @@ private fun MedicationCard(
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Text(
-                    text = String.format("%02d:%02d", medication.hour, medication.minute),
+                    text = formatUiTime(hour = medication.hour, minute = medication.minute),
                     style = MaterialTheme.typography.headlineMedium,
                     color = if (medication.isEnabled) {
                         MaterialTheme.colorScheme.primary

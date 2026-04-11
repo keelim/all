@@ -50,6 +50,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.keelim.common.extensions.formatUiTime
 import com.keelim.core.resource.Res
 import com.keelim.core.resource.market_notifications_add
 import com.keelim.core.resource.market_notifications_add_custom_notification
@@ -276,7 +277,7 @@ private fun ScheduleCard(
                     fontWeight = FontWeight.Medium
                 )
                 Text(
-                    text = String.format("%02d:%02d", schedule.hour, schedule.minute),
+                    text = formatUiTime(hour = schedule.hour, minute = schedule.minute),
                     style = MaterialTheme.typography.headlineMedium,
                     color = if (schedule.isEnabled) {
                         MaterialTheme.colorScheme.primary

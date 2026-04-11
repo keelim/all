@@ -24,6 +24,8 @@ android {
 
 dependencies {
 
+    implementation(projects.core.navigation)
+
     implementation(projects.feature.uiSetting)
     implementation(libs.activity.ktx)
     implementation(libs.androidx.activity.compose)
@@ -32,8 +34,10 @@ dependencies {
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.rutime)
+    implementation(libs.androidx.lifecycle.viewmodel.navigation3)
     implementation(libs.androidx.metrics)
-    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.navigation3.runtime)
+    implementation(libs.androidx.navigation3.ui)
     implementation(libs.androidx.paging.compose)
     implementation(libs.androidx.window.manager)
     implementation(libs.coil.kt.compose)

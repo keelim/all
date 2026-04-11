@@ -12,14 +12,14 @@ core/data/
 ├── paging/           # DBPagingSource for Jetpack Paging 3 integration
 ├── repository/       # Implementation of repositories (Medication, MarketNotification)
 └── source/           # Aggregated repository and data source implementations
-    ├── local/        # Local storage managers (DataStore, SharedPreferenceManager)
+    ├── local/        # Local storage managers (DataStore utilities)
     └── [feature]/    # Feature-specific repositories (alarm, analytics, finance, etc.)
 ```
 
 ## WHERE TO LOOK
 - **Add/Modify Repository**: Define/Update interface in `core:data-api`, implement in `core:data/source/` or `repository/`, and update `di/RepositoryModule.kt`.
 - **Push Notifications**: Logic for handling incoming FCM messages is in `message/AllFCMService.kt`.
-- **Preference Storage**: See `source/local/` for `DataStore` or `SharedPreferences` wrappers.
+- **Preference Storage**: See `source/local/` for `DataStore` helpers and migration utilities.
 
 ## REPOSITORY PATTERN
 Repositories act as the single source of truth, coordinating between:

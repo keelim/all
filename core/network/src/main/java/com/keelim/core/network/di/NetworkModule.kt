@@ -71,6 +71,17 @@ object NetworkModule {
             writeTimeout(timeoutPolicy.writeTimeoutMillis, TimeUnit.MILLISECONDS)
             readTimeout(timeoutPolicy.readTimeoutMillis, TimeUnit.MILLISECONDS)
             retryOnConnectionFailure(true)
+            addInterceptor(
+                HttpLoggingInterceptor().apply {
+                    setLevel(
+                        if (BuildConfig.DEBUG) {
+                            HttpLoggingInterceptor.Level.BODY
+                        } else {
+                            HttpLoggingInterceptor.Level.NONE
+                        },
+                    )
+                },
+            )
             addInterceptor(cacheInterceptor)
             addInterceptor(retryingInterceptor)
         }.build()
@@ -78,18 +89,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpCallFactory(): Call.Factory {
-        return OkHttpClient.Builder()
-            .addInterceptor(
-                HttpLoggingInterceptor()
-                    .apply {
-                        if (BuildConfig.DEBUG) {
-                            setLevel(HttpLoggingInterceptor.Level.BODY)
-                        }
-                    },
-            )
-            .build()
-    }
+    fun provideOkHttpCallFactory(okHttpClient: OkHttpClient): Call.Factory = okHttpClient
 
     @Provides
     @Singleton

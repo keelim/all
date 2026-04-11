@@ -1,17 +1,20 @@
+@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
+
 package com.keelim.mysenior
 
 import android.content.Intent
 import androidx.compose.runtime.Composable
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.navigation.compose.NavHost
-import com.google.android.gms.oss.licenses.v2.OssLicensesMenuActivity
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.keelim.composeutil.AppState
-import com.keelim.setting.screen.event.eventScreen
-import com.keelim.setting.screen.navigateNotification
-import com.keelim.setting.screen.notificationScreen
-import com.keelim.setting.screen.settings.settingsRoute
-import com.keelim.setting.screen.settings.settingsScreen
+import com.keelim.composeutil.navigation.KeelimNavDisplay
+import com.keelim.composeutil.rememberMutableStateListOf
+import com.keelim.core.navigation.AppRoute
+import com.keelim.core.navigation.FeatureRoute
+import com.keelim.setting.navigation.registerSettingsEntries
+import com.keelim.setting.screen.event.EventRoute
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
@@ -21,25 +24,22 @@ fun MySeniorHost(
     onShowSnackbar: suspend (String, String?) -> Boolean,
     modifier: Modifier = Modifier,
 ) {
-    val navController = appState.navController
     val context = LocalContext.current
-    NavHost(
-        navController = navController,
-        startDestination = settingsRoute,
+    val backStack = rememberMutableStateListOf<AppRoute>(FeatureRoute.Settings)
+
+    KeelimNavDisplay(
         modifier = modifier,
+        backStack = backStack,
     ) {
-        settingsScreen(
-            onNotificationsClick = {
-                navController.navigateNotification()
-            },
-            onOpenSourceClick = {
-                context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
-            },
-            nestedGraphs = {
-                themeScreen()
-                notificationScreen()
-            },
-        )
-        eventScreen()
+            registerSettingsEntries(
+                backStack = backStack,
+                context = context,
+                onOpenSourceClick = {
+                    context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
+                },
+            )
+            entry<FeatureRoute.Event> {
+                EventRoute()
+            }
     }
 }

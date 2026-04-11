@@ -3,25 +3,22 @@
 package com.keelim.nandadiagnosis.ui
 
 import android.content.Intent
-import androidx.compose.animation.ContentTransform
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.scaleOut
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.net.toUri
-import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
-import androidx.navigation3.runtime.entryProvider
-import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
-import androidx.navigation3.ui.NavDisplay
-import com.google.android.gms.oss.licenses.v2.OssLicensesMenuActivity
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
+import com.keelim.composeutil.navigation.KeelimNavDisplay
+import com.keelim.core.navigation.AppRoute
 import com.keelim.core.navigation.FeatureRoute
 import com.keelim.core.navigation.NandaRoute
+import com.keelim.core.resource.Res
+import com.keelim.core.resource.nanda_feature_preparing
+import com.keelim.core.resource.nanda_move_action
+import com.keelim.core.resource.nanda_move_confirmation
 import com.keelim.nandadiagnosis.ui.screen.category.CategoriesType
 import com.keelim.nandadiagnosis.ui.screen.category.CategoryRoute
 import com.keelim.nandadiagnosis.ui.screen.diagnosis.DiagnosisRoute
@@ -39,41 +36,27 @@ import com.keelim.setting.navigation.registerSettingsEntries
 import com.keelim.web.navigateToWebModule
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.getString
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
+@OptIn(ExperimentalResourceApi::class)
 fun NandaHost(
     bottomSheetState: SheetState,
     coroutineScope: CoroutineScope,
     onShowSnackbar: suspend (String, String?) -> Boolean,
-    backStack: SnapshotStateList<Any>,
+    backStack: SnapshotStateList<AppRoute>,
     modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
-    val motionScheme = MaterialTheme.motionScheme
+    val featurePreparingMessage = stringResource(Res.string.nanda_feature_preparing)
+    val moveAction = stringResource(Res.string.nanda_move_action)
 
-    NavDisplay(
+    KeelimNavDisplay(
         modifier = modifier,
         backStack = backStack,
-        onBack = { backStack.removeLastOrNull() },
-        entryDecorators = listOf(
-            rememberSaveableStateHolderNavEntryDecorator(),
-            rememberViewModelStoreNavEntryDecorator(),
-        ),
-        transitionSpec = {
-            ContentTransform(
-                fadeIn(motionScheme.defaultEffectsSpec()),
-                fadeOut(motionScheme.defaultEffectsSpec()),
-            )
-        },
-        popTransitionSpec = {
-            ContentTransform(
-                fadeIn(motionScheme.defaultEffectsSpec()),
-                scaleOut(
-                    targetScale = 0.7f,
-                ),
-            )
-        },
-        entryProvider = entryProvider {
+    ) {
             entry<NandaRoute.Category> {
                 CategoryRoute(
                     onCategoryClick = { index, category ->
@@ -91,7 +74,7 @@ fun NandaHost(
 
                             else -> {
                                 coroutineScope.launch {
-                                    onShowSnackbar("현재 업데이트 준비중입니다. ", null)
+                                    onShowSnackbar(featurePreparingMessage, null)
                                 }
                             }
                         }
@@ -142,7 +125,10 @@ fun NandaHost(
                 NutrientRoute(
                     onNutrientClick = { title, uri ->
                         coroutineScope.launch {
-                            val result = onShowSnackbar("$title 로 이동하시겠습니까?", "move")
+                            val result = onShowSnackbar(
+                                getString(Res.string.nanda_move_confirmation, title),
+                                moveAction,
+                            )
                             if (result) {
                                 context.startActivity(Intent(Intent.ACTION_VIEW, uri.toUri()))
                             }
@@ -172,6 +158,5 @@ fun NandaHost(
                     context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
                 },
             )
-        },
-    )
+    }
 }

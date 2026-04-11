@@ -8,6 +8,14 @@ plugins {
 
 android { namespace = "com.keelim.core.data" }
 
+android {
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
+}
+
 dependencies {
     api(projects.core.model)
     api(projects.core.dataApi)
@@ -38,9 +46,12 @@ dependencies {
 
     testImplementation(libs.kotlinx.coroutines.android)
     testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.robolectric)
+    testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.12.2")
 
     implementation(libs.play.services.time)
     implementation(libs.jsoup)
+    implementation(libs.re2j)
 
     testImplementation(projects.core.testing)
 }

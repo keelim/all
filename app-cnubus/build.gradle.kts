@@ -1,3 +1,5 @@
+import org.gradle.testing.jacoco.tasks.JacocoReport
+
 plugins {
     alias(libs.plugins.keelim.android.application)
     alias(libs.plugins.keelim.android.application.firebase)
@@ -24,14 +26,17 @@ android {
 dependencies {
 
     implementation(projects.core.commonAndroid)
+    implementation(projects.core.common)
+    implementation(projects.core.component)
+    implementation(projects.shared)
 
     implementation(projects.core.data)
     implementation(projects.core.navigation)
+    implementation(projects.core.resource)
 
-    implementation(projects.core.domain)
+    implementation(projects.feature.appFunction)
     implementation(projects.feature.uiScheme)
     implementation(projects.feature.uiSetting)
-    implementation(projects.feature.uiWeb)
     implementation(projects.widget)
 
 
@@ -39,12 +44,9 @@ dependencies {
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.lifecycle.runtime.compose)
-    implementation(libs.androidx.lifecycle.viewmodel.navigation3)
     implementation(libs.androidx.navigation3.runtime)
-    implementation(libs.androidx.navigation3.ui)
     implementation(libs.maps.compose.utils)
     implementation(libs.maps.compose.widget)
-    implementation(libs.timber)
     implementation(platform(libs.coil.bom))
     implementation(libs.bundles.coil)
 
@@ -54,4 +56,37 @@ dependencies {
     ksp(libs.deeplinkdispatch.processor)
 
     implementation(libs.play.services.oss)
+
+    testImplementation(projects.core.testing)
+}
+
+private val viewModelCoverageIncludes = listOf(
+    "**/com/keelim/cnubus/ui/screen/**/*ViewModel.class",
+    "**/com/keelim/cnubus/ui/screen/**/*ViewModel$*.class",
+)
+
+tasks.register<JacocoReport>("jacocoViewModelDebugUnitTestReport") {
+    val debugReportTask = tasks.named<JacocoReport>("jacocoTestDebugUnitTestReport")
+
+    dependsOn(debugReportTask)
+
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+    }
+
+    classDirectories.setFrom(
+        debugReportTask.map { reportTask ->
+            reportTask.classDirectories.asFileTree.matching {
+                include(viewModelCoverageIncludes)
+            }
+        }
+    )
+    sourceDirectories.setFrom(
+        files(
+            "$projectDir/src/main/java",
+            "$projectDir/src/main/kotlin",
+        )
+    )
+    executionData.setFrom(debugReportTask.map { it.executionData })
 }

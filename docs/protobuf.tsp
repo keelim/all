@@ -11,7 +11,14 @@ using TypeSpec.Protobuf;
 })
 namespace Keelim;
 
+enum ThemeType {
+  THEME_TYPE_UNSPECIFIED: 0,
+  THEME_TYPE_LIGHT: 1,
+  THEME_TYPE_DARK: 2,
+}
+
 model UserSetting {
-  @field(1) should_hide_onboarding: boolean;
-  @field(2) last_visit_time: string;
+  @field(1) is_first_user: boolean;
+  @field(2) visited_time: int32;
+  @field(3) theme_type: ThemeType;
 }

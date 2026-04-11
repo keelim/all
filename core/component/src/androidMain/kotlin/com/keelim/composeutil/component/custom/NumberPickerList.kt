@@ -23,12 +23,12 @@ import androidx.compose.ui.text.lerp
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.core.view.HapticFeedbackConstantsCompat
+import com.keelim.common.extensions.toUiAlignedTwoDigits
 import com.keelim.composeutil.resource.space32
 import kotlinx.coroutines.flow.drop
-import java.util.Locale
 
 private fun formatTime(isLeadingZeroNeeded: Boolean = false, value: Int): String =
-    String.format(locale = Locale.getDefault(), if (isLeadingZeroNeeded) "%02d" else "%2d", value)
+    value.toUiAlignedTwoDigits(isLeadingZeroNeeded = isLeadingZeroNeeded)
 
 @Composable
 fun NumberPickerList(

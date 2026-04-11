@@ -34,7 +34,11 @@ import com.airbnb.deeplinkdispatch.DeepLink
 import com.keelim.common.extensions.toast
 import com.keelim.commonAndroid.util.DownloadReceiver
 import com.keelim.composeutil.ui.theme.KeelimTheme
-import com.keelim.nandadiagnosis.R
+import com.keelim.core.resource.Res
+import com.keelim.core.resource.nanda_database_exists_toast
+import com.keelim.core.resource.nanda_download_description
+import com.keelim.core.resource.nanda_download_title
+import com.keelim.core.resource.nanda_download_url
 import com.keelim.nandadiagnosis.ui.screen.NandaApp
 import com.keelim.shared.data.UserStateStore
 import com.keelim.shared.data.model.ThemeType
@@ -46,8 +50,12 @@ import kotlinx.coroutines.withContext
 import timber.log.Timber
 import java.io.File
 import jakarta.inject.Inject
+import kotlinx.coroutines.runBlocking
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.StringResource
+import org.jetbrains.compose.resources.getString
 
-@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
+@OptIn(ExperimentalMaterial3WindowSizeClassApi::class, ExperimentalResourceApi::class)
 @DeepLink("all://screen/{name}")
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -104,7 +112,7 @@ class MainActivity : ComponentActivity() {
         if (File(getExternalFilesDir(null), "nanda.db").exists().not()) {
             downloadDatabase()
         } else {
-            toast("데이터베이스가 존재합니다. 그대로 진행 합니다")
+            toast(readString(Res.string.nanda_database_exists_toast))
         }
     }
 
@@ -120,9 +128,9 @@ class MainActivity : ComponentActivity() {
         )
         isReceiverRegistered = true
 
-        DownloadManager.Request(applicationContext.getString(R.string.db_path).toUri())
-            .setTitle("Downloading")
-            .setDescription("Downloading Database file")
+        DownloadManager.Request(readString(Res.string.nanda_download_url).toUri())
+            .setTitle(readString(Res.string.nanda_download_title))
+            .setDescription(readString(Res.string.nanda_download_description))
             .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
             .setDestinationUri(
                 Uri.fromFile(File(applicationContext.getExternalFilesDir(null), "nanda.db")),
@@ -139,4 +147,7 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
+    private fun readString(resource: StringResource): String =
+        runBlocking { getString(resource) }
 }

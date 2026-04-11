@@ -12,13 +12,17 @@ kotlin {
     }
     sourceSets {
         androidMain.dependencies {
+            implementation(projects.core.common)
             implementation(projects.core.designsystem)
             implementation(libs.accompanist.permissions)
             implementation(libs.androidx.activity.compose)
             implementation(libs.androidx.emoji2.emojipicker)
             implementation(libs.androidx.hilt.navigation.compose)
             implementation(libs.androidx.lifecycle.runtime.compose)
+            implementation(libs.androidx.lifecycle.viewmodel.navigation3)
             implementation(libs.androidx.navigation.compose)
+            implementation(libs.androidx.navigation3.runtime)
+            implementation(libs.androidx.navigation3.ui)
             implementation(libs.inapp.update)
             implementation(libs.material.themAdapter)
             implementation(libs.bundles.compose)

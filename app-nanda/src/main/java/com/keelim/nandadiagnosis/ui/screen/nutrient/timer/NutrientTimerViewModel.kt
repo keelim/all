@@ -7,6 +7,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.keelim.common.extensions.formatUiTime
+import com.keelim.common.extensions.toUiAlignedTwoDigits
+import com.keelim.common.extensions.toUiTwoDigits
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -17,7 +20,6 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
-import java.util.Locale
 import jakarta.inject.Inject
 
 @Stable
@@ -26,11 +28,7 @@ enum class RunningState {
 }
 
 internal fun formatTime(isLeadingZeroNeeded: Boolean = false, value: Int): String {
-    return if (isLeadingZeroNeeded) {
-        String.format("%02d", value)
-    } else {
-        String.format("%2d", value)
-    }
+    return value.toUiAlignedTwoDigits(isLeadingZeroNeeded = isLeadingZeroNeeded)
 }
 
 internal val HOUR_LIST = (0..12).toList()
@@ -84,14 +82,7 @@ class NutrientTimerViewModel @Inject constructor() : ViewModel() {
             else -> localDateTime.hour
         }
         val period = if (localDateTime.hour < 12) "AM" else "PM"
-        return String.format(
-            Locale.getDefault(),
-            "%02d:%02d:%02d %s",
-            hour,
-            localDateTime.minute,
-            localDateTime.second,
-            period,
-        )
+        return "${formatUiTime(hour = hour, minute = localDateTime.minute)}:${localDateTime.second.toUiTwoDigits()} $period"
     }
 
     fun start() {

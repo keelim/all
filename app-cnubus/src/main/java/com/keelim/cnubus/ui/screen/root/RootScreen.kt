@@ -58,6 +58,8 @@ import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space24
 import com.keelim.composeutil.resource.space8
 import com.keelim.core.data.model.Location
+import com.keelim.core.resource.*
+import org.jetbrains.compose.resources.stringResource
 
 @Stable
 sealed interface MapEvent {
@@ -139,7 +141,7 @@ private fun Success(
                 value = query,
                 onValueChange = onQueryChange,
                 modifier = Modifier.fillMaxWidth(),
-                placeholder = { Text("정류장 검색") },
+                placeholder = { Text(stringResource(Res.string.cnubus_search_station_placeholder)) },
                 singleLine = true,
                 colors = androidx.compose.material3.TextFieldDefaults.colors(
                     focusedContainerColor = Color.Transparent,
@@ -151,7 +153,7 @@ private fun Success(
                 leadingIcon = {
                     Icon(
                         imageVector = androidx.compose.material.icons.Icons.Default.Search,
-                        contentDescription = "Search"
+                        contentDescription = stringResource(Res.string.cnubus_tab_search)
                     )
                 }
             )
@@ -212,7 +214,7 @@ fun RootDetailBottomSheet(
                 IconButton(onClick = onFavoriteClick) {
                     Icon(
                         imageVector = if (isFavorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
-                        contentDescription = "Favorite",
+                        contentDescription = stringResource(Res.string.cnubus_tab_favorite),
                         tint = if (isFavorite) Color.Red else MaterialTheme.colorScheme.onSurface
                     )
                 }
@@ -316,7 +318,7 @@ internal fun TimelineItem(
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = "클릭하여 상세 정보 확인",
+                    text = stringResource(Res.string.cnubus_click_for_details),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )

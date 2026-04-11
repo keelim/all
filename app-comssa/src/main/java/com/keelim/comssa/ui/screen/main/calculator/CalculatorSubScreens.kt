@@ -18,8 +18,10 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.keelim.common.extensions.toFormattedMoneyOrEmpty
 import com.keelim.common.extensions.toMoneyOrZero
-import java.text.DecimalFormat
+import com.keelim.common.extensions.toUiNumber
+import com.keelim.core.resource.*
 import kotlin.math.pow
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun CompoundInterestCalculator(
@@ -29,6 +31,15 @@ fun CompoundInterestCalculator(
     var rate by remember { mutableStateOf("") }
     var years by remember { mutableStateOf("") }
     var result by remember { mutableStateOf("") }
+    val principalLabel = stringResource(Res.string.calculator_label_principal)
+    val annualInterestRateLabel = stringResource(Res.string.calculator_label_annual_interest_rate)
+    val periodYearsLabel = stringResource(Res.string.calculator_label_period_years)
+    val calculateLabel = stringResource(Res.string.calculator_action_calculate)
+    val finalAmountKey = stringResource(Res.string.calculator_key_final_amount)
+    val finalAmountLabel = stringResource(Res.string.calculator_result_final_amount, result)
+    val annualRateKey = stringResource(Res.string.calculator_key_annual_rate)
+    val principalKey = stringResource(Res.string.calculator_key_principal)
+    val periodKey = stringResource(Res.string.calculator_key_period)
 
     Column(
         modifier = Modifier.padding(16.dp),
@@ -40,23 +51,23 @@ fun CompoundInterestCalculator(
                 val filtered = it.filter { char -> char.isDigit() }
                 principal = filtered.toFormattedMoneyOrEmpty()
             },
-            label = { Text("원금") },
+            label = { Text(principalLabel) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
         OutlinedTextField(
             value = rate,
             onValueChange = { rate = it },
-            label = { Text("연이율 (%)") },
+            label = { Text(annualInterestRateLabel) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
         OutlinedTextField(
             value = years,
             onValueChange = { years = it },
-            label = { Text("기간 (년)") },
+            label = { Text(periodYearsLabel) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
         Button(
             onClick = {
@@ -66,19 +77,19 @@ fun CompoundInterestCalculator(
                 // Simple Compound Interest: A = P(1 + r/100)^t
                 val amount = p * (1 + r / 100).pow(t)
                 val roundedAmount = kotlin.math.ceil(amount).toLong()
-                result = DecimalFormat("#,###").format(roundedAmount)
+                result = roundedAmount.toUiNumber()
 
                 onCalculate(
-                    mapOf("원금" to principal, "연이율" to rate, "기간" to years),
-                    mapOf("최종 금액" to result)
+                    mapOf(principalKey to principal, annualRateKey to rate, periodKey to years),
+                    mapOf(finalAmountKey to result),
                 )
             },
             modifier = Modifier.fillMaxWidth(),
         ) {
-            Text("계산하기")
+            Text(calculateLabel)
         }
         if (result.isNotEmpty()) {
-            Text("최종 금액: $result")
+            Text(finalAmountLabel)
         }
     }
 }
@@ -88,28 +99,28 @@ fun LoanRepaymentCalculator(
     onCalculate: (Map<String, String>, Map<String, String>) -> Unit,
 ) {
     // Simple implementation for example
-    Text("대출 상환 계산기 준비 중")
+    Text(stringResource(Res.string.loan_repayment_calculator_pending))
 }
 
 @Composable
 fun InvestmentReturnCalculator(
     onCalculate: (Map<String, String>, Map<String, String>) -> Unit,
 ) {
-    Text("투자 수익률 계산기 준비 중")
+    Text(stringResource(Res.string.investment_return_calculator_pending))
 }
 
 @Composable
 fun CurrencyConverter(
     onCalculate: (Map<String, String>, Map<String, String>) -> Unit,
 ) {
-    Text("환율 변환기 준비 중")
+    Text(stringResource(Res.string.currency_converter_pending))
 }
 
 @Composable
 fun TaxCalculator(
     onCalculate: (Map<String, String>, Map<String, String>) -> Unit,
 ) {
-    Text("세금 계산기 준비 중")
+    Text(stringResource(Res.string.tax_calculator_pending))
 }
 
 @Composable
@@ -122,6 +133,19 @@ fun RetirementCalculator(
     var annualContribution by remember { mutableStateOf("") }
     var expectedReturn by remember { mutableStateOf("") }
     var result by remember { mutableStateOf("") }
+    val currentAgeLabel = stringResource(Res.string.retirement_label_current_age)
+    val targetAgeLabel = stringResource(Res.string.retirement_label_target_age)
+    val currentSavingsLabel = stringResource(Res.string.retirement_label_current_savings)
+    val annualContributionLabel = stringResource(Res.string.retirement_label_annual_contribution)
+    val expectedAnnualReturnLabel = stringResource(Res.string.retirement_label_expected_annual_return)
+    val calculateLabel = stringResource(Res.string.calculator_action_calculate)
+    val expectedAssetResultLabel = stringResource(Res.string.retirement_result_expected_assets, result)
+    val currentAgeKey = stringResource(Res.string.retirement_key_current_age)
+    val retirementAgeKey = stringResource(Res.string.retirement_key_retirement_age)
+    val currentSavingsKey = stringResource(Res.string.retirement_key_current_savings)
+    val annualSavingsKey = stringResource(Res.string.retirement_key_annual_savings)
+    val returnRateKey = stringResource(Res.string.retirement_key_return_rate)
+    val expectedAssetsKey = stringResource(Res.string.retirement_key_expected_assets)
 
     Column(
         modifier = Modifier.padding(16.dp),
@@ -130,26 +154,26 @@ fun RetirementCalculator(
         OutlinedTextField(
             value = currentAge,
             onValueChange = { currentAge = it },
-            label = { Text("현재 나이") },
+            label = { Text(currentAgeLabel) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
         OutlinedTextField(
             value = retirementAge,
             onValueChange = { retirementAge = it },
-            label = { Text("은퇴 목표 나이") },
+            label = { Text(targetAgeLabel) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
         OutlinedTextField(
             value = currentSavings,
             onValueChange = {
-               val filtered = it.filter { char -> char.isDigit() }
-               currentSavings = filtered.toFormattedMoneyOrEmpty()
+                val filtered = it.filter { char -> char.isDigit() }
+                currentSavings = filtered.toFormattedMoneyOrEmpty()
             },
-            label = { Text("현재 자산 (원)") },
+            label = { Text(currentSavingsLabel) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
         OutlinedTextField(
             value = annualContribution,
@@ -157,16 +181,16 @@ fun RetirementCalculator(
                 val filtered = it.filter { char -> char.isDigit() }
                 annualContribution = filtered.toFormattedMoneyOrEmpty()
             },
-            label = { Text("연간 저축액 (원)") },
+            label = { Text(annualContributionLabel) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
-         OutlinedTextField(
+        OutlinedTextField(
             value = expectedReturn,
             onValueChange = { expectedReturn = it },
-            label = { Text("예상 연 수익률 (%)") },
+            label = { Text(expectedAnnualReturnLabel) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
 
         Button(
@@ -189,26 +213,26 @@ fun RetirementCalculator(
                     }
                     
                     val roundedAmount = kotlin.math.ceil(futureValue).toLong()
-                    result = DecimalFormat("#,###").format(roundedAmount)
+                    result = roundedAmount.toUiNumber()
 
                     onCalculate(
-                         mapOf(
-                            "현재 나이" to currentAge,
-                            "은퇴 나이" to retirementAge,
-                            "현재 자산" to currentSavings,
-                             "연간 저축" to annualContribution,
-                             "수익률" to expectedReturn
-                         ),
-                        mapOf("은퇴 시 예상 자산" to result)
+                        mapOf(
+                            currentAgeKey to currentAge,
+                            retirementAgeKey to retirementAge,
+                            currentSavingsKey to currentSavings,
+                            annualSavingsKey to annualContribution,
+                            returnRateKey to expectedReturn,
+                        ),
+                        mapOf(expectedAssetsKey to result),
                     )
                 }
             },
             modifier = Modifier.fillMaxWidth(),
         ) {
-            Text("계산하기")
+            Text(calculateLabel)
         }
         if (result.isNotEmpty()) {
-            Text("은퇴 시 예상 자산: $result 원")
+            Text(expectedAssetResultLabel)
         }
     }
 }

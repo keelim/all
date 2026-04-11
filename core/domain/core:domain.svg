@@ -1,31 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="131pt" height="188pt" viewBox="0 0 131 188">
-    <g class="graph" transform="translate(4 184)">
+<svg xmlns="http://www.w3.org/2000/svg" width="128pt" height="44pt" viewBox="0 0 128 44">
+    <g class="graph" transform="translate(4 40)">
         <title>G</title>
-        <path fill="#fff" d="M-4 4v-188h131.18V4z"/>
+        <path fill="#fff" d="M-4 4v-44h128.1V4z"/>
         <g class="node">
             <title>:core:domain</title>
-            <ellipse cx="61.59" cy="-162" fill="none" stroke="#000" rx="60.05" ry="18"/>
-            <text xml:space="preserve" x="61.59" y="-156.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:domain</text>
-        </g>
-        <g class="node">
-            <title>:core:data-api</title>
-            <ellipse cx="61.59" cy="-90" fill="none" stroke="#000" rx="61.59" ry="18"/>
-            <text xml:space="preserve" x="61.59" y="-84.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:data-api</text>
-        </g>
-        <g class="edge">
-            <title>:core:domain-&gt;:core:data-api</title>
-            <path fill="none" stroke="red" stroke-width="2" d="M61.59-143.7v24.16"/>
-            <path fill="red" stroke="red" stroke-width="2" d="m65.09-121.13-3.5 10-3.5-10z"/>
-        </g>
-        <g class="node">
-            <title>:core:model</title>
-            <ellipse cx="61.59" cy="-18" fill="none" stroke="#000" rx="55.45" ry="18"/>
-            <text xml:space="preserve" x="61.59" y="-12.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:model</text>
-        </g>
-        <g class="edge">
-            <title>:core:data-api-&gt;:core:model</title>
-            <path fill="none" stroke="red" stroke-width="2" d="M61.59-71.7v24.16"/>
-            <path fill="red" stroke="red" stroke-width="2" d="m65.09-49.13-3.5 10-3.5-10z"/>
+            <ellipse cx="60.05" cy="-18" fill="none" stroke="#000" rx="60.05" ry="18"/>
+            <text xml:space="preserve" x="60.05" y="-12.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:domain</text>
         </g>
     </g>
 </svg>

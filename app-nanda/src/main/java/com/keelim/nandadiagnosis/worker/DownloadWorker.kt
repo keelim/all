@@ -25,6 +25,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.net.toUri
 import androidx.hilt.work.HiltWorker
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import androidx.work.BackoffPolicy
 import androidx.work.Constraints
 import androidx.work.CoroutineWorker
@@ -53,13 +54,15 @@ import com.keelim.core.resource.nanda_download_url
 import com.keelim.nandadiagnosis.R
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
-import kotlinx.coroutines.runBlocking
 import org.jetbrains.compose.resources.ExperimentalResourceApi
-import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.getString
 import java.io.File
 import java.util.UUID
 import java.util.concurrent.TimeUnit
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 
 @HiltWorker
 @OptIn(ExperimentalResourceApi::class)
@@ -178,32 +181,27 @@ class DownloadWorker @AssistedInject constructor(
         }
 
         private fun observeWork(owner: LifecycleOwner, ctx: Context, id: UUID) {
-            WorkManager.getInstance(ctx).getWorkInfoByIdLiveData(id)
-                .observe(owner) { info ->
-                    // 2
-                    info?.let {
-                        when (it.state) {
+            owner.lifecycleScope.launch {
+                WorkManager.getInstance(ctx)
+                    .getWorkInfoByIdFlow(id)
+                    .filterNotNull()
+                    .map { it.state }
+                    .distinctUntilChanged()
+                    .collect { state ->
+                        when (state) {
                             WorkInfo.State.ENQUEUED -> {
-                                ctx.toast(resolveString(Res.string.nanda_download_start_toast))
+                                ctx.toast(getString(Res.string.nanda_download_start_toast))
                             }
                             WorkInfo.State.RUNNING -> Unit
                             WorkInfo.State.SUCCEEDED -> Unit
-                            WorkInfo.State.FAILED -> {
-                                ctx.toast(resolveString(Res.string.nanda_download_failed_toast))
-                            }
-                            WorkInfo.State.BLOCKED -> {
-                                ctx.toast(resolveString(Res.string.nanda_download_failed_toast))
-                            }
+                            WorkInfo.State.FAILED,
+                            WorkInfo.State.BLOCKED,
                             WorkInfo.State.CANCELLED -> {
-                                ctx.toast(resolveString(Res.string.nanda_download_failed_toast))
+                                ctx.toast(getString(Res.string.nanda_download_failed_toast))
                             }
                         }
                     }
-                }
-        }
-
-        private fun resolveString(resource: StringResource): String = runBlocking {
-            getString(resource)
+            }
         }
     }
 }

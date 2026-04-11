@@ -1,60 +1,85 @@
 package com.keelim.arducon.ui.screen.search
 
 import app.cash.turbine.test
-import com.google.common.truth.Truth.assertThat
 import com.keelim.data.repository.ArduconRepository
+import com.keelim.testing.util.MainDispatcherRule
+import io.kotest.core.spec.style.FunSpec
+import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.test.setMain
-import org.junit.After
-import org.junit.Before
-import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class SearchViewModelTest {
+class SearchViewModelTest : FunSpec({
 
-    private lateinit var viewModel: SearchViewModel
-    private lateinit var mockRepository: ArduconRepository
-    private val testDispatcher = StandardTestDispatcher()
+    lateinit var viewModel: SearchViewModel
+    lateinit var mockRepository: ArduconRepository
+    val testDispatcher = StandardTestDispatcher()
+    val mainDispatcherRule = MainDispatcherRule(testDispatcher)
+    val schemes = listOf(
+        "market://details?id=com.example.app",
+        "mailto:test@example.com",
+        "geo:0,0?q=Market",
+    )
 
-    @Before
-    fun setup() {
-        Dispatchers.setMain(testDispatcher)
-        mockRepository = mockk()
+    extension(mainDispatcherRule)
 
-        // ViewModel 생성자에서 호출되는 메서드 모킹
-        every { mockRepository.getSchemeList() } returns flowOf(emptyList())
+    beforeTest {
+        mockRepository = mockk(relaxed = true)
+
+        every { mockRepository.getSchemeList() } returns flowOf(schemes)
 
         viewModel = SearchViewModel(mockRepository, testDispatcher)
     }
 
-    @After
-    fun tearDown() {
-        Dispatchers.resetMain()
-    }
+    test("검색어 지우기 시 빈 문자열로 초기화되어야 한다") {
+        runTest {
+            viewModel.updateSearchQuery("test")
+            viewModel.clearSearch()
 
-    @Test
-    fun `검색어 지우기 시 빈 문자열로 초기화되어야 한다`() = runTest {
-        viewModel.updateSearchQuery("test")
-        viewModel.clearSearch()
-
-        viewModel.searchQuery.test {
-            assertThat(awaitItem()).isEqualTo("")
+            viewModel.searchQuery.test {
+                awaitItem() shouldBe ""
+            }
         }
     }
 
-    @Test
-    fun `검색어 업데이트가 정상적으로 작동해야 한다`() = runTest {
-        viewModel.updateSearchQuery("test")
+    test("검색어 업데이트가 정상적으로 작동해야 한다") {
+        runTest {
+            viewModel.updateSearchQuery("test")
 
-        viewModel.searchQuery.test {
-            assertThat(awaitItem()).isEqualTo("test")
+            viewModel.searchQuery.test {
+                awaitItem() shouldBe "test"
+            }
         }
     }
-}
+
+    test("검색어가 비어 있으면 전체 스킴 목록을 노출해야 한다") {
+        runTest {
+            viewModel.filteredSchemes.test {
+                awaitItem() shouldBe emptyList()
+                advanceUntilIdle()
+                awaitItem() shouldBe schemes
+            }
+        }
+    }
+
+    test("검색어에 맞는 스킴만 대소문자 구분 없이 필터링해야 한다") {
+        runTest {
+            viewModel.filteredSchemes.test {
+                awaitItem() shouldBe emptyList()
+                advanceUntilIdle()
+                awaitItem() shouldBe schemes
+
+                viewModel.updateSearchQuery("MAR")
+                awaitItem() shouldBe listOf(
+                    "market://details?id=com.example.app",
+                    "geo:0,0?q=Market",
+                )
+            }
+        }
+    }
+})

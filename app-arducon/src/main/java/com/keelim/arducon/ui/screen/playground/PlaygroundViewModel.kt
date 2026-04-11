@@ -53,7 +53,7 @@ class PlaygroundViewModel @Inject constructor(
         if (url.isBlank()) return ""
         if (key.isBlank() || value.isBlank()) return url
         val sep = if (url.contains("?")) "&" else "?"
-        return url
+        return "$url$sep$key=$value"
     }
 
     fun validate() {
@@ -67,7 +67,7 @@ class PlaygroundViewModel @Inject constructor(
             val og = runCatching { repository.fetchOg(http?.finalUrl ?: target) }.getOrNull()
             val result = buildString {
                 appendLine("Resolved Apps (${resolved.size}):")
-                resolved.forEach { resolve -> appendLine(" - ${resolve.label} ${resolve.packageName})") }
+                resolved.forEach { resolve -> appendLine(" - ${resolve.label} (${resolve.packageName})") }
                 if (http != null) {
                     appendLine("HTTP: ${http.statusCode} → ${http.finalUrl}")
                 } else {

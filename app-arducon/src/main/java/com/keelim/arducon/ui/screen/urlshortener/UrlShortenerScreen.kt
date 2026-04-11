@@ -55,6 +55,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
+import com.keelim.common.extensions.toUiNumber
+import com.keelim.commonAndroid.extensions.toUiDate
+import com.keelim.core.resource.*
+import org.jetbrains.compose.resources.stringResource
 import com.keelim.shared.data.database.model.ShortenedUrlEntity
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Instant
@@ -73,20 +77,23 @@ fun UrlShortenerScreen(
     val scope = rememberCoroutineScope()
     val clipboardManager = LocalClipboardManager.current
     val context = LocalContext.current
+    val copiedToClipboardMessage = stringResource(Res.string.common_copied_to_clipboard)
+    val originalUrlCopiedMessage = stringResource(Res.string.arducon_url_shortener_original_url_copied)
+    val shareAction = stringResource(Res.string.common_action_share)
 
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
                     Text(
-                        text = "URL Shortener",
+                        text = stringResource(Res.string.arducon_url_shortener_title),
                         style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
                         color = MaterialTheme.colorScheme.onSurface,
                     )
                 },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
-                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "back")
+                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = stringResource(Res.string.arducon_back_description))
                     }
                 },
             )
@@ -105,8 +112,8 @@ fun UrlShortenerScreen(
                     value = uiState.inputUrl,
                     onValueChange = viewModel::updateInputUrl,
                     modifier = Modifier.fillMaxWidth(),
-                    label = { Text("URL") },
-                    placeholder = { Text("https://example.com/long-url") },
+                    label = { Text(stringResource(Res.string.label_url)) },
+                    placeholder = { Text(stringResource(Res.string.arducon_url_shortener_url_placeholder)) },
                     singleLine = true,
                 )
             }
@@ -116,8 +123,8 @@ fun UrlShortenerScreen(
                     value = uiState.inputTitle,
                     onValueChange = viewModel::updateInputTitle,
                     modifier = Modifier.fillMaxWidth(),
-                    label = { Text("제목 (선택)") },
-                    placeholder = { Text("링크 제목") },
+                    label = { Text(stringResource(Res.string.arducon_url_shortener_title_optional)) },
+                    placeholder = { Text(stringResource(Res.string.arducon_url_shortener_title_placeholder)) },
                     singleLine = true,
                 )
             }
@@ -135,7 +142,7 @@ fun UrlShortenerScreen(
                     modifier = Modifier.fillMaxWidth(),
                     enabled = !uiState.isLoading,
                 ) {
-                    Text("단축 URL 생성")
+                    Text(stringResource(Res.string.arducon_url_shortener_generate))
                 }
             }
 
@@ -163,14 +170,14 @@ fun UrlShortenerScreen(
                     ) {
                         Column(modifier = Modifier.padding(space16)) {
                             Text(
-                                text = "생성 완료!",
+                                text = stringResource(Res.string.arducon_url_shortener_generated_title),
                                 style = MaterialTheme.typography.titleMedium,
                                 fontWeight = FontWeight.Bold,
                                 color = MaterialTheme.colorScheme.onPrimaryContainer,
                             )
                             Spacer(modifier = Modifier.height(space8))
                             Text(
-                                text = "Short Code: ${uiState.generatedShortCode}",
+                                text = stringResource(Res.string.arducon_url_shortener_short_code, uiState.generatedShortCode),
                                 style = MaterialTheme.typography.bodyLarge,
                                 color = MaterialTheme.colorScheme.onPrimaryContainer,
                             )
@@ -181,11 +188,11 @@ fun UrlShortenerScreen(
                                 TextButton(onClick = {
                                     clipboardManager.setText(AnnotatedString(uiState.generatedShortCode))
                                     scope.launch {
-                                        snackbarHostState.showSnackbar("클립보드에 복사됨")
+                                        snackbarHostState.showSnackbar(copiedToClipboardMessage)
                                     }
                                     viewModel.clearGeneratedCode()
                                 }) {
-                                    Text("복사")
+                                    Text(stringResource(Res.string.common_action_copy))
                                 }
                             }
                         }
@@ -196,7 +203,7 @@ fun UrlShortenerScreen(
             if (shortenedUrls.isNotEmpty()) {
                 item {
                     Text(
-                        text = "저장된 링크 (${shortenedUrls.size})",
+                        text = stringResource(Res.string.arducon_url_shortener_saved_links, shortenedUrls.size.toUiNumber()),
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSurface,
@@ -218,14 +225,14 @@ fun UrlShortenerScreen(
                         onCopyClick = {
                             clipboardManager.setText(AnnotatedString(item.originalUrl))
                             scope.launch {
-                                snackbarHostState.showSnackbar("원본 URL 복사됨")
+                                snackbarHostState.showSnackbar(originalUrlCopiedMessage)
                             }
                         },
                         onShareClick = {
                             Intent(Intent.ACTION_SEND).apply {
                                 type = "text/plain"
                                 putExtra(Intent.EXTRA_TEXT, item.originalUrl)
-                            }.let { Intent.createChooser(it, "공유") }
+                            }.let { Intent.createChooser(it, shareAction) }
                                 .let { context.startActivity(it) }
                         },
                         onDeleteClick = { viewModel.deleteItem(item) },
@@ -245,11 +252,11 @@ private fun ExpirationSelector(
 ) {
     var expanded by remember { mutableStateOf(false) }
     val options = listOf(
-        0 to "만료 없음",
-        1 to "1일",
-        7 to "1주일",
-        30 to "1개월",
-        90 to "3개월",
+        0 to stringResource(Res.string.arducon_url_shortener_no_expiration),
+        1 to stringResource(Res.string.arducon_url_shortener_expiration_one_day),
+        7 to stringResource(Res.string.arducon_url_shortener_expiration_one_week),
+        30 to stringResource(Res.string.arducon_url_shortener_expiration_one_month),
+        90 to stringResource(Res.string.arducon_url_shortener_expiration_three_months),
     )
 
     Row(
@@ -263,13 +270,13 @@ private fun ExpirationSelector(
         )
         Spacer(modifier = Modifier.width(space8))
         Text(
-            text = "만료:",
+            text = stringResource(Res.string.arducon_url_shortener_expiration_label),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurface,
         )
         Spacer(modifier = Modifier.width(space8))
         TextButton(onClick = { expanded = true }) {
-            Text(options.find { it.first == selectedDays }?.second ?: "만료 없음")
+            Text(options.find { it.first == selectedDays }?.second ?: stringResource(Res.string.arducon_url_shortener_no_expiration))
         }
         DropdownMenu(
             expanded = expanded,
@@ -331,14 +338,14 @@ private fun ShortenedUrlCard(
                     IconButton(onClick = onShareClick) {
                         Icon(
                             imageVector = Icons.Default.Share,
-                            contentDescription = "공유",
+                            contentDescription = stringResource(Res.string.common_action_share),
                             tint = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
                     }
                     IconButton(onClick = onDeleteClick) {
                         Icon(
                             imageVector = Icons.Default.Clear,
-                            contentDescription = "삭제",
+                            contentDescription = stringResource(Res.string.common_action_delete),
                             tint = MaterialTheme.colorScheme.error,
                         )
                     }
@@ -352,7 +359,7 @@ private fun ShortenedUrlCard(
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 Text(
-                    text = "클릭: ${item.clickCount}회",
+                    text = stringResource(Res.string.arducon_url_shortener_click_count, item.clickCount.toUiNumber()),
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
@@ -365,7 +372,7 @@ private fun ShortenedUrlCard(
 
             AnimatedVisibility(visible = item.expiresAt > 0) {
                 Text(
-                    text = "만료: ${formatDate(item.expiresAt)}",
+                    text = stringResource(Res.string.arducon_url_shortener_expiration_at, formatDate(item.expiresAt)),
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.tertiary,
                     modifier = Modifier.padding(top = space4),
@@ -377,9 +384,7 @@ private fun ShortenedUrlCard(
 
 private fun formatDate(timestamp: Long): String {
     return try {
-        val instant = Instant.fromEpochMilliseconds(timestamp)
-        val dateTime = instant.toLocalDateTime(TimeZone.currentSystemDefault())
-        "${dateTime.year}.${dateTime.month.toString().padStart(2, '0')}.${dateTime.day.toString().padStart(2, '0')}"
+        Instant.fromEpochMilliseconds(timestamp).toUiDate()
     } catch (e: Exception) {
         ""
     }

@@ -17,4 +17,7 @@
 -keep @kotlinx.serialization.Serializable class * {*;}
 -dontwarn kotlin.native.ObjCName
 -dontwarn okhttp3.internal.Util
+-dontwarn com.google.rpc.Status
+-dontwarn com.google.type.LatLng$Builder
+-dontwarn com.google.type.LatLng
 -repackageclasses

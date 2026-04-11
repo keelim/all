@@ -6,6 +6,8 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.keelim.core.data.source.local.StringPreferencesKeyMigration
+import com.keelim.core.data.source.local.legacyDataStoreMigration
 import com.keelim.data.model.MarketSchedule
 import com.keelim.data.repository.MarketNotificationRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -15,7 +17,30 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.serialization.json.Json
 
-private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "market_notification_prefs")
+internal object MarketNotificationStore {
+    const val STORE_NAME = "market_notification_preferences"
+    const val LEGACY_STORE_NAME = "market_notification_prefs"
+    const val LEGACY_SCHEDULES_KEY_NAME = "market_schedules"
+    const val SCHEDULES_KEY_NAME = "market_notification_schedules"
+}
+
+internal val Context.marketNotificationDataStore: DataStore<Preferences> by preferencesDataStore(
+    name = MarketNotificationStore.STORE_NAME,
+    produceMigrations = { context ->
+        listOf(
+            legacyDataStoreMigration(
+                context = context,
+                legacyStoreName = MarketNotificationStore.LEGACY_STORE_NAME,
+                keyMigrations = listOf(
+                    StringPreferencesKeyMigration(
+                        oldKeyName = MarketNotificationStore.LEGACY_SCHEDULES_KEY_NAME,
+                        newKeyName = MarketNotificationStore.SCHEDULES_KEY_NAME,
+                    ),
+                ),
+            ),
+        )
+    },
+)
 
 @Singleton
 class MarketNotificationRepositoryImpl @Inject constructor(
@@ -24,8 +49,8 @@ class MarketNotificationRepositoryImpl @Inject constructor(
 ) : MarketNotificationRepository {
 
     override fun getSchedules(): Flow<List<MarketSchedule>> {
-        return context.dataStore.data.map { preferences ->
-            val schedulesJson = preferences[SCHEDULES_KEY]
+        return context.marketNotificationDataStore.data.map { preferences ->
+            val schedulesJson = preferences[schedulesKey]
             if (schedulesJson.isNullOrEmpty()) {
                 getDefaultSchedules()
             } else {
@@ -39,14 +64,14 @@ class MarketNotificationRepositoryImpl @Inject constructor(
     }
 
     override suspend fun saveSchedules(schedules: List<MarketSchedule>) {
-        context.dataStore.edit { preferences ->
-            preferences[SCHEDULES_KEY] = json.encodeToString(schedules)
+        context.marketNotificationDataStore.edit { preferences ->
+            preferences[schedulesKey] = json.encodeToString(schedules)
         }
     }
 
     override suspend fun updateSchedule(schedule: MarketSchedule) {
-        context.dataStore.edit { preferences ->
-            val currentJson = preferences[SCHEDULES_KEY]
+        context.marketNotificationDataStore.edit { preferences ->
+            val currentJson = preferences[schedulesKey]
             val currentSchedules = if (currentJson.isNullOrEmpty()) {
                 getDefaultSchedules()
             } else {
@@ -60,13 +85,13 @@ class MarketNotificationRepositoryImpl @Inject constructor(
             val updatedSchedules = currentSchedules.map {
                 if (it.id == schedule.id) schedule else it
             }
-            preferences[SCHEDULES_KEY] = json.encodeToString(updatedSchedules)
+            preferences[schedulesKey] = json.encodeToString(updatedSchedules)
         }
     }
 
     override suspend fun addSchedule(schedule: MarketSchedule) {
-        context.dataStore.edit { preferences ->
-            val currentJson = preferences[SCHEDULES_KEY]
+        context.marketNotificationDataStore.edit { preferences ->
+            val currentJson = preferences[schedulesKey]
             val currentSchedules = if (currentJson.isNullOrEmpty()) {
                 getDefaultSchedules()
             } else {
@@ -78,13 +103,13 @@ class MarketNotificationRepositoryImpl @Inject constructor(
             }
 
             val updatedSchedules = currentSchedules + schedule
-            preferences[SCHEDULES_KEY] = json.encodeToString(updatedSchedules)
+            preferences[schedulesKey] = json.encodeToString(updatedSchedules)
         }
     }
 
     override suspend fun removeSchedule(scheduleId: String) {
-        context.dataStore.edit { preferences ->
-            val currentJson = preferences[SCHEDULES_KEY]
+        context.marketNotificationDataStore.edit { preferences ->
+            val currentJson = preferences[schedulesKey]
             val currentSchedules = if (currentJson.isNullOrEmpty()) {
                 getDefaultSchedules()
             } else {
@@ -96,7 +121,7 @@ class MarketNotificationRepositoryImpl @Inject constructor(
             }
 
             val updatedSchedules = currentSchedules.filter { it.id != scheduleId }
-            preferences[SCHEDULES_KEY] = json.encodeToString(updatedSchedules)
+            preferences[schedulesKey] = json.encodeToString(updatedSchedules)
         }
     }
 
@@ -107,7 +132,5 @@ class MarketNotificationRepositoryImpl @Inject constructor(
         )
     }
 
-    companion object {
-        private val SCHEDULES_KEY = stringPreferencesKey("market_schedules")
-    }
+    private val schedulesKey = stringPreferencesKey(MarketNotificationStore.SCHEDULES_KEY_NAME)
 }

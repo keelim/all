@@ -8,7 +8,6 @@ import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialExpressiveTheme
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
@@ -24,6 +23,9 @@ import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.appupdate.AppUpdateOptions
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
+import com.keelim.core.designsystem.theme.DarkColorScheme
+import com.keelim.core.designsystem.theme.KeelimTypography
+import com.keelim.core.designsystem.theme.LightColorScheme
 
 private const val IN_APP_UPDATE = 10
 
@@ -38,7 +40,7 @@ fun KeelimTheme(
         Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             if (isDarkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
-        else -> MaterialTheme.colorScheme
+        else -> if (isDarkTheme) DarkColorScheme else LightColorScheme
     }
     val view = LocalView.current
     if (!view.isInEditMode) {
@@ -50,30 +52,41 @@ fun KeelimTheme(
     }
 
     LifecycleEventEffect(event = Lifecycle.Event.ON_RESUME) {
+        val currentActivity = activity ?: return@LifecycleEventEffect
         val updateManager = AppUpdateManagerFactory.create(context)
         val updateInfo = updateManager.appUpdateInfo
+        val immediateUpdateOptions =
+            AppUpdateOptions.newBuilder(AppUpdateType.IMMEDIATE)
+                .setAllowAssetPackDeletion(true)
+                .build()
 
         updateInfo.addOnSuccessListener { info ->
-            if (info.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE &&
-                info.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)
-            ) {
-                activity?.run {
+            when (info.updateAvailability()) {
+                UpdateAvailability.UPDATE_AVAILABLE ->
+                    if (info.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
+                        updateManager.startUpdateFlowForResult(
+                            info,
+                            currentActivity,
+                            immediateUpdateOptions,
+                            IN_APP_UPDATE,
+                        )
+                    }
+                UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS -> {
                     updateManager.startUpdateFlowForResult(
                         info,
-                        this,
-                        AppUpdateOptions.newBuilder(AppUpdateType.IMMEDIATE)
-                            .setAllowAssetPackDeletion(true)
-                            .build(),
+                        currentActivity,
+                        immediateUpdateOptions,
                         IN_APP_UPDATE,
                     )
                 }
+                else -> Unit
             }
         }
     }
 
     MaterialExpressiveTheme(
-        // typography = keelimTypography,
         colorScheme = colorScheme,
+        typography = KeelimTypography,
         content = content,
     )
 }

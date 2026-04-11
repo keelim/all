@@ -27,6 +27,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.composeutil.resource.space16
+import com.keelim.core.resource.*
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun SearchRoute(
@@ -66,7 +68,7 @@ fun SearchScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = "스킴 검색",
+                        text = stringResource(Res.string.arducon_search_title),
                         style = MaterialTheme.typography.titleLarge.copy(
                             fontWeight = FontWeight.Bold,
                         ),
@@ -116,12 +118,12 @@ private fun SearchInputField(
         OutlinedTextField(
             value = value,
             onValueChange = onValueChange,
-            label = { Text("스킴 검색") },
-            placeholder = { Text("예: http, https, tel, mailto") },
+            label = { Text(stringResource(Res.string.arducon_search_title)) },
+            placeholder = { Text(stringResource(Res.string.arducon_search_placeholder)) },
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Default.Search,
-                    contentDescription = "검색",
+                    contentDescription = stringResource(Res.string.common_action_search),
                     tint = MaterialTheme.colorScheme.primary,
                 )
             },
@@ -130,7 +132,7 @@ private fun SearchInputField(
                     IconButton(onClick = onClear) {
                         Icon(
                             imageVector = Icons.Default.Clear,
-                            contentDescription = "검색어 지우기",
+                            contentDescription = stringResource(Res.string.arducon_search_clear_query),
                             tint = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
                     }

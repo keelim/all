@@ -3,7 +3,8 @@ package com.keelim.core.data.source.local
 import android.content.Context
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
-import com.keelim.core.data.source.dataStore
+import com.keelim.core.data.source.UserPreferencesStore
+import com.keelim.core.data.source.userPreferencesDataStore
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -14,24 +15,24 @@ class TokenManager @Inject constructor(
 ) {
 
     fun getToken(): Flow<String?> {
-        return context.dataStore.data.map { preferences ->
+        return context.userPreferencesDataStore.data.map { preferences ->
             preferences[TOKEN]
         }
     }
 
     suspend fun setToken(token: String) {
-        context.dataStore.edit { preferences ->
+        context.userPreferencesDataStore.edit { preferences ->
             preferences[TOKEN] = token
         }
     }
 
     suspend fun deleteToken() {
-        context.dataStore.edit { preferences ->
+        context.userPreferencesDataStore.edit { preferences ->
             preferences.remove(TOKEN)
         }
     }
 
     companion object {
-        private val TOKEN = stringPreferencesKey("jwt_token")
+        private val TOKEN = stringPreferencesKey(UserPreferencesStore.USER_JWT_TOKEN_KEY_NAME)
     }
 }

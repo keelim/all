@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="304pt" height="116pt" viewBox="0 0 304 116">
+    <g class="graph" transform="translate(4 112)">
+        <title>G</title>
+        <path fill="#fff" d="M-4 4v-116h303.53V4z"/>
+        <g class="node">
+            <title>:catalog</title>
+            <ellipse cx="143.17" cy="-90" fill="none" stroke="#000" rx="40.09" ry="18"/>
+            <text xml:space="preserve" x="143.17" y="-84.95" font-family="Times,serif" font-size="14" text-anchor="middle">:catalog</text>
+        </g>
+        <g class="node">
+            <title>:core:common</title>
+            <ellipse cx="65.17" cy="-18" fill="none" stroke="#000" rx="65.17" ry="18"/>
+            <text xml:space="preserve" x="65.17" y="-12.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:common</text>
+        </g>
+        <g class="edge">
+            <title>:catalog-&gt;:core:common</title>
+            <path fill="none" stroke="red" stroke-width="2" d="M125.86-73.46c-9.85 8.83-22.39 20.09-33.52 30.08"/>
+            <path fill="red" stroke="red" stroke-width="2" d="m95.83-41.81-9.78 4.07 5.1-9.28z"/>
+        </g>
+        <g class="node">
+            <title>:core:component</title>
+            <ellipse cx="222.17" cy="-18" fill="none" stroke="#000" rx="73.36" ry="18"/>
+            <text xml:space="preserve" x="222.17" y="-12.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:component</text>
+        </g>
+        <g class="edge">
+            <title>:catalog-&gt;:core:component</title>
+            <path fill="none" stroke="#000" d="M160.7-73.46c10.07 8.92 22.94 20.32 34.29 30.38"/>
+            <path stroke="#000" d="m197.01-45.97 5.16 9.25-9.8-4.01z"/>
+        </g>
+    </g>
+</svg>

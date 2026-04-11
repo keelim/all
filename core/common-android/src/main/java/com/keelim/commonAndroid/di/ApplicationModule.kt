@@ -14,7 +14,7 @@ import jakarta.inject.Singleton
 
 @dagger.Module
 @InstallIn(SingletonComponent::class)
-object ApplicationModule {
+internal object ApplicationModule {
     @Provides
     @Singleton
     fun providesAppInfo(

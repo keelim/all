@@ -42,6 +42,11 @@ kotlin {
 
             implementation(projects.core.model)
         }
+
+        androidMain.dependencies {
+            implementation(projects.core.datastoreProto)
+            implementation(libs.androidx.dataStore.core)
+        }
     }
 }
 

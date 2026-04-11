@@ -1,7 +1,7 @@
 package com.keelim.domain
 
-import org.junit.Assert
-import org.junit.Test
+import io.kotest.core.spec.style.FunSpec
+import io.kotest.matchers.shouldBe
 
 interface In<in T> {
     fun read(item: T): String
@@ -27,33 +27,30 @@ class WhereDouble : Where<Double> {
     override fun length(item: Double): Int = item.toString().length
 }
 
-class Test {
-    @Test
-    fun int_to_string() {
+class GenericsTest : FunSpec({
+    test("int_to_string") {
         val a = InInt()
         val b = 1
         val bString = b.toString()
         val c = a.read(b)
 
-        Assert.assertEquals(bString, c)
+        c shouldBe bString
     }
 
-    @Test
-    fun int_write() {
+    test("int_write") {
         val a = OutInt()
         val b = 1
         val c = a.write()
 
-        Assert.assertEquals(b, c)
+        c shouldBe b
     }
 
-    @Test
-    fun number_length() {
+    test("number_length") {
         val a = WhereDouble()
         val b = 1234.5678
         val c = 9
 
         val d = a.length(b)
-        Assert.assertEquals(c, d)
+        d shouldBe c
     }
-}
+})

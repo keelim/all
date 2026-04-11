@@ -5,6 +5,7 @@ plugins {
 kotlin {
     androidLibrary {
         namespace = "com.keelim.core.resource"
+        androidResources.enable = true
     }
     listOf(
         iosX64(),
@@ -18,7 +19,7 @@ kotlin {
     }
     sourceSets {
         commonMain.dependencies {
-            api(compose.components.resources)
+            api(libs.jetbrains.compose.components.resources)
         }
     }
 }

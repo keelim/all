@@ -43,6 +43,8 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space8
+import com.keelim.core.resource.*
+import org.jetbrains.compose.resources.stringResource
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -55,19 +57,20 @@ fun JsonFormatterScreen(
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
     val clipboardManager = LocalClipboardManager.current
+    val copiedToClipboardMessage = stringResource(Res.string.common_copied_to_clipboard)
 
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
                     Text(
-                        text = "JSON Formatter",
+                        text = stringResource(Res.string.arducon_json_formatter_title),
                         style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
                     )
                 },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
-                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "back")
+                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = stringResource(Res.string.arducon_back_description))
                     }
                 },
             )
@@ -88,8 +91,8 @@ fun JsonFormatterScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(200.dp),
-                label = { Text("Raw JSON") },
-                placeholder = { Text("Paste your JSON here...") },
+                label = { Text(stringResource(Res.string.arducon_json_formatter_raw_json)) },
+                placeholder = { Text(stringResource(Res.string.arducon_json_formatter_input_placeholder)) },
                 textStyle = MaterialTheme.typography.bodyMedium.copy(fontFamily = FontFamily.Monospace),
             )
 
@@ -101,7 +104,7 @@ fun JsonFormatterScreen(
                     onClick = viewModel::formatJson,
                     modifier = Modifier.weight(1f),
                 ) {
-                    Text("Format & Validate")
+                    Text(stringResource(Res.string.arducon_json_formatter_format_validate))
                 }
                 Button(
                     onClick = viewModel::clear,
@@ -109,7 +112,7 @@ fun JsonFormatterScreen(
                 ) {
                     Icon(imageVector = Icons.Default.Clear, contentDescription = null)
                     Spacer(modifier = Modifier.padding(start = space8))
-                    Text("Clear")
+                    Text(stringResource(Res.string.common_action_clear))
                 }
             }
 
@@ -119,7 +122,7 @@ fun JsonFormatterScreen(
                     modifier = Modifier.fillMaxWidth(),
                 ) {
                     Text(
-                        text = "Error: ${uiState.errorMessage}",
+                        text = stringResource(Res.string.common_error_with_message, uiState.errorMessage ?: ""),
                         color = MaterialTheme.colorScheme.onErrorContainer,
                         modifier = Modifier.padding(space16),
                         style = MaterialTheme.typography.bodyMedium,
@@ -138,7 +141,7 @@ fun JsonFormatterScreen(
                             horizontalArrangement = Arrangement.SpaceBetween,
                         ) {
                             Text(
-                                text = "Formatted JSON",
+                                text = stringResource(Res.string.arducon_json_formatter_output_title),
                                 style = MaterialTheme.typography.titleMedium,
                                 fontWeight = FontWeight.Bold,
                             )
@@ -146,11 +149,11 @@ fun JsonFormatterScreen(
                                 onClick = {
                                     clipboardManager.setText(AnnotatedString(uiState.formattedJson))
                                     scope.launch {
-                                        snackbarHostState.showSnackbar("Copied to clipboard")
+                                        snackbarHostState.showSnackbar(copiedToClipboardMessage)
                                     }
                                 },
                             ) {
-                                Icon(imageVector = Icons.Default.Check, contentDescription = "Copy")
+                                Icon(imageVector = Icons.Default.Check, contentDescription = stringResource(Res.string.common_action_copy))
                             }
                         }
                         Spacer(modifier = Modifier.height(space8))

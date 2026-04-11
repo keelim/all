@@ -49,6 +49,8 @@ import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space24
 import com.keelim.composeutil.resource.space8
+import com.keelim.core.resource.*
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun CreateDeepLinkRoute(
@@ -58,6 +60,7 @@ fun CreateDeepLinkRoute(
     viewModel: CreateDeepLinkViewModel = hiltViewModel(),
 ) {
     val schemeState by viewModel.scheme.collectAsStateWithLifecycle()
+    val createSuccessMessage = stringResource(Res.string.arducon_create_deeplink_success)
     val urlState by viewModel.url.collectAsStateWithLifecycle()
     val titleState by viewModel.title.collectAsStateWithLifecycle()
     val categoryState by viewModel.category.collectAsStateWithLifecycle()
@@ -73,7 +76,7 @@ fun CreateDeepLinkRoute(
     // 성공 상태 처리
     LaunchedEffect(isSuccess) {
         if (isSuccess) {
-            onShowMessage("딥링크가 성공적으로 생성되었습니다!")
+            onShowMessage(createSuccessMessage)
             viewModel.resetSuccess()
             onNavigateBack()
         }
@@ -118,7 +121,7 @@ fun CreateDeepLinkScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = "딥링크 생성",
+                        text = stringResource(Res.string.arducon_create_deeplink_title),
                         style = MaterialTheme.typography.titleLarge.copy(
                             fontWeight = FontWeight.Bold,
                         ),
@@ -128,7 +131,7 @@ fun CreateDeepLinkScreen(
                     IconButton(onClick = onNavigateBack) {
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "뒤로 가기",
+                            contentDescription = stringResource(Res.string.arducon_back_description),
                         )
                     }
                 },
@@ -156,12 +159,12 @@ fun CreateDeepLinkScreen(
                 OutlinedTextField(
                     value = url,
                     onValueChange = onUrlChange,
-                    label = { Text("URL") },
-                    placeholder = { Text("예: https://example.com") },
+                    label = { Text(stringResource(Res.string.label_url)) },
+                    placeholder = { Text(stringResource(Res.string.arducon_create_deeplink_url_placeholder)) },
                     leadingIcon = {
                         Icon(
                             imageVector = Icons.Default.Check,
-                            contentDescription = "URL",
+                            contentDescription = stringResource(Res.string.label_url),
                             tint = MaterialTheme.colorScheme.primary,
                         )
                     },
@@ -181,8 +184,8 @@ fun CreateDeepLinkScreen(
                 OutlinedTextField(
                     value = title,
                     onValueChange = onTitleChange,
-                    label = { Text("제목 (선택사항)") },
-                    placeholder = { Text("딥링크 제목을 입력하세요") },
+                    label = { Text(stringResource(Res.string.arducon_create_deeplink_title_label_optional)) },
+                    placeholder = { Text(stringResource(Res.string.arducon_create_deeplink_title_placeholder)) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(4.dp),
@@ -206,8 +209,8 @@ fun CreateDeepLinkScreen(
                     OutlinedTextField(
                         value = category,
                         onValueChange = onCategoryChange,
-                        label = { Text("카테고리 (선택사항)") },
-                        placeholder = { Text("카테고리를 선택하거나 입력하세요") },
+                        label = { Text(stringResource(Res.string.arducon_create_deeplink_category_label_optional)) },
+                        placeholder = { Text(stringResource(Res.string.arducon_create_deeplink_category_placeholder)) },
                         readOnly = true,
                         trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = isCategoryExpanded) },
                         modifier = Modifier
@@ -254,7 +257,7 @@ fun CreateDeepLinkScreen(
                     )
                     Spacer(modifier = Modifier.width(space8))
                 }
-                Text("딥링크 생성")
+                Text(stringResource(Res.string.arducon_create_deeplink_title))
             }
         }
     }
@@ -286,7 +289,7 @@ private fun SchemeInfoCard(
             Spacer(modifier = Modifier.width(space12))
             Column {
                 Text(
-                    text = "선택된 스킴",
+                    text = stringResource(Res.string.arducon_create_deeplink_selected_scheme),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f),
                 )

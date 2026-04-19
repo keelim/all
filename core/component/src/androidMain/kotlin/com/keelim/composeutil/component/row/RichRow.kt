@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
@@ -89,13 +90,13 @@ private fun RichTitle(
     Column(modifier = Modifier.padding(start = 10.dp, end = 5.dp).width(80.dp)) {
         Text(
             text = title,
-            style = MaterialTheme.typography.labelMedium,
+            style = KuiTheme.typography.labelMedium,
             fontWeight = FontWeight.Bold,
             color = Color.Black,
             overflow = TextOverflow.Ellipsis,
             maxLines = 2,
         )
-        Text(text = subTitle, style = MaterialTheme.typography.labelSmall, color = Color.Gray)
+        Text(text = subTitle, style = KuiTheme.typography.labelSmall, color = Color.Gray)
     }
 }
 
@@ -110,13 +111,13 @@ fun RichValue(currentValue: Float, totalValue: Float) {
     Column(modifier = Modifier.padding(start = 10.dp), horizontalAlignment = Alignment.End) {
         Text(
             text = "$currentValue",
-            style = MaterialTheme.typography.labelMedium,
+            style = KuiTheme.typography.labelMedium,
             fontWeight = FontWeight.Bold,
             color = Color.Black,
         )
         Text(
             text = "won ${totalValue.toInt()}",
-            style = MaterialTheme.typography.labelSmall,
+            style = KuiTheme.typography.labelSmall,
             color = Color.Gray,
         )
     }

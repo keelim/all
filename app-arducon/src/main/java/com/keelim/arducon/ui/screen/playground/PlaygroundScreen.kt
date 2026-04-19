@@ -21,6 +21,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -108,7 +109,7 @@ fun PlaygroundScreen(
                 title = {
                     Text(
                         text = stringResource(Res.string.playground_title),
-                        style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+                        style = KuiTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
                     )
                 },
                 navigationIcon = {
@@ -269,7 +270,7 @@ private fun ResolvedAppsCard(apps: List<ResolvedApp>) {
     Card(elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)) {
         Column(modifier = Modifier.padding(space16), verticalArrangement = Arrangement.spacedBy(space8)) {
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-                Text(text = stringResource(Res.string.label_resolved_apps), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                Text(text = stringResource(Res.string.label_resolved_apps), style = KuiTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                 Row {
                     IconButton(onClick = {
                         val text = apps.joinToString("\n") { "${'$'}{it.label} (${ '$'}{it.packageName})" }
@@ -289,7 +290,7 @@ private fun ResolvedAppsCard(apps: List<ResolvedApp>) {
                 apps.forEach { _ ->
                     Text(
                         text = "- ${'$'}{it.label} (${'$'}{it.packageName})",
-                        style = MaterialTheme.typography.bodyMedium,
+                        style = KuiTheme.typography.bodyMedium,
                     )
                 }
             }
@@ -304,7 +305,7 @@ private fun HttpResultCard(http: HttpResult) {
     Card(elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)) {
         Column(modifier = Modifier.padding(space16), verticalArrangement = Arrangement.spacedBy(space8)) {
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-                Text(text = stringResource(Res.string.label_http_result), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                Text(text = stringResource(Res.string.label_http_result), style = KuiTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                 Row {
                     IconButton(onClick = {
                         val headers = http.headers.entries.joinToString("\n") { (k, v) -> "$k: ${'$'}{v.joinToString()}" }
@@ -344,7 +345,7 @@ private fun OgResultCard(og: OgResult) {
     Card(elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)) {
         Column(modifier = Modifier.padding(space16), verticalArrangement = Arrangement.spacedBy(space8)) {
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-                Text(text = stringResource(Res.string.label_og_result), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                Text(text = stringResource(Res.string.label_og_result), style = KuiTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                 Row {
                     IconButton(onClick = {
                         val text = "title=${'$'}{og.title}\ndesc=${'$'}{og.description}\nimage=${'$'}{og.image}"
@@ -371,9 +372,9 @@ private fun OgResultCard(og: OgResult) {
 
 @Composable
 private fun ErrorCard(message: String) {
-    Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer)) {
+    Card(colors = CardDefaults.cardColors(containerColor = KuiTheme.colorScheme.errorContainer)) {
         Column(modifier = Modifier.padding(space16)) {
-            Text(text = message, color = MaterialTheme.colorScheme.onErrorContainer)
+            Text(text = message, color = KuiTheme.colorScheme.onErrorContainer)
         }
     }
 }

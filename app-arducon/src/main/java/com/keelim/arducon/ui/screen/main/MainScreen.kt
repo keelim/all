@@ -49,6 +49,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
@@ -253,15 +254,15 @@ fun MainScreen(
             ) {
                 Text(
                     text = stringResource(Res.string.arducon_main_title),
-                    style = MaterialTheme.typography.headlineMedium.copy(
+                    style = KuiTheme.typography.headlineMedium.copy(
                         fontWeight = FontWeight.Bold,
                     ),
-                    color = MaterialTheme.colorScheme.primary,
+                    color = KuiTheme.colorScheme.primary,
                 )
                 Text(
                     text = stringResource(Res.string.arducon_main_subtitle),
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = KuiTheme.typography.titleMedium,
+                    color = KuiTheme.colorScheme.onSurfaceVariant,
                 )
             }
         },
@@ -293,7 +294,7 @@ fun MainScreen(
                     Icon(
                         imageVector = Icons.Default.Search,
                         contentDescription = stringResource(Res.string.arducon_search_title),
-                        tint = MaterialTheme.colorScheme.primary,
+                        tint = KuiTheme.colorScheme.primary,
                     )
                 }
                 Spacer(modifier = Modifier.width(space4))
@@ -301,8 +302,8 @@ fun MainScreen(
                 Button(onClick = onNavigateStats) {
                     Text(
                         text = stringResource(Res.string.stats_button),
-                        style = MaterialTheme.typography.labelLarge,
-                        color = MaterialTheme.colorScheme.onPrimary,
+                        style = KuiTheme.typography.labelLarge,
+                        color = KuiTheme.colorScheme.onPrimary,
                     )
                 }
             }
@@ -475,15 +476,15 @@ private fun TooltipIcon(
         positionProvider = TooltipDefaults.rememberTooltipPositionProvider(),
         tooltip = {
             Surface(
-                color = MaterialTheme.colorScheme.surfaceVariant,
-                shape = MaterialTheme.shapes.small,
+                color = KuiTheme.colorScheme.surfaceVariant,
+                shape = KuiTheme.shapes.small,
                 tonalElevation = 4.dp,
             ) {
                 Text(
                     text = tooltipText,
                     modifier = Modifier.padding(horizontal = space8, vertical = space4),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = KuiTheme.typography.bodySmall,
+                    color = KuiTheme.colorScheme.onSurfaceVariant,
                 )
             }
         },
@@ -525,7 +526,7 @@ private fun DeepLinkBottomSheet(
             val invalidUrlError = stringResource(Res.string.invalid_url_error)
             ElevatedCard(
                 modifier = Modifier.fillMaxWidth(),
-                shape = MaterialTheme.shapes.large,
+                shape = KuiTheme.shapes.large,
             ) {
                 Column(
                     modifier = Modifier.padding(space12),
@@ -537,22 +538,22 @@ private fun DeepLinkBottomSheet(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .height(120.dp)
-                                .clip(MaterialTheme.shapes.medium),
+                                .clip(KuiTheme.shapes.medium),
                         )
                         Spacer(modifier = Modifier.height(space12))
                     }
 
                     Text(
                         text = deepLink.title.takeIf { it.isNotEmpty() } ?: stringResource(Res.string.arducon_main_no_title),
-                        style = MaterialTheme.typography.titleLarge,
+                        style = KuiTheme.typography.titleLarge,
                         fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSurface,
+                        color = KuiTheme.colorScheme.onSurface,
                     )
                     Spacer(modifier = Modifier.height(space4))
                     Text(
                         text = deepLink.url,
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = MaterialTheme.colorScheme.primary,
+                        style = KuiTheme.typography.bodyLarge,
+                        color = KuiTheme.colorScheme.primary,
                         modifier = Modifier.clickable {
                             if (URLUtil.isValidUrl(deepLink.url)) {
                                 context.startActivity(
@@ -582,14 +583,14 @@ private fun DeepLinkBottomSheet(
                     Icon(
                         imageVector = if (deepLink.isBookMarked) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
                         contentDescription = stringResource(Res.string.arducon_main_favorite),
-                        tint = if (deepLink.isBookMarked) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
+                        tint = if (deepLink.isBookMarked) KuiTheme.colorScheme.primary else KuiTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.size(space24),
                     )
                     Spacer(modifier = Modifier.width(space8))
                     Text(
                         text = if (deepLink.isBookMarked) stringResource(Res.string.arducon_main_favorite_added) else stringResource(Res.string.arducon_main_favorite_not_added),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        style = KuiTheme.typography.bodyMedium,
+                        color = KuiTheme.colorScheme.onSurfaceVariant,
                     )
                 }
 
@@ -598,8 +599,8 @@ private fun DeepLinkBottomSheet(
                 }
                 Text(
                     text = stringResource(Res.string.arducon_main_created_at, formattedTimestamp),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
+                    style = KuiTheme.typography.bodySmall,
+                    color = KuiTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
                 )
             }
 
@@ -610,14 +611,14 @@ private fun DeepLinkBottomSheet(
                 ) {
                     Text(
                         text = stringResource(Res.string.arducon_main_category),
-                        style = MaterialTheme.typography.bodyMedium,
+                        style = KuiTheme.typography.bodyMedium,
                         fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        color = KuiTheme.colorScheme.onSurfaceVariant,
                     )
                     Text(
                         text = deepLink.category,
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurface,
+                        style = KuiTheme.typography.bodyMedium,
+                        color = KuiTheme.colorScheme.onSurface,
                     )
                 }
             }
@@ -641,7 +642,7 @@ private fun DeepLinkBottomSheet(
                         onDismiss()
                     },
                     modifier = Modifier.weight(1f),
-                    colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error),
+                    colors = ButtonDefaults.textButtonColors(contentColor = KuiTheme.colorScheme.error),
                 ) {
                     Text(stringResource(Res.string.common_action_delete))
                 }

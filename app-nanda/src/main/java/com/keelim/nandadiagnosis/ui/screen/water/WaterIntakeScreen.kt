@@ -29,6 +29,7 @@ import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -95,8 +96,8 @@ fun WaterIntakeScreen(
         item {
             Text(
                 text = "💧 수분 섭취",
-                style = MaterialTheme.typography.headlineMedium,
-                color = MaterialTheme.colorScheme.onSurface,
+                style = KuiTheme.typography.headlineMedium,
+                color = KuiTheme.colorScheme.onSurface,
                 fontWeight = FontWeight.Bold,
             )
         }
@@ -106,7 +107,7 @@ fun WaterIntakeScreen(
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f),
+                    containerColor = KuiTheme.colorScheme.primaryContainer.copy(alpha = 0.3f),
                 ),
                 shape = RoundedCornerShape(24.dp),
             ) {
@@ -124,8 +125,8 @@ fun WaterIntakeScreen(
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
                         text = if (todayTotal >= dailyGoal) "🎉 목표 달성!" else "오늘 목표량의 ${(progress * 100).toInt()}%",
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = MaterialTheme.colorScheme.onSurface,
+                        style = KuiTheme.typography.bodyLarge,
+                        color = KuiTheme.colorScheme.onSurface,
                     )
                 }
             }
@@ -135,8 +136,8 @@ fun WaterIntakeScreen(
         item {
             Text(
                 text = "빠른 추가",
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onSurface,
+                style = KuiTheme.typography.titleMedium,
+                color = KuiTheme.colorScheme.onSurface,
                 fontWeight = FontWeight.SemiBold,
             )
             Spacer(modifier = Modifier.height(8.dp))
@@ -148,8 +149,8 @@ fun WaterIntakeScreen(
             item {
                 Text(
                     text = "주간 기록",
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onSurface,
+                    style = KuiTheme.typography.titleMedium,
+                    color = KuiTheme.colorScheme.onSurface,
                     fontWeight = FontWeight.SemiBold,
                 )
                 Spacer(modifier = Modifier.height(8.dp))
@@ -162,8 +163,8 @@ fun WaterIntakeScreen(
             item {
                 Text(
                     text = "오늘 기록",
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onSurface,
+                    style = KuiTheme.typography.titleMedium,
+                    color = KuiTheme.colorScheme.onSurface,
                     fontWeight = FontWeight.SemiBold,
                 )
             }
@@ -183,8 +184,8 @@ private fun ProgressRing(
     current: Int,
     goal: Int,
 ) = trace("ProgressRing") {
-    val primaryColor = MaterialTheme.colorScheme.primary
-    val trackColor = MaterialTheme.colorScheme.surfaceVariant
+    val primaryColor = KuiTheme.colorScheme.primary
+    val trackColor = KuiTheme.colorScheme.surfaceVariant
     val completedColor = Color(0xFF4CAF50)
 
     val ringColor by animateColorAsState(
@@ -232,14 +233,14 @@ private fun ProgressRing(
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = "${current}ml",
-                style = MaterialTheme.typography.headlineSmall,
-                color = MaterialTheme.colorScheme.onSurface,
+                style = KuiTheme.typography.headlineSmall,
+                color = KuiTheme.colorScheme.onSurface,
                 fontWeight = FontWeight.Bold,
             )
             Text(
                 text = "/ ${goal}ml",
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                style = KuiTheme.typography.bodyMedium,
+                color = KuiTheme.colorScheme.onSurfaceVariant,
             )
         }
     }
@@ -263,8 +264,8 @@ private fun QuickAddButtons(
             ) {
                 Text(
                     text = "${amount}ml",
-                    style = MaterialTheme.typography.labelLarge,
-                    color = MaterialTheme.colorScheme.onSecondaryContainer,
+                    style = KuiTheme.typography.labelLarge,
+                    color = KuiTheme.colorScheme.onSecondaryContainer,
                 )
             }
         }
@@ -279,7 +280,7 @@ private fun WeeklyChart(
     Card(
         modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
+            containerColor = KuiTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
         ),
         shape = RoundedCornerShape(16.dp),
     ) {
@@ -307,7 +308,7 @@ private fun DailyBar(
     goal: Int,
 ) = trace("DailyBar") {
     val progress = (amount.toFloat() / goal).coerceIn(0f, 1f)
-    val barColor = if (progress >= 1f) Color(0xFF4CAF50) else MaterialTheme.colorScheme.primary
+    val barColor = if (progress >= 1f) Color(0xFF4CAF50) else KuiTheme.colorScheme.primary
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -318,7 +319,7 @@ private fun DailyBar(
                 .height(80.dp)
                 .width(24.dp)
                 .clip(RoundedCornerShape(12.dp))
-                .background(MaterialTheme.colorScheme.surfaceVariant),
+                .background(KuiTheme.colorScheme.surfaceVariant),
             contentAlignment = Alignment.BottomCenter,
         ) {
             Box(
@@ -332,8 +333,8 @@ private fun DailyBar(
         Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = date.takeLast(5).replace("-", "/"),
-            style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            style = KuiTheme.typography.labelSmall,
+            color = KuiTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
         )
     }
@@ -347,7 +348,7 @@ private fun WaterRecordItem(
     Card(
         modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface,
+            containerColor = KuiTheme.colorScheme.surface,
         ),
     ) {
         Row(
@@ -360,14 +361,14 @@ private fun WaterRecordItem(
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Surface(
                     shape = CircleShape,
-                    color = MaterialTheme.colorScheme.primaryContainer,
+                    color = KuiTheme.colorScheme.primaryContainer,
                     modifier = Modifier.size(40.dp),
                 ) {
                     Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
                         Icon(
                             imageVector = WaterDropIcon,
                             contentDescription = null,
-                            tint = MaterialTheme.colorScheme.primary,
+                            tint = KuiTheme.colorScheme.primary,
                             modifier = Modifier.size(20.dp),
                         )
                     }
@@ -376,14 +377,14 @@ private fun WaterRecordItem(
                 Column {
                     Text(
                         text = "${record.amount}ml",
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = MaterialTheme.colorScheme.onSurface,
+                        style = KuiTheme.typography.bodyLarge,
+                        color = KuiTheme.colorScheme.onSurface,
                         fontWeight = FontWeight.Medium,
                     )
                     Text(
                         text = record.formattedTime,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        style = KuiTheme.typography.bodySmall,
+                        color = KuiTheme.colorScheme.onSurfaceVariant,
                     )
                 }
             }
@@ -391,7 +392,7 @@ private fun WaterRecordItem(
                 Icon(
                     imageVector = Icons.Default.Delete,
                     contentDescription = "삭제",
-                    tint = MaterialTheme.colorScheme.error,
+                    tint = KuiTheme.colorScheme.error,
                 )
             }
         }

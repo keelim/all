@@ -22,6 +22,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
@@ -72,7 +73,7 @@ fun SocialShare(
             ) {
                 Text(
                     text = title,
-                    style = MaterialTheme.typography.titleLarge,
+                    style = KuiTheme.typography.titleLarge,
                     modifier = Modifier.padding(horizontal = space24),
                 )
                 LazyRow(
@@ -148,7 +149,7 @@ fun LabeledIconButton(
                 contentDescription = null,
             )
         }
-        Text(text = label, style = MaterialTheme.typography.labelSmall, maxLines = 1)
+        Text(text = label, style = KuiTheme.typography.labelSmall, maxLines = 1)
     }
 }
 

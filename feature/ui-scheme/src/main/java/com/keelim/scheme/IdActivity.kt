@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -39,7 +40,7 @@ class IdActivity : ComponentActivity() {
                 ) {
                     Text(
                         text = id,
-                        style = MaterialTheme.typography.titleMedium,
+                        style = KuiTheme.typography.titleMedium,
                         modifier = Modifier.padding(vertical = space8),
                     )
                 }

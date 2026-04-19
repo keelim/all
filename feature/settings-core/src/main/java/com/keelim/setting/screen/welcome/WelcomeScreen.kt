@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -50,7 +51,7 @@ private fun WelcomeScreen(
         ) {
             Text(
                 text = "Welcome! to our app",
-                style = MaterialTheme.typography.headlineLarge,
+                style = KuiTheme.typography.headlineLarge,
                 color = Color.White,
             )
             Spacer(
@@ -58,7 +59,7 @@ private fun WelcomeScreen(
             )
             Text(
                 text = "We hope you find what you're looking for here.",
-                style = MaterialTheme.typography.headlineSmall,
+                style = KuiTheme.typography.headlineSmall,
                 color = Color.White,
             )
             Spacer(Modifier.height(48.dp))

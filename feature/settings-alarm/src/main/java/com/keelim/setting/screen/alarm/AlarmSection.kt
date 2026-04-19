@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -69,21 +70,21 @@ private fun AlarmItem(
             ) {
                 Text(
                     text = item.title,
-                    style = MaterialTheme.typography.headlineMedium,
+                    style = KuiTheme.typography.headlineMedium,
                 )
                 Spacer(
                     modifier = Modifier.height(space4),
                 )
                 Text(
                     text = item.subTitle,
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = KuiTheme.typography.bodyMedium,
                 )
                 Spacer(
                     modifier = Modifier.height(space2),
                 )
                 Text(
                     text = item.receiveDate,
-                    style = MaterialTheme.typography.bodySmall,
+                    style = KuiTheme.typography.bodySmall,
                 )
             }
         }

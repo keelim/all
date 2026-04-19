@@ -28,6 +28,7 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SwipeToDismissBox
@@ -128,12 +129,12 @@ fun MedicationScreen(
                         Icon(
                             imageVector = MedicationIcon,
                             contentDescription = null,
-                            tint = MaterialTheme.colorScheme.primary
+                            tint = KuiTheme.colorScheme.primary
                         )
                         Text(
                             text = "복약 알림",
-                            style = MaterialTheme.typography.titleLarge,
-                            color = MaterialTheme.colorScheme.onSurface
+                            style = KuiTheme.typography.titleLarge,
+                            color = KuiTheme.colorScheme.onSurface
                         )
                     }
                 }
@@ -142,12 +143,12 @@ fun MedicationScreen(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = onShowAddDialog,
-                containerColor = MaterialTheme.colorScheme.primary
+                containerColor = KuiTheme.colorScheme.primary
             ) {
                 Icon(
                     Icons.Default.Add,
                     contentDescription = "복약 추가",
-                    tint = MaterialTheme.colorScheme.onPrimary
+                    tint = KuiTheme.colorScheme.onPrimary
                 )
             }
         }
@@ -169,8 +170,8 @@ fun MedicationScreen(
                 item {
                     Text(
                         text = "등록된 복약 알림",
-                        style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.primary,
+                        style = KuiTheme.typography.titleMedium,
+                        color = KuiTheme.colorScheme.primary,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(bottom = 8.dp)
                     )
@@ -198,8 +199,8 @@ fun MedicationScreen(
             title = {
                 Text(
                     text = "복약 알림 추가",
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onSurface
+                    style = KuiTheme.typography.titleMedium,
+                    color = KuiTheme.colorScheme.onSurface
                 )
             },
             text = {
@@ -210,8 +211,8 @@ fun MedicationScreen(
                         label = {
                             Text(
                                 text = "약물명",
-                                style = MaterialTheme.typography.labelMedium,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                                style = KuiTheme.typography.labelMedium,
+                                color = KuiTheme.colorScheme.onSurfaceVariant
                             )
                         },
                         modifier = Modifier.fillMaxWidth()
@@ -223,8 +224,8 @@ fun MedicationScreen(
                         label = {
                             Text(
                                 text = "복용량 (예: 1정, 5ml)",
-                                style = MaterialTheme.typography.labelMedium,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                                style = KuiTheme.typography.labelMedium,
+                                color = KuiTheme.colorScheme.onSurfaceVariant
                             )
                         },
                         modifier = Modifier.fillMaxWidth()
@@ -232,8 +233,8 @@ fun MedicationScreen(
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
                         text = "복용 시간",
-                        style = MaterialTheme.typography.labelMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        style = KuiTheme.typography.labelMedium,
+                        color = KuiTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.padding(bottom = 8.dp)
                     )
                     TimePicker(state = timePickerState)
@@ -265,8 +266,8 @@ fun MedicationScreen(
                 ) {
                     Text(
                         text = if (isEditing) "수정" else "추가",
-                        style = MaterialTheme.typography.labelLarge,
-                        color = MaterialTheme.colorScheme.primary
+                        style = KuiTheme.typography.labelLarge,
+                        color = KuiTheme.colorScheme.primary
                     )
                 }
             },
@@ -280,8 +281,8 @@ fun MedicationScreen(
                 ) {
                     Text(
                         text = "취소",
-                        style = MaterialTheme.typography.labelLarge,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        style = KuiTheme.typography.labelLarge,
+                        color = KuiTheme.colorScheme.onSurfaceVariant
                     )
                 }
             }
@@ -301,18 +302,18 @@ private fun EmptyMedicationContent(modifier: Modifier = Modifier) {
             Icon(
                 imageVector = MedicationIcon,
                 contentDescription = null,
-                tint = MaterialTheme.colorScheme.outline,
+                tint = KuiTheme.colorScheme.outline,
                 modifier = Modifier.padding(bottom = 16.dp)
             )
             Text(
                 text = "등록된 복약 알림이 없습니다",
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                style = KuiTheme.typography.bodyLarge,
+                color = KuiTheme.colorScheme.onSurfaceVariant
             )
             Text(
                 text = "+ 버튼을 눌러 복약 알림을 추가하세요",
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.outline
+                style = KuiTheme.typography.bodyMedium,
+                color = KuiTheme.colorScheme.outline
             )
         }
     }
@@ -383,9 +384,9 @@ private fun MedicationCard(
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(
             containerColor = if (medication.isEnabled) {
-                MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f)
+                KuiTheme.colorScheme.primaryContainer.copy(alpha = 0.3f)
             } else {
-                MaterialTheme.colorScheme.surfaceVariant
+                KuiTheme.colorScheme.surfaceVariant
             }
         ),
         onClick = onEdit
@@ -404,27 +405,27 @@ private fun MedicationCard(
                 ) {
                     Text(
                         text = "💊",
-                        style = MaterialTheme.typography.titleMedium
+                        style = KuiTheme.typography.titleMedium
                     )
                     Text(
                         text = medication.name,
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = MaterialTheme.colorScheme.onSurface,
+                        style = KuiTheme.typography.bodyLarge,
+                        color = KuiTheme.colorScheme.onSurface,
                         fontWeight = FontWeight.Medium
                     )
                 }
                 Text(
                     text = medication.dosage,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    style = KuiTheme.typography.bodyMedium,
+                    color = KuiTheme.colorScheme.onSurfaceVariant
                 )
                 Text(
                     text = formatUiTime(hour = medication.hour, minute = medication.minute),
-                    style = MaterialTheme.typography.headlineMedium,
+                    style = KuiTheme.typography.headlineMedium,
                     color = if (medication.isEnabled) {
-                        MaterialTheme.colorScheme.primary
+                        KuiTheme.colorScheme.primary
                     } else {
-                        MaterialTheme.colorScheme.onSurfaceVariant
+                        KuiTheme.colorScheme.onSurfaceVariant
                     },
                     fontWeight = FontWeight.Bold
                 )
@@ -434,8 +435,8 @@ private fun MedicationCard(
                         MedicationFrequency.EVERY_OTHER_DAY -> "격일"
                         MedicationFrequency.SPECIFIC_DAYS -> "특정 요일"
                     },
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.outline
+                    style = KuiTheme.typography.labelSmall,
+                    color = KuiTheme.colorScheme.outline
                 )
             }
 
@@ -444,7 +445,7 @@ private fun MedicationCard(
                     Icon(
                         Icons.Default.Delete,
                         contentDescription = "삭제",
-                        tint = MaterialTheme.colorScheme.error
+                        tint = KuiTheme.colorScheme.error
                     )
                 }
                 Switch(

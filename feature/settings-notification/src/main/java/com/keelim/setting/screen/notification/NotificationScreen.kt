@@ -29,6 +29,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
@@ -78,17 +79,17 @@ private fun NotificationScreen(viewModel: NotificationViewModel = hiltViewModel(
     val onBackPressedDispatcher =
         checkNotNull(LocalOnBackPressedDispatcherOwner.current).onBackPressedDispatcher
     Scaffold(
-        containerColor = MaterialTheme.colorScheme.surface,
-        contentColor = MaterialTheme.colorScheme.onSurface,
+        containerColor = KuiTheme.colorScheme.surface,
+        contentColor = KuiTheme.colorScheme.onSurface,
         topBar = {
             CenterAlignedTopAppBar(
                 colors =
                 TopAppBarDefaults.topAppBarColors(
                     containerColor =
                     if (isSystemInDarkTheme()) {
-                        MaterialTheme.colorScheme.surfaceVariant.copy(alpha = if (hasScrolled) 1f else 0f)
+                        KuiTheme.colorScheme.surfaceVariant.copy(alpha = if (hasScrolled) 1f else 0f)
                     } else {
-                        MaterialTheme.colorScheme.surface
+                        KuiTheme.colorScheme.surface
                     },
                 ),
                 modifier = Modifier.shadow(appBarElevation),
@@ -207,7 +208,7 @@ private fun NotificationListCard(
         ) {
             Text(
                 text = notificationDate,
-                style = MaterialTheme.typography.bodySmall.copy(
+                style = KuiTheme.typography.bodySmall.copy(
                     fontWeight = FontWeight.Bold,
                 ),
                 overflow = TextOverflow.Ellipsis,
@@ -216,7 +217,7 @@ private fun NotificationListCard(
             Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
                 Text(
                     text = notificationTitle,
-                    style = MaterialTheme.typography.bodyMedium.copy(
+                    style = KuiTheme.typography.bodyMedium.copy(
                         fontWeight = FontWeight.Bold,
                     ),
                     overflow = TextOverflow.Ellipsis,
@@ -224,7 +225,7 @@ private fun NotificationListCard(
                 )
                 Text(
                     text = notificationDesc,
-                    style = MaterialTheme.typography.bodySmall,
+                    style = KuiTheme.typography.bodySmall,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 5,
                 )

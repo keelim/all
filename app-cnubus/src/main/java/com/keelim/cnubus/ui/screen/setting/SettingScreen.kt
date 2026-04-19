@@ -32,6 +32,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -83,7 +84,7 @@ internal fun SettingScreen(
             ) {
                 Text(
                     text = "설정",
-                    color = MaterialTheme.colorScheme.onSurface,
+                    color = KuiTheme.colorScheme.onSurface,
                     fontSize = 32.sp,
                     fontWeight = FontWeight.Bold,
                 )
@@ -125,7 +126,7 @@ fun SettingItem(
             )
             .fillMaxWidth(),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        colors = CardDefaults.cardColors(containerColor = KuiTheme.colorScheme.surface),
     ) {
         CellItem(
             text = item.text,
@@ -153,14 +154,14 @@ private fun CellItem(
         Icon(
             imageVector = icon,
             contentDescription = null,
-            tint = MaterialTheme.colorScheme.primary,
+            tint = KuiTheme.colorScheme.primary,
             modifier = Modifier.padding(end = space16)
         )
         Text(
             text = text,
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.onSurface,
+            color = KuiTheme.colorScheme.onSurface,
         )
     }
 }

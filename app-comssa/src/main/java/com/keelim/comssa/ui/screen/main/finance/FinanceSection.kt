@@ -35,6 +35,7 @@ import androidx.compose.material3.FloatingActionButtonMenuItem
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.ShortNavigationBar
 import androidx.compose.material3.ShortNavigationBarItem
 import androidx.compose.material3.Text
@@ -101,13 +102,13 @@ fun FinanceMainSection(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(60.dp)
-                        .background(MaterialTheme.colorScheme.primaryContainer),
+                        .background(KuiTheme.colorScheme.primaryContainer),
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Text(
                         text = stringResource(Res.string.comssa_finance_empty_state_end),
-                        style = MaterialTheme.typography.bodyMedium.copy(
+                        style = KuiTheme.typography.bodyMedium.copy(
                             fontWeight = FontWeight.Bold,
                         ),
                     )
@@ -122,7 +123,7 @@ fun FinanceHeaderItem(modifier: Modifier = Modifier) = trace("FinanceHeaderItem"
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.primaryContainer)
+            .background(KuiTheme.colorScheme.primaryContainer)
             .padding(horizontal = space16, vertical = space16),
     ) {
         Row(
@@ -133,15 +134,15 @@ fun FinanceHeaderItem(modifier: Modifier = Modifier) = trace("FinanceHeaderItem"
             Column {
                 Text(
                     text = stringResource(Res.string.comssa_finance_header_title),
-                    style = MaterialTheme.typography.headlineMedium.copy(
+                    style = KuiTheme.typography.headlineMedium.copy(
                         fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onPrimaryContainer,
+                        color = KuiTheme.colorScheme.onPrimaryContainer,
                     ),
                 )
                 Text(
                     text = stringResource(Res.string.comssa_finance_header_subtitle),
-                    style = MaterialTheme.typography.bodyMedium.copy(
-                        color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f),
+                    style = KuiTheme.typography.bodyMedium.copy(
+                        color = KuiTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f),
                     ),
                 )
             }
@@ -151,7 +152,7 @@ fun FinanceHeaderItem(modifier: Modifier = Modifier) = trace("FinanceHeaderItem"
 
         Spacer(modifier = Modifier.height(space8))
         HorizontalDivider(
-            color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.1f),
+            color = KuiTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.1f),
             thickness = 1.dp,
         )
     }
@@ -186,7 +187,7 @@ fun FinanceListItem(
                 ) {
                     Text(
                         text = item.title,
-                        style = MaterialTheme.typography.titleMedium.copy(
+                        style = KuiTheme.typography.titleMedium.copy(
                             fontWeight = FontWeight.Bold,
                         ),
                         maxLines = 2,
@@ -197,10 +198,10 @@ fun FinanceListItem(
 
                     Text(
                         text = item.description,
-                        style = MaterialTheme.typography.bodyMedium,
+                        style = KuiTheme.typography.bodyMedium,
                         maxLines = 3,
                         overflow = TextOverflow.Ellipsis,
-                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
+                        color = KuiTheme.colorScheme.onSurface.copy(alpha = 0.7f),
                     )
                 }
 
@@ -225,18 +226,18 @@ fun FinanceListItem(
             ) {
                 Text(
                     text = item.source,
-                    style = MaterialTheme.typography.bodySmall.copy(
+                    style = KuiTheme.typography.bodySmall.copy(
                         fontWeight = FontWeight.Medium,
-                        color = MaterialTheme.colorScheme.primary,
+                        color = KuiTheme.colorScheme.primary,
                     ),
                     modifier = Modifier.clickable { onSourceClick(item.source) },
                 )
 
                 Text(
                     text = item.category,
-                    style = MaterialTheme.typography.bodySmall.copy(
+                    style = KuiTheme.typography.bodySmall.copy(
                         fontWeight = FontWeight.Medium,
-                        color = MaterialTheme.colorScheme.secondary,
+                        color = KuiTheme.colorScheme.secondary,
                     ),
                 )
             }
@@ -374,7 +375,7 @@ private fun PreviewFinanceListItem() {
             ),
             onItemClick = {},
             onSourceClick = {},
-            modifier = Modifier.background(MaterialTheme.colorScheme.surface),
+            modifier = Modifier.background(KuiTheme.colorScheme.surface),
         )
     }
 }
@@ -402,6 +403,6 @@ private fun PreviewFinanceMainSection() {
         ),
         onSourceClick = {},
         onItemClick = {},
-        modifier = Modifier.background(MaterialTheme.colorScheme.surface),
+        modifier = Modifier.background(KuiTheme.colorScheme.surface),
     )
 }

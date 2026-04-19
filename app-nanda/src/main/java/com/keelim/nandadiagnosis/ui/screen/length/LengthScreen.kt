@@ -22,6 +22,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -87,15 +88,15 @@ fun LengthScreen(
 
         // 그래프
         LengthLineChart(
-            mainColor = MaterialTheme.colorScheme.primary,
-            subColor = MaterialTheme.colorScheme.primary,
+            mainColor = KuiTheme.colorScheme.primary,
+            subColor = KuiTheme.colorScheme.primary,
             points = chartPoints,
             modifier = Modifier.fillMaxWidth(),
         )
         Spacer(Modifier.height(24.dp))
 
         // 기록 리스트
-        Text(stringResource(Res.string.nanda_length_records_title), style = MaterialTheme.typography.titleMedium)
+        Text(stringResource(Res.string.nanda_length_records_title), style = KuiTheme.typography.titleMedium)
         Spacer(Modifier.height(8.dp))
         LazyColumn {
             items(

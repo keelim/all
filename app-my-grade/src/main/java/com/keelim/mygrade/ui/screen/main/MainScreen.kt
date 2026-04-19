@@ -31,6 +31,7 @@ import androidx.compose.material.icons.rounded.Create
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -255,7 +256,7 @@ private fun MainTopSection(
     Row(
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Text(text = "MyGrade", style = MaterialTheme.typography.headlineLarge)
+        Text(text = "MyGrade", style = KuiTheme.typography.headlineLarge)
         Spacer(
             modifier = Modifier.width(space8),
         )
@@ -292,11 +293,11 @@ private fun ColumnScope.MainBottomSection(
         horizontalArrangement = Arrangement.End,
     ) {
         Button(onClick = onClearClick) {
-            Text(text = "Clear", style = MaterialTheme.typography.labelLarge)
+            Text(text = "Clear", style = KuiTheme.typography.labelLarge)
         }
         Spacer(modifier = Modifier.width(space4))
         Button(onClick = onSubmitClick) {
-            Text(text = "Submit", style = MaterialTheme.typography.labelLarge)
+            Text(text = "Submit", style = KuiTheme.typography.labelLarge)
         }
     }
     Spacer(modifier = Modifier.weight(1f))
@@ -320,8 +321,8 @@ private fun ColumnScope.MainBottomSection(
             items = items,
             fabIcon = FabButtonMain(),
             fabOption = FabButtonSub(
-                backgroundTint = MaterialTheme.colorScheme.primary,
-                iconTint = MaterialTheme.colorScheme.onPrimary,
+                backgroundTint = KuiTheme.colorScheme.primary,
+                iconTint = KuiTheme.colorScheme.onPrimary,
             ),
             onFabItemClicked = { item ->
                 when (item) {
@@ -375,7 +376,7 @@ internal fun ScoreTextRow(
     isError: Boolean,
 ) = trace("ScoreTextRow") {
     Row(verticalAlignment = Alignment.CenterVertically) {
-        Text(text = text, style = MaterialTheme.typography.headlineSmall)
+        Text(text = text, style = KuiTheme.typography.headlineSmall)
         Spacer(modifier = Modifier.width(20.dp))
         TextField(
             value = value,
@@ -385,7 +386,7 @@ internal fun ScoreTextRow(
                 {
                     Text(
                         text = "형식을 다시 써주세요",
-                        style = MaterialTheme.typography.labelSmall,
+                        style = KuiTheme.typography.labelSmall,
                     )
                 }
             } else {
@@ -394,7 +395,7 @@ internal fun ScoreTextRow(
             placeholder = {
                 Text(
                     text = "$text 입력해주세요.",
-                    style = MaterialTheme.typography.labelLarge,
+                    style = KuiTheme.typography.labelLarge,
                 )
             },
             leadingIcon = { Icon(imageVector = Icons.Rounded.Create, contentDescription = null) },

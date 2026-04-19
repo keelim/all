@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -63,8 +64,8 @@ fun DiagnosisScreen(
             placeholder = {
                 Text(
                     text = "Search Diagnosis",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = KuiTheme.typography.bodyMedium,
+                    color = KuiTheme.colorScheme.onSurfaceVariant,
                 )
             },
             singleLine = true,
@@ -124,7 +125,7 @@ fun DiagnosisItem(
 ) = trace("DiagnosisItem") {
     Surface(
         onClick = { onDiagnosisClick() },
-        shape = MaterialTheme.shapes.large,
+        shape = KuiTheme.shapes.large,
         modifier = modifier,
     ) {
         Row(
@@ -144,20 +145,20 @@ fun DiagnosisItem(
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                         fontWeight = FontWeight.SemiBold,
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = MaterialTheme.colorScheme.onSurface,
+                        style = KuiTheme.typography.bodyLarge,
+                        color = KuiTheme.colorScheme.onSurface,
                     )
                     Text(
                         text = label,
-                        style = MaterialTheme.typography.labelLarge,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        style = KuiTheme.typography.labelLarge,
+                        color = KuiTheme.colorScheme.onSurfaceVariant,
                     )
                 }
                 Spacer(Modifier.height(space4))
                 Text(
                     text = content,
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = KuiTheme.typography.bodyLarge,
+                    color = KuiTheme.colorScheme.onSurfaceVariant,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
                 )

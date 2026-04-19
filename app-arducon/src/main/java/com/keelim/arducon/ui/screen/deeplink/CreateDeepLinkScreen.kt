@@ -26,6 +26,7 @@ import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -122,7 +123,7 @@ fun CreateDeepLinkScreen(
                 title = {
                     Text(
                         text = stringResource(Res.string.arducon_create_deeplink_title),
-                        style = MaterialTheme.typography.titleLarge.copy(
+                        style = KuiTheme.typography.titleLarge.copy(
                             fontWeight = FontWeight.Bold,
                         ),
                     )
@@ -154,7 +155,7 @@ fun CreateDeepLinkScreen(
             // URL 입력
             Card(
                 elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-                shape = MaterialTheme.shapes.medium,
+                shape = KuiTheme.shapes.medium,
             ) {
                 OutlinedTextField(
                     value = url,
@@ -165,21 +166,21 @@ fun CreateDeepLinkScreen(
                         Icon(
                             imageVector = Icons.Default.Check,
                             contentDescription = stringResource(Res.string.label_url),
-                            tint = MaterialTheme.colorScheme.primary,
+                            tint = KuiTheme.colorScheme.primary,
                         )
                     },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(4.dp),
                     singleLine = true,
-                    shape = MaterialTheme.shapes.small,
+                    shape = KuiTheme.shapes.small,
                 )
             }
 
             // 제목 입력
             Card(
                 elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-                shape = MaterialTheme.shapes.medium,
+                shape = KuiTheme.shapes.medium,
             ) {
                 OutlinedTextField(
                     value = title,
@@ -190,14 +191,14 @@ fun CreateDeepLinkScreen(
                         .fillMaxWidth()
                         .padding(4.dp),
                     singleLine = true,
-                    shape = MaterialTheme.shapes.small,
+                    shape = KuiTheme.shapes.small,
                 )
             }
 
             // 카테고리 선택
             Card(
                 elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-                shape = MaterialTheme.shapes.medium,
+                shape = KuiTheme.shapes.medium,
             ) {
                 ExposedDropdownMenuBox(
                     expanded = isCategoryExpanded,
@@ -216,7 +217,7 @@ fun CreateDeepLinkScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .menuAnchor(),
-                        shape = MaterialTheme.shapes.small,
+                        shape = KuiTheme.shapes.small,
                     )
 
                     ExposedDropdownMenu(
@@ -247,7 +248,7 @@ fun CreateDeepLinkScreen(
                 if (isLoading) {
                     CircularProgressIndicator(
                         modifier = Modifier.size(16.dp),
-                        color = MaterialTheme.colorScheme.onPrimary,
+                        color = KuiTheme.colorScheme.onPrimary,
                     )
                     Spacer(modifier = Modifier.width(space8))
                 } else {
@@ -272,7 +273,7 @@ private fun SchemeInfoCard(
         modifier = modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
+            containerColor = KuiTheme.colorScheme.primaryContainer,
         ),
     ) {
         Row(
@@ -284,20 +285,20 @@ private fun SchemeInfoCard(
             Icon(
                 imageVector = Icons.Default.Check,
                 contentDescription = null,
-                tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                tint = KuiTheme.colorScheme.onPrimaryContainer,
             )
             Spacer(modifier = Modifier.width(space12))
             Column {
                 Text(
                     text = stringResource(Res.string.arducon_create_deeplink_selected_scheme),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f),
+                    style = KuiTheme.typography.bodySmall,
+                    color = KuiTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f),
                 )
                 Text(
                     text = scheme,
-                    style = MaterialTheme.typography.titleMedium,
+                    style = KuiTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                    color = KuiTheme.colorScheme.onPrimaryContainer,
                 )
             }
         }

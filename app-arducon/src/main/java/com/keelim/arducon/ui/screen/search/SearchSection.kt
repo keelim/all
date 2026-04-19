@@ -17,6 +17,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -43,7 +44,7 @@ fun SchemeSearchSection(
             item {
                 Text(
                     text = "검색 결과 (${schemes.size}개)",
-                    style = MaterialTheme.typography.titleMedium,
+                    style = KuiTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(horizontal = space16, vertical = space8),
                 )
@@ -81,21 +82,21 @@ private fun SchemeItem(
             Icon(
                 imageVector = Icons.Default.Search,
                 contentDescription = null,
-                tint = MaterialTheme.colorScheme.primary,
+                tint = KuiTheme.colorScheme.primary,
             )
             Spacer(modifier = Modifier.width(space12))
             Column {
                 Text(
                     text = scheme,
-                    style = MaterialTheme.typography.bodyLarge,
+                    style = KuiTheme.typography.bodyLarge,
                     fontWeight = FontWeight.Medium,
-                    color = MaterialTheme.colorScheme.onSurface,
+                    color = KuiTheme.colorScheme.onSurface,
                 )
                 Spacer(modifier = Modifier.height(space8))
                 Text(
                     text = "딥링크 생성하기",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = KuiTheme.typography.bodySmall,
+                    color = KuiTheme.colorScheme.onSurfaceVariant,
                 )
             }
         }
@@ -117,18 +118,18 @@ private fun EmptySearchResult(
             imageVector = Icons.Default.Search,
             contentDescription = null,
             modifier = Modifier.padding(space16),
-            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+            tint = KuiTheme.colorScheme.onSurfaceVariant,
         )
         Text(
             text = "검색 결과가 없습니다",
-            style = MaterialTheme.typography.titleMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            style = KuiTheme.typography.titleMedium,
+            color = KuiTheme.colorScheme.onSurfaceVariant,
         )
         Spacer(modifier = Modifier.height(space8))
         Text(
             text = "다른 검색어를 입력해보세요",
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            style = KuiTheme.typography.bodyMedium,
+            color = KuiTheme.colorScheme.onSurfaceVariant,
         )
     }
 }

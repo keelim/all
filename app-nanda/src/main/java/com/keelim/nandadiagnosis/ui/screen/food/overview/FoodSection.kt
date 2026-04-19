@@ -18,6 +18,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -88,7 +89,7 @@ private fun FoodHeader(
         ) {
             Text(
                 text = title,
-                style = MaterialTheme.typography.bodyLarge,
+                style = KuiTheme.typography.bodyLarge,
                 fontWeight = FontWeight.Bold,
             )
             Icon(
@@ -116,13 +117,13 @@ private fun FoodItem(
         trailingContent = {
             Text(
                 text = "${food.kcal} kcal",
-                style = MaterialTheme.typography.labelSmall,
+                style = KuiTheme.typography.labelSmall,
             )
         },
         supportingContent = {
             Text(
                 text = food.description,
-                style = MaterialTheme.typography.bodyMedium,
+                style = KuiTheme.typography.bodyMedium,
             )
         },
         modifier = modifier,

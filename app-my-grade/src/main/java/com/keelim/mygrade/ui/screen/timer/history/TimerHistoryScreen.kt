@@ -36,6 +36,7 @@ import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SwipeToDismissBox
 import androidx.compose.material3.SwipeToDismissBoxValue
@@ -103,15 +104,15 @@ fun TimerHistoryScreen(
             title = {
                 Text(
                     text = stringResource(Res.string.my_grade_timer_history_delete_all_title),
-                    style = MaterialTheme.typography.titleLarge,
-                    color = MaterialTheme.colorScheme.onSurface,
+                    style = KuiTheme.typography.titleLarge,
+                    color = KuiTheme.colorScheme.onSurface,
                 )
             },
             text = {
                 Text(
                     text = stringResource(Res.string.my_grade_timer_history_delete_all_message),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = KuiTheme.typography.bodyMedium,
+                    color = KuiTheme.colorScheme.onSurfaceVariant,
                 )
             },
             confirmButton = {
@@ -123,7 +124,7 @@ fun TimerHistoryScreen(
                 ) {
                     Text(
                         text = stringResource(Res.string.common_action_delete),
-                        color = MaterialTheme.colorScheme.error,
+                        color = KuiTheme.colorScheme.error,
                     )
                 }
             },
@@ -152,8 +153,8 @@ fun TimerHistoryScreen(
             .background(
                 brush = Brush.verticalGradient(
                     colors = listOf(
-                        MaterialTheme.colorScheme.surface,
-                        MaterialTheme.colorScheme.surfaceContainerLowest,
+                        KuiTheme.colorScheme.surface,
+                        KuiTheme.colorScheme.surfaceContainerLowest,
                     ),
                 ),
             ),
@@ -172,27 +173,27 @@ fun TimerHistoryScreen(
                 Column {
                     Text(
                         text = stringResource(Res.string.my_grade_timer_history_title),
-                        style = MaterialTheme.typography.headlineMedium,
+                        style = KuiTheme.typography.headlineMedium,
                         fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSurface,
+                        color = KuiTheme.colorScheme.onSurface,
                     )
                     Text(
                         text = stringResource(Res.string.my_grade_timer_history_subtitle),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        style = KuiTheme.typography.bodyMedium,
+                        color = KuiTheme.colorScheme.onSurfaceVariant,
                     )
                 }
                 if (uiState.histories.isNotEmpty()) {
                     FilledIconButton(
                         onClick = { showDeleteAllDialog = true },
                         colors = IconButtonDefaults.filledIconButtonColors(
-                            containerColor = MaterialTheme.colorScheme.errorContainer,
+                            containerColor = KuiTheme.colorScheme.errorContainer,
                         ),
                     ) {
                         Icon(
                             imageVector = Icons.Default.Close,
                             contentDescription = stringResource(Res.string.my_grade_timer_history_delete_all_description),
-                            tint = MaterialTheme.colorScheme.onErrorContainer,
+                            tint = KuiTheme.colorScheme.onErrorContainer,
                         )
                     }
                 }
@@ -276,8 +277,8 @@ private fun SwipeableHistoryItem(
             backgroundContent = {
                 val color by animateColorAsState(
                     targetValue = when (dismissState.targetValue) {
-                        SwipeToDismissBoxValue.Settled -> MaterialTheme.colorScheme.surfaceVariant
-                        else -> MaterialTheme.colorScheme.errorContainer
+                        SwipeToDismissBoxValue.Settled -> KuiTheme.colorScheme.surfaceVariant
+                        else -> KuiTheme.colorScheme.errorContainer
                     },
                     label = "SwipeBackground",
                 )
@@ -301,7 +302,7 @@ private fun SwipeableHistoryItem(
                     Icon(
                         imageVector = Icons.Default.Delete,
                         contentDescription = stringResource(Res.string.common_action_delete),
-                        tint = MaterialTheme.colorScheme.onErrorContainer,
+                        tint = KuiTheme.colorScheme.onErrorContainer,
                         modifier = Modifier.scale(scale),
                     )
                 }
@@ -329,7 +330,7 @@ private fun HistoryItemCard(
             .clickable(onClick = onClick),
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+            containerColor = KuiTheme.colorScheme.surfaceContainerHigh,
         ),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
     ) {
@@ -344,13 +345,13 @@ private fun HistoryItemCard(
                 modifier = Modifier
                     .size(48.dp)
                     .clip(CircleShape)
-                    .background(MaterialTheme.colorScheme.primaryContainer),
+                    .background(KuiTheme.colorScheme.primaryContainer),
                 contentAlignment = Alignment.Center,
             ) {
                 Icon(
                     imageVector = Icons.Rounded.Menu,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                    tint = KuiTheme.colorScheme.onPrimaryContainer,
                     modifier = Modifier.size(24.dp),
                 )
             }
@@ -363,23 +364,23 @@ private fun HistoryItemCard(
             ) {
                 Text(
                     text = history.formattedTime,
-                    style = MaterialTheme.typography.titleLarge,
+                    style = KuiTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onSurface,
+                    color = KuiTheme.colorScheme.onSurface,
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 if (history.description.isNotEmpty()) {
                     Text(
                         text = history.description,
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.primary,
+                        style = KuiTheme.typography.bodyMedium,
+                        color = KuiTheme.colorScheme.primary,
                     )
                     Spacer(modifier = Modifier.height(2.dp))
                 }
                 Text(
                     text = formatDate(history.date),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = KuiTheme.typography.bodySmall,
+                    color = KuiTheme.colorScheme.onSurfaceVariant,
                 )
             }
 
@@ -387,14 +388,14 @@ private fun HistoryItemCard(
             FilledIconButton(
                 onClick = onEdit,
                 colors = IconButtonDefaults.filledIconButtonColors(
-                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                    containerColor = KuiTheme.colorScheme.secondaryContainer,
                 ),
                 modifier = Modifier.size(40.dp),
             ) {
                 Icon(
                     imageVector = Icons.Default.Edit,
                     contentDescription = stringResource(Res.string.my_grade_timer_history_edit_description),
-                    tint = MaterialTheme.colorScheme.onSecondaryContainer,
+                    tint = KuiTheme.colorScheme.onSecondaryContainer,
                     modifier = Modifier.size(20.dp),
                 )
             }
@@ -415,8 +416,8 @@ private fun EditDescriptionDialog(
         title = {
             Text(
                 text = stringResource(Res.string.my_grade_timer_history_edit_title),
-                style = MaterialTheme.typography.titleLarge,
-                color = MaterialTheme.colorScheme.onSurface,
+                style = KuiTheme.typography.titleLarge,
+                color = KuiTheme.colorScheme.onSurface,
             )
         },
         text = {
@@ -426,15 +427,15 @@ private fun EditDescriptionDialog(
                 label = {
                     Text(
                         text = stringResource(Res.string.my_grade_timer_history_description_label),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        style = KuiTheme.typography.bodyMedium,
+                        color = KuiTheme.colorScheme.onSurfaceVariant,
                     )
                 },
                 placeholder = {
                     Text(
                         text = stringResource(Res.string.my_grade_timer_history_description_placeholder),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        style = KuiTheme.typography.bodyMedium,
+                        color = KuiTheme.colorScheme.onSurfaceVariant,
                     )
                 },
                 singleLine = true,

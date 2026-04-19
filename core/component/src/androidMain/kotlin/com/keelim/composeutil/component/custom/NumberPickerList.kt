@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -71,8 +72,8 @@ fun NumberPickerList(
                     )
 
                 val textStyle = lerp(
-                    MaterialTheme.typography.titleLarge,
-                    MaterialTheme.typography.headlineMedium.copy(
+                    KuiTheme.typography.titleLarge,
+                    KuiTheme.typography.headlineMedium.copy(
                         fontWeight = FontWeight.Bold,
                     ),
                     animateState.value,

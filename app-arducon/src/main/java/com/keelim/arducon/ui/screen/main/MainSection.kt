@@ -48,6 +48,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -359,7 +360,7 @@ fun DeepLinkSection(
                 onDelete = onDeleteScheme,
             )
             HorizontalDivider(
-                color = MaterialTheme.colorScheme.outlineVariant,
+                color = KuiTheme.colorScheme.outlineVariant,
                 thickness = 1.dp,
             )
         }
@@ -377,12 +378,12 @@ fun DeepLinkSection(
                         label = {
                             Text(
                                 text = category.ifEmpty { "모두" },
-                                style = MaterialTheme.typography.labelLarge,
+                                style = KuiTheme.typography.labelLarge,
                             )
                         },
                         colors = AssistChipDefaults.assistChipColors(
-                            containerColor = if (isSelected) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceVariant,
-                            labelColor = if (isSelected) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurfaceVariant,
+                            containerColor = if (isSelected) KuiTheme.colorScheme.primaryContainer else KuiTheme.colorScheme.surfaceVariant,
+                            labelColor = if (isSelected) KuiTheme.colorScheme.onPrimaryContainer else KuiTheme.colorScheme.onSurfaceVariant,
                         ),
                     )
                 }
@@ -391,8 +392,8 @@ fun DeepLinkSection(
         stickyHeader {
             Text(
                 text = "Favorite",
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.primary,
+                style = KuiTheme.typography.titleMedium,
+                color = KuiTheme.colorScheme.primary,
                 modifier = Modifier.padding(vertical = space8),
             )
         }
@@ -436,8 +437,8 @@ fun DeepLinkSection(
         stickyHeader {
             Text(
                 text = "General",
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.primary,
+                style = KuiTheme.typography.titleMedium,
+                color = KuiTheme.colorScheme.primary,
                 modifier = Modifier.padding(vertical = space8),
             )
         }
@@ -502,7 +503,7 @@ private fun DeepLinkItem(
                 },
             ),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant,
+            containerColor = KuiTheme.colorScheme.surfaceVariant,
         ),
     ) {
         Row(
@@ -516,14 +517,14 @@ private fun DeepLinkItem(
                         .size(space64)
                         .padding(space8),
                     contentDescription = "",
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                    tint = KuiTheme.colorScheme.onSurfaceVariant,
                 )
             } else {
                 AsyncImage(
                     model = deepLink.imageUrl,
                     modifier = Modifier
                         .size(space64)
-                        .clip(MaterialTheme.shapes.medium),
+                        .clip(KuiTheme.shapes.medium),
                     contentDescription = null,
                 )
             }
@@ -536,14 +537,14 @@ private fun DeepLinkItem(
                 if (deepLink.title.isNotEmpty()) {
                     Text(
                         text = deepLink.title,
-                        style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        style = KuiTheme.typography.titleMedium,
+                        color = KuiTheme.colorScheme.onSurfaceVariant,
                     )
                 }
                 Text(
                     text = deepLink.url,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
+                    style = KuiTheme.typography.bodyMedium,
+                    color = KuiTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
                     maxLines = 1,
                 )
                 if (deepLink.category.isNotEmpty()) {
@@ -552,12 +553,12 @@ private fun DeepLinkItem(
                         label = {
                             Text(
                                 text = deepLink.category,
-                                style = MaterialTheme.typography.bodySmall,
+                                style = KuiTheme.typography.bodySmall,
                             )
                         },
                         colors = AssistChipDefaults.assistChipColors(
-                            containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                            labelColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                            containerColor = KuiTheme.colorScheme.secondaryContainer,
+                            labelColor = KuiTheme.colorScheme.onSecondaryContainer,
                         ),
                         modifier = Modifier.padding(top = space4),
                     )
@@ -574,7 +575,7 @@ private fun DeepLinkItem(
                     modifier = Modifier
                         .size(space32)
                         .clickable { onUpdate(deepLink) },
-                    tint = if (targetState) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
+                    tint = if (targetState) KuiTheme.colorScheme.primary else KuiTheme.colorScheme.onSurfaceVariant,
                 )
             }
 
@@ -596,7 +597,7 @@ private fun DeepLinkItem(
                                 deepLink.url,
                             )
                         },
-                    tint = MaterialTheme.colorScheme.primary,
+                    tint = KuiTheme.colorScheme.primary,
                 )
                 Icon(
                     imageVector = Icons.Default.PlayArrow,
@@ -604,7 +605,7 @@ private fun DeepLinkItem(
                     modifier = Modifier
                         .size(space32)
                         .clickable { onPlay(deepLink.url) },
-                    tint = MaterialTheme.colorScheme.primary,
+                    tint = KuiTheme.colorScheme.primary,
                 )
                 Icon(
                     imageVector = Icons.Rounded.Share,
@@ -612,7 +613,7 @@ private fun DeepLinkItem(
                     modifier = Modifier
                         .size(space32)
                         .clickable { onGenerateQrCode(deepLink) },
-                    tint = MaterialTheme.colorScheme.primary,
+                    tint = KuiTheme.colorScheme.primary,
                 )
                 Icon(
                     imageVector = Icons.Default.Delete,
@@ -620,7 +621,7 @@ private fun DeepLinkItem(
                     modifier = Modifier
                         .size(space32)
                         .clickable { onDelete(deepLink) },
-                    tint = MaterialTheme.colorScheme.error,
+                    tint = KuiTheme.colorScheme.error,
                 )
             }
         }

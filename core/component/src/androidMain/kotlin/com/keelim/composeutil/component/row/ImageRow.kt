@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,7 +24,7 @@ fun ImageLabelRow(
     modifier: Modifier = Modifier,
 ) {
     Surface(
-        shape = MaterialTheme.shapes.medium,
+        shape = KuiTheme.shapes.medium,
         modifier = modifier.fillMaxWidth(),
     ) {
         Row(

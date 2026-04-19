@@ -23,6 +23,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -66,8 +67,8 @@ fun StudyAnalyticsScreen(
         ) {
             Text(
                 text = "Study Analytics",
-                style = MaterialTheme.typography.headlineMedium,
-                color = MaterialTheme.colorScheme.onSurface,
+                style = KuiTheme.typography.headlineMedium,
+                color = KuiTheme.colorScheme.onSurface,
                 fontWeight = FontWeight.Bold,
             )
             Spacer(modifier = Modifier.height(16.dp))
@@ -106,19 +107,19 @@ private fun SummarySection(
             modifier = Modifier.weight(1f),
             title = "Total Time",
             value = formatSeconds(uiState.totalSeconds),
-            color = MaterialTheme.colorScheme.primaryContainer,
+            color = KuiTheme.colorScheme.primaryContainer,
         )
         SummaryCard(
             modifier = Modifier.weight(1f),
             title = "Study Days",
             value = "${uiState.studyDaysCount}",
-            color = MaterialTheme.colorScheme.secondaryContainer,
+            color = KuiTheme.colorScheme.secondaryContainer,
         )
         SummaryCard(
             modifier = Modifier.weight(1f),
             title = "Streak 🔥",
             value = "${uiState.currentStreak}",
-            color = MaterialTheme.colorScheme.tertiaryContainer,
+            color = KuiTheme.colorScheme.tertiaryContainer,
         )
     }
 }
@@ -143,14 +144,14 @@ private fun SummaryCard(
         ) {
             Text(
                 text = title,
-                style = MaterialTheme.typography.labelMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                style = KuiTheme.typography.labelMedium,
+                color = KuiTheme.colorScheme.onSurfaceVariant,
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = value,
-                style = MaterialTheme.typography.titleLarge,
-                color = MaterialTheme.colorScheme.onSurface,
+                style = KuiTheme.typography.titleLarge,
+                color = KuiTheme.colorScheme.onSurface,
                 fontWeight = FontWeight.Bold,
             )
         }
@@ -174,14 +175,14 @@ fun HeatmapSection(
                 Icon(
                     imageVector = Icons.Default.Star,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.primary,
+                    tint = KuiTheme.colorScheme.primary,
                     modifier = Modifier.size(20.dp),
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
                     text = "Activity Heatmap",
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onSurface,
+                    style = KuiTheme.typography.titleMedium,
+                    color = KuiTheme.colorScheme.onSurface,
                 )
             }
             Spacer(modifier = Modifier.height(16.dp))
@@ -238,16 +239,16 @@ private fun HeatmapLegend() = trace("HeatmapLegend") {
     ) {
         Text(
             text = "Less",
-            style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            style = KuiTheme.typography.labelSmall,
+            color = KuiTheme.colorScheme.onSurfaceVariant,
         )
         Spacer(modifier = Modifier.width(4.dp))
         listOf(
-            MaterialTheme.colorScheme.surfaceVariant,
-            MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f),
-            MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.6f),
-            MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.8f),
-            MaterialTheme.colorScheme.primary,
+            KuiTheme.colorScheme.surfaceVariant,
+            KuiTheme.colorScheme.primaryContainer.copy(alpha = 0.4f),
+            KuiTheme.colorScheme.primaryContainer.copy(alpha = 0.6f),
+            KuiTheme.colorScheme.primaryContainer.copy(alpha = 0.8f),
+            KuiTheme.colorScheme.primary,
         ).forEach { color ->
             Box(
                 modifier = Modifier
@@ -259,8 +260,8 @@ private fun HeatmapLegend() = trace("HeatmapLegend") {
         }
         Text(
             text = "More",
-            style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            style = KuiTheme.typography.labelSmall,
+            color = KuiTheme.colorScheme.onSurfaceVariant,
         )
     }
 }
@@ -269,11 +270,11 @@ private fun HeatmapLegend() = trace("HeatmapLegend") {
 private fun getHeatmapIntensity(seconds: Int): Color {
     val minutes = seconds / 60
     return when {
-        seconds == 0 -> MaterialTheme.colorScheme.surfaceVariant
-        minutes < 30 -> MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f)
-        minutes < 60 -> MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.6f)
-        minutes < 120 -> MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.8f)
-        else -> MaterialTheme.colorScheme.primary
+        seconds == 0 -> KuiTheme.colorScheme.surfaceVariant
+        minutes < 30 -> KuiTheme.colorScheme.primaryContainer.copy(alpha = 0.4f)
+        minutes < 60 -> KuiTheme.colorScheme.primaryContainer.copy(alpha = 0.6f)
+        minutes < 120 -> KuiTheme.colorScheme.primaryContainer.copy(alpha = 0.8f)
+        else -> KuiTheme.colorScheme.primary
     }
 }
 
@@ -293,8 +294,8 @@ fun WeeklyChartSection(
         ) {
             Text(
                 text = "Weekly Overview",
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onSurface,
+                style = KuiTheme.typography.titleMedium,
+                color = KuiTheme.colorScheme.onSurface,
             )
             Spacer(modifier = Modifier.height(16.dp))
             Row(
@@ -307,8 +308,8 @@ fun WeeklyChartSection(
                 if (recentDays.isEmpty()) {
                     Text(
                         text = "No data yet",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        style = KuiTheme.typography.bodyMedium,
+                        color = KuiTheme.colorScheme.onSurfaceVariant,
                     )
                 } else {
                     recentDays.forEach { stat ->
@@ -321,13 +322,13 @@ fun WeeklyChartSection(
                                     .width(24.dp)
                                     .height(height.coerceAtLeast(4.dp))
                                     .clip(RoundedCornerShape(topStart = 4.dp, topEnd = 4.dp))
-                                    .background(MaterialTheme.colorScheme.primary),
+                                    .background(KuiTheme.colorScheme.primary),
                             )
                             Spacer(modifier = Modifier.height(4.dp))
                             Text(
                                 text = stat.date.takeLast(2),
-                                style = MaterialTheme.typography.labelSmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                style = KuiTheme.typography.labelSmall,
+                                color = KuiTheme.colorScheme.onSurfaceVariant,
                             )
                         }
                     }
@@ -350,15 +351,15 @@ fun SubjectDistributionSection(
         ) {
             Text(
                 text = "Subject Distribution",
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onSurface,
+                style = KuiTheme.typography.titleMedium,
+                color = KuiTheme.colorScheme.onSurface,
             )
             Spacer(modifier = Modifier.height(16.dp))
             if (subjectStats.isEmpty()) {
                 Text(
                     text = "No subjects recorded yet",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = KuiTheme.typography.bodyMedium,
+                    color = KuiTheme.colorScheme.onSurfaceVariant,
                 )
             } else {
                 val totalSeconds = subjectStats.sumOf { it.totalSeconds }
@@ -393,13 +394,13 @@ private fun SubjectProgressBar(
         ) {
             Text(
                 text = subject,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurface,
+                style = KuiTheme.typography.bodyMedium,
+                color = KuiTheme.colorScheme.onSurface,
             )
             Text(
                 text = time,
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                style = KuiTheme.typography.bodySmall,
+                color = KuiTheme.colorScheme.onSurfaceVariant,
             )
         }
         Spacer(modifier = Modifier.height(4.dp))
@@ -408,14 +409,14 @@ private fun SubjectProgressBar(
                 .fillMaxWidth()
                 .height(8.dp)
                 .clip(RoundedCornerShape(4.dp))
-                .background(MaterialTheme.colorScheme.surfaceVariant),
+                .background(KuiTheme.colorScheme.surfaceVariant),
         ) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth(percentage)
                     .height(8.dp)
                     .clip(RoundedCornerShape(4.dp))
-                    .background(MaterialTheme.colorScheme.primary),
+                    .background(KuiTheme.colorScheme.primary),
             )
         }
     }

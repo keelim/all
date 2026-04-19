@@ -21,6 +21,7 @@ import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -163,7 +164,7 @@ fun LocalTaskHeader(
     ) {
         Text(
             text = task.text,
-            style = MaterialTheme.typography.titleMedium,
+            style = KuiTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold,
         )
     }

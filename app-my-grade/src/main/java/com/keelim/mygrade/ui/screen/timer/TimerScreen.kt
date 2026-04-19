@@ -45,6 +45,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -160,7 +161,7 @@ fun TimerScreen(
         scaffoldState = scaffoldState,
         sheetPeekHeight = 0.dp,
         sheetShape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
-        sheetContainerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+        sheetContainerColor = KuiTheme.colorScheme.surfaceContainerHigh,
         sheetContent = {
             TimerBottomSheetContent(
                 isTimerComplete = !timerUiState.isUnsetDialog,
@@ -179,8 +180,8 @@ fun TimerScreen(
                 .background(
                     brush = Brush.verticalGradient(
                         colors = listOf(
-                            MaterialTheme.colorScheme.surface,
-                            MaterialTheme.colorScheme.surfaceContainerLowest,
+                            KuiTheme.colorScheme.surface,
+                            KuiTheme.colorScheme.surfaceContainerLowest,
                         ),
                     ),
                 )
@@ -272,14 +273,14 @@ private fun TimerHeader(
         Column {
             Text(
                 text = "Focus Timer",
-                style = MaterialTheme.typography.headlineMedium,
+                style = KuiTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onSurface,
+                color = KuiTheme.colorScheme.onSurface,
             )
             Text(
                 text = "집중 시간을 측정하세요",
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                style = KuiTheme.typography.bodyMedium,
+                color = KuiTheme.colorScheme.onSurfaceVariant,
             )
         }
 
@@ -287,13 +288,13 @@ private fun TimerHeader(
             FilledIconButton(
                 onClick = { menuExpanded = true },
                 colors = IconButtonDefaults.filledIconButtonColors(
-                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                    containerColor = KuiTheme.colorScheme.secondaryContainer,
                 ),
             ) {
                 Icon(
                     imageVector = Icons.Outlined.MoreVert,
                     contentDescription = "Menu",
-                    tint = MaterialTheme.colorScheme.onSecondaryContainer,
+                    tint = KuiTheme.colorScheme.onSecondaryContainer,
                 )
             }
 
@@ -305,8 +306,8 @@ private fun TimerHeader(
                     text = {
                         Text(
                             text = "📊 Study Analytics",
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurface,
+                            style = KuiTheme.typography.bodyMedium,
+                            color = KuiTheme.colorScheme.onSurface,
                         )
                     },
                     onClick = {
@@ -318,8 +319,8 @@ private fun TimerHeader(
                     text = {
                         Text(
                             text = "📜 Timer History",
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurface,
+                            style = KuiTheme.typography.bodyMedium,
+                            color = KuiTheme.colorScheme.onSurface,
                         )
                     },
                     onClick = {
@@ -332,8 +333,8 @@ private fun TimerHeader(
                     text = {
                         Text(
                             text = "🔄 Reset Timer",
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.error,
+                            style = KuiTheme.typography.bodyMedium,
+                            color = KuiTheme.colorScheme.error,
                         )
                     },
                     onClick = {
@@ -355,7 +356,7 @@ private fun TimePickerSection(
     Surface(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(32.dp),
-        color = MaterialTheme.colorScheme.surfaceContainerHigh,
+        color = KuiTheme.colorScheme.surfaceContainerHigh,
         tonalElevation = 2.dp,
     ) {
         Column(
@@ -366,16 +367,16 @@ private fun TimePickerSection(
                 imageVector = Icons.Rounded.DateRange,
                 contentDescription = null,
                 modifier = Modifier.size(48.dp),
-                tint = MaterialTheme.colorScheme.primary,
+                tint = KuiTheme.colorScheme.primary,
             )
 
             Spacer(modifier = Modifier.height(24.dp))
 
             Text(
                 text = "시간 설정",
-                style = MaterialTheme.typography.titleLarge,
+                style = KuiTheme.typography.titleLarge,
                 fontWeight = FontWeight.SemiBold,
-                color = MaterialTheme.colorScheme.onSurface,
+                color = KuiTheme.colorScheme.onSurface,
             )
 
             Spacer(modifier = Modifier.height(32.dp))
@@ -418,14 +419,14 @@ private fun TimePickerColumn(
     ) {
         Text(
             text = label,
-            style = MaterialTheme.typography.labelMedium,
-            color = MaterialTheme.colorScheme.primary,
+            style = KuiTheme.typography.labelMedium,
+            color = KuiTheme.colorScheme.primary,
             fontWeight = FontWeight.Medium,
         )
         Spacer(modifier = Modifier.height(8.dp))
         Surface(
             shape = RoundedCornerShape(16.dp),
-            color = MaterialTheme.colorScheme.surfaceContainerHighest,
+            color = KuiTheme.colorScheme.surfaceContainerHighest,
         ) {
             NumberPickerList(
                 numbers = numbers,
@@ -439,8 +440,8 @@ private fun TimePickerColumn(
 private fun TimePickerDivider() {
     Text(
         text = ":",
-        style = MaterialTheme.typography.headlineLarge,
-        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        style = KuiTheme.typography.headlineLarge,
+        color = KuiTheme.colorScheme.onSurfaceVariant,
         fontWeight = FontWeight.Light,
     )
 }
@@ -485,9 +486,9 @@ private fun CountdownSection(
         label = "pulseAlpha",
     )
 
-    val primaryColor = MaterialTheme.colorScheme.primary
-    val backgroundColor = MaterialTheme.colorScheme.surfaceContainerHighest
-    val glowColor = MaterialTheme.colorScheme.primary.copy(alpha = pulseAlpha)
+    val primaryColor = KuiTheme.colorScheme.primary
+    val backgroundColor = KuiTheme.colorScheme.surfaceContainerHighest
+    val glowColor = KuiTheme.colorScheme.primary.copy(alpha = pulseAlpha)
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -541,16 +542,16 @@ private fun CountdownSection(
             ) {
                 Text(
                     text = formatTimeDisplay(leftTime),
-                    style = MaterialTheme.typography.displayLarge,
+                    style = KuiTheme.typography.displayLarge,
                     fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onSurface,
+                    color = KuiTheme.colorScheme.onSurface,
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Surface(
                     shape = RoundedCornerShape(20.dp),
-                    color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.5f),
+                    color = KuiTheme.colorScheme.secondaryContainer.copy(alpha = 0.5f),
                 ) {
                     Row(
                         modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
@@ -560,13 +561,13 @@ private fun CountdownSection(
                             imageVector = Icons.Rounded.DateRange,
                             contentDescription = null,
                             modifier = Modifier.size(16.dp),
-                            tint = MaterialTheme.colorScheme.onSecondaryContainer,
+                            tint = KuiTheme.colorScheme.onSecondaryContainer,
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
                             text = addedTime,
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSecondaryContainer,
+                            style = KuiTheme.typography.bodyMedium,
+                            color = KuiTheme.colorScheme.onSecondaryContainer,
                         )
                     }
                 }
@@ -598,9 +599,9 @@ private fun TimerControlButton(
         shape = CircleShape,
         colors = ButtonDefaults.buttonColors(
             containerColor = if (isStarted) {
-                MaterialTheme.colorScheme.error
+                KuiTheme.colorScheme.error
             } else {
-                MaterialTheme.colorScheme.primary
+                KuiTheme.colorScheme.primary
             },
         ),
         elevation = ButtonDefaults.buttonElevation(
@@ -616,7 +617,7 @@ private fun TimerControlButton(
         Spacer(modifier = Modifier.width(12.dp))
         Text(
             text = if (isStarted) "중지" else "시작",
-            style = MaterialTheme.typography.titleMedium,
+            style = KuiTheme.typography.titleMedium,
             fontWeight = FontWeight.SemiBold,
         )
     }
@@ -639,7 +640,7 @@ private fun TimerBottomSheetContent(
                 .width(40.dp)
                 .height(4.dp)
                 .clip(RoundedCornerShape(2.dp))
-                .background(MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.4f)),
+                .background(KuiTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.4f)),
         )
 
         Spacer(modifier = Modifier.height(32.dp))
@@ -648,9 +649,9 @@ private fun TimerBottomSheetContent(
         Surface(
             shape = CircleShape,
             color = if (isTimerComplete) {
-                MaterialTheme.colorScheme.primaryContainer
+                KuiTheme.colorScheme.primaryContainer
             } else {
-                MaterialTheme.colorScheme.errorContainer
+                KuiTheme.colorScheme.errorContainer
             },
             modifier = Modifier.size(80.dp),
         ) {
@@ -664,9 +665,9 @@ private fun TimerBottomSheetContent(
                     contentDescription = null,
                     modifier = Modifier.size(40.dp),
                     tint = if (isTimerComplete) {
-                        MaterialTheme.colorScheme.onPrimaryContainer
+                        KuiTheme.colorScheme.onPrimaryContainer
                     } else {
-                        MaterialTheme.colorScheme.onErrorContainer
+                        KuiTheme.colorScheme.onErrorContainer
                     },
                 )
             }
@@ -676,9 +677,9 @@ private fun TimerBottomSheetContent(
 
         Text(
             text = if (isTimerComplete) "타이머 완료! 🎉" else "시간을 설정해주세요",
-            style = MaterialTheme.typography.headlineSmall,
+            style = KuiTheme.typography.headlineSmall,
             fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.onSurface,
+            color = KuiTheme.colorScheme.onSurface,
         )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -689,8 +690,8 @@ private fun TimerBottomSheetContent(
             } else {
                 "타이머를 시작하기 전에 시간을 설정해주세요"
             },
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            style = KuiTheme.typography.bodyMedium,
+            color = KuiTheme.colorScheme.onSurfaceVariant,
         )
 
         Spacer(modifier = Modifier.height(32.dp))
@@ -704,7 +705,7 @@ private fun TimerBottomSheetContent(
         ) {
             Text(
                 text = "확인",
-                style = MaterialTheme.typography.titleMedium,
+                style = KuiTheme.typography.titleMedium,
                 fontWeight = FontWeight.SemiBold,
             )
         }

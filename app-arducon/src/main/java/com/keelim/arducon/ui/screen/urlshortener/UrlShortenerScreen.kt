@@ -28,6 +28,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -87,8 +88,8 @@ fun UrlShortenerScreen(
                 title = {
                     Text(
                         text = stringResource(Res.string.arducon_url_shortener_title),
-                        style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                        color = MaterialTheme.colorScheme.onSurface,
+                        style = KuiTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+                        color = KuiTheme.colorScheme.onSurface,
                     )
                 },
                 navigationIcon = {
@@ -149,14 +150,14 @@ fun UrlShortenerScreen(
             if (uiState.errorMessage != null) {
                 item {
                     Card(
-                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer),
+                        colors = CardDefaults.cardColors(containerColor = KuiTheme.colorScheme.errorContainer),
                         modifier = Modifier.fillMaxWidth(),
                     ) {
                         Text(
                             text = uiState.errorMessage!!,
-                            color = MaterialTheme.colorScheme.onErrorContainer,
+                            color = KuiTheme.colorScheme.onErrorContainer,
                             modifier = Modifier.padding(space16),
-                            style = MaterialTheme.typography.bodyMedium,
+                            style = KuiTheme.typography.bodyMedium,
                         )
                     }
                 }
@@ -165,21 +166,21 @@ fun UrlShortenerScreen(
             if (uiState.generatedShortCode.isNotEmpty()) {
                 item {
                     Card(
-                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
+                        colors = CardDefaults.cardColors(containerColor = KuiTheme.colorScheme.primaryContainer),
                         modifier = Modifier.fillMaxWidth(),
                     ) {
                         Column(modifier = Modifier.padding(space16)) {
                             Text(
                                 text = stringResource(Res.string.arducon_url_shortener_generated_title),
-                                style = MaterialTheme.typography.titleMedium,
+                                style = KuiTheme.typography.titleMedium,
                                 fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                                color = KuiTheme.colorScheme.onPrimaryContainer,
                             )
                             Spacer(modifier = Modifier.height(space8))
                             Text(
                                 text = stringResource(Res.string.arducon_url_shortener_short_code, uiState.generatedShortCode),
-                                style = MaterialTheme.typography.bodyLarge,
-                                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                                style = KuiTheme.typography.bodyLarge,
+                                color = KuiTheme.colorScheme.onPrimaryContainer,
                             )
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
@@ -204,9 +205,9 @@ fun UrlShortenerScreen(
                 item {
                     Text(
                         text = stringResource(Res.string.arducon_url_shortener_saved_links, shortenedUrls.size.toUiNumber()),
-                        style = MaterialTheme.typography.titleMedium,
+                        style = KuiTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSurface,
+                        color = KuiTheme.colorScheme.onSurface,
                         modifier = Modifier.padding(top = space8),
                     )
                 }
@@ -266,13 +267,13 @@ private fun ExpirationSelector(
         Icon(
             imageVector = Icons.Default.DateRange,
             contentDescription = null,
-            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+            tint = KuiTheme.colorScheme.onSurfaceVariant,
         )
         Spacer(modifier = Modifier.width(space8))
         Text(
             text = stringResource(Res.string.arducon_url_shortener_expiration_label),
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurface,
+            style = KuiTheme.typography.bodyMedium,
+            color = KuiTheme.colorScheme.onSurface,
         )
         Spacer(modifier = Modifier.width(space8))
         TextButton(onClick = { expanded = true }) {
@@ -319,17 +320,17 @@ private fun ShortenedUrlCard(
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
                         text = item.title.ifEmpty { item.shortCode },
-                        style = MaterialTheme.typography.titleSmall,
+                        style = KuiTheme.typography.titleSmall,
                         fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSurface,
+                        color = KuiTheme.colorScheme.onSurface,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                     )
                     Spacer(modifier = Modifier.height(space4))
                     Text(
                         text = item.originalUrl,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.primary,
+                        style = KuiTheme.typography.bodySmall,
+                        color = KuiTheme.colorScheme.primary,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                     )
@@ -339,14 +340,14 @@ private fun ShortenedUrlCard(
                         Icon(
                             imageVector = Icons.Default.Share,
                             contentDescription = stringResource(Res.string.common_action_share),
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                            tint = KuiTheme.colorScheme.onSurfaceVariant,
                         )
                     }
                     IconButton(onClick = onDeleteClick) {
                         Icon(
                             imageVector = Icons.Default.Clear,
                             contentDescription = stringResource(Res.string.common_action_delete),
-                            tint = MaterialTheme.colorScheme.error,
+                            tint = KuiTheme.colorScheme.error,
                         )
                     }
                 }
@@ -360,21 +361,21 @@ private fun ShortenedUrlCard(
             ) {
                 Text(
                     text = stringResource(Res.string.arducon_url_shortener_click_count, item.clickCount.toUiNumber()),
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = KuiTheme.typography.labelSmall,
+                    color = KuiTheme.colorScheme.onSurfaceVariant,
                 )
                 Text(
                     text = formatDate(item.createdAt),
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = KuiTheme.typography.labelSmall,
+                    color = KuiTheme.colorScheme.onSurfaceVariant,
                 )
             }
 
             AnimatedVisibility(visible = item.expiresAt > 0) {
                 Text(
                     text = stringResource(Res.string.arducon_url_shortener_expiration_at, formatDate(item.expiresAt)),
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.tertiary,
+                    style = KuiTheme.typography.labelSmall,
+                    color = KuiTheme.colorScheme.tertiary,
                     modifier = Modifier.padding(top = space4),
                 )
             }

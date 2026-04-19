@@ -18,6 +18,7 @@ import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.contentColorFor
 import androidx.compose.material3.rememberBottomSheetScaffoldState
@@ -62,7 +63,7 @@ fun ShareSheet(
             ) {
                 Text(
                     text = "Share!",
-                    style = MaterialTheme.typography.titleLarge,
+                    style = KuiTheme.typography.titleLarge,
                     modifier = Modifier.padding(horizontal = space24),
                 )
                 LazyRow(
@@ -101,7 +102,7 @@ private fun LabeledIconButton(
     imageVector: ImageVector,
     label: String,
     onClick: () -> Unit,
-    containerColor: Color = MaterialTheme.colorScheme.secondaryContainer,
+    containerColor: Color = KuiTheme.colorScheme.secondaryContainer,
     contentColor: Color = contentColorFor(containerColor),
 ) {
     Column(
@@ -121,6 +122,6 @@ private fun LabeledIconButton(
                 contentDescription = null,
             )
         }
-        Text(text = label, style = MaterialTheme.typography.labelSmall, maxLines = 1)
+        Text(text = label, style = KuiTheme.typography.labelSmall, maxLines = 1)
     }
 }

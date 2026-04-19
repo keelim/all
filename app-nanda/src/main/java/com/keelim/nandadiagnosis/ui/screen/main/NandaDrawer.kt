@@ -29,6 +29,7 @@ import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
@@ -124,7 +125,7 @@ fun NandaDrawer(
             Text(
                 text = stringResource(Res.string.nanda_app_name),
                 modifier = Modifier.padding(start = space8),
-                style = MaterialTheme.typography.titleMedium,
+                style = KuiTheme.typography.titleMedium,
             )
             Spacer(modifier = Modifier.height(space24))
             LazyColumn {

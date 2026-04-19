@@ -9,6 +9,7 @@ import androidx.compose.material.icons.sharp.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -45,7 +46,7 @@ fun WaterScreen() = trace("WaterScreen") {
             )
             Text(
                 text = "물을 많이 드셨군요",
-                style = MaterialTheme.typography.bodyMedium,
+                style = KuiTheme.typography.bodyMedium,
             )
         }
     }

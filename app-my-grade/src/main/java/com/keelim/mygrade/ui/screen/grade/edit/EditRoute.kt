@@ -14,6 +14,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -133,7 +134,7 @@ fun EditSuccessSection(
         ) {
             Text(
                 text = editResult.subject,
-                style = MaterialTheme.typography.displaySmall,
+                style = KuiTheme.typography.displaySmall,
             )
             TextField(
                 value = inputTitle,
@@ -143,7 +144,7 @@ fun EditSuccessSection(
                 textStyle = TextStyle(
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Normal,
-                    color = MaterialTheme.colorScheme.onSurface,
+                    color = KuiTheme.colorScheme.onSurface,
                 ),
                 singleLine = false,
                 shape = RectangleShape,
@@ -154,7 +155,7 @@ fun EditSuccessSection(
                     Text(
                         text = "메모를 입력해주세요.",
                         fontSize = 18.sp,
-                        color = MaterialTheme.colorScheme.onSurface,
+                        color = KuiTheme.colorScheme.onSurface,
                     )
                 },
             )

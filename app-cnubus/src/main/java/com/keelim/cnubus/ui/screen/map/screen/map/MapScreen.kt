@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -70,10 +71,10 @@ fun MapScreen(
                     Text(
                         text = "CNUBUS",
                         modifier = Modifier.align(Alignment.CenterVertically),
-                        style = MaterialTheme.typography.titleSmall.copy(
+                        style = KuiTheme.typography.titleSmall.copy(
                             fontWeight = FontWeight.Bold,
                         ),
-                        color = MaterialTheme.colorScheme.onSurface,
+                        color = KuiTheme.colorScheme.onSurface,
                     )
                 }
             }

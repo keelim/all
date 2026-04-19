@@ -15,6 +15,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -72,8 +73,8 @@ fun DeviceInfoScreen(
                 title = {
                     Text(
                         text = stringResource(Res.string.settings_category_device_info),
-                        style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                        color = MaterialTheme.colorScheme.onSurface,
+                        style = KuiTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+                        color = KuiTheme.colorScheme.onSurface,
                     )
                 },
                 navigationIcon = {
@@ -113,14 +114,14 @@ fun DeviceInfoCard(item: DeviceInfoItem) {
         ) {
             Text(
                 text = item.label,
-                style = MaterialTheme.typography.bodyMedium,
+                style = KuiTheme.typography.bodyMedium,
                 fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                color = KuiTheme.colorScheme.onSurfaceVariant,
             )
             Text(
                 text = item.value,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurface,
+                style = KuiTheme.typography.bodyMedium,
+                color = KuiTheme.colorScheme.onSurface,
             )
         }
     }

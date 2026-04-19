@@ -11,6 +11,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -29,7 +30,7 @@ fun EmptyView(
     ) {
         Text(
             text = text,
-            style = MaterialTheme.typography.bodyLarge,
+            style = KuiTheme.typography.bodyLarge,
         )
         Spacer(
             modifier = Modifier.height(space12),

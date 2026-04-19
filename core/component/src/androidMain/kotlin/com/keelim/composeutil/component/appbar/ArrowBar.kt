@@ -13,6 +13,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -48,7 +49,7 @@ fun NavigationBackArrowBar(title: String) {
         Spacer(Modifier.width(10.dp))
         Text(
             text = title,
-            style = MaterialTheme.typography.titleLarge,
+            style = KuiTheme.typography.titleLarge,
             modifier = Modifier.align(Alignment.CenterVertically),
         )
     }

@@ -10,6 +10,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Build
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -41,19 +42,19 @@ fun MaintenanceScreen() {
             imageVector = Icons.Default.Build,
             contentDescription = null,
             modifier = Modifier.size(64.dp),
-            tint = MaterialTheme.colorScheme.primary,
+            tint = KuiTheme.colorScheme.primary,
         )
         Spacer(modifier = Modifier.height(16.dp))
         Text(
             text = "Under Maintenance",
-            style = MaterialTheme.typography.headlineSmall,
-            color = MaterialTheme.colorScheme.onSurface,
+            style = KuiTheme.typography.headlineSmall,
+            color = KuiTheme.colorScheme.onSurface,
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
             text = "We are currently performing maintenance.\nPlease check back later.",
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            style = KuiTheme.typography.bodyMedium,
+            color = KuiTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
         )
     }

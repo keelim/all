@@ -8,6 +8,7 @@ import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -26,7 +27,7 @@ fun SaastatusEmpty(
     ) {
         Text(
             text = "지원 서비스 없음",
-            style = MaterialTheme.typography.bodyLarge.copy(
+            style = KuiTheme.typography.bodyLarge.copy(
                 fontWeight = FontWeight.Bold,
             ),
         )
@@ -35,7 +36,7 @@ fun SaastatusEmpty(
         )
         Text(
             text = "서비스를 등록해보세요.",
-            style = MaterialTheme.typography.bodyMedium,
+            style = KuiTheme.typography.bodyMedium,
         )
 
         IconButton(

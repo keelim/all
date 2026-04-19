@@ -26,6 +26,7 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SwipeToDismissBox
@@ -83,8 +84,8 @@ fun MarketNotificationScreen(
                 title = {
                     Text(
                         text = stringResource(Res.string.market_notifications_title),
-                        style = MaterialTheme.typography.titleLarge,
-                        color = MaterialTheme.colorScheme.onSurface
+                        style = KuiTheme.typography.titleLarge,
+                        color = KuiTheme.colorScheme.onSurface
                     )
                 }
             )
@@ -110,8 +111,8 @@ fun MarketNotificationScreen(
             item {
                 Text(
                     text = stringResource(Res.string.market_notifications_open_alerts),
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.primary,
+                    style = KuiTheme.typography.titleMedium,
+                    color = KuiTheme.colorScheme.primary,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(bottom = 8.dp)
                 )
@@ -135,8 +136,8 @@ fun MarketNotificationScreen(
             title = {
                 Text(
                     text = stringResource(Res.string.market_notifications_add_custom_notification),
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onSurface
+                    style = KuiTheme.typography.titleMedium,
+                    color = KuiTheme.colorScheme.onSurface
                 )
             },
             text = {
@@ -147,8 +148,8 @@ fun MarketNotificationScreen(
                         label = {
                             Text(
                                 text = stringResource(Res.string.market_notifications_name_label),
-                                style = MaterialTheme.typography.labelMedium,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                                style = KuiTheme.typography.labelMedium,
+                                color = KuiTheme.colorScheme.onSurfaceVariant
                             )
                         },
                         modifier = Modifier.fillMaxWidth()
@@ -173,8 +174,8 @@ fun MarketNotificationScreen(
                 ) {
                     Text(
                         text = stringResource(Res.string.market_notifications_add),
-                        style = MaterialTheme.typography.labelLarge,
-                        color = MaterialTheme.colorScheme.primary
+                        style = KuiTheme.typography.labelLarge,
+                        color = KuiTheme.colorScheme.primary
                     )
                 }
             },
@@ -182,8 +183,8 @@ fun MarketNotificationScreen(
                 TextButton(onClick = { showAddDialog = false }) {
                     Text(
                         text = stringResource(Res.string.market_notifications_cancel),
-                        style = MaterialTheme.typography.labelLarge,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        style = KuiTheme.typography.labelLarge,
+                        color = KuiTheme.colorScheme.onSurfaceVariant
                     )
                 }
             }
@@ -256,9 +257,9 @@ private fun ScheduleCard(
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(
             containerColor = if (schedule.isEnabled) {
-                MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f)
+                KuiTheme.colorScheme.primaryContainer.copy(alpha = 0.3f)
             } else {
-                MaterialTheme.colorScheme.surfaceVariant
+                KuiTheme.colorScheme.surfaceVariant
             }
         )
     ) {
@@ -272,25 +273,25 @@ private fun ScheduleCard(
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = schedule.name,
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onSurface,
+                    style = KuiTheme.typography.bodyLarge,
+                    color = KuiTheme.colorScheme.onSurface,
                     fontWeight = FontWeight.Medium
                 )
                 Text(
                     text = formatUiTime(hour = schedule.hour, minute = schedule.minute),
-                    style = MaterialTheme.typography.headlineMedium,
+                    style = KuiTheme.typography.headlineMedium,
                     color = if (schedule.isEnabled) {
-                        MaterialTheme.colorScheme.primary
+                        KuiTheme.colorScheme.primary
                     } else {
-                        MaterialTheme.colorScheme.onSurfaceVariant
+                        KuiTheme.colorScheme.onSurfaceVariant
                     },
                     fontWeight = FontWeight.Bold
                 )
                 if (schedule.isDefault) {
                     Text(
                         text = stringResource(Res.string.market_notifications_default),
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.outline
+                        style = KuiTheme.typography.labelSmall,
+                        color = KuiTheme.colorScheme.outline
                     )
                 }
             }
@@ -301,7 +302,7 @@ private fun ScheduleCard(
                         Icon(
                             Icons.Default.Delete,
                             contentDescription = stringResource(Res.string.market_notifications_delete),
-                            tint = MaterialTheme.colorScheme.error
+                            tint = KuiTheme.colorScheme.error
                         )
                     }
                 }

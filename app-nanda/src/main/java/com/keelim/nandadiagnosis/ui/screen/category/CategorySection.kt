@@ -36,6 +36,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -116,7 +117,7 @@ fun CategoryStateSection(
                 ) {
                     Text(
                         text = "NANDA 진단 분류",
-                        style = MaterialTheme.typography.titleLarge.copy(
+                        style = KuiTheme.typography.titleLarge.copy(
                             fontWeight = FontWeight.Bold,
                         ),
                         modifier = Modifier.padding(start = space4),
@@ -146,7 +147,7 @@ private fun SectionCard(
     ) {
         Text(
             text = title,
-            style = MaterialTheme.typography.titleLarge.copy(
+            style = KuiTheme.typography.titleLarge.copy(
                 fontWeight = FontWeight.Bold,
             ),
             modifier = Modifier.padding(start = space4),
@@ -155,7 +156,7 @@ private fun SectionCard(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(space16),
             colors = CardDefaults.outlinedCardColors(
-                containerColor = MaterialTheme.colorScheme.surface,
+                containerColor = KuiTheme.colorScheme.surface,
             ),
         ) {
             Column(
@@ -187,8 +188,8 @@ private fun MedicationEntryCard(
                 .background(
                     brush = Brush.linearGradient(
                         colors = listOf(
-                            MaterialTheme.colorScheme.primary,
-                            MaterialTheme.colorScheme.tertiary,
+                            KuiTheme.colorScheme.primary,
+                            KuiTheme.colorScheme.tertiary,
                         ),
                     ),
                 )
@@ -200,7 +201,7 @@ private fun MedicationEntryCard(
             ) {
                 Surface(
                     shape = CircleShape,
-                    color = MaterialTheme.colorScheme.surface.copy(alpha = 0.2f),
+                    color = KuiTheme.colorScheme.surface.copy(alpha = 0.2f),
                     modifier = Modifier.size(48.dp)
                 ) {
                     Icon(
@@ -209,29 +210,29 @@ private fun MedicationEntryCard(
                         modifier = Modifier
                             .padding(12.dp)
                             .fillMaxSize(),
-                        tint = MaterialTheme.colorScheme.onPrimary,
+                        tint = KuiTheme.colorScheme.onPrimary,
                     )
                 }
 
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
                         text = "복약 알림 설정",
-                        style = MaterialTheme.typography.titleLarge.copy(
+                        style = KuiTheme.typography.titleLarge.copy(
                             fontWeight = FontWeight.Bold,
                         ),
-                        color = MaterialTheme.colorScheme.onPrimary,
+                        color = KuiTheme.colorScheme.onPrimary,
                     )
                     Spacer(modifier = Modifier.height(space4))
                     Text(
                         text = "약 먹을 시간을 잊지 마세요!",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.8f),
+                        style = KuiTheme.typography.bodyMedium,
+                        color = KuiTheme.colorScheme.onPrimary.copy(alpha = 0.8f),
                     )
                 }
                 Icon(
                     imageVector = Icons.AutoMirrored.Rounded.ArrowForward,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onPrimary,
+                    tint = KuiTheme.colorScheme.onPrimary,
                 )
             }
         }
@@ -267,7 +268,7 @@ private fun Categories(
                 ) {
                     Text(
                         text = title,
-                        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
+                        style = KuiTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
                     )
                     IconButton(onClick = { onEditTypeClick(type) }) {
                         Icon(imageVector = Icons.Rounded.Edit, contentDescription = "Edit")
@@ -279,7 +280,7 @@ private fun Categories(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clip(RoundedCornerShape(space12))
-                            .background(MaterialTheme.colorScheme.surfaceContainerHigh)
+                            .background(KuiTheme.colorScheme.surfaceContainerHigh)
                             .clickable { onEditTypeClick(type) }
                             .padding(vertical = space24),
                         contentAlignment = Alignment.Center,
@@ -288,14 +289,14 @@ private fun Categories(
                             Icon(
                                 imageVector = icon,
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                tint = KuiTheme.colorScheme.onSurfaceVariant,
                                 modifier = Modifier.size(32.dp),
                             )
                             Spacer(modifier = Modifier.height(space8))
                             Text(
                                 text = emptyMessage,
-                                style = MaterialTheme.typography.bodyMedium,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                style = KuiTheme.typography.bodyMedium,
+                                color = KuiTheme.colorScheme.onSurfaceVariant,
                             )
                         }
                     }
@@ -310,7 +311,7 @@ private fun Categories(
                                 )
                             },
                             colors = ListItemDefaults.colors(
-                                containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
+                                containerColor = KuiTheme.colorScheme.surfaceContainerLow,
                             ),
                             modifier = Modifier
                                 .clip(RoundedCornerShape(space12))
@@ -353,7 +354,7 @@ private fun CategoryGridCard(
 ) {
     // Generate a consistent color based on index or just use a nice variety
     // For now, we use a subtle surface variant or a primary container
-    val containerColor = MaterialTheme.colorScheme.surfaceContainer
+    val containerColor = KuiTheme.colorScheme.surfaceContainer
 
     Card(
         modifier = modifier
@@ -374,7 +375,7 @@ private fun CategoryGridCard(
                     .align(Alignment.BottomEnd)
                     .size(60.dp)
                     .clip(CircleShape)
-                    .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.1f))
+                    .background(KuiTheme.colorScheme.primary.copy(alpha = 0.1f))
             )
 
             Column(
@@ -382,16 +383,16 @@ private fun CategoryGridCard(
             ) {
                 Text(
                     text = "${index + 1}",
-                    style = MaterialTheme.typography.labelLarge,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = KuiTheme.typography.labelLarge,
+                    color = KuiTheme.colorScheme.onSurfaceVariant,
                 )
                 Spacer(modifier = Modifier.height(space4))
                 Text(
                     text = categoryTitle,
-                    style = MaterialTheme.typography.titleMedium.copy(
+                    style = KuiTheme.typography.titleMedium.copy(
                         fontWeight = FontWeight.Bold,
                     ),
-                    color = MaterialTheme.colorScheme.onSurface,
+                    color = KuiTheme.colorScheme.onSurface,
                 )
             }
         }

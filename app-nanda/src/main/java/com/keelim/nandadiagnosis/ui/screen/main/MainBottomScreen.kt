@@ -15,6 +15,7 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
@@ -64,7 +65,7 @@ private fun MainBottomSheetScreen(
             Row {
                 Icon(imageVector = Icons.Default.Check, contentDescription = null)
                 Spacer(modifier = Modifier.width(10.dp))
-                Text(text = "관련 정보", style = MaterialTheme.typography.bodyMedium)
+                Text(text = "관련 정보", style = KuiTheme.typography.bodyMedium)
             }
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
@@ -82,7 +83,7 @@ private fun MainBottomSheetScreen(
         ) {
             Text(
                 text = "About",
-                style = MaterialTheme.typography.bodyMedium,
+                style = KuiTheme.typography.bodyMedium,
                 modifier = Modifier.clickable {
                     onAboutClick()
                 },

@@ -1,7 +1,7 @@
 # core:component
 
 ## OVERVIEW
-Central UI library providing a unified design system for all 6 apps. Built exclusively with **Jetpack Compose** and **Material 3 (Expressive)**, focusing on reusable, accessible, and animation-friendly components.
+Shared higher-level Compose component library for all Android apps. Canonical design tokens, theme, and stable primitives now live in `core:designsystem`; this module should either delegate to those APIs or host larger reusable widgets that are not generic design-system primitives.
 
 ## STRUCTURE
 ```
@@ -15,14 +15,14 @@ core/component/src/*/com/keelim/composeutil/
 ## WHERE TO LOOK
 | Type | Location | Description |
 |------|----------|-------------|
-| **Theme** | `ui/theme/Theme.kt` | `KeelimTheme` and Expressive M3 setup |
+| **Theme facade** | `ui/theme/Theme.kt` | Compatibility wrapper around `core:designsystem` `KeelimDesignSystemTheme` |
 | **Settings** | `screen/setting/` | Shared settings screens and theme selectors |
 | **Templates** | `screen/` | Common layouts (Tutorial, Basic Screen) |
 | **UI Atoms** | `component/` | 20+ categories of reusable UI widgets |
 | **Modifiers** | `util/ModifierUtil.kt` | Custom shimmer, conditional, and touch modifiers |
 
 ## KEY COMPONENTS
-- **KeelimTheme**: The root design system provider using `MaterialExpressiveTheme`.
+- **KeelimTheme**: Compatibility root provider that delegates to `core:designsystem`.
 - **SearchView**: Integrated search field with clear and search actions.
 - **Modifier.shimmer()**: Standard shimmer effect for loading states.
 - **Modifier.conditional()**: Utility to apply modifiers based on conditions.
@@ -30,14 +30,14 @@ core/component/src/*/com/keelim/composeutil/
 - **AppState**: Serializable state holder for complex navigation/UI state.
 
 ## CONVENTIONS
-- **M3 First**: Always use `MaterialTheme.colorScheme` and `MaterialTheme.typography`.
+- **Design-system first**: Prefer `com.keelim.core.designsystem.theme.KuiTheme` tokens and primitives over direct screen-level `MaterialTheme` usage.
 - **Stateless Components**: Prefer stateless Composables; hoist state via callbacks.
 - **Explicit Styling**: `Text` MUST specify `style` and `color` to ensure M3 consistency.
 - **Animation Ready**: Use `AnimatedVisibility` and `animateItem` for all dynamic UI.
 - **Preview Support**: Every component should have a `@Preview` with theme wrapper.
 
 ## ANTI-PATTERNS
-- **No Hardcoding**: Never hardcode hex colors or pixel sizes (use tokens/DP).
+- **No Hardcoding**: Never hardcode hex colors or standard spacing (use `core:designsystem` tokens).
 - **No Direct ViewModels**: Reusable components in `core:component` should not depend on ViewModels.
 - **No Platform Logic**: Keep components platform-agnostic unless in `android*` source sets.
 

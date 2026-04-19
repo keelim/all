@@ -24,6 +24,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -74,7 +75,7 @@ private fun StatsScreen(
             icon = Icons.Default.Star,
             content = {
                 if (topUsedLinks.isEmpty()) {
-                    Text("데이터 없음", style = MaterialTheme.typography.bodyMedium)
+                    Text("데이터 없음", style = KuiTheme.typography.bodyMedium)
                 } else {
                     topUsedLinks.forEachIndexed { idx, item ->
                         StatsLinkItem(item, highlight = idx == 0)
@@ -94,7 +95,7 @@ private fun StatsScreen(
             icon = Icons.Default.CheckCircle,
             content = {
                 if (recentUsedLinks.isEmpty()) {
-                    Text("데이터 없음", style = MaterialTheme.typography.bodyMedium)
+                    Text("데이터 없음", style = KuiTheme.typography.bodyMedium)
                 } else {
                     recentUsedLinks.forEachIndexed { idx, item ->
                         StatsLinkItem(item, highlight = false)
@@ -152,7 +153,7 @@ private fun StatsSectionCard(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(18.dp),
         elevation = CardDefaults.cardElevation(6.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        colors = CardDefaults.cardColors(containerColor = KuiTheme.colorScheme.surface),
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -161,20 +162,20 @@ private fun StatsSectionCard(
             Surface(
                 modifier = Modifier.size(36.dp),
                 shape = CircleShape,
-                color = MaterialTheme.colorScheme.primaryContainer,
+                color = KuiTheme.colorScheme.primaryContainer,
             ) {
                 Icon(
                     imageVector = icon,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.primary,
+                    tint = KuiTheme.colorScheme.primary,
                     modifier = Modifier.padding(8.dp),
                 )
             }
             Spacer(modifier = Modifier.width(12.dp))
             Text(
                 text = title,
-                style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                color = MaterialTheme.colorScheme.primary,
+                style = KuiTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+                color = KuiTheme.colorScheme.primary,
             )
         }
         Divider(modifier = Modifier.padding(horizontal = 20.dp, vertical = 4.dp))
@@ -195,7 +196,7 @@ private fun StatsLinkItem(item: DeepLink, highlight: Boolean) {
         modifier = Modifier
             .fillMaxWidth()
             .background(
-                if (highlight) MaterialTheme.colorScheme.primary.copy(alpha = 0.08f) else Color.Transparent,
+                if (highlight) KuiTheme.colorScheme.primary.copy(alpha = 0.08f) else Color.Transparent,
                 shape = RoundedCornerShape(10.dp),
             )
             .padding(vertical = 8.dp, horizontal = 4.dp),
@@ -204,12 +205,12 @@ private fun StatsLinkItem(item: DeepLink, highlight: Boolean) {
         Surface(
             modifier = Modifier.size(36.dp),
             shape = CircleShape,
-            color = if (highlight) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondaryContainer,
+            color = if (highlight) KuiTheme.colorScheme.primary else KuiTheme.colorScheme.secondaryContainer,
         ) {
             Icon(
                 imageVector = Icons.Default.Star,
                 contentDescription = null,
-                tint = if (highlight) Color.White else MaterialTheme.colorScheme.primary,
+                tint = if (highlight) Color.White else KuiTheme.colorScheme.primary,
                 modifier = Modifier.padding(8.dp),
             )
         }
@@ -217,25 +218,25 @@ private fun StatsLinkItem(item: DeepLink, highlight: Boolean) {
         Column(modifier = Modifier.weight(1f)) {
             Text(
                 text = item.title.ifEmpty { item.url },
-                style = MaterialTheme.typography.bodyLarge.copy(fontWeight = if (highlight) FontWeight.Bold else FontWeight.Normal),
-                color = if (highlight) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
+                style = KuiTheme.typography.bodyLarge.copy(fontWeight = if (highlight) FontWeight.Bold else FontWeight.Normal),
+                color = if (highlight) KuiTheme.colorScheme.primary else KuiTheme.colorScheme.onSurface,
             )
             Text(
                 text = item.url,
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                style = KuiTheme.typography.bodySmall,
+                color = KuiTheme.colorScheme.onSurfaceVariant,
             )
         }
         Column(horizontalAlignment = Alignment.End) {
             Text(
                 text = "${item.usageCount}회",
-                style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.primary,
+                style = KuiTheme.typography.labelLarge,
+                color = KuiTheme.colorScheme.primary,
             )
             Text(
                 text = lastUsed,
-                style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                style = KuiTheme.typography.labelSmall,
+                color = KuiTheme.colorScheme.onSurfaceVariant,
             )
         }
     }
@@ -244,7 +245,7 @@ private fun StatsLinkItem(item: DeepLink, highlight: Boolean) {
 @Composable
 fun StatsBarChart(stats: List<UsageStat>) {
     if (stats.isEmpty()) {
-        Text("데이터 없음", style = MaterialTheme.typography.bodyMedium)
+        Text("데이터 없음", style = KuiTheme.typography.bodyMedium)
         return
     }
     BarChart(

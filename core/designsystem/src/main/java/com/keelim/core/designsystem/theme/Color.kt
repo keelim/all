@@ -4,119 +4,90 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
 
-// Primary colors
-private val Primary40 = Color(0xFF6750A4)
-private val OnPrimary40 = Color(0xFFFFFFFF)
-private val PrimaryContainer40 = Color(0xFFEADDFF)
-private val OnPrimaryContainer40 = Color(0xFF21005D)
+// ── Finance (light) palette ───────────────────────────────────────────────────
+// Mirrors --kui-* tokens from all-web-ui/src/styles/styles.css :root
+private val Finance_Bg              = Color(0xFFFFFFFF)  // --kui-color-bg
+private val Finance_Surface         = Color(0xFFFFFFFF)  // --kui-color-surface
+private val Finance_SurfaceVariant  = Color(0xFFF1F5F9)  // hsl(214.3 31.8% 91.4%) ≈ border token
+private val Finance_Accent          = Color(0xFF0F172A)  // hsl(222.2 47.4% 11.2%) --kui-color-accent
+private val Finance_AccentInk       = Color(0xFFF8FAFC)  // hsl(210 40% 98%) --kui-color-accent-ink
+private val Finance_Text            = Color(0xFF0A1628)  // hsl(222.2 84% 4.9%) --kui-color-text
+private val Finance_Muted           = Color(0xFF64748B)  // hsl(215.4 16.3% 46.9%) --kui-color-muted
+private val Finance_Border          = Color(0xFFE2E8F0)  // hsl(214.3 31.8% 91.4%) --kui-color-border
+private val Finance_Error           = Color(0xFFDC2626)  // hsl(0 84% 51%) --kui-color-danger
+private val Finance_ErrorContainer  = Color(0xFFFEE2E2)  // --kui-color-danger-bg
+private val Finance_OnError         = Color(0xFFFFFFFF)
+private val Finance_OnErrorContainer = Color(0xFF7F1D1D)
 
-private val Primary80 = Color(0xFFD0BCFF)
-private val OnPrimary80 = Color(0xFF381E72)
-private val PrimaryContainer80 = Color(0xFF4F378B)
-private val OnPrimaryContainer80 = Color(0xFFEADDFF)
+// ── Admin-BW (dark) palette ───────────────────────────────────────────────────
+// Mirrors .theme-admin-bw in all-web-ui/src/styles/themes/admin-bw.css
+private val AdminBw_Bg              = Color(0xFF0A0A0A)  // near-black
+private val AdminBw_Surface         = Color(0xFF141414)
+private val AdminBw_SurfaceVariant  = Color(0xFF262626)
+private val AdminBw_Accent          = Color(0xFFFFFFFF)  // white on near-black
+private val AdminBw_AccentInk       = Color(0xFF0A0A0A)
+private val AdminBw_Text            = Color(0xFFF8FAFC)
+private val AdminBw_Muted           = Color(0xFF94A3B8)
+private val AdminBw_Border          = Color(0xFF334155)
+private val AdminBw_Error           = Color(0xFFFF6B6B)
+private val AdminBw_ErrorContainer  = Color(0xFF450A0A)
+private val AdminBw_OnError         = Color(0xFF0A0A0A)
+private val AdminBw_OnErrorContainer = Color(0xFFFF6B6B)
 
-// Secondary colors
-private val Secondary40 = Color(0xFF625B71)
-private val OnSecondary40 = Color(0xFFFFFFFF)
-private val SecondaryContainer40 = Color(0xFFE8DEF8)
-private val OnSecondaryContainer40 = Color(0xFF1D192B)
+// ── Color schemes ─────────────────────────────────────────────────────────────
 
-private val Secondary80 = Color(0xFFCCC2DC)
-private val OnSecondary80 = Color(0xFF332D41)
-private val SecondaryContainer80 = Color(0xFF4A4458)
-private val OnSecondaryContainer80 = Color(0xFFE8DEF8)
-
-// Tertiary colors
-private val Tertiary40 = Color(0xFF7D5260)
-private val OnTertiary40 = Color(0xFFFFFFFF)
-private val TertiaryContainer40 = Color(0xFFFFD8E4)
-private val OnTertiaryContainer40 = Color(0xFF31111D)
-
-private val Tertiary80 = Color(0xFFEFB8C8)
-private val OnTertiary80 = Color(0xFF492532)
-private val TertiaryContainer80 = Color(0xFF633B48)
-private val OnTertiaryContainer80 = Color(0xFFFFD8E4)
-
-// Error colors
-private val Error40 = Color(0xFFB3261E)
-private val OnError40 = Color(0xFFFFFFFF)
-private val ErrorContainer40 = Color(0xFFF9DEDC)
-private val OnErrorContainer40 = Color(0xFF410E0B)
-
-private val Error80 = Color(0xFFF2B8B5)
-private val OnError80 = Color(0xFF601410)
-private val ErrorContainer80 = Color(0xFF8C1D18)
-private val OnErrorContainer80 = Color(0xFFF9DEDC)
-
-// Neutral colors
-private val Background40 = Color(0xFFFFFBFE)
-private val OnBackground40 = Color(0xFF1C1B1F)
-private val Surface40 = Color(0xFFFFFBFE)
-private val OnSurface40 = Color(0xFF1C1B1F)
-
-private val Background80 = Color(0xFF1C1B1F)
-private val OnBackground80 = Color(0xFFE6E1E5)
-private val Surface80 = Color(0xFF1C1B1F)
-private val OnSurface80 = Color(0xFFE6E1E5)
-
-// Surface variants
-private val SurfaceVariant40 = Color(0xFFE7E0EC)
-private val OnSurfaceVariant40 = Color(0xFF49454F)
-private val SurfaceVariant80 = Color(0xFF49454F)
-private val OnSurfaceVariant80 = Color(0xFFCAC4D0)
-
-// Outline
-private val Outline40 = Color(0xFF79747E)
-private val Outline80 = Color(0xFF938F99)
-
-val LightColorScheme = lightColorScheme(
-    primary = Primary40,
-    onPrimary = OnPrimary40,
-    primaryContainer = PrimaryContainer40,
-    onPrimaryContainer = OnPrimaryContainer40,
-    secondary = Secondary40,
-    onSecondary = OnSecondary40,
-    secondaryContainer = SecondaryContainer40,
-    onSecondaryContainer = OnSecondaryContainer40,
-    tertiary = Tertiary40,
-    onTertiary = OnTertiary40,
-    tertiaryContainer = TertiaryContainer40,
-    onTertiaryContainer = OnTertiaryContainer40,
-    error = Error40,
-    onError = OnError40,
-    errorContainer = ErrorContainer40,
-    onErrorContainer = OnErrorContainer40,
-    background = Background40,
-    onBackground = OnBackground40,
-    surface = Surface40,
-    onSurface = OnSurface40,
-    surfaceVariant = SurfaceVariant40,
-    onSurfaceVariant = OnSurfaceVariant40,
-    outline = Outline40,
+val financeLightColorScheme = lightColorScheme(
+    primary              = Finance_Accent,
+    onPrimary            = Finance_AccentInk,
+    primaryContainer     = Finance_SurfaceVariant,
+    onPrimaryContainer   = Finance_Text,
+    secondary            = Finance_Muted,
+    onSecondary          = Finance_Bg,
+    secondaryContainer   = Finance_SurfaceVariant,
+    onSecondaryContainer = Finance_Text,
+    tertiary             = Finance_Muted,
+    onTertiary           = Finance_Bg,
+    tertiaryContainer    = Finance_SurfaceVariant,
+    onTertiaryContainer  = Finance_Text,
+    error                = Finance_Error,
+    onError              = Finance_OnError,
+    errorContainer       = Finance_ErrorContainer,
+    onErrorContainer     = Finance_OnErrorContainer,
+    background           = Finance_Bg,
+    onBackground         = Finance_Text,
+    surface              = Finance_Surface,
+    onSurface            = Finance_Text,
+    surfaceVariant       = Finance_SurfaceVariant,
+    onSurfaceVariant     = Finance_Muted,
+    outline              = Finance_Border,
 )
 
-val DarkColorScheme = darkColorScheme(
-    primary = Primary80,
-    onPrimary = OnPrimary80,
-    primaryContainer = PrimaryContainer80,
-    onPrimaryContainer = OnPrimaryContainer80,
-    secondary = Secondary80,
-    onSecondary = OnSecondary80,
-    secondaryContainer = SecondaryContainer80,
-    onSecondaryContainer = OnSecondaryContainer80,
-    tertiary = Tertiary80,
-    onTertiary = OnTertiary80,
-    tertiaryContainer = TertiaryContainer80,
-    onTertiaryContainer = OnTertiaryContainer80,
-    error = Error80,
-    onError = OnError80,
-    errorContainer = ErrorContainer80,
-    onErrorContainer = OnErrorContainer80,
-    background = Background80,
-    onBackground = OnBackground80,
-    surface = Surface80,
-    onSurface = OnSurface80,
-    surfaceVariant = SurfaceVariant80,
-    onSurfaceVariant = OnSurfaceVariant80,
-    outline = Outline80,
+val adminBwDarkColorScheme = darkColorScheme(
+    primary              = AdminBw_Accent,
+    onPrimary            = AdminBw_AccentInk,
+    primaryContainer     = AdminBw_SurfaceVariant,
+    onPrimaryContainer   = AdminBw_Text,
+    secondary            = AdminBw_Muted,
+    onSecondary          = AdminBw_Bg,
+    secondaryContainer   = AdminBw_SurfaceVariant,
+    onSecondaryContainer = AdminBw_Text,
+    tertiary             = AdminBw_Muted,
+    onTertiary           = AdminBw_Bg,
+    tertiaryContainer    = AdminBw_SurfaceVariant,
+    onTertiaryContainer  = AdminBw_Text,
+    error                = AdminBw_Error,
+    onError              = AdminBw_OnError,
+    errorContainer       = AdminBw_ErrorContainer,
+    onErrorContainer     = AdminBw_OnErrorContainer,
+    background           = AdminBw_Bg,
+    onBackground         = AdminBw_Text,
+    surface              = AdminBw_Surface,
+    onSurface            = AdminBw_Text,
+    surfaceVariant       = AdminBw_SurfaceVariant,
+    onSurfaceVariant     = AdminBw_Muted,
+    outline              = AdminBw_Border,
 )
+
+// Backward-compat aliases — core/component/.../Theme.kt imports these names
+val LightColorScheme = financeLightColorScheme
+val DarkColorScheme  = adminBwDarkColorScheme

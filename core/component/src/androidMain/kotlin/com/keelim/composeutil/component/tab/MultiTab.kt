@@ -2,6 +2,7 @@ package com.keelim.composeutil.component.tab
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
@@ -32,7 +33,7 @@ fun MultiTab(
             ) {
                 Text(
                     text = data,
-                    style = MaterialTheme.typography.titleMedium,
+                    style = KuiTheme.typography.titleMedium,
                 )
             }
         }

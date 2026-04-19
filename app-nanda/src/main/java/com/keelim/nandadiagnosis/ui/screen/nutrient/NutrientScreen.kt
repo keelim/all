@@ -23,6 +23,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -123,7 +124,7 @@ private fun NutrientCard(title: String, uri: String, onNutrientClick: () -> Unit
             modifier =
             Modifier
                 .widthIn(max = 400.dp)
-                .clip(MaterialTheme.shapes.large)
+                .clip(KuiTheme.shapes.large)
                 .clickable { onNutrientClick() }
                 .padding(space16),
         ) {
@@ -134,7 +135,7 @@ private fun NutrientCard(title: String, uri: String, onNutrientClick: () -> Unit
                         "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1024&q=80",
                         modifier =
                         Modifier
-                            .clip(MaterialTheme.shapes.medium)
+                            .clip(KuiTheme.shapes.medium)
                             .aspectRatio(16 / 9f)
                             .fillMaxWidth(),
                         contentScale = ContentScale.Crop,
@@ -147,8 +148,8 @@ private fun NutrientCard(title: String, uri: String, onNutrientClick: () -> Unit
                             .padding(space16),
                         colors =
                         ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.surface,
-                            contentColor = MaterialTheme.colorScheme.onSurface,
+                            containerColor = KuiTheme.colorScheme.surface,
+                            contentColor = KuiTheme.colorScheme.onSurface,
                         ),
                     ) {
                         Icon(Icons.Outlined.Favorite, contentDescription = "Favorite")

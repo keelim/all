@@ -21,6 +21,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -65,7 +66,7 @@ fun JsonFormatterScreen(
                 title = {
                     Text(
                         text = stringResource(Res.string.arducon_json_formatter_title),
-                        style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+                        style = KuiTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
                     )
                 },
                 navigationIcon = {
@@ -93,7 +94,7 @@ fun JsonFormatterScreen(
                     .height(200.dp),
                 label = { Text(stringResource(Res.string.arducon_json_formatter_raw_json)) },
                 placeholder = { Text(stringResource(Res.string.arducon_json_formatter_input_placeholder)) },
-                textStyle = MaterialTheme.typography.bodyMedium.copy(fontFamily = FontFamily.Monospace),
+                textStyle = KuiTheme.typography.bodyMedium.copy(fontFamily = FontFamily.Monospace),
             )
 
             Row(
@@ -118,14 +119,14 @@ fun JsonFormatterScreen(
 
             if (uiState.errorMessage != null) {
                 Card(
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer),
+                    colors = CardDefaults.cardColors(containerColor = KuiTheme.colorScheme.errorContainer),
                     modifier = Modifier.fillMaxWidth(),
                 ) {
                     Text(
                         text = stringResource(Res.string.common_error_with_message, uiState.errorMessage ?: ""),
-                        color = MaterialTheme.colorScheme.onErrorContainer,
+                        color = KuiTheme.colorScheme.onErrorContainer,
                         modifier = Modifier.padding(space16),
-                        style = MaterialTheme.typography.bodyMedium,
+                        style = KuiTheme.typography.bodyMedium,
                     )
                 }
             }
@@ -142,7 +143,7 @@ fun JsonFormatterScreen(
                         ) {
                             Text(
                                 text = stringResource(Res.string.arducon_json_formatter_output_title),
-                                style = MaterialTheme.typography.titleMedium,
+                                style = KuiTheme.typography.titleMedium,
                                 fontWeight = FontWeight.Bold,
                             )
                             IconButton(
@@ -159,7 +160,7 @@ fun JsonFormatterScreen(
                         Spacer(modifier = Modifier.height(space8))
                         Text(
                             text = uiState.formattedJson,
-                            style = MaterialTheme.typography.bodyMedium.copy(fontFamily = FontFamily.Monospace),
+                            style = KuiTheme.typography.bodyMedium.copy(fontFamily = FontFamily.Monospace),
                         )
                     }
                 }

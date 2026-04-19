@@ -13,7 +13,7 @@ kotlin {
     sourceSets {
         androidMain.dependencies {
             implementation(projects.core.common)
-            implementation(projects.core.designsystem)
+            api(projects.core.designsystem)
             implementation(libs.accompanist.permissions)
             implementation(libs.androidx.activity.compose)
             implementation(libs.androidx.emoji2.emojipicker)

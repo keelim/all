@@ -16,6 +16,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.PrimaryScrollableTabRow
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Tab
@@ -70,12 +71,12 @@ fun CalculatorScreen(
                     Column {
                         Text(
                             text = stringResource(Res.string.calculator_title),
-                            style = MaterialTheme.typography.titleLarge,
+                            style = KuiTheme.typography.titleLarge,
                         )
                         Text(
                             text = stringResource(Res.string.calculator_subtitle),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            style = KuiTheme.typography.bodySmall,
+                            color = KuiTheme.colorScheme.onSurfaceVariant,
                         )
                     }
                 },
@@ -100,7 +101,7 @@ fun CalculatorScreen(
                         text = {
                             Text(
                                 text = type.title,
-                                style = MaterialTheme.typography.labelLarge,
+                                style = KuiTheme.typography.labelLarge,
                             )
                         },
                     )
@@ -132,7 +133,7 @@ fun CalculatorScreen(
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = stringResource(Res.string.calculator_history_title),
-                    style = MaterialTheme.typography.titleMedium,
+                    style = KuiTheme.typography.titleMedium,
                 )
                 HorizontalDivider(modifier = Modifier.fillMaxWidth().padding(top = 4.dp, bottom = 8.dp))
 
@@ -149,14 +150,14 @@ fun CalculatorScreen(
                                 .fillMaxWidth()
                                 .animateItem(),
                             colors = CardDefaults.cardColors(
-                                containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                                containerColor = KuiTheme.colorScheme.surfaceVariant,
                             ),
                         ) {
                             ListItem(
                                 headlineContent = {
                                     Text(
                                         text = item.type.title,
-                                        style = MaterialTheme.typography.titleMedium,
+                                        style = KuiTheme.typography.titleMedium,
                                     )
                                 },
                                 supportingContent = {
@@ -165,7 +166,7 @@ fun CalculatorScreen(
                                             Res.string.calculator_result_prefix,
                                             item.result.values.joinToString(),
                                         ),
-                                        style = MaterialTheme.typography.bodyMedium,
+                                        style = KuiTheme.typography.bodyMedium,
                                         maxLines = 2,
                                         overflow = TextOverflow.Ellipsis,
                                     )

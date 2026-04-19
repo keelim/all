@@ -19,6 +19,7 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -75,7 +76,7 @@ fun ExerciseScreen(
              if (exercises.isEmpty()) {
                 Text(
                     text = stringResource(Res.string.nanda_exercise_empty),
-                    style = MaterialTheme.typography.bodyLarge,
+                    style = KuiTheme.typography.bodyLarge,
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
              } else {
@@ -121,20 +122,20 @@ fun ExerciseItem(
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = exercise.title,
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onSurface
+                    style = KuiTheme.typography.titleMedium,
+                    color = KuiTheme.colorScheme.onSurface
                 )
                 Text(
                     text = "${exercise.duration}",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    style = KuiTheme.typography.bodyMedium,
+                    color = KuiTheme.colorScheme.onSurfaceVariant
                 )
             }
             IconButton(onClick = onDelete) {
                 Icon(
                     imageVector = Icons.Default.Delete,
                     contentDescription = stringResource(Res.string.common_action_delete),
-                    tint = MaterialTheme.colorScheme.error
+                    tint = KuiTheme.colorScheme.error
                 )
             }
         }

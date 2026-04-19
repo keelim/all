@@ -22,6 +22,7 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.Snackbar
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -103,9 +104,9 @@ fun GradeContent(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(space8),
         ) {
-            Text(text = "과목명: $subject ", style = MaterialTheme.typography.headlineMedium)
-            Text(text = "예상학점: $grade ", style = MaterialTheme.typography.headlineMedium)
-            Text(text = "예상등수: $rank", style = MaterialTheme.typography.headlineMedium)
+            Text(text = "과목명: $subject ", style = KuiTheme.typography.headlineMedium)
+            Text(text = "예상학점: $grade ", style = KuiTheme.typography.headlineMedium)
+            Text(text = "예상등수: $rank", style = KuiTheme.typography.headlineMedium)
         }
         Spacer(modifier = Modifier.height(space12))
         Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {

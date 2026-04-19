@@ -40,6 +40,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -171,19 +172,19 @@ fun SettingsScreen(
             val isDebuggable = context.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0
 
             Scaffold(
-                containerColor = MaterialTheme.colorScheme.surface,
-                contentColor = MaterialTheme.colorScheme.onSurface,
+                containerColor = KuiTheme.colorScheme.surface,
+                contentColor = KuiTheme.colorScheme.onSurface,
                 topBar = {
                     CenterAlignedTopAppBar(
                         colors =
                         TopAppBarDefaults.topAppBarColors(
                             containerColor =
                             if (isSystemInDarkTheme()) {
-                                MaterialTheme.colorScheme.surfaceVariant.copy(
+                                KuiTheme.colorScheme.surfaceVariant.copy(
                                     alpha = if (hasScrolled) 1f else 0f,
                                 )
                             } else {
-                                MaterialTheme.colorScheme.surface
+                                KuiTheme.colorScheme.surface
                             },
                         ),
                         modifier = Modifier.shadow(appBarElevation),
@@ -282,13 +283,13 @@ fun SettingsScreen(
                                     .padding(horizontal = space8, vertical = space4)
                                     .clip(RoundedCornerShape(space4))
                                     .background(
-                                        color = MaterialTheme.colorScheme.primaryContainer,
+                                        color = KuiTheme.colorScheme.primaryContainer,
                                     ),
                             ) {
                                 Text(
                                     text = stringResource(Res.string.settings_fcm_token, uiState.fcmToken),
                                     fontWeight = FontWeight.Bold,
-                                    style = MaterialTheme.typography.bodyLarge,
+                                    style = KuiTheme.typography.bodyLarge,
                                 )
                             }
                         }
@@ -351,7 +352,7 @@ fun CategoryItem(
                     onClick = onClick,
                     onLongClick = onLongClick,
                 ),
-            shape = MaterialTheme.shapes.medium,
+            shape = KuiTheme.shapes.medium,
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -365,9 +366,9 @@ fun CategoryItem(
                     icon,
                     contentDescription = null,
                     modifier = Modifier.size(28.dp),
-                    tint = MaterialTheme.colorScheme.onSurface,
+                    tint = KuiTheme.colorScheme.onSurface,
                 )
-                Text(title, style = MaterialTheme.typography.bodyLarge)
+                Text(title, style = KuiTheme.typography.bodyLarge)
             }
         }
     }
@@ -404,8 +405,8 @@ fun FamilyServiceItem(
 ) {
     Surface(
         onClick = onClick,
-        shape = MaterialTheme.shapes.medium,
-        color = if (service.actionUrl.isBlank()) MaterialTheme.colorScheme.surfaceVariant else MaterialTheme.colorScheme.primaryContainer,
+        shape = KuiTheme.shapes.medium,
+        color = if (service.actionUrl.isBlank()) KuiTheme.colorScheme.surfaceVariant else KuiTheme.colorScheme.primaryContainer,
         modifier = modifier
             .height(100.dp)
             .fillMaxWidth()
@@ -417,9 +418,9 @@ fun FamilyServiceItem(
         ) {
             Text(
                 text = service.title,
-                style = MaterialTheme.typography.titleMedium,
+                style = KuiTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
-                color = if (service.actionUrl.isBlank()) MaterialTheme.colorScheme.onSurfaceVariant else MaterialTheme.colorScheme.onPrimaryContainer
+                color = if (service.actionUrl.isBlank()) KuiTheme.colorScheme.onSurfaceVariant else KuiTheme.colorScheme.onPrimaryContainer
             )
         }
     }

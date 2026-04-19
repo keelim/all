@@ -13,6 +13,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -69,7 +70,7 @@ fun SearchScreen(
                 title = {
                     Text(
                         text = stringResource(Res.string.arducon_search_title),
-                        style = MaterialTheme.typography.titleLarge.copy(
+                        style = KuiTheme.typography.titleLarge.copy(
                             fontWeight = FontWeight.Bold,
                         ),
                     )
@@ -113,7 +114,7 @@ private fun SearchInputField(
     Card(
         modifier = modifier,
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-        shape = MaterialTheme.shapes.medium,
+        shape = KuiTheme.shapes.medium,
     ) {
         OutlinedTextField(
             value = value,
@@ -124,7 +125,7 @@ private fun SearchInputField(
                 Icon(
                     imageVector = Icons.Default.Search,
                     contentDescription = stringResource(Res.string.common_action_search),
-                    tint = MaterialTheme.colorScheme.primary,
+                    tint = KuiTheme.colorScheme.primary,
                 )
             },
             trailingIcon = {
@@ -133,7 +134,7 @@ private fun SearchInputField(
                         Icon(
                             imageVector = Icons.Default.Clear,
                             contentDescription = stringResource(Res.string.arducon_search_clear_query),
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                            tint = KuiTheme.colorScheme.onSurfaceVariant,
                         )
                     }
                 }
@@ -142,7 +143,7 @@ private fun SearchInputField(
                 .fillMaxWidth()
                 .padding(4.dp),
             singleLine = true,
-            shape = MaterialTheme.shapes.small,
+            shape = KuiTheme.shapes.small,
         )
     }
 }

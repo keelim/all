@@ -24,6 +24,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -155,8 +156,8 @@ fun OgTagPreviewScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 16.dp)
-                        .clip(MaterialTheme.shapes.medium),
-                    color = MaterialTheme.colorScheme.surfaceVariant,
+                        .clip(KuiTheme.shapes.medium),
+                    color = KuiTheme.colorScheme.surfaceVariant,
                     tonalElevation = 2.dp,
                 ) {
                     Column(
@@ -169,20 +170,20 @@ fun OgTagPreviewScreen(
                             Icon(
                                 imageVector = Icons.Default.Info,
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.primary,
+                                tint = KuiTheme.colorScheme.primary,
                             )
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(
                                 text = "URL 정보",
-                                style = MaterialTheme.typography.titleMedium,
+                                style = KuiTheme.typography.titleMedium,
                                 fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.primary,
+                                color = KuiTheme.colorScheme.primary,
                             )
                         }
 
                         HorizontalDivider(
                             modifier = Modifier.padding(bottom = 12.dp),
-                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.2f),
+                            color = KuiTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.2f),
                         )
 
                         UrlInfoItem("Scheme", uri.scheme)
@@ -200,7 +201,7 @@ fun OgTagPreviewScreen(
                         .fillMaxWidth()
                         .clickable { onNavigateToBrowser(url) }
                         .clip(RoundedCornerShape(12.dp)),
-                    color = MaterialTheme.colorScheme.surfaceVariant,
+                    color = KuiTheme.colorScheme.surfaceVariant,
                     tonalElevation = 2.dp,
                 ) {
                     Column(
@@ -213,26 +214,26 @@ fun OgTagPreviewScreen(
                             Icon(
                                 imageVector = Icons.Default.Info,
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.primary,
+                                tint = KuiTheme.colorScheme.primary,
                             )
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(
                                 text = "OG 태그 미리보기",
-                                style = MaterialTheme.typography.titleMedium,
+                                style = KuiTheme.typography.titleMedium,
                                 fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.primary,
+                                color = KuiTheme.colorScheme.primary,
                             )
                         }
 
                         HorizontalDivider(
                             modifier = Modifier.padding(bottom = 12.dp),
-                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.2f),
+                            color = KuiTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.2f),
                         )
 
                         if (data.title.isNotEmpty()) {
                             Text(
                                 text = data.title,
-                                style = MaterialTheme.typography.titleLarge,
+                                style = KuiTheme.typography.titleLarge,
                                 fontWeight = FontWeight.Bold,
                                 modifier = Modifier.padding(bottom = 8.dp),
                             )
@@ -241,8 +242,8 @@ fun OgTagPreviewScreen(
                         if (data.description.isNotEmpty()) {
                             Text(
                                 text = data.description,
-                                style = MaterialTheme.typography.bodyMedium,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                style = KuiTheme.typography.bodyMedium,
+                                color = KuiTheme.colorScheme.onSurfaceVariant,
                                 modifier = Modifier.padding(bottom = 16.dp),
                             )
                         }
@@ -262,8 +263,8 @@ fun OgTagPreviewScreen(
 
                         Text(
                             text = "클릭하여 브라우저에서 열기",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.primary,
+                            style = KuiTheme.typography.bodySmall,
+                            color = KuiTheme.colorScheme.primary,
                             modifier = Modifier.align(Alignment.End),
                         )
                     }
@@ -285,15 +286,15 @@ private fun UrlInfoItem(
     ) {
         Text(
             text = "$label:",
-            style = MaterialTheme.typography.bodyMedium,
+            style = KuiTheme.typography.bodyMedium,
             fontWeight = FontWeight.Medium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            color = KuiTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.weight(0.3f),
         )
         Text(
             text = value ?: "없음",
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurface,
+            style = KuiTheme.typography.bodyMedium,
+            color = KuiTheme.colorScheme.onSurface,
             modifier = Modifier.weight(0.7f),
         )
     }

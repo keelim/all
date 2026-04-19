@@ -22,6 +22,7 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -83,7 +84,7 @@ fun FoodScreen(
             // Summary Card
             Card(
                 modifier = Modifier.fillMaxWidth(),
-                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
+                colors = CardDefaults.cardColors(containerColor = KuiTheme.colorScheme.primaryContainer)
             ) {
                 Column(
                     modifier = Modifier.padding(16.dp),
@@ -91,14 +92,14 @@ fun FoodScreen(
                 ) {
                     Text(
                         text = stringResource(Res.string.nanda_food_total_calories_today),
-                        style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.onPrimaryContainer
+                        style = KuiTheme.typography.titleMedium,
+                        color = KuiTheme.colorScheme.onPrimaryContainer
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
                         text = stringResource(Res.string.nanda_food_calories_value, totalCalories.toUiNumber()),
-                        style = MaterialTheme.typography.displayMedium,
-                        color = MaterialTheme.colorScheme.onPrimaryContainer
+                        style = KuiTheme.typography.displayMedium,
+                        color = KuiTheme.colorScheme.onPrimaryContainer
                     )
                 }
             }
@@ -145,20 +146,20 @@ fun FoodItem(
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = food.title,
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onSurface
+                    style = KuiTheme.typography.titleMedium,
+                    color = KuiTheme.colorScheme.onSurface
                 )
                 Text(
                     text = stringResource(Res.string.nanda_food_calories_value, food.calories.toUiNumber()),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    style = KuiTheme.typography.bodyMedium,
+                    color = KuiTheme.colorScheme.onSurfaceVariant
                 )
             }
             IconButton(onClick = onDelete) {
                 Icon(
                     imageVector = Icons.Default.Delete,
                     contentDescription = stringResource(Res.string.common_action_delete),
-                    tint = MaterialTheme.colorScheme.error
+                    tint = KuiTheme.colorScheme.error
                 )
             }
         }

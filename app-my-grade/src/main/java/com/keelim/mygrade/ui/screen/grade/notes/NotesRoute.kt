@@ -20,6 +20,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -93,7 +94,7 @@ fun NoteSuccessSection(
             Column {
                 Text(
                     text = "노트를 활성화 해야 삭제할 수 있습니다. ",
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = KuiTheme.typography.bodyMedium,
                 )
                 Row(
                     horizontalArrangement = Arrangement.End,
@@ -103,7 +104,7 @@ fun NoteSuccessSection(
                 ) {
                     Text(
                         text = "확인",
-                        style = MaterialTheme.typography.bodySmall,
+                        style = KuiTheme.typography.bodySmall,
                     )
                 }
             }
@@ -169,7 +170,7 @@ fun NotesItem(
                 onClick = { onClick() },
                 onLongClick = onLongClick,
             )
-            .background(MaterialTheme.colorScheme.primary, shape = RoundedCornerShape(space12)),
+            .background(KuiTheme.colorScheme.primary, shape = RoundedCornerShape(space12)),
     ) {
         val boxStartPadding by animateDpAsState(
             targetValue = if (isMarked) space8 else 0.dp,
@@ -179,7 +180,7 @@ fun NotesItem(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = boxStartPadding)
-                .background(MaterialTheme.colorScheme.surface),
+                .background(KuiTheme.colorScheme.surface),
         ) {
             Column(
                 modifier = Modifier.padding(16.dp),
@@ -190,24 +191,24 @@ fun NotesItem(
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     fontWeight = FontWeight.Bold,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurface,
+                    style = KuiTheme.typography.bodyMedium,
+                    color = KuiTheme.colorScheme.onSurface,
                     modifier = Modifier.padding(bottom = 4.dp),
                 )
                 Text(
                     text = data.note,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurface,
+                    style = KuiTheme.typography.bodySmall,
+                    color = KuiTheme.colorScheme.onSurface,
                     modifier = Modifier.padding(bottom = 1.dp),
                 )
                 Text(
                     text = data.createdAt,
                     maxLines = 1,
-                    style = MaterialTheme.typography.bodySmall,
+                    style = KuiTheme.typography.bodySmall,
                     overflow = TextOverflow.Ellipsis,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+                    color = KuiTheme.colorScheme.onSurface.copy(alpha = 0.6f),
                 )
             }
         }

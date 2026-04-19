@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -33,7 +34,7 @@ inline fun SaastatusColumn(
         ) {
             Text(
                 text = "Saastatus",
-                style = MaterialTheme.typography.titleLarge.copy(
+                style = KuiTheme.typography.titleLarge.copy(
                     fontWeight = FontWeight.Bold,
                 ),
             )

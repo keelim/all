@@ -31,6 +31,7 @@ import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -133,9 +134,9 @@ private fun Success(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(space12),
-            shape = MaterialTheme.shapes.medium,
+            shape = KuiTheme.shapes.medium,
             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
+            colors = CardDefaults.cardColors(containerColor = KuiTheme.colorScheme.surface)
         ) {
             TextField(
                 value = query,
@@ -208,14 +209,14 @@ fun RootDetailBottomSheet(
             ) {
                 Text(
                     text = location.name,
-                    style = MaterialTheme.typography.headlineSmall,
-                    color = MaterialTheme.colorScheme.onSurface
+                    style = KuiTheme.typography.headlineSmall,
+                    color = KuiTheme.colorScheme.onSurface
                 )
                 IconButton(onClick = onFavoriteClick) {
                     Icon(
                         imageVector = if (isFavorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
                         contentDescription = stringResource(Res.string.cnubus_tab_favorite),
-                        tint = if (isFavorite) Color.Red else MaterialTheme.colorScheme.onSurface
+                        tint = if (isFavorite) Color.Red else KuiTheme.colorScheme.onSurface
                     )
                 }
             }
@@ -227,7 +228,7 @@ fun RootDetailBottomSheet(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(200.dp)
-                        .clip(MaterialTheme.shapes.medium),
+                        .clip(KuiTheme.shapes.medium),
                     contentScale = ContentScale.Crop,
                 )
             }
@@ -268,7 +269,7 @@ internal fun TimelineItem(
                 modifier = Modifier
                     .size(32.dp)
                     .clip(CircleShape)
-                    .background(MaterialTheme.colorScheme.primary),
+                    .background(KuiTheme.colorScheme.primary),
                 contentAlignment = Alignment.Center,
             ) {
                 Icon(
@@ -290,7 +291,7 @@ internal fun TimelineItem(
                     modifier = Modifier
                         .width(2.dp)
                         .height(40.dp)
-                        .background(MaterialTheme.colorScheme.outline.copy(alpha = 0.3f)),
+                        .background(KuiTheme.colorScheme.outline.copy(alpha = 0.3f)),
                 )
             }
         }
@@ -301,7 +302,7 @@ internal fun TimelineItem(
                     .fillMaxWidth()
                     .weight(1f),
                 elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
-                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                colors = CardDefaults.cardColors(containerColor = KuiTheme.colorScheme.surface),
                 onClick = { onRootClick(position) },
             ) {
             Column(
@@ -313,14 +314,14 @@ internal fun TimelineItem(
             ) {
                 Text(
                     text = rootTitle,
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onSurface,
+                    style = KuiTheme.typography.titleMedium,
+                    color = KuiTheme.colorScheme.onSurface,
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = stringResource(Res.string.cnubus_click_for_details),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = KuiTheme.typography.bodySmall,
+                    color = KuiTheme.colorScheme.onSurfaceVariant,
                 )
             }
         }
@@ -351,7 +352,7 @@ private fun RootTopBar(
     ) {
         Text(
             text = title,
-            style = MaterialTheme.typography.headlineSmall,
+            style = KuiTheme.typography.headlineSmall,
         )
     }
 }

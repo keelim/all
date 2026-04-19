@@ -43,6 +43,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.ShortNavigationBar
 import androidx.compose.material3.ShortNavigationBarItem
 import androidx.compose.material3.Text
@@ -113,7 +114,7 @@ fun EcocalMainSection(
                         modifier = Modifier
                             .fillMaxWidth()
                             .background(
-                                MaterialTheme.colorScheme.primaryContainer,
+                                KuiTheme.colorScheme.primaryContainer,
                                 shape = CircleShape,
                             )
                             .animateItem(),
@@ -122,7 +123,7 @@ fun EcocalMainSection(
                     ) {
                         Text(
                             text = header,
-                            style = MaterialTheme.typography.bodyLarge.copy(
+                            style = KuiTheme.typography.bodyLarge.copy(
                                 fontWeight = FontWeight.Bold,
                             ),
                             modifier = Modifier
@@ -156,13 +157,13 @@ fun EcocalMainSection(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(60.dp)
-                        .background(MaterialTheme.colorScheme.primaryContainer),
+                        .background(KuiTheme.colorScheme.primaryContainer),
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Text(
                         text = "여기가 마지막 일정입니다.",
-                        style = MaterialTheme.typography.bodyMedium.copy(
+                        style = KuiTheme.typography.bodyMedium.copy(
                             fontWeight = FontWeight.Bold,
                         ),
                     )
@@ -177,7 +178,7 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.primaryContainer)
+            .background(KuiTheme.colorScheme.primaryContainer)
             .padding(horizontal = space16, vertical = space16),
     ) {
         var now by remember {
@@ -206,9 +207,9 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
         ) {
             Text(
                 text = "${time.year} ${time.month.number.toUiTwoDigits()}",
-                style = MaterialTheme.typography.headlineMedium.copy(
+                style = KuiTheme.typography.headlineMedium.copy(
                     fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                    color = KuiTheme.colorScheme.onPrimaryContainer,
                 ),
             )
             Column(
@@ -218,14 +219,14 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
                     Icon(
                         imageVector = Icons.Filled.DateRange,
                         contentDescription = "Calendar Icon",
-                        tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                        tint = KuiTheme.colorScheme.onPrimaryContainer,
                         modifier = Modifier.size(20.dp),
                     )
                     Spacer(modifier = Modifier.width(space4))
                     Text(
                         text = time.toUiDate(),
-                        style = MaterialTheme.typography.bodyMedium.copy(
-                            color = MaterialTheme.colorScheme.onPrimaryContainer,
+                        style = KuiTheme.typography.bodyMedium.copy(
+                            color = KuiTheme.colorScheme.onPrimaryContainer,
                             fontWeight = FontWeight.Medium,
                         ),
                     )
@@ -242,17 +243,17 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
                     ) { targetHour ->
                         Text(
                             text = targetHour,
-                            style = MaterialTheme.typography.bodySmall.copy(
+                            style = KuiTheme.typography.bodySmall.copy(
                                 fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                                color = KuiTheme.colorScheme.onPrimaryContainer,
                             ),
                         )
                     }
                     Text(
                         text = ":",
-                        style = MaterialTheme.typography.bodySmall.copy(
+                        style = KuiTheme.typography.bodySmall.copy(
                             fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onPrimaryContainer,
+                            color = KuiTheme.colorScheme.onPrimaryContainer,
                         ),
                     )
                     AnimatedContent(
@@ -265,17 +266,17 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
                     ) { targetMinute ->
                         Text(
                             text = targetMinute,
-                            style = MaterialTheme.typography.bodySmall.copy(
+                            style = KuiTheme.typography.bodySmall.copy(
                                 fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                                color = KuiTheme.colorScheme.onPrimaryContainer,
                             ),
                         )
                     }
                     Text(
                         text = ":",
-                        style = MaterialTheme.typography.bodySmall.copy(
+                        style = KuiTheme.typography.bodySmall.copy(
                             fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onPrimaryContainer,
+                            color = KuiTheme.colorScheme.onPrimaryContainer,
                         ),
                     )
                     AnimatedContent(
@@ -288,8 +289,8 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
                     ) { second ->
                         Text(
                             text = second,
-                            style = MaterialTheme.typography.bodySmall.copy(
-                                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                            style = KuiTheme.typography.bodySmall.copy(
+                                color = KuiTheme.colorScheme.onPrimaryContainer,
                             ),
                         )
                     }
@@ -298,7 +299,7 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
         }
         Spacer(modifier = Modifier.height(space8))
         HorizontalDivider(
-            color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.1f),
+            color = KuiTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.1f),
             thickness = 1.dp,
         )
     }
@@ -323,7 +324,7 @@ fun ListItem(
         ) {
             Text(
                 text = title,
-                style = MaterialTheme.typography.headlineMedium.copy(
+                style = KuiTheme.typography.headlineMedium.copy(
                     fontWeight = FontWeight.Bold,
                 ),
             )
@@ -332,7 +333,7 @@ fun ListItem(
             )
             Text(
                 text = subtitle,
-                style = MaterialTheme.typography.bodySmall.copy(
+                style = KuiTheme.typography.bodySmall.copy(
                     fontWeight = FontWeight.Bold,
                 ),
                 maxLines = 1,
@@ -347,7 +348,7 @@ fun ListItem(
             headlineContent = {
                 Text(
                     text = title,
-                    style = MaterialTheme.typography.headlineSmall,
+                    style = KuiTheme.typography.headlineSmall,
                 )
             },
             supportingContent = {
@@ -356,7 +357,7 @@ fun ListItem(
                 ) {
                     Text(
                         text = subtitle,
-                        style = MaterialTheme.typography.bodySmall,
+                        style = KuiTheme.typography.bodySmall,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                     )
@@ -384,7 +385,7 @@ fun ListItem(
             trailingContent = {
                 Text(
                     text = label,
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = KuiTheme.typography.bodyMedium,
                     fontWeight = FontWeight.Bold,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
@@ -406,7 +407,7 @@ private fun PreviewListItem() {
             priority = LOW,
             onCardClick = {},
             onCountryClick = {},
-            modifier = Modifier.background(MaterialTheme.colorScheme.surface),
+            modifier = Modifier.background(KuiTheme.colorScheme.surface),
         )
     }
 }
@@ -437,7 +438,7 @@ private fun PreviewEcocalMainSection() {
             ),
         ),
         onCountryClick = {},
-        modifier = Modifier.background(MaterialTheme.colorScheme.surface),
+        modifier = Modifier.background(KuiTheme.colorScheme.surface),
     )
 }
 

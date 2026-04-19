@@ -21,6 +21,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SegmentedButton
@@ -69,7 +70,7 @@ fun Base64Screen(
                 title = {
                     Text(
                         text = "Base64 Tool",
-                        style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+                        style = KuiTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
                     )
                 },
                 navigationIcon = {
@@ -141,14 +142,14 @@ fun Base64Screen(
             if (uiState.errorMessage != null) {
                 item {
                     Card(
-                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer),
+                        colors = CardDefaults.cardColors(containerColor = KuiTheme.colorScheme.errorContainer),
                         modifier = Modifier.fillMaxWidth(),
                     ) {
                         Text(
                             text = "Error: ${uiState.errorMessage}",
-                            color = MaterialTheme.colorScheme.onErrorContainer,
+                            color = KuiTheme.colorScheme.onErrorContainer,
                             modifier = Modifier.padding(space16),
-                            style = MaterialTheme.typography.bodyMedium,
+                            style = KuiTheme.typography.bodyMedium,
                         )
                     }
                 }
@@ -167,7 +168,7 @@ fun Base64Screen(
                             ) {
                                 Text(
                                     text = "Result",
-                                    style = MaterialTheme.typography.titleMedium,
+                                    style = KuiTheme.typography.titleMedium,
                                     fontWeight = FontWeight.Bold,
                                 )
                                 IconButton(
@@ -184,7 +185,7 @@ fun Base64Screen(
                             Spacer(modifier = Modifier.height(space8))
                             Text(
                                 text = uiState.outputText,
-                                style = MaterialTheme.typography.bodyMedium,
+                                style = KuiTheme.typography.bodyMedium,
                             )
                         }
                     }
@@ -195,7 +196,7 @@ fun Base64Screen(
                 item {
                     Text(
                         text = "History",
-                        style = MaterialTheme.typography.titleMedium,
+                        style = KuiTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(top = space16),
                     )
@@ -208,7 +209,7 @@ fun Base64Screen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .animateItem(),
-                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
+                        colors = CardDefaults.cardColors(containerColor = KuiTheme.colorScheme.surfaceVariant),
                     ) {
                         Row(
                             modifier = Modifier
@@ -220,12 +221,12 @@ fun Base64Screen(
                             Column(modifier = Modifier.weight(1f)) {
                                 Text(
                                     text = if (item.isEncoded) "Encoded" else "Decoded",
-                                    style = MaterialTheme.typography.labelSmall,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    style = KuiTheme.typography.labelSmall,
+                                    color = KuiTheme.colorScheme.onSurfaceVariant,
                                 )
                                 Text(
                                     text = item.text,
-                                    style = MaterialTheme.typography.bodyMedium,
+                                    style = KuiTheme.typography.bodyMedium,
                                     maxLines = 1,
                                     overflow = TextOverflow.Ellipsis,
                                 )

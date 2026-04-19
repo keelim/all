@@ -19,6 +19,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -236,7 +237,7 @@ private fun ShowDialog(
         Text(
             text = "확인해 주세요",
             modifier = Modifier.padding(space8),
-            style = MaterialTheme.typography.titleLarge,
+            style = KuiTheme.typography.titleLarge,
         )
     }
 }

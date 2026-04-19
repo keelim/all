@@ -27,6 +27,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -73,7 +74,7 @@ fun ThemeScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
+            .background(KuiTheme.colorScheme.background)
             .verticalScroll(scrollState)
             .padding(horizontal = space16),
     ) {
@@ -118,8 +119,8 @@ private fun ThemeHeader(
                     .background(
                         brush = Brush.linearGradient(
                             colors = listOf(
-                                MaterialTheme.colorScheme.primary,
-                                MaterialTheme.colorScheme.tertiary,
+                                KuiTheme.colorScheme.primary,
+                                KuiTheme.colorScheme.tertiary,
                             ),
                         ),
                     ),
@@ -138,14 +139,14 @@ private fun ThemeHeader(
             Column {
                 Text(
                     text = stringResource(Res.string.settings_theme_appearance_title),
-                    style = MaterialTheme.typography.headlineMedium,
+                    style = KuiTheme.typography.headlineMedium,
                     fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onBackground,
+                    color = KuiTheme.colorScheme.onBackground,
                 )
                 Text(
                     text = stringResource(Res.string.settings_theme_appearance_subtitle),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = KuiTheme.typography.bodyMedium,
+                    color = KuiTheme.colorScheme.onSurfaceVariant,
                 )
             }
         }
@@ -164,9 +165,9 @@ private fun ThemeSelectionSection(
     ) {
         Text(
             text = stringResource(Res.string.settings_theme_choose),
-            style = MaterialTheme.typography.titleMedium,
+            style = KuiTheme.typography.titleMedium,
             fontWeight = FontWeight.SemiBold,
-            color = MaterialTheme.colorScheme.onBackground,
+            color = KuiTheme.colorScheme.onBackground,
         )
 
         Spacer(modifier = Modifier.height(space8))
@@ -222,9 +223,9 @@ private fun ThemeOptionCard(
 
     val borderColor by animateColorAsState(
         targetValue = if (isSelected) {
-            MaterialTheme.colorScheme.primary
+            KuiTheme.colorScheme.primary
         } else {
-            MaterialTheme.colorScheme.outline.copy(alpha = 0.3f)
+            KuiTheme.colorScheme.outline.copy(alpha = 0.3f)
         },
         animationSpec = tween(durationMillis = 200),
         label = "borderColor",
@@ -240,7 +241,7 @@ private fun ThemeOptionCard(
             color = borderColor,
         ),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface,
+            containerColor = KuiTheme.colorScheme.surface,
         ),
         elevation = CardDefaults.cardElevation(
             defaultElevation = if (isSelected) 8.dp else 2.dp,
@@ -256,15 +257,15 @@ private fun ThemeOptionCard(
 
             Text(
                 text = title,
-                style = MaterialTheme.typography.titleMedium,
+                style = KuiTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onSurface,
+                color = KuiTheme.colorScheme.onSurface,
             )
 
             Text(
                 text = subtitle,
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                style = KuiTheme.typography.bodySmall,
+                color = KuiTheme.colorScheme.onSurfaceVariant,
             )
 
             Spacer(modifier = Modifier.height(space12))
@@ -275,13 +276,13 @@ private fun ThemeOptionCard(
                     modifier = Modifier
                         .size(24.dp)
                         .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.primary),
+                        .background(KuiTheme.colorScheme.primary),
                     contentAlignment = Alignment.Center,
                 ) {
                     Icon(
                         imageVector = Icons.Default.Check,
                         contentDescription = stringResource(Res.string.settings_theme_selected),
-                        tint = MaterialTheme.colorScheme.onPrimary,
+                        tint = KuiTheme.colorScheme.onPrimary,
                         modifier = Modifier.size(16.dp),
                     )
                 }
@@ -291,7 +292,7 @@ private fun ThemeOptionCard(
                         .size(24.dp)
                         .clip(CircleShape)
                         .background(
-                            MaterialTheme.colorScheme.outline.copy(alpha = 0.2f),
+                            KuiTheme.colorScheme.outline.copy(alpha = 0.2f),
                         ),
                 )
             }
@@ -326,7 +327,7 @@ private fun ThemePreviewCard(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
+            containerColor = KuiTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
         ),
     ) {
         Column(
@@ -334,9 +335,9 @@ private fun ThemePreviewCard(
         ) {
             Text(
                 text = stringResource(Res.string.settings_theme_preview),
-                style = MaterialTheme.typography.titleMedium,
+                style = KuiTheme.typography.titleMedium,
                 fontWeight = FontWeight.SemiBold,
-                color = MaterialTheme.colorScheme.onSurface,
+                color = KuiTheme.colorScheme.onSurface,
             )
 
             Spacer(modifier = Modifier.height(space12))
@@ -385,8 +386,8 @@ private fun ThemePreviewCard(
                     ThemeType.LIGHT -> stringResource(Res.string.settings_theme_preview_light)
                     ThemeType.DARK -> stringResource(Res.string.settings_theme_preview_dark)
                 },
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                style = KuiTheme.typography.bodySmall,
+                color = KuiTheme.colorScheme.onSurfaceVariant,
             )
         }
     }

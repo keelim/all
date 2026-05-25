@@ -175,3 +175,18 @@ For module-specific details, see:
 - `feature/ui-setting/AGENTS.md` - Settings UI patterns
 - `shared/AGENTS.md` - KMP shared code
 - `core/data/AGENTS.md` - Data layer architecture
+
+## CODEGRAPH SEARCH
+
+When working from the `keelim-maestro` workspace root, use the root dispatcher
+instead of a root aggregate graph:
+
+```bash
+bun run cg -- context all "<task>"
+bun run cg -- query all <symbol>
+bun run cg -- files all --max-depth 2
+```
+
+If an AI starts inside this repo directly, first check `/Users/keelim/Desktop/keelim-maestro`
+for the dispatcher and prefer its child-targeted `--path` calls. Do not initialize
+or rely on a workspace-root `.codegraph/` that mixes child repositories.

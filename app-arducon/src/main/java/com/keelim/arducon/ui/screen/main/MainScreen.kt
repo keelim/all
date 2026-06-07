@@ -8,10 +8,8 @@ import android.graphics.Bitmap
 import android.os.Build
 import android.webkit.URLUtil
 import android.widget.Toast
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,46 +22,27 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AddCircle
-import androidx.compose.material.icons.filled.Build
-import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.List
-import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.HorizontalFloatingToolbar
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.LoadingIndicator
-import androidx.compose.material3.MaterialTheme
-import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
-import androidx.compose.material3.TooltipBox
-import androidx.compose.material3.TooltipDefaults
 import androidx.compose.material3.rememberModalBottomSheetState
-import androidx.compose.material3.rememberTooltipState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -71,7 +50,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
@@ -84,13 +62,13 @@ import coil.compose.AsyncImage
 import com.keelim.arducon.ui.screen.main.MainViewModel.QrDialogState
 import com.keelim.common.extensions.saveQrBitmapToGallery
 import com.keelim.commonAndroid.extensions.toUiDateTime
-import com.keelim.composeutil.component.icon.rememberQrCodeScanner
 import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space24
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
 import com.keelim.composeutil.util.permission.SimpleAcquirePermissions
+import com.keelim.core.designsystem.theme.KuiTheme
 import com.keelim.core.resource.*
 import com.keelim.model.DeepLink
 import kotlinx.datetime.Instant
@@ -235,12 +213,6 @@ fun MainScreen(
     onNavigateStats: () -> Unit,
     onNavigateUrlShortener: () -> Unit,
 ) {
-    val listState = rememberLazyListState()
-    val isScrollInProgress = remember {
-        derivedStateOf {
-            listState.isScrollInProgress
-        }
-    }
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -266,231 +238,37 @@ fun MainScreen(
                 )
             }
         },
-        floatingActionButton = {
-            AnimatedVisibility(visible = isScrollInProgress.value.not()) {
-                HorizontalFloatingToolbarSection(
-                    onNavigateOgTagPreview = onNavigateOgTagPreview,
-                    onQrCodeClick = onQrCodeClick,
-                    onNavigateSaastatus = onNavigateSaastatus,
-                    onNavigatePlayground = onNavigatePlayground,
-                    onNavigateJsonFormatter = onNavigateJsonFormatter,
-                    onNavigateBase64Encoder = onNavigateBase64Encoder,
-                    onNavigateDeviceInfo = onNavigateDeviceInfo,
-                    onNavigateUrlShortener = onNavigateUrlShortener,
-                )
-            }
-        },
     ) { paddingValues ->
-        Column(modifier = Modifier.fillMaxSize()) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.End,
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                // 검색 아이콘
-                IconButton(
-                    onClick = onNavigateSearch,
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Search,
-                        contentDescription = stringResource(Res.string.arducon_search_title),
-                        tint = KuiTheme.colorScheme.primary,
-                    )
-                }
-                Spacer(modifier = Modifier.width(space4))
-                // 통계보기 버튼
-                Button(onClick = onNavigateStats) {
-                    Text(
-                        text = stringResource(Res.string.stats_button),
-                        style = KuiTheme.typography.labelLarge,
-                        color = KuiTheme.colorScheme.onPrimary,
-                    )
-                }
-            }
-            DeepLinkSection(
-                favoriteItems = favoriteItems,
-                generalItems = generalItems,
-                schemeList = schemeList,
-                onSearch = onSearch,
-                onUpdate = onUpdate,
-                onDelete = onDelete,
-                onItemLongClick = onItemLongClick,
-                onRegister = onRegister,
-                onDeleteScheme = onDeleteScheme,
-                categories = categories,
-                selectedCategory = selectedCategory,
-                onCategorySelected = onCategorySelected,
-                onShowNotification = onShowNotification,
-                onGenerateQrCode = onGenerateQrCode,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues = paddingValues),
-                listState = listState,
-                recordDeepLinkUsage = recordDeepLinkUsage,
-            )
-        }
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun HorizontalFloatingToolbarSection(
-    onNavigateOgTagPreview: () -> Unit,
-    onQrCodeClick: () -> Unit,
-    onNavigateSaastatus: () -> Unit,
-    onNavigatePlayground: () -> Unit,
-    onNavigateJsonFormatter: () -> Unit,
-    onNavigateBase64Encoder: () -> Unit,
-    onNavigateDeviceInfo: () -> Unit,
-    onNavigateUrlShortener: () -> Unit,
-) {
-    val (isExpanded, setIsExpanded) = remember { mutableStateOf(true) }
-
-    HorizontalFloatingToolbar(
-        expanded = isExpanded,
-        leadingContent = {
-            IconButton(onClick = { setIsExpanded(!isExpanded) }) {
-                Icon(
-                    imageVector = if (isExpanded) Icons.Default.CheckCircle else Icons.Default.AddCircle,
-                    contentDescription = stringResource(Res.string.arducon_main_toggle_toolbar),
-                )
-            }
-        },
-    ) {
-        TooltipIcon(
-            tooltipText = stringResource(Res.string.arducon_main_og_tag_preview),
-            content = {
-                IconButton(
-                    onClick = onNavigateOgTagPreview,
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.ThumbUp,
-                        contentDescription = stringResource(Res.string.arducon_main_og_tag_preview),
-                    )
-                }
-            },
+        DeepLinkSection(
+            favoriteItems = favoriteItems,
+            generalItems = generalItems,
+            schemeList = schemeList,
+            onSearch = onSearch,
+            onUpdate = onUpdate,
+            onDelete = onDelete,
+            onItemLongClick = onItemLongClick,
+            onQrCodeClick = onQrCodeClick,
+            onNavigateSearch = onNavigateSearch,
+            onRegister = onRegister,
+            onNavigateSaastatus = onNavigateSaastatus,
+            onNavigateOgTagPreview = onNavigateOgTagPreview,
+            onNavigatePlayground = onNavigatePlayground,
+            onNavigateJsonFormatter = onNavigateJsonFormatter,
+            onNavigateBase64Encoder = onNavigateBase64Encoder,
+            onNavigateDeviceInfo = onNavigateDeviceInfo,
+            onDeleteScheme = onDeleteScheme,
+            categories = categories,
+            selectedCategory = selectedCategory,
+            onCategorySelected = onCategorySelected,
+            onShowNotification = onShowNotification,
+            onGenerateQrCode = onGenerateQrCode,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues = paddingValues),
+            recordDeepLinkUsage = recordDeepLinkUsage,
+            onNavigateStats = onNavigateStats,
+            onNavigateUrlShortener = onNavigateUrlShortener,
         )
-        TooltipIcon(
-            tooltipText = stringResource(Res.string.arducon_main_qr_code_scanner),
-            content = {
-                IconButton(
-                    onClick = onQrCodeClick,
-                ) {
-                    Icon(
-                        imageVector = rememberQrCodeScanner(
-                            tintColor = if (isSystemInDarkTheme()) Color.White else Color.Black,
-                        ),
-                        contentDescription = stringResource(Res.string.arducon_main_qr_code_scanner),
-                    )
-                }
-            },
-        )
-        TooltipIcon(
-            tooltipText = stringResource(Res.string.arducon_main_navigate_saastatus),
-            content = {
-                IconButton(
-                    onClick = onNavigateSaastatus,
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.AddCircle,
-                        contentDescription = stringResource(Res.string.arducon_main_navigate_saastatus),
-                    )
-                }
-            },
-        )
-        TooltipIcon(
-            tooltipText = stringResource(Res.string.arducon_main_navigate_playground),
-            content = {
-                IconButton(
-                    onClick = onNavigatePlayground,
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Build,
-                        contentDescription = stringResource(Res.string.arducon_main_navigate_playground),
-                    )
-                }
-            },
-        )
-        TooltipIcon(
-            tooltipText = stringResource(Res.string.arducon_main_navigate_json_formatter),
-            content = {
-                IconButton(
-                    onClick = onNavigateJsonFormatter,
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Create,
-                        contentDescription = stringResource(Res.string.arducon_main_navigate_json_formatter),
-                    )
-                }
-            },
-        )
-        TooltipIcon(
-            tooltipText = stringResource(Res.string.arducon_main_navigate_base64_tool),
-            content = {
-                IconButton(
-                    onClick = onNavigateBase64Encoder,
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Lock,
-                        contentDescription = stringResource(Res.string.arducon_main_navigate_base64_tool),
-                    )
-                }
-            },
-        )
-        TooltipIcon(
-            tooltipText = stringResource(Res.string.arducon_main_navigate_device_info),
-            content = {
-                IconButton(
-                    onClick = onNavigateDeviceInfo,
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Info,
-                        contentDescription = stringResource(Res.string.arducon_main_navigate_device_info),
-                    )
-                }
-            },
-        )
-        TooltipIcon(
-            tooltipText = stringResource(Res.string.arducon_main_navigate_url_shortener),
-            content = {
-                IconButton(
-                    onClick = onNavigateUrlShortener,
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.List,
-                        contentDescription = stringResource(Res.string.arducon_main_navigate_url_shortener),
-                    )
-                }
-            },
-        )
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun TooltipIcon(
-    tooltipText: String,
-    content: @Composable () -> Unit,
-) {
-    TooltipBox(
-        positionProvider = TooltipDefaults.rememberTooltipPositionProvider(),
-        tooltip = {
-            Surface(
-                color = KuiTheme.colorScheme.surfaceVariant,
-                shape = KuiTheme.shapes.small,
-                tonalElevation = 4.dp,
-            ) {
-                Text(
-                    text = tooltipText,
-                    modifier = Modifier.padding(horizontal = space8, vertical = space4),
-                    style = KuiTheme.typography.bodySmall,
-                    color = KuiTheme.colorScheme.onSurfaceVariant,
-                )
-            }
-        },
-        state = rememberTooltipState(),
-    ) {
-        content()
     }
 }
 

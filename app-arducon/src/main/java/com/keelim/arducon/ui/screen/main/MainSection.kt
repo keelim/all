@@ -47,8 +47,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -59,17 +57,24 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import coil.compose.AsyncImage
+import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space16
+import com.keelim.composeutil.resource.space24
 import com.keelim.composeutil.resource.space32
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space64
 import com.keelim.composeutil.resource.space8
+import com.keelim.core.designsystem.component.KuiBadge
+import com.keelim.core.designsystem.theme.KuiTheme
+import com.keelim.core.resource.*
 import com.keelim.model.DeepLink
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun MainTopSection(
@@ -339,11 +344,21 @@ fun DeepLinkSection(
     onUpdate: (DeepLink) -> Unit,
     onDelete: (DeepLink) -> Unit,
     onItemLongClick: (DeepLink) -> Unit,
+    onQrCodeClick: () -> Unit,
+    onNavigateSearch: () -> Unit,
+    onNavigateSaastatus: () -> Unit,
+    onNavigateOgTagPreview: () -> Unit,
+    onNavigatePlayground: () -> Unit,
+    onNavigateJsonFormatter: () -> Unit,
+    onNavigateBase64Encoder: () -> Unit,
+    onNavigateDeviceInfo: () -> Unit,
     selectedCategory: String,
     onCategorySelected: (String) -> Unit,
     onShowNotification: (Int, String, String, String) -> Unit,
     onGenerateQrCode: (DeepLink) -> Unit,
     recordDeepLinkUsage: (DeepLink) -> Unit,
+    onNavigateStats: () -> Unit,
+    onNavigateUrlShortener: () -> Unit,
     modifier: Modifier = Modifier,
     listState: LazyListState = rememberLazyListState(),
 ) {
@@ -352,6 +367,40 @@ fun DeepLinkSection(
         state = listState,
         verticalArrangement = Arrangement.spacedBy(space8),
     ) {
+        item {
+            ArduconToolHubSection(
+                onToolClick = { action ->
+                    when (action) {
+                        ArduconToolAction.Playground -> onNavigatePlayground()
+                        ArduconToolAction.QrScanner -> onQrCodeClick()
+                        ArduconToolAction.SchemeSearch -> onNavigateSearch()
+                        ArduconToolAction.OgTagPreview -> onNavigateOgTagPreview()
+                        ArduconToolAction.JsonFormatter -> onNavigateJsonFormatter()
+                        ArduconToolAction.Base64 -> onNavigateBase64Encoder()
+                        ArduconToolAction.UrlShortener -> onNavigateUrlShortener()
+                        ArduconToolAction.DeviceInfo -> onNavigateDeviceInfo()
+                        ArduconToolAction.Saastatus -> onNavigateSaastatus()
+                        ArduconToolAction.Stats -> onNavigateStats()
+                    }
+                },
+                modifier = Modifier.animateItem(
+                    placementSpec = tween(
+                        durationMillis = 500,
+                        easing = LinearOutSlowInEasing,
+                    ),
+                ),
+            )
+        }
+        item {
+            DeepLinkHistoryHeader(
+                modifier = Modifier.animateItem(
+                    placementSpec = tween(
+                        durationMillis = 500,
+                        easing = LinearOutSlowInEasing,
+                    ),
+                ),
+            )
+        }
         item {
             MainTopSection(
                 schemeList = schemeList,
@@ -371,14 +420,22 @@ fun DeepLinkSection(
                     .padding(horizontal = space8),
                 horizontalArrangement = Arrangement.spacedBy(space8),
             ) {
-                items(categories) { category ->
+                items(
+                    items = listOf("") + categories,
+                    key = { it },
+                ) { category ->
                     val isSelected = selectedCategory == category
                     AssistChip(
                         onClick = { onCategorySelected(category) },
                         label = {
                             Text(
-                                text = category.ifEmpty { "모두" },
+                                text = category.ifEmpty { stringResource(Res.string.arducon_tool_category_all) },
                                 style = KuiTheme.typography.labelLarge,
+                                color = if (isSelected) {
+                                    KuiTheme.colorScheme.onPrimaryContainer
+                                } else {
+                                    KuiTheme.colorScheme.onSurfaceVariant
+                                },
                             )
                         },
                         colors = AssistChipDefaults.assistChipColors(
@@ -389,93 +446,276 @@ fun DeepLinkSection(
                 }
             }
         }
-        stickyHeader {
-            Text(
-                text = "Favorite",
-                style = KuiTheme.typography.titleMedium,
-                color = KuiTheme.colorScheme.primary,
-                modifier = Modifier.padding(vertical = space8),
-            )
-        }
-        items(
-            items = favoriteItems,
-            key = { it.timestamp },
-        ) {
-            val (isMoved, setMoved) = remember { mutableStateOf("") }
-            val context = LocalContext.current
-            if (isMoved.isNotEmpty()) {
-                LaunchedEffect(context, isMoved) {
-                    context.startActivity(
-                        Intent(
-                            Intent.ACTION_VIEW,
-                            isMoved.toUri(),
+        if (favoriteItems.isEmpty() && generalItems.isEmpty()) {
+            item {
+                DeepLinkHistoryEmptyCard(
+                    modifier = Modifier.animateItem(
+                        placementSpec = tween(
+                            durationMillis = 500,
+                            easing = LinearOutSlowInEasing,
                         ),
-                    )
-                    setMoved("")
-                }
-            }
-            DeepLinkItem(
-                deepLink = it,
-                onPlay = { uri ->
-                    recordDeepLinkUsage(it)
-                    setMoved(uri)
-                },
-                onUpdate = onUpdate,
-                onDelete = onDelete,
-                onItemLongClick = onItemLongClick,
-                modifier = Modifier.animateItem(
-                    placementSpec = tween(
-                        durationMillis = 500,
-                        easing = LinearOutSlowInEasing,
                     ),
-                ),
-                onCategoryClick = onCategorySelected,
-                onShowNotification = onShowNotification,
-                onGenerateQrCode = onGenerateQrCode,
-            )
+                )
+            }
         }
-        stickyHeader {
-            Text(
-                text = "General",
-                style = KuiTheme.typography.titleMedium,
-                color = KuiTheme.colorScheme.primary,
-                modifier = Modifier.padding(vertical = space8),
-            )
-        }
-        items(
-            items = generalItems,
-            key = { it.timestamp },
-        ) {
-            val (isMoved, setMoved) = remember { mutableStateOf("") }
-            val context = LocalContext.current
-            if (isMoved.isNotEmpty()) {
-                LaunchedEffect(context, isMoved) {
-                    context.startActivity(
-                        Intent(
-                            Intent.ACTION_VIEW,
-                            isMoved.toUri(),
+        if (favoriteItems.isNotEmpty()) {
+            stickyHeader {
+                Text(
+                    text = stringResource(Res.string.arducon_tool_history_favorite),
+                    style = KuiTheme.typography.titleMedium,
+                    color = KuiTheme.colorScheme.primary,
+                    modifier = Modifier.padding(vertical = space8),
+                )
+            }
+            items(
+                items = favoriteItems,
+                key = { it.timestamp },
+            ) {
+                val (isMoved, setMoved) = remember { mutableStateOf("") }
+                val context = LocalContext.current
+                if (isMoved.isNotEmpty()) {
+                    LaunchedEffect(context, isMoved) {
+                        context.startActivity(
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                isMoved.toUri(),
+                            ),
+                        )
+                        setMoved("")
+                    }
+                }
+                DeepLinkItem(
+                    deepLink = it,
+                    onPlay = { uri ->
+                        recordDeepLinkUsage(it)
+                        setMoved(uri)
+                    },
+                    onUpdate = onUpdate,
+                    onDelete = onDelete,
+                    onItemLongClick = onItemLongClick,
+                    modifier = Modifier.animateItem(
+                        placementSpec = tween(
+                            durationMillis = 500,
+                            easing = LinearOutSlowInEasing,
                         ),
-                    )
-                    setMoved("")
-                }
-            }
-            DeepLinkItem(
-                deepLink = it,
-                onPlay = { uri ->
-                    setMoved(uri)
-                },
-                onUpdate = onUpdate,
-                onDelete = onDelete,
-                onItemLongClick = onItemLongClick,
-                modifier = Modifier.animateItem(
-                    placementSpec = tween(
-                        durationMillis = 500,
-                        easing = LinearOutSlowInEasing,
                     ),
-                ),
-                onCategoryClick = onCategorySelected,
-                onShowNotification = onShowNotification,
-                onGenerateQrCode = onGenerateQrCode,
+                    onCategoryClick = onCategorySelected,
+                    onShowNotification = onShowNotification,
+                    onGenerateQrCode = onGenerateQrCode,
+                )
+            }
+        }
+        if (generalItems.isNotEmpty()) {
+            stickyHeader {
+                Text(
+                    text = stringResource(Res.string.arducon_tool_history_general),
+                    style = KuiTheme.typography.titleMedium,
+                    color = KuiTheme.colorScheme.primary,
+                    modifier = Modifier.padding(vertical = space8),
+                )
+            }
+            items(
+                items = generalItems,
+                key = { it.timestamp },
+            ) {
+                val (isMoved, setMoved) = remember { mutableStateOf("") }
+                val context = LocalContext.current
+                if (isMoved.isNotEmpty()) {
+                    LaunchedEffect(context, isMoved) {
+                        context.startActivity(
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                isMoved.toUri(),
+                            ),
+                        )
+                        setMoved("")
+                    }
+                }
+                DeepLinkItem(
+                    deepLink = it,
+                    onPlay = { uri ->
+                        setMoved(uri)
+                    },
+                    onUpdate = onUpdate,
+                    onDelete = onDelete,
+                    onItemLongClick = onItemLongClick,
+                    modifier = Modifier.animateItem(
+                        placementSpec = tween(
+                            durationMillis = 500,
+                            easing = LinearOutSlowInEasing,
+                        ),
+                    ),
+                    onCategoryClick = onCategorySelected,
+                    onShowNotification = onShowNotification,
+                    onGenerateQrCode = onGenerateQrCode,
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun ArduconToolHubSection(
+    onToolClick: (ArduconToolAction) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Card(
+        modifier = modifier.fillMaxWidth(),
+        colors = CardDefaults.cardColors(
+            containerColor = KuiTheme.colorScheme.surface,
+        ),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+    ) {
+        Column(
+            modifier = Modifier.padding(space16),
+            verticalArrangement = Arrangement.spacedBy(space16),
+        ) {
+            Column(verticalArrangement = Arrangement.spacedBy(space4)) {
+                Text(
+                    text = stringResource(Res.string.arducon_tool_hub_title),
+                    style = KuiTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+                    color = KuiTheme.colorScheme.primary,
+                )
+                Text(
+                    text = stringResource(Res.string.arducon_tool_hub_subtitle),
+                    style = KuiTheme.typography.bodyMedium,
+                    color = KuiTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+
+            arduconToolGroups.forEach { group ->
+                ArduconToolGroupSection(
+                    group = group,
+                    onToolClick = onToolClick,
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun ArduconToolGroupSection(
+    group: ArduconToolGroup,
+    onToolClick: (ArduconToolAction) -> Unit,
+) {
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(space8),
+    ) {
+        Text(
+            text = stringResource(group.title),
+            style = KuiTheme.typography.titleMedium,
+            color = KuiTheme.colorScheme.onSurface,
+        )
+        Column(verticalArrangement = Arrangement.spacedBy(space8)) {
+            group.items.forEach { item ->
+                ArduconToolCard(
+                    item = item,
+                    onClick = { onToolClick(item.action) },
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun ArduconToolCard(
+    item: ArduconToolItem,
+    onClick: () -> Unit,
+) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick),
+        colors = CardDefaults.cardColors(
+            containerColor = KuiTheme.colorScheme.surfaceVariant,
+        ),
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(space12),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(space12),
+        ) {
+            Icon(
+                imageVector = item.icon,
+                contentDescription = null,
+                tint = KuiTheme.colorScheme.primary,
+                modifier = Modifier.size(space24),
+            )
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.spacedBy(space4),
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                ) {
+                    Text(
+                        text = stringResource(item.title),
+                        style = KuiTheme.typography.titleSmall,
+                        color = KuiTheme.colorScheme.onSurfaceVariant,
+                    )
+                    KuiBadge(text = stringResource(item.badge))
+                }
+                Text(
+                    text = stringResource(item.description),
+                    style = KuiTheme.typography.bodySmall,
+                    color = KuiTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.78f),
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun DeepLinkHistoryHeader(
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(top = space8),
+        verticalArrangement = Arrangement.spacedBy(space4),
+    ) {
+        Text(
+            text = stringResource(Res.string.arducon_tool_deeplink_history_title),
+            style = KuiTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+            color = KuiTheme.colorScheme.primary,
+        )
+        Text(
+            text = stringResource(Res.string.arducon_tool_deeplink_history_desc),
+            style = KuiTheme.typography.bodyMedium,
+            color = KuiTheme.colorScheme.onSurfaceVariant,
+        )
+    }
+}
+
+@Composable
+private fun DeepLinkHistoryEmptyCard(
+    modifier: Modifier = Modifier,
+) {
+    Card(
+        modifier = modifier.fillMaxWidth(),
+        colors = CardDefaults.cardColors(
+            containerColor = KuiTheme.colorScheme.surfaceVariant,
+        ),
+    ) {
+        Column(
+            modifier = Modifier.padding(space16),
+            verticalArrangement = Arrangement.spacedBy(space4),
+        ) {
+            Text(
+                text = stringResource(Res.string.arducon_tool_history_empty_title),
+                style = KuiTheme.typography.titleMedium,
+                color = KuiTheme.colorScheme.onSurfaceVariant,
+            )
+            Text(
+                text = stringResource(Res.string.arducon_tool_history_empty_desc),
+                style = KuiTheme.typography.bodyMedium,
+                color = KuiTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.78f),
             )
         }
     }
@@ -670,11 +910,21 @@ private fun PreviewDeepLinkSection() {
         onRegister = {},
         onDeleteScheme = {},
         onItemLongClick = {},
+        onQrCodeClick = {},
+        onNavigateSearch = {},
+        onNavigateSaastatus = {},
+        onNavigateOgTagPreview = {},
+        onNavigatePlayground = {},
+        onNavigateJsonFormatter = {},
+        onNavigateBase64Encoder = {},
+        onNavigateDeviceInfo = {},
         categories = emptyList(),
         selectedCategory = "",
         onCategorySelected = {},
         onShowNotification = { _, _, _, _ -> },
         onGenerateQrCode = {},
         recordDeepLinkUsage = { },
+        onNavigateStats = {},
+        onNavigateUrlShortener = {},
     )
 }

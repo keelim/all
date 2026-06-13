@@ -1,10 +1,10 @@
 package com.keelim.setting.architecture
 
 import io.kotest.core.spec.style.FunSpec
-import io.kotest.matchers.collections.shouldContainAll
 import io.kotest.matchers.paths.shouldExist
 import io.kotest.matchers.paths.shouldNotExist
 import io.kotest.matchers.string.shouldContain
+import io.kotest.matchers.shouldBe
 import java.nio.file.Path
 import kotlin.io.path.Path
 import kotlin.io.path.exists
@@ -30,18 +30,72 @@ class SettingsModuleSplitTest : FunSpec({
         }
     }
 
-    test("ui-setting compatibility module re-exports split settings feature modules") {
+    test("ui-setting compatibility module keeps split settings modules internal") {
         val gradleText = uiSettingBuild.readText()
         listOf(
-            "api(projects.feature.settingsCore)",
-            "api(projects.feature.settingsTheme)",
-            "api(projects.feature.settingsNotification)",
-            "api(projects.feature.settingsAlarm)",
-            "api(projects.feature.settingsDevice)",
-            "api(projects.feature.settingsAdmin)",
-            "api(projects.feature.settingsLab)",
+            "implementation(projects.feature.settingsCore)",
+            "implementation(projects.feature.settingsTheme)",
+            "implementation(projects.feature.settingsNotification)",
+            "implementation(projects.feature.settingsAlarm)",
+            "implementation(projects.feature.settingsDevice)",
+            "implementation(projects.feature.settingsAdmin)",
+            "implementation(projects.feature.settingsLab)",
         ).forEach { dependency ->
             gradleText shouldContain dependency
+        }
+    }
+
+    test("settings feature modules depend on data contracts instead of data implementation") {
+        listOf(
+            "feature/ui-setting/build.gradle.kts",
+            "feature/settings-core/build.gradle.kts",
+            "feature/settings-theme/build.gradle.kts",
+            "feature/settings-notification/build.gradle.kts",
+            "feature/settings-alarm/build.gradle.kts",
+            "feature/settings-device/build.gradle.kts",
+            "feature/settings-admin/build.gradle.kts",
+            "feature/settings-lab/build.gradle.kts",
+        ).map(repoRoot::resolve).forEach { buildFile ->
+            val gradleText = buildFile.readText()
+            check(!gradleText.contains("projects.core.data)")) {
+                "${buildFile.fileName} must not depend on core:data implementation"
+            }
+            check(!gradleText.contains("projects.core.domain")) {
+                "${buildFile.fileName} must not depend on core:domain for app-level contracts"
+            }
+        }
+    }
+
+    test("common-android does not depend on upper data network or domain modules") {
+        val gradleText = repoRoot.resolve("core/common-android/build.gradle.kts").readText()
+        listOf(
+            "projects.core.component",
+            "projects.core.data)",
+            "projects.core.network",
+            "projects.core.domain",
+        ).forEach { forbiddenDependency ->
+            check(!gradleText.contains(forbiddenDependency)) {
+                "common-android must not depend on $forbiddenDependency"
+            }
+        }
+    }
+
+    test("only settings-core owns the ui-web bridge") {
+        val directUiWebDependents = listOf(
+            "feature/settings-core/build.gradle.kts",
+        ).map(repoRoot::resolve).toSet()
+
+        listOf(
+            "feature/settings-core/build.gradle.kts",
+            "feature/settings-theme/build.gradle.kts",
+            "feature/settings-notification/build.gradle.kts",
+            "feature/settings-alarm/build.gradle.kts",
+            "feature/settings-device/build.gradle.kts",
+            "feature/settings-admin/build.gradle.kts",
+            "feature/settings-lab/build.gradle.kts",
+        ).map(repoRoot::resolve).forEach { buildFile ->
+            val containsUiWeb = buildFile.readText().contains("projects.feature.uiWeb")
+            containsUiWeb shouldBe (buildFile in directUiWebDependents)
         }
     }
 

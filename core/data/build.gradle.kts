@@ -19,7 +19,7 @@ android {
 dependencies {
     api(projects.core.model)
     api(projects.core.dataApi)
-    api(projects.core.network)
+    implementation(projects.core.network)
     implementation(projects.shared)
     implementation(projects.core.common)
     implementation(projects.core.database)

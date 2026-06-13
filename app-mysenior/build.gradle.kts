@@ -24,7 +24,11 @@ android {
 
 dependencies {
 
+    implementation(projects.core.commonAndroid)
+    implementation(projects.core.component)
+    implementation(projects.core.data)
     implementation(projects.core.navigation)
+    implementation(projects.core.network)
 
     implementation(projects.feature.uiSetting)
     implementation(libs.activity.ktx)
@@ -40,11 +44,13 @@ dependencies {
     implementation(libs.androidx.navigation3.ui)
     implementation(libs.androidx.paging.compose)
     implementation(libs.androidx.window.manager)
-    implementation(libs.coil.kt.compose)
-    implementation(libs.coil.kt.svg)
+    implementation(platform(libs.coil.bom))
+    implementation(libs.coil.compose)
+    implementation(libs.coil.svg)
     implementation(libs.deeplinkdispatch)
     implementation(libs.firebase.config)
     implementation(libs.kotlinx.datetime)
+    implementation(libs.play.services.oss)
     implementation(libs.timber)
     implementation(platform(libs.androidx.compose.bom))
     implementation(platform(libs.firebase.bom))

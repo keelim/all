@@ -2,6 +2,7 @@ import org.gradle.testing.jacoco.tasks.JacocoReport
 
 plugins {
     alias(libs.plugins.keelim.android.application)
+    alias(libs.plugins.keelim.android.secrets)
     alias(libs.plugins.keelim.android.application.firebase)
     alias(libs.plugins.keelim.android.application.compose)
     alias(libs.plugins.keelim.android.application.jacoco)
@@ -32,6 +33,7 @@ dependencies {
 
     implementation(projects.core.data)
     implementation(projects.core.navigation)
+    implementation(projects.core.network)
     implementation(projects.core.resource)
 
     implementation(projects.feature.appFunction)

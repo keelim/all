@@ -6,8 +6,8 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ProcessLifecycleOwner
 import com.keelim.common.di.ApplicationScope
+import com.keelim.common.maintenance.MaintenanceChecker
 import com.keelim.data.repository.NotificationRepository
-import com.keelim.domain.MaintenanceChecker
 import com.keelim.setting.screen.maintenance.MaintenanceActivity
 import jakarta.inject.Inject
 import kotlinx.coroutines.CancellationException

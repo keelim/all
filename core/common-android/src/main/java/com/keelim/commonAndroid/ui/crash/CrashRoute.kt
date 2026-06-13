@@ -44,10 +44,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import com.keelim.composeutil.resource.space12
-import com.keelim.composeutil.resource.space16
-import com.keelim.composeutil.resource.space24
-import com.keelim.composeutil.resource.space8
+
+private val crashSpace8 = 8.dp
+private val crashSpace12 = 12.dp
+private val crashSpace16 = 16.dp
+private val crashSpace24 = 24.dp
 
 @Composable
 fun CrashRoute(
@@ -103,11 +104,11 @@ fun CrashScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .padding(horizontal = space16),
-            verticalArrangement = Arrangement.spacedBy(space16),
+                .padding(horizontal = crashSpace16),
+            verticalArrangement = Arrangement.spacedBy(crashSpace16),
         ) {
             item {
-                Spacer(modifier = Modifier.height(space8))
+                Spacer(modifier = Modifier.height(crashSpace8))
             }
 
             // Error Header Section
@@ -136,7 +137,7 @@ fun CrashScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp),
-                    shape = RoundedCornerShape(space12),
+                    shape = RoundedCornerShape(crashSpace12),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = MaterialTheme.colorScheme.primary,
                     ),
@@ -146,7 +147,7 @@ fun CrashScreen(
                         contentDescription = null,
                         modifier = Modifier.size(24.dp),
                     )
-                    Spacer(modifier = Modifier.size(space8))
+                    Spacer(modifier = Modifier.size(crashSpace8))
                     Text(
                         text = "앱 다시 시작하기",
                         style = MaterialTheme.typography.titleMedium,
@@ -156,7 +157,7 @@ fun CrashScreen(
             }
 
             item {
-                Spacer(modifier = Modifier.height(space24))
+                Spacer(modifier = Modifier.height(crashSpace24))
             }
         }
     }
@@ -178,11 +179,11 @@ private fun ErrorHeaderSection() {
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(space16),
+                    .padding(crashSpace16),
                 tint = MaterialTheme.colorScheme.onErrorContainer,
             )
         }
-        Spacer(modifier = Modifier.height(space16))
+        Spacer(modifier = Modifier.height(crashSpace16))
         Text(
             text = "예기치 않은 오류가 발생했습니다",
             style = MaterialTheme.typography.titleLarge,
@@ -190,7 +191,7 @@ private fun ErrorHeaderSection() {
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.onSurface,
         )
-        Spacer(modifier = Modifier.height(space8))
+        Spacer(modifier = Modifier.height(crashSpace8))
         Text(
             text = "앱을 다시 시작해 주세요.\n문제가 지속되면 개발팀에 문의해 주세요.",
             style = MaterialTheme.typography.bodyMedium,
@@ -208,14 +209,14 @@ private fun DeviceInfoCard(
 ) {
     Card(
         modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(space12),
+        shape = RoundedCornerShape(crashSpace12),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant,
         ),
     ) {
         Column(
-            modifier = Modifier.padding(space16),
-            verticalArrangement = Arrangement.spacedBy(space8),
+            modifier = Modifier.padding(crashSpace16),
+            verticalArrangement = Arrangement.spacedBy(crashSpace8),
         ) {
             Text(
                 text = "기기 정보",
@@ -223,7 +224,7 @@ private fun DeviceInfoCard(
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
-            Spacer(modifier = Modifier.height(space8))
+            Spacer(modifier = Modifier.height(crashSpace8))
             DeviceInfoRow(label = "앱 버전", value = appVersion)
             DeviceInfoRow(label = "기기 모델", value = deviceModel)
             DeviceInfoRow(label = "OS 버전", value = androidVersion)
@@ -258,13 +259,13 @@ private fun DeviceInfoRow(
 private fun StackTraceCard(stackTrace: String) {
     Card(
         modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(space12),
+        shape = RoundedCornerShape(crashSpace12),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceContainerHighest,
         ),
     ) {
         Column(
-            modifier = Modifier.padding(space16),
+            modifier = Modifier.padding(crashSpace16),
         ) {
             Text(
                 text = "오류 상세 정보",
@@ -272,15 +273,15 @@ private fun StackTraceCard(stackTrace: String) {
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSurface,
             )
-            Spacer(modifier = Modifier.height(space12))
+            Spacer(modifier = Modifier.height(crashSpace12))
             Surface(
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(space8),
+                shape = RoundedCornerShape(crashSpace8),
                 color = MaterialTheme.colorScheme.surfaceContainerLow,
             ) {
                 Text(
                     text = stackTrace,
-                    modifier = Modifier.padding(space12),
+                    modifier = Modifier.padding(crashSpace12),
                     style = MaterialTheme.typography.bodySmall,
                     fontFamily = FontFamily.Monospace,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,

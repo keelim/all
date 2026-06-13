@@ -9,6 +9,7 @@ class KeelimJvmLibraryPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             apply(plugin = "org.jetbrains.kotlin.jvm")
+            apply(plugin = "java-library")
             apply(plugin = "org.gradle.jacoco")
             apply(plugin = "com.jraska.module.graph.assertion")
 

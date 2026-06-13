@@ -1,6 +1,6 @@
 package com.keelim.setting.di
 
-import com.keelim.domain.MaintenanceChecker
+import com.keelim.common.maintenance.MaintenanceChecker
 import com.keelim.setting.worker.MaintenanceCheckerImpl
 import dagger.Binds
 import dagger.Module

@@ -55,6 +55,10 @@ gradlePlugin {
             id = libs.plugins.keelim.android.application.jacoco.get().pluginId
             implementationClass = "KeelimApplicationJacocoPlugin"
         }
+        register("androidSecrets") {
+            id = libs.plugins.keelim.android.secrets.get().pluginId
+            implementationClass = "KeelimAndroidSecretsPlugin"
+        }
         register("androidApplicationRoom") {
             id = libs.plugins.keelim.android.application.room.get().pluginId
             implementationClass = "KeelimRoomConventionPlugin"
@@ -83,10 +87,13 @@ gradlePlugin {
             id = libs.plugins.keelim.android.hilt.get().pluginId
             implementationClass = "KeelimHiltPlugin"
         }
+        register("androidFeatureSettings") {
+            id = libs.plugins.keelim.android.feature.settings.get().pluginId
+            implementationClass = "KeelimSettingsFeaturePlugin"
+        }
         register("multiplatform") {
             id = libs.plugins.keelim.multiplatform.get().pluginId
             implementationClass = "KeelimMultiPlatformConventionPlugin"
         }
     }
 }
-

@@ -28,6 +28,7 @@ android {
 dependencies {
 
     implementation(projects.core.commonAndroid)
+    implementation(projects.core.deviceAndroid)
     implementation(projects.core.common)
     implementation(projects.core.component)
 

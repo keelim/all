@@ -19,6 +19,7 @@ dependencies {
     implementation(projects.feature.settingsDevice)
     implementation(projects.feature.settingsAdmin)
     implementation(projects.feature.settingsLab)
+    implementation(projects.feature.uiWeb)
 
     implementation(projects.core.commonAndroid)
     implementation(projects.core.common)

@@ -22,7 +22,7 @@ dependencies {
     implementation(projects.core.component)
     implementation(project.dependencies.platform(libs.androidx.compose.bom))
     implementation(libs.bundles.compose)
-    implementation(libs.material.themAdapter)
+    implementation(libs.material.themeAdapter)
 
     implementation("com.airbnb.android:showkase:1.0.3")
     implementation("com.airbnb.android:showkase-annotation:1.0.3")

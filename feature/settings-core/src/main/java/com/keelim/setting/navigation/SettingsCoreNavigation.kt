@@ -5,15 +5,16 @@ import android.content.Intent
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.core.net.toUri
 import androidx.navigation3.runtime.EntryProviderScope
+import com.keelim.common.web.BrowserLauncher
 import com.keelim.core.navigation.AppRoute
 import com.keelim.core.navigation.FeatureRoute
 import com.keelim.setting.screen.settings.SettingsRoute
-import com.keelim.web.navigateToWebModule
 
 fun EntryProviderScope<AppRoute>.registerSettingsCoreEntries(
     backStack: SnapshotStateList<AppRoute>,
     context: Context,
     onOpenSourceClick: () -> Unit,
+    browserLauncher: BrowserLauncher,
 ) {
     entry<FeatureRoute.Settings> {
         SettingsRoute(
@@ -25,7 +26,7 @@ fun EntryProviderScope<AppRoute>.registerSettingsCoreEntries(
                 backStack.add(FeatureRoute.Alarm)
             },
             onFaqClick = {
-                context.navigateToWebModule("https://keelim-vercel.vercel.app/faq".toUri())
+                browserLauncher.open("https://keelim-vercel.vercel.app/faq")
             },
             onOpenSourceClick = onOpenSourceClick,
             onLabClick = {
@@ -45,6 +46,7 @@ fun EntryProviderScope<AppRoute>.registerSettingsCoreEntries(
             onDeviceInfoClick = {
                 backStack.add(FeatureRoute.DeviceInfo)
             },
+            browserLauncher = browserLauncher,
         )
     }
 }

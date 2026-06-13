@@ -7,7 +7,7 @@ plugins {
 }
 
 dependencies {
-    implementation(libs.kotlin.becnhmark.runtime)
+    implementation(libs.kotlin.benchmark.runtime)
 }
 
 allOpen {

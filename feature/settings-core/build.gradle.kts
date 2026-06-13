@@ -8,7 +8,5 @@ android {
 }
 
 dependencies {
-    implementation(projects.feature.uiWeb)
-
     testImplementation(libs.kotlinx.serialization.json)
 }

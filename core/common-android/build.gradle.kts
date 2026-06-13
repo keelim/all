@@ -19,6 +19,9 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.startup)
     implementation(libs.androidx.lifecycle.process)
+    implementation(libs.androidx.lifecycle.runtime)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.fragment.ktx)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(platform(libs.coil.bom))
     implementation(libs.bundles.coil)
@@ -29,7 +32,6 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.datetime)
-    implementation(libs.play.services.ad)
     implementation(libs.timber)
 
     debugImplementation(libs.leakcanary)
@@ -40,7 +42,5 @@ dependencies {
     testImplementation(libs.androidx.test.rules)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.hilt.android.testing)
-
-    implementation(libs.play.services.auth)
-    implementation(libs.play.services.auth.api.phone)
+    implementation(libs.zxing)
 }

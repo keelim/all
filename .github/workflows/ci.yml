@@ -10,6 +10,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
   detect_changes:
     name: Detect Changed Apps
@@ -28,7 +31,7 @@ jobs:
         shell: bash
         run: |
           set -eo pipefail
-          all_apps='["app-arducon","app-cnubus","app-comssa","app-my-grade","app-nanda","app-mysenior"]'
+          all_apps='["app-arducon","app-cnubus","app-comssa","app-my-grade","app-nanda"]'
 
           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
             echo "apps=$all_apps" >> "$GITHUB_OUTPUT"

@@ -21,20 +21,9 @@
             <meta-data
                 android:name="com.keelim.commonAndroid.initialize.TimberInitializer"
                 android:value="androidx.startup" />
-            <meta-data
-                android:name="com.keelim.commonAndroid.initialize.MobileAdsInitializer"
-                android:value="androidx.startup" />
         </provider>
         <activity
             android:name=".ui.crash.CrashReportActivity"
             android:exported="false" />
-        <receiver
-            android:name=".receiver.SmsBroadcastReceiver"
-            android:exported="true"
-            android:permission="com.google.android.gms.auth.api.phone.permission.SEND">
-            <intent-filter>
-                <action android:name="com.google.android.gms.auth.api.phone.SMS_RETRIEVED" />
-            </intent-filter>
-        </receiver>
     </application>
 </manifest>

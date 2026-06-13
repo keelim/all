@@ -2,7 +2,6 @@
 
 package com.keelim.setting.screen.settings
 
-import android.net.Uri
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Spring
@@ -67,6 +66,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.composeutil.component.layout.EmptyView
+import com.keelim.common.web.BrowserLauncher
+import com.keelim.common.web.NoOpBrowserLauncher
 import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space4
@@ -86,7 +87,6 @@ import com.keelim.core.resource.settings_fcm_token
 import com.keelim.core.resource.settings_title
 import android.content.pm.ApplicationInfo
 import com.keelim.shared.data.UserState
-import com.keelim.web.navigateToWebModule
 import org.jetbrains.compose.resources.stringResource
 
 data class Category(
@@ -108,6 +108,7 @@ fun SettingsRoute(
     onAppUpdateClick: () -> Unit,
     onAdminClick: () -> Unit,
     onDeviceInfoClick: () -> Unit,
+    browserLauncher: BrowserLauncher,
     viewModel: SettingsViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -122,6 +123,7 @@ fun SettingsRoute(
         onThemeChangeClick = onThemeChangeClick,
         onAdminClick = onAdminClick,
         onDeviceInfoClick = onDeviceInfoClick,
+        browserLauncher = browserLauncher,
     )
 }
 
@@ -137,6 +139,7 @@ fun SettingsScreen(
     onAppUpdateClick: () -> Unit,
     onAdminClick: () -> Unit,
     onDeviceInfoClick: () -> Unit,
+    browserLauncher: BrowserLauncher,
 ) {
     when (uiState) {
         is SettingsUiState.Initialized -> EmptyView()
@@ -259,7 +262,7 @@ fun SettingsScreen(
                             services = uiState.familyServices,
                             onServiceClick = { service ->
                                 if (service.actionUrl.isNotBlank()) {
-                                    context.navigateToWebModule(Uri.parse(service.actionUrl))
+                                    browserLauncher.open(service.actionUrl)
                                 }
                             },
                         )
@@ -317,6 +320,7 @@ private fun PreviewSettingsScreen() {
         onAlarmsClick = {},
         onAdminClick = {},
         onDeviceInfoClick = {},
+        browserLauncher = NoOpBrowserLauncher,
     )
 }
 

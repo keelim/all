@@ -8,6 +8,14 @@ import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
 
 class HealthAppFunctionsTest : FunSpec({
+    test("health status provider returns stable aggregate metadata") {
+        val result = HealthStatusProvider(clock = HealthStatusClock { 1234L }).status()
+
+        result.status shouldBe "ok"
+        result.module shouldBe "feature:app-function"
+        result.epochMillis shouldBe 1234L
+    }
+
     test("health app function returns stable status and module") {
         runTest {
             val appFunctionContext = object : AppFunctionContext {

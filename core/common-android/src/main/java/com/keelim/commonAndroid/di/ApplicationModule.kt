@@ -1,8 +1,6 @@
 package com.keelim.commonAndroid.di
 
 import android.content.Context
-import com.keelim.commonAndroid.model.AppInfo
-import com.keelim.commonAndroid.util.ApplicationMonitor
 import com.keelim.commonAndroid.util.DownloadReceiver
 import com.keelim.shared.data.UserStateStore
 import com.keelim.shared.di.Module
@@ -15,23 +13,6 @@ import jakarta.inject.Singleton
 @dagger.Module
 @InstallIn(SingletonComponent::class)
 internal object ApplicationModule {
-    @Provides
-    @Singleton
-    fun providesAppInfo(
-        @ApplicationContext context: Context,
-    ): AppInfo = AppInfo(
-        context.packageName,
-        adId = "",
-    )
-
-    @Provides
-    @Singleton
-    fun providesApplicationMonitor(
-        appInfo: AppInfo,
-    ): ApplicationMonitor = ApplicationMonitor(
-        appInfo,
-    )
-
     @Provides
     @Singleton
     fun providesDownloadReceiver(

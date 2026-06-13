@@ -24,7 +24,7 @@ kotlin {
             implementation(libs.androidx.navigation3.runtime)
             implementation(libs.androidx.navigation3.ui)
             implementation(libs.inapp.update)
-            implementation(libs.material.themAdapter)
+            implementation(libs.material.themeAdapter)
             implementation(libs.bundles.compose)
             implementation(libs.bundles.coil)
             implementation(libs.androidx.media.compose)

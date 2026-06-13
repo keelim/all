@@ -9,6 +9,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import java.nio.charset.StandardCharsets
 import java.security.MessageDigest
 import jakarta.inject.Inject
+import timber.log.Timber
 
 class AppSignatureHashUtil @Inject constructor(
     @ApplicationContext private val context: Context
@@ -20,7 +21,7 @@ class AppSignatureHashUtil @Inject constructor(
                 hash(context.packageName, signature.toCharsString())
             }
         }.getOrElse { throwable ->
-            throwable.logError()
+            Timber.e(throwable, "Unable to resolve app signatures")
             emptyList()
         }
 
@@ -61,7 +62,7 @@ class AppSignatureHashUtil @Inject constructor(
                 Base64.encodeToString(hashSignature, Base64.NO_PADDING or Base64.NO_WRAP)
                     .take(NUM_BASE64_CHAR)
             base64Hash
-        }.onFailure { it.logError() }
+        }.onFailure { Timber.e(it, "Unable to hash app signature") }
             .getOrNull()
     }
 

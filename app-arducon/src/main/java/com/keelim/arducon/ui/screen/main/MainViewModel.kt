@@ -205,7 +205,7 @@ class MainViewModel @Inject constructor(
         _qrDialogState.value = QrDialogState.Hidden
     }
 
-    // generateQrBitmap moved to core-common util
+    // generateQrBitmap lives in the Android runtime helper slice.
 
     // 딥링크 사용 기록 저장
     fun recordDeepLinkUsage(deepLink: DeepLink) {

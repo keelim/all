@@ -1,7 +1,7 @@
 package com.keelim.setting.screen.maintenance
 
 import app.cash.turbine.test
-import com.keelim.domain.MaintenanceChecker
+import com.keelim.common.maintenance.MaintenanceChecker
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.flow.MutableStateFlow

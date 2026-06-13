@@ -419,9 +419,11 @@ keelim-android-application-firebase = {id = "keelim.android.application.firebase
 keelim-android-application-compose = {id = "keelim.android.application.compose" }
 keelim-android-application-jacoco = {id = "keelim.android.application.jacoco" }
 keelim-android-application-room = {id = "keelim.android.application.room" }
+keelim-android-secrets = {id = "keelim.android.secrets" }
 keelim-android-library = {id = "keelim.android.library" }
 keelim-android-library-compose = {id = "keelim.android.library.compose" }
 keelim-android-library-jacoco = {id = "keelim.android.library.jacoco" }
+keelim-android-feature-settings = {id = "keelim.android.feature.settings" }
 keelim-android-test = {id = "keelim.android.test" }
 keelim-android-hilt = {id = "keelim.android.hilt" }
 keelim-jvm-library = {id = "keelim.jvm.library" }

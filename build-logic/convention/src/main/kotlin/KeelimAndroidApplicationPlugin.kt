@@ -28,7 +28,6 @@ class KeelimAndroidApplicationPlugin : Plugin<Project> {
             if (shouldApplyOssLicensesPlugin()) {
                 apply(plugin = "com.google.android.gms.oss-licenses-plugin")
             }
-            apply(plugin = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
             apply(plugin = "com.dropbox.dependency-guard")
             apply(plugin = "com.jraska.module.graph.assertion")
             apply(plugin = "androidx.baselineprofile")

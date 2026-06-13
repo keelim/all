@@ -35,6 +35,7 @@ include(
     ":app-my-grade",
     ":app-nanda",
     ":app-comssa",
+    ":app-mysenior",
     ":benchmarks",
     ":catalog",
     ":composeApp",

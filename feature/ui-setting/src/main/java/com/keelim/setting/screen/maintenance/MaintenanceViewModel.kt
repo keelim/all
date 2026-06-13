@@ -1,7 +1,7 @@
 package com.keelim.setting.screen.maintenance
 
 import androidx.lifecycle.ViewModel
-import com.keelim.domain.MaintenanceChecker
+import com.keelim.common.maintenance.MaintenanceChecker
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 

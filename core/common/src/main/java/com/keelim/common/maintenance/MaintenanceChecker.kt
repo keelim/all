@@ -1,4 +1,4 @@
-package com.keelim.domain
+package com.keelim.common.maintenance
 
 import kotlinx.coroutines.flow.StateFlow
 

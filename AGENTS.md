@@ -6,13 +6,13 @@
 
 ## OVERVIEW
 
-Multi-app Android monorepo with 6 apps (grade calculator, deeplink tester, health tracker, bus info, finance tools, senior helper). Modern architecture: Jetpack Compose, Hilt DI, Room/DataStore, MVVM + UDF, multi-module Gradle with custom convention plugins.
+Multi-app Android monorepo with 6 `app-*` directories (5 currently registered `app-*` Gradle modules, plus app-like `:composeApp`). Modern architecture: Jetpack Compose, Hilt DI, Room/DataStore, MVVM + UDF, multi-module Gradle with custom convention plugins.
 
 ## STRUCTURE
 
 ```
 all/
-├── app-*/              # 6 independent apps (my-grade, arducon, nanda, comssa, cnubus, mysenior)
+├── app-*/              # 6 app directories (verify settings.gradle.kts for registered modules)
 ├── core/               # 14 shared modules (component, data, database, model, etc.)
 ├── feature/            # 5 shared feature modules (ui-setting, ui-scheme, etc.)
 ├── shared/             # Kotlin Multiplatform shared code (89 files, database models/DAOs)
@@ -36,13 +36,13 @@ all/
 
 ## MODULES
 
-### Apps (app-*)
+### Apps (app-* directories)
 - **app-my-grade** (237 files): Grade calculator, timer, study analytics, vocabulary
 - **app-arducon** (210 files): DeepLink tester, QR scanner, JSON formatter, device info
 - **app-nanda** (206 files): NANDA diagnosis, food/exercise tracker, water intake
 - **app-comssa** (28 files): Financial calculators, economic calendar, flashcards
 - **app-cnubus** (12 files): CNU bus real-time info, Google Maps integration
-- **app-mysenior** (4 files): Minimal app for seniors
+- **app-mysenior** (4 files): Minimal app for seniors; directory exists but is not currently registered in `settings.gradle.kts`
 
 ### Core Modules (core/*)
 - **component** (144 files): Shared Compose UI, custom components, theme utilities
@@ -81,6 +81,13 @@ all/
   )
   ```
 - **All user actions MUST be animation-friendly**: Use `LazyColumn` with `animateItem`, `AnimatedVisibility` for visibility changes
+
+### Design System Migration
+- **Android-only scope**: When migrating Compose UI to the design system, do not edit Web surfaces or sibling Web repos.
+- **Canonical surface**: Treat `core:designsystem` as the source for Android Compose tokens, themes, and primitives. Keep `core:component` as a compatibility wrapper or higher-level reusable widget layer backed by `core:designsystem`.
+- **Behavior boundary**: Preserve domain behavior, data logic, business rules, and calculation results. Layout and information architecture may be reorganized only when it improves design-system fit.
+- **Dirty-worktree boundary**: Existing uncommitted changes in `core/designsystem` or `core/component` are user-owned work. Integrate with them instead of reverting or replacing them.
+- **Verification gate**: For design-system migrations, run `:<affected-app-module>:assembleDebug` for each affected Android app module and report any remaining direct `MaterialTheme`, hardcoded color, or hardcoded spacing usages that are intentionally left.
 
 ### Formatting (Date/Currency/Number)
 - **Single Rule**: User-facing date/currency/number strings MUST go through shared formatters.
@@ -156,9 +163,10 @@ Per-app workflows in `.github/workflows/`:
 
 ## GOTCHAS
 
+- **App inventory vs Gradle registration**: Verify `settings.gradle.kts` before claiming which apps are buildable. This checkout has 6 `app-*` directories, but `settings.gradle.kts` currently includes 5 `app-*` modules; `app-mysenior` exists as a folder but is not registered, and `:composeApp` is also an app-like registered module.
 - **Android 16 (API 36) target**: Uses latest APIs (e.g., `Notification.ProgressStyle` for live updates in app-comssa)
 - **Multiplatform shared module**: Desktop window code in `shared/` - only used in compose-desktop contexts
-- **6 apps, independent builds**: Each app has its own workflow, can be deployed separately
+- **Registered apps, independent builds**: Registered app modules have their own workflows and can be deployed separately
 - **TODOs in code**: 11 TODOs found (mostly non-critical, see grep results)
 - **Version catalog**: `libs.versions.toml` is the source of truth for all versions
 - **Min SDK 26**: Supports Android 8.0+

@@ -10,8 +10,8 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.appopen.AppOpenAd
-import com.keelim.commonAndroid.BuildConfig
 import com.keelim.commonAndroid.model.AppInfo
+import com.keelim.deviceAndroid.BuildConfig
 import timber.log.Timber
 import jakarta.inject.Inject
 

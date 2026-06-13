@@ -38,6 +38,10 @@ app-arducon/
 - **Navigation**: Uses `NavDisplay` with `rememberViewModelStoreNavEntryDecorator` for scoped ViewModels.
 - **DeepLink Execution**: Uses `SchemeNotificationManager` to trigger test links via system notifications.
 - **QR Generation**: Logic moved to `core:common` but consumed via `generateQrBitmap` in ViewModels.
+- **Test Hub Home**: Keep `MainScreen` as the real app testing hub. Add or reorganize tools through the UI-only catalog in `ui/screen/main/ArduconToolCatalog.kt`, and route actions through existing `MainRoute`/`ArduconHost` navigation callbacks.
+- **Tool Hub Boundary**: Do not change `ArduconRepository`, Room schemas, or `DeepLink` models for home/tool-hub organization unless the feature explicitly needs persistence changes.
+- **Resources**: Add new user-facing tool-hub strings in `core/resource/src/commonMain/composeResources/values/strings.xml`. This module uses `com.keelim.core.resource.*` plus `stringResource(...)` for Compose resources.
+- **Verification**: For `MainScreen`/tool-hub changes, run `./gradlew :app-arducon:testDebugUnitTest` and `./gradlew :app-arducon:assembleDebug`.
 
 ## ANTI-PATTERNS
 - **Intent Spawning**: Avoid `context.startActivity` inside screens; propagate events to `ArduconHost`.

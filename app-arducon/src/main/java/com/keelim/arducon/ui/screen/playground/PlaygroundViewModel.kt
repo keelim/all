@@ -131,5 +131,5 @@ class PlaygroundViewModel @Inject constructor(
         _qrDialogState.value = QrDialogState.Hidden
     }
 
-    // generateQrBitmap moved to core-common util
+    // generateQrBitmap lives in the Android runtime helper slice.
 }

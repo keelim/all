@@ -7,6 +7,8 @@ import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.coVerify
 import io.mockk.mockk
+import io.mockk.slot
+import io.mockk.coEvery
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -36,10 +38,17 @@ class HistoryRepositoryImplTest : FunSpec({
 
     test("create는 point를 gradeRank/totalRank로 파싱하고 upsert 후 true를 반환한다") {
         runTest(testDispatcher) {
+            val slot = slot<SimpleHistory>()
+            coEvery { historyDao.upsertSimpleHistory(capture(slot)) } returns Unit
+
             val result = repository.create(subject = "수학", grade = "A", point = "1 / 10")
 
             result shouldBe true
             coVerify { historyDao.upsertSimpleHistory(any()) }
+            slot.captured.subject shouldBe "수학"
+            slot.captured.grade shouldBe "A"
+            slot.captured.gradeRank shouldBe 1
+            slot.captured.totalRank shouldBe 10
         }
     }
 

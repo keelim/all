@@ -2,6 +2,7 @@ package com.keelim.core.data.source
 
 import com.keelim.shared.data.database.dao.HistoryDao
 import com.keelim.shared.data.database.dao.TimerHistoryDao
+import com.keelim.shared.data.database.model.SimpleHistory
 import com.keelim.testing.util.MainDispatcherRule
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe

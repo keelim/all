@@ -38,7 +38,7 @@ class HistoryViewModelTest : FunSpec({
                 awaitItem() shouldBe persistentListOf(
                     GradeHistory(
                         subject = "Math",
-                        date = "2026-03-08",
+                        date = "2026.03.08",
                         grade = "A",
                         myGrade = 1,
                         totalStudent = 30,

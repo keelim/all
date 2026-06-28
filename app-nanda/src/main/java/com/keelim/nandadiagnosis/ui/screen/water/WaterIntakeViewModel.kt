@@ -2,6 +2,7 @@ package com.keelim.nandadiagnosis.ui.screen.water
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.keelim.common.extensions.formatUiTime
 import com.keelim.model.DailyWaterTotal
 import com.keelim.shared.data.database.dao.WaterIntakeDao
 import com.keelim.shared.data.database.model.WaterIntake
@@ -17,7 +18,6 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
-import java.util.Locale
 import jakarta.inject.Inject
 
 data class WaterIntakeUiModel(
@@ -54,16 +54,9 @@ class WaterIntakeViewModel @Inject constructor(
                 WaterIntakeUiModel(
                     id = record.id,
                     amount = record.amount,
-                    formattedTime = Instant.fromEpochMilliseconds(record.timestamp)
-                        .toLocalDateTime(TimeZone.currentSystemDefault())
-                        .let { dateTime ->
-                            String.format(
-                                Locale.getDefault(),
-                                "%02d:%02d",
-                                dateTime.hour,
-                                dateTime.minute,
-                            )
-                        },
+                        formattedTime = Instant.fromEpochMilliseconds(record.timestamp)
+                            .toLocalDateTime(TimeZone.currentSystemDefault())
+                            .let { dateTime -> formatUiTime(dateTime.hour, dateTime.minute) },
                 )
             }
         }

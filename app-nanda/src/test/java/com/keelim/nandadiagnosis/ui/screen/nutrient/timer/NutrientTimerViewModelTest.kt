@@ -1,5 +1,6 @@
 package com.keelim.nandadiagnosis.ui.screen.nutrient.timer
 
+import com.keelim.common.extensions.toUiAlignedTwoDigits
 import com.keelim.testing.util.MainDispatcherRule
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
@@ -95,8 +96,8 @@ class NutrientTimerViewModelTest : FunSpec({
     }
 
     test("formatTime and picker lists follow two-digit UI rules") {
-        formatTime(isLeadingZeroNeeded = true, value = 5) shouldBe "05"
-        formatTime(isLeadingZeroNeeded = false, value = 5) shouldBe " 5"
+        5.toUiAlignedTwoDigits(isLeadingZeroNeeded = true) shouldBe "05"
+        5.toUiAlignedTwoDigits(isLeadingZeroNeeded = false) shouldBe " 5"
         HOUR_LIST.first() shouldBe 0
         HOUR_LIST.last() shouldBe 12
         MINUTE_LIST.last() shouldBe 60

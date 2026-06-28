@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.trace
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import com.keelim.common.extensions.toUiTwoDigits
 import com.keelim.composeutil.component.custom.NumberPickerList
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space24
@@ -198,11 +199,11 @@ fun CircularCountDownTimer(
                     modifier = Modifier
                         .alpha(anim.value)
                         .scale(anim.value / 2f + .5f),
-                    text = "${formatTime(isLeadingZeroNeeded = true, value = leftTime / 3600)}:" +
+                    text = "${(leftTime / 3600).toUiTwoDigits()}:" +
                         "${
-                            formatTime(isLeadingZeroNeeded = true, value = (leftTime / 60) % 60)
+                            ((leftTime / 60) % 60).toUiTwoDigits()
                         }:" +
-                        formatTime(isLeadingZeroNeeded = true, value = leftTime % 60),
+                        (leftTime % 60).toUiTwoDigits(),
                     fontSize = 48.sp,
                 )
 

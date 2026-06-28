@@ -28,9 +28,6 @@ import com.keelim.common.extensions.toUiAlignedTwoDigits
 import com.keelim.composeutil.resource.space32
 import kotlinx.coroutines.flow.drop
 
-private fun formatTime(isLeadingZeroNeeded: Boolean = false, value: Int): String =
-    value.toUiAlignedTwoDigits(isLeadingZeroNeeded = isLeadingZeroNeeded)
-
 @Composable
 fun NumberPickerList(
     numbers: List<Int>,
@@ -85,7 +82,7 @@ fun NumberPickerList(
                 }
 
                 Text(
-                    text = formatTime(value = item),
+                    text = item.toUiAlignedTwoDigits(isLeadingZeroNeeded = false),
                     style = textStyle,
                     modifier = Modifier
                         .height(space32)

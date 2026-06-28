@@ -5,9 +5,9 @@ import io.kotest.matchers.shouldBe
 
 class SaastatusViewModelTest : FunSpec({
 
-    test("초기 상태는 빈 목록을 가진 Success 이어야 한다") {
+    test("초기 상태는 빈 목록이어야 한다") {
         val viewModel = SaastatusViewModel()
 
-        viewModel.state.value shouldBe SaastatusState.Success(emptyList())
+        viewModel.state.value shouldBe emptyList()
     }
 })

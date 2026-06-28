@@ -12,7 +12,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.arducon.ui.screen.saastatus.SaastatusColumn
-import com.keelim.composeutil.component.layout.Loading
 import com.keelim.composeutil.resource.space12
 
 @Composable
@@ -22,36 +21,31 @@ fun SaastatusRoute(
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     SaastatusScreen(
-        state = state,
+        items = state,
         onRegister = onRegister,
     )
 }
 
 @Composable
 fun SaastatusScreen(
-    state: SaastatusState,
+    items: List<SaastatusItem>,
     onRegister: () -> Unit,
 ) {
     SaastatusColumn {
-        when (state) {
-            SaastatusState.Loading -> Loading()
-            is SaastatusState.Success -> {
-                if (state.items.isEmpty()) {
-                    Column(
-                        modifier = Modifier.fillMaxSize(),
-                        verticalArrangement = Arrangement.Center,
-                    ) {
-                        SaastatusEmpty(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(space12),
-                            onRegister = onRegister,
-                        )
-                    }
-                } else {
-                    // not supported
-                }
+        if (items.isEmpty()) {
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+            ) {
+                SaastatusEmpty(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(space12),
+                    onRegister = onRegister,
+                )
             }
+        } else {
+            // not supported
         }
     }
 }
@@ -60,7 +54,7 @@ fun SaastatusScreen(
 @Composable
 private fun PreviewSaastatusScreen() {
     SaastatusScreen(
-        state = SaastatusState.Success(listOf()),
+        items = listOf(),
         onRegister = {},
     )
 }

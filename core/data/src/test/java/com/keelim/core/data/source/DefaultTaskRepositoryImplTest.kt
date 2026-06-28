@@ -1,9 +1,11 @@
 package com.keelim.core.data.source
 
+import com.keelim.core.data.model.NetworkTask
 import com.keelim.shared.data.database.dao.TaskDao
 import com.keelim.testing.util.MainDispatcherRule
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.string.shouldNotBeBlank
+import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.mockk
@@ -59,7 +61,7 @@ class DefaultTaskRepositoryImplTest : FunSpec({
 
     test("refresh()는 네트워크에서 데이터를 읽어와 로컬을 비우고 새로 upsert한다") {
         runTest(testDispatcher) {
-            every { networkDataSource.loadTasks() } returns emptyList()
+            coEvery { networkDataSource.loadTasks() } returns emptyList<NetworkTask>()
 
             repository.refresh()
 

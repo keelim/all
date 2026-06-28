@@ -47,6 +47,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.keelim.core.designsystem.component.KuiButton
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space8
 import kotlinx.coroutines.launch
@@ -122,12 +123,11 @@ fun Base64Screen(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(space8),
                 ) {
-                    Button(
-                        onClick = viewModel::processBase64,
-                        modifier = Modifier.weight(1f),
-                    ) {
-                        Text(if (uiState.selectedIndex == 0) "Encode" else "Decode")
-                    }
+                KuiButton(
+                    text = if (uiState.selectedIndex == 0) "Encode" else "Decode",
+                    onClick = viewModel::processBase64,
+                    modifier = Modifier.weight(1f),
+                )
                     Button(
                         onClick = viewModel::clear,
                         modifier = Modifier.weight(1f),

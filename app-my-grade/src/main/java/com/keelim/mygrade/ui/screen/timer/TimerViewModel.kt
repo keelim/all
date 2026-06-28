@@ -4,7 +4,6 @@ import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.keelim.common.extensions.formatUiTime
-import com.keelim.common.extensions.toUiAlignedTwoDigits
 import com.keelim.common.extensions.toUiTwoDigits
 import com.keelim.data.repository.HistoryRepository
 import com.keelim.data.repository.StudyAnalyticsRepository
@@ -28,10 +27,6 @@ import jakarta.inject.Inject
 @Stable
 enum class RunningState {
     STOPPED, STARTED
-}
-
-internal fun formatTime(isLeadingZeroNeeded: Boolean = false, value: Int): String {
-    return value.toUiAlignedTwoDigits(isLeadingZeroNeeded = isLeadingZeroNeeded)
 }
 
 internal val HOUR_LIST = (0..12).toList()

@@ -46,6 +46,7 @@ dependencies {
 
     testImplementation(libs.kotlinx.coroutines.android)
     testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.ktor.client.cio)
     testImplementation(libs.robolectric)
     testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.12.2")
 

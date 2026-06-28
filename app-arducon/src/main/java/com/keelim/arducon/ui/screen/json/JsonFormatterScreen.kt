@@ -42,6 +42,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.keelim.core.designsystem.component.KuiButton
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space8
 import com.keelim.core.resource.*
@@ -101,12 +102,11 @@ fun JsonFormatterScreen(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(space8),
             ) {
-                Button(
+                KuiButton(
+                    text = stringResource(Res.string.arducon_json_formatter_format_validate),
                     onClick = viewModel::formatJson,
                     modifier = Modifier.weight(1f),
-                ) {
-                    Text(stringResource(Res.string.arducon_json_formatter_format_validate))
-                }
+                )
                 Button(
                     onClick = viewModel::clear,
                     modifier = Modifier.weight(1f),

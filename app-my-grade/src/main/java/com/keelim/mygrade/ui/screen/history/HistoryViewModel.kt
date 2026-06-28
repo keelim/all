@@ -4,6 +4,7 @@ import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import com.keelim.common.Dispatcher
 import com.keelim.common.KeelimDispatchers
+import com.keelim.commonAndroid.extensions.toUiDate
 import com.keelim.data.repository.HistoryRepository
 import com.keelim.model.SimpleHistory
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,6 +18,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.mapLatest
+import kotlinx.datetime.LocalDateTime
 import jakarta.inject.Inject
 
 data class GradeHistory(
@@ -28,14 +30,17 @@ data class GradeHistory(
 )
 
 fun SimpleHistory.toGradeHistory(): GradeHistory {
-    // TODO: formatter 사용하기
     return GradeHistory(
         subject = subject,
-        date = date.split("T")[0],
+        date = date.toHistoryUiDate(),
         grade = grade,
         myGrade = gradeRank,
         totalStudent = totalRank,
     )
+}
+
+private fun String.toHistoryUiDate(): String {
+    return runCatching { LocalDateTime.parse(this).toUiDate() }.getOrDefault(this)
 }
 
 @Stable

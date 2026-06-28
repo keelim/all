@@ -1,6 +1,7 @@
 package com.keelim.mygrade.ui.screen.timer
 
 import app.cash.turbine.test
+import com.keelim.common.extensions.toUiAlignedTwoDigits
 import com.keelim.data.repository.HistoryRepository
 import com.keelim.data.repository.StudyAnalyticsRepository
 import com.keelim.testing.util.MainDispatcherRule
@@ -160,12 +161,12 @@ class TimerViewModelTest : FunSpec({
     }
 
     test("formatTime adds leading zero when needed") {
-        val result = formatTime(isLeadingZeroNeeded = true, value = 5)
+        val result = 5.toUiAlignedTwoDigits(isLeadingZeroNeeded = true)
         result shouldBe "05"
     }
 
     test("formatTime does not add leading zero when not needed") {
-        val result = formatTime(isLeadingZeroNeeded = false, value = 5)
+        val result = 5.toUiAlignedTwoDigits(isLeadingZeroNeeded = false)
         result shouldBe " 5"
     }
 })

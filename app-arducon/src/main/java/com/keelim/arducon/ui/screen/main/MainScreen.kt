@@ -95,6 +95,7 @@ fun MainRoute(
     onNavigateBase64Encoder: () -> Unit,
     onNavigateDeviceInfo: () -> Unit,
     onNavigateUrlShortener: () -> Unit,
+    onNavigateDeviceTestLab: () -> Unit,
     viewModel: MainViewModel = hiltViewModel(),
 ) {
     val schemeList by viewModel.schemeList.collectAsStateWithLifecycle()
@@ -153,6 +154,7 @@ fun MainRoute(
         recordDeepLinkUsage = viewModel::recordDeepLinkUsage,
         onNavigateStats = onNavigateStats,
         onNavigateUrlShortener = onNavigateUrlShortener,
+        onNavigateDeviceTestLab = onNavigateDeviceTestLab,
     )
 
     if (showBottomSheet != DeepLink.EMPTY) {
@@ -212,6 +214,7 @@ fun MainScreen(
     recordDeepLinkUsage: (DeepLink) -> Unit,
     onNavigateStats: () -> Unit,
     onNavigateUrlShortener: () -> Unit,
+    onNavigateDeviceTestLab: () -> Unit,
 ) {
     Scaffold(
         modifier = Modifier
@@ -268,6 +271,7 @@ fun MainScreen(
             recordDeepLinkUsage = recordDeepLinkUsage,
             onNavigateStats = onNavigateStats,
             onNavigateUrlShortener = onNavigateUrlShortener,
+            onNavigateDeviceTestLab = onNavigateDeviceTestLab,
         )
     }
 }
@@ -526,6 +530,7 @@ private fun PreviewMainScreen() {
         recordDeepLinkUsage = {},
         onNavigateStats = {},
         onNavigateUrlShortener = {},
+        onNavigateDeviceTestLab = {},
     )
 }
 

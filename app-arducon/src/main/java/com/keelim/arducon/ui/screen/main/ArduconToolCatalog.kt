@@ -22,6 +22,7 @@ internal enum class ArduconToolAction {
     Base64,
     UrlShortener,
     DeviceInfo,
+    DeviceTestLab,
     Saastatus,
     Stats,
 }
@@ -108,6 +109,13 @@ internal val arduconToolGroups = listOf(
                 badge = Res.string.arducon_tool_badge_device,
                 icon = Icons.Default.Info,
                 action = ArduconToolAction.DeviceInfo,
+            ),
+            ArduconToolItem(
+                title = Res.string.arducon_device_lab_title,
+                description = Res.string.arducon_tool_device_lab_desc,
+                badge = Res.string.arducon_tool_badge_device,
+                icon = Icons.Default.Build,
+                action = ArduconToolAction.DeviceTestLab,
             ),
             ArduconToolItem(
                 title = Res.string.arducon_tool_saastatus_title,

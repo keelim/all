@@ -352,6 +352,7 @@ fun DeepLinkSection(
     onNavigateJsonFormatter: () -> Unit,
     onNavigateBase64Encoder: () -> Unit,
     onNavigateDeviceInfo: () -> Unit,
+    onNavigateDeviceTestLab: () -> Unit,
     selectedCategory: String,
     onCategorySelected: (String) -> Unit,
     onShowNotification: (Int, String, String, String) -> Unit,
@@ -377,11 +378,12 @@ fun DeepLinkSection(
                         ArduconToolAction.OgTagPreview -> onNavigateOgTagPreview()
                         ArduconToolAction.JsonFormatter -> onNavigateJsonFormatter()
                         ArduconToolAction.Base64 -> onNavigateBase64Encoder()
-                        ArduconToolAction.UrlShortener -> onNavigateUrlShortener()
-                        ArduconToolAction.DeviceInfo -> onNavigateDeviceInfo()
-                        ArduconToolAction.Saastatus -> onNavigateSaastatus()
-                        ArduconToolAction.Stats -> onNavigateStats()
-                    }
+                            ArduconToolAction.UrlShortener -> onNavigateUrlShortener()
+                            ArduconToolAction.DeviceInfo -> onNavigateDeviceInfo()
+                            ArduconToolAction.DeviceTestLab -> onNavigateDeviceTestLab()
+                            ArduconToolAction.Saastatus -> onNavigateSaastatus()
+                            ArduconToolAction.Stats -> onNavigateStats()
+                        }
                 },
                 modifier = Modifier.animateItem(
                     placementSpec = tween(
@@ -926,5 +928,6 @@ private fun PreviewDeepLinkSection() {
         recordDeepLinkUsage = { },
         onNavigateStats = {},
         onNavigateUrlShortener = {},
+        onNavigateDeviceTestLab = {},
     )
 }

@@ -13,6 +13,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.keelim.composeutil.navigation.KeelimNavDisplay
 import com.keelim.arducon.ui.screen.base64.Base64Screen
 import com.keelim.arducon.ui.screen.deeplink.CreateDeepLinkRoute
+import com.keelim.arducon.ui.screen.device.DeviceTestLabRoute
 import com.keelim.arducon.ui.screen.json.JsonFormatterScreen
 import com.keelim.arducon.ui.screen.main.MainRoute
 import com.keelim.arducon.ui.screen.ogtag.OgTagPreviewRoute
@@ -87,11 +88,14 @@ fun ArduConHost(
                     onNavigateDeviceInfo = {
                         backStack.add(FeatureRoute.DeviceInfo)
                     },
-                    onNavigateUrlShortener = {
-                        backStack.add(ArduconRoute.UrlShortener)
-                    },
-                )
-            }
+                onNavigateUrlShortener = {
+                    backStack.add(ArduconRoute.UrlShortener)
+                },
+                onNavigateDeviceTestLab = {
+                    backStack.add(ArduconRoute.DeviceTestLab)
+                },
+            )
+        }
             entry<ArduconRoute.Qr> {
                 QrRoute(
                     onShowBarcode = { barcode ->
@@ -166,10 +170,16 @@ fun ArduConHost(
                     onNavigateBack = { backStack.removeLastOrNull() },
                 )
             }
-            entry<ArduconRoute.UrlShortener> {
-                UrlShortenerScreen(
-                    onNavigateBack = { backStack.removeLastOrNull() },
-                )
-            }
+        entry<ArduconRoute.UrlShortener> {
+            UrlShortenerScreen(
+                onNavigateBack = { backStack.removeLastOrNull() },
+            )
+        }
+
+        entry<ArduconRoute.DeviceTestLab> {
+            DeviceTestLabRoute(
+                onNavigateBack = { backStack.removeLastOrNull() },
+            )
+        }
     }
 }

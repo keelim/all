@@ -42,6 +42,9 @@ sealed interface ArduconRoute : AppRoute {
 
     @Serializable
     data object UrlShortener : ArduconRoute
+
+    @Serializable
+    data object DeviceTestLab : ArduconRoute
 }
 
 sealed interface CnuBusRoute : AppRoute {

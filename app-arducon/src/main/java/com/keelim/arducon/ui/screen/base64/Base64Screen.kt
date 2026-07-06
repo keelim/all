@@ -14,23 +14,22 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Clear
-import androidx.compose.material3.Button
-import androidx.compose.material3.Card
+import com.keelim.core.designsystem.component.KuiButton
+import com.keelim.core.designsystem.component.KuiCard
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.component.KuiIconButton
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SegmentedButton
+import com.keelim.core.designsystem.component.KuiOutlinedTextField
+import com.keelim.core.designsystem.component.KuiScaffold
+import com.keelim.core.designsystem.component.KuiSegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
-import androidx.compose.material3.SingleChoiceSegmentedButtonRow
-import androidx.compose.material3.SnackbarHost
+import com.keelim.core.designsystem.component.KuiSingleChoiceSegmentedButtonRow
+import com.keelim.core.designsystem.component.KuiSnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
+import com.keelim.core.designsystem.component.KuiText
+import com.keelim.core.designsystem.component.KuiTopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -65,23 +64,23 @@ fun Base64Screen(
     val scope = rememberCoroutineScope()
     val clipboardManager = LocalClipboardManager.current
 
-    Scaffold(
+    KuiScaffold(
         topBar = {
-            TopAppBar(
+            KuiTopAppBar(
                 title = {
-                    Text(
+                    KuiText(
                         text = "Base64 Tool",
                         style = KuiTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = onNavigateBack) {
-                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "back")
+                    KuiIconButton(onClick = onNavigateBack) {
+                        KuiIcon(imageVector = Icons.Default.ArrowBack, contentDescription = "back")
                     }
                 },
             )
         },
-        snackbarHost = { SnackbarHost(snackbarHostState) },
+        snackbarHost = { KuiSnackbarHost(snackbarHostState) },
     ) { padding ->
         LazyColumn(
             modifier = Modifier
@@ -91,30 +90,30 @@ fun Base64Screen(
             verticalArrangement = Arrangement.spacedBy(space16),
         ) {
             item {
-                SingleChoiceSegmentedButtonRow(
+                KuiSingleChoiceSegmentedButtonRow(
                     modifier = Modifier.fillMaxWidth(),
                 ) {
                     options.forEachIndexed { index, label ->
-                        SegmentedButton(
+                        KuiSegmentedButton(
                             shape = SegmentedButtonDefaults.itemShape(index = index, count = options.size),
                             onClick = { viewModel.updateSelectedIndex(index) },
                             selected = index == uiState.selectedIndex,
                         ) {
-                            Text(label)
+                            KuiText(label)
                         }
                     }
                 }
             }
 
             item {
-                OutlinedTextField(
+                KuiOutlinedTextField(
                     value = uiState.inputText,
                     onValueChange = viewModel::updateInputText,
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(150.dp),
-                    label = { Text(if (uiState.selectedIndex == 0) "Text to Encode" else "Base64 to Decode") },
-                    placeholder = { Text("Enter text here...") },
+                    label = { KuiText(if (uiState.selectedIndex == 0) "Text to Encode" else "Base64 to Decode") },
+                    placeholder = { KuiText("Enter text here...") },
                 )
             }
 
@@ -128,24 +127,24 @@ fun Base64Screen(
                     onClick = viewModel::processBase64,
                     modifier = Modifier.weight(1f),
                 )
-                    Button(
+                    KuiButton(
                         onClick = viewModel::clear,
                         modifier = Modifier.weight(1f),
                     ) {
-                        Icon(imageVector = Icons.Default.Clear, contentDescription = null)
+                        KuiIcon(imageVector = Icons.Default.Clear, contentDescription = null)
                         Spacer(modifier = Modifier.padding(start = space8))
-                        Text("Clear")
+                        KuiText("Clear")
                     }
                 }
             }
 
             if (uiState.errorMessage != null) {
                 item {
-                    Card(
+                    KuiCard(padded = false,
                         colors = CardDefaults.cardColors(containerColor = KuiTheme.colorScheme.errorContainer),
                         modifier = Modifier.fillMaxWidth(),
                     ) {
-                        Text(
+                        KuiText(
                             text = "Error: ${uiState.errorMessage}",
                             color = KuiTheme.colorScheme.onErrorContainer,
                             modifier = Modifier.padding(space16),
@@ -157,7 +156,7 @@ fun Base64Screen(
 
             if (uiState.outputText.isNotEmpty()) {
                 item {
-                    Card(
+                    KuiCard(padded = false,
                         modifier = Modifier.fillMaxWidth(),
                         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
                     ) {
@@ -166,12 +165,12 @@ fun Base64Screen(
                                 modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.SpaceBetween,
                             ) {
-                                Text(
+                                KuiText(
                                     text = "Result",
                                     style = KuiTheme.typography.titleMedium,
                                     fontWeight = FontWeight.Bold,
                                 )
-                                IconButton(
+                                KuiIconButton(
                                     onClick = {
                                         clipboardManager.setText(AnnotatedString(uiState.outputText))
                                         scope.launch {
@@ -179,11 +178,11 @@ fun Base64Screen(
                                         }
                                     },
                                 ) {
-                                    Icon(imageVector = Icons.Default.Check, contentDescription = "Copy")
+                                    KuiIcon(imageVector = Icons.Default.Check, contentDescription = "Copy")
                                 }
                             }
                             Spacer(modifier = Modifier.height(space8))
-                            Text(
+                            KuiText(
                                 text = uiState.outputText,
                                 style = KuiTheme.typography.bodyMedium,
                             )
@@ -194,7 +193,7 @@ fun Base64Screen(
 
             if (history.isNotEmpty()) {
                 item {
-                    Text(
+                    KuiText(
                         text = "History",
                         style = KuiTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold,
@@ -205,7 +204,7 @@ fun Base64Screen(
                     items = history,
                     key = { it.uid },
                 ) { item ->
-                    Card(
+                    KuiCard(padded = false,
                         modifier = Modifier
                             .fillMaxWidth()
                             .animateItem(),
@@ -219,20 +218,20 @@ fun Base64Screen(
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
                             Column(modifier = Modifier.weight(1f)) {
-                                Text(
+                                KuiText(
                                     text = if (item.isEncoded) "Encoded" else "Decoded",
                                     style = KuiTheme.typography.labelSmall,
                                     color = KuiTheme.colorScheme.onSurfaceVariant,
                                 )
-                                Text(
+                                KuiText(
                                     text = item.text,
                                     style = KuiTheme.typography.bodyMedium,
                                     maxLines = 1,
                                     overflow = TextOverflow.Ellipsis,
                                 )
                             }
-                            IconButton(onClick = { viewModel.deleteHistory(item) }) {
-                                Icon(imageVector = Icons.Default.Clear, contentDescription = "Delete")
+                            KuiIconButton(onClick = { viewModel.deleteHistory(item) }) {
+                                KuiIcon(imageVector = Icons.Default.Clear, contentDescription = "Delete")
                             }
                         }
                     }

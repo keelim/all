@@ -41,14 +41,14 @@ import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.rounded.Share
-import androidx.compose.material3.AssistChip
+import com.keelim.core.designsystem.component.KuiAssistChip
 import androidx.compose.material3.AssistChipDefaults
-import androidx.compose.material3.Card
+import com.keelim.core.designsystem.component.KuiCard
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
+import com.keelim.core.designsystem.component.KuiHorizontalDivider
+import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.component.KuiText
+import com.keelim.core.designsystem.component.KuiFilledTextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
@@ -97,15 +97,15 @@ fun MainTopSection(
         Column(
             verticalArrangement = Arrangement.spacedBy(space8),
         ) {
-            TextField(
+            KuiFilledTextField(
                 modifier = Modifier.fillMaxWidth(),
                 value = text,
                 isError = isError,
                 onValueChange = setText,
-                label = { Text("Deeplink URL") },
+                label = { KuiText("Deeplink URL") },
                 trailingIcon = {
                     if (text.isNotEmpty()) {
-                        Icon(
+                        KuiIcon(
                             imageVector = Icons.Default.Delete,
                             contentDescription = "Clear",
                             modifier = Modifier.clickable {
@@ -129,15 +129,15 @@ fun MainTopSection(
                 ),
             )
 
-            TextField(
+            KuiFilledTextField(
                 modifier = Modifier.fillMaxWidth(),
                 value = title,
                 isError = isError,
                 onValueChange = setTitle,
-                label = { Text("Title") },
+                label = { KuiText("Title") },
                 trailingIcon = {
                     if (title.isNotEmpty()) {
-                        Icon(
+                        KuiIcon(
                             imageVector = Icons.Default.Delete,
                             contentDescription = "Clear",
                             modifier = Modifier.clickable {
@@ -187,14 +187,14 @@ fun RegisterSchemeSection(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            TextField(
+            KuiFilledTextField(
                 modifier = Modifier.weight(1f),
                 value = scheme,
                 onValueChange = setScheme,
-                label = { Text("Scheme") },
+                label = { KuiText("Scheme") },
                 trailingIcon = {
                     if (scheme.isNotEmpty()) {
-                        Icon(
+                        KuiIcon(
                             imageVector = Icons.Default.Delete,
                             contentDescription = "Clear",
                             modifier = Modifier.clickable {
@@ -218,7 +218,7 @@ fun RegisterSchemeSection(
                 ),
             )
             Spacer(modifier = Modifier.width(space8))
-            Icon(
+            KuiIcon(
                 imageVector = Icons.Default.Add,
                 modifier = Modifier
                     .size(space32)
@@ -250,21 +250,21 @@ fun RegisterSchemeSection(
                             animationSpec = tween(300),
                         ),
                     ) {
-                        AssistChip(
+                        KuiAssistChip(
                             onClick = {
                                 setError(false)
                                 setText("$scheme://")
                             },
-                            label = { Text("$scheme://") },
+                            label = { KuiText("$scheme://") },
                             leadingIcon = {
-                                Icon(
+                                KuiIcon(
                                     Icons.Filled.Add,
                                     contentDescription = "Add $scheme",
                                     Modifier.size(AssistChipDefaults.IconSize),
                                 )
                             },
                             trailingIcon = {
-                                Icon(
+                                KuiIcon(
                                     Icons.Default.Close,
                                     contentDescription = "Delete $scheme",
                                     modifier = Modifier
@@ -290,21 +290,21 @@ fun RegisterSchemeSection(
                             animationSpec = tween(300),
                         ),
                     ) {
-                        AssistChip(
+                        KuiAssistChip(
                             onClick = {
                                 setError(false)
                                 setText("$scheme://")
                             },
-                            label = { Text("$scheme://") },
+                            label = { KuiText("$scheme://") },
                             leadingIcon = {
-                                Icon(
+                                KuiIcon(
                                     Icons.Filled.Add,
                                     contentDescription = "Add $scheme",
                                     Modifier.size(AssistChipDefaults.IconSize),
                                 )
                             },
                             trailingIcon = {
-                                Icon(
+                                KuiIcon(
                                     Icons.Default.Close,
                                     contentDescription = "Delete $scheme",
                                     modifier = Modifier
@@ -322,7 +322,7 @@ fun RegisterSchemeSection(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.End,
         ) {
-            Icon(
+            KuiIcon(
                 imageVector = if (isExpanded) Icons.Default.Close else Icons.Default.Add,
                 contentDescription = if (isExpanded) "Close" else "Open",
                 modifier = Modifier
@@ -410,7 +410,7 @@ fun DeepLinkSection(
                 onRegister = onRegister,
                 onDelete = onDeleteScheme,
             )
-            HorizontalDivider(
+            KuiHorizontalDivider(
                 color = KuiTheme.colorScheme.outlineVariant,
                 thickness = 1.dp,
             )
@@ -427,10 +427,10 @@ fun DeepLinkSection(
                     key = { it },
                 ) { category ->
                     val isSelected = selectedCategory == category
-                    AssistChip(
+                    KuiAssistChip(
                         onClick = { onCategorySelected(category) },
                         label = {
-                            Text(
+                            KuiText(
                                 text = category.ifEmpty { stringResource(Res.string.arducon_tool_category_all) },
                                 style = KuiTheme.typography.labelLarge,
                                 color = if (isSelected) {
@@ -462,7 +462,7 @@ fun DeepLinkSection(
         }
         if (favoriteItems.isNotEmpty()) {
             stickyHeader {
-                Text(
+                KuiText(
                     text = stringResource(Res.string.arducon_tool_history_favorite),
                     style = KuiTheme.typography.titleMedium,
                     color = KuiTheme.colorScheme.primary,
@@ -509,7 +509,7 @@ fun DeepLinkSection(
         }
         if (generalItems.isNotEmpty()) {
             stickyHeader {
-                Text(
+                KuiText(
                     text = stringResource(Res.string.arducon_tool_history_general),
                     style = KuiTheme.typography.titleMedium,
                     color = KuiTheme.colorScheme.primary,
@@ -561,7 +561,7 @@ private fun ArduconToolHubSection(
     onToolClick: (ArduconToolAction) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Card(
+    KuiCard(padded = false,
         modifier = modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(
             containerColor = KuiTheme.colorScheme.surface,
@@ -573,12 +573,12 @@ private fun ArduconToolHubSection(
             verticalArrangement = Arrangement.spacedBy(space16),
         ) {
             Column(verticalArrangement = Arrangement.spacedBy(space4)) {
-                Text(
+                KuiText(
                     text = stringResource(Res.string.arducon_tool_hub_title),
                     style = KuiTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
                     color = KuiTheme.colorScheme.primary,
                 )
-                Text(
+                KuiText(
                     text = stringResource(Res.string.arducon_tool_hub_subtitle),
                     style = KuiTheme.typography.bodyMedium,
                     color = KuiTheme.colorScheme.onSurfaceVariant,
@@ -604,7 +604,7 @@ private fun ArduconToolGroupSection(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(space8),
     ) {
-        Text(
+        KuiText(
             text = stringResource(group.title),
             style = KuiTheme.typography.titleMedium,
             color = KuiTheme.colorScheme.onSurface,
@@ -625,7 +625,7 @@ private fun ArduconToolCard(
     item: ArduconToolItem,
     onClick: () -> Unit,
 ) {
-    Card(
+    KuiCard(padded = false,
         modifier = Modifier
             .fillMaxWidth()
             .clickable(onClick = onClick),
@@ -640,7 +640,7 @@ private fun ArduconToolCard(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(space12),
         ) {
-            Icon(
+            KuiIcon(
                 imageVector = item.icon,
                 contentDescription = null,
                 tint = KuiTheme.colorScheme.primary,
@@ -655,14 +655,14 @@ private fun ArduconToolCard(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
-                    Text(
+                    KuiText(
                         text = stringResource(item.title),
                         style = KuiTheme.typography.titleSmall,
                         color = KuiTheme.colorScheme.onSurfaceVariant,
                     )
                     KuiBadge(text = stringResource(item.badge))
                 }
-                Text(
+                KuiText(
                     text = stringResource(item.description),
                     style = KuiTheme.typography.bodySmall,
                     color = KuiTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.78f),
@@ -682,12 +682,12 @@ private fun DeepLinkHistoryHeader(
             .padding(top = space8),
         verticalArrangement = Arrangement.spacedBy(space4),
     ) {
-        Text(
+        KuiText(
             text = stringResource(Res.string.arducon_tool_deeplink_history_title),
             style = KuiTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
             color = KuiTheme.colorScheme.primary,
         )
-        Text(
+        KuiText(
             text = stringResource(Res.string.arducon_tool_deeplink_history_desc),
             style = KuiTheme.typography.bodyMedium,
             color = KuiTheme.colorScheme.onSurfaceVariant,
@@ -699,7 +699,7 @@ private fun DeepLinkHistoryHeader(
 private fun DeepLinkHistoryEmptyCard(
     modifier: Modifier = Modifier,
 ) {
-    Card(
+    KuiCard(padded = false,
         modifier = modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(
             containerColor = KuiTheme.colorScheme.surfaceVariant,
@@ -709,12 +709,12 @@ private fun DeepLinkHistoryEmptyCard(
             modifier = Modifier.padding(space16),
             verticalArrangement = Arrangement.spacedBy(space4),
         ) {
-            Text(
+            KuiText(
                 text = stringResource(Res.string.arducon_tool_history_empty_title),
                 style = KuiTheme.typography.titleMedium,
                 color = KuiTheme.colorScheme.onSurfaceVariant,
             )
-            Text(
+            KuiText(
                 text = stringResource(Res.string.arducon_tool_history_empty_desc),
                 style = KuiTheme.typography.bodyMedium,
                 color = KuiTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.78f),
@@ -735,7 +735,7 @@ private fun DeepLinkItem(
     onGenerateQrCode: (DeepLink) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Card(
+    KuiCard(padded = false,
         modifier = modifier
             .fillMaxWidth()
             .combinedClickable(
@@ -753,7 +753,7 @@ private fun DeepLinkItem(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             if (deepLink.imageUrl.isEmpty()) {
-                Icon(
+                KuiIcon(
                     imageVector = Icons.Default.Close,
                     modifier = Modifier
                         .size(space64)
@@ -777,23 +777,23 @@ private fun DeepLinkItem(
                 verticalArrangement = Arrangement.spacedBy(space4),
             ) {
                 if (deepLink.title.isNotEmpty()) {
-                    Text(
+                    KuiText(
                         text = deepLink.title,
                         style = KuiTheme.typography.titleMedium,
                         color = KuiTheme.colorScheme.onSurfaceVariant,
                     )
                 }
-                Text(
+                KuiText(
                     text = deepLink.url,
                     style = KuiTheme.typography.bodyMedium,
                     color = KuiTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
                     maxLines = 1,
                 )
                 if (deepLink.category.isNotEmpty()) {
-                    AssistChip(
+                    KuiAssistChip(
                         onClick = { onCategoryClick(deepLink.category) },
                         label = {
-                            Text(
+                            KuiText(
                                 text = deepLink.category,
                                 style = KuiTheme.typography.bodySmall,
                             )
@@ -811,7 +811,7 @@ private fun DeepLinkItem(
                 targetState = deepLink.isBookMarked,
                 label = "bookmark",
             ) { targetState ->
-                Icon(
+                KuiIcon(
                     imageVector = if (targetState) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
                     contentDescription = "bookmark",
                     modifier = Modifier
@@ -826,7 +826,7 @@ private fun DeepLinkItem(
                 horizontalArrangement = Arrangement.spacedBy(space4),
                 maxItemsInEachRow = 2,
             ) {
-                Icon(
+                KuiIcon(
                     imageVector = Icons.Default.Notifications,
                     contentDescription = "show notification",
                     modifier = Modifier
@@ -841,7 +841,7 @@ private fun DeepLinkItem(
                         },
                     tint = KuiTheme.colorScheme.primary,
                 )
-                Icon(
+                KuiIcon(
                     imageVector = Icons.Default.PlayArrow,
                     contentDescription = "play",
                     modifier = Modifier
@@ -849,7 +849,7 @@ private fun DeepLinkItem(
                         .clickable { onPlay(deepLink.url) },
                     tint = KuiTheme.colorScheme.primary,
                 )
-                Icon(
+                KuiIcon(
                     imageVector = Icons.Rounded.Share,
                     contentDescription = "QR 코드 생성",
                     modifier = Modifier
@@ -857,7 +857,7 @@ private fun DeepLinkItem(
                         .clickable { onGenerateQrCode(deepLink) },
                     tint = KuiTheme.colorScheme.primary,
                 )
-                Icon(
+                KuiIcon(
                     imageVector = Icons.Default.Delete,
                     contentDescription = "delete",
                     modifier = Modifier

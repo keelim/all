@@ -8,8 +8,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Done
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
+import com.keelim.composeutil.component.kui.KuiMaterialTheme
+import com.keelim.composeutil.component.kui.KuiSurface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
@@ -19,16 +19,16 @@ import com.keelim.composeutil.resource.space8
 @Composable
 fun SelectableButton(modifier: Modifier = Modifier, isSelected: Boolean = false) {
     val (icon, iconColor) = if (isSelected) {
-        Icons.Filled.Done to MaterialTheme.colorScheme.onPrimary
+        Icons.Filled.Done to KuiMaterialTheme.colorScheme.onPrimary
     } else {
-        Icons.Filled.Add to MaterialTheme.colorScheme.primary
+        Icons.Filled.Add to KuiMaterialTheme.colorScheme.primary
     }
     val (borderColor, backgroundColor) = if (isSelected) {
-        MaterialTheme.colorScheme.primary to MaterialTheme.colorScheme.primary
+        KuiMaterialTheme.colorScheme.primary to KuiMaterialTheme.colorScheme.primary
     } else {
-        MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f) to MaterialTheme.colorScheme.onPrimary
+        KuiMaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f) to KuiMaterialTheme.colorScheme.onPrimary
     }
-    Surface(
+    KuiSurface(
         modifier = modifier.size(36.dp, 36.dp),
         color = backgroundColor,
         shape = CircleShape,

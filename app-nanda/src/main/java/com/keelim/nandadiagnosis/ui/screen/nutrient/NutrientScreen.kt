@@ -17,15 +17,14 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Call
 import androidx.compose.material.icons.outlined.Favorite
-import androidx.compose.material3.Button
+import com.keelim.core.designsystem.component.KuiButton
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.component.KuiCard
+import com.keelim.core.designsystem.component.KuiFloatingActionButton
+import com.keelim.core.designsystem.component.KuiIcon
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiScaffold
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -66,12 +65,12 @@ private fun NutrientScreen(
     onNutrientClick: (String, String) -> Unit,
     onNutrientTimerClick: () -> Unit,
 ) = trace("NutrientScreen") {
-    Scaffold(
+    KuiScaffold(
         floatingActionButton = {
-            FloatingActionButton(
+            KuiFloatingActionButton(
                 onClick = onNutrientTimerClick,
             ) {
-                Icon(
+                KuiIcon(
                     imageVector = Icons.Filled.Call,
                     contentDescription = null,
                 )
@@ -128,7 +127,7 @@ private fun NutrientCard(title: String, uri: String, onNutrientClick: () -> Unit
                 .clickable { onNutrientClick() }
                 .padding(space16),
         ) {
-            Card(Modifier.fillMaxWidth()) {
+        KuiCard(padded = false, modifier = Modifier.fillMaxWidth()) {
                 Box {
                     AsyncImage(
                         model =
@@ -141,7 +140,7 @@ private fun NutrientCard(title: String, uri: String, onNutrientClick: () -> Unit
                         contentScale = ContentScale.Crop,
                         contentDescription = "null",
                     )
-                    Button(
+                    KuiButton(
                         onClick = { onNutrientClick() },
                         modifier = Modifier
                             .align(Alignment.TopEnd)
@@ -152,17 +151,17 @@ private fun NutrientCard(title: String, uri: String, onNutrientClick: () -> Unit
                             contentColor = KuiTheme.colorScheme.onSurface,
                         ),
                     ) {
-                        Icon(Icons.Outlined.Favorite, contentDescription = "Favorite")
+                        KuiIcon(Icons.Outlined.Favorite, contentDescription = "Favorite")
                     }
                 }
             }
             Spacer(Modifier.height(space12))
             Row(horizontalArrangement = Arrangement.spacedBy(space12)) {
                 Column(verticalArrangement = Arrangement.spacedBy(space4)) {
-                    Text(title, maxLines = 1)
+                    KuiText(title, maxLines = 1)
                     // Row(horizontalArrangement = Arrangement.spacedBy(space8)) {
-                    //   Text("4.5")
-                    //   Icon(Icons.Rounded.Star, contentDescription = null, tint = Color(0xFFFF9800))
+                    //   KuiText("4.5")
+                    //   KuiIcon(Icons.Rounded.Star, contentDescription = null, tint = Color(0xFFFF9800))
                     // }
                 }
             }

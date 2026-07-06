@@ -4,10 +4,10 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
+import com.keelim.composeutil.component.kui.KuiIcon
+import com.keelim.composeutil.component.kui.KuiIconButton
+import com.keelim.composeutil.component.kui.KuiOutlinedTextField
+import com.keelim.composeutil.component.kui.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -28,20 +28,20 @@ fun HashTagTextField(
         }
     }
     Column(modifier = modifier) {
-        OutlinedTextField(
+        KuiOutlinedTextField(
             value = input,
             onValueChange = setInput,
-            leadingIcon = { Text(text = "#", fontWeight = FontWeight.Bold) },
-            placeholder = { Text(text = "hashtag 를 입력해주세요") },
+            leadingIcon = { KuiText(text = "#", fontWeight = FontWeight.Bold) },
+            placeholder = { KuiText(text = "hashtag 를 입력해주세요") },
             trailingIcon = {
                 AnimatedVisibility(
                     visible = input.isNotEmpty() && isValid,
                 ) {
-                    IconButton(onClick = {
+                    KuiIconButton(onClick = {
                         setInput("")
                         onAdd(input)
                     }) {
-                        Icon(imageVector = Icons.Default.AddCircle, contentDescription = null)
+                        KuiIcon(imageVector = Icons.Default.AddCircle, contentDescription = null)
                     }
                 }
             },
@@ -51,7 +51,7 @@ fun HashTagTextField(
     AnimatedVisibility(
         visible = isValid.not(),
     ) {
-        Text(
+        KuiText(
             text = "not valid hashTag",
         )
     }

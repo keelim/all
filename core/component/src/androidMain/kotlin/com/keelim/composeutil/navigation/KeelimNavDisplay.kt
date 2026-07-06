@@ -5,7 +5,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleOut
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
@@ -23,7 +23,7 @@ fun <T : Any> KeelimNavDisplay(
     onBack: () -> Unit = { backStack.removeLastOrNull() },
     entries: EntryProviderScope<T>.() -> Unit,
 ) {
-    val motionScheme = MaterialTheme.motionScheme
+    val motionScheme = KuiTheme.motionScheme
 
     NavDisplay(
         modifier = modifier,

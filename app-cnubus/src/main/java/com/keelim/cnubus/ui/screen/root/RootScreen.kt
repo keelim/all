@@ -22,19 +22,18 @@ import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.Card
+import com.keelim.core.designsystem.component.KuiCard
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.DropdownMenuItem
+import com.keelim.core.designsystem.component.KuiDropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExposedDropdownMenuBox
+import com.keelim.core.designsystem.component.KuiExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.component.KuiIconButton
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
+import com.keelim.core.designsystem.component.KuiModalBottomSheet
+import com.keelim.core.designsystem.component.KuiText
+import com.keelim.core.designsystem.component.KuiFilledTextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
@@ -130,7 +129,7 @@ private fun Success(
         // We'll show it if the list is empty (initially for search) or if we have a query.
         // Or we can just add it.
         // Search Bar
-        Card(
+        KuiCard(padded = false,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(space12),
@@ -138,11 +137,11 @@ private fun Success(
             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
             colors = CardDefaults.cardColors(containerColor = KuiTheme.colorScheme.surface)
         ) {
-            TextField(
+            KuiFilledTextField(
                 value = query,
                 onValueChange = onQueryChange,
                 modifier = Modifier.fillMaxWidth(),
-                placeholder = { Text(stringResource(Res.string.cnubus_search_station_placeholder)) },
+                placeholder = { KuiText(stringResource(Res.string.cnubus_search_station_placeholder)) },
                 singleLine = true,
                 colors = androidx.compose.material3.TextFieldDefaults.colors(
                     focusedContainerColor = Color.Transparent,
@@ -152,7 +151,7 @@ private fun Success(
                     unfocusedIndicatorColor = Color.Transparent,
                 ),
                 leadingIcon = {
-                    Icon(
+                    KuiIcon(
                         imageVector = androidx.compose.material.icons.Icons.Default.Search,
                         contentDescription = stringResource(Res.string.cnubus_tab_search)
                     )
@@ -191,7 +190,7 @@ fun RootDetailBottomSheet(
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    ModalBottomSheet(
+    KuiModalBottomSheet(
         onDismissRequest = onDismiss,
         modifier = modifier,
     ) {
@@ -207,13 +206,13 @@ fun RootDetailBottomSheet(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Text(
+                KuiText(
                     text = location.name,
                     style = KuiTheme.typography.headlineSmall,
                     color = KuiTheme.colorScheme.onSurface
                 )
-                IconButton(onClick = onFavoriteClick) {
-                    Icon(
+                KuiIconButton(onClick = onFavoriteClick) {
+                    KuiIcon(
                         imageVector = if (isFavorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
                         contentDescription = stringResource(Res.string.cnubus_tab_favorite),
                         tint = if (isFavorite) Color.Red else KuiTheme.colorScheme.onSurface
@@ -272,7 +271,7 @@ internal fun TimelineItem(
                     .background(KuiTheme.colorScheme.primary),
                 contentAlignment = Alignment.Center,
             ) {
-                Icon(
+                KuiIcon(
                     imageVector = when {
                         rootTitle.contains("노선") -> Icons.Default.LocationOn
                         rootTitle.contains("설정") -> Icons.Default.Settings
@@ -297,7 +296,7 @@ internal fun TimelineItem(
         }
 
         // 카드 내용
-            Card(
+            KuiCard(padded = false,
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1f),
@@ -312,13 +311,13 @@ internal fun TimelineItem(
                 horizontalAlignment = Alignment.Start,
                 verticalArrangement = Arrangement.Center,
             ) {
-                Text(
+                KuiText(
                     text = rootTitle,
                     style = KuiTheme.typography.titleMedium,
                     color = KuiTheme.colorScheme.onSurface,
                 )
                 Spacer(modifier = Modifier.height(4.dp))
-                Text(
+                KuiText(
                     text = stringResource(Res.string.cnubus_click_for_details),
                     style = KuiTheme.typography.bodySmall,
                     color = KuiTheme.colorScheme.onSurfaceVariant,
@@ -350,7 +349,7 @@ private fun RootTopBar(
             .padding(space8),
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
-        Text(
+        KuiText(
             text = title,
             style = KuiTheme.typography.headlineSmall,
         )
@@ -378,11 +377,11 @@ val roots = listOf(
 private fun ExposedDropdownMenuSample() {
     var expanded by remember { mutableStateOf(false) }
     var selectedOptionText by remember { mutableStateOf(roots[0]) }
-    ExposedDropdownMenuBox(
+    KuiExposedDropdownMenuBox(
         expanded = expanded,
         onExpandedChange = { expanded = !expanded },
     ) {
-        TextField(
+        KuiFilledTextField(
             modifier = Modifier.menuAnchor(),
             readOnly = true,
             value = selectedOptionText,
@@ -395,8 +394,8 @@ private fun ExposedDropdownMenuSample() {
             onDismissRequest = { expanded = false },
         ) {
             roots.fastForEach { selectionOption ->
-                DropdownMenuItem(
-                    text = { Text(selectionOption) },
+                KuiDropdownMenuItem(
+                    text = { KuiText(selectionOption) },
                     onClick = {
                         selectedOptionText = selectionOption
                         expanded = false

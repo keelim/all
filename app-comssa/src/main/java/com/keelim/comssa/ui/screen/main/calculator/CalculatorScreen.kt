@@ -10,18 +10,17 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Card
+import com.keelim.core.designsystem.component.KuiCard
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.ListItem
-import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.component.KuiHorizontalDivider
+import com.keelim.core.designsystem.component.KuiListItem
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.PrimaryScrollableTabRow
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Tab
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
+import com.keelim.core.designsystem.component.KuiPrimaryScrollableTabRow
+import com.keelim.core.designsystem.component.KuiScaffold
+import com.keelim.core.designsystem.component.KuiTab
+import com.keelim.core.designsystem.component.KuiText
+import com.keelim.core.designsystem.component.KuiTopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -63,17 +62,17 @@ fun CalculatorScreen(
     var selectedTabIndex by remember { mutableIntStateOf(0) }
     val tabs = CalculatorTypeUi.entries
 
-    Scaffold(
+    KuiScaffold(
         modifier = modifier,
         topBar = {
-            TopAppBar(
+            KuiTopAppBar(
                 title = {
                     Column {
-                        Text(
+                        KuiText(
                             text = stringResource(Res.string.calculator_title),
                             style = KuiTheme.typography.titleLarge,
                         )
-                        Text(
+                        KuiText(
                             text = stringResource(Res.string.calculator_subtitle),
                             style = KuiTheme.typography.bodySmall,
                             color = KuiTheme.colorScheme.onSurfaceVariant,
@@ -90,16 +89,16 @@ fun CalculatorScreen(
                 .padding(horizontal = 16.dp, vertical = 8.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            PrimaryScrollableTabRow(
+            KuiPrimaryScrollableTabRow(
                 selectedTabIndex = selectedTabIndex,
                 edgePadding = 0.dp,
             ) {
                 tabs.forEachIndexed { index, type ->
-                    Tab(
+                    KuiTab(
                         selected = selectedTabIndex == index,
                         onClick = { selectedTabIndex = index },
                         text = {
-                            Text(
+                            KuiText(
                                 text = type.title,
                                 style = KuiTheme.typography.labelLarge,
                             )
@@ -131,11 +130,11 @@ fun CalculatorScreen(
 
             AnimatedVisibility(visible = history.isNotEmpty()) {
                 Spacer(modifier = Modifier.height(8.dp))
-                Text(
+                KuiText(
                     text = stringResource(Res.string.calculator_history_title),
                     style = KuiTheme.typography.titleMedium,
                 )
-                HorizontalDivider(modifier = Modifier.fillMaxWidth().padding(top = 4.dp, bottom = 8.dp))
+                KuiHorizontalDivider(modifier = Modifier.fillMaxWidth().padding(top = 4.dp, bottom = 8.dp))
 
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
@@ -145,7 +144,7 @@ fun CalculatorScreen(
                         items = history,
                         key = { it.id },
                     ) { item ->
-                        Card(
+                        KuiCard(padded = false,
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .animateItem(),
@@ -153,15 +152,15 @@ fun CalculatorScreen(
                                 containerColor = KuiTheme.colorScheme.surfaceVariant,
                             ),
                         ) {
-                            ListItem(
+                            KuiListItem(
                                 headlineContent = {
-                                    Text(
+                                    KuiText(
                                         text = item.type.title,
                                         style = KuiTheme.typography.titleMedium,
                                     )
                                 },
                                 supportingContent = {
-                                    Text(
+                                    KuiText(
                                         text = stringResource(
                                             Res.string.calculator_result_prefix,
                                             item.result.values.joinToString(),

@@ -34,21 +34,20 @@ import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.DateRange
-import androidx.compose.material3.BottomSheetScaffold
-import androidx.compose.material3.Button
+import com.keelim.core.designsystem.component.KuiBottomSheetScaffold
+import com.keelim.core.designsystem.component.KuiButton
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
+import com.keelim.core.designsystem.component.KuiDropdownMenu
+import com.keelim.core.designsystem.component.KuiDropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FilledIconButton
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
+import com.keelim.core.designsystem.component.KuiFilledIconButton
+import com.keelim.core.designsystem.component.KuiHorizontalDivider
+import com.keelim.core.designsystem.component.KuiIcon
 import androidx.compose.material3.IconButtonDefaults
-import androidx.compose.material3.MaterialTheme
 import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.material3.SheetValue
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiSurface
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.material3.rememberStandardBottomSheetState
 import androidx.compose.runtime.Composable
@@ -157,7 +156,7 @@ fun TimerScreen(
         }
     }
 
-    BottomSheetScaffold(
+    KuiBottomSheetScaffold(
         scaffoldState = scaffoldState,
         sheetPeekHeight = 0.dp,
         sheetShape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
@@ -271,13 +270,13 @@ private fun TimerHeader(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Column {
-            Text(
+            KuiText(
                 text = "Focus Timer",
                 style = KuiTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold,
                 color = KuiTheme.colorScheme.onSurface,
             )
-            Text(
+            KuiText(
                 text = "집중 시간을 측정하세요",
                 style = KuiTheme.typography.bodyMedium,
                 color = KuiTheme.colorScheme.onSurfaceVariant,
@@ -285,26 +284,26 @@ private fun TimerHeader(
         }
 
         Box {
-            FilledIconButton(
+            KuiFilledIconButton(
                 onClick = { menuExpanded = true },
                 colors = IconButtonDefaults.filledIconButtonColors(
                     containerColor = KuiTheme.colorScheme.secondaryContainer,
                 ),
             ) {
-                Icon(
+                KuiIcon(
                     imageVector = Icons.Outlined.MoreVert,
                     contentDescription = "Menu",
                     tint = KuiTheme.colorScheme.onSecondaryContainer,
                 )
             }
 
-            DropdownMenu(
+            KuiDropdownMenu(
                 expanded = menuExpanded,
                 onDismissRequest = { menuExpanded = false },
             ) {
-                DropdownMenuItem(
+                KuiDropdownMenuItem(
                     text = {
-                        Text(
+                        KuiText(
                             text = "📊 Study Analytics",
                             style = KuiTheme.typography.bodyMedium,
                             color = KuiTheme.colorScheme.onSurface,
@@ -315,9 +314,9 @@ private fun TimerHeader(
                         onNavigateAnalytics()
                     },
                 )
-                DropdownMenuItem(
+                KuiDropdownMenuItem(
                     text = {
-                        Text(
+                        KuiText(
                             text = "📜 Timer History",
                             style = KuiTheme.typography.bodyMedium,
                             color = KuiTheme.colorScheme.onSurface,
@@ -328,10 +327,10 @@ private fun TimerHeader(
                         onNavigateTimerHistory()
                     },
                 )
-                HorizontalDivider()
-                DropdownMenuItem(
+                KuiHorizontalDivider()
+                KuiDropdownMenuItem(
                     text = {
-                        Text(
+                        KuiText(
                             text = "🔄 Reset Timer",
                             style = KuiTheme.typography.bodyMedium,
                             color = KuiTheme.colorScheme.error,
@@ -353,7 +352,7 @@ private fun TimePickerSection(
     onMinuteChange: (Int) -> Unit,
     onSecondChange: (Int) -> Unit,
 ) {
-    Surface(
+    KuiSurface(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(32.dp),
         color = KuiTheme.colorScheme.surfaceContainerHigh,
@@ -363,7 +362,7 @@ private fun TimePickerSection(
             modifier = Modifier.padding(32.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Icon(
+            KuiIcon(
                 imageVector = Icons.Rounded.DateRange,
                 contentDescription = null,
                 modifier = Modifier.size(48.dp),
@@ -372,7 +371,7 @@ private fun TimePickerSection(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            Text(
+            KuiText(
                 text = "시간 설정",
                 style = KuiTheme.typography.titleLarge,
                 fontWeight = FontWeight.SemiBold,
@@ -417,14 +416,14 @@ private fun TimePickerColumn(
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Text(
+        KuiText(
             text = label,
             style = KuiTheme.typography.labelMedium,
             color = KuiTheme.colorScheme.primary,
             fontWeight = FontWeight.Medium,
         )
         Spacer(modifier = Modifier.height(8.dp))
-        Surface(
+        KuiSurface(
             shape = RoundedCornerShape(16.dp),
             color = KuiTheme.colorScheme.surfaceContainerHighest,
         ) {
@@ -438,7 +437,7 @@ private fun TimePickerColumn(
 
 @Composable
 private fun TimePickerDivider() {
-    Text(
+    KuiText(
         text = ":",
         style = KuiTheme.typography.headlineLarge,
         color = KuiTheme.colorScheme.onSurfaceVariant,
@@ -540,7 +539,7 @@ private fun CountdownSection(
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                Text(
+                KuiText(
                     text = formatTimeDisplay(leftTime),
                     style = KuiTheme.typography.displayLarge,
                     fontWeight = FontWeight.Bold,
@@ -549,7 +548,7 @@ private fun CountdownSection(
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                Surface(
+                KuiSurface(
                     shape = RoundedCornerShape(20.dp),
                     color = KuiTheme.colorScheme.secondaryContainer.copy(alpha = 0.5f),
                 ) {
@@ -557,14 +556,14 @@ private fun CountdownSection(
                         modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
-                        Icon(
+                        KuiIcon(
                             imageVector = Icons.Rounded.DateRange,
                             contentDescription = null,
                             modifier = Modifier.size(16.dp),
                             tint = KuiTheme.colorScheme.onSecondaryContainer,
                         )
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text(
+                        KuiText(
                             text = addedTime,
                             style = KuiTheme.typography.bodyMedium,
                             color = KuiTheme.colorScheme.onSecondaryContainer,
@@ -591,7 +590,7 @@ private fun TimerControlButton(
 ) {
     val isStarted = isRunning == RunningState.STARTED
 
-    Button(
+    KuiButton(
         onClick = if (isStarted) onStop else onStart,
         modifier = Modifier
             .height(64.dp)
@@ -609,13 +608,13 @@ private fun TimerControlButton(
             pressedElevation = 4.dp,
         ),
     ) {
-        Icon(
+        KuiIcon(
             imageVector = if (isStarted) Icons.Rounded.Close else Icons.Default.PlayArrow,
             contentDescription = null,
             modifier = Modifier.size(28.dp),
         )
         Spacer(modifier = Modifier.width(12.dp))
-        Text(
+        KuiText(
             text = if (isStarted) "중지" else "시작",
             style = KuiTheme.typography.titleMedium,
             fontWeight = FontWeight.SemiBold,
@@ -646,7 +645,7 @@ private fun TimerBottomSheetContent(
         Spacer(modifier = Modifier.height(32.dp))
 
         // Icon
-        Surface(
+        KuiSurface(
             shape = CircleShape,
             color = if (isTimerComplete) {
                 KuiTheme.colorScheme.primaryContainer
@@ -656,7 +655,7 @@ private fun TimerBottomSheetContent(
             modifier = Modifier.size(80.dp),
         ) {
             Box(contentAlignment = Alignment.Center) {
-                Icon(
+                KuiIcon(
                     imageVector = if (isTimerComplete) {
                         Icons.Default.PlayArrow
                     } else {
@@ -675,7 +674,7 @@ private fun TimerBottomSheetContent(
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        Text(
+        KuiText(
             text = if (isTimerComplete) "타이머 완료! 🎉" else "시간을 설정해주세요",
             style = KuiTheme.typography.headlineSmall,
             fontWeight = FontWeight.Bold,
@@ -684,7 +683,7 @@ private fun TimerBottomSheetContent(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        Text(
+        KuiText(
             text = if (isTimerComplete) {
                 "집중 시간이 기록되었습니다"
             } else {
@@ -696,14 +695,14 @@ private fun TimerBottomSheetContent(
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        Button(
+        KuiButton(
             onClick = onDismiss,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(56.dp),
             shape = RoundedCornerShape(16.dp),
         ) {
-            Text(
+            KuiText(
                 text = "확인",
                 style = KuiTheme.typography.titleMedium,
                 fontWeight = FontWeight.SemiBold,

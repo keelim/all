@@ -16,6 +16,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.keelim.core.designsystem.theme.KuiTheme
@@ -41,7 +43,9 @@ private fun InlineLoading(modifier: Modifier, label: String) {
     val spacing = KuiTheme.spacing
 
     Row(
-        modifier = modifier.padding(horizontal = spacing.space4, vertical = spacing.space2),
+        modifier = modifier
+            .semantics { contentDescription = label }
+            .padding(horizontal = spacing.space4, vertical = spacing.space2),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(spacing.space2),
     ) {
@@ -64,9 +68,12 @@ private fun PanelLoading(
     val kuiColors = KuiTheme.colors
     val spacing = KuiTheme.spacing
     val colorScheme = KuiTheme.colorScheme
+    val selectedStep = if (steps.isEmpty()) -1 else activeStep.coerceIn(0, steps.lastIndex)
 
     Surface(
-        modifier = modifier,
+        modifier = modifier
+            .fillMaxWidth()
+            .semantics { contentDescription = label },
         shape = KuiTheme.shapes.large,
         color = kuiColors.surfaceSoft,
     ) {
@@ -89,7 +96,7 @@ private fun PanelLoading(
                     horizontalArrangement = Arrangement.spacedBy(spacing.space2),
                 ) {
                     itemsIndexed(steps) { index, step ->
-                        val active = index == activeStep
+                        val active = index <= selectedStep
                         Text(
                             text = step,
                             style = KuiTheme.typography.labelMedium,

@@ -9,10 +9,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.MaterialTheme
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiSurface
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -60,7 +59,7 @@ fun TaskChartDetailEntry(
     title: String,
     color: Color,
 ) = trace("TaskChartDetailEntry") {
-    Surface(
+    KuiSurface(
         modifier = Modifier
             .padding(vertical = 10.dp, horizontal = 40.dp),
     ) {
@@ -79,7 +78,7 @@ fun TaskChartDetailEntry(
             Column(
                 modifier = Modifier.fillMaxWidth(),
             ) {
-                Text(
+                KuiText(
                     modifier = Modifier.padding(start = 15.dp),
                     text = title,
                     style = KuiTheme.typography.titleLarge,

@@ -2,7 +2,7 @@ package com.keelim.composeutil.component.button
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.Badge
+import com.keelim.composeutil.component.kui.KuiBadge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,7 +18,7 @@ fun ContentBadge(
         modifier = modifier,
     ) {
         content()
-        Badge(
+        KuiBadge(
             modifier = Modifier
                 .align(Alignment.TopEnd)
                 .clip(CircleShape),

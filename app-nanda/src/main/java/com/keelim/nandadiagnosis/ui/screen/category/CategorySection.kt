@@ -29,17 +29,16 @@ import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material.icons.rounded.Notifications
-import androidx.compose.material3.Card
+import com.keelim.core.designsystem.component.KuiCard
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.ListItem
+import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.component.KuiIconButton
+import com.keelim.core.designsystem.component.KuiListItem
 import androidx.compose.material3.ListItemDefaults
-import androidx.compose.material3.MaterialTheme
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.OutlinedCard
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiOutlinedCard
+import com.keelim.core.designsystem.component.KuiSurface
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -115,7 +114,7 @@ fun CategoryStateSection(
                     modifier = Modifier.fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(space12),
                 ) {
-                    Text(
+                    KuiText(
                         text = "NANDA 진단 분류",
                         style = KuiTheme.typography.titleLarge.copy(
                             fontWeight = FontWeight.Bold,
@@ -145,14 +144,14 @@ private fun SectionCard(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(space12),
     ) {
-        Text(
+        KuiText(
             text = title,
             style = KuiTheme.typography.titleLarge.copy(
                 fontWeight = FontWeight.Bold,
             ),
             modifier = Modifier.padding(start = space4),
         )
-        OutlinedCard(
+        KuiOutlinedCard(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(space16),
             colors = CardDefaults.outlinedCardColors(
@@ -173,7 +172,7 @@ private fun MedicationEntryCard(
     onMedicationClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) = trace("MedicationEntryCard") {
-    Card(
+    KuiCard(padded = false,
         modifier = modifier
             .fillMaxWidth(),
         shape = RoundedCornerShape(space16),
@@ -199,12 +198,12 @@ private fun MedicationEntryCard(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(space16),
             ) {
-                Surface(
+                KuiSurface(
                     shape = CircleShape,
                     color = KuiTheme.colorScheme.surface.copy(alpha = 0.2f),
                     modifier = Modifier.size(48.dp)
                 ) {
-                    Icon(
+                    KuiIcon(
                         imageVector = Icons.Rounded.Notifications,
                         contentDescription = null,
                         modifier = Modifier
@@ -215,7 +214,7 @@ private fun MedicationEntryCard(
                 }
 
                 Column(modifier = Modifier.weight(1f)) {
-                    Text(
+                    KuiText(
                         text = "복약 알림 설정",
                         style = KuiTheme.typography.titleLarge.copy(
                             fontWeight = FontWeight.Bold,
@@ -223,13 +222,13 @@ private fun MedicationEntryCard(
                         color = KuiTheme.colorScheme.onPrimary,
                     )
                     Spacer(modifier = Modifier.height(space4))
-                    Text(
+                    KuiText(
                         text = "약 먹을 시간을 잊지 마세요!",
                         style = KuiTheme.typography.bodyMedium,
                         color = KuiTheme.colorScheme.onPrimary.copy(alpha = 0.8f),
                     )
                 }
-                Icon(
+                KuiIcon(
                     imageVector = Icons.AutoMirrored.Rounded.ArrowForward,
                     contentDescription = null,
                     tint = KuiTheme.colorScheme.onPrimary,
@@ -266,12 +265,12 @@ private fun Categories(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    Text(
+                    KuiText(
                         text = title,
                         style = KuiTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
                     )
-                    IconButton(onClick = { onEditTypeClick(type) }) {
-                        Icon(imageVector = Icons.Rounded.Edit, contentDescription = "Edit")
+                    KuiIconButton(onClick = { onEditTypeClick(type) }) {
+                        KuiIcon(imageVector = Icons.Rounded.Edit, contentDescription = "Edit")
                     }
                 }
 
@@ -286,14 +285,14 @@ private fun Categories(
                         contentAlignment = Alignment.Center,
                     ) {
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                            Icon(
+                            KuiIcon(
                                 imageVector = icon,
                                 contentDescription = null,
                                 tint = KuiTheme.colorScheme.onSurfaceVariant,
                                 modifier = Modifier.size(32.dp),
                             )
                             Spacer(modifier = Modifier.height(space8))
-                            Text(
+                            KuiText(
                                 text = emptyMessage,
                                 style = KuiTheme.typography.bodyMedium,
                                 color = KuiTheme.colorScheme.onSurfaceVariant,
@@ -302,10 +301,10 @@ private fun Categories(
                     }
                 } else {
                     items.fastForEachIndexed { index, item ->
-                        ListItem(
-                            headlineContent = { Text(item) },
+                        KuiListItem(
+                            headlineContent = { KuiText(item) },
                             leadingContent = {
-                                Icon(
+                                KuiIcon(
                                     imageVector = Icons.Outlined.Info,
                                     contentDescription = null,
                                 )
@@ -356,7 +355,7 @@ private fun CategoryGridCard(
     // For now, we use a subtle surface variant or a primary container
     val containerColor = KuiTheme.colorScheme.surfaceContainer
 
-    Card(
+    KuiCard(padded = false,
         modifier = modifier
             .aspectRatio(1.4f)
             .clip(RoundedCornerShape(space16))
@@ -381,13 +380,13 @@ private fun CategoryGridCard(
             Column(
                 modifier = Modifier.align(Alignment.CenterStart),
             ) {
-                Text(
+                KuiText(
                     text = "${index + 1}",
                     style = KuiTheme.typography.labelLarge,
                     color = KuiTheme.colorScheme.onSurfaceVariant,
                 )
                 Spacer(modifier = Modifier.height(space4))
-                Text(
+                KuiText(
                     text = categoryTitle,
                     style = KuiTheme.typography.titleMedium.copy(
                         fontWeight = FontWeight.Bold,

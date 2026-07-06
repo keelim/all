@@ -12,10 +12,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.material3.VerticalDivider
+import com.keelim.composeutil.component.kui.KuiIcon
+import com.keelim.composeutil.component.kui.KuiMaterialTheme
+import com.keelim.composeutil.component.kui.KuiText
+import com.keelim.composeutil.component.kui.KuiVerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
@@ -50,7 +50,7 @@ fun SimpleTimeline(
     ) {
         itemsIndexed(items) { index, it ->
             if (index != 0) {
-                VerticalDivider(
+                KuiVerticalDivider(
                     Modifier
                         .padding(vertical = space2)
                         .padding(start = (24 / 2).dp)
@@ -63,7 +63,7 @@ fun SimpleTimeline(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.padding(vertical = space8),
             ) {
-                Icon(
+                KuiIcon(
                     it.icon,
                     null,
                     tint = Color.White,
@@ -76,11 +76,11 @@ fun SimpleTimeline(
                         .padding(space4),
                 )
                 Spacer(Modifier.width(space16))
-                Text(it.text)
+                KuiText(it.text)
                 Spacer(Modifier.weight(1f))
-                Text(
+                KuiText(
                     text = it.time,
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = KuiMaterialTheme.typography.bodyMedium,
                 )
             }
         }

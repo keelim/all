@@ -8,10 +8,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Card
-import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.component.KuiCard
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -62,13 +61,13 @@ fun MapScreen(
                 horizontal = space24,
             ),
         ) {
-            Card(
+            KuiCard(padded = false,
                 modifier = Modifier.fillMaxWidth(),
             ) {
                 Row(
                     modifier = Modifier.padding(space8),
                 ) {
-                    Text(
+                    KuiText(
                         text = "CNUBUS",
                         modifier = Modifier.align(Alignment.CenterVertically),
                         style = KuiTheme.typography.titleSmall.copy(
@@ -101,7 +100,7 @@ private fun CustomMarker(
         snippet = marker.itemSnippet,
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(
+            KuiText(
                 modifier = Modifier.padding(top = 6.dp),
                 text = marker.title,
                 fontWeight = FontWeight.Bold,

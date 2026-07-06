@@ -14,13 +14,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
-import androidx.compose.material3.BasicAlertDialog
-import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.component.KuiBasicAlertDialog
+import com.keelim.core.designsystem.component.KuiButton
+import com.keelim.core.designsystem.component.KuiCircularProgressIndicator
+import com.keelim.core.designsystem.component.KuiIcon
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
@@ -80,7 +79,7 @@ private fun NutrientTimerScreen(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center,
         ) {
-            Button(
+            KuiButton(
                 onClick = {
                     when (viewModel.isRunning) {
                         RunningState.STOPPED -> viewModel.start()
@@ -88,7 +87,7 @@ private fun NutrientTimerScreen(
                     }
                 },
             ) {
-                Text(
+                KuiText(
                     text =
                     if (viewModel.isRunning == RunningState.STOPPED) {
                         "Start"
@@ -133,18 +132,18 @@ fun SelectTime(
                 Row {
                     NumberPickerList(numbers = HOUR_LIST, selectedItem = { viewModel.hour = it })
 
-                    Text(text = "h", modifier = Modifier.align(Alignment.CenterVertically))
+                    KuiText(text = "h", modifier = Modifier.align(Alignment.CenterVertically))
                 }
 
                 Row {
                     NumberPickerList(numbers = MINUTE_LIST, { viewModel.minute = it })
 
-                    Text(text = "m", modifier = Modifier.align(Alignment.CenterVertically))
+                    KuiText(text = "m", modifier = Modifier.align(Alignment.CenterVertically))
                 }
                 Row {
                     NumberPickerList(numbers = SECOND_LIST, { viewModel.second = it })
 
-                    Text(text = "s", modifier = Modifier.align(Alignment.CenterVertically))
+                    KuiText(text = "s", modifier = Modifier.align(Alignment.CenterVertically))
                 }
             }
         }
@@ -170,14 +169,14 @@ fun CircularCountDownTimer(
             modifier = modifier.size(350.dp),
             contentAlignment = Alignment.Center,
         ) {
-            CircularProgressIndicator(
+            KuiCircularProgressIndicator(
                 progress = { 100f },
                 modifier = Modifier.fillMaxSize(),
                 color = Color.LightGray,
                 strokeWidth = 10.dp,
             )
 
-            CircularProgressIndicator(
+            KuiCircularProgressIndicator(
                 progress = { progress.value },
                 modifier = Modifier.fillMaxSize(),
                 strokeWidth = 10.dp,
@@ -195,7 +194,7 @@ fun CircularCountDownTimer(
                     }
                 }
 
-                Text(
+                KuiText(
                     modifier = Modifier
                         .alpha(anim.value)
                         .scale(anim.value / 2f + .5f),
@@ -210,12 +209,12 @@ fun CircularCountDownTimer(
                 Spacer(modifier = Modifier.height(space24))
 
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(
+                    KuiIcon(
                         imageVector = Icons.Default.AccountBox,
                         modifier = Modifier.padding(space4),
                         contentDescription = null,
                     )
-                    Text(
+                    KuiText(
                         text = addedTime,
                     )
                 }
@@ -234,8 +233,8 @@ private fun PreviewTimerScreen() {
 private fun ShowDialog(
     onDismiss: () -> Unit,
 ) = trace("ShowDialog") {
-    BasicAlertDialog(onDismissRequest = onDismiss) {
-        Text(
+    KuiBasicAlertDialog(onDismissRequest = onDismiss) {
+        KuiText(
             text = "확인해 주세요",
             modifier = Modifier.padding(space8),
             style = KuiTheme.typography.titleLarge,

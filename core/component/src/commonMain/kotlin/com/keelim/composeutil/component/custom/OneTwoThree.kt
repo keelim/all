@@ -18,22 +18,22 @@ package com.keelim.composeutil.component.custom
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.material3.Text
+import com.keelim.composeutil.component.kui.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.sp
 
 @Composable
 fun OneTwoThreeRow() {
     Row {
-        Text(
+        KuiText(
             text = "One",
             fontSize = 48.sp,
         )
-        Text(
+        KuiText(
             text = "Two",
             fontSize = 48.sp,
         )
-        Text(
+        KuiText(
             text = "Three",
             fontSize = 48.sp,
         )
@@ -43,15 +43,15 @@ fun OneTwoThreeRow() {
 @Composable
 fun OneTwoThreeRow2() {
     Row(horizontalArrangement = Arrangement.Center) {
-        Text(
+        KuiText(
             text = "One",
             fontSize = 48.sp,
         )
-        Text(
+        KuiText(
             text = "Two",
             fontSize = 48.sp,
         )
-        Text(
+        KuiText(
             text = "Three",
             fontSize = 48.sp,
         )
@@ -61,15 +61,15 @@ fun OneTwoThreeRow2() {
 @Composable
 fun OneTwoThreeColumn() {
     Column {
-        Text(
+        KuiText(
             text = "One",
             fontSize = 48.sp,
         )
-        Text(
+        KuiText(
             text = "Two",
             fontSize = 48.sp,
         )
-        Text(
+        KuiText(
             text = "Three",
             fontSize = 48.sp,
         )
@@ -79,15 +79,15 @@ fun OneTwoThreeColumn() {
 @Composable
 fun OneTwoThreeColumn2() {
     Column(verticalArrangement = Arrangement.Center) {
-        Text(
+        KuiText(
             text = "One",
             fontSize = 48.sp,
         )
-        Text(
+        KuiText(
             text = "Two",
             fontSize = 48.sp,
         )
-        Text(
+        KuiText(
             text = "Three",
             fontSize = 48.sp,
         )

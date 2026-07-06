@@ -34,17 +34,16 @@ import androidx.compose.material.icons.rounded.ArrowDropDown
 import androidx.compose.material.icons.rounded.KeyboardArrowUp
 import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.material.icons.rounded.ThumbUp
-import androidx.compose.material3.CenterAlignedTopAppBar
+import com.keelim.core.designsystem.component.KuiCenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.component.KuiIconButton
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiScaffold
+import com.keelim.core.designsystem.component.KuiSurface
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.carousel.HorizontalMultiBrowseCarousel
+import com.keelim.core.designsystem.component.KuiHorizontalMultiBrowseCarousel
 import androidx.compose.material3.carousel.rememberCarouselState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
@@ -174,11 +173,11 @@ fun SettingsScreen(
             val settingsDeviceInfo = stringResource(Res.string.settings_category_device_info)
             val isDebuggable = context.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0
 
-            Scaffold(
+            KuiScaffold(
                 containerColor = KuiTheme.colorScheme.surface,
                 contentColor = KuiTheme.colorScheme.onSurface,
                 topBar = {
-                    CenterAlignedTopAppBar(
+                    KuiCenterAlignedTopAppBar(
                         colors =
                         TopAppBarDefaults.topAppBarColors(
                             containerColor =
@@ -191,10 +190,10 @@ fun SettingsScreen(
                             },
                         ),
                         modifier = Modifier.shadow(appBarElevation),
-                        title = { Text(text = settingsTitle) },
+                        title = { KuiText(text = settingsTitle) },
                         navigationIcon = {
-                            IconButton(onClick = { onBackPressedDispatcher.onBackPressed() }) {
-                                Icon(
+                            KuiIconButton(onClick = { onBackPressedDispatcher.onBackPressed() }) {
+                                KuiIcon(
                                     Icons.AutoMirrored.Rounded.ArrowBack,
                                     contentDescription = settingsBackDescription,
                                 )
@@ -289,7 +288,7 @@ fun SettingsScreen(
                                         color = KuiTheme.colorScheme.primaryContainer,
                                     ),
                             ) {
-                                Text(
+                                KuiText(
                                     text = stringResource(Res.string.settings_fcm_token, uiState.fcmToken),
                                     fontWeight = FontWeight.Bold,
                                     style = KuiTheme.typography.bodyLarge,
@@ -343,7 +342,7 @@ fun CategoryItem(
             ),
             label = "",
         )
-        Surface(
+        KuiSurface(
             modifier = modifier
                 .pointerInput(Unit) {
                     detectTapGestures(onPress = {
@@ -366,13 +365,13 @@ fun CategoryItem(
                     .scale(sizeScale),
                 horizontalArrangement = Arrangement.spacedBy(30.dp),
             ) {
-                Icon(
+                KuiIcon(
                     icon,
                     contentDescription = null,
                     modifier = Modifier.size(28.dp),
                     tint = KuiTheme.colorScheme.onSurface,
                 )
-                Text(title, style = KuiTheme.typography.bodyLarge)
+                KuiText(title, style = KuiTheme.typography.bodyLarge)
             }
         }
     }
@@ -385,7 +384,7 @@ fun FamilyServiceCarousel(
     modifier: Modifier = Modifier,
 ) {
     if (services.isEmpty()) return
-    HorizontalMultiBrowseCarousel(
+    KuiHorizontalMultiBrowseCarousel(
         state = rememberCarouselState { services.count() },
         preferredItemWidth = 200.dp,
         itemSpacing = space8,
@@ -407,7 +406,7 @@ fun FamilyServiceItem(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Surface(
+    KuiSurface(
         onClick = onClick,
         shape = KuiTheme.shapes.medium,
         color = if (service.actionUrl.isBlank()) KuiTheme.colorScheme.surfaceVariant else KuiTheme.colorScheme.primaryContainer,
@@ -420,7 +419,7 @@ fun FamilyServiceItem(
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier.padding(space16)
         ) {
-            Text(
+            KuiText(
                 text = service.title,
                 style = KuiTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,

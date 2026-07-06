@@ -3,9 +3,9 @@ package com.keelim.composeutil.component.button
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.component.KuiIconButton
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -18,8 +18,8 @@ fun PreviewContentBadge() {
         modifier = Modifier
             .size(42.dp),
         content = {
-            IconButton(onClick = { /*TODO*/ }) {
-                Icon(
+            KuiIconButton(onClick = { /*TODO*/ }) {
+                KuiIcon(
                     modifier = Modifier.size(42.dp),
                     imageVector = Icons.Filled.Notifications,
                     contentDescription = "NotificationIcon",
@@ -27,7 +27,7 @@ fun PreviewContentBadge() {
             }
         },
         badgeContent = {
-            Text(text = "99+")
+            KuiText(text = "99+")
         },
     )
 }

@@ -23,13 +23,12 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material3.Card
+import com.keelim.core.designsystem.component.KuiCard
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.component.KuiIcon
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiSurface
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -126,7 +125,7 @@ private fun ThemeHeader(
                     ),
                 contentAlignment = Alignment.Center,
             ) {
-                Icon(
+                KuiIcon(
                     imageVector = Icons.Default.Menu,
                     contentDescription = null,
                     tint = Color.White,
@@ -137,13 +136,13 @@ private fun ThemeHeader(
             Spacer(modifier = Modifier.width(space16))
 
             Column {
-                Text(
+                KuiText(
                     text = stringResource(Res.string.settings_theme_appearance_title),
                     style = KuiTheme.typography.headlineMedium,
                     fontWeight = FontWeight.Bold,
                     color = KuiTheme.colorScheme.onBackground,
                 )
-                Text(
+                KuiText(
                     text = stringResource(Res.string.settings_theme_appearance_subtitle),
                     style = KuiTheme.typography.bodyMedium,
                     color = KuiTheme.colorScheme.onSurfaceVariant,
@@ -163,7 +162,7 @@ private fun ThemeSelectionSection(
         modifier = modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(space12),
     ) {
-        Text(
+        KuiText(
             text = stringResource(Res.string.settings_theme_choose),
             style = KuiTheme.typography.titleMedium,
             fontWeight = FontWeight.SemiBold,
@@ -231,7 +230,7 @@ private fun ThemeOptionCard(
         label = "borderColor",
     )
 
-    Card(
+    KuiCard(padded = false,
         modifier = modifier
             .scale(scale),
         onClick = onClick,
@@ -255,14 +254,14 @@ private fun ThemeOptionCard(
         ) {
             // Icon with gradient background
 
-            Text(
+            KuiText(
                 text = title,
                 style = KuiTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
                 color = KuiTheme.colorScheme.onSurface,
             )
 
-            Text(
+            KuiText(
                 text = subtitle,
                 style = KuiTheme.typography.bodySmall,
                 color = KuiTheme.colorScheme.onSurfaceVariant,
@@ -279,7 +278,7 @@ private fun ThemeOptionCard(
                         .background(KuiTheme.colorScheme.primary),
                     contentAlignment = Alignment.Center,
                 ) {
-                    Icon(
+                    KuiIcon(
                         imageVector = Icons.Default.Check,
                         contentDescription = stringResource(Res.string.settings_theme_selected),
                         tint = KuiTheme.colorScheme.onPrimary,
@@ -323,7 +322,7 @@ private fun ThemePreviewCard(
         label = "previewText",
     )
 
-    Card(
+    KuiCard(padded = false,
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(
@@ -333,7 +332,7 @@ private fun ThemePreviewCard(
         Column(
             modifier = Modifier.padding(space16),
         ) {
-            Text(
+            KuiText(
                 text = stringResource(Res.string.settings_theme_preview),
                 style = KuiTheme.typography.titleMedium,
                 fontWeight = FontWeight.SemiBold,
@@ -343,7 +342,7 @@ private fun ThemePreviewCard(
             Spacer(modifier = Modifier.height(space12))
 
             // Mini preview
-            Surface(
+            KuiSurface(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(120.dp),
@@ -381,7 +380,7 @@ private fun ThemePreviewCard(
 
             Spacer(modifier = Modifier.height(space12))
 
-            Text(
+            KuiText(
                 text = when (selectedTheme) {
                     ThemeType.LIGHT -> stringResource(Res.string.settings_theme_preview_light)
                     ThemeType.DARK -> stringResource(Res.string.settings_theme_preview_dark)

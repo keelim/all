@@ -28,18 +28,18 @@ import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.Card
+import com.keelim.core.designsystem.component.KuiCard
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.FloatingActionButtonMenu
-import androidx.compose.material3.FloatingActionButtonMenuItem
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.component.KuiFloatingActionButtonMenu
+import com.keelim.core.designsystem.component.KuiFloatingActionButtonMenuItem
+import com.keelim.core.designsystem.component.KuiHorizontalDivider
+import com.keelim.core.designsystem.component.KuiIcon
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.ShortNavigationBar
-import androidx.compose.material3.ShortNavigationBarItem
-import androidx.compose.material3.Text
-import androidx.compose.material3.ToggleFloatingActionButton
+import com.keelim.core.designsystem.theme.KeelimDesignSystemTheme
+import com.keelim.core.designsystem.component.KuiShortNavigationBar
+import com.keelim.core.designsystem.component.KuiShortNavigationBarItem
+import com.keelim.core.designsystem.component.KuiText
+import com.keelim.core.designsystem.component.KuiToggleFloatingActionButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableIntState
 import androidx.compose.runtime.mutableStateOf
@@ -106,7 +106,7 @@ fun FinanceMainSection(
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    Text(
+                    KuiText(
                         text = stringResource(Res.string.comssa_finance_empty_state_end),
                         style = KuiTheme.typography.bodyMedium.copy(
                             fontWeight = FontWeight.Bold,
@@ -132,14 +132,14 @@ fun FinanceHeaderItem(modifier: Modifier = Modifier) = trace("FinanceHeaderItem"
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Column {
-                Text(
+                KuiText(
                     text = stringResource(Res.string.comssa_finance_header_title),
                     style = KuiTheme.typography.headlineMedium.copy(
                         fontWeight = FontWeight.Bold,
                         color = KuiTheme.colorScheme.onPrimaryContainer,
                     ),
                 )
-                Text(
+                KuiText(
                     text = stringResource(Res.string.comssa_finance_header_subtitle),
                     style = KuiTheme.typography.bodyMedium.copy(
                         color = KuiTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f),
@@ -151,7 +151,7 @@ fun FinanceHeaderItem(modifier: Modifier = Modifier) = trace("FinanceHeaderItem"
         }
 
         Spacer(modifier = Modifier.height(space8))
-        HorizontalDivider(
+        KuiHorizontalDivider(
             color = KuiTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.1f),
             thickness = 1.dp,
         )
@@ -165,7 +165,7 @@ fun FinanceListItem(
     onSourceClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) = trace("FinanceListItem") {
-    Card(
+    KuiCard(padded = false,
         modifier = modifier
             .fillMaxWidth()
             .clickable { onItemClick(item) }
@@ -185,7 +185,7 @@ fun FinanceListItem(
                 Column(
                     modifier = Modifier.weight(1f),
                 ) {
-                    Text(
+                    KuiText(
                         text = item.title,
                         style = KuiTheme.typography.titleMedium.copy(
                             fontWeight = FontWeight.Bold,
@@ -196,7 +196,7 @@ fun FinanceListItem(
 
                     Spacer(modifier = Modifier.height(space4))
 
-                    Text(
+                    KuiText(
                         text = item.description,
                         style = KuiTheme.typography.bodyMedium,
                         maxLines = 3,
@@ -224,7 +224,7 @@ fun FinanceListItem(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Text(
+                KuiText(
                     text = item.source,
                     style = KuiTheme.typography.bodySmall.copy(
                         fontWeight = FontWeight.Medium,
@@ -233,7 +233,7 @@ fun FinanceListItem(
                     modifier = Modifier.clickable { onSourceClick(item.source) },
                 )
 
-                Text(
+                KuiText(
                     text = item.category,
                     style = KuiTheme.typography.bodySmall.copy(
                         fontWeight = FontWeight.Medium,
@@ -257,14 +257,14 @@ fun FinanceFloatingButton(
 
     val (isExpanded, setIsExpanded) = remember { mutableStateOf(false) }
 
-    FloatingActionButtonMenu(
+    KuiFloatingActionButtonMenu(
         expanded = isExpanded,
         button = {
-            ToggleFloatingActionButton(
+            KuiToggleFloatingActionButton(
                 checked = isExpanded,
                 onCheckedChange = setIsExpanded,
                 content = {
-                    Icon(
+                    KuiIcon(
                         imageVector = if (isExpanded) Icons.Filled.Menu else Icons.Filled.Add,
                         contentDescription = if (isExpanded) stringResource(Res.string.common_menu_close) else stringResource(Res.string.common_menu_open),
                     )
@@ -272,14 +272,14 @@ fun FinanceFloatingButton(
             )
         },
     ) {
-        FloatingActionButtonMenuItem(
+        KuiFloatingActionButtonMenuItem(
             onClick = {
                 coroutineScope.launch {
                     listState.animateScrollToItem(0)
                 }
             },
             icon = {
-                Icon(
+                KuiIcon(
                     imageVector = Icons.Filled.KeyboardArrowUp,
                     contentDescription = stringResource(Res.string.comssa_finance_scroll_to_top),
                 )
@@ -287,22 +287,22 @@ fun FinanceFloatingButton(
             text = { },
         )
 
-        FloatingActionButtonMenuItem(
+        KuiFloatingActionButtonMenuItem(
             onClick = {
                 refresh()
                 Timber.d("Finance RSS refresh clicked")
             },
             icon = {
-                Icon(
+                KuiIcon(
                     imageVector = Icons.Filled.Refresh,
                     contentDescription = stringResource(Res.string.common_action_refresh),
                 )
             },
-            text = { Text(text = stringResource(Res.string.common_action_refresh)) },
+            text = { KuiText(text = stringResource(Res.string.common_action_refresh)) },
         )
 
         items.fastForEach { item ->
-            FloatingActionButtonMenuItem(
+            KuiFloatingActionButtonMenuItem(
                 onClick = {
                     Timber.d("Finance filter clicked: ${item.label}")
                     updateFilter(item)
@@ -311,12 +311,12 @@ fun FinanceFloatingButton(
                     }
                 },
                 icon = {
-                    Icon(
+                    KuiIcon(
                         imageVector = item.imageVector,
                         contentDescription = item.label,
                     )
                 },
-                text = { Text(item.label) },
+                text = { KuiText(item.label) },
             )
         }
     }
@@ -326,36 +326,36 @@ fun FinanceFloatingButton(
 fun FinanceNavigationBar(
     navigationIndex: MutableIntState,
 ) {
-    ShortNavigationBar {
-        ShortNavigationBarItem(
+    KuiShortNavigationBar {
+        KuiShortNavigationBarItem(
             selected = navigationIndex.intValue == 0,
             onClick = {
                 navigationIndex.intValue = 0
             },
             icon = {
-                Icon(
+                KuiIcon(
                     imageVector = Icons.Filled.List,
                     contentDescription = stringResource(Res.string.comssa_finance_tab_news),
                 )
             },
             label = {
-                Text(text = stringResource(Res.string.comssa_finance_tab_news))
+                KuiText(text = stringResource(Res.string.comssa_finance_tab_news))
             },
         )
 
-        ShortNavigationBarItem(
+        KuiShortNavigationBarItem(
             selected = navigationIndex.intValue == 1,
             onClick = {
                 navigationIndex.intValue = 1
             },
             icon = {
-                Icon(
+                KuiIcon(
                     imageVector = Icons.Filled.Settings,
                     contentDescription = stringResource(Res.string.comssa_finance_tab_settings),
                 )
             },
             label = {
-                Text(text = stringResource(Res.string.comssa_finance_tab_settings))
+                KuiText(text = stringResource(Res.string.comssa_finance_tab_settings))
             },
         )
     }
@@ -364,7 +364,7 @@ fun FinanceNavigationBar(
 @Preview
 @Composable
 private fun PreviewFinanceListItem() {
-    MaterialTheme {
+    KeelimDesignSystemTheme {
         FinanceListItem(
             item = FinanceRssItem(
                 title = "삼성전자 주가 상승",

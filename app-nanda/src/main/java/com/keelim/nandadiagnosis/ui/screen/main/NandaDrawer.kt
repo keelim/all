@@ -26,11 +26,10 @@ import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material.icons.rounded.Settings
-import androidx.compose.material3.Card
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.component.KuiCard
+import com.keelim.core.designsystem.component.KuiIcon
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.Alignment
@@ -122,7 +121,7 @@ fun NandaDrawer(
     ) {
         Column(modifier = Modifier.align(Alignment.TopCenter)) {
             Spacer(modifier = Modifier.height(space8))
-            Text(
+            KuiText(
                 text = stringResource(Res.string.nanda_app_name),
                 modifier = Modifier.padding(start = space8),
                 style = KuiTheme.typography.titleMedium,
@@ -152,7 +151,7 @@ fun NandaDrawer(
                 },
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Icon(
+            KuiIcon(
                 imageVector = Icons.Rounded.Settings,
                 contentDescription = null,
                 modifier = Modifier.size(36.dp),
@@ -170,7 +169,7 @@ private fun NavigationCard(
     Row(
         modifier = modifier.fillMaxWidth(),
     ) {
-        Card(
+        KuiCard(padded = false,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(space4),
@@ -184,7 +183,7 @@ private fun NavigationCard(
             ) {
                 when (item) {
                     is NandaNavItem.SmallType -> {
-                        Icon(
+                        KuiIcon(
                             imageVector = Icons.AutoMirrored.Sharp.ArrowBack,
                             contentDescription = "${item.name} Icon",
                         )
@@ -195,8 +194,8 @@ private fun NavigationCard(
 
                     else -> Unit
                 }
-                Icon(imageVector = item.icon, contentDescription = "${item.name} Icon")
-                Text(
+                KuiIcon(imageVector = item.icon, contentDescription = "${item.name} Icon")
+                KuiText(
                     modifier = Modifier.padding(start = space24),
                     text = item.name,
                 )

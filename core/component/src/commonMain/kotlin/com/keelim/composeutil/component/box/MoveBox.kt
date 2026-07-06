@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Text
+import com.keelim.composeutil.component.kui.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -35,7 +35,7 @@ fun MoveBox(modifier: Modifier = Modifier) {
             }
         },
     ) {
-        Text("Tab ", Modifier.align(Alignment.Center))
+        KuiText("Tab ", Modifier.align(Alignment.Center))
         Box(
             modifier =
             Modifier.offset {

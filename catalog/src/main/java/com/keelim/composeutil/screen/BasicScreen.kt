@@ -25,11 +25,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiButton
+import com.keelim.core.designsystem.theme.KuiTheme
+import com.keelim.core.designsystem.component.KuiOutlinedButton
+import com.keelim.core.designsystem.component.KuiSurface
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -55,8 +55,8 @@ private fun Greeting(name: String) {
         ),
         label = "",
     )
-    Surface(
-        color = MaterialTheme.colorScheme.primary,
+    KuiSurface(
+        color = KuiTheme.colorScheme.primary,
         modifier = Modifier.padding(vertical = space4, horizontal = space8),
     ) {
         Row(modifier = Modifier.padding(space24)) {
@@ -65,13 +65,13 @@ private fun Greeting(name: String) {
                     .weight(1f)
                     .padding(bottom = extraPadding.coerceAtLeast(0.dp)),
             ) {
-                Text(text = "Hello, ")
-                Text(text = name)
+                KuiText(text = "Hello, ")
+                KuiText(text = name)
             }
-            OutlinedButton(
+            KuiOutlinedButton(
                 onClick = { expanded = !expanded },
             ) {
-                Text(if (expanded) "Show less" else "Show more")
+                KuiText(if (expanded) "Show less" else "Show more")
             }
         }
     }
@@ -91,18 +91,18 @@ fun OnBoarding() {
     var shouldShowOnBoarding by rememberSaveable {
         mutableStateOf(true)
     }
-    Surface {
+    KuiSurface {
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Text("Welcome to the basic Codelab!")
-            Button(
+            KuiText("Welcome to the basic Codelab!")
+            KuiButton(
                 modifier = Modifier.padding(vertical = space24),
                 onClick = { shouldShowOnBoarding = false },
             ) {
-                Text(text = "Continue")
+                KuiText(text = "Continue")
             }
         }
     }

@@ -19,15 +19,15 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Info
-import androidx.compose.material3.Button
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.component.KuiButton
+import com.keelim.core.designsystem.component.KuiHorizontalDivider
+import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.component.KuiIconButton
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.theme.KeelimDesignSystemTheme
+import com.keelim.core.designsystem.component.KuiOutlinedTextField
+import com.keelim.core.designsystem.component.KuiSurface
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -84,7 +84,7 @@ fun OgTagPreviewScreen(
                 .padding(bottom = 60.dp), // AdBannerView를 위한 여백
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            OutlinedTextField(
+            KuiOutlinedTextField(
                 value = url,
                 onValueChange = { newValue ->
                     url = newValue.ifEmpty {
@@ -98,14 +98,14 @@ fun OgTagPreviewScreen(
                         null
                     }
                 },
-                label = { Text("URL 입력") },
+                label = { KuiText("URL 입력") },
                 modifier = Modifier.fillMaxWidth(),
                 isError = errorMessage != null,
                 supportingText = {
-                    errorMessage?.let { Text(it) }
+                    errorMessage?.let { KuiText(it) }
                 },
                 trailingIcon = {
-                    IconButton(
+                    KuiIconButton(
                         onClick = {
                             url = "https://"
                             errorMessage = null
@@ -113,7 +113,7 @@ fun OgTagPreviewScreen(
                             urlInfo = null
                         },
                     ) {
-                        Icon(
+                        KuiIcon(
                             imageVector = Icons.Default.Clear,
                             contentDescription = "Clear URL",
                         )
@@ -127,13 +127,13 @@ fun OgTagPreviewScreen(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.End,
             ) {
-                Button(
+                KuiButton(
                     onClick = {
                         try {
                             val uri = url.toUri()
                             if (uri.scheme == null || uri.host == null) {
                                 errorMessage = "올바른 URL 형식이 아닙니다"
-                                return@Button
+                                return@KuiButton
                             }
                             urlInfo = uri
                             parseTag(url) { data ->
@@ -145,14 +145,14 @@ fun OgTagPreviewScreen(
                         }
                     },
                 ) {
-                    Text("미리보기")
+                    KuiText("미리보기")
                 }
             }
 
             Spacer(modifier = Modifier.height(16.dp))
 
             urlInfo?.let { uri ->
-                Surface(
+                KuiSurface(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 16.dp)
@@ -167,13 +167,13 @@ fun OgTagPreviewScreen(
                             verticalAlignment = Alignment.CenterVertically,
                             modifier = Modifier.padding(bottom = 12.dp),
                         ) {
-                            Icon(
+                            KuiIcon(
                                 imageVector = Icons.Default.Info,
                                 contentDescription = null,
                                 tint = KuiTheme.colorScheme.primary,
                             )
                             Spacer(modifier = Modifier.width(8.dp))
-                            Text(
+                            KuiText(
                                 text = "URL 정보",
                                 style = KuiTheme.typography.titleMedium,
                                 fontWeight = FontWeight.Bold,
@@ -181,7 +181,7 @@ fun OgTagPreviewScreen(
                             )
                         }
 
-                        HorizontalDivider(
+                        KuiHorizontalDivider(
                             modifier = Modifier.padding(bottom = 12.dp),
                             color = KuiTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.2f),
                         )
@@ -196,7 +196,7 @@ fun OgTagPreviewScreen(
             }
 
             previewData?.let { data ->
-                Surface(
+                KuiSurface(
                     modifier = Modifier
                         .fillMaxWidth()
                         .clickable { onNavigateToBrowser(url) }
@@ -211,13 +211,13 @@ fun OgTagPreviewScreen(
                             verticalAlignment = Alignment.CenterVertically,
                             modifier = Modifier.padding(bottom = 12.dp),
                         ) {
-                            Icon(
+                            KuiIcon(
                                 imageVector = Icons.Default.Info,
                                 contentDescription = null,
                                 tint = KuiTheme.colorScheme.primary,
                             )
                             Spacer(modifier = Modifier.width(8.dp))
-                            Text(
+                            KuiText(
                                 text = "OG 태그 미리보기",
                                 style = KuiTheme.typography.titleMedium,
                                 fontWeight = FontWeight.Bold,
@@ -225,13 +225,13 @@ fun OgTagPreviewScreen(
                             )
                         }
 
-                        HorizontalDivider(
+                        KuiHorizontalDivider(
                             modifier = Modifier.padding(bottom = 12.dp),
                             color = KuiTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.2f),
                         )
 
                         if (data.title.isNotEmpty()) {
-                            Text(
+                            KuiText(
                                 text = data.title,
                                 style = KuiTheme.typography.titleLarge,
                                 fontWeight = FontWeight.Bold,
@@ -240,7 +240,7 @@ fun OgTagPreviewScreen(
                         }
 
                         if (data.description.isNotEmpty()) {
-                            Text(
+                            KuiText(
                                 text = data.description,
                                 style = KuiTheme.typography.bodyMedium,
                                 color = KuiTheme.colorScheme.onSurfaceVariant,
@@ -261,7 +261,7 @@ fun OgTagPreviewScreen(
 
                         Spacer(modifier = Modifier.height(8.dp))
 
-                        Text(
+                        KuiText(
                             text = "클릭하여 브라우저에서 열기",
                             style = KuiTheme.typography.bodySmall,
                             color = KuiTheme.colorScheme.primary,
@@ -284,14 +284,14 @@ private fun UrlInfoItem(
             .fillMaxWidth()
             .padding(vertical = 4.dp),
     ) {
-        Text(
+        KuiText(
             text = "$label:",
             style = KuiTheme.typography.bodyMedium,
             fontWeight = FontWeight.Medium,
             color = KuiTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.weight(0.3f),
         )
-        Text(
+        KuiText(
             text = value ?: "없음",
             style = KuiTheme.typography.bodyMedium,
             color = KuiTheme.colorScheme.onSurface,
@@ -303,7 +303,7 @@ private fun UrlInfoItem(
 @Preview(showBackground = true)
 @Composable
 private fun OgTagPreviewScreenPreview() {
-    MaterialTheme {
+    KeelimDesignSystemTheme {
         OgTagPreviewScreen(
             parseTag = { _, callback ->
                 callback(

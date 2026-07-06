@@ -4,12 +4,12 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Card
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.ListItem
-import androidx.compose.material3.SwipeToDismissBox
+import com.keelim.core.designsystem.component.KuiCard
+import com.keelim.core.designsystem.component.KuiHorizontalDivider
+import com.keelim.core.designsystem.component.KuiListItem
+import com.keelim.core.designsystem.component.KuiSwipeToDismissBox
 import androidx.compose.material3.SwipeToDismissBoxValue
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -21,7 +21,7 @@ fun SwipeToDismiss(
     modifier: Modifier = Modifier,
 ) {
     val state = rememberSwipeToDismissBoxState()
-    SwipeToDismissBox(
+    KuiSwipeToDismissBox(
         modifier = modifier,
         state = state,
         backgroundContent = {
@@ -39,14 +39,14 @@ fun SwipeToDismiss(
             )
         },
     ) {
-        Card {
-            ListItem(
+        KuiCard {
+            KuiListItem(
                 headlineContent = {
-                    Text("Cupcake")
+                    KuiText("Cupcake")
                 },
-                supportingContent = { Text("Swipe me left or right!") },
+                supportingContent = { KuiText("Swipe me left or right!") },
             )
-            HorizontalDivider()
+            KuiHorizontalDivider()
         }
     }
 }

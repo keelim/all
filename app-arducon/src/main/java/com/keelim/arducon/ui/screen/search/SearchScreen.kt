@@ -8,16 +8,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.Card
+import com.keelim.core.designsystem.component.KuiCard
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.component.KuiIconButton
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
+import com.keelim.core.designsystem.component.KuiOutlinedTextField
+import com.keelim.core.designsystem.component.KuiScaffold
+import com.keelim.core.designsystem.component.KuiText
+import com.keelim.core.designsystem.component.KuiTopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -64,11 +63,11 @@ fun SearchScreen(
     onSchemeClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Scaffold(
+    KuiScaffold(
         topBar = {
-            TopAppBar(
+            KuiTopAppBar(
                 title = {
-                    Text(
+                    KuiText(
                         text = stringResource(Res.string.arducon_search_title),
                         style = KuiTheme.typography.titleLarge.copy(
                             fontWeight = FontWeight.Bold,
@@ -111,18 +110,18 @@ private fun SearchInputField(
     onClear: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Card(
+    KuiCard(padded = false,
         modifier = modifier,
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         shape = KuiTheme.shapes.medium,
     ) {
-        OutlinedTextField(
+        KuiOutlinedTextField(
             value = value,
             onValueChange = onValueChange,
-            label = { Text(stringResource(Res.string.arducon_search_title)) },
-            placeholder = { Text(stringResource(Res.string.arducon_search_placeholder)) },
+            label = { KuiText(stringResource(Res.string.arducon_search_title)) },
+            placeholder = { KuiText(stringResource(Res.string.arducon_search_placeholder)) },
             leadingIcon = {
-                Icon(
+                KuiIcon(
                     imageVector = Icons.Default.Search,
                     contentDescription = stringResource(Res.string.common_action_search),
                     tint = KuiTheme.colorScheme.primary,
@@ -130,8 +129,8 @@ private fun SearchInputField(
             },
             trailingIcon = {
                 if (value.isNotEmpty()) {
-                    IconButton(onClick = onClear) {
-                        Icon(
+                    KuiIconButton(onClick = onClear) {
+                        KuiIcon(
                             imageVector = Icons.Default.Clear,
                             contentDescription = stringResource(Res.string.arducon_search_clear_query),
                             tint = KuiTheme.colorScheme.onSurfaceVariant,

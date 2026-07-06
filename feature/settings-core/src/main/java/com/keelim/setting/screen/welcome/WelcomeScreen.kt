@@ -9,10 +9,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.component.KuiButton
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -49,7 +48,7 @@ private fun WelcomeScreen(
                 .widthIn(max = 600.dp)
                 .fillMaxWidth(),
         ) {
-            Text(
+            KuiText(
                 text = "Welcome! to our app",
                 style = KuiTheme.typography.headlineLarge,
                 color = Color.White,
@@ -57,17 +56,17 @@ private fun WelcomeScreen(
             Spacer(
                 modifier = Modifier.height(space8),
             )
-            Text(
+            KuiText(
                 text = "We hope you find what you're looking for here.",
                 style = KuiTheme.typography.headlineSmall,
                 color = Color.White,
             )
             Spacer(Modifier.height(48.dp))
-            Button(
+            KuiButton(
                 onClick = onNavigateMain,
                 modifier = Modifier.fillMaxWidth(),
             ) {
-                Text(
+                KuiText(
                     text = "Let`s Move",
                     modifier = Modifier.padding(vertical = space8),
                 )

@@ -22,16 +22,15 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.filled.Check
-import androidx.compose.material3.Card
-import androidx.compose.material3.CenterAlignedTopAppBar
+import com.keelim.core.designsystem.component.KuiCard
+import com.keelim.core.designsystem.component.KuiCenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.component.KuiHorizontalDivider
+import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.component.KuiIconButton
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiScaffold
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
@@ -78,11 +77,11 @@ private fun NotificationScreen(viewModel: NotificationViewModel = hiltViewModel(
         )
     val onBackPressedDispatcher =
         checkNotNull(LocalOnBackPressedDispatcherOwner.current).onBackPressedDispatcher
-    Scaffold(
+    KuiScaffold(
         containerColor = KuiTheme.colorScheme.surface,
         contentColor = KuiTheme.colorScheme.onSurface,
         topBar = {
-            CenterAlignedTopAppBar(
+            KuiCenterAlignedTopAppBar(
                 colors =
                 TopAppBarDefaults.topAppBarColors(
                     containerColor =
@@ -93,10 +92,10 @@ private fun NotificationScreen(viewModel: NotificationViewModel = hiltViewModel(
                     },
                 ),
                 modifier = Modifier.shadow(appBarElevation),
-                title = { Text(text = stringResource(Res.string.settings_notification_title)) },
+                title = { KuiText(text = stringResource(Res.string.settings_notification_title)) },
                 navigationIcon = {
-                    IconButton(onClick = { onBackPressedDispatcher.onBackPressed() }) {
-                        Icon(Icons.AutoMirrored.Rounded.ArrowBack, contentDescription = stringResource(Res.string.settings_back_description))
+                    KuiIconButton(onClick = { onBackPressedDispatcher.onBackPressed() }) {
+                        KuiIcon(Icons.AutoMirrored.Rounded.ArrowBack, contentDescription = stringResource(Res.string.settings_back_description))
                     }
                 },
                 actions = {},
@@ -136,7 +135,7 @@ private fun NotificationContent(
             ) {
                 if (uiState.fixedItems.isNotEmpty()) {
                     stickyHeader {
-                        Icon(
+                        KuiIcon(
                             imageVector = Icons.Default.Check,
                             contentDescription = stringResource(Res.string.settings_notification_fixed),
                         )
@@ -160,7 +159,7 @@ private fun NotificationContent(
                         Spacer(
                             modifier = Modifier.height(space4),
                         )
-                        HorizontalDivider(
+                        KuiHorizontalDivider(
                             thickness = space2,
                         )
                         Spacer(
@@ -195,7 +194,7 @@ private fun NotificationListCard(
     notificationDesc: String,
     modifier: Modifier = Modifier,
 ) {
-    Card(
+    KuiCard(padded = false,
         modifier = modifier.padding(
             start = space16,
         ),
@@ -206,7 +205,7 @@ private fun NotificationListCard(
                 .padding(space16),
             horizontalArrangement = Arrangement.spacedBy(space8),
         ) {
-            Text(
+            KuiText(
                 text = notificationDate,
                 style = KuiTheme.typography.bodySmall.copy(
                     fontWeight = FontWeight.Bold,
@@ -215,7 +214,7 @@ private fun NotificationListCard(
                 maxLines = 1,
             )
             Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                Text(
+                KuiText(
                     text = notificationTitle,
                     style = KuiTheme.typography.bodyMedium.copy(
                         fontWeight = FontWeight.Bold,
@@ -223,7 +222,7 @@ private fun NotificationListCard(
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
                 )
-                Text(
+                KuiText(
                     text = notificationDesc,
                     style = KuiTheme.typography.bodySmall,
                     overflow = TextOverflow.Ellipsis,

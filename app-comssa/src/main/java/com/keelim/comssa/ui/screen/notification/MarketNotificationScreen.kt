@@ -18,24 +18,23 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Card
+import com.keelim.core.designsystem.component.KuiAlertDialog
+import com.keelim.core.designsystem.component.KuiCard
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.component.KuiFloatingActionButton
+import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.component.KuiIconButton
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SwipeToDismissBox
+import com.keelim.core.designsystem.component.KuiOutlinedTextField
+import com.keelim.core.designsystem.component.KuiScaffold
+import com.keelim.core.designsystem.component.KuiSwipeToDismissBox
 import androidx.compose.material3.SwipeToDismissBoxValue
-import androidx.compose.material3.Switch
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.material3.TimePicker
-import androidx.compose.material3.TopAppBar
+import com.keelim.core.designsystem.component.KuiSwitch
+import com.keelim.core.designsystem.component.KuiText
+import com.keelim.core.designsystem.component.KuiTextButton
+import com.keelim.core.designsystem.component.KuiTimePicker
+import com.keelim.core.designsystem.component.KuiTopAppBar
 import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
@@ -78,11 +77,11 @@ fun MarketNotificationScreen(
     var customName by remember { mutableStateOf("") }
     val timePickerState = rememberTimePickerState(initialHour = 9, initialMinute = 0)
 
-    Scaffold(
+    KuiScaffold(
         topBar = {
-            TopAppBar(
+            KuiTopAppBar(
                 title = {
-                    Text(
+                    KuiText(
                         text = stringResource(Res.string.market_notifications_title),
                         style = KuiTheme.typography.titleLarge,
                         color = KuiTheme.colorScheme.onSurface
@@ -91,10 +90,10 @@ fun MarketNotificationScreen(
             )
         },
         floatingActionButton = {
-            FloatingActionButton(
+            KuiFloatingActionButton(
                 onClick = { showAddDialog = true }
             ) {
-                Icon(
+                KuiIcon(
                     Icons.Default.Add,
                     contentDescription = stringResource(Res.string.market_notifications_add_custom_time)
                 )
@@ -109,7 +108,7 @@ fun MarketNotificationScreen(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             item {
-                Text(
+                KuiText(
                     text = stringResource(Res.string.market_notifications_open_alerts),
                     style = KuiTheme.typography.titleMedium,
                     color = KuiTheme.colorScheme.primary,
@@ -131,10 +130,10 @@ fun MarketNotificationScreen(
     }
 
     if (showAddDialog) {
-        AlertDialog(
+        KuiAlertDialog(
             onDismissRequest = { showAddDialog = false },
             title = {
-                Text(
+                KuiText(
                     text = stringResource(Res.string.market_notifications_add_custom_notification),
                     style = KuiTheme.typography.titleMedium,
                     color = KuiTheme.colorScheme.onSurface
@@ -142,11 +141,11 @@ fun MarketNotificationScreen(
             },
             text = {
                 Column {
-                    OutlinedTextField(
+                    KuiOutlinedTextField(
                         value = customName,
                         onValueChange = { customName = it },
                         label = {
-                            Text(
+                            KuiText(
                                 text = stringResource(Res.string.market_notifications_name_label),
                                 style = KuiTheme.typography.labelMedium,
                                 color = KuiTheme.colorScheme.onSurfaceVariant
@@ -155,11 +154,11 @@ fun MarketNotificationScreen(
                         modifier = Modifier.fillMaxWidth()
                     )
                     Spacer(modifier = Modifier.height(16.dp))
-                    TimePicker(state = timePickerState)
+                    KuiTimePicker(state = timePickerState)
                 }
             },
             confirmButton = {
-                TextButton(
+                KuiTextButton(
                     onClick = {
                         if (customName.isNotBlank()) {
                             viewModel.addCustomSchedule(
@@ -172,7 +171,7 @@ fun MarketNotificationScreen(
                         }
                     }
                 ) {
-                    Text(
+                    KuiText(
                         text = stringResource(Res.string.market_notifications_add),
                         style = KuiTheme.typography.labelLarge,
                         color = KuiTheme.colorScheme.primary
@@ -180,8 +179,8 @@ fun MarketNotificationScreen(
                 }
             },
             dismissButton = {
-                TextButton(onClick = { showAddDialog = false }) {
-                    Text(
+                KuiTextButton(onClick = { showAddDialog = false }) {
+                    KuiText(
                         text = stringResource(Res.string.market_notifications_cancel),
                         style = KuiTheme.typography.labelLarge,
                         color = KuiTheme.colorScheme.onSurfaceVariant
@@ -213,7 +212,7 @@ private fun MarketScheduleItem(
     }
 
     if (onDelete != null) {
-        SwipeToDismissBox(
+        KuiSwipeToDismissBox(
             state = dismissState,
             backgroundContent = {
                 val color by animateColorAsState(
@@ -230,7 +229,7 @@ private fun MarketScheduleItem(
                         .padding(horizontal = 20.dp),
                     contentAlignment = Alignment.CenterEnd
                 ) {
-                    Icon(
+                    KuiIcon(
                         Icons.Default.Delete,
                         contentDescription = stringResource(Res.string.market_notifications_delete),
                         tint = Color.White
@@ -252,7 +251,7 @@ private fun ScheduleCard(
     onToggle: () -> Unit,
     onDelete: (() -> Unit)?
 ) {
-    Card(
+    KuiCard(padded = false,
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(
@@ -271,13 +270,13 @@ private fun ScheduleCard(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column(modifier = Modifier.weight(1f)) {
-                Text(
+                KuiText(
                     text = schedule.name,
                     style = KuiTheme.typography.bodyLarge,
                     color = KuiTheme.colorScheme.onSurface,
                     fontWeight = FontWeight.Medium
                 )
-                Text(
+                KuiText(
                     text = formatUiTime(hour = schedule.hour, minute = schedule.minute),
                     style = KuiTheme.typography.headlineMedium,
                     color = if (schedule.isEnabled) {
@@ -288,7 +287,7 @@ private fun ScheduleCard(
                     fontWeight = FontWeight.Bold
                 )
                 if (schedule.isDefault) {
-                    Text(
+                    KuiText(
                         text = stringResource(Res.string.market_notifications_default),
                         style = KuiTheme.typography.labelSmall,
                         color = KuiTheme.colorScheme.outline
@@ -298,15 +297,15 @@ private fun ScheduleCard(
 
             Row(verticalAlignment = Alignment.CenterVertically) {
                 if (onDelete != null) {
-                    IconButton(onClick = onDelete) {
-                        Icon(
+                    KuiIconButton(onClick = onDelete) {
+                        KuiIcon(
                             Icons.Default.Delete,
                             contentDescription = stringResource(Res.string.market_notifications_delete),
                             tint = KuiTheme.colorScheme.error
                         )
                     }
                 }
-                Switch(
+                KuiSwitch(
                     checked = schedule.isEnabled,
                     onCheckedChange = { onToggle() }
                 )

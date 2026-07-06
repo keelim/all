@@ -11,10 +11,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.component.KuiIcon
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -38,7 +37,7 @@ fun NavigationBackArrowBar(title: String) {
                 backDispatcher.onBackPressed()
             },
     ) {
-        Icon(
+        KuiIcon(
             imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
             contentDescription = null,
             modifier = Modifier
@@ -47,7 +46,7 @@ fun NavigationBackArrowBar(title: String) {
 
         )
         Spacer(Modifier.width(10.dp))
-        Text(
+        KuiText(
             text = title,
             style = KuiTheme.typography.titleLarge,
             modifier = Modifier.align(Alignment.CenterVertically),

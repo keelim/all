@@ -3,13 +3,13 @@ package com.keelim.composeutil.component.datepicker
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material3.Button
-import androidx.compose.material3.DatePicker
-import androidx.compose.material3.DatePickerDialog
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiButton
+import com.keelim.core.designsystem.component.KuiDatePicker
+import com.keelim.core.designsystem.component.KuiDatePickerDialog
+import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.component.KuiIconButton
+import com.keelim.core.designsystem.component.KuiOutlinedTextField
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -27,17 +27,17 @@ fun CustomDatePicker() {
     val (isOpen, setOpen) = remember { mutableStateOf(false) }
 
     Row(verticalAlignment = Alignment.CenterVertically) {
-        OutlinedTextField(
+        KuiOutlinedTextField(
             readOnly = true,
             value = date.format(DateTimeFormatter.ISO_DATE),
-            label = { Text("Date") },
+            label = { KuiText("Date") },
             onValueChange = {},
         )
 
-        IconButton(
+        KuiIconButton(
             onClick = { setOpen(true) }, // show de dialog
         ) {
-            Icon(
+            KuiIcon(
                 imageVector = Icons.Default.DateRange,
                 contentDescription = "null",
             )
@@ -63,14 +63,14 @@ fun CustomDatePicker() {
 fun CustomDatePickerDialog(onAccept: (Long?) -> Unit, onCancel: () -> Unit) {
     val state = rememberDatePickerState()
 
-    DatePickerDialog(
+    KuiDatePickerDialog(
         onDismissRequest = {},
         confirmButton = {
-            Button(onClick = { onAccept(state.selectedDateMillis) }) { Text("Accept") }
+            KuiButton(onClick = { onAccept(state.selectedDateMillis) }) { KuiText("Accept") }
         },
-        dismissButton = { Button(onClick = onCancel) { Text("Cancel") } },
+        dismissButton = { KuiButton(onClick = onCancel) { KuiText("Cancel") } },
     ) {
-        DatePicker(state = state)
+        KuiDatePicker(state = state)
     }
 }
 

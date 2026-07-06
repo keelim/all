@@ -13,12 +13,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.BottomSheetDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.component.KuiIcon
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.ModalBottomSheet
+import com.keelim.core.designsystem.component.KuiModalBottomSheet
 import androidx.compose.material3.SheetState
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -34,7 +33,7 @@ fun MainBottomSheet(
     onDismiss: () -> Unit,
     modalBottomSheetState: SheetState = rememberModalBottomSheetState(),
 ) = trace("MainBottomSheet") {
-    ModalBottomSheet(
+    KuiModalBottomSheet(
         onDismissRequest = { onDismiss() },
         sheetState = modalBottomSheetState,
         dragHandle = { BottomSheetDefaults.DragHandle() },
@@ -63,11 +62,11 @@ private fun MainBottomSheetScreen(
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Row {
-                Icon(imageVector = Icons.Default.Check, contentDescription = null)
+                KuiIcon(imageVector = Icons.Default.Check, contentDescription = null)
                 Spacer(modifier = Modifier.width(10.dp))
-                Text(text = "관련 정보", style = KuiTheme.typography.bodyMedium)
+                KuiText(text = "관련 정보", style = KuiTheme.typography.bodyMedium)
             }
-            Icon(
+            KuiIcon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                 contentDescription = null,
             )
@@ -81,7 +80,7 @@ private fun MainBottomSheetScreen(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceEvenly,
         ) {
-            Text(
+            KuiText(
                 text = "About",
                 style = KuiTheme.typography.bodyMedium,
                 modifier = Modifier.clickable {

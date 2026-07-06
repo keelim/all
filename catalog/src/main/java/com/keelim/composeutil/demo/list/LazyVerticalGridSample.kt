@@ -3,9 +3,9 @@ package com.keelim.composeutil.demo.list
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Card
+import com.keelim.core.designsystem.component.KuiCard
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun SampleCard() {
-    Card(
+    KuiCard(padded = false,
         modifier = Modifier
             .fillMaxWidth()
             .padding(15.dp),
@@ -24,11 +24,11 @@ fun SampleCard() {
             modifier = Modifier.padding(15.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Text(
+            KuiText(
                 text = "Jetpack Compose",
                 fontSize = 30.sp,
             )
-            Text(
+            KuiText(
                 "Card Example",
                 fontSize = 20.sp,
             )

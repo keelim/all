@@ -8,9 +8,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ElevatedButton
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import com.keelim.composeutil.component.kui.KuiElevatedButton
+import com.keelim.composeutil.component.kui.KuiSurface
+import com.keelim.composeutil.component.kui.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -39,7 +39,7 @@ fun ExpandableButton(
         ),
         label = "",
     )
-    Surface(
+    KuiSurface(
         modifier = Modifier
             .padding(vertical = space4, horizontal = space8),
     ) {
@@ -54,20 +54,20 @@ fun ExpandableButton(
                 modifier = Modifier
                     .padding(bottom = extraPadding.coerceAtLeast(0.dp)),
             ) {
-                Text(
+                KuiText(
                     text = title,
                 )
-                Text(
+                KuiText(
                     text = subtitle,
                 )
             }
-            ElevatedButton(
+            KuiElevatedButton(
                 onClick = {
                     onClick()
                     setExpanded(expanded.not())
                 },
             ) {
-                Text(
+                KuiText(
                     text = if (expanded) clickedButtonHint else buttonHint,
                 )
             }

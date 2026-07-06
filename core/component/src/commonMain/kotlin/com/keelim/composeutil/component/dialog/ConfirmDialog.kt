@@ -1,9 +1,9 @@
 package com.keelim.composeutil.component.dialog
 
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import com.keelim.composeutil.component.kui.KuiAlertDialog
+import com.keelim.composeutil.component.kui.KuiButton
+import com.keelim.composeutil.component.kui.KuiMaterialTheme
+import com.keelim.composeutil.component.kui.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
@@ -31,38 +31,38 @@ fun ConfirmDialog(
     confirmText: String = "확인",
     dismissText: String = "취소",
 ) {
-    AlertDialog(
+    KuiAlertDialog(
         onDismissRequest = onDismiss,
         modifier = modifier,
         title = {
-            Text(
+            KuiText(
                 text = title,
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onSurface,
+                style = KuiMaterialTheme.typography.titleMedium,
+                color = KuiMaterialTheme.colorScheme.onSurface,
             )
         },
         text = {
-            Text(
+            KuiText(
                 text = message,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                style = KuiMaterialTheme.typography.bodyMedium,
+                color = KuiMaterialTheme.colorScheme.onSurfaceVariant,
             )
         },
         confirmButton = {
-            Button(onClick = onConfirm) {
-                Text(
+            KuiButton(onClick = onConfirm) {
+                KuiText(
                     text = confirmText,
-                    style = MaterialTheme.typography.labelLarge,
-                    color = MaterialTheme.colorScheme.onPrimary,
+                    style = KuiMaterialTheme.typography.labelLarge,
+                    color = KuiMaterialTheme.colorScheme.onPrimary,
                 )
             }
         },
         dismissButton = {
-            Button(onClick = onDismiss) {
-                Text(
+            KuiButton(onClick = onDismiss) {
+                KuiText(
                     text = dismissText,
-                    style = MaterialTheme.typography.labelLarge,
-                    color = MaterialTheme.colorScheme.onPrimary,
+                    style = KuiMaterialTheme.typography.labelLarge,
+                    color = KuiMaterialTheme.colorScheme.onPrimary,
                 )
             }
         },

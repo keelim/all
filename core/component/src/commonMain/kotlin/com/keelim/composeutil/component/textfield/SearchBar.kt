@@ -4,9 +4,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
+import com.keelim.composeutil.component.kui.KuiIcon
+import com.keelim.composeutil.component.kui.KuiText
+import com.keelim.composeutil.component.kui.KuiTextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -18,20 +18,20 @@ fun SearchBar(
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    TextField(
+    KuiTextField(
         value = value,
         onValueChange = onValueChange,
         modifier = modifier
             .fillMaxWidth()
             .heightIn(min = 56.dp),
         leadingIcon = {
-            Icon(
+            KuiIcon(
                 imageVector = Icons.Default.Search,
                 contentDescription = null,
             )
         },
         placeholder = {
-            Text(
+            KuiText(
                 text = placeHolder,
             )
         },

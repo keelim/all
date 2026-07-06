@@ -15,10 +15,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Home
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import com.keelim.composeutil.component.kui.KuiHorizontalDivider
+import com.keelim.composeutil.component.kui.KuiIcon
+import com.keelim.composeutil.component.kui.KuiMaterialTheme
+import com.keelim.composeutil.component.kui.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.Alignment
@@ -71,7 +71,7 @@ private fun ProfileContent(
         Spacer(modifier = Modifier.height(space12))
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
             ProfileText(title = "Date", description = date)
-            Icon(
+            KuiIcon(
                 modifier = Modifier.padding(end = space24).size(size = 42.dp),
                 imageVector = Icons.Rounded.Home,
                 contentDescription = null,
@@ -82,7 +82,7 @@ private fun ProfileContent(
         Spacer(modifier = Modifier.height(space12))
         ProfileText(title = "UserName", description = username)
         Spacer(modifier = Modifier.height(space12))
-        HorizontalDivider(modifier = Modifier.height(space2))
+        KuiHorizontalDivider(modifier = Modifier.height(space2))
         Spacer(modifier = Modifier.height(space12))
         Row(
             modifier = Modifier.fillMaxWidth().padding(space12),
@@ -99,18 +99,18 @@ private fun ProfileContent(
                 //     painter = painterResource(id = userImage),
                 //     contentDescription = ""
                 // )
-                Text(
+                KuiText(
                     modifier = Modifier.padding(start = space16),
                     text = snsId,
                     fontWeight = FontWeight.SemiBold,
-                    style = MaterialTheme.typography.labelLarge,
+                    style = KuiMaterialTheme.typography.labelLarge,
                 )
             }
-            Text(
+            KuiText(
                 modifier = Modifier.padding(end = space24),
                 text = userId,
                 fontWeight = FontWeight.Light,
-                style = MaterialTheme.typography.labelMedium,
+                style = KuiMaterialTheme.typography.labelMedium,
             )
         }
     }
@@ -126,16 +126,16 @@ private fun PunchHall(modifier: Modifier) {
 @Composable
 private fun ProfileText(title: String, description: String) {
     Column {
-        Text(
+        KuiText(
             modifier = Modifier.padding(horizontal = space24),
             text = title,
-            style = MaterialTheme.typography.bodySmall,
+            style = KuiMaterialTheme.typography.bodySmall,
         )
 
-        Text(
+        KuiText(
             modifier = Modifier.padding(horizontal = space24),
             text = description,
-            style = MaterialTheme.typography.labelLarge,
+            style = KuiMaterialTheme.typography.labelLarge,
         )
     }
 }

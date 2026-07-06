@@ -14,28 +14,30 @@ enum class KuiPanelVariant { Default, Elevated, Soft }
 @Composable
 fun KuiPanel(
     modifier: Modifier = Modifier,
-    variant: KuiPanelVariant = KuiPanelVariant.Default,
+    variant: KuiPanelVariant = KuiPanelVariant.Elevated,
+    padded: Boolean = true,
     content: @Composable ColumnScope.() -> Unit,
 ) {
     val kuiColors = KuiTheme.colors
     val spacing = KuiTheme.spacing
     val shape = KuiTheme.shapes.large
+    val contentModifier = if (padded) Modifier.padding(spacing.cardPadding) else Modifier
 
     when (variant) {
         KuiPanelVariant.Default -> Surface(
             modifier = modifier,
             shape = shape,
-            color = kuiColors.surfaceSoft,
+            color = KuiTheme.colorScheme.surface,
             tonalElevation = KuiTheme.elevation.none,
         ) {
-            Column(modifier = Modifier.padding(spacing.cardPadding), content = content)
+            Column(modifier = contentModifier, content = content)
         }
 
         KuiPanelVariant.Elevated -> ElevatedCard(
             modifier = modifier,
             shape = shape,
         ) {
-            Column(modifier = Modifier.padding(spacing.cardPadding), content = content)
+            Column(modifier = contentModifier, content = content)
         }
 
         KuiPanelVariant.Soft -> Surface(
@@ -44,7 +46,7 @@ fun KuiPanel(
             color = kuiColors.surfaceSoft,
             tonalElevation = KuiTheme.elevation.none,
         ) {
-            Column(modifier = Modifier.padding(spacing.cardPadding), content = content)
+            Column(modifier = contentModifier, content = content)
         }
     }
 }

@@ -30,10 +30,9 @@ import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Switch
-import androidx.compose.material3.SwitchDefaults
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
+import com.keelim.core.designsystem.component.KuiSwitch
+import com.keelim.core.designsystem.component.KuiText
+import com.keelim.core.designsystem.component.KuiFilledTextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -42,7 +41,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -69,7 +67,7 @@ fun TipTimeScreen() {
         modifier = Modifier.padding(space32),
         verticalArrangement = Arrangement.spacedBy(space8),
     ) {
-        Text(
+        KuiText(
             text = "compose",
             fontSize = 24.sp,
             modifier = Modifier.align(Alignment.CenterHorizontally),
@@ -94,7 +92,7 @@ fun TipTimeScreen() {
         )
         RoundTheTipRow(roundUp = roundUp, onRoundUpChanged = { roundUp = it })
         Spacer(Modifier.height(space24))
-        Text(
+        KuiText(
             text = "compose",
             modifier = Modifier.align(Alignment.CenterHorizontally),
             fontSize = 20.sp,
@@ -111,10 +109,10 @@ fun EditNumberField(
     value: String,
     onValueChange: (String) -> Unit,
 ) {
-    TextField(
+    KuiFilledTextField(
         value = value,
         onValueChange = onValueChange,
-        label = { Text(label) },
+        label = { KuiText(label) },
         modifier = Modifier.fillMaxWidth(),
         singleLine = true,
         keyboardOptions = keyboardOptions,
@@ -134,16 +132,13 @@ fun RoundTheTipRow(
             .size(48.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Text(text = "compose")
-        Switch(
+        KuiText(text = "compose")
+        KuiSwitch(
             modifier = modifier
                 .fillMaxWidth()
                 .wrapContentWidth(),
             checked = roundUp,
             onCheckedChange = onRoundUpChanged,
-            colors = SwitchDefaults.colors(
-                uncheckedThumbColor = Color.DarkGray,
-            ),
         )
     }
 }

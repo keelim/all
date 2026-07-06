@@ -10,9 +10,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import com.keelim.composeutil.component.kui.KuiCard
+import com.keelim.composeutil.component.kui.KuiMaterialTheme
+import com.keelim.composeutil.component.kui.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.Alignment
@@ -39,7 +39,7 @@ fun PriceCard(
     priceCardState: PriceCardState,
     modifier: Modifier = Modifier,
 ) {
-    Card(
+    KuiCard(
         modifier = Modifier
             .background(Color.White)
             .padding(10.dp)
@@ -58,17 +58,17 @@ fun PriceCard(
             Column(
                 modifier = Modifier.padding(vertical = 50.dp, horizontal = 30.dp),
             ) {
-                Text(
+                KuiText(
                     text = "My Crypto Cap",
                     color = Color.White,
-                    style = MaterialTheme.typography.displaySmall,
+                    style = KuiMaterialTheme.typography.displaySmall,
                     fontWeight = FontWeight.ExtraLight,
                 )
 
-                Text(
+                KuiText(
                     text = "${priceCardState.value} ${priceCardState.suffix}",
                     color = Color.White,
-                    style = MaterialTheme.typography.displaySmall,
+                    style = KuiMaterialTheme.typography.displaySmall,
                     fontWeight = FontWeight.ExtraBold,
                 )
 
@@ -92,7 +92,7 @@ private fun DailyPreview(
         for (item in previews) {
             val columnHeightWeight =
                 item.second / maxValue // <-- We use it to get a value between 0 and 1
-            Card(
+            KuiCard(
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxHeight(columnHeightWeight) // <-- Pass it through the modifier to determine Its height
@@ -107,7 +107,7 @@ private fun DailyPreview(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         for (item in previews) {
-            Text(
+            KuiText(
                 modifier = Modifier.weight(1f),
                 text = item.first,
                 textAlign = TextAlign.Center,

@@ -11,15 +11,14 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.AccountBox
-import androidx.compose.material3.BottomSheetScaffold
+import com.keelim.core.designsystem.component.KuiBottomSheetScaffold
 import androidx.compose.material3.BottomSheetScaffoldState
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FilledIconButton
-import androidx.compose.material3.Icon
+import com.keelim.core.designsystem.component.KuiFilledIconButton
+import com.keelim.core.designsystem.component.KuiIcon
 import androidx.compose.material3.IconButtonDefaults
-import androidx.compose.material3.MaterialTheme
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.material3.contentColorFor
 import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
@@ -53,7 +52,7 @@ fun ShareSheet(
         scaffoldState.bottomSheetState.expand()
     }
 
-    BottomSheetScaffold(
+    KuiBottomSheetScaffold(
         modifier = modifier,
         scaffoldState = scaffoldState,
         sheetContent = {
@@ -61,7 +60,7 @@ fun ShareSheet(
                 verticalArrangement = Arrangement.spacedBy(space12),
                 modifier = Modifier.padding(vertical = space24),
             ) {
-                Text(
+                KuiText(
                     text = "Share!",
                     style = KuiTheme.typography.titleLarge,
                     modifier = Modifier.padding(horizontal = space24),
@@ -109,7 +108,7 @@ private fun LabeledIconButton(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(space8),
     ) {
-        FilledIconButton(
+        KuiFilledIconButton(
             onClick = onClick,
             modifier = Modifier.size(64.dp),
             colors = IconButtonDefaults.filledIconButtonColors(
@@ -117,11 +116,11 @@ private fun LabeledIconButton(
                 contentColor = contentColor,
             ),
         ) {
-            Icon(
+            KuiIcon(
                 imageVector = imageVector,
                 contentDescription = null,
             )
         }
-        Text(text = label, style = KuiTheme.typography.labelSmall, maxLines = 1)
+        KuiText(text = label, style = KuiTheme.typography.labelSmall, maxLines = 1)
     }
 }

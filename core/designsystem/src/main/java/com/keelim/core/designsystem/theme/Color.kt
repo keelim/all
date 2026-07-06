@@ -89,5 +89,31 @@ val adminBwDarkColorScheme = darkColorScheme(
 )
 
 // Backward-compat aliases — core/component/.../Theme.kt imports these names
+val financeDarkColorScheme = darkColorScheme(
+    primary = Color(0xFFF8FAFC),
+    onPrimary = Color(0xFF0F172A),
+    primaryContainer = Color(0xFF1E293B),
+    onPrimaryContainer = Color(0xFFF8FAFC),
+    secondary = Color(0xFFA5B4C8),
+    onSecondary = Color(0xFF0F172A),
+    secondaryContainer = Color(0xFF1E293B),
+    onSecondaryContainer = Color(0xFFF8FAFC),
+    tertiary = Color(0xFFA5B4C8),
+    onTertiary = Color(0xFF0F172A),
+    tertiaryContainer = Color(0xFF1E293B),
+    onTertiaryContainer = Color(0xFFF8FAFC),
+    error = Color(0xFFFCA5A5),
+    onError = Color(0xFF450A0A),
+    errorContainer = Color(0xFF7F1D1D),
+    onErrorContainer = Color(0xFFFECACA),
+    background = Color(0xFF020817),
+    onBackground = Color(0xFFF8FAFC),
+    surface = Color(0xFF030A19),
+    onSurface = Color(0xFFF8FAFC),
+    surfaceVariant = Color(0x8C1E293B),
+    onSurfaceVariant = Color(0xFFA5B4C8),
+    outline = Color(0xFF1E293B),
+)
+
 val LightColorScheme = financeLightColorScheme
 val DarkColorScheme  = adminBwDarkColorScheme

@@ -9,8 +9,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiScaffold
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -74,7 +74,7 @@ fun EcocalScreen(
 
             val navigationIndex = mutableIntStateOf(0)
 
-            Scaffold(
+            KuiScaffold(
                 floatingActionButton = {
                     if (navigationIndex.intValue == 0) {
                         EcocalFloatingButton(
@@ -109,7 +109,7 @@ fun EcocalScreen(
                                 .padding(paddingValues),
                         ) {
                             Loading()
-                            Text(
+                            KuiText(
                                 text = "현재 준비 중입니다. ",
                             )
                         }

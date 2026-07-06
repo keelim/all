@@ -4,9 +4,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.MaterialTheme
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -36,7 +35,7 @@ fun CircleLabelProfile(
                 .size(90.dp)
                 .clip(CircleShape),
         )
-        Text(
+        KuiText(
             text = label,
             modifier = Modifier.paddingFromBaseline(top = space24, bottom = space8),
             style = KuiTheme.typography.bodyMedium,

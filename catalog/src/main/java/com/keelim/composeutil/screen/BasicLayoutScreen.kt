@@ -35,11 +35,11 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
+import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.theme.KuiTheme
+import com.keelim.core.designsystem.component.KuiSurface
+import com.keelim.core.designsystem.component.KuiText
+import com.keelim.core.designsystem.component.KuiFilledTextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -52,22 +52,22 @@ import com.keelim.composeutil.resource.space8
 fun SearchBar(
     modifier: Modifier = Modifier,
 ) {
-    TextField(
+    KuiFilledTextField(
         value = "",
         onValueChange = {},
         modifier = modifier
             .fillMaxWidth()
             .heightIn(min = 56.dp),
         leadingIcon = {
-            Icon(imageVector = Icons.Default.Search, contentDescription = "search icon")
+            KuiIcon(imageVector = Icons.Default.Search, contentDescription = "search icon")
         },
         colors = TextFieldDefaults.colors(
-            focusedContainerColor = MaterialTheme.colorScheme.surface,
-            unfocusedContainerColor = MaterialTheme.colorScheme.surface,
-            disabledContainerColor = MaterialTheme.colorScheme.surface,
+            focusedContainerColor = KuiTheme.colorScheme.surface,
+            unfocusedContainerColor = KuiTheme.colorScheme.surface,
+            disabledContainerColor = KuiTheme.colorScheme.surface,
         ),
         placeholder = {
-            Text(text = "Search Bar")
+            KuiText(text = "Search Bar")
         },
     )
 }
@@ -80,7 +80,7 @@ fun AlignYourBodyElement(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Text(text = "Sample")
+        KuiText(text = "Sample")
     }
 }
 
@@ -88,17 +88,17 @@ fun AlignYourBodyElement(
 fun FavoriteCollectionCard(
     modifier: Modifier = Modifier,
 ) {
-    Surface(
-        shape = MaterialTheme.shapes.small,
+    KuiSurface(
+        shape = KuiTheme.shapes.small,
         modifier = modifier,
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.width(192.dp),
         ) {
-            Text(
+            KuiText(
                 text = "Sample",
-                style = MaterialTheme.typography.titleMedium,
+                style = KuiTheme.typography.titleMedium,
                 modifier = Modifier.padding(horizontal = space16),
             )
         }
@@ -127,9 +127,9 @@ fun HomeSection(
     content: @Composable () -> Unit,
 ) {
     Column(modifier) {
-        Text(
+        KuiText(
             text = title,
-            style = MaterialTheme.typography.titleMedium,
+            style = KuiTheme.typography.titleMedium,
             modifier = Modifier
                 .paddingFromBaseline(
                     top = 40.dp,

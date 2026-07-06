@@ -5,6 +5,7 @@ import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialExpressiveTheme
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MotionScheme
 import androidx.compose.material3.Shapes
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
@@ -15,10 +16,19 @@ import androidx.compose.runtime.ReadOnlyComposable
 @Composable
 fun KeelimDesignSystemTheme(
     isDarkTheme: Boolean = isSystemInDarkTheme(),
+    themeId: KuiThemeId = if (isDarkTheme) KuiThemeId.AdminBw else KuiThemeId.Finance,
     content: @Composable () -> Unit,
 ) {
-    val colorScheme = if (isDarkTheme) DarkColorScheme else LightColorScheme
-    val kuiColors = if (isDarkTheme) adminBwKuiColors else financeKuiColors
+    val colorScheme = when (themeId) {
+        KuiThemeId.Finance -> financeLightColorScheme
+        KuiThemeId.FinanceDark -> financeDarkColorScheme
+        KuiThemeId.AdminBw -> adminBwDarkColorScheme
+    }
+    val kuiColors = when (themeId) {
+        KuiThemeId.Finance -> financeKuiColors
+        KuiThemeId.FinanceDark -> financeDarkKuiColors
+        KuiThemeId.AdminBw -> adminBwKuiColors
+    }
 
     CompositionLocalProvider(
         LocalKuiColors provides kuiColors,
@@ -35,6 +45,8 @@ fun KeelimDesignSystemTheme(
     }
 }
 
+enum class KuiThemeId { Finance, FinanceDark, AdminBw }
+
 object KuiTheme {
     val colorScheme: ColorScheme
         @Composable
@@ -50,6 +62,12 @@ object KuiTheme {
         @Composable
         @ReadOnlyComposable
         get() = MaterialTheme.shapes
+
+    @OptIn(ExperimentalMaterial3ExpressiveApi::class)
+    val motionScheme: MotionScheme
+        @Composable
+        @ReadOnlyComposable
+        get() = MaterialTheme.motionScheme
 
     val colors: KuiColors
         @Composable

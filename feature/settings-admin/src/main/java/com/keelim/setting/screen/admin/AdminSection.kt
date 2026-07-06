@@ -9,9 +9,9 @@ import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
+import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.component.KuiText
+import com.keelim.core.designsystem.component.KuiFilledTextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -36,13 +36,13 @@ fun SchemeTestSection(
         val (isError, setError) = remember { mutableStateOf(false) }
 
         val textState = rememberTextFieldState()
-        TextField(
+        KuiFilledTextField(
             textState,
             isError = isError,
-            label = { Text(stringResource(Res.string.settings_admin_deeplink_label)) },
+            label = { KuiText(stringResource(Res.string.settings_admin_deeplink_label)) },
             trailingIcon = {
                 if (text.isNotEmpty()) {
-                    Icon(
+                    KuiIcon(
                         imageVector = Icons.Default.Delete,
                         contentDescription = stringResource(Res.string.common_action_clear),
                         modifier = Modifier.clickable {
@@ -68,7 +68,7 @@ fun SchemeTestSection(
             }
         )
 
-        Icon(
+        KuiIcon(
             imageVector = Icons.Default.Search,
             modifier = Modifier
                 .size(space32)

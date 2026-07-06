@@ -12,8 +12,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.rounded.PlayArrow
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
+import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.component.KuiIconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
@@ -89,14 +89,14 @@ fun PlayPauseButton(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         val graySemiTransparentBG = Color.Gray.copy(alpha = 0.1f)
-        IconButton(
+        KuiIconButton(
             onClick = state::onClick,
             modifier = Modifier
                 .size(100.dp)
                 .background(graySemiTransparentBG, CircleShape),
             enabled = state.isEnabled,
         ) {
-            Icon(icon, contentDescription = null)
+            KuiIcon(icon, contentDescription = null)
         }
     }
 }

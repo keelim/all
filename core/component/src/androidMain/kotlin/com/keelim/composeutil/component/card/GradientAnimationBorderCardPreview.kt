@@ -2,7 +2,7 @@ package com.keelim.composeutil.component.card
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -19,7 +19,7 @@ fun PreviewGradientAnimationBorderCard() {
             onClick = {},
             modifier = Modifier.padding(16.dp),
         ) {
-            Text(
+            KuiText(
                 modifier = Modifier.padding(16.dp),
                 text = "Hello, World!",
             )

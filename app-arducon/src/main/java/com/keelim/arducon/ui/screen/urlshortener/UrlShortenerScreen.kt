@@ -19,23 +19,22 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Share
-import androidx.compose.material3.Button
-import androidx.compose.material3.Card
+import com.keelim.core.designsystem.component.KuiButton
+import com.keelim.core.designsystem.component.KuiCard
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
+import com.keelim.core.designsystem.component.KuiDropdownMenu
+import com.keelim.core.designsystem.component.KuiDropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.component.KuiIconButton
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHost
+import com.keelim.core.designsystem.component.KuiOutlinedTextField
+import com.keelim.core.designsystem.component.KuiScaffold
+import com.keelim.core.designsystem.component.KuiSnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBar
+import com.keelim.core.designsystem.component.KuiText
+import com.keelim.core.designsystem.component.KuiTextButton
+import com.keelim.core.designsystem.component.KuiTopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -82,24 +81,24 @@ fun UrlShortenerScreen(
     val originalUrlCopiedMessage = stringResource(Res.string.arducon_url_shortener_original_url_copied)
     val shareAction = stringResource(Res.string.common_action_share)
 
-    Scaffold(
+    KuiScaffold(
         topBar = {
-            TopAppBar(
+            KuiTopAppBar(
                 title = {
-                    Text(
+                    KuiText(
                         text = stringResource(Res.string.arducon_url_shortener_title),
                         style = KuiTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
                         color = KuiTheme.colorScheme.onSurface,
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = onNavigateBack) {
-                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = stringResource(Res.string.arducon_back_description))
+                    KuiIconButton(onClick = onNavigateBack) {
+                        KuiIcon(imageVector = Icons.Default.ArrowBack, contentDescription = stringResource(Res.string.arducon_back_description))
                     }
                 },
             )
         },
-        snackbarHost = { SnackbarHost(snackbarHostState) },
+        snackbarHost = { KuiSnackbarHost(snackbarHostState) },
     ) { padding ->
         LazyColumn(
             modifier = Modifier
@@ -109,23 +108,23 @@ fun UrlShortenerScreen(
             verticalArrangement = Arrangement.spacedBy(space16),
         ) {
             item {
-                OutlinedTextField(
+                KuiOutlinedTextField(
                     value = uiState.inputUrl,
                     onValueChange = viewModel::updateInputUrl,
                     modifier = Modifier.fillMaxWidth(),
-                    label = { Text(stringResource(Res.string.label_url)) },
-                    placeholder = { Text(stringResource(Res.string.arducon_url_shortener_url_placeholder)) },
+                    label = { KuiText(stringResource(Res.string.label_url)) },
+                    placeholder = { KuiText(stringResource(Res.string.arducon_url_shortener_url_placeholder)) },
                     singleLine = true,
                 )
             }
 
             item {
-                OutlinedTextField(
+                KuiOutlinedTextField(
                     value = uiState.inputTitle,
                     onValueChange = viewModel::updateInputTitle,
                     modifier = Modifier.fillMaxWidth(),
-                    label = { Text(stringResource(Res.string.arducon_url_shortener_title_optional)) },
-                    placeholder = { Text(stringResource(Res.string.arducon_url_shortener_title_placeholder)) },
+                    label = { KuiText(stringResource(Res.string.arducon_url_shortener_title_optional)) },
+                    placeholder = { KuiText(stringResource(Res.string.arducon_url_shortener_title_placeholder)) },
                     singleLine = true,
                 )
             }
@@ -138,22 +137,22 @@ fun UrlShortenerScreen(
             }
 
             item {
-                Button(
+                KuiButton(
                     onClick = viewModel::generateShortUrl,
                     modifier = Modifier.fillMaxWidth(),
                     enabled = !uiState.isLoading,
                 ) {
-                    Text(stringResource(Res.string.arducon_url_shortener_generate))
+                    KuiText(stringResource(Res.string.arducon_url_shortener_generate))
                 }
             }
 
             if (uiState.errorMessage != null) {
                 item {
-                    Card(
+                    KuiCard(padded = false,
                         colors = CardDefaults.cardColors(containerColor = KuiTheme.colorScheme.errorContainer),
                         modifier = Modifier.fillMaxWidth(),
                     ) {
-                        Text(
+                        KuiText(
                             text = uiState.errorMessage!!,
                             color = KuiTheme.colorScheme.onErrorContainer,
                             modifier = Modifier.padding(space16),
@@ -165,19 +164,19 @@ fun UrlShortenerScreen(
 
             if (uiState.generatedShortCode.isNotEmpty()) {
                 item {
-                    Card(
+                    KuiCard(padded = false,
                         colors = CardDefaults.cardColors(containerColor = KuiTheme.colorScheme.primaryContainer),
                         modifier = Modifier.fillMaxWidth(),
                     ) {
                         Column(modifier = Modifier.padding(space16)) {
-                            Text(
+                            KuiText(
                                 text = stringResource(Res.string.arducon_url_shortener_generated_title),
                                 style = KuiTheme.typography.titleMedium,
                                 fontWeight = FontWeight.Bold,
                                 color = KuiTheme.colorScheme.onPrimaryContainer,
                             )
                             Spacer(modifier = Modifier.height(space8))
-                            Text(
+                            KuiText(
                                 text = stringResource(Res.string.arducon_url_shortener_short_code, uiState.generatedShortCode),
                                 style = KuiTheme.typography.bodyLarge,
                                 color = KuiTheme.colorScheme.onPrimaryContainer,
@@ -186,14 +185,14 @@ fun UrlShortenerScreen(
                                 modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.End,
                             ) {
-                                TextButton(onClick = {
+                                KuiTextButton(onClick = {
                                     clipboardManager.setText(AnnotatedString(uiState.generatedShortCode))
                                     scope.launch {
                                         snackbarHostState.showSnackbar(copiedToClipboardMessage)
                                     }
                                     viewModel.clearGeneratedCode()
                                 }) {
-                                    Text(stringResource(Res.string.common_action_copy))
+                                    KuiText(stringResource(Res.string.common_action_copy))
                                 }
                             }
                         }
@@ -203,7 +202,7 @@ fun UrlShortenerScreen(
 
             if (shortenedUrls.isNotEmpty()) {
                 item {
-                    Text(
+                    KuiText(
                         text = stringResource(Res.string.arducon_url_shortener_saved_links, shortenedUrls.size.toUiNumber()),
                         style = KuiTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold,
@@ -264,28 +263,28 @@ private fun ExpirationSelector(
         modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Icon(
+        KuiIcon(
             imageVector = Icons.Default.DateRange,
             contentDescription = null,
             tint = KuiTheme.colorScheme.onSurfaceVariant,
         )
         Spacer(modifier = Modifier.width(space8))
-        Text(
+        KuiText(
             text = stringResource(Res.string.arducon_url_shortener_expiration_label),
             style = KuiTheme.typography.bodyMedium,
             color = KuiTheme.colorScheme.onSurface,
         )
         Spacer(modifier = Modifier.width(space8))
-        TextButton(onClick = { expanded = true }) {
-            Text(options.find { it.first == selectedDays }?.second ?: stringResource(Res.string.arducon_url_shortener_no_expiration))
+        KuiTextButton(onClick = { expanded = true }) {
+            KuiText(options.find { it.first == selectedDays }?.second ?: stringResource(Res.string.arducon_url_shortener_no_expiration))
         }
-        DropdownMenu(
+        KuiDropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false },
         ) {
             options.forEach { (days, label) ->
-                DropdownMenuItem(
-                    text = { Text(label) },
+                KuiDropdownMenuItem(
+                    text = { KuiText(label) },
                     onClick = {
                         onDaysSelected(days)
                         expanded = false
@@ -305,7 +304,7 @@ private fun ShortenedUrlCard(
     onDeleteClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Card(
+    KuiCard(padded = false,
         modifier = modifier
             .fillMaxWidth()
             .clickable(onClick = onItemClick),
@@ -318,7 +317,7 @@ private fun ShortenedUrlCard(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Column(modifier = Modifier.weight(1f)) {
-                    Text(
+                    KuiText(
                         text = item.title.ifEmpty { item.shortCode },
                         style = KuiTheme.typography.titleSmall,
                         fontWeight = FontWeight.Bold,
@@ -327,7 +326,7 @@ private fun ShortenedUrlCard(
                         overflow = TextOverflow.Ellipsis,
                     )
                     Spacer(modifier = Modifier.height(space4))
-                    Text(
+                    KuiText(
                         text = item.originalUrl,
                         style = KuiTheme.typography.bodySmall,
                         color = KuiTheme.colorScheme.primary,
@@ -336,15 +335,15 @@ private fun ShortenedUrlCard(
                     )
                 }
                 Row {
-                    IconButton(onClick = onShareClick) {
-                        Icon(
+                    KuiIconButton(onClick = onShareClick) {
+                        KuiIcon(
                             imageVector = Icons.Default.Share,
                             contentDescription = stringResource(Res.string.common_action_share),
                             tint = KuiTheme.colorScheme.onSurfaceVariant,
                         )
                     }
-                    IconButton(onClick = onDeleteClick) {
-                        Icon(
+                    KuiIconButton(onClick = onDeleteClick) {
+                        KuiIcon(
                             imageVector = Icons.Default.Clear,
                             contentDescription = stringResource(Res.string.common_action_delete),
                             tint = KuiTheme.colorScheme.error,
@@ -359,12 +358,12 @@ private fun ShortenedUrlCard(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
-                Text(
+                KuiText(
                     text = stringResource(Res.string.arducon_url_shortener_click_count, item.clickCount.toUiNumber()),
                     style = KuiTheme.typography.labelSmall,
                     color = KuiTheme.colorScheme.onSurfaceVariant,
                 )
-                Text(
+                KuiText(
                     text = formatDate(item.createdAt),
                     style = KuiTheme.typography.labelSmall,
                     color = KuiTheme.colorScheme.onSurfaceVariant,
@@ -372,7 +371,7 @@ private fun ShortenedUrlCard(
             }
 
             AnimatedVisibility(visible = item.expiresAt > 0) {
-                Text(
+                KuiText(
                     text = stringResource(Res.string.arducon_url_shortener_expiration_at, formatDate(item.expiresAt)),
                     style = KuiTheme.typography.labelSmall,
                     color = KuiTheme.colorScheme.tertiary,

@@ -9,7 +9,7 @@ package com.keelim.composeutil.demo.text
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.TextField
+import com.keelim.core.designsystem.component.KuiFilledTextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -24,7 +24,7 @@ fun FocusTextField() {
     Column {
         val focusManager = LocalFocusManager.current
         var value by remember { mutableStateOf("") }
-        TextField(
+        KuiFilledTextField(
             value = value,
             onValueChange = {
                 value = it
@@ -35,7 +35,7 @@ fun FocusTextField() {
             },
         )
 
-        TextField(
+        KuiFilledTextField(
             value = value,
             onValueChange = {
                 value = it

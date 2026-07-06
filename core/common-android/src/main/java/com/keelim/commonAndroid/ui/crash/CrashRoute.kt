@@ -15,17 +15,17 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Refresh
-import androidx.compose.material3.Button
+import com.keelim.core.designsystem.component.KuiButton
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
+import com.keelim.core.designsystem.component.KuiCard
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
+import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.theme.KuiTheme
+import com.keelim.core.designsystem.component.KuiScaffold
+import com.keelim.core.designsystem.component.KuiSurface
+import com.keelim.core.designsystem.component.KuiText
+import com.keelim.core.designsystem.component.KuiTopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -81,21 +81,21 @@ fun CrashScreen(
     stackTrace: String,
     onAppRefresh: () -> Unit,
 ) {
-    Scaffold(
+    KuiScaffold(
         modifier = Modifier
             .fillMaxSize()
             .safeDrawingPadding(),
         topBar = {
-            TopAppBar(
+            KuiTopAppBar(
                 title = {
-                    Text(
+                    KuiText(
                         text = "오류가 발생했습니다",
                         fontWeight = FontWeight.Bold,
                     )
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.errorContainer,
-                    titleContentColor = MaterialTheme.colorScheme.onErrorContainer,
+                    containerColor = KuiTheme.colorScheme.errorContainer,
+                    titleContentColor = KuiTheme.colorScheme.onErrorContainer,
                 ),
             )
         },
@@ -132,25 +132,25 @@ fun CrashScreen(
 
             // Restart Button
             item {
-                Button(
+                KuiButton(
                     onClick = onAppRefresh,
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp),
                     shape = RoundedCornerShape(crashSpace12),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.primary,
+                        containerColor = KuiTheme.colorScheme.primary,
                     ),
                 ) {
-                    Icon(
+                    KuiIcon(
                         imageVector = Icons.Filled.Refresh,
                         contentDescription = null,
                         modifier = Modifier.size(24.dp),
                     )
                     Spacer(modifier = Modifier.size(crashSpace8))
-                    Text(
+                    KuiText(
                         text = "앱 다시 시작하기",
-                        style = MaterialTheme.typography.titleMedium,
+                        style = KuiTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold,
                     )
                 }
@@ -169,34 +169,34 @@ private fun ErrorHeaderSection() {
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Surface(
+        KuiSurface(
             modifier = Modifier.size(80.dp),
             shape = RoundedCornerShape(40.dp),
-            color = MaterialTheme.colorScheme.errorContainer,
+            color = KuiTheme.colorScheme.errorContainer,
         ) {
-            Icon(
+            KuiIcon(
                 imageVector = BugIcon,
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(crashSpace16),
-                tint = MaterialTheme.colorScheme.onErrorContainer,
+                tint = KuiTheme.colorScheme.onErrorContainer,
             )
         }
         Spacer(modifier = Modifier.height(crashSpace16))
-        Text(
+        KuiText(
             text = "예기치 않은 오류가 발생했습니다",
-            style = MaterialTheme.typography.titleLarge,
+            style = KuiTheme.typography.titleLarge,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
-            color = MaterialTheme.colorScheme.onSurface,
+            color = KuiTheme.colorScheme.onSurface,
         )
         Spacer(modifier = Modifier.height(crashSpace8))
-        Text(
+        KuiText(
             text = "앱을 다시 시작해 주세요.\n문제가 지속되면 개발팀에 문의해 주세요.",
-            style = MaterialTheme.typography.bodyMedium,
+            style = KuiTheme.typography.bodyMedium,
             textAlign = TextAlign.Center,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            color = KuiTheme.colorScheme.onSurfaceVariant,
         )
     }
 }
@@ -207,22 +207,22 @@ private fun DeviceInfoCard(
     deviceModel: String,
     androidVersion: String,
 ) {
-    Card(
+    KuiCard(padded = false,
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(crashSpace12),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant,
+            containerColor = KuiTheme.colorScheme.surfaceVariant,
         ),
     ) {
         Column(
             modifier = Modifier.padding(crashSpace16),
             verticalArrangement = Arrangement.spacedBy(crashSpace8),
         ) {
-            Text(
+            KuiText(
                 text = "기기 정보",
-                style = MaterialTheme.typography.titleMedium,
+                style = KuiTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                color = KuiTheme.colorScheme.onSurfaceVariant,
             )
             Spacer(modifier = Modifier.height(crashSpace8))
             DeviceInfoRow(label = "앱 버전", value = appVersion)
@@ -241,50 +241,50 @@ private fun DeviceInfoRow(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
-        Text(
+        KuiText(
             text = label,
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            style = KuiTheme.typography.bodyMedium,
+            color = KuiTheme.colorScheme.onSurfaceVariant,
         )
-        Text(
+        KuiText(
             text = value,
-            style = MaterialTheme.typography.bodyMedium,
+            style = KuiTheme.typography.bodyMedium,
             fontWeight = FontWeight.Medium,
-            color = MaterialTheme.colorScheme.onSurface,
+            color = KuiTheme.colorScheme.onSurface,
         )
     }
 }
 
 @Composable
 private fun StackTraceCard(stackTrace: String) {
-    Card(
+    KuiCard(padded = false,
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(crashSpace12),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainerHighest,
+            containerColor = KuiTheme.colorScheme.surfaceContainerHighest,
         ),
     ) {
         Column(
             modifier = Modifier.padding(crashSpace16),
         ) {
-            Text(
+            KuiText(
                 text = "오류 상세 정보",
-                style = MaterialTheme.typography.titleMedium,
+                style = KuiTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onSurface,
+                color = KuiTheme.colorScheme.onSurface,
             )
             Spacer(modifier = Modifier.height(crashSpace12))
-            Surface(
+            KuiSurface(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(crashSpace8),
-                color = MaterialTheme.colorScheme.surfaceContainerLow,
+                color = KuiTheme.colorScheme.surfaceContainerLow,
             ) {
-                Text(
+                KuiText(
                     text = stackTrace,
                     modifier = Modifier.padding(crashSpace12),
-                    style = MaterialTheme.typography.bodySmall,
+                    style = KuiTheme.typography.bodySmall,
                     fontFamily = FontFamily.Monospace,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    color = KuiTheme.colorScheme.onSurfaceVariant,
                 )
             }
         }

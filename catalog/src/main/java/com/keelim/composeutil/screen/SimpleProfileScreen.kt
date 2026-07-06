@@ -32,13 +32,13 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.Card
+import com.keelim.core.designsystem.component.KuiButton
+import com.keelim.core.designsystem.component.KuiCard
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiHorizontalDivider
+import com.keelim.core.designsystem.theme.KuiTheme
+import com.keelim.core.designsystem.component.KuiSurface
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -57,29 +57,29 @@ import com.keelim.composeutil.resource.space8
 
 @Composable
 fun ImageProfile(modifier: Modifier = Modifier) {
-    Surface {
+    KuiSurface {
     }
 }
 
 @Composable
 fun Info() {
     Column {
-        Text(
+        KuiText(
             color = Color.Blue,
             fontSize = 24.sp,
-            style = MaterialTheme.typography.bodyLarge,
+            style = KuiTheme.typography.bodyLarge,
             text = "Keelim",
         )
 
-        Text(
+        KuiText(
             text = "Android Developer",
             modifier = Modifier.padding(3.dp),
         )
 
-        Text(
+        KuiText(
             color = Color.Blue,
             fontSize = 24.sp,
-            style = MaterialTheme.typography.bodyLarge,
+            style = KuiTheme.typography.bodyLarge,
             text = "Studying Compose",
             modifier = Modifier.padding(3.dp),
         )
@@ -89,12 +89,12 @@ fun Info() {
 @Composable
 fun ProfileCard() {
     val isClicked = remember { mutableStateOf(false) }
-    Surface(
+    KuiSurface(
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight(),
     ) {
-        Card(
+        KuiCard(padded = false,
             modifier = Modifier
                 .width(200.dp)
                 .height(390.dp)
@@ -113,16 +113,16 @@ fun ProfileCard() {
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 ImageProfile()
-                HorizontalDivider()
+                KuiHorizontalDivider()
                 Info()
-                Button(
+                KuiButton(
                     onClick = {
                         isClicked.value = !isClicked.value
                     },
                 ) {
-                    Text(
+                    KuiText(
                         text = "Portfolio",
-                        style = MaterialTheme.typography.titleSmall,
+                        style = KuiTheme.typography.titleSmall,
                     )
                 }
                 if (isClicked.value) {
@@ -142,7 +142,7 @@ fun Content() {
             .fillMaxSize()
             .padding(5.dp),
     ) {
-        Surface(
+        KuiSurface(
             modifier = Modifier
                 .padding(3.dp)
                 .fillMaxWidth()
@@ -170,7 +170,7 @@ fun Content() {
 fun Portfolio(data: List<String>) {
     LazyColumn {
         items(data) { item ->
-            Card(
+            KuiCard(padded = false,
                 modifier = Modifier
                     .padding(13.dp)
                     .fillMaxWidth(),
@@ -182,7 +182,7 @@ fun Portfolio(data: List<String>) {
                 Row(
                     modifier = Modifier
                         .padding(space8)
-                        .background(MaterialTheme.colorScheme.surface)
+                        .background(KuiTheme.colorScheme.surface)
                         .padding(7.dp),
                 ) {
                     Column(
@@ -190,8 +190,8 @@ fun Portfolio(data: List<String>) {
                             .padding(7.dp)
                             .align(alignment = CenterVertically),
                     ) {
-                        Text(text = item, fontWeight = FontWeight.Bold)
-                        Text(text = "Good Project", style = MaterialTheme.typography.titleMedium)
+                        KuiText(text = item, fontWeight = FontWeight.Bold)
+                        KuiText(text = "Good Project", style = KuiTheme.typography.titleMedium)
                     }
                 }
             }

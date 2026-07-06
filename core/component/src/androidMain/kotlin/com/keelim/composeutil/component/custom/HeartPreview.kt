@@ -5,8 +5,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiButton
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -36,7 +36,7 @@ fun HeartScreen() {
             )
         }
 
-        Button(
+        KuiButton(
             onClick = {
                 heartCount.intValue++
             },
@@ -46,7 +46,7 @@ fun HeartScreen() {
                 .wrapContentHeight()
                 .wrapContentWidth(),
         ) {
-            Text(
+            KuiText(
                 text = "Like",
                 color = Color.White,
             )

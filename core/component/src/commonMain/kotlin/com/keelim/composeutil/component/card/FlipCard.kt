@@ -13,10 +13,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material3.Card
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import com.keelim.composeutil.component.kui.KuiCard
+import com.keelim.composeutil.component.kui.KuiIcon
+import com.keelim.composeutil.component.kui.KuiMaterialTheme
+import com.keelim.composeutil.component.kui.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -83,22 +83,22 @@ fun FrontCard(
     Box(
         modifier = modifier
             .size(400.dp, 200.dp)
-            .clip(MaterialTheme.shapes.medium)
+            .clip(KuiMaterialTheme.shapes.medium)
             .background(color),
         contentAlignment = Alignment.Center,
     ) {
-        Card(
+        KuiCard(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(space16),
-            shape = MaterialTheme.shapes.medium,
+            shape = KuiMaterialTheme.shapes.medium,
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .background(color),
             ) {
-                Icon(
+                KuiIcon(
                     imageVector = Icons.Filled.Favorite,
                     tint = Color.Black,
                     contentDescription = null,
@@ -106,7 +106,7 @@ fun FrontCard(
                 Spacer(
                     modifier = Modifier.height(space16),
                 )
-                Text(
+                KuiText(
                     text = title,
                     color = Color.Black,
                     modifier = Modifier
@@ -116,7 +116,7 @@ fun FrontCard(
                 Spacer(
                     modifier = Modifier.height(space16),
                 )
-                Text(
+                KuiText(
                     text = name,
                     color = Color.Black,
                     modifier = Modifier
@@ -126,7 +126,7 @@ fun FrontCard(
                 Spacer(
                     modifier = Modifier.height(space8),
                 )
-                Text(
+                KuiText(
                     text = description,
                     color = Color.Black,
                     modifier = Modifier
@@ -147,7 +147,7 @@ fun BackCard(
     Box(
         modifier = modifier
             .size(400.dp, 200.dp)
-            .clip(MaterialTheme.shapes.medium)
+            .clip(KuiMaterialTheme.shapes.medium)
             .background(Color.Black),
         contentAlignment = Alignment.Center,
     ) {
@@ -159,7 +159,7 @@ fun BackCard(
             Spacer(
                 modifier = Modifier.height(space8),
             )
-            Text(
+            KuiText(
                 text = title,
                 color = Color.White,
                 modifier = Modifier
@@ -169,7 +169,7 @@ fun BackCard(
             Spacer(
                 modifier = Modifier.height(space8),
             )
-            Text(
+            KuiText(
                 text = subtitle,
                 color = Color.White,
                 modifier = Modifier
@@ -179,7 +179,7 @@ fun BackCard(
             Spacer(
                 modifier = Modifier.height(space8),
             )
-            Icon(
+            KuiIcon(
                 imageVector = Icons.Filled.AccountBox,
                 tint = Color.White,
                 modifier = Modifier

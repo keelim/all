@@ -16,10 +16,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import com.keelim.composeutil.component.kui.KuiFloatingActionButton
+import com.keelim.composeutil.component.kui.KuiIcon
+import com.keelim.composeutil.component.kui.KuiMaterialTheme
+import com.keelim.composeutil.component.kui.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
@@ -99,9 +99,9 @@ fun MultiSubFab(
         horizontalArrangement = Arrangement.spacedBy(10.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Text(
+        KuiText(
             text = item.label,
-            style = MaterialTheme.typography.labelSmall,
+            style = KuiMaterialTheme.typography.labelSmall,
             fontWeight = FontWeight.Bold,
             modifier = Modifier
                 .clip(RoundedCornerShape(space8))
@@ -110,13 +110,13 @@ fun MultiSubFab(
             color = Color.White,
         )
 
-        FloatingActionButton(
+        KuiFloatingActionButton(
             onClick = { onClick(item) },
             modifier = Modifier.size(40.dp),
             containerColor = option.backgroundTint,
             contentColor = option.iconTint,
         ) {
-            Icon(
+            KuiIcon(
                 imageVector = item.imageVector,
                 tint = option.iconTint,
                 contentDescription = null,
@@ -171,14 +171,14 @@ fun MultiMainFab(
                 }
             }
         }
-        FloatingActionButton(
+        KuiFloatingActionButton(
             onClick = {
                 stateChanged(fabState.toggleValue())
             },
             containerColor = fabOption.backgroundTint,
             contentColor = fabOption.iconTint,
         ) {
-            Icon(
+            KuiIcon(
                 imageVector = fabIcon.imageVector,
                 contentDescription = null,
                 modifier = Modifier.rotate(rotation),

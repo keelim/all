@@ -12,11 +12,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.MaterialTheme
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
+import com.keelim.core.designsystem.component.KuiSurface
+import com.keelim.core.designsystem.component.KuiText
+import com.keelim.core.designsystem.component.KuiFilledTextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -55,14 +54,14 @@ fun DiagnosisScreen(
     onQueryChange: (String) -> Unit,
 ) = trace("DiagnosisScreen") {
     Column {
-        TextField(
+        KuiFilledTextField(
             value = query,
             onValueChange = onQueryChange,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(space16),
             placeholder = {
-                Text(
+                KuiText(
                     text = "Search Diagnosis",
                     style = KuiTheme.typography.bodyMedium,
                     color = KuiTheme.colorScheme.onSurfaceVariant,
@@ -123,7 +122,7 @@ fun DiagnosisItem(
     onDiagnosisClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) = trace("DiagnosisItem") {
-    Surface(
+    KuiSurface(
         onClick = { onDiagnosisClick() },
         shape = KuiTheme.shapes.large,
         modifier = modifier,
@@ -140,7 +139,7 @@ fun DiagnosisItem(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    Text(
+                    KuiText(
                         text = title,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
@@ -148,14 +147,14 @@ fun DiagnosisItem(
                         style = KuiTheme.typography.bodyLarge,
                         color = KuiTheme.colorScheme.onSurface,
                     )
-                    Text(
+                    KuiText(
                         text = label,
                         style = KuiTheme.typography.labelLarge,
                         color = KuiTheme.colorScheme.onSurfaceVariant,
                     )
                 }
                 Spacer(Modifier.height(space4))
-                Text(
+                KuiText(
                     text = content,
                     style = KuiTheme.typography.bodyLarge,
                     color = KuiTheme.colorScheme.onSurfaceVariant,

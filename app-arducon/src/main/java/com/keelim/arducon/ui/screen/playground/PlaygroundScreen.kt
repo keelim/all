@@ -1,5 +1,7 @@
 package com.keelim.arducon.ui.screen.playground
 
+import com.keelim.core.designsystem.component.KuiAlertDialog
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,22 +15,21 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material3.Button
-import androidx.compose.material3.Card
+import com.keelim.core.designsystem.component.KuiButton
+import com.keelim.core.designsystem.component.KuiCard
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
+import com.keelim.core.designsystem.component.KuiCircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.component.KuiIconButton
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHost
+import com.keelim.core.designsystem.component.KuiOutlinedTextField
+import com.keelim.core.designsystem.component.KuiScaffold
+import com.keelim.core.designsystem.component.KuiSnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBar
+import com.keelim.core.designsystem.component.KuiText
+import com.keelim.core.designsystem.component.KuiTextButton
+import com.keelim.core.designsystem.component.KuiTopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -103,23 +104,23 @@ fun PlaygroundScreen(
     modifier: Modifier = Modifier,
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
-    Scaffold(
+    KuiScaffold(
         topBar = {
-            TopAppBar(
+            KuiTopAppBar(
                 title = {
-                    Text(
+                    KuiText(
                         text = stringResource(Res.string.playground_title),
                         style = KuiTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = onNavigateBack) {
-                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "back")
+                    KuiIconButton(onClick = onNavigateBack) {
+                        KuiIcon(imageVector = Icons.Default.ArrowBack, contentDescription = "back")
                     }
                 },
             )
         },
-        snackbarHost = { SnackbarHost(snackbarHostState) },
+        snackbarHost = { KuiSnackbarHost(snackbarHostState) },
         modifier = modifier,
     ) { padding ->
         Column(
@@ -129,40 +130,40 @@ fun PlaygroundScreen(
                 .padding(horizontal = space16),
             verticalArrangement = Arrangement.spacedBy(space16),
         ) {
-            OutlinedTextField(
+            KuiOutlinedTextField(
                 value = state.url,
                 onValueChange = onUrlChange,
                 modifier = Modifier.fillMaxWidth(),
-                label = { Text(stringResource(Res.string.label_url)) },
+                label = { KuiText(stringResource(Res.string.label_url)) },
                 singleLine = true,
             )
             Row(horizontalArrangement = Arrangement.spacedBy(space8)) {
-                OutlinedTextField(
+                KuiOutlinedTextField(
                     value = state.paramKey,
                     onValueChange = onParamKeyChange,
                     modifier = Modifier.weight(1f),
-                    label = { Text(stringResource(Res.string.label_param_key)) },
+                    label = { KuiText(stringResource(Res.string.label_param_key)) },
                     singleLine = true,
                 )
-                OutlinedTextField(
+                KuiOutlinedTextField(
                     value = state.paramValue,
                     onValueChange = onParamValueChange,
                     modifier = Modifier.weight(1f),
-                    label = { Text(stringResource(Res.string.label_param_value)) },
+                    label = { KuiText(stringResource(Res.string.label_param_value)) },
                     singleLine = true,
                 )
             }
 
-            Text(text = "Preview: ${'$'}{state.preview}")
+            KuiText(text = "Preview: ${'$'}{state.preview}")
 
-            Button(onClick = onRunValidation, enabled = state.url.isNotBlank()) {
-                Icon(imageVector = Icons.Default.PlayArrow, contentDescription = null)
-                Text(text = stringResource(Res.string.action_run_validation), modifier = Modifier.padding(start = space8))
+            KuiButton(onClick = onRunValidation, enabled = state.url.isNotBlank()) {
+                KuiIcon(imageVector = Icons.Default.PlayArrow, contentDescription = null)
+                KuiText(text = stringResource(Res.string.action_run_validation), modifier = Modifier.padding(start = space8))
             }
 
             if (state.isLoading) {
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-                    CircularProgressIndicator()
+                    KuiCircularProgressIndicator()
                 }
             }
 
@@ -178,16 +179,16 @@ fun PlaygroundScreen(
                 state.og?.let { OgResultCard(it) }
                 if (state.resultText.isNotEmpty()) {
                     Spacer(modifier = Modifier.height(8.dp))
-                    Button(onClick = {
+                    KuiButton(onClick = {
                         val text = onShare(state)
                         // sharing will be handled in Route if we pass a callback with context, but for now we just build text
                         snackbarHostState.currentSnackbarData?.dismiss()
                     }) {
-                        Text(stringResource(Res.string.action_share_report))
+                        KuiText(stringResource(Res.string.action_share_report))
                     }
                     Spacer(modifier = Modifier.height(8.dp))
-                    Button(onClick = onGenerateQr, enabled = state.preview.isNotBlank() || state.url.isNotBlank()) {
-                        Text(stringResource(Res.string.action_generate_qr))
+                    KuiButton(onClick = onGenerateQr, enabled = state.preview.isNotBlank() || state.url.isNotBlank()) {
+                        KuiText(stringResource(Res.string.action_generate_qr))
                     }
                 }
             }
@@ -205,17 +206,17 @@ private fun QrDialogSection(
     when (qrDialogState) {
         is PlaygroundViewModel.QrDialogState.Hidden -> Unit
         is PlaygroundViewModel.QrDialogState.Loading -> {
-            androidx.compose.material3.AlertDialog(
+            KuiAlertDialog(
                 onDismissRequest = onDismiss,
-                text = { androidx.compose.material3.CircularProgressIndicator() },
+                text = { KuiCircularProgressIndicator() },
                 confirmButton = {},
-                dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(Res.string.dialog_close)) } },
+                dismissButton = { KuiTextButton(onClick = onDismiss) { KuiText(stringResource(Res.string.dialog_close)) } },
             )
         }
         is PlaygroundViewModel.QrDialogState.Success -> {
             val context = LocalContext.current
             val playgroundTitle = stringResource(Res.string.playground_title)
-            androidx.compose.material3.AlertDialog(
+            KuiAlertDialog(
                 onDismissRequest = onDismiss,
                 text = {
                     Image(
@@ -225,10 +226,10 @@ private fun QrDialogSection(
                 },
                 confirmButton = {
                     Row(horizontalArrangement = Arrangement.spacedBy(space8)) {
-                        Button(onClick = { context.saveQrBitmapToGallery(qrDialogState.bitmap) }) {
-                            Text(stringResource(Res.string.qr_save_image))
+                        KuiButton(onClick = { context.saveQrBitmapToGallery(qrDialogState.bitmap) }) {
+                            KuiText(stringResource(Res.string.qr_save_image))
                         }
-                        Button(onClick = {
+                        KuiButton(onClick = {
                             val cacheDir = File(context.cacheDir, "images").apply { mkdirs() }
                             val outFile = File(cacheDir, "qr_share.png")
                             FileOutputStream(outFile).use { stream ->
@@ -242,22 +243,22 @@ private fun QrDialogSection(
                             }
                             context.startActivity(android.content.Intent.createChooser(share, playgroundTitle))
                         }) {
-                            Text(stringResource(Res.string.qr_share_image))
+                            KuiText(stringResource(Res.string.qr_share_image))
                         }
                     }
                 },
                 dismissButton = {
-                    TextButton(onClick = onDismiss) { Text(stringResource(Res.string.dialog_close)) }
+                    KuiTextButton(onClick = onDismiss) { KuiText(stringResource(Res.string.dialog_close)) }
                 },
             )
         }
         is PlaygroundViewModel.QrDialogState.Error -> {
-            androidx.compose.material3.AlertDialog(
+            KuiAlertDialog(
                 onDismissRequest = onDismiss,
-                title = { Text(stringResource(Res.string.dialog_error)) },
-                text = { Text(qrDialogState.message) },
+                title = { KuiText(stringResource(Res.string.dialog_error)) },
+                text = { KuiText(qrDialogState.message) },
                 confirmButton = {},
-                dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(Res.string.dialog_close)) } },
+                dismissButton = { KuiTextButton(onClick = onDismiss) { KuiText(stringResource(Res.string.dialog_close)) } },
             )
         }
     }
@@ -267,19 +268,19 @@ private fun QrDialogSection(
 private fun ResolvedAppsCard(apps: List<ResolvedApp>) {
     var expanded by remember { androidx.compose.runtime.mutableStateOf(true) }
     val clipboard = LocalClipboardManager.current
-    Card(elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)) {
+    KuiCard(padded = false, elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)) {
         Column(modifier = Modifier.padding(space16), verticalArrangement = Arrangement.spacedBy(space8)) {
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-                Text(text = stringResource(Res.string.label_resolved_apps), style = KuiTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                KuiText(text = stringResource(Res.string.label_resolved_apps), style = KuiTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                 Row {
-                    IconButton(onClick = {
+                    KuiIconButton(onClick = {
                         val text = apps.joinToString("\n") { "${'$'}{it.label} (${ '$'}{it.packageName})" }
                         clipboard.setText(AnnotatedString(text))
-                    }) { Icon(Icons.Default.Check, contentDescription = null) }
-                    IconButton(onClick = {
+                    }) { KuiIcon(Icons.Default.Check, contentDescription = null) }
+                    KuiIconButton(onClick = {
                         expanded = !expanded
                     }) {
-                        Icon(
+                        KuiIcon(
                             imageVector = if (expanded) Icons.Default.PlayArrow else Icons.Default.ArrowBack,
                             contentDescription = null,
                         )
@@ -288,7 +289,7 @@ private fun ResolvedAppsCard(apps: List<ResolvedApp>) {
             }
             if (expanded) {
                 apps.forEach { _ ->
-                    Text(
+                    KuiText(
                         text = "- ${'$'}{it.label} (${'$'}{it.packageName})",
                         style = KuiTheme.typography.bodyMedium,
                     )
@@ -302,36 +303,36 @@ private fun ResolvedAppsCard(apps: List<ResolvedApp>) {
 private fun HttpResultCard(http: HttpResult) {
     var expanded by remember { androidx.compose.runtime.mutableStateOf(true) }
     val clipboard = LocalClipboardManager.current
-    Card(elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)) {
+    KuiCard(padded = false, elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)) {
         Column(modifier = Modifier.padding(space16), verticalArrangement = Arrangement.spacedBy(space8)) {
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-                Text(text = stringResource(Res.string.label_http_result), style = KuiTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                KuiText(text = stringResource(Res.string.label_http_result), style = KuiTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                 Row {
-                    IconButton(onClick = {
+                    KuiIconButton(onClick = {
                         val headers = http.headers.entries.joinToString("\n") { (k, v) -> "$k: ${'$'}{v.joinToString()}" }
                         val text = "${'$'}{http.statusCode} ${'$'}{http.finalUrl}\n${'$'}headers"
                         clipboard.setText(AnnotatedString(text))
-                    }) { Icon(Icons.Default.Check, contentDescription = null) }
-                    IconButton(onClick = {
+                    }) { KuiIcon(Icons.Default.Check, contentDescription = null) }
+                    KuiIconButton(onClick = {
                         expanded = !expanded
                     }) {
-                        Icon(
+                        KuiIcon(
                             imageVector = if (expanded) Icons.Default.PlayArrow else Icons.Default.ArrowBack,
                             contentDescription = null,
                         )
                     }
                 }
             }
-            Text(text = stringResource(Res.string.label_status_code, http.statusCode))
-            Text(text = stringResource(Res.string.label_final_url, http.finalUrl))
+            KuiText(text = stringResource(Res.string.label_status_code, http.statusCode))
+            KuiText(text = stringResource(Res.string.label_final_url, http.finalUrl))
             if (expanded) {
                 if (http.redirects.isNotEmpty()) {
-                    Text(stringResource(Res.string.label_redirects))
-                    http.redirects.forEach { Text("- ${'$'}it") }
+                    KuiText(stringResource(Res.string.label_redirects))
+                    http.redirects.forEach { KuiText("- ${'$'}it") }
                 }
                 if (http.headers.isNotEmpty()) {
-                    Text(stringResource(Res.string.label_headers))
-                    http.headers.forEach { (k, v) -> Text("${'$'}k: ${'$'}{v.joinToString()}") }
+                    KuiText(stringResource(Res.string.label_headers))
+                    http.headers.forEach { (k, v) -> KuiText("${'$'}k: ${'$'}{v.joinToString()}") }
                 }
             }
         }
@@ -342,29 +343,29 @@ private fun HttpResultCard(http: HttpResult) {
 private fun OgResultCard(og: OgResult) {
     var expanded by remember { androidx.compose.runtime.mutableStateOf(true) }
     val clipboard = LocalClipboardManager.current
-    Card(elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)) {
+    KuiCard(padded = false, elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)) {
         Column(modifier = Modifier.padding(space16), verticalArrangement = Arrangement.spacedBy(space8)) {
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-                Text(text = stringResource(Res.string.label_og_result), style = KuiTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                KuiText(text = stringResource(Res.string.label_og_result), style = KuiTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                 Row {
-                    IconButton(onClick = {
+                    KuiIconButton(onClick = {
                         val text = "title=${'$'}{og.title}\ndesc=${'$'}{og.description}\nimage=${'$'}{og.image}"
                         clipboard.setText(AnnotatedString(text))
-                    }) { Icon(Icons.Default.Check, contentDescription = null) }
-                    IconButton(onClick = {
+                    }) { KuiIcon(Icons.Default.Check, contentDescription = null) }
+                    KuiIconButton(onClick = {
                         expanded = !expanded
                     }) {
-                        Icon(
+                        KuiIcon(
                             imageVector = if (expanded) Icons.Default.PlayArrow else Icons.Default.ArrowBack,
                             contentDescription = null,
                         )
                     }
                 }
             }
-            Text(text = stringResource(Res.string.label_og_title, og.title ?: "-"))
+            KuiText(text = stringResource(Res.string.label_og_title, og.title ?: "-"))
             if (expanded) {
-                Text(text = stringResource(Res.string.label_og_desc, og.description ?: "-"))
-                Text(text = stringResource(Res.string.label_og_image, og.image ?: "-"))
+                KuiText(text = stringResource(Res.string.label_og_desc, og.description ?: "-"))
+                KuiText(text = stringResource(Res.string.label_og_image, og.image ?: "-"))
             }
         }
     }
@@ -372,9 +373,9 @@ private fun OgResultCard(og: OgResult) {
 
 @Composable
 private fun ErrorCard(message: String) {
-    Card(colors = CardDefaults.cardColors(containerColor = KuiTheme.colorScheme.errorContainer)) {
+    KuiCard(padded = false, colors = CardDefaults.cardColors(containerColor = KuiTheme.colorScheme.errorContainer)) {
         Column(modifier = Modifier.padding(space16)) {
-            Text(text = message, color = KuiTheme.colorScheme.onErrorContainer)
+            KuiText(text = message, color = KuiTheme.colorScheme.onErrorContainer)
         }
     }
 }

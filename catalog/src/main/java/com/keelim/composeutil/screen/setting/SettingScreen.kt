@@ -1,5 +1,7 @@
 package com.keelim.composeutil.screen.setting
 
+import com.keelim.core.designsystem.theme.KeelimDesignSystemTheme
+
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -8,10 +10,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiHorizontalDivider
+import com.keelim.core.designsystem.theme.KuiTheme
+import com.keelim.core.designsystem.component.KuiSurface
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -38,7 +40,7 @@ internal fun SettingScreenContent(
     clickAction: ((SettingAction) -> Unit)? = null,
     developerModeDataHolder: Map<String, String>? = null,
 ) {
-    Surface(
+    KuiSurface(
         modifier = modifier
             .padding(
                 horizontal = space8,
@@ -48,70 +50,70 @@ internal fun SettingScreenContent(
         Column(
             modifier = Modifier.fillMaxWidth(),
         ) {
-            Text(
+            KuiText(
                 text = "$appName 환경설정",
-                style = MaterialTheme.typography.titleSmall,
-                color = MaterialTheme.colorScheme.onSurface,
+                style = KuiTheme.typography.titleSmall,
+                color = KuiTheme.colorScheme.onSurface,
             )
             Spacer(modifier = Modifier.height(20.dp))
-            Text(
+            KuiText(
                 modifier = Modifier.clickable {
                     clickAction?.invoke(SettingAction.AlarmSetting)
                 },
                 text = "알림 설정",
-                style = MaterialTheme.typography.titleSmall,
-                color = MaterialTheme.colorScheme.onSurface,
+                style = KuiTheme.typography.titleSmall,
+                color = KuiTheme.colorScheme.onSurface,
             )
             Spacer(modifier = Modifier.height(space4))
-            HorizontalDivider(
+            KuiHorizontalDivider(
                 thickness = 1.dp,
                 color = Color.DarkGray,
             )
             Spacer(modifier = Modifier.height(space16))
-            Text(
+            KuiText(
                 modifier = Modifier.clickable {
                     clickAction?.invoke(SettingAction.ThemeSetting)
                 },
                 text = "테마 설정",
-                style = MaterialTheme.typography.titleSmall,
-                color = MaterialTheme.colorScheme.onSurface,
+                style = KuiTheme.typography.titleSmall,
+                color = KuiTheme.colorScheme.onSurface,
             )
             Spacer(modifier = Modifier.height(space4))
-            HorizontalDivider(
+            KuiHorizontalDivider(
                 thickness = 1.dp,
                 color = Color.DarkGray,
             )
             Spacer(modifier = Modifier.height(space16))
-            Text(
+            KuiText(
                 modifier = Modifier.clickable {
                     clickAction?.invoke(SettingAction.Lab)
                 },
                 text = "실험실",
-                style = MaterialTheme.typography.titleSmall,
-                color = MaterialTheme.colorScheme.onSurface,
+                style = KuiTheme.typography.titleSmall,
+                color = KuiTheme.colorScheme.onSurface,
             )
             Spacer(modifier = Modifier.height(space4))
-            HorizontalDivider(
+            KuiHorizontalDivider(
                 thickness = 1.dp,
                 color = Color.DarkGray,
             )
             Spacer(modifier = Modifier.height(space8))
-            Text(
+            KuiText(
                 modifier = Modifier
                     .align(Alignment.End)
                     .clickable {
                         clickAction?.invoke(SettingAction.OtherApp)
                     },
                 text = "개발자가 만든 다른 앱",
-                style = MaterialTheme.typography.labelSmall,
+                style = KuiTheme.typography.labelSmall,
                 color = Color.DarkGray,
             )
 
             if (developerModeDataHolder != null) {
-                Text(
+                KuiText(
                     text = "개발자 옵션",
-                    style = MaterialTheme.typography.titleSmall,
-                    color = MaterialTheme.colorScheme.onSurface,
+                    style = KuiTheme.typography.titleSmall,
+                    color = KuiTheme.colorScheme.onSurface,
                 )
                 Spacer(modifier = Modifier.height(space2))
                 LazyColumn {
@@ -144,18 +146,18 @@ fun DeveloperOptionPart(
     value: String? = null,
 ) {
     Spacer(modifier = modifier.height(space16))
-    Text(
+    KuiText(
         text = displayTitle,
-        style = MaterialTheme.typography.titleSmall,
-        color = MaterialTheme.colorScheme.onSurface,
+        style = KuiTheme.typography.titleSmall,
+        color = KuiTheme.colorScheme.onSurface,
     )
-    Text(
+    KuiText(
         text = "$displayKey: $value",
-        style = MaterialTheme.typography.labelSmall,
+        style = KuiTheme.typography.labelSmall,
         color = Color.Gray,
     )
     Spacer(modifier = modifier.height(space4))
-    HorizontalDivider(
+    KuiHorizontalDivider(
         thickness = 1.dp,
         color = Color.DarkGray,
     )
@@ -164,7 +166,7 @@ fun DeveloperOptionPart(
 @Preview(showBackground = true)
 @Composable
 private fun SettingScreenPreview() {
-    MaterialTheme {
+    KeelimDesignSystemTheme {
         SettingScreenContent(
             appName = "Compose",
             developerModeDataHolder = buildMap {
@@ -180,7 +182,7 @@ private fun SettingScreenPreview() {
 @Preview(showBackground = true)
 @Composable
 private fun DeveloperOptionPartPreview() {
-    MaterialTheme {
+    KeelimDesignSystemTheme {
         Column {
             DeveloperOptionPart(
                 displayTitle = "개발자 옵션1",

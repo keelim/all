@@ -5,9 +5,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import com.keelim.composeutil.component.kui.KuiIcon
+import com.keelim.composeutil.component.kui.KuiMaterialTheme
+import com.keelim.composeutil.component.kui.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,9 +20,9 @@ fun MultiAppBar(title: String) {
         modifier = Modifier.padding(horizontal = space4, vertical = space8),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Text(text = title, style = MaterialTheme.typography.titleLarge)
+        KuiText(text = title, style = KuiMaterialTheme.typography.titleLarge)
         Spacer(modifier = Modifier.weight(1f))
-        Icon(
+        KuiIcon(
             imageVector = Icons.Filled.MoreVert,
             contentDescription = null,
         )

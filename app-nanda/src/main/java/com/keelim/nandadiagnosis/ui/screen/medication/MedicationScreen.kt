@@ -20,24 +20,23 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Card
+import com.keelim.core.designsystem.component.KuiAlertDialog
+import com.keelim.core.designsystem.component.KuiCard
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.component.KuiFloatingActionButton
+import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.component.KuiIconButton
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SwipeToDismissBox
+import com.keelim.core.designsystem.component.KuiOutlinedTextField
+import com.keelim.core.designsystem.component.KuiScaffold
+import com.keelim.core.designsystem.component.KuiSwipeToDismissBox
 import androidx.compose.material3.SwipeToDismissBoxValue
-import androidx.compose.material3.Switch
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.material3.TimePicker
-import androidx.compose.material3.TopAppBar
+import com.keelim.core.designsystem.component.KuiSwitch
+import com.keelim.core.designsystem.component.KuiText
+import com.keelim.core.designsystem.component.KuiTextButton
+import com.keelim.core.designsystem.component.KuiTimePicker
+import com.keelim.core.designsystem.component.KuiTopAppBar
 import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
@@ -118,20 +117,20 @@ fun MedicationScreen(
         medicationDosage = editingMedication.dosage
     }
 
-    Scaffold(
+    KuiScaffold(
         topBar = {
-            TopAppBar(
+            KuiTopAppBar(
                 title = {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
-                        Icon(
+                        KuiIcon(
                             imageVector = MedicationIcon,
                             contentDescription = null,
                             tint = KuiTheme.colorScheme.primary
                         )
-                        Text(
+                        KuiText(
                             text = "복약 알림",
                             style = KuiTheme.typography.titleLarge,
                             color = KuiTheme.colorScheme.onSurface
@@ -141,11 +140,11 @@ fun MedicationScreen(
             )
         },
         floatingActionButton = {
-            FloatingActionButton(
+            KuiFloatingActionButton(
                 onClick = onShowAddDialog,
                 containerColor = KuiTheme.colorScheme.primary
             ) {
-                Icon(
+                KuiIcon(
                     Icons.Default.Add,
                     contentDescription = "복약 추가",
                     tint = KuiTheme.colorScheme.onPrimary
@@ -168,7 +167,7 @@ fun MedicationScreen(
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 item {
-                    Text(
+                    KuiText(
                         text = "등록된 복약 알림",
                         style = KuiTheme.typography.titleMedium,
                         color = KuiTheme.colorScheme.primary,
@@ -190,14 +189,14 @@ fun MedicationScreen(
     }
 
     if (showAddDialog) {
-        AlertDialog(
+        KuiAlertDialog(
             onDismissRequest = {
                 medicationName = ""
                 medicationDosage = ""
                 onHideAddDialog()
             },
             title = {
-                Text(
+                KuiText(
                     text = "복약 알림 추가",
                     style = KuiTheme.typography.titleMedium,
                     color = KuiTheme.colorScheme.onSurface
@@ -205,11 +204,11 @@ fun MedicationScreen(
             },
             text = {
                 Column {
-                    OutlinedTextField(
+                    KuiOutlinedTextField(
                         value = medicationName,
                         onValueChange = { medicationName = it },
                         label = {
-                            Text(
+                            KuiText(
                                 text = "약물명",
                                 style = KuiTheme.typography.labelMedium,
                                 color = KuiTheme.colorScheme.onSurfaceVariant
@@ -218,11 +217,11 @@ fun MedicationScreen(
                         modifier = Modifier.fillMaxWidth()
                     )
                     Spacer(modifier = Modifier.height(12.dp))
-                    OutlinedTextField(
+                    KuiOutlinedTextField(
                         value = medicationDosage,
                         onValueChange = { medicationDosage = it },
                         label = {
-                            Text(
+                            KuiText(
                                 text = "복용량 (예: 1정, 5ml)",
                                 style = KuiTheme.typography.labelMedium,
                                 color = KuiTheme.colorScheme.onSurfaceVariant
@@ -231,17 +230,17 @@ fun MedicationScreen(
                         modifier = Modifier.fillMaxWidth()
                     )
                     Spacer(modifier = Modifier.height(16.dp))
-                    Text(
+                    KuiText(
                         text = "복용 시간",
                         style = KuiTheme.typography.labelMedium,
                         color = KuiTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.padding(bottom = 8.dp)
                     )
-                    TimePicker(state = timePickerState)
+                    KuiTimePicker(state = timePickerState)
                 }
             },
             confirmButton = {
-                TextButton(
+                KuiTextButton(
                     onClick = {
                         if (medicationName.isNotBlank()) {
                             if (isEditing) {
@@ -264,7 +263,7 @@ fun MedicationScreen(
                         }
                     }
                 ) {
-                    Text(
+                    KuiText(
                         text = if (isEditing) "수정" else "추가",
                         style = KuiTheme.typography.labelLarge,
                         color = KuiTheme.colorScheme.primary
@@ -272,14 +271,14 @@ fun MedicationScreen(
                 }
             },
             dismissButton = {
-                TextButton(
+                KuiTextButton(
                     onClick = {
                         medicationName = ""
                         medicationDosage = ""
                         onHideAddDialog()
                     }
                 ) {
-                    Text(
+                    KuiText(
                         text = "취소",
                         style = KuiTheme.typography.labelLarge,
                         color = KuiTheme.colorScheme.onSurfaceVariant
@@ -299,18 +298,18 @@ private fun EmptyMedicationContent(modifier: Modifier = Modifier) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Icon(
+            KuiIcon(
                 imageVector = MedicationIcon,
                 contentDescription = null,
                 tint = KuiTheme.colorScheme.outline,
                 modifier = Modifier.padding(bottom = 16.dp)
             )
-            Text(
+            KuiText(
                 text = "등록된 복약 알림이 없습니다",
                 style = KuiTheme.typography.bodyLarge,
                 color = KuiTheme.colorScheme.onSurfaceVariant
             )
-            Text(
+            KuiText(
                 text = "+ 버튼을 눌러 복약 알림을 추가하세요",
                 style = KuiTheme.typography.bodyMedium,
                 color = KuiTheme.colorScheme.outline
@@ -337,7 +336,7 @@ private fun MedicationItem(
         }
     }
 
-    SwipeToDismissBox(
+    KuiSwipeToDismissBox(
         state = dismissState,
         backgroundContent = {
             val color by animateColorAsState(
@@ -354,7 +353,7 @@ private fun MedicationItem(
                     .padding(horizontal = 20.dp),
                 contentAlignment = Alignment.CenterEnd
             ) {
-                Icon(
+                KuiIcon(
                     Icons.Default.Delete,
                     contentDescription = "삭제",
                     tint = Color.White
@@ -379,7 +378,7 @@ private fun MedicationCard(
     onDelete: () -> Unit,
     onEdit: () -> Unit
 ) {
-    Card(
+    KuiCard(padded = false,
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(
@@ -403,23 +402,23 @@ private fun MedicationCard(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    Text(
+                    KuiText(
                         text = "💊",
                         style = KuiTheme.typography.titleMedium
                     )
-                    Text(
+                    KuiText(
                         text = medication.name,
                         style = KuiTheme.typography.bodyLarge,
                         color = KuiTheme.colorScheme.onSurface,
                         fontWeight = FontWeight.Medium
                     )
                 }
-                Text(
+                KuiText(
                     text = medication.dosage,
                     style = KuiTheme.typography.bodyMedium,
                     color = KuiTheme.colorScheme.onSurfaceVariant
                 )
-                Text(
+                KuiText(
                     text = formatUiTime(hour = medication.hour, minute = medication.minute),
                     style = KuiTheme.typography.headlineMedium,
                     color = if (medication.isEnabled) {
@@ -429,7 +428,7 @@ private fun MedicationCard(
                     },
                     fontWeight = FontWeight.Bold
                 )
-                Text(
+                KuiText(
                     text = when (medication.frequency) {
                         MedicationFrequency.DAILY -> "매일"
                         MedicationFrequency.EVERY_OTHER_DAY -> "격일"
@@ -441,14 +440,14 @@ private fun MedicationCard(
             }
 
             Row(verticalAlignment = Alignment.CenterVertically) {
-                IconButton(onClick = onDelete) {
-                    Icon(
+                KuiIconButton(onClick = onDelete) {
+                    KuiIcon(
                         Icons.Default.Delete,
                         contentDescription = "삭제",
                         tint = KuiTheme.colorScheme.error
                     )
                 }
-                Switch(
+                KuiSwitch(
                     checked = medication.isEnabled,
                     onCheckedChange = { onToggle() }
                 )

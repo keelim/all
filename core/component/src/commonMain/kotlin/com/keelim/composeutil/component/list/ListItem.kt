@@ -12,9 +12,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
+import com.keelim.composeutil.component.kui.KuiCircularProgressIndicator
+import com.keelim.composeutil.component.kui.KuiIcon
+import com.keelim.composeutil.component.kui.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -55,7 +55,7 @@ fun ListItem(
         horizontalArrangement = Arrangement.Start,
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Text(
+        KuiText(
             modifier = Modifier
                 .weight(1f)
                 .padding(horizontal = space16),
@@ -65,7 +65,7 @@ fun ListItem(
         Box(modifier = Modifier.size(60.dp), contentAlignment = Alignment.Center) {
             when (val state = item.state) {
                 ItemState.Visible, ItemState.Finish -> {
-                    Icon(
+                    KuiIcon(
                         imageVector = if (state is ItemState.Visible) {
                             Icons.Default.PlayArrow
                         } else {
@@ -81,7 +81,7 @@ fun ListItem(
                 }
 
                 ItemState.Progress -> {
-                    CircularProgressIndicator(
+                    KuiCircularProgressIndicator(
                         modifier = Modifier.size(30.dp),
                         strokeWidth = 3.dp,
                         color = Color.Magenta,

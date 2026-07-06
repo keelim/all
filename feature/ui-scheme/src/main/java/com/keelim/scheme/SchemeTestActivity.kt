@@ -10,10 +10,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.component.KuiButton
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.keelim.composeutil.resource.space8
@@ -31,24 +30,24 @@ class SchemeTestActivity : ComponentActivity() {
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
-                    Button(
+                    KuiButton(
                         onClick = {
                             IdDetailActivity.Companion.startActivity(activity, "Main")
                         },
                     ) {
-                        Text(
+                        KuiText(
                             text = "Main",
                             style = KuiTheme.typography.titleMedium,
                             modifier = Modifier.padding(vertical = space8),
                         )
                     }
 
-                    Button(
+                    KuiButton(
                         onClick = {
                             IdActivity.Companion.startActivity(activity, "Main Korea")
                         },
                     ) {
-                        Text(
+                        KuiText(
                             text = "Main Korea",
                             style = KuiTheme.typography.titleMedium,
                             modifier = Modifier.padding(vertical = space8),

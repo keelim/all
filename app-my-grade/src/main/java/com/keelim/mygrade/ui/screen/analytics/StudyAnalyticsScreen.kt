@@ -19,12 +19,11 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
-import androidx.compose.material3.Card
+import com.keelim.core.designsystem.component.KuiCard
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.component.KuiIcon
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -65,7 +64,7 @@ fun StudyAnalyticsScreen(
                 .padding(16.dp)
                 .verticalScroll(rememberScrollState()),
         ) {
-            Text(
+            KuiText(
                 text = "Study Analytics",
                 style = KuiTheme.typography.headlineMedium,
                 color = KuiTheme.colorScheme.onSurface,
@@ -131,7 +130,7 @@ private fun SummaryCard(
     color: Color,
     modifier: Modifier = Modifier,
 ) = trace("SummaryCard") {
-    Card(
+    KuiCard(padded = false,
         modifier = modifier,
         colors = CardDefaults.cardColors(containerColor = color),
         shape = RoundedCornerShape(16.dp),
@@ -142,13 +141,13 @@ private fun SummaryCard(
                 .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Text(
+            KuiText(
                 text = title,
                 style = KuiTheme.typography.labelMedium,
                 color = KuiTheme.colorScheme.onSurfaceVariant,
             )
             Spacer(modifier = Modifier.height(4.dp))
-            Text(
+            KuiText(
                 text = value,
                 style = KuiTheme.typography.titleLarge,
                 color = KuiTheme.colorScheme.onSurface,
@@ -162,7 +161,7 @@ private fun SummaryCard(
 fun HeatmapSection(
     dailyStats: List<DailyStudyStats>,
 ) = trace("HeatmapSection") {
-    Card(
+    KuiCard(padded = false,
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
     ) {
@@ -172,14 +171,14 @@ fun HeatmapSection(
             Row(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Icon(
+                KuiIcon(
                     imageVector = Icons.Default.Star,
                     contentDescription = null,
                     tint = KuiTheme.colorScheme.primary,
                     modifier = Modifier.size(20.dp),
                 )
                 Spacer(modifier = Modifier.width(8.dp))
-                Text(
+                KuiText(
                     text = "Activity Heatmap",
                     style = KuiTheme.typography.titleMedium,
                     color = KuiTheme.colorScheme.onSurface,
@@ -237,7 +236,7 @@ private fun HeatmapLegend() = trace("HeatmapLegend") {
         horizontalArrangement = Arrangement.End,
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Text(
+        KuiText(
             text = "Less",
             style = KuiTheme.typography.labelSmall,
             color = KuiTheme.colorScheme.onSurfaceVariant,
@@ -258,7 +257,7 @@ private fun HeatmapLegend() = trace("HeatmapLegend") {
             )
             Spacer(modifier = Modifier.width(2.dp))
         }
-        Text(
+        KuiText(
             text = "More",
             style = KuiTheme.typography.labelSmall,
             color = KuiTheme.colorScheme.onSurfaceVariant,
@@ -285,14 +284,14 @@ fun WeeklyChartSection(
     val recentDays = dailyStats.take(7).reversed()
     val maxSeconds = recentDays.maxOfOrNull { it.totalSeconds } ?: 1
 
-    Card(
+    KuiCard(padded = false,
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
     ) {
         Column(
             modifier = Modifier.padding(16.dp),
         ) {
-            Text(
+            KuiText(
                 text = "Weekly Overview",
                 style = KuiTheme.typography.titleMedium,
                 color = KuiTheme.colorScheme.onSurface,
@@ -306,7 +305,7 @@ fun WeeklyChartSection(
                 verticalAlignment = Alignment.Bottom,
             ) {
                 if (recentDays.isEmpty()) {
-                    Text(
+                    KuiText(
                         text = "No data yet",
                         style = KuiTheme.typography.bodyMedium,
                         color = KuiTheme.colorScheme.onSurfaceVariant,
@@ -325,7 +324,7 @@ fun WeeklyChartSection(
                                     .background(KuiTheme.colorScheme.primary),
                             )
                             Spacer(modifier = Modifier.height(4.dp))
-                            Text(
+                            KuiText(
                                 text = stat.date.takeLast(2),
                                 style = KuiTheme.typography.labelSmall,
                                 color = KuiTheme.colorScheme.onSurfaceVariant,
@@ -342,21 +341,21 @@ fun WeeklyChartSection(
 fun SubjectDistributionSection(
     subjectStats: List<SubjectStudyStats>,
 ) = trace("SubjectDistributionSection") {
-    Card(
+    KuiCard(padded = false,
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
     ) {
         Column(
             modifier = Modifier.padding(16.dp),
         ) {
-            Text(
+            KuiText(
                 text = "Subject Distribution",
                 style = KuiTheme.typography.titleMedium,
                 color = KuiTheme.colorScheme.onSurface,
             )
             Spacer(modifier = Modifier.height(16.dp))
             if (subjectStats.isEmpty()) {
-                Text(
+                KuiText(
                     text = "No subjects recorded yet",
                     style = KuiTheme.typography.bodyMedium,
                     color = KuiTheme.colorScheme.onSurfaceVariant,
@@ -392,12 +391,12 @@ private fun SubjectProgressBar(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
-            Text(
+            KuiText(
                 text = subject,
                 style = KuiTheme.typography.bodyMedium,
                 color = KuiTheme.colorScheme.onSurface,
             )
-            Text(
+            KuiText(
                 text = time,
                 style = KuiTheme.typography.bodySmall,
                 color = KuiTheme.colorScheme.onSurfaceVariant,

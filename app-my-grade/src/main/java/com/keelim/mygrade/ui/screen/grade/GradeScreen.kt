@@ -20,11 +20,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Share
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.component.KuiIcon
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.Snackbar
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiSnackbar
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -51,7 +50,7 @@ fun GradeRoute(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val data by viewModel.data.collectAsStateWithLifecycle()
     if (uiState.isMessageShow) {
-        Snackbar(dismissAction = { viewModel.dismissMessage() }) { Text(text = uiState.message) }
+        KuiSnackbar(dismissAction = { viewModel.dismissMessage() }) { KuiText(text = uiState.message) }
     }
     GradeScreen(
         subject = data.subject,
@@ -104,13 +103,13 @@ fun GradeContent(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(space8),
         ) {
-            Text(text = "과목명: $subject ", style = KuiTheme.typography.headlineMedium)
-            Text(text = "예상학점: $grade ", style = KuiTheme.typography.headlineMedium)
-            Text(text = "예상등수: $rank", style = KuiTheme.typography.headlineMedium)
+            KuiText(text = "과목명: $subject ", style = KuiTheme.typography.headlineMedium)
+            KuiText(text = "예상학점: $grade ", style = KuiTheme.typography.headlineMedium)
+            KuiText(text = "예상등수: $rank", style = KuiTheme.typography.headlineMedium)
         }
         Spacer(modifier = Modifier.height(space12))
         Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {
-            Text(
+            KuiText(
                 text = "+ 은 교수님 재량입니다.",
             )
         }
@@ -124,7 +123,7 @@ fun GradeContent(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxWidth(),
         ) {
-            Icon(
+            KuiIcon(
                 imageVector = Icons.AutoMirrored.Filled.List,
                 contentDescription = null,
                 modifier = Modifier
@@ -132,7 +131,7 @@ fun GradeContent(
                     .clickable { onNavigateNotes() },
             )
 
-            Icon(
+            KuiIcon(
                 imageVector = Icons.Filled.Edit,
                 contentDescription = null,
                 modifier = Modifier
@@ -154,7 +153,7 @@ fun GradeContent(
                     label = "",
                 )
 
-            Icon(
+            KuiIcon(
                 imageVector = Icons.Filled.Share,
                 contentDescription = null,
                 modifier = Modifier

@@ -9,10 +9,10 @@ import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Star
-import androidx.compose.material3.Icon
-import androidx.compose.material3.PrimaryScrollableTabRow
-import androidx.compose.material3.Tab
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.component.KuiPrimaryScrollableTabRow
+import com.keelim.core.designsystem.component.KuiTab
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -29,42 +29,42 @@ fun TabScreen() {
     Column(
         modifier = Modifier.fillMaxWidth(),
     ) {
-        PrimaryScrollableTabRow(
+        KuiPrimaryScrollableTabRow(
             selectedTabIndex = tabIndex,
         ) {
             tabs.fastForEachIndexed { index, title ->
-                Tab(
-                    text = { Text(title) },
+                KuiTab(
+                    text = { KuiText(title) },
                     selected = tabIndex == index,
                     onClick = { tabIndex = index },
                     icon = {
                         when (index) {
-                            0 -> Icon(
+                            0 -> KuiIcon(
                                 imageVector = Icons.Default.Home,
                                 contentDescription = null,
                             )
 
-                            1 -> Icon(
+                            1 -> KuiIcon(
                                 imageVector = Icons.Default.Info,
                                 contentDescription = null,
                             )
 
-                            2 -> Icon(
+                            2 -> KuiIcon(
                                 imageVector = Icons.Default.Settings,
                                 contentDescription = null,
                             )
 
-                            3 -> Icon(
+                            3 -> KuiIcon(
                                 imageVector = Icons.Default.Lock,
                                 contentDescription = null,
                             )
 
-                            4 -> Icon(
+                            4 -> KuiIcon(
                                 imageVector = Icons.Default.Check,
                                 contentDescription = null,
                             )
 
-                            5 -> Icon(
+                            5 -> KuiIcon(
                                 imageVector = Icons.Default.Star,
                                 contentDescription = null,
                             )

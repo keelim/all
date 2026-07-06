@@ -14,12 +14,11 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material3.Card
-import androidx.compose.material3.Icon
-import androidx.compose.material3.ListItem
-import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.component.KuiCard
+import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.component.KuiListItem
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -49,7 +48,7 @@ internal fun FoodSuccessSection(
             }
             if (foods.isEmpty()) {
                 item {
-                    Text(
+                    KuiText(
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(space64),
@@ -75,7 +74,7 @@ private fun FoodHeader(
     onEditClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Card(
+    KuiCard(padded = false,
         modifier = modifier
             .fillMaxWidth()
             .padding(vertical = space12, horizontal = space8),
@@ -87,12 +86,12 @@ private fun FoodHeader(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Text(
+            KuiText(
                 text = title,
                 style = KuiTheme.typography.bodyLarge,
                 fontWeight = FontWeight.Bold,
             )
-            Icon(
+            KuiIcon(
                 imageVector = Icons.Default.Edit,
                 contentDescription = "edit food",
                 modifier = Modifier.clickable {
@@ -108,20 +107,20 @@ private fun FoodItem(
     food: Food,
     modifier: Modifier = Modifier,
 ) {
-    ListItem(
+    KuiListItem(
         headlineContent = {
-            Text(
+            KuiText(
                 text = food.title,
             )
         },
         trailingContent = {
-            Text(
+            KuiText(
                 text = "${food.kcal} kcal",
                 style = KuiTheme.typography.labelSmall,
             )
         },
         supportingContent = {
-            Text(
+            KuiText(
                 text = food.description,
                 style = KuiTheme.typography.bodyMedium,
             )

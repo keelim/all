@@ -6,10 +6,10 @@ import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
+import com.keelim.composeutil.component.kui.KuiIcon
+import com.keelim.composeutil.component.kui.KuiMaterialTheme
+import com.keelim.composeutil.component.kui.KuiNavigationBar
+import com.keelim.composeutil.component.kui.KuiNavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -20,7 +20,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 fun AppBottomNavigationBar(
     modifier: Modifier = Modifier,
 ) {
-    NavigationBar(
+    KuiNavigationBar(
         modifier = modifier,
         content = {
             AppNavItem(
@@ -53,9 +53,9 @@ fun RowScope.AppNavItem(
     selected: Boolean,
     onClick: () -> Unit,
 ) {
-    NavigationBarItem(
+    KuiNavigationBarItem(
         icon = {
-            Icon(
+            KuiIcon(
                 imageVector = imageVector,
                 contentDescription = null,
             )
@@ -64,7 +64,7 @@ fun RowScope.AppNavItem(
         selected = selected,
         colors = NavigationBarItemDefaults.colors(
             selectedIconColor = Color.Black,
-            unselectedIconColor = MaterialTheme.colorScheme.secondary,
+            unselectedIconColor = KuiMaterialTheme.colorScheme.secondary,
             indicatorColor = Color.White,
         ),
     )

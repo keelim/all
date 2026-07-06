@@ -23,15 +23,14 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material3.Card
+import com.keelim.core.designsystem.component.KuiCard
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.FilledTonalButton
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.component.KuiFilledTonalButton
+import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.component.KuiIconButton
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiSurface
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -94,7 +93,7 @@ fun WaterIntakeScreen(
     ) {
         // 헤더
         item {
-            Text(
+            KuiText(
                 text = "💧 수분 섭취",
                 style = KuiTheme.typography.headlineMedium,
                 color = KuiTheme.colorScheme.onSurface,
@@ -104,7 +103,7 @@ fun WaterIntakeScreen(
 
         // 진행률 링
         item {
-            Card(
+            KuiCard(padded = false,
                 modifier = Modifier.fillMaxWidth(),
                 colors = CardDefaults.cardColors(
                     containerColor = KuiTheme.colorScheme.primaryContainer.copy(alpha = 0.3f),
@@ -123,7 +122,7 @@ fun WaterIntakeScreen(
                         goal = dailyGoal,
                     )
                     Spacer(modifier = Modifier.height(16.dp))
-                    Text(
+                    KuiText(
                         text = if (todayTotal >= dailyGoal) "🎉 목표 달성!" else "오늘 목표량의 ${(progress * 100).toInt()}%",
                         style = KuiTheme.typography.bodyLarge,
                         color = KuiTheme.colorScheme.onSurface,
@@ -134,7 +133,7 @@ fun WaterIntakeScreen(
 
         // 빠른 추가 버튼
         item {
-            Text(
+            KuiText(
                 text = "빠른 추가",
                 style = KuiTheme.typography.titleMedium,
                 color = KuiTheme.colorScheme.onSurface,
@@ -147,7 +146,7 @@ fun WaterIntakeScreen(
         // 주간 요약
         if (weeklyHistory.isNotEmpty()) {
             item {
-                Text(
+                KuiText(
                     text = "주간 기록",
                     style = KuiTheme.typography.titleMedium,
                     color = KuiTheme.colorScheme.onSurface,
@@ -161,7 +160,7 @@ fun WaterIntakeScreen(
         // 오늘 기록 리스트
         if (todayRecords.isNotEmpty()) {
             item {
-                Text(
+                KuiText(
                     text = "오늘 기록",
                     style = KuiTheme.typography.titleMedium,
                     color = KuiTheme.colorScheme.onSurface,
@@ -224,20 +223,20 @@ private fun ProgressRing(
         }
 
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Icon(
+            KuiIcon(
                 imageVector = WaterDropIcon,
                 contentDescription = null,
                 tint = ringColor,
                 modifier = Modifier.size(32.dp),
             )
             Spacer(modifier = Modifier.height(4.dp))
-            Text(
+            KuiText(
                 text = "${current}ml",
                 style = KuiTheme.typography.headlineSmall,
                 color = KuiTheme.colorScheme.onSurface,
                 fontWeight = FontWeight.Bold,
             )
-            Text(
+            KuiText(
                 text = "/ ${goal}ml",
                 style = KuiTheme.typography.bodyMedium,
                 color = KuiTheme.colorScheme.onSurfaceVariant,
@@ -257,12 +256,12 @@ private fun QuickAddButtons(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         amounts.forEach { amount ->
-            FilledTonalButton(
+            KuiFilledTonalButton(
                 onClick = { onAddWater(amount) },
                 modifier = Modifier.weight(1f),
                 shape = RoundedCornerShape(12.dp),
             ) {
-                Text(
+                KuiText(
                     text = "${amount}ml",
                     style = KuiTheme.typography.labelLarge,
                     color = KuiTheme.colorScheme.onSecondaryContainer,
@@ -277,7 +276,7 @@ private fun WeeklyChart(
     history: List<DailyWaterTotal>,
     dailyGoal: Int,
 ) = trace("WeeklyChart") {
-    Card(
+    KuiCard(padded = false,
         modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(
             containerColor = KuiTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
@@ -331,7 +330,7 @@ private fun DailyBar(
             )
         }
         Spacer(modifier = Modifier.height(4.dp))
-        Text(
+        KuiText(
             text = date.takeLast(5).replace("-", "/"),
             style = KuiTheme.typography.labelSmall,
             color = KuiTheme.colorScheme.onSurfaceVariant,
@@ -345,7 +344,7 @@ private fun WaterRecordItem(
     record: WaterIntakeUiModel,
     onDelete: () -> Unit,
 ) = trace("WaterRecordItem") {
-    Card(
+    KuiCard(padded = false,
         modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(
             containerColor = KuiTheme.colorScheme.surface,
@@ -359,13 +358,13 @@ private fun WaterRecordItem(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Surface(
+                KuiSurface(
                     shape = CircleShape,
                     color = KuiTheme.colorScheme.primaryContainer,
                     modifier = Modifier.size(40.dp),
                 ) {
                     Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                        Icon(
+                        KuiIcon(
                             imageVector = WaterDropIcon,
                             contentDescription = null,
                             tint = KuiTheme.colorScheme.primary,
@@ -375,21 +374,21 @@ private fun WaterRecordItem(
                 }
                 Spacer(modifier = Modifier.width(12.dp))
                 Column {
-                    Text(
+                    KuiText(
                         text = "${record.amount}ml",
                         style = KuiTheme.typography.bodyLarge,
                         color = KuiTheme.colorScheme.onSurface,
                         fontWeight = FontWeight.Medium,
                     )
-                    Text(
+                    KuiText(
                         text = record.formattedTime,
                         style = KuiTheme.typography.bodySmall,
                         color = KuiTheme.colorScheme.onSurfaceVariant,
                     )
                 }
             }
-            IconButton(onClick = onDelete) {
-                Icon(
+            KuiIconButton(onClick = onDelete) {
+                KuiIcon(
                     imageVector = Icons.Default.Delete,
                     contentDescription = "삭제",
                     tint = KuiTheme.colorScheme.error,

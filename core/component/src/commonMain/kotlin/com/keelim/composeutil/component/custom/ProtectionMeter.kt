@@ -6,8 +6,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import com.keelim.composeutil.component.kui.KuiMaterialTheme
+import com.keelim.composeutil.component.kui.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -121,14 +121,14 @@ fun ProtectionMeter(
                 .align(Alignment.BottomCenter),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Text(
+            KuiText(
                 text = "$inputValue %",
-                style = MaterialTheme.typography.titleLarge,
+                style = KuiMaterialTheme.typography.titleLarge,
                 color = percentageColor,
             )
-            Text(
+            KuiText(
                 text = subTitle,
-                style = MaterialTheme.typography.titleMedium,
+                style = KuiMaterialTheme.typography.titleMedium,
                 color = Color(0xFFB0B4CD),
             )
         }

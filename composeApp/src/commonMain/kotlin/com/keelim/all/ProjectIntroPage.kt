@@ -17,14 +17,14 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AlternateEmail
-import androidx.compose.material3.Button
+import com.keelim.composeutil.component.kui.KuiButton
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
+import com.keelim.composeutil.component.kui.KuiCard
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import com.keelim.composeutil.component.kui.KuiIcon
+import com.keelim.composeutil.component.kui.KuiMaterialTheme
+import com.keelim.composeutil.component.kui.KuiSurface
+import com.keelim.composeutil.component.kui.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -64,15 +64,15 @@ fun ProjectIntroPage() {
 
 @Composable
 fun ProjectTitleAndDescription() {
-    Text(
+    KuiText(
         text = "ALL Project",
-        style = MaterialTheme.typography.headlineLarge,
+        style = KuiMaterialTheme.typography.headlineLarge,
         fontWeight = FontWeight.ExtraBold,
         color = Color(0xFF0d47a1),
     )
-    Text(
+    KuiText(
         text = "All-in-one project based on Kotlin Multiplatform + Compose",
-        style = MaterialTheme.typography.titleMedium,
+        style = KuiMaterialTheme.typography.titleMedium,
         color = Color(0xFF1976d2),
         fontWeight = FontWeight.Medium,
         modifier = Modifier.padding(horizontal = 16.dp),
@@ -81,7 +81,7 @@ fun ProjectTitleAndDescription() {
 
 @Composable
 fun MainFeaturesCard() {
-    Card(
+    KuiCard(
         modifier = Modifier
             .padding(top = 8.dp)
             .heightIn(min = 220.dp)
@@ -96,7 +96,7 @@ fun MainFeaturesCard() {
             modifier = Modifier.padding(40.dp),
             horizontalAlignment = Alignment.Start,
         ) {
-            Text(
+            KuiText(
                 "Main Features",
                 fontWeight = FontWeight.Bold,
                 fontSize = 24.sp,
@@ -104,24 +104,24 @@ fun MainFeaturesCard() {
             )
             Spacer(Modifier.height(20.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("💻", fontSize = 20.sp)
+                KuiText("💻", fontSize = 20.sp)
                 Spacer(Modifier.size(8.dp))
-                Text("Supports Desktop, Web, Android, iOS", fontSize = 18.sp, lineHeight = 28.sp)
+                KuiText("Supports Desktop, Web, Android, iOS", fontSize = 18.sp, lineHeight = 28.sp)
             }
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("🧩", fontSize = 20.sp)
+                KuiText("🧩", fontSize = 20.sp)
                 Spacer(Modifier.size(8.dp))
-                Text("Provides common UI components", fontSize = 18.sp, lineHeight = 28.sp)
+                KuiText("Provides common UI components", fontSize = 18.sp, lineHeight = 28.sp)
             }
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("🗂️", fontSize = 20.sp)
+                KuiText("🗂️", fontSize = 20.sp)
                 Spacer(Modifier.size(8.dp))
-                Text("Modular architecture", fontSize = 18.sp, lineHeight = 28.sp)
+                KuiText("Modular architecture", fontSize = 18.sp, lineHeight = 28.sp)
             }
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("✨", fontSize = 20.sp)
+                KuiText("✨", fontSize = 20.sp)
                 Spacer(Modifier.size(8.dp))
-                Text("Utilizes latest Compose", fontSize = 18.sp, lineHeight = 28.sp)
+                KuiText("Utilizes latest Compose", fontSize = 18.sp, lineHeight = 28.sp)
             }
         }
     }
@@ -129,14 +129,14 @@ fun MainFeaturesCard() {
 
 @Composable
 fun TechStackCard() {
-    Card(
+    KuiCard(
         modifier = Modifier.padding(top = 8.dp).shadow(4.dp, RoundedCornerShape(24.dp)),
         colors = CardDefaults.cardColors(containerColor = Color.White.copy(alpha = 0.9f)),
         shape = RoundedCornerShape(24.dp),
         elevation = CardDefaults.cardElevation(4.dp),
     ) {
         Column(modifier = Modifier.padding(24.dp)) {
-            Text("Tech Stack", fontWeight = FontWeight.SemiBold, fontSize = 18.sp)
+            KuiText("Tech Stack", fontWeight = FontWeight.SemiBold, fontSize = 18.sp)
             Spacer(Modifier.height(12.dp))
             FlowRow(
                 maxItemsInEachRow = 5,
@@ -158,7 +158,7 @@ fun TechStackCard() {
 
 @Composable
 fun TeamMembersCard() {
-    Card(
+    KuiCard(
         modifier = Modifier.padding(top = 8.dp).shadow(4.dp, RoundedCornerShape(24.dp)),
         colors = CardDefaults.cardColors(containerColor = Color.White.copy(alpha = 0.9f)),
         shape = RoundedCornerShape(24.dp),
@@ -168,7 +168,7 @@ fun TeamMembersCard() {
             modifier = Modifier.padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Text("Team", fontWeight = FontWeight.SemiBold, fontSize = 18.sp)
+            KuiText("Team", fontWeight = FontWeight.SemiBold, fontSize = 18.sp)
             Spacer(Modifier.height(12.dp))
             Row(horizontalArrangement = Arrangement.spacedBy(32.dp)) {
                 MemberProfile("K", "keelim", Color(0xFF90caf9))
@@ -183,7 +183,7 @@ fun BoxScope.FooterButtons(
     modifier: Modifier = Modifier,
 ) {
     val uriHandler = LocalUriHandler.current
-    Surface(
+    KuiSurface(
         modifier = modifier
             .align(Alignment.BottomEnd)
             .padding(end = 24.dp, bottom = 24.dp)
@@ -197,7 +197,7 @@ fun BoxScope.FooterButtons(
             horizontalArrangement = Arrangement.spacedBy(24.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Button(
+            KuiButton(
                 onClick = { uriHandler.openUri("https://github.com/keelim/all") },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFF24292f),
@@ -206,9 +206,9 @@ fun BoxScope.FooterButtons(
                 shape = RoundedCornerShape(20.dp),
             ) {
                 Spacer(Modifier.size(8.dp))
-                Text("GitHub")
+                KuiText("GitHub")
             }
-            Button(
+            KuiButton(
                 onClick = { uriHandler.openUri("mailto:contact@keelim.com") },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFF1976d2),
@@ -216,13 +216,13 @@ fun BoxScope.FooterButtons(
                 ),
                 shape = RoundedCornerShape(20.dp),
             ) {
-                Icon(
+                KuiIcon(
                     Icons.Filled.AlternateEmail,
                     contentDescription = null,
                     modifier = Modifier.size(20.dp),
                 )
                 Spacer(Modifier.size(8.dp))
-                Text("Contact")
+                KuiText("Contact")
             }
         }
     }
@@ -236,7 +236,7 @@ fun TechChip(text: String, color: Color) {
             .padding(horizontal = 16.dp, vertical = 6.dp),
         contentAlignment = Alignment.Center,
     ) {
-        Text(text, color = color, fontWeight = FontWeight.Bold, fontSize = 14.sp)
+        KuiText(text, color = color, fontWeight = FontWeight.Bold, fontSize = 14.sp)
     }
 }
 
@@ -251,9 +251,9 @@ fun MemberProfile(initial: String, name: String, color: Color) {
                 .shadow(8.dp, CircleShape),
             contentAlignment = Alignment.Center,
         ) {
-            Text(initial, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 22.sp)
+            KuiText(initial, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 22.sp)
         }
         Spacer(Modifier.height(4.dp))
-        Text(name, fontSize = 13.sp, fontWeight = FontWeight.Medium, color = Color(0xFF333333))
+        KuiText(name, fontSize = 13.sp, fontWeight = FontWeight.Medium, color = Color(0xFF333333))
     }
 }

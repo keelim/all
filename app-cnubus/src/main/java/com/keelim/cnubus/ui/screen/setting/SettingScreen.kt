@@ -28,13 +28,12 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.Card
+import com.keelim.core.designsystem.component.KuiCard
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.component.KuiIcon
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiScaffold
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
@@ -75,14 +74,14 @@ private val settings by lazy {
 internal fun SettingScreen(
     onScreenAction: (ScreenAction) -> Unit,
 ) = trace("SettingScreen") {
-    Scaffold(
+    KuiScaffold(
         topBar = {
             Column(
                 Modifier
                     .fillMaxWidth()
                     .padding(space24),
             ) {
-                Text(
+                KuiText(
                     text = "설정",
                     color = KuiTheme.colorScheme.onSurface,
                     fontSize = 32.sp,
@@ -118,7 +117,7 @@ fun SettingItem(
     onScreenAction: (ScreenAction) -> Unit,
     modifier: Modifier = Modifier,
 ) = trace("SettingItem") {
-    Card(
+    KuiCard(padded = false,
         modifier = modifier
             .padding(
                 horizontal = space8,
@@ -151,13 +150,13 @@ private fun CellItem(
             .padding(horizontal = space24),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Icon(
+        KuiIcon(
             imageVector = icon,
             contentDescription = null,
             tint = KuiTheme.colorScheme.primary,
             modifier = Modifier.padding(end = space16)
         )
-        Text(
+        KuiText(
             text = text,
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,

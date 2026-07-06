@@ -16,14 +16,13 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
-import androidx.compose.material3.Card
-import androidx.compose.material3.Checkbox
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.component.KuiCard
+import com.keelim.core.designsystem.component.KuiCheckbox
+import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.component.KuiIconButton
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
+import com.keelim.core.designsystem.component.KuiText
+import com.keelim.core.designsystem.component.KuiFilledTextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -162,7 +161,7 @@ fun LocalTaskHeader(
             .fillMaxWidth()
             .padding(top = space16, bottom = space8, start = space16, end = space16),
     ) {
-        Text(
+        KuiText(
             text = task.text,
             style = KuiTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold,
@@ -180,7 +179,7 @@ fun LocalTaskItem(
     innerCornerSize: Dp = 0.dp,
 ) = trace("LocalTaskItem") {
     val task = item.localTask
-    Card(
+    KuiCard(padded = false,
         modifier =
         modifier
             .padding(horizontal = space16, vertical = space8)
@@ -192,21 +191,21 @@ fun LocalTaskItem(
     ) {
         Row(modifier = Modifier.padding(space16)) {
             if (task.isEditing) {
-                TextField(
+                KuiFilledTextField(
                     value = task.title,
                     onValueChange = { onChange(task.copy(title = it)) },
                     modifier = Modifier
                         .weight(1f)
                         .padding(end = space8),
                 )
-                IconButton(
+                KuiIconButton(
                     modifier = Modifier.align(Alignment.CenterVertically),
                     onClick = { onChange(task.copy(isEditing = false)) },
                 ) {
-                    Icon(imageVector = Icons.Filled.Done, contentDescription = null)
+                    KuiIcon(imageVector = Icons.Filled.Done, contentDescription = null)
                 }
             } else {
-                Text(
+                KuiText(
                     text = task.title,
                     textDecoration =
                     if (task.isCompleted) TextDecoration.LineThrough else TextDecoration.None,
@@ -214,7 +213,7 @@ fun LocalTaskItem(
                         .weight(1f)
                         .padding(end = space8),
                 )
-                Checkbox(
+                KuiCheckbox(
                     modifier = Modifier.align(Alignment.CenterVertically),
                     checked = task.isCompleted,
                     onCheckedChange = { onChange(task.copy(isCompleted = it)) },

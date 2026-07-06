@@ -5,11 +5,11 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Clear
 import androidx.compose.material.icons.rounded.Search
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
+import com.keelim.composeutil.component.kui.KuiIcon
+import com.keelim.composeutil.component.kui.KuiIconButton
+import com.keelim.composeutil.component.kui.KuiMaterialTheme
+import com.keelim.composeutil.component.kui.KuiText
+import com.keelim.composeutil.component.kui.KuiTextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -24,33 +24,33 @@ fun SearchView(
     onClearQuery: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    TextField(
+    KuiTextField(
         value = query,
         onValueChange = { newQuery ->
             onQueryChanged(newQuery)
         },
         leadingIcon = {
-            Icon(
+            KuiIcon(
                 imageVector = Icons.Rounded.Search,
-                tint = MaterialTheme.colorScheme.background,
+                tint = KuiMaterialTheme.colorScheme.background,
                 contentDescription = null,
             )
         },
         trailingIcon = {
-            IconButton(onClick = {
+            KuiIconButton(onClick = {
                 onClearQuery()
             }) {
-                Icon(
+                KuiIcon(
                     imageVector = Icons.Rounded.Clear,
-                    tint = MaterialTheme.colorScheme.onBackground,
+                    tint = KuiMaterialTheme.colorScheme.onBackground,
                     contentDescription = null,
                 )
             }
         },
         maxLines = 1,
         colors = TextFieldDefaults.colors(),
-        placeholder = { Text(text = "search") },
-        textStyle = MaterialTheme.typography.labelLarge,
+        placeholder = { KuiText(text = "search") },
+        textStyle = KuiMaterialTheme.typography.labelLarge,
         singleLine = true,
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Text,

@@ -27,18 +27,18 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material3.Button
-import androidx.compose.material3.Card
+import com.keelim.core.designsystem.component.KuiButton
+import com.keelim.core.designsystem.component.KuiCard
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
+import com.keelim.core.designsystem.component.KuiCircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
+import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.component.KuiIconButton
+import com.keelim.core.designsystem.component.KuiOutlinedButton
+import com.keelim.core.designsystem.component.KuiScaffold
+import com.keelim.core.designsystem.component.KuiSurface
+import com.keelim.core.designsystem.component.KuiText
+import com.keelim.core.designsystem.component.KuiTopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -285,19 +285,19 @@ private fun DeviceTestLabScreen(
     onRunTest: (DeviceTestId) -> Unit,
     onResetTest: (DeviceTestId) -> Unit,
 ) {
-    Scaffold(
+    KuiScaffold(
         topBar = {
-            TopAppBar(
+            KuiTopAppBar(
                 title = {
-                    Text(
+                    KuiText(
                         text = stringResource(Res.string.arducon_device_lab_title),
                         style = KuiTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
                         color = KuiTheme.colorScheme.onSurface,
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = onNavigateBack) {
-                        Icon(
+                    KuiIconButton(onClick = onNavigateBack) {
+                        KuiIcon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = null,
                             tint = KuiTheme.colorScheme.onSurface,
@@ -360,7 +360,7 @@ private fun DeviceLabSummary(
     uiState: DeviceTestLabUiState,
     modifier: Modifier = Modifier,
 ) {
-    Card(
+    KuiCard(padded = false,
         modifier = modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(containerColor = KuiTheme.colorScheme.surface),
     ) {
@@ -373,7 +373,7 @@ private fun DeviceLabSummary(
                 horizontalArrangement = Arrangement.spacedBy(space12),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Icon(
+                KuiIcon(
                     imageVector = Icons.Default.Build,
                     contentDescription = null,
                     tint = KuiTheme.colorScheme.primary,
@@ -382,19 +382,19 @@ private fun DeviceLabSummary(
                     modifier = Modifier.weight(1f),
                     verticalArrangement = Arrangement.spacedBy(space4),
                 ) {
-                    Text(
+                    KuiText(
                         text = stringResource(Res.string.arducon_device_lab_title),
                         style = KuiTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
                         color = KuiTheme.colorScheme.onSurface,
                     )
-                    Text(
+                    KuiText(
                         text = stringResource(Res.string.arducon_device_lab_subtitle),
                         style = KuiTheme.typography.bodyMedium,
                         color = KuiTheme.colorScheme.onSurfaceVariant,
                     )
                 }
             }
-            Text(
+            KuiText(
                 text = stringResource(
                     Res.string.arducon_device_lab_summary,
                     uiState.passCount,
@@ -411,7 +411,7 @@ private fun DeviceLabSummary(
 
 @Composable
 private fun DeviceLabSectionTitle(title: StringResource) {
-    Text(
+    KuiText(
         text = stringResource(title),
         style = KuiTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
         color = KuiTheme.colorScheme.primary,
@@ -427,7 +427,7 @@ private fun DeviceTestCard(
     onReset: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Card(
+    KuiCard(padded = false,
         modifier = modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(containerColor = KuiTheme.colorScheme.surfaceVariant),
     ) {
@@ -440,7 +440,7 @@ private fun DeviceTestCard(
                 horizontalArrangement = Arrangement.spacedBy(space12),
                 verticalAlignment = Alignment.Top,
             ) {
-                Icon(
+                KuiIcon(
                     imageVector = Icons.Default.Info,
                     contentDescription = null,
                     tint = KuiTheme.colorScheme.primary,
@@ -455,7 +455,7 @@ private fun DeviceTestCard(
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
-                        Text(
+                        KuiText(
                             text = stringResource(spec.title),
                             style = KuiTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
                             color = KuiTheme.colorScheme.onSurfaceVariant,
@@ -463,12 +463,12 @@ private fun DeviceTestCard(
                         )
                         DeviceStatusChip(status = result.status)
                     }
-                    Text(
+                    KuiText(
                         text = stringResource(spec.description),
                         style = KuiTheme.typography.bodySmall,
                         color = KuiTheme.colorScheme.onSurfaceVariant,
                     )
-                    Text(
+                    KuiText(
                         text = resultText(result),
                         style = KuiTheme.typography.bodySmall,
                         color = KuiTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.78f),
@@ -480,22 +480,22 @@ private fun DeviceTestCard(
                 horizontalArrangement = Arrangement.End,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                OutlinedButton(
+                KuiOutlinedButton(
                     onClick = onReset,
                     enabled = result.status != DeviceTestStatus.Running,
                 ) {
-                    Icon(
+                    KuiIcon(
                         imageVector = Icons.Default.Clear,
                         contentDescription = null,
                         modifier = Modifier.size(18.dp),
                     )
-                    Text(
+                    KuiText(
                         text = stringResource(Res.string.arducon_device_lab_action_reset),
                         style = KuiTheme.typography.labelLarge,
                         color = KuiTheme.colorScheme.primary,
                     )
                 }
-                Button(
+                KuiButton(
                     onClick = onRun,
                     enabled = result.status != DeviceTestStatus.Running,
                     modifier = Modifier.padding(start = space8),
@@ -505,7 +505,7 @@ private fun DeviceTestCard(
                         enter = fadeIn(),
                         exit = fadeOut(),
                     ) {
-                        CircularProgressIndicator(
+                        KuiCircularProgressIndicator(
                             modifier = Modifier
                                 .size(18.dp)
                                 .padding(end = space4),
@@ -513,7 +513,7 @@ private fun DeviceTestCard(
                             color = KuiTheme.colorScheme.onPrimary,
                         )
                     }
-                    Icon(
+                    KuiIcon(
                         imageVector = if (result.status == DeviceTestStatus.Pass) {
                             Icons.Default.Check
                         } else {
@@ -522,7 +522,7 @@ private fun DeviceTestCard(
                         contentDescription = null,
                         modifier = Modifier.size(18.dp),
                     )
-                    Text(
+                    KuiText(
                         text = stringResource(Res.string.arducon_device_lab_action_run),
                         style = KuiTheme.typography.labelLarge,
                         color = KuiTheme.colorScheme.onPrimary,
@@ -535,12 +535,12 @@ private fun DeviceTestCard(
 
 @Composable
 private fun DeviceStatusChip(status: DeviceTestStatus) {
-    Surface(
+    KuiSurface(
         color = statusContainerColor(status),
         contentColor = statusContentColor(status),
         shape = KuiTheme.shapes.small,
     ) {
-        Text(
+        KuiText(
             text = statusLabel(status),
             style = KuiTheme.typography.labelSmall,
             color = statusContentColor(status),

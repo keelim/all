@@ -3,7 +3,7 @@ package com.keelim.common.extensions.compose
 import android.view.ViewGroup
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.theme.KeelimDesignSystemTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -77,7 +77,7 @@ private fun BottomSheetWrapper(
 @Suppress("NOTHING_TO_INLINE")
 @Composable
 inline fun SetUp(noinline content: @Composable () -> Unit) {
-    MaterialTheme {
+    KeelimDesignSystemTheme {
         content()
     }
 }

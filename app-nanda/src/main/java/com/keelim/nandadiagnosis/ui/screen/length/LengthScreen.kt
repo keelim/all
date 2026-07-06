@@ -18,13 +18,12 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.component.KuiButton
+import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.component.KuiIconButton
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
+import com.keelim.core.designsystem.component.KuiText
+import com.keelim.core.designsystem.component.KuiFilledTextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -61,15 +60,15 @@ fun LengthScreen(
     Column(modifier = Modifier.padding(16.dp)) {
         // 입력 영역
         Row(verticalAlignment = Alignment.CenterVertically) {
-            TextField(
+            KuiFilledTextField(
                 value = input,
                 onValueChange = { input = it },
-                label = { Text(stringResource(Res.string.nanda_length_unit_label)) },
+                label = { KuiText(stringResource(Res.string.nanda_length_unit_label)) },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 modifier = Modifier.weight(1f),
             )
             Spacer(Modifier.width(8.dp))
-            Button(onClick = {
+            KuiButton(onClick = {
                 val value = input.toFloatOrNull()
                 if (value != null) {
                     viewModel.addRecord(
@@ -81,7 +80,7 @@ fun LengthScreen(
                     input = ""
                 }
             }) {
-                Text(stringResource(Res.string.common_action_save))
+                KuiText(stringResource(Res.string.common_action_save))
             }
         }
         Spacer(Modifier.height(24.dp))
@@ -96,7 +95,7 @@ fun LengthScreen(
         Spacer(Modifier.height(24.dp))
 
         // 기록 리스트
-        Text(stringResource(Res.string.nanda_length_records_title), style = KuiTheme.typography.titleMedium)
+        KuiText(stringResource(Res.string.nanda_length_records_title), style = KuiTheme.typography.titleMedium)
         Spacer(Modifier.height(8.dp))
         LazyColumn {
             items(
@@ -110,9 +109,9 @@ fun LengthScreen(
                         .animateItem(),
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
-                    Text(text = stringResource(Res.string.nanda_length_record_item, record.date, record.length.toUiNumber()))
-                    IconButton(onClick = { viewModel.deleteRecord(record.date) }) {
-                        Icon(Icons.Default.Delete, contentDescription = stringResource(Res.string.nanda_length_delete))
+                    KuiText(text = stringResource(Res.string.nanda_length_record_item, record.date, record.length.toUiNumber()))
+                    KuiIconButton(onClick = { viewModel.deleteRecord(record.date) }) {
+                        KuiIcon(Icons.Default.Delete, contentDescription = stringResource(Res.string.nanda_length_delete))
                     }
                 }
             }

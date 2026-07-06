@@ -9,7 +9,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.Surface
+import com.keelim.composeutil.component.kui.KuiSurface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -38,11 +38,11 @@ fun GradientAnimationBorderCard(
         ),
         label = "",
     )
-    Surface(
+    KuiSurface(
         modifier = modifier.clickable(onClick = onClick),
         shape = CircleShape,
     ) {
-        Surface(
+        KuiSurface(
             modifier = Modifier
                 .padding(2.dp) // Border width
                 .drawWithContent {

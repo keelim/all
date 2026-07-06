@@ -9,9 +9,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.MaterialTheme
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
@@ -81,7 +80,7 @@ fun NumberPickerList(
                     }
                 }
 
-                Text(
+                KuiText(
                     text = item.toUiAlignedTwoDigits(isLeadingZeroNeeded = false),
                     style = textStyle,
                     modifier = Modifier

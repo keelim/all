@@ -12,10 +12,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Star
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
+import com.keelim.composeutil.component.kui.KuiIcon
+import com.keelim.composeutil.component.kui.KuiMaterialTheme
+import com.keelim.composeutil.component.kui.KuiText
+import com.keelim.composeutil.component.kui.KuiTextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.remember
@@ -86,7 +86,7 @@ private fun ReviewPercentageBar(rating: String, percentage: Int) {
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(space12),
     ) {
-        Text(rating)
+        KuiText(rating)
         fun rememberPercentageShape(
             percentage: Int,
             shape: Shape,
@@ -106,10 +106,10 @@ private fun ReviewPercentageBar(rating: String, percentage: Int) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(space8)
-                .clip(MaterialTheme.shapes.small)
+                .clip(KuiMaterialTheme.shapes.small)
                 .background(emptyColor)
                 .clip(
-                    rememberPercentageShape(percentage, MaterialTheme.shapes.small),
+                    rememberPercentageShape(percentage, KuiMaterialTheme.shapes.small),
                 )
                 .background(fillColor),
         )
@@ -128,13 +128,13 @@ private fun RatingSummary(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier,
     ) {
-        Text(
+        KuiText(
             text = rating.toString(),
-            style = MaterialTheme.typography.headlineLarge.copy(fontSize = 64.sp),
+            style = KuiMaterialTheme.typography.headlineLarge.copy(fontSize = 64.sp),
         )
         RatingBar(rating = rating, maxRating = maxRating)
-        TextButton(onClick = onMoreReviewsClick) {
-            Text("$totalReviews reviews")
+        KuiTextButton(onClick = onMoreReviewsClick) {
+            KuiText("$totalReviews reviews")
         }
     }
 }
@@ -163,13 +163,13 @@ private fun RatingBar(
         repeat(maxRating) { i ->
             Box(Modifier.size(18.dp)) {
                 val lastFullIndex = (rating - 1).toInt()
-                Icon(
+                KuiIcon(
                     imageVector = Icons.Rounded.Star,
                     contentDescription = null,
                     tint = emptyColor,
                     modifier = Modifier.matchParentSize(),
                 )
-                Icon(
+                KuiIcon(
                     imageVector = Icons.Rounded.Star,
                     contentDescription = null,
                     tint = fillColor,

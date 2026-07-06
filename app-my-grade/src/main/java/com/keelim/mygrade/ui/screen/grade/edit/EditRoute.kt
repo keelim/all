@@ -9,15 +9,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
-import androidx.compose.material3.ExtendedFloatingActionButton
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.component.KuiAlertDialog
+import com.keelim.core.designsystem.component.KuiButton
+import com.keelim.core.designsystem.component.KuiExtendedFloatingActionButton
+import com.keelim.core.designsystem.component.KuiIcon
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
+import com.keelim.core.designsystem.component.KuiScaffold
+import com.keelim.core.designsystem.component.KuiText
+import com.keelim.core.designsystem.component.KuiFilledTextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -106,20 +105,20 @@ fun EditSuccessSection(
         mutableStateOf("")
     }
 
-    Scaffold(
+    KuiScaffold(
         modifier = Modifier
             .fillMaxSize()
             .padding(vertical = space8, horizontal = space12),
         floatingActionButton = {
-            ExtendedFloatingActionButton(
+            KuiExtendedFloatingActionButton(
                 onClick = {
                     onAddClick(inputTitle)
                 },
                 text = {
-                    Text(text = "+ Add", fontSize = 16.sp, fontWeight = FontWeight.Medium)
+                    KuiText(text = "+ Add", fontSize = 16.sp, fontWeight = FontWeight.Medium)
                 },
                 icon = {
-                    Icon(
+                    KuiIcon(
                         imageVector = Icons.Filled.Check,
                         contentDescription = "",
                     )
@@ -132,11 +131,11 @@ fun EditSuccessSection(
                 .padding(paddingValues),
             verticalArrangement = Arrangement.spacedBy(space8),
         ) {
-            Text(
+            KuiText(
                 text = editResult.subject,
                 style = KuiTheme.typography.displaySmall,
             )
-            TextField(
+            KuiFilledTextField(
                 value = inputTitle,
                 onValueChange = { newValue ->
                     inputTitle = newValue
@@ -152,7 +151,7 @@ fun EditSuccessSection(
                     .fillMaxWidth()
                     .fillMaxSize(),
                 placeholder = {
-                    Text(
+                    KuiText(
                         text = "메모를 입력해주세요.",
                         fontSize = 18.sp,
                         color = KuiTheme.colorScheme.onSurface,
@@ -174,7 +173,7 @@ private fun EditDialog(
         mutableStateOf(true)
     }
     if (isDialogOpen) {
-        AlertDialog(
+        KuiAlertDialog(
             onDismissRequest = {
                 isDialogOpen = false
                 onDismiss()
@@ -183,32 +182,32 @@ private fun EditDialog(
                 Column(
                     verticalArrangement = Arrangement.spacedBy(space2),
                 ) {
-                    Text(text = title)
+                    KuiText(text = title)
                 }
             },
             text = {
-                Text(text = description)
+                KuiText(text = description)
             },
             confirmButton = {
-                Button(
+                KuiButton(
                     onClick = {
                         onClick()
                         isDialogOpen = false
                     },
                 ) {
-                    Text(
+                    KuiText(
                         text = "확인",
                     )
                 }
             },
             dismissButton = {
-                Button(
+                KuiButton(
                     onClick = {
                         isDialogOpen = false
                         onDismiss()
                     },
                 ) {
-                    Text(
+                    KuiText(
                         text = "취소",
                     )
                 }

@@ -28,20 +28,19 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.rounded.Menu
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Card
+import com.keelim.core.designsystem.component.KuiAlertDialog
+import com.keelim.core.designsystem.component.KuiCard
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FilledIconButton
-import androidx.compose.material3.Icon
+import com.keelim.core.designsystem.component.KuiFilledIconButton
+import com.keelim.core.designsystem.component.KuiIcon
 import androidx.compose.material3.IconButtonDefaults
-import androidx.compose.material3.MaterialTheme
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.SwipeToDismissBox
+import com.keelim.core.designsystem.component.KuiOutlinedTextField
+import com.keelim.core.designsystem.component.KuiSwipeToDismissBox
 import androidx.compose.material3.SwipeToDismissBoxValue
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
+import com.keelim.core.designsystem.component.KuiText
+import com.keelim.core.designsystem.component.KuiTextButton
 import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -99,38 +98,38 @@ fun TimerHistoryScreen(
     var editingHistory by remember { mutableStateOf<TimerHistoryModel?>(null) }
 
     if (showDeleteAllDialog) {
-        AlertDialog(
+        KuiAlertDialog(
             onDismissRequest = { showDeleteAllDialog = false },
             title = {
-                Text(
+                KuiText(
                     text = stringResource(Res.string.my_grade_timer_history_delete_all_title),
                     style = KuiTheme.typography.titleLarge,
                     color = KuiTheme.colorScheme.onSurface,
                 )
             },
             text = {
-                Text(
+                KuiText(
                     text = stringResource(Res.string.my_grade_timer_history_delete_all_message),
                     style = KuiTheme.typography.bodyMedium,
                     color = KuiTheme.colorScheme.onSurfaceVariant,
                 )
             },
             confirmButton = {
-                TextButton(
+                KuiTextButton(
                     onClick = {
                         onDeleteAll()
                         showDeleteAllDialog = false
                     },
                 ) {
-                    Text(
+                    KuiText(
                         text = stringResource(Res.string.common_action_delete),
                         color = KuiTheme.colorScheme.error,
                     )
                 }
             },
             dismissButton = {
-                TextButton(onClick = { showDeleteAllDialog = false }) {
-                    Text(text = stringResource(Res.string.common_action_cancel))
+                KuiTextButton(onClick = { showDeleteAllDialog = false }) {
+                    KuiText(text = stringResource(Res.string.common_action_cancel))
                 }
             },
         )
@@ -171,26 +170,26 @@ fun TimerHistoryScreen(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Column {
-                    Text(
+                    KuiText(
                         text = stringResource(Res.string.my_grade_timer_history_title),
                         style = KuiTheme.typography.headlineMedium,
                         fontWeight = FontWeight.Bold,
                         color = KuiTheme.colorScheme.onSurface,
                     )
-                    Text(
+                    KuiText(
                         text = stringResource(Res.string.my_grade_timer_history_subtitle),
                         style = KuiTheme.typography.bodyMedium,
                         color = KuiTheme.colorScheme.onSurfaceVariant,
                     )
                 }
                 if (uiState.histories.isNotEmpty()) {
-                    FilledIconButton(
+                    KuiFilledIconButton(
                         onClick = { showDeleteAllDialog = true },
                         colors = IconButtonDefaults.filledIconButtonColors(
                             containerColor = KuiTheme.colorScheme.errorContainer,
                         ),
                     ) {
-                        Icon(
+                        KuiIcon(
                             imageVector = Icons.Default.Close,
                             contentDescription = stringResource(Res.string.my_grade_timer_history_delete_all_description),
                             tint = KuiTheme.colorScheme.onErrorContainer,
@@ -272,7 +271,7 @@ private fun SwipeableHistoryItem(
         exit = shrinkVertically() + fadeOut(),
         modifier = modifier,
     ) {
-        SwipeToDismissBox(
+        KuiSwipeToDismissBox(
             state = dismissState,
             backgroundContent = {
                 val color by animateColorAsState(
@@ -299,7 +298,7 @@ private fun SwipeableHistoryItem(
                         Alignment.CenterEnd
                     },
                 ) {
-                    Icon(
+                    KuiIcon(
                         imageVector = Icons.Default.Delete,
                         contentDescription = stringResource(Res.string.common_action_delete),
                         tint = KuiTheme.colorScheme.onErrorContainer,
@@ -324,7 +323,7 @@ private fun HistoryItemCard(
     onClick: () -> Unit,
     onEdit: () -> Unit,
 ) {
-    Card(
+    KuiCard(padded = false,
         modifier = Modifier
             .fillMaxWidth()
             .clickable(onClick = onClick),
@@ -348,7 +347,7 @@ private fun HistoryItemCard(
                     .background(KuiTheme.colorScheme.primaryContainer),
                 contentAlignment = Alignment.Center,
             ) {
-                Icon(
+                KuiIcon(
                     imageVector = Icons.Rounded.Menu,
                     contentDescription = null,
                     tint = KuiTheme.colorScheme.onPrimaryContainer,
@@ -362,7 +361,7 @@ private fun HistoryItemCard(
             Column(
                 modifier = Modifier.weight(1f),
             ) {
-                Text(
+                KuiText(
                     text = history.formattedTime,
                     style = KuiTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold,
@@ -370,14 +369,14 @@ private fun HistoryItemCard(
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 if (history.description.isNotEmpty()) {
-                    Text(
+                    KuiText(
                         text = history.description,
                         style = KuiTheme.typography.bodyMedium,
                         color = KuiTheme.colorScheme.primary,
                     )
                     Spacer(modifier = Modifier.height(2.dp))
                 }
-                Text(
+                KuiText(
                     text = formatDate(history.date),
                     style = KuiTheme.typography.bodySmall,
                     color = KuiTheme.colorScheme.onSurfaceVariant,
@@ -385,14 +384,14 @@ private fun HistoryItemCard(
             }
 
             // Edit Button
-            FilledIconButton(
+            KuiFilledIconButton(
                 onClick = onEdit,
                 colors = IconButtonDefaults.filledIconButtonColors(
                     containerColor = KuiTheme.colorScheme.secondaryContainer,
                 ),
                 modifier = Modifier.size(40.dp),
             ) {
-                Icon(
+                KuiIcon(
                     imageVector = Icons.Default.Edit,
                     contentDescription = stringResource(Res.string.my_grade_timer_history_edit_description),
                     tint = KuiTheme.colorScheme.onSecondaryContainer,
@@ -411,28 +410,28 @@ private fun EditDescriptionDialog(
 ) {
     var description by remember { mutableStateOf(currentDescription) }
 
-    AlertDialog(
+    KuiAlertDialog(
         onDismissRequest = onDismiss,
         title = {
-            Text(
+            KuiText(
                 text = stringResource(Res.string.my_grade_timer_history_edit_title),
                 style = KuiTheme.typography.titleLarge,
                 color = KuiTheme.colorScheme.onSurface,
             )
         },
         text = {
-            OutlinedTextField(
+            KuiOutlinedTextField(
                 value = description,
                 onValueChange = { description = it },
                 label = {
-                    Text(
+                    KuiText(
                         text = stringResource(Res.string.my_grade_timer_history_description_label),
                         style = KuiTheme.typography.bodyMedium,
                         color = KuiTheme.colorScheme.onSurfaceVariant,
                     )
                 },
                 placeholder = {
-                    Text(
+                    KuiText(
                         text = stringResource(Res.string.my_grade_timer_history_description_placeholder),
                         style = KuiTheme.typography.bodyMedium,
                         color = KuiTheme.colorScheme.onSurfaceVariant,
@@ -443,13 +442,13 @@ private fun EditDescriptionDialog(
             )
         },
         confirmButton = {
-            TextButton(onClick = { onConfirm(description) }) {
-                Text(text = stringResource(Res.string.common_action_save))
+            KuiTextButton(onClick = { onConfirm(description) }) {
+                KuiText(text = stringResource(Res.string.common_action_save))
             }
         },
         dismissButton = {
-            TextButton(onClick = onDismiss) {
-                Text(text = stringResource(Res.string.common_action_cancel))
+            KuiTextButton(onClick = onDismiss) {
+                KuiText(text = stringResource(Res.string.common_action_cancel))
             }
         },
     )

@@ -13,12 +13,11 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.Card
+import com.keelim.core.designsystem.component.KuiCard
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.component.KuiIcon
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -42,7 +41,7 @@ fun SchemeSearchSection(
             verticalArrangement = Arrangement.spacedBy(space8),
         ) {
             item {
-                Text(
+                KuiText(
                     text = "검색 결과 (${schemes.size}개)",
                     style = KuiTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
@@ -66,7 +65,7 @@ private fun SchemeItem(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Card(
+    KuiCard(padded = false,
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = space16)
@@ -79,21 +78,21 @@ private fun SchemeItem(
                 .padding(space16),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Icon(
+            KuiIcon(
                 imageVector = Icons.Default.Search,
                 contentDescription = null,
                 tint = KuiTheme.colorScheme.primary,
             )
             Spacer(modifier = Modifier.width(space12))
             Column {
-                Text(
+                KuiText(
                     text = scheme,
                     style = KuiTheme.typography.bodyLarge,
                     fontWeight = FontWeight.Medium,
                     color = KuiTheme.colorScheme.onSurface,
                 )
                 Spacer(modifier = Modifier.height(space8))
-                Text(
+                KuiText(
                     text = "딥링크 생성하기",
                     style = KuiTheme.typography.bodySmall,
                     color = KuiTheme.colorScheme.onSurfaceVariant,
@@ -114,19 +113,19 @@ private fun EmptySearchResult(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
-        Icon(
+        KuiIcon(
             imageVector = Icons.Default.Search,
             contentDescription = null,
             modifier = Modifier.padding(space16),
             tint = KuiTheme.colorScheme.onSurfaceVariant,
         )
-        Text(
+        KuiText(
             text = "검색 결과가 없습니다",
             style = KuiTheme.typography.titleMedium,
             color = KuiTheme.colorScheme.onSurfaceVariant,
         )
         Spacer(modifier = Modifier.height(space8))
-        Text(
+        KuiText(
             text = "다른 검색어를 입력해보세요",
             style = KuiTheme.typography.bodyMedium,
             color = KuiTheme.colorScheme.onSurfaceVariant,

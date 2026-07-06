@@ -2,7 +2,7 @@ package com.keelim.composeutil.component.viewsystem
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -28,6 +28,6 @@ fun EmojiPickerView() {
                 }
             },
         )
-        Text(text = emoji.emoji)
+        KuiText(text = emoji.emoji)
     }
 }

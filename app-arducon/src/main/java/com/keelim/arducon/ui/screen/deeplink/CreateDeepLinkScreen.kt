@@ -15,24 +15,23 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
-import androidx.compose.material3.Button
-import androidx.compose.material3.Card
+import com.keelim.core.designsystem.component.KuiButton
+import com.keelim.core.designsystem.component.KuiCard
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.DropdownMenuItem
+import com.keelim.core.designsystem.component.KuiCircularProgressIndicator
+import com.keelim.core.designsystem.component.KuiDropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExposedDropdownMenuBox
+import com.keelim.core.designsystem.component.KuiExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.component.KuiIconButton
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHost
+import com.keelim.core.designsystem.component.KuiOutlinedTextField
+import com.keelim.core.designsystem.component.KuiScaffold
+import com.keelim.core.designsystem.component.KuiSnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
+import com.keelim.core.designsystem.component.KuiText
+import com.keelim.core.designsystem.component.KuiTopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -117,11 +116,11 @@ fun CreateDeepLinkScreen(
     val snackbarHostState = remember { SnackbarHostState() }
     var isCategoryExpanded by remember { mutableStateOf(false) }
 
-    Scaffold(
+    KuiScaffold(
         topBar = {
-            TopAppBar(
+            KuiTopAppBar(
                 title = {
-                    Text(
+                    KuiText(
                         text = stringResource(Res.string.arducon_create_deeplink_title),
                         style = KuiTheme.typography.titleLarge.copy(
                             fontWeight = FontWeight.Bold,
@@ -129,8 +128,8 @@ fun CreateDeepLinkScreen(
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = onNavigateBack) {
-                        Icon(
+                    KuiIconButton(onClick = onNavigateBack) {
+                        KuiIcon(
                             imageVector = Icons.Default.ArrowBack,
                             contentDescription = stringResource(Res.string.arducon_back_description),
                         )
@@ -138,7 +137,7 @@ fun CreateDeepLinkScreen(
                 },
             )
         },
-        snackbarHost = { SnackbarHost(snackbarHostState) },
+        snackbarHost = { KuiSnackbarHost(snackbarHostState) },
         modifier = modifier,
     ) { paddingValues ->
         Column(
@@ -153,17 +152,17 @@ fun CreateDeepLinkScreen(
             SchemeInfoCard(scheme = scheme)
 
             // URL 입력
-            Card(
+            KuiCard(padded = false,
                 elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
                 shape = KuiTheme.shapes.medium,
             ) {
-                OutlinedTextField(
+                KuiOutlinedTextField(
                     value = url,
                     onValueChange = onUrlChange,
-                    label = { Text(stringResource(Res.string.label_url)) },
-                    placeholder = { Text(stringResource(Res.string.arducon_create_deeplink_url_placeholder)) },
+                    label = { KuiText(stringResource(Res.string.label_url)) },
+                    placeholder = { KuiText(stringResource(Res.string.arducon_create_deeplink_url_placeholder)) },
                     leadingIcon = {
-                        Icon(
+                        KuiIcon(
                             imageVector = Icons.Default.Check,
                             contentDescription = stringResource(Res.string.label_url),
                             tint = KuiTheme.colorScheme.primary,
@@ -178,15 +177,15 @@ fun CreateDeepLinkScreen(
             }
 
             // 제목 입력
-            Card(
+            KuiCard(padded = false,
                 elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
                 shape = KuiTheme.shapes.medium,
             ) {
-                OutlinedTextField(
+                KuiOutlinedTextField(
                     value = title,
                     onValueChange = onTitleChange,
-                    label = { Text(stringResource(Res.string.arducon_create_deeplink_title_label_optional)) },
-                    placeholder = { Text(stringResource(Res.string.arducon_create_deeplink_title_placeholder)) },
+                    label = { KuiText(stringResource(Res.string.arducon_create_deeplink_title_label_optional)) },
+                    placeholder = { KuiText(stringResource(Res.string.arducon_create_deeplink_title_placeholder)) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(4.dp),
@@ -196,22 +195,22 @@ fun CreateDeepLinkScreen(
             }
 
             // 카테고리 선택
-            Card(
+            KuiCard(padded = false,
                 elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
                 shape = KuiTheme.shapes.medium,
             ) {
-                ExposedDropdownMenuBox(
+                KuiExposedDropdownMenuBox(
                     expanded = isCategoryExpanded,
                     onExpandedChange = { isCategoryExpanded = it },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(4.dp),
                 ) {
-                    OutlinedTextField(
+                    KuiOutlinedTextField(
                         value = category,
                         onValueChange = onCategoryChange,
-                        label = { Text(stringResource(Res.string.arducon_create_deeplink_category_label_optional)) },
-                        placeholder = { Text(stringResource(Res.string.arducon_create_deeplink_category_placeholder)) },
+                        label = { KuiText(stringResource(Res.string.arducon_create_deeplink_category_label_optional)) },
+                        placeholder = { KuiText(stringResource(Res.string.arducon_create_deeplink_category_placeholder)) },
                         readOnly = true,
                         trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = isCategoryExpanded) },
                         modifier = Modifier
@@ -225,8 +224,8 @@ fun CreateDeepLinkScreen(
                         onDismissRequest = { isCategoryExpanded = false },
                     ) {
                         categories.forEach { categoryOption ->
-                            DropdownMenuItem(
-                                text = { Text(categoryOption) },
+                            KuiDropdownMenuItem(
+                                text = { KuiText(categoryOption) },
                                 onClick = {
                                     onCategoryChange(categoryOption)
                                     isCategoryExpanded = false
@@ -240,25 +239,25 @@ fun CreateDeepLinkScreen(
             Spacer(modifier = Modifier.height(space24))
 
             // 생성 버튼
-            Button(
+            KuiButton(
                 onClick = onCreateDeepLink,
                 enabled = url.isNotBlank() && !isLoading,
                 modifier = Modifier.fillMaxWidth(),
             ) {
                 if (isLoading) {
-                    CircularProgressIndicator(
+                    KuiCircularProgressIndicator(
                         modifier = Modifier.size(16.dp),
                         color = KuiTheme.colorScheme.onPrimary,
                     )
                     Spacer(modifier = Modifier.width(space8))
                 } else {
-                    Icon(
+                    KuiIcon(
                         imageVector = Icons.Default.Check,
                         contentDescription = null,
                     )
                     Spacer(modifier = Modifier.width(space8))
                 }
-                Text(stringResource(Res.string.arducon_create_deeplink_title))
+                KuiText(stringResource(Res.string.arducon_create_deeplink_title))
             }
         }
     }
@@ -269,7 +268,7 @@ private fun SchemeInfoCard(
     scheme: String,
     modifier: Modifier = Modifier,
 ) {
-    Card(
+    KuiCard(padded = false,
         modifier = modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         colors = CardDefaults.cardColors(
@@ -282,19 +281,19 @@ private fun SchemeInfoCard(
                 .padding(space16),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Icon(
+            KuiIcon(
                 imageVector = Icons.Default.Check,
                 contentDescription = null,
                 tint = KuiTheme.colorScheme.onPrimaryContainer,
             )
             Spacer(modifier = Modifier.width(space12))
             Column {
-                Text(
+                KuiText(
                     text = stringResource(Res.string.arducon_create_deeplink_selected_scheme),
                     style = KuiTheme.typography.bodySmall,
                     color = KuiTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f),
                 )
-                Text(
+                KuiText(
                     text = scheme,
                     style = KuiTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,

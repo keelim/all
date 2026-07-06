@@ -2,9 +2,9 @@ package com.keelim.cnubus.ui
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
-import androidx.compose.material3.Scaffold
+import com.keelim.core.designsystem.component.KuiScaffold
 import androidx.compose.material3.SnackbarDuration
-import androidx.compose.material3.SnackbarHost
+import com.keelim.core.designsystem.component.KuiSnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -21,9 +21,9 @@ fun CnubusApp(
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
     val bottomSheetState = rememberModalBottomSheetState()
-    Scaffold(
+    KuiScaffold(
         modifier = Modifier.safeDrawingPadding(),
-        snackbarHost = { SnackbarHost(snackbarHostState) },
+        snackbarHost = { KuiSnackbarHost(snackbarHostState) },
     ) { padding ->
         CnubusHost(
             modifier = Modifier.padding(padding),

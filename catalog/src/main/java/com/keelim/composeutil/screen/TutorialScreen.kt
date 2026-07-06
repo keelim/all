@@ -15,6 +15,8 @@
  */
 package com.keelim.composeutil.screen
 
+import com.keelim.core.designsystem.theme.KeelimDesignSystemTheme
+
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
@@ -30,9 +32,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.theme.KuiTheme
+import com.keelim.core.designsystem.component.KuiSurface
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -64,14 +66,14 @@ fun MessageCard(msg: Message) {
                 .clip(CircleShape)
                 .border(
                     1.5.dp,
-                    MaterialTheme.colorScheme.secondary,
+                    KuiTheme.colorScheme.secondary,
                     CircleShape,
                 ),
         )
 
         var isExpanded by remember { mutableStateOf(false) }
         val surfaceColor by animateColorAsState(
-            if (isExpanded) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.primaryContainer,
+            if (isExpanded) KuiTheme.colorScheme.primary else KuiTheme.colorScheme.primaryContainer,
             label = "",
         )
         Spacer(modifier = Modifier.width(space8))
@@ -80,25 +82,25 @@ fun MessageCard(msg: Message) {
                 isExpanded = !isExpanded
             },
         ) {
-            Text(
+            KuiText(
                 text = msg.author,
-                color = MaterialTheme.colorScheme.secondary,
-                style = MaterialTheme.typography.titleLarge,
+                color = KuiTheme.colorScheme.secondary,
+                style = KuiTheme.typography.titleLarge,
             )
             Spacer(modifier = Modifier.height(space4))
 
-            Surface(
-                shape = MaterialTheme.shapes.medium,
+            KuiSurface(
+                shape = KuiTheme.shapes.medium,
                 tonalElevation = 1.dp,
                 shadowElevation = 1.dp,
                 color = surfaceColor,
                 modifier = Modifier.animateContentSize().padding(1.dp),
             ) {
-                Text(
+                KuiText(
                     text = msg.body,
                     modifier = Modifier.padding(all = space4),
                     maxLines = if (isExpanded) Int.MAX_VALUE else 1,
-                    style = MaterialTheme.typography.bodyLarge,
+                    style = KuiTheme.typography.bodyLarge,
                 )
             }
         }
@@ -108,7 +110,7 @@ fun MessageCard(msg: Message) {
 @Preview
 @Composable
 fun PreviewMessageCard() {
-    MaterialTheme {
+    KeelimDesignSystemTheme {
         MessageCard(
             msg = Message("Colleague", "Hey, take a look at Jetpack Compose, it's great!"),
         )

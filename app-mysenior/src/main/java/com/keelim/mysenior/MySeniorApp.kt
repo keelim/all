@@ -13,9 +13,9 @@ import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.material3.Scaffold
+import com.keelim.core.designsystem.component.KuiScaffold
 import androidx.compose.material3.SnackbarDuration
-import androidx.compose.material3.SnackbarHost
+import com.keelim.core.designsystem.component.KuiSnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
@@ -33,8 +33,8 @@ fun MySeniorApp(
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
-    Scaffold(
-        snackbarHost = { SnackbarHost(snackbarHostState) },
+    KuiScaffold(
+        snackbarHost = { KuiSnackbarHost(snackbarHostState) },
     ) { padding ->
         Row(
             Modifier

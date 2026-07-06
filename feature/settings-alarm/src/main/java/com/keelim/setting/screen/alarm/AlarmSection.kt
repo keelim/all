@@ -9,10 +9,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Card
-import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.component.KuiCard
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -53,7 +52,7 @@ private fun AlarmItem(
     item: Alarm,
     modifier: Modifier = Modifier,
 ) = trace("AlarmItem") {
-    Card(
+    KuiCard(padded = false,
         modifier = modifier
             .padding(
                 horizontal = space8,
@@ -68,21 +67,21 @@ private fun AlarmItem(
                     .fillMaxWidth()
                     .align(Alignment.CenterVertically),
             ) {
-                Text(
+                KuiText(
                     text = item.title,
                     style = KuiTheme.typography.headlineMedium,
                 )
                 Spacer(
                     modifier = Modifier.height(space4),
                 )
-                Text(
+                KuiText(
                     text = item.subTitle,
                     style = KuiTheme.typography.bodyMedium,
                 )
                 Spacer(
                     modifier = Modifier.height(space2),
                 )
-                Text(
+                KuiText(
                     text = item.receiveDate,
                     style = KuiTheme.typography.bodySmall,
                 )

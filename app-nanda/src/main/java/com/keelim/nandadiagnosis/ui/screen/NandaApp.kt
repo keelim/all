@@ -7,18 +7,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Menu
-import androidx.compose.material3.CenterAlignedTopAppBar
+import com.keelim.core.designsystem.component.KuiCenterAlignedTopAppBar
 import androidx.compose.material3.DrawerValue
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.ModalDrawerSheet
-import androidx.compose.material3.ModalNavigationDrawer
-import androidx.compose.material3.Scaffold
+import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.component.KuiIconButton
+import com.keelim.core.designsystem.component.KuiModalDrawerSheet
+import com.keelim.core.designsystem.component.KuiModalNavigationDrawer
+import com.keelim.core.designsystem.component.KuiScaffold
 import androidx.compose.material3.SnackbarDuration
-import androidx.compose.material3.SnackbarHost
+import com.keelim.core.designsystem.component.KuiSnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
@@ -43,12 +43,12 @@ fun NandaApp(
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val bottomSheetState = rememberModalBottomSheetState()
     val backStack = rememberMutableStateListOf<AppRoute>(NandaRoute.Category)
-    ModalNavigationDrawer(
+    KuiModalNavigationDrawer(
         drawerContent = {
             Spacer(
                 modifier = Modifier.height(space12),
             )
-            ModalDrawerSheet {
+            KuiModalDrawerSheet {
                 NandaDrawer(
                     onRouteClick = { route ->
                         coroutineScope.launch {
@@ -67,16 +67,16 @@ fun NandaApp(
         },
         drawerState = drawerState,
     ) {
-        Scaffold(
+        KuiScaffold(
             modifier = Modifier
                 .fillMaxSize()
                 .safeDrawingPadding(),
             topBar = {
-                CenterAlignedTopAppBar(
-                    title = { Text(text = "난다진다") },
+                KuiCenterAlignedTopAppBar(
+                    title = { KuiText(text = "난다진다") },
                     navigationIcon = {
-                        IconButton(onClick = { coroutineScope.launch { drawerState.open() } }) {
-                            Icon(
+                        KuiIconButton(onClick = { coroutineScope.launch { drawerState.open() } }) {
+                            KuiIcon(
                                 imageVector = Icons.Rounded.Menu,
                                 contentDescription = "Drawer Icon",
                             )
@@ -84,7 +84,7 @@ fun NandaApp(
                     },
                 )
             },
-            snackbarHost = { SnackbarHost(snackbarHostState) },
+            snackbarHost = { KuiSnackbarHost(snackbarHostState) },
         ) { padding ->
             NandaHost(
                 modifier = Modifier.padding(padding),

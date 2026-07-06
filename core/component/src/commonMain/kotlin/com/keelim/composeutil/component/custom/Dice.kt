@@ -20,8 +20,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
+import com.keelim.composeutil.component.kui.KuiButton
+import com.keelim.composeutil.component.kui.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -48,12 +48,12 @@ fun DiceWithButtonAndImage(modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Spacer(modifier = Modifier.height(space16))
-        Button(
+        KuiButton(
             onClick = {
                 result = (1..6).random()
             },
         ) {
-            Text(text = result.toString())
+            KuiText(text = result.toString())
         }
     }
 }

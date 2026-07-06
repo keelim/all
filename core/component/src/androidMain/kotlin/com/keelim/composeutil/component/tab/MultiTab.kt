@@ -1,11 +1,10 @@
 package com.keelim.composeutil.component.tab
 
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.MaterialTheme
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.PrimaryTabRow
-import androidx.compose.material3.Tab
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiPrimaryTabRow
+import com.keelim.core.designsystem.component.KuiTab
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -22,16 +21,16 @@ fun MultiTab(
     val selectedTabIndex by remember {
         mutableIntStateOf(0)
     }
-    PrimaryTabRow(
+    KuiPrimaryTabRow(
         modifier = Modifier.fillMaxWidth(),
         selectedTabIndex = selectedTabIndex,
     ) {
         tabs.forEachIndexed { index, data ->
-            Tab(
+            KuiTab(
                 selected = index == selectedTabIndex,
                 onClick = {},
             ) {
-                Text(
+                KuiText(
                     text = data,
                     style = KuiTheme.typography.titleMedium,
                 )

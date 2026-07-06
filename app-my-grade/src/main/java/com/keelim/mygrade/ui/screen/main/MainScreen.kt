@@ -28,12 +28,11 @@ import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material.icons.rounded.Create
-import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.component.KuiButton
+import com.keelim.core.designsystem.component.KuiIcon
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
+import com.keelim.core.designsystem.component.KuiText
+import com.keelim.core.designsystem.component.KuiFilledTextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
@@ -256,11 +255,11 @@ private fun MainTopSection(
     Row(
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Text(text = "MyGrade", style = KuiTheme.typography.headlineLarge)
+        KuiText(text = "MyGrade", style = KuiTheme.typography.headlineLarge)
         Spacer(
             modifier = Modifier.width(space8),
         )
-        Icon(
+        KuiIcon(
             Icons.Filled.Build,
             contentDescription = null,
             modifier = Modifier
@@ -292,12 +291,12 @@ private fun ColumnScope.MainBottomSection(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.End,
     ) {
-        Button(onClick = onClearClick) {
-            Text(text = "Clear", style = KuiTheme.typography.labelLarge)
+        KuiButton(onClick = onClearClick) {
+            KuiText(text = "Clear", style = KuiTheme.typography.labelLarge)
         }
         Spacer(modifier = Modifier.width(space4))
-        Button(onClick = onSubmitClick) {
-            Text(text = "Submit", style = KuiTheme.typography.labelLarge)
+        KuiButton(onClick = onSubmitClick) {
+            KuiText(text = "Submit", style = KuiTheme.typography.labelLarge)
         }
     }
     Spacer(modifier = Modifier.weight(1f))
@@ -376,15 +375,15 @@ internal fun ScoreTextRow(
     isError: Boolean,
 ) = trace("ScoreTextRow") {
     Row(verticalAlignment = Alignment.CenterVertically) {
-        Text(text = text, style = KuiTheme.typography.headlineSmall)
+        KuiText(text = text, style = KuiTheme.typography.headlineSmall)
         Spacer(modifier = Modifier.width(20.dp))
-        TextField(
+        KuiFilledTextField(
             value = value,
             onValueChange = onValueChange,
             isError = isError,
             label = if (isError) {
                 {
-                    Text(
+                    KuiText(
                         text = "형식을 다시 써주세요",
                         style = KuiTheme.typography.labelSmall,
                     )
@@ -393,12 +392,12 @@ internal fun ScoreTextRow(
                 null
             },
             placeholder = {
-                Text(
+                KuiText(
                     text = "$text 입력해주세요.",
                     style = KuiTheme.typography.labelLarge,
                 )
             },
-            leadingIcon = { Icon(imageVector = Icons.Rounded.Create, contentDescription = null) },
+            leadingIcon = { KuiIcon(imageVector = Icons.Rounded.Create, contentDescription = null) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             modifier = Modifier.fillMaxWidth(),
         )

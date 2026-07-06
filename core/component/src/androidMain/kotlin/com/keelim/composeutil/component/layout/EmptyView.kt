@@ -8,11 +8,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.component.KuiButton
+import com.keelim.core.designsystem.component.KuiIcon
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,7 +27,7 @@ fun EmptyView(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Text(
+        KuiText(
             text = text,
             style = KuiTheme.typography.bodyLarge,
         )
@@ -36,10 +35,10 @@ fun EmptyView(
             modifier = Modifier.height(space12),
         )
         val backPressDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
-        Button(
+        KuiButton(
             onClick = { backPressDispatcher?.onBackPressed() },
         ) {
-            Icon(
+            KuiIcon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                 contentDescription = null,
             )

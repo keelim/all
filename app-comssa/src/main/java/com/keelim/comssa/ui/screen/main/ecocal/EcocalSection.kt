@@ -35,19 +35,19 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material3.Card
+import com.keelim.core.designsystem.component.KuiCard
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.FloatingActionButtonMenu
-import androidx.compose.material3.FloatingActionButtonMenuItem
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.ListItem
-import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.component.KuiFloatingActionButtonMenu
+import com.keelim.core.designsystem.component.KuiFloatingActionButtonMenuItem
+import com.keelim.core.designsystem.component.KuiHorizontalDivider
+import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.component.KuiListItem
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.ShortNavigationBar
-import androidx.compose.material3.ShortNavigationBarItem
-import androidx.compose.material3.Text
-import androidx.compose.material3.ToggleFloatingActionButton
+import com.keelim.core.designsystem.theme.KeelimDesignSystemTheme
+import com.keelim.core.designsystem.component.KuiShortNavigationBar
+import com.keelim.core.designsystem.component.KuiShortNavigationBarItem
+import com.keelim.core.designsystem.component.KuiText
+import com.keelim.core.designsystem.component.KuiToggleFloatingActionButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableIntState
@@ -121,7 +121,7 @@ fun EcocalMainSection(
                         horizontalArrangement = Arrangement.Center,
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
-                        Text(
+                        KuiText(
                             text = header,
                             style = KuiTheme.typography.bodyLarge.copy(
                                 fontWeight = FontWeight.Bold,
@@ -161,7 +161,7 @@ fun EcocalMainSection(
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    Text(
+                    KuiText(
                         text = "여기가 마지막 일정입니다.",
                         style = KuiTheme.typography.bodyMedium.copy(
                             fontWeight = FontWeight.Bold,
@@ -205,7 +205,7 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.Bottom,
         ) {
-            Text(
+            KuiText(
                 text = "${time.year} ${time.month.number.toUiTwoDigits()}",
                 style = KuiTheme.typography.headlineMedium.copy(
                     fontWeight = FontWeight.Bold,
@@ -216,14 +216,14 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
                 horizontalAlignment = Alignment.End,
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(
+                    KuiIcon(
                         imageVector = Icons.Filled.DateRange,
                         contentDescription = "Calendar Icon",
                         tint = KuiTheme.colorScheme.onPrimaryContainer,
                         modifier = Modifier.size(20.dp),
                     )
                     Spacer(modifier = Modifier.width(space4))
-                    Text(
+                    KuiText(
                         text = time.toUiDate(),
                         style = KuiTheme.typography.bodyMedium.copy(
                             color = KuiTheme.colorScheme.onPrimaryContainer,
@@ -241,7 +241,7 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
                         },
                         label = "Hour animation",
                     ) { targetHour ->
-                        Text(
+                        KuiText(
                             text = targetHour,
                             style = KuiTheme.typography.bodySmall.copy(
                                 fontWeight = FontWeight.Bold,
@@ -249,7 +249,7 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
                             ),
                         )
                     }
-                    Text(
+                    KuiText(
                         text = ":",
                         style = KuiTheme.typography.bodySmall.copy(
                             fontWeight = FontWeight.Bold,
@@ -264,7 +264,7 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
                         },
                         label = "Minute animation",
                     ) { targetMinute ->
-                        Text(
+                        KuiText(
                             text = targetMinute,
                             style = KuiTheme.typography.bodySmall.copy(
                                 fontWeight = FontWeight.Bold,
@@ -272,7 +272,7 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
                             ),
                         )
                     }
-                    Text(
+                    KuiText(
                         text = ":",
                         style = KuiTheme.typography.bodySmall.copy(
                             fontWeight = FontWeight.Bold,
@@ -287,7 +287,7 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
                         },
                         label = "Second animation",
                     ) { second ->
-                        Text(
+                        KuiText(
                             text = second,
                             style = KuiTheme.typography.bodySmall.copy(
                                 color = KuiTheme.colorScheme.onPrimaryContainer,
@@ -298,7 +298,7 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
             }
         }
         Spacer(modifier = Modifier.height(space8))
-        HorizontalDivider(
+        KuiHorizontalDivider(
             color = KuiTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.1f),
             thickness = 1.dp,
         )
@@ -316,13 +316,13 @@ fun ListItem(
     modifier: Modifier = Modifier,
 ) = trace("ListItem") {
     if (priority == Holiday) {
-        Card(
+        KuiCard(padded = false,
             modifier = modifier
                 .fillMaxWidth()
                 .clickable { onCardClick() }
                 .padding(horizontal = space16, vertical = space8),
         ) {
-            Text(
+            KuiText(
                 text = title,
                 style = KuiTheme.typography.headlineMedium.copy(
                     fontWeight = FontWeight.Bold,
@@ -331,7 +331,7 @@ fun ListItem(
             Spacer(
                 modifier = Modifier.height(space4),
             )
-            Text(
+            KuiText(
                 text = subtitle,
                 style = KuiTheme.typography.bodySmall.copy(
                     fontWeight = FontWeight.Bold,
@@ -341,12 +341,12 @@ fun ListItem(
             )
         }
     } else {
-        ListItem(
+        KuiListItem(
             modifier = modifier
                 .fillMaxWidth()
                 .clickable { onCardClick() },
             headlineContent = {
-                Text(
+                KuiText(
                     text = title,
                     style = KuiTheme.typography.headlineSmall,
                 )
@@ -355,7 +355,7 @@ fun ListItem(
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                 ) {
-                    Text(
+                    KuiText(
                         text = subtitle,
                         style = KuiTheme.typography.bodySmall,
                         maxLines = 1,
@@ -383,7 +383,7 @@ fun ListItem(
                 }
             },
             trailingContent = {
-                Text(
+                KuiText(
                     text = label,
                     style = KuiTheme.typography.bodyMedium,
                     fontWeight = FontWeight.Bold,
@@ -399,7 +399,7 @@ fun ListItem(
 @Preview
 @Composable
 private fun PreviewListItem() {
-    MaterialTheme {
+    KeelimDesignSystemTheme {
         ListItem(
             title = "fastidii",
             subtitle = "ultrices",
@@ -462,14 +462,14 @@ fun EcocalFloatingButton(
 
     val (isExpanded, setIsExpanded) = remember { mutableStateOf(false) }
 
-    FloatingActionButtonMenu(
+    KuiFloatingActionButtonMenu(
         expanded = isExpanded,
         button = {
-            ToggleFloatingActionButton(
+            KuiToggleFloatingActionButton(
                 checked = isExpanded,
                 onCheckedChange = setIsExpanded,
                 content = {
-                    Icon(
+                    KuiIcon(
                         imageVector = if (isExpanded) Icons.Default.Close else Icons.Default.Add,
                         contentDescription = if (isExpanded) "Close" else "Open",
                     )
@@ -482,14 +482,14 @@ fun EcocalFloatingButton(
             enter = fadeIn(),
             exit = fadeOut(),
         ) {
-            FloatingActionButtonMenuItem(
+            KuiFloatingActionButtonMenuItem(
                 onClick = {
                     coroutineScope.launch {
                         listState.animateScrollToItem(0)
                     }
                 },
                 icon = {
-                    Icon(
+                    KuiIcon(
                         imageVector = Icons.Filled.KeyboardArrowUp,
                         contentDescription = "scroll to top",
                     )
@@ -499,7 +499,7 @@ fun EcocalFloatingButton(
         }
 
         items.fastForEach { item ->
-            FloatingActionButtonMenuItem(
+            KuiFloatingActionButtonMenuItem(
                 onClick = {
                     Timber.Forest.d("item $item")
                     updateFilter(item)
@@ -508,12 +508,12 @@ fun EcocalFloatingButton(
                     }
                 },
                 icon = {
-                    Icon(
+                    KuiIcon(
                         imageVector = item.imageVector,
                         contentDescription = item.label,
                     )
                 },
-                text = { Text(item.label) },
+                text = { KuiText(item.label) },
             )
         }
     }
@@ -523,40 +523,40 @@ fun EcocalFloatingButton(
 fun EcocalNavigationBar(
     navigationIndex: MutableIntState,
 ) {
-    ShortNavigationBar {
-        ShortNavigationBarItem(
+    KuiShortNavigationBar {
+        KuiShortNavigationBarItem(
             selected = navigationIndex.intValue == 0,
             onClick = {
                 navigationIndex.intValue = 0
             },
             icon = {
-                Icon(
+                KuiIcon(
                     imageVector = Icons.Filled.DateRange,
                     contentDescription = "캘린더",
                 )
             },
             label = {
-                Text(text = "캘린더")
+                KuiText(text = "캘린더")
             },
         )
 
-        ShortNavigationBarItem(
+        KuiShortNavigationBarItem(
             selected = navigationIndex.intValue == 1,
             onClick = {
                 navigationIndex.intValue = 1
             },
             icon = {
-                Icon(
+                KuiIcon(
                     imageVector = Icons.Filled.Menu,
                     contentDescription = "환율",
                 )
             },
             label = {
-                Text(text = "환율")
+                KuiText(text = "환율")
             },
         )
 
-        ShortNavigationBarItem(
+        KuiShortNavigationBarItem(
             selected = navigationIndex.intValue == 2,
             onClick = {
                 navigationIndex.intValue = 2
@@ -565,7 +565,7 @@ fun EcocalNavigationBar(
                 // Icon temporarily removed
             },
             label = {
-                Text(text = "금융")
+                KuiText(text = "금융")
             },
         )
     }

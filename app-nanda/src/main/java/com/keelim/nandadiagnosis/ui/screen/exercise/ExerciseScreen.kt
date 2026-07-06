@@ -12,18 +12,17 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.component.KuiAlertDialog
+import com.keelim.core.designsystem.component.KuiButton
+import com.keelim.core.designsystem.component.KuiCard
+import com.keelim.core.designsystem.component.KuiFloatingActionButton
+import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.component.KuiIconButton
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
+import com.keelim.core.designsystem.component.KuiOutlinedTextField
+import com.keelim.core.designsystem.component.KuiScaffold
+import com.keelim.core.designsystem.component.KuiText
+import com.keelim.core.designsystem.component.KuiTextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -59,10 +58,10 @@ fun ExerciseScreen(
 ) {
     var showDialog by remember { mutableStateOf(false) }
 
-    Scaffold(
+    KuiScaffold(
         floatingActionButton = {
-            FloatingActionButton(onClick = { showDialog = true }) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = stringResource(Res.string.nanda_exercise_add_description))
+            KuiFloatingActionButton(onClick = { showDialog = true }) {
+                KuiIcon(imageVector = Icons.Default.Add, contentDescription = stringResource(Res.string.nanda_exercise_add_description))
             }
         }
     ) { paddingValues ->
@@ -74,7 +73,7 @@ fun ExerciseScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
              if (exercises.isEmpty()) {
-                Text(
+                KuiText(
                     text = stringResource(Res.string.nanda_exercise_empty),
                     style = KuiTheme.typography.bodyLarge,
                     modifier = Modifier.align(Alignment.CenterHorizontally)
@@ -109,7 +108,7 @@ fun ExerciseItem(
     exercise: ExerciseEntity,
     onDelete: () -> Unit
 ) {
-    Card(
+    KuiCard(padded = false,
         modifier = Modifier.fillMaxWidth()
     ) {
         Row(
@@ -120,19 +119,19 @@ fun ExerciseItem(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column(modifier = Modifier.weight(1f)) {
-                Text(
+                KuiText(
                     text = exercise.title,
                     style = KuiTheme.typography.titleMedium,
                     color = KuiTheme.colorScheme.onSurface
                 )
-                Text(
+                KuiText(
                     text = "${exercise.duration}",
                     style = KuiTheme.typography.bodyMedium,
                     color = KuiTheme.colorScheme.onSurfaceVariant
                 )
             }
-            IconButton(onClick = onDelete) {
-                Icon(
+            KuiIconButton(onClick = onDelete) {
+                KuiIcon(
                     imageVector = Icons.Default.Delete,
                     contentDescription = stringResource(Res.string.common_action_delete),
                     tint = KuiTheme.colorScheme.error
@@ -150,36 +149,36 @@ fun AddExerciseDialog(
     var title by remember { mutableStateOf("") }
     var duration by remember { mutableStateOf("") }
 
-    AlertDialog(
+    KuiAlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text(text = stringResource(Res.string.nanda_exercise_dialog_title)) },
+        title = { KuiText(text = stringResource(Res.string.nanda_exercise_dialog_title)) },
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                OutlinedTextField(
+                KuiOutlinedTextField(
                     value = title,
                     onValueChange = { title = it },
-                    label = { Text(stringResource(Res.string.nanda_exercise_name_label)) },
+                    label = { KuiText(stringResource(Res.string.nanda_exercise_name_label)) },
                     singleLine = true
                 )
-                OutlinedTextField(
+                KuiOutlinedTextField(
                     value = duration,
                     onValueChange = { duration = it },
-                    label = { Text(stringResource(Res.string.nanda_exercise_duration_label)) },
+                    label = { KuiText(stringResource(Res.string.nanda_exercise_duration_label)) },
                     singleLine = true,
                 )
             }
         },
         confirmButton = {
-            Button(
+            KuiButton(
                 onClick = { onConfirm(title, duration) },
                 enabled = title.isNotBlank() && duration.isNotBlank()
             ) {
-                Text(stringResource(Res.string.common_action_add))
+                KuiText(stringResource(Res.string.common_action_add))
             }
         },
         dismissButton = {
-            TextButton(onClick = onDismiss) {
-                Text(stringResource(Res.string.common_action_cancel))
+            KuiTextButton(onClick = onDismiss) {
+                KuiText(stringResource(Res.string.common_action_cancel))
             }
         }
     )

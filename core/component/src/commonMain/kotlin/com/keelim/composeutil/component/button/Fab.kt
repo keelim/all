@@ -8,11 +8,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.Lock
-import androidx.compose.material3.ExtendedFloatingActionButton
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
-import androidx.compose.material3.SmallFloatingActionButton
-import androidx.compose.material3.Text
+import com.keelim.composeutil.component.kui.KuiExtendedFloatingActionButton
+import com.keelim.composeutil.component.kui.KuiFloatingActionButton
+import com.keelim.composeutil.component.kui.KuiIcon
+import com.keelim.composeutil.component.kui.KuiSmallFloatingActionButton
+import com.keelim.composeutil.component.kui.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,8 +32,8 @@ fun FabScreen() {
 
 @Composable
 fun MediumFAB() {
-    FloatingActionButton(onClick = { /*TODO*/ }) {
-        Icon(
+    KuiFloatingActionButton(onClick = { /*TODO*/ }) {
+        KuiIcon(
             imageVector = Icons.Rounded.Add,
             contentDescription = "Add FAB",
             tint = Color.White,
@@ -43,12 +43,12 @@ fun MediumFAB() {
 
 @Composable
 fun SmallFAB() {
-    SmallFloatingActionButton(
+    KuiSmallFloatingActionButton(
         onClick = { },
         containerColor = Color.Black,
         shape = RoundedCornerShape(space12),
     ) {
-        Icon(
+        KuiIcon(
             imageVector = Icons.Rounded.Close,
             contentDescription = "Location FAB",
             tint = Color.White,
@@ -58,12 +58,12 @@ fun SmallFAB() {
 
 @Composable
 fun ExtendedFAB() {
-    ExtendedFloatingActionButton(
+    KuiExtendedFloatingActionButton(
         text = {
-            Text(text = "Navigate", color = Color.White)
+            KuiText(text = "Navigate", color = Color.White)
         },
         icon = {
-            Icon(
+            KuiIcon(
                 imageVector = Icons.Rounded.Lock,
                 contentDescription = "Navigate FAB",
                 tint = Color.White,

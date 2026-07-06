@@ -26,20 +26,20 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
+import com.keelim.core.designsystem.component.KuiAlertDialog
+import com.keelim.core.designsystem.component.KuiButton
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ElevatedCard
+import com.keelim.core.designsystem.component.KuiElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.Icon
-import androidx.compose.material3.LoadingIndicator
-import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.material3.TextField
+import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.component.KuiLoadingIndicator
+import com.keelim.core.designsystem.component.KuiModalBottomSheet
+import com.keelim.core.designsystem.component.KuiOutlinedButton
+import com.keelim.core.designsystem.component.KuiScaffold
+import com.keelim.core.designsystem.component.KuiText
+import com.keelim.core.designsystem.component.KuiTextButton
+import com.keelim.core.designsystem.component.KuiFilledTextField
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -216,7 +216,7 @@ fun MainScreen(
     onNavigateUrlShortener: () -> Unit,
     onNavigateDeviceTestLab: () -> Unit,
 ) {
-    Scaffold(
+    KuiScaffold(
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = space16),
@@ -227,14 +227,14 @@ fun MainScreen(
                     .padding(vertical = space16),
                 verticalArrangement = Arrangement.spacedBy(space4),
             ) {
-                Text(
+                KuiText(
                     text = stringResource(Res.string.arducon_main_title),
                     style = KuiTheme.typography.headlineMedium.copy(
                         fontWeight = FontWeight.Bold,
                     ),
                     color = KuiTheme.colorScheme.primary,
                 )
-                Text(
+                KuiText(
                     text = stringResource(Res.string.arducon_main_subtitle),
                     style = KuiTheme.typography.titleMedium,
                     color = KuiTheme.colorScheme.onSurfaceVariant,
@@ -292,7 +292,7 @@ private fun DeepLinkBottomSheet(
         sheetState.show()
     }
 
-    ModalBottomSheet(
+    KuiModalBottomSheet(
         onDismissRequest = onDismiss,
         sheetState = sheetState,
         modifier = modifier,
@@ -306,7 +306,7 @@ private fun DeepLinkBottomSheet(
         ) {
             val context = LocalContext.current
             val invalidUrlError = stringResource(Res.string.invalid_url_error)
-            ElevatedCard(
+            KuiElevatedCard(
                 modifier = Modifier.fillMaxWidth(),
                 shape = KuiTheme.shapes.large,
             ) {
@@ -325,14 +325,14 @@ private fun DeepLinkBottomSheet(
                         Spacer(modifier = Modifier.height(space12))
                     }
 
-                    Text(
+                    KuiText(
                         text = deepLink.title.takeIf { it.isNotEmpty() } ?: stringResource(Res.string.arducon_main_no_title),
                         style = KuiTheme.typography.titleLarge,
                         fontWeight = FontWeight.Bold,
                         color = KuiTheme.colorScheme.onSurface,
                     )
                     Spacer(modifier = Modifier.height(space4))
-                    Text(
+                    KuiText(
                         text = deepLink.url,
                         style = KuiTheme.typography.bodyLarge,
                         color = KuiTheme.colorScheme.primary,
@@ -362,14 +362,14 @@ private fun DeepLinkBottomSheet(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(
+                    KuiIcon(
                         imageVector = if (deepLink.isBookMarked) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
                         contentDescription = stringResource(Res.string.arducon_main_favorite),
                         tint = if (deepLink.isBookMarked) KuiTheme.colorScheme.primary else KuiTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.size(space24),
                     )
                     Spacer(modifier = Modifier.width(space8))
-                    Text(
+                    KuiText(
                         text = if (deepLink.isBookMarked) stringResource(Res.string.arducon_main_favorite_added) else stringResource(Res.string.arducon_main_favorite_not_added),
                         style = KuiTheme.typography.bodyMedium,
                         color = KuiTheme.colorScheme.onSurfaceVariant,
@@ -379,7 +379,7 @@ private fun DeepLinkBottomSheet(
                 val formattedTimestamp = remember(deepLink.timestamp) {
                     Instant.fromEpochMilliseconds(deepLink.timestamp).toUiDateTime()
                 }
-                Text(
+                KuiText(
                     text = stringResource(Res.string.arducon_main_created_at, formattedTimestamp),
                     style = KuiTheme.typography.bodySmall,
                     color = KuiTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
@@ -391,13 +391,13 @@ private fun DeepLinkBottomSheet(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    Text(
+                    KuiText(
                         text = stringResource(Res.string.arducon_main_category),
                         style = KuiTheme.typography.bodyMedium,
                         fontWeight = FontWeight.Bold,
                         color = KuiTheme.colorScheme.onSurfaceVariant,
                     )
-                    Text(
+                    KuiText(
                         text = deepLink.category,
                         style = KuiTheme.typography.bodyMedium,
                         color = KuiTheme.colorScheme.onSurface,
@@ -410,15 +410,15 @@ private fun DeepLinkBottomSheet(
                 horizontalArrangement = Arrangement.SpaceAround,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                OutlinedButton(
+                KuiOutlinedButton(
                     onClick = { onEdit(deepLink) },
                     modifier = Modifier.weight(1f),
                     shape = RoundedCornerShape(8.dp),
                 ) {
-                    Text(stringResource(Res.string.common_action_edit))
+                    KuiText(stringResource(Res.string.common_action_edit))
                 }
                 Spacer(modifier = Modifier.width(space16))
-                TextButton(
+                KuiTextButton(
                     onClick = {
                         onDelete(deepLink)
                         onDismiss()
@@ -426,7 +426,7 @@ private fun DeepLinkBottomSheet(
                     modifier = Modifier.weight(1f),
                     colors = ButtonDefaults.textButtonColors(contentColor = KuiTheme.colorScheme.error),
                 ) {
-                    Text(stringResource(Res.string.common_action_delete))
+                    KuiText(stringResource(Res.string.common_action_delete))
                 }
             }
         }
@@ -443,35 +443,35 @@ private fun DeepLinkEditDialog(
     var editedUrl by remember { mutableStateOf(deepLinkToEdit.url) }
     var editedCategory by remember { mutableStateOf(deepLinkToEdit.category) }
 
-    AlertDialog(
+    KuiAlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text(stringResource(Res.string.arducon_main_edit_deeplink)) },
+        title = { KuiText(stringResource(Res.string.arducon_main_edit_deeplink)) },
         text = {
             Column {
-                TextField(
+                KuiFilledTextField(
                     value = editedTitle,
                     onValueChange = { editedTitle = it },
-                    label = { Text(stringResource(Res.string.arducon_main_title_label)) },
+                    label = { KuiText(stringResource(Res.string.arducon_main_title_label)) },
                     modifier = Modifier.fillMaxWidth(),
                 )
                 Spacer(modifier = Modifier.height(space8))
-                TextField(
+                KuiFilledTextField(
                     value = editedUrl,
                     onValueChange = { editedUrl = it },
-                    label = { Text(stringResource(Res.string.label_url)) },
+                    label = { KuiText(stringResource(Res.string.label_url)) },
                     modifier = Modifier.fillMaxWidth(),
                 )
                 Spacer(modifier = Modifier.height(space8))
-                TextField(
+                KuiFilledTextField(
                     value = editedCategory,
                     onValueChange = { editedCategory = it },
-                    label = { Text(stringResource(Res.string.arducon_main_category_label)) },
+                    label = { KuiText(stringResource(Res.string.arducon_main_category_label)) },
                     modifier = Modifier.fillMaxWidth(),
                 )
             }
         },
         confirmButton = {
-            Button(
+            KuiButton(
                 onClick = {
                     onSave(
                         deepLinkToEdit.copy(
@@ -482,12 +482,12 @@ private fun DeepLinkEditDialog(
                     )
                 },
             ) {
-                Text(stringResource(Res.string.common_action_save))
+                KuiText(stringResource(Res.string.common_action_save))
             }
         },
         dismissButton = {
-            Button(onClick = onDismiss) {
-                Text(stringResource(Res.string.common_action_cancel))
+            KuiButton(onClick = onDismiss) {
+                KuiText(stringResource(Res.string.common_action_cancel))
             }
         },
     )
@@ -546,12 +546,12 @@ fun QrDialog(
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center,
             ) {
-                LoadingIndicator()
+                KuiLoadingIndicator()
             }
         }
 
         is QrDialogState.Success -> {
-            AlertDialog(
+            KuiAlertDialog(
                 onDismissRequest = onDismiss,
                 text = {
                     Image(
@@ -560,24 +560,24 @@ fun QrDialog(
                     )
                 },
                 confirmButton = {
-                    Button(onClick = { onSaveImage(qrDialogState.bitmap) }) {
-                        Text(stringResource(Res.string.qr_save_image))
+                    KuiButton(onClick = { onSaveImage(qrDialogState.bitmap) }) {
+                        KuiText(stringResource(Res.string.qr_save_image))
                     }
                 },
                 dismissButton = {
-                    Button(onClick = onDismiss) { Text(stringResource(Res.string.dialog_close)) }
+                    KuiButton(onClick = onDismiss) { KuiText(stringResource(Res.string.dialog_close)) }
                 },
             )
         }
 
         is QrDialogState.Error -> {
-            AlertDialog(
+            KuiAlertDialog(
                 onDismissRequest = onDismiss,
-                title = { Text(stringResource(Res.string.dialog_error)) },
-                text = { Text(qrDialogState.message) },
+                title = { KuiText(stringResource(Res.string.dialog_error)) },
+                text = { KuiText(qrDialogState.message) },
                 confirmButton = {},
                 dismissButton = {
-                    Button(onClick = onDismiss) { Text(stringResource(Res.string.dialog_close)) }
+                    KuiButton(onClick = onDismiss) { KuiText(stringResource(Res.string.dialog_close)) }
                 },
             )
         }

@@ -5,9 +5,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Button
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiButton
+import com.keelim.core.designsystem.component.KuiOutlinedTextField
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -45,31 +45,31 @@ fun CompoundInterestCalculator(
         modifier = Modifier.padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        OutlinedTextField(
+        KuiOutlinedTextField(
             value = principal,
             onValueChange = {
                 val filtered = it.filter { char -> char.isDigit() }
                 principal = filtered.toFormattedMoneyOrEmpty()
             },
-            label = { Text(principalLabel) },
+            label = { KuiText(principalLabel) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             modifier = Modifier.fillMaxWidth(),
         )
-        OutlinedTextField(
+        KuiOutlinedTextField(
             value = rate,
             onValueChange = { rate = it },
-            label = { Text(annualInterestRateLabel) },
+            label = { KuiText(annualInterestRateLabel) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             modifier = Modifier.fillMaxWidth(),
         )
-        OutlinedTextField(
+        KuiOutlinedTextField(
             value = years,
             onValueChange = { years = it },
-            label = { Text(periodYearsLabel) },
+            label = { KuiText(periodYearsLabel) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             modifier = Modifier.fillMaxWidth(),
         )
-        Button(
+        KuiButton(
             onClick = {
                 val p = principal.toMoneyOrZero()
                 val r = rate.toDoubleOrNull() ?: 0.0
@@ -86,10 +86,10 @@ fun CompoundInterestCalculator(
             },
             modifier = Modifier.fillMaxWidth(),
         ) {
-            Text(calculateLabel)
+            KuiText(calculateLabel)
         }
         if (result.isNotEmpty()) {
-            Text(finalAmountLabel)
+            KuiText(finalAmountLabel)
         }
     }
 }
@@ -99,28 +99,28 @@ fun LoanRepaymentCalculator(
     onCalculate: (Map<String, String>, Map<String, String>) -> Unit,
 ) {
     // Simple implementation for example
-    Text(stringResource(Res.string.loan_repayment_calculator_pending))
+    KuiText(stringResource(Res.string.loan_repayment_calculator_pending))
 }
 
 @Composable
 fun InvestmentReturnCalculator(
     onCalculate: (Map<String, String>, Map<String, String>) -> Unit,
 ) {
-    Text(stringResource(Res.string.investment_return_calculator_pending))
+    KuiText(stringResource(Res.string.investment_return_calculator_pending))
 }
 
 @Composable
 fun CurrencyConverter(
     onCalculate: (Map<String, String>, Map<String, String>) -> Unit,
 ) {
-    Text(stringResource(Res.string.currency_converter_pending))
+    KuiText(stringResource(Res.string.currency_converter_pending))
 }
 
 @Composable
 fun TaxCalculator(
     onCalculate: (Map<String, String>, Map<String, String>) -> Unit,
 ) {
-    Text(stringResource(Res.string.tax_calculator_pending))
+    KuiText(stringResource(Res.string.tax_calculator_pending))
 }
 
 @Composable
@@ -151,49 +151,49 @@ fun RetirementCalculator(
         modifier = Modifier.padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        OutlinedTextField(
+        KuiOutlinedTextField(
             value = currentAge,
             onValueChange = { currentAge = it },
-            label = { Text(currentAgeLabel) },
+            label = { KuiText(currentAgeLabel) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             modifier = Modifier.fillMaxWidth(),
         )
-        OutlinedTextField(
+        KuiOutlinedTextField(
             value = retirementAge,
             onValueChange = { retirementAge = it },
-            label = { Text(targetAgeLabel) },
+            label = { KuiText(targetAgeLabel) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             modifier = Modifier.fillMaxWidth(),
         )
-        OutlinedTextField(
+        KuiOutlinedTextField(
             value = currentSavings,
             onValueChange = {
                 val filtered = it.filter { char -> char.isDigit() }
                 currentSavings = filtered.toFormattedMoneyOrEmpty()
             },
-            label = { Text(currentSavingsLabel) },
+            label = { KuiText(currentSavingsLabel) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             modifier = Modifier.fillMaxWidth(),
         )
-        OutlinedTextField(
+        KuiOutlinedTextField(
             value = annualContribution,
             onValueChange = {
                 val filtered = it.filter { char -> char.isDigit() }
                 annualContribution = filtered.toFormattedMoneyOrEmpty()
             },
-            label = { Text(annualContributionLabel) },
+            label = { KuiText(annualContributionLabel) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             modifier = Modifier.fillMaxWidth(),
         )
-        OutlinedTextField(
+        KuiOutlinedTextField(
             value = expectedReturn,
             onValueChange = { expectedReturn = it },
-            label = { Text(expectedAnnualReturnLabel) },
+            label = { KuiText(expectedAnnualReturnLabel) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             modifier = Modifier.fillMaxWidth(),
         )
 
-        Button(
+        KuiButton(
             onClick = {
                 val age = currentAge.toIntOrNull() ?: 0
                 val retAge = retirementAge.toIntOrNull() ?: 0
@@ -211,7 +211,7 @@ fun RetirementCalculator(
                     } else {
                         (savings * (1 + r).pow(years)) + (contribution * (((1 + r).pow(years) - 1) / r))
                     }
-                    
+
                     val roundedAmount = kotlin.math.ceil(futureValue).toLong()
                     result = roundedAmount.toUiNumber()
 
@@ -229,10 +229,10 @@ fun RetirementCalculator(
             },
             modifier = Modifier.fillMaxWidth(),
         ) {
-            Text(calculateLabel)
+            KuiText(calculateLabel)
         }
         if (result.isNotEmpty()) {
-            Text(expectedAssetResultLabel)
+            KuiText(expectedAssetResultLabel)
         }
     }
 }

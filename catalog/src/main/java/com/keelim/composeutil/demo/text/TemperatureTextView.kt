@@ -7,11 +7,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Switch
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiButton
+import com.keelim.core.designsystem.theme.KuiTheme
+import com.keelim.core.designsystem.component.KuiOutlinedTextField
+import com.keelim.core.designsystem.component.KuiSwitch
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -41,10 +41,10 @@ fun TemperatureView(
             textState = text
         }
 
-        Text(
+        KuiText(
             "Temperature Converter",
             modifier = Modifier.padding(20.dp),
-            style = MaterialTheme.typography.titleLarge,
+            style = KuiTheme.typography.titleLarge,
         )
 
         InputRow(
@@ -54,16 +54,16 @@ fun TemperatureView(
             onTextChange = onTextChange,
         )
 
-        Text(
+        KuiText(
             text = result,
             modifier = Modifier.padding(20.dp),
-            style = MaterialTheme.typography.titleMedium,
+            style = KuiTheme.typography.titleMedium,
         )
 
-        Button(
+        KuiButton(
             onClick = { convertTemp.invoke(textState) },
         ) {
-            Text("Convert Temperature")
+            KuiText("Convert Temperature")
         }
     }
 }
@@ -78,18 +78,18 @@ fun InputRow(
     Row(
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Switch(
+        KuiSwitch(
             checked = isFahrenheit,
             onCheckedChange = { switchChange.invoke() },
         )
-        OutlinedTextField(
+        KuiOutlinedTextField(
             value = textState,
             onValueChange = { onTextChange.invoke(it) },
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Number,
             ),
             singleLine = true,
-            label = { Text("Enter temperature") },
+            label = { KuiText("Enter temperature") },
             modifier = Modifier.padding(10.dp),
             textStyle = TextStyle(
                 fontWeight = FontWeight.Bold,
@@ -104,7 +104,7 @@ fun InputRow(
             animationSpec = tween(2000),
             label = "",
         ) { visible ->
-            Text(if (visible) "\u2109" else "\u2103", style = MaterialTheme.typography.titleLarge)
+            KuiText(if (visible) "\u2109" else "\u2103", style = KuiTheme.typography.titleLarge)
         }
     }
 }

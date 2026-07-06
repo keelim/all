@@ -7,14 +7,14 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Clear
-import androidx.compose.material3.FloatingActionButton
+import com.keelim.core.designsystem.component.KuiFloatingActionButton
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SmallFloatingActionButton
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
+import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.component.KuiIconButton
+import com.keelim.core.designsystem.component.KuiScaffold
+import com.keelim.core.designsystem.component.KuiSmallFloatingActionButton
+import com.keelim.core.designsystem.component.KuiText
+import com.keelim.core.designsystem.component.KuiTopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -92,27 +92,27 @@ fun TaskSuccessSection(
     } else {
         val (showDialog, setShowDialog) = rememberSaveable { mutableStateOf(false) }
         var deleteTask by rememberSaveable { mutableStateOf<LocalTask?>(null) }
-        Scaffold(
+        KuiScaffold(
             topBar = {
-                TopAppBar(
-                    title = { Text(text = "MyGrade") },
+                KuiTopAppBar(
+                    title = { KuiText(text = "MyGrade") },
                     actions = {
-                        IconButton(onClick = onAddLocalTask) {
-                            Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                        KuiIconButton(onClick = onAddLocalTask) {
+                            KuiIcon(imageVector = Icons.Filled.Add, contentDescription = null)
                         }
                     },
                 )
             },
             floatingActionButton = {
                 Column(verticalArrangement = Arrangement.spacedBy(space4)) {
-                    FloatingActionButton(onClick = onNavigateChart) {
-                        Icon(
+                    KuiFloatingActionButton(onClick = onNavigateChart) {
+                        KuiIcon(
                             imageVector = Icons.Filled.CheckCircle,
                             contentDescription = null,
                         )
                     }
-                    SmallFloatingActionButton(onClick = onClear) {
-                        Icon(
+                    KuiSmallFloatingActionButton(onClick = onClear) {
+                        KuiIcon(
                             imageVector = Icons.Filled.Clear,
                             contentDescription = null,
                         )

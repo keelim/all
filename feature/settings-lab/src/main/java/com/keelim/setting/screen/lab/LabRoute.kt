@@ -8,11 +8,11 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Person
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.material3.TextField
+import com.keelim.core.designsystem.component.KuiCircularProgressIndicator
+import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.component.KuiText
+import com.keelim.core.designsystem.component.KuiTextButton
+import com.keelim.core.designsystem.component.KuiFilledTextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -49,15 +49,15 @@ fun LabScreen(
             .verticalScroll(rememberScrollState()),
     ) {
         Row {
-            TextField(
+            KuiFilledTextField(
                 value = prompt,
                 label = {
-                    Text(
+                    KuiText(
                         text = stringResource(Res.string.settings_lab_prompt_label),
                     )
                 },
                 placeholder = {
-                    Text(
+                    KuiText(
                         text = stringResource(Res.string.settings_lab_prompt_placeholder),
                     )
                 },
@@ -65,7 +65,7 @@ fun LabScreen(
                 modifier = Modifier
                     .weight(8f),
             )
-            TextButton(
+            KuiTextButton(
                 onClick = {
                     if (prompt.isNotBlank()) {
                         onClick(prompt)
@@ -76,7 +76,7 @@ fun LabScreen(
                     .padding(all = space4)
                     .align(Alignment.CenterVertically),
             ) {
-                Text(
+                KuiText(
                     text = stringResource(Res.string.settings_lab_queue),
                 )
             }
@@ -90,21 +90,21 @@ fun LabScreen(
                     .padding(all = space8)
                     .align(Alignment.CenterHorizontally),
             ) {
-                CircularProgressIndicator()
+                KuiCircularProgressIndicator()
             }
 
             is LabUiState.Success -> Row(modifier = Modifier.padding(all = space8)) {
-                Icon(
+                KuiIcon(
                     Icons.Outlined.Person,
                     contentDescription = null,
                 )
-                Text(
+                KuiText(
                     text = uiState.outputText,
                     modifier = Modifier.padding(horizontal = space8),
                 )
             }
 
-            is LabUiState.Error -> Text(
+            is LabUiState.Error -> KuiText(
                 text = uiState.errorMessage,
                 color = Color.Red,
                 modifier = Modifier.padding(all = space8),

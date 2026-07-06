@@ -5,9 +5,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiButton
+import com.keelim.core.designsystem.theme.KuiTheme
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -21,7 +21,7 @@ fun VerticalListDemo() {
     val coroutineScope = rememberCoroutineScope()
     Column {
         Row {
-            Button(
+            KuiButton(
                 modifier = Modifier
                     .weight(0.5f)
                     .padding(space2),
@@ -31,9 +31,9 @@ fun VerticalListDemo() {
                     }
                 },
             ) {
-                Text("Top")
+                KuiText("Top")
             }
-            Button(
+            KuiButton(
                 modifier = Modifier
                     .weight(0.5f)
                     .padding(space2),
@@ -45,14 +45,14 @@ fun VerticalListDemo() {
                     }
                 },
             ) {
-                Text("End")
+                KuiText("End")
             }
         }
         Column(Modifier.verticalScroll(scrollState)) {
             repeat(500) {
-                Text(
+                KuiText(
                     text = "List ite $it",
-                    style = MaterialTheme.typography.titleLarge,
+                    style = KuiTheme.typography.titleLarge,
                     modifier = Modifier.padding(5.dp),
                 )
             }

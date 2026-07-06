@@ -9,11 +9,10 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material3.MaterialTheme
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.PrimaryScrollableTabRow
-import androidx.compose.material3.Tab
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiPrimaryScrollableTabRow
+import com.keelim.core.designsystem.component.KuiTab
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -120,13 +119,13 @@ fun TabBarLayout(
     modifier: Modifier = Modifier,
 ) = trace("TabBarLayout") {
     val coroutineScope = rememberCoroutineScope()
-    PrimaryScrollableTabRow(
+    KuiPrimaryScrollableTabRow(
         modifier = modifier,
         selectedTabIndex = state.currentPage,
     ) {
         tabItems.fastForEachIndexed { index, tabItem ->
             val selected = state.currentPage == index
-            Tab(
+            KuiTab(
                 selected = selected,
                 onClick = {
                     coroutineScope.launch {
@@ -135,7 +134,7 @@ fun TabBarLayout(
                     }
                 },
                 text = {
-                    Text(
+                    KuiText(
                         text = tabItem.title,
                         style = KuiTheme.typography.bodyLarge.copy(
                             fontWeight = if (selected) FontWeight.Bold else FontWeight.Normal,

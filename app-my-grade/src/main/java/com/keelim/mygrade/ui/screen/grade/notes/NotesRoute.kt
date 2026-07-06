@@ -17,11 +17,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.BasicAlertDialog
+import com.keelim.core.designsystem.component.KuiBasicAlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -88,11 +87,11 @@ fun NoteSuccessSection(
     }
 
     if (isMarkedRequireDialog) {
-        BasicAlertDialog(
+        KuiBasicAlertDialog(
             onDismissRequest = { isMarkedRequireDialog = false },
         ) {
             Column {
-                Text(
+                KuiText(
                     text = "노트를 활성화 해야 삭제할 수 있습니다. ",
                     style = KuiTheme.typography.bodyMedium,
                 )
@@ -102,7 +101,7 @@ fun NoteSuccessSection(
                         isMarkedRequireDialog = false
                     },
                 ) {
-                    Text(
+                    KuiText(
                         text = "확인",
                         style = KuiTheme.typography.bodySmall,
                     )
@@ -186,7 +185,7 @@ fun NotesItem(
                 modifier = Modifier.padding(16.dp),
                 horizontalAlignment = Alignment.Start,
             ) {
-                Text(
+                KuiText(
                     text = data.title,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
@@ -195,7 +194,7 @@ fun NotesItem(
                     color = KuiTheme.colorScheme.onSurface,
                     modifier = Modifier.padding(bottom = 4.dp),
                 )
-                Text(
+                KuiText(
                     text = data.note,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
@@ -203,7 +202,7 @@ fun NotesItem(
                     color = KuiTheme.colorScheme.onSurface,
                     modifier = Modifier.padding(bottom = 1.dp),
                 )
-                Text(
+                KuiText(
                     text = data.createdAt,
                     maxLines = 1,
                     style = KuiTheme.typography.bodySmall,

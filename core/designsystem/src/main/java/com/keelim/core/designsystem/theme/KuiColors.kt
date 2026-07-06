@@ -62,6 +62,29 @@ val financeKuiColors = KuiColors(
 )
 
 // ── admin-bw (dark) ───────────────────────────────────────────────────────────
+val financeDarkKuiColors = KuiColors(
+    surfaceSoft = Color(0x8C1E293B),
+    surfaceStrong = Color(0xC71E293B),
+    success = Color(0xFF4ADE80),
+    successContainer = Color(0xFF052E16),
+    onSuccess = Color(0xFF052E16),
+    onSuccessContainer = Color(0xFFBBF7D0),
+    warning = Color(0xFFFDE68A),
+    warningContainer = Color(0xFF431407),
+    onWarning = Color(0xFF431407),
+    onWarningContainer = Color(0xFFFEF3C7),
+    info = Color(0xFF93C5FD),
+    infoContainer = Color(0xFF1E3A8A),
+    onInfo = Color(0xFF082F49),
+    onInfoContainer = Color(0xFFBFDBFE),
+    up = Color(0xFFF87171),
+    upSoft = Color(0xFF4B1616),
+    down = Color(0xFF60A5FA),
+    downSoft = Color(0xFF14284B),
+    flat = Color(0xFFA5B4C8),
+    flatSoft = Color(0xFF1E293B),
+)
+
 val adminBwKuiColors = KuiColors(
     surfaceSoft   = Color(0x1FFFFFFF),  // rgb(255 255 255 / 0.08)
     surfaceStrong = Color(0x33FFFFFF),  // rgb(255 255 255 / 0.12)

@@ -9,16 +9,15 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.Card
+import com.keelim.core.designsystem.component.KuiCard
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.component.KuiIconButton
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
+import com.keelim.core.designsystem.component.KuiScaffold
+import com.keelim.core.designsystem.component.KuiText
+import com.keelim.core.designsystem.component.KuiTopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -67,19 +66,19 @@ fun DeviceInfoScreen(
         )
     }
 
-    Scaffold(
+    KuiScaffold(
         topBar = {
-            TopAppBar(
+            KuiTopAppBar(
                 title = {
-                    Text(
+                    KuiText(
                         text = stringResource(Res.string.settings_category_device_info),
                         style = KuiTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
                         color = KuiTheme.colorScheme.onSurface,
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = onNavigateBack) {
-                        Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(Res.string.settings_back_description))
+                    KuiIconButton(onClick = onNavigateBack) {
+                        KuiIcon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(Res.string.settings_back_description))
                     }
                 },
             )
@@ -101,7 +100,7 @@ fun DeviceInfoScreen(
 
 @Composable
 fun DeviceInfoCard(item: DeviceInfoItem) {
-    Card(
+    KuiCard(padded = false,
         modifier = Modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(defaultElevation = space2),
     ) {
@@ -112,13 +111,13 @@ fun DeviceInfoCard(item: DeviceInfoItem) {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Text(
+            KuiText(
                 text = item.label,
                 style = KuiTheme.typography.bodyMedium,
                 fontWeight = FontWeight.Bold,
                 color = KuiTheme.colorScheme.onSurfaceVariant,
             )
-            Text(
+            KuiText(
                 text = item.value,
                 style = KuiTheme.typography.bodyMedium,
                 color = KuiTheme.colorScheme.onSurface,

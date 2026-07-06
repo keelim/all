@@ -19,14 +19,13 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Star
-import androidx.compose.material3.Card
+import com.keelim.core.designsystem.component.KuiCard
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Divider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
+import com.keelim.core.designsystem.component.KuiDivider
+import com.keelim.core.designsystem.component.KuiIcon
 import com.keelim.core.designsystem.theme.KuiTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiSurface
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -75,12 +74,12 @@ private fun StatsScreen(
             icon = Icons.Default.Star,
             content = {
                 if (topUsedLinks.isEmpty()) {
-                    Text("데이터 없음", style = KuiTheme.typography.bodyMedium)
+                    KuiText("데이터 없음", style = KuiTheme.typography.bodyMedium)
                 } else {
                     topUsedLinks.forEachIndexed { idx, item ->
                         StatsLinkItem(item, highlight = idx == 0)
                         if (idx != topUsedLinks.lastIndex) {
-                            Divider(
+                            KuiDivider(
                                 modifier = Modifier.padding(
                                     vertical = 4.dp,
                                 ),
@@ -95,12 +94,12 @@ private fun StatsScreen(
             icon = Icons.Default.CheckCircle,
             content = {
                 if (recentUsedLinks.isEmpty()) {
-                    Text("데이터 없음", style = KuiTheme.typography.bodyMedium)
+                    KuiText("데이터 없음", style = KuiTheme.typography.bodyMedium)
                 } else {
                     recentUsedLinks.forEachIndexed { idx, item ->
                         StatsLinkItem(item, highlight = false)
                         if (idx != recentUsedLinks.lastIndex) {
-                            Divider(
+                            KuiDivider(
                                 modifier = Modifier.padding(
                                     vertical = 4.dp,
                                 ),
@@ -149,7 +148,7 @@ private fun StatsSectionCard(
     icon: androidx.compose.ui.graphics.vector.ImageVector,
     content: @Composable () -> Unit,
 ) {
-    Card(
+    KuiCard(padded = false,
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(18.dp),
         elevation = CardDefaults.cardElevation(6.dp),
@@ -159,12 +158,12 @@ private fun StatsSectionCard(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.padding(start = 20.dp, top = 20.dp, end = 20.dp, bottom = 8.dp),
         ) {
-            Surface(
+            KuiSurface(
                 modifier = Modifier.size(36.dp),
                 shape = CircleShape,
                 color = KuiTheme.colorScheme.primaryContainer,
             ) {
-                Icon(
+                KuiIcon(
                     imageVector = icon,
                     contentDescription = null,
                     tint = KuiTheme.colorScheme.primary,
@@ -172,13 +171,13 @@ private fun StatsSectionCard(
                 )
             }
             Spacer(modifier = Modifier.width(12.dp))
-            Text(
+            KuiText(
                 text = title,
                 style = KuiTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
                 color = KuiTheme.colorScheme.primary,
             )
         }
-        Divider(modifier = Modifier.padding(horizontal = 20.dp, vertical = 4.dp))
+        KuiDivider(modifier = Modifier.padding(horizontal = 20.dp, vertical = 4.dp))
         Column(modifier = Modifier.padding(horizontal = 20.dp, vertical = 12.dp)) {
             content()
         }
@@ -202,12 +201,12 @@ private fun StatsLinkItem(item: DeepLink, highlight: Boolean) {
             .padding(vertical = 8.dp, horizontal = 4.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Surface(
+        KuiSurface(
             modifier = Modifier.size(36.dp),
             shape = CircleShape,
             color = if (highlight) KuiTheme.colorScheme.primary else KuiTheme.colorScheme.secondaryContainer,
         ) {
-            Icon(
+            KuiIcon(
                 imageVector = Icons.Default.Star,
                 contentDescription = null,
                 tint = if (highlight) Color.White else KuiTheme.colorScheme.primary,
@@ -216,24 +215,24 @@ private fun StatsLinkItem(item: DeepLink, highlight: Boolean) {
         }
         Spacer(modifier = Modifier.width(10.dp))
         Column(modifier = Modifier.weight(1f)) {
-            Text(
+            KuiText(
                 text = item.title.ifEmpty { item.url },
                 style = KuiTheme.typography.bodyLarge.copy(fontWeight = if (highlight) FontWeight.Bold else FontWeight.Normal),
                 color = if (highlight) KuiTheme.colorScheme.primary else KuiTheme.colorScheme.onSurface,
             )
-            Text(
+            KuiText(
                 text = item.url,
                 style = KuiTheme.typography.bodySmall,
                 color = KuiTheme.colorScheme.onSurfaceVariant,
             )
         }
         Column(horizontalAlignment = Alignment.End) {
-            Text(
+            KuiText(
                 text = "${item.usageCount}회",
                 style = KuiTheme.typography.labelLarge,
                 color = KuiTheme.colorScheme.primary,
             )
-            Text(
+            KuiText(
                 text = lastUsed,
                 style = KuiTheme.typography.labelSmall,
                 color = KuiTheme.colorScheme.onSurfaceVariant,
@@ -245,7 +244,7 @@ private fun StatsLinkItem(item: DeepLink, highlight: Boolean) {
 @Composable
 fun StatsBarChart(stats: List<UsageStat>) {
     if (stats.isEmpty()) {
-        Text("데이터 없음", style = KuiTheme.typography.bodyMedium)
+        KuiText("데이터 없음", style = KuiTheme.typography.bodyMedium)
         return
     }
     BarChart(

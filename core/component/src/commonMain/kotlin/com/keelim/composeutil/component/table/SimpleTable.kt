@@ -9,8 +9,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Text
+import com.keelim.composeutil.component.kui.KuiHorizontalDivider
+import com.keelim.composeutil.component.kui.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.Modifier
@@ -78,7 +78,7 @@ private fun TableRow(
         TableCell(text = status, weight = 1f, title = true)
     }
     if (isFooter.not()) {
-        HorizontalDivider(
+        KuiHorizontalDivider(
             modifier = Modifier
                 .height(1.dp)
                 .fillMaxHeight()
@@ -95,7 +95,7 @@ fun RowScope.TableCell(
     alignment: TextAlign = TextAlign.Center,
     title: Boolean = false,
 ) {
-    Text(
+    KuiText(
         text = text,
         Modifier
             .weight(weight)

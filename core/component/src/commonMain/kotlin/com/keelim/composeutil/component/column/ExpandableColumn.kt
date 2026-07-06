@@ -5,8 +5,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import com.keelim.composeutil.component.kui.KuiMaterialTheme
+import com.keelim.composeutil.component.kui.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -24,15 +24,15 @@ fun ExpandableColumn(
     Column(
         modifier = modifier
             .clickable { isExpanded = !isExpanded }
-            .background(color = MaterialTheme.colorScheme.primaryContainer)
+            .background(color = KuiMaterialTheme.colorScheme.primaryContainer)
             .fillMaxWidth(),
     ) {
-        Text(
+        KuiText(
             text = title,
         )
         AnimatedVisibility(
             modifier = Modifier
-                .background(MaterialTheme.colorScheme.secondaryContainer)
+                .background(KuiMaterialTheme.colorScheme.secondaryContainer)
                 .fillMaxWidth(),
             visible = isExpanded,
         ) {

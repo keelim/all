@@ -13,7 +13,9 @@ ksp {
 }
 
 dependencies {
+    implementation(projects.core.data)
     implementation(libs.androidx.appfunctions.service)
+    implementation(libs.kotlinx.serialization.json)
     ksp(libs.androidx.appfunctions.compiler)
 
     testImplementation(projects.core.testing)

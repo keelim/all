@@ -1,13 +1,10 @@
+@file:OptIn(androidx.compose.material3.ExperimentalMaterial3ExpressiveApi::class)
+
 package com.keelim.mygrade.ui.screen.timer
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -65,6 +62,7 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -74,6 +72,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.common.extensions.formatUiTime
 import com.keelim.common.extensions.toUiTwoDigits
 import com.keelim.composeutil.component.custom.NumberPickerList
+import com.keelim.mygrade.R
 import kotlinx.coroutines.launch
 
 // region Stateful Route
@@ -221,9 +220,9 @@ fun TimerScreen(
 
                         RunningState.STARTED -> {
                             CountdownSection(
+                                isRunning = isRunning,
                                 leftTime = leftTime,
                                 totalTimeSeconds = totalTimeSeconds,
-                                isRunning = isRunning,
                                 addedTime = addedTime,
                                 onComplete = {
                                     scope.launch {
@@ -292,7 +291,7 @@ private fun TimerHeader(
             ) {
                 KuiIcon(
                     imageVector = Icons.Outlined.MoreVert,
-                    contentDescription = "Menu",
+                    contentDescription = stringResource(R.string.timer_menu_action),
                     tint = KuiTheme.colorScheme.onSecondaryContainer,
                 )
             }
@@ -447,9 +446,9 @@ private fun TimePickerDivider() {
 
 @Composable
 private fun CountdownSection(
+    isRunning: RunningState,
     leftTime: Int,
     totalTimeSeconds: Int,
-    isRunning: RunningState,
     addedTime: String,
     onComplete: () -> Unit,
 ) {
@@ -458,6 +457,8 @@ private fun CountdownSection(
 
     // Smooth animated progress
     val animatedProgress = remember { Animatable(1f) }
+    val glowAlpha = remember { Animatable(0.18f) }
+    val motionScheme = KuiTheme.motionScheme
 
     LaunchedEffect(leftTime) {
         if (leftTime == 0) {
@@ -473,21 +474,25 @@ private fun CountdownSection(
         )
     }
 
-    // Pulse animation for the ring glow
-    val infiniteTransition = rememberInfiniteTransition(label = "pulse")
-    val pulseAlpha by infiniteTransition.animateFloat(
-        initialValue = 0.3f,
-        targetValue = 0.6f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(1500, easing = FastOutSlowInEasing),
-            repeatMode = RepeatMode.Reverse,
-        ),
-        label = "pulseAlpha",
-    )
+    LaunchedEffect(isRunning) {
+        if (isRunning == RunningState.STARTED) {
+            glowAlpha.snapTo(0.18f)
+            glowAlpha.animateTo(
+                targetValue = 0.44f,
+                animationSpec = motionScheme.fastEffectsSpec(),
+            )
+            glowAlpha.animateTo(
+                targetValue = 0.18f,
+                animationSpec = motionScheme.fastEffectsSpec(),
+            )
+        } else {
+            glowAlpha.snapTo(0f)
+        }
+    }
 
     val primaryColor = KuiTheme.colorScheme.primary
     val backgroundColor = KuiTheme.colorScheme.surfaceContainerHighest
-    val glowColor = KuiTheme.colorScheme.primary.copy(alpha = pulseAlpha)
+    val glowColor = KuiTheme.colorScheme.primary.copy(alpha = glowAlpha.value)
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,

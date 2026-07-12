@@ -22,6 +22,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Delete
 import com.keelim.core.designsystem.component.KuiCard
 import androidx.compose.material3.CardDefaults
@@ -38,9 +39,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.semantics.ProgressBarRangeInfo
+import androidx.compose.ui.semantics.progressBarRangeInfo
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -48,7 +52,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.trace
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.keelim.core.resource.Res
+import com.keelim.core.resource.nanda_water_goal_complete
+import com.keelim.core.resource.nanda_water_goal_progress_generic
+import com.keelim.core.resource.nanda_water_goal_progress
+import com.keelim.core.resource.nanda_water_percentage_short
+import com.keelim.core.resource.nanda_water_record_delete
 import com.keelim.model.DailyWaterTotal
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun WaterIntakeRoute(
@@ -84,6 +95,11 @@ fun WaterIntakeScreen(
         animationSpec = tween(durationMillis = 500),
         label = "progress",
     )
+    val statusLabel = if (todayTotal >= dailyGoal) {
+        stringResource(Res.string.nanda_water_goal_complete)
+    } else {
+        stringResource(Res.string.nanda_water_goal_progress, (progress * 100).toInt())
+    }
 
     LazyColumn(
         modifier = Modifier
@@ -120,12 +136,17 @@ fun WaterIntakeScreen(
                         progress = animatedProgress,
                         current = todayTotal,
                         goal = dailyGoal,
+                        statusLabel = statusLabel,
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     KuiText(
-                        text = if (todayTotal >= dailyGoal) "🎉 목표 달성!" else "오늘 목표량의 ${(progress * 100).toInt()}%",
+                        text = statusLabel,
                         style = KuiTheme.typography.bodyLarge,
-                        color = KuiTheme.colorScheme.onSurface,
+                        color = if (todayTotal >= dailyGoal) {
+                            KuiTheme.colors.success
+                        } else {
+                            KuiTheme.colorScheme.onSurface
+                        },
                     )
                 }
             }
@@ -182,10 +203,11 @@ private fun ProgressRing(
     progress: Float,
     current: Int,
     goal: Int,
+    statusLabel: String,
 ) = trace("ProgressRing") {
     val primaryColor = KuiTheme.colorScheme.primary
     val trackColor = KuiTheme.colorScheme.surfaceVariant
-    val completedColor = Color(0xFF4CAF50)
+    val completedColor = KuiTheme.colors.success
 
     val ringColor by animateColorAsState(
         targetValue = if (progress >= 1f) completedColor else primaryColor,
@@ -195,7 +217,12 @@ private fun ProgressRing(
 
     Box(
         contentAlignment = Alignment.Center,
-        modifier = Modifier.size(200.dp),
+        modifier = Modifier
+            .size(200.dp)
+            .semantics {
+                stateDescription = statusLabel
+                progressBarRangeInfo = ProgressBarRangeInfo(progress, 0f..1f)
+            },
     ) {
         Canvas(modifier = Modifier.size(180.dp)) {
             val strokeWidth = 16.dp.toPx()
@@ -289,7 +316,10 @@ private fun WeeklyChart(
                 .padding(16.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            items(history.reversed()) { daily ->
+            items(
+                items = history.reversed(),
+                key = { daily -> daily.date },
+            ) { daily ->
                 DailyBar(
                     date = daily.date,
                     amount = daily.totalAmount,
@@ -307,11 +337,20 @@ private fun DailyBar(
     goal: Int,
 ) = trace("DailyBar") {
     val progress = (amount.toFloat() / goal).coerceIn(0f, 1f)
-    val barColor = if (progress >= 1f) Color(0xFF4CAF50) else KuiTheme.colorScheme.primary
+    val isComplete = progress >= 1f
+    val percentage = (progress * 100).toInt()
+    val statusLabel = if (isComplete) {
+        stringResource(Res.string.nanda_water_goal_complete)
+    } else {
+        stringResource(Res.string.nanda_water_goal_progress_generic, percentage)
+    }
+    val barColor = if (isComplete) KuiTheme.colors.success else KuiTheme.colorScheme.primary
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.width(40.dp),
+        modifier = Modifier
+            .width(40.dp)
+            .semantics { stateDescription = statusLabel },
     ) {
         Box(
             modifier = Modifier
@@ -336,6 +375,20 @@ private fun DailyBar(
             color = KuiTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
         )
+        if (isComplete) {
+            KuiIcon(
+                imageVector = Icons.Default.Check,
+                contentDescription = null,
+                tint = KuiTheme.colors.success,
+                modifier = Modifier.size(16.dp),
+            )
+        } else {
+            KuiText(
+                text = stringResource(Res.string.nanda_water_percentage_short, percentage),
+                style = KuiTheme.typography.labelSmall,
+                color = KuiTheme.colorScheme.onSurfaceVariant,
+            )
+        }
     }
 }
 
@@ -390,7 +443,7 @@ private fun WaterRecordItem(
             KuiIconButton(onClick = onDelete) {
                 KuiIcon(
                     imageVector = Icons.Default.Delete,
-                    contentDescription = "삭제",
+                    contentDescription = stringResource(Res.string.nanda_water_record_delete),
                     tint = KuiTheme.colorScheme.error,
                 )
             }

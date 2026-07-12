@@ -24,6 +24,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -32,11 +33,15 @@ import androidx.compose.ui.util.trace
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.commonAndroid.model.SealedUiState
-import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
 import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space2
 import com.keelim.composeutil.resource.space8
+import com.keelim.core.designsystem.component.KuiEmptyState
+import com.keelim.core.resource.Res
+import com.keelim.core.resource.common_action_retry
+import com.keelim.mygrade.R
+import org.jetbrains.compose.resources.stringResource as composeStringResource
 
 @Composable
 fun EditRoute(
@@ -48,6 +53,7 @@ fun EditRoute(
         editUiState = editUiState,
         onAddClick = viewModel::updateNote,
         onClearDialog = viewModel::clearDialogState,
+        onRetry = viewModel::retry,
     )
 }
 
@@ -56,6 +62,7 @@ fun EditScreen(
     editUiState: SealedUiState<EditUiState>,
     onAddClick: (String) -> Unit,
     onClearDialog: () -> Unit,
+    onRetry: () -> Unit = {},
 ) = trace("EditScreen") {
     AnimatedContent(
         targetState = editUiState,
@@ -63,7 +70,17 @@ fun EditScreen(
     ) { targetState ->
         when (targetState) {
             SealedUiState.Loading -> Loading()
-            is SealedUiState.Error -> EmptyView()
+            is SealedUiState.Error -> KuiEmptyState(
+                title = stringResource(R.string.mygrade_state_error_title),
+                description = stringResource(R.string.mygrade_state_error_description),
+                action = {
+                    KuiButton(
+                        text = composeStringResource(Res.string.common_action_retry),
+                        onClick = onRetry,
+                    )
+                },
+                modifier = Modifier.padding(KuiTheme.spacing.cardPadding),
+            )
             is SealedUiState.Success -> EditSuccessSection(
                 editUiState = targetState,
                 onAddClick = onAddClick,

@@ -12,10 +12,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.emitAll
-import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
@@ -41,21 +38,15 @@ class FinanceViewModel @Inject constructor(
     private val sourceFilter = MutableStateFlow<String>("")
     private val refreshTrigger = MutableStateFlow(0)
 
-    val items = combine(
-        refreshTrigger,
-        categoryFilter,
-        sourceFilter,
-    ) { _, category, source ->
-        financeRssRepository.getRssItems(financeRssRepository.getSources())
-            .map { items ->
-                filterItems(items, category, source)
+    val items = refreshTrigger
+        .flatMapLatest {
+            combine(categoryFilter, sourceFilter) { category, source ->
+                financeRssRepository.getRssItems(financeRssRepository.getSources())
+                    .map { items -> filterItems(items, category, source) }
             }
-    }.flatMapLatest { it }
-        .flowOn(Dispatchers.Default)
-        .asSealedUiState(emptyToLoading = false)
-        .catch { throwable ->
-            Timber.e(throwable)
-            emitAll(emptyFlow())
+                .flatMapLatest { it }
+                .flowOn(Dispatchers.Default)
+                .asSealedUiState(emptyToLoading = false)
         }
         .stateIn(
             viewModelScope,

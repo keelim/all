@@ -6,7 +6,6 @@ import android.Manifest
 import android.os.Build
 import androidx.activity.compose.PredictiveBackHandler
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -30,6 +29,7 @@ import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material.icons.rounded.Create
 import com.keelim.core.designsystem.component.KuiButton
 import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.component.KuiIconButton
 import com.keelim.core.designsystem.theme.KuiTheme
 import com.keelim.core.designsystem.component.KuiText
 import com.keelim.core.designsystem.component.KuiFilledTextField
@@ -44,6 +44,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -60,6 +61,7 @@ import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
 import com.keelim.composeutil.util.permission.SimpleAcquirePermissions
+import com.keelim.mygrade.R
 import com.keelim.mygrade.ui.screen.timer.TimerRoute
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -259,13 +261,16 @@ private fun MainTopSection(
         Spacer(
             modifier = Modifier.width(space8),
         )
-        KuiIcon(
-            Icons.Filled.Build,
-            contentDescription = null,
-            modifier = Modifier
-                .size(18.dp)
-                .clickable { onLabClick() },
-        )
+        KuiIconButton(
+            onClick = onLabClick,
+            modifier = Modifier.size(KuiTheme.spacing.componentLg),
+        ) {
+            KuiIcon(
+                Icons.Filled.Build,
+                contentDescription = stringResource(R.string.main_lab_action),
+                modifier = Modifier.size(KuiTheme.spacing.space6),
+            )
+        }
         Spacer(
             modifier = Modifier.weight(1f),
         )

@@ -16,8 +16,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
+import com.keelim.core.designsystem.component.KuiButton
 import com.keelim.core.designsystem.component.KuiCard
 import com.keelim.core.designsystem.component.KuiCheckbox
+import com.keelim.core.designsystem.component.KuiEmptyState
 import com.keelim.core.designsystem.component.KuiIcon
 import com.keelim.core.designsystem.component.KuiIconButton
 import com.keelim.core.designsystem.theme.KuiTheme
@@ -33,6 +35,7 @@ import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
@@ -47,7 +50,11 @@ import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space8
+import com.keelim.core.resource.Res
+import com.keelim.core.resource.common_action_retry
 import com.keelim.model.LocalTask
+import com.keelim.mygrade.R
+import org.jetbrains.compose.resources.stringResource as composeStringResource
 
 @Composable
 fun TaskRoute(onNavigateChart: () -> Unit, viewModel: TaskViewModel = hiltViewModel()) = trace("TaskRoute") {
@@ -59,6 +66,7 @@ fun TaskRoute(onNavigateChart: () -> Unit, viewModel: TaskViewModel = hiltViewMo
         onClear = viewModel::clear,
         onEditTask = viewModel::editTask,
         onDeleteTask = viewModel::deleteTask,
+        onRetry = viewModel::retry,
     )
 }
 
@@ -70,6 +78,7 @@ fun TaskScreen(
     onClear: () -> Unit,
     onEditTask: (LocalTask) -> Unit,
     onDeleteTask: (LocalTask) -> Unit,
+    onRetry: () -> Unit = {},
 ) = trace("TaskScreen") {
     AnimatedContent(
         targetState = state,
@@ -77,7 +86,17 @@ fun TaskScreen(
     ) { targetState ->
         when (targetState) {
             SealedUiState.Loading -> Loading()
-            is SealedUiState.Error -> EmptyView()
+            is SealedUiState.Error -> KuiEmptyState(
+                title = stringResource(R.string.mygrade_state_error_title),
+                description = stringResource(R.string.mygrade_state_error_description),
+                action = {
+                    KuiButton(
+                        text = composeStringResource(Res.string.common_action_retry),
+                        onClick = onRetry,
+                    )
+                },
+                modifier = Modifier.padding(KuiTheme.spacing.cardPadding),
+            )
             is SealedUiState.Success<List<TaskElement>> -> TaskSuccessSection(targetState, onAddLocalTask, onNavigateChart, onClear, onEditTask, onDeleteTask)
         }
     }
@@ -126,6 +145,7 @@ fun LocalTaskList(
         ) {
             items(
                 items = items,
+                key = { it.stableKey },
             ) { task ->
                 when (task) {
                     is TaskElement.Header ->
@@ -202,7 +222,10 @@ fun LocalTaskItem(
                     modifier = Modifier.align(Alignment.CenterVertically),
                     onClick = { onChange(task.copy(isEditing = false)) },
                 ) {
-                    KuiIcon(imageVector = Icons.Filled.Done, contentDescription = null)
+                    KuiIcon(
+                        imageVector = Icons.Filled.Done,
+                        contentDescription = stringResource(R.string.task_finish_edit_action),
+                    )
                 }
             } else {
                 KuiText(

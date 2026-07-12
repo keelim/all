@@ -13,7 +13,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import jakarta.inject.Inject
 
 @Stable
@@ -25,30 +28,41 @@ class DiagnosisViewModel @Inject constructor(
 
     private val _query = MutableStateFlow("")
     val query: StateFlow<String> = _query.asStateFlow()
+    private val retrySignal = MutableStateFlow(0)
 
-    val screenState: StateFlow<DiagnosisScreenState> = combine(
-        nandaRepository.nandaDiagnosis,
-        _query,
-    ) { items, query ->
-        val categoryItems = filterByCategory(items, savedStateHandle.get<String>("num"))
-        if (categoryItems.isEmpty()) {
-            DiagnosisScreenState.Empty
-        } else {
-            val filtered = if (query.isBlank()) {
-                categoryItems
-            } else {
-                categoryItems.filter { it.reason.contains(query, ignoreCase = true) }
-            }
+    val screenState: StateFlow<DiagnosisScreenState> = retrySignal
+        .flatMapLatest {
+            combine(
+                nandaRepository.nandaDiagnosis,
+                _query,
+            ) { items, query ->
+                val categoryItems = filterByCategory(items, savedStateHandle.get<String>("num"))
+                if (categoryItems.isEmpty()) {
+                    DiagnosisScreenState.Empty
+                } else {
+                    val filtered = if (query.isBlank()) {
+                        categoryItems
+                    } else {
+                        categoryItems.filter { it.reason.contains(query, ignoreCase = true) }
+                    }
 
-            if (filtered.isEmpty()) {
-                DiagnosisScreenState.Empty
-            } else {
-                DiagnosisScreenState.Success(filtered.map { DiagnosisItem(it.reason, "") })
+                    if (filtered.isEmpty()) {
+                        DiagnosisScreenState.Empty
+                    } else {
+                        DiagnosisScreenState.Success(filtered.map { DiagnosisItem(it.reason, "") })
+                    }
+                }
+            }.onStart {
+                emit(DiagnosisScreenState.Loading)
+            }.catch {
+                emit(DiagnosisScreenState.Error)
             }
         }
-    }.catch {
-        emit(DiagnosisScreenState.Error)
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000L), DiagnosisScreenState.Loading)
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000L), DiagnosisScreenState.Loading)
+
+    fun retry() {
+        retrySignal.update { it + 1 }
+    }
 
     fun search(newQuery: String) {
         _query.value = newQuery

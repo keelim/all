@@ -21,10 +21,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import com.keelim.commonAndroid.model.SealedUiState
 import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.resource.space4
 import com.keelim.model.LocalTask
+import com.keelim.mygrade.R
 
 sealed interface TaskElement {
     data class Header(
@@ -39,6 +41,12 @@ sealed interface TaskElement {
         TOP, BOTTOM, MIDDLE, SINGLE
     }
 }
+
+internal val TaskElement.stableKey: String
+    get() = when (this) {
+        is TaskElement.Header -> "header:$text"
+        is TaskElement.Item -> "task:${localTask.id}"
+    }
 
 data class TaskListSection(
     val header: String = "",
@@ -98,7 +106,10 @@ fun TaskSuccessSection(
                     title = { KuiText(text = "MyGrade") },
                     actions = {
                         KuiIconButton(onClick = onAddLocalTask) {
-                            KuiIcon(imageVector = Icons.Filled.Add, contentDescription = null)
+                            KuiIcon(
+                                imageVector = Icons.Filled.Add,
+                                contentDescription = stringResource(R.string.task_add_action),
+                            )
                         }
                     },
                 )
@@ -108,13 +119,13 @@ fun TaskSuccessSection(
                     KuiFloatingActionButton(onClick = onNavigateChart) {
                         KuiIcon(
                             imageVector = Icons.Filled.CheckCircle,
-                            contentDescription = null,
+                            contentDescription = stringResource(R.string.task_chart_action),
                         )
                     }
                     KuiSmallFloatingActionButton(onClick = onClear) {
                         KuiIcon(
                             imageVector = Icons.Filled.Clear,
-                            contentDescription = null,
+                            contentDescription = stringResource(R.string.task_clear_action),
                         )
                     }
                 }

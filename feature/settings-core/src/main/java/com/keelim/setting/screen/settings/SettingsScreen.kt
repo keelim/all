@@ -1,20 +1,27 @@
-@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
+@file:OptIn(
+    ExperimentalMaterial3Api::class,
+    ExperimentalMaterial3ExpressiveApi::class,
+    ExperimentalFoundationApi::class,
+)
 
 package com.keelim.setting.screen.settings
 
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.spring
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.LocalIndication
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
-import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -36,6 +43,9 @@ import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.material.icons.rounded.ThumbUp
 import com.keelim.core.designsystem.component.KuiCenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import com.keelim.core.designsystem.component.KuiLoadingStatus
+import com.keelim.core.designsystem.component.KuiLoadingVariant
 import com.keelim.core.designsystem.component.KuiIcon
 import com.keelim.core.designsystem.component.KuiIconButton
 import com.keelim.core.designsystem.theme.KuiTheme
@@ -57,14 +67,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.semantics.stateDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.common.web.BrowserLauncher
 import com.keelim.common.web.NoOpBrowserLauncher
 import com.keelim.composeutil.resource.space12
@@ -83,6 +93,8 @@ import com.keelim.core.resource.settings_category_notification_history
 import com.keelim.core.resource.settings_category_open_source
 import com.keelim.core.resource.settings_category_theme_change
 import com.keelim.core.resource.settings_fcm_token
+import com.keelim.core.resource.settings_family_service_available
+import com.keelim.core.resource.settings_family_service_unavailable
 import com.keelim.core.resource.settings_title
 import android.content.pm.ApplicationInfo
 import com.keelim.shared.data.UserState
@@ -141,7 +153,15 @@ fun SettingsScreen(
     browserLauncher: BrowserLauncher,
 ) {
     when (uiState) {
-        is SettingsUiState.Initialized -> EmptyView()
+        is SettingsUiState.Initialized -> Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center,
+        ) {
+            KuiLoadingStatus(
+                modifier = Modifier.padding(space16),
+                variant = KuiLoadingVariant.Panel,
+            )
+        }
         is SettingsUiState.Success -> {
             val listState = rememberLazyListState()
             val hasScrolled by remember { derivedStateOf { listState.firstVisibleItemScrollOffset > 0 } }
@@ -333,25 +353,19 @@ fun CategoryItem(
     onLongClick: () -> Unit = {},
 ) {
     AnimatedVisibility(visible) {
-        var clicked by remember { mutableStateOf(false) }
+        val interactionSource = remember { MutableInteractionSource() }
+        val isPressed by interactionSource.collectIsPressedAsState()
         val sizeScale by animateFloatAsState(
-            targetValue = if (clicked) .9f else 1f,
-            animationSpec = spring(
-                dampingRatio = Spring.DampingRatioMediumBouncy,
-                stiffness = Spring.StiffnessMediumLow,
-            ),
-            label = "",
+            targetValue = if (isPressed) .98f else 1f,
+            animationSpec = KuiTheme.motionScheme.fastSpatialSpec(),
+            label = "categoryPressScale",
         )
         KuiSurface(
             modifier = modifier
-                .pointerInput(Unit) {
-                    detectTapGestures(onPress = {
-                        clicked = true
-                        awaitRelease()
-                        clicked = false
-                    })
-                }
+                .scale(sizeScale)
                 .combinedClickable(
+                    interactionSource = interactionSource,
+                    indication = LocalIndication.current,
                     onClick = onClick,
                     onLongClick = onLongClick,
                 ),
@@ -361,9 +375,8 @@ fun CategoryItem(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = space16, vertical = space16)
-                    .scale(sizeScale),
-                horizontalArrangement = Arrangement.spacedBy(30.dp),
+                    .padding(horizontal = space16, vertical = space16),
+                horizontalArrangement = Arrangement.spacedBy(KuiTheme.spacing.space6),
             ) {
                 KuiIcon(
                     icon,
@@ -406,24 +419,39 @@ fun FamilyServiceItem(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val isAvailable = service.actionUrl.isNotBlank()
+    val availabilityLabel = stringResource(
+        if (isAvailable) {
+            Res.string.settings_family_service_available
+        } else {
+            Res.string.settings_family_service_unavailable
+        },
+    )
     KuiSurface(
         onClick = onClick,
+        enabled = isAvailable,
         shape = KuiTheme.shapes.medium,
-        color = if (service.actionUrl.isBlank()) KuiTheme.colorScheme.surfaceVariant else KuiTheme.colorScheme.primaryContainer,
+        color = if (isAvailable) KuiTheme.colorScheme.primaryContainer else KuiTheme.colorScheme.surfaceVariant,
         modifier = modifier
             .height(100.dp)
             .fillMaxWidth()
+            .semantics { stateDescription = availabilityLabel }
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center,
-            modifier = Modifier.padding(space16)
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier.padding(space16),
         ) {
             KuiText(
                 text = service.title,
                 style = KuiTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
-                color = if (service.actionUrl.isBlank()) KuiTheme.colorScheme.onSurfaceVariant else KuiTheme.colorScheme.onPrimaryContainer
+                color = if (isAvailable) KuiTheme.colorScheme.onPrimaryContainer else KuiTheme.colorScheme.onSurfaceVariant,
+            )
+            KuiText(
+                text = availabilityLabel,
+                style = KuiTheme.typography.labelMedium,
+                color = if (isAvailable) KuiTheme.colors.success else KuiTheme.colorScheme.onSurfaceVariant,
             )
         }
     }

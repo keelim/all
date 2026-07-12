@@ -3,18 +3,13 @@
 package com.keelim.comssa.ui.screen.main.ecocal
 
 import android.content.Intent
-import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
-import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -33,6 +28,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.Menu
 import com.keelim.core.designsystem.component.KuiCard
@@ -47,6 +44,7 @@ import com.keelim.core.designsystem.theme.KeelimDesignSystemTheme
 import com.keelim.core.designsystem.component.KuiShortNavigationBar
 import com.keelim.core.designsystem.component.KuiShortNavigationBarItem
 import com.keelim.core.designsystem.component.KuiText
+import com.keelim.core.designsystem.component.KuiTextButton
 import com.keelim.core.designsystem.component.KuiToggleFloatingActionButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -57,8 +55,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -73,6 +72,7 @@ import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
+import com.keelim.comssa.R
 import com.keelim.comssa.ui.screen.main.ecocal.EcocalPriority.HIGH
 import com.keelim.comssa.ui.screen.main.ecocal.EcocalPriority.Holiday
 import com.keelim.comssa.ui.screen.main.ecocal.EcocalPriority.LOW
@@ -105,11 +105,11 @@ fun EcocalMainSection(
             state = state,
             modifier = Modifier.fillMaxSize(),
         ) {
-            item {
+            item(key = "ecocal-header") {
                 HeaderItem()
             }
             entries.forEach { (header, entries) ->
-                stickyHeader {
+                stickyHeader(key = "ecocal-date:$header") {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -132,7 +132,12 @@ fun EcocalMainSection(
                         )
                     }
                 }
-                items(entries) { entry ->
+                items(
+                    items = entries,
+                    key = { entry ->
+                        "${entry.date}|${entry.time}|${entry.country}|${entry.title}"
+                    },
+                ) { entry ->
                     ListItem(
                         title = entry.title,
                         subtitle = "${entry.date} ${entry.time}",
@@ -232,69 +237,20 @@ fun HeaderItem(modifier: Modifier = Modifier) = trace("HeaderItem") {
                     )
                 }
 
-                Row(verticalAlignment = Alignment.Bottom) {
-                    AnimatedContent(
-                        targetState = time.hour.toUiTwoDigits(),
-                        transitionSpec = {
-                            (slideInVertically { height -> height } + fadeIn()) togetherWith
-                                (slideOutVertically { height -> -height } + fadeOut())
-                        },
-                        label = "Hour animation",
-                    ) { targetHour ->
-                        KuiText(
-                            text = targetHour,
-                            style = KuiTheme.typography.bodySmall.copy(
-                                fontWeight = FontWeight.Bold,
-                                color = KuiTheme.colorScheme.onPrimaryContainer,
-                            ),
-                        )
-                    }
-                    KuiText(
-                        text = ":",
-                        style = KuiTheme.typography.bodySmall.copy(
-                            fontWeight = FontWeight.Bold,
-                            color = KuiTheme.colorScheme.onPrimaryContainer,
-                        ),
-                    )
-                    AnimatedContent(
-                        targetState = time.minute.toUiTwoDigits(),
-                        transitionSpec = {
-                            (slideInVertically { height -> height } + fadeIn()) togetherWith
-                                (slideOutVertically { height -> -height } + fadeOut())
-                        },
-                        label = "Minute animation",
-                    ) { targetMinute ->
-                        KuiText(
-                            text = targetMinute,
-                            style = KuiTheme.typography.bodySmall.copy(
-                                fontWeight = FontWeight.Bold,
-                                color = KuiTheme.colorScheme.onPrimaryContainer,
-                            ),
-                        )
-                    }
-                    KuiText(
-                        text = ":",
-                        style = KuiTheme.typography.bodySmall.copy(
-                            fontWeight = FontWeight.Bold,
-                            color = KuiTheme.colorScheme.onPrimaryContainer,
-                        ),
-                    )
-                    AnimatedContent(
-                        targetState = time.second.toUiTwoDigits(),
-                        transitionSpec = {
-                            (slideInVertically { height -> height } + fadeIn()) togetherWith
-                                (slideOutVertically { height -> -height } + fadeOut())
-                        },
-                        label = "Second animation",
-                    ) { second ->
-                        KuiText(
-                            text = second,
-                            style = KuiTheme.typography.bodySmall.copy(
-                                color = KuiTheme.colorScheme.onPrimaryContainer,
-                            ),
-                        )
-                    }
-                }
+                KuiText(
+                    text = buildString {
+                        append(time.hour.toUiTwoDigits())
+                        append(':')
+                        append(time.minute.toUiTwoDigits())
+                        append(':')
+                        append(time.second.toUiTwoDigits())
+                    },
+                    style = KuiTheme.typography.bodySmall.copy(
+                        fontFamily = FontFamily.Monospace,
+                        fontWeight = FontWeight.Bold,
+                    ),
+                    color = KuiTheme.colorScheme.onPrimaryContainer,
+                )
             }
         }
         Spacer(modifier = Modifier.height(space8))
@@ -339,6 +295,8 @@ fun ListItem(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
             )
+            Spacer(modifier = Modifier.height(space8))
+            PriorityStatus(priority = priority)
         }
     } else {
         KuiListItem(
@@ -362,36 +320,71 @@ fun ListItem(
                         overflow = TextOverflow.Ellipsis,
                     )
 
-                    val color = remember(priority) {
-                        when (priority) {
-                            HIGH -> Color.Red
-                            MEDIUM -> Color.Yellow
-                            LOW -> Color.Green
-                            NONE -> Color.Transparent
-                            Holiday -> Color.Magenta
-                        }
-                    }
-                    Spacer(
-                        modifier = Modifier.height(space8),
-                    )
-                    Box(
-                        modifier = Modifier
-                            .size(space12)
-                            .background(color, shape = CircleShape)
-                            .align(Alignment.Start),
+                    Spacer(modifier = Modifier.height(space8))
+                    PriorityStatus(
+                        priority = priority,
+                        modifier = Modifier.align(Alignment.Start),
                     )
                 }
             },
             trailingContent = {
-                KuiText(
-                    text = label,
-                    style = KuiTheme.typography.bodyMedium,
-                    fontWeight = FontWeight.Bold,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.clickable { onCountryClick(label) },
-                )
+                KuiTextButton(onClick = { onCountryClick(label) }) {
+                    KuiText(
+                        text = label,
+                        style = KuiTheme.typography.bodyMedium,
+                        fontWeight = FontWeight.Bold,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        color = KuiTheme.colorScheme.primary,
+                    )
+                }
             },
+        )
+    }
+}
+
+@Composable
+private fun PriorityStatus(
+    priority: EcocalPriority,
+    modifier: Modifier = Modifier,
+) {
+    val label = stringResource(
+        when (priority) {
+            HIGH -> R.string.ecocal_priority_high
+            MEDIUM -> R.string.ecocal_priority_medium
+            LOW -> R.string.ecocal_priority_low
+            NONE -> R.string.ecocal_priority_none
+            Holiday -> R.string.ecocal_priority_holiday
+        },
+    )
+    val color = when (priority) {
+        HIGH -> KuiTheme.colorScheme.error
+        MEDIUM -> KuiTheme.colors.warning
+        LOW -> KuiTheme.colors.success
+        NONE -> KuiTheme.colorScheme.onSurfaceVariant
+        Holiday -> KuiTheme.colors.info
+    }
+    val icon = when (priority) {
+        LOW -> Icons.Filled.CheckCircle
+        Holiday -> Icons.Filled.DateRange
+        HIGH, MEDIUM, NONE -> Icons.Filled.Info
+    }
+
+    Row(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.spacedBy(space4),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        KuiIcon(
+            imageVector = icon,
+            contentDescription = null,
+            tint = color,
+            modifier = Modifier.size(16.dp),
+        )
+        KuiText(
+            text = label,
+            style = KuiTheme.typography.labelMedium,
+            color = color,
         )
     }
 }

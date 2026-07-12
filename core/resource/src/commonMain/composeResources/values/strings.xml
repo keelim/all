@@ -10,6 +10,7 @@
     <string name="common_action_delete">Delete</string>
     <string name="common_action_edit">Edit</string>
     <string name="common_action_refresh">새로고침</string>
+    <string name="common_action_retry">다시 시도</string>
     <string name="common_action_save">저장</string>
     <string name="common_action_search">Search</string>
     <string name="common_action_share">공유</string>
@@ -72,6 +73,11 @@
 
     <!-- Arducon -->
     <string name="arducon_back_description">뒤로 가기</string>
+    <string name="arducon_action_favorite_add">즐겨찾기에 추가</string>
+    <string name="arducon_action_favorite_remove">즐겨찾기에서 삭제</string>
+    <string name="arducon_action_generate_qr">QR 코드 생성</string>
+    <string name="arducon_action_open_deeplink">딥링크 열기</string>
+    <string name="arducon_action_show_notification">알림으로 테스트</string>
     <string name="arducon_create_deeplink_category_label_optional">카테고리 (선택사항)</string>
     <string name="arducon_create_deeplink_category_placeholder">카테고리를 선택하거나 입력하세요</string>
     <string name="arducon_create_deeplink_title">딥링크 생성</string>
@@ -88,6 +94,7 @@
     <string name="arducon_main_category">카테고리:</string>
     <string name="arducon_main_category_label">카테고리</string>
     <string name="arducon_main_created_at">생성일: %1$s</string>
+    <string name="arducon_main_deeplink_url_label">딥링크 URL</string>
     <string name="arducon_main_edit_deeplink">딥링크 편집</string>
     <string name="arducon_main_favorite_added">즐겨찾기 추가됨</string>
     <string name="arducon_main_favorite">즐겨찾기</string>
@@ -144,6 +151,10 @@
     <string name="arducon_search_clear_query">검색어 지우기</string>
     <string name="arducon_search_placeholder">예: http, https, tel, mailto</string>
     <string name="arducon_search_title">스킴 검색</string>
+    <string name="arducon_scheme_label">스킴</string>
+    <string name="arducon_scheme_register">스킴 등록</string>
+    <string name="arducon_scheme_expand">등록된 스킴 펼치기</string>
+    <string name="arducon_scheme_collapse">등록된 스킴 접기</string>
     <string name="arducon_url_shortener_click_count">클릭: %1$s회</string>
     <string name="arducon_url_shortener_expiration_at">만료: %1$s</string>
     <string name="arducon_url_shortener_expiration_label">만료:</string>
@@ -285,12 +296,41 @@
     <string name="nanda_food_calories_value">%1$s kcal</string>
     <string name="nanda_food_dialog_title">Add Food</string>
     <string name="nanda_food_name_label">Food Name</string>
+    <string name="nanda_food_edit_category">%1$s 음식 기록 편집</string>
     <string name="nanda_food_total_calories_today">Total Calories Today</string>
     <string name="nanda_length_delete">삭제</string>
     <string name="nanda_length_record_item">%1$s : %2$scm</string>
     <string name="nanda_length_records_title">기록 리스트</string>
     <string name="nanda_length_unit_label">(cm)</string>
     <string name="nanda_app_name">난다진단</string>
+    <string name="nanda_state_loading">정보를 불러오는 중입니다.</string>
+    <string name="nanda_state_empty_title">표시할 정보가 없습니다.</string>
+    <string name="nanda_state_empty_description">검색어나 분류 조건을 확인해 주세요.</string>
+    <string name="nanda_state_error_title">정보를 불러오지 못했습니다.</string>
+    <string name="nanda_state_error_description">잠시 후 다시 화면을 열어 주세요.</string>
+    <string name="nanda_medication_add">복약 알림 추가</string>
+    <string name="nanda_medication_delete">복약 알림 삭제</string>
+    <string name="nanda_nutrient_screen_title">영양소 검색</string>
+    <string name="nanda_nutrient_timer_action">영양 타이머 열기</string>
+    <string name="nanda_nutrient_image_description">%1$s 이미지</string>
+    <string name="nanda_nutrient_open_description">%1$s 정보 열기</string>
+    <string name="nanda_timer_start">시작</string>
+    <string name="nanda_timer_stop">정지</string>
+    <string name="nanda_timer_hour_unit">시간</string>
+    <string name="nanda_timer_minute_unit">분</string>
+    <string name="nanda_timer_second_unit">초</string>
+    <string name="nanda_timer_running">타이머 진행 중</string>
+    <string name="nanda_timer_progress_percent">남은 시간 %1$d%%</string>
+    <string name="nanda_timer_ends_at">종료 예정 %1$s</string>
+    <string name="nanda_timer_completed">타이머가 완료되었습니다.</string>
+    <string name="nanda_water_goal_complete">목표 달성</string>
+    <string name="nanda_water_goal_progress">오늘 목표량의 %1$d%%</string>
+    <string name="nanda_water_goal_progress_generic">목표량의 %1$d%%</string>
+    <string name="nanda_water_percentage_short">%1$d%%</string>
+    <string name="nanda_water_record_delete">물 섭취 기록 삭제</string>
+
+    <string name="settings_family_service_available">사용 가능</string>
+    <string name="settings_family_service_unavailable">준비 중</string>
     <string name="medication_notification_channel_name">Medication Reminders</string>
     <string name="medication_notification_channel_description">Notifications for medication reminders</string>
     <string name="medication_notification_title">💊 복약 시간!</string>
@@ -316,6 +356,7 @@
     <string name="my_grade_feature_preparing">새로운 기능으로 준비중입니다 😀</string>
 
     <!-- Cnubus -->
+    <string name="cnubus_back_action">뒤로 가기</string>
     <string name="cnubus_search_station_placeholder">정류장 검색</string>
     <string name="cnubus_click_for_details">클릭하여 상세 정보 확인</string>
     <string name="cnubus_permission_granted">권한이 확인되었습니다.</string>
@@ -326,6 +367,17 @@
     <string name="cnubus_tab_favorite">즐겨찾기</string>
     <string name="cnubus_tab_search">검색</string>
     <string name="cnubus_tab_settings">설정</string>
+    <string name="cnubus_settings_app">앱 설정</string>
+    <string name="cnubus_settings_homepage">홈페이지</string>
+    <string name="cnubus_settings_map_shortcut">맵 바로가기</string>
+    <string name="cnubus_routes_loading">노선 정보를 불러오는 중입니다</string>
+    <string name="cnubus_routes_error">노선 정보를 불러오지 못했습니다</string>
+    <string name="cnubus_routes_error_description">네트워크 상태를 확인한 뒤 다시 시도해 주세요.</string>
+    <string name="cnubus_routes_empty">표시할 정류장이 없습니다</string>
+    <string name="cnubus_routes_empty_description">검색어 또는 노선 필터를 확인해 주세요.</string>
+    <string name="cnubus_favorite_add">즐겨찾기에 추가</string>
+    <string name="cnubus_favorite_remove">즐겨찾기에서 삭제</string>
+    <string name="cnubus_location_image_description">%1$s 이미지</string>
 
     <!-- Settings -->
     <string name="settings_admin_deeplink_label">please write your deeplink</string>

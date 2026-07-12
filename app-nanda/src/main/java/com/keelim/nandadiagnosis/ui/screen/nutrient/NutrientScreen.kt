@@ -20,8 +20,11 @@ import androidx.compose.material.icons.outlined.Favorite
 import com.keelim.core.designsystem.component.KuiButton
 import androidx.compose.material3.ButtonDefaults
 import com.keelim.core.designsystem.component.KuiCard
+import com.keelim.core.designsystem.component.KuiEmptyState
 import com.keelim.core.designsystem.component.KuiFloatingActionButton
 import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.component.KuiLoadingStatus
+import com.keelim.core.designsystem.component.KuiLoadingVariant
 import com.keelim.core.designsystem.theme.KuiTheme
 import com.keelim.core.designsystem.component.KuiScaffold
 import com.keelim.core.designsystem.component.KuiText
@@ -38,11 +41,21 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.keelim.composeutil.component.appbar.NavigationBackArrowBar
-import com.keelim.composeutil.component.layout.EmptyView
-import com.keelim.composeutil.component.layout.Loading
 import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space4
+import com.keelim.core.resource.Res
+import com.keelim.core.resource.common_action_retry
+import com.keelim.core.resource.nanda_nutrient_image_description
+import com.keelim.core.resource.nanda_nutrient_open_description
+import com.keelim.core.resource.nanda_nutrient_screen_title
+import com.keelim.core.resource.nanda_nutrient_timer_action
+import com.keelim.core.resource.nanda_state_empty_description
+import com.keelim.core.resource.nanda_state_empty_title
+import com.keelim.core.resource.nanda_state_error_description
+import com.keelim.core.resource.nanda_state_error_title
+import com.keelim.core.resource.nanda_state_loading
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun NutrientRoute(
@@ -56,6 +69,7 @@ fun NutrientRoute(
         uiState = uiState,
         onNutrientClick = onNutrientClick,
         onNutrientTimerClick = onNutrientTimerClick,
+        onRetry = viewModel::retry,
     )
 }
 
@@ -64,6 +78,7 @@ private fun NutrientScreen(
     uiState: NutrientState,
     onNutrientClick: (String, String) -> Unit,
     onNutrientTimerClick: () -> Unit,
+    onRetry: () -> Unit = {},
 ) = trace("NutrientScreen") {
     KuiScaffold(
         floatingActionButton = {
@@ -72,7 +87,7 @@ private fun NutrientScreen(
             ) {
                 KuiIcon(
                     imageVector = Icons.Filled.Call,
-                    contentDescription = null,
+                    contentDescription = stringResource(Res.string.nanda_nutrient_timer_action),
                 )
             }
         },
@@ -80,24 +95,53 @@ private fun NutrientScreen(
         Column(
             modifier = Modifier.padding(paddingValues),
         ) {
-            NavigationBackArrowBar(title = "Search Nutrient")
-            NutrientStateView(uiState = uiState, onNutrientClick = onNutrientClick)
+            NavigationBackArrowBar(title = stringResource(Res.string.nanda_nutrient_screen_title))
+            NutrientStateView(
+                uiState = uiState,
+                onNutrientClick = onNutrientClick,
+                onRetry = onRetry,
+            )
         }
     }
 }
 
 @Composable
-private fun NutrientStateView(uiState: NutrientState, onNutrientClick: (String, String) -> Unit) =
+private fun NutrientStateView(
+    uiState: NutrientState,
+    onNutrientClick: (String, String) -> Unit,
+    onRetry: () -> Unit,
+) =
     trace("NutrientStateView") {
         when (uiState) {
-            NutrientState.Error,
-            NutrientState.Empty,
-            -> EmptyView()
+            NutrientState.Error -> KuiEmptyState(
+                title = stringResource(Res.string.nanda_state_error_title),
+                description = stringResource(Res.string.nanda_state_error_description),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(space16),
+                action = {
+                    KuiButton(
+                        text = stringResource(Res.string.common_action_retry),
+                        onClick = onRetry,
+                    )
+                },
+            )
+            NutrientState.Empty -> KuiEmptyState(
+                title = stringResource(Res.string.nanda_state_empty_title),
+                description = stringResource(Res.string.nanda_state_empty_description),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(space16),
+            )
 
-            NutrientState.Loading -> Loading()
+            NutrientState.Loading -> KuiLoadingStatus(
+                modifier = Modifier.padding(space16),
+                variant = KuiLoadingVariant.Panel,
+                label = stringResource(Res.string.nanda_state_loading),
+            )
             is NutrientState.Success -> {
                 LazyColumn {
-                    items(uiState.items) { (title, uri) ->
+                    items(uiState.items, key = { it.first }) { (title, uri) ->
                         NutrientCard(title = title, uri = uri, onNutrientClick = { onNutrientClick(title, uri) })
                         Spacer(modifier = Modifier.height(space4))
                     }
@@ -138,7 +182,10 @@ private fun NutrientCard(title: String, uri: String, onNutrientClick: () -> Unit
                             .aspectRatio(16 / 9f)
                             .fillMaxWidth(),
                         contentScale = ContentScale.Crop,
-                        contentDescription = "null",
+                        contentDescription = stringResource(
+                            Res.string.nanda_nutrient_image_description,
+                            title,
+                        ),
                     )
                     KuiButton(
                         onClick = { onNutrientClick() },
@@ -151,14 +198,25 @@ private fun NutrientCard(title: String, uri: String, onNutrientClick: () -> Unit
                             contentColor = KuiTheme.colorScheme.onSurface,
                         ),
                     ) {
-                        KuiIcon(Icons.Outlined.Favorite, contentDescription = "Favorite")
+                        KuiIcon(
+                            Icons.Outlined.Favorite,
+                            contentDescription = stringResource(
+                                Res.string.nanda_nutrient_open_description,
+                                title,
+                            ),
+                        )
                     }
                 }
             }
             Spacer(Modifier.height(space12))
             Row(horizontalArrangement = Arrangement.spacedBy(space12)) {
                 Column(verticalArrangement = Arrangement.spacedBy(space4)) {
-                    KuiText(title, maxLines = 1)
+                    KuiText(
+                        text = title,
+                        maxLines = 1,
+                        style = KuiTheme.typography.titleMedium,
+                        color = KuiTheme.colorScheme.onSurface,
+                    )
                     // Row(horizontalArrangement = Arrangement.spacedBy(space8)) {
                     //   KuiText("4.5")
                     //   KuiIcon(Icons.Rounded.Star, contentDescription = null, tint = Color(0xFFFF9800))

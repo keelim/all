@@ -1,6 +1,13 @@
+@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
+
 package com.keelim.comssa.ui.screen.notification
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.MutableTransitionState
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleOut
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,11 +24,14 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Notifications
 import com.keelim.core.designsystem.component.KuiAlertDialog
 import com.keelim.core.designsystem.component.KuiCard
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import com.keelim.core.designsystem.component.KuiFloatingActionButton
 import com.keelim.core.designsystem.component.KuiIcon
 import com.keelim.core.designsystem.component.KuiIconButton
@@ -42,15 +52,22 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource as androidStringResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.common.extensions.formatUiTime
+import com.keelim.comssa.R
 import com.keelim.core.resource.Res
 import com.keelim.core.resource.market_notifications_add
 import com.keelim.core.resource.market_notifications_add_custom_notification
@@ -64,7 +81,7 @@ import com.keelim.core.resource.market_notifications_title
 import com.keelim.data.model.MarketSchedule
 import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun MarketNotificationScreen(
     viewModel: MarketNotificationViewModel = hiltViewModel(),
@@ -76,6 +93,7 @@ fun MarketNotificationScreen(
     var showAddDialog by remember { mutableStateOf(false) }
     var customName by remember { mutableStateOf("") }
     val timePickerState = rememberTimePickerState(initialHour = 9, initialMinute = 0)
+    val placementSpec = KuiTheme.motionScheme.defaultSpatialSpec<IntOffset>()
 
     KuiScaffold(
         topBar = {
@@ -123,7 +141,8 @@ fun MarketNotificationScreen(
                     onToggle = { viewModel.toggleSchedule(schedule) },
                     onDelete = if (!schedule.isDefault) {
                         { viewModel.removeSchedule(schedule) }
-                    } else null
+                    } else null,
+                    modifier = Modifier.animateItem(placementSpec = placementSpec),
                 )
             }
         }
@@ -193,55 +212,97 @@ fun MarketNotificationScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun MarketScheduleItem(
+internal fun MarketScheduleItem(
     schedule: MarketSchedule,
     onToggle: () -> Unit,
-    onDelete: (() -> Unit)?
+    onDelete: (() -> Unit)?,
+    modifier: Modifier = Modifier,
 ) {
     val dismissState = rememberSwipeToDismissBoxState()
-    var hasHandledDelete by remember { mutableStateOf(false) }
+    val currentOnDelete by rememberUpdatedState(onDelete)
+    val visibilityState = remember(schedule.id) { MutableTransitionState(true) }
+    var deleteRequested by remember(schedule.id) { mutableStateOf(false) }
+    var deleteDispatched by remember(schedule.id) { mutableStateOf(false) }
+    val motionScheme = KuiTheme.motionScheme
 
-    LaunchedEffect(dismissState.currentValue, onDelete) {
-        if (!hasHandledDelete &&
-            dismissState.currentValue == SwipeToDismissBoxValue.EndToStart &&
-            onDelete != null
-        ) {
-            hasHandledDelete = true
-            onDelete()
+    val requestDelete: () -> Unit = {
+        if (!deleteRequested && currentOnDelete != null) {
+            deleteRequested = true
+            visibilityState.targetState = false
         }
     }
 
-    if (onDelete != null) {
-        KuiSwipeToDismissBox(
-            state = dismissState,
-            backgroundContent = {
-                val color by animateColorAsState(
-                    when (dismissState.targetValue) {
-                        SwipeToDismissBoxValue.EndToStart -> Color.Red.copy(alpha = 0.8f)
-                        else -> Color.Transparent
-                    },
-                    label = "background"
-                )
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(color, RoundedCornerShape(12.dp))
-                        .padding(horizontal = 20.dp),
-                    contentAlignment = Alignment.CenterEnd
-                ) {
-                    KuiIcon(
-                        Icons.Default.Delete,
-                        contentDescription = stringResource(Res.string.market_notifications_delete),
-                        tint = Color.White
-                    )
-                }
-            },
-            enableDismissFromStartToEnd = false
-        ) {
-            ScheduleCard(schedule = schedule, onToggle = onToggle, onDelete = onDelete)
+    LaunchedEffect(dismissState.currentValue) {
+        if (dismissState.currentValue == SwipeToDismissBoxValue.EndToStart) {
+            requestDelete()
         }
-    } else {
-        ScheduleCard(schedule = schedule, onToggle = onToggle, onDelete = null)
+    }
+
+    LaunchedEffect(
+        deleteRequested,
+        visibilityState.currentState,
+        visibilityState.isIdle,
+    ) {
+        if (deleteRequested &&
+            !deleteDispatched &&
+            !visibilityState.currentState &&
+            visibilityState.isIdle
+        ) {
+            deleteDispatched = true
+            currentOnDelete?.invoke()
+        }
+    }
+
+    AnimatedVisibility(
+        visibleState = visibilityState,
+        modifier = modifier,
+        exit = fadeOut(animationSpec = motionScheme.fastEffectsSpec()) +
+            scaleOut(
+                targetScale = 0.96f,
+                transformOrigin = TransformOrigin(0.5f, 0f),
+                animationSpec = motionScheme.fastSpatialSpec(),
+            ),
+    ) {
+        if (onDelete != null) {
+            KuiSwipeToDismissBox(
+                state = dismissState,
+                backgroundContent = {
+                    val color by animateColorAsState(
+                        targetValue = when (dismissState.targetValue) {
+                            SwipeToDismissBoxValue.EndToStart ->
+                                KuiTheme.colorScheme.error.copy(alpha = 0.88f)
+                            else -> Color.Transparent
+                        },
+                        animationSpec = motionScheme.fastEffectsSpec(),
+                        label = "deleteBackground",
+                    )
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(color, RoundedCornerShape(12.dp))
+                            .padding(horizontal = 20.dp),
+                        contentAlignment = Alignment.CenterEnd,
+                    ) {
+                        KuiIcon(
+                            Icons.Default.Delete,
+                            contentDescription = stringResource(
+                                Res.string.market_notifications_delete,
+                            ),
+                            tint = KuiTheme.colorScheme.onError,
+                        )
+                    }
+                },
+                enableDismissFromStartToEnd = false,
+            ) {
+                ScheduleCard(
+                    schedule = schedule,
+                    onToggle = onToggle,
+                    onDelete = requestDelete,
+                )
+            }
+        } else {
+            ScheduleCard(schedule = schedule, onToggle = onToggle, onDelete = null)
+        }
     }
 }
 
@@ -249,10 +310,25 @@ private fun MarketScheduleItem(
 private fun ScheduleCard(
     schedule: MarketSchedule,
     onToggle: () -> Unit,
-    onDelete: (() -> Unit)?
+    onDelete: (() -> Unit)?,
 ) {
+    val statusLabel = androidStringResource(
+        if (schedule.isEnabled) {
+            R.string.market_notification_status_enabled
+        } else {
+            R.string.market_notification_status_disabled
+        },
+    )
+    val statusColor = if (schedule.isEnabled) {
+        KuiTheme.colors.success
+    } else {
+        KuiTheme.colorScheme.onSurfaceVariant
+    }
+
     KuiCard(padded = false,
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .semantics { stateDescription = statusLabel },
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(
             containerColor = if (schedule.isEnabled) {
@@ -286,6 +362,26 @@ private fun ScheduleCard(
                     },
                     fontWeight = FontWeight.Bold
                 )
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(KuiTheme.spacing.space1),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    KuiIcon(
+                        imageVector = if (schedule.isEnabled) {
+                            Icons.Default.Notifications
+                        } else {
+                            Icons.Default.Close
+                        },
+                        contentDescription = null,
+                        tint = statusColor,
+                        modifier = Modifier.height(KuiTheme.spacing.space4),
+                    )
+                    KuiText(
+                        text = statusLabel,
+                        style = KuiTheme.typography.labelMedium,
+                        color = statusColor,
+                    )
+                }
                 if (schedule.isDefault) {
                     KuiText(
                         text = stringResource(Res.string.market_notifications_default),

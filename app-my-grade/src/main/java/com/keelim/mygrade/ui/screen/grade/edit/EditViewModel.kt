@@ -95,4 +95,11 @@ class EditViewModel @Inject constructor(
             )
         }
     }
+
+    fun retry() {
+        _data.value = EditUiState(
+            editResult = EditResult.editResultInitial(savedStateHandle),
+            descriptions = "",
+        )
+    }
 }

@@ -9,6 +9,7 @@ plugins {
 kotlin {
     androidLibrary {
         namespace = "com.keelim.core.component"
+        androidResources.enable = true
     }
     sourceSets {
         androidMain.dependencies {

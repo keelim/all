@@ -22,16 +22,17 @@ import com.keelim.core.data.model.Location
 import com.keelim.core.data.model.locationList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.emitAll
-import kotlinx.coroutines.flow.emptyFlow
-import kotlinx.coroutines.flow.mapLatest
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import com.keelim.data.repository.StationRepository
 import jakarta.inject.Inject
@@ -42,28 +43,43 @@ class RootViewModel @Inject constructor(
 ) : ViewModel() {
     private val modes = MutableStateFlow("a")
     private val _query = MutableStateFlow("")
+    private val retrySignal = MutableStateFlow(0)
     val query: StateFlow<String> = _query.asStateFlow()
 
-    val state: StateFlow<MapEvent> = combine(
-        modes,
-        _query,
-        stationRepository.favoriteStations
-    ) { mode, query, favorites ->
-        val locations = when (mode) {
-            "a" -> locationList.filter { it.roota != 999 }.sortedBy { it.roota }
-            "b" -> locationList.filter { it.rootb != 999 }.sortedBy { it.rootb }
-            "c" -> locationList.filter { it.rootc != 999 }.sortedBy { it.rootc }
-            "d" -> locationList.filter { it.root_night != 999 }.sortedBy { it.root_night }
-            "f" -> locationList.filter { favorites.contains(it.name) }
-            "s" -> if (query.isEmpty()) emptyList() else locationList.filter { it.name.contains(query) }
-            else -> emptyList()
+    val state: StateFlow<MapEvent> = retrySignal
+        .flatMapLatest { retryCount ->
+            val events: Flow<MapEvent> = combine(
+                modes,
+                _query,
+                stationRepository.favoriteStations,
+            ) { mode, query, favorites ->
+                val locations = when (mode) {
+                    "a" -> locationList.filter { it.roota != 999 }.sortedBy { it.roota }
+                    "b" -> locationList.filter { it.rootb != 999 }.sortedBy { it.rootb }
+                    "c" -> locationList.filter { it.rootc != 999 }.sortedBy { it.rootc }
+                    "d" -> locationList.filter { it.root_night != 999 }.sortedBy { it.root_night }
+                    "f" -> locationList.filter { favorites.contains(it.name) }
+                    "s" -> if (query.isEmpty()) emptyList() else locationList.filter { it.name.contains(query) }
+                    else -> emptyList()
+                }
+                MapEvent.MigrateSuccess(locations)
+            }
+
+            val retryAwareEvents = if (retryCount > 0) {
+                events.onStart { emit(MapEvent.Loading) }
+            } else {
+                events
+            }
+
+            retryAwareEvents
+                .onEach { event ->
+                    if (event is MapEvent.MigrateSuccess) {
+                        _data.tryEmit(event.data)
+                    }
+                }
+                .catch { emit(MapEvent.Error()) }
         }
-        MapEvent.MigrateSuccess(locations)
-    }.onEach {
-        _data.tryEmit(it.data)
-    }.catch {
-        emitAll(emptyFlow())
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000L), MapEvent.UnInitialized)
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000L), MapEvent.UnInitialized)
 
     private val _data = MutableStateFlow<List<Location>>(emptyList())
     val data: StateFlow<List<Location>> = _data.asStateFlow()
@@ -77,6 +93,10 @@ class RootViewModel @Inject constructor(
 
     fun updateQuery(newQuery: String) {
         _query.tryEmit(newQuery)
+    }
+
+    fun retry() {
+        retrySignal.update { it + 1 }
     }
 
     fun toggleFavorite(stationName: String) {

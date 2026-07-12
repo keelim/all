@@ -40,64 +40,69 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.trace
-import com.keelim.composeutil.resource.space16
-import com.keelim.composeutil.resource.space24
-import com.keelim.composeutil.resource.space8
-
-private val settings by lazy {
-    val data = listOf(
-        Setting(
-            text = "앱 설정",
-            action = ScreenAction.AppSetting,
-            icon = Icons.Default.Settings,
-        ),
-        Setting(
-            text = "홈페이지",
-            action = ScreenAction.Homepage,
-            icon = Icons.Default.Home,
-        ),
-        Setting(
-            text = "맵 바로가기",
-            action = ScreenAction.Map,
-            icon = Icons.Default.LocationOn,
-        ),
-    )
-    data
-}
+import com.keelim.core.resource.Res
+import com.keelim.core.resource.cnubus_settings_app
+import com.keelim.core.resource.cnubus_settings_homepage
+import com.keelim.core.resource.cnubus_settings_map_shortcut
+import com.keelim.core.resource.cnubus_tab_settings
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 internal fun SettingScreen(
     onScreenAction: (ScreenAction) -> Unit,
 ) = trace("SettingScreen") {
+    val spacing = KuiTheme.spacing
+    val appSettingsLabel = stringResource(Res.string.cnubus_settings_app)
+    val homepageLabel = stringResource(Res.string.cnubus_settings_homepage)
+    val mapShortcutLabel = stringResource(Res.string.cnubus_settings_map_shortcut)
+    val data = remember(appSettingsLabel, homepageLabel, mapShortcutLabel) {
+        listOf(
+            Setting(
+                text = appSettingsLabel,
+                action = ScreenAction.AppSetting,
+                icon = Icons.Default.Settings,
+            ),
+            Setting(
+                text = homepageLabel,
+                action = ScreenAction.Homepage,
+                icon = Icons.Default.Home,
+            ),
+            Setting(
+                text = mapShortcutLabel,
+                action = ScreenAction.Map,
+                icon = Icons.Default.LocationOn,
+            ),
+        )
+    }
     KuiScaffold(
         topBar = {
             Column(
                 Modifier
                     .fillMaxWidth()
-                    .padding(space24),
+                    .padding(
+                        horizontal = spacing.cardPadding,
+                        vertical = spacing.sectionGap,
+                    ),
             ) {
                 KuiText(
-                    text = "설정",
+                    text = stringResource(Res.string.cnubus_tab_settings),
+                    style = KuiTheme.typography.headlineSmall,
                     color = KuiTheme.colorScheme.onSurface,
-                    fontSize = 32.sp,
-                    fontWeight = FontWeight.Bold,
                 )
             }
         },
     ) { innerPadding ->
-        val data = remember { settings }
         LazyColumn(
             modifier = Modifier.padding(innerPadding),
         ) {
             items(
                 items = data,
-                itemContent = {
-                    SettingItem(item = it, onScreenAction)
+                key = { it.action },
+                itemContent = { item ->
+                    SettingItem(item = item, onScreenAction)
                 },
             )
         }
@@ -120,8 +125,8 @@ fun SettingItem(
     KuiCard(padded = false,
         modifier = modifier
             .padding(
-                horizontal = space8,
-                vertical = space8,
+                horizontal = KuiTheme.spacing.space2,
+                vertical = KuiTheme.spacing.space1,
             )
             .fillMaxWidth(),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
@@ -145,21 +150,23 @@ private fun CellItem(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .heightIn(min = 62.dp)
+            .heightIn(min = KuiTheme.spacing.componentLg)
             .clickable { onClick() }
-            .padding(horizontal = space24),
+            .padding(
+                horizontal = KuiTheme.spacing.cardPadding,
+                vertical = KuiTheme.spacing.space2,
+            ),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         KuiIcon(
             imageVector = icon,
             contentDescription = null,
             tint = KuiTheme.colorScheme.primary,
-            modifier = Modifier.padding(end = space16)
+            modifier = Modifier.padding(end = KuiTheme.spacing.sectionGap),
         )
         KuiText(
             text = text,
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Bold,
+            style = KuiTheme.typography.titleMedium,
             color = KuiTheme.colorScheme.onSurface,
         )
     }

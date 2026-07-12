@@ -7,13 +7,16 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import com.keelim.core.designsystem.component.KuiButton
+import com.keelim.core.designsystem.component.KuiEmptyState
+import com.keelim.core.designsystem.component.KuiLoadingStatus
+import com.keelim.core.designsystem.component.KuiLoadingVariant
 import com.keelim.core.designsystem.component.KuiScaffold
-import com.keelim.core.designsystem.component.KuiText
+import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -22,6 +25,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource as androidStringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.util.trace
 import androidx.core.net.toUri
@@ -29,8 +33,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.commonAndroid.model.SealedUiState
 import com.keelim.composeutil.component.fab.FabButtonItem
-import com.keelim.composeutil.component.layout.EmptyView
-import com.keelim.composeutil.component.layout.Loading
+import com.keelim.comssa.R
 import com.keelim.model.finance.FinanceRssItem
 import com.keelim.core.resource.*
 import org.jetbrains.compose.resources.stringResource
@@ -59,9 +62,43 @@ fun FinanceScreen(
     val context = LocalContext.current
 
     when (uiState) {
-        is SealedUiState.Error -> EmptyView()
-        SealedUiState.Loading -> Loading()
+        is SealedUiState.Error -> {
+            val errorTitle = androidStringResource(R.string.comssa_state_error_title)
+            KuiEmptyState(
+                title = errorTitle,
+                description = androidStringResource(R.string.comssa_state_error_description),
+                action = {
+                    KuiButton(
+                        text = androidStringResource(R.string.comssa_state_retry),
+                        onClick = refresh,
+                    )
+                },
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(KuiTheme.spacing.cardPadding),
+            )
+        }
+        SealedUiState.Loading -> {
+            val loadingLabel = androidStringResource(R.string.comssa_finance_loading)
+            KuiLoadingStatus(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(KuiTheme.spacing.cardPadding),
+                variant = KuiLoadingVariant.Panel,
+                label = loadingLabel,
+            )
+        }
         is SealedUiState.Success -> {
+            if (uiState.value.isEmpty()) {
+                val emptyTitle = androidStringResource(R.string.comssa_finance_empty_title)
+                KuiEmptyState(
+                    title = emptyTitle,
+                    description = androidStringResource(R.string.comssa_finance_empty_description),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(KuiTheme.spacing.cardPadding),
+                )
+            } else {
             val listState = rememberLazyListState()
             val coroutineScope = rememberCoroutineScope()
 
@@ -71,7 +108,7 @@ fun FinanceScreen(
                 }
             }
 
-            val navigationIndex = mutableIntStateOf(0)
+            val navigationIndex = remember { mutableIntStateOf(0) }
 
             KuiScaffold(
                 floatingActionButton = {
@@ -107,15 +144,19 @@ fun FinanceScreen(
                         },
                     )
                 } else {
-                    Column(
+                    val pendingTitle = stringResource(Res.string.comssa_finance_settings_pending)
+                    KuiEmptyState(
+                        title = pendingTitle,
+                        description = androidStringResource(
+                            R.string.comssa_finance_settings_pending_description,
+                        ),
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(paddingValues),
-                    ) {
-                        Loading()
-                        KuiText(text = stringResource(Res.string.comssa_finance_settings_pending))
-                    }
+                            .padding(paddingValues)
+                            .padding(KuiTheme.spacing.cardPadding),
+                    )
                 }
+            }
             }
         }
     }

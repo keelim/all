@@ -24,14 +24,18 @@ class NutrientViewModelTest : FunSpec({
     test("state emits nutrient loading and success data") {
         runTest(testDispatcher) {
             viewModel.state.test {
-                awaitItem() shouldBe NutrientState.Empty
-                advanceUntilIdle()
-
                 awaitItem() shouldBe NutrientState.Loading
+                advanceUntilIdle()
                 val state = awaitItem() as NutrientState.Success
                 state.items.size shouldBe 13
                 state.items.first().first shouldBe "비타민 A"
                 state.items.last().first shouldBe "비타민 K"
+
+                viewModel.retry()
+                advanceUntilIdle()
+
+                awaitItem() shouldBe NutrientState.Loading
+                (awaitItem() as NutrientState.Success).items shouldBe state.items
 
                 cancelAndIgnoreRemainingEvents()
             }

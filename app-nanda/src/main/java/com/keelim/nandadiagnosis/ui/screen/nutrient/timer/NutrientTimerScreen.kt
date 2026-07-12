@@ -1,6 +1,9 @@
 package com.keelim.nandadiagnosis.ui.screen.nutrient.timer
 
-import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.snap
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,7 +14,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import com.keelim.core.designsystem.component.KuiBasicAlertDialog
@@ -23,17 +25,18 @@ import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.scale
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.ProgressBarRangeInfo
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.progressBarRangeInfo
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.trace
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.keelim.common.extensions.toUiTwoDigits
@@ -42,6 +45,18 @@ import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space24
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
+import com.keelim.core.resource.Res
+import com.keelim.core.resource.nanda_timer_completed
+import com.keelim.core.resource.nanda_timer_ends_at
+import com.keelim.core.resource.nanda_timer_hour_unit
+import com.keelim.core.resource.nanda_timer_minute_unit
+import com.keelim.core.resource.nanda_timer_progress_percent
+import com.keelim.core.resource.nanda_timer_running
+import com.keelim.core.resource.nanda_timer_second_unit
+import com.keelim.core.resource.nanda_timer_start
+import com.keelim.core.resource.nanda_timer_stop
+import kotlin.math.roundToInt
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun NutrientTimerRoute() = trace("NutrientTimerRoute") {
@@ -53,7 +68,9 @@ private fun NutrientTimerScreen(
     viewModel: NutrientTimerViewModel = hiltViewModel(),
 ) = trace("NutrientTimerScreen") {
     val isCountDownTimerVisible = viewModel.isRunning
-    val addedTime = viewModel.addTime(System.currentTimeMillis())
+    val addedTime = remember(isCountDownTimerVisible) {
+        viewModel.addTime(System.currentTimeMillis())
+    }
     val dialogState = remember { mutableStateOf(false) }
 
     if (dialogState.value) {
@@ -88,12 +105,15 @@ private fun NutrientTimerScreen(
                 },
             ) {
                 KuiText(
-                    text =
-                    if (viewModel.isRunning == RunningState.STOPPED) {
-                        "Start"
-                    } else {
-                        "Stop"
-                    },
+                    text = stringResource(
+                        if (viewModel.isRunning == RunningState.STOPPED) {
+                            Res.string.nanda_timer_start
+                        } else {
+                            Res.string.nanda_timer_stop
+                        },
+                    ),
+                    style = KuiTheme.typography.labelLarge,
+                    color = KuiTheme.colorScheme.onPrimary,
                 )
             }
         }
@@ -116,15 +136,6 @@ fun SelectTime(
                 .height(350.dp),
             contentAlignment = Alignment.Center,
         ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(36.dp)
-                    .clip(RoundedCornerShape(10.dp))
-                    .alpha(0.4f)
-                    .align(Alignment.Center),
-            )
-
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly,
@@ -132,18 +143,33 @@ fun SelectTime(
                 Row {
                     NumberPickerList(numbers = HOUR_LIST, selectedItem = { viewModel.hour = it })
 
-                    KuiText(text = "h", modifier = Modifier.align(Alignment.CenterVertically))
+                    KuiText(
+                        text = stringResource(Res.string.nanda_timer_hour_unit),
+                        modifier = Modifier.align(Alignment.CenterVertically),
+                        style = KuiTheme.typography.labelLarge,
+                        color = KuiTheme.colorScheme.onSurface,
+                    )
                 }
 
                 Row {
                     NumberPickerList(numbers = MINUTE_LIST, { viewModel.minute = it })
 
-                    KuiText(text = "m", modifier = Modifier.align(Alignment.CenterVertically))
+                    KuiText(
+                        text = stringResource(Res.string.nanda_timer_minute_unit),
+                        modifier = Modifier.align(Alignment.CenterVertically),
+                        style = KuiTheme.typography.labelLarge,
+                        color = KuiTheme.colorScheme.onSurface,
+                    )
                 }
                 Row {
                     NumberPickerList(numbers = SECOND_LIST, { viewModel.second = it })
 
-                    KuiText(text = "s", modifier = Modifier.align(Alignment.CenterVertically))
+                    KuiText(
+                        text = stringResource(Res.string.nanda_timer_second_unit),
+                        modifier = Modifier.align(Alignment.CenterVertically),
+                        style = KuiTheme.typography.labelLarge,
+                        color = KuiTheme.colorScheme.onSurface,
+                    )
                 }
             }
         }
@@ -158,52 +184,74 @@ fun CircularCountDownTimer(
     addedTime: String,
     modifier: Modifier = Modifier,
 ) = trace("CircularCountDownTimer") {
-    if (runningState != RunningState.STOPPED) {
-        val leftTime = viewModel.leftTime.intValue
+    val leftTime = viewModel.leftTime.intValue
+    val totalTime = viewModel.getTotalTimeInSeconds().coerceAtLeast(1)
+    val targetProgress = if (runningState == RunningState.STARTED) {
+        (leftTime.toFloat() / totalTime).coerceIn(0f, 1f)
+    } else {
+        0f
+    }
+    val progress by animateFloatAsState(
+        targetValue = targetProgress,
+        animationSpec = if (runningState == RunningState.STARTED && leftTime < totalTime) {
+            tween(durationMillis = 1_000, easing = LinearEasing)
+        } else {
+            snap()
+        },
+        label = "nutrientTimerProgress",
+    )
+    val runningLabel = stringResource(Res.string.nanda_timer_running)
+    val progressDescription = stringResource(
+        Res.string.nanda_timer_progress_percent,
+        (targetProgress * 100).roundToInt(),
+    )
 
-        val progress = remember(leftTime, viewModel) {
-            Animatable(leftTime / viewModel.getTotalTimeInSeconds().toFloat())
+    LaunchedEffect(runningState, leftTime) {
+        if (runningState == RunningState.STARTED && leftTime == 0) {
+            dialogState.value = true
+            viewModel.stop()
         }
+    }
 
+    if (runningState != RunningState.STOPPED) {
         Box(
             modifier = modifier.size(350.dp),
             contentAlignment = Alignment.Center,
         ) {
             KuiCircularProgressIndicator(
-                progress = { 100f },
+                progress = { 1f },
                 modifier = Modifier.fillMaxSize(),
-                color = Color.LightGray,
+                color = KuiTheme.colors.surfaceStrong,
                 strokeWidth = 10.dp,
             )
 
             KuiCircularProgressIndicator(
-                progress = { progress.value },
-                modifier = Modifier.fillMaxSize(),
+                progress = { progress },
+                modifier = Modifier
+                    .fillMaxSize()
+                    .semantics {
+                        contentDescription = progressDescription
+                        stateDescription = runningLabel
+                        progressBarRangeInfo = ProgressBarRangeInfo(progress, 0f..1f)
+                    },
+                color = KuiTheme.colors.info,
                 strokeWidth = 10.dp,
             )
 
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                val anim = remember { Animatable(0f) }
-
-                LaunchedEffect(leftTime) {
-                    if (leftTime == 0) {
-                        dialogState.value = true
-                        viewModel.stop()
-                    } else {
-                        anim.animateTo(1f)
-                    }
-                }
-
                 KuiText(
-                    modifier = Modifier
-                        .alpha(anim.value)
-                        .scale(anim.value / 2f + .5f),
                     text = "${(leftTime / 3600).toUiTwoDigits()}:" +
                         "${
                             ((leftTime / 60) % 60).toUiTwoDigits()
                         }:" +
                         (leftTime % 60).toUiTwoDigits(),
-                    fontSize = 48.sp,
+                    style = KuiTheme.typography.displaySmall,
+                    color = KuiTheme.colorScheme.onSurface,
+                )
+                KuiText(
+                    text = runningLabel,
+                    style = KuiTheme.typography.labelLarge,
+                    color = KuiTheme.colors.info,
                 )
 
                 Spacer(modifier = Modifier.height(space24))
@@ -215,7 +263,9 @@ fun CircularCountDownTimer(
                         contentDescription = null,
                     )
                     KuiText(
-                        text = addedTime,
+                        text = stringResource(Res.string.nanda_timer_ends_at, addedTime),
+                        style = KuiTheme.typography.bodyMedium,
+                        color = KuiTheme.colorScheme.onSurfaceVariant,
                     )
                 }
             }
@@ -235,9 +285,10 @@ private fun ShowDialog(
 ) = trace("ShowDialog") {
     KuiBasicAlertDialog(onDismissRequest = onDismiss) {
         KuiText(
-            text = "확인해 주세요",
+            text = stringResource(Res.string.nanda_timer_completed),
             modifier = Modifier.padding(space8),
             style = KuiTheme.typography.titleLarge,
+            color = KuiTheme.colorScheme.onSurface,
         )
     }
 }

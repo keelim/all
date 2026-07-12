@@ -3,7 +3,8 @@ package com.keelim.composeutil.navigation
 import androidx.compose.animation.ContentTransform
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.scaleOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import com.keelim.core.designsystem.theme.KuiTheme
 import androidx.compose.runtime.Composable
@@ -35,16 +36,18 @@ fun <T : Any> KeelimNavDisplay(
         ),
         transitionSpec = {
             ContentTransform(
-                fadeIn(motionScheme.defaultEffectsSpec()),
-                fadeOut(motionScheme.defaultEffectsSpec()),
+                fadeIn(motionScheme.fastEffectsSpec()) +
+                    slideInHorizontally(motionScheme.fastSpatialSpec()) { width -> width / 12 },
+                fadeOut(motionScheme.fastEffectsSpec()) +
+                    slideOutHorizontally(motionScheme.fastSpatialSpec()) { width -> -width / 12 },
             )
         },
         popTransitionSpec = {
             ContentTransform(
-                fadeIn(motionScheme.defaultEffectsSpec()),
-                scaleOut(
-                    targetScale = 0.7f,
-                ),
+                fadeIn(motionScheme.fastEffectsSpec()) +
+                    slideInHorizontally(motionScheme.fastSpatialSpec()) { width -> -width / 12 },
+                fadeOut(motionScheme.fastEffectsSpec()) +
+                    slideOutHorizontally(motionScheme.fastSpatialSpec()) { width -> width / 12 },
             )
         },
         entryProvider = entryProvider(builder = entries),

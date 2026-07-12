@@ -26,4 +26,23 @@
     <string name="retirement_key_annual_savings">연간 저축</string>
     <string name="retirement_key_return_rate">수익률</string>
     <string name="retirement_key_expected_assets">은퇴 시 예상 자산</string>
+    <string name="ecocal_priority_high">중요도 높음</string>
+    <string name="ecocal_priority_medium">중요도 보통</string>
+    <string name="ecocal_priority_low">중요도 낮음</string>
+    <string name="ecocal_priority_none">중요도 정보 없음</string>
+    <string name="ecocal_priority_holiday">휴일</string>
+    <string name="comssa_state_error_title">데이터를 불러오지 못했습니다</string>
+    <string name="comssa_state_error_description">네트워크 연결을 확인한 뒤 다시 시도해 주세요.</string>
+    <string name="comssa_state_retry">다시 시도</string>
+    <string name="comssa_ecocal_loading">경제 일정을 불러오는 중입니다</string>
+    <string name="comssa_finance_loading">금융 뉴스를 불러오는 중입니다</string>
+    <string name="comssa_ecocal_empty_title">표시할 경제 일정이 없습니다</string>
+    <string name="comssa_ecocal_empty_description">필터를 초기화하거나 잠시 후 다시 확인해 주세요.</string>
+    <string name="comssa_finance_empty_title">표시할 금융 뉴스가 없습니다</string>
+    <string name="comssa_finance_empty_description">새 소식이 도착하면 여기에 표시됩니다.</string>
+    <string name="comssa_ecocal_settings_pending">경제 일정 설정을 준비하고 있습니다</string>
+    <string name="comssa_ecocal_settings_pending_description">일정 맞춤 설정은 다음 업데이트에서 제공할 예정입니다.</string>
+    <string name="comssa_finance_settings_pending_description">뉴스 맞춤 설정은 다음 업데이트에서 제공할 예정입니다.</string>
+    <string name="market_notification_status_enabled">알림 켜짐</string>
+    <string name="market_notification_status_disabled">알림 꺼짐</string>
 </resources>

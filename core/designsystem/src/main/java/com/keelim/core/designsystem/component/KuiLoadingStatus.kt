@@ -16,10 +16,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.keelim.core.designsystem.R
 import com.keelim.core.designsystem.theme.KuiTheme
 
 enum class KuiLoadingVariant { Inline, Panel }
@@ -28,7 +30,7 @@ enum class KuiLoadingVariant { Inline, Panel }
 fun KuiLoadingStatus(
     modifier: Modifier = Modifier,
     variant: KuiLoadingVariant = KuiLoadingVariant.Inline,
-    label: String = "로딩 중…",
+    label: String = stringResource(R.string.kui_loading_default),
     steps: List<String> = emptyList(),
     activeStep: Int = 0,
 ) {
@@ -44,7 +46,6 @@ private fun InlineLoading(modifier: Modifier, label: String) {
 
     Row(
         modifier = modifier
-            .semantics { contentDescription = label }
             .padding(horizontal = spacing.space4, vertical = spacing.space2),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(spacing.space2),
@@ -72,8 +73,7 @@ private fun PanelLoading(
 
     Surface(
         modifier = modifier
-            .fillMaxWidth()
-            .semantics { contentDescription = label },
+            .fillMaxWidth(),
         shape = KuiTheme.shapes.large,
         color = kuiColors.surfaceSoft,
     ) {
@@ -95,10 +95,16 @@ private fun PanelLoading(
                         .padding(top = spacing.space3),
                     horizontalArrangement = Arrangement.spacedBy(spacing.space2),
                 ) {
-                    itemsIndexed(steps) { index, step ->
+                    itemsIndexed(
+                        items = steps,
+                        key = { index, step -> "$index:$step" },
+                    ) { index, step ->
                         val active = index <= selectedStep
                         Text(
                             text = step,
+                            modifier = Modifier.semantics {
+                                selected = index == selectedStep
+                            },
                             style = KuiTheme.typography.labelMedium,
                             color = if (active)
                                 colorScheme.onSurface

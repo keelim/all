@@ -29,11 +29,15 @@ import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material.icons.rounded.Notifications
+import com.keelim.core.designsystem.component.KuiButton
 import com.keelim.core.designsystem.component.KuiCard
+import com.keelim.core.designsystem.component.KuiEmptyState
 import androidx.compose.material3.CardDefaults
 import com.keelim.core.designsystem.component.KuiIcon
 import com.keelim.core.designsystem.component.KuiIconButton
 import com.keelim.core.designsystem.component.KuiListItem
+import com.keelim.core.designsystem.component.KuiLoadingStatus
+import com.keelim.core.designsystem.component.KuiLoadingVariant
 import androidx.compose.material3.ListItemDefaults
 import com.keelim.core.designsystem.theme.KuiTheme
 import com.keelim.core.designsystem.component.KuiOutlinedCard
@@ -51,14 +55,20 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEachIndexed
 import androidx.compose.ui.util.trace
-import com.keelim.composeutil.component.layout.EmptyView
-import com.keelim.composeutil.component.layout.Loading
 import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space24
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
+import com.keelim.core.resource.Res
+import com.keelim.core.resource.common_action_retry
+import com.keelim.core.resource.nanda_state_empty_description
+import com.keelim.core.resource.nanda_state_empty_title
+import com.keelim.core.resource.nanda_state_error_description
+import com.keelim.core.resource.nanda_state_error_title
+import com.keelim.core.resource.nanda_state_loading
 import kotlinx.collections.immutable.persistentListOf
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun CategoryStateSection(
@@ -66,13 +76,35 @@ fun CategoryStateSection(
     onCategoryClick: (Int, String) -> Unit,
     onEditTypeClick: (CategoriesType) -> Unit,
     onMedicationClick: () -> Unit = {},
+    onRetry: () -> Unit = {},
 ) = trace("CategoryStateSection") {
     when (uiState) {
-        CategoryState.Error,
-        CategoryState.Empty,
-        -> EmptyView()
+        CategoryState.Error -> KuiEmptyState(
+            title = stringResource(Res.string.nanda_state_error_title),
+            description = stringResource(Res.string.nanda_state_error_description),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(space16),
+            action = {
+                KuiButton(
+                    text = stringResource(Res.string.common_action_retry),
+                    onClick = onRetry,
+                )
+            },
+        )
+        CategoryState.Empty -> KuiEmptyState(
+            title = stringResource(Res.string.nanda_state_empty_title),
+            description = stringResource(Res.string.nanda_state_empty_description),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(space16),
+        )
 
-        CategoryState.Loading -> Loading()
+        CategoryState.Loading -> KuiLoadingStatus(
+            modifier = Modifier.padding(space16),
+            variant = KuiLoadingVariant.Panel,
+            label = stringResource(Res.string.nanda_state_loading),
+        )
         is CategoryState.Success -> {
             Column(
                 modifier = Modifier

@@ -33,6 +33,7 @@ fun TaskChartSuccessSection(
                 modifier = Modifier.padding(start = 15.dp),
                 text = "Task percentage",
                 style = KuiTheme.typography.titleLarge,
+                color = KuiTheme.colorScheme.onSurface,
             )
             Spacer(
                 modifier = Modifier.height(space24),
@@ -41,7 +42,7 @@ fun TaskChartSuccessSection(
                 entries = entries,
                 radiusOuter = 150.dp,
                 chartBarWidth = 20.dp,
-                duration = 2000,
+                duration = 300,
             )
             Spacer(
                 modifier = Modifier.height(space24),

@@ -1,5 +1,6 @@
 package com.keelim.comssa.ui.screen.main.finance
 
+import androidx.lifecycle.ViewModelStore
 import app.cash.turbine.test
 import com.keelim.commonAndroid.model.SealedUiState
 import com.keelim.data.repository.FinanceRssRepository
@@ -23,6 +24,7 @@ import kotlinx.datetime.Instant
 class FinanceViewModelTest : FunSpec({
 
     lateinit var viewModel: FinanceViewModel
+    lateinit var viewModelStore: ViewModelStore
     lateinit var mockRepository: FinanceRssRepository
     val testDispatcher = StandardTestDispatcher()
     val mainDispatcherRule = MainDispatcherRule(testDispatcher)
@@ -79,7 +81,14 @@ class FinanceViewModelTest : FunSpec({
         coEvery { mockRepository.invalidateCacheForSource(any()) } returns Unit
         coEvery { mockRepository.getCacheInfo() } returns mapOf("test" to 1000L)
 
+        viewModelStore = ViewModelStore()
         viewModel = FinanceViewModel(mockRepository)
+        viewModelStore.put("finance", viewModel)
+    }
+
+    afterTest {
+        viewModelStore.clear()
+        testDispatcher.scheduler.advanceUntilIdle()
     }
 
     test("초기 상태는 로딩 상태여야 한다") {
@@ -180,6 +189,9 @@ class FinanceViewModelTest : FunSpec({
                 }
             }
             val retryViewModel = FinanceViewModel(mockRepository)
+            val retryViewModelStore = ViewModelStore().apply {
+                put("finance-retry", retryViewModel)
+            }
 
             retryViewModel.items.test {
                 awaitItem() shouldBe SealedUiState.Loading
@@ -194,6 +206,8 @@ class FinanceViewModelTest : FunSpec({
                 requestCount shouldBe 2
                 cancelAndIgnoreRemainingEvents()
             }
+            retryViewModelStore.clear()
+            testDispatcher.scheduler.advanceUntilIdle()
         }
     }
 

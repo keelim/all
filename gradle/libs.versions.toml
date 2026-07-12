@@ -52,7 +52,7 @@ dependency-analysis = "3.5.1"
 dependencyGuard = "0.5.0"
 emoji2-emojipicker = "1.6.0"
 errorprone = "2.47.0"
-firebase = "33.16.0"
+firebase = "34.16.0"
 firebase-ui = "9.1.1"
 firebaseCrashlyticsPlugin = "3.0.6"
 firebasePerfPlugin = "2.0.2"
@@ -232,10 +232,10 @@ deeplinkdispatch = { group = "com.airbnb", name = "deeplinkdispatch", version.re
 deeplinkdispatch-processor = { group = "com.airbnb", name = "deeplinkdispatch-processor", version.ref = "deeplinkdispatch" }
 dependencyGuard-gradlePlugin = { group = "com.dropbox.dependency-guard", name = "com.dropbox.dependency-guard.gradle.plugin", version.ref = "dependencyGuard" }
 errorprone = { group = "com.google.errorprone", name = "error_prone_annotations", version.ref = "errorprone" }
-firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
+firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
 firebase-appcheck = { group = "com.google.firebase", name = "firebase-appcheck-playintegrity" }
 firebase-appcheck-debug = { group = "com.google.firebase", name = "firebase-appcheck-debug" }
-firebase-auth = { group = "com.google.firebase", name = "firebase-auth-ktx" }
+firebase-auth = { group = "com.google.firebase", name = "firebase-auth" }
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase" }
 firebase-common = { group = "com.google.firebase", name = "firebase-common" }
 firebase-config = { group = "com.google.firebase", name = "firebase-config" }

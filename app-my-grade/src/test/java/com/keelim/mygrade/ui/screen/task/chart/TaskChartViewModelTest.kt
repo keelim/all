@@ -53,4 +53,23 @@ class TaskChartViewModelTest : FunSpec({
             }
         }
     }
+
+    test("retry refreshes the task repository") {
+        runTest(testDispatcher) {
+            val repository = FakeDefaultTaskRepository()
+            val viewModel = TaskChartViewModel(repository)
+
+            viewModel.state.test {
+                awaitItem() shouldBe SealedUiState.Loading
+                advanceUntilIdle()
+                awaitItem() shouldBe SealedUiState.Success(emptyList())
+
+                viewModel.retry()
+                advanceUntilIdle()
+
+                repository.refreshCallCount shouldBe 1
+                cancelAndIgnoreRemainingEvents()
+            }
+        }
+    }
 })

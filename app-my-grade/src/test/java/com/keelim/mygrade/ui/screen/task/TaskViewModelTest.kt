@@ -19,6 +19,20 @@ class TaskViewModelTest : FunSpec({
 
     extension(mainDispatcherRule)
 
+    test("task elements provide stable lazy list keys") {
+        val task = LocalTask(
+            id = "task-42",
+            title = "Read",
+            description = "Read chapter one",
+            isCompleted = false,
+            date = "2026-03-08",
+            isEditing = false,
+        )
+
+        TaskElement.Header("Todo").stableKey shouldBe "header:Todo"
+        TaskElement.Item(task, TaskElement.Role.SINGLE).stableKey shouldBe "task:task-42"
+    }
+
     test("state groups tasks into todo and completed sections") {
         runTest(testDispatcher) {
             val todoTask = LocalTask(

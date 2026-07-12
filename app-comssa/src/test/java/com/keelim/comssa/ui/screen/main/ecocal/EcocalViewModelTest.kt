@@ -170,7 +170,7 @@ class EcocalViewModelTest : FunSpec({
         }
     }
 
-    test("repository failures keep items in loading state") {
+    test("repository failure exposes error and retry resubscribes") {
         runTest {
             val repository = FakeFirebaseRepository(Result.failure(IllegalStateException("boom")))
             val viewModel = EcocalViewModel(repository)
@@ -178,11 +178,29 @@ class EcocalViewModelTest : FunSpec({
             viewModel.items.test {
                 awaitItem() shouldBe SealedUiState.loading()
                 advanceUntilIdle()
-                val state = viewModel.items.value
-                (
-                    state == SealedUiState.loading<Map<String, List<EcoCalModel>>>() ||
-                        (state is SealedUiState.Success && state.value.isEmpty())
-                    ) shouldBe true
+
+                (awaitItem() is SealedUiState.Error) shouldBe true
+
+                repository.update(
+                    Result.success(
+                        listOf(
+                            EcoCalEntry(
+                                country = "KR",
+                                date = "2026-03-08",
+                                priority = "상",
+                                time = "09:00",
+                                title = "Korea CPI",
+                            ),
+                        ),
+                    ),
+                )
+                viewModel.retry()
+                advanceUntilIdle()
+
+                awaitItem() shouldBe SealedUiState.loading()
+                val recovered = awaitItem() as SealedUiState.Success
+                recovered.value.keys shouldBe setOf("2026-03-08")
+
                 cancelAndIgnoreRemainingEvents()
             }
             viewModel.viewModelScope.cancel()
@@ -194,6 +212,10 @@ private class FakeFirebaseRepository(
     initialResult: Result<List<EcoCalEntry>>,
 ) : FirebaseRepository {
     private val refFlow = MutableStateFlow(initialResult)
+
+    fun update(result: Result<List<EcoCalEntry>>) {
+        refFlow.value = result
+    }
 
     override fun getRef(ref: String): Flow<Result<List<EcoCalEntry>>> = refFlow
 

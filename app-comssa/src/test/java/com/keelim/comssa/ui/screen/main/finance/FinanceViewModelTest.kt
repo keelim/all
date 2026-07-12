@@ -1,5 +1,6 @@
 package com.keelim.comssa.ui.screen.main.finance
 
+import app.cash.turbine.test
 import com.keelim.commonAndroid.model.SealedUiState
 import com.keelim.data.repository.FinanceRssRepository
 import com.keelim.model.finance.FinanceCategory
@@ -12,6 +13,7 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
@@ -163,6 +165,35 @@ class FinanceViewModelTest : FunSpec({
 
             val state = viewModel.items.value
             (state is SealedUiState.Loading || state is SealedUiState.Success) shouldBe true
+        }
+    }
+
+    test("오류 후 새로고침은 RSS 흐름을 다시 수집해야 한다") {
+        runTest {
+            var requestCount = 0
+            coEvery { mockRepository.getRssItems(any()) } answers {
+                requestCount += 1
+                if (requestCount == 1) {
+                    flow { throw IllegalStateException("boom") }
+                } else {
+                    flowOf(testItems)
+                }
+            }
+            val retryViewModel = FinanceViewModel(mockRepository)
+
+            retryViewModel.items.test {
+                awaitItem() shouldBe SealedUiState.Loading
+                testDispatcher.scheduler.advanceUntilIdle()
+                (awaitItem() is SealedUiState.Error) shouldBe true
+
+                retryViewModel.refresh()
+                testDispatcher.scheduler.advanceUntilIdle()
+
+                awaitItem() shouldBe SealedUiState.Loading
+                (awaitItem() as SealedUiState.Success).value shouldBe testItems
+                requestCount shouldBe 2
+                cancelAndIgnoreRemainingEvents()
+            }
         }
     }
 

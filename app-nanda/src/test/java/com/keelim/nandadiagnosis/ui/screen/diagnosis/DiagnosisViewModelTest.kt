@@ -150,6 +150,37 @@ class DiagnosisViewModelTest : FunSpec({
             }
         }
     }
+
+    test("retry resubscribes after a repository failure") {
+        runTest(testDispatcher) {
+            var subscriptionCount = 0
+            val viewModel = createViewModel(
+                num = "1",
+                diagnoses = flow {
+                    if (subscriptionCount++ == 0) {
+                        throw IllegalStateException("boom")
+                    }
+                    emit(buildDiagnoses(224))
+                },
+            )
+
+            viewModel.screenState.test {
+                awaitItem() shouldBe DiagnosisScreenState.Loading
+                advanceUntilIdle()
+                awaitItem() shouldBe DiagnosisScreenState.Error
+
+                viewModel.retry()
+                advanceUntilIdle()
+
+                awaitItem() shouldBe DiagnosisScreenState.Loading
+                val recovered = awaitItem() as DiagnosisScreenState.Success
+                recovered.items.size shouldBe 12
+                subscriptionCount shouldBe 2
+
+                cancelAndIgnoreRemainingEvents()
+            }
+        }
+    }
 }) {
     companion object {
         private fun diagnosis(reason: String) = NandaDiagnosis(

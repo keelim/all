@@ -80,6 +80,14 @@ class EditViewModelTest : FunSpec({
                     descriptions = "Memorize equations",
                     dialogState = EditDialogState.Failed,
                 )
+
+                viewModel.retry()
+
+                val retried = awaitItem() as SealedUiState.Success
+                retried.value shouldBe EditUiState(
+                    editResult = EditResult(subject = "Chemistry"),
+                    descriptions = "",
+                )
             }
         }
     }

@@ -39,4 +39,28 @@ class NotesViewModelTest : FunSpec({
             repository.deletedNotes shouldBe listOf(note)
         }
     }
+
+    test("repository failure is exposed and retry recollects notes") {
+        runTest(testDispatcher) {
+            val failure = IllegalStateException("db down")
+            val note = Notices(uid = 2, title = "Physics", note = "Review chapter four")
+            val repository = FakeNoteRepository(initialNotes = Result.failure(failure))
+            val viewModel = NotesViewModel(repository)
+
+            viewModel.notesUiState.test {
+                awaitItem() shouldBe SealedUiState.Loading
+                advanceUntilIdle()
+
+                val error = awaitItem() as SealedUiState.Error
+                error.throwable shouldBe failure
+
+                repository.noteListFlow.value = Result.success(listOf(note))
+                viewModel.retry()
+
+                awaitItem() shouldBe SealedUiState.Loading
+                advanceUntilIdle()
+                awaitItem() shouldBe SealedUiState.Success(listOf(note))
+            }
+        }
+    }
 })

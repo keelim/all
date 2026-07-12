@@ -8,7 +8,9 @@ import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.resetMain
@@ -202,6 +204,27 @@ class RootViewModelTest : FunSpec({
             }
         }
     }
+
+    test("retry 는 즐겨찾기 스트림 오류 뒤 다시 구독해야 한다") {
+        runTest {
+            val repository = FlakyStationRepository()
+            val viewModel = RootViewModel(repository)
+
+            viewModel.state.test {
+                awaitItem() shouldBe MapEvent.UnInitialized
+                advanceUntilIdle()
+                awaitItem() shouldBe MapEvent.Error()
+
+                viewModel.retry()
+                advanceUntilIdle()
+
+                awaitItem() shouldBe MapEvent.Loading
+                val recovered = awaitItem() as MapEvent.MigrateSuccess
+                recovered.data shouldBe expectedRouteA()
+                repository.subscriptionCount shouldBe 2
+            }
+        }
+    }
 })
 
 private class FakeStationRepository(
@@ -222,4 +245,20 @@ private class FakeStationRepository(
         removedStations += stationName
         favoriteStationsFlow.value = favoriteStationsFlow.value - stationName
     }
+}
+
+private class FlakyStationRepository : StationRepository {
+    var subscriptionCount = 0
+
+    override val favoriteStations: Flow<Set<String>>
+        get() = flow {
+            if (subscriptionCount++ == 0) {
+                throw IllegalStateException("boom")
+            }
+            emit(emptySet())
+        }
+
+    override suspend fun addFavorite(stationName: String) = Unit
+
+    override suspend fun removeFavorite(stationName: String) = Unit
 }

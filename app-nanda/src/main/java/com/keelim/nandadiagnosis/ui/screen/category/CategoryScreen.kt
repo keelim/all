@@ -33,6 +33,7 @@ fun CategoryRoute(
         onCategoryClick = onCategoryClick,
         onEditTypeClick = onEditTypeClick,
         onMedicationClick = onMedicationClick,
+        onRetry = viewModel::retry,
     )
 }
 
@@ -42,12 +43,14 @@ fun CategoryScreen(
     onCategoryClick: (Int, String) -> Unit,
     onEditTypeClick: (CategoriesType) -> Unit,
     onMedicationClick: () -> Unit = {},
+    onRetry: () -> Unit = {},
 ) = trace("CategoryScreen") {
     CategoryStateSection(
         uiState = state,
         onCategoryClick = onCategoryClick,
         onEditTypeClick = onEditTypeClick,
         onMedicationClick = onMedicationClick,
+        onRetry = onRetry,
     )
 
     SimpleAcquirePermissions(

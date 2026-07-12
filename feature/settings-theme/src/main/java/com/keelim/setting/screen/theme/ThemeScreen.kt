@@ -1,8 +1,9 @@
+@file:OptIn(androidx.compose.material3.ExperimentalMaterial3ExpressiveApi::class)
+
 package com.keelim.setting.screen.theme
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -37,6 +38,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.selected
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -128,7 +131,7 @@ private fun ThemeHeader(
                 KuiIcon(
                     imageVector = Icons.Default.Menu,
                     contentDescription = null,
-                    tint = Color.White,
+                    tint = KuiTheme.colorScheme.onPrimary,
                     modifier = Modifier.size(24.dp),
                 )
             }
@@ -216,7 +219,7 @@ private fun ThemeOptionCard(
 ) {
     val scale by animateFloatAsState(
         targetValue = if (isSelected) 1.02f else 1f,
-        animationSpec = tween(durationMillis = 200),
+        animationSpec = KuiTheme.motionScheme.fastSpatialSpec(),
         label = "scale",
     )
 
@@ -226,12 +229,13 @@ private fun ThemeOptionCard(
         } else {
             KuiTheme.colorScheme.outline.copy(alpha = 0.3f)
         },
-        animationSpec = tween(durationMillis = 200),
+        animationSpec = KuiTheme.motionScheme.fastEffectsSpec(),
         label = "borderColor",
     )
 
     KuiCard(padded = false,
         modifier = modifier
+            .semantics { selected = isSelected }
             .scale(scale),
         onClick = onClick,
         shape = RoundedCornerShape(20.dp),
@@ -252,7 +256,24 @@ private fun ThemeOptionCard(
                 .padding(space16),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            // Icon with gradient background
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(56.dp)
+                    .clip(KuiTheme.shapes.medium)
+                    .background(Brush.linearGradient(gradientColors))
+                    .padding(space8),
+                contentAlignment = Alignment.BottomEnd,
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(18.dp)
+                        .clip(CircleShape)
+                        .background(iconTint),
+                )
+            }
+
+            Spacer(modifier = Modifier.height(space12))
 
             KuiText(
                 text = title,
@@ -280,7 +301,7 @@ private fun ThemeOptionCard(
                 ) {
                     KuiIcon(
                         imageVector = Icons.Default.Check,
-                        contentDescription = stringResource(Res.string.settings_theme_selected),
+                        contentDescription = null,
                         tint = KuiTheme.colorScheme.onPrimary,
                         modifier = Modifier.size(16.dp),
                     )
@@ -309,7 +330,7 @@ private fun ThemePreviewCard(
             ThemeType.LIGHT -> Color(0xFFF5F5F5)
             ThemeType.DARK -> Color(0xFF1E1E1E)
         },
-        animationSpec = tween(durationMillis = 300),
+        animationSpec = KuiTheme.motionScheme.defaultEffectsSpec(),
         label = "previewBackground",
     )
 
@@ -318,7 +339,7 @@ private fun ThemePreviewCard(
             ThemeType.LIGHT -> Color(0xFF212121)
             ThemeType.DARK -> Color(0xFFE0E0E0)
         },
-        animationSpec = tween(durationMillis = 300),
+        animationSpec = KuiTheme.motionScheme.defaultEffectsSpec(),
         label = "previewText",
     )
 

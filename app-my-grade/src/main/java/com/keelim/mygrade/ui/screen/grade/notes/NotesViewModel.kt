@@ -8,9 +8,12 @@ import com.keelim.data.repository.NoteRepository
 import com.keelim.model.Notices
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import jakarta.inject.Inject
 
@@ -20,13 +23,20 @@ class NotesViewModel @Inject constructor(
     val noteRepository: NoteRepository,
 ) : ViewModel() {
 
-    val notesUiState = noteRepository
-        .getNoteList()
-        .mapLatest {
-            it.getOrNull() ?: emptyList()
+    private val retryRequests = MutableStateFlow(0)
+
+    val notesUiState = retryRequests
+        .flatMapLatest {
+            noteRepository
+                .getNoteList()
+                .mapLatest { result -> result.getOrThrow() }
+                .asSealedUiState(emptyToLoading = false)
         }
-        .asSealedUiState()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000L), SealedUiState.loading())
+
+    fun retry() {
+        retryRequests.update { it + 1 }
+    }
 
     fun deleteNote(note: Notices) {
         viewModelScope.launch {

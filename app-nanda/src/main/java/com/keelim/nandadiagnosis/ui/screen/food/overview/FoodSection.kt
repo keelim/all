@@ -3,19 +3,20 @@
 package com.keelim.nandadiagnosis.ui.screen.food.overview
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import com.keelim.core.designsystem.component.KuiCard
 import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.component.KuiIconButton
 import com.keelim.core.designsystem.component.KuiListItem
 import com.keelim.core.designsystem.theme.KuiTheme
 import com.keelim.core.designsystem.component.KuiText
@@ -28,7 +29,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space64
 import com.keelim.composeutil.resource.space8
+import com.keelim.core.resource.Res
+import com.keelim.core.resource.nanda_food_edit_category
 import com.keelim.model.Food
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 internal fun FoodSuccessSection(
@@ -91,13 +95,16 @@ private fun FoodHeader(
                 style = KuiTheme.typography.bodyLarge,
                 fontWeight = FontWeight.Bold,
             )
-            KuiIcon(
-                imageVector = Icons.Default.Edit,
-                contentDescription = "edit food",
-                modifier = Modifier.clickable {
-                    onEditClick(title)
-                },
-            )
+            KuiIconButton(
+                onClick = { onEditClick(title) },
+                modifier = Modifier.size(KuiTheme.spacing.componentLg),
+            ) {
+                KuiIcon(
+                    imageVector = Icons.Default.Edit,
+                    contentDescription = stringResource(Res.string.nanda_food_edit_category, title),
+                    modifier = Modifier.size(KuiTheme.spacing.space6),
+                )
+            }
         }
     }
 }

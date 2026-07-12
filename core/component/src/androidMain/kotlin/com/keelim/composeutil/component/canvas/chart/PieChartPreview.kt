@@ -16,6 +16,6 @@ fun PreviewPieChart() {
         ),
         radiusOuter = 20.dp,
         chartBarWidth = 20.dp,
-        duration = 5892,
+        duration = 300,
     )
 }

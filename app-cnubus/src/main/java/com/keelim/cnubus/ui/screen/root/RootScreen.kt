@@ -1,5 +1,6 @@
 package com.keelim.cnubus.ui.screen.root
 
+import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -22,6 +23,8 @@ import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
+import com.keelim.core.designsystem.component.KuiButton
+import com.keelim.core.designsystem.component.KuiButtonVariant
 import com.keelim.core.designsystem.component.KuiCard
 import androidx.compose.material3.CardDefaults
 import com.keelim.core.designsystem.component.KuiDropdownMenuItem
@@ -30,6 +33,9 @@ import com.keelim.core.designsystem.component.KuiExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import com.keelim.core.designsystem.component.KuiIcon
 import com.keelim.core.designsystem.component.KuiIconButton
+import com.keelim.core.designsystem.component.KuiEmptyState
+import com.keelim.core.designsystem.component.KuiLoadingStatus
+import com.keelim.core.designsystem.component.KuiLoadingVariant
 import com.keelim.core.designsystem.theme.KuiTheme
 import com.keelim.core.designsystem.component.KuiModalBottomSheet
 import com.keelim.core.designsystem.component.KuiText
@@ -52,13 +58,24 @@ import androidx.compose.ui.util.trace
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
-import com.keelim.composeutil.component.layout.EmptyView
-import com.keelim.composeutil.component.layout.Loading
 import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space24
 import com.keelim.composeutil.resource.space8
 import com.keelim.core.data.model.Location
-import com.keelim.core.resource.*
+import com.keelim.core.resource.Res
+import com.keelim.core.resource.cnubus_back_action
+import com.keelim.core.resource.cnubus_click_for_details
+import com.keelim.core.resource.cnubus_favorite_add
+import com.keelim.core.resource.cnubus_favorite_remove
+import com.keelim.core.resource.cnubus_location_image_description
+import com.keelim.core.resource.cnubus_routes_empty
+import com.keelim.core.resource.cnubus_routes_empty_description
+import com.keelim.core.resource.cnubus_routes_error
+import com.keelim.core.resource.cnubus_routes_error_description
+import com.keelim.core.resource.cnubus_routes_loading
+import com.keelim.core.resource.cnubus_search_station_placeholder
+import com.keelim.core.resource.cnubus_tab_search
+import com.keelim.core.resource.common_action_retry
 import org.jetbrains.compose.resources.stringResource
 
 @Stable
@@ -66,7 +83,7 @@ sealed interface MapEvent {
     data object UnInitialized : MapEvent
     data object Loading : MapEvent
     data class MigrateSuccess(val data: List<Location>) : MapEvent
-    data class Error(val message: String = "에러가 발생하였습니다.") : MapEvent
+    data class Error(val message: String = "") : MapEvent
 }
 
 @Composable
@@ -83,6 +100,7 @@ fun RootRoute(
         uiState = uiState,
         query = query,
         onQueryChange = viewModel::updateQuery,
+        onRetry = viewModel::retry,
         onRootClick = { position ->
             if (uiState is MapEvent.MigrateSuccess) {
                 selectedLocation = (uiState as MapEvent.MigrateSuccess).data.getOrNull(position)
@@ -108,11 +126,42 @@ fun RootScreen(
     query: String,
     onQueryChange: (String) -> Unit,
     onRootClick: (Int) -> Unit,
+    onRetry: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) = trace("RootScreen") {
+    val backPressDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
+
     when (uiState) {
-        MapEvent.UnInitialized, is MapEvent.Error -> EmptyView()
-        MapEvent.Loading -> Loading()
+        MapEvent.UnInitialized, MapEvent.Loading -> KuiLoadingStatus(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(KuiTheme.spacing.cardPadding),
+            variant = KuiLoadingVariant.Panel,
+            label = stringResource(Res.string.cnubus_routes_loading),
+        )
+        is MapEvent.Error -> KuiEmptyState(
+            title = stringResource(Res.string.cnubus_routes_error),
+            description = if (uiState.message.isBlank()) {
+                stringResource(Res.string.cnubus_routes_error_description)
+            } else {
+                uiState.message
+            },
+            modifier = modifier.padding(KuiTheme.spacing.cardPadding),
+            action = {
+                Row(horizontalArrangement = Arrangement.spacedBy(KuiTheme.spacing.space2)) {
+                    KuiButton(
+                        text = stringResource(Res.string.common_action_retry),
+                        onClick = onRetry,
+                    )
+                    KuiButton(
+                        text = stringResource(Res.string.cnubus_back_action),
+                        onClick = { backPressDispatcher?.onBackPressed() },
+                        enabled = backPressDispatcher != null,
+                        variant = KuiButtonVariant.Secondary,
+                    )
+                }
+            },
+        )
         is MapEvent.MigrateSuccess -> Success(query, onQueryChange, uiState, onRootClick)
     }
 }
@@ -160,7 +209,11 @@ private fun Success(
         }
 
         if (uiState.data.isEmpty()) {
-            EmptyView()
+            KuiEmptyState(
+                title = stringResource(Res.string.cnubus_routes_empty),
+                description = stringResource(Res.string.cnubus_routes_empty_description),
+                modifier = Modifier.padding(KuiTheme.spacing.cardPadding),
+            )
         } else {
             Spacer(modifier = Modifier.height(space8))
             LazyColumn(
@@ -214,8 +267,14 @@ fun RootDetailBottomSheet(
                 KuiIconButton(onClick = onFavoriteClick) {
                     KuiIcon(
                         imageVector = if (isFavorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
-                        contentDescription = stringResource(Res.string.cnubus_tab_favorite),
-                        tint = if (isFavorite) Color.Red else KuiTheme.colorScheme.onSurface
+                        contentDescription = stringResource(
+                            if (isFavorite) {
+                                Res.string.cnubus_favorite_remove
+                            } else {
+                                Res.string.cnubus_favorite_add
+                            },
+                        ),
+                        tint = if (isFavorite) KuiTheme.colorScheme.primary else KuiTheme.colorScheme.onSurface,
                     )
                 }
             }
@@ -223,7 +282,10 @@ fun RootDetailBottomSheet(
             if (location.imgUrl.isNotEmpty()) {
                 AsyncImage(
                     model = location.imgUrl,
-                    contentDescription = null,
+                    contentDescription = stringResource(
+                        Res.string.cnubus_location_image_description,
+                        location.name,
+                    ),
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(200.dp)
@@ -278,7 +340,7 @@ internal fun TimelineItem(
                         else -> Icons.Default.LocationOn
                     },
                     contentDescription = null,
-                    tint = Color.White,
+                    tint = KuiTheme.colorScheme.onPrimary,
                     modifier = Modifier.size(20.dp),
                 )
             }

@@ -1,8 +1,17 @@
+@file:OptIn(
+    androidx.compose.foundation.ExperimentalFoundationApi::class,
+    androidx.compose.material3.ExperimentalMaterial3ExpressiveApi::class,
+)
+
 package com.keelim.nandadiagnosis.ui.screen.medication
 
 import android.Manifest
 import android.os.Build
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.MutableTransitionState
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -44,9 +53,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -56,8 +67,12 @@ import com.keelim.common.extensions.formatUiTime
 import com.keelim.composeutil.util.permission.SimpleAcquirePermissions
 import com.keelim.data.model.Medication
 import com.keelim.data.model.MedicationFrequency
+import com.keelim.core.resource.Res
+import com.keelim.core.resource.nanda_medication_add
+import com.keelim.core.resource.nanda_medication_delete
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
+import org.jetbrains.compose.resources.stringResource
 
 private val notificationPermissions: List<String> = buildList {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -146,7 +161,7 @@ fun MedicationScreen(
             ) {
                 KuiIcon(
                     Icons.Default.Add,
-                    contentDescription = "복약 추가",
+                    contentDescription = stringResource(Res.string.nanda_medication_add),
                     tint = KuiTheme.colorScheme.onPrimary
                 )
             }
@@ -181,7 +196,8 @@ fun MedicationScreen(
                         medication = medication,
                         onToggle = { onToggleMedication(medication) },
                         onDelete = { onRemoveMedication(medication) },
-                        onEdit = { onEditMedication(medication) }
+                        onEdit = { onEditMedication(medication) },
+                        modifier = Modifier.animateItem(),
                     )
                 }
             }
@@ -324,50 +340,76 @@ private fun MedicationItem(
     medication: Medication,
     onToggle: () -> Unit,
     onDelete: () -> Unit,
-    onEdit: () -> Unit
+    onEdit: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     val dismissState = rememberSwipeToDismissBoxState()
-    var hasHandledDelete by remember { mutableStateOf(false) }
-
-    LaunchedEffect(dismissState.currentValue) {
-        if (!hasHandledDelete && dismissState.currentValue == SwipeToDismissBoxValue.EndToStart) {
-            hasHandledDelete = true
-            onDelete()
+    val visibleState = remember { MutableTransitionState(true) }
+    val currentOnDelete by rememberUpdatedState(onDelete)
+    var hasRequestedDelete by remember { mutableStateOf(false) }
+    val requestDelete = {
+        if (!hasRequestedDelete) {
+            hasRequestedDelete = true
+            visibleState.targetState = false
         }
     }
 
-    KuiSwipeToDismissBox(
-        state = dismissState,
-        backgroundContent = {
-            val color by animateColorAsState(
-                when (dismissState.targetValue) {
-                    SwipeToDismissBoxValue.EndToStart -> Color.Red.copy(alpha = 0.8f)
-                    else -> Color.Transparent
-                },
-                label = "background"
-            )
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(color, RoundedCornerShape(12.dp))
-                    .padding(horizontal = 20.dp),
-                contentAlignment = Alignment.CenterEnd
-            ) {
-                KuiIcon(
-                    Icons.Default.Delete,
-                    contentDescription = "삭제",
-                    tint = Color.White
-                )
-            }
-        },
-        enableDismissFromStartToEnd = false
+    LaunchedEffect(dismissState.currentValue) {
+        if (dismissState.currentValue == SwipeToDismissBoxValue.EndToStart) {
+            requestDelete()
+        }
+    }
+
+    LaunchedEffect(visibleState.isIdle, visibleState.currentState, hasRequestedDelete) {
+        if (hasRequestedDelete && visibleState.isIdle && !visibleState.currentState) {
+            currentOnDelete()
+        }
+    }
+
+    AnimatedVisibility(
+        visibleState = visibleState,
+        modifier = modifier,
+        exit = fadeOut(
+            animationSpec = KuiTheme.motionScheme.fastEffectsSpec(),
+        ) + scaleOut(
+            targetScale = 0.96f,
+            transformOrigin = TransformOrigin(0.5f, 0f),
+            animationSpec = KuiTheme.motionScheme.fastSpatialSpec(),
+        ),
     ) {
-        MedicationCard(
-            medication = medication,
-            onToggle = onToggle,
-            onDelete = onDelete,
-            onEdit = onEdit
-        )
+        KuiSwipeToDismissBox(
+            state = dismissState,
+            backgroundContent = {
+                val color by animateColorAsState(
+                    when (dismissState.targetValue) {
+                        SwipeToDismissBoxValue.EndToStart -> KuiTheme.colorScheme.error.copy(alpha = 0.8f)
+                        else -> Color.Transparent
+                    },
+                    label = "background"
+                )
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(color, RoundedCornerShape(12.dp))
+                        .padding(horizontal = 20.dp),
+                    contentAlignment = Alignment.CenterEnd
+                ) {
+                    KuiIcon(
+                        Icons.Default.Delete,
+                        contentDescription = stringResource(Res.string.nanda_medication_delete),
+                        tint = KuiTheme.colorScheme.onError,
+                    )
+                }
+            },
+            enableDismissFromStartToEnd = false
+        ) {
+            MedicationCard(
+                medication = medication,
+                onToggle = onToggle,
+                onDelete = requestDelete,
+                onEdit = onEdit
+            )
+        }
     }
 }
 
@@ -443,7 +485,7 @@ private fun MedicationCard(
                 KuiIconButton(onClick = onDelete) {
                     KuiIcon(
                         Icons.Default.Delete,
-                        contentDescription = "삭제",
+                        contentDescription = stringResource(Res.string.nanda_medication_delete),
                         tint = KuiTheme.colorScheme.error
                     )
                 }

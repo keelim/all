@@ -35,20 +35,22 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
  * Configure base Kotlin with Android options
  */
 fun Project.configureKotlinAndroid(
-    commonExtension: CommonExtension<*, *, *, *, *, *>,
+    commonExtension: CommonExtension,
 ) {
     apply(plugin = "org.jetbrains.kotlin.plugin.serialization")
     apply(plugin = "org.jetbrains.kotlin.plugin.parcelize")
 
     commonExtension.apply {
-        compileSdk = libs.findVersion("compileSdk").get().displayName.toInt()
+        compileSdk {
+            version = release(libs.findVersion("compileSdk").get().displayName.toInt()) {
+                minorApiLevel = 0
+            }
+        }
         // compileSdkExtension = ProjectConfiguration.compileSdkExtension
 
-        defaultConfig {
-            minSdk = libs.findVersion("minSdk").get().displayName.toInt()
-        }
+        defaultConfig.minSdk = libs.findVersion("minSdk").get().displayName.toInt()
 
-        compileOptions {
+        compileOptions.apply {
             sourceCompatibility = JavaVersion.VERSION_17
             targetCompatibility = JavaVersion.VERSION_17
             // isCoreLibraryDesugaringEnabled = true

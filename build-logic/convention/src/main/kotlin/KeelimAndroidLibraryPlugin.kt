@@ -18,7 +18,6 @@ class KeelimAndroidLibraryPlugin : Plugin<Project> {
                 .get()
 
             apply(plugin = "com.android.library")
-            apply(plugin = "org.jetbrains.kotlin.android")
             apply(plugin = "org.gradle.android.cache-fix")
             apply(plugin = "com.jraska.module.graph.assertion")
             apply(plugin = "com.autonomousapps.dependency-analysis")

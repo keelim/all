@@ -27,13 +27,11 @@ import org.jetbrains.kotlin.compose.compiler.gradle.ComposeFeatureFlag
  * Configure Compose-specific options
  */
 fun Project.configureAndroidCompose(
-    commonExtension: CommonExtension<*, *, *, *, *, *>,
+    commonExtension: CommonExtension,
     composeCompilerGradlePluginExtension: ComposeCompilerGradlePluginExtension,
 ) {
     commonExtension.apply {
-        buildFeatures {
-            compose = true
-        }
+        buildFeatures.compose = true
 
         dependencies {
             val bom = libs.findLibrary("androidx-compose-bom").get()
@@ -58,4 +56,3 @@ fun Project.configureAndroidCompose(
         includeSourceInformation.set(true)
     }
 }
-

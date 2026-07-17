@@ -8,7 +8,7 @@ plugins {
 }
 
 kotlin {
-    androidLibrary {
+    android {
         namespace = "com.keelim.kmp.shared"
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_17)

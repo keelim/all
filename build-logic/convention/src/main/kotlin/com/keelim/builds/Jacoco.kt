@@ -3,6 +3,8 @@ package com.keelim.builds
 import com.android.build.api.artifact.ScopedArtifact
 import com.android.build.api.variant.Component
 import com.android.build.api.variant.AndroidComponentsExtension
+import com.android.build.api.variant.HasHostTests
+import com.android.build.api.variant.HostTestBuilder
 import com.android.build.api.variant.ScopedArtifacts
 import org.gradle.api.file.FileCollection
 import org.gradle.api.Project
@@ -121,7 +123,10 @@ internal fun Project.configureJacoco(
     val jacocoTestReport = tasks.register("jacocoTestReport")
 
     androidComponentsExtension.onVariants { variant ->
-        val unitTest = variant.unitTest ?: return@onVariants
+        val unitTest = (variant as? HasHostTests)
+            ?.hostTests
+            ?.get(HostTestBuilder.UNIT_TEST_TYPE)
+            ?: return@onVariants
         val testTaskName = "test${unitTest.name.capitalize()}"
         val reportTaskName = "jacoco${testTaskName.capitalize()}Report"
         if (tasks.names.contains(reportTaskName)) {

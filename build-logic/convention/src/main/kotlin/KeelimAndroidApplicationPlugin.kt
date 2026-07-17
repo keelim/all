@@ -21,7 +21,6 @@ class KeelimAndroidApplicationPlugin : Plugin<Project> {
                 .get()
 
             apply(plugin = "com.android.application")
-            apply(plugin = "org.jetbrains.kotlin.android")
             apply(plugin = "org.gradle.android.cache-fix")
             // OSS licenses plugin is not configuration-cache compatible.
             // Apply it only for release/publish paths or when explicitly requested.

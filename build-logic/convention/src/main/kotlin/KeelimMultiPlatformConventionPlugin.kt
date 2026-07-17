@@ -1,7 +1,8 @@
-import com.android.build.api.dsl.androidLibrary
+import com.android.build.api.dsl.KotlinMultiplatformAndroidLibraryTarget
 import com.keelim.builds.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.plugins.ExtensionAware
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
@@ -28,8 +29,12 @@ class KeelimMultiPlatformConventionPlugin : Plugin<Project> {
 
             extensions.configure<KotlinMultiplatformExtension> {
                 jvm("desktop")
-                androidLibrary {
-                    compileSdk = libs.findVersion("compileSdk").get().displayName.toInt()
+                (this as ExtensionAware).extensions.configure<KotlinMultiplatformAndroidLibraryTarget> {
+                    compileSdk {
+                        version = release(libs.findVersion("compileSdk").get().displayName.toInt()) {
+                            minorApiLevel = 0
+                        }
+                    }
                     minSdk = libs.findVersion("minSdk").get().displayName.toInt()
                 }
                 if (project.name.contains("shared").not()) {

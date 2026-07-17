@@ -1,4 +1,4 @@
-import com.android.build.gradle.TestExtension
+import com.android.build.api.dsl.TestExtension
 import com.keelim.builds.configureKotlinAndroid
 import com.keelim.builds.libs
 import org.gradle.api.Plugin
@@ -11,7 +11,6 @@ class KeelimAndroidTestPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             apply(plugin = "com.android.test")
-            apply(plugin = "org.jetbrains.kotlin.android")
 
             extensions.configure<TestExtension> {
                 configureKotlinAndroid(this)

@@ -41,11 +41,13 @@ class KeelimRoomConventionPlugin : Plugin<Project> {
             val roomTesting = libs.findLibrary("room.testing").get()
             val roomCompiler = libs.findLibrary("room.compiler").get()
 
-            pluginManager.withPlugin("org.jetbrains.kotlin.android") {
-                addDependencyIfConfigExists("implementation", roomRuntime)
-                addDependencyIfConfigExists("implementation", bundledSqlite)
-                addDependencyIfConfigExists("androidTestImplementation", roomTesting)
-                addDependencyIfConfigExists("ksp", roomCompiler)
+            listOf("com.android.application", "com.android.library").forEach { pluginId ->
+                pluginManager.withPlugin(pluginId) {
+                    addDependencyIfConfigExists("implementation", roomRuntime)
+                    addDependencyIfConfigExists("implementation", bundledSqlite)
+                    addDependencyIfConfigExists("androidTestImplementation", roomTesting)
+                    addDependencyIfConfigExists("ksp", roomCompiler)
+                }
             }
 
             pluginManager.withPlugin("org.jetbrains.kotlin.multiplatform") {

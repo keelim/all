@@ -1,0 +1,23 @@
+# Gradle
+.gradle/
+build/
+**/build/
+
+# Local properties
+local.properties
+
+# IDE / Editor files
+.idea/
+*.iml
+
+# OS files
+.DS_Store
+
+# Temporary agent/tool files
+.omx/
+.serena/
+.claude/
+
+# Firebase
+google-services.json
+

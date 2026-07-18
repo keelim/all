@@ -26,5 +26,5 @@ dependencies {
 
     implementation("com.airbnb.android:showkase:1.0.3")
     implementation("com.airbnb.android:showkase-annotation:1.0.5")
-    ksp("com.airbnb.android:showkase-processor:1.0.3")
+    ksp("com.airbnb.android:showkase-processor:1.0.5")
 }

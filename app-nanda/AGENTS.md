@@ -35,6 +35,11 @@ app-nanda/src/main/java/com/keelim/nandadiagnosis/
 - **UI Components**: Follow Material 3 design system; use `trace()` for Composable performance monitoring.
 - **Animations**: Implement smooth transitions using `animateFloatAsState` for progress indicators.
 
+## TEST POLICY
+- **No Compose UI tests**: Do not add or run Compose/instrumentation UI tests in `app-nanda`; `androidx.compose.ui.test`, `createComposeRule`, `createAndroidComposeRule`, and Compose test rules are intentionally excluded.
+- **Default verification**: Run JVM tests and build/static checks only (`:app-nanda:testDebugUnitTest`, `:app-nanda:assembleDebug`, lint when requested, and `git diff --check`). Do not run `connectedDebugAndroidTest` as a default or final gate.
+- **Narrow exception**: A future non-Compose instrumentation integration test may be added only when explicitly requested; this policy does not disable that test type.
+
 ## ANTI-PATTERNS
 - **Main Thread Work**: Never perform database queries or heavy calculations in ViewModels without `viewModelScope`.
 - **Hardcoding**: No hardcoded strings; use localized resources even for units (e.g., "ml", "kcal").

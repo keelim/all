@@ -98,6 +98,7 @@ play-services-location = "21.3.0"
 play-services-maps = "20.0.0"
 play-services-time = "16.0.1"
 playad = "25.4.0"
+adsMobileSdk = "1.2.1"
 playoss = "17.3.0"
 playoss-plugin = "0.10.10"
 preference = "1.2.1"
@@ -307,6 +308,7 @@ okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor",
 okio = { group = "com.squareup.okio", name = "okio" }
 okio-bom = { group = "com.squareup.okio", name = "okio-bom", version.ref = "okio" }
 play-services-ad = { group = "com.google.android.gms", name = "play-services-ads", version.ref = "playad" }
+ads-mobile-sdk = { group = "com.google.android.libraries.ads.mobile.sdk", name = "ads-mobile-sdk", version.ref = "adsMobileSdk" }
 play-services-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "play-services-auth" }
 play-services-auth-api-phone = { group = "com.google.android.gms", name = "play-services-auth-api-phone", version.ref = "play-services-auth-api-phone" }
 play-services-code-scanner = { module = "com.google.android.gms:play-services-code-scanner", version.ref = "play-services-code-scanner" }

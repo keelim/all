@@ -1,0 +1,138 @@
+package com.keelim.nandadiagnosis.wellness
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.keelim.data.repository.WellnessRepository
+import com.keelim.model.wellness.Measurement
+import com.keelim.model.wellness.Routine
+import com.keelim.model.wellness.RoutineCompletion
+import com.keelim.model.wellness.WellnessPreferences
+import com.keelim.nandadiagnosis.wellness.domain.MeasurementState
+import com.keelim.nandadiagnosis.wellness.domain.RoutineKind
+import com.keelim.nandadiagnosis.wellness.domain.WellnessRules
+import dagger.hilt.android.lifecycle.HiltViewModel
+import java.time.LocalDate
+import javax.inject.Inject
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
+
+@HiltViewModel
+class WellnessViewModel @Inject constructor(
+    private val repository: WellnessRepository,
+) : ViewModel() {
+    private val validationErrors = MutableStateFlow<List<String>>(emptyList())
+
+    val uiState: StateFlow<WellnessUiState> =
+        combine(repository.data, validationErrors) { data, errors ->
+            WellnessUiState(
+                measurements = data.measurements,
+                routines = data.routines,
+                completions = data.completions,
+                preferences = data.preferences,
+                validationErrors = errors,
+            )
+        }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.Eagerly,
+            initialValue =
+                WellnessUiState(preferences = repository.preferencesSnapshot()),
+        )
+
+    fun acceptOnboarding() {
+        viewModelScope.launch { repository.setOnboardingAccepted(true) }
+    }
+
+    fun saveMeasurement(
+        length: String,
+        circumference: String,
+        state: MeasurementState,
+        date: LocalDate = LocalDate.now(),
+    ) {
+        val lengthCm = WellnessRules.parseLengthCm(length)
+        val circumferenceCm = WellnessRules.parseCircumferenceCm(circumference)
+        if (lengthCm == null || circumferenceCm == null) {
+            validationErrors.value = listOf("measurement")
+            return
+        }
+
+        validationErrors.value = emptyList()
+        viewModelScope.launch {
+            repository.upsertMeasurement(
+                Measurement(
+                    localDate = date.toString(),
+                    lengthCm = lengthCm,
+                    circumferenceCm = circumferenceCm,
+                    state = state.name,
+                ),
+            )
+        }
+    }
+
+    fun addRoutine(
+        name: String,
+        kind: RoutineKind,
+        date: LocalDate,
+    ) {
+        val trimmedName = name.trim()
+        if (trimmedName.isEmpty()) {
+            validationErrors.value = listOf("routineName")
+            return
+        }
+
+        validationErrors.value = emptyList()
+        viewModelScope.launch {
+            repository.insertRoutine(
+                Routine(
+                    name = trimmedName,
+                    kind = kind.name,
+                    createdLocalDate = date.toString(),
+                ),
+            )
+        }
+    }
+
+    fun deleteRoutine(routine: Routine) {
+        viewModelScope.launch { repository.deleteRoutine(routine) }
+    }
+
+    fun setRoutineCompletion(
+        routine: Routine,
+        date: LocalDate,
+        checked: Boolean,
+        duration: Int?,
+    ) {
+        val kind = RoutineKind.valueOf(routine.kind)
+        val durationMinutes = duration.takeUnless { kind == RoutineKind.SUPPLEMENT }
+
+        validationErrors.value = emptyList()
+        viewModelScope.launch {
+            val completion =
+                RoutineCompletion(
+                    routineId = routine.id,
+                    localDate = date.toString(),
+                    durationMinutes = durationMinutes,
+                )
+            if (checked) {
+                if (!WellnessRules.isValidDuration(kind, durationMinutes)) {
+                    validationErrors.value = listOf("duration")
+                    return@launch
+                }
+                repository.upsertRoutineCompletion(completion)
+            } else {
+                repository.deleteRoutineCompletion(completion)
+            }
+        }
+    }
+}
+
+data class WellnessUiState(
+    val measurements: List<Measurement> = emptyList(),
+    val routines: List<Routine> = emptyList(),
+    val completions: List<RoutineCompletion> = emptyList(),
+    val preferences: WellnessPreferences = WellnessPreferences(),
+    val validationErrors: List<String> = emptyList(),
+)

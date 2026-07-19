@@ -1,10 +1,3 @@
 <resources>
-    <style name="AppTheme" parent="Theme.Material3.DayNight">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorError">@color/error</item>
-        <item name="android:textColor">@color/main_text_color</item>
-        <item name="toolbarStyle">@style/MyToolbar</item>
-    </style>
+    <style name="Theme.NANDA" parent="android:style/Theme.Material.NoActionBar" />
 </resources>

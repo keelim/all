@@ -27,6 +27,12 @@ class WellnessRulesTest :
             WellnessRules.parseCircumferenceCm("0.9") shouldBe null
         }
 
+        test("goal progress is based on the distance from its baseline") {
+            WellnessRules.goalProgress(baselineCm = 10.0, currentCm = 12.5, targetCm = 15.0) shouldBe 0.5f
+            WellnessRules.goalProgress(baselineCm = 10.0, currentCm = 16.0, targetCm = 15.0) shouldBe 1f
+            WellnessRules.goalProgress(baselineCm = 10.0, currentCm = 8.0, targetCm = 15.0) shouldBe 0f
+        }
+
         test("invalid measurement inputs are rejected") {
             listOf("", "   ", "not-a-number", "0", "-1", "1.11", "40.1").forEach { input ->
                 WellnessRules.parseLengthCm(input) shouldBe null

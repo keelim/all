@@ -26,6 +26,19 @@ object WellnessRules {
 
     fun parseCircumferenceCm(input: String): Double? = parseMeasurement(input, 1.0..25.0)
 
+    fun goalProgress(
+        baselineCm: Double,
+        currentCm: Double,
+        targetCm: Double,
+    ): Float {
+        val startingDistance = kotlin.math.abs(targetCm - baselineCm)
+        if (startingDistance == 0.0) return 1f
+        if ((targetCm - baselineCm) * (targetCm - currentCm) <= 0.0) return 1f
+        return (1.0 - kotlin.math.abs(targetCm - currentCm) / startingDistance)
+            .toFloat()
+            .coerceIn(0f, 1f)
+    }
+
     fun isValidDuration(
         kind: RoutineKind,
         durationMinutes: Int?,

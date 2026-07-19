@@ -20,13 +20,15 @@ data class RoutineCompletion(
     val durationMinutes: Int? = null,
 )
 
-data class WellnessPreferences(
-    val onboardingAccepted: Boolean = false,
+data class WellnessGoal(
+    val metric: String,
+    val targetCm: Double,
+    val baselineCm: Double,
 )
 
 data class WellnessData(
     val measurements: List<Measurement> = emptyList(),
     val routines: List<Routine> = emptyList(),
     val completions: List<RoutineCompletion> = emptyList(),
-    val preferences: WellnessPreferences = WellnessPreferences(),
+    val goal: WellnessGoal? = null,
 )

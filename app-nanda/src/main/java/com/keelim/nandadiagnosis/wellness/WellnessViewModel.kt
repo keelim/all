@@ -6,7 +6,7 @@ import com.keelim.data.repository.WellnessRepository
 import com.keelim.model.wellness.Measurement
 import com.keelim.model.wellness.Routine
 import com.keelim.model.wellness.RoutineCompletion
-import com.keelim.model.wellness.WellnessPreferences
+import com.keelim.model.wellness.WellnessGoal
 import com.keelim.nandadiagnosis.wellness.domain.MeasurementState
 import com.keelim.nandadiagnosis.wellness.domain.RoutineKind
 import com.keelim.nandadiagnosis.wellness.domain.WellnessRules
@@ -32,18 +32,17 @@ class WellnessViewModel @Inject constructor(
                 measurements = data.measurements,
                 routines = data.routines,
                 completions = data.completions,
-                preferences = data.preferences,
+                goal = data.goal,
                 validationErrors = errors,
             )
         }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.Eagerly,
-            initialValue =
-                WellnessUiState(preferences = repository.preferencesSnapshot()),
+            initialValue = WellnessUiState(),
         )
 
-    fun acceptOnboarding() {
-        viewModelScope.launch { repository.setOnboardingAccepted(true) }
+    init {
+        viewModelScope.launch { repository.initializeDefaultRoutines(LocalDate.now().toString()) }
     }
 
     fun saveMeasurement(
@@ -51,12 +50,12 @@ class WellnessViewModel @Inject constructor(
         circumference: String,
         state: MeasurementState,
         date: LocalDate = LocalDate.now(),
-    ) {
+    ): Boolean {
         val lengthCm = WellnessRules.parseLengthCm(length)
         val circumferenceCm = WellnessRules.parseCircumferenceCm(circumference)
         if (lengthCm == null || circumferenceCm == null) {
             validationErrors.value = listOf("measurement")
-            return
+            return false
         }
 
         validationErrors.value = emptyList()
@@ -70,17 +69,18 @@ class WellnessViewModel @Inject constructor(
                 ),
             )
         }
+        return true
     }
 
     fun addRoutine(
         name: String,
         kind: RoutineKind,
         date: LocalDate,
-    ) {
+    ): Boolean {
         val trimmedName = name.trim()
         if (trimmedName.isEmpty()) {
             validationErrors.value = listOf("routineName")
-            return
+            return false
         }
 
         validationErrors.value = emptyList()
@@ -93,6 +93,38 @@ class WellnessViewModel @Inject constructor(
                 ),
             )
         }
+        return true
+    }
+
+    fun setGoal(
+        metric: GoalMetric,
+        target: String,
+    ): Boolean {
+        val targetCm =
+            when (metric) {
+                GoalMetric.LENGTH -> WellnessRules.parseLengthCm(target)
+                GoalMetric.CIRCUMFERENCE -> WellnessRules.parseCircumferenceCm(target)
+            }
+        val current = uiState.value.measurements.maxByOrNull { it.localDate } ?: run {
+            validationErrors.value = listOf("goalMeasurement")
+            return false
+        }
+        if (targetCm == null) {
+            validationErrors.value = listOf("goal")
+            return false
+        }
+        validationErrors.value = emptyList()
+        val baseline = if (metric == GoalMetric.LENGTH) current.lengthCm else current.circumferenceCm
+        viewModelScope.launch {
+            repository.upsertGoal(
+                WellnessGoal(metric = metric.name, targetCm = targetCm, baselineCm = baseline),
+            )
+        }
+        return true
+    }
+
+    fun clearGoal() {
+        viewModelScope.launch { repository.deleteGoal() }
     }
 
     fun deleteRoutine(routine: Routine) {
@@ -133,6 +165,8 @@ data class WellnessUiState(
     val measurements: List<Measurement> = emptyList(),
     val routines: List<Routine> = emptyList(),
     val completions: List<RoutineCompletion> = emptyList(),
-    val preferences: WellnessPreferences = WellnessPreferences(),
+    val goal: WellnessGoal? = null,
     val validationErrors: List<String> = emptyList(),
 )
+
+enum class GoalMetric { LENGTH, CIRCUMFERENCE }

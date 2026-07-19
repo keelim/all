@@ -48,6 +48,14 @@ data class RoutineCompletionEntity(
     val durationMinutes: Int? = null,
 )
 
+@Entity(tableName = "wellness_goal")
+data class WellnessGoalEntity(
+    @PrimaryKey val id: Int = 0,
+    val metric: String,
+    val targetCm: Double,
+    val baselineCm: Double,
+)
+
 @Dao
 interface WellnessDao {
     @Query("SELECT * FROM measurements ORDER BY localDate DESC")
@@ -59,11 +67,23 @@ interface WellnessDao {
     @Query("SELECT * FROM routine_completions ORDER BY localDate DESC, routineId")
     fun observeRoutineCompletions(): Flow<List<RoutineCompletionEntity>>
 
+    @Query("SELECT * FROM wellness_goal WHERE id = 0")
+    fun observeGoal(): Flow<WellnessGoalEntity?>
+
     @Upsert
     suspend fun upsertMeasurement(measurement: MeasurementEntity)
 
+    @Upsert
+    suspend fun upsertGoal(goal: WellnessGoalEntity)
+
+    @Query("DELETE FROM wellness_goal")
+    suspend fun deleteGoal()
+
     @Insert
     suspend fun insertRoutine(routine: RoutineEntity): Long
+
+    @Insert
+    suspend fun insertRoutines(routines: List<RoutineEntity>)
 
     @Delete
     suspend fun deleteRoutine(routine: RoutineEntity)
@@ -76,7 +96,12 @@ interface WellnessDao {
 }
 
 @Database(
-    entities = [MeasurementEntity::class, RoutineEntity::class, RoutineCompletionEntity::class],
+    entities = [
+        MeasurementEntity::class,
+        RoutineEntity::class,
+        RoutineCompletionEntity::class,
+        WellnessGoalEntity::class,
+    ],
     version = 1,
     exportSchema = true,
 )

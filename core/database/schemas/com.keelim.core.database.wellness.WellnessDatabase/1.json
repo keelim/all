@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "03d26339374704c97aed207fcb0a6e99",
+    "identityHash": "61dd2c3129b0f9b344ca2a884403438c",
     "entities": [
       {
         "tableName": "measurements",
@@ -129,11 +129,47 @@
             ]
           }
         ]
+      },
+      {
+        "tableName": "wellness_goal",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `metric` TEXT NOT NULL, `targetCm` REAL NOT NULL, `baselineCm` REAL NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "metric",
+            "columnName": "metric",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "targetCm",
+            "columnName": "targetCm",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "baselineCm",
+            "columnName": "baselineCm",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        }
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '03d26339374704c97aed207fcb0a6e99')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '61dd2c3129b0f9b344ca2a884403438c')"
     ]
   }
 }

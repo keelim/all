@@ -4,17 +4,19 @@ import com.keelim.model.wellness.Measurement
 import com.keelim.model.wellness.Routine
 import com.keelim.model.wellness.RoutineCompletion
 import com.keelim.model.wellness.WellnessData
-import com.keelim.model.wellness.WellnessPreferences
+import com.keelim.model.wellness.WellnessGoal
 import kotlinx.coroutines.flow.Flow
 
 interface WellnessRepository {
     val data: Flow<WellnessData>
 
-    fun preferencesSnapshot(): WellnessPreferences
-
-    suspend fun setOnboardingAccepted(accepted: Boolean)
+    suspend fun initializeDefaultRoutines(createdLocalDate: String)
 
     suspend fun upsertMeasurement(measurement: Measurement)
+
+    suspend fun upsertGoal(goal: WellnessGoal)
+
+    suspend fun deleteGoal()
 
     suspend fun insertRoutine(routine: Routine): Long
 

@@ -24,6 +24,8 @@ fun WellnessRoute(
         onSaveMeasurement = { length, circumference, state ->
             viewModel.saveMeasurement(length, circumference, state)
         },
+        onSetGoal = viewModel::setGoal,
+        onClearGoal = viewModel::clearGoal,
         onAddRoutine = { name, kind ->
             viewModel.addRoutine(name, kind, LocalDate.now())
         },

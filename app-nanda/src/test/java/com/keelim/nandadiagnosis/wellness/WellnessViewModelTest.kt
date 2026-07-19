@@ -5,7 +5,7 @@ import com.keelim.model.wellness.Measurement
 import com.keelim.model.wellness.Routine
 import com.keelim.model.wellness.RoutineCompletion
 import com.keelim.model.wellness.WellnessData
-import com.keelim.model.wellness.WellnessPreferences
+import com.keelim.model.wellness.WellnessGoal
 import com.keelim.nandadiagnosis.wellness.domain.MeasurementState
 import com.keelim.nandadiagnosis.wellness.domain.RoutineKind
 import io.kotest.core.spec.style.FunSpec
@@ -82,16 +82,6 @@ class WellnessViewModelTest : FunSpec({
         }
     }
 
-    test("onboarding acceptance is reflected in UI state") {
-        runTest {
-            val viewModel = WellnessViewModel(FakeWellnessRepository())
-
-            viewModel.acceptOnboarding()
-            advanceUntilIdle()
-
-            viewModel.uiState.value.preferences.onboardingAccepted shouldBe true
-        }
-    }
 })
 
 private class FakeWellnessRepository : WellnessRepository {
@@ -99,13 +89,7 @@ private class FakeWellnessRepository : WellnessRepository {
     override val data = state
     private var nextRoutineId = 1L
 
-    override fun preferencesSnapshot(): WellnessPreferences = state.value.preferences
-
-    override suspend fun setOnboardingAccepted(accepted: Boolean) {
-        state.update {
-            it.copy(preferences = WellnessPreferences(onboardingAccepted = accepted))
-        }
-    }
+    override suspend fun initializeDefaultRoutines(createdLocalDate: String) = Unit
 
     override suspend fun upsertMeasurement(measurement: Measurement) {
         state.update {
@@ -116,6 +100,14 @@ private class FakeWellnessRepository : WellnessRepository {
                     } + measurement,
             )
         }
+    }
+
+    override suspend fun upsertGoal(goal: WellnessGoal) {
+        state.update { it.copy(goal = goal) }
+    }
+
+    override suspend fun deleteGoal() {
+        state.update { it.copy(goal = null) }
     }
 
     override suspend fun insertRoutine(routine: Routine): Long {

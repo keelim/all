@@ -5,6 +5,7 @@ build/
 
 # Local properties
 local.properties
+local.defaults.properties
 
 # IDE / Editor files
 .idea/
@@ -21,3 +22,5 @@ local.properties
 # Firebase
 google-services.json
 
+# Debug logs
+debug-log.json

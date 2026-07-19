@@ -78,6 +78,8 @@ class KeelimAndroidApplicationPlugin : Plugin<Project> {
     }
 
     private fun Project.shouldApplyOssLicensesPlugin(): Boolean {
+        if (path == ":app-nanda") return false
+
         val enabledByProperty = providers.gradleProperty("enableOssLicenses")
             .orNull
             ?.toBooleanStrictOrNull() == true

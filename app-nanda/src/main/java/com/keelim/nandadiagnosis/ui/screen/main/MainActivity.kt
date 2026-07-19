@@ -7,8 +7,8 @@ import androidx.activity.viewModels
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.getValue
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.ui.graphics.Color
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.nandadiagnosis.wellness.WellnessViewModel
 import com.keelim.nandadiagnosis.wellness.ads.WellnessConsentAdsController
 import com.keelim.nandadiagnosis.wellness.ui.WellnessRoute
@@ -48,7 +48,7 @@ class MainActivity : ComponentActivity() {
             MaterialTheme(colorScheme = BuddyDarkColorScheme) {
                 WellnessRoute(
                     viewModel = wellnessViewModel,
-                    canRequestAds = adsState.canRequestAds,
+                    canLoadAd = adsState.canRequestAds,
                 )
             }
         }

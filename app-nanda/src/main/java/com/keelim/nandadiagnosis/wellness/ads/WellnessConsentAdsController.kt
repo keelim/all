@@ -72,18 +72,22 @@ class WellnessConsentAdsController(
         if (consentCanRequestAds && !mobileAdsInitializationRequested) {
             mobileAdsInitializationRequested = true
             activity.lifecycleScope.launch(Dispatchers.IO) {
-                val initialized =
-                    runCatching {
-                        val initializationConfig =
-                            InitializationConfig.Builder(
-                                BuildConfig.AD_NANDA_APPLICATION_ID,
-                            ).build()
-                        MobileAds.initialize(activity, initializationConfig) {}
-                    }.isSuccess
-
-                withContext(Dispatchers.Main) {
-                    mobileAdsInitialized = initialized
-                    updateState(consentInformation.canRequestAds())
+                runCatching {
+                    val initializationConfig =
+                        InitializationConfig.Builder(
+                            BuildConfig.AD_NANDA_APPLICATION_ID,
+                        ).build()
+                    MobileAds.initialize(activity, initializationConfig) {
+                        activity.lifecycleScope.launch {
+                            mobileAdsInitialized = true
+                            updateState(consentInformation.canRequestAds())
+                        }
+                    }
+                }.onFailure {
+                    withContext(Dispatchers.Main) {
+                        mobileAdsInitializationRequested = false
+                        updateState(consentInformation.canRequestAds())
+                    }
                 }
             }
         }
@@ -95,7 +99,7 @@ class WellnessConsentAdsController(
         mutableState.value =
             wellnessAdsState(
                 consentCanRequestAds = consentCanRequestAds,
-                mobileAdsInitializationRequested = mobileAdsInitialized,
+                mobileAdsInitialized = mobileAdsInitialized,
                 privacyOptionsRequirementStatus =
                     consentInformation.privacyOptionsRequirementStatus,
             )
@@ -104,11 +108,11 @@ class WellnessConsentAdsController(
 
 internal fun wellnessAdsState(
     consentCanRequestAds: Boolean,
-    mobileAdsInitializationRequested: Boolean,
+    mobileAdsInitialized: Boolean,
     privacyOptionsRequirementStatus: ConsentInformation.PrivacyOptionsRequirementStatus,
 ): WellnessAdsState =
     WellnessAdsState(
-        canRequestAds = consentCanRequestAds && mobileAdsInitializationRequested,
+        canRequestAds = consentCanRequestAds && mobileAdsInitialized,
         privacyOptionsRequired =
             privacyOptionsRequirementStatus ==
                 ConsentInformation.PrivacyOptionsRequirementStatus.REQUIRED,

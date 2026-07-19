@@ -13,11 +13,6 @@ fun WellnessRoute(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    if (!uiState.preferences.onboardingAccepted) {
-        OnboardingGate(onAccept = viewModel::acceptOnboarding)
-        return
-    }
-
     WellnessScreen(
         uiState = uiState,
         canLoadAd = canLoadAd,

@@ -1,5 +1,7 @@
 package com.keelim.core.database
 
+import com.keelim.core.database.wellness.WellnessDao
+import com.keelim.core.database.wellness.WellnessDatabase
 import com.keelim.shared.data.database.AllDatabase
 import com.keelim.shared.data.database.ArduconDatabase
 import com.keelim.shared.data.database.MyGradeAppDatabase
@@ -28,6 +30,10 @@ import jakarta.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object DaoModule {
+    @Provides
+    @Singleton
+    fun providesWellnessDao(database: WellnessDatabase): WellnessDao = database.wellnessDao()
+
 
     @Provides
     @Singleton

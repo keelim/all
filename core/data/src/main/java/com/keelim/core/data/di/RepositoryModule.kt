@@ -12,6 +12,7 @@ import com.keelim.core.data.source.length.LengthRepositoryImpl
 import com.keelim.core.data.source.linkinspector.LinkInspectorRepositoryImpl
 import com.keelim.core.data.source.note.NoteRepositoryImpl
 import com.keelim.core.data.source.notification.NotificationRepositoryImpl
+import com.keelim.core.data.source.wellness.WellnessRepositoryImpl
 import com.keelim.core.data.source.prompt.PromptRepositoryImpl
 import com.keelim.core.data.source.analytics.StudyAnalyticsRepositoryImpl
 import com.keelim.data.repository.AlarmRepository
@@ -25,6 +26,7 @@ import com.keelim.data.repository.NoteRepository
 import com.keelim.data.repository.NotificationRepository
 import com.keelim.data.repository.PromptRepository
 import com.keelim.data.repository.TimeRepository
+import com.keelim.data.repository.WellnessRepository
 import com.keelim.data.repository.StudyAnalyticsRepository
 import com.keelim.data.repository.calculator.CalculatorHistoryRepository
 import com.keelim.data.repository.linkinspector.LinkInspectorRepository
@@ -48,6 +50,9 @@ import dagger.hilt.components.SingletonComponent
 @Module
 @InstallIn(SingletonComponent::class)
 interface RepositoryModule {
+    @Binds
+    fun bindsWellnessRepository(repository: WellnessRepositoryImpl): WellnessRepository
+
     @Binds
     fun bindsIoRepository(
         repository: HistoryRepositoryImpl,

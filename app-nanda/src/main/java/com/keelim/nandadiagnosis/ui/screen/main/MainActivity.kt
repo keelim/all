@@ -1,153 +1,56 @@
-/*
- * Designed and developed by 2020 keelim (Jaehyun Kim)
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.keelim.nandadiagnosis.ui.screen.main
 
-import android.app.DownloadManager
-import android.content.IntentFilter
-import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
-import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
-import androidx.core.content.ContextCompat
-import androidx.core.net.toUri
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.compose.LifecycleEventEffect
+import androidx.activity.viewModels
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.lifecycleScope
-import com.airbnb.deeplinkdispatch.DeepLink
-import com.keelim.common.extensions.toast
-import com.keelim.commonAndroid.util.DownloadReceiver
-import com.keelim.composeutil.ui.theme.KeelimTheme
-import com.keelim.core.resource.Res
-import com.keelim.core.resource.nanda_database_exists_toast
-import com.keelim.core.resource.nanda_download_description
-import com.keelim.core.resource.nanda_download_title
-import com.keelim.core.resource.nanda_download_url
-import com.keelim.nandadiagnosis.ui.screen.NandaApp
-import com.keelim.shared.data.UserStateStore
-import com.keelim.shared.data.model.ThemeType
-import dagger.Lazy
+import androidx.compose.ui.graphics.Color
+import com.keelim.nandadiagnosis.wellness.WellnessViewModel
+import com.keelim.nandadiagnosis.wellness.ads.WellnessConsentAdsController
+import com.keelim.nandadiagnosis.wellness.ui.WellnessRoute
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import timber.log.Timber
-import java.io.File
-import jakarta.inject.Inject
-import kotlinx.coroutines.runBlocking
-import org.jetbrains.compose.resources.ExperimentalResourceApi
-import org.jetbrains.compose.resources.StringResource
-import org.jetbrains.compose.resources.getString
 
-@OptIn(ExperimentalMaterial3WindowSizeClassApi::class, ExperimentalResourceApi::class)
-@DeepLink("all://screen/{name}")
+private val BuddyDarkColorScheme =
+    darkColorScheme(
+        primary = Color(0xFF42C4DD),
+        onPrimary = Color(0xFF001F27),
+        primaryContainer = Color(0xFF173D4A),
+        onPrimaryContainer = Color(0xFFC5F3FC),
+        secondary = Color(0xFFFFB000),
+        onSecondary = Color(0xFF2B1700),
+        background = Color(0xFF071625),
+        onBackground = Color(0xFFF4F7FA),
+        surface = Color(0xFF102132),
+        onSurface = Color(0xFFF4F7FA),
+        surfaceVariant = Color(0xFF172A3D),
+        onSurfaceVariant = Color(0xFFAEBAC6),
+        outline = Color(0xFF3A4E62),
+        outlineVariant = Color(0xFF26394C),
+        error = Color(0xFFFF8A80),
+        onError = Color(0xFF3B0805),
+    )
+
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    @Inject
-    lateinit var downloadReceiver: DownloadReceiver
-
-    @Inject
-    lateinit var userStateStore: Lazy<UserStateStore>
-
-    private var isReceiverRegistered = false
+    private val wellnessViewModel: WellnessViewModel by viewModels()
+    private lateinit var adsController: WellnessConsentAdsController
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        installSplashScreen()
         super.onCreate(savedInstanceState)
+        adsController = WellnessConsentAdsController(this)
+        adsController.requestConsent()
         setContent {
-            val themeType =
-                userStateStore.get().themeTypeFlow.collectAsStateWithLifecycle(ThemeType.LIGHT).value
-            val isDarkThem = when (themeType) {
-                ThemeType.DARK -> true
-                ThemeType.LIGHT -> false
-            }
-            KeelimTheme(
-                isDarkTheme = isDarkThem,
-            ) {
-                NandaApp(
-                    windowSizeClass = calculateWindowSizeClass(this),
+            val adsState by adsController.state.collectAsStateWithLifecycle()
+            MaterialTheme(colorScheme = BuddyDarkColorScheme) {
+                WellnessRoute(
+                    viewModel = wellnessViewModel,
+                    canRequestAds = adsState.canRequestAds,
                 )
             }
-            LifecycleEventEffect(
-                event = Lifecycle.Event.ON_CREATE,
-            ) {
-                updateVisitedTime()
-            }
-        }
-        if (intent.getBooleanExtra(DeepLink.IS_DEEP_LINK, false)) {
-            val parameters = intent.extras
-            Timber.d("[deep link] name ${parameters?.getString("name")}")
         }
     }
-
-    override fun onStart() {
-        super.onStart()
-        fileChecking()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        if (isReceiverRegistered) {
-            unregisterReceiver(downloadReceiver)
-        }
-    }
-
-    private fun fileChecking() {
-        if (File(getExternalFilesDir(null), "nanda.db").exists().not()) {
-            downloadDatabase()
-        } else {
-            toast(readString(Res.string.nanda_database_exists_toast))
-        }
-    }
-
-    private fun downloadDatabase() {
-        ContextCompat.registerReceiver(
-            this,
-            downloadReceiver,
-            IntentFilter().apply {
-                addAction(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
-                addAction(DownloadManager.ACTION_NOTIFICATION_CLICKED)
-            },
-            ContextCompat.RECEIVER_NOT_EXPORTED,
-        )
-        isReceiverRegistered = true
-
-        DownloadManager.Request(readString(Res.string.nanda_download_url).toUri())
-            .setTitle(readString(Res.string.nanda_download_title))
-            .setDescription(readString(Res.string.nanda_download_description))
-            .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-            .setDestinationUri(
-                Uri.fromFile(File(applicationContext.getExternalFilesDir(null), "nanda.db")),
-            )
-            .setAllowedOverMetered(true)
-            .setAllowedOverRoaming(true)
-            .also(getSystemService(DownloadManager::class.java)::enqueue)
-    }
-
-    private fun updateVisitedTime() {
-        lifecycleScope.launch {
-            withContext(Dispatchers.IO) {
-                userStateStore.get().updateVisitedTime()
-            }
-        }
-    }
-
-    private fun readString(resource: StringResource): String =
-        runBlocking { getString(resource) }
 }

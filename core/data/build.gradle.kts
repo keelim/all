@@ -6,9 +6,15 @@ plugins {
 }
 
 
-android { namespace = "com.keelim.core.data" }
-
 android {
+    namespace = "com.keelim.core.data"
+
+    defaultConfig {
+        buildConfigField("String", "GENERATIVE", "\"\"")
+        buildConfigField("String", "NOTIFICATION_URL", "\"\"")
+        buildConfigField("String", "SHEET_KEY", "\"\"")
+    }
+
     testOptions {
         unitTests {
             isIncludeAndroidResources = true
@@ -46,8 +52,8 @@ dependencies {
 
     testImplementation(libs.kotlinx.coroutines.android)
     testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(platform(libs.androidx.compose.bom))
     testImplementation(libs.ktor.client.cio)
-    testImplementation(libs.robolectric)
     testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.12.2")
 
     implementation(libs.play.services.time)

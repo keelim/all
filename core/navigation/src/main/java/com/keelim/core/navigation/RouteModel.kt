@@ -55,47 +55,6 @@ sealed interface CnuBusRoute : AppRoute {
     data object Map : CnuBusRoute
 }
 
-sealed interface NandaRoute : AppRoute {
-    @Serializable
-    data object Category : NandaRoute
-
-    @Serializable
-    data class Diagnosis(
-        val category: String,
-        val num: String,
-    ) : NandaRoute
-
-    @Serializable
-    data class Web(val uri: String) : NandaRoute
-
-    @Serializable
-    data object Nutrient : NandaRoute
-
-    @Serializable
-    data object NutrientTimer : NandaRoute
-
-    @Serializable
-    data object Exercise : NandaRoute
-
-    @Serializable
-    data object Food : NandaRoute
-
-    @Serializable
-    data class FoodEdit(val title: String) : NandaRoute
-
-    // 길이 기록 화면 추가
-    @Serializable
-    data object Length : NandaRoute
-
-    // 수분 섭취 기록 화면 추가
-    @Serializable
-    data object WaterIntake : NandaRoute
-
-    // 복약 알림 관리 화면 추가
-    @Serializable
-    data object Medication : NandaRoute
-}
-
 sealed interface ComssaRoute : AppRoute {
     @Serializable
     data object Calendar : ComssaRoute

@@ -86,7 +86,7 @@ private enum class WellnessTab {
 @Composable
 internal fun WellnessScreen(
     uiState: WellnessUiState,
-    showRoutineAd: Boolean,
+    canLoadAd: Boolean,
     onSaveMeasurement: (String, String, MeasurementState) -> Boolean,
     onSetGoal: (GoalMetric, String) -> Boolean,
     onClearGoal: () -> Unit,
@@ -108,9 +108,10 @@ internal fun WellnessScreen(
         },
         bottomBar = {
             Column {
-                if (showRoutineAd) {
-                    RoutineAdBanner(modifier = Modifier.fillMaxWidth())
-                }
+                RoutineAdBanner(
+                    canLoadAd = canLoadAd,
+                    modifier = Modifier.fillMaxWidth(),
+                )
                 NavigationBar(containerColor = MaterialTheme.colorScheme.background) {
                     WellnessTab.entries.forEachIndexed { index, tab ->
                         val selected = selectedTabIndex == index

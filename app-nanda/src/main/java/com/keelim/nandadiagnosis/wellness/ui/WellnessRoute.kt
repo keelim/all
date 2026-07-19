@@ -9,7 +9,7 @@ import java.time.LocalDate
 @Composable
 fun WellnessRoute(
     viewModel: WellnessViewModel,
-    canRequestAds: Boolean,
+    canLoadAd: Boolean,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -20,7 +20,7 @@ fun WellnessRoute(
 
     WellnessScreen(
         uiState = uiState,
-        showRoutineAd = canRequestAds,
+        canLoadAd = canLoadAd,
         onSaveMeasurement = { length, circumference, state ->
             viewModel.saveMeasurement(length, circumference, state)
         },

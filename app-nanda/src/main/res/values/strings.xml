@@ -1,252 +1,91 @@
 <resources>
-    <string name="app_name">난다진단</string>
+    <string name="app_name">Buddy Daily</string>
+    <string name="wellness_tab_buddy">Buddy</string>
+    <string name="wellness_tab_routine">Routine</string>
+    <string name="wellness_privacy_mode">Privacy mode</string>
 
-    <string-array name="diagnosis1">
-        <item>여가 활동 부족</item>
-        <item>비활동적 생활양식</item>
-        <item>허약노인증후군</item>
-        <item>허약노인증후군의 위험</item>
-        <item>지역사회 건강 부족</item>
-        <item>위험성 있는 건강 행위</item>
-        <item>비효과적 건강유지</item>
-        <item>비효과적 건강관리</item>
-        <item>건강관리 향상을 위한 준비</item>
-        <item>비효과적 가족 건강관리</item>
-        <item>불이행</item>
-        <item>비효과적보호</item>
-        <item>불충분한 모유</item>
-        <item>비효과적 모유수유</item>
-        <item>모유수유 중단</item>
-        <item>모유수유 향상을 위한 준비</item>
-        <item>비효과적 영아수유 양상</item>
-        <item>영양 불균형</item>
-        <item>영양 향상을 위한 준비</item>
-        <item>비만</item>
-        <item>과체중</item>
-        <item>과체중의 위험</item>
-        <item>연하장애</item>
-        <item>불안정한 혈당수치의 위험</item>
-        <item>신생아의 황달</item>
-        <item>신생아의 황달의 위험</item>
-        <item>간기능 장애의 위험</item>
-        <item>전해질 불균형의 위험</item>
-        <item>체액 균형 향상을 위한 준비</item>
-        <item>체액 부족</item>
-        <item>체액 부족의 위험</item>
-        <item>체액 과다</item>
-        <item>체액 불균형의 위험</item>
-        <item>배뇨장애</item>
-        <item>배뇨 향상을 위한 준비</item>
-        <item>기능적 요실금</item>
-        <item>익류성 요실금</item>
-        <item>반사성 요실금</item>
-        <item>긴장성 요실금</item>
-        <item>긴박성 요실금</item>
-        <item>긴박성 요실금의 위험</item>
-        <item>요정체</item>
-        <item>변비</item>
-        <item>변비의 위험</item>
-        <item>만성 기능성 변비</item>
-        <item>만성 기능성 변비의 위험</item>
-        <item>지각된 변비</item>
-        <item>설사</item>
-        <item>기능장애성 위장관 운동</item>
-        <item>기능장애성 위장관 운동의 위험</item>
-        <item>변실금</item>
-        <item>가스교환 장애</item>
-        <item>불면증</item>
-        <item>수면 박탈</item>
-        <item>수면 향상을 위한 준비</item>
-        <item>수면 양상 장애</item>
-        <item>비사용 증후군의 위험</item>
-        <item>침상 기동성 장애</item>
-        <item>신체 기동성 장애</item>
-        <item>휠체어 기동성 장애</item>
-        <item>좌위수행 장애</item>
-        <item>기립수행 장애</item>
-        <item>이동 장애</item>
-        <item>보행 장애</item>
-        <item>피로</item>
-        <item>배회</item>
-        <item>활동 지속성 장애</item>
-        <item>활동 지속성 장애의 위험</item>
-        <item>비효과적 호흡 양상</item>
-        <item>심박출량 감소</item>
-        <item>심박출량 감소의 위험</item>
-        <item>심혈관기능 손상의 위험</item>
-        <item>비효과적 위장관 관류의 위험</item>
-        <item>비효과적 신장 관류의 위험</item>
-        <item>자발적 환기장애</item>
-        <item>심장조직 관류 감소의 위험</item>
-        <item>비효과적 뇌조직 관류의 위험</item>
-        <item>비효과적 말초조직 관류</item>
-        <item>비효과적 말초조직 관류의 위험</item>
-        <item>호흡기 이탈 반응 장애</item>
-        <item>가정 유지 장애</item>
-        <item>목욕 자기돌봄 결핍</item>
-        <item>옷 입기 자기돌봄 결핍</item>
-        <item>음식 섭취 자기돌봄 결핍</item>
-        <item>용변 자기돌봄 결핍</item>
-        <item>자기돌봄을 향상을 위한 준비</item>
-        <item>자기무시</item>
-        <item>편측성 지각이상</item>
-        <item>급성 혼동</item>
-        <item>급성 혼동의 위험</item>
-        <item>만성 혼동</item>
-        <item>불안정한 정서 조절</item>
-        <item>비효과적 충동 조절</item>
-        <item>지식 부족</item>
-        <item>지식 향상을 위한 준비</item>
-        <item>기억장애</item>
-        <item>의사소통 향상을 위한 준비</item>
-        <item>언어적 의사소통 장애</item>
-        <item>희망 향상을 위한 준비</item>
-        <item>절망감</item>
-        <item>인간 존엄성 혼란 위험</item>
-        <item>자아정체성 혼란</item>
-        <item>자아정체성 혼란의 위험</item>
-        <item>자아개념 향상을 위한 준비</item>
-        <item>만성적 자존감 저하</item>
-        <item>만성적 자존감 저하의 위험</item>
-        <item>상황적 자존감 저하</item>
-        <item>상황적 자존감 저하의 위험</item>
-        <item>신체상 혼란</item>
-        <item>돌봄제공자의 역할 긴장</item>
-        <item>돌봄제공자의 역할 긴장의 위험</item>
-        <item>부모 역할 장애</item>
-        <item>부모 역할 향상을 위한 준비</item>
-        <item>부모 역할 장애의 위험</item>
-        <item>애착장애 위험</item>
-        <item>가족과정 기능장애</item>
-        <item>가족과정 손상</item>
-        <item>가족과정 향상을 위한 준비</item>
-        <item>비효과적 관계</item>
-        <item>관계 향상을 위한 준비</item>
-        <item>비효과적 관계의 위험</item>
-        <item>부모 역할 갈등</item>
-        <item>비효과적 역할 수행</item>
-        <item>사회적 상호작용 장애</item>
-        <item>start 성기능 장애</item>
-        <item>비효과적 성적 양상</item>
-        <item>비효과적 임신과 출산과정</item>
-        <item>임신과 출산과정 향상을 위한 준비</item>
-        <item>비효과적 임신과 출산과정의 위험</item>
-        <item>모아관계 장애의 위험 end</item>
-        <item>start 외상후 증후군</item>
-        <item>외상후 증후군의 위험</item>
-        <item>강간 상해 증후군</item>
-        <item>환경변화 스트레스 증후군</item>
-        <item>환경변화 스트레스 증후군의 위험</item>
-        <item>비효과적 활동계획</item>
-        <item>비효과적 활동계획의 위험</item>
-        <item>불안</item>
-        <item>방어적 대처</item>
-        <item>비효과적 대처</item>
-        <item>대처 향상을 위한 준비</item>
-        <item>비효과적 지역사회 대처</item>
-        <item>지역사회 대처 향상을 위한 준비</item>
-        <item>손상된 가족 대처</item>
-        <item>가족 대처 불능</item>
-        <item>가족 대처 향상을 위한 준비</item>
-        <item>죽음 불안</item>
-        <item>비효과적 부정</item>
-        <item>두려움</item>
-        <item>슬픔</item>
-        <item>기능이상을 유발하는 슬픔</item>
-        <item>기능이상을 유발하는 슬픔의 위험</item>
-        <item>기분 조절장애</item>
-        <item>파워 향상을 위한 준비</item>
-        <item>무력감</item>
-        <item>무력감의 위험</item>
-        <item>극복력 장애</item>
-        <item>극복력 향상을 위한 준비</item>
-        <item>극복력 장애의 위험</item>
-        <item>만성비탄</item>
-        <item>스트레스 과다</item>
-        <item>두 개 내 적용능력 감소</item>
-        <item>자율적 반사장애</item>
-        <item>자율적 반사장애의 위험</item>
-        <item>비조직적 영아행동</item>
-        <item>조직적 영아행동 향상을 위한 준비</item>
-        <item>비조직적 영아행동의 위험 </item>
-        <item>영적 안녕 향상을 위한 준비end</item>
-        <item>start 의사결정 향상을 위한 준비</item>
-        <item>의사결정 갈등</item>
-        <item>자주적 의사결정 장애</item>
-        <item>자주적 의사결정 향상을 위한 준비</item>
-        <item>자주적 의사결정 장애의 위험</item>
-        <item>도덕적 고뇌</item>
-        <item>손상된 신앙심</item>
-        <item>신앙심 향상을 위한 준비</item>
-        <item>신앙심 손상의 위험</item>
-        <item>영적 고뇌</item>
-        <item>영적 고뇌의 위험 end</item>
-        <item>감염의 위험</item>
-        <item>비효과적 기도 청결</item>
-        <item>흡인의 위험</item>
-        <item>출혈의 위험</item>
-        <item>안구건조의 위험</item>
-        <item>낙상의 위험</item>
-        <item>상해의 위험</item>
-        <item>각막손상의 위험</item>
-        <item>수술 중 체위와 관련된 상해의 위험</item>
-        <item>열손상의 위험</item>
-        <item>요로손상의 위험</item>
-        <item>치열장애</item>
-        <item>구강점막 손상</item>
-        <item>구강점막 손상의 위험</item>
-        <item>말초신경 혈관 기능이상의 위험</item>
-        <item>욕창의 위험</item>
-        <item>쇼크의 위험</item>
-        <item>피부 통합성 장애</item>
-        <item>피부 통합성 장애의 위험</item>
-        <item>영아 급사증후군의 위험</item>
-        <item>질식의 위험</item>
-        <item>수술 후 회복 지연</item>
-        <item>수술 후 회복 지연의 위험</item>
-        <item>조직 통합성 장애</item>
-        <item>조직 통합성 장애의 위험</item>
-        <item>외상의 위험</item>
-        <item>혈관 손상의 위험 end</item>
-        <item>타인에 대한 폭력의 위험</item>
-        <item>자신에 대한 폭력의 위험</item>
-        <item>자해</item>
-        <item>자해의 위험</item>
-        <item>자살의 위험</item>
-        <item>오염</item>
-        <item>오염의 위험</item>
-        <item>중독의 위험</item>
-        <item>요오드성 조영제 부작용의 위험</item>
-        <item>알레르기 반응의 위험</item>
-        <item>라텍스 알레르기 반응</item>
-        <item>라텍스 알레르기 반응의 위험</item>
-        <item>체온 불균형의 위험</item>
-        <item>고체온</item>
-        <item>저체온</item>
-        <item>저체온의 위험</item>
-        <item>수술 중 저체온의 위험</item>
-        <item>비효과적 체온조절 end </item>
-        <item>start 안위 손상</item>
-        <item>안위 향상을 위한 준비</item>
-        <item>오심</item>
-        <item>급성 통증</item>
-        <item>만성 통증</item>
-        <item>분만 통증</item>
-        <item>만성 통증 증후군</item>
-        <item>외로움의 위험</item>
-        <item>사회적 고립 end </item>
-        <item>start 불균형적 성장의 위험</item>
-        <item>발달지연의 위험</item>
-        <item>손상된 에너지 end</item>
-    </string-array>
+    <string name="wellness_buddy_title">Today check-in</string>
+    <string name="wellness_buddy_intro">Records stay only on this device.</string>
+    <string name="wellness_measurement_add">Add measurement</string>
+    <string name="wellness_ruler_mode">Ruler mode</string>
+    <string name="wellness_ruler_title">Ruler</string>
+    <string name="wellness_ruler_close">Close ruler</string>
+    <string name="wellness_ruler_hint">Place the item along the screen edge and read the vertical tick marks.</string>
+    <string name="wellness_ruler_calibration">Adjust only if a known ruler does not match the tick marks.</string>
+    <string name="wellness_ruler_record">Record measurement</string>
+    <string name="wellness_measurement_sheet_title">Add measurement</string>
+    <string name="wellness_goal_title">My goal</string>
+    <string name="wellness_goal_set">Set goal</string>
+    <string name="wellness_goal_change">Change</string>
+    <string name="wellness_goal_empty">Set one private measurement goal to follow your progress.</string>
+    <string name="wellness_goal_value">%1$s cm now · %2$s cm target</string>
+    <string name="wellness_goal_private_value">Private measurement goal</string>
+    <string name="wellness_goal_remaining">%1$s cm from target</string>
+    <string name="wellness_goal_clear">Clear goal</string>
+    <string name="wellness_goal_sheet_title">Set measurement goal</string>
+    <string name="wellness_goal_target_label">Target value</string>
+    <string name="wellness_goal_requires_measurement">Save a measurement before setting a goal.</string>
+    <string name="wellness_goal_error">Enter a valid target value.</string>
+    <string name="wellness_goal_save">Save goal</string>
+    <string name="wellness_chart_title">Measurement trend</string>
+    <string name="wellness_chart_week">7 days</string>
+    <string name="wellness_chart_month">30 days</string>
+    <string name="wellness_chart_empty">Add at least two records to see your trend.</string>
+    <string name="wellness_chart_private">Trend is hidden in privacy mode.</string>
+    <string name="wellness_chart_latest">Latest %1$s cm</string>
+    <string name="wellness_length_label">Length</string>
+    <string name="wellness_circumference_label">Circumference</string>
+    <string name="wellness_centimeter_suffix">cm</string>
+    <string name="wellness_measurement_state_label">Measurement state</string>
+    <string name="wellness_measurement_state_relaxed">Basic</string>
+    <string name="wellness_measurement_state_stretched">Stretched</string>
+    <string name="wellness_measurement_state_maximum">Maximum</string>
+    <string name="wellness_measurement_save">Save record</string>
+    <string name="wellness_measurement_error">Enter length from %1$s–%2$s cm and circumference from %3$s–%4$s cm, with up to one decimal place.</string>
+    <string name="wellness_today_record">Today record</string>
+    <string name="wellness_history_title">Previous records</string>
+    <string name="wellness_measurement_empty">No records saved yet.</string>
+    <string name="wellness_measurement_length_value">Length %1$s cm</string>
+    <string name="wellness_measurement_circumference_value">Circumference %1$s cm</string>
+    <string name="wellness_measurement_state_value">State: %1$s</string>
+    <string name="wellness_show_value">Show</string>
+    <string name="wellness_hide_value">Hide</string>
+    <string name="wellness_recent_seven_days">Recent 7 days</string>
+    <string name="wellness_days_recorded">%1$s days recorded</string>
+    <string name="wellness_record_details">View record details</string>
 
-    <string name="db_path">https://github.com/keelim/Keelim.github.io/raw/master/assets/nanda.db</string>
+    <string name="wellness_weekday_monday">Mon</string>
+    <string name="wellness_weekday_tuesday">Tue</string>
+    <string name="wellness_weekday_wednesday">Wed</string>
+    <string name="wellness_weekday_thursday">Thu</string>
+    <string name="wellness_weekday_friday">Fri</string>
+    <string name="wellness_weekday_saturday">Sat</string>
+    <string name="wellness_weekday_sunday">Sun</string>
 
-    <string name="notification_channel_notice">NOTIFICATION</string>
-    <string name="medication_notification_channel_name">Medication Reminders</string>
-    <string name="medication_notification_channel_description">Notifications for medication reminders</string>
-    <string name="medication_notification_title">💊 복약 시간!</string>
-    <string name="medication_notification_content">%1$s (%2$s) 복용 시간입니다</string>
-    <string name="medication_live_notification_title">💊 %1$s</string>
-    <string name="medication_live_notification_content">%1$s 복용 시간입니다!</string>
+    <string name="wellness_routine_add_title">Add routine</string>
+    <string name="wellness_routine_add_category_title">Add %1$s item</string>
+    <string name="wellness_routine_name_label">Routine name</string>
+    <string name="wellness_routine_kind_label">Type</string>
+    <string name="wellness_routine_kind_supplement">Supplement</string>
+    <string name="wellness_routine_kind_running">Cardio</string>
+    <string name="wellness_routine_kind_exercise">Exercise</string>
+    <string name="wellness_routine_add">Add</string>
+    <string name="wellness_routine_name_error">Enter a routine name.</string>
+    <string name="wellness_routine_list_title">My routines</string>
+    <string name="wellness_routine_intro">Small actions, one day at a time.</string>
+    <string name="wellness_routine_empty">No routines added yet.</string>
+    <string name="wellness_routine_today_complete">Completed today</string>
+    <string name="wellness_routine_completion_description">Mark %1$s complete today</string>
+    <string name="wellness_routine_duration_label">Duration</string>
+    <string name="wellness_minute_suffix">min</string>
+    <string name="wellness_routine_duration_help">Leave blank or enter %1$s–%2$s minutes.</string>
+    <string name="wellness_routine_duration_error">Duration must be blank or between %1$s–%2$s minutes.</string>
+    <string name="wellness_routine_summary">Recent %1$s days: completed %2$s/%3$s days</string>
+    <string name="wellness_routine_delete">Delete</string>
+    <string name="wellness_routine_delete_description">Delete %1$s routine</string>
+    <string name="wellness_routine_delete_title">Delete this routine?</string>
+    <string name="wellness_routine_delete_message">The %1$s routine and its completion history will be deleted.</string>
+
+    <string name="wellness_cancel">Cancel</string>
+    <string name="wellness_confirm_delete">Delete</string>
 </resources>

@@ -21,13 +21,13 @@ dependencies {
     implementation(libs.androidx.lifecycle.process)
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.bio)
+    implementation(libs.androidx.dataStore.preferences)
+    implementation(libs.androidx.work.ktx)
     implementation(libs.fragment.ktx)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(platform(libs.coil.bom))
     implementation(libs.bundles.coil)
-
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.crashlytics)
 
     implementation(libs.hilt.android)
     implementation(libs.kotlinx.coroutines.android)

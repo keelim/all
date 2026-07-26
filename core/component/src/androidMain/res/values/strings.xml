@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="keelim_app_shell_locked">앱이 잠겨 있어요.</string>
+    <string name="keelim_app_shell_unlock">잠금 해제</string>
     <string name="appname">compose</string>
     <string name="empty_view_back_action">뒤로 가기</string>
     <string name="empty_view_default_title">표시할 항목이 없습니다.</string>

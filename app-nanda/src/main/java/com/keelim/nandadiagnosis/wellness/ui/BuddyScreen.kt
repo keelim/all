@@ -1,289 +1,303 @@
 package com.keelim.nandadiagnosis.wellness.ui
 
-import androidx.compose.foundation.Canvas
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
+import androidx.compose.animation.togetherWith
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Close
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.FilterChip
-import androidx.compose.material3.FilterChipDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Slider
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.window.Dialog
-import androidx.compose.ui.window.DialogProperties
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.drawText
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.dp
-import com.keelim.model.wellness.Measurement
-import com.keelim.model.wellness.WellnessGoal
+import com.keelim.model.wellness.Routine
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.wellness.GoalMetric
-import com.keelim.nandadiagnosis.wellness.domain.MeasurementState
+import com.keelim.nandadiagnosis.wellness.WellnessUiState
+import com.keelim.nandadiagnosis.wellness.domain.DailyCheckIn
+import com.keelim.nandadiagnosis.wellness.domain.InsightCalculator
 import com.keelim.nandadiagnosis.wellness.domain.WellnessRules
 import java.time.LocalDate
-
-private enum class ChartRange { WEEK, MONTH }
+import kotlinx.coroutines.launch
 
 @Composable
-internal fun BuddyScreen(
-    measurements: List<Measurement>,
-    goal: WellnessGoal?,
-    hasValidationError: Boolean,
-    hasGoalValidationError: Boolean,
+internal fun TodayScreen(
+    uiState: WellnessUiState,
     privacyMode: Boolean,
-    onSaveMeasurement: (String, String, MeasurementState) -> Boolean,
-    onSetGoal: (GoalMetric, String) -> Boolean,
-    onClearGoal: () -> Unit,
+    onSaveCheckIn: (DailyCheckIn) -> Boolean,
+    onSetRoutineCompletion: (Routine, Boolean, Int?) -> Unit,
 ) {
-    var chartRange by rememberSaveable { mutableStateOf(ChartRange.WEEK) }
-    var selectedMetric by rememberSaveable(goal?.metric) {
-        mutableStateOf(goal?.metric?.toGoalMetric() ?: GoalMetric.LENGTH)
+    val today = remember { LocalDate.now() }
+    val todayIso = today.toString()
+    val todayCheckIn = uiState.checkIns.firstOrNull { it.localDate == todayIso }
+    val todayCompletions = uiState.completions.filter { it.localDate == todayIso }
+    val visibleRoutines = uiState.routines.take(3)
+    val summaries = uiState.routines.map { routine ->
+        WellnessRules.sevenDaySummary(
+            today = today,
+            createdLocalDate = runCatching {
+                LocalDate.parse(routine.createdLocalDate)
+            }.getOrDefault(today),
+            completedLocalDates = uiState.completions
+                .filter { it.routineId == routine.id }
+                .mapNotNull { runCatching { LocalDate.parse(it.localDate) }.getOrNull() }
+                .toSet(),
+        )
     }
-    var showMeasurementSheet by rememberSaveable { mutableStateOf(false) }
-    var showGoalSheet by rememberSaveable { mutableStateOf(false) }
-    var showRulerMode by rememberSaveable { mutableStateOf(false) }
-    val today = LocalDate.now()
-    val visibleMeasurements = measurements.filter { measurement ->
-        runCatching { LocalDate.parse(measurement.localDate) }
-            .getOrNull()
-            ?.isAfter(today.minusDays(if (chartRange == ChartRange.WEEK) 7 else 30)) == true
-    }.sortedBy { it.localDate }
-    val latest = measurements.maxByOrNull { it.localDate }
+    val completed = summaries.sumOf { it.completedDays }
+    val eligible = summaries.sumOf { it.eligibleDays }
+    val progress = if (eligible == 0) 0f else completed.toFloat() / eligible
+    val animatedProgress by animateFloatAsState(
+        targetValue = progress,
+        animationSpec = tween(500),
+        label = "todayWeeklyProgress",
+    )
+    val insight = InsightCalculator.firstPattern(uiState.checkIns)
+    val snackbarHostState = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
+    val savedMessage = stringResource(R.string.wellness_checkin_saved)
+    var showCheckIn by rememberSaveable { mutableStateOf(false) }
 
-    LazyColumn(
-        modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(horizontal = 20.dp, vertical = 24.dp),
-        verticalArrangement = Arrangement.spacedBy(18.dp),
-    ) {
-        item(key = "buddy_heading") {
-            Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                Text(
-                    text = stringResource(R.string.wellness_buddy_title),
-                    style = MaterialTheme.typography.headlineMedium,
-                    color = MaterialTheme.colorScheme.onBackground,
-                )
-                Text(
-                    text = stringResource(R.string.wellness_buddy_intro),
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+    Scaffold(
+        containerColor = MaterialTheme.colorScheme.background,
+        snackbarHost = { SnackbarHost(snackbarHostState) },
+    ) { padding ->
+        LazyColumn(
+            modifier = Modifier.fillMaxSize().padding(padding),
+            contentPadding = PaddingValues(horizontal = 20.dp, vertical = 20.dp),
+            verticalArrangement = Arrangement.spacedBy(22.dp),
+        ) {
+            if (uiState.isLoading) {
+                item(key = "loading") {
+                    LinearProgressIndicator(
+                        modifier = Modifier.fillMaxWidth(),
+                        color = MaterialTheme.colorScheme.primary,
+                        trackColor = MaterialTheme.colorScheme.surfaceVariant,
+                    )
+                }
+            }
+            item(key = "greeting") {
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text(
+                        text = stringResource(R.string.wellness_today_greeting),
+                        style = MaterialTheme.typography.headlineSmall,
+                        color = MaterialTheme.colorScheme.onBackground,
+                    )
+                    Text(
+                        text = stringResource(R.string.wellness_today_intro),
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+            }
+            item(key = "checkIn") {
+                CheckInCard(
+                    checkIn = todayCheckIn,
+                    privacyMode = privacyMode,
+                    onClick = { showCheckIn = true },
                 )
             }
+            item(key = "actionsTitle") {
+                SectionTitle(stringResource(R.string.wellness_today_actions))
+            }
+            if (visibleRoutines.isEmpty()) {
+                item(key = "actionsEmpty") {
+                    SupportingCard(stringResource(R.string.wellness_today_actions_empty))
+                }
+            } else {
+                items(visibleRoutines, key = { it.id }) { routine ->
+                    val isComplete = todayCompletions.any { it.routineId == routine.id }
+                    TodayActionCard(
+                        routine = routine,
+                        isComplete = isComplete,
+                        onToggle = {
+                            onSetRoutineCompletion(routine, !isComplete, null)
+                        },
+                        modifier = Modifier.animateItem(),
+                    )
+                }
+            }
+            item(key = "weeklyProgress") {
+                Card(
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surface,
+                    ),
+                    shape = RoundedCornerShape(20.dp),
+                ) {
+                    Column(
+                        modifier = Modifier.fillMaxWidth().padding(18.dp),
+                        verticalArrangement = Arrangement.spacedBy(12.dp),
+                    ) {
+                        Text(
+                            text = stringResource(R.string.wellness_week_progress_title),
+                            style = MaterialTheme.typography.titleMedium,
+                            color = MaterialTheme.colorScheme.onSurface,
+                        )
+                        Text(
+                            text = stringResource(
+                                R.string.wellness_week_progress_value,
+                                completed,
+                                eligible,
+                            ),
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                        LinearProgressIndicator(
+                            progress = { animatedProgress },
+                            modifier = Modifier.fillMaxWidth(),
+                            color = MaterialTheme.colorScheme.primary,
+                            trackColor = MaterialTheme.colorScheme.surfaceVariant,
+                        )
+                    }
+                }
+            }
+            item(key = "insight") {
+                SupportingCard(
+                    if (insight == null) {
+                        stringResource(R.string.wellness_insight_more_data)
+                    } else {
+                        stringResource(
+                            R.string.wellness_insight_sleep_energy,
+                            insight.sampleDays,
+                        )
+                    },
+                )
+            }
+            if (todayCheckIn?.hasDiscomfort == true) {
+                item(key = "care") {
+                    CareCard()
+                }
+            }
         }
-        item(key = "goal") {
-            GoalCard(
-                goal = goal,
-                latest = latest,
-                privacyMode = privacyMode,
-                onSetGoal = { showGoalSheet = true },
-                onClearGoal = onClearGoal,
-            )
-        }
-        item(key = "chart_controls") {
-            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+    }
+
+    if (showCheckIn) {
+        DailyCheckInSheet(
+            initial = todayCheckIn,
+            onDismiss = { showCheckIn = false },
+            onSave = { checkIn ->
+                if (onSaveCheckIn(checkIn)) {
+                    showCheckIn = false
+                    scope.launch {
+                        snackbarHostState.showSnackbar(
+                            message = savedMessage,
+                        )
+                    }
+                }
+            },
+        )
+    }
+}
+
+@Composable
+private fun CheckInCard(
+    checkIn: DailyCheckIn?,
+    privacyMode: Boolean,
+    onClick: () -> Unit,
+) {
+    Card(
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        shape = RoundedCornerShape(22.dp),
+    ) {
+        AnimatedContent(
+            targetState = checkIn,
+            transitionSpec = {
+                fadeIn(tween(220)) togetherWith fadeOut(tween(120))
+            },
+            label = "checkInCard",
+        ) {
+            currentCheckIn ->
+            Column(
+                modifier = Modifier.fillMaxWidth().padding(20.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+            ) {
                 Text(
-                    text = stringResource(R.string.wellness_chart_title),
+                    text = stringResource(
+                        if (currentCheckIn == null) {
+                            R.string.wellness_checkin_title
+                        } else {
+                            R.string.wellness_checkin_complete
+                        },
+                    ),
                     style = MaterialTheme.typography.titleLarge,
                     color = MaterialTheme.colorScheme.onSurface,
                 )
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    GoalMetric.entries.forEach { metric ->
-                        FilterChip(
-                            selected = selectedMetric == metric,
-                            onClick = { selectedMetric = metric },
-                            label = { MetricText(metric) },
+                if (currentCheckIn == null) {
+                    Text(
+                        text = stringResource(R.string.wellness_checkin_description),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                } else {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    ) {
+                        ConditionSummary(
+                            label = stringResource(R.string.wellness_condition_sleep),
+                            value = currentCheckIn.sleep,
+                            privacyMode = privacyMode,
+                            modifier = Modifier.weight(1f),
+                        )
+                        ConditionSummary(
+                            label = stringResource(R.string.wellness_condition_stress),
+                            value = currentCheckIn.stress,
+                            privacyMode = privacyMode,
+                            modifier = Modifier.weight(1f),
+                        )
+                        ConditionSummary(
+                            label = stringResource(R.string.wellness_condition_energy),
+                            value = currentCheckIn.energy,
+                            privacyMode = privacyMode,
+                            modifier = Modifier.weight(1f),
                         )
                     }
-                    FilterChip(
-                        selected = chartRange == ChartRange.WEEK,
-                        onClick = { chartRange = ChartRange.WEEK },
-                        label = { Text(stringResource(R.string.wellness_chart_week), style = MaterialTheme.typography.labelLarge) },
-                    )
-                    FilterChip(
-                        selected = chartRange == ChartRange.MONTH,
-                        onClick = { chartRange = ChartRange.MONTH },
-                        label = { Text(stringResource(R.string.wellness_chart_month), style = MaterialTheme.typography.labelLarge) },
-                    )
-                }
-            }
-        }
-        item(key = "chart") {
-            MeasurementChart(
-                measurements = visibleMeasurements,
-                metric = selectedMetric,
-                privacyMode = privacyMode,
-            )
-        }
-        item(key = "measurement_actions") {
-            Row(horizontalArrangement = Arrangement.spacedBy(10.dp), modifier = Modifier.fillMaxWidth()) {
-                Button(
-                    onClick = { showRulerMode = true },
-                    modifier = Modifier.weight(1f).heightIn(min = 56.dp),
-                ) {
-                    Text(stringResource(R.string.wellness_ruler_mode), style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onPrimary)
                 }
                 Button(
-                    onClick = { showMeasurementSheet = true },
-                    modifier = Modifier.weight(1f).heightIn(min = 56.dp),
+                    onClick = onClick,
+                    modifier = Modifier.fillMaxWidth().heightIn(min = 54.dp),
                 ) {
-                    Icon(imageVector = Icons.Filled.Add, contentDescription = null)
                     Text(
-                        text = stringResource(R.string.wellness_measurement_add),
+                        text = stringResource(
+                            if (currentCheckIn == null) {
+                                R.string.wellness_checkin_start
+                            } else {
+                                R.string.wellness_checkin_edit
+                            },
+                        ),
                         style = MaterialTheme.typography.labelLarge,
                         color = MaterialTheme.colorScheme.onPrimary,
-                        modifier = Modifier.padding(start = 6.dp),
                     )
-                }
-            }
-        }
-    }
-
-    if (showMeasurementSheet) {
-        MeasurementSheet(
-            hasValidationError = hasValidationError,
-            privacyMode = privacyMode,
-            onDismiss = { showMeasurementSheet = false },
-            onSave = onSaveMeasurement,
-        )
-    }
-    if (showGoalSheet) {
-        GoalSheet(
-            initialMetric = goal?.metric?.toGoalMetric() ?: selectedMetric,
-            initialTarget = goal?.targetCm?.let(WellnessUiFormat::number).orEmpty(),
-            hasValidationError = hasGoalValidationError,
-            hasMeasurements = latest != null,
-            onDismiss = { showGoalSheet = false },
-            onSave = { metric, target ->
-                if (onSetGoal(metric, target)) showGoalSheet = false
-            },
-        )
-    }
-    if (showRulerMode) {
-        RulerMode(
-            onClose = { showRulerMode = false },
-            onAddMeasurement = {
-                showRulerMode = false
-                showMeasurementSheet = true
-            },
-        )
-    }
-}
-
-@Composable
-private fun RulerMode(
-    onClose: () -> Unit,
-    onAddMeasurement: () -> Unit,
-) {
-    var scaleAdjustment by rememberSaveable { mutableStateOf(1f) }
-    val metrics = LocalContext.current.resources.displayMetrics
-    val pixelsPerMillimeter = (metrics.ydpi / 25.4f) * scaleAdjustment
-    val textMeasurer = rememberTextMeasurer()
-    val rulerColor = MaterialTheme.colorScheme.primary
-    val minorTickColor = MaterialTheme.colorScheme.outlineVariant
-    val surfaceColor = MaterialTheme.colorScheme.surface
-    val labelStyle = MaterialTheme.typography.labelMedium.copy(
-        color = MaterialTheme.colorScheme.onSurfaceVariant,
-    )
-    val centimeterUnit = stringResource(R.string.wellness_centimeter_suffix)
-    Dialog(
-        onDismissRequest = onClose,
-        properties = DialogProperties(usePlatformDefaultWidth = false),
-    ) {
-        Box(modifier = Modifier.fillMaxSize()) {
-            Canvas(modifier = Modifier.fillMaxSize()) {
-                drawRect(surfaceColor)
-                val rulerTop = 96.dp.toPx()
-                val majorTickLength = 88.dp.toPx()
-                val halfTickLength = 60.dp.toPx()
-                val minorTickLength = 36.dp.toPx()
-                val labelStart = majorTickLength + 10.dp.toPx()
-                var millimeter = 0
-                var y = rulerTop
-                while (y <= size.height) {
-                    val isCentimeter = millimeter % 10 == 0
-                    val tickLength = when {
-                        isCentimeter -> majorTickLength
-                        millimeter % 5 == 0 -> halfTickLength
-                        else -> minorTickLength
-                    }
-                    drawLine(
-                        color = if (isCentimeter) rulerColor else minorTickColor,
-                        start = Offset(0f, y),
-                        end = Offset(tickLength, y),
-                        strokeWidth = if (isCentimeter) 3.dp.toPx() else 1.dp.toPx(),
-                        cap = StrokeCap.Round,
-                    )
-                    if (isCentimeter) {
-                        drawText(
-                            textMeasurer = textMeasurer,
-                            text = "${WellnessUiFormat.number(millimeter / 10)} $centimeterUnit",
-                            topLeft = Offset(labelStart, y - 10.dp.toPx()),
-                            style = labelStyle,
-                        )
-                    }
-                    millimeter++
-                    y += pixelsPerMillimeter
-                }
-            }
-            Column(
-                modifier = Modifier.fillMaxSize().padding(20.dp),
-                verticalArrangement = Arrangement.SpaceBetween,
-            ) {
-                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-                    Text(stringResource(R.string.wellness_ruler_title), style = MaterialTheme.typography.headlineMedium, color = MaterialTheme.colorScheme.onSurface)
-                    TextButton(onClick = onClose) {
-                        Icon(Icons.Filled.Close, contentDescription = stringResource(R.string.wellness_ruler_close), tint = MaterialTheme.colorScheme.onSurface)
-                    }
-                }
-                Card(
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
-                    modifier = Modifier.fillMaxWidth().padding(start = 80.dp),
-                ) {
-                    Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                        Text(stringResource(R.string.wellness_ruler_hint), style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.onSurface)
-                        Text(stringResource(R.string.wellness_ruler_calibration), style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                        Slider(value = scaleAdjustment, onValueChange = { scaleAdjustment = it }, valueRange = 0.9f..1.1f)
-                        Button(onClick = onAddMeasurement, modifier = Modifier.fillMaxWidth()) {
-                            Text(stringResource(R.string.wellness_ruler_record), style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onPrimary)
-                        }
-                    }
                 }
             }
         }
@@ -291,163 +305,179 @@ private fun RulerMode(
 }
 
 @Composable
-private fun GoalCard(
-    goal: WellnessGoal?,
-    latest: Measurement?,
+private fun ConditionSummary(
+    label: String,
+    value: Int,
     privacyMode: Boolean,
-    onSetGoal: () -> Unit,
-    onClearGoal: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(4.dp),
+    ) {
+        Text(
+            text = label,
+            style = MaterialTheme.typography.labelMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        Text(
+            text = if (privacyMode) {
+                stringResource(R.string.wellness_hidden)
+            } else {
+                value.toString()
+            },
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onSurface,
+        )
+    }
+}
+
+@Composable
+private fun TodayActionCard(
+    routine: Routine,
+    isComplete: Boolean,
+    onToggle: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val cardColor by animateColorAsState(
+        targetValue = if (isComplete) {
+            MaterialTheme.colorScheme.secondaryContainer
+        } else {
+            MaterialTheme.colorScheme.surface
+        },
+        animationSpec = tween(260),
+        label = "todayActionCardColor",
+    )
     Card(
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-        border = CardDefaults.outlinedCardBorder(),
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier,
+        colors = CardDefaults.cardColors(
+            containerColor = cardColor,
+        ),
+        shape = RoundedCornerShape(20.dp),
     ) {
         Column(
-            modifier = Modifier.padding(18.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp),
+            modifier = Modifier.fillMaxWidth().padding(18.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp),
         ) {
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                Text(stringResource(R.string.wellness_goal_title), style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.onSurface)
-                TextButton(onClick = onSetGoal) {
-                    Text(stringResource(if (goal == null) R.string.wellness_goal_set else R.string.wellness_goal_change), style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
-                }
-            }
-            if (goal == null) {
-                Text(stringResource(R.string.wellness_goal_empty), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            } else {
-                val metric = goal.metric.toGoalMetric()
-                val current = latest?.valueFor(metric) ?: goal.baselineCm
-                val progress = WellnessRules.goalProgress(goal.baselineCm, current, goal.targetCm)
-                MetricText(metric, style = MaterialTheme.typography.labelLarge)
-                Text(
-                    text = if (privacyMode) stringResource(R.string.wellness_goal_private_value) else stringResource(R.string.wellness_goal_value, WellnessUiFormat.number(current), WellnessUiFormat.number(goal.targetCm)),
-                    style = MaterialTheme.typography.headlineMedium,
-                    color = MaterialTheme.colorScheme.onSurface,
-                )
-                LinearProgressIndicator(progress = { progress }, modifier = Modifier.fillMaxWidth().clip(MaterialTheme.shapes.extraLarge), strokeCap = StrokeCap.Round)
-                Text(
-                    text = stringResource(R.string.wellness_goal_remaining, WellnessUiFormat.number(kotlin.math.abs(goal.targetCm - current))),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-                TextButton(onClick = onClearGoal) {
-                    Icon(Icons.Filled.Delete, contentDescription = null, modifier = Modifier.size(18.dp))
-                    Text(stringResource(R.string.wellness_goal_clear), style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.error, modifier = Modifier.padding(start = 6.dp))
-                }
-            }
-        }
-    }
-}
-
-@Composable
-private fun MeasurementChart(
-    measurements: List<Measurement>,
-    metric: GoalMetric,
-    privacyMode: Boolean,
-) {
-    val values = measurements.map { it.valueFor(metric) }
-    val chartColor = MaterialTheme.colorScheme.primary
-    Card(
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-        border = CardDefaults.outlinedCardBorder(),
-        modifier = Modifier.fillMaxWidth(),
-    ) {
-        if (values.size < 2) {
             Text(
-                text = stringResource(R.string.wellness_chart_empty),
+                text = routine.name,
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onSurface,
+            )
+            Text(
+                text = routineKindLabel(routine.kind),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(20.dp),
             )
-        } else {
-            Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text(
-                    text = if (privacyMode) stringResource(R.string.wellness_chart_private) else stringResource(R.string.wellness_chart_latest, WellnessUiFormat.number(values.last())),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-                Canvas(modifier = Modifier.fillMaxWidth().height(180.dp)) {
-                    val low = values.minOrNull() ?: 0.0
-                    val high = values.maxOrNull() ?: low
-                    val range = (high - low).takeIf { it > 0.0 } ?: 1.0
-                    val horizontalStep = size.width / (values.size - 1)
-                    val points = values.mapIndexed { index, value ->
-                        Offset(
-                            x = index * horizontalStep,
-                            y = size.height - (((value - low) / range).toFloat() * (size.height * 0.8f) + size.height * 0.1f),
-                        )
-                    }
-                    points.zipWithNext().forEach { (start, end) ->
-                        drawLine(chartColor, start, end, strokeWidth = 5f, cap = StrokeCap.Round)
-                    }
-                    points.forEach { point -> drawCircle(chartColor, radius = 7f, center = point) }
+            OutlinedButton(
+                onClick = onToggle,
+                modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
+            ) {
+                AnimatedContent(
+                    targetState = isComplete,
+                    transitionSpec = {
+                        fadeIn(tween(180)) togetherWith fadeOut(tween(100))
+                    },
+                    label = "todayActionButton",
+                ) { completed ->
+                    Text(
+                        text = stringResource(
+                            if (completed) {
+                                R.string.wellness_action_completed
+                            } else {
+                                R.string.wellness_action_complete
+                            },
+                        ),
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.primary,
+                    )
                 }
             }
-        }
-    }
-}
-
-@Composable
-private fun MeasurementSheet(
-    hasValidationError: Boolean,
-    privacyMode: Boolean,
-    onDismiss: () -> Unit,
-    onSave: (String, String, MeasurementState) -> Boolean,
-) {
-    var length by rememberSaveable { mutableStateOf("") }
-    var circumference by rememberSaveable { mutableStateOf("") }
-    var state by rememberSaveable { mutableStateOf(MeasurementState.RELAXED) }
-    var showValues by rememberSaveable { mutableStateOf(false) }
-    ModalBottomSheet(onDismissRequest = onDismiss, sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)) {
-        Column(modifier = Modifier.padding(horizontal = 20.dp, vertical = 12.dp).padding(bottom = 24.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            Text(stringResource(R.string.wellness_measurement_sheet_title), style = MaterialTheme.typography.headlineSmall, color = MaterialTheme.colorScheme.onSurface)
-            MeasurementState.entries.forEach { choice ->
-                FilterChip(selected = state == choice, onClick = { state = choice }, label = { Text(choice.label(), style = MaterialTheme.typography.labelLarge) })
-            }
-            MeasurementField(length, { length = it }, stringResource(R.string.wellness_length_label), privacyMode && !showValues, { showValues = !showValues })
-            MeasurementField(circumference, { circumference = it }, stringResource(R.string.wellness_circumference_label), privacyMode && !showValues, { showValues = !showValues })
-            if (hasValidationError) Text(stringResource(R.string.wellness_measurement_error, WellnessUiFormat.number(1), WellnessUiFormat.number(40), WellnessUiFormat.number(1), WellnessUiFormat.number(25)), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error)
-            Button(onClick = { if (onSave(length, circumference, state)) onDismiss() }, modifier = Modifier.fillMaxWidth()) {
-                Text(stringResource(R.string.wellness_measurement_save), style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onPrimary)
+            AnimatedVisibility(
+                visible = isComplete,
+                enter = fadeIn(tween(220)) + expandVertically(tween(220)),
+                exit = fadeOut(tween(120)) + shrinkVertically(tween(180)),
+            ) {
+                Text(
+                    text = stringResource(R.string.wellness_action_feedback),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.secondary,
+                )
             }
         }
     }
 }
 
 @Composable
-private fun GoalSheet(
-    initialMetric: GoalMetric,
-    initialTarget: String,
-    hasValidationError: Boolean,
-    hasMeasurements: Boolean,
-    onDismiss: () -> Unit,
-    onSave: (GoalMetric, String) -> Unit,
-) {
-    var metric by rememberSaveable { mutableStateOf(initialMetric) }
-    var target by rememberSaveable { mutableStateOf(initialTarget) }
-    ModalBottomSheet(onDismissRequest = onDismiss, sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)) {
-        Column(modifier = Modifier.padding(horizontal = 20.dp, vertical = 12.dp).padding(bottom = 24.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            Text(stringResource(R.string.wellness_goal_sheet_title), style = MaterialTheme.typography.headlineSmall, color = MaterialTheme.colorScheme.onSurface)
-            GoalMetric.entries.forEach { choice -> FilterChip(selected = metric == choice, onClick = { metric = choice }, label = { MetricText(choice) }) }
-            OutlinedTextField(value = target, onValueChange = { target = it.filter { char -> char.isDigit() || char == '.' || char == ',' }.take(5) }, label = { Text(stringResource(R.string.wellness_goal_target_label), style = MaterialTheme.typography.labelLarge) }, suffix = { Text(stringResource(R.string.wellness_centimeter_suffix), style = MaterialTheme.typography.bodyLarge) }, keyboardOptions = KeyboardOptions(keyboardType = androidx.compose.ui.text.input.KeyboardType.Decimal), singleLine = true, modifier = Modifier.fillMaxWidth())
-            if (!hasMeasurements) Text(stringResource(R.string.wellness_goal_requires_measurement), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error)
-            if (hasValidationError) Text(stringResource(R.string.wellness_goal_error), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error)
-            Button(onClick = { onSave(metric, target) }, enabled = hasMeasurements, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.wellness_goal_save), style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onPrimary) }
+internal fun SectionTitle(text: String) {
+    Text(
+        text = text,
+        style = MaterialTheme.typography.titleLarge,
+        color = MaterialTheme.colorScheme.onBackground,
+    )
+}
+
+@Composable
+internal fun SupportingCard(text: String) {
+    Card(
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        shape = RoundedCornerShape(20.dp),
+    ) {
+        Text(
+            text = text,
+            modifier = Modifier.fillMaxWidth().padding(18.dp),
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+    }
+}
+
+@Composable
+private fun CareCard() {
+    Card(
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.errorContainer,
+        ),
+        shape = RoundedCornerShape(20.dp),
+    ) {
+        Column(
+            modifier = Modifier.fillMaxWidth().padding(18.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            Text(
+                text = stringResource(R.string.wellness_care_title),
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onErrorContainer,
+            )
+            Text(
+                text = stringResource(R.string.wellness_care_description),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onErrorContainer,
+            )
         }
     }
 }
 
 @Composable
-private fun MeasurementField(value: String, onValueChange: (String) -> Unit, label: String, masked: Boolean, onToggleMask: () -> Unit) {
-    OutlinedTextField(value = value, onValueChange = { onValueChange(it.filter { char -> char.isDigit() || char == '.' || char == ',' }.take(5)) }, label = { Text(label, style = MaterialTheme.typography.labelLarge) }, suffix = { Text(stringResource(R.string.wellness_centimeter_suffix), style = MaterialTheme.typography.bodyLarge) }, trailingIcon = { TextButton(onClick = onToggleMask) { Text(stringResource(if (masked) R.string.wellness_show_value else R.string.wellness_hide_value), style = MaterialTheme.typography.labelLarge) } }, visualTransformation = if (masked) PasswordVisualTransformation(mask = '•') else VisualTransformation.None, keyboardOptions = KeyboardOptions(keyboardType = androidx.compose.ui.text.input.KeyboardType.Decimal), singleLine = true, modifier = Modifier.fillMaxWidth())
-}
-
-@Composable
-private fun MetricText(metric: GoalMetric, style: androidx.compose.ui.text.TextStyle = MaterialTheme.typography.labelLarge) {
-    Text(stringResource(if (metric == GoalMetric.LENGTH) R.string.wellness_length_label else R.string.wellness_circumference_label), style = style, color = MaterialTheme.colorScheme.onSurfaceVariant)
-}
-
-private fun String.toGoalMetric(): GoalMetric = runCatching { GoalMetric.valueOf(this) }.getOrDefault(GoalMetric.LENGTH)
-
-private fun Measurement.valueFor(metric: GoalMetric): Double = if (metric == GoalMetric.LENGTH) lengthCm else circumferenceCm
+internal fun routineKindLabel(kind: String): String =
+    stringResource(
+        when (runCatching { com.keelim.nandadiagnosis.wellness.domain.RoutineKind.valueOf(kind) }
+            .getOrDefault(com.keelim.nandadiagnosis.wellness.domain.RoutineKind.CUSTOM)) {
+            com.keelim.nandadiagnosis.wellness.domain.RoutineKind.SUPPLEMENT ->
+                R.string.wellness_plan_category_supplement
+            com.keelim.nandadiagnosis.wellness.domain.RoutineKind.RUNNING ->
+                R.string.wellness_plan_category_cardio
+            com.keelim.nandadiagnosis.wellness.domain.RoutineKind.EXERCISE ->
+                R.string.wellness_plan_category_strength
+            com.keelim.nandadiagnosis.wellness.domain.RoutineKind.SLEEP ->
+                R.string.wellness_plan_category_sleep
+            com.keelim.nandadiagnosis.wellness.domain.RoutineKind.STRESS ->
+                R.string.wellness_plan_category_stress
+            com.keelim.nandadiagnosis.wellness.domain.RoutineKind.ALCOHOL ->
+                R.string.wellness_plan_category_alcohol
+            com.keelim.nandadiagnosis.wellness.domain.RoutineKind.SMOKING ->
+                R.string.wellness_plan_category_smoking
+            com.keelim.nandadiagnosis.wellness.domain.RoutineKind.CUSTOM ->
+                R.string.wellness_plan_category_custom
+        },
+    )

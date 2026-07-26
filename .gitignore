@@ -25,3 +25,9 @@ google-services.json
 
 # Debug logs
 debug-log.json
+
+# Local product-design audit evidence
+.design-audit/
+
+# Local documentation
+docs/

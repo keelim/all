@@ -10,6 +10,8 @@ dependencies {
     implementation(libs.androidx.paging.common)
     implementation(libs.hilt.android)
     implementation(libs.kotlinx.coroutines.core)
+    testImplementation(libs.kotest.assertions.core)
+    testImplementation(libs.kotest.runner.junit5)
     testImplementation(libs.kotlinx.coroutines.test)
 
     testImplementation(libs.androidx.test.core)

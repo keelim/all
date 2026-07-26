@@ -1,4 +1,6 @@
 <resources>
+    <string name="platform_unlock_title">Unlock Nanda</string>
+    <string name="platform_unlock_subtitle">Confirm your identity to continue.</string>
     <string name="app_name">Buddy Daily</string>
     <string name="wellness_tab_buddy">Buddy</string>
     <string name="wellness_tab_routine">Routine</string>
@@ -88,4 +90,107 @@
 
     <string name="wellness_cancel">Cancel</string>
     <string name="wellness_confirm_delete">Delete</string>
+
+    <string name="wellness_tab_today">Today</string>
+    <string name="wellness_tab_plan">Plan</string>
+    <string name="wellness_tab_insights">Insights</string>
+    <string name="wellness_tab_tools">Tools</string>
+    <string name="wellness_privacy_on">Privacy mode on</string>
+    <string name="wellness_privacy_off">Privacy mode off</string>
+    <string name="wellness_hidden">Hidden</string>
+
+    <string name="wellness_today_greeting">Good morning</string>
+    <string name="wellness_today_intro">Would you like to check in with yourself?</string>
+    <string name="wellness_today_actions">Today’s actions</string>
+    <string name="wellness_today_actions_empty">No action plan yet. Add one small action from Plan.</string>
+    <string name="wellness_checkin_title">Today’s condition</string>
+    <string name="wellness_checkin_complete">Today’s check-in is complete</string>
+    <string name="wellness_checkin_description">Record sleep, stress, and energy in about 30 seconds.</string>
+    <string name="wellness_checkin_start">Start 30-second check-in</string>
+    <string name="wellness_checkin_edit">Edit record</string>
+    <string name="wellness_checkin_saved">Today’s record was saved.</string>
+    <string name="wellness_condition_sleep">Sleep</string>
+    <string name="wellness_condition_stress">Stress</string>
+    <string name="wellness_condition_energy">Energy</string>
+    <string name="wellness_condition_desire">Desire</string>
+    <string name="wellness_condition_confidence">Confidence</string>
+    <string name="wellness_action_complete">Mark complete</string>
+    <string name="wellness_action_completed">Completed today</string>
+    <string name="wellness_action_feedback">You’re building a good rhythm.</string>
+    <string name="wellness_week_progress_title">This week</string>
+    <string name="wellness_week_progress_value">%1$d/%2$d actions completed</string>
+    <string name="wellness_insight_more_data">A few more records will help reveal your patterns.</string>
+    <string name="wellness_insight_sleep_energy">Across %1$d recorded days, energy was often also high on higher-sleep days.</string>
+    <string name="wellness_care_title">Has the discomfort continued?</string>
+    <string name="wellness_care_description">Changes that are hard to understand from daily records alone may be worth discussing with a healthcare professional.</string>
+
+    <string name="wellness_checkin_step_one">1 of 2 · Basic condition</string>
+    <string name="wellness_checkin_step_two">2 of 2 · Optional details</string>
+    <string name="wellness_condition_sleep_low">Very poor</string>
+    <string name="wellness_condition_sleep_high">Very satisfied</string>
+    <string name="wellness_condition_low">Low</string>
+    <string name="wellness_condition_high">High</string>
+    <string name="wellness_condition_scale">1 %1$s · 5 %2$s</string>
+    <string name="wellness_next">Next</string>
+    <string name="wellness_morning_condition">Morning condition</string>
+    <string name="wellness_yes">Yes</string>
+    <string name="wellness_no">No</string>
+    <string name="wellness_not_checked">Didn’t check</string>
+    <string name="wellness_alcohol_record">Alcohol today or yesterday</string>
+    <string name="wellness_cardio_record">Did cardio</string>
+    <string name="wellness_discomfort_record">Pain or discomfort</string>
+    <string name="wellness_note_optional">Note (optional)</string>
+    <string name="wellness_checkin_save">Save today’s record</string>
+    <string name="wellness_later">Maybe later</string>
+
+    <string name="wellness_plan_title">This week’s plan</string>
+    <string name="wellness_plan_intro">About three small actions at a time is enough.</string>
+    <string name="wellness_plan_week_range">%1$s – %2$s</string>
+    <string name="wellness_plan_weekly_progress">This week %1$d/%2$d</string>
+    <string name="wellness_plan_add">Add action</string>
+    <string name="wellness_plan_empty">Add one small action to try this week.</string>
+    <string name="wellness_plan_first_action">Create first action</string>
+    <string name="wellness_plan_item_progress">This week %1$d/%2$d times</string>
+    <string name="wellness_plan_action_name">Action name</string>
+    <string name="wellness_plan_add_action">Add to plan</string>
+    <string name="wellness_plan_category_supplement">Medication</string>
+    <string name="wellness_plan_category_cardio">Cardio</string>
+    <string name="wellness_plan_category_strength">Strength</string>
+    <string name="wellness_plan_category_sleep">Sleep</string>
+    <string name="wellness_plan_category_stress">Stress relief</string>
+    <string name="wellness_plan_category_alcohol">Alcohol</string>
+    <string name="wellness_plan_category_smoking">Smoking</string>
+    <string name="wellness_plan_category_custom">Custom</string>
+
+    <string name="wellness_insights_title">My patterns</string>
+    <string name="wellness_period_seven">Last 7 days</string>
+    <string name="wellness_period_twenty_eight">Last 28 days</string>
+    <string name="wellness_condition_trend">Condition trend</string>
+    <string name="wellness_insights_not_enough">There are not enough records to draw a trend yet.</string>
+    <string name="wellness_chart_summary">%1$d records are shown for %2$s on a 1–5 scale.</string>
+    <string name="wellness_patterns_title">Patterns found</string>
+    <string name="wellness_patterns_empty">A first insight appears after at least 5 check-in days.</string>
+    <string name="wellness_review_title">Weekly review</string>
+    <string name="wellness_review_description">Notice what felt easy and adjust one action for next week.</string>
+
+    <string name="wellness_tools_title">Tools and settings</string>
+    <string name="wellness_tools_health">Health tools</string>
+    <string name="wellness_tools_measurement">Body records</string>
+    <string name="wellness_tools_supplements">Medication list</string>
+    <string name="wellness_tools_self_check">Condition self-check</string>
+    <string name="wellness_tools_care_notes">Care visit notes</string>
+    <string name="wellness_tools_privacy">Privacy</string>
+    <string name="wellness_tools_app_lock">App lock</string>
+    <string name="wellness_tools_recent_blur">Hide recent-app preview</string>
+    <string name="wellness_tools_capture">Screen capture setting</string>
+    <string name="wellness_tools_data">Data</string>
+    <string name="wellness_tools_export">Export data</string>
+    <string name="wellness_tools_delete_all">Delete all data</string>
+    <string name="wellness_tools_storage">Stored on this device</string>
+    <string name="wellness_tools_privacy_policy">Privacy policy</string>
+    <string name="wellness_tools_app_info">About</string>
+    <string name="wellness_medical_disclaimer">Buddy Daily helps you observe personal patterns. It does not diagnose a condition or replace professional medical advice.</string>
+    <string name="wellness_back">Back</string>
+    <string name="wellness_measurement_guidance">Measurements can vary with conditions and technique. Recording occasionally under similar conditions is more useful than repeating them often.</string>
+    <string name="wellness_measurement_pair">Length %1$.1f cm · Circumference %2$.1f cm</string>
 </resources>

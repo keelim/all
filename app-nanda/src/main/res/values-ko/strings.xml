@@ -1,4 +1,6 @@
 <resources>
+    <string name="platform_unlock_title">Nanda 잠금 해제</string>
+    <string name="platform_unlock_subtitle">계속하려면 본인 인증을 완료하세요.</string>
     <string name="app_name">버디 데일리</string>
     <string name="wellness_tab_buddy">버디</string>
     <string name="wellness_tab_routine">루틴</string>
@@ -88,4 +90,107 @@
 
     <string name="wellness_cancel">취소</string>
     <string name="wellness_confirm_delete">삭제</string>
+
+    <string name="wellness_tab_today">오늘</string>
+    <string name="wellness_tab_plan">플랜</string>
+    <string name="wellness_tab_insights">인사이트</string>
+    <string name="wellness_tab_tools">더보기</string>
+    <string name="wellness_privacy_on">프라이버시 모드 켜짐</string>
+    <string name="wellness_privacy_off">프라이버시 모드 꺼짐</string>
+    <string name="wellness_hidden">숨김</string>
+
+    <string name="wellness_today_greeting">좋은 아침이에요</string>
+    <string name="wellness_today_intro">오늘 컨디션을 가볍게 확인해 볼까요?</string>
+    <string name="wellness_today_actions">오늘의 행동</string>
+    <string name="wellness_today_actions_empty">아직 행동 플랜이 없어요. 플랜에서 작은 행동 하나를 추가해 보세요.</string>
+    <string name="wellness_checkin_title">오늘 컨디션</string>
+    <string name="wellness_checkin_complete">오늘 체크인 완료</string>
+    <string name="wellness_checkin_description">수면과 스트레스, 에너지를 30초 동안 기록해 보세요.</string>
+    <string name="wellness_checkin_start">30초 체크인 시작</string>
+    <string name="wellness_checkin_edit">기록 수정</string>
+    <string name="wellness_checkin_saved">오늘 기록을 저장했어요.</string>
+    <string name="wellness_condition_sleep">수면</string>
+    <string name="wellness_condition_stress">스트레스</string>
+    <string name="wellness_condition_energy">에너지</string>
+    <string name="wellness_condition_desire">성욕</string>
+    <string name="wellness_condition_confidence">자신감</string>
+    <string name="wellness_action_complete">완료하기</string>
+    <string name="wellness_action_completed">오늘 완료</string>
+    <string name="wellness_action_feedback">좋은 흐름이에요.</string>
+    <string name="wellness_week_progress_title">이번 주 진행</string>
+    <string name="wellness_week_progress_value">%1$d/%2$d회 완료</string>
+    <string name="wellness_insight_more_data">며칠 더 기록하면 나에게 맞는 패턴을 확인할 수 있어요.</string>
+    <string name="wellness_insight_sleep_energy">기록한 %1$d일 동안 수면 만족도가 높은 날 에너지도 함께 높은 경우가 많았어요.</string>
+    <string name="wellness_care_title">불편함이 반복되고 있나요?</string>
+    <string name="wellness_care_description">생활 기록만으로 확인하기 어려운 변화는 의료진과 상담하는 것이 도움이 될 수 있어요.</string>
+
+    <string name="wellness_checkin_step_one">1/2 · 기본 컨디션</string>
+    <string name="wellness_checkin_step_two">2/2 · 선택 기록</string>
+    <string name="wellness_condition_sleep_low">매우 아쉬움</string>
+    <string name="wellness_condition_sleep_high">매우 만족</string>
+    <string name="wellness_condition_low">낮음</string>
+    <string name="wellness_condition_high">높음</string>
+    <string name="wellness_condition_scale">1 %1$s · 5 %2$s</string>
+    <string name="wellness_next">다음</string>
+    <string name="wellness_morning_condition">아침 컨디션</string>
+    <string name="wellness_yes">있음</string>
+    <string name="wellness_no">없음</string>
+    <string name="wellness_not_checked">확인하지 않음</string>
+    <string name="wellness_alcohol_record">오늘 또는 어제 음주</string>
+    <string name="wellness_cardio_record">유산소 수행</string>
+    <string name="wellness_discomfort_record">통증 또는 불편감</string>
+    <string name="wellness_note_optional">메모 (선택)</string>
+    <string name="wellness_checkin_save">오늘 기록 저장</string>
+    <string name="wellness_later">나중에 하기</string>
+
+    <string name="wellness_plan_title">이번 주 플랜</string>
+    <string name="wellness_plan_intro">한 번에 세 가지 정도면 충분해요.</string>
+    <string name="wellness_plan_week_range">%1$s – %2$s</string>
+    <string name="wellness_plan_weekly_progress">이번 주 %1$d/%2$d회</string>
+    <string name="wellness_plan_add">행동 추가</string>
+    <string name="wellness_plan_empty">이번 주에 실천할 작은 행동을 추가해 보세요.</string>
+    <string name="wellness_plan_first_action">첫 행동 만들기</string>
+    <string name="wellness_plan_item_progress">이번 주 %1$d/%2$d회</string>
+    <string name="wellness_plan_action_name">행동 이름</string>
+    <string name="wellness_plan_add_action">플랜에 추가</string>
+    <string name="wellness_plan_category_supplement">복용 관리</string>
+    <string name="wellness_plan_category_cardio">유산소</string>
+    <string name="wellness_plan_category_strength">근력 운동</string>
+    <string name="wellness_plan_category_sleep">수면</string>
+    <string name="wellness_plan_category_stress">스트레스 완화</string>
+    <string name="wellness_plan_category_alcohol">음주 관리</string>
+    <string name="wellness_plan_category_smoking">금연</string>
+    <string name="wellness_plan_category_custom">사용자 정의</string>
+
+    <string name="wellness_insights_title">나의 패턴</string>
+    <string name="wellness_period_seven">최근 7일</string>
+    <string name="wellness_period_twenty_eight">최근 28일</string>
+    <string name="wellness_condition_trend">컨디션 추이</string>
+    <string name="wellness_insights_not_enough">아직 추이를 그리기에는 기록이 부족해요.</string>
+    <string name="wellness_chart_summary">1~5 범위의 %2$s 기록 %1$d개를 보여줘요.</string>
+    <string name="wellness_patterns_title">발견한 패턴</string>
+    <string name="wellness_patterns_empty">체크인 5일 이상 쌓이면 첫 인사이트를 볼 수 있어요.</string>
+    <string name="wellness_review_title">주간 리뷰</string>
+    <string name="wellness_review_description">편하게 유지한 행동을 살펴보고 다음 주 행동 하나를 조정해 보세요.</string>
+
+    <string name="wellness_tools_title">도구와 설정</string>
+    <string name="wellness_tools_health">건강 도구</string>
+    <string name="wellness_tools_measurement">신체 기록</string>
+    <string name="wellness_tools_supplements">복용 목록</string>
+    <string name="wellness_tools_self_check">컨디션 자가 체크</string>
+    <string name="wellness_tools_care_notes">진료 준비 기록</string>
+    <string name="wellness_tools_privacy">프라이버시</string>
+    <string name="wellness_tools_app_lock">앱 잠금</string>
+    <string name="wellness_tools_recent_blur">최근 앱 화면 가리기</string>
+    <string name="wellness_tools_capture">화면 캡처 설정</string>
+    <string name="wellness_tools_data">데이터</string>
+    <string name="wellness_tools_export">데이터 내보내기</string>
+    <string name="wellness_tools_delete_all">전체 데이터 삭제</string>
+    <string name="wellness_tools_storage">기기 안에 저장됨</string>
+    <string name="wellness_tools_privacy_policy">개인정보 처리방침</string>
+    <string name="wellness_tools_app_info">앱 정보</string>
+    <string name="wellness_medical_disclaimer">버디 데일리는 개인의 생활 패턴을 살펴보도록 돕습니다. 질환을 진단하거나 의료진의 진료를 대신하지 않습니다.</string>
+    <string name="wellness_back">뒤로</string>
+    <string name="wellness_measurement_guidance">측정값은 환경과 방법에 따라 달라질 수 있어요. 반복 측정보다 같은 조건에서 드물게 기록하는 것이 도움이 됩니다.</string>
+    <string name="wellness_measurement_pair">길이 %1$.1f cm · 둘레 %2$.1f cm</string>
 </resources>

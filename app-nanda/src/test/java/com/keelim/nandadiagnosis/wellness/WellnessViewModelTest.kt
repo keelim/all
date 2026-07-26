@@ -8,9 +8,12 @@ import com.keelim.model.wellness.WellnessData
 import com.keelim.model.wellness.WellnessGoal
 import com.keelim.nandadiagnosis.wellness.domain.MeasurementState
 import com.keelim.nandadiagnosis.wellness.domain.RoutineKind
+import com.keelim.testing.platform.FakeTimeProvider
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import java.time.LocalDate
+import java.time.Instant
+import java.time.ZoneId
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
@@ -31,7 +34,13 @@ class WellnessViewModelTest : FunSpec({
     test("valid writes persist and invalid inputs do not write") {
         runTest {
             val repository = FakeWellnessRepository()
-            val viewModel = WellnessViewModel(repository)
+    val viewModel = WellnessViewModel(
+        repository = repository,
+        timeProvider = FakeTimeProvider(
+            initialInstant = Instant.parse("2026-07-19T00:00:00Z"),
+            zone = ZoneId.of("UTC"),
+        ),
+    )
             val date = LocalDate.of(2026, 7, 19)
 
             viewModel.saveMeasurement("12.3", "9,5", MeasurementState.RELAXED, date)
@@ -60,7 +69,8 @@ class WellnessViewModelTest : FunSpec({
             advanceUntilIdle()
 
             repository.state.value.completions shouldBe emptyList()
-            viewModel.uiState.value.validationErrors shouldBe listOf("duration")
+            viewModel.uiState.value.validationErrors shouldBe
+                setOf(WellnessValidationError.DURATION)
 
             viewModel.setRoutineCompletion(running, date, checked = true, duration = 25)
             advanceUntilIdle()

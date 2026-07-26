@@ -3,10 +3,12 @@ package com.keelim.nandadiagnosis.wellness
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.keelim.data.repository.WellnessRepository
+import com.keelim.common.platform.time.TimeProvider
 import com.keelim.model.wellness.Measurement
 import com.keelim.model.wellness.Routine
 import com.keelim.model.wellness.RoutineCompletion
-import com.keelim.model.wellness.WellnessGoal
+import com.keelim.nandadiagnosis.wellness.domain.CheckInRules
+import com.keelim.nandadiagnosis.wellness.domain.DailyCheckIn
 import com.keelim.nandadiagnosis.wellness.domain.MeasurementState
 import com.keelim.nandadiagnosis.wellness.domain.RoutineKind
 import com.keelim.nandadiagnosis.wellness.domain.WellnessRules
@@ -23,16 +25,18 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class WellnessViewModel @Inject constructor(
     private val repository: WellnessRepository,
+    private val timeProvider: TimeProvider,
 ) : ViewModel() {
-    private val validationErrors = MutableStateFlow<List<String>>(emptyList())
+    private val validationErrors = MutableStateFlow<Set<WellnessValidationError>>(emptySet())
+    private val checkIns = MutableStateFlow<List<DailyCheckIn>>(emptyList())
 
     val uiState: StateFlow<WellnessUiState> =
-        combine(repository.data, validationErrors) { data, errors ->
+        combine(repository.data, validationErrors, checkIns) { data, errors, dailyCheckIns ->
             WellnessUiState(
                 measurements = data.measurements,
                 routines = data.routines,
                 completions = data.completions,
-                goal = data.goal,
+                checkIns = dailyCheckIns,
                 validationErrors = errors,
             )
         }.stateIn(
@@ -42,23 +46,33 @@ class WellnessViewModel @Inject constructor(
         )
 
     init {
-        viewModelScope.launch { repository.initializeDefaultRoutines(LocalDate.now().toString()) }
+        viewModelScope.launch { repository.initializeDefaultRoutines(timeProvider.today().toString()) }
+    }
+
+    fun saveCheckIn(checkIn: DailyCheckIn): Boolean {
+        if (CheckInRules.validate(checkIn).isNotEmpty()) {
+            validationErrors.value = setOf(WellnessValidationError.CHECK_IN)
+            return false
+        }
+        validationErrors.value = emptySet()
+        checkIns.value = checkIns.value.filterNot { it.localDate == checkIn.localDate } + checkIn
+        return true
     }
 
     fun saveMeasurement(
         length: String,
         circumference: String,
         state: MeasurementState,
-        date: LocalDate = LocalDate.now(),
+        date: LocalDate = timeProvider.today(),
     ): Boolean {
         val lengthCm = WellnessRules.parseLengthCm(length)
         val circumferenceCm = WellnessRules.parseCircumferenceCm(circumference)
         if (lengthCm == null || circumferenceCm == null) {
-            validationErrors.value = listOf("measurement")
+            validationErrors.value = setOf(WellnessValidationError.MEASUREMENT)
             return false
         }
 
-        validationErrors.value = emptyList()
+        validationErrors.value = emptySet()
         viewModelScope.launch {
             repository.upsertMeasurement(
                 Measurement(
@@ -75,15 +89,15 @@ class WellnessViewModel @Inject constructor(
     fun addRoutine(
         name: String,
         kind: RoutineKind,
-        date: LocalDate,
+        date: LocalDate = timeProvider.today(),
     ): Boolean {
         val trimmedName = name.trim()
         if (trimmedName.isEmpty()) {
-            validationErrors.value = listOf("routineName")
+            validationErrors.value = setOf(WellnessValidationError.ROUTINE_NAME)
             return false
         }
 
-        validationErrors.value = emptyList()
+        validationErrors.value = emptySet()
         viewModelScope.launch {
             repository.insertRoutine(
                 Routine(
@@ -96,51 +110,20 @@ class WellnessViewModel @Inject constructor(
         return true
     }
 
-    fun setGoal(
-        metric: GoalMetric,
-        target: String,
-    ): Boolean {
-        val targetCm =
-            when (metric) {
-                GoalMetric.LENGTH -> WellnessRules.parseLengthCm(target)
-                GoalMetric.CIRCUMFERENCE -> WellnessRules.parseCircumferenceCm(target)
-            }
-        val current = uiState.value.measurements.maxByOrNull { it.localDate } ?: run {
-            validationErrors.value = listOf("goalMeasurement")
-            return false
-        }
-        if (targetCm == null) {
-            validationErrors.value = listOf("goal")
-            return false
-        }
-        validationErrors.value = emptyList()
-        val baseline = if (metric == GoalMetric.LENGTH) current.lengthCm else current.circumferenceCm
-        viewModelScope.launch {
-            repository.upsertGoal(
-                WellnessGoal(metric = metric.name, targetCm = targetCm, baselineCm = baseline),
-            )
-        }
-        return true
-    }
-
-    fun clearGoal() {
-        viewModelScope.launch { repository.deleteGoal() }
-    }
-
     fun deleteRoutine(routine: Routine) {
         viewModelScope.launch { repository.deleteRoutine(routine) }
     }
 
     fun setRoutineCompletion(
         routine: Routine,
-        date: LocalDate,
+        date: LocalDate = timeProvider.today(),
         checked: Boolean,
         duration: Int?,
     ) {
         val kind = RoutineKind.valueOf(routine.kind)
         val durationMinutes = duration.takeUnless { kind == RoutineKind.SUPPLEMENT }
 
-        validationErrors.value = emptyList()
+        validationErrors.value = emptySet()
         viewModelScope.launch {
             val completion =
                 RoutineCompletion(
@@ -150,7 +133,7 @@ class WellnessViewModel @Inject constructor(
                 )
             if (checked) {
                 if (!WellnessRules.isValidDuration(kind, durationMinutes)) {
-                    validationErrors.value = listOf("duration")
+                    validationErrors.value = setOf(WellnessValidationError.DURATION)
                     return@launch
                 }
                 repository.upsertRoutineCompletion(completion)
@@ -160,13 +143,3 @@ class WellnessViewModel @Inject constructor(
         }
     }
 }
-
-data class WellnessUiState(
-    val measurements: List<Measurement> = emptyList(),
-    val routines: List<Routine> = emptyList(),
-    val completions: List<RoutineCompletion> = emptyList(),
-    val goal: WellnessGoal? = null,
-    val validationErrors: List<String> = emptyList(),
-)
-
-enum class GoalMetric { LENGTH, CIRCUMFERENCE }

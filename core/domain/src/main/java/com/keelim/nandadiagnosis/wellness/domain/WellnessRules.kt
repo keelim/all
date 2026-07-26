@@ -12,6 +12,11 @@ enum class RoutineKind {
     SUPPLEMENT,
     RUNNING,
     EXERCISE,
+    SLEEP,
+    STRESS,
+    ALCOHOL,
+    SMOKING,
+    CUSTOM,
 }
 
 data class SevenDaySummary(
@@ -47,6 +52,11 @@ object WellnessRules {
             RoutineKind.SUPPLEMENT -> durationMinutes == null
             RoutineKind.RUNNING,
             RoutineKind.EXERCISE,
+            RoutineKind.SLEEP,
+            RoutineKind.STRESS,
+            RoutineKind.ALCOHOL,
+            RoutineKind.SMOKING,
+            RoutineKind.CUSTOM,
             -> durationMinutes == null || durationMinutes in 1..1_440
         }
 

@@ -7,7 +7,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.nandadiagnosis.wellness.WellnessViewModel
 
 @Composable
-fun WellnessRoute(viewModel: WellnessViewModel = hiltViewModel()) {
+fun WellnessRoute(
+    canLoadAd: Boolean,
+    viewModel: WellnessViewModel = hiltViewModel(),
+) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     WellnessScreen(
@@ -23,5 +26,6 @@ fun WellnessRoute(viewModel: WellnessViewModel = hiltViewModel()) {
             )
         },
         onDeleteRoutine = viewModel::deleteRoutine,
+        canLoadAd = canLoadAd,
     )
 }

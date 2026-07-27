@@ -17,6 +17,7 @@ import com.keelim.commonAndroid.platform.privacy.BiometricPrivacyAuthenticator
 import com.keelim.composeutil.component.appshell.KeelimAppShell
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.ui.theme.NandaTheme
+import com.keelim.nandadiagnosis.wellness.ads.WellnessConsentAdsController
 import com.keelim.nandadiagnosis.wellness.ui.WellnessRoute
 import dagger.hilt.android.AndroidEntryPoint
 import jakarta.inject.Inject
@@ -26,9 +27,12 @@ import kotlinx.coroutines.launch
 class MainActivity : FragmentActivity() {
     @Inject lateinit var privacySettingsRepository: PrivacySettingsRepository
     @Inject lateinit var privacyController: PrivacyController
+    private lateinit var adsController: WellnessConsentAdsController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        adsController = WellnessConsentAdsController(this)
+        adsController.requestConsent()
         val authenticator = BiometricPrivacyAuthenticator(
             activity = this,
             title = getString(R.string.platform_unlock_title),
@@ -39,6 +43,7 @@ class MainActivity : FragmentActivity() {
                 initialValue = PrivacySettings.Disabled,
             )
             val isUnlocked by privacyController.isUnlocked.collectAsStateWithLifecycle()
+            val adsState by adsController.state.collectAsStateWithLifecycle()
             val snackbarHostState = remember { SnackbarHostState() }
             NandaTheme {
                 KeelimAppShell(
@@ -53,7 +58,7 @@ class MainActivity : FragmentActivity() {
                     onBackgrounded = { privacyController.onBackgrounded(settings) },
                     onForegrounded = { privacyController.onForegrounded(settings) },
                 ) {
-                    WellnessRoute()
+                    WellnessRoute(canLoadAd = adsState.canRequestAds)
                 }
             }
         }

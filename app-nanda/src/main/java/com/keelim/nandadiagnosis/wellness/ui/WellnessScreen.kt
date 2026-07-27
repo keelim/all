@@ -9,7 +9,9 @@ import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.togetherWith
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.Column
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -40,6 +42,7 @@ import androidx.compose.ui.res.stringResource
 import com.keelim.model.wellness.Routine
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.wellness.WellnessUiState
+import com.keelim.nandadiagnosis.wellness.ads.RoutineAdBanner
 import com.keelim.nandadiagnosis.wellness.domain.DailyCheckIn
 import com.keelim.nandadiagnosis.wellness.domain.MeasurementState
 import com.keelim.nandadiagnosis.wellness.domain.RoutineKind
@@ -56,6 +59,7 @@ internal fun WellnessScreen(
     onAddRoutine: (String, RoutineKind) -> Boolean,
     onSetRoutineCompletion: (Routine, Boolean, Int?) -> Unit,
     onDeleteRoutine: (Routine) -> Unit,
+    canLoadAd: Boolean = false,
 ) {
     var selectedTabIndex by rememberSaveable { mutableIntStateOf(0) }
     var privacyMode by rememberSaveable { mutableStateOf(true) }
@@ -70,30 +74,36 @@ internal fun WellnessScreen(
             )
         },
         bottomBar = {
-            NavigationBar(containerColor = MaterialTheme.colorScheme.surface) {
-                WellnessDestination.entries.forEachIndexed { index, destination ->
-                    val selected = selectedTabIndex == index
-                    NavigationBarItem(
-                        selected = selected,
-                        onClick = { selectedTabIndex = index },
-                        icon = {
-                            Icon(
-                                imageVector = destination.icon,
-                                contentDescription = stringResource(destination.labelRes),
-                            )
-                        },
-                        label = {
-                            Text(
-                                text = stringResource(destination.labelRes),
-                                style = MaterialTheme.typography.labelMedium,
-                                color = if (selected) {
-                                    MaterialTheme.colorScheme.primary
-                                } else {
-                                    MaterialTheme.colorScheme.onSurfaceVariant
-                                },
-                            )
-                        },
-                    )
+            Column {
+                RoutineAdBanner(
+                    canLoadAd = canLoadAd,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+                NavigationBar(containerColor = MaterialTheme.colorScheme.surface) {
+                    WellnessDestination.entries.forEachIndexed { index, destination ->
+                        val selected = selectedTabIndex == index
+                        NavigationBarItem(
+                            selected = selected,
+                            onClick = { selectedTabIndex = index },
+                            icon = {
+                                Icon(
+                                    imageVector = destination.icon,
+                                    contentDescription = stringResource(destination.labelRes),
+                                )
+                            },
+                            label = {
+                                Text(
+                                    text = stringResource(destination.labelRes),
+                                    style = MaterialTheme.typography.labelMedium,
+                                    color = if (selected) {
+                                        MaterialTheme.colorScheme.primary
+                                    } else {
+                                        MaterialTheme.colorScheme.onSurfaceVariant
+                                    },
+                                )
+                            },
+                        )
+                    }
                 }
             }
         },

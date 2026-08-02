@@ -101,6 +101,20 @@
 
     <string name="wellness_today_greeting">Good morning</string>
     <string name="wellness_today_intro">Would you like to check in with yourself?</string>
+    <string name="wellness_care_weather_title">Today’s care weather</string>
+    <string name="wellness_care_weather_helper">Log today’s state with one tap.\nYour record stays private to you.</string>
+    <string name="wellness_care_comfortable">Comfortable</string>
+    <string name="wellness_care_comfortable_caption">Feels usual</string>
+    <string name="wellness_care_aware">A little noticeable</string>
+    <string name="wellness_care_aware_caption">A small change</string>
+    <string name="wellness_care_needs_attention">Needs attention</string>
+    <string name="wellness_care_needs_attention_caption">Feels different</string>
+    <string name="wellness_care_optional_tags">Optional (select multiple)</string>
+    <string name="wellness_care_choose_condition">Choose a condition to enable tags.</string>
+    <string name="wellness_care_tag_sweat">Sweat</string>
+    <string name="wellness_care_tag_friction">Friction</string>
+    <string name="wellness_care_tag_dryness">Dryness</string>
+    <string name="wellness_care_weather_saved">Today’s care weather was saved.</string>
     <string name="wellness_today_actions">Today’s actions</string>
     <string name="wellness_today_actions_empty">No action plan yet. Add one small action from Plan.</string>
     <string name="wellness_checkin_title">Today’s condition</string>
@@ -193,4 +207,6 @@
     <string name="wellness_back">Back</string>
     <string name="wellness_measurement_guidance">Measurements can vary with conditions and technique. Recording occasionally under similar conditions is more useful than repeating them often.</string>
     <string name="wellness_measurement_pair">Length %1$.1f cm · Circumference %2$.1f cm</string>
+    <string name="wellness_checkin_delete_title">Delete today’s check-in?</string>
+    <string name="wellness_checkin_delete_message">Deleted records cannot be recovered.</string>
 </resources>

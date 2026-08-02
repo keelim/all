@@ -4,11 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.keelim.data.repository.WellnessRepository
 import com.keelim.common.platform.time.TimeProvider
+import com.keelim.model.wellness.CareCheckIn
+import com.keelim.model.wellness.CareCondition
+import com.keelim.model.wellness.DailyCheckIn
 import com.keelim.model.wellness.Measurement
 import com.keelim.model.wellness.Routine
 import com.keelim.model.wellness.RoutineCompletion
 import com.keelim.nandadiagnosis.wellness.domain.CheckInRules
-import com.keelim.nandadiagnosis.wellness.domain.DailyCheckIn
 import com.keelim.nandadiagnosis.wellness.domain.MeasurementState
 import com.keelim.nandadiagnosis.wellness.domain.RoutineKind
 import com.keelim.nandadiagnosis.wellness.domain.WellnessRules
@@ -21,6 +23,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 
 @HiltViewModel
 class WellnessViewModel @Inject constructor(
@@ -28,15 +32,15 @@ class WellnessViewModel @Inject constructor(
     private val timeProvider: TimeProvider,
 ) : ViewModel() {
     private val validationErrors = MutableStateFlow<Set<WellnessValidationError>>(emptySet())
-    private val checkIns = MutableStateFlow<List<DailyCheckIn>>(emptyList())
-
+    private val careCheckInMutex = Mutex()
     val uiState: StateFlow<WellnessUiState> =
-        combine(repository.data, validationErrors, checkIns) { data, errors, dailyCheckIns ->
+        combine(repository.data, validationErrors) { data, errors ->
             WellnessUiState(
                 measurements = data.measurements,
                 routines = data.routines,
                 completions = data.completions,
-                checkIns = dailyCheckIns,
+                checkIns = data.checkIns,
+                careCheckIns = data.careCheckIns,
                 validationErrors = errors,
             )
         }.stateIn(
@@ -55,8 +59,33 @@ class WellnessViewModel @Inject constructor(
             return false
         }
         validationErrors.value = emptySet()
-        checkIns.value = checkIns.value.filterNot { it.localDate == checkIn.localDate } + checkIn
+        viewModelScope.launch { repository.upsertCheckIn(checkIn) }
         return true
+    }
+
+    fun deleteCheckIn(localDate: String) {
+        viewModelScope.launch { repository.deleteCheckIn(localDate) }
+    }
+
+    fun saveCareCheckIn(
+        condition: CareCondition,
+        sweat: Boolean,
+        friction: Boolean,
+        dryness: Boolean,
+    ) {
+        viewModelScope.launch {
+            careCheckInMutex.withLock {
+                repository.upsertCareCheckIn(
+                    CareCheckIn(
+                        localDate = timeProvider.today().toString(),
+                        condition = condition,
+                        sweat = sweat,
+                        friction = friction,
+                        dryness = dryness,
+                    ),
+                )
+            }
+        }
     }
 
     fun saveMeasurement(

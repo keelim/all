@@ -10,7 +10,11 @@ import androidx.compose.animation.shrinkVertically
 import androidx.compose.animation.togetherWith
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -18,20 +22,34 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.FilterChip
+import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -39,12 +57,19 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.keelim.model.wellness.CareCheckIn
+import com.keelim.model.wellness.CareCondition
 import com.keelim.model.wellness.Routine
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.wellness.WellnessUiState
-import com.keelim.nandadiagnosis.wellness.domain.DailyCheckIn
+import com.keelim.model.wellness.DailyCheckIn
 import com.keelim.nandadiagnosis.wellness.domain.InsightCalculator
 import com.keelim.nandadiagnosis.wellness.domain.WellnessRules
 import java.time.LocalDate
@@ -55,11 +80,14 @@ internal fun TodayScreen(
     uiState: WellnessUiState,
     privacyMode: Boolean,
     onSaveCheckIn: (DailyCheckIn) -> Boolean,
+    onSaveCareCheckIn: (CareCondition, Boolean, Boolean, Boolean) -> Unit,
+    onDeleteCheckIn: (String) -> Unit,
     onSetRoutineCompletion: (Routine, Boolean, Int?) -> Unit,
 ) {
     val today = remember { LocalDate.now() }
     val todayIso = today.toString()
     val todayCheckIn = uiState.checkIns.firstOrNull { it.localDate == todayIso }
+    val todayCareCheckIn = uiState.careCheckIns.firstOrNull { it.localDate == todayIso }
     val todayCompletions = uiState.completions.filter { it.localDate == todayIso }
     val visibleRoutines = uiState.routines.take(3)
     val summaries = uiState.routines.map { routine ->
@@ -86,6 +114,7 @@ internal fun TodayScreen(
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
     val savedMessage = stringResource(R.string.wellness_checkin_saved)
+    val careSavedMessage = stringResource(R.string.wellness_care_weather_saved)
     var showCheckIn by rememberSaveable { mutableStateOf(false) }
 
     Scaffold(
@@ -106,19 +135,19 @@ internal fun TodayScreen(
                     )
                 }
             }
-            item(key = "greeting") {
-                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text(
-                        text = stringResource(R.string.wellness_today_greeting),
-                        style = MaterialTheme.typography.headlineSmall,
-                        color = MaterialTheme.colorScheme.onBackground,
-                    )
-                    Text(
-                        text = stringResource(R.string.wellness_today_intro),
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                }
+            item(key = "careWeather") {
+                CareWeatherSection(
+                    date = today,
+                    checkIn = todayCareCheckIn,
+                    privacyMode = privacyMode,
+                    onSave = { condition, sweat, friction, dryness ->
+                        onSaveCareCheckIn(condition, sweat, friction, dryness)
+                        scope.launch {
+                            snackbarHostState.currentSnackbarData?.dismiss()
+                            snackbarHostState.showSnackbar(careSavedMessage)
+                        }
+                    },
+                )
             }
             item(key = "checkIn") {
                 CheckInCard(
@@ -205,6 +234,12 @@ internal fun TodayScreen(
         DailyCheckInSheet(
             initial = todayCheckIn,
             onDismiss = { showCheckIn = false },
+            onDelete = todayCheckIn?.let { checkIn ->
+                {
+                    onDeleteCheckIn(checkIn.localDate)
+                    showCheckIn = false
+                }
+            },
             onSave = { checkIn ->
                 if (onSaveCheckIn(checkIn)) {
                     showCheckIn = false
@@ -217,6 +252,281 @@ internal fun TodayScreen(
             },
         )
     }
+}
+
+@Composable
+private fun CareWeatherSection(
+    date: LocalDate,
+    checkIn: CareCheckIn?,
+    privacyMode: Boolean,
+    onSave: (CareCondition, Boolean, Boolean, Boolean) -> Unit,
+) {
+    var conditionName by remember(date, privacyMode) {
+        mutableStateOf(checkIn?.condition?.name.takeUnless { privacyMode })
+    }
+    var sweat by remember(date, privacyMode) {
+        mutableStateOf(checkIn?.sweat?.takeUnless { privacyMode } ?: false)
+    }
+    var friction by remember(date, privacyMode) {
+        mutableStateOf(checkIn?.friction?.takeUnless { privacyMode } ?: false)
+    }
+    var dryness by remember(date, privacyMode) {
+        mutableStateOf(checkIn?.dryness?.takeUnless { privacyMode } ?: false)
+    }
+    var hasLocalEdits by remember(date, privacyMode) { mutableStateOf(false) }
+    val selectedCondition = conditionName?.let { name ->
+        CareCondition.entries.firstOrNull { it.name == name }
+    }
+
+    LaunchedEffect(checkIn, privacyMode) {
+        if (!hasLocalEdits) {
+            conditionName = checkIn?.condition?.name.takeUnless { privacyMode }
+            sweat = checkIn?.sweat?.takeUnless { privacyMode } ?: false
+            friction = checkIn?.friction?.takeUnless { privacyMode } ?: false
+            dryness = checkIn?.dryness?.takeUnless { privacyMode } ?: false
+        }
+    }
+
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(14.dp),
+    ) {
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(6.dp),
+        ) {
+            Text(
+                text = stringResource(R.string.wellness_care_weather_title),
+                style = MaterialTheme.typography.headlineMedium,
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+            Text(
+                text = WellnessUiFormat.date(date),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+        Image(
+            painter = painterResource(R.drawable.care_weather_orb),
+            contentDescription = null,
+            modifier = Modifier.size(228.dp),
+        )
+        Text(
+            text = stringResource(R.string.wellness_care_weather_helper),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = TextAlign.Center,
+        )
+        Row(
+            modifier = Modifier.fillMaxWidth().selectableGroup(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            CareCondition.entries.forEach { condition ->
+                val label = stringResource(
+                    when (condition) {
+                        CareCondition.COMFORTABLE -> R.string.wellness_care_comfortable
+                        CareCondition.AWARE -> R.string.wellness_care_aware
+                        CareCondition.NEEDS_ATTENTION -> R.string.wellness_care_needs_attention
+                    },
+                )
+                val caption = stringResource(
+                    when (condition) {
+                        CareCondition.COMFORTABLE -> R.string.wellness_care_comfortable_caption
+                        CareCondition.AWARE -> R.string.wellness_care_aware_caption
+                        CareCondition.NEEDS_ATTENTION ->
+                            R.string.wellness_care_needs_attention_caption
+                    },
+                )
+                val icon = when (condition) {
+                    CareCondition.COMFORTABLE -> Icons.Filled.CheckCircle
+                    CareCondition.AWARE -> Icons.Filled.Info
+                    CareCondition.NEEDS_ATTENTION -> Icons.Filled.Warning
+                }
+                CareConditionChoice(
+                    label = label,
+                    caption = caption,
+                    icon = icon,
+                    selected = selectedCondition == condition,
+                    onClick = {
+                        hasLocalEdits = true
+                        conditionName = condition.name
+                        onSave(condition, sweat, friction, dryness)
+                    },
+                    modifier = Modifier.weight(1f),
+                )
+            }
+        }
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            Text(
+                text = stringResource(R.string.wellness_care_optional_tags),
+                style = MaterialTheme.typography.labelMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            AnimatedVisibility(visible = selectedCondition == null) {
+                Text(
+                    text = stringResource(R.string.wellness_care_choose_condition),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.primary,
+                )
+            }
+            Row(
+                modifier = Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                CareTagChip(
+                    label = stringResource(R.string.wellness_care_tag_sweat),
+                    selected = sweat,
+                    enabled = selectedCondition != null,
+                    onClick = {
+                        selectedCondition?.let { condition ->
+                            hasLocalEdits = true
+                            sweat = !sweat
+                            onSave(condition, sweat, friction, dryness)
+                        }
+                    },
+                )
+                CareTagChip(
+                    label = stringResource(R.string.wellness_care_tag_friction),
+                    selected = friction,
+                    enabled = selectedCondition != null,
+                    onClick = {
+                        selectedCondition?.let { condition ->
+                            hasLocalEdits = true
+                            friction = !friction
+                            onSave(condition, sweat, friction, dryness)
+                        }
+                    },
+                )
+                CareTagChip(
+                    label = stringResource(R.string.wellness_care_tag_dryness),
+                    selected = dryness,
+                    enabled = selectedCondition != null,
+                    onClick = {
+                        selectedCondition?.let { condition ->
+                            hasLocalEdits = true
+                            dryness = !dryness
+                            onSave(condition, sweat, friction, dryness)
+                        }
+                    },
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun CareConditionChoice(
+    label: String,
+    caption: String,
+    icon: ImageVector,
+    selected: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val accentColor by animateColorAsState(
+        targetValue = if (selected) {
+            MaterialTheme.colorScheme.primary
+        } else {
+            MaterialTheme.colorScheme.outlineVariant
+        },
+        animationSpec = tween(220),
+        label = "careConditionAccent",
+    )
+    val containerColor by animateColorAsState(
+        targetValue = if (selected) {
+            MaterialTheme.colorScheme.primaryContainer
+        } else {
+            MaterialTheme.colorScheme.surface
+        },
+        animationSpec = tween(220),
+        label = "careConditionContainer",
+    )
+
+    Column(
+        modifier = modifier.selectable(
+            selected = selected,
+            role = Role.RadioButton,
+            onClick = onClick,
+        ).padding(vertical = 4.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        Surface(
+            modifier = Modifier.size(88.dp),
+            shape = CircleShape,
+            color = containerColor,
+            border = BorderStroke(if (selected) 2.dp else 1.dp, accentColor),
+        ) {
+            Box(contentAlignment = Alignment.Center) {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = null,
+                    modifier = Modifier.size(38.dp),
+                    tint = if (selected) {
+                        MaterialTheme.colorScheme.primary
+                    } else {
+                        MaterialTheme.colorScheme.onSurfaceVariant
+                    },
+                )
+            }
+        }
+        Text(
+            text = label,
+            style = MaterialTheme.typography.labelLarge,
+            color = if (selected) {
+                MaterialTheme.colorScheme.primary
+            } else {
+                MaterialTheme.colorScheme.onSurface
+            },
+            textAlign = TextAlign.Center,
+        )
+        Text(
+            text = caption,
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = TextAlign.Center,
+        )
+    }
+}
+
+@Composable
+private fun CareTagChip(
+    label: String,
+    selected: Boolean,
+    enabled: Boolean,
+    onClick: () -> Unit,
+) {
+    FilterChip(
+        selected = selected,
+        onClick = onClick,
+        enabled = enabled,
+        leadingIcon = if (selected) {
+            {
+                Icon(
+                    imageVector = Icons.Filled.Check,
+                    contentDescription = null,
+                    modifier = Modifier.size(18.dp),
+                )
+            }
+        } else {
+            null
+        },
+        label = {
+            Text(
+                text = label,
+                style = MaterialTheme.typography.labelLarge,
+                color = if (enabled) {
+                    MaterialTheme.colorScheme.onSurface
+                } else {
+                    MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
+                },
+            )
+        },
+    )
 }
 
 @Composable

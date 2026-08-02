@@ -1,6 +1,9 @@
 package com.keelim.nandadiagnosis.wellness
 
 import com.keelim.data.repository.WellnessRepository
+import com.keelim.model.wellness.CareCheckIn
+import com.keelim.model.wellness.CareCondition
+import com.keelim.model.wellness.DailyCheckIn
 import com.keelim.model.wellness.Measurement
 import com.keelim.model.wellness.Routine
 import com.keelim.model.wellness.RoutineCompletion
@@ -14,6 +17,7 @@ import io.kotest.matchers.shouldBe
 import java.time.LocalDate
 import java.time.Instant
 import java.time.ZoneId
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
@@ -42,6 +46,55 @@ class WellnessViewModelTest : FunSpec({
         ),
     )
             val date = LocalDate.of(2026, 7, 19)
+
+            val checkIn = DailyCheckIn(
+                localDate = date.toString(),
+                sleep = 3,
+                stress = 3,
+                energy = 3,
+                desire = 3,
+                confidence = 3,
+            )
+            viewModel.saveCheckIn(checkIn)
+            advanceUntilIdle()
+            repository.state.value.checkIns shouldBe listOf(checkIn)
+
+            viewModel.saveCheckIn(checkIn.copy(energy = 4))
+            advanceUntilIdle()
+            repository.state.value.checkIns shouldBe listOf(checkIn.copy(energy = 4))
+
+            viewModel.deleteCheckIn(date.toString())
+            advanceUntilIdle()
+            repository.state.value.checkIns shouldBe emptyList()
+
+            viewModel.saveCareCheckIn(
+                condition = CareCondition.COMFORTABLE,
+                sweat = true,
+                friction = false,
+                dryness = true,
+            )
+            advanceUntilIdle()
+            repository.state.value.careCheckIns shouldBe listOf(
+                CareCheckIn(
+                    localDate = date.toString(),
+                    condition = CareCondition.COMFORTABLE,
+                    sweat = true,
+                    dryness = true,
+                ),
+            )
+
+            viewModel.saveCareCheckIn(
+                condition = CareCondition.AWARE,
+                sweat = false,
+                friction = true,
+                dryness = false,
+            )
+            advanceUntilIdle()
+            repository.state.value.careCheckIns.single() shouldBe CareCheckIn(
+                localDate = date.toString(),
+                condition = CareCondition.AWARE,
+                friction = true,
+            )
 
             viewModel.saveMeasurement("12.3", "9,5", MeasurementState.RELAXED, date)
             viewModel.saveMeasurement("13.0", "10.0", MeasurementState.STRETCHED, date)
@@ -92,9 +145,37 @@ class WellnessViewModelTest : FunSpec({
         }
     }
 
+    test("latest care selection wins when an earlier save is slower") {
+        runTest {
+            val repository = FakeWellnessRepository { checkIn ->
+                if (checkIn.condition == CareCondition.COMFORTABLE) delay(100)
+            }
+            val viewModel = WellnessViewModel(
+                repository = repository,
+                timeProvider = FakeTimeProvider(
+                    initialInstant = Instant.parse("2026-07-19T00:00:00Z"),
+                    zone = ZoneId.of("UTC"),
+                ),
+            )
+
+            viewModel.saveCareCheckIn(CareCondition.COMFORTABLE, true, false, false)
+            viewModel.saveCareCheckIn(CareCondition.AWARE, true, true, false)
+            advanceUntilIdle()
+
+            repository.state.value.careCheckIns.single() shouldBe CareCheckIn(
+                localDate = "2026-07-19",
+                condition = CareCondition.AWARE,
+                sweat = true,
+                friction = true,
+            )
+        }
+    }
+
 })
 
-private class FakeWellnessRepository : WellnessRepository {
+private class FakeWellnessRepository(
+    private val beforeCareCheckInUpsert: suspend (CareCheckIn) -> Unit = {},
+) : WellnessRepository {
     val state = MutableStateFlow(WellnessData())
     override val data = state
     private var nextRoutineId = 1L
@@ -118,6 +199,33 @@ private class FakeWellnessRepository : WellnessRepository {
 
     override suspend fun deleteGoal() {
         state.update { it.copy(goal = null) }
+    }
+
+    override suspend fun upsertCheckIn(checkIn: DailyCheckIn) {
+        state.update {
+            it.copy(
+                checkIns = it.checkIns.filterNot { current ->
+                    current.localDate == checkIn.localDate
+                } + checkIn,
+            )
+        }
+    }
+
+    override suspend fun deleteCheckIn(localDate: String) {
+        state.update {
+            it.copy(checkIns = it.checkIns.filterNot { checkIn -> checkIn.localDate == localDate })
+        }
+    }
+
+    override suspend fun upsertCareCheckIn(checkIn: CareCheckIn) {
+        beforeCareCheckInUpsert(checkIn)
+        state.update {
+            it.copy(
+                careCheckIns = it.careCheckIns.filterNot { current ->
+                    current.localDate == checkIn.localDate
+                } + checkIn,
+            )
+        }
     }
 
     override suspend fun insertRoutine(routine: Routine): Long {

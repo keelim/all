@@ -1,5 +1,7 @@
 package com.keelim.nandadiagnosis.wellness.domain
 
+import com.keelim.model.wellness.DailyCheckIn
+
 data class PatternInsight(
     val sampleDays: Int,
     val kind: PatternKind,

@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.keelim.model.wellness.Routine
 import com.keelim.nandadiagnosis.wellness.WellnessUiState
-import com.keelim.nandadiagnosis.wellness.domain.DailyCheckIn
+import com.keelim.model.wellness.DailyCheckIn
 import com.keelim.nandadiagnosis.wellness.domain.RoutineKind
 
 @Preview(showBackground = true, backgroundColor = 0xFF071625)
@@ -15,6 +15,8 @@ private fun WellnessPreview() {
         WellnessScreen(
             uiState = sampleWellnessUiState,
             onSaveCheckIn = { true },
+            onSaveCareCheckIn = { _, _, _, _ -> },
+            onDeleteCheckIn = {},
             onSaveMeasurement = { _, _, _ -> true },
             onAddRoutine = { _, _ -> true },
             onSetRoutineCompletion = { _, _, _ -> },

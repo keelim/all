@@ -27,7 +27,7 @@ object DatabaseModule {
             context,
             WellnessDatabase::class.java,
             WellnessDatabase.NAME,
-        ).build()
+        ).addMigrations(WellnessDatabase.MIGRATION_1_2).build()
 
     @Provides
     @Singleton

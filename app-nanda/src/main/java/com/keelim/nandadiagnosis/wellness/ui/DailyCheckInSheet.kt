@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
@@ -30,8 +31,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.wellness.domain.DailyCheckIn
-import com.keelim.nandadiagnosis.wellness.domain.MorningCondition
+import com.keelim.model.wellness.DailyCheckIn
+import com.keelim.model.wellness.MorningCondition
 import java.time.LocalDate
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -39,6 +40,7 @@ import java.time.LocalDate
 internal fun DailyCheckInSheet(
     initial: DailyCheckIn?,
     onDismiss: () -> Unit,
+    onDelete: (() -> Unit)?,
     onSave: (DailyCheckIn) -> Unit,
 ) {
     var step by rememberSaveable { mutableIntStateOf(1) }
@@ -54,6 +56,7 @@ internal fun DailyCheckInSheet(
     var didCardio by rememberSaveable { mutableStateOf(initial?.didCardio ?: false) }
     var hasDiscomfort by rememberSaveable { mutableStateOf(initial?.hasDiscomfort ?: false) }
     var note by rememberSaveable { mutableStateOf(initial?.note.orEmpty()) }
+    var showDeleteConfirmation by rememberSaveable { mutableStateOf(false) }
 
     ModalBottomSheet(onDismissRequest = onDismiss) {
         Column(
@@ -230,6 +233,18 @@ internal fun DailyCheckInSheet(
                     color = MaterialTheme.colorScheme.onPrimary,
                 )
             }
+            if (onDelete != null) {
+                TextButton(
+                    onClick = { showDeleteConfirmation = true },
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    Text(
+                        text = stringResource(R.string.wellness_confirm_delete),
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.error,
+                    )
+                }
+            }
             TextButton(onClick = onDismiss, modifier = Modifier.fillMaxWidth()) {
                 Text(
                     text = stringResource(R.string.wellness_later),
@@ -238,6 +253,44 @@ internal fun DailyCheckInSheet(
                 )
             }
         }
+    }
+
+    if (showDeleteConfirmation) {
+        AlertDialog(
+            onDismissRequest = { showDeleteConfirmation = false },
+            title = {
+                Text(
+                    text = stringResource(R.string.wellness_checkin_delete_title),
+                    style = MaterialTheme.typography.titleLarge,
+                    color = MaterialTheme.colorScheme.onSurface,
+                )
+            },
+            text = {
+                Text(
+                    text = stringResource(R.string.wellness_checkin_delete_message),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            },
+            confirmButton = {
+                TextButton(onClick = { onDelete?.invoke() }) {
+                    Text(
+                        text = stringResource(R.string.wellness_confirm_delete),
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.error,
+                    )
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showDeleteConfirmation = false }) {
+                    Text(
+                        text = stringResource(R.string.wellness_cancel),
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.primary,
+                    )
+                }
+            },
+        )
     }
 }
 

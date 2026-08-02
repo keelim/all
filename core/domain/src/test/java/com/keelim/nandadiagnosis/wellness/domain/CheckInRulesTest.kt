@@ -1,5 +1,6 @@
 package com.keelim.nandadiagnosis.wellness.domain
 
+import com.keelim.model.wellness.DailyCheckIn
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 

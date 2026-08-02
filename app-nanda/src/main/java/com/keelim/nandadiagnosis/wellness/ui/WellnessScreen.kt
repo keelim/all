@@ -40,10 +40,11 @@ import androidx.compose.ui.semantics.toggleableState
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.res.stringResource
 import com.keelim.model.wellness.Routine
+import com.keelim.model.wellness.CareCondition
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.wellness.WellnessUiState
 import com.keelim.nandadiagnosis.wellness.ads.RoutineAdBanner
-import com.keelim.nandadiagnosis.wellness.domain.DailyCheckIn
+import com.keelim.model.wellness.DailyCheckIn
 import com.keelim.nandadiagnosis.wellness.domain.MeasurementState
 import com.keelim.nandadiagnosis.wellness.domain.RoutineKind
 import java.time.LocalDate
@@ -55,6 +56,8 @@ import java.util.Locale
 internal fun WellnessScreen(
     uiState: WellnessUiState,
     onSaveCheckIn: (DailyCheckIn) -> Boolean,
+    onSaveCareCheckIn: (CareCondition, Boolean, Boolean, Boolean) -> Unit,
+    onDeleteCheckIn: (String) -> Unit,
     onSaveMeasurement: (String, String, MeasurementState) -> Boolean,
     onAddRoutine: (String, RoutineKind) -> Boolean,
     onSetRoutineCompletion: (Routine, Boolean, Int?) -> Unit,
@@ -128,6 +131,8 @@ internal fun WellnessScreen(
                     uiState = uiState,
                     privacyMode = privacyMode,
                     onSaveCheckIn = onSaveCheckIn,
+                    onSaveCareCheckIn = onSaveCareCheckIn,
+                    onDeleteCheckIn = onDeleteCheckIn,
                     onSetRoutineCompletion = onSetRoutineCompletion,
                 )
 
@@ -182,7 +187,7 @@ private fun WellnessTopBar(
         },
         actions = {
             Text(
-                text = WellnessUiFormat.date(LocalDate.now()),
+                text = privacyState,
                 style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )

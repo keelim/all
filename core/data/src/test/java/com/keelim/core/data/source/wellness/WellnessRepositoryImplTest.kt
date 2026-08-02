@@ -48,6 +48,8 @@ class WellnessRepositoryImplTest : FunSpec({
             every { dao.observeRoutines() } returns flowOf(emptyList())
             every { dao.observeRoutineCompletions() } returns flowOf(emptyList())
             every { dao.observeGoal() } returns flowOf(null)
+            every { dao.observeCheckIns() } returns flowOf(emptyList())
+            every { dao.observeCareCheckIns() } returns flowOf(emptyList())
             coEvery { dao.insertRoutines(any()) } just Runs
             val repository =
                 WellnessRepositoryImpl(

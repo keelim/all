@@ -5,12 +5,18 @@ import android.content.SharedPreferences
 import com.keelim.common.Dispatcher
 import com.keelim.common.KeelimDispatchers
 import com.keelim.core.database.wellness.MeasurementEntity
+import com.keelim.core.database.wellness.CareCheckInEntity
+import com.keelim.core.database.wellness.DailyCheckInEntity
 import com.keelim.core.database.wellness.RoutineCompletionEntity
 import com.keelim.core.database.wellness.RoutineEntity
 import com.keelim.core.database.wellness.WellnessDao
 import com.keelim.core.database.wellness.WellnessGoalEntity
 import com.keelim.data.repository.WellnessRepository
 import com.keelim.model.wellness.Measurement
+import com.keelim.model.wellness.CareCheckIn
+import com.keelim.model.wellness.CareCondition
+import com.keelim.model.wellness.DailyCheckIn
+import com.keelim.model.wellness.MorningCondition
 import com.keelim.model.wellness.Routine
 import com.keelim.model.wellness.RoutineCompletion
 import com.keelim.model.wellness.WellnessData
@@ -54,6 +60,17 @@ class WellnessRepositoryImpl internal constructor(
                 completions = completions.map(RoutineCompletionEntity::toModel),
                 goal = goal?.toModel(),
             )
+        }.let { coreData ->
+            combine(
+                coreData,
+                dao.observeCheckIns(),
+                dao.observeCareCheckIns(),
+            ) { current, checkIns, careCheckIns ->
+                current.copy(
+                    checkIns = checkIns.map(DailyCheckInEntity::toModel),
+                    careCheckIns = careCheckIns.mapNotNull(CareCheckInEntity::toModel),
+                )
+            }
         }
 
     override suspend fun initializeDefaultRoutines(createdLocalDate: String) {
@@ -82,6 +99,18 @@ class WellnessRepositoryImpl internal constructor(
 
     override suspend fun deleteGoal() {
         dao.deleteGoal()
+    }
+
+    override suspend fun upsertCheckIn(checkIn: DailyCheckIn) {
+        dao.upsertCheckIn(checkIn.toEntity())
+    }
+
+    override suspend fun deleteCheckIn(localDate: String) {
+        dao.deleteCheckIn(localDate)
+    }
+
+    override suspend fun upsertCareCheckIn(checkIn: CareCheckIn) {
+        dao.upsertCareCheckIn(checkIn.toEntity())
     }
 
     override suspend fun insertRoutine(routine: Routine): Long =
@@ -125,3 +154,50 @@ private fun RoutineCompletion.toEntity() =
 private fun WellnessGoalEntity.toModel() = WellnessGoal(metric, targetCm, baselineCm)
 
 private fun WellnessGoal.toEntity() = WellnessGoalEntity(metric = metric, targetCm = targetCm, baselineCm = baselineCm)
+
+private fun DailyCheckInEntity.toModel() = DailyCheckIn(
+    localDate = localDate,
+    sleep = sleep,
+    stress = stress,
+    energy = energy,
+    desire = desire,
+    confidence = confidence,
+    morningCondition = MorningCondition.valueOf(morningCondition),
+    drankAlcohol = drankAlcohol,
+    didCardio = didCardio,
+    hasDiscomfort = hasDiscomfort,
+    note = note,
+)
+
+private fun DailyCheckIn.toEntity() = DailyCheckInEntity(
+    localDate = localDate,
+    sleep = sleep,
+    stress = stress,
+    energy = energy,
+    desire = desire,
+    confidence = confidence,
+    morningCondition = morningCondition.name,
+    drankAlcohol = drankAlcohol,
+    didCardio = didCardio,
+    hasDiscomfort = hasDiscomfort,
+    note = note,
+)
+
+private fun CareCheckInEntity.toModel(): CareCheckIn? =
+    runCatching {
+        CareCheckIn(
+            localDate = localDate,
+            condition = CareCondition.valueOf(condition),
+            sweat = sweat,
+            friction = friction,
+            dryness = dryness,
+        )
+    }.getOrNull()
+
+private fun CareCheckIn.toEntity() = CareCheckInEntity(
+    localDate = localDate,
+    condition = condition.name,
+    sweat = sweat,
+    friction = friction,
+    dryness = dryness,
+)

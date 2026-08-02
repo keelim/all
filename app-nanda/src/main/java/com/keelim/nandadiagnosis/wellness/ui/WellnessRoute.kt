@@ -16,6 +16,8 @@ fun WellnessRoute(
     WellnessScreen(
         uiState = uiState,
         onSaveCheckIn = viewModel::saveCheckIn,
+        onSaveCareCheckIn = viewModel::saveCareCheckIn,
+        onDeleteCheckIn = viewModel::deleteCheckIn,
         onSaveMeasurement = viewModel::saveMeasurement,
         onAddRoutine = viewModel::addRoutine,
         onSetRoutineCompletion = { routine, checked, duration ->

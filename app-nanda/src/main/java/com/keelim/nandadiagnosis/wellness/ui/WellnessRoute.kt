@@ -5,11 +5,13 @@ import androidx.compose.runtime.getValue
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.nandadiagnosis.wellness.WellnessViewModel
+import com.keelim.nandadiagnosis.wellness.morning.MorningSignalViewModel
 
 @Composable
 fun WellnessRoute(
     canLoadAd: Boolean,
     viewModel: WellnessViewModel = hiltViewModel(),
+    morningSignalViewModel: MorningSignalViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -29,5 +31,6 @@ fun WellnessRoute(
         },
         onDeleteRoutine = viewModel::deleteRoutine,
         canLoadAd = canLoadAd,
+        morningSignalViewModel = morningSignalViewModel,
     )
 }

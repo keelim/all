@@ -44,10 +44,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.keelim.model.wellness.Measurement
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.wellness.WellnessUiState
 import com.keelim.nandadiagnosis.wellness.domain.MeasurementState
+import com.keelim.nandadiagnosis.wellness.morning.MorningSignalViewModel
 
 @Composable
 internal fun ToolsScreen(
@@ -55,8 +57,10 @@ internal fun ToolsScreen(
     privacyMode: Boolean,
     onPrivacyModeChange: (Boolean) -> Unit,
     onSaveMeasurement: (String, String, MeasurementState) -> Boolean,
+    morningSignalViewModel: MorningSignalViewModel? = null,
 ) {
     var showMeasurements by rememberSaveable { mutableStateOf(false) }
+    var showMorningSignal by rememberSaveable { mutableStateOf(false) }
     if (showMeasurements) {
         MeasurementToolScreen(
             measurements = uiState.measurements,
@@ -65,6 +69,13 @@ internal fun ToolsScreen(
                 uiState.validationErrors,
             onBack = { showMeasurements = false },
             onSaveMeasurement = onSaveMeasurement,
+        )
+        return
+    }
+    if (showMorningSignal) {
+        MorningSignalRoute(
+            onBack = { showMorningSignal = false },
+            viewModel = morningSignalViewModel ?: hiltViewModel(),
         )
         return
     }
@@ -90,6 +101,14 @@ internal fun ToolsScreen(
                 ToolLabel(stringResource(R.string.wellness_tools_supplements))
                 ToolLabel(stringResource(R.string.wellness_tools_self_check))
                 ToolLabel(stringResource(R.string.wellness_tools_care_notes))
+            }
+        }
+        item(key = "subFeatures") {
+            ToolSection(title = stringResource(R.string.wellness_tools_subfeatures)) {
+                ToolButton(
+                    title = stringResource(R.string.morning_signal_title),
+                    onClick = { showMorningSignal = true },
+                )
             }
         }
         item(key = "privacyTools") {

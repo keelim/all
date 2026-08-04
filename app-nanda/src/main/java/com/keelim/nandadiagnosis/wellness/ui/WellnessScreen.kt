@@ -44,6 +44,7 @@ import com.keelim.model.wellness.CareCondition
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.wellness.WellnessUiState
 import com.keelim.nandadiagnosis.wellness.ads.RoutineAdBanner
+import com.keelim.nandadiagnosis.wellness.morning.MorningSignalViewModel
 import com.keelim.model.wellness.DailyCheckIn
 import com.keelim.nandadiagnosis.wellness.domain.MeasurementState
 import com.keelim.nandadiagnosis.wellness.domain.RoutineKind
@@ -63,6 +64,7 @@ internal fun WellnessScreen(
     onSetRoutineCompletion: (Routine, Boolean, Int?) -> Unit,
     onDeleteRoutine: (Routine) -> Unit,
     canLoadAd: Boolean = false,
+    morningSignalViewModel: MorningSignalViewModel? = null,
 ) {
     var selectedTabIndex by rememberSaveable { mutableIntStateOf(0) }
     var privacyMode by rememberSaveable { mutableStateOf(true) }
@@ -153,6 +155,7 @@ internal fun WellnessScreen(
                     privacyMode = privacyMode,
                     onPrivacyModeChange = { privacyMode = it },
                     onSaveMeasurement = onSaveMeasurement,
+                    morningSignalViewModel = morningSignalViewModel,
                 )
             }
         }

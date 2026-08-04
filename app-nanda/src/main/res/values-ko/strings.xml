@@ -209,4 +209,21 @@
     <string name="wellness_measurement_pair">길이 %1$.1f cm · 둘레 %2$.1f cm</string>
     <string name="wellness_checkin_delete_title">오늘 기록을 삭제할까요?</string>
     <string name="wellness_checkin_delete_message">삭제한 기록은 복구할 수 없어요.</string>
+
+    <string name="wellness_tools_subfeatures">서브 기능</string>
+    <string name="morning_signal_title">모닝 시그널</string>
+    <string name="morning_signal_description">매일 오늘 체크인을 시작할 수 있도록 알려드려요.</string>
+    <string name="morning_signal_enabled">모닝 시그널</string>
+    <string name="morning_signal_enabled_description">매일 알림을 예약했어요.</string>
+    <string name="morning_signal_disabled_description">켜면 매일 아침 알림을 받을 수 있어요.</string>
+    <string name="morning_signal_time">%1$02d:%2$02d</string>
+    <string name="morning_signal_time_title">알림 시간 선택</string>
+    <string name="morning_signal_confirm">확인</string>
+    <string name="morning_signal_schedule_note">기기 상태에 따라 알림이 조금 늦게 도착할 수 있어요.</string>
+    <string name="morning_signal_permission_denied">모닝 시그널을 사용하려면 시스템 설정에서 알림을 허용해 주세요.</string>
+    <string name="morning_signal_schedule_failed">모닝 시그널을 예약하지 못했어요. 다시 시도해 주세요.</string>
+    <string name="morning_signal_notification_title">모닝 시그널</string>
+    <string name="morning_signal_notification_body">오늘 컨디션을 가볍게 기록해 보세요.</string>
+    <string name="morning_signal_channel_name">모닝 시그널</string>
+    <string name="morning_signal_channel_description">매일 아침 체크인 알림</string>
 </resources>

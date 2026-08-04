@@ -12,12 +12,15 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.work.CoroutineWorker
 import androidx.work.Data
+import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import com.keelim.common.platform.notification.NotificationPolicy
 import com.keelim.common.platform.notification.NotificationRequest
+import com.keelim.common.platform.notification.NotificationRepeat
 import com.keelim.common.platform.notification.NotificationScheduleResult
 import com.keelim.common.platform.notification.NotificationScheduler
 import java.time.Duration
@@ -36,27 +39,44 @@ class WorkManagerNotificationScheduler(
         if (!canPostNotifications()) return NotificationScheduleResult.PermissionDenied
 
         val publicContent = NotificationPolicy.publicContent(request.content)
-        val work = OneTimeWorkRequestBuilder<PlatformNotificationWorker>()
-            .setInitialDelay(
-                Duration.between(now(), request.scheduledAt).coerceAtLeast(Duration.ZERO).toMillis(),
-                TimeUnit.MILLISECONDS,
-            )
-            .setInputData(
-                Data.Builder()
-                    .putString(KEY_ID, request.id)
-                    .putString(KEY_CHANNEL_ID, request.channel.id)
-                    .putString(KEY_CHANNEL_NAME, request.channel.name)
-                    .putString(KEY_CHANNEL_DESCRIPTION, request.channel.description)
-                    .putString(KEY_TITLE, request.content.title)
-                    .putString(KEY_BODY, request.content.body)
-                    .putString(KEY_PUBLIC_TITLE, publicContent.publicTitle)
-                    .putString(KEY_PUBLIC_BODY, publicContent.publicBody)
-                    .build(),
-            )
-            .addTag(PLATFORM_TAG)
-            .apply { request.tag?.let(::addTag) }
+        val inputData = Data.Builder()
+            .putString(KEY_ID, request.id)
+            .putString(KEY_CHANNEL_ID, request.channel.id)
+            .putString(KEY_CHANNEL_NAME, request.channel.name)
+            .putString(KEY_CHANNEL_DESCRIPTION, request.channel.description)
+            .putString(KEY_TITLE, request.content.title)
+            .putString(KEY_BODY, request.content.body)
+            .putString(KEY_PUBLIC_TITLE, publicContent.publicTitle)
+            .putString(KEY_PUBLIC_BODY, publicContent.publicBody)
             .build()
-        workManager.enqueueUniqueWork(uniqueName(request.id), ExistingWorkPolicy.REPLACE, work)
+        val initialDelay = Duration.between(now(), request.scheduledAt)
+            .coerceAtLeast(Duration.ZERO)
+            .toMillis()
+
+        if (request.repeat == NotificationRepeat.DAILY) {
+            val work = PeriodicWorkRequestBuilder<PlatformNotificationWorker>(
+                24,
+                TimeUnit.HOURS,
+            )
+                .setInitialDelay(initialDelay, TimeUnit.MILLISECONDS)
+                .setInputData(inputData)
+                .addTag(PLATFORM_TAG)
+                .apply { request.tag?.let(::addTag) }
+                .build()
+            workManager.enqueueUniquePeriodicWork(
+                uniqueName(request.id),
+                ExistingPeriodicWorkPolicy.REPLACE,
+                work,
+            )
+        } else {
+            val work = OneTimeWorkRequestBuilder<PlatformNotificationWorker>()
+                .setInitialDelay(initialDelay, TimeUnit.MILLISECONDS)
+                .setInputData(inputData)
+                .addTag(PLATFORM_TAG)
+                .apply { request.tag?.let(::addTag) }
+                .build()
+            workManager.enqueueUniqueWork(uniqueName(request.id), ExistingWorkPolicy.REPLACE, work)
+        }
         return NotificationScheduleResult.Scheduled
     }
 

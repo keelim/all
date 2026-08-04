@@ -209,4 +209,21 @@
     <string name="wellness_measurement_pair">Length %1$.1f cm · Circumference %2$.1f cm</string>
     <string name="wellness_checkin_delete_title">Delete today’s check-in?</string>
     <string name="wellness_checkin_delete_message">Deleted records cannot be recovered.</string>
+
+    <string name="wellness_tools_subfeatures">Sub features</string>
+    <string name="morning_signal_title">Morning signal</string>
+    <string name="morning_signal_description">Get a daily reminder to start your check-in.</string>
+    <string name="morning_signal_enabled">Morning signal</string>
+    <string name="morning_signal_enabled_description">A daily reminder is scheduled.</string>
+    <string name="morning_signal_disabled_description">Turn it on to receive a daily reminder.</string>
+    <string name="morning_signal_time">%1$02d:%2$02d</string>
+    <string name="morning_signal_time_title">Choose reminder time</string>
+    <string name="morning_signal_confirm">Done</string>
+    <string name="morning_signal_schedule_note">The reminder may arrive a little later depending on device conditions.</string>
+    <string name="morning_signal_permission_denied">Allow notifications in system settings to use the morning signal.</string>
+    <string name="morning_signal_schedule_failed">The morning signal could not be scheduled. Please try again.</string>
+    <string name="morning_signal_notification_title">Morning signal</string>
+    <string name="morning_signal_notification_body">Take a moment to record how you feel today.</string>
+    <string name="morning_signal_channel_name">Morning signal</string>
+    <string name="morning_signal_channel_description">Daily morning check-in reminders.</string>
 </resources>

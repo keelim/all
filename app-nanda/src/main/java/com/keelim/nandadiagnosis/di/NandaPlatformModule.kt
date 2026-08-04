@@ -22,6 +22,10 @@ import com.keelim.commonAndroid.platform.export.AndroidExportFileWriter
 import com.keelim.commonAndroid.platform.export.AndroidExportShareLauncher
 import com.keelim.commonAndroid.platform.notification.WorkManagerNotificationScheduler
 import com.keelim.commonAndroid.platform.privacy.DataStorePrivacySettingsRepository
+import com.keelim.nandadiagnosis.R
+import com.keelim.nandadiagnosis.wellness.morning.MorningSignalNotificationContent
+import com.keelim.nandadiagnosis.wellness.morning.MorningSignalSettingsStore
+import com.keelim.nandadiagnosis.wellness.morning.SharedPreferencesMorningSignalSettingsStore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -77,6 +81,25 @@ object NandaPlatformModule {
     fun provideNotificationScheduler(
         @ApplicationContext context: Context,
     ): NotificationScheduler = WorkManagerNotificationScheduler(context)
+
+    @Provides
+    @Singleton
+    fun provideMorningSignalSettingsStore(
+        @ApplicationContext context: Context,
+    ): MorningSignalSettingsStore = SharedPreferencesMorningSignalSettingsStore(
+        context.getSharedPreferences("morning_signal_preferences", Context.MODE_PRIVATE),
+    )
+
+    @Provides
+    @Singleton
+    fun provideMorningSignalNotificationContent(
+        @ApplicationContext context: Context,
+    ): MorningSignalNotificationContent = MorningSignalNotificationContent(
+        title = context.getString(R.string.morning_signal_notification_title),
+        body = context.getString(R.string.morning_signal_notification_body),
+        channelName = context.getString(R.string.morning_signal_channel_name),
+        channelDescription = context.getString(R.string.morning_signal_channel_description),
+    )
 
     @Provides
     @Singleton

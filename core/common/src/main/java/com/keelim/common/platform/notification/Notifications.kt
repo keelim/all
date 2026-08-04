@@ -15,12 +15,17 @@ data class NotificationContent(
     val publicBody: String? = null,
 )
 
+enum class NotificationRepeat {
+    DAILY,
+}
+
 data class NotificationRequest(
     val id: String,
     val scheduledAt: Instant,
     val channel: NotificationChannelKey,
     val content: NotificationContent,
     val tag: String? = null,
+    val repeat: NotificationRepeat? = null,
 )
 
 sealed interface NotificationScheduleResult {

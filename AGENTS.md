@@ -46,7 +46,7 @@ Apps: **my-grade** (grade calc, timer, study analytics), **arducon** (deeplink t
 - `core:designsystem` = canonical tokens/themes/primitives; `core:component` = compatibility wrapper / higher-level widgets on top of it.
 - Preserve domain behavior, business rules, and calculation results; layout may reorganize only for design-system fit.
 - Uncommitted changes in `core/designsystem` or `core/component` are user-owned — integrate, don't revert.
-- Gate: run `:<app>:assembleDebug` per affected app; report intentionally remaining direct `MaterialTheme`/hardcoded color/spacing usages.
+- Gate: follow the changed-module test-only validation policy below; report intentionally remaining direct `MaterialTheme`/hardcoded color/spacing usages.
 
 ### Formatting (Date/Currency/Number)
 - User-facing date/currency/number strings MUST go through shared formatters.
@@ -58,7 +58,9 @@ Apps: **my-grade** (grade calc, timer, study analytics), **arducon** (deeplink t
 - Exception: file names, logs, debug-only text.
 
 ### Build & Code Style
-- Verify with `./gradlew :<module>:assembleDebug` after changes.
+- Validate only with `./gradlew :<changed-module>:testDebugUnitTest` for every module containing changed files; combine multiple module tasks in one Gradle invocation.
+- Do not run `assembleDebug`, root `test`, lint, connected tests, `git diff --check`, or tasks for unchanged modules unless explicitly requested.
+- If a changed module has no `testDebugUnitTest` task, report that validation is unavailable; do not substitute another task without explicit approval.
 - All dependency versions in `gradle/libs.versions.toml`; apply convention plugins (`keelim.android.application`, `keelim.android.library.compose`, …) — don't bypass them.
 - Google Android Kotlin Style Guide; no hardcoded strings (use resources); no deprecated APIs; Hilt for DI; ViewModels expose StateFlow/Flow.
 - JVM 17 target, `-Xcontext-parameters` enabled, Parcelize auto-applied.
@@ -68,6 +70,8 @@ Apps: **my-grade** (grade calc, timer, study analytics), **arducon** (deeplink t
 No `@Suppress` without justification · no network/DB on main thread · no global mutable state · no SQL string concatenation (parameterize) · don't bypass convention plugins.
 
 ## COMMANDS
+
+The build/repository-wide commands below are reference-only and are not default validation tasks.
 
 ```bash
 ./gradlew :app-my-grade:assembleDebug   # per-app build

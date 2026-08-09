@@ -17,11 +17,11 @@ package com.keelim.cnubus.ui.screen.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.BackHandler
+import androidx.activity.compose.PredictiveBackHandler
+import kotlinx.coroutines.flow.collect
+import java.util.concurrent.CancellationException
 import androidx.activity.compose.setContent
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.getValue
@@ -35,6 +35,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.airbnb.deeplinkdispatch.DeepLink
 import com.keelim.cnubus.ui.CnubusApp
+import com.keelim.composeutil.component.dialog.ConfirmDialog
 import com.keelim.composeutil.ui.theme.KeelimTheme
 import com.keelim.shared.data.UserStateStore
 import com.keelim.shared.data.model.ThemeType
@@ -43,7 +44,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @DeepLink("all://screen/{name}")
@@ -55,6 +56,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContent {
             val themeType = userStateStore.get().themeTypeFlow.collectAsStateWithLifecycle(ThemeType.LIGHT).value
@@ -71,39 +73,22 @@ class MainActivity : ComponentActivity() {
                 )
 
                 var isDialogOpen by remember { mutableStateOf(false) }
-                BackHandler(
+                PredictiveBackHandler(
                     enabled = true,
-                    onBack = {
+                ) { progress ->
+                    try {
+                        progress.collect()
                         isDialogOpen = true
-                    },
-                )
+                    } catch (e: CancellationException) {
+                        // no-op
+                    }
+                }
                 if (isDialogOpen) {
-                    AlertDialog(
-                        onDismissRequest = {
-                            isDialogOpen = false
-                        },
-                        title = { Text(text = "안내") },
-                        text = { Text(text = "종료 하시겠습니까?") },
-                        confirmButton = {
-                            Button(
-                                onClick = {
-                                    finish()
-                                },
-                            ) {
-                                Text(
-                                    text = "확인",
-                                )
-                            }
-                        },
-                        dismissButton = {
-                            Button(onClick = {
-                                isDialogOpen = false
-                            }) {
-                                Text(
-                                    text = "취소",
-                                )
-                            }
-                        },
+                    ConfirmDialog(
+                        title = "안내",
+                        message = "종료 하시겠습니까?",
+                        onConfirm = { finish() },
+                        onDismiss = { isDialogOpen = false },
                     )
                 }
             }

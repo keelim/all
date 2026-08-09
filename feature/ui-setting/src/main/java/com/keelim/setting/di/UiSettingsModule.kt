@@ -1,17 +1,25 @@
 package com.keelim.setting.di
 
+import com.keelim.common.maintenance.MaintenanceChecker
+import com.keelim.setting.worker.MaintenanceCheckerImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
-import dagger.hilt.android.scopes.ViewModelScoped
+import dagger.hilt.components.SingletonComponent
+import jakarta.inject.Singleton
 
 @Module
-@InstallIn(ViewModelComponent::class)
+@InstallIn(SingletonComponent::class)
 interface UiSettingsModule {
     @Binds
-    @ViewModelScoped
+    @Singleton
     fun bindsDeviceInfoModule(
         deviceInfo: DeviceInfoSourceImpl,
     ): DeviceInfoSource
+
+    @Binds
+    @Singleton
+    fun bindsMaintenanceChecker(
+        checker: MaintenanceCheckerImpl,
+    ): MaintenanceChecker
 }

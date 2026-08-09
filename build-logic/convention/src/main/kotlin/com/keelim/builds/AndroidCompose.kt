@@ -27,13 +27,11 @@ import org.jetbrains.kotlin.compose.compiler.gradle.ComposeFeatureFlag
  * Configure Compose-specific options
  */
 fun Project.configureAndroidCompose(
-    commonExtension: CommonExtension<*, *, *, *, *, *>,
+    commonExtension: CommonExtension,
     composeCompilerGradlePluginExtension: ComposeCompilerGradlePluginExtension,
 ) {
     commonExtension.apply {
-        buildFeatures {
-            compose = true
-        }
+        buildFeatures.compose = true
 
         dependencies {
             val bom = libs.findLibrary("androidx-compose-bom").get()
@@ -48,14 +46,13 @@ fun Project.configureAndroidCompose(
     }
 
     with(composeCompilerGradlePluginExtension) {
-        featureFlags = setOf(
-            ComposeFeatureFlag.OptimizeNonSkippingGroups,
+        featureFlags.add(
+            ComposeFeatureFlag.PausableComposition.disabled()
         )
         reportsDestination = layout.buildDirectory.dir("compose_compiler")
-        stabilityConfigurationFiles = listOf(
+        stabilityConfigurationFiles.add(
             rootProject.layout.projectDirectory.file("compose_compiler_config.conf")
         )
         includeSourceInformation.set(true)
     }
 }
-

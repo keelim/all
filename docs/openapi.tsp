@@ -7,9 +7,7 @@ import "@typespec/http";
 import "@typespec/openapi3";
 
 using TypeSpec.Http;
-@service({
-  title: "App Interface",
-})
+@service(#{ title: "App Interface" })
 namespace Keelim;
 
 model DarkMode {

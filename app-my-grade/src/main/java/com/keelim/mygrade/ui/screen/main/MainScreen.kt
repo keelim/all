@@ -4,9 +4,8 @@ package com.keelim.mygrade.ui.screen.main
 
 import android.Manifest
 import android.os.Build
-import androidx.activity.compose.BackHandler
+import androidx.activity.compose.PredictiveBackHandler
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -28,11 +27,12 @@ import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material.icons.rounded.Create
-import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
+import com.keelim.core.designsystem.component.KuiButton
+import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.component.KuiIconButton
+import com.keelim.core.designsystem.theme.KuiTheme
+import com.keelim.core.designsystem.component.KuiText
+import com.keelim.core.designsystem.component.KuiFilledTextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
@@ -44,11 +44,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.trace
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.composeutil.component.fab.FabButtonItem
 import com.keelim.composeutil.component.fab.FabButtonMain
@@ -60,8 +61,11 @@ import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
 import com.keelim.composeutil.util.permission.SimpleAcquirePermissions
-import com.keelim.mygrade.ui.screen.timer.TimerScreen
+import com.keelim.mygrade.R
+import com.keelim.mygrade.ui.screen.timer.TimerRoute
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.util.concurrent.CancellationException
 
 private const val pageCount = 2
 
@@ -73,7 +77,11 @@ fun MainRoute(
     onLabClick: () -> Unit,
     onNavigateTimerHistory: () -> Unit,
     onNavigateTask: () -> Unit,
+    onNavigateAnalytics: () -> Unit,
     viewModel: MainViewModel = hiltViewModel(),
+    timerPresetHours: Int? = null,
+    timerPresetMinutes: Int? = null,
+    timerPresetSeconds: Int? = null,
 ) = trace("MainRoute") {
     val mainState by viewModel.mainScreenState.collectAsStateWithLifecycle()
     val subject by viewModel.subject.collectAsStateWithLifecycle()
@@ -83,6 +91,9 @@ fun MainRoute(
     val number by viewModel.number.collectAsStateWithLifecycle()
     val student by viewModel.student.collectAsStateWithLifecycle()
     MainScreen(
+        timerPresetHours = timerPresetHours,
+        timerPresetMinutes = timerPresetMinutes,
+        timerPresetSeconds = timerPresetSeconds,
         clear = viewModel::clear,
         submit = viewModel::submit,
         moveState = viewModel::moveState,
@@ -93,6 +104,7 @@ fun MainRoute(
         onLabClick = onLabClick,
         onNavigateTimerHistory = onNavigateTimerHistory,
         onNavigateTask = onNavigateTask,
+        onNavigateAnalytics = onNavigateAnalytics,
         mainState = mainState,
         subject = subject,
         state = state,
@@ -111,6 +123,9 @@ private val appPermissions: List<String> = buildList {
 
 @Composable
 fun MainScreen(
+    timerPresetHours: Int? = null,
+    timerPresetMinutes: Int? = null,
+    timerPresetSeconds: Int? = null,
     mainState: MainScreenState,
     subject: String,
     state: MainState,
@@ -128,6 +143,7 @@ fun MainScreen(
     onLabClick: () -> Unit,
     onNavigateTimerHistory: () -> Unit,
     onNavigateTask: () -> Unit,
+    onNavigateAnalytics: () -> Unit,
 ) = trace("MainScreen") {
     val pagerState = rememberPagerState(pageCount = { pageCount })
     var backPressedState by remember { mutableStateOf(true) }
@@ -137,9 +153,11 @@ fun MainScreen(
         permissions = appPermissions,
     ) {
     }
-    BackHandler(
+    PredictiveBackHandler(
         enabled = backPressedState,
-        onBack = {
+    ) { progress ->
+        try {
+            progress.collect()
             if (pagerState.currentPage == 0) {
                 backPressedState = false
             } else {
@@ -147,8 +165,10 @@ fun MainScreen(
                     pagerState.animateScrollToPage(page = 0)
                 }
             }
-        },
-    )
+        } catch (e: CancellationException) {
+            // no-op
+        }
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -166,7 +186,10 @@ fun MainScreen(
                 LaunchedEffect(page) {
                     backPressedState = true
                 }
-                TimerScreen(
+                TimerRoute(
+                    presetHours = timerPresetHours,
+                    presetMinutes = timerPresetMinutes,
+                    presetSeconds = timerPresetSeconds,
                     onNavigateTimerHistory = onNavigateTimerHistory,
                 )
             } else {
@@ -218,6 +241,7 @@ fun MainScreen(
                         onFloatingButtonClick1 = onFloatingButtonClick1,
                         onFloatingButtonClick2 = onFloatingButtonClick2,
                         onNavigateWord = onNavigateTask,
+                        onNavigateAnalytics = onNavigateAnalytics,
                     )
                 }
             }
@@ -233,17 +257,20 @@ private fun MainTopSection(
     Row(
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Text(text = "MyGrade", style = MaterialTheme.typography.headlineLarge)
+        KuiText(text = "MyGrade", style = KuiTheme.typography.headlineLarge)
         Spacer(
             modifier = Modifier.width(space8),
         )
-        Icon(
-            Icons.Filled.Build,
-            contentDescription = null,
-            modifier = Modifier
-                .size(18.dp)
-                .clickable { onLabClick() },
-        )
+        KuiIconButton(
+            onClick = onLabClick,
+            modifier = Modifier.size(KuiTheme.spacing.componentLg),
+        ) {
+            KuiIcon(
+                Icons.Filled.Build,
+                contentDescription = stringResource(R.string.main_lab_action),
+                modifier = Modifier.size(KuiTheme.spacing.space6),
+            )
+        }
         Spacer(
             modifier = Modifier.weight(1f),
         )
@@ -263,17 +290,18 @@ private fun ColumnScope.MainBottomSection(
     onFloatingButtonClick1: () -> Unit,
     onFloatingButtonClick2: () -> Unit,
     onNavigateWord: () -> Unit,
+    onNavigateAnalytics: () -> Unit,
 ) = trace("MainBottomSection") {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.End,
     ) {
-        Button(onClick = onClearClick) {
-            Text(text = "Clear", style = MaterialTheme.typography.labelLarge)
+        KuiButton(onClick = onClearClick) {
+            KuiText(text = "Clear", style = KuiTheme.typography.labelLarge)
         }
         Spacer(modifier = Modifier.width(space4))
-        Button(onClick = onSubmitClick) {
-            Text(text = "Submit", style = MaterialTheme.typography.labelLarge)
+        KuiButton(onClick = onSubmitClick) {
+            KuiText(text = "Submit", style = KuiTheme.typography.labelLarge)
         }
     }
     Spacer(modifier = Modifier.weight(1f))
@@ -281,6 +309,7 @@ private fun ColumnScope.MainBottomSection(
         mutableStateOf(
             listOf(
                 History(),
+                Analytics(),
                 Other(),
                 Setting(),
             ),
@@ -296,14 +325,15 @@ private fun ColumnScope.MainBottomSection(
             items = items,
             fabIcon = FabButtonMain(),
             fabOption = FabButtonSub(
-                backgroundTint = MaterialTheme.colorScheme.primary,
-                iconTint = MaterialTheme.colorScheme.onPrimary,
+                backgroundTint = KuiTheme.colorScheme.primary,
+                iconTint = KuiTheme.colorScheme.onPrimary,
             ),
             onFabItemClicked = { item ->
                 when (item) {
                     is History -> onFloatingButtonClick1()
                     is Setting -> onFloatingButtonClick2()
                     is Other -> onNavigateWord()
+                    is Analytics -> onNavigateAnalytics()
                 }
             },
             stateChanged = {
@@ -315,7 +345,7 @@ private fun ColumnScope.MainBottomSection(
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewMainScreen() {
+private fun PreviewMainScreen() {
     MainScreen(
         onSubmitClick = { _, _, _ -> },
         onFloatingButtonClick1 = {},
@@ -338,6 +368,7 @@ fun PreviewMainScreen() {
         average = "23",
         number = "23",
         student = "23",
+        onNavigateAnalytics = {},
     )
 }
 
@@ -349,29 +380,29 @@ internal fun ScoreTextRow(
     isError: Boolean,
 ) = trace("ScoreTextRow") {
     Row(verticalAlignment = Alignment.CenterVertically) {
-        Text(text = text, style = MaterialTheme.typography.headlineSmall)
+        KuiText(text = text, style = KuiTheme.typography.headlineSmall)
         Spacer(modifier = Modifier.width(20.dp))
-        TextField(
+        KuiFilledTextField(
             value = value,
             onValueChange = onValueChange,
             isError = isError,
             label = if (isError) {
                 {
-                    Text(
+                    KuiText(
                         text = "형식을 다시 써주세요",
-                        style = MaterialTheme.typography.labelSmall,
+                        style = KuiTheme.typography.labelSmall,
                     )
                 }
             } else {
                 null
             },
             placeholder = {
-                Text(
+                KuiText(
                     text = "$text 입력해주세요.",
-                    style = MaterialTheme.typography.labelLarge,
+                    style = KuiTheme.typography.labelLarge,
                 )
             },
-            leadingIcon = { Icon(imageVector = Icons.Rounded.Create, contentDescription = null) },
+            leadingIcon = { KuiIcon(imageVector = Icons.Rounded.Create, contentDescription = null) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             modifier = Modifier.fillMaxWidth(),
         )
@@ -381,7 +412,7 @@ internal fun ScoreTextRow(
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewScoreTextRow() {
+private fun PreviewScoreTextRow() {
     ScoreTextRow(text = "원점수", value = "", onValueChange = {}, isError = false)
 }
 
@@ -398,4 +429,9 @@ data class Setting(
 data class Other(
     override val imageVector: ImageVector = Icons.Filled.ThumbUp,
     override val label: String = "Task",
+) : FabButtonItem
+
+data class Analytics(
+    override val imageVector: ImageVector = Icons.Filled.Build,
+    override val label: String = "Analytics",
 ) : FabButtonItem

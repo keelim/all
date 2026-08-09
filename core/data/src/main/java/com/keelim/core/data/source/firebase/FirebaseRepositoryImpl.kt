@@ -1,52 +1,72 @@
 package com.keelim.core.data.source.firebase
 
+import android.content.Context
 import com.google.firebase.Firebase
-import com.google.firebase.database.Logger
-import com.google.firebase.database.database
-import com.keelim.common.di.IoDispatcher
-import com.keelim.core.data.BuildConfig
+import com.google.firebase.firestore.firestore
+import com.google.firebase.messaging.messaging
+import com.google.firebase.remoteconfig.remoteConfig
+import com.keelim.common.Dispatcher
+import com.keelim.common.KeelimDispatchers
 import com.keelim.data.repository.FirebaseRepository
 import com.keelim.model.EcoCalEntry
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import timber.log.Timber
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 class FirebaseRepositoryImpl
 @Inject
 constructor(
-    @IoDispatcher val dispatcher: CoroutineDispatcher,
+    @ApplicationContext val context: Context,
+    @Dispatcher(KeelimDispatchers.IO) val dispatcher: CoroutineDispatcher,
 ) : FirebaseRepository {
+
+    private val documentPath by lazy {
+        Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).run {
+            "%d-%02d".format(year, month)
+        }
+    }
+
     override fun getRef(ref: String): Flow<Result<List<EcoCalEntry>>> = flow {
-        val database =
-            Firebase.database.apply {
-                if (BuildConfig.DEBUG) {
-                    setLogLevel(Logger.Level.DEBUG)
+        val refs = Firebase.firestore
+            .collection(ref)
+            .document(documentPath)
+            .get()
+            .await()
+            .let { document ->
+                val size = document.get("size", Int::class.java) ?: 0
+                val fields = mutableListOf<EcoCalEntry>()
+                for (index in 0 until size) {
+                    document.get("$index", EcoCalEntry::class.java)
+                        ?.also(fields::add)
                 }
-                setPersistenceEnabled(true)
+                fields
             }
 
-        emit(
-            runCatching {
-                withContext(dispatcher) {
-                    database
-                        .getReference(ref)
-                        .get()
-                        .await()
-                        .takeIf { it.exists() }
-                        ?.children
-                        ?.mapNotNull {
-                            it.getValue(EcoCalEntry::class.java)
-                        } ?: emptyList()
-                }
-            }
-                .onFailure { throwable ->
-                    Timber.e(throwable)
-                    throwable.message
-                },
-        )
+        emit(Result.success(refs))
+    }.catch { throwable ->
+        Timber.e(throwable)
+        emit(Result.failure(throwable))
+    }
+
+    override fun getFCMToken(): Flow<Result<String>> = flow {
+        emit(Result.success(Firebase.messaging.token.await()))
+    }.catch { throwable ->
+        Timber.e(throwable)
+        emit(Result.failure(throwable))
+    }
+
+    override suspend fun getValue(key: String): String {
+        return withContext(dispatcher) {
+            Firebase.remoteConfig.getString(key)
+        }
     }
 }

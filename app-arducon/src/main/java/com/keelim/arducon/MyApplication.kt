@@ -1,7 +1,7 @@
 package com.keelim.arducon
 
-import android.app.Application
+import com.keelim.commonAndroid.BaseApplication
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class MyApplication : Application()
+class MyApplication : BaseApplication()

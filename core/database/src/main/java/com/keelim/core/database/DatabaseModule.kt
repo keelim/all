@@ -2,65 +2,66 @@ package com.keelim.core.database
 
 import android.content.Context
 import androidx.room.Room
+import com.keelim.core.database.wellness.WellnessDatabase
+import com.keelim.shared.data.database.AllDatabase
+import com.keelim.shared.data.database.ArduconDatabase
+import com.keelim.shared.data.database.MyGradeAppDatabase
+import com.keelim.shared.data.database.NandaAppDatabase
+import com.keelim.shared.data.database.createDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import java.io.File
-import javax.inject.Singleton
+import jakarta.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object DatabaseModule {
     @Provides
     @Singleton
-    fun provideAppDatabase(
-        @ApplicationContext ctx: Context,
-    ): MyGradeAppDatabase = Room.databaseBuilder(
-        ctx,
-        MyGradeAppDatabase::class.java,
-        "mygrade",
-    ).fallbackToDestructiveMigration()
-        .build()
+    fun provideWellnessDatabase(
+        @ApplicationContext context: Context,
+    ): WellnessDatabase =
+        Room.databaseBuilder(
+            context,
+            WellnessDatabase::class.java,
+            WellnessDatabase.NAME,
+        ).build()
 
     @Provides
     @Singleton
-    fun provideNandaAppDatabase(
+    fun provideAppDatabase(
         @ApplicationContext context: Context,
-    ): NandaAppDatabase {
-        return Room.databaseBuilder(
-            context,
-            NandaAppDatabase::class.java,
-            "nanda",
-        ).createFromFile(File(context.getExternalFilesDir(null), "nanda.db"))
-            .fallbackToDestructiveMigration()
-            .build()
-    }
+    ): MyGradeAppDatabase = createDatabase<MyGradeAppDatabase>(
+        context,
+        "mygrade",
+    )
 
     @Provides
     @Singleton
     fun provideArduconDatabase(
         @ApplicationContext context: Context,
-    ): ArduconDatabase {
-        return Room.databaseBuilder(
-            context,
-            ArduconDatabase::class.java,
-            "arducon.db",
-        ).fallbackToDestructiveMigration()
-            .build()
-    }
+    ): ArduconDatabase = createDatabase<ArduconDatabase>(
+        context,
+        "arducon.db",
+    )
 
     @Provides
     @Singleton
     fun provideAllDatabase(
         @ApplicationContext context: Context,
-    ): AllDatabase {
-        return Room.databaseBuilder(
-            context,
-            AllDatabase::class.java,
-            "all.db",
-        ).fallbackToDestructiveMigration()
-            .build()
-    }
+    ): AllDatabase = createDatabase<AllDatabase>(
+        context,
+        "all.db",
+    )
+
+    @Provides
+    @Singleton
+    fun provideNandaAppDatabase(
+        @ApplicationContext context: Context,
+    ): NandaAppDatabase = createDatabase<NandaAppDatabase>(
+        context,
+        "nanda.db",
+    )
 }

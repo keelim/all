@@ -18,17 +18,16 @@ import androidx.room.gradle.RoomExtension
 import com.keelim.builds.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
-import org.gradle.kotlin.dsl.dependencies
 
+@Suppress("unused")
 class KeelimRoomConventionPlugin : Plugin<Project> {
 
     override fun apply(target: Project) {
         with(target) {
-            with(pluginManager) {
-                apply("com.google.devtools.ksp")
-                apply("androidx.room")
-            }
+            apply(plugin = "com.google.devtools.ksp")
+            apply(plugin = "androidx.room")
 
             extensions.configure<RoomExtension> {
                 // The schemas directory contains a schema file for each version of the Room database.
@@ -37,12 +36,34 @@ class KeelimRoomConventionPlugin : Plugin<Project> {
                 schemaDirectory("$projectDir/schemas")
             }
 
-            dependencies {
-                add("implementation", libs.findLibrary("room.runtime").get())
-                add("implementation", libs.findLibrary("room.ktx").get())
-                add("androidTestImplementation", libs.findLibrary("room.testing").get())
-                add("ksp", libs.findLibrary("room.compiler").get())
+            val roomRuntime = libs.findLibrary("room.runtime").get()
+            val bundledSqlite = libs.findLibrary("androidx.sqlite.bundled").get()
+            val roomTesting = libs.findLibrary("room.testing").get()
+            val roomCompiler = libs.findLibrary("room.compiler").get()
+
+            listOf("com.android.application", "com.android.library").forEach { pluginId ->
+                pluginManager.withPlugin(pluginId) {
+                    addDependencyIfConfigExists("implementation", roomRuntime)
+                    addDependencyIfConfigExists("implementation", bundledSqlite)
+                    addDependencyIfConfigExists("androidTestImplementation", roomTesting)
+                    addDependencyIfConfigExists("ksp", roomCompiler)
+                }
             }
+
+            pluginManager.withPlugin("org.jetbrains.kotlin.multiplatform") {
+                addDependencyIfConfigExists("commonMainImplementation", roomRuntime)
+                addDependencyIfConfigExists("commonMainImplementation", bundledSqlite)
+                addDependencyIfConfigExists("androidTestImplementation", roomTesting)
+                addDependencyIfConfigExists("androidInstrumentedTestImplementation", roomTesting)
+                addDependencyIfConfigExists("kspAndroid", roomCompiler)
+                addDependencyIfConfigExists("kspCommonMainMetadata", roomCompiler)
+            }
+        }
+    }
+
+    private fun Project.addDependencyIfConfigExists(configuration: String, dependencyNotation: Any) {
+        if (configurations.findByName(configuration) != null) {
+            dependencies.add(configuration, dependencyNotation)
         }
     }
 }

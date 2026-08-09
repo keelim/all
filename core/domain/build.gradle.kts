@@ -1,16 +1,10 @@
 plugins {
-    alias(libs.plugins.keelim.android.library)
-    alias(libs.plugins.keelim.android.hilt)
-    alias(libs.plugins.keelim.android.library.jacoco)
-}
-
-android {
-    namespace = "com.keelim.domain"
+    alias(libs.plugins.keelim.jvm.library)
 }
 
 dependencies {
-    implementation(projects.core.data)
-    testImplementation(libs.junit4)
+    implementation(libs.kotlinx.coroutines.core)
+    testImplementation(libs.kotest.assertions.core)
+    testImplementation(libs.kotest.runner.junit5)
     testImplementation(libs.turbine)
-    testImplementation(libs.truth)
 }

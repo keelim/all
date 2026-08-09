@@ -2,7 +2,6 @@ package com.keelim.cnubus.ui.screen.main
 
 import android.Manifest
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
@@ -10,10 +9,10 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.PrimaryScrollableTabRow
-import androidx.compose.material3.Tab
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.theme.KuiTheme
+import com.keelim.core.designsystem.component.KuiPrimaryScrollableTabRow
+import com.keelim.core.designsystem.component.KuiTab
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -23,7 +22,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.util.fastForEachIndexed
 import androidx.compose.ui.util.trace
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.core.net.toUri
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.keelim.cnubus.ui.screen.root.RootRoute
 import com.keelim.cnubus.ui.screen.root.RootViewModel
 import com.keelim.cnubus.ui.screen.setting.ScreenAction
@@ -32,7 +32,17 @@ import com.keelim.common.extensions.toast
 import com.keelim.composeutil.resource.space4
 import com.keelim.composeutil.resource.space8
 import com.keelim.composeutil.util.permission.SimpleAcquirePermissions
+import com.keelim.core.resource.Res
+import com.keelim.core.resource.cnubus_permission_granted
+import com.keelim.core.resource.cnubus_tab_favorite
+import com.keelim.core.resource.cnubus_tab_route_a
+import com.keelim.core.resource.cnubus_tab_route_b
+import com.keelim.core.resource.cnubus_tab_route_c
+import com.keelim.core.resource.cnubus_tab_route_night
+import com.keelim.core.resource.cnubus_tab_search
+import com.keelim.core.resource.cnubus_tab_settings
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.stringResource
 
 private val appPermissions: List<String> = buildList {
     add(Manifest.permission.ACCESS_FINE_LOCATION)
@@ -49,11 +59,12 @@ fun MainRoute(
     viewModel: RootViewModel = hiltViewModel(),
 ) = trace("MainRoute") {
     val context = LocalContext.current
+    val permissionGrantedMessage = stringResource(Res.string.cnubus_permission_granted)
 
     SimpleAcquirePermissions(
         appPermissions,
     ) {
-        context.toast("권한이 확인되었습니다.")
+        context.toast(permissionGrantedMessage)
     }
 
     MainScreen(
@@ -69,31 +80,33 @@ data class TabItem(
     val mode: String,
 )
 
-private val tabItems =
-    listOf(
-        TabItem(title = "A 노선", mode = "a"),
-        TabItem(title = "B 노선", mode = "b"),
-        TabItem(title = "C 노선", mode = "c"),
-        TabItem(title = "야간 노선", mode = "d"),
-        TabItem(title = "설정", mode = "e"),
-    )
-
 @Composable
 fun MainScreen(
     onNavigateMap: () -> Unit,
     onSetMode: (String) -> Unit,
     onNavigateAppSetting: () -> Unit,
 ) = trace("MainScreen") {
+    val tabItems = listOf(
+        TabItem(title = stringResource(Res.string.cnubus_tab_route_a), mode = "a"),
+        TabItem(title = stringResource(Res.string.cnubus_tab_route_b), mode = "b"),
+        TabItem(title = stringResource(Res.string.cnubus_tab_route_c), mode = "c"),
+        TabItem(title = stringResource(Res.string.cnubus_tab_route_night), mode = "d"),
+        TabItem(title = stringResource(Res.string.cnubus_tab_favorite), mode = "f"),
+        TabItem(title = stringResource(Res.string.cnubus_tab_search), mode = "s"),
+        TabItem(title = stringResource(Res.string.cnubus_tab_settings), mode = "e"),
+    )
     val pagerState = rememberPagerState { tabItems.size }
     Column {
         TabBarLayout(
             state = pagerState,
             onSetMode = onSetMode,
+            tabItems = tabItems,
         )
         PagerContent(
             state = pagerState,
             onNavigateAppSetting = onNavigateAppSetting,
             onNavigateMap = onNavigateMap,
+            tabItems = tabItems,
         )
     }
 }
@@ -102,16 +115,17 @@ fun MainScreen(
 fun TabBarLayout(
     state: PagerState,
     onSetMode: (String) -> Unit,
+    tabItems: List<TabItem>,
     modifier: Modifier = Modifier,
 ) = trace("TabBarLayout") {
     val coroutineScope = rememberCoroutineScope()
-    PrimaryScrollableTabRow(
+    KuiPrimaryScrollableTabRow(
         modifier = modifier,
         selectedTabIndex = state.currentPage,
     ) {
         tabItems.fastForEachIndexed { index, tabItem ->
             val selected = state.currentPage == index
-            Tab(
+            KuiTab(
                 selected = selected,
                 onClick = {
                     coroutineScope.launch {
@@ -120,11 +134,12 @@ fun TabBarLayout(
                     }
                 },
                 text = {
-                    Text(
+                    KuiText(
                         text = tabItem.title,
-                        style = MaterialTheme.typography.bodyLarge.copy(
+                        style = KuiTheme.typography.bodyLarge.copy(
                             fontWeight = if (selected) FontWeight.Bold else FontWeight.Normal,
                         ),
+                        color = KuiTheme.colorScheme.onSurface,
                     )
                 },
             )
@@ -138,6 +153,7 @@ fun PagerContent(
     state: PagerState,
     onNavigateMap: () -> Unit,
     onNavigateAppSetting: () -> Unit,
+    tabItems: List<TabItem>,
     paddingValues: PaddingValues = PaddingValues(horizontal = space8, vertical = space4),
 ) = trace("PagerContent") {
     val context = LocalContext.current
@@ -147,14 +163,14 @@ fun PagerContent(
         contentPadding = paddingValues,
     ) { index ->
         when (index) {
-            4 -> SettingScreen(
+            6 -> SettingScreen(
                 onScreenAction = { action ->
                     when (action) {
                         ScreenAction.Homepage -> {
                             context.startActivity(
                                 Intent(
                                     Intent.ACTION_VIEW,
-                                    Uri.parse("https://plus.cnu.ac.kr/html/kr/sub05/sub05_050403.html"),
+                                    "https://plus.cnu.ac.kr/html/kr/sub05/sub05_050403.html".toUri(),
                                 ),
                             )
                         }

@@ -5,10 +5,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.component.KuiIconButton
+import com.keelim.core.designsystem.theme.KuiTheme
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,25 +24,25 @@ fun SaastatusEmpty(
     Column(
         modifier = modifier,
     ) {
-        Text(
+        KuiText(
             text = "지원 서비스 없음",
-            style = MaterialTheme.typography.bodyLarge.copy(
+            style = KuiTheme.typography.bodyLarge.copy(
                 fontWeight = FontWeight.Bold,
             ),
         )
         Spacer(
             modifier = Modifier.height(space4),
         )
-        Text(
+        KuiText(
             text = "서비스를 등록해보세요.",
-            style = MaterialTheme.typography.bodyMedium,
+            style = KuiTheme.typography.bodyMedium,
         )
 
-        IconButton(
+        KuiIconButton(
             onClick = onRegister,
             modifier = Modifier.align(Alignment.CenterHorizontally),
         ) {
-            Icon(imageVector = Icons.Filled.AddCircle, contentDescription = null)
+            KuiIcon(imageVector = Icons.Filled.AddCircle, contentDescription = null)
         }
     }
 }

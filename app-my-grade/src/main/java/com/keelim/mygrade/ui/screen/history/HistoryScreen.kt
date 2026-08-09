@@ -11,16 +11,16 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.Card
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiCard
+import com.keelim.core.designsystem.theme.KuiTheme
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.trace
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.composeutil.component.appbar.NavigationBackArrowBar
 import com.keelim.composeutil.component.layout.EmptyView
@@ -139,7 +139,7 @@ fun HistoryCard(
     onHistoryClick: (String, String, String) -> Unit = { _, _, _ -> },
 ) = trace("HistoryCard") {
     // val context = LocalContext.current
-    Card(
+    KuiCard(padded = false,
         modifier = Modifier
             .fillMaxWidth(),
         onClick = { onHistoryClick(history.subject, history.grade, "${history.myGrade} / ${history.totalStudent}") },
@@ -150,26 +150,26 @@ fun HistoryCard(
                 horizontalArrangement = Arrangement.spacedBy(space16),
             ) {
                 Column {
-                    Text(
+                    KuiText(
                         text = "과목명: ${history.subject}",
-                        style = MaterialTheme.typography.bodyLarge,
+                        style = KuiTheme.typography.bodyLarge,
                     )
                     Spacer(Modifier.height(space4))
-                    Text(
+                    KuiText(
                         text = "예상 학점: ${history.grade}",
-                        style = MaterialTheme.typography.bodyLarge,
+                        style = KuiTheme.typography.bodyLarge,
                     )
                     Spacer(Modifier.height(space4))
-                    Text(
+                    KuiText(
                         text = "예상 등수: ${history.myGrade} / ${history.totalStudent} 등",
-                        style = MaterialTheme.typography.bodyLarge,
+                        style = KuiTheme.typography.bodyLarge,
                     )
                 }
             }
-            Text(
+            KuiText(
                 text = "입력 날짜: ${history.date}",
                 maxLines = 4,
-                style = MaterialTheme.typography.bodySmall,
+                style = KuiTheme.typography.bodySmall,
                 modifier = Modifier.padding(horizontal = space16),
             )
             Spacer(Modifier.height(space16))

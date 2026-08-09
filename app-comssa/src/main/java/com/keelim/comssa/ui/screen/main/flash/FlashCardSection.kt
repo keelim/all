@@ -3,7 +3,7 @@ package com.keelim.comssa.ui.screen.main.flash
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,7 +20,7 @@ fun FrontCardSection() = trace("FrontCardSection") {
             .background(Color.Red),
         contentAlignment = Alignment.Center,
     ) {
-        Text(
+        KuiText(
             text = "Front",
             color = Color.White,
             fontSize = 32.sp,
@@ -36,7 +36,7 @@ fun BackCardSection() = trace("BackCardSection") {
             .background(Color.Blue),
         contentAlignment = Alignment.Center,
     ) {
-        Text(
+        KuiText(
             text = "Back",
             color = Color.White,
             fontSize = 32.sp,

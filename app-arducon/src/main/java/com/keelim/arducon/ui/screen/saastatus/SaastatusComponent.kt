@@ -8,9 +8,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiHorizontalDivider
+import com.keelim.core.designsystem.theme.KuiTheme
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -31,9 +31,9 @@ inline fun SaastatusColumn(
             modifier = Modifier
                 .fillMaxWidth(),
         ) {
-            Text(
+            KuiText(
                 text = "Saastatus",
-                style = MaterialTheme.typography.titleLarge.copy(
+                style = KuiTheme.typography.titleLarge.copy(
                     fontWeight = FontWeight.Bold,
                 ),
             )
@@ -41,7 +41,7 @@ inline fun SaastatusColumn(
         Spacer(
             modifier = Modifier.height(space12),
         )
-        HorizontalDivider(
+        KuiHorizontalDivider(
             modifier = Modifier.fillMaxWidth(),
         )
         Spacer(

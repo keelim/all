@@ -7,18 +7,20 @@ import android.os.Bundle
 import android.os.SystemClock
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.core.content.getSystemService
-import com.keelim.composeutil.ui.theme.KeelimTheme
+import com.keelim.core.designsystem.theme.KeelimDesignSystemTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.system.exitProcess
 
 @AndroidEntryPoint
 class CrashReportActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         val errorMessage: String = intent.getStringExtra("error").toString()
         setContent {
-            KeelimTheme {
+            KeelimDesignSystemTheme {
                 CrashRoute(
                     errorMessage = errorMessage,
                     onAppRefresh = { restartApp(this) },

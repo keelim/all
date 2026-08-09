@@ -1,25 +1,493 @@
 package com.keelim.mygrade.ui.screen.timer.history
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.rounded.Menu
+import com.keelim.core.designsystem.component.KuiAlertDialog
+import com.keelim.core.designsystem.component.KuiCard
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import com.keelim.core.designsystem.component.KuiFilledIconButton
+import com.keelim.core.designsystem.component.KuiIcon
+import androidx.compose.material3.IconButtonDefaults
+import com.keelim.core.designsystem.theme.KuiTheme
+import com.keelim.core.designsystem.component.KuiOutlinedTextField
+import com.keelim.core.designsystem.component.KuiSwipeToDismissBox
+import androidx.compose.material3.SwipeToDismissBoxValue
+import com.keelim.core.designsystem.component.KuiText
+import com.keelim.core.designsystem.component.KuiTextButton
+import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.trace
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.keelim.composeutil.component.box.ReadyServiceBox
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.keelim.composeutil.component.layout.EmptyView
+import com.keelim.composeutil.component.layout.Loading
+import com.keelim.commonAndroid.extensions.toUiDateTime
+import com.keelim.core.resource.*
+import org.jetbrains.compose.resources.stringResource
+import com.keelim.model.TimerHistoryModel
+import kotlinx.datetime.LocalDateTime
 
 @Composable
 fun TimerHistoryRoute(
+    onSetTimer: (hours: Int, minutes: Int, seconds: Int) -> Unit = { _, _, _ -> },
     viewModel: TimerHistoryViewModel = hiltViewModel(),
-) = trace("TimerHistoryRoute") {
-    TimerHistoryScreen()
+) = trace("TimerHistoryModelRoute") {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    TimerHistoryScreen(
+        uiState = uiState,
+        onItemClick = { history ->
+            onSetTimer(history.hours, history.minutes, history.seconds)
+        },
+        onDeleteItem = viewModel::deleteHistory,
+        onDeleteAll = viewModel::deleteAll,
+        onUpdateDescription = viewModel::updateDescription,
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TimerHistoryScreen(
+    uiState: TimerHistoryUiState,
+    onItemClick: (TimerHistoryModel) -> Unit = {},
+    onDeleteItem: (Int) -> Unit = {},
+    onDeleteAll: () -> Unit = {},
+    onUpdateDescription: (Int, String) -> Unit = { _, _ -> },
+) = trace("TimerHistoryModelScreen") {
+    var showDeleteAllDialog by remember { mutableStateOf(false) }
+    var editingHistory by remember { mutableStateOf<TimerHistoryModel?>(null) }
+
+    if (showDeleteAllDialog) {
+        KuiAlertDialog(
+            onDismissRequest = { showDeleteAllDialog = false },
+            title = {
+                KuiText(
+                    text = stringResource(Res.string.my_grade_timer_history_delete_all_title),
+                    style = KuiTheme.typography.titleLarge,
+                    color = KuiTheme.colorScheme.onSurface,
+                )
+            },
+            text = {
+                KuiText(
+                    text = stringResource(Res.string.my_grade_timer_history_delete_all_message),
+                    style = KuiTheme.typography.bodyMedium,
+                    color = KuiTheme.colorScheme.onSurfaceVariant,
+                )
+            },
+            confirmButton = {
+                KuiTextButton(
+                    onClick = {
+                        onDeleteAll()
+                        showDeleteAllDialog = false
+                    },
+                ) {
+                    KuiText(
+                        text = stringResource(Res.string.common_action_delete),
+                        color = KuiTheme.colorScheme.error,
+                    )
+                }
+            },
+            dismissButton = {
+                KuiTextButton(onClick = { showDeleteAllDialog = false }) {
+                    KuiText(text = stringResource(Res.string.common_action_cancel))
+                }
+            },
+        )
+    }
+
+    editingHistory?.let { history ->
+        EditDescriptionDialog(
+            currentDescription = history.description,
+            onDismiss = { editingHistory = null },
+            onConfirm = { newDescription ->
+                onUpdateDescription(history.uid, newDescription)
+                editingHistory = null
+            },
+        )
+    }
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(
+                brush = Brush.verticalGradient(
+                    colors = listOf(
+                        KuiTheme.colorScheme.surface,
+                        KuiTheme.colorScheme.surfaceContainerLowest,
+                    ),
+                ),
+            ),
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+        ) {
+            // Header
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Column {
+                    KuiText(
+                        text = stringResource(Res.string.my_grade_timer_history_title),
+                        style = KuiTheme.typography.headlineMedium,
+                        fontWeight = FontWeight.Bold,
+                        color = KuiTheme.colorScheme.onSurface,
+                    )
+                    KuiText(
+                        text = stringResource(Res.string.my_grade_timer_history_subtitle),
+                        style = KuiTheme.typography.bodyMedium,
+                        color = KuiTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+                if (uiState.histories.isNotEmpty()) {
+                    KuiFilledIconButton(
+                        onClick = { showDeleteAllDialog = true },
+                        colors = IconButtonDefaults.filledIconButtonColors(
+                            containerColor = KuiTheme.colorScheme.errorContainer,
+                        ),
+                    ) {
+                        KuiIcon(
+                            imageVector = Icons.Default.Close,
+                            contentDescription = stringResource(Res.string.my_grade_timer_history_delete_all_description),
+                            tint = KuiTheme.colorScheme.onErrorContainer,
+                        )
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            AnimatedVisibility(
+                visible = uiState.isLoading,
+                enter = fadeIn(),
+                exit = fadeOut(),
+            ) {
+                Loading()
+            }
+
+            AnimatedVisibility(
+                visible = !uiState.isLoading && uiState.histories.isEmpty(),
+                enter = fadeIn(),
+                exit = fadeOut(),
+            ) {
+                EmptyView(text = stringResource(Res.string.my_grade_timer_history_empty))
+            }
+
+            AnimatedVisibility(
+                visible = !uiState.isLoading && uiState.histories.isNotEmpty(),
+                enter = fadeIn(),
+                exit = fadeOut(),
+            ) {
+                LazyColumn(
+                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                ) {
+                    items(
+                        items = uiState.histories,
+                        key = { it.uid },
+                    ) { history ->
+                        SwipeableHistoryItem(
+                            history = history,
+                            onClick = { onItemClick(history) },
+                            onDelete = { onDeleteItem(history.uid) },
+                            onEdit = { editingHistory = history },
+                            modifier = Modifier.animateItem(),
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun SwipeableHistoryItem(
+    history: TimerHistoryModel,
+    onClick: () -> Unit,
+    onDelete: () -> Unit,
+    onEdit: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    var isRemoved by remember { mutableStateOf(false) }
+    val dismissState = rememberSwipeToDismissBoxState()
+
+    LaunchedEffect(dismissState.currentValue) {
+        if (dismissState.currentValue != SwipeToDismissBoxValue.Settled) {
+            isRemoved = true
+        }
+    }
+
+    LaunchedEffect(isRemoved) {
+        if (isRemoved) {
+            onDelete()
+        }
+    }
+
+    AnimatedVisibility(
+        visible = !isRemoved,
+        exit = shrinkVertically() + fadeOut(),
+        modifier = modifier,
+    ) {
+        KuiSwipeToDismissBox(
+            state = dismissState,
+            backgroundContent = {
+                val color by animateColorAsState(
+                    targetValue = when (dismissState.targetValue) {
+                        SwipeToDismissBoxValue.Settled -> KuiTheme.colorScheme.surfaceVariant
+                        else -> KuiTheme.colorScheme.errorContainer
+                    },
+                    label = "SwipeBackground",
+                )
+                val scale by animateFloatAsState(
+                    targetValue = if (dismissState.targetValue == SwipeToDismissBoxValue.Settled) 0.75f else 1f,
+                    label = "IconScale",
+                )
+
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .clip(RoundedCornerShape(16.dp))
+                        .background(color)
+                        .padding(horizontal = 24.dp),
+                    contentAlignment = if (dismissState.dismissDirection == SwipeToDismissBoxValue.StartToEnd) {
+                        Alignment.CenterStart
+                    } else {
+                        Alignment.CenterEnd
+                    },
+                ) {
+                    KuiIcon(
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = stringResource(Res.string.common_action_delete),
+                        tint = KuiTheme.colorScheme.onErrorContainer,
+                        modifier = Modifier.scale(scale),
+                    )
+                }
+            },
+            content = {
+                HistoryItemCard(
+                    history = history,
+                    onClick = onClick,
+                    onEdit = onEdit,
+                )
+            },
+        )
+    }
 }
 
 @Composable
-fun TimerHistoryScreen() = trace("TimerHistoryScreen") {
-    ReadyServiceBox()
+private fun HistoryItemCard(
+    history: TimerHistoryModel,
+    onClick: () -> Unit,
+    onEdit: () -> Unit,
+) {
+    KuiCard(padded = false,
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick),
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = KuiTheme.colorScheme.surfaceContainerHigh,
+        ),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            // Timer Icon
+            Box(
+                modifier = Modifier
+                    .size(48.dp)
+                    .clip(CircleShape)
+                    .background(KuiTheme.colorScheme.primaryContainer),
+                contentAlignment = Alignment.Center,
+            ) {
+                KuiIcon(
+                    imageVector = Icons.Rounded.Menu,
+                    contentDescription = null,
+                    tint = KuiTheme.colorScheme.onPrimaryContainer,
+                    modifier = Modifier.size(24.dp),
+                )
+            }
+
+            Spacer(modifier = Modifier.width(16.dp))
+
+            // Time and Date Info
+            Column(
+                modifier = Modifier.weight(1f),
+            ) {
+                KuiText(
+                    text = history.formattedTime,
+                    style = KuiTheme.typography.titleLarge,
+                    fontWeight = FontWeight.Bold,
+                    color = KuiTheme.colorScheme.onSurface,
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                if (history.description.isNotEmpty()) {
+                    KuiText(
+                        text = history.description,
+                        style = KuiTheme.typography.bodyMedium,
+                        color = KuiTheme.colorScheme.primary,
+                    )
+                    Spacer(modifier = Modifier.height(2.dp))
+                }
+                KuiText(
+                    text = formatDate(history.date),
+                    style = KuiTheme.typography.bodySmall,
+                    color = KuiTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+
+            // Edit Button
+            KuiFilledIconButton(
+                onClick = onEdit,
+                colors = IconButtonDefaults.filledIconButtonColors(
+                    containerColor = KuiTheme.colorScheme.secondaryContainer,
+                ),
+                modifier = Modifier.size(40.dp),
+            ) {
+                KuiIcon(
+                    imageVector = Icons.Default.Edit,
+                    contentDescription = stringResource(Res.string.my_grade_timer_history_edit_description),
+                    tint = KuiTheme.colorScheme.onSecondaryContainer,
+                    modifier = Modifier.size(20.dp),
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun EditDescriptionDialog(
+    currentDescription: String,
+    onDismiss: () -> Unit,
+    onConfirm: (String) -> Unit,
+) {
+    var description by remember { mutableStateOf(currentDescription) }
+
+    KuiAlertDialog(
+        onDismissRequest = onDismiss,
+        title = {
+            KuiText(
+                text = stringResource(Res.string.my_grade_timer_history_edit_title),
+                style = KuiTheme.typography.titleLarge,
+                color = KuiTheme.colorScheme.onSurface,
+            )
+        },
+        text = {
+            KuiOutlinedTextField(
+                value = description,
+                onValueChange = { description = it },
+                label = {
+                    KuiText(
+                        text = stringResource(Res.string.my_grade_timer_history_description_label),
+                        style = KuiTheme.typography.bodyMedium,
+                        color = KuiTheme.colorScheme.onSurfaceVariant,
+                    )
+                },
+                placeholder = {
+                    KuiText(
+                        text = stringResource(Res.string.my_grade_timer_history_description_placeholder),
+                        style = KuiTheme.typography.bodyMedium,
+                        color = KuiTheme.colorScheme.onSurfaceVariant,
+                    )
+                },
+                singleLine = true,
+                modifier = Modifier.fillMaxWidth(),
+            )
+        },
+        confirmButton = {
+            KuiTextButton(onClick = { onConfirm(description) }) {
+                KuiText(text = stringResource(Res.string.common_action_save))
+            }
+        },
+        dismissButton = {
+            KuiTextButton(onClick = onDismiss) {
+                KuiText(text = stringResource(Res.string.common_action_cancel))
+            }
+        },
+    )
+}
+
+private fun formatDate(dateString: String): String {
+    return try {
+        LocalDateTime.parse(dateString).toUiDateTime()
+    } catch (e: Exception) {
+        dateString
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewTimerHistoryScreen() {
-    TimerHistoryScreen()
+private fun PreviewTimerHistoryScreen() {
+    TimerHistoryScreen(
+        uiState = TimerHistoryUiState(
+            histories = listOf(
+                TimerHistoryModel(
+                    uid = 1,
+                    hours = 1,
+                    minutes = 30,
+                    seconds = 0,
+                    description = "수학 공부",
+                    date = "2024-01-15T14:30:00",
+                    isCompleted = false
+                ),
+                TimerHistoryModel(
+                    uid = 2,
+                    hours = 0,
+                    minutes = 25,
+                    seconds = 0,
+                    description = "",
+                    date = "2024-01-15T10:00:00",
+                    isCompleted = true
+                ),
+            ),
+            isLoading = false,
+        ),
+    )
 }

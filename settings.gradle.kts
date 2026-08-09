@@ -2,9 +2,11 @@ pluginManagement {
     includeBuild("build-logic")
     repositories {
         google {
-            mavenContent {
-                includeGroupByRegex(".*google.*")
-                includeGroupByRegex(".*android.*")
+            content {
+                includeGroupByRegex("com\\.android.*")
+                includeGroupByRegex("com\\.google.*")
+                includeGroupByRegex("androidx.*")
+                includeGroup("org.chromium.net")
             }
         }
         mavenCentral()
@@ -15,28 +17,35 @@ pluginManagement {
 dependencyResolutionManagement {
     repositories {
         google {
-            mavenContent {
-                includeGroupByRegex(".*google.*")
-                includeGroupByRegex(".*android.*")
+            content {
+                includeGroupByRegex("com\\.android.*")
+                includeGroupByRegex("com\\.google.*")
+                includeGroupByRegex("androidx.*")
+                includeGroup("org.chromium.net")
             }
         }
         mavenCentral()
+        maven(url = "https://jitpack.io")
     }
 }
 rootProject.name = "all"
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(
-    //":app-benchmark",
     ":app-arducon",
     ":app-cnubus",
     ":app-my-grade",
     ":app-nanda",
     ":app-comssa",
-    // ":catalog",
+    ":app-mysenior",
+    ":benchmarks",
+    ":catalog",
+    ":composeApp",
     ":core:common",
     ":core:common-android",
-    ":core:compose-core",
+    ":core:component",
+    ":core:designsystem",
+    ":core:device-android",
     ":core:data",
     ":core:data-api",
     ":core:database",
@@ -44,10 +53,20 @@ include(
     ":core:domain",
     ":core:model",
     ":core:network",
+    ":core:resource",
     ":core:testing",
     ":core:navigation",
-    ":feature:ui-labs",
+    ":feature:app-function",
+    ":feature:settings-core",
+    ":feature:settings-theme",
+    ":feature:settings-notification",
+    ":feature:settings-alarm",
+    ":feature:settings-device",
+    ":feature:settings-admin",
+    ":feature:settings-lab",
+    ":feature:ui-scheme",
     ":feature:ui-setting",
+    ":feature:ui-web",
     ":shared",
     ":widget",
 )

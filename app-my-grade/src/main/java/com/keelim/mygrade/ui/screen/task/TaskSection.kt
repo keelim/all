@@ -7,23 +7,26 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Clear
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SmallFloatingActionButton
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
+import com.keelim.core.designsystem.component.KuiFloatingActionButton
+import androidx.compose.material3.ExperimentalMaterial3Api
+import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.component.KuiIconButton
+import com.keelim.core.designsystem.component.KuiScaffold
+import com.keelim.core.designsystem.component.KuiSmallFloatingActionButton
+import com.keelim.core.designsystem.component.KuiText
+import com.keelim.core.designsystem.component.KuiTopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import com.keelim.commonAndroid.model.SealedUiState
 import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.resource.space4
-import com.keelim.core.database.model.LocalTask
+import com.keelim.model.LocalTask
+import com.keelim.mygrade.R
 
 sealed interface TaskElement {
     data class Header(
@@ -38,6 +41,12 @@ sealed interface TaskElement {
         TOP, BOTTOM, MIDDLE, SINGLE
     }
 }
+
+internal val TaskElement.stableKey: String
+    get() = when (this) {
+        is TaskElement.Header -> "header:$text"
+        is TaskElement.Item -> "task:${localTask.id}"
+    }
 
 data class TaskListSection(
     val header: String = "",
@@ -77,6 +86,7 @@ fun List<TaskListSection>.toTaskElement() = map { section ->
 }.flatten()
 
 @Composable
+@OptIn(ExperimentalMaterial3Api::class)
 fun TaskSuccessSection(
     state: SealedUiState.Success<List<TaskElement>>,
     onAddLocalTask: () -> Unit,
@@ -90,29 +100,32 @@ fun TaskSuccessSection(
     } else {
         val (showDialog, setShowDialog) = rememberSaveable { mutableStateOf(false) }
         var deleteTask by rememberSaveable { mutableStateOf<LocalTask?>(null) }
-        Scaffold(
+        KuiScaffold(
             topBar = {
-                TopAppBar(
-                    title = { Text(text = "MyGrade") },
+                KuiTopAppBar(
+                    title = { KuiText(text = "MyGrade") },
                     actions = {
-                        IconButton(onClick = onAddLocalTask) {
-                            Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+                        KuiIconButton(onClick = onAddLocalTask) {
+                            KuiIcon(
+                                imageVector = Icons.Filled.Add,
+                                contentDescription = stringResource(R.string.task_add_action),
+                            )
                         }
                     },
                 )
             },
             floatingActionButton = {
                 Column(verticalArrangement = Arrangement.spacedBy(space4)) {
-                    FloatingActionButton(onClick = onNavigateChart) {
-                        Icon(
+                    KuiFloatingActionButton(onClick = onNavigateChart) {
+                        KuiIcon(
                             imageVector = Icons.Filled.CheckCircle,
-                            contentDescription = null,
+                            contentDescription = stringResource(R.string.task_chart_action),
                         )
                     }
-                    SmallFloatingActionButton(onClick = onClear) {
-                        Icon(
+                    KuiSmallFloatingActionButton(onClick = onClear) {
+                        KuiIcon(
                             imageVector = Icons.Filled.Clear,
-                            contentDescription = null,
+                            contentDescription = stringResource(R.string.task_clear_action),
                         )
                     }
                 }

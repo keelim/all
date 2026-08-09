@@ -9,24 +9,30 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.theme.KuiTheme
+import com.keelim.core.designsystem.component.KuiSurface
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.trace
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.commonAndroid.model.SealedUiState
 import com.keelim.composeutil.component.canvas.chart.PieChartEntry
-import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
 import com.keelim.composeutil.util.randomColor
+import com.keelim.core.designsystem.component.KuiButton
+import com.keelim.core.designsystem.component.KuiEmptyState
+import com.keelim.core.resource.Res
+import com.keelim.core.resource.common_action_retry
+import com.keelim.mygrade.R
+import org.jetbrains.compose.resources.stringResource as composeStringResource
 
 @Composable
 fun TaskChartRoute(
@@ -35,12 +41,14 @@ fun TaskChartRoute(
     val state by viewModel.state.collectAsStateWithLifecycle()
     TaskChartScreen(
         state = state,
+        onRetry = viewModel::retry,
     )
 }
 
 @Composable
 fun TaskChartScreen(
     state: SealedUiState<List<PieChartEntry>>,
+    onRetry: () -> Unit = {},
 ) = trace("TaskChartScreen") {
     AnimatedContent(
         targetState = state,
@@ -48,7 +56,17 @@ fun TaskChartScreen(
     ) { targetState ->
         when (targetState) {
             SealedUiState.Loading -> Loading()
-            is SealedUiState.Error -> EmptyView()
+            is SealedUiState.Error -> KuiEmptyState(
+                title = stringResource(R.string.mygrade_state_error_title),
+                description = stringResource(R.string.mygrade_state_error_description),
+                action = {
+                    KuiButton(
+                        text = composeStringResource(Res.string.common_action_retry),
+                        onClick = onRetry,
+                    )
+                },
+                modifier = Modifier.padding(KuiTheme.spacing.cardPadding),
+            )
             is SealedUiState.Success -> TaskChartSuccessSection(targetState.value)
         }
     }
@@ -59,7 +77,7 @@ fun TaskChartDetailEntry(
     title: String,
     color: Color,
 ) = trace("TaskChartDetailEntry") {
-    Surface(
+    KuiSurface(
         modifier = Modifier
             .padding(vertical = 10.dp, horizontal = 40.dp),
     ) {
@@ -78,10 +96,10 @@ fun TaskChartDetailEntry(
             Column(
                 modifier = Modifier.fillMaxWidth(),
             ) {
-                Text(
+                KuiText(
                     modifier = Modifier.padding(start = 15.dp),
                     text = title,
-                    style = MaterialTheme.typography.titleLarge,
+                    style = KuiTheme.typography.titleLarge,
                 )
             }
         }

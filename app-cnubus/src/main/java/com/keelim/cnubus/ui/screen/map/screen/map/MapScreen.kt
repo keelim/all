@@ -8,9 +8,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Card
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiCard
+import com.keelim.core.designsystem.theme.KuiTheme
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -22,7 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEach
 import androidx.compose.ui.util.trace
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.google.android.gms.maps.model.CameraPosition
@@ -30,7 +30,7 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MarkerInfoWindowContent
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
-import com.google.maps.android.compose.rememberMarkerState
+import com.google.maps.android.compose.rememberUpdatedMarkerState
 import com.keelim.composeutil.resource.space24
 import com.keelim.composeutil.resource.space8
 import com.keelim.core.data.model.Location
@@ -61,18 +61,19 @@ fun MapScreen(
                 horizontal = space24,
             ),
         ) {
-            Card(
+            KuiCard(padded = false,
                 modifier = Modifier.fillMaxWidth(),
             ) {
                 Row(
                     modifier = Modifier.padding(space8),
                 ) {
-                    Text(
+                    KuiText(
                         text = "CNUBUS",
                         modifier = Modifier.align(Alignment.CenterVertically),
-                        style = MaterialTheme.typography.titleSmall.copy(
+                        style = KuiTheme.typography.titleSmall.copy(
                             fontWeight = FontWeight.Bold,
                         ),
+                        color = KuiTheme.colorScheme.onSurface,
                     )
                 }
             }
@@ -91,7 +92,7 @@ fun MapScreen(
 @Composable
 private fun CustomMarker(
     marker: MapState,
-    markerState: MarkerState = rememberMarkerState(position = marker.position),
+    markerState: MarkerState = rememberUpdatedMarkerState(position = marker.position),
 ) {
     MarkerInfoWindowContent(
         state = markerState,
@@ -99,10 +100,11 @@ private fun CustomMarker(
         snippet = marker.itemSnippet,
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(
+            KuiText(
                 modifier = Modifier.padding(top = 6.dp),
                 text = marker.title,
                 fontWeight = FontWeight.Bold,
+                color = Color.Black,
             )
             AsyncImage(
                 model = marker.imageUrl,

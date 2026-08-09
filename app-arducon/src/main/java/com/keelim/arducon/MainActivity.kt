@@ -3,6 +3,7 @@ package com.keelim.arducon
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -12,7 +13,7 @@ import com.keelim.shared.data.UserStateStore
 import com.keelim.shared.data.model.ThemeType
 import dagger.Lazy
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @AndroidEntryPoint
@@ -21,6 +22,7 @@ class MainActivity : ComponentActivity() {
     lateinit var userStateStore: Lazy<UserStateStore>
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContent {
             val themeType =

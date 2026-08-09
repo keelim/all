@@ -23,6 +23,14 @@ data class UserState(
     val themeType: ThemeType = ThemeType.LIGHT,
 )
 
+interface UserStateStore {
+    val userState: Flow<UserState>
+    suspend fun updateIsFirstUser(isFirstUser: Boolean)
+    suspend fun updateVisitedTime()
+    val themeTypeFlow: Flow<ThemeType>
+    fun setThemeType(value: ThemeType, scope: CoroutineScope)
+}
+
 internal object JsonSerializer : OkioSerializer<UserState> {
     override val defaultValue: UserState = UserState()
     override suspend fun readFrom(source: BufferedSource): UserState {
@@ -34,10 +42,11 @@ internal object JsonSerializer : OkioSerializer<UserState> {
         }
     }
 }
-class UserStateStore(
+
+class JsonUserStateStore(
     fileSystem: FileSystem,
     private val produceFilePath: () -> String,
-) {
+) : UserStateStore {
     private val dataStore = DataStoreFactory.create(
         storage = OkioStorage(
             fileSystem = fileSystem,
@@ -47,26 +56,26 @@ class UserStateStore(
             },
         ),
     )
-    val userState: Flow<UserState>
+    override val userState: Flow<UserState>
         get() = dataStore.data
 
-    suspend fun updateIsFirstUser(isFirstUser: Boolean) {
+    override suspend fun updateIsFirstUser(isFirstUser: Boolean) {
         dataStore.updateData {
             it.copy(isFirstUser = isFirstUser)
         }
     }
 
-    suspend fun updateVisitedTime() {
+    override suspend fun updateVisitedTime() {
         dataStore.updateData {
             it.copy(visitedTime = it.visitedTime + 1)
         }
     }
 
-    val themeTypeFlow: Flow<ThemeType> = dataStore.data.map { userState ->
+    override val themeTypeFlow: Flow<ThemeType> = dataStore.data.map { userState ->
         ThemeType.entries.find { it == userState.themeType } ?: ThemeType.LIGHT
     }
 
-    fun setThemeType(value: ThemeType, scope: CoroutineScope) {
+    override fun setThemeType(value: ThemeType, scope: CoroutineScope) {
         scope.launch {
             dataStore.updateData {
                 it.copy(themeType = value)

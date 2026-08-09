@@ -21,6 +21,30 @@ sealed interface ArduconRoute : AppRoute {
 
     @Serializable
     data object Search : ArduconRoute
+
+    @Serializable
+    data object OgTagPreview : ArduconRoute
+
+    @Serializable
+    data object Stats : ArduconRoute
+
+    @Serializable
+    data class CreateDeepLink(val scheme: String) : ArduconRoute
+
+    @Serializable
+    data object Playground : ArduconRoute
+
+    @Serializable
+    data object JsonFormatter : ArduconRoute
+
+    @Serializable
+    data object Base64Encoder : ArduconRoute
+
+    @Serializable
+    data object UrlShortener : ArduconRoute
+
+    @Serializable
+    data object DeviceTestLab : ArduconRoute
 }
 
 sealed interface CnuBusRoute : AppRoute {
@@ -29,38 +53,6 @@ sealed interface CnuBusRoute : AppRoute {
 
     @Serializable
     data object Map : CnuBusRoute
-}
-
-sealed interface NandaRoute : AppRoute {
-    @Serializable
-    data object Main : NandaRoute
-
-    @Serializable
-    data object Category : NandaRoute
-
-    @Serializable
-    data class Diagnosis(
-        val category: String,
-        val num: String,
-    ) : NandaRoute
-
-    @Serializable
-    data class Web(val uri: String) : NandaRoute
-
-    @Serializable
-    data object Nutrient : NandaRoute
-
-    @Serializable
-    data object NutrientTimer : NandaRoute
-
-    @Serializable
-    data object Exercise : NandaRoute
-
-    @Serializable
-    data object Food : NandaRoute
-
-    @Serializable
-    data class FoodEdit(val title: String) : NandaRoute
 }
 
 sealed interface ComssaRoute : AppRoute {
@@ -72,6 +64,12 @@ sealed interface ComssaRoute : AppRoute {
 
     @Serializable
     data object Flash : ComssaRoute
+
+    @Serializable
+    data object Finance : ComssaRoute
+
+    @Serializable
+    data object FinancialCalculators : ComssaRoute
 }
 
 sealed interface MyGradeRoute : AppRoute {
@@ -92,7 +90,11 @@ sealed interface MyGradeRoute : AppRoute {
     data object History : MyGradeRoute
 
     @Serializable
-    data object Main : MyGradeRoute
+    data class Main(
+        val timerHours: Int = -1,
+        val timerMinutes: Int = -1,
+        val timerSeconds: Int = -1,
+    ) : MyGradeRoute
 
     @Serializable
     data object TaskChart : MyGradeRoute
@@ -114,23 +116,28 @@ sealed interface MyGradeRoute : AppRoute {
 
     @Serializable
     data object WordWrite : MyGradeRoute
+
+    @Serializable
+    data object StudyAnalytics : MyGradeRoute
 }
 
 sealed interface FeatureRoute : AppRoute {
-    @Serializable
-    data object Settings : FeatureRoute
+    sealed interface SettingsDestination : FeatureRoute
 
     @Serializable
-    data object Theme : FeatureRoute
+    data object Settings : SettingsDestination
 
     @Serializable
-    data object Lab : FeatureRoute
+    data object Theme : SettingsDestination
+
+    @Serializable
+    data object Lab : SettingsDestination
 
     @Serializable
     data object Welcome : FeatureRoute
 
     @Serializable
-    data object Notification : FeatureRoute
+    data object Notification : SettingsDestination
 
     @Serializable
     data class Event(val eventId: Int) : FeatureRoute
@@ -139,5 +146,11 @@ sealed interface FeatureRoute : AppRoute {
     data object Faq : FeatureRoute
 
     @Serializable
-    data object Alarm : FeatureRoute
+    data object Alarm : SettingsDestination
+
+    @Serializable
+    data object Admin : SettingsDestination
+
+    @Serializable
+    data object DeviceInfo : SettingsDestination
 }

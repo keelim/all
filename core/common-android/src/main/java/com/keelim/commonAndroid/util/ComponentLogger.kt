@@ -24,7 +24,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import timber.log.Timber
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 private const val loggerTag = "[Lifecycle Logger]"
 
@@ -39,8 +39,10 @@ private fun Activity.printLifecycle(lifecycleScope: String) {
     Timber.tag(loggerTag).d("[Activity] $lifecycleScope - $javaClassName(${hashCode()})")
 }
 
-class ComponentLogger @Inject constructor() {
-    fun initialize(application: Application) {
+class ComponentLogger @Inject constructor(
+    private val application: Application,
+) {
+    fun initialize() {
         application.registerActivityLifecycleCallbacks(
             object : Application.ActivityLifecycleCallbacks {
                 override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {

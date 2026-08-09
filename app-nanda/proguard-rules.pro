@@ -15,3 +15,6 @@
 -dontwarn io.ktor.client.plugins.contentnegotiation.ContentNegotiation$Plugin
 -dontwarn io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 -keep @kotlinx.serialization.Serializable class * {*;}
+-dontwarn kotlin.native.ObjCName
+-dontwarn okhttp3.internal.Util
+-repackageclasses

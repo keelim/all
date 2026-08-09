@@ -1,0 +1,33 @@
+# Gradle
+.gradle/
+.kotlin/
+build/
+**/build/
+
+# Local properties
+local.properties
+local.defaults.properties
+
+# IDE / Editor files
+.idea/
+*.iml
+
+# OS files
+.DS_Store
+
+# Temporary agent/tool files
+.omx/
+.serena/
+.claude/
+
+# Firebase
+google-services.json
+
+# Debug logs
+debug-log.json
+
+# Local product-design audit evidence
+.design-audit/
+
+# Local documentation
+docs/

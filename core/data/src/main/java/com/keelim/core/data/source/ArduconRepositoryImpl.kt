@@ -2,13 +2,16 @@ package com.keelim.core.data.source
 
 import com.keelim.common.Dispatcher
 import com.keelim.common.KeelimDispatchers
-import com.keelim.core.database.repository.ArduconDataSource
-import com.keelim.core.database.repository.ArduconRepository
+import com.keelim.data.repository.ArduconDataSource
+import com.keelim.data.repository.ArduconRepository
 import com.keelim.model.DeepLink
+import com.keelim.model.UsageStat
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 class ArduconRepositoryImpl @Inject constructor(
     private val local: ArduconDataSource,
@@ -44,5 +47,25 @@ class ArduconRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun deleteScheme(scheme: String) {
+        withContext(dispatcher) {
+            local.deleteScheme(scheme)
+        }
+    }
+
     override fun getSchemeList(): Flow<List<String>> = local.getSchemeList()
+
+    override fun getCategories(): Flow<List<String>> = local.getCategories()
+
+    override fun getTopUsedLinks(limit: Int): Flow<List<DeepLink>> = flow {
+        emit(local.getTopUsedLinks(limit))
+    }.flowOn(dispatcher)
+
+    override fun getRecentUsedLinks(limit: Int): Flow<List<DeepLink>> = flow {
+        emit(local.getRecentUsedLinks(limit))
+    }.flowOn(dispatcher)
+
+    override fun getDailyUsageStats(limit: Int): Flow<List<UsageStat>> = flow {
+        emit(local.getDailyUsageStats(limit))
+    }.flowOn(dispatcher)
 }

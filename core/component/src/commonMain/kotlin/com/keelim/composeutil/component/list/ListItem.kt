@@ -1,0 +1,93 @@
+package com.keelim.composeutil.component.list
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.PlayArrow
+import com.keelim.composeutil.component.kui.KuiCircularProgressIndicator
+import com.keelim.composeutil.component.kui.KuiIcon
+import com.keelim.composeutil.component.kui.KuiText
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.keelim.composeutil.resource.space16
+
+data class AppItem(
+    val message: String,
+    val id: Int,
+    val state: ItemState,
+)
+
+sealed interface ItemState {
+    data object Visible : ItemState
+    data object Progress : ItemState
+    data object Finish : ItemState
+}
+
+@Composable
+fun ListItem(
+    item: AppItem,
+    backgroundColor: Color,
+    modifier: Modifier = Modifier,
+    onItemClick: ((Int) -> Unit)? = null,
+) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(60.dp)
+            .background(backgroundColor)
+            .clickable {
+                onItemClick?.invoke(item.id)
+            },
+        horizontalArrangement = Arrangement.Start,
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        KuiText(
+            modifier = Modifier
+                .weight(1f)
+                .padding(horizontal = space16),
+            text = item.message,
+            style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.SemiBold),
+        )
+        Box(modifier = Modifier.size(60.dp), contentAlignment = Alignment.Center) {
+            when (val state = item.state) {
+                ItemState.Visible, ItemState.Finish -> {
+                    KuiIcon(
+                        imageVector = if (state is ItemState.Visible) {
+                            Icons.Default.PlayArrow
+                        } else {
+                            Icons.Default.Check
+                        },
+                        contentDescription = "State Icon",
+                        tint = if (state is ItemState.Visible) {
+                            Color.Gray
+                        } else {
+                            Color.Blue
+                        },
+                    )
+                }
+
+                ItemState.Progress -> {
+                    KuiCircularProgressIndicator(
+                        modifier = Modifier.size(30.dp),
+                        strokeWidth = 3.dp,
+                        color = Color.Magenta,
+                    )
+                }
+            }
+        }
+    }
+}

@@ -1,88 +1,55 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
-    alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.sqldelight)
-    alias(libs.plugins.compose.multiplatform)
-    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.keelim.android.application.room)
     kotlin("plugin.serialization")
-    kotlin("plugin.parcelize")
+    alias(libs.plugins.keelim.multiplatform)
 }
 
 kotlin {
-    androidTarget {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = JavaVersion.VERSION_1_8.toString()
+    android {
+        namespace = "com.keelim.kmp.shared"
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_17)
+        }
+    }
+
+    targets
+        .filterIsInstance<KotlinNativeTarget>()
+        .forEach { target ->
+            target.binaries {
+                framework {
+                    baseName = "ALL"
+                    isStatic = true
+                }
             }
         }
-    }
-
-    jvm("desktop")
-
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach { iosTarget ->
-        iosTarget.binaries.framework {
-            baseName = "ALL"
-            isStatic = true
-        }
-    }
 
     sourceSets {
-        val desktopMain by getting
-
-        androidMain.dependencies {
-            implementation(libs.sqldelight.android)
-        }
         commonMain.dependencies {
-            implementation(libs.sqldelight.coroutines)
-            implementation(libs.sqldelight.paging)
-            implementation(libs.sqldelight.primitive)
             implementation(libs.kotlinx.serialization.json)
-            api(libs.androidx.dataStore.preferences)
-            api(libs.androidx.dataStore.core.okio)
             implementation(libs.okio)
             implementation(libs.circuit.foundation)
-            implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
+
+            api(projects.core.resource)
+            api(libs.androidx.dataStore.preferences)
+            api(libs.androidx.dataStore.core.okio)
+
+            implementation(libs.room.runtime)
+            implementation(libs.androidx.sqlite.bundled)
+            implementation(libs.kotlinx.datetime)
+
+            implementation(projects.core.model)
         }
-        desktopMain.dependencies {
-            implementation(compose.desktop.macos_arm64)
-        }
-        appleMain.dependencies {
-            implementation(libs.sqldelight.native)
+
+        androidMain.dependencies {
+            implementation(projects.core.datastoreProto)
+            implementation(libs.androidx.dataStore.core)
         }
     }
 }
 
-sqldelight {
-    databases {
-        create("Database") {
-            packageName = "com.keelim.kmp.data"
-        }
-    }
-}
-
-android {
-    namespace = "com.keelim.kmp.shared"
-    compileSdk = libs.versions.compileSdk.get().toInt()
-    defaultConfig {
-        minSdk = libs.versions.minSdk.get().toInt()
-    }
-}
-
-compose.desktop {
-    application {
-        mainClass = "MainKt"
-
-        nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "com.keelim.all"
-            packageVersion = "1.0.0"
-        }
-    }
+dependencies {
+    add("kspAndroid", libs.room.compiler)
 }

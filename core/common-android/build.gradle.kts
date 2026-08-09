@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.keelim.android.library)
     alias(libs.plugins.keelim.android.library.compose)
+    alias(libs.plugins.keelim.android.library.jacoco)
     alias(libs.plugins.keelim.android.hilt)
 }
 
@@ -9,34 +10,31 @@ android {
 }
 
 dependencies {
+
     implementation(projects.core.common)
-    implementation(projects.core.composeCore)
+    implementation(projects.core.designsystem)
     implementation(projects.shared)
+    implementation(projects.core.dataApi)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.startup)
     implementation(libs.androidx.lifecycle.process)
+    implementation(libs.androidx.lifecycle.runtime)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.bio)
+    implementation(libs.androidx.dataStore.preferences)
+    implementation(libs.androidx.work.ktx)
+    implementation(libs.fragment.ktx)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(platform(libs.coil.bom))
     implementation(libs.bundles.coil)
 
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.common)
-    implementation(libs.firebase.crashlytics)
-    releaseImplementation(libs.firebase.appcheck)
-    debugImplementation(libs.firebase.appcheck.debug)
-
     implementation(libs.hilt.android)
-    implementation(libs.junit4)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.datetime)
-    implementation(libs.play.services.ad)
     implementation(libs.timber)
 
-    debugImplementation(libs.flipper)
-    debugImplementation(libs.flipper.leakcanary)
     debugImplementation(libs.leakcanary)
-    debugImplementation(libs.soloader)
 
     testImplementation(projects.core.testing)
     testImplementation(libs.androidx.test.core)
@@ -44,5 +42,5 @@ dependencies {
     testImplementation(libs.androidx.test.rules)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.hilt.android.testing)
+    implementation(libs.zxing)
 }
-

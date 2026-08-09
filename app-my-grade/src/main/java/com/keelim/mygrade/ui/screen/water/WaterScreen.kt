@@ -6,10 +6,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.sharp.Add
-import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiButton
+import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.theme.KuiTheme
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -20,7 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.trace
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.keelim.composeutil.component.appbar.NavigationBackArrowBar
 
 @Composable
@@ -36,16 +36,16 @@ fun WaterScreen() = trace("WaterScreen") {
         NavigationBackArrowBar(title = "물 마시기")
         var waterCount by remember { mutableIntStateOf(0) }
 
-        Button(onClick = { waterCount++ }) {
-            Icon(imageVector = Icons.Sharp.Add, contentDescription = null)
+        KuiButton(onClick = { waterCount++ }) {
+            KuiIcon(imageVector = Icons.Sharp.Add, contentDescription = null)
         }
         if (waterCount > 8) {
             Spacer(
                 modifier = Modifier.height(10.dp),
             )
-            Text(
+            KuiText(
                 text = "물을 많이 드셨군요",
-                style = MaterialTheme.typography.bodyMedium,
+                style = KuiTheme.typography.bodyMedium,
             )
         }
     }

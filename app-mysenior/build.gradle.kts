@@ -3,15 +3,11 @@ plugins {
     alias(libs.plugins.keelim.android.application.compose)
     alias(libs.plugins.keelim.android.application.jacoco)
     alias(libs.plugins.keelim.android.hilt)
-    alias(libs.plugins.kotlin.android)
 }
 
 android {
     defaultConfig {
         applicationId = "com.keelim.mysenior"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
         buildTypes {
             create("my-mysenior-benchmark") {
                 signingConfig = signingConfigs.getByName("debug")
@@ -26,22 +22,30 @@ android {
 }
 
 dependencies {
-    implementation(projects.core.composeCore)
+
+    implementation(projects.core.commonAndroid)
+    implementation(projects.core.component)
+    implementation(projects.core.data)
+    implementation(projects.core.navigation)
+    implementation(projects.core.network)
+
     implementation(projects.feature.uiSetting)
-    implementation(libs.accompanist.systemuicontroller)
     implementation(libs.activity.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.lifecycle.runtime.compose)
-    implementation(libs.androidx.lifecycle.rutime)
+    implementation(libs.androidx.lifecycle.runtime)
+    implementation(libs.androidx.lifecycle.viewmodel.navigation3)
     implementation(libs.androidx.metrics)
-    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.navigation3.runtime)
+    implementation(libs.androidx.navigation3.ui)
     implementation(libs.androidx.paging.compose)
     implementation(libs.androidx.window.manager)
-    implementation(libs.coil.kt.compose)
-    implementation(libs.coil.kt.svg)
+    implementation(platform(libs.coil.bom))
+    implementation(libs.coil.compose)
+    implementation(libs.coil.svg)
     implementation(libs.deeplinkdispatch)
     implementation(libs.firebase.config)
     implementation(libs.kotlinx.datetime)

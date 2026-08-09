@@ -3,8 +3,14 @@ syntax = "proto3";
 option java_package = "com.keelim.core.datastore";
 option java_multiple_files = true;
 
-message UserSetting {
-  bool should_hide_onboarding = 1;
-  string last_visit_time = 2;
+enum ThemeType {
+  THEME_TYPE_UNSPECIFIED = 0;
+  THEME_TYPE_LIGHT = 1;
+  THEME_TYPE_DARK = 2;
 }
 
+message UserSetting {
+  bool is_first_user = 1;
+  int32 visited_time = 2;
+  ThemeType theme_type = 3;
+}

@@ -9,14 +9,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
-import androidx.compose.material3.ExtendedFloatingActionButton
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
+import com.keelim.core.designsystem.component.KuiAlertDialog
+import com.keelim.core.designsystem.component.KuiButton
+import com.keelim.core.designsystem.component.KuiExtendedFloatingActionButton
+import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.theme.KuiTheme
+import com.keelim.core.designsystem.component.KuiScaffold
+import com.keelim.core.designsystem.component.KuiText
+import com.keelim.core.designsystem.component.KuiFilledTextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -24,19 +24,24 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.trace
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.commonAndroid.model.SealedUiState
-import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
 import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space2
 import com.keelim.composeutil.resource.space8
+import com.keelim.core.designsystem.component.KuiEmptyState
+import com.keelim.core.resource.Res
+import com.keelim.core.resource.common_action_retry
+import com.keelim.mygrade.R
+import org.jetbrains.compose.resources.stringResource as composeStringResource
 
 @Composable
 fun EditRoute(
@@ -48,6 +53,7 @@ fun EditRoute(
         editUiState = editUiState,
         onAddClick = viewModel::updateNote,
         onClearDialog = viewModel::clearDialogState,
+        onRetry = viewModel::retry,
     )
 }
 
@@ -56,6 +62,7 @@ fun EditScreen(
     editUiState: SealedUiState<EditUiState>,
     onAddClick: (String) -> Unit,
     onClearDialog: () -> Unit,
+    onRetry: () -> Unit = {},
 ) = trace("EditScreen") {
     AnimatedContent(
         targetState = editUiState,
@@ -63,7 +70,17 @@ fun EditScreen(
     ) { targetState ->
         when (targetState) {
             SealedUiState.Loading -> Loading()
-            is SealedUiState.Error -> EmptyView()
+            is SealedUiState.Error -> KuiEmptyState(
+                title = stringResource(R.string.mygrade_state_error_title),
+                description = stringResource(R.string.mygrade_state_error_description),
+                action = {
+                    KuiButton(
+                        text = composeStringResource(Res.string.common_action_retry),
+                        onClick = onRetry,
+                    )
+                },
+                modifier = Modifier.padding(KuiTheme.spacing.cardPadding),
+            )
             is SealedUiState.Success -> EditSuccessSection(
                 editUiState = targetState,
                 onAddClick = onAddClick,
@@ -105,20 +122,20 @@ fun EditSuccessSection(
         mutableStateOf("")
     }
 
-    Scaffold(
+    KuiScaffold(
         modifier = Modifier
             .fillMaxSize()
             .padding(vertical = space8, horizontal = space12),
         floatingActionButton = {
-            ExtendedFloatingActionButton(
+            KuiExtendedFloatingActionButton(
                 onClick = {
                     onAddClick(inputTitle)
                 },
                 text = {
-                    Text(text = "+ Add", fontSize = 16.sp, fontWeight = FontWeight.Medium)
+                    KuiText(text = "+ Add", fontSize = 16.sp, fontWeight = FontWeight.Medium)
                 },
                 icon = {
-                    Icon(
+                    KuiIcon(
                         imageVector = Icons.Filled.Check,
                         contentDescription = "",
                     )
@@ -131,11 +148,11 @@ fun EditSuccessSection(
                 .padding(paddingValues),
             verticalArrangement = Arrangement.spacedBy(space8),
         ) {
-            Text(
+            KuiText(
                 text = editResult.subject,
-                style = MaterialTheme.typography.displaySmall,
+                style = KuiTheme.typography.displaySmall,
             )
-            TextField(
+            KuiFilledTextField(
                 value = inputTitle,
                 onValueChange = { newValue ->
                     inputTitle = newValue
@@ -143,7 +160,7 @@ fun EditSuccessSection(
                 textStyle = TextStyle(
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Normal,
-                    color = MaterialTheme.colorScheme.onSurface,
+                    color = KuiTheme.colorScheme.onSurface,
                 ),
                 singleLine = false,
                 shape = RectangleShape,
@@ -151,10 +168,10 @@ fun EditSuccessSection(
                     .fillMaxWidth()
                     .fillMaxSize(),
                 placeholder = {
-                    Text(
+                    KuiText(
                         text = "메모를 입력해주세요.",
                         fontSize = 18.sp,
-                        color = MaterialTheme.colorScheme.onSurface,
+                        color = KuiTheme.colorScheme.onSurface,
                     )
                 },
             )
@@ -173,7 +190,7 @@ private fun EditDialog(
         mutableStateOf(true)
     }
     if (isDialogOpen) {
-        AlertDialog(
+        KuiAlertDialog(
             onDismissRequest = {
                 isDialogOpen = false
                 onDismiss()
@@ -182,32 +199,32 @@ private fun EditDialog(
                 Column(
                     verticalArrangement = Arrangement.spacedBy(space2),
                 ) {
-                    Text(text = title)
+                    KuiText(text = title)
                 }
             },
             text = {
-                Text(text = description)
+                KuiText(text = description)
             },
             confirmButton = {
-                Button(
+                KuiButton(
                     onClick = {
                         onClick()
                         isDialogOpen = false
                     },
                 ) {
-                    Text(
+                    KuiText(
                         text = "확인",
                     )
                 }
             },
             dismissButton = {
-                Button(
+                KuiButton(
                     onClick = {
                         isDialogOpen = false
                         onDismiss()
                     },
                 ) {
-                    Text(
+                    KuiText(
                         text = "취소",
                     )
                 }

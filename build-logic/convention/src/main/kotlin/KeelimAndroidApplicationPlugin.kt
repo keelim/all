@@ -6,24 +6,31 @@ import com.keelim.builds.configureKotlinAndroid
 import com.keelim.builds.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 
+@Suppress("unused")
 class KeelimAndroidApplicationPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         with(project) {
-            with(pluginManager) {
-                apply("com.android.application")
-                apply("org.jetbrains.kotlin.android")
-                apply("org.gradle.android.cache-fix")
-                apply("com.google.android.gms.oss-licenses-plugin")
-                apply("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
-                apply("com.dropbox.dependency-guard")
-                apply("com.jraska.module.graph.assertion")
-                apply("androidx.baselineprofile")
-                apply("com.autonomousapps.dependency-analysis")
+            val isCiBuild = providers.environmentVariable("CI")
+                .map { it.equals("true", ignoreCase = true) }
+                .orElse(false)
+                .get()
+
+            apply(plugin = "com.android.application")
+            apply(plugin = "org.gradle.android.cache-fix")
+            // OSS licenses plugin is not configuration-cache compatible.
+            // Apply it only for release/publish paths or when explicitly requested.
+            if (shouldApplyOssLicensesPlugin()) {
+                apply(plugin = "com.google.android.gms.oss-licenses-plugin")
             }
+            apply(plugin = "com.dropbox.dependency-guard")
+            apply(plugin = "com.jraska.module.graph.assertion")
+            apply(plugin = "androidx.baselineprofile")
+            apply(plugin = "com.autonomousapps.dependency-analysis")
 
 
             extensions.getByType<ApplicationExtension>().apply {
@@ -37,17 +44,23 @@ class KeelimAndroidApplicationPlugin : Plugin<Project> {
                 with(buildFeatures) {
                     buildConfig = true
                 }
-                buildTypes.getByName("release").apply {
-                    isMinifyEnabled = true
-                    isShrinkResources = true
-                    vcsInfo.include = true
-                    proguardFiles(
-                        getDefaultProguardFile("proguard-android-optimize.txt"),
-                        "proguard-rules.pro"
-                    )
+                buildTypes {
+                    getByName("debug") {
+                        isMinifyEnabled = false
+                        isShrinkResources = false
+                        isCrunchPngs = false
+                    }
+                    getByName("release") {
+                        isMinifyEnabled = true
+                        isShrinkResources = true
+                        proguardFiles(
+                            getDefaultProguardFile("proguard-android-optimize.txt"),
+                            "proguard-rules.pro"
+                        )
+                    }
                 }
                 lint {
-                    abortOnError = false
+                    abortOnError = isCiBuild
                 }
             }
 
@@ -58,8 +71,28 @@ class KeelimAndroidApplicationPlugin : Plugin<Project> {
 
             dependencies {
                 add("lintChecks", libs.findLibrary("slack-lint-checks").get())
+                add("lintChecks", libs.findLibrary("insights-lint").get())
                 add("implementation", libs.findLibrary("androidx-tracing-ktx").get())
             }
+        }
+    }
+
+    private fun Project.shouldApplyOssLicensesPlugin(): Boolean {
+        if (path == ":app-nanda") return false
+
+        val enabledByProperty = providers.gradleProperty("enableOssLicenses")
+            .orNull
+            ?.toBooleanStrictOrNull() == true
+        if (enabledByProperty) {
+            return true
+        }
+
+        return gradle.startParameter.taskNames.any { taskName ->
+            val normalized = taskName.lowercase()
+            normalized.contains("bundlerelease") ||
+                normalized.contains("assemblerelease") ||
+                normalized.contains("publish") ||
+                normalized.contains("upload")
         }
     }
 }

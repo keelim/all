@@ -2,27 +2,52 @@ package com.keelim.arducon.ui.screen.search
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Card
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Search
+import com.keelim.core.designsystem.component.KuiCard
+import androidx.compose.material3.CardDefaults
+import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.component.KuiIconButton
+import com.keelim.core.designsystem.theme.KuiTheme
+import com.keelim.core.designsystem.component.KuiOutlinedTextField
+import com.keelim.core.designsystem.component.KuiScaffold
+import com.keelim.core.designsystem.component.KuiText
+import com.keelim.core.designsystem.component.KuiTopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.keelim.composeutil.resource.space8
+import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.keelim.composeutil.resource.space16
+import com.keelim.core.resource.*
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun SearchRoute(
     onUpdate: () -> Unit,
+    onNavigateToCreateDeepLink: (String) -> Unit,
     viewModel: SearchViewModel = hiltViewModel(),
 ) {
-    SearchScreen()
+    val searchQuery by viewModel.searchQuery.collectAsStateWithLifecycle()
+    val filteredSchemes by viewModel.filteredSchemes.collectAsStateWithLifecycle()
+
+    SearchScreen(
+        searchQuery = searchQuery,
+        onSearchQueryChange = viewModel::updateSearchQuery,
+        onClearSearch = viewModel::clearSearch,
+        filteredSchemes = filteredSchemes,
+        onSchemeClick = { scheme ->
+            onNavigateToCreateDeepLink(scheme)
+        },
+    )
 
     LaunchedEffect(Unit) {
         onUpdate()
@@ -30,33 +55,106 @@ fun SearchRoute(
 }
 
 @Composable
-fun SearchScreen() {
-    Column(
-        modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(space8),
-    ) {
-        Card(
+fun SearchScreen(
+    searchQuery: String,
+    onSearchQueryChange: (String) -> Unit,
+    onClearSearch: () -> Unit,
+    filteredSchemes: List<String>,
+    onSchemeClick: (String) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    KuiScaffold(
+        topBar = {
+            KuiTopAppBar(
+                title = {
+                    KuiText(
+                        text = stringResource(Res.string.arducon_search_title),
+                        style = KuiTheme.typography.titleLarge.copy(
+                            fontWeight = FontWeight.Bold,
+                        ),
+                    )
+                },
+            )
+        },
+        modifier = modifier,
+    ) { paddingValues ->
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(space8),
+                .fillMaxSize()
+                .padding(paddingValues)
+                .padding(horizontal = space16),
+            verticalArrangement = Arrangement.spacedBy(space16),
         ) {
-            val (text, setText) = remember { mutableStateOf("") }
-            TextField(
-                value = text,
-                onValueChange = setText,
-                label = { Text("검색어를 입력해주세요") },
+            // 검색 입력 필드
+            SearchInputField(
+                value = searchQuery,
+                onValueChange = onSearchQueryChange,
+                onClear = onClearSearch,
                 modifier = Modifier.fillMaxWidth(),
             )
+
+            // 검색 결과
+            SchemeSearchSection(
+                schemes = filteredSchemes,
+                onSchemeClick = onSchemeClick,
+                modifier = Modifier.fillMaxSize(),
+            )
         }
-        HorizontalDivider()
-        // DeepLinkSearchSection(
-        //     items = items,
-        // )
+    }
+}
+
+@Composable
+private fun SearchInputField(
+    value: String,
+    onValueChange: (String) -> Unit,
+    onClear: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    KuiCard(padded = false,
+        modifier = modifier,
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+        shape = KuiTheme.shapes.medium,
+    ) {
+        KuiOutlinedTextField(
+            value = value,
+            onValueChange = onValueChange,
+            label = { KuiText(stringResource(Res.string.arducon_search_title)) },
+            placeholder = { KuiText(stringResource(Res.string.arducon_search_placeholder)) },
+            leadingIcon = {
+                KuiIcon(
+                    imageVector = Icons.Default.Search,
+                    contentDescription = stringResource(Res.string.common_action_search),
+                    tint = KuiTheme.colorScheme.primary,
+                )
+            },
+            trailingIcon = {
+                if (value.isNotEmpty()) {
+                    KuiIconButton(onClick = onClear) {
+                        KuiIcon(
+                            imageVector = Icons.Default.Clear,
+                            contentDescription = stringResource(Res.string.arducon_search_clear_query),
+                            tint = KuiTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
+                }
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(4.dp),
+            singleLine = true,
+            shape = KuiTheme.shapes.small,
+        )
     }
 }
 
 @Preview
 @Composable
 private fun PreviewSearchScreen() {
-    SearchScreen()
+    SearchScreen(
+        searchQuery = "",
+        onSearchQueryChange = {},
+        onClearSearch = {},
+        filteredSchemes = listOf("http", "https", "tel", "mailto"),
+        onSchemeClick = {},
+    )
 }

@@ -1,6 +1,4 @@
 on:
-  pull_request:
-    branches: [ master ]
   workflow_dispatch:
 
 jobs:
@@ -9,27 +7,21 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
-      - name: cache gradle
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
-
-      - name: set up JDK 17
-        uses: actions/setup-java@v4.6.0
+      - name: set up JDK 21
+        uses: actions/setup-java@v5.7.0
         with:
           distribution: "zulu"
-          java-version: "17"
-          cache: "gradle"
+          java-version: "21"
 
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v5
+        with:
+          cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+          build-scan-publish: true
+          build-scan-terms-of-use-url: "https://gradle.com/terms-of-service"
+          build-scan-terms-of-use-agree: "yes"
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
@@ -42,132 +34,86 @@ jobs:
           echo '${{ secrets.GOOGLE_SERVICE_JSON }}' | base64 -d > ./app-nanda/google-services.json
           echo '${{ secrets.GOOGLE_SERVICE_JSON }}' | base64 -d > ./app-arducon/google-services.json
           echo '${{ secrets.LOCAL_PROPERTIES }}' | base64 -d > ./local.properties
-          echo '${{ secrets.FONTS }}' | base64 -d > ./core/compose-core/src/main/res/values/font_certs.xml
-
-      - name: Build with Gradle
-        run: |
-          ./gradlew app-comssa:assembleRelease app-cnubus:assembleRelease app-my-grade:assembleRelease app-nanda:assembleRelease app-arducon:assembleRelease
+          mkdir -p ./core/component/src/commonMain/res/values/
+          echo '${{ secrets.FONTS }}' | base64 -d > ./core/component/src/commonMain/res/values/font_certs.xml
 
       - name: Build Release AAB
         id: buildRelease
         run: |
-          ./gradlew app-comssa:bundleRelease app-cnubus:bundleRelease app-my-grade:bundleRelease app-nanda:bundleRelease app-arducon:bundleRelease
+          ./gradlew -PenableOssLicenses=true app-comssa:bundleRelease app-cnubus:bundleRelease app-my-grade:bundleRelease app-nanda:bundleRelease app-arducon:bundleRelease
 
-      - name: Sign Comssa AAB
-        id: sign_comssa
-        uses: keelim/upload-google-play@0.0.3
+      - name: Upload Release AAB artifacts
+        uses: actions/upload-artifact@v4
         with:
-          type: sign
-          releaseDirectory: app-comssa/build/outputs/bundle/release
-          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
-          alias: ${{ secrets.COMSSA_ALIAS }}
-          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
-          keyPassword: ${{ secrets.KEY_PASSWORD }}
+          name: release-aabs
+          path: |
+            app-comssa/build/outputs/bundle/release/app-comssa-release.aab
+            app-cnubus/build/outputs/bundle/release/app-cnubus-release.aab
+            app-my-grade/build/outputs/bundle/release/app-my-grade-release.aab
+            app-nanda/build/outputs/bundle/release/app-nanda-release.aab
+            app-arducon/build/outputs/bundle/release/app-arducon-release.aab
+          if-no-files-found: error
 
-      - name: Sign Cnubus AAB
-        id: sign_cnubus
-        uses: keelim/upload-google-play@0.0.3
-        with:
-          type: sign
-          releaseDirectory: app-cnubus/build/outputs/bundle/release
-          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
-          alias: ${{ secrets.CNUBUS_ALIAS }}
-          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
-          keyPassword: ${{ secrets.KEY_PASSWORD }}
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - app: comssa
+            release_directory: app-comssa/build/outputs/bundle/release
+            release_file: app-comssa/build/outputs/bundle/release/app-comssa-release.aab
+            package_name: com.keelim.comssa
+            alias_secret: COMSSA_ALIAS
+          - app: cnubus
+            release_directory: app-cnubus/build/outputs/bundle/release
+            release_file: app-cnubus/build/outputs/bundle/release/app-cnubus-release.aab
+            package_name: com.keelim.cnubus
+            alias_secret: CNUBUS_ALIAS
+          - app: mygrade
+            release_directory: app-my-grade/build/outputs/bundle/release
+            release_file: app-my-grade/build/outputs/bundle/release/app-my-grade-release.aab
+            package_name: com.keelim.mygrade
+            alias_secret: MYGRADE_ALIAS
+          - app: nanda
+            release_directory: app-nanda/build/outputs/bundle/release
+            release_file: app-nanda/build/outputs/bundle/release/app-nanda-release.aab
+            package_name: com.keelim.nandadiagnosis
+            alias_secret: NANDA_ALIAS
+          - app: arducon
+            release_directory: app-arducon/build/outputs/bundle/release
+            release_file: app-arducon/build/outputs/bundle/release/app-arducon-release.aab
+            package_name: com.keelim.arducon
+            alias_secret: ARDUCON_ALIAS
 
-      - name: Sign MyGrade AAB
-        id: sign_mygrade
-        uses: keelim/upload-google-play@0.0.3
+    steps:
+      - name: Download Release AAB artifacts
+        uses: actions/download-artifact@v4
         with:
-          type: sign
-          releaseDirectory: app-my-grade/build/outputs/bundle/release
-          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
-          alias: ${{ secrets.MYGRADE_ALIAS }}
-          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
-          keyPassword: ${{ secrets.KEY_PASSWORD }}
-
-      - name: Sign Nanda AAB
-        id: sign_nanda
-        uses: keelim/upload-google-play@0.0.3
-        with:
-          type: sign
-          releaseDirectory: app-nanda/build/outputs/bundle/release
-          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
-          alias: ${{ secrets.NANDA_ALIAS }}
-          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
-          keyPassword: ${{ secrets.KEY_PASSWORD }}
-
-      - name: Sign Arducon AAB
-        id: sign_arducon
-        uses: keelim/upload-google-play@0.0.3
-        with:
-          type: sign
-          releaseDirectory: app-arducon/build/outputs/bundle/release
-          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
-          alias: ${{ secrets.ARDUCON_ALIAS }}
-          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
-          keyPassword: ${{ secrets.KEY_PASSWORD }}
+          name: release-aabs
+          path: .
 
       - name: Create service_account.json
-        id: createServiceAccount
         run: echo '${{ secrets.SERVICE_ACCOUNT_JSON }}' > service_account.json
 
-      - name: Deploy to Play Store Cnubus
-        id: deploy_cnubus
-        uses: keelim/upload-google-play@0.0.3
+      - name: Sign ${{ matrix.app }} AAB
+        uses: keelim/upload-google-play@v0.0.8
         with:
-          type: upload
-          serviceAccountJson: service_account.json
-          packageName: com.keelim.cnubus
-          releaseFiles: app-cnubus/build/outputs/bundle/release/app-cnubus-release.aab
-          track: production
-          status: completed
-          changesNotSentForReview: true
+          type: sign
+          releaseDirectory: ${{ matrix.release_directory }}
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          alias: ${{ secrets[matrix.alias_secret] }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
 
-      - name: Deploy to Play Store Comssa
-        id: deploy_comssa
-        uses: keelim/upload-google-play@0.0.3
+      - name: Deploy to Play Store ${{ matrix.app }}
+        uses: keelim/upload-google-play@v0.0.8
         with:
           type: upload
           serviceAccountJson: service_account.json
-          packageName: com.keelim.comssa
-          releaseFiles: app-comssa/build/outputs/bundle/release/app-comssa-release.aab
-          track: production
-          status: completed
-          changesNotSentForReview: false
-
-      - name: Deploy to Play Store MyGrade
-        id: deploy_mygrade
-        uses: keelim/upload-google-play@0.0.3
-        with:
-          type: upload
-          serviceAccountJson: service_account.json
-          packageName: com.keelim.mygrade
-          releaseFiles: app-my-grade/build/outputs/bundle/release/app-my-grade-release.aab
-          track: production
-          status: completed
-          changesNotSentForReview: true
-
-      - name: Deploy to Play Store Nanda
-        id: deplo_nanda
-        uses: keelim/upload-google-play@0.0.3
-        with:
-          type: upload
-          serviceAccountJson: service_account.json
-          packageName: com.keelim.nandadiagnosis
-          releaseFiles: app-nanda/build/outputs/bundle/release/app-nanda-release.aab
-          track: production
-          status: completed
-          changesNotSentForReview: false
-
-      - name: Deploy to Play Store Arducon
-        id: deplo_arducon
-        uses: keelim/upload-google-play@0.0.3
-        with:
-          type: upload
-          serviceAccountJson: service_account.json
-          packageName: com.keelim.arducon
-          releaseFiles: app-arducon/build/outputs/bundle/release/app-arducon-release.aab
+          packageName: ${{ matrix.package_name }}
+          releaseFiles: ${{ matrix.release_file }}
           track: production
           status: completed
           changesNotSentForReview: false

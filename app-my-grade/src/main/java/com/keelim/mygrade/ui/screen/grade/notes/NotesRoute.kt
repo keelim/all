@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalFoundationApi::class)
+@file:OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 
 package com.keelim.mygrade.ui.screen.grade.notes
 
@@ -17,9 +17,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.BasicAlertDialog
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import com.keelim.core.designsystem.component.KuiBasicAlertDialog
+import androidx.compose.material3.ExperimentalMaterial3Api
+import com.keelim.core.designsystem.theme.KuiTheme
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -27,19 +28,26 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.trace
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.commonAndroid.model.SealedUiState
 import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
 import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space8
+import com.keelim.core.designsystem.component.KuiButton
+import com.keelim.core.designsystem.component.KuiEmptyState
+import com.keelim.core.resource.Res
+import com.keelim.core.resource.common_action_retry
 import com.keelim.model.Notices
+import com.keelim.mygrade.R
+import org.jetbrains.compose.resources.stringResource as composeStringResource
 
 @Composable
 fun NotesRoute(
@@ -49,6 +57,7 @@ fun NotesRoute(
     NotesScreen(
         uiState = uiState,
         onDeleteClick = viewModel::deleteNote,
+        onRetry = viewModel::retry,
     )
 }
 
@@ -56,13 +65,24 @@ fun NotesRoute(
 fun NotesScreen(
     uiState: SealedUiState<List<Notices>>,
     onDeleteClick: (Notices) -> Unit,
+    onRetry: () -> Unit = {},
 ) = trace("NotesScreen") {
     AnimatedContent(
         targetState = uiState,
         label = "",
     ) { targetState ->
         when (targetState) {
-            is SealedUiState.Error -> EmptyView()
+            is SealedUiState.Error -> KuiEmptyState(
+                title = stringResource(R.string.mygrade_state_error_title),
+                description = stringResource(R.string.mygrade_state_error_description),
+                action = {
+                    KuiButton(
+                        text = composeStringResource(Res.string.common_action_retry),
+                        onClick = onRetry,
+                    )
+                },
+                modifier = Modifier.padding(KuiTheme.spacing.cardPadding),
+            )
             SealedUiState.Loading -> Loading()
             is SealedUiState.Success -> if (targetState.value.isEmpty()) {
                 EmptyView()
@@ -86,13 +106,13 @@ fun NoteSuccessSection(
     }
 
     if (isMarkedRequireDialog) {
-        BasicAlertDialog(
+        KuiBasicAlertDialog(
             onDismissRequest = { isMarkedRequireDialog = false },
         ) {
             Column {
-                Text(
+                KuiText(
                     text = "노트를 활성화 해야 삭제할 수 있습니다. ",
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = KuiTheme.typography.bodyMedium,
                 )
                 Row(
                     horizontalArrangement = Arrangement.End,
@@ -100,9 +120,9 @@ fun NoteSuccessSection(
                         isMarkedRequireDialog = false
                     },
                 ) {
-                    Text(
+                    KuiText(
                         text = "확인",
-                        style = MaterialTheme.typography.bodySmall,
+                        style = KuiTheme.typography.bodySmall,
                     )
                 }
             }
@@ -113,7 +133,7 @@ fun NoteSuccessSection(
             items = uiState.value,
             key = { it.uid },
         ) { item ->
-            var isMarked by rememberSaveable(key = item.uid.toString()) {
+            var isMarked by rememberSaveable {
                 mutableStateOf(false)
             }
             NotesItem(
@@ -168,44 +188,45 @@ fun NotesItem(
                 onClick = { onClick() },
                 onLongClick = onLongClick,
             )
-            .background(MaterialTheme.colorScheme.primary, shape = RoundedCornerShape(space12)),
+            .background(KuiTheme.colorScheme.primary, shape = RoundedCornerShape(space12)),
     ) {
         val boxStartPadding by animateDpAsState(
             targetValue = if (isMarked) space8 else 0.dp,
             label = "",
         )
         Box(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .padding(start = boxStartPadding)
-                .background(MaterialTheme.colorScheme.surface),
+                .background(KuiTheme.colorScheme.surface),
         ) {
             Column(
                 modifier = Modifier.padding(16.dp),
                 horizontalAlignment = Alignment.Start,
             ) {
-                Text(
+                KuiText(
                     text = data.title,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     fontWeight = FontWeight.Bold,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurface,
+                    style = KuiTheme.typography.bodyMedium,
+                    color = KuiTheme.colorScheme.onSurface,
                     modifier = Modifier.padding(bottom = 4.dp),
                 )
-                Text(
+                KuiText(
                     text = data.note,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurface,
+                    style = KuiTheme.typography.bodySmall,
+                    color = KuiTheme.colorScheme.onSurface,
                     modifier = Modifier.padding(bottom = 1.dp),
                 )
-                Text(
-                    text = data.createdAt.toString(),
+                KuiText(
+                    text = data.createdAt,
                     maxLines = 1,
-                    style = MaterialTheme.typography.bodySmall,
+                    style = KuiTheme.typography.bodySmall,
                     overflow = TextOverflow.Ellipsis,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+                    color = KuiTheme.colorScheme.onSurface.copy(alpha = 0.6f),
                 )
             }
         }

@@ -7,27 +7,22 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
-      - name: cache gradle
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
 
-      - name: set up JDK 17
-        uses: actions/setup-java@v4.6.0
+      - name: set up JDK 21
+        uses: actions/setup-java@v5.7.0
         with:
           distribution: "zulu" # See 'Supported distributions' for available options
-          java-version: "17"
-          cache: "gradle"
+          java-version: "21"
 
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v5
+        with:
+          cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+          build-scan-publish: true
+          build-scan-terms-of-use-url: "https://gradle.com/terms-of-service"
+          build-scan-terms-of-use-agree: "yes"
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
@@ -36,18 +31,16 @@ jobs:
         run: |
           echo '${{ secrets.GOOGLE_SERVICE_JSON }}' | base64 -d> ./app-my-grade/google-services.json
           echo '${{ secrets.LOCAL_PROPERTIES }}' | base64 -d > ./local.properties
-          echo '${{ secrets.FONTS }}' | base64 -d > ./core/compose-core/src/main/res/values/font_certs.xml
-
-      - name: Build with Gradle
-        run: ./gradlew app-my-grade:assembleRelease
+          mkdir -p ./core/component/src/commonMain/res/values/
+          echo '${{ secrets.FONTS }}' | base64 -d > ./core/component/src/commonMain/res/values/font_certs.xml
 
       - name: Build Release AAB
         id: buildRelease
-        run: ./gradlew app-my-grade:bundleRelease
+        run: ./gradlew -PenableOssLicenses=true app-my-grade:bundleRelease
 
       - name: Sign AAB
         id: sign
-        uses: keelim/upload-google-play@0.0.3
+        uses: keelim/upload-google-play@v0.0.8
         with:
           type: sign
           releaseDirectory: app-my-grade/build/outputs/bundle/release
@@ -62,7 +55,7 @@ jobs:
 
       - name: Deploy to Play Store
         id: deploy
-        uses: keelim/upload-google-play@0.0.3
+        uses: keelim/upload-google-play@v0.0.8
         with:
           type: upload
           serviceAccountJson: service_account.json
@@ -70,4 +63,4 @@ jobs:
           releaseFiles: app-my-grade/build/outputs/bundle/release/app-my-grade-release.aab
           track: production
           status: completed
-          changesNotSentForReview: false
+          changesNotSentForReview: true

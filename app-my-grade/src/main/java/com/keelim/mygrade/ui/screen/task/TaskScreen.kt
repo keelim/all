@@ -16,15 +16,15 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.material3.Checkbox
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
+import com.keelim.core.designsystem.component.KuiButton
+import com.keelim.core.designsystem.component.KuiCard
+import com.keelim.core.designsystem.component.KuiCheckbox
+import com.keelim.core.designsystem.component.KuiEmptyState
+import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.component.KuiIconButton
+import com.keelim.core.designsystem.theme.KuiTheme
+import com.keelim.core.designsystem.component.KuiText
+import com.keelim.core.designsystem.component.KuiFilledTextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -35,20 +35,26 @@ import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.trace
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.keelim.commonAndroid.model.SealedUiState
+import com.keelim.composeutil.component.dialog.ConfirmDialog
 import com.keelim.composeutil.component.layout.EmptyView
 import com.keelim.composeutil.component.layout.Loading
 import com.keelim.composeutil.resource.space16
 import com.keelim.composeutil.resource.space8
-import com.keelim.core.database.model.LocalTask
+import com.keelim.core.resource.Res
+import com.keelim.core.resource.common_action_retry
+import com.keelim.model.LocalTask
+import com.keelim.mygrade.R
+import org.jetbrains.compose.resources.stringResource as composeStringResource
 
 @Composable
 fun TaskRoute(onNavigateChart: () -> Unit, viewModel: TaskViewModel = hiltViewModel()) = trace("TaskRoute") {
@@ -60,6 +66,7 @@ fun TaskRoute(onNavigateChart: () -> Unit, viewModel: TaskViewModel = hiltViewMo
         onClear = viewModel::clear,
         onEditTask = viewModel::editTask,
         onDeleteTask = viewModel::deleteTask,
+        onRetry = viewModel::retry,
     )
 }
 
@@ -71,15 +78,25 @@ fun TaskScreen(
     onClear: () -> Unit,
     onEditTask: (LocalTask) -> Unit,
     onDeleteTask: (LocalTask) -> Unit,
+    onRetry: () -> Unit = {},
 ) = trace("TaskScreen") {
     AnimatedContent(
         targetState = state,
         label = "",
-        contentKey = { state },
     ) { targetState ->
         when (targetState) {
             SealedUiState.Loading -> Loading()
-            is SealedUiState.Error -> EmptyView()
+            is SealedUiState.Error -> KuiEmptyState(
+                title = stringResource(R.string.mygrade_state_error_title),
+                description = stringResource(R.string.mygrade_state_error_description),
+                action = {
+                    KuiButton(
+                        text = composeStringResource(Res.string.common_action_retry),
+                        onClick = onRetry,
+                    )
+                },
+                modifier = Modifier.padding(KuiTheme.spacing.cardPadding),
+            )
             is SealedUiState.Success<List<TaskElement>> -> TaskSuccessSection(targetState, onAddLocalTask, onNavigateChart, onClear, onEditTask, onDeleteTask)
         }
     }
@@ -121,11 +138,14 @@ fun LocalTaskList(
         val spacedBy by animateDpAsState(Dp(selected * 2f), label = "")
         val innerCornerSize by animateDpAsState(Dp(selected * 4f), label = "")
         LazyColumn(
-            modifier = modifier.fillMaxWidth().padding(vertical = space8),
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(vertical = space8),
             verticalArrangement = Arrangement.spacedBy(spacedBy),
         ) {
             items(
                 items = items,
+                key = { it.stableKey },
             ) { task ->
                 when (task) {
                     is TaskElement.Header ->
@@ -157,11 +177,13 @@ fun LocalTaskHeader(
 ) = trace("LocalTaskHeader") {
     Row(
         modifier =
-        modifier.fillMaxWidth().padding(top = space16, bottom = space8, start = space16, end = space16),
+        modifier
+            .fillMaxWidth()
+            .padding(top = space16, bottom = space8, start = space16, end = space16),
     ) {
-        Text(
+        KuiText(
             text = task.text,
-            style = MaterialTheme.typography.titleMedium,
+            style = KuiTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold,
         )
     }
@@ -177,34 +199,44 @@ fun LocalTaskItem(
     innerCornerSize: Dp = 0.dp,
 ) = trace("LocalTaskItem") {
     val task = item.localTask
-    Card(
+    KuiCard(padded = false,
         modifier =
-        modifier.padding(horizontal = space16, vertical = space8).fillMaxWidth().pointerInput(Unit) {
-            detectTapGestures(onLongPress = { onDelete(task) })
-        },
+        modifier
+            .padding(horizontal = space16, vertical = space8)
+            .fillMaxWidth()
+            .pointerInput(Unit) {
+                detectTapGestures(onLongPress = { onDelete(task) })
+            },
         shape = item.role.toShape(outerCornerSize, innerCornerSize),
     ) {
         Row(modifier = Modifier.padding(space16)) {
             if (task.isEditing) {
-                TextField(
+                KuiFilledTextField(
                     value = task.title,
                     onValueChange = { onChange(task.copy(title = it)) },
-                    modifier = Modifier.weight(1f).padding(end = space8),
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(end = space8),
                 )
-                IconButton(
+                KuiIconButton(
                     modifier = Modifier.align(Alignment.CenterVertically),
                     onClick = { onChange(task.copy(isEditing = false)) },
                 ) {
-                    Icon(imageVector = Icons.Filled.Done, contentDescription = null)
+                    KuiIcon(
+                        imageVector = Icons.Filled.Done,
+                        contentDescription = stringResource(R.string.task_finish_edit_action),
+                    )
                 }
             } else {
-                Text(
+                KuiText(
                     text = task.title,
                     textDecoration =
                     if (task.isCompleted) TextDecoration.LineThrough else TextDecoration.None,
-                    modifier = Modifier.weight(1f).padding(end = space8),
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(end = space8),
                 )
-                Checkbox(
+                KuiCheckbox(
                     modifier = Modifier.align(Alignment.CenterVertically),
                     checked = task.isCompleted,
                     onCheckedChange = { onChange(task.copy(isCompleted = it)) },
@@ -248,28 +280,13 @@ private fun TaskElement.Role.toShape(outerCornerSize: Dp, innerCornerSize: Dp): 
 
 @Composable
 fun DeleteDialog(setShowDialog: (Boolean) -> Unit, onConfirm: () -> Unit) = trace("DeleteDialog") {
-    AlertDialog(
-        onDismissRequest = { setShowDialog(false) },
-        title = { Text(text = "삭제") },
-        text = { Text(text = "LocalTask 삭제") },
-        confirmButton = {
-            Button(
-                onClick = {
-                    onConfirm()
-                    setShowDialog(false)
-                },
-            ) {
-                Text(
-                    text = "확인",
-                )
-            }
+    ConfirmDialog(
+        title = "삭제",
+        message = "LocalTask 삭제",
+        onConfirm = {
+            onConfirm()
+            setShowDialog(false)
         },
-        dismissButton = {
-            Button(onClick = { setShowDialog(false) }) {
-                Text(
-                    text = "취소",
-                )
-            }
-        },
+        onDismiss = { setShowDialog(false) },
     )
 }

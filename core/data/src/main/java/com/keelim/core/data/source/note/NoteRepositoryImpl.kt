@@ -1,21 +1,21 @@
 package com.keelim.core.data.source.note
 
-import com.keelim.common.di.IoDispatcher
-import com.keelim.core.database.dao.NoteDao
+import com.keelim.common.Dispatcher
+import com.keelim.common.KeelimDispatchers
 import com.keelim.core.database.mapper.toNotices
 import com.keelim.core.database.mapper.toNoticesEntity
 import com.keelim.data.repository.NoteRepository
 import com.keelim.model.Notices
+import com.keelim.shared.data.database.dao.NoteDao
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 class NoteRepositoryImpl @Inject constructor(
     private val noteDao: NoteDao,
-    @IoDispatcher
-    private val dispatcher: CoroutineDispatcher,
+    @Dispatcher(KeelimDispatchers.IO) private val dispatcher: CoroutineDispatcher,
 ) : NoteRepository {
     override fun getNoteList(): Flow<Result<List<Notices>>> =
         noteDao.getNotes()

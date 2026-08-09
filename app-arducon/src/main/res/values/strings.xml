@@ -3,4 +3,30 @@
     <string name="search_text">SEARCH</string>
     <string name="deep_link_url_hint">Deep Link Url</string>
     <string name="fail_msg">Fail</string>
+    <string name="playground_title">Playground</string>
+    <string name="label_url">URL</string>
+    <string name="label_param_key">Param Key</string>
+    <string name="label_param_value">Param Value</string>
+    <string name="action_run_validation">검증 실행</string>
+    <string name="action_share_report">결과 공유</string>
+    <string name="label_resolved_apps">핸들 가능한 앱</string>
+    <string name="label_http_result">HTTP 결과</string>
+    <string name="label_status_code">상태 코드: %1$d</string>
+    <string name="label_final_url">최종 URL: %1$s</string>
+    <string name="label_og_result">OG 태그</string>
+    <string name="label_og_title">제목: %1$s</string>
+    <string name="label_og_desc">설명: %1$s</string>
+    <string name="label_og_image">이미지: %1$s</string>
+    <string name="action_generate_qr">QR 생성</string>
+    <string name="label_redirects">Redirects:</string>
+    <string name="label_headers">Headers:</string>
+    <string name="dialog_close">닫기</string>
+    <string name="dialog_error">에러</string>
+    <string name="qr_save_image">이미지 저장</string>
+    <string name="qr_share_image">이미지 공유</string>
+    <string name="qr_content_description">QR 코드</string>
+    
+    <!-- MainScreen strings -->
+    <string name="stats_button">통계 보기</string>
+    <string name="invalid_url_error">유효하지 않은 URL입니다.</string>
 </resources>

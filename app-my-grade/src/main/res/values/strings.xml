@@ -1,4 +1,38 @@
 <resources>
     <string name="app_name">MyGrade</string>
-    <string name="ready_service">현재 서비스 준비중입니다.</string>
+    <string name="my_score">점수 입력</string>
+    <string name="average">평균</string>
+    <string name="standard_deviation">표준 편차</string>
+    <string name="total_students">총 인원</string>
+    <string name="submit">Submit</string>
+    <string name="edit_student_score">학생 점수 입력</string>
+    <string name="student_scores">학생 점수</string>
+    <string name="submit_button">제출</string>
+    <string name="menu_settings">설정</string>
+    <string name="menu_history">기록</string>
+    <string name="clear_button">초기화</string>
+
+    <!-- Grade result strings -->
+    <string name="grade_result_title">결과 확인</string>
+    <string name="grade_subject_format">과목 · %1$s</string>
+    <string name="grade_expected_grade">예상 학점</string>
+    <string name="grade_expected_rank_format">예상 등수 %1$s</string>
+    <string name="grade_disclaimer">+ 표기는 교수님 재량에 따라 달라질 수 있습니다.</string>
+    <string name="grade_notes_action">학점 메모 열기</string>
+    <string name="grade_edit_action">과목 점수 수정</string>
+    <string name="grade_share_action">학점 결과 공유</string>
+    <string name="timer_menu_action">타이머 메뉴</string>
+    <string name="main_lab_action">실험실 열기</string>
+    <string name="mygrade_state_error_title">정보를 불러오지 못했습니다</string>
+    <string name="mygrade_state_error_description">잠시 후 다시 시도해 주세요.</string>
+    
+    <!-- TaskScreen strings -->
+    <string name="task_add_action">할 일 추가</string>
+    <string name="task_chart_action">할 일 통계 보기</string>
+    <string name="task_clear_action">할 일 전체 지우기</string>
+    <string name="task_finish_edit_action">할 일 편집 완료</string>
+    <string name="delete_title">삭제</string>
+    <string name="delete_message">LocalTask 삭제</string>
+    <string name="confirm_button">확인</string>
+    <string name="cancel_button">취소</string>
 </resources>

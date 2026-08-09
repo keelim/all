@@ -1,27 +1,134 @@
 package com.keelim.arducon.ui.screen.search
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
+import com.keelim.core.designsystem.component.KuiCard
+import androidx.compose.material3.CardDefaults
+import com.keelim.core.designsystem.component.KuiIcon
+import com.keelim.core.designsystem.theme.KuiTheme
+import com.keelim.core.designsystem.component.KuiText
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.keelim.model.DeepLink
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import com.keelim.composeutil.resource.space12
+import com.keelim.composeutil.resource.space16
+import com.keelim.composeutil.resource.space8
 
 @Composable
-fun DeepLinkSearchSection(
-    items: List<DeepLink>,
+fun SchemeSearchSection(
+    schemes: List<String>,
+    onSchemeClick: (String) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
-    LazyColumn(
-        modifier = Modifier.fillMaxWidth(),
-    ) {
-        items(items) { items ->
-            Text(
-                text = items.url,
-                style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.fillMaxWidth(),
-            )
+    if (schemes.isEmpty()) {
+        EmptySearchResult(modifier = modifier)
+    } else {
+        LazyColumn(
+            modifier = modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(space8),
+        ) {
+            item {
+                KuiText(
+                    text = "검색 결과 (${schemes.size}개)",
+                    style = KuiTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(horizontal = space16, vertical = space8),
+                )
+            }
+
+            items(schemes) { scheme ->
+                SchemeItem(
+                    scheme = scheme,
+                    onClick = { onSchemeClick(scheme) },
+                )
+            }
         }
+    }
+}
+
+@Composable
+private fun SchemeItem(
+    scheme: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    KuiCard(padded = false,
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = space16)
+            .clickable { onClick() },
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(space16),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            KuiIcon(
+                imageVector = Icons.Default.Search,
+                contentDescription = null,
+                tint = KuiTheme.colorScheme.primary,
+            )
+            Spacer(modifier = Modifier.width(space12))
+            Column {
+                KuiText(
+                    text = scheme,
+                    style = KuiTheme.typography.bodyLarge,
+                    fontWeight = FontWeight.Medium,
+                    color = KuiTheme.colorScheme.onSurface,
+                )
+                Spacer(modifier = Modifier.height(space8))
+                KuiText(
+                    text = "딥링크 생성하기",
+                    style = KuiTheme.typography.bodySmall,
+                    color = KuiTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun EmptySearchResult(
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(space16),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+    ) {
+        KuiIcon(
+            imageVector = Icons.Default.Search,
+            contentDescription = null,
+            modifier = Modifier.padding(space16),
+            tint = KuiTheme.colorScheme.onSurfaceVariant,
+        )
+        KuiText(
+            text = "검색 결과가 없습니다",
+            style = KuiTheme.typography.titleMedium,
+            color = KuiTheme.colorScheme.onSurfaceVariant,
+        )
+        Spacer(modifier = Modifier.height(space8))
+        KuiText(
+            text = "다른 검색어를 입력해보세요",
+            style = KuiTheme.typography.bodyMedium,
+            color = KuiTheme.colorScheme.onSurfaceVariant,
+        )
     }
 }

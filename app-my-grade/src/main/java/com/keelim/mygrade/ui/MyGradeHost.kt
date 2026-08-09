@@ -1,151 +1,174 @@
+@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
+
 package com.keelim.mygrade.ui
 
 import android.content.Intent
-import android.net.Uri
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.navigation.compose.NavHost
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
-import com.keelim.composeutil.AppState
+import com.keelim.composeutil.navigation.KeelimNavDisplay
+import com.keelim.composeutil.rememberMutableStateListOf
+import com.keelim.core.navigation.AppRoute
+import com.keelim.core.navigation.FeatureRoute
 import com.keelim.core.navigation.MyGradeRoute
-import com.keelim.mygrade.ui.screen.grade.edit.editScreen
-import com.keelim.mygrade.ui.screen.grade.edit.navigateEdit
-import com.keelim.mygrade.ui.screen.grade.gradeScreen
-import com.keelim.mygrade.ui.screen.grade.navigateGrade
-import com.keelim.mygrade.ui.screen.grade.notes.navigateNotes
-import com.keelim.mygrade.ui.screen.grade.notes.notesScreen
-import com.keelim.mygrade.ui.screen.history.historyScreen
-import com.keelim.mygrade.ui.screen.history.navigateHistory
+import com.keelim.core.resource.Res
+import com.keelim.core.resource.my_grade_feature_preparing
+import com.keelim.mygrade.ui.screen.analytics.StudyAnalyticsRoute
+import com.keelim.mygrade.ui.screen.grade.GradeRoute
+import com.keelim.mygrade.ui.screen.grade.edit.EditRoute
+import com.keelim.mygrade.ui.screen.grade.notes.NotesRoute
+import com.keelim.mygrade.ui.screen.history.HistoryRoute
 import com.keelim.mygrade.ui.screen.main.Level
+import com.keelim.mygrade.ui.screen.main.MainRoute
 import com.keelim.mygrade.ui.screen.main.grade
-import com.keelim.mygrade.ui.screen.main.mainScreen
 import com.keelim.mygrade.ui.screen.main.toProcess
-import com.keelim.mygrade.ui.screen.task.chart.navigateTaskChart
-import com.keelim.mygrade.ui.screen.task.chart.taskChartScreen
-import com.keelim.mygrade.ui.screen.task.navigateTask
-import com.keelim.mygrade.ui.screen.task.taskScreen
-import com.keelim.mygrade.ui.screen.timer.history.navigateTimerHistory
-import com.keelim.mygrade.ui.screen.timer.history.timerHistoryScreen
-import com.keelim.mygrade.ui.screen.timer.timerScreen
-import com.keelim.mygrade.ui.screen.word.navigateWordWrite
-import com.keelim.mygrade.ui.screen.word.wordScreen
-import com.keelim.mygrade.ui.screen.word.wordWriteScreen
-import com.keelim.setting.screen.alarm.alarmScreen
-import com.keelim.setting.screen.alarm.navigateAlarm
-import com.keelim.setting.screen.event.eventScreen
-import com.keelim.setting.screen.faq.faqScreen
-import com.keelim.setting.screen.faq.navigateFaq
-import com.keelim.setting.screen.lab.labScreen
-import com.keelim.setting.screen.lab.navigateLab
-import com.keelim.setting.screen.notification.navigateNotification
-import com.keelim.setting.screen.notification.notificationScreen
-import com.keelim.setting.screen.settings.navigateSettings
-import com.keelim.setting.screen.settings.settingsScreen
-import com.keelim.setting.screen.theme.navigateTheme
-import com.keelim.setting.screen.theme.themeScreen
+import com.keelim.mygrade.ui.screen.task.TaskRoute
+import com.keelim.mygrade.ui.screen.task.chart.TaskChartRoute
+import com.keelim.mygrade.ui.screen.timer.history.TimerHistoryRoute
+import com.keelim.mygrade.ui.screen.word.show.WordShowRoute
+import com.keelim.mygrade.ui.screen.word.write.WordWriteRoute
+import com.keelim.setting.screen.event.EventRoute
+import com.keelim.setting.navigation.registerSettingsEntries
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun MyGradeHost(
-    appState: AppState,
     coroutineScope: CoroutineScope,
     onShowSnackbar: suspend (String, String?) -> Boolean,
     modifier: Modifier = Modifier,
 ) {
-    val navController = appState.navController
     val context = LocalContext.current
-    NavHost(
-        navController = navController,
-        startDestination = MyGradeRoute.Main,
+    val featurePreparingMessage = stringResource(Res.string.my_grade_feature_preparing)
+    val backStack = rememberMutableStateListOf<AppRoute>(MyGradeRoute.Main())
+
+    KeelimNavDisplay(
         modifier = modifier,
+        backStack = backStack,
     ) {
-        mainScreen(
-            onSubmitClick = { subject, normalProbability, student ->
-                navController.navigateGrade(
-                    subject = subject,
-                    grade = normalProbability.grade(),
-                    point = Level((normalProbability.value * student) / 100).toProcess(student.toString()),
+            registerSettingsEntries(
+                context = context,
+                backStack = backStack,
+                onOpenSourceClick = {
+                    context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
+                },
+            )
+            entry<FeatureRoute.Event> {
+                EventRoute()
+            }
+            entry<MyGradeRoute.Main> { route ->
+                MainRoute(
+                    onSubmitClick = { subject, normalProbability, student ->
+                        backStack.add(
+                            MyGradeRoute.Grade(
+                                subject = subject,
+                                grade = normalProbability.grade(),
+                                point = Level((normalProbability.value * student) / 100).toProcess(
+                                    student.toString(),
+                                ),
+                            ),
+                        )
+                    },
+                    onFloatingButtonClick1 = {
+                        backStack.add(MyGradeRoute.History)
+                    },
+                    onFloatingButtonClick2 = {
+                        backStack.add(FeatureRoute.Settings)
+                    },
+                    onLabClick = {
+                        coroutineScope.launch {
+                            onShowSnackbar(featurePreparingMessage, null)
+                        }
+                    },
+                    onNavigateTimerHistory = {
+                        backStack.add(MyGradeRoute.TimerHistory)
+                    },
+                    onNavigateTask = {
+                        backStack.add(MyGradeRoute.Task)
+                    },
+                    onNavigateAnalytics = {
+                        backStack.add(MyGradeRoute.StudyAnalytics)
+                    },
+                    timerPresetHours = route.timerHours.takeIf { it >= 0 },
+                    timerPresetMinutes = route.timerMinutes.takeIf { it >= 0 },
+                    timerPresetSeconds = route.timerSeconds.takeIf { it >= 0 },
                 )
-            },
-            onFloatingButtonClick1 = { navController.navigateHistory() },
-            onFloatingButtonClick2 = { navController.navigateSettings() },
-            onLabClick = {
-                coroutineScope.launch {
-                    val result = onShowSnackbar("새로운 기능으로 준비중입니다 😀", null)
-                    // if (result) {
-                    //     navController.navigateTask()
-                    // }
-                }
-            },
-            onNavigateTimerHistory = navController::navigateTimerHistory,
-            onNavigateTask = navController::navigateTask,
-            nestedGraphs = {
-                timerHistoryScreen()
-            },
-        )
-        historyScreen(
-            onHistoryClick = { subject, grade, point ->
-                navController.navigateGrade(
-                    subject = subject,
-                    grade = grade,
-                    point = point,
+            }
+            entry<MyGradeRoute.TimerHistory> {
+                TimerHistoryRoute(
+                    onSetTimer = { hours, minutes, seconds ->
+                        backStack.removeLastOrNull()
+                        backStack.add(
+                            MyGradeRoute.Main(
+                                timerHours = hours,
+                                timerMinutes = minutes,
+                                timerSeconds = seconds,
+                            ),
+                        )
+                    },
                 )
-            },
-        )
-        gradeScreen(
-            onNavigateNotes = navController::navigateNotes,
-            onEditClick = { subject ->
-                navController.navigateEdit(
-                    subject = subject,
+            }
+            entry<MyGradeRoute.History> {
+                HistoryRoute(
+                    onHistoryClick = { subject, grade, point ->
+                        backStack.add(
+                            MyGradeRoute.Grade(
+                                subject = subject,
+                                grade = grade,
+                                point = point,
+                            ),
+                        )
+                    },
                 )
-            },
-            onShareClick = {
-                coroutineScope.launch {
-                    onShowSnackbar("새로운 기능으로 준비중입니다 😀", null)
-                }
-            },
-        ) {
-            editScreen()
-        }
-        notesScreen()
-        settingsScreen(
-            onThemeChangeClick = navController::navigateTheme,
-            onNotificationsClick = navController::navigateNotification,
-            onAlarmsClick = navController::navigateAlarm,
-            onFaqClick = navController::navigateFaq,
-            onOpenSourceClick = {
-                context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
-            },
-            onLabClick = navController::navigateLab,
-            onAppUpdateClick = {
-                context.startActivity(
-                    Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse("https://play.google.com/store/apps/details?id=${context.packageName}"),
-                    ),
+            }
+            entry<MyGradeRoute.Grade> {
+                GradeRoute(
+                    onNavigateNotes = {
+                        backStack.add(MyGradeRoute.Notes)
+                    },
+                    onEditClick = { subject ->
+                        backStack.add(
+                            MyGradeRoute.Edit(subject = subject),
+                        )
+                    },
+                    onShareClick = {
+                        coroutineScope.launch {
+                            onShowSnackbar(featurePreparingMessage, null)
+                        }
+                    },
                 )
-            },
-            nestedGraphs = {
-                faqScreen { }
-                themeScreen()
-                notificationScreen()
-                labScreen()
-                alarmScreen()
-            },
-        )
-        eventScreen()
-        taskScreen(
-            onNavigateChart = navController::navigateTaskChart,
-        ) {
-            taskChartScreen()
-        }
-        timerScreen()
-        wordScreen(
-            onWordWriteNavigate = navController::navigateWordWrite,
-        ) {
-            wordWriteScreen()
-        }
+            }
+            entry<MyGradeRoute.Edit> {
+                EditRoute()
+            }
+            entry<MyGradeRoute.Notes> {
+                NotesRoute()
+            }
+            entry<MyGradeRoute.Task> {
+                TaskRoute(
+                    onNavigateChart = {
+                        backStack.add(MyGradeRoute.TaskChart)
+                    },
+                )
+            }
+            entry<MyGradeRoute.TaskChart> {
+                TaskChartRoute()
+            }
+            entry<MyGradeRoute.Word> {
+                WordShowRoute(
+                    onWordWriteNavigate = {
+                        backStack.add(MyGradeRoute.WordWrite)
+                    },
+                )
+            }
+            entry<MyGradeRoute.WordWrite> {
+                WordWriteRoute()
+            }
+            entry<MyGradeRoute.StudyAnalytics> {
+                StudyAnalyticsRoute()
+            }
     }
 }

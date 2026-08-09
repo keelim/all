@@ -19,11 +19,11 @@ import com.keelim.shared.data.UserStateStore
 import com.keelim.shared.data.model.ThemeType
 import dagger.Lazy
 import dagger.hilt.android.AndroidEntryPoint
+import jakarta.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
-import javax.inject.Inject
 
 @BuildCompat.PrereleaseSdkCheck
 @DeepLink("all://screen/{name}")

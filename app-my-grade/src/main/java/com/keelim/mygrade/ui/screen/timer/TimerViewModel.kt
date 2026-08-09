@@ -1,12 +1,12 @@
 package com.keelim.mygrade.ui.screen.timer
 
 import androidx.compose.runtime.Stable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.keelim.common.extensions.formatUiTime
+import com.keelim.common.extensions.toUiTwoDigits
+import com.keelim.data.repository.HistoryRepository
+import com.keelim.data.repository.StudyAnalyticsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -18,22 +18,15 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
-import javax.inject.Inject
+import kotlinx.coroutines.launch
+import kotlinx.datetime.Instant
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
+import jakarta.inject.Inject
 
 @Stable
 enum class RunningState {
     STOPPED, STARTED
-}
-
-internal fun formatTime(isLeadingZeroNeeded: Boolean = false, value: Int): String {
-    return if (isLeadingZeroNeeded) {
-        String.format("%02d", value)
-    } else {
-        String.format("%2d", value)
-    }
 }
 
 internal val HOUR_LIST = (0..12).toList()
@@ -42,42 +35,55 @@ internal val SECOND_LIST = (0..60).toList()
 
 data class TimerUiState(
     val isUnsetDialog: Boolean = false,
+    val runningState: RunningState = RunningState.STOPPED,
+    val hour: Int = 0,
+    val minute: Int = 0,
+    val second: Int = 0,
+    val leftTime: Int = 0,
 )
 
 @Stable
 @HiltViewModel
-class TimerViewModel @Inject constructor() : ViewModel() {
+class TimerViewModel @Inject constructor(
+    private val studyAnalyticsRepository: StudyAnalyticsRepository,
+    private val historyRepository: HistoryRepository,
+) : ViewModel() {
     private var countTimeJob: Job? = null
-    private var _isRunning by mutableStateOf(RunningState.STOPPED)
 
     private val _timerUiState = MutableStateFlow(TimerUiState())
     val timerUiState: StateFlow<TimerUiState> = _timerUiState.asStateFlow()
 
     val isRunning
-        get() = _isRunning
+        get() = _timerUiState.value.runningState
 
-    private var _hour by mutableIntStateOf(0)
     var hour: Int
-        get() = _hour
+        get() = _timerUiState.value.hour
         set(value) {
-            _hour = value
+            _timerUiState.update { old ->
+                old.copy(hour = value)
+            }
         }
 
-    private var _minute by mutableIntStateOf(0)
     var minute: Int
-        get() = _minute
+        get() = _timerUiState.value.minute
         set(value) {
-            _minute = value
+            _timerUiState.update { old ->
+                old.copy(minute = value)
+            }
         }
 
-    private var _second by mutableIntStateOf(0)
     var second: Int
-        get() = _second
+        get() = _timerUiState.value.second
         set(value) {
-            _second = value
+            _timerUiState.update { old ->
+                old.copy(second = value)
+            }
         }
 
-    val leftTime = mutableIntStateOf(0)
+    val leftTime: Int
+        get() = _timerUiState.value.leftTime
+
+    private var initialTotalSeconds = 0
 
     fun getTotalTimeInSeconds(): Int {
         return (hour * 3600 + minute * 60 + second)
@@ -86,12 +92,21 @@ class TimerViewModel @Inject constructor() : ViewModel() {
     fun addTime(currTime: Long): String {
         val setTime = getTotalTimeInSeconds() * 1000
         val addedTime = setTime + currTime
-        return SimpleDateFormat("hh:mm:ss a", Locale.getDefault()).format(Date(addedTime))
+        val localDateTime = Instant.fromEpochMilliseconds(addedTime)
+            .toLocalDateTime(TimeZone.currentSystemDefault())
+        val hour = when (localDateTime.hour) {
+            0 -> 12
+            in 13..23 -> localDateTime.hour - 12
+            else -> localDateTime.hour
+        }
+        val period = if (localDateTime.hour < 12) "AM" else "PM"
+        return "${formatUiTime(hour = hour, minute = localDateTime.minute)}:${localDateTime.second.toUiTwoDigits()} $period"
     }
 
     fun start() {
-        leftTime.intValue = getTotalTimeInSeconds()
-        if (leftTime.intValue <= 0) {
+        val initialLeftTime = getTotalTimeInSeconds()
+        initialTotalSeconds = initialLeftTime
+        if (initialLeftTime <= 0) {
             _timerUiState.update { old ->
                 old.copy(
                     isUnsetDialog = true,
@@ -99,17 +114,63 @@ class TimerViewModel @Inject constructor() : ViewModel() {
             }
             return
         }
-        _isRunning = RunningState.STARTED
+        countTimeJob?.cancel()
+        _timerUiState.update { old ->
+            old.copy(
+                runningState = RunningState.STARTED,
+                leftTime = initialLeftTime,
+                isUnsetDialog = false,
+            )
+        }
         countTimeJob = tick(
-            leftTime.intValue,
+            initialLeftTime,
         ).onEach {
-            leftTime.intValue = it
+            _timerUiState.update { old ->
+                old.copy(leftTime = it)
+            }
         }.launchIn(viewModelScope)
     }
 
     fun stop() {
         countTimeJob?.cancel()
-        _isRunning = RunningState.STOPPED
+        _timerUiState.update { old ->
+            old.copy(runningState = RunningState.STOPPED)
+        }
+    }
+
+    fun onTimerComplete() {
+        if (initialTotalSeconds > 0) {
+            val completedHours = initialTotalSeconds / 3600
+            val completedMinutes = (initialTotalSeconds % 3600) / 60
+            val completedSeconds = initialTotalSeconds % 60
+
+            viewModelScope.launch {
+                studyAnalyticsRepository.recordSession(
+                    subject = "Default",
+                    durationSeconds = initialTotalSeconds,
+                )
+                historyRepository.createTimerHistory(
+                    hours = completedHours,
+                    minutes = completedMinutes,
+                    seconds = completedSeconds,
+                )
+            }
+        }
+    }
+
+    fun clear() {
+        countTimeJob?.cancel()
+        initialTotalSeconds = 0
+        _timerUiState.update { old ->
+            old.copy(
+                runningState = RunningState.STOPPED,
+                hour = 0,
+                minute = 0,
+                second = 0,
+                leftTime = 0,
+                isUnsetDialog = false,
+            )
+        }
     }
 
     fun clearDialog() {

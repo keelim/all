@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.keelim.android.application)
     alias(libs.plugins.keelim.android.application.compose)
-    alias(libs.plugins.keelim.android.showkase)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -16,9 +16,15 @@ ksp {
 }
 
 dependencies {
-    implementation(projects.core.composeCore)
     implementation(libs.activity.ktx)
     implementation(libs.androidx.activity.compose)
+    implementation(projects.core.common)
+    implementation(projects.core.component)
+    implementation(project.dependencies.platform(libs.androidx.compose.bom))
+    implementation(libs.bundles.compose)
+    implementation(libs.material.themeAdapter)
 
-    ksp(libs.bundles.showkase)
+    implementation("com.airbnb.android:showkase:1.0.3")
+    implementation("com.airbnb.android:showkase-annotation:1.0.5")
+    ksp("com.airbnb.android:showkase-processor:1.0.5")
 }

@@ -20,39 +20,51 @@ import com.android.build.api.dsl.CommonExtension
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginExtension
+import org.gradle.api.tasks.testing.Test
+import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.assign
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
+import org.jetbrains.kotlin.gradle.dsl.KotlinBaseExtension
+import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 
 /**
  * Configure base Kotlin with Android options
  */
 fun Project.configureKotlinAndroid(
-    commonExtension: CommonExtension<*, *, *, *, *, *>,
+    commonExtension: CommonExtension,
 ) {
+    apply(plugin = "org.jetbrains.kotlin.plugin.serialization")
+    apply(plugin = "org.jetbrains.kotlin.plugin.parcelize")
+
     commonExtension.apply {
-        compileSdk = libs.findVersion("compileSdk").get().displayName.toInt()
+        compileSdk {
+            version = release(libs.findVersion("compileSdk").get().displayName.toInt()) {
+                minorApiLevel = 0
+            }
+        }
         // compileSdkExtension = ProjectConfiguration.compileSdkExtension
 
-        defaultConfig {
-            minSdk = libs.findVersion("minSdk").get().displayName.toInt()
-        }
+        defaultConfig.minSdk = libs.findVersion("minSdk").get().displayName.toInt()
 
-        compileOptions {
+        compileOptions.apply {
             sourceCompatibility = JavaVersion.VERSION_17
             targetCompatibility = JavaVersion.VERSION_17
             // isCoreLibraryDesugaringEnabled = true
         }
     }
-    configureKotlin()
+    configureKotlin<KotlinAndroidProjectExtension>()
 
     dependencies {
-        // add("coreLibraryDesugaring", libs.findLibrary("android.desugarJdkLibs").get())
+        add("coreLibraryDesugaring", libs.findLibrary("android.desugarJdkLibs").get())
         add("implementation", libs.findLibrary("kotlinx-collections-immutable").get())
+        add("testRuntimeOnly", libs.findLibrary("junit-platform-launcher").get())
     }
+
+    configureUnitTests()
 }
 
 internal fun Project.configureKotlinJvm() {
@@ -60,28 +72,43 @@ internal fun Project.configureKotlinJvm() {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    configureKotlin()
+    configureKotlin<KotlinJvmProjectExtension>()
+
+    dependencies {
+        add("testRuntimeOnly", libs.findLibrary("junit-platform-launcher").get())
+    }
+
+    configureUnitTests()
 }
 
-private fun Project.configureKotlin() {
-    // Use withType to workaround https://youtrack.jetbrains.com/issue/KT-55947
-    tasks.withType<KotlinCompile>().configureEach {
-        compilerOptions {
-            // Treat all Kotlin warnings as errors (disabled by default)
-            allWarningsAsErrors = properties["warningsAsErrors"] as? Boolean ?: false
-            freeCompilerArgs.addAll(
-                listOf(
-                    "-Xopt-in=kotlin.RequiresOptIn",
-                    // Enable experimental coroutines APIs, including Flow
-                    "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-                    "-Xopt-in=kotlinx.coroutines.FlowPreview",
-                    "-Xopt-in=kotlin.Experimental",
-                    "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api"
-                    // Enable experimental kotlinx serialization APIs
-//                "-Xopt-in=kotlinx.serialization.ExperimentalSerializationApi"
-                )
+private fun Project.configureUnitTests() {
+    tasks.withType<Test>().configureEach {
+        useJUnitPlatform()
+        // Several Android modules have generated unit-test classes but no user-authored tests.
+        // Keep platform migration stable by not failing such tasks on empty discovery.
+        failOnNoDiscoveredTests = false
+    }
+}
+
+private inline fun <reified T : KotlinBaseExtension> Project.configureKotlin() = configure<T> {
+    val warningsAsErrors = providers.gradleProperty("warningsAsErrors").map {
+        it.toBoolean()
+    }.orElse(false)
+    when (this) {
+        is KotlinAndroidProjectExtension -> compilerOptions
+        is KotlinJvmProjectExtension -> compilerOptions
+        else -> TODO("Unsupported project extension $this ${T::class}")
+    }.apply {
+        jvmTarget = JvmTarget.JVM_17
+        allWarningsAsErrors = warningsAsErrors
+        freeCompilerArgs.addAll(
+            listOf(
+                "-opt-in=kotlin.RequiresOptIn",
+                // Enable experimental kotlinx serialization APIs
+//                "-opt-in=kotlinx.serialization.ExperimentalSerializationApi"
+                "-Xcontext-parameters"
             )
-            jvmTarget = JvmTarget.JVM_17
-        }
+        )
+
     }
 }

@@ -22,91 +22,37 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
-import io.ktor.client.engine.cio.CIO
-import io.ktor.client.engine.cio.endpoint
-import io.ktor.client.plugins.DefaultRequest
 import io.ktor.client.plugins.HttpRequestRetry
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.UserAgent
+import io.ktor.client.plugins.compression.ContentEncoding
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
-import io.ktor.client.plugins.logging.DEFAULT
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
-import io.ktor.client.plugins.resources.Resources
 import io.ktor.client.plugins.websocket.WebSockets
 import io.ktor.client.request.accept
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.http.isSuccess
 import io.ktor.serialization.kotlinx.json.json
+import jakarta.inject.Qualifier
+import jakarta.inject.Singleton
 import kotlinx.serialization.json.Json
 import okhttp3.CertificatePinner
 import timber.log.Timber
-import javax.inject.Qualifier
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object KtorNetworkModule {
-    @KtorHttpClient
-    @Provides
-    @Singleton
-    fun provideKtorClient(): HttpClient = HttpClient(CIO) {
-        engine {
-            maxConnectionsCount = 1000
-            endpoint {
-                // this: EndpointConfig
-                maxConnectionsPerRoute = 100
-                pipelineMaxSize = 20
-                keepAliveTime = 5000
-                connectTimeout = 5000
-                connectAttempts = 5
-            }
-        }
-        install(Resources) {
-        }
-        install(DefaultRequest) {
-        }
-        install(UserAgent) {
-            agent = "Ktor client"
-        }
-        install(HttpRequestRetry) {
-            retryOnServerErrors(maxRetries = 5)
-            exponentialDelay()
-            maxRetries = 5
-            retryIf { request, response ->
-                !response.status.isSuccess()
-            }
-            retryOnExceptionIf { request, cause ->
-                // cause is NetworkError
-                false
-            }
-            delayMillis { retry ->
-                retry * 3000L
-            }
-            modifyRequest { request ->
-                // request.headers.append("x-retry-count", retryCount.toString())
-            }
-        }
-        install(HttpTimeout) {
-            requestTimeoutMillis = 1000L
-            connectTimeoutMillis = 10_000L
-        }
-        if (BuildConfig.DEBUG) {
-            install(Logging) {
-                logger = Logger.DEFAULT
-                level = LogLevel.HEADERS
-            }
-        }
-    }
-
     @KtorWebsocketHttpClient
     @Provides
     @Singleton
     fun provideKtorWebsocketHttpClient(): HttpClient = HttpClient {
-        install(WebSockets)
+        install(WebSockets) {
+            pingIntervalMillis = 20_000
+        }
     }
 
     // add CertificatePinner
@@ -118,23 +64,14 @@ object KtorNetworkModule {
             .build()
     }
 
-    @Provides
-    @Singleton
-    fun providesJsonFormatter(): Json {
-        return Json {
-            encodeDefaults = true
-            ignoreUnknownKeys = true
-            prettyPrint = true
-            isLenient = true
-        }
-    }
-
     @KtorAndroidClient
     @Provides
     @Singleton
     fun providesKtorAndroidClient(
         jsonFormatter: Json,
-        certificatePinner: CertificatePinner,
+        _certificatePinner: CertificatePinner,
+        retryPolicy: RetryPolicy,
+        timeoutPolicy: TimeoutPolicy,
     ): HttpClient {
         return HttpClient(Android) {
             install(ContentNegotiation) {
@@ -153,26 +90,21 @@ object KtorNetworkModule {
                 }
             }
             install(HttpTimeout) {
-                connectTimeoutMillis = 30_000L
-                requestTimeoutMillis = 30_000L
-                socketTimeoutMillis = 30_000L
+                connectTimeoutMillis = timeoutPolicy.connectTimeoutMillis
+                requestTimeoutMillis = timeoutPolicy.requestTimeoutMillis
+                socketTimeoutMillis = timeoutPolicy.readTimeoutMillis
             }
             install(HttpRequestRetry) {
-                retryOnServerErrors(maxRetries = 3)
-                exponentialDelay()
-                maxRetries = 3
-                retryIf { request, response ->
-                    !response.status.isSuccess()
+                maxRetries = retryPolicy.maxRetries
+                retryOnServerErrors(maxRetries = retryPolicy.maxRetries)
+                retryIf { _, response ->
+                    retryPolicy.retryOnServerErrors && response.status.isSuccess().not()
                 }
-                retryOnExceptionIf { request, cause ->
-                    // cause is NetworkError
-                    false
+                retryOnExceptionIf { _, cause ->
+                    retryPolicy.shouldRetryOn(cause)
                 }
                 delayMillis { retry ->
-                    retry * 3000L
-                }
-                modifyRequest { request ->
-                    // request.headers.append("x-retry-count", retryCount.toString())
+                    retry * retryPolicy.baseDelayMillis
                 }
             }
             install(UserAgent) {
@@ -183,12 +115,12 @@ object KtorNetworkModule {
                 contentType(ContentType.Application.Json)
                 accept(ContentType.Application.Json)
             }
+            install(ContentEncoding) {
+                gzip()
+                deflate()
+            }
         }
     }
-
-    @Qualifier
-    @Retention(AnnotationRetention.BINARY)
-    annotation class KtorHttpClient
 
     @Qualifier
     @Retention(AnnotationRetention.BINARY)

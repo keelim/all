@@ -87,7 +87,7 @@ all/
 - **Canonical surface**: Treat `core:designsystem` as the source for Android Compose tokens, themes, and primitives. Keep `core:component` as a compatibility wrapper or higher-level reusable widget layer backed by `core:designsystem`.
 - **Behavior boundary**: Preserve domain behavior, data logic, business rules, and calculation results. Layout and information architecture may be reorganized only when it improves design-system fit.
 - **Dirty-worktree boundary**: Existing uncommitted changes in `core/designsystem` or `core/component` are user-owned work. Integrate with them instead of reverting or replacing them.
-- **Verification gate**: For design-system migrations, run `:<affected-app-module>:assembleDebug` for each affected Android app module and report any remaining direct `MaterialTheme`, hardcoded color, or hardcoded spacing usages that are intentionally left.
+- **Verification gate**: Follow the changed-module test-only validation policy below and report any remaining direct `MaterialTheme`, hardcoded color, or hardcoded spacing usages that are intentionally left.
 
 ### Formatting (Date/Currency/Number)
 - **Single Rule**: User-facing date/currency/number strings MUST go through shared formatters.
@@ -106,7 +106,9 @@ all/
   - Timer Helpers: `core/component/.../NumberPickerList.kt`, `app-nanda/.../MedicationScreen.kt`, `app-my-grade/.../TimerViewModel.kt`, `app-nanda/.../NutrientTimerViewModel.kt`
 
 ### Build
-- **Always verify builds**: Run `./gradlew :<module>:assembleDebug` after changes
+- **Validation**: Run only `./gradlew :<changed-module>:testDebugUnitTest` for every module containing changed files; combine multiple module tasks in one Gradle invocation.
+- **Scope**: Do not run `assembleDebug`, root `test`, lint, connected tests, `git diff --check`, or tasks for unchanged modules unless explicitly requested.
+- **Unavailable task**: If a changed module has no `testDebugUnitTest` task, report that validation is unavailable; do not substitute another task without explicit approval.
 - **Version catalog**: All dependencies in `gradle/libs.versions.toml`
 - **Convention plugins**: Apply via `build-logic/convention/` (e.g., `keelim.android.application`, `keelim.android.library.compose`)
 
@@ -132,6 +134,8 @@ all/
 - **Don't bypass convention plugins** (use them for consistency)
 
 ## BUILD COMMANDS
+
+The build/repository-wide commands below are reference-only and are not default validation tasks.
 
 ```bash
 # Build specific app

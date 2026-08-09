@@ -41,7 +41,7 @@ app-arducon/
 - **Test Hub Home**: Keep `MainScreen` as the real app testing hub. Add or reorganize tools through the UI-only catalog in `ui/screen/main/ArduconToolCatalog.kt`, and route actions through existing `MainRoute`/`ArduconHost` navigation callbacks.
 - **Tool Hub Boundary**: Do not change `ArduconRepository`, Room schemas, or `DeepLink` models for home/tool-hub organization unless the feature explicitly needs persistence changes.
 - **Resources**: Add new user-facing tool-hub strings in `core/resource/src/commonMain/composeResources/values/strings.xml`. This module uses `com.keelim.core.resource.*` plus `stringResource(...)` for Compose resources.
-- **Verification**: For `MainScreen`/tool-hub changes, run `./gradlew :app-arducon:testDebugUnitTest` and `./gradlew :app-arducon:assembleDebug`.
+- **Verification**: For changed files in this module, run only `./gradlew :app-arducon:testDebugUnitTest` unless another task is explicitly requested.
 
 ## ANTI-PATTERNS
 - **Intent Spawning**: Avoid `context.startActivity` inside screens; propagate events to `ArduconHost`.

@@ -16,7 +16,7 @@ Shared route model module for all apps. This module defines route contracts only
 1. Add the route in `/Users/keelim/Desktop/all/core/navigation/src/main/java/com/keelim/core/navigation/RouteModel.kt`.
 2. Register a matching `entry<...>` in the host or feature navigation entry file.
 3. Wire navigation actions (`backStack.add(...)`, back handling) from UI callbacks.
-4. Verify affected modules with `assembleDebug`.
+4. This module has no `testDebugUnitTest` task; report validation as unavailable and do not substitute another task unless explicitly requested.
 
 ## SETTINGS DESTINATION EXTENSION EXAMPLE
 ```kotlin

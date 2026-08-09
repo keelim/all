@@ -37,7 +37,7 @@ app-nanda/src/main/java/com/keelim/nandadiagnosis/
 
 ## TEST POLICY
 - **No Compose UI tests**: Do not add or run Compose/instrumentation UI tests in `app-nanda`; `androidx.compose.ui.test`, `createComposeRule`, `createAndroidComposeRule`, and Compose test rules are intentionally excluded.
-- **Default verification**: Run JVM tests and build/static checks only (`:app-nanda:testDebugUnitTest`, `:app-nanda:assembleDebug`, lint when requested, and `git diff --check`). Do not run `connectedDebugAndroidTest` as a default or final gate.
+- **Default verification**: When files in this module change, run only `./gradlew :app-nanda:testDebugUnitTest`. Do not substitute build, lint, connected, repository-wide, or diff-check tasks unless explicitly requested.
 - **Narrow exception**: A future non-Compose instrumentation integration test may be added only when explicitly requested; this policy does not disable that test type.
 
 ## ANTI-PATTERNS

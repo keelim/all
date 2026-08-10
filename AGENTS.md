@@ -165,6 +165,47 @@ Per-app workflows in `.github/workflows/`:
 - `gh_page.yml` - GitHub Pages
 - `slack.yml` - Slack notifications
 
+### app-nanda Production Release
+
+Use this sequence when a request includes the dated version bump, a
+`develop -> master` release PR, and Play Store deployment:
+
+1. **Preflight**
+   - Preserve unrelated dirty files and use a clean worktree based on the
+     current `origin/develop` when the local `develop` branch is divergent.
+   - Report the remote branch SHAs and the complete publish set before pushing.
+     Never force-push shared branches.
+   - Confirm that `origin/master` exists. Never substitute `main` for `master`.
+2. **Set the dated version code**
+   - Set `[versions].versionCode` in `gradle/libs.versions.toml` to the current
+     Asia/Seoul date in `yyyyMMdd` form. Leave `versionName` unchanged unless
+     the user explicitly requests it.
+3. **Validate and publish `develop`**
+   - Run only `./gradlew :app-nanda:testDebugUnitTest`.
+   - Commit as `chore(release): update version code to YYYYMMDD` and push by
+     fast-forward to `origin/develop`.
+4. **Create the release PR**
+   - Use the latest merged `develop -> master` release PR as the format source.
+   - Create a ready PR with base `master`, head `develop`, title
+     `release/YYMMDD`, an empty body, and the `release` label. Creating the PR
+     does not authorize merging it.
+   - If `master` is missing, inspect the latest exact historical
+     `develop -> master` release PR and restore `master` at its merge commit;
+     do not guess a commit or alter `main`.
+5. **Deploy the exact release commit**
+   - Dispatch `.github/workflows/app_nanda.yml` on `develop` and record the run
+     ID. Verify the run `headSha` matches the release commit; if `develop`
+     advanced first, stop and reassess rather than claiming the requested
+     commit was deployed.
+   - Require successful `Build Release AAB`, `Sign AAB`, and
+     `Deploy to Play Store` steps. The workflow publishes
+     `com.keelim.nandadiagnosis` to the `production` track with status
+     `completed`; a green Gradle build alone is not deployment proof.
+6. **Completion evidence**
+   - Report the version value and commit SHA, unit-test result, remote branch
+     SHAs, PR URL/base/head/state/label/mergeability, and Actions run URL,
+     `headSha`, and deployment-step conclusions.
+
 ## GOTCHAS
 
 - **App inventory vs Gradle registration**: Verify `settings.gradle.kts` before claiming which apps are buildable. This checkout has 6 `app-*` directories, but `settings.gradle.kts` currently includes 5 `app-*` modules; `app-mysenior` exists as a folder but is not registered, and `:composeApp` is also an app-like registered module.

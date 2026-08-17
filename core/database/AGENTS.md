@@ -1,0 +1,12 @@
+# :core:database
+
+Before changing this module, read the [repository rules](../../AGENTS.md).
+
+## Focus
+
+Hilt database bindings are in `DatabaseModule.kt` and `DaoModule.kt`; entity conversions are in `mapper/`.
+
+## Boundaries
+
+- Keep persistence mapping at this boundary and make schema-affecting changes compatible with `:shared` database ownership.
+- Bind DAOs through DI rather than exposing direct construction to features.

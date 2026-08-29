@@ -4,12 +4,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.keelim.data.repository.WellnessRepository
 import com.keelim.common.platform.time.TimeProvider
+import com.keelim.model.wellness.CheckInRecord
 import com.keelim.model.wellness.Measurement
 import com.keelim.model.wellness.Routine
 import com.keelim.model.wellness.RoutineCompletion
 import com.keelim.nandadiagnosis.wellness.domain.CheckInRules
 import com.keelim.nandadiagnosis.wellness.domain.DailyCheckIn
 import com.keelim.nandadiagnosis.wellness.domain.MeasurementState
+import com.keelim.nandadiagnosis.wellness.domain.MorningCondition
 import com.keelim.nandadiagnosis.wellness.domain.RoutineKind
 import com.keelim.nandadiagnosis.wellness.domain.WellnessRules
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -28,15 +30,20 @@ class WellnessViewModel @Inject constructor(
     private val timeProvider: TimeProvider,
 ) : ViewModel() {
     private val validationErrors = MutableStateFlow<Set<WellnessValidationError>>(emptySet())
-    private val checkIns = MutableStateFlow<List<DailyCheckIn>>(emptyList())
 
     val uiState: StateFlow<WellnessUiState> =
-        combine(repository.data, validationErrors, checkIns) { data, errors, dailyCheckIns ->
+        combine(repository.data, validationErrors) { data, errors ->
+            val dailyCheckIns = data.checkIns.map(CheckInRecord::toDailyCheckIn)
             WellnessUiState(
                 measurements = data.measurements,
                 routines = data.routines,
                 completions = data.completions,
                 checkIns = dailyCheckIns,
+                currentStreak =
+                    CheckInRules.calculateStreak(
+                        dailyCheckIns.map(DailyCheckIn::localDate),
+                        timeProvider.today(),
+                    ),
                 validationErrors = errors,
             )
         }.stateIn(
@@ -55,7 +62,7 @@ class WellnessViewModel @Inject constructor(
             return false
         }
         validationErrors.value = emptySet()
-        checkIns.value = checkIns.value.filterNot { it.localDate == checkIn.localDate } + checkIn
+        viewModelScope.launch { repository.upsertCheckIn(checkIn.toRecord()) }
         return true
     }
 
@@ -143,3 +150,33 @@ class WellnessViewModel @Inject constructor(
         }
     }
 }
+
+private fun CheckInRecord.toDailyCheckIn() =
+    DailyCheckIn(
+        localDate = localDate,
+        sleep = sleep,
+        stress = stress,
+        energy = energy,
+        desire = desire,
+        confidence = confidence,
+        morningCondition = MorningCondition.valueOf(morningCondition),
+        drankAlcohol = drankAlcohol,
+        didCardio = didCardio,
+        hasDiscomfort = hasDiscomfort,
+        note = note,
+    )
+
+private fun DailyCheckIn.toRecord() =
+    CheckInRecord(
+        localDate = localDate,
+        sleep = sleep,
+        stress = stress,
+        energy = energy,
+        desire = desire,
+        confidence = confidence,
+        morningCondition = morningCondition.name,
+        drankAlcohol = drankAlcohol,
+        didCardio = didCardio,
+        hasDiscomfort = hasDiscomfort,
+        note = note,
+    )

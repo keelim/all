@@ -2,7 +2,9 @@ package com.keelim.core.data.source.wellness
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.keelim.core.database.wellness.DailyCheckInEntity
 import com.keelim.core.database.wellness.WellnessDao
+import com.keelim.model.wellness.CheckInRecord
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.Runs
@@ -11,6 +13,7 @@ import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
@@ -47,6 +50,7 @@ class WellnessRepositoryImplTest : FunSpec({
             every { dao.observeMeasurements() } returns flowOf(emptyList())
             every { dao.observeRoutines() } returns flowOf(emptyList())
             every { dao.observeRoutineCompletions() } returns flowOf(emptyList())
+            every { dao.observeDailyCheckIns() } returns flowOf(emptyList())
             every { dao.observeGoal() } returns flowOf(null)
             coEvery { dao.insertRoutines(any()) } just Runs
             val repository =
@@ -60,6 +64,34 @@ class WellnessRepositoryImplTest : FunSpec({
             repository.initializeDefaultRoutines("2026-07-19")
 
             io.mockk.coVerify(exactly = 1) { dao.insertRoutines(any()) }
+        }
+    }
+
+    test("check-in is mapped and persisted through the dao") {
+        runTest {
+            val dao = mockk<WellnessDao>()
+            val sharedPreferences = mockk<SharedPreferences>()
+            val entity = DailyCheckInEntity("2026-07-19", 4, 2, 4, 3, 3)
+            val checkIn = CheckInRecord("2026-07-19", 4, 2, 4, 3, 3)
+            every { dao.observeMeasurements() } returns flowOf(emptyList())
+            every { dao.observeRoutines() } returns flowOf(emptyList())
+            every { dao.observeRoutineCompletions() } returns flowOf(emptyList())
+            every { dao.observeDailyCheckIns() } returns flowOf(listOf(entity))
+            every { dao.observeGoal() } returns flowOf(null)
+            coEvery { dao.upsertDailyCheckIn(any()) } just Runs
+            val repository =
+                WellnessRepositoryImpl(
+                    dao = dao,
+                    sharedPreferences = sharedPreferences,
+                    ioDispatcher = UnconfinedTestDispatcher(testScheduler),
+                )
+
+            repository.data.first().checkIns shouldBe listOf(checkIn)
+            repository.upsertCheckIn(checkIn)
+
+            io.mockk.coVerify(exactly = 1) {
+                dao.upsertDailyCheckIn(entity)
+            }
         }
     }
 })

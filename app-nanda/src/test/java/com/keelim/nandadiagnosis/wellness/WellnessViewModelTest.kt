@@ -1,11 +1,13 @@
 package com.keelim.nandadiagnosis.wellness
 
 import com.keelim.data.repository.WellnessRepository
+import com.keelim.model.wellness.CheckInRecord
 import com.keelim.model.wellness.Measurement
 import com.keelim.model.wellness.Routine
 import com.keelim.model.wellness.RoutineCompletion
 import com.keelim.model.wellness.WellnessData
 import com.keelim.model.wellness.WellnessGoal
+import com.keelim.nandadiagnosis.wellness.domain.DailyCheckIn
 import com.keelim.nandadiagnosis.wellness.domain.MeasurementState
 import com.keelim.nandadiagnosis.wellness.domain.RoutineKind
 import com.keelim.testing.platform.FakeTimeProvider
@@ -92,6 +94,53 @@ class WellnessViewModelTest : FunSpec({
         }
     }
 
+    test("valid check-in persists and is restored by a recreated view model") {
+        runTest {
+            val repository = FakeWellnessRepository()
+            val timeProvider =
+                FakeTimeProvider(
+                    initialInstant = Instant.parse("2026-07-19T00:00:00Z"),
+                    zone = ZoneId.of("UTC"),
+                )
+            val checkIn =
+                DailyCheckIn(
+                    localDate = "2026-07-19",
+                    sleep = 4,
+                    stress = 2,
+                    energy = 4,
+                    desire = 3,
+                    confidence = 3,
+                )
+
+            WellnessViewModel(repository, timeProvider).saveCheckIn(checkIn) shouldBe true
+            advanceUntilIdle()
+
+            val recreated = WellnessViewModel(repository, timeProvider)
+            advanceUntilIdle()
+            recreated.uiState.value.checkIns shouldBe listOf(checkIn)
+            recreated.uiState.value.currentStreak shouldBe 1
+        }
+    }
+
+    test("saving the same check-in date replaces the stored record") {
+        runTest {
+            val repository = FakeWellnessRepository()
+            val timeProvider =
+                FakeTimeProvider(
+                    initialInstant = Instant.parse("2026-07-19T00:00:00Z"),
+                    zone = ZoneId.of("UTC"),
+                )
+            val viewModel = WellnessViewModel(repository, timeProvider)
+
+            viewModel.saveCheckIn(DailyCheckIn("2026-07-19", 3, 3, 3, 3, 3)) shouldBe true
+            viewModel.saveCheckIn(DailyCheckIn("2026-07-19", 5, 2, 4, 4, 4)) shouldBe true
+            advanceUntilIdle()
+
+            repository.state.value.checkIns shouldBe
+                listOf(CheckInRecord("2026-07-19", 5, 2, 4, 4, 4))
+        }
+    }
+
 })
 
 private class FakeWellnessRepository : WellnessRepository {
@@ -108,6 +157,16 @@ private class FakeWellnessRepository : WellnessRepository {
                     it.measurements.filterNot { current ->
                         current.localDate == measurement.localDate
                     } + measurement,
+            )
+        }
+    }
+
+    override suspend fun upsertCheckIn(checkIn: CheckInRecord) {
+        state.update {
+            it.copy(
+                checkIns =
+                    it.checkIns.filterNot { current -> current.localDate == checkIn.localDate } +
+                        checkIn,
             )
         }
     }

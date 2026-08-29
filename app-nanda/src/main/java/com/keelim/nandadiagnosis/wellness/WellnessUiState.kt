@@ -10,6 +10,7 @@ data class WellnessUiState(
     val routines: List<Routine> = emptyList(),
     val completions: List<RoutineCompletion> = emptyList(),
     val checkIns: List<DailyCheckIn> = emptyList(),
+    val currentStreak: Int = 0,
     val validationErrors: Set<WellnessValidationError> = emptySet(),
     val isLoading: Boolean = false,
 )

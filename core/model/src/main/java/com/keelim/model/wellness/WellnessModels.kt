@@ -7,6 +7,20 @@ data class Measurement(
     val state: String,
 )
 
+data class CheckInRecord(
+    val localDate: String,
+    val sleep: Int,
+    val stress: Int,
+    val energy: Int,
+    val desire: Int,
+    val confidence: Int,
+    val morningCondition: String = "NOT_CHECKED",
+    val drankAlcohol: Boolean = false,
+    val didCardio: Boolean = false,
+    val hasDiscomfort: Boolean = false,
+    val note: String = "",
+)
+
 data class Routine(
     val id: Long = 0,
     val name: String,
@@ -28,6 +42,7 @@ data class WellnessGoal(
 
 data class WellnessData(
     val measurements: List<Measurement> = emptyList(),
+    val checkIns: List<CheckInRecord> = emptyList(),
     val routines: List<Routine> = emptyList(),
     val completions: List<RoutineCompletion> = emptyList(),
     val goal: WellnessGoal? = null,

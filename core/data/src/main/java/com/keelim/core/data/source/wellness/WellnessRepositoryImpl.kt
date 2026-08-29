@@ -5,12 +5,14 @@ import android.content.SharedPreferences
 import com.keelim.common.Dispatcher
 import com.keelim.common.KeelimDispatchers
 import com.keelim.core.database.wellness.MeasurementEntity
+import com.keelim.core.database.wellness.DailyCheckInEntity
 import com.keelim.core.database.wellness.RoutineCompletionEntity
 import com.keelim.core.database.wellness.RoutineEntity
 import com.keelim.core.database.wellness.WellnessDao
 import com.keelim.core.database.wellness.WellnessGoalEntity
 import com.keelim.data.repository.WellnessRepository
 import com.keelim.model.wellness.Measurement
+import com.keelim.model.wellness.CheckInRecord
 import com.keelim.model.wellness.Routine
 import com.keelim.model.wellness.RoutineCompletion
 import com.keelim.model.wellness.WellnessData
@@ -44,12 +46,14 @@ class WellnessRepositoryImpl internal constructor(
     override val data: Flow<WellnessData> =
         combine(
             dao.observeMeasurements(),
+            dao.observeDailyCheckIns(),
             dao.observeRoutines(),
             dao.observeRoutineCompletions(),
             dao.observeGoal(),
-        ) { measurements, routines, completions, goal ->
+        ) { measurements, checkIns, routines, completions, goal ->
             WellnessData(
                 measurements = measurements.map(MeasurementEntity::toModel),
+                checkIns = checkIns.map(DailyCheckInEntity::toModel),
                 routines = routines.map(RoutineEntity::toModel),
                 completions = completions.map(RoutineCompletionEntity::toModel),
                 goal = goal?.toModel(),
@@ -74,6 +78,10 @@ class WellnessRepositoryImpl internal constructor(
 
     override suspend fun upsertMeasurement(measurement: Measurement) {
         dao.upsertMeasurement(measurement.toEntity())
+    }
+
+    override suspend fun upsertCheckIn(checkIn: CheckInRecord) {
+        dao.upsertDailyCheckIn(checkIn.toEntity())
     }
 
     override suspend fun upsertGoal(goal: WellnessGoal) {
@@ -111,6 +119,36 @@ private fun MeasurementEntity.toModel() =
 
 private fun Measurement.toEntity() =
     MeasurementEntity(localDate, lengthCm, circumferenceCm, state)
+
+private fun DailyCheckInEntity.toModel() =
+    CheckInRecord(
+        localDate,
+        sleep,
+        stress,
+        energy,
+        desire,
+        confidence,
+        morningCondition,
+        drankAlcohol,
+        didCardio,
+        hasDiscomfort,
+        note,
+    )
+
+private fun CheckInRecord.toEntity() =
+    DailyCheckInEntity(
+        localDate,
+        sleep,
+        stress,
+        energy,
+        desire,
+        confidence,
+        morningCondition,
+        drankAlcohol,
+        didCardio,
+        hasDiscomfort,
+        note,
+    )
 
 private fun RoutineEntity.toModel() = Routine(id, name, kind, createdLocalDate)
 

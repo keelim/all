@@ -1,6 +1,7 @@
 package com.keelim.data.repository
 
 import com.keelim.model.wellness.Measurement
+import com.keelim.model.wellness.CheckInRecord
 import com.keelim.model.wellness.Routine
 import com.keelim.model.wellness.RoutineCompletion
 import com.keelim.model.wellness.WellnessData
@@ -13,6 +14,8 @@ interface WellnessRepository {
     suspend fun initializeDefaultRoutines(createdLocalDate: String)
 
     suspend fun upsertMeasurement(measurement: Measurement)
+
+    suspend fun upsertCheckIn(checkIn: CheckInRecord)
 
     suspend fun upsertGoal(goal: WellnessGoal)
 

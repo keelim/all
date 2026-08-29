@@ -1,5 +1,7 @@
 package com.keelim.nandadiagnosis.wellness.domain
 
+import java.time.LocalDate
+
 data class DailyCheckIn(
     val localDate: String,
     val sleep: Int,
@@ -39,4 +41,25 @@ object CheckInRules {
         } else {
             setOf(CheckInError.CONDITION_OUT_OF_RANGE)
         }
+
+    fun calculateStreak(
+        localDates: Iterable<String>,
+        today: LocalDate,
+    ): Int {
+        val dates =
+            localDates
+                .mapNotNull { runCatching { LocalDate.parse(it) }.getOrNull() }
+                .filterNot { it.isAfter(today) }
+                .toSet()
+        val start =
+            when {
+                today in dates -> today
+                today.minusDays(1) in dates -> today.minusDays(1)
+                else -> return 0
+            }
+
+        return generateSequence(start) { it.minusDays(1) }
+            .takeWhile { it in dates }
+            .count()
+    }
 }

@@ -143,6 +143,80 @@
     <string name="wellness_checkin_save">Save today’s record</string>
     <string name="wellness_later">Maybe later</string>
 
+    <string name="wellness_recovery_goal_empty_title">What would you like to regain this time?</string>
+    <string name="wellness_recovery_goal_empty_description">Choose one goal and we’ll recommend small actions to try this week.</string>
+    <string name="wellness_recovery_goal_choose">Choose a goal</string>
+    <string name="wellness_recovery_goal_weekly_activity">%1$s · %2$s</string>
+    <plurals name="wellness_recovery_goal_action_count">
+        <item quantity="one">%1$d action this week</item>
+        <item quantity="other">%1$d actions this week</item>
+    </plurals>
+    <plurals name="wellness_recovery_goal_active_day_count">
+        <item quantity="one">%1$d active day</item>
+        <item quantity="other">%1$d active days</item>
+    </plurals>
+    <string name="wellness_recovery_goal_view_actions">View recommended actions</string>
+    <string name="wellness_recovery_goal_change">Change goal</string>
+    <string name="wellness_recovery_goal_step_one">1 of 3 · Goal</string>
+    <string name="wellness_recovery_goal_step_two">2 of 3 · Daily time</string>
+    <string name="wellness_recovery_goal_step_three">3 of 3 · Recommended actions</string>
+    <string name="wellness_recovery_goal_select_title">Choose a recovery goal</string>
+    <string name="wellness_recovery_goal_select_description">Choose the one area you most want to regain right now.</string>
+    <string name="wellness_recovery_goal_time_title">How much time can you use each day?</string>
+    <string name="wellness_recovery_goal_time_description">We’ll suggest actions that fit your available time.</string>
+    <string name="wellness_recovery_goal_actions_title">Recommended actions</string>
+    <string name="wellness_recovery_goal_actions_description">Choose up to 3 actions to add to your plan.</string>
+    <string name="wellness_recovery_goal_actions_optional">You can save only your goal without adding any actions.</string>
+    <string name="wellness_recovery_goal_selected_count">%1$d of 3 selected</string>
+    <string name="wellness_recovery_goal_save">Save goal and plan</string>
+
+    <string name="wellness_recovery_goal_morning_energy">Restore morning energy</string>
+    <string name="wellness_recovery_goal_sleep_rhythm">Improve sleep rhythm</string>
+    <string name="wellness_recovery_goal_exercise_habit">Build an exercise habit</string>
+    <string name="wellness_recovery_goal_confidence">Manage confidence and sexual wellness</string>
+    <string name="wellness_recovery_goal_alcohol">Manage drinking habits</string>
+    <string name="wellness_recovery_goal_smoking">Build a quit-smoking habit</string>
+    <string name="wellness_recovery_goal_general">Restore everyday wellbeing</string>
+    <string name="wellness_recovery_goal_morning_energy_description">Observe changes in your morning condition through sleep and light movement.</string>
+    <string name="wellness_recovery_goal_sleep_rhythm_description">Notice your daily rhythm through a consistent wake time and bedtime preparation.</string>
+    <string name="wellness_recovery_goal_exercise_habit_description">Start with manageable movement and build a steady activity habit.</string>
+    <string name="wellness_recovery_goal_confidence_description">Observe confidence and daily condition through sleep, movement, and breathing.</string>
+    <string name="wellness_recovery_goal_alcohol_description">Track drinking situations and alternative actions to understand habits that work for you.</string>
+    <string name="wellness_recovery_goal_smoking_description">Track cravings and smoking times while trying small quit-smoking habits.</string>
+    <string name="wellness_recovery_goal_general_description">Start with sleep, movement, and breathing to observe your overall daily rhythm.</string>
+
+    <string name="wellness_recovery_goal_time_five">5 minutes</string>
+    <string name="wellness_recovery_goal_time_fifteen">15 minutes</string>
+    <string name="wellness_recovery_goal_time_thirty">30 minutes or more</string>
+
+    <string name="wellness_recovery_action_morning_sunlight_5">Get 5 minutes of sunlight after waking</string>
+    <string name="wellness_recovery_action_after_lunch_walk_5">Walk for 5 minutes after lunch</string>
+    <string name="wellness_recovery_action_record_wake_time">Record your wake-up time</string>
+    <string name="wellness_recovery_action_after_meal_walk_10">Walk for 10 minutes after lunch or dinner</string>
+    <string name="wellness_recovery_action_consistent_wake_window">Keep your wake-up time within a 30-minute window</string>
+    <string name="wellness_recovery_action_full_body_exercise_10">Do a 10-minute full-body workout</string>
+    <string name="wellness_recovery_action_brisk_walk_20">Walk briskly for 20 minutes</string>
+    <string name="wellness_recovery_action_full_body_strength_20">Do full-body strength training for 20 minutes</string>
+    <string name="wellness_recovery_action_early_bedtime_prep_30">Start getting ready for bed 30 minutes earlier</string>
+    <string name="wellness_recovery_action_consistent_wake_time">Keep a consistent wake-up time</string>
+    <string name="wellness_recovery_action_avoid_late_caffeine">Avoid caffeine late in the day</string>
+    <string name="wellness_recovery_action_screen_free_20">Stay away from screens for 20 minutes before sleep</string>
+    <string name="wellness_recovery_action_walk_5">Walk for 5 minutes</string>
+    <string name="wellness_recovery_action_full_body_strength_10">Do full-body strength training for 10 minutes</string>
+    <string name="wellness_recovery_action_squat_pushup_one_set">Do one set each of squats and push-ups</string>
+    <string name="wellness_recovery_action_full_body_strength_15">Do full-body strength training for 15 minutes</string>
+    <string name="wellness_recovery_action_secure_sleep_time">Make enough time for sleep</string>
+    <string name="wellness_recovery_action_slow_breathing_5">Practice slow breathing for 5 minutes</string>
+    <string name="wellness_recovery_action_alcohol_free_today">Choose not to drink alcohol today</string>
+    <string name="wellness_recovery_action_non_alcoholic_drink">Choose a non-alcoholic drink instead</string>
+    <string name="wellness_recovery_action_evening_walk_10">Take a 10-minute evening walk</string>
+    <string name="wellness_recovery_action_record_alcohol_use">Record whether you drank alcohol</string>
+    <string name="wellness_recovery_action_delay_first_smoking_30">Delay your first smoking time by 30 minutes</string>
+    <string name="wellness_recovery_action_craving_walk_5">Walk for 5 minutes when a craving comes</string>
+    <string name="wellness_recovery_action_record_smoking_use">Record whether you smoked today</string>
+    <string name="wellness_recovery_action_check_smoking_support">Check information from a smoking support service or healthcare professional</string>
+    <string name="wellness_recovery_action_brisk_walk_10">Walk briskly for 10 minutes</string>
+
     <string name="wellness_plan_title">This week’s plan</string>
     <string name="wellness_plan_intro">About three small actions at a time is enough.</string>
     <string name="wellness_plan_week_range">%1$s – %2$s</string>

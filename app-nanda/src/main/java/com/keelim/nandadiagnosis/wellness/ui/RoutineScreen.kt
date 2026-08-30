@@ -49,8 +49,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.keelim.model.wellness.DailyTimeBudget
+import com.keelim.model.wellness.RecoveryGoalType
 import com.keelim.model.wellness.Routine
 import com.keelim.nandadiagnosis.R
+import com.keelim.nandadiagnosis.wellness.RecoveryRoutineDraft
 import com.keelim.nandadiagnosis.wellness.WellnessUiState
 import com.keelim.nandadiagnosis.wellness.WellnessValidationError
 import com.keelim.nandadiagnosis.wellness.domain.RoutineKind
@@ -60,6 +63,11 @@ import java.time.LocalDate
 internal fun PlanScreen(
     uiState: WellnessUiState,
     onAddRoutine: (String, RoutineKind) -> Boolean,
+    onSaveRecoveryGoal: (
+        RecoveryGoalType,
+        DailyTimeBudget,
+        List<RecoveryRoutineDraft>,
+    ) -> Unit,
     onSetRoutineCompletion: (Routine, Boolean, Int?) -> Unit,
     onDeleteRoutine: (Routine) -> Unit,
 ) {
@@ -76,6 +84,8 @@ internal fun PlanScreen(
         label = "planWeeklyProgress",
     )
     var showAddSheet by rememberSaveable { mutableStateOf(false) }
+    var showGoalSheet by rememberSaveable { mutableStateOf(false) }
+    var startWithRecommendations by rememberSaveable { mutableStateOf(false) }
     var pendingDelete by remember { mutableStateOf<Routine?>(null) }
 
     Scaffold(
@@ -94,6 +104,26 @@ internal fun PlanScreen(
             contentPadding = PaddingValues(horizontal = 20.dp, vertical = 20.dp),
             verticalArrangement = Arrangement.spacedBy(20.dp),
         ) {
+            item(key = "recoveryGoal") {
+                RecoveryGoalCard(
+                    goal = uiState.recoveryGoal,
+                    weeklyActionCompletions = uiState.weeklyActionCompletions,
+                    weeklyActiveDays = uiState.weeklyActiveDays,
+                    onChooseGoal = {
+                        startWithRecommendations = false
+                        showGoalSheet = true
+                    },
+                    onViewRecommendations = {
+                        startWithRecommendations = true
+                        showGoalSheet = true
+                    },
+                    onChangeGoal = {
+                        startWithRecommendations = false
+                        showGoalSheet = true
+                    },
+                    modifier = Modifier.animateItem(),
+                )
+            }
             item(key = "planHeader") {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text(
@@ -194,6 +224,18 @@ internal fun PlanScreen(
             onDismiss = { showAddSheet = false },
             onAdd = { name, kind ->
                 if (onAddRoutine(name, kind)) showAddSheet = false
+            },
+        )
+    }
+
+    if (showGoalSheet) {
+        RecoveryGoalSheet(
+            activeGoal = uiState.recoveryGoal,
+            startWithRecommendations = startWithRecommendations,
+            onDismiss = { showGoalSheet = false },
+            onSave = { type, timeBudget, selectedActions ->
+                onSaveRecoveryGoal(type, timeBudget, selectedActions)
+                showGoalSheet = false
             },
         )
     }

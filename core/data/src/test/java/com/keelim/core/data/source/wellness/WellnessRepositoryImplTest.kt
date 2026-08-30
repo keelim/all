@@ -5,6 +5,9 @@ import android.content.SharedPreferences
 import com.keelim.core.database.wellness.DailyCheckInEntity
 import com.keelim.core.database.wellness.WellnessDao
 import com.keelim.model.wellness.CheckInRecord
+import com.keelim.model.wellness.DailyTimeBudget
+import com.keelim.model.wellness.RecoveryGoal
+import com.keelim.model.wellness.RecoveryGoalType
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.Runs
@@ -26,6 +29,7 @@ class WellnessRepositoryImplTest : FunSpec({
             var defaultsInitialized = false
             val editor = mockk<SharedPreferences.Editor>()
             val sharedPreferences = mockk<SharedPreferences>()
+            every { sharedPreferences.getString(any(), null) } returns null
             every {
                 sharedPreferences.getBoolean("wellness_onboarding_accepted", false)
             } answers { legacyOnboardingAccepted }
@@ -71,6 +75,7 @@ class WellnessRepositoryImplTest : FunSpec({
         runTest {
             val dao = mockk<WellnessDao>()
             val sharedPreferences = mockk<SharedPreferences>()
+            every { sharedPreferences.getString(any(), null) } returns null
             val entity = DailyCheckInEntity("2026-07-19", 4, 2, 4, 3, 3)
             val checkIn = CheckInRecord("2026-07-19", 4, 2, 4, 3, 3)
             every { dao.observeMeasurements() } returns flowOf(emptyList())
@@ -92,6 +97,48 @@ class WellnessRepositoryImplTest : FunSpec({
             io.mockk.coVerify(exactly = 1) {
                 dao.upsertDailyCheckIn(entity)
             }
+        }
+    }
+
+    test("recovery goal is restored from device preferences") {
+        runTest {
+            val stored = mutableMapOf<String, String?>()
+            val editor = mockk<SharedPreferences.Editor>()
+            val sharedPreferences = mockk<SharedPreferences>()
+            every { sharedPreferences.getString(any(), null) } answers {
+                stored[firstArg()]
+            }
+            every { sharedPreferences.edit() } returns editor
+            every { editor.putString(any(), any()) } answers {
+                stored[firstArg()] = secondArg<String?>()
+                editor
+            }
+            every { editor.apply() } just Runs
+            val dao = mockk<WellnessDao>()
+            every { dao.observeMeasurements() } returns flowOf(emptyList())
+            every { dao.observeRoutines() } returns flowOf(emptyList())
+            every { dao.observeRoutineCompletions() } returns flowOf(emptyList())
+            every { dao.observeDailyCheckIns() } returns flowOf(emptyList())
+            every { dao.observeGoal() } returns flowOf(null)
+            val goal = RecoveryGoal(
+                type = RecoveryGoalType.EXERCISE_HABIT,
+                dailyTimeBudget = DailyTimeBudget.FIFTEEN_MINUTES,
+                startedLocalDate = "2026-08-24",
+                updatedLocalDate = "2026-08-25",
+            )
+
+            WellnessRepositoryImpl(
+                dao = dao,
+                sharedPreferences = sharedPreferences,
+                ioDispatcher = UnconfinedTestDispatcher(testScheduler),
+            ).upsertRecoveryGoal(goal)
+
+            val recreated = WellnessRepositoryImpl(
+                dao = dao,
+                sharedPreferences = sharedPreferences,
+                ioDispatcher = UnconfinedTestDispatcher(testScheduler),
+            )
+            recreated.data.first().recoveryGoal shouldBe goal
         }
     }
 })

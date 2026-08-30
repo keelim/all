@@ -15,6 +15,7 @@ fun WellnessRoute(viewModel: WellnessViewModel = hiltViewModel()) {
         onSaveCheckIn = viewModel::saveCheckIn,
         onSaveMeasurement = viewModel::saveMeasurement,
         onAddRoutine = viewModel::addRoutine,
+        onSaveRecoveryGoal = viewModel::saveRecoveryGoal,
         onSetRoutineCompletion = { routine, checked, duration ->
             viewModel.setRoutineCompletion(
                 routine = routine,

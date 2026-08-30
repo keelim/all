@@ -5,17 +5,23 @@ import androidx.lifecycle.viewModelScope
 import com.keelim.data.repository.WellnessRepository
 import com.keelim.common.platform.time.TimeProvider
 import com.keelim.model.wellness.CheckInRecord
+import com.keelim.model.wellness.DailyTimeBudget
 import com.keelim.model.wellness.Measurement
+import com.keelim.model.wellness.RecoveryGoal
+import com.keelim.model.wellness.RecoveryGoalType
 import com.keelim.model.wellness.Routine
 import com.keelim.model.wellness.RoutineCompletion
 import com.keelim.nandadiagnosis.wellness.domain.CheckInRules
 import com.keelim.nandadiagnosis.wellness.domain.DailyCheckIn
 import com.keelim.nandadiagnosis.wellness.domain.MeasurementState
 import com.keelim.nandadiagnosis.wellness.domain.MorningCondition
+import com.keelim.nandadiagnosis.wellness.domain.RecoveryActionTemplate
+import com.keelim.nandadiagnosis.wellness.domain.RecoveryGoalRules
 import com.keelim.nandadiagnosis.wellness.domain.RoutineKind
 import com.keelim.nandadiagnosis.wellness.domain.WellnessRules
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.time.LocalDate
+import java.util.Locale
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -23,6 +29,11 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+
+data class RecoveryRoutineDraft(
+    val template: RecoveryActionTemplate,
+    val name: String,
+)
 
 @HiltViewModel
 class WellnessViewModel @Inject constructor(
@@ -34,6 +45,10 @@ class WellnessViewModel @Inject constructor(
     val uiState: StateFlow<WellnessUiState> =
         combine(repository.data, validationErrors) { data, errors ->
             val dailyCheckIns = data.checkIns.map(CheckInRecord::toDailyCheckIn)
+            val weeklyActivity = RecoveryGoalRules.weeklyActivitySummary(
+                data.completions.map(RoutineCompletion::localDate),
+                timeProvider.today(),
+            )
             WellnessUiState(
                 measurements = data.measurements,
                 routines = data.routines,
@@ -44,6 +59,9 @@ class WellnessViewModel @Inject constructor(
                         dailyCheckIns.map(DailyCheckIn::localDate),
                         timeProvider.today(),
                     ),
+                recoveryGoal = data.recoveryGoal,
+                weeklyActionCompletions = weeklyActivity.completionCount,
+                weeklyActiveDays = weeklyActivity.activeDays,
                 validationErrors = errors,
             )
         }.stateIn(
@@ -119,6 +137,49 @@ class WellnessViewModel @Inject constructor(
 
     fun deleteRoutine(routine: Routine) {
         viewModelScope.launch { repository.deleteRoutine(routine) }
+    }
+
+    fun saveRecoveryGoal(
+        type: RecoveryGoalType,
+        dailyTimeBudget: DailyTimeBudget,
+        selectedActions: List<RecoveryRoutineDraft>,
+        date: LocalDate = timeProvider.today(),
+    ) {
+        val currentGoal = uiState.value.recoveryGoal
+        val goal = RecoveryGoal(
+            type = type,
+            dailyTimeBudget = dailyTimeBudget,
+            startedLocalDate = currentGoal
+                ?.takeIf { it.type == type }
+                ?.startedLocalDate
+                ?: date.toString(),
+            updatedLocalDate = date.toString(),
+        )
+        val existingRoutines = uiState.value.routines.mapTo(mutableSetOf()) { routine ->
+            routine.name.trim().lowercase(Locale.ROOT) to routine.kind
+        }
+        val allowedActions = RecoveryGoalRules.recommendations(type, dailyTimeBudget).toSet()
+        val actions = selectedActions
+            .filter { it.template in allowedActions && it.name.isNotBlank() }
+            .distinctBy(RecoveryRoutineDraft::template)
+            .take(3)
+
+        viewModelScope.launch {
+            repository.upsertRecoveryGoal(goal)
+            actions.forEach { action ->
+                val name = action.name.trim()
+                val kind = action.template.kind.name
+                if (existingRoutines.add(name.lowercase(Locale.ROOT) to kind)) {
+                    repository.insertRoutine(
+                        Routine(
+                            name = name,
+                            kind = kind,
+                            createdLocalDate = date.toString(),
+                        ),
+                    )
+                }
+            }
+        }
     }
 
     fun setRoutineCompletion(

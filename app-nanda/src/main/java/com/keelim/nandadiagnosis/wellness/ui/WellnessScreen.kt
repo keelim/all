@@ -37,8 +37,11 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.semantics.toggleableState
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.res.stringResource
+import com.keelim.model.wellness.DailyTimeBudget
+import com.keelim.model.wellness.RecoveryGoalType
 import com.keelim.model.wellness.Routine
 import com.keelim.nandadiagnosis.R
+import com.keelim.nandadiagnosis.wellness.RecoveryRoutineDraft
 import com.keelim.nandadiagnosis.wellness.WellnessUiState
 import com.keelim.nandadiagnosis.wellness.domain.DailyCheckIn
 import com.keelim.nandadiagnosis.wellness.domain.MeasurementState
@@ -54,6 +57,11 @@ internal fun WellnessScreen(
     onSaveCheckIn: (DailyCheckIn) -> Boolean,
     onSaveMeasurement: (String, String, MeasurementState) -> Boolean,
     onAddRoutine: (String, RoutineKind) -> Boolean,
+    onSaveRecoveryGoal: (
+        RecoveryGoalType,
+        DailyTimeBudget,
+        List<RecoveryRoutineDraft>,
+    ) -> Unit,
     onSetRoutineCompletion: (Routine, Boolean, Int?) -> Unit,
     onDeleteRoutine: (Routine) -> Unit,
 ) {
@@ -124,6 +132,7 @@ internal fun WellnessScreen(
                 WellnessDestination.PLAN -> PlanScreen(
                     uiState = uiState,
                     onAddRoutine = onAddRoutine,
+                    onSaveRecoveryGoal = onSaveRecoveryGoal,
                     onSetRoutineCompletion = onSetRoutineCompletion,
                     onDeleteRoutine = onDeleteRoutine,
                 )

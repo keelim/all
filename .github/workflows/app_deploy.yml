@@ -43,7 +43,7 @@ jobs:
           ./gradlew -PenableOssLicenses=true app-comssa:bundleRelease app-cnubus:bundleRelease app-my-grade:bundleRelease app-nanda:bundleRelease app-arducon:bundleRelease
 
       - name: Upload Release AAB artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: release-aabs
           path: |
@@ -89,7 +89,7 @@ jobs:
 
     steps:
       - name: Download Release AAB artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: release-aabs
           path: .

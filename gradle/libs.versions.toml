@@ -7,7 +7,7 @@ versionCode = "20260809"
 # library
 accompanist = "0.37.3"
 androidDesugarJdkLibs = "2.1.5"
-androidGradlePlugin = "9.3.2"
+androidGradlePlugin = "9.4.0"
 androidx-sqlite = "2.7.0"
 androidxActivity = "1.13.0"
 androidxAppCompat = "1.8.0"

@@ -37,8 +37,11 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.semantics.toggleableState
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.res.stringResource
+import com.keelim.model.wellness.DailyTimeBudget
+import com.keelim.model.wellness.RecoveryGoalType
 import com.keelim.model.wellness.Routine
 import com.keelim.nandadiagnosis.R
+import com.keelim.nandadiagnosis.wellness.RecoveryRoutineDraft
 import com.keelim.nandadiagnosis.wellness.WellnessUiState
 import com.keelim.nandadiagnosis.wellness.domain.DailyCheckIn
 import com.keelim.nandadiagnosis.wellness.domain.MeasurementState
@@ -51,11 +54,20 @@ import java.util.Locale
 @Composable
 internal fun WellnessScreen(
     uiState: WellnessUiState,
-    onSaveCheckIn: (DailyCheckIn) -> Boolean,
+    onSaveCheckIn: suspend (DailyCheckIn) -> Boolean,
+    onDeleteCheckIn: suspend (String) -> Boolean = { false },
     onSaveMeasurement: (String, String, MeasurementState) -> Boolean,
     onAddRoutine: (String, RoutineKind) -> Boolean,
+    onSaveRecoveryGoal: (
+        RecoveryGoalType,
+        DailyTimeBudget,
+        List<RecoveryRoutineDraft>,
+    ) -> Unit,
     onSetRoutineCompletion: (Routine, Boolean, Int?) -> Unit,
     onDeleteRoutine: (Routine) -> Unit,
+    canRequestAds: Boolean = false,
+    privacyOptionsRequired: Boolean = false,
+    onShowPrivacyOptions: () -> Unit = {},
 ) {
     var selectedTabIndex by rememberSaveable { mutableIntStateOf(0) }
     var privacyMode by rememberSaveable { mutableStateOf(true) }
@@ -118,12 +130,15 @@ internal fun WellnessScreen(
                     uiState = uiState,
                     privacyMode = privacyMode,
                     onSaveCheckIn = onSaveCheckIn,
+                    onDeleteCheckIn = onDeleteCheckIn,
                     onSetRoutineCompletion = onSetRoutineCompletion,
                 )
 
                 WellnessDestination.PLAN -> PlanScreen(
                     uiState = uiState,
+                    canRequestAds = canRequestAds,
                     onAddRoutine = onAddRoutine,
+                    onSaveRecoveryGoal = onSaveRecoveryGoal,
                     onSetRoutineCompletion = onSetRoutineCompletion,
                     onDeleteRoutine = onDeleteRoutine,
                 )
@@ -138,6 +153,8 @@ internal fun WellnessScreen(
                     privacyMode = privacyMode,
                     onPrivacyModeChange = { privacyMode = it },
                     onSaveMeasurement = onSaveMeasurement,
+                    privacyOptionsRequired = privacyOptionsRequired,
+                    onShowPrivacyOptions = onShowPrivacyOptions,
                 )
             }
         }

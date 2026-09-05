@@ -21,6 +21,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -42,6 +44,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.keelim.model.wellness.Routine
+import com.keelim.common.extensions.toUiNumber
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.wellness.WellnessUiState
 import com.keelim.nandadiagnosis.wellness.domain.DailyCheckIn
@@ -54,10 +57,15 @@ import kotlinx.coroutines.launch
 internal fun TodayScreen(
     uiState: WellnessUiState,
     privacyMode: Boolean,
-    onSaveCheckIn: (DailyCheckIn) -> Boolean,
+    onSaveCheckIn: suspend (DailyCheckIn) -> Boolean,
+    onDeleteCheckIn: suspend (String) -> Boolean = { false },
     onSetRoutineCompletion: (Routine, Boolean, Int?) -> Unit,
 ) {
-    val today = remember { LocalDate.now() }
+    val today = uiState.today
+    var editingDate by rememberSaveable { mutableStateOf<String?>(null) }
+    var deletingDate by rememberSaveable { mutableStateOf<String?>(null) }
+    var writing by remember { mutableStateOf(false) }
+    var writeFailed by remember { mutableStateOf(false) }
     val todayIso = today.toString()
     val todayCheckIn = uiState.checkIns.firstOrNull { it.localDate == todayIso }
     val todayCompletions = uiState.completions.filter { it.localDate == todayIso }
@@ -124,7 +132,15 @@ internal fun TodayScreen(
                 CheckInCard(
                     checkIn = todayCheckIn,
                     privacyMode = privacyMode,
-                    onClick = { showCheckIn = true },
+                    onClick = { editingDate = todayCheckIn?.localDate; writeFailed = false; showCheckIn = true },
+                )
+            }
+            item(key = "morningHistory") {
+                MorningHistory(
+                    today = today, checkIns = uiState.checkIns, privacyMode = privacyMode,
+                    enabled = !writing && !uiState.isCheckInWriting,
+                    onEdit = { date -> editingDate = date; writeFailed = false; showCheckIn = true },
+                    onDelete = { date -> deletingDate = date; writeFailed = false },
                 )
             }
             item(key = "actionsTitle") {
@@ -201,18 +217,60 @@ internal fun TodayScreen(
         }
     }
 
-    if (showCheckIn) {
+    if (showCheckIn && !uiState.isLoading) {
         DailyCheckInSheet(
-            initial = todayCheckIn,
-            onDismiss = { showCheckIn = false },
+            initial = uiState.checkIns.firstOrNull { it.localDate == editingDate },
+            isSaving = writing || uiState.isCheckInWriting,
+            saveFailed = writeFailed,
+            onDismiss = { if (!writing) showCheckIn = false },
             onSave = { checkIn ->
-                if (onSaveCheckIn(checkIn)) {
-                    showCheckIn = false
+                if (!writing) {
+                    writing = true
+                    writeFailed = false
                     scope.launch {
-                        snackbarHostState.showSnackbar(
-                            message = savedMessage,
-                        )
+                        try {
+                            if (onSaveCheckIn(checkIn)) {
+                                showCheckIn = false
+                                writing = false
+                                snackbarHostState.showSnackbar(savedMessage)
+                            } else {
+                                writeFailed = true
+                            }
+                        } finally { writing = false }
                     }
+                }
+            },
+        )
+    }
+    deletingDate?.let { date ->
+        AlertDialog(
+            onDismissRequest = { if (!writing) deletingDate = null },
+            title = {
+                Text(stringResource(R.string.morning_delete_title), style = MaterialTheme.typography.titleLarge,
+                    color = MaterialTheme.colorScheme.onSurface)
+            },
+            text = {
+                Text(stringResource(if (writeFailed) R.string.morning_write_failed else R.string.morning_delete_message),
+                    style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            },
+            confirmButton = {
+                TextButton(enabled = !writing && !uiState.isCheckInWriting, onClick = {
+                    writing = true
+                    writeFailed = false
+                    scope.launch {
+                        try {
+                            if (onDeleteCheckIn(date)) deletingDate = null else writeFailed = true
+                        } finally { writing = false }
+                    }
+                }) {
+                    Text(stringResource(R.string.morning_delete), style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.error)
+                }
+            },
+            dismissButton = {
+                TextButton(enabled = !writing, onClick = { deletingDate = null }) {
+                    Text(stringResource(R.string.morning_cancel), style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.primary)
                 }
             },
         )
@@ -242,19 +300,13 @@ private fun CheckInCard(
                 verticalArrangement = Arrangement.spacedBy(12.dp),
             ) {
                 Text(
-                    text = stringResource(
-                        if (currentCheckIn == null) {
-                            R.string.wellness_checkin_title
-                        } else {
-                            R.string.wellness_checkin_complete
-                        },
-                    ),
+                    text = stringResource(R.string.morning_title),
                     style = MaterialTheme.typography.titleLarge,
                     color = MaterialTheme.colorScheme.onSurface,
                 )
                 if (currentCheckIn == null) {
                     Text(
-                        text = stringResource(R.string.wellness_checkin_description),
+                        text = stringResource(R.string.morning_intro),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
@@ -270,13 +322,7 @@ private fun CheckInCard(
                             modifier = Modifier.weight(1f),
                         )
                         ConditionSummary(
-                            label = stringResource(R.string.wellness_condition_stress),
-                            value = currentCheckIn.stress,
-                            privacyMode = privacyMode,
-                            modifier = Modifier.weight(1f),
-                        )
-                        ConditionSummary(
-                            label = stringResource(R.string.wellness_condition_energy),
+                            label = stringResource(R.string.morning_energy),
                             value = currentCheckIn.energy,
                             privacyMode = privacyMode,
                             modifier = Modifier.weight(1f),
@@ -290,9 +336,9 @@ private fun CheckInCard(
                     Text(
                         text = stringResource(
                             if (currentCheckIn == null) {
-                                R.string.wellness_checkin_start
+                                R.string.morning_record
                             } else {
-                                R.string.wellness_checkin_edit
+                                R.string.morning_edit
                             },
                         ),
                         style = MaterialTheme.typography.labelLarge,
@@ -307,7 +353,7 @@ private fun CheckInCard(
 @Composable
 private fun ConditionSummary(
     label: String,
-    value: Int,
+    value: Int?,
     privacyMode: Boolean,
     modifier: Modifier = Modifier,
 ) {
@@ -324,7 +370,7 @@ private fun ConditionSummary(
             text = if (privacyMode) {
                 stringResource(R.string.wellness_hidden)
             } else {
-                value.toString()
+                value?.toUiNumber() ?: stringResource(R.string.morning_unanswered)
             },
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.onSurface,

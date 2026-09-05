@@ -31,3 +31,6 @@ debug-log.json
 
 # Local documentation
 docs/
+
+# Generated Gradle dependency graphs
+*.svg

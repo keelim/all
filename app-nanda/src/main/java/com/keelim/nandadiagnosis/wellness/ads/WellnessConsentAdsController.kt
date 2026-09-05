@@ -1,5 +1,6 @@
 package com.keelim.nandadiagnosis.wellness.ads
 
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.lifecycle.lifecycleScope
 import com.google.android.libraries.ads.mobile.sdk.MobileAds
@@ -14,6 +15,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.concurrent.atomic.AtomicBoolean
 
 data class WellnessAdsState(
     val canRequestAds: Boolean = false,
@@ -25,28 +27,40 @@ class WellnessConsentAdsController(
 ) {
     private val consentInformation = UserMessagingPlatform.getConsentInformation(activity)
     private val mutableState = MutableStateFlow(WellnessAdsState())
-    private var mobileAdsInitializationRequested = false
+    private val mobileAdsInitializationRequested = AtomicBoolean(false)
     private var mobileAdsInitialized = false
 
     val state: StateFlow<WellnessAdsState> = mutableState.asStateFlow()
 
     fun requestConsent() {
+        Log.d(TAG, "consent_info_update_requested")
         try {
             consentInformation.requestConsentInfoUpdate(
                 activity,
                 ConsentRequestParameters.Builder().build(),
                 {
+                    Log.d(TAG, "consent_info_update_succeeded")
                     try {
-                        UserMessagingPlatform.loadAndShowConsentFormIfRequired(activity) {
+                        UserMessagingPlatform.loadAndShowConsentFormIfRequired(activity) { formError ->
+                            if (formError == null) {
+                                Log.d(TAG, "consent_form_completed")
+                            } else {
+                                Log.w(TAG, "consent_form_failed")
+                            }
                             publishState()
                         }
                     } catch (_: RuntimeException) {
+                        Log.w(TAG, "consent_form_failed")
                         publishState()
                     }
                 },
-                { publishState() },
+                {
+                    Log.w(TAG, "consent_info_update_failed")
+                    publishState()
+                },
             )
         } catch (_: RuntimeException) {
+            Log.w(TAG, "consent_info_update_failed")
             publishState()
         }
     }
@@ -56,21 +70,31 @@ class WellnessConsentAdsController(
             consentInformation.privacyOptionsRequirementStatus !=
                 ConsentInformation.PrivacyOptionsRequirementStatus.REQUIRED
         ) {
+            Log.d(TAG, "privacy_options_not_required")
             publishState()
             return
         }
 
         try {
-            UserMessagingPlatform.showPrivacyOptionsForm(activity) { publishState() }
+            Log.d(TAG, "privacy_options_requested")
+            UserMessagingPlatform.showPrivacyOptionsForm(activity) { formError ->
+                if (formError == null) {
+                    Log.d(TAG, "privacy_options_completed")
+                } else {
+                    Log.w(TAG, "privacy_options_failed")
+                }
+                publishState()
+            }
         } catch (_: RuntimeException) {
+            Log.w(TAG, "privacy_options_failed")
             publishState()
         }
     }
 
     private fun publishState() {
         val consentCanRequestAds = consentInformation.canRequestAds()
-        if (consentCanRequestAds && !mobileAdsInitializationRequested) {
-            mobileAdsInitializationRequested = true
+        if (consentCanRequestAds && mobileAdsInitializationRequested.compareAndSet(false, true)) {
+            Log.d(TAG, "ads_init_requested")
             activity.lifecycleScope.launch(Dispatchers.IO) {
                 runCatching {
                     val initializationConfig =
@@ -80,12 +104,14 @@ class WellnessConsentAdsController(
                     MobileAds.initialize(activity, initializationConfig) {
                         activity.lifecycleScope.launch {
                             mobileAdsInitialized = true
+                            Log.d(TAG, "ads_init_completed")
                             updateState(consentInformation.canRequestAds())
                         }
                     }
                 }.onFailure {
                     withContext(Dispatchers.Main) {
-                        mobileAdsInitializationRequested = false
+                        mobileAdsInitializationRequested.set(false)
+                        Log.w(TAG, "ads_init_failed")
                         updateState(consentInformation.canRequestAds())
                     }
                 }
@@ -117,3 +143,5 @@ internal fun wellnessAdsState(
             privacyOptionsRequirementStatus ==
                 ConsentInformation.PrivacyOptionsRequirementStatus.REQUIRED,
     )
+
+private const val TAG = "WellnessAds"

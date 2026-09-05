@@ -4,7 +4,7 @@
     <string name="morning_energy">컨디션</string>
     <string name="morning_energy_hint">몸의 활력은 어떤가요?</string>
     <string name="morning_sleep">수면 만족도</string>
-    <string name="morning_erection">아침 발기 여부</string>
+    <string name="morning_erection">아침 반응 여부</string>
     <string name="morning_yes">있었음</string>
     <string name="morning_no">없었음</string>
     <string name="morning_unknown">잘 모르겠음</string>
@@ -12,7 +12,7 @@
     <string name="morning_no_record">미기록</string>
     <string name="morning_selection_hint">선택 항목입니다. 선택한 답을 다시 누르면 해제됩니다.</string>
     <string name="morning_scale_hint">왼쪽은 낮음, 오른쪽은 높음입니다.</string>
-    <string name="morning_medical_note">아침 발기 여부만으로 성기능이나 호르몬 상태를 판단할 수 없습니다.</string>
+    <string name="morning_medical_note">아침 반응 여부만으로 성기능이나 호르몬 상태를 판단할 수 없습니다.</string>
     <string name="morning_details">상세 기록</string>
     <string name="morning_details_hide">상세 기록 접기</string>
     <string name="morning_write_failed">변경 사항을 저장하지 못했습니다. 입력은 유지됩니다. 다시 시도해 주세요.</string>
@@ -23,7 +23,7 @@
     <string name="morning_week">최근 7일</string>
     <string name="morning_energy_value">컨디션: %1$s</string>
     <string name="morning_sleep_value">수면: %1$s</string>
-    <string name="morning_erection_value">아침 발기: %1$s</string>
+    <string name="morning_erection_value">아침 반응: %1$s</string>
     <string name="morning_delete_title">이 기록을 삭제할까요?</string>
     <string name="morning_delete_message">이 기기에서 해당 날짜의 기록이 삭제됩니다. 되돌릴 수 없습니다.</string>
     <string name="morning_delete">삭제</string>

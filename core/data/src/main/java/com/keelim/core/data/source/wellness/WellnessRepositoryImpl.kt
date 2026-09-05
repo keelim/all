@@ -96,6 +96,10 @@ class WellnessRepositoryImpl internal constructor(
         dao.upsertDailyCheckIn(checkIn.toEntity())
     }
 
+    override suspend fun deleteCheckIn(localDate: String) = withContext(ioDispatcher) {
+        dao.deleteDailyCheckIn(localDate)
+    }
+
     override suspend fun upsertGoal(goal: WellnessGoal) {
         dao.upsertGoal(goal.toEntity())
     }

@@ -18,6 +18,8 @@ interface WellnessRepository {
 
     suspend fun upsertCheckIn(checkIn: CheckInRecord)
 
+    suspend fun deleteCheckIn(localDate: String)
+
     suspend fun upsertGoal(goal: WellnessGoal)
 
     suspend fun deleteGoal()

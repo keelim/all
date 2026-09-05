@@ -20,6 +20,8 @@ import io.kotest.matchers.shouldBe
 import java.time.LocalDate
 import java.time.Instant
 import java.time.ZoneId
+import kotlinx.coroutines.async
+import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
@@ -243,12 +245,95 @@ class WellnessViewModelTest : FunSpec({
         }
     }
 
+    test("partial check-in uses the save-time date and preserves an edited date") {
+        runTest {
+            val repository = FakeWellnessRepository()
+            val clock = FakeTimeProvider(Instant.parse("2026-09-05T14:59:00Z"), ZoneId.of("Asia/Seoul"))
+            val viewModel = WellnessViewModel(repository, clock)
+            val draft = DailyCheckIn("", energy = 4, note = "  rested  ")
+            clock.advanceBy(java.time.Duration.ofMinutes(2))
+            viewModel.saveCheckIn(draft) shouldBe true
+            val saved = repository.state.value.checkIns.single()
+            saved.localDate shouldBe "2026-09-06"
+            saved.sleep shouldBe null
+            saved.drankAlcohol shouldBe null
+            saved.morningCondition shouldBe null
+            saved.note shouldBe "rested"
+            clock.advanceBy(java.time.Duration.ofDays(1))
+            viewModel.saveCheckIn(DailyCheckIn("2026-09-06", energy = 5, desire = 2)) shouldBe true
+            repository.state.value.checkIns.size shouldBe 1
+            val recreated = WellnessViewModel(repository, clock)
+            advanceUntilIdle()
+            recreated.uiState.value.checkIns.single().energy shouldBe 5
+            recreated.uiState.value.checkIns.single().desire shouldBe 2
+            viewModel.deleteCheckIn("2026-09-06") shouldBe true
+            repository.state.value.checkIns shouldBe emptyList()
+        }
+    }
+
+    test("failed writes retain the previous record and allow retry") {
+        runTest {
+            val repository = FakeWellnessRepository()
+            val clock = FakeTimeProvider(Instant.parse("2026-09-06T00:00:00Z"), ZoneId.of("UTC"))
+            val viewModel = WellnessViewModel(repository, clock)
+            val original = DailyCheckIn("2026-09-06", sleep = 4, drankAlcohol = false)
+            viewModel.saveCheckIn(original) shouldBe true
+            val before = repository.state.value.checkIns
+            repository.failWrites = true
+            viewModel.saveCheckIn(original.copy(sleep = 5)) shouldBe false
+            viewModel.deleteCheckIn(original.localDate) shouldBe false
+            repository.state.value.checkIns shouldBe before
+            viewModel.uiState.value.validationErrors shouldBe setOf(WellnessValidationError.CHECK_IN_STORAGE)
+            viewModel.uiState.value.isCheckInWriting shouldBe false
+            repository.failWrites = false
+            viewModel.saveCheckIn(original.copy(sleep = null)) shouldBe true
+            repository.state.value.checkIns.single().drankAlcohol shouldBe false
+            repository.state.value.checkIns.single().sleep shouldBe null
+        }
+    }
+
+    test("empty answers are rejected and missing observations do not produce a pattern") {
+        runTest {
+            val repository = FakeWellnessRepository()
+            val clock = FakeTimeProvider(Instant.parse("2026-09-06T00:00:00Z"), ZoneId.of("UTC"))
+            val viewModel = WellnessViewModel(repository, clock)
+            viewModel.saveCheckIn(DailyCheckIn("", note = "  ")) shouldBe false
+            viewModel.saveCheckIn(DailyCheckIn("", energy = 6)) shouldBe false
+            repository.state.value.checkIns shouldBe emptyList()
+            viewModel.saveCheckIn(DailyCheckIn("", morningCondition = com.keelim.nandadiagnosis.wellness.domain.MorningCondition.NOT_CHECKED)) shouldBe true
+            val records = (1..7).map { DailyCheckIn("2026-09-0$it", sleep = 5) }
+            com.keelim.nandadiagnosis.wellness.domain.InsightCalculator.firstPattern(records) shouldBe null
+            val today = LocalDate.of(2026, 3, 1)
+            val dates = com.keelim.nandadiagnosis.wellness.domain.CheckInRules.recentDates(today)
+            dates.size shouldBe 7
+            dates.first() shouldBe LocalDate.of(2026, 2, 23)
+            dates.last() shouldBe today
+        }
+    }
+
+    test("a second submission is rejected while persistence is pending") {
+        runTest {
+            val repository = FakeWellnessRepository()
+            repository.writeGate = kotlinx.coroutines.CompletableDeferred()
+            val clock = FakeTimeProvider(Instant.parse("2026-09-06T00:00:00Z"), ZoneId.of("UTC"))
+            val viewModel = WellnessViewModel(repository, clock)
+            val first = async { viewModel.saveCheckIn(DailyCheckIn("", energy = 4)) }
+            runCurrent()
+            viewModel.saveCheckIn(DailyCheckIn("", energy = 5)) shouldBe false
+            repository.writeGate?.complete(Unit)
+            first.await() shouldBe true
+            repository.state.value.checkIns.single().energy shouldBe 4
+        }
+    }
+
 })
 
 private class FakeWellnessRepository : WellnessRepository {
     val state = MutableStateFlow(WellnessData())
     override val data = state
     private var nextRoutineId = 1L
+    var failWrites = false
+    var writeGate: kotlinx.coroutines.CompletableDeferred<Unit>? = null
 
     override suspend fun initializeDefaultRoutines(createdLocalDate: String) = Unit
 
@@ -264,6 +349,8 @@ private class FakeWellnessRepository : WellnessRepository {
     }
 
     override suspend fun upsertCheckIn(checkIn: CheckInRecord) {
+        check(!failWrites)
+        writeGate?.await()
         state.update {
             it.copy(
                 checkIns =
@@ -271,6 +358,11 @@ private class FakeWellnessRepository : WellnessRepository {
                         checkIn,
             )
         }
+    }
+
+    override suspend fun deleteCheckIn(localDate: String) {
+        check(!failWrites)
+        state.update { it.copy(checkIns = it.checkIns.filterNot { record -> record.localDate == localDate }) }
     }
 
     override suspend fun upsertGoal(goal: WellnessGoal) {

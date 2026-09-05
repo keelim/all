@@ -97,6 +97,7 @@
     <string name="wellness_tab_tools">Tools</string>
     <string name="wellness_privacy_on">Privacy mode on</string>
     <string name="wellness_privacy_off">Privacy mode off</string>
+    <string name="wellness_privacy_options">Privacy choices</string>
     <string name="wellness_hidden">Hidden</string>
 
     <string name="wellness_today_greeting">Good morning</string>

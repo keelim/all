@@ -29,6 +29,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.async
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.sync.Mutex
 
 data class RecoveryRoutineDraft(
     val template: RecoveryActionTemplate,
@@ -42,8 +45,14 @@ class WellnessViewModel @Inject constructor(
 ) : ViewModel() {
     private val validationErrors = MutableStateFlow<Set<WellnessValidationError>>(emptySet())
 
+    private val checkInWriting = MutableStateFlow(false)
+    private val today = MutableStateFlow(timeProvider.today())
+    private val checkInMutex = Mutex()
+
+    fun refreshToday() { today.value = timeProvider.today() }
+
     val uiState: StateFlow<WellnessUiState> =
-        combine(repository.data, validationErrors) { data, errors ->
+        combine(repository.data, validationErrors, checkInWriting, today) { data, errors, writing, date ->
             val dailyCheckIns = data.checkIns.map(CheckInRecord::toDailyCheckIn)
             val weeklyActivity = RecoveryGoalRules.weeklyActivitySummary(
                 data.completions.map(RoutineCompletion::localDate),
@@ -63,25 +72,53 @@ class WellnessViewModel @Inject constructor(
                 weeklyActionCompletions = weeklyActivity.completionCount,
                 weeklyActiveDays = weeklyActivity.activeDays,
                 validationErrors = errors,
+                isCheckInWriting = writing,
+                today = date,
             )
         }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.Eagerly,
-            initialValue = WellnessUiState(),
+            initialValue = WellnessUiState(isLoading = true, today = timeProvider.today()),
         )
 
     init {
         viewModelScope.launch { repository.initializeDefaultRoutines(timeProvider.today().toString()) }
     }
 
-    fun saveCheckIn(checkIn: DailyCheckIn): Boolean {
+    suspend fun saveCheckIn(checkIn: DailyCheckIn): Boolean {
         if (CheckInRules.validate(checkIn).isNotEmpty()) {
             validationErrors.value = setOf(WellnessValidationError.CHECK_IN)
             return false
         }
-        validationErrors.value = emptySet()
-        viewModelScope.launch { repository.upsertCheckIn(checkIn.toRecord()) }
-        return true
+        val record = checkIn.copy(
+            localDate = checkIn.localDate.ifEmpty { timeProvider.today().toString() },
+            note = checkIn.note.trim(),
+        )
+        return writeCheckIn { repository.upsertCheckIn(record.toRecord()) }
+    }
+
+    suspend fun deleteCheckIn(localDate: String): Boolean =
+        writeCheckIn { repository.deleteCheckIn(localDate) }
+
+    private suspend fun writeCheckIn(write: suspend () -> Unit): Boolean {
+        return viewModelScope.async {
+            if (!checkInMutex.tryLock()) return@async false
+            checkInWriting.value = true
+            validationErrors.value = emptySet()
+            try {
+                write()
+                refreshToday()
+                true
+            } catch (cancelled: CancellationException) {
+                throw cancelled
+            } catch (_: Exception) {
+                validationErrors.value = setOf(WellnessValidationError.CHECK_IN_STORAGE)
+                false
+            } finally {
+                checkInWriting.value = false
+                checkInMutex.unlock()
+            }
+        }.await()
     }
 
     fun saveMeasurement(
@@ -220,7 +257,7 @@ private fun CheckInRecord.toDailyCheckIn() =
         energy = energy,
         desire = desire,
         confidence = confidence,
-        morningCondition = MorningCondition.valueOf(morningCondition),
+        morningCondition = morningCondition?.let(MorningCondition::valueOf),
         drankAlcohol = drankAlcohol,
         didCardio = didCardio,
         hasDiscomfort = hasDiscomfort,
@@ -235,7 +272,7 @@ private fun DailyCheckIn.toRecord() =
         energy = energy,
         desire = desire,
         confidence = confidence,
-        morningCondition = morningCondition.name,
+        morningCondition = morningCondition?.name,
         drankAlcohol = drankAlcohol,
         didCardio = didCardio,
         hasDiscomfort = hasDiscomfort,

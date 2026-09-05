@@ -55,6 +55,7 @@ import com.keelim.model.wellness.Routine
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.wellness.RecoveryRoutineDraft
 import com.keelim.nandadiagnosis.wellness.WellnessUiState
+import com.keelim.nandadiagnosis.wellness.ads.RoutineAdBanner
 import com.keelim.nandadiagnosis.wellness.WellnessValidationError
 import com.keelim.nandadiagnosis.wellness.domain.RoutineKind
 import java.time.LocalDate
@@ -62,6 +63,7 @@ import java.time.LocalDate
 @Composable
 internal fun PlanScreen(
     uiState: WellnessUiState,
+    canRequestAds: Boolean,
     onAddRoutine: (String, RoutineKind) -> Boolean,
     onSaveRecoveryGoal: (
         RecoveryGoalType,
@@ -163,6 +165,14 @@ internal fun PlanScreen(
                         modifier = Modifier.fillMaxWidth(),
                         color = MaterialTheme.colorScheme.primary,
                         trackColor = MaterialTheme.colorScheme.surfaceVariant,
+                    )
+                }
+            }
+            if (canRequestAds) {
+                item(key = "planAd") {
+                    RoutineAdBanner(
+                        canLoadAd = true,
+                        modifier = Modifier.fillMaxWidth(),
                     )
                 }
             }

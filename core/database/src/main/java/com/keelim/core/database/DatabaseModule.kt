@@ -27,7 +27,7 @@ object DatabaseModule {
             context,
             WellnessDatabase::class.java,
             WellnessDatabase.NAME,
-        ).addMigrations(WellnessDatabase.MIGRATION_1_2)
+        ).addMigrations(WellnessDatabase.MIGRATION_1_2, WellnessDatabase.MIGRATION_2_3)
             .build()
 
     @Provides

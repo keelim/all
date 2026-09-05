@@ -16,11 +16,14 @@ data class WellnessUiState(
     val weeklyActionCompletions: Int = 0,
     val weeklyActiveDays: Int = 0,
     val validationErrors: Set<WellnessValidationError> = emptySet(),
+    val today: java.time.LocalDate = java.time.LocalDate.now(),
+    val isCheckInWriting: Boolean = false,
     val isLoading: Boolean = false,
 )
 
 enum class WellnessValidationError {
     CHECK_IN,
+    CHECK_IN_STORAGE,
     MEASUREMENT,
     ROUTINE_NAME,
     DURATION,

@@ -76,14 +76,15 @@ class WellnessRepositoryImplTest : FunSpec({
             val dao = mockk<WellnessDao>()
             val sharedPreferences = mockk<SharedPreferences>()
             every { sharedPreferences.getString(any(), null) } returns null
-            val entity = DailyCheckInEntity("2026-07-19", 4, 2, 4, 3, 3)
-            val checkIn = CheckInRecord("2026-07-19", 4, 2, 4, 3, 3)
+            val entity = DailyCheckInEntity("2026-07-19", sleep = 4, drankAlcohol = false)
+            val checkIn = CheckInRecord("2026-07-19", sleep = 4, drankAlcohol = false)
             every { dao.observeMeasurements() } returns flowOf(emptyList())
             every { dao.observeRoutines() } returns flowOf(emptyList())
             every { dao.observeRoutineCompletions() } returns flowOf(emptyList())
             every { dao.observeDailyCheckIns() } returns flowOf(listOf(entity))
             every { dao.observeGoal() } returns flowOf(null)
             coEvery { dao.upsertDailyCheckIn(any()) } just Runs
+            coEvery { dao.deleteDailyCheckIn(any()) } just Runs
             val repository =
                 WellnessRepositoryImpl(
                     dao = dao,
@@ -93,6 +94,8 @@ class WellnessRepositoryImplTest : FunSpec({
 
             repository.data.first().checkIns shouldBe listOf(checkIn)
             repository.upsertCheckIn(checkIn)
+            repository.deleteCheckIn(checkIn.localDate)
+            io.mockk.coVerify(exactly = 1) { dao.deleteDailyCheckIn(checkIn.localDate) }
 
             io.mockk.coVerify(exactly = 1) {
                 dao.upsertDailyCheckIn(entity)

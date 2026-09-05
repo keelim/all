@@ -32,15 +32,15 @@ data class Measurement(
 
 data class CheckInRecord(
     val localDate: String,
-    val sleep: Int,
-    val stress: Int,
-    val energy: Int,
-    val desire: Int,
-    val confidence: Int,
-    val morningCondition: String = "NOT_CHECKED",
-    val drankAlcohol: Boolean = false,
-    val didCardio: Boolean = false,
-    val hasDiscomfort: Boolean = false,
+    val sleep: Int? = null,
+    val stress: Int? = null,
+    val energy: Int? = null,
+    val desire: Int? = null,
+    val confidence: Int? = null,
+    val morningCondition: String? = null,
+    val drankAlcohol: Boolean? = null,
+    val didCardio: Boolean? = null,
+    val hasDiscomfort: Boolean? = null,
     val note: String = "",
 )
 

@@ -97,6 +97,7 @@
     <string name="wellness_tab_tools">더보기</string>
     <string name="wellness_privacy_on">프라이버시 모드 켜짐</string>
     <string name="wellness_privacy_off">프라이버시 모드 꺼짐</string>
+    <string name="wellness_privacy_options">개인정보 보호 설정</string>
     <string name="wellness_hidden">숨김</string>
 
     <string name="wellness_today_greeting">좋은 아침이에요</string>

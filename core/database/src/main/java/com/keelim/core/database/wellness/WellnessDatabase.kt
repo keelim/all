@@ -26,15 +26,15 @@ data class MeasurementEntity(
 @Entity(tableName = "daily_check_ins")
 data class DailyCheckInEntity(
     @PrimaryKey val localDate: String,
-    val sleep: Int,
-    val stress: Int,
-    val energy: Int,
-    val desire: Int,
-    val confidence: Int,
-    val morningCondition: String = "NOT_CHECKED",
-    val drankAlcohol: Boolean = false,
-    val didCardio: Boolean = false,
-    val hasDiscomfort: Boolean = false,
+    val sleep: Int? = null,
+    val stress: Int? = null,
+    val energy: Int? = null,
+    val desire: Int? = null,
+    val confidence: Int? = null,
+    val morningCondition: String? = null,
+    val drankAlcohol: Boolean? = null,
+    val didCardio: Boolean? = null,
+    val hasDiscomfort: Boolean? = null,
     val note: String = "",
 )
 
@@ -96,6 +96,9 @@ interface WellnessDao {
     @Upsert
     suspend fun upsertDailyCheckIn(checkIn: DailyCheckInEntity)
 
+    @Query("DELETE FROM daily_check_ins WHERE localDate = :localDate")
+    suspend fun deleteDailyCheckIn(localDate: String)
+
     @Upsert
     suspend fun upsertGoal(goal: WellnessGoalEntity)
 
@@ -126,7 +129,7 @@ interface WellnessDao {
         RoutineCompletionEntity::class,
         WellnessGoalEntity::class,
     ],
-    version = 2,
+    version = 3,
     exportSchema = true,
 )
 abstract class WellnessDatabase : RoomDatabase() {
@@ -134,6 +137,36 @@ abstract class WellnessDatabase : RoomDatabase() {
 
     companion object {
         const val NAME = "wellness.db"
+
+        val MIGRATION_2_3 = object : Migration(2, 3) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    """
+                    CREATE TABLE `daily_check_ins_new` (
+                        `localDate` TEXT NOT NULL,
+                        `sleep` INTEGER, `stress` INTEGER, `energy` INTEGER,
+                        `desire` INTEGER, `confidence` INTEGER,
+                        `morningCondition` TEXT,
+                        `drankAlcohol` INTEGER, `didCardio` INTEGER, `hasDiscomfort` INTEGER,
+                        `note` TEXT NOT NULL,
+                        PRIMARY KEY(`localDate`)
+                    )
+                    """.trimIndent(),
+                )
+                db.execSQL(
+                    """
+                    INSERT INTO `daily_check_ins_new`
+                    (`localDate`, `sleep`, `stress`, `energy`, `desire`, `confidence`,
+                     `morningCondition`, `drankAlcohol`, `didCardio`, `hasDiscomfort`, `note`)
+                    SELECT `localDate`, `sleep`, `stress`, `energy`, `desire`, `confidence`,
+                           `morningCondition`, `drankAlcohol`, `didCardio`, `hasDiscomfort`, `note`
+                    FROM `daily_check_ins`
+                    """.trimIndent(),
+                )
+                db.execSQL("DROP TABLE `daily_check_ins`")
+                db.execSQL("ALTER TABLE `daily_check_ins_new` RENAME TO `daily_check_ins`")
+            }
+        }
 
         val MIGRATION_1_2 =
             object : Migration(1, 2) {

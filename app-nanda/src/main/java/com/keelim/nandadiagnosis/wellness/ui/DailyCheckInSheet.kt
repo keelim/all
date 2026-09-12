@@ -1,11 +1,11 @@
 package com.keelim.nandadiagnosis.wellness.ui
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
@@ -14,25 +14,23 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
+import com.keelim.common.extensions.toUiNumber
+import com.keelim.core.designsystem.theme.KuiTheme
 import com.keelim.nandadiagnosis.R
+import com.keelim.nandadiagnosis.wellness.domain.CheckInRules
 import com.keelim.nandadiagnosis.wellness.domain.DailyCheckIn
 import com.keelim.nandadiagnosis.wellness.domain.MorningCondition
-import java.time.LocalDate
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -40,262 +38,158 @@ internal fun DailyCheckInSheet(
     initial: DailyCheckIn?,
     onDismiss: () -> Unit,
     onSave: (DailyCheckIn) -> Unit,
+    isSaving: Boolean = false,
+    saveFailed: Boolean = false,
 ) {
-    var step by rememberSaveable { mutableIntStateOf(1) }
-    var sleep by rememberSaveable { mutableIntStateOf(initial?.sleep ?: 3) }
-    var stress by rememberSaveable { mutableIntStateOf(initial?.stress ?: 3) }
-    var energy by rememberSaveable { mutableIntStateOf(initial?.energy ?: 3) }
-    var desire by rememberSaveable { mutableIntStateOf(initial?.desire ?: 3) }
-    var confidence by rememberSaveable { mutableIntStateOf(initial?.confidence ?: 3) }
-    var morning by rememberSaveable {
-        mutableStateOf(initial?.morningCondition ?: MorningCondition.NOT_CHECKED)
-    }
-    var drankAlcohol by rememberSaveable { mutableStateOf(initial?.drankAlcohol ?: false) }
-    var didCardio by rememberSaveable { mutableStateOf(initial?.didCardio ?: false) }
-    var hasDiscomfort by rememberSaveable { mutableStateOf(initial?.hasDiscomfort ?: false) }
+    var details by rememberSaveable { mutableStateOf(false) }
+    var sleep by rememberSaveable { mutableStateOf(initial?.sleep) }
+    var stress by rememberSaveable { mutableStateOf(initial?.stress) }
+    var energy by rememberSaveable { mutableStateOf(initial?.energy) }
+    var desire by rememberSaveable { mutableStateOf(initial?.desire) }
+    var confidence by rememberSaveable { mutableStateOf(initial?.confidence) }
+    var morning by rememberSaveable { mutableStateOf(initial?.morningCondition) }
+    var drankAlcohol by rememberSaveable { mutableStateOf(initial?.drankAlcohol) }
+    var didCardio by rememberSaveable { mutableStateOf(initial?.didCardio) }
+    var hasDiscomfort by rememberSaveable { mutableStateOf(initial?.hasDiscomfort) }
     var note by rememberSaveable { mutableStateOf(initial?.note.orEmpty()) }
-
-    ModalBottomSheet(onDismissRequest = onDismiss) {
+    val draft = DailyCheckIn(
+        localDate = initial?.localDate.orEmpty(),
+        sleep = sleep, stress = stress, energy = energy, desire = desire, confidence = confidence,
+        morningCondition = morning, drankAlcohol = drankAlcohol, didCardio = didCardio,
+        hasDiscomfort = hasDiscomfort, note = note.trim(),
+    )
+    ModalBottomSheet(onDismissRequest = { if (!isSaving) onDismiss() }) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .navigationBarsPadding()
-                .imePadding()
-                .padding(horizontal = 20.dp, vertical = 12.dp),
-            verticalArrangement = Arrangement.spacedBy(18.dp),
+            modifier = Modifier.fillMaxWidth().navigationBarsPadding().imePadding()
+                .padding(KuiTheme.spacing.space4),
+            verticalArrangement = Arrangement.spacedBy(KuiTheme.spacing.space3),
         ) {
-            Text(
-                text = stringResource(
-                    if (step == 1) R.string.wellness_checkin_step_one else
-                        R.string.wellness_checkin_step_two,
-                ),
-                style = MaterialTheme.typography.titleLarge,
-                color = MaterialTheme.colorScheme.onSurface,
-            )
+            Label(stringResource(R.string.morning_title))
             LazyColumn(
                 modifier = Modifier.weight(1f, fill = false),
-                verticalArrangement = Arrangement.spacedBy(18.dp),
+                verticalArrangement = Arrangement.spacedBy(KuiTheme.spacing.space4),
             ) {
-                if (step == 1) {
-                    item {
-                        ConditionPicker(
-                            label = stringResource(R.string.wellness_condition_sleep),
-                            low = stringResource(R.string.wellness_condition_sleep_low),
-                            high = stringResource(R.string.wellness_condition_sleep_high),
-                            value = sleep,
-                            onValueChange = { sleep = it },
-                        )
-                    }
-                    item {
-                        ConditionPicker(
-                            label = stringResource(R.string.wellness_condition_stress),
-                            low = stringResource(R.string.wellness_condition_low),
-                            high = stringResource(R.string.wellness_condition_high),
-                            value = stress,
-                            onValueChange = { stress = it },
-                        )
-                    }
-                    item {
-                        ConditionPicker(
-                            label = stringResource(R.string.wellness_condition_energy),
-                            low = stringResource(R.string.wellness_condition_low),
-                            high = stringResource(R.string.wellness_condition_high),
-                            value = energy,
-                            onValueChange = { energy = it },
-                        )
-                    }
-                    item {
-                        ConditionPicker(
-                            label = stringResource(R.string.wellness_condition_desire),
-                            low = stringResource(R.string.wellness_condition_low),
-                            high = stringResource(R.string.wellness_condition_high),
-                            value = desire,
-                            onValueChange = { desire = it },
-                        )
-                    }
-                    item {
-                        ConditionPicker(
-                            label = stringResource(R.string.wellness_condition_confidence),
-                            low = stringResource(R.string.wellness_condition_low),
-                            high = stringResource(R.string.wellness_condition_high),
-                            value = confidence,
-                            onValueChange = { confidence = it },
-                        )
-                    }
-                } else {
-                    item {
-                        Text(
-                            text = stringResource(R.string.wellness_morning_condition),
-                            style = MaterialTheme.typography.titleMedium,
-                            color = MaterialTheme.colorScheme.onSurface,
-                        )
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .horizontalScroll(rememberScrollState()),
-                            horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        ) {
-                            MorningCondition.entries.forEach { option ->
-                                FilterChip(
-                                    selected = morning == option,
-                                    onClick = { morning = option },
-                                    label = {
-                                        Text(
-                                            text = stringResource(
-                                                when (option) {
-                                                    MorningCondition.YES -> R.string.wellness_yes
-                                                    MorningCondition.NO -> R.string.wellness_no
-                                                    MorningCondition.NOT_CHECKED ->
-                                                        R.string.wellness_not_checked
-                                                },
-                                            ),
-                                            style = MaterialTheme.typography.labelLarge,
-                                            color = MaterialTheme.colorScheme.onSurface,
-                                        )
-                                    },
-                                )
-                            }
+                item {
+                    ConditionPicker(stringResource(R.string.morning_energy), energy, !isSaving) { energy = it }
+                    Body(stringResource(R.string.morning_energy_hint))
+                }
+                item {
+                    ConditionPicker(stringResource(R.string.morning_sleep), sleep, !isSaving) { sleep = it }
+                }
+                item {
+                    Label(stringResource(R.string.morning_erection))
+                    Row(
+                        Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()),
+                        horizontalArrangement = Arrangement.spacedBy(KuiTheme.spacing.space2),
+                    ) {
+                        MorningCondition.entries.forEach { option ->
+                            FilterChip(
+                                selected = morning == option,
+                                enabled = !isSaving,
+                                onClick = { morning = if (morning == option) null else option },
+                                label = { Body(morningLabel(option)) },
+                            )
                         }
                     }
-                    item {
-                        OptionalSwitch(
-                            label = stringResource(R.string.wellness_alcohol_record),
-                            checked = drankAlcohol,
-                            onCheckedChange = { drankAlcohol = it },
-                        )
+                    Body(stringResource(R.string.morning_selection_hint))
+                    Body(stringResource(R.string.morning_medical_note))
+                }
+                item {
+                    OutlinedTextField(
+                        value = note, onValueChange = { note = it }, enabled = !isSaving,
+                        modifier = Modifier.fillMaxWidth(),
+                        label = { Body(stringResource(R.string.wellness_note_optional)) },
+                        textStyle = KuiTheme.typography.bodyLarge.copy(color = KuiTheme.colorScheme.onSurface),
+                        minLines = 2,
+                    )
+                }
+                item {
+                    TextButton(onClick = { details = !details }, enabled = !isSaving) {
+                        Label(stringResource(if (details) R.string.morning_details_hide else R.string.morning_details))
                     }
-                    item {
-                        OptionalSwitch(
-                            label = stringResource(R.string.wellness_cardio_record),
-                            checked = didCardio,
-                            onCheckedChange = { didCardio = it },
-                        )
-                    }
-                    item {
-                        OptionalSwitch(
-                            label = stringResource(R.string.wellness_discomfort_record),
-                            checked = hasDiscomfort,
-                            onCheckedChange = { hasDiscomfort = it },
-                        )
-                    }
-                    item {
-                        OutlinedTextField(
-                            value = note,
-                            onValueChange = { note = it },
-                            modifier = Modifier.fillMaxWidth(),
-                            label = {
-                                Text(
-                                    text = stringResource(R.string.wellness_note_optional),
-                                    style = MaterialTheme.typography.bodyMedium,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                )
-                            },
-                            textStyle = MaterialTheme.typography.bodyLarge.copy(
-                                color = MaterialTheme.colorScheme.onSurface,
-                            ),
-                            minLines = 2,
-                        )
+                    AnimatedVisibility(visible = details) {
+                        Column(verticalArrangement = Arrangement.spacedBy(KuiTheme.spacing.space4)) {
+                            ConditionPicker(stringResource(R.string.wellness_condition_stress), stress, !isSaving) { stress = it }
+                            ConditionPicker(stringResource(R.string.wellness_condition_desire), desire, !isSaving) { desire = it }
+                            ConditionPicker(stringResource(R.string.wellness_condition_confidence), confidence, !isSaving) { confidence = it }
+                            BooleanPicker(stringResource(R.string.wellness_alcohol_record), drankAlcohol, !isSaving) { drankAlcohol = it }
+                            BooleanPicker(stringResource(R.string.wellness_cardio_record), didCardio, !isSaving) { didCardio = it }
+                            BooleanPicker(stringResource(R.string.wellness_discomfort_record), hasDiscomfort, !isSaving) { hasDiscomfort = it }
+                        }
                     }
                 }
             }
+            if (saveFailed) Body(stringResource(R.string.morning_write_failed))
             Button(
-                onClick = {
-                    if (step == 1) {
-                        step = 2
-                    } else {
-                        onSave(
-                            DailyCheckIn(
-                                localDate = LocalDate.now().toString(),
-                                sleep = sleep,
-                                stress = stress,
-                                energy = energy,
-                                desire = desire,
-                                confidence = confidence,
-                                morningCondition = morning,
-                                drankAlcohol = drankAlcohol,
-                                didCardio = didCardio,
-                                hasDiscomfort = hasDiscomfort,
-                                note = note.trim(),
-                            ),
-                        )
-                    }
-                },
-                modifier = Modifier.fillMaxWidth().heightIn(min = 54.dp),
+                onClick = { onSave(draft) },
+                enabled = !isSaving && CheckInRules.validate(draft).isEmpty(),
+                modifier = Modifier.fillMaxWidth(),
             ) {
                 Text(
-                    text = stringResource(
-                        if (step == 1) R.string.wellness_next else R.string.wellness_checkin_save,
-                    ),
-                    style = MaterialTheme.typography.labelLarge,
-                    color = MaterialTheme.colorScheme.onPrimary,
+                    stringResource(if (isSaving) R.string.morning_saving else R.string.wellness_checkin_save),
+                    style = KuiTheme.typography.labelLarge, color = KuiTheme.colorScheme.onPrimary,
                 )
             }
-            TextButton(onClick = onDismiss, modifier = Modifier.fillMaxWidth()) {
-                Text(
-                    text = stringResource(R.string.wellness_later),
-                    style = MaterialTheme.typography.labelLarge,
-                    color = MaterialTheme.colorScheme.primary,
-                )
+            TextButton(onClick = onDismiss, enabled = !isSaving) {
+                Body(stringResource(R.string.wellness_later))
             }
         }
     }
 }
 
 @Composable
-private fun ConditionPicker(
-    label: String,
-    low: String,
-    high: String,
-    value: Int,
-    onValueChange: (Int) -> Unit,
-) {
-    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        Text(
-            text = label,
-            style = MaterialTheme.typography.titleMedium,
-            color = MaterialTheme.colorScheme.onSurface,
-        )
+private fun ConditionPicker(label: String, value: Int?, enabled: Boolean, onValueChange: (Int?) -> Unit) {
+    Column {
+        Label(label)
         Row(
-            modifier = Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()),
+            horizontalArrangement = Arrangement.spacedBy(KuiTheme.spacing.space2),
         ) {
             (1..5).forEach { option ->
                 FilterChip(
-                    selected = value == option,
-                    onClick = { onValueChange(option) },
-                    label = {
-                        Text(
-                            text = option.toString(),
-                            style = MaterialTheme.typography.labelLarge,
-                            color = MaterialTheme.colorScheme.onSurface,
-                        )
-                    },
+                    selected = value == option, enabled = enabled,
+                    onClick = { onValueChange(if (value == option) null else option) },
+                    label = { Body(option.toUiNumber()) },
                 )
             }
         }
-        Text(
-            text = stringResource(R.string.wellness_condition_scale, low, high),
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
+        Body(stringResource(R.string.morning_scale_hint))
+        Body(stringResource(R.string.morning_selection_hint))
     }
 }
 
 @Composable
-private fun OptionalSwitch(
-    label: String,
-    checked: Boolean,
-    onCheckedChange: (Boolean) -> Unit,
-) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween,
-    ) {
-        Text(
-            text = label,
-            style = MaterialTheme.typography.bodyLarge,
-            color = MaterialTheme.colorScheme.onSurface,
-        )
-        Switch(checked = checked, onCheckedChange = onCheckedChange)
+private fun BooleanPicker(label: String, value: Boolean?, enabled: Boolean, onValueChange: (Boolean?) -> Unit) {
+    Column {
+        Label(label)
+        Row(horizontalArrangement = Arrangement.spacedBy(KuiTheme.spacing.space2)) {
+            listOf(true, false).forEach { option ->
+                FilterChip(
+                    selected = value == option, enabled = enabled,
+                    onClick = { onValueChange(if (value == option) null else option) },
+                    label = { Body(stringResource(if (option) R.string.wellness_yes else R.string.wellness_no)) },
+                )
+            }
+        }
     }
+}
+
+@Composable
+internal fun morningLabel(value: MorningCondition?): String = stringResource(
+    when (value) {
+        MorningCondition.YES -> R.string.morning_yes
+        MorningCondition.NO -> R.string.morning_no
+        MorningCondition.NOT_CHECKED -> R.string.morning_unknown
+        null -> R.string.morning_unanswered
+    },
+)
+
+@Composable
+private fun Label(text: String) {
+    Text(text, style = KuiTheme.typography.titleMedium, color = KuiTheme.colorScheme.onSurface)
+}
+
+@Composable
+private fun Body(text: String) {
+    Text(text, style = KuiTheme.typography.bodyMedium, color = KuiTheme.colorScheme.onSurfaceVariant)
 }

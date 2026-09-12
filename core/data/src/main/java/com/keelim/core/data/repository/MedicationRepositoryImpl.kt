@@ -8,9 +8,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.keelim.core.data.source.local.StringPreferencesKeyMigration
 import com.keelim.core.data.source.local.legacyDataStoreMigration
-import com.keelim.data.json.JsonParser
 import com.keelim.data.json.decodeOrNull
-import com.keelim.data.json.encode
 import com.keelim.data.model.Medication
 import com.keelim.data.repository.MedicationRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -19,6 +17,7 @@ import jakarta.inject.Singleton
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
+import kotlinx.serialization.json.Json
 
 internal object MedicationStore {
     const val STORE_NAME = "medication_preferences"
@@ -48,7 +47,7 @@ internal val Context.medicationDataStore: DataStore<Preferences> by preferencesD
 @Singleton
 class MedicationRepositoryImpl @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val json: JsonParser
+    private val json: Json,
 ) : MedicationRepository {
     private val medicationsKey = stringPreferencesKey(MedicationStore.MEDICATIONS_KEY_NAME)
 
@@ -72,7 +71,7 @@ class MedicationRepositoryImpl @Inject constructor(
                 json.decodeOrNull<List<Medication>>(currentJson).orEmpty()
             }
             val updatedMedications = currentMedications + medication
-            preferences[medicationsKey] = json.encode(updatedMedications)
+            preferences[medicationsKey] = json.encodeToString(updatedMedications)
         }
     }
 
@@ -87,7 +86,7 @@ class MedicationRepositoryImpl @Inject constructor(
             val updatedMedications = currentMedications.map {
                 if (it.id == medication.id) medication else it
             }
-            preferences[medicationsKey] = json.encode(updatedMedications)
+            preferences[medicationsKey] = json.encodeToString(updatedMedications)
         }
     }
 
@@ -100,7 +99,7 @@ class MedicationRepositoryImpl @Inject constructor(
                 json.decodeOrNull<List<Medication>>(currentJson).orEmpty()
             }
             val updatedMedications = currentMedications.filter { it.id != id }
-            preferences[medicationsKey] = json.encode(updatedMedications)
+            preferences[medicationsKey] = json.encodeToString(updatedMedications)
         }
     }
 

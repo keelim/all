@@ -54,7 +54,7 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(platform(libs.androidx.compose.bom))
     testImplementation(libs.ktor.client.cio)
-    testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.12.2")
+    testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.14.4")
 
     implementation(libs.play.services.time)
     implementation(libs.jsoup)

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "61dd2c3129b0f9b344ca2a884403438c",
+    "identityHash": "73f8189e9a5ae36e67261c5bd2a71fcc",
     "entities": [
       {
         "tableName": "measurements",
@@ -29,6 +29,84 @@
           {
             "fieldPath": "state",
             "columnName": "state",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "localDate"
+          ]
+        }
+      },
+      {
+        "tableName": "daily_check_ins",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`localDate` TEXT NOT NULL, `sleep` INTEGER NOT NULL, `stress` INTEGER NOT NULL, `energy` INTEGER NOT NULL, `desire` INTEGER NOT NULL, `confidence` INTEGER NOT NULL, `morningCondition` TEXT NOT NULL, `drankAlcohol` INTEGER NOT NULL, `didCardio` INTEGER NOT NULL, `hasDiscomfort` INTEGER NOT NULL, `note` TEXT NOT NULL, PRIMARY KEY(`localDate`))",
+        "fields": [
+          {
+            "fieldPath": "localDate",
+            "columnName": "localDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sleep",
+            "columnName": "sleep",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "stress",
+            "columnName": "stress",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "energy",
+            "columnName": "energy",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "desire",
+            "columnName": "desire",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "confidence",
+            "columnName": "confidence",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "morningCondition",
+            "columnName": "morningCondition",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "drankAlcohol",
+            "columnName": "drankAlcohol",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "didCardio",
+            "columnName": "didCardio",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hasDiscomfort",
+            "columnName": "hasDiscomfort",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "note",
+            "columnName": "note",
             "affinity": "TEXT",
             "notNull": true
           }
@@ -169,7 +247,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '61dd2c3129b0f9b344ca2a884403438c')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '73f8189e9a5ae36e67261c5bd2a71fcc')"
     ]
   }
 }

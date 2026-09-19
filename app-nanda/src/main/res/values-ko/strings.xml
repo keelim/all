@@ -97,6 +97,7 @@
     <string name="wellness_tab_tools">더보기</string>
     <string name="wellness_privacy_on">프라이버시 모드 켜짐</string>
     <string name="wellness_privacy_off">프라이버시 모드 꺼짐</string>
+    <string name="wellness_privacy_options">개인정보 보호 설정</string>
     <string name="wellness_hidden">숨김</string>
 
     <string name="wellness_today_greeting">좋은 아침이에요</string>
@@ -142,6 +143,78 @@
     <string name="wellness_note_optional">메모 (선택)</string>
     <string name="wellness_checkin_save">오늘 기록 저장</string>
     <string name="wellness_later">나중에 하기</string>
+
+    <string name="wellness_recovery_goal_empty_title">이번에 되찾고 싶은 것은 무엇인가요?</string>
+    <string name="wellness_recovery_goal_empty_description">하나의 목표를 선택하면 이번 주에 실천할 작은 행동을 추천해 드려요.</string>
+    <string name="wellness_recovery_goal_choose">목표 선택하기</string>
+    <string name="wellness_recovery_goal_weekly_activity">이번 주 %1$s · %2$s</string>
+    <plurals name="wellness_recovery_goal_action_count">
+        <item quantity="other">%1$d회 행동</item>
+    </plurals>
+    <plurals name="wellness_recovery_goal_active_day_count">
+        <item quantity="other">%1$d일 실천</item>
+    </plurals>
+    <string name="wellness_recovery_goal_view_actions">추천 행동 보기</string>
+    <string name="wellness_recovery_goal_change">목표 변경</string>
+    <string name="wellness_recovery_goal_step_one">1/3 · 목표 선택</string>
+    <string name="wellness_recovery_goal_step_two">2/3 · 하루 시간</string>
+    <string name="wellness_recovery_goal_step_three">3/3 · 추천 행동</string>
+    <string name="wellness_recovery_goal_select_title">회복 목표 선택</string>
+    <string name="wellness_recovery_goal_select_description">지금 가장 되찾고 싶은 영역 하나를 선택해 주세요.</string>
+    <string name="wellness_recovery_goal_time_title">하루에 얼마나 시간을 쓸 수 있나요?</string>
+    <string name="wellness_recovery_goal_time_description">사용할 수 있는 시간에 맞춰 행동을 추천해 드려요.</string>
+    <string name="wellness_recovery_goal_actions_title">추천 행동</string>
+    <string name="wellness_recovery_goal_actions_description">플랜에 추가할 행동을 최대 3개까지 선택해 주세요.</string>
+    <string name="wellness_recovery_goal_actions_optional">행동을 선택하지 않고 목표만 저장할 수도 있어요.</string>
+    <string name="wellness_recovery_goal_selected_count">%1$d/3개 선택</string>
+    <string name="wellness_recovery_goal_save">목표와 플랜 저장</string>
+
+    <string name="wellness_recovery_goal_morning_energy">아침 에너지 회복</string>
+    <string name="wellness_recovery_goal_sleep_rhythm">수면 리듬 개선</string>
+    <string name="wellness_recovery_goal_exercise_habit">운동 습관 만들기</string>
+    <string name="wellness_recovery_goal_confidence">자신감과 성 건강 관리</string>
+    <string name="wellness_recovery_goal_alcohol">음주 습관 관리</string>
+    <string name="wellness_recovery_goal_smoking">금연 습관 만들기</string>
+    <string name="wellness_recovery_goal_general">전반적인 생활 회복</string>
+    <string name="wellness_recovery_goal_morning_energy_description">수면과 가벼운 움직임을 통해 아침 컨디션의 변화를 관찰합니다.</string>
+    <string name="wellness_recovery_goal_sleep_rhythm_description">일정한 기상 시간과 취침 준비로 생활 리듬을 살펴봅니다.</string>
+    <string name="wellness_recovery_goal_exercise_habit_description">부담이 적은 움직임부터 시작해 꾸준한 활동 습관을 만들어 갑니다.</string>
+    <string name="wellness_recovery_goal_confidence_description">수면, 움직임, 호흡을 기록하며 자신감과 생활 컨디션을 살펴봅니다.</string>
+    <string name="wellness_recovery_goal_alcohol_description">음주 상황과 대체 행동을 기록하며 나에게 맞는 음주 습관을 살펴봅니다.</string>
+    <string name="wellness_recovery_goal_smoking_description">흡연 욕구와 흡연 시간을 기록하며 작은 금연 습관을 시도합니다.</string>
+    <string name="wellness_recovery_goal_general_description">수면, 움직임, 호흡에서 시작해 전반적인 생활 리듬을 살펴봅니다.</string>
+
+    <string name="wellness_recovery_goal_time_five">5분</string>
+    <string name="wellness_recovery_goal_time_fifteen">15분</string>
+    <string name="wellness_recovery_goal_time_thirty">30분 이상</string>
+
+    <string name="wellness_recovery_action_morning_sunlight_5">기상 후 5분 햇빛 보기</string>
+    <string name="wellness_recovery_action_after_lunch_walk_5">점심 후 5분 걷기</string>
+    <string name="wellness_recovery_action_record_wake_time">기상 시간 기록하기</string>
+    <string name="wellness_recovery_action_after_meal_walk_10">점심 또는 저녁 후 10분 걷기</string>
+    <string name="wellness_recovery_action_consistent_wake_window">기상 시간을 30분 범위로 맞추기</string>
+    <string name="wellness_recovery_action_full_body_exercise_10">전신 운동 10분</string>
+    <string name="wellness_recovery_action_brisk_walk_20">빠르게 걷기 20분</string>
+    <string name="wellness_recovery_action_full_body_strength_20">전신 근력운동 20분</string>
+    <string name="wellness_recovery_action_early_bedtime_prep_30">취침 준비를 30분 일찍 시작하기</string>
+    <string name="wellness_recovery_action_consistent_wake_time">기상 시간을 일정하게 유지하기</string>
+    <string name="wellness_recovery_action_avoid_late_caffeine">오후 늦은 카페인 피하기</string>
+    <string name="wellness_recovery_action_screen_free_20">잠들기 전 화면에서 20분 떨어지기</string>
+    <string name="wellness_recovery_action_walk_5">5분 걷기</string>
+    <string name="wellness_recovery_action_full_body_strength_10">전신 근력운동 10분</string>
+    <string name="wellness_recovery_action_squat_pushup_one_set">스쿼트와 푸시업 각 1세트</string>
+    <string name="wellness_recovery_action_full_body_strength_15">전신 근력운동 15분</string>
+    <string name="wellness_recovery_action_secure_sleep_time">수면시간 확보하기</string>
+    <string name="wellness_recovery_action_slow_breathing_5">느린 호흡 5분</string>
+    <string name="wellness_recovery_action_alcohol_free_today">오늘 술 마시지 않기</string>
+    <string name="wellness_recovery_action_non_alcoholic_drink">음주 대신 무알코올 음료 선택하기</string>
+    <string name="wellness_recovery_action_evening_walk_10">저녁 산책 10분</string>
+    <string name="wellness_recovery_action_record_alcohol_use">음주 여부 기록하기</string>
+    <string name="wellness_recovery_action_delay_first_smoking_30">첫 흡연 시간을 30분 늦추기</string>
+    <string name="wellness_recovery_action_craving_walk_5">흡연 욕구가 올 때 5분 걷기</string>
+    <string name="wellness_recovery_action_record_smoking_use">오늘의 흡연 여부 기록하기</string>
+    <string name="wellness_recovery_action_check_smoking_support">금연 도움 기관 또는 의료진 상담 정보 확인하기</string>
+    <string name="wellness_recovery_action_brisk_walk_10">빠르게 걷기 10분</string>
 
     <string name="wellness_plan_title">이번 주 플랜</string>
     <string name="wellness_plan_intro">한 번에 세 가지 정도면 충분해요.</string>

@@ -6,10 +6,8 @@ import com.google.android.gms.tasks.Task
 import com.google.android.gms.time.TrustedTime
 import com.google.android.gms.time.TrustedTimeClient
 import com.keelim.core.data.BuildConfig
-import com.keelim.core.data.json.DefaultJsonParser
 import com.keelim.core.data.source.local.ArduconDataSourceImpl
 import com.keelim.core.data.source.local.TokenManager
-import com.keelim.data.json.JsonParser
 import com.keelim.data.repository.ArduconDataSource
 import com.keelim.shared.data.database.dao.ArduconDao
 import dagger.Module
@@ -18,7 +16,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import jakarta.inject.Singleton
-import kotlinx.serialization.json.Json
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -52,9 +49,4 @@ object DataModule {
         context,
     )
 
-    @Provides
-    @Singleton
-    fun provideJsonParser(
-        json: Json
-    ): JsonParser = DefaultJsonParser(json)
 }

@@ -17,6 +17,7 @@ private fun WellnessPreview() {
             onSaveCheckIn = { true },
             onSaveMeasurement = { _, _, _ -> true },
             onAddRoutine = { _, _ -> true },
+            onSaveRecoveryGoal = { _, _, _ -> },
             onSetRoutineCompletion = { _, _, _ -> },
             onDeleteRoutine = {},
         )

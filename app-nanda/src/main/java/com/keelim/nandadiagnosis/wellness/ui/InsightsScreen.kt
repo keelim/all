@@ -51,12 +51,13 @@ internal fun InsightsScreen(
 ) {
     var periodDays by rememberSaveable { mutableIntStateOf(7) }
     var metric by rememberSaveable { mutableStateOf(ConditionMetric.SLEEP) }
-    val startDate = remember(periodDays) { LocalDate.now().minusDays(periodDays - 1L) }
+    val startDate = uiState.today.minusDays(periodDays - 1L)
     val visibleCheckIns = uiState.checkIns.filter {
         runCatching { LocalDate.parse(it.localDate) }.getOrNull()?.let { date ->
-            !date.isBefore(startDate)
+            !date.isBefore(startDate) && !date.isAfter(uiState.today)
         } == true
     }
+    val metricValues = visibleCheckIns.sortedBy { it.localDate }.mapNotNull { it.valueFor(metric) }
     val insight = InsightCalculator.firstPattern(visibleCheckIns)
 
     LazyColumn(
@@ -120,22 +121,20 @@ internal fun InsightsScreen(
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
-                } else if (visibleCheckIns.size < 2) {
+                } else if (metricValues.size < 2) {
                     Text(
-                        text = stringResource(R.string.wellness_insights_not_enough),
+                        text = stringResource(if (metricValues.isEmpty()) R.string.morning_no_values else R.string.wellness_insights_not_enough),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                 } else {
                     ConditionChart(
-                        values = visibleCheckIns.sortedBy { it.localDate }.map {
-                            it.valueFor(metric)
-                        },
+                        values = metricValues,
                     )
                     Text(
                         text = stringResource(
                             R.string.wellness_chart_summary,
-                            visibleCheckIns.size,
+                            metricValues.size,
                             metricLabel(metric),
                         ),
                         style = MaterialTheme.typography.bodySmall,
@@ -242,7 +241,7 @@ private fun metricLabel(metric: ConditionMetric): String =
         },
     )
 
-private fun DailyCheckIn.valueFor(metric: ConditionMetric): Int =
+private fun DailyCheckIn.valueFor(metric: ConditionMetric): Int? =
     when (metric) {
         ConditionMetric.SLEEP -> sleep
         ConditionMetric.STRESS -> stress

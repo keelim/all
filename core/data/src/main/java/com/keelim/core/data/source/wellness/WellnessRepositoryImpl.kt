@@ -5,12 +5,17 @@ import android.content.SharedPreferences
 import com.keelim.common.Dispatcher
 import com.keelim.common.KeelimDispatchers
 import com.keelim.core.database.wellness.MeasurementEntity
+import com.keelim.core.database.wellness.DailyCheckInEntity
 import com.keelim.core.database.wellness.RoutineCompletionEntity
 import com.keelim.core.database.wellness.RoutineEntity
 import com.keelim.core.database.wellness.WellnessDao
 import com.keelim.core.database.wellness.WellnessGoalEntity
 import com.keelim.data.repository.WellnessRepository
 import com.keelim.model.wellness.Measurement
+import com.keelim.model.wellness.CheckInRecord
+import com.keelim.model.wellness.DailyTimeBudget
+import com.keelim.model.wellness.RecoveryGoal
+import com.keelim.model.wellness.RecoveryGoalType
 import com.keelim.model.wellness.Routine
 import com.keelim.model.wellness.RoutineCompletion
 import com.keelim.model.wellness.WellnessData
@@ -20,8 +25,10 @@ import jakarta.inject.Inject
 import jakarta.inject.Singleton
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.withContext
+import java.time.LocalDate
 
 @Singleton
 class WellnessRepositoryImpl internal constructor(
@@ -29,6 +36,8 @@ class WellnessRepositoryImpl internal constructor(
     private val sharedPreferences: SharedPreferences,
     private val ioDispatcher: CoroutineDispatcher,
 ) : WellnessRepository {
+    private val recoveryGoalState = MutableStateFlow(sharedPreferences.readRecoveryGoal())
+
     @Inject
     constructor(
         dao: WellnessDao,
@@ -41,19 +50,26 @@ class WellnessRepositoryImpl internal constructor(
         ioDispatcher = ioDispatcher,
     )
 
-    override val data: Flow<WellnessData> =
+    private val roomData: Flow<WellnessData> =
         combine(
             dao.observeMeasurements(),
+            dao.observeDailyCheckIns(),
             dao.observeRoutines(),
             dao.observeRoutineCompletions(),
             dao.observeGoal(),
-        ) { measurements, routines, completions, goal ->
+        ) { measurements, checkIns, routines, completions, goal ->
             WellnessData(
                 measurements = measurements.map(MeasurementEntity::toModel),
+                checkIns = checkIns.map(DailyCheckInEntity::toModel),
                 routines = routines.map(RoutineEntity::toModel),
                 completions = completions.map(RoutineCompletionEntity::toModel),
                 goal = goal?.toModel(),
             )
+        }
+
+    override val data: Flow<WellnessData> =
+        combine(roomData, recoveryGoalState) { data, recoveryGoal ->
+            data.copy(recoveryGoal = recoveryGoal)
         }
 
     override suspend fun initializeDefaultRoutines(createdLocalDate: String) {
@@ -76,12 +92,32 @@ class WellnessRepositoryImpl internal constructor(
         dao.upsertMeasurement(measurement.toEntity())
     }
 
+    override suspend fun upsertCheckIn(checkIn: CheckInRecord) {
+        dao.upsertDailyCheckIn(checkIn.toEntity())
+    }
+
+    override suspend fun deleteCheckIn(localDate: String) = withContext(ioDispatcher) {
+        dao.deleteDailyCheckIn(localDate)
+    }
+
     override suspend fun upsertGoal(goal: WellnessGoal) {
         dao.upsertGoal(goal.toEntity())
     }
 
     override suspend fun deleteGoal() {
         dao.deleteGoal()
+    }
+
+    override suspend fun upsertRecoveryGoal(goal: RecoveryGoal) {
+        withContext(ioDispatcher) {
+            sharedPreferences.edit()
+                .putString(KEY_RECOVERY_GOAL_TYPE, goal.type.name)
+                .putString(KEY_RECOVERY_GOAL_TIME_BUDGET, goal.dailyTimeBudget.name)
+                .putString(KEY_RECOVERY_GOAL_STARTED_DATE, goal.startedLocalDate)
+                .putString(KEY_RECOVERY_GOAL_UPDATED_DATE, goal.updatedLocalDate)
+                .apply()
+            recoveryGoalState.value = goal
+        }
     }
 
     override suspend fun insertRoutine(routine: Routine): Long =
@@ -103,7 +139,28 @@ class WellnessRepositoryImpl internal constructor(
         const val PREFERENCES_FILE_NAME = "wellness_service_preferences"
         const val KEY_ONBOARDING_ACCEPTED = "wellness_onboarding_accepted"
         const val KEY_DEFAULTS_INITIALIZED = "wellness_defaults_initialized"
+        const val KEY_RECOVERY_GOAL_TYPE = "recovery_goal_type"
+        const val KEY_RECOVERY_GOAL_TIME_BUDGET = "recovery_goal_time_budget"
+        const val KEY_RECOVERY_GOAL_STARTED_DATE = "recovery_goal_started_date"
+        const val KEY_RECOVERY_GOAL_UPDATED_DATE = "recovery_goal_updated_date"
     }
+}
+
+private fun SharedPreferences.readRecoveryGoal(): RecoveryGoal? {
+    val type = getString("recovery_goal_type", null)
+        ?.let { runCatching { RecoveryGoalType.valueOf(it) }.getOrNull() }
+        ?: return null
+    val timeBudget = getString("recovery_goal_time_budget", null)
+        ?.let { runCatching { DailyTimeBudget.valueOf(it) }.getOrNull() }
+        ?: return null
+    val startedLocalDate = getString("recovery_goal_started_date", null)
+        ?.takeIf { runCatching { LocalDate.parse(it) }.isSuccess }
+        ?: return null
+    val updatedLocalDate = getString("recovery_goal_updated_date", null)
+        ?.takeIf { runCatching { LocalDate.parse(it) }.isSuccess }
+        ?: return null
+
+    return RecoveryGoal(type, timeBudget, startedLocalDate, updatedLocalDate)
 }
 
 private fun MeasurementEntity.toModel() =
@@ -111,6 +168,36 @@ private fun MeasurementEntity.toModel() =
 
 private fun Measurement.toEntity() =
     MeasurementEntity(localDate, lengthCm, circumferenceCm, state)
+
+private fun DailyCheckInEntity.toModel() =
+    CheckInRecord(
+        localDate,
+        sleep,
+        stress,
+        energy,
+        desire,
+        confidence,
+        morningCondition,
+        drankAlcohol,
+        didCardio,
+        hasDiscomfort,
+        note,
+    )
+
+private fun CheckInRecord.toEntity() =
+    DailyCheckInEntity(
+        localDate,
+        sleep,
+        stress,
+        energy,
+        desire,
+        confidence,
+        morningCondition,
+        drankAlcohol,
+        didCardio,
+        hasDiscomfort,
+        note,
+    )
 
 private fun RoutineEntity.toModel() = Routine(id, name, kind, createdLocalDate)
 

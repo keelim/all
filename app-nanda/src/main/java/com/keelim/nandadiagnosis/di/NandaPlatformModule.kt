@@ -1,17 +1,9 @@
 package com.keelim.nandadiagnosis.di
 
 import android.content.Context
-import com.keelim.common.platform.analytics.AnalyticsTracker
-import com.keelim.common.platform.analytics.NoOpAnalyticsTracker
 import com.keelim.common.platform.export.ExportFileWriter
 import com.keelim.common.platform.export.ExportShareLauncher
-import com.keelim.common.platform.featureflag.DefaultFeatureFlagProvider
-import com.keelim.common.platform.featureflag.FeatureFlagProvider
 import com.keelim.common.platform.notification.NotificationScheduler
-import com.keelim.common.platform.observability.AppLogger
-import com.keelim.common.platform.observability.CrashReporter
-import com.keelim.common.platform.observability.NoOpAppLogger
-import com.keelim.common.platform.observability.NoOpCrashReporter
 import com.keelim.common.platform.privacy.DefaultPrivacyController
 import com.keelim.common.platform.privacy.PrivacyController
 import com.keelim.common.platform.privacy.PrivacySettings
@@ -36,22 +28,6 @@ object NandaPlatformModule {
     @Provides
     @Singleton
     fun provideTimeProvider(): TimeProvider = SystemTimeProvider()
-
-    @Provides
-    @Singleton
-    fun provideAnalyticsTracker(): AnalyticsTracker = NoOpAnalyticsTracker()
-
-    @Provides
-    @Singleton
-    fun provideFeatureFlagProvider(): FeatureFlagProvider = DefaultFeatureFlagProvider()
-
-    @Provides
-    @Singleton
-    fun provideAppLogger(): AppLogger = NoOpAppLogger()
-
-    @Provides
-    @Singleton
-    fun provideCrashReporter(): CrashReporter = NoOpCrashReporter()
 
     @Provides
     @Singleton

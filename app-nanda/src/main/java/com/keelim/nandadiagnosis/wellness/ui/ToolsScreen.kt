@@ -55,6 +55,8 @@ internal fun ToolsScreen(
     privacyMode: Boolean,
     onPrivacyModeChange: (Boolean) -> Unit,
     onSaveMeasurement: (String, String, MeasurementState) -> Boolean,
+    privacyOptionsRequired: Boolean,
+    onShowPrivacyOptions: () -> Unit,
 ) {
     var showMeasurements by rememberSaveable { mutableStateOf(false) }
     if (showMeasurements) {
@@ -107,6 +109,18 @@ internal fun ToolsScreen(
                         checked = privacyMode,
                         onCheckedChange = onPrivacyModeChange,
                     )
+                }
+                if (privacyOptionsRequired) {
+                    TextButton(
+                        onClick = onShowPrivacyOptions,
+                        modifier = Modifier.fillMaxWidth(),
+                    ) {
+                        Text(
+                            text = stringResource(R.string.wellness_privacy_options),
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = MaterialTheme.colorScheme.primary,
+                        )
+                    }
                 }
                 ToolLabel(stringResource(R.string.wellness_tools_app_lock))
                 ToolLabel(stringResource(R.string.wellness_tools_recent_blur))

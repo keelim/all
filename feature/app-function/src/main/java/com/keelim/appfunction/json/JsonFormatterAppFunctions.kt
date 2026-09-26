@@ -2,21 +2,16 @@ package com.keelim.appfunction.json
 
 import androidx.appfunctions.AppFunctionContext
 import androidx.appfunctions.service.AppFunction
-import com.keelim.core.data.json.DefaultJsonParser
-import com.keelim.data.json.JsonParser
+import com.keelim.data.json.formatJson
 import kotlinx.serialization.json.Json
 
 private const val MAX_JSON_INPUT_LENGTH = 64 * 1024
 
 class JsonFormatterAppFunctions internal constructor(
-    private val jsonParser: JsonParser,
+    private val json: Json,
 ) {
     constructor() : this(
-        DefaultJsonParser(
-            Json {
-                prettyPrint = true
-            },
-        ),
+        Json { prettyPrint = true },
     )
 
     /**
@@ -35,7 +30,7 @@ class JsonFormatterAppFunctions internal constructor(
         }
 
         return try {
-            jsonParser.formatJson(inputJson)
+            json.formatJson(inputJson)
         } catch (error: IllegalArgumentException) {
             throw IllegalArgumentException("JSON input must be valid JSON", error)
         }

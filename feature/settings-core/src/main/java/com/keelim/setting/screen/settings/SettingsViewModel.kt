@@ -3,8 +3,6 @@ package com.keelim.setting.screen.settings
 import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.keelim.data.json.JsonParser
-import com.keelim.data.json.decode
 import com.keelim.data.repository.FirebaseRepository
 import com.keelim.shared.data.UserState
 import com.keelim.shared.data.UserStateStore
@@ -17,6 +15,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
 import timber.log.Timber
 import jakarta.inject.Inject
 
@@ -43,7 +42,7 @@ sealed interface SettingsUiState {
 class SettingsViewModel @Inject constructor(
     userStateStore: Lazy<UserStateStore>,
     firebaseRepository: Lazy<FirebaseRepository>,
-    jsonParser: JsonParser,
+    json: Json,
 ) : ViewModel() {
     private val userState = userStateStore
         .get()
@@ -58,9 +57,7 @@ class SettingsViewModel @Inject constructor(
         Timber.d("[SettingsViewModel] Remote config 'family_services' fetched, length: ${remoteConfigString.length}")
         val services: List<FamilyService> = try {
             if (remoteConfigString.isNotEmpty()) {
-                val list = jsonParser.decode<List<FamilyService>>(
-                    remoteConfigString
-                )
+                val list = json.decodeFromString<List<FamilyService>>(remoteConfigString)
                 Timber.d("[SettingsViewModel] Parsed ${list.size} family services")
                 list
             } else {

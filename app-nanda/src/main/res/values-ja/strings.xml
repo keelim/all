@@ -3,6 +3,7 @@
     <string name="wellness_tab_buddy">バディ</string>
     <string name="wellness_tab_routine">ルーティン</string>
     <string name="wellness_privacy_mode">プライバシーモード</string>
+    <string name="wellness_privacy_options">プライバシー設定</string>
 
     <string name="wellness_buddy_title">今日のチェックイン</string>
     <string name="wellness_buddy_intro">記録はこの端末にのみ保存されます。</string>

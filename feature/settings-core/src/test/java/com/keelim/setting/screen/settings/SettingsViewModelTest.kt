@@ -3,7 +3,6 @@ package com.keelim.setting.screen.settings
 import app.cash.turbine.ReceiveTurbine
 import app.cash.turbine.test
 import androidx.lifecycle.viewModelScope
-import com.keelim.data.json.JsonParser
 import com.keelim.data.repository.FirebaseRepository
 import com.keelim.model.EcoCalEntry
 import com.keelim.shared.data.UserState
@@ -25,16 +24,13 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
-import kotlinx.serialization.DeserializationStrategy
-import kotlinx.serialization.SerializationStrategy
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonElement
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class SettingsViewModelTest : FunSpec({
     val testDispatcher = StandardTestDispatcher()
     val mainDispatcherRule = MainDispatcherRule(testDispatcher)
-    val jsonParser = KotlinxJsonParser()
+    val json = Json { ignoreUnknownKeys = true }
 
     extension(mainDispatcherRule)
 
@@ -54,7 +50,7 @@ class SettingsViewModelTest : FunSpec({
                     ]
                 """.trimIndent(),
                 tokenResult = Result.success("fcm-token"),
-                jsonParser = jsonParser,
+                json = json,
             )
 
             viewModel.uiState.test {
@@ -92,7 +88,7 @@ class SettingsViewModelTest : FunSpec({
             val viewModel = createViewModel(
                 remoteConfigString = "",
                 tokenResult = Result.success("token"),
-                jsonParser = jsonParser,
+                json = json,
             )
 
             viewModel.uiState.test {
@@ -118,7 +114,7 @@ class SettingsViewModelTest : FunSpec({
             val viewModel = createViewModel(
                 remoteConfigString = """[{"title":"Broken","actionUrl":}""",
                 tokenResult = Result.success("token"),
-                jsonParser = jsonParser,
+                json = json,
             )
 
             viewModel.uiState.test {
@@ -144,7 +140,7 @@ class SettingsViewModelTest : FunSpec({
             val viewModel = createViewModel(
                 remoteConfigString = "",
                 tokenResult = Result.failure(IllegalStateException("boom")),
-                jsonParser = jsonParser,
+                json = json,
             )
 
             viewModel.uiState.test {
@@ -171,7 +167,7 @@ private fun createViewModel(
     userState: UserState = UserState(),
     remoteConfigString: String,
     tokenResult: Result<String>,
-    jsonParser: JsonParser,
+    json: Json,
 ): SettingsViewModel = SettingsViewModel(
     userStateStore = TestLazy(FakeUserStateStore(userState)),
     firebaseRepository = TestLazy(
@@ -180,7 +176,7 @@ private fun createViewModel(
             tokenResult = tokenResult,
         ),
     ),
-    jsonParser = jsonParser,
+    json = json,
 )
 
 private class TestLazy<T>(
@@ -222,33 +218,6 @@ private class FakeFirebaseRepository(
     override fun getFCMToken(): Flow<Result<String>> = flowOf(tokenResult)
 
     override suspend fun getValue(key: String): String = remoteConfigString
-}
-
-private class KotlinxJsonParser : JsonParser {
-    private val json = Json {
-        ignoreUnknownKeys = true
-    }
-
-    override fun <T> decodeFromString(
-        jsonString: String,
-        deserializer: DeserializationStrategy<T>,
-    ): T = json.decodeFromString(deserializer, jsonString)
-
-    override fun <T> decodeFromStringOrNull(
-        jsonString: String,
-        deserializer: DeserializationStrategy<T>,
-    ): T? = runCatching {
-        json.decodeFromString(deserializer, jsonString)
-    }.getOrNull()
-
-    override fun <T> encodeToString(
-        serializer: SerializationStrategy<T>,
-        value: T,
-    ): String = json.encodeToString(serializer, value)
-
-    override fun parseToJsonElement(jsonString: String): JsonElement = json.parseToJsonElement(jsonString)
-
-    override fun formatJson(jsonString: String): String = json.encodeToString(parseToJsonElement(jsonString))
 }
 
 private suspend fun ReceiveTurbine<SettingsUiState>.awaitSuccess(): SettingsUiState.Success {

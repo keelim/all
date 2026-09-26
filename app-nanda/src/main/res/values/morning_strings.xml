@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="morning_title">Morning check-in</string>
+    <string name="morning_energy">Condition</string>
+    <string name="morning_energy_hint">How physically energetic do you feel?</string>
+    <string name="morning_sleep">Sleep satisfaction</string>
+    <string name="morning_erection">Morning erection</string>
+    <string name="morning_yes">Present</string>
+    <string name="morning_no">Absent</string>
+    <string name="morning_unknown">Not sure</string>
+    <string name="morning_unanswered">Not answered</string>
+    <string name="morning_no_record">No record</string>
+    <string name="morning_selection_hint">Optional. Tap a selected answer again to clear it.</string>
+    <string name="morning_scale_hint">From lowest to highest.</string>
+    <string name="morning_medical_note">Morning erection alone cannot determine sexual function or hormone status.</string>
+    <string name="morning_details">Detailed check-in</string>
+    <string name="morning_details_hide">Hide details</string>
+    <string name="morning_write_failed">Could not save the change. Your input is still here. Please try again.</string>
+    <string name="morning_saving">Saving…</string>
+    <string name="morning_record">Record today</string>
+    <string name="morning_edit">Edit</string>
+    <string name="morning_intro">A quick check-in. Answer only what you want to record.</string>
+    <string name="morning_week">Last 7 days</string>
+    <string name="morning_energy_value">Condition: %1$s</string>
+    <string name="morning_sleep_value">Sleep: %1$s</string>
+    <string name="morning_erection_value">Morning erection: %1$s</string>
+    <string name="morning_delete_title">Delete this record?</string>
+    <string name="morning_delete_message">This record will be permanently deleted from this device.</string>
+    <string name="morning_delete">Delete</string>
+    <string name="morning_cancel">Cancel</string>
+    <string name="morning_no_values">No data</string>
+</resources>

@@ -11,7 +11,6 @@ class KeelimJvmLibraryPlugin : Plugin<Project> {
             apply(plugin = "org.jetbrains.kotlin.jvm")
             apply(plugin = "java-library")
             apply(plugin = "org.gradle.jacoco")
-            apply(plugin = "com.jraska.module.graph.assertion")
 
             configureKotlinJvm()
             configureJvmJacoco()

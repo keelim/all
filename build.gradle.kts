@@ -314,7 +314,6 @@ plugins {
     alias(libs.plugins.kotlin.serialization) apply false
     alias(libs.plugins.kotlinMultiplatform) apply false
     alias(libs.plugins.ksp) apply false
-    alias(libs.plugins.moduleGraphAssertion) apply false
     alias(libs.plugins.room) apply false
     alias(libs.plugins.secrets) apply false
 }
@@ -430,3 +429,5 @@ tasks.register("coverageRepoObservation") {
         )
     }
 }
+
+apply(from = "gradle/module-dependency-graph.gradle.kts")

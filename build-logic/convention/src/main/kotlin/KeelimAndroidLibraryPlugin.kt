@@ -19,7 +19,6 @@ class KeelimAndroidLibraryPlugin : Plugin<Project> {
 
             apply(plugin = "com.android.library")
             apply(plugin = "org.gradle.android.cache-fix")
-            apply(plugin = "com.jraska.module.graph.assertion")
             apply(plugin = "com.autonomousapps.dependency-analysis")
 
             extensions.getByType<LibraryExtension>().apply {

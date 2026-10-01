@@ -28,7 +28,6 @@ class KeelimAndroidApplicationPlugin : Plugin<Project> {
                 apply(plugin = "com.google.android.gms.oss-licenses-plugin")
             }
             apply(plugin = "com.dropbox.dependency-guard")
-            apply(plugin = "com.jraska.module.graph.assertion")
             apply(plugin = "androidx.baselineprofile")
             apply(plugin = "com.autonomousapps.dependency-analysis")
 

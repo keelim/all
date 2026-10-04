@@ -1,7 +1,5 @@
 # :core:network
 
-Before changing this module, read the [repository rules](../../AGENTS.md).
-
 ## Focus
 
 Network clients and DI are in `di/`; HTTP behavior is in `interceptor/`; API payloads are in `model/`.

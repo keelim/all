@@ -1,7 +1,5 @@
 # :feature:settings-notification
 
-Before changing this module, read the [repository rules](../../AGENTS.md).
-
 ## Focus
 
 Notification settings UI and state live in `screen/notification/`; navigation is `navigation/SettingsNotificationNavigation.kt`.

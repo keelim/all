@@ -1,7 +1,5 @@
 # :core:resource
 
-Before changing this module, read the [repository rules](../../AGENTS.md).
-
 ## Focus
 
 Multiplatform Compose resources are defined in `src/commonMain/composeResources/`.

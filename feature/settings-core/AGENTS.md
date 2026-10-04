@@ -1,7 +1,5 @@
 # :feature:settings-core
 
-Before changing this module, read the [repository rules](../../AGENTS.md).
-
 ## Focus
 
 The settings hub is in `screen/settings/`; onboarding is in `screen/welcome/`; entry wiring is `navigation/SettingsCoreNavigation.kt`.

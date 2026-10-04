@@ -1,7 +1,5 @@
 # :core:designsystem
 
-Before changing this module, read the [repository rules](../../AGENTS.md).
-
 ## Focus
 
 Canonical Android Compose tokens and primitives are under `theme/` and `component/`; begin with `theme/Theme.kt`.

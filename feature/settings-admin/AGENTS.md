@@ -1,7 +1,5 @@
 # :feature:settings-admin
 
-Before changing this module, read the [repository rules](../../AGENTS.md).
-
 ## Focus
 
 Admin settings are in `screen/admin/`; navigation is `navigation/SettingsAdminNavigation.kt`.

@@ -1,7 +1,5 @@
 # :core:domain
 
-Before changing this module, read the [repository rules](../../AGENTS.md).
-
 ## Focus
 
 Pure wellness rules and calculations live under `com/keelim/nandadiagnosis/wellness/domain/` with focused unit tests beside them.

@@ -1,7 +1,5 @@
 # :core:common
 
-Before changing this module, read the [repository rules](../../AGENTS.md).
-
 ## Focus
 
 Platform-neutral primitives live under `extensions/`, `model/`, `platform/`, and `KeelimDispatchers.kt`.

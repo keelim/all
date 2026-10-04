@@ -1,105 +1,126 @@
-# all Project
+# all working guide
 
-Multi-app Android monorepo. Jetpack Compose, Hilt, Room/DataStore, MVVM + UDF, convention-plugin Gradle. CLAUDE.md symlinks here.
+A multi-app Android and Compose Multiplatform repository for six apps and shared libraries, using Compose, Hilt, Room/DataStore, and convention-plugin Gradle. App workflows and release boundaries remain distinct.
 
-## STRUCTURE
+## Project structure
 
+```text
+./
+├── AGENTS.md → Working guide
+├── CLAUDE.md → Same guide for Claude
+├── docs/
+│   ├── architecture.md → Components and data flow
+│   ├── business-rules.md → Domain meaning and edge cases
+│   ├── security.md → Access, credentials, and protected data
+│   ├── standards.md → Change and verification rules
+│   ├── engineering-notes.md → Operational traps
+│   ├── operations.md → Setup and scoped commands
+│   ├── contracts.md → Consumer inputs, outputs, and failures
+│   ├── tracking/
+│   │   ├── status.md → Capabilities and verified scope
+│   │   ├── findings.md → Unresolved issues
+│   │   └── decisions/
+│   │       ├── index.md → Decision index
+│   │       ├── 0001-shared-ui-boundary.md → Canonical tokens with compatibility widgets
+│   │       └── 0002-focused-module-checks.md → Changed-module unit tests only
+│   └── AGENTS.md → API schema package and technical material boundary
+├── app-nanda/
+│   └── AGENTS.md → app-nanda ownership and invariants
+├── widget/
+│   └── AGENTS.md → widget ownership and invariants
+├── app-arducon/
+│   └── AGENTS.md → app-arducon ownership and invariants
+├── catalog/
+│   └── AGENTS.md → catalog ownership and invariants
+├── shared/
+│   └── AGENTS.md → shared ownership and invariants
+├── build-logic/
+│   └── AGENTS.md → build-logic ownership and invariants
+├── benchmarks/
+│   └── AGENTS.md → benchmarks ownership and invariants
+├── app-my-grade/
+│   └── AGENTS.md → app-my-grade ownership and invariants
+├── core/
+│   ├── device-android/
+│   │   └── AGENTS.md → device-android ownership and invariants
+│   ├── database/
+│   │   └── AGENTS.md → database ownership and invariants
+│   ├── designsystem/
+│   │   └── AGENTS.md → designsystem ownership and invariants
+│   ├── network/
+│   │   └── AGENTS.md → network ownership and invariants
+│   ├── navigation/
+│   │   └── AGENTS.md → navigation ownership and invariants
+│   ├── component/
+│   │   └── AGENTS.md → component ownership and invariants
+│   ├── data-api/
+│   │   └── AGENTS.md → data-api ownership and invariants
+│   ├── testing/
+│   │   └── AGENTS.md → testing ownership and invariants
+│   ├── common/
+│   │   └── AGENTS.md → common ownership and invariants
+│   ├── model/
+│   │   └── AGENTS.md → model ownership and invariants
+│   ├── resource/
+│   │   └── AGENTS.md → resource ownership and invariants
+│   ├── data/
+│   │   └── AGENTS.md → data ownership and invariants
+│   ├── domain/
+│   │   └── AGENTS.md → domain ownership and invariants
+│   ├── datastore-proto/
+│   │   └── AGENTS.md → datastore-proto ownership and invariants
+│   └── common-android/
+│       └── AGENTS.md → common-android ownership and invariants
+├── feature/
+│   ├── ui-web/
+│   │   └── AGENTS.md → ui-web ownership and invariants
+│   ├── ui-scheme/
+│   │   └── AGENTS.md → ui-scheme ownership and invariants
+│   ├── ui-setting/
+│   │   └── AGENTS.md → ui-setting ownership and invariants
+│   ├── settings-alarm/
+│   │   └── AGENTS.md → settings-alarm ownership and invariants
+│   ├── settings-notification/
+│   │   └── AGENTS.md → settings-notification ownership and invariants
+│   ├── settings-theme/
+│   │   └── AGENTS.md → settings-theme ownership and invariants
+│   ├── settings-core/
+│   │   └── AGENTS.md → settings-core ownership and invariants
+│   ├── settings-admin/
+│   │   └── AGENTS.md → settings-admin ownership and invariants
+│   ├── app-function/
+│   │   └── AGENTS.md → app-function ownership and invariants
+│   ├── settings-device/
+│   │   └── AGENTS.md → settings-device ownership and invariants
+│   └── settings-lab/
+│       └── AGENTS.md → settings-lab ownership and invariants
+├── app-cnubus/
+│   └── AGENTS.md → CNUBUS boundary
+├── app-comssa/
+│   └── AGENTS.md → Comssa boundary
+├── app-mysenior/
+│   └── AGENTS.md → MySenior boundary
+├── composeApp/
+│   └── AGENTS.md → Compose application host boundary
+├── all-rust-lib/
+│   └── AGENTS.md → Native Rust boundary boundary
+└── allIos/
+    └── AGENTS.md → Apple host boundary
 ```
-all/
-├── app-*/              # 6 apps, all registered: arducon, cnubus, comssa, my-grade, mysenior, nanda
-├── core/               # shared: common, common-android, component, data, data-api, database,
-│                       #   datastore-proto, designsystem, device-android, domain, model,
-│                       #   navigation, network, resource, testing
-├── feature/            # app-function, settings-{core,theme,notification,alarm,device,admin,lab},
-│                       #   ui-scheme, ui-setting, ui-web
-├── shared/             # KMP shared code (database models/DAOs, desktop window)
-├── composeApp/         # KMP app module
-├── widget/, benchmarks/, catalog/
-├── build-logic/        # convention plugins
-└── .github/workflows/  # per-app CI + shared workflows
-```
 
-`settings.gradle.kts` is the source of truth for registered modules — verify there before claiming what builds.
+## Hard gates
 
-## WHERE TO LOOK
+1. Preserve product calculations and persisted records when changing shared UI or module boundaries.
+2. Keep canonical Android tokens/primitives in core:designsystem and compatibility widgets in core:component.
+3. Features use repository contracts; no main-thread I/O, direct DAO access, or secrets in client source.
+4. Validate only changed modules with testDebugUnitTest; never substitute builds, lint, connected tests, root test, or git diff --check without an explicit request.
 
-| Task | Location |
-|------|----------|
-| Shared UI components | `core/component/` (Material 3, higher-level widgets) |
-| Design tokens/theme | `core/designsystem/` (canonical Android Compose surface) |
-| Data layer | `core/data/` (impls), `core/data-api/` (interfaces) |
-| Database | `core/database/` (Room), `shared/` (KMP models/DAOs) |
-| Navigation | `core/navigation/` |
-| Settings screens | `feature/ui-setting/`, `feature/settings-*/` |
-| Build conventions | `build-logic/convention/`, `gradle/libs.versions.toml` |
+## Before work
 
-Apps: **my-grade** (grade calc, timer, study analytics), **arducon** (deeplink tester, QR, JSON formatter), **nanda** (NANDA diagnosis, food/exercise/water tracking), **comssa** (financial calculators, economic calendar), **cnubus** (CNU bus + Google Maps), **mysenior** (minimal senior app).
+Read `docs/standards.md`, `docs/engineering-notes.md`, and the closest module guide.
 
-## CONVENTIONS
+Before module/dependency work inspect `settings.gradle.kts`, `gradle/libs.versions.toml`, and `build-logic/AGENTS.md`. Before schema changes inspect the owning `shared`/database/protobuf guide. Before app work inspect its current entry screens, not an old feature list. Design-system changes require both provider and consumer guides; source discovery uses the owning all index.
 
-### UI (CRITICAL)
-- `Text` composables MUST set `style` and `color` explicitly (`MaterialTheme.typography.*` / `MaterialTheme.colorScheme.*`).
-- User actions MUST be animation-friendly: `LazyColumn` + `animateItem`, `AnimatedVisibility` for visibility changes.
+## Problem routing
 
-### Design System Migration
-- Android-only scope — never edit Web surfaces or sibling Web repos.
-- `core:designsystem` = canonical tokens/themes/primitives; `core:component` = compatibility wrapper / higher-level widgets on top of it.
-- Preserve domain behavior, business rules, and calculation results; layout may reorganize only for design-system fit.
-- Uncommitted changes in `core/designsystem` or `core/component` are user-owned — integrate, don't revert.
-- Gate: follow the changed-module test-only validation policy below; report intentionally remaining direct `MaterialTheme`/hardcoded color/spacing usages.
-
-### Formatting (Date/Currency/Number)
-- User-facing date/currency/number strings MUST go through shared formatters.
-- UI dates: `yyyy.MM.dd`, `yyyy.MM.dd HH:mm`, `HH:mm` (24h), system timezone.
-- Numbers: `NumberFormat.getNumberInstance(Locale.getDefault())` via shared extensions; currency locale-based, pass explicit `Currency` when domain data has a code.
-- No hardcoded units (`"원"`) in screen strings; use resources or formatter output.
-- Persistence/API stays ISO/epoch (`yyyy-MM-dd`, ISO-8601, epoch).
-- Forbidden: UI date composition via `String.format`; UI money via `DecimalFormat("#,###")`. Zero-padding uses a shared helper, never inline `%02d`.
-- Exception: file names, logs, debug-only text.
-
-### Build & Code Style
-- Validate only with `./gradlew :<changed-module>:testDebugUnitTest` for every module containing changed files; combine multiple module tasks in one Gradle invocation.
-- Do not run `assembleDebug`, root `test`, lint, connected tests, `git diff --check`, or tasks for unchanged modules unless explicitly requested.
-- If a changed module has no `testDebugUnitTest` task, report that validation is unavailable; do not substitute another task without explicit approval.
-- All dependency versions in `gradle/libs.versions.toml`; apply convention plugins (`keelim.android.application`, `keelim.android.library.compose`, …) — don't bypass them.
-- Google Android Kotlin Style Guide; no hardcoded strings (use resources); no deprecated APIs; Hilt for DI; ViewModels expose StateFlow/Flow.
-- JVM 17 target, `-Xcontext-parameters` enabled, Parcelize auto-applied.
-
-## ANTI-PATTERNS
-
-No `@Suppress` without justification · no network/DB on main thread · no global mutable state · no SQL string concatenation (parameterize) · don't bypass convention plugins.
-
-## COMMANDS
-
-The build/repository-wide commands below are reference-only and are not default validation tasks.
-
-```bash
-./gradlew :app-my-grade:assembleDebug   # per-app build
-./gradlew assembleDebug                 # all apps
-./gradlew test
-./gradlew dependencyGuard
-```
-
-CI: per-app workflows in `.github/workflows/` (`app_*.yml`) plus `ci.yml`, `app_deploy.yml`, `release*.yml`.
-
-## GOTCHAS
-
-- Target API 36 (Android 16), min SDK 26, desugaring enabled.
-- `shared/` desktop window code only used in compose-desktop contexts.
-- Registered app modules build/deploy independently via their own workflows.
-
-## DETAILED DOCS
-
-Module internals: `app-my-grade/AGENTS.md`, `app-arducon/AGENTS.md`, `app-nanda/AGENTS.md`, `core/component/AGENTS.md`, `core/navigation/AGENTS.md`, `core/data/AGENTS.md`, `feature/ui-setting/AGENTS.md`, `shared/AGENTS.md`.
-
-## CODEGRAPH SEARCH
-
-From the `keelim-maestro` workspace root, use the root dispatcher (not a root aggregate graph):
-
-```bash
-bun run cg -- context all "<task>"
-bun run cg -- query all <symbol>
-bun run cg -- files all --max-depth 2
-```
-
-Starting inside this repo directly: check `/Users/keelim/Desktop/keelim-maestro` for the dispatcher and prefer child-targeted `--path` calls. Never initialize a workspace-root `.codegraph/` mixing child repos.
+Immediately report exposed signing/provider credentials, loss of user records, or a schema/navigation change that crosses app ownership without authorization. Record other unresolved issues and unavailable allowed test tasks in `docs/tracking/findings.md`.

@@ -1,7 +1,5 @@
 # :feature:ui-scheme
 
-Before changing this module, read the [repository rules](../../AGENTS.md).
-
 ## Focus
 
 Scheme and deep-link activities are `SchemeActivity.kt`, `SchemeTestActivity.kt`, `IdActivity.kt`, and `IdDetailActivity.kt`; notification handling is in `notification/`.

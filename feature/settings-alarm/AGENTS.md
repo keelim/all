@@ -1,7 +1,5 @@
 # :feature:settings-alarm
 
-Before changing this module, read the [repository rules](../../AGENTS.md).
-
 ## Focus
 
 Alarm settings are split between `AlarmScreen.kt`, `AlarmSection.kt`, `AlarmViewModel.kt`, and `SettingsAlarmNavigation.kt`.

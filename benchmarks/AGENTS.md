@@ -1,7 +1,5 @@
 # :benchmarks
 
-Before changing this module, read the [repository rules](../AGENTS.md).
-
 ## Focus
 
 JVM benchmark fixtures live in `src/main/java/com/keelim/benchmarks/`. Keep benchmarks deterministic and isolate the operation being measured.

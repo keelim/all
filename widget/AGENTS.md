@@ -1,7 +1,5 @@
 # :widget
 
-Before changing this module, read the [repository rules](../AGENTS.md).
-
 ## Focus
 
 Glance widget entry points are `ui/WidgetReceiver.kt` and `ui/Widget.kt`; widget metadata is in `src/main/res/xml*/widget_info.xml`.

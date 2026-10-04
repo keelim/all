@@ -1,7 +1,5 @@
 # :core:common-android
 
-Before changing this module, read the [repository rules](../../AGENTS.md).
-
 ## Focus
 
 Android shared infrastructure is organized by `initialize/`, `platform/`, `extensions/`, and `BaseApplication.kt`.

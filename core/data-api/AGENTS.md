@@ -1,7 +1,5 @@
 # :core:data-api
 
-Before changing this module, read the [repository rules](../../AGENTS.md).
-
 ## Focus
 
 Repository contracts are in `repository/`; transport-facing models and JSON contracts are in `model/` and `json/`.

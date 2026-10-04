@@ -1,7 +1,5 @@
 # :core:datastore-proto
 
-Before changing this module, read the [repository rules](../../AGENTS.md).
-
 ## Focus
 
 The persisted user-settings contract is `src/main/proto/com/keelim/core/data/user_setting.proto`.

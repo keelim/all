@@ -1,7 +1,5 @@
 # :feature:settings-theme
 
-Before changing this module, read the [repository rules](../../AGENTS.md).
-
 ## Focus
 
 Theme selection is implemented by `screen/theme/ThemeScreen.kt`, `ThemeViewModel.kt`, and `navigation/SettingsThemeNavigation.kt`.

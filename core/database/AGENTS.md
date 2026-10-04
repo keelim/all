@@ -1,7 +1,5 @@
 # :core:database
 
-Before changing this module, read the [repository rules](../../AGENTS.md).
-
 ## Focus
 
 Hilt database bindings are in `DatabaseModule.kt` and `DaoModule.kt`; entity conversions are in `mapper/`.

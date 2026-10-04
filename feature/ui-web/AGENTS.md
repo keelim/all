@@ -1,7 +1,5 @@
 # :feature:ui-web
 
-Before changing this module, read the [repository rules](../../AGENTS.md).
-
 ## Focus
 
 WebView integration lives in `WebView.kt`, `KeelimWebViewClient.kt`, and `WebEx.kt`.

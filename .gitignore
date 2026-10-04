@@ -32,5 +32,26 @@ debug-log.json
 # Local product-design audit evidence
 .design-audit/
 
-# Local documentation
-docs/
+# Local documentation remains private except explicit operational guides
+/docs/*
+
+# Local review state and backups
+.dryforge/
+
+!/docs/architecture.md
+!/docs/business-rules.md
+!/docs/security.md
+!/docs/standards.md
+!/docs/engineering-notes.md
+!/docs/operations.md
+!/docs/contracts.md
+!/docs/AGENTS.md
+!/docs/tracking/
+/docs/tracking/*
+!/docs/tracking/status.md
+!/docs/tracking/findings.md
+!/docs/tracking/decisions/
+/docs/tracking/decisions/*
+!/docs/tracking/decisions/index.md
+!/docs/tracking/decisions/0001-shared-ui-boundary.md
+!/docs/tracking/decisions/0002-focused-module-checks.md

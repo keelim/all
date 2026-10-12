@@ -32,12 +32,11 @@ debug-log.json
 # Local product-design audit evidence
 .design-audit/
 
-# Local documentation remains private except explicit operational guides
-/docs/*
-
 # Local review state and backups
 .dryforge/
 
+# Local documentation remains private except explicit operational guides
+/docs/*
 !/docs/architecture.md
 !/docs/business-rules.md
 !/docs/security.md

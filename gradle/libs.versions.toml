@@ -11,7 +11,7 @@ androidGradlePlugin = "9.2.1"
 androidx-sqlite = "2.6.2"
 androidxActivity = "1.12.4"
 androidxAppCompat = "1.7.1"
-androidxAppFunctions = "1.0.0-alpha10"
+androidxAppFunctions = "1.0.0-alpha09"
 androidxBrowser = "1.9.0"
 androidxComposeBom = "2026.07.00"
 androidxComposeRuntimeTracing = "1.10.3"
@@ -87,7 +87,6 @@ math3 = "3.6.1"
 media3 = "1.9.2"
 mockk = "1.14.9"
 modernstorageBom = "1.0.0-alpha06"
-moduleGraphAssertion = "2.9.1"
 okhttp = "5.3.2"
 okio = "3.16.4"
 paging-compose = "3.4.1"
@@ -404,7 +403,6 @@ kotlin-allopen = { id = "org.jetbrains.kotlin.plugin.allopen", version.ref = "ko
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-moduleGraphAssertion = { id = "com.jraska.module.graph.assertion", version.ref = "moduleGraphAssertion" }
 protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
 room = { id = "androidx.room", version.ref = "room" }
 secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secrets" }

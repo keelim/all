@@ -1,6 +1,7 @@
 
 import com.android.build.api.dsl.LibraryExtension
 import com.keelim.builds.configureKotlinAndroid
+import com.keelim.builds.configureEmptySecretBuildConfig
 import com.keelim.builds.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -19,7 +20,7 @@ class KeelimAndroidLibraryPlugin : Plugin<Project> {
 
             apply(plugin = "com.android.library")
             apply(plugin = "org.gradle.android.cache-fix")
-            apply(plugin = "com.jraska.module.graph.assertion")
+            configureEmptySecretBuildConfig()
             apply(plugin = "com.autonomousapps.dependency-analysis")
 
             extensions.getByType<LibraryExtension>().apply {

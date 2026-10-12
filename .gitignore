@@ -46,6 +46,7 @@ debug-log.json
 !/docs/contracts.md
 !/docs/AGENTS.md
 !/docs/DEVELOPMENT.md
+!/docs/MODULE_DEPENDENCIES.md
 !/docs/tracking/
 /docs/tracking/*
 !/docs/tracking/status.md

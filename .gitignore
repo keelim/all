@@ -55,3 +55,6 @@ debug-log.json
 !/docs/tracking/decisions/index.md
 !/docs/tracking/decisions/0001-shared-ui-boundary.md
 !/docs/tracking/decisions/0002-focused-module-checks.md
+
+# Rust build output
+/all-rust-lib/target/

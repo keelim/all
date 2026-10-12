@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.drawscope.rotate
+import androidx.compose.ui.graphics.nativePaint
 import androidx.compose.ui.unit.dp
 import com.keelim.composeutil.resource.space12
 import com.keelim.composeutil.resource.space8
@@ -122,7 +123,7 @@ fun DrawText(
     modifier: Modifier = Modifier,
 ) {
     val paint = remember {
-        Paint().asFrameworkPaint().apply {
+        Paint().nativePaint.apply {
             // paint configuration
             // this.textSize = 60f
         }

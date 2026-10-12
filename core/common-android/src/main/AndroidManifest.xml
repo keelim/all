@@ -23,7 +23,7 @@
                 android:value="androidx.startup" />
         </provider>
         <provider
-            android:name="androidx.core.content.FileProvider"
+            android:name="com.keelim.commonAndroid.platform.export.PlatformFileProvider"
             android:authorities="${applicationId}.keelim-platform-files"
             android:exported="false"
             android:grantUriPermissions="true">

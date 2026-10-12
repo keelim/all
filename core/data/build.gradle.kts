@@ -50,6 +50,12 @@ dependencies {
     implementation(libs.firebase.appcheck)
     implementation(libs.firebase.appcheck.debug)
 
+    constraints {
+        implementation(libs.firebase.protolite) {
+            because("19.0.0 keeps Firebase proto types without duplicating protobuf-javalite descriptors")
+        }
+    }
+
     testImplementation(libs.kotlinx.coroutines.android)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(platform(libs.androidx.compose.bom))

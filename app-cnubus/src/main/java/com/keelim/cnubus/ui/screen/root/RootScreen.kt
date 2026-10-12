@@ -23,6 +23,8 @@ import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.ExposedDropdownMenu
+import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import com.keelim.core.designsystem.component.KuiButton
 import com.keelim.core.designsystem.component.KuiButtonVariant
 import com.keelim.core.designsystem.component.KuiCard
@@ -435,6 +437,7 @@ val roots = listOf(
 )
 
 @Preview
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ExposedDropdownMenuSample() {
     var expanded by remember { mutableStateOf(false) }
@@ -444,7 +447,7 @@ private fun ExposedDropdownMenuSample() {
         onExpandedChange = { expanded = !expanded },
     ) {
         KuiFilledTextField(
-            modifier = Modifier.menuAnchor(),
+            modifier = Modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable),
             readOnly = true,
             value = selectedOptionText,
             onValueChange = {},

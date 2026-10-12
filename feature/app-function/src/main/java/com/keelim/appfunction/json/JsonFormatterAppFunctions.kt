@@ -19,7 +19,7 @@ class JsonFormatterAppFunctions internal constructor(
      *
      * Input must be non-blank, valid JSON and at most 65,536 characters.
      */
-    @AppFunction(isDescribedByKdoc = true)
+    @AppFunction(isDescribedByKDoc = true)
     suspend fun formatJson(
         appFunctionContext: AppFunctionContext,
         inputJson: String,

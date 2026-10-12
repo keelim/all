@@ -9,6 +9,10 @@ plugins {
     alias(libs.plugins.keelim.android.hilt)
 }
 
+secrets {
+    defaultPropertiesFileName = "local.defaults.properties"
+}
+
 android {
     defaultConfig {
         applicationId = "com.keelim.arducon"
@@ -53,6 +57,7 @@ dependencies {
     implementation(libs.timber)
     implementation(libs.jsoup)
     implementation(libs.tehras.chart)
+    implementation(libs.kotlinx.serialization.json)
 
     testImplementation(projects.core.testing)
 }

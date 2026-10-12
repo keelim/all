@@ -3,7 +3,7 @@ package com.keelim.testing.util
 import io.kotest.core.listeners.AfterEachListener
 import io.kotest.core.listeners.BeforeEachListener
 import io.kotest.core.test.TestCase
-import io.kotest.core.test.TestResult
+import io.kotest.engine.test.TestResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestDispatcher

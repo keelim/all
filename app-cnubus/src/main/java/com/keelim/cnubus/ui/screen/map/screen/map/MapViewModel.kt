@@ -25,16 +25,17 @@ data class MapState(
     val itemSnippet: String,
     val imageUrl: String,
 ) : ClusterItem {
-    override fun getPosition(): LatLng =
-        latlng
+    override val position: LatLng
+        get() = latlng
 
-    override fun getTitle(): String =
-        name
+    override val title: String
+        get() = name
 
-    override fun getSnippet(): String =
-        itemSnippet
+    override val snippet: String
+        get() = itemSnippet
 
-    override fun getZIndex(): Float? = null
+    override val zIndex: Float?
+        get() = null
 }
 
 @Stable

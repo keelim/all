@@ -11,7 +11,8 @@ androidGradlePlugin = "9.4.1"
 androidx-sqlite = "2.7.1"
 androidxActivity = "1.13.0"
 androidxAppCompat = "1.8.0"
-androidxAppFunctions = "1.0.0-alpha13"
+# alpha10+ requires migrating the legacy service entry points before upgrading.
+androidxAppFunctions = "1.0.0-alpha09"
 androidxBrowser = "1.10.0"
 androidxComposeBom = "2026.10.00"
 androidxComposeRuntimeTracing = "1.12.1"
@@ -54,6 +55,7 @@ emoji2-emojipicker = "1.7.0"
 errorprone = "2.50.0"
 firebase = "34.19.0"
 firebase-ui = "9.1.1"
+firebaseProtolite = "19.0.0"
 firebaseCrashlyticsPlugin = "3.0.8"
 firebasePerfPlugin = "2.0.2"
 generativeai = "0.9.0"
@@ -247,6 +249,7 @@ firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore
 firebase-inappmessaging = { group = "com.google.firebase", name = "firebase-inappmessaging-display" }
 firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging" }
 firebase-performance = { group = "com.google.firebase", name = "firebase-perf" }
+firebase-protolite = { group = "com.google.firebase", name = "protolite-well-known-types", version.ref = "firebaseProtolite" }
 firebase-performance-gradlePlugin = { group = "com.google.firebase", name = "perf-plugin", version.ref = "firebasePerfPlugin" }
 firebase-storage = { group = "com.google.firebase", name = "firebase-storage" }
 firebase-ui-auth = { group = "com.firebaseui", name = "firebase-ui-auth", version.ref = "firebase-ui" }

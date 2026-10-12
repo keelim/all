@@ -43,7 +43,7 @@ fun Project.configureKotlinAndroid(
     commonExtension.apply {
         compileSdk {
             version = release(libs.findVersion("compileSdk").get().displayName.toInt()) {
-                minorApiLevel = 0
+                minorApiLevel = 2
             }
         }
         // compileSdkExtension = ProjectConfiguration.compileSdkExtension

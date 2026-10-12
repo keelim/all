@@ -9,7 +9,7 @@ class HealthAppFunctions {
     /**
      * Returns a neutral health-check signal to validate App Functions integration.
      */
-    @AppFunction(isDescribedByKdoc = true)
+    @AppFunction(isDescribedByKDoc = true)
     suspend fun getHealthStatus(appFunctionContext: AppFunctionContext): HealthStatus {
         return provider.status()
     }

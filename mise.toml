@@ -1,0 +1,57 @@
+min_version = "2026.10.8"
+
+[tools]
+# Keep the exact existing Temurin runtime used for scoped module verification.
+java = "temurin-17.0.20+8"
+
+[tool_config]
+locked = true
+
+[settings.task]
+# Install explicitly; inspection must not install inherited workspace tools.
+run_auto_install = false
+
+[tasks.doctor]
+description = "Check the exact JDK and checked-in Gradle Wrapper"
+run = [
+  '''
+set -eu
+java_properties="$(java -XshowSettings:properties -version 2>&1)"
+runtime="$(printf '%s\n' "$java_properties" | sed -n 's/^[[:space:]]*java.runtime.version = //p')"
+vendor="$(printf '%s\n' "$java_properties" | sed -n 's/^[[:space:]]*java.vendor = //p')"
+printf 'Java runtime: %s (%s)\n' "$runtime" "$vendor"
+test "$runtime" = '17.0.20+8'
+test "$vendor" = 'Eclipse Adoptium'
+grep -Fq '/gradle-9.4.1-bin.zip' gradle/wrapper/gradle-wrapper.properties
+grep -Fq '/gradle-9.4.1-bin.zip' build-logic/gradle/wrapper/gradle-wrapper.properties
+''',
+  "./gradlew --version",
+]
+
+[tasks.lint]
+description = "Run Android lint for the representative core:common-android module"
+depends = ["doctor"]
+run = "./gradlew --no-daemon -Pandroid.builder.sdkDownload=false :core:common-android:lintDebug"
+
+[tasks.test]
+description = "Run existing core:common-android JVM unit tests"
+depends = ["doctor"]
+run = "./gradlew --no-daemon -Pandroid.builder.sdkDownload=false :core:common-android:testDebugUnitTest"
+
+[tasks.build]
+description = "Assemble the representative core:common-android debug library"
+depends = ["doctor"]
+run = "./gradlew --no-daemon -Pandroid.builder.sdkDownload=false :core:common-android:assembleDebug"
+
+[tasks.ci]
+description = "Run the same representative verification locally and in CI"
+run = [
+  { task = "doctor" },
+  { task = "test" },
+  { task = "lint" },
+  { task = "build" },
+]
+
+[tasks.default]
+description = "Inspect the pinned JDK and Gradle Wrapper"
+run = [{ task = "doctor" }]

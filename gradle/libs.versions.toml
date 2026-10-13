@@ -12,7 +12,7 @@ androidx-sqlite = "2.7.1"
 androidxActivity = "1.13.0"
 androidxAppCompat = "1.8.0"
 # alpha10+ requires migrating the legacy service entry points before upgrading.
-androidxAppFunctions = "1.0.0-alpha09"
+androidxAppFunctions = "1.0.0-alpha13"
 androidxBrowser = "1.10.0"
 androidxComposeBom = "2026.10.00"
 androidxComposeRuntimeTracing = "1.12.1"

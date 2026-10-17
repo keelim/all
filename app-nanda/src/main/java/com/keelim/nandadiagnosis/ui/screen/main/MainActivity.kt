@@ -58,7 +58,15 @@ class MainActivity : FragmentActivity() {
                     onBackgrounded = { privacyController.onBackgrounded(settings) },
                     onForegrounded = { privacyController.onForegrounded(settings) },
                 ) {
-                    WellnessRoute(canLoadAd = adsState.canRequestAds)
+                    WellnessRoute(
+                        canLoadAd = adsState.canRequestAds,
+                        privacySettings = settings,
+                        onUpdatePrivacySettings = { updated ->
+                            lifecycleScope.launch {
+                                privacySettingsRepository.update(updated)
+                            }
+                        },
+                    )
                 }
             }
         }

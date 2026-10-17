@@ -44,12 +44,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.activity.compose.BackHandler
+import androidx.compose.ui.Alignment
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.keelim.common.platform.privacy.PrivacySettings
 import com.keelim.model.wellness.Measurement
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.wellness.WellnessUiState
 import com.keelim.nandadiagnosis.wellness.domain.MeasurementState
 import com.keelim.nandadiagnosis.wellness.morning.MorningSignalViewModel
+import java.time.Duration
 
 @Composable
 internal fun ToolsScreen(
@@ -57,10 +61,26 @@ internal fun ToolsScreen(
     privacyMode: Boolean,
     onPrivacyModeChange: (Boolean) -> Unit,
     onSaveMeasurement: (String, String, MeasurementState) -> Boolean,
+    privacySettings: PrivacySettings = PrivacySettings(
+        appLockEnabled = false,
+        obscureRecentApps = true,
+        blockScreenshots = true,
+        autoLockTimeout = Duration.ofMinutes(5),
+    ),
+    onUpdatePrivacySettings: (PrivacySettings) -> Unit = {},
+    onNavigateToTab: (WellnessDestination) -> Unit = {},
     morningSignalViewModel: MorningSignalViewModel? = null,
 ) {
     var showMeasurements by rememberSaveable { mutableStateOf(false) }
     var showMorningSignal by rememberSaveable { mutableStateOf(false) }
+
+    BackHandler(enabled = showMeasurements || showMorningSignal) {
+        when {
+            showMeasurements -> showMeasurements = false
+            showMorningSignal -> showMorningSignal = false
+        }
+    }
+
     if (showMeasurements) {
         MeasurementToolScreen(
             measurements = uiState.measurements,
@@ -98,9 +118,18 @@ internal fun ToolsScreen(
                     title = stringResource(R.string.wellness_tools_measurement),
                     onClick = { showMeasurements = true },
                 )
-                ToolLabel(stringResource(R.string.wellness_tools_supplements))
-                ToolLabel(stringResource(R.string.wellness_tools_self_check))
-                ToolLabel(stringResource(R.string.wellness_tools_care_notes))
+                ToolButton(
+                    title = stringResource(R.string.wellness_tools_supplements),
+                    onClick = { onNavigateToTab(WellnessDestination.PLAN) },
+                )
+                ToolButton(
+                    title = stringResource(R.string.wellness_tools_self_check),
+                    onClick = { onNavigateToTab(WellnessDestination.TODAY) },
+                )
+                ToolButton(
+                    title = stringResource(R.string.wellness_tools_care_notes),
+                    onClick = { onNavigateToTab(WellnessDestination.TODAY) },
+                )
             }
         }
         item(key = "subFeatures") {
@@ -113,23 +142,32 @@ internal fun ToolsScreen(
         }
         item(key = "privacyTools") {
             ToolSection(title = stringResource(R.string.wellness_tools_privacy)) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                ) {
-                    Text(
-                        text = stringResource(R.string.wellness_privacy_mode),
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = MaterialTheme.colorScheme.onSurface,
-                    )
-                    Switch(
-                        checked = privacyMode,
-                        onCheckedChange = onPrivacyModeChange,
-                    )
-                }
-                ToolLabel(stringResource(R.string.wellness_tools_app_lock))
-                ToolLabel(stringResource(R.string.wellness_tools_recent_blur))
-                ToolLabel(stringResource(R.string.wellness_tools_capture))
+                ToolSwitchRow(
+                    title = stringResource(R.string.wellness_privacy_mode),
+                    checked = privacyMode,
+                    onCheckedChange = onPrivacyModeChange,
+                )
+                ToolSwitchRow(
+                    title = stringResource(R.string.wellness_tools_app_lock),
+                    checked = privacySettings.appLockEnabled,
+                    onCheckedChange = { enabled ->
+                        onUpdatePrivacySettings(privacySettings.copy(appLockEnabled = enabled))
+                    },
+                )
+                ToolSwitchRow(
+                    title = stringResource(R.string.wellness_tools_recent_blur),
+                    checked = privacySettings.obscureRecentApps,
+                    onCheckedChange = { enabled ->
+                        onUpdatePrivacySettings(privacySettings.copy(obscureRecentApps = enabled))
+                    },
+                )
+                ToolSwitchRow(
+                    title = stringResource(R.string.wellness_tools_capture),
+                    checked = privacySettings.blockScreenshots,
+                    onCheckedChange = { enabled ->
+                        onUpdatePrivacySettings(privacySettings.copy(blockScreenshots = enabled))
+                    },
+                )
             }
         }
         item(key = "dataTools") {
@@ -184,6 +222,29 @@ private fun ToolButton(
             modifier = Modifier.fillMaxWidth(),
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.primary,
+        )
+    }
+}
+
+@Composable
+private fun ToolSwitchRow(
+    title: String,
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(
+            text = title,
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onSurface,
+        )
+        Switch(
+            checked = checked,
+            onCheckedChange = onCheckedChange,
         )
     }
 }

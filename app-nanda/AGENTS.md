@@ -1,33 +1,34 @@
 # app-nanda
 
 ## OVERVIEW
-Nursing support and health tracking application. Provides NANDA (North American Nursing Diagnosis Association) diagnosis search and comprehensive health trackers for daily physical activities and clinical support.
+Daily wellness and care tracking application ("Buddy Daily"). Provides private daily care weather check-ins, condition self-checks, weekly routine planning, trend insights, body measurement records, morning signal reminders, and platform privacy controls.
 
 ## STRUCTURE
 ```
 app-nanda/src/main/java/com/keelim/nandadiagnosis/
-├── ui/screen/         # Feature-based screen implementations
-│   ├── diagnosis/     # NANDA diagnosis search & categories
-│   ├── food/          # Food intake & calorie tracking
-│   ├── water/         # Hydration tracker with animated ring
-│   ├── medication/    # Medication schedules & reminders
-│   └── nutrient/      # Nutrient tracking with specialized timers
-├── notification/      # Medication alarm receivers & notifications
-└── worker/            # Background data synchronization workers
+├── di/
+│   └── NandaPlatformModule.kt        # Hilt bindings for PrivacySettingsRepository, NotificationScheduler, TimeProvider
+├── ui/
+│   ├── screen/main/MainActivity.kt   # FragmentActivity host wiring KeelimAppShell, BiometricPrivacyAuthenticator, and WellnessRoute
+│   └── theme/NandaTheme.kt           # App Material 3 theme
+└── wellness/
+    ├── WellnessViewModel.kt          # Core StateFlow coordinator for check-ins, care check-ins, routines, and measurements
+    ├── ads/                          # Consent and adaptive AdMob banner controllers
+    ├── morning/                      # MorningSignalViewModel and daily reminder scheduling
+    └── ui/                           # Compose screens (WellnessScreen, Today/BuddyScreen, Plan/RoutineScreen, InsightsScreen, ToolsScreen, MorningSignalScreen)
 ```
 
 ## WHERE TO LOOK
-- `ui/screen/diagnosis/`: Entry point for nursing diagnosis search.
-- `ui/screen/water/WaterIntakeScreen.kt`: Implementation of the animated progress ring.
-- `ui/screen/food/overview/FoodScreen.kt`: Daily calorie summary and food list.
-- `notification/MedicationAlarmReceiver.kt`: Core logic for medication reminders.
+- `ui/screen/main/MainActivity.kt`: App entry point connecting `KeelimAppShell`, `PrivacySettingsRepository`, and `WellnessRoute`.
+- `wellness/ui/WellnessScreen.kt`: Main 4-tab scaffold (`TODAY`, `PLAN`, `INSIGHTS`, `TOOLS`), top-bar privacy mode toggle, and tab-level `BackHandler`.
+- `wellness/ui/ToolsScreen.kt`: Health tools hub, sub-screen navigation (`MeasurementToolScreen`, `MorningSignalRoute`) with `BackHandler`, and `PrivacySettings` switches (`appLockEnabled`, `obscureRecentApps`, `blockScreenshots`).
+- `wellness/morning/MorningSignalViewModel.kt`: Daily reminder state and notification scheduling logic.
 
 ## FEATURES
-- **NANDA Diagnosis**: Searchable database of nursing diagnoses categorized by clinical domains.
-- **Hydration Tracker**: Water intake logging with goal-based animated progress ring and weekly history charts.
-- **Food & Exercise**: Calorie-conscious tracking of dietary intake and physical activities.
-- **Medication Management**: Persistent reminder system for medication schedules with alarm integration.
-- **Nutrient Timer**: Specialized tracking for nutrient intake durations.
+- **Daily Care & Condition Check-In (`Today`)**: One-tap care weather logging (`Comfortable`, `A little noticeable`, `Needs attention`) and detailed daily condition check-ins.
+- **Weekly Routine Plan (`Plan`)**: Routine creation, weekly completion tracking, and duration validation.
+- **Condition Trend & Insights (`Insights`)**: 7-day / 28-day condition trend charts and pattern recognition with privacy-mode masking.
+- **Health & Privacy Tools (`Tools`)**: Body measurement records with ruler mode, morning signal reminder configuration, and persisted platform privacy controls (`FLAG_SECURE` screenshot blocking, recent-apps blur, biometric app lock).
 
 ## CONVENTIONS
 - **State Management**: Use `collectAsStateWithLifecycle()` for all ViewModel state flows.

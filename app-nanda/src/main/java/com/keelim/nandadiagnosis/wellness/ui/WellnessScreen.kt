@@ -39,6 +39,8 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.semantics.toggleableState
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.res.stringResource
+import androidx.activity.compose.BackHandler
+import com.keelim.common.platform.privacy.PrivacySettings
 import com.keelim.model.wellness.Routine
 import com.keelim.model.wellness.CareCondition
 import com.keelim.nandadiagnosis.R
@@ -48,6 +50,7 @@ import com.keelim.nandadiagnosis.wellness.morning.MorningSignalViewModel
 import com.keelim.model.wellness.DailyCheckIn
 import com.keelim.nandadiagnosis.wellness.domain.MeasurementState
 import com.keelim.nandadiagnosis.wellness.domain.RoutineKind
+import java.time.Duration
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
@@ -64,18 +67,39 @@ internal fun WellnessScreen(
     onSetRoutineCompletion: (Routine, Boolean, Int?) -> Unit,
     onDeleteRoutine: (Routine) -> Unit,
     canLoadAd: Boolean = false,
+    privacySettings: PrivacySettings = PrivacySettings(
+        appLockEnabled = false,
+        obscureRecentApps = true,
+        blockScreenshots = true,
+        autoLockTimeout = Duration.ofMinutes(5),
+    ),
+    onUpdatePrivacySettings: (PrivacySettings) -> Unit = {},
     morningSignalViewModel: MorningSignalViewModel? = null,
 ) {
     var selectedTabIndex by rememberSaveable { mutableIntStateOf(0) }
     var privacyMode by rememberSaveable { mutableStateOf(true) }
     val selectedTab = WellnessDestination.entries[selectedTabIndex]
 
+    BackHandler(enabled = selectedTabIndex != 0) {
+        selectedTabIndex = 0
+    }
+
+    val updatePrivacyMode: (Boolean) -> Unit = { next ->
+        privacyMode = next
+        onUpdatePrivacySettings(
+            privacySettings.copy(
+                blockScreenshots = next,
+                obscureRecentApps = next,
+            ),
+        )
+    }
+
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             WellnessTopBar(
                 privacyMode = privacyMode,
-                onPrivacyModeChange = { privacyMode = !privacyMode },
+                onPrivacyModeChange = { updatePrivacyMode(!privacyMode) },
             )
         },
         bottomBar = {
@@ -153,7 +177,10 @@ internal fun WellnessScreen(
                 WellnessDestination.TOOLS -> ToolsScreen(
                     uiState = uiState,
                     privacyMode = privacyMode,
-                    onPrivacyModeChange = { privacyMode = it },
+                    onPrivacyModeChange = updatePrivacyMode,
+                    privacySettings = privacySettings,
+                    onUpdatePrivacySettings = onUpdatePrivacySettings,
+                    onNavigateToTab = { selectedTabIndex = it.ordinal },
                     onSaveMeasurement = onSaveMeasurement,
                     morningSignalViewModel = morningSignalViewModel,
                 )

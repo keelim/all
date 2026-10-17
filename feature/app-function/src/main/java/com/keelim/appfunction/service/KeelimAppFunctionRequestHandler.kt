@@ -33,13 +33,19 @@ internal class KeelimAppFunctionRequestHandler(
                     health.status(),
                 ),
             )
-            JSON_ID -> result.setString(
-                ExecuteAppFunctionResponse.Success.PROPERTY_RETURN_VALUE,
-                json.formatJson(
-                    request.functionParameters.getString("inputJson")
-                        ?: throw AppFunctionInvalidArgumentException("Missing inputJson parameter"),
-                ),
-            )
+            JSON_ID -> {
+                val parameters = request.functionParameters
+                if (!parameters.containsKey("inputJson")) {
+                    throw AppFunctionInvalidArgumentException("Missing inputJson parameter")
+                }
+                result.setString(
+                    ExecuteAppFunctionResponse.Success.PROPERTY_RETURN_VALUE,
+                    json.formatJson(
+                        parameters.getString("inputJson")
+                            ?: throw AppFunctionInvalidArgumentException("Missing inputJson parameter"),
+                    ),
+                )
+            }
             else -> throw AppFunctionFunctionNotFoundException(
                 "${request.functionIdentifier} is not available",
             )

@@ -5,6 +5,8 @@ import javax.xml.transform.TransformerFactory
 import javax.xml.transform.dom.DOMSource
 import javax.xml.transform.stream.StreamResult
 import org.w3c.dom.Element
+import org.gradle.api.tasks.bundling.Jar
+import org.gradle.api.tasks.compile.JavaCompile
 
 plugins {
     alias(libs.plugins.keelim.android.library)
@@ -16,6 +18,25 @@ android {
     namespace = "com.keelim.appfunction"
     testOptions.unitTests.isIncludeAndroidResources = true
 }
+
+// AndroidX builds this public wrapper against snapshot-only platform stubs. Publish only
+// their compile classpath to consuming apps; the optional system library supplies runtime code.
+val extensionStubClasspath = configurations.create("appFunctionExtensionStubClasspath") {
+    isCanBeConsumed = false
+    attributes.attribute(Usage.USAGE_ATTRIBUTE, objects.named(Usage.JAVA_API))
+}
+val compileExtensionStubs = tasks.register<JavaCompile>("compileAppFunctionExtensionStubs") {
+    source(layout.projectDirectory.dir("extension-stubs/src/main/java"))
+    classpath = files(android.bootClasspath, extensionStubClasspath)
+    destinationDirectory.set(layout.buildDirectory.dir("extension-stubs/classes"))
+    options.release.set(17)
+}
+val extensionStubsJar = tasks.register<Jar>("appFunctionExtensionStubsJar") {
+    from(compileExtensionStubs.flatMap { it.destinationDirectory })
+    archiveClassifier.set("extension-stubs")
+    destinationDirectory.set(layout.buildDirectory.dir("extension-stubs/libs"))
+}
+val extensionStubFiles = files(extensionStubsJar.flatMap { it.archiveFile })
 
 /** Combines compiler-owned indexes while retaining each service's component references. */
 abstract class MergeAppFunctionMetadata : DefaultTask() {
@@ -102,13 +123,21 @@ ksp {
 }
 
 dependencies {
+    add(extensionStubClasspath.name, libs.androidx.annotation)
+    add(extensionStubClasspath.name, libs.jspecify)
+    add("compileOnlyApi", extensionStubFiles)
     implementation(projects.core.data)
     implementation(libs.androidx.appfunctions.runtime)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.coroutines.android)
     ksp(libs.androidx.appfunctions.compiler)
 
     testImplementation(projects.core.testing)
     testImplementation(libs.robolectric)
     testImplementation(libs.mockk.jvm)
+    testImplementation(libs.androidx.appsearch)
+    testImplementation(libs.androidx.appsearch.platform)
+    testImplementation(libs.guava)
+    testRuntimeOnly(extensionStubFiles)
     testRuntimeOnly(libs.junit.vintage.engine)
 }

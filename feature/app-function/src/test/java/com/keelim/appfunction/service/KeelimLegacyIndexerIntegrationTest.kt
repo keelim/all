@@ -129,6 +129,20 @@ class KeelimLegacyIndexerIntegrationTest {
     }
 
     @Test
+    fun legacyJsonFunctionMissingInputParameterReturnsInvalidArgument() {
+        val outcome = execute(
+            functionId = JSON_FUNCTION_ID,
+            inputJson = null,
+        )
+
+        assertEquals(1, outcome.callbackCount.get())
+        assertNull(outcome.response.get())
+        val error = assertNotNullAndGet(outcome.error.get())
+        assertEquals(AppFunctionException.ERROR_INVALID_ARGUMENT, error.errorCode)
+        assertEquals("Missing inputJson parameter", error.message)
+    }
+
+    @Test
     fun unmatchedLegacySchemaFailsAsFunctionNotFound() {
         schemaNameOverrides[HEALTH_FUNCTION_ID] = "unregisteredHealthSchema"
 
@@ -203,7 +217,7 @@ class KeelimLegacyIndexerIntegrationTest {
         functionId: String,
         inputJson: String?,
     ): PlatformExecuteAppFunctionRequest {
-        val parameters = PlatformGenericDocument.Builder("", "", "")
+        val parameters = PlatformGenericDocument.Builder<PlatformGenericDocument.Builder<*>>("", "", "")
             .apply {
                 inputJson?.let { setPropertyString("inputJson", it) }
             }
@@ -216,7 +230,7 @@ class KeelimLegacyIndexerIntegrationTest {
     private fun staticDocument(
         packageName: String,
         functionId: String,
-    ) = GenericDocument.Builder(
+    ) = GenericDocument.Builder<GenericDocument.Builder<*>>(
         STATIC_NAMESPACE,
         documentId(packageName, functionId),
         "AppFunctionStaticMetadata-$packageName",
@@ -235,7 +249,7 @@ class KeelimLegacyIndexerIntegrationTest {
         functionId: String,
     ): GenericDocument {
         val staticId = documentId(packageName, functionId)
-        return GenericDocument.Builder(
+        return GenericDocument.Builder<GenericDocument.Builder<*>>(
             RUNTIME_NAMESPACE,
             staticId,
             "AppFunctionRuntimeMetadata",

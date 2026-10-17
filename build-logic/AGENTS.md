@@ -6,7 +6,7 @@ Centralized build configuration using Gradle convention plugins. Encapsulates sh
 ## CONVENTION PLUGINS
 | Plugin ID | Purpose |
 |-----------|---------|
-| `keelim.android.application` | Base Android app config (SDK 36, versionCode, buildTypes, lint, baseline profile) |
+| `keelim.android.application` | Base Android app config (SDK 37, versionCode, buildTypes, lint, baseline profile) |
 | `keelim.android.application.firebase` | Integrates Firebase Performance and Crashlytics |
 | `keelim.android.application.compose` | Enables Jetpack Compose for application modules |
 | `keelim.android.application.jacoco` | Configures Jacoco code coverage for applications |

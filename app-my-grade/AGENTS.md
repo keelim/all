@@ -41,3 +41,4 @@ Comprehensive student utility app featuring grade calculation based on normal di
 - Uses **Apache Commons Math** for core statistical calculations.
 - Integrated with `feature:ui-setting` for global theme and notification management.
 - DeepLink support via `deeplinkdispatch`.
+- External Android CLI Journey E2E definition: `journeys/app-my-grade-journey.xml` (`journeys/reports/app-my-grade-report.json`).

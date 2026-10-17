@@ -50,3 +50,4 @@ app-arducon/
 ## NOTES
 - **API 36 Support**: Uses latest Android features for live updates and notification styles.
 - **Testing**: ViewModels are unit-tested in `src/test` using MockK and JUnit5.
+- **Journey E2E**: External Android CLI Journey definition at `journeys/app-arducon-journey.xml` (`journeys/reports/app-arducon-report.json`).

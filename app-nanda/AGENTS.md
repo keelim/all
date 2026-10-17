@@ -40,6 +40,7 @@ app-nanda/src/main/java/com/keelim/nandadiagnosis/
 - **No Compose UI tests**: Do not add or run Compose/instrumentation UI tests in `app-nanda`; `androidx.compose.ui.test`, `createComposeRule`, `createAndroidComposeRule`, and Compose test rules are intentionally excluded.
 - **Default verification**: When files in this module change, run only `./gradlew :app-nanda:testDebugUnitTest`. Do not substitute build, lint, connected, repository-wide, or diff-check tasks unless explicitly requested.
 - **Narrow exception**: A future non-Compose instrumentation integration test may be added only when explicitly requested; this policy does not disable that test type.
+- **External Journey E2E**: Live emulator Journey verification is defined in `journeys/app-nanda-journey.xml` (evaluated via Android CLI `android run` / `android layout` without Compose test dependencies; report at `journeys/reports/app-nanda-report.json`).
 
 ## ANTI-PATTERNS
 - **Main Thread Work**: Never perform database queries or heavy calculations in ViewModels without `viewModelScope`.

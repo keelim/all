@@ -8,3 +8,4 @@ Glance widget entry points are `ui/WidgetReceiver.kt` and `ui/Widget.kt`; widget
 
 - Keep receiver declarations and widget metadata synchronized.
 - Treat widget updates as background-safe: obtain data through supported asynchronous paths, never on the main thread.
+- Use Glance `actionStartActivity` for click actions that navigate into host activities.

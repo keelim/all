@@ -7,4 +7,4 @@ Canonical Android Compose tokens and primitives are under `theme/` and `componen
 ## Boundaries
 
 - Add reusable tokens or primitives here before adding screen-local style values.
-- Keep public design tokens stable; use `:core:component` for larger compatibility widgets.
+- Keep public design tokens stable; use `:core:component` for larger compatibility and interactive widgets (`VPrism`, `TextStream`, `KeelimNavDisplay`).

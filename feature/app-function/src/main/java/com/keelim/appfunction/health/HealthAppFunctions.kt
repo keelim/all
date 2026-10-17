@@ -8,8 +8,11 @@ class HealthAppFunctions {
 
     /**
      * Returns a neutral health-check signal to validate App Functions integration.
+     *
+     * @param appFunctionContext The execution context provided by the AppFunction framework.
+     * @return A [HealthStatus] object representing the health check status of the module.
      */
-    @AppFunction(isDescribedByKdoc = true)
+    @AppFunction(isDescribedByKDoc = true)
     suspend fun getHealthStatus(appFunctionContext: AppFunctionContext): HealthStatus {
         return provider.status()
     }

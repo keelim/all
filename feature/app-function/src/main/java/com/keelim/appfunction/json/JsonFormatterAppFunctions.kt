@@ -23,8 +23,13 @@ class JsonFormatterAppFunctions internal constructor(
      * Formats a JSON value without changing application state.
      *
      * Input must be non-blank, valid JSON and at most 65,536 characters.
+     *
+     * @param appFunctionContext The execution context provided by the AppFunction framework.
+     * @param inputJson The raw JSON string to pretty-print. Must be valid JSON up to 65,536 characters.
+     * @return The formatted pretty-printed JSON string.
+     * @throws IllegalArgumentException If [inputJson] is blank, exceeds 65,536 characters, or is not valid JSON.
      */
-    @AppFunction(isDescribedByKdoc = true)
+    @AppFunction(isDescribedByKDoc = true)
     suspend fun formatJson(
         appFunctionContext: AppFunctionContext,
         inputJson: String,

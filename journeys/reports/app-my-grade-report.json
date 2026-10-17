@@ -1,0 +1,95 @@
+{
+  "journey": "MyGrade Calculator & Pager Journey",
+  "results": [
+    {
+      "action": "Verify that the app is open and the title \"MyGrade\" is displayed",
+      "status": "PASSED",
+      "commands": [
+        "adb shell am start -n com.keelim.mygrade/.ui.screen.MainActivity",
+        "/Users/keelim/.local/bin/android layout --pretty"
+      ],
+      "comment": "\"MyGrade\" is displayed at bounds [32,122][286,195]"
+    },
+    {
+      "action": "Verify that \"과목명\" is visible on the screen",
+      "status": "PASSED",
+      "commands": [
+        "/Users/keelim/.local/bin/android layout --pretty"
+      ],
+      "comment": "\"과목명\" label is visible at bounds [32,290][149,351]"
+    },
+    {
+      "action": "Verify that \"원점수\" is visible on the screen",
+      "status": "PASSED",
+      "commands": [
+        "/Users/keelim/.local/bin/android layout --pretty"
+      ],
+      "comment": "\"원점수\" label is visible at bounds [32,532][149,593]"
+    },
+    {
+      "action": "Verify that \"과목 평균\" is visible on the screen",
+      "status": "PASSED",
+      "commands": [
+        "/Users/keelim/.local/bin/android layout --pretty"
+      ],
+      "comment": "\"과목 평균\" label is visible at bounds [32,774][198,835]"
+    },
+    {
+      "action": "Verify that \"표준편차\" is visible on the screen",
+      "status": "PASSED",
+      "commands": [
+        "/Users/keelim/.local/bin/android layout --pretty"
+      ],
+      "comment": "\"표준편차\" label is visible at bounds [32,1016][188,1077]"
+    },
+    {
+      "action": "Verify that \"학생 수\" is visible on the screen",
+      "status": "PASSED",
+      "commands": [
+        "/Users/keelim/.local/bin/android layout --pretty"
+      ],
+      "comment": "\"학생 수\" label is visible at bounds [32,1258][159,1319]"
+    },
+    {
+      "action": "Verify that \"Clear\" button is visible on the screen",
+      "status": "PASSED",
+      "commands": [
+        "/Users/keelim/.local/bin/android layout --pretty"
+      ],
+      "comment": "\"Clear\" button is visible at bounds [597,1458][802,1584]"
+    },
+    {
+      "action": "Verify that \"Submit\" button is visible on the screen",
+      "status": "PASSED",
+      "commands": [
+        "/Users/keelim/.local/bin/android layout --pretty"
+      ],
+      "comment": "\"Submit\" button is visible at bounds [813,1458][1048,1584]"
+    },
+    {
+      "action": "Swipe left to view the Study Timer page",
+      "status": "PASSED",
+      "commands": [
+        "adb shell input swipe 900 1200 100 1200 500",
+        "/Users/keelim/.local/bin/android layout --pretty"
+      ],
+      "comment": "Successfully swiped left to horizontal pager page displaying \"Focus Timer\" and time pickers"
+    },
+    {
+      "action": "Press the back button",
+      "status": "PASSED",
+      "commands": [
+        "adb shell input keyevent 4"
+      ],
+      "comment": "Dispatched back keyevent via adb shell input keyevent 4"
+    },
+    {
+      "action": "Verify that the app is on the grade calculator page",
+      "status": "PASSED",
+      "commands": [
+        "/Users/keelim/.local/bin/android layout --pretty"
+      ],
+      "comment": "App successfully returned to grade calculator page with input fields (\"과목명\", \"원점수\", etc.)"
+    }
+  ]
+}

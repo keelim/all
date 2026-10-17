@@ -1,0 +1,68 @@
+{
+  "journey": "Comssa Economic Calendar & Financial Calculators Journey",
+  "results": [
+    {
+      "action": "Verify that the app is open and \"캘린더\" is displayed in the bottom navigation bar",
+      "status": "FAILED",
+      "commands": [
+        "adb shell am start -n com.keelim.comssa/.ui.screen.main.MainActivity",
+        "/Users/keelim/.local/bin/android layout --pretty"
+      ],
+      "comment": "App displayed network error state (\"데이터를 불러오지 못했습니다\") because backend endpoint failed to connect; bottom navigation bar containing \"캘린더\" was not rendered in error state"
+    },
+    {
+      "action": "Verify that \"환율\" is displayed in the bottom navigation bar",
+      "status": "SKIPPED",
+      "commands": [],
+      "comment": "Skipped because previous action failed"
+    },
+    {
+      "action": "Verify that \"금융\" is displayed in the bottom navigation bar",
+      "status": "SKIPPED",
+      "commands": [],
+      "comment": "Skipped because previous action failed"
+    },
+    {
+      "action": "Tap the \"금융\" tab in the bottom navigation bar",
+      "status": "SKIPPED",
+      "commands": [],
+      "comment": "Skipped because previous action failed"
+    },
+    {
+      "action": "Verify that \"금융 계산기\" is displayed in the top bar",
+      "status": "SKIPPED",
+      "commands": [],
+      "comment": "Skipped because previous action failed"
+    },
+    {
+      "action": "Verify that \"복리 계산기\" is displayed in the calculator tabs",
+      "status": "SKIPPED",
+      "commands": [],
+      "comment": "Skipped because previous action failed"
+    },
+    {
+      "action": "Verify that \"대출 상환 계산기\" is displayed in the calculator tabs",
+      "status": "SKIPPED",
+      "commands": [],
+      "comment": "Skipped because previous action failed"
+    },
+    {
+      "action": "Tap \"대출 상환 계산기\"",
+      "status": "SKIPPED",
+      "commands": [],
+      "comment": "Skipped because previous action failed"
+    },
+    {
+      "action": "Press the back button",
+      "status": "SKIPPED",
+      "commands": [],
+      "comment": "Skipped because previous action failed"
+    },
+    {
+      "action": "Verify that the app returned to the \"캘린더\" screen",
+      "status": "SKIPPED",
+      "commands": [],
+      "comment": "Skipped because previous action failed"
+    }
+  ]
+}

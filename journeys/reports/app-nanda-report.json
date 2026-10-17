@@ -1,0 +1,94 @@
+{
+  "journey": "Nanda Buddy Daily Wellness Journey",
+  "results": [
+    {
+      "action": "Verify that the app is open and the title \"Buddy Daily\" is visible on the screen",
+      "status": "PASSED",
+      "commands": [
+        "adb shell am start -n com.keelim.nandadiagnosis/.ui.screen.main.MainActivity",
+        "/Users/keelim/.local/bin/android layout --pretty"
+      ],
+      "comment": "\"Buddy Daily\" is visible in top bar at bounds [43,173][338,247]"
+    },
+    {
+      "action": "Verify that \"Today\" is displayed in the bottom navigation bar",
+      "status": "PASSED",
+      "commands": [
+        "/Users/keelim/.local/bin/android layout --pretty"
+      ],
+      "comment": "\"Today\" is displayed in bottom navigation bar at bounds [82,2190][172,2232]"
+    },
+    {
+      "action": "Verify that \"Plan\" is displayed in the bottom navigation bar",
+      "status": "PASSED",
+      "commands": [
+        "/Users/keelim/.local/bin/android layout --pretty"
+      ],
+      "comment": "\"Plan\" is displayed in bottom navigation bar at bounds [369,2190][436,2232]"
+    },
+    {
+      "action": "Verify that \"Insights\" is displayed in the bottom navigation bar",
+      "status": "PASSED",
+      "commands": [
+        "/Users/keelim/.local/bin/android layout --pretty"
+      ],
+      "comment": "\"Insights\" is displayed in bottom navigation bar at bounds [617,2190][739,2232]"
+    },
+    {
+      "action": "Verify that \"Tools\" is displayed in the bottom navigation bar",
+      "status": "PASSED",
+      "commands": [
+        "/Users/keelim/.local/bin/android layout --pretty"
+      ],
+      "comment": "\"Tools\" is displayed in bottom navigation bar at bounds [911,2190][995,2232]"
+    },
+    {
+      "action": "Tap the \"Plan\" tab in the bottom navigation bar",
+      "status": "PASSED",
+      "commands": [
+        "adb shell input tap 403 2169"
+      ],
+      "comment": "Tapped Plan tab at center [403, 2169]"
+    },
+    {
+      "action": "Verify that \"This week’s plan\" is visible on the screen",
+      "status": "PASSED",
+      "commands": [
+        "/Users/keelim/.local/bin/android layout --pretty"
+      ],
+      "comment": "\"This week’s plan\" is visible at bounds [53,410][513,494]"
+    },
+    {
+      "action": "Tap the \"Tools\" tab in the bottom navigation bar",
+      "status": "PASSED",
+      "commands": [
+        "adb shell input tap 953 2169"
+      ],
+      "comment": "Tapped Tools tab at center [953, 2169]"
+    },
+    {
+      "action": "Verify that \"Privacy\" is visible on the screen",
+      "status": "PASSED",
+      "commands": [
+        "/Users/keelim/.local/bin/android layout --pretty"
+      ],
+      "comment": "\"Privacy\" section title is visible at bounds [53,1560][238,1634]"
+    },
+    {
+      "action": "Press the back button",
+      "status": "PASSED",
+      "commands": [
+        "adb shell input keyevent 4"
+      ],
+      "comment": "Pressed hardware/system back button via adb shell input keyevent 4"
+    },
+    {
+      "action": "Verify that the app returned to the \"Today\" screen",
+      "status": "FAILED",
+      "commands": [
+        "/Users/keelim/.local/bin/android layout --pretty"
+      ],
+      "comment": "Back event caused the activity to finish and return to NexusLauncher home screen instead of the Today tab"
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "journey": "CNUBUS Route & Settings Journey",
+  "results": [
+    {
+      "action": "Verify that the app is open and \"A 노선\" is displayed in the tab bar",
+      "status": "FAILED",
+      "commands": [
+        "adb shell am start -n com.keelim.cnubus/.ui.screen.main.MainActivity",
+        "/Users/keelim/.local/bin/android layout --pretty"
+      ],
+      "comment": "App crashed on launch with java.lang.StackOverflowError in com.keelim.core.designsystem.component.KuiMaterialAdaptersKt.KuiTab (infinite recursive composition in TabBarLayout)"
+    },
+    {
+      "action": "Verify that \"B 노선\" is displayed in the tab bar",
+      "status": "SKIPPED",
+      "commands": [],
+      "comment": "Skipped because previous action failed due to app crash"
+    },
+    {
+      "action": "Tap the \"설정\" tab in the top tab bar",
+      "status": "SKIPPED",
+      "commands": [],
+      "comment": "Skipped because previous action failed due to app crash"
+    },
+    {
+      "action": "Verify that \"앱 설정\" is visible on the screen",
+      "status": "SKIPPED",
+      "commands": [],
+      "comment": "Skipped because previous action failed due to app crash"
+    },
+    {
+      "action": "Verify that \"홈페이지\" is visible on the screen",
+      "status": "SKIPPED",
+      "commands": [],
+      "comment": "Skipped because previous action failed due to app crash"
+    },
+    {
+      "action": "Verify that \"맵 바로가기\" is visible on the screen",
+      "status": "SKIPPED",
+      "commands": [],
+      "comment": "Skipped because previous action failed due to app crash"
+    },
+    {
+      "action": "Tap \"앱 설정\"",
+      "status": "SKIPPED",
+      "commands": [],
+      "comment": "Skipped because previous action failed due to app crash"
+    },
+    {
+      "action": "Verify that \"Settings\" is displayed in the top app bar",
+      "status": "SKIPPED",
+      "commands": [],
+      "comment": "Skipped because previous action failed due to app crash"
+    },
+    {
+      "action": "Press the back button",
+      "status": "SKIPPED",
+      "commands": [],
+      "comment": "Skipped because previous action failed due to app crash"
+    },
+    {
+      "action": "Verify that the app is on the \"설정\" tab screen",
+      "status": "SKIPPED",
+      "commands": [],
+      "comment": "Skipped because previous action failed due to app crash"
+    }
+  ]
+}

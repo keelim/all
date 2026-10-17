@@ -1,0 +1,110 @@
+{
+  "journey": "Arducon Dev Tools & JSON Formatter Journey",
+  "results": [
+    {
+      "action": "Verify that the app is open and the title \"Arducon\" is displayed",
+      "status": "PASSED",
+      "commands": [
+        "adb shell am start -n com.keelim.arducon/.MainActivity",
+        "/Users/keelim/.local/bin/android layout --pretty"
+      ],
+      "comment": "\"Arducon\" is displayed in top app bar at bounds [42,105][239,167]"
+    },
+    {
+      "action": "Verify that \"Deeplink Tester\" subtitle is displayed",
+      "status": "PASSED",
+      "commands": [
+        "/Users/keelim/.local/bin/android layout --pretty"
+      ],
+      "comment": "\"Deeplink Tester\" subtitle is visible at bounds [42,178][279,218]"
+    },
+    {
+      "action": "Verify that \"링크 테스트\" tool category is visible",
+      "status": "PASSED",
+      "commands": [
+        "/Users/keelim/.local/bin/android layout --pretty"
+      ],
+      "comment": "\"링크 테스트\" category header is visible at bounds [63,502][226,551]"
+    },
+    {
+      "action": "Verify that \"데이터 도구\" tool category is visible",
+      "status": "PASSED",
+      "commands": [
+        "/Users/keelim/.local/bin/android layout --pretty"
+      ],
+      "comment": "\"데이터 도구\" category header is visible at bounds [63,1408][226,1457]"
+    },
+    {
+      "action": "Verify that \"앱/환경 점검\" tool category is visible",
+      "status": "PASSED",
+      "commands": [
+        "/Users/keelim/.local/bin/android layout --pretty"
+      ],
+      "comment": "\"앱/환경 점검\" category header is visible at bounds [63,2082][239,2131]"
+    },
+    {
+      "action": "Tap \"JSON Formatter\"",
+      "status": "PASSED",
+      "commands": [
+        "adb shell input tap 540 1562"
+      ],
+      "comment": "Tapped JSON Formatter tool card at center [540, 1562]"
+    },
+    {
+      "action": "Verify that the JSON Formatter screen is displayed",
+      "status": "PASSED",
+      "commands": [
+        "/Users/keelim/.local/bin/android layout --pretty"
+      ],
+      "comment": "JSON Formatter screen is displayed with title at [148,116][528,178], \"Raw JSON\" input, and \"Format & Validate\" button"
+    },
+    {
+      "action": "Press the back button",
+      "status": "PASSED",
+      "commands": [
+        "adb shell input keyevent 4"
+      ],
+      "comment": "Dispatched back keyevent via adb shell input keyevent 4"
+    },
+    {
+      "action": "Verify that the app returned to the \"Arducon\" main screen",
+      "status": "PASSED",
+      "commands": [
+        "/Users/keelim/.local/bin/android layout --pretty"
+      ],
+      "comment": "App successfully popped back to Arducon main screen with \"Arducon\" and tool categories visible"
+    },
+    {
+      "action": "Tap \"Base64\"",
+      "status": "PASSED",
+      "commands": [
+        "adb shell input tap 540 1759"
+      ],
+      "comment": "Tapped Base64 tool card at center [540, 1759]"
+    },
+    {
+      "action": "Verify that the Base64 screen is displayed",
+      "status": "PASSED",
+      "commands": [
+        "/Users/keelim/.local/bin/android layout --pretty"
+      ],
+      "comment": "Base64 Tool screen is displayed with title at [148,116][437,178], Encode/Decode tabs, and \"Text to Encode\" input"
+    },
+    {
+      "action": "Press the back button",
+      "status": "PASSED",
+      "commands": [
+        "adb shell input keyevent 4"
+      ],
+      "comment": "Dispatched back keyevent via adb shell input keyevent 4"
+    },
+    {
+      "action": "Verify that the app returned to the \"Arducon\" main screen",
+      "status": "PASSED",
+      "commands": [
+        "/Users/keelim/.local/bin/android layout --pretty"
+      ],
+      "comment": "App successfully returned to the Arducon main screen"
+    }
+  ]
+}

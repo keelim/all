@@ -1,0 +1,62 @@
+{
+  "journey": "MySenior Settings Navigation Journey",
+  "results": [
+    {
+      "action": "Verify that the app is open and \"Settings\" is displayed in the top app bar",
+      "status": "FAILED",
+      "commands": [
+        "adb shell am start -n com.keelim.mysenior/.MainActivity",
+        "/Users/keelim/.local/bin/android layout --pretty"
+      ],
+      "comment": "App crashed during initial composition with java.lang.IllegalStateException: Given component holder class com.keelim.mysenior.MainActivity does not implement interface dagger.hilt.internal.GeneratedComponent or interface dagger.hilt.internal.GeneratedComponentManager when SettingsRoute invoked hiltViewModel()"
+    },
+    {
+      "action": "Verify that \"Theme Change\" is visible in the settings list",
+      "status": "SKIPPED",
+      "commands": [],
+      "comment": "Skipped because previous action failed due to app crash"
+    },
+    {
+      "action": "Verify that \"알림내역\" is visible in the settings list",
+      "status": "SKIPPED",
+      "commands": [],
+      "comment": "Skipped because previous action failed due to app crash"
+    },
+    {
+      "action": "Verify that \"실험실\" is visible in the settings list",
+      "status": "SKIPPED",
+      "commands": [],
+      "comment": "Skipped because previous action failed due to app crash"
+    },
+    {
+      "action": "Verify that \"Device Info\" is visible in the settings list",
+      "status": "SKIPPED",
+      "commands": [],
+      "comment": "Skipped because previous action failed due to app crash"
+    },
+    {
+      "action": "Tap \"Device Info\"",
+      "status": "SKIPPED",
+      "commands": [],
+      "comment": "Skipped because previous action failed due to app crash"
+    },
+    {
+      "action": "Verify that the device info details screen is displayed",
+      "status": "SKIPPED",
+      "commands": [],
+      "comment": "Skipped because previous action failed due to app crash"
+    },
+    {
+      "action": "Press the back button",
+      "status": "SKIPPED",
+      "commands": [],
+      "comment": "Skipped because previous action failed due to app crash"
+    },
+    {
+      "action": "Verify that the app returned to the \"Settings\" screen",
+      "status": "SKIPPED",
+      "commands": [],
+      "comment": "Skipped because previous action failed due to app crash"
+    }
+  ]
+}

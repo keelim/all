@@ -56,7 +56,9 @@ class KeelimAppFunctionDispatcherTest {
 
         assertEquals(1, callbacks.size)
         val success = callbacks.single() as ExecuteAppFunctionResponse.Success
-        val result = success.returnValue.getAppFunctionData("returnValue")!!
+        val result = success.returnValue.getAppFunctionData(
+            ExecuteAppFunctionResponse.Success.PROPERTY_RETURN_VALUE,
+        )!!
         assertEquals("ok", result.getString("status"))
         assertEquals("feature:app-function", result.getString("module"))
         assertTrue(result.getLong("epochMillis") > 0L)
@@ -82,7 +84,7 @@ class KeelimAppFunctionDispatcherTest {
         assertEquals(
             kotlinx.serialization.json.Json { prettyPrint = true }
                 .formatJson("""{"name":"keelim"}"""),
-            success.returnValue.getString("returnValue"),
+            success.returnValue.getString(ExecuteAppFunctionResponse.Success.PROPERTY_RETURN_VALUE),
         )
         dispatcher.close()
     }
@@ -121,8 +123,13 @@ class KeelimAppFunctionDispatcherTest {
         val metadata = jsonMetadata()
         val dispatcher = dispatcher(testScheduler)
         val callbacks = mutableListOf<ExecuteAppFunctionResponse>()
+        val optionalInputJson = AppFunctionParameterMetadata(
+            name = "inputJson",
+            isRequired = false,
+            dataType = AppFunctionStringTypeMetadata(isNullable = false),
+        )
         val emptyParameters = AppFunctionData.Builder(
-            emptyList(),
+            listOf(optionalInputJson),
             metadata.packageMetadata.components,
         ).build()
         val request = ExecuteAppFunctionRequest(PACKAGE_NAME, metadata.id, emptyParameters)
@@ -256,7 +263,7 @@ class KeelimAppFunctionDispatcherTest {
                 AppFunctionData.Builder(
                     functionMetadata.response,
                     functionMetadata.packageMetadata.components,
-                ).setString("returnValue", "{}")
+                ).setString(ExecuteAppFunctionResponse.Success.PROPERTY_RETURN_VALUE, "{}")
                     .build(),
             )
         }

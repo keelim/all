@@ -17,6 +17,10 @@ plugins {
 android {
     namespace = "com.keelim.appfunction"
     testOptions.unitTests.isIncludeAndroidResources = true
+    testOptions.unitTests.all {
+        // Robolectric's Android 16 shared-memory interceptor accesses SharedSecrets on JDK 17+.
+        it.jvmArgs("--add-opens=java.base/jdk.internal.access=ALL-UNNAMED")
+    }
 }
 
 // AndroidX builds this public wrapper against snapshot-only platform stubs. Publish only
@@ -27,7 +31,7 @@ val extensionStubClasspath = configurations.create("appFunctionExtensionStubClas
 }
 val compileExtensionStubs = tasks.register<JavaCompile>("compileAppFunctionExtensionStubs") {
     source(layout.projectDirectory.dir("extension-stubs/src/main/java"))
-    classpath = files(android.bootClasspath, extensionStubClasspath)
+    classpath = files(androidComponents.sdkComponents.bootClasspath, extensionStubClasspath)
     destinationDirectory.set(layout.buildDirectory.dir("extension-stubs/classes"))
     options.release.set(17)
 }

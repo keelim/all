@@ -32,7 +32,7 @@ class KeelimMultiPlatformConventionPlugin : Plugin<Project> {
                 (this as ExtensionAware).extensions.configure<KotlinMultiplatformAndroidLibraryTarget> {
                     compileSdk {
                         version = release(libs.findVersion("compileSdk").get().displayName.toInt()) {
-                            minorApiLevel = 0
+                            minorApiLevel = 2
                         }
                     }
                     minSdk = libs.findVersion("minSdk").get().displayName.toInt()

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<journey name="Arducon Dev Tools &amp; JSON Formatter Journey">
+   <description>
+      Verifies Arducon testing hub launch, navigates to JSON Formatter, verifies input controls, and returns to the hub.
+   </description>
+   <actions>
+      <action>Verify that the app is open and the title "Arducon" is displayed</action>
+      <action>Verify that "Deeplink Tester" subtitle is displayed</action>
+      <action>Verify that "링크 테스트" tool category is visible</action>
+      <action>Verify that "데이터 도구" tool category is visible</action>
+      <action>Verify that "앱/환경 점검" tool category is visible</action>
+      <action>Tap "JSON Formatter"</action>
+      <action>Verify that the JSON Formatter screen is displayed</action>
+      <action>Press the back button</action>
+      <action>Verify that the app returned to the "Arducon" main screen</action>
+      <action>Tap "Base64"</action>
+      <action>Verify that the Base64 screen is displayed</action>
+      <action>Press the back button</action>
+      <action>Verify that the app returned to the "Arducon" main screen</action>
+   </actions>
+</journey>

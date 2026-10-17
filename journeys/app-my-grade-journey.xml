@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<journey name="MyGrade Calculator &amp; Pager Journey">
+   <description>
+      Verifies MyGrade score inputs, calculation submission to Grade result route, and back navigation.
+   </description>
+   <actions>
+      <action>Verify that the app is open and the title "MyGrade" is displayed</action>
+      <action>Verify that "과목명" is visible on the screen</action>
+      <action>Verify that "원점수" is visible on the screen</action>
+      <action>Verify that "과목 평균" is visible on the screen</action>
+      <action>Verify that "표준편차" is visible on the screen</action>
+      <action>Verify that "학생 수" is visible on the screen</action>
+      <action>Verify that "Clear" button is visible on the screen</action>
+      <action>Verify that "Submit" button is visible on the screen</action>
+      <action>Swipe left to view the Study Timer page</action>
+      <action>Press the back button</action>
+      <action>Verify that the app is on the grade calculator page</action>
+   </actions>
+</journey>

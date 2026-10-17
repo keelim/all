@@ -11,8 +11,7 @@ androidGradlePlugin = "9.4.1"
 androidx-sqlite = "2.7.1"
 androidxActivity = "1.13.0"
 androidxAppCompat = "1.8.0"
-# alpha10+ requires migrating the legacy service entry points before upgrading.
-androidxAppFunctions = "1.0.0-alpha09"
+androidxAppFunctions = "1.0.0-alpha13"
 androidxBrowser = "1.10.0"
 androidxComposeBom = "2026.10.00"
 androidxComposeRuntimeTracing = "1.12.1"
@@ -132,7 +131,7 @@ android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", ver
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivity" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppCompat" }
 androidx-appfunctions-compiler = { group = "androidx.appfunctions", name = "appfunctions-compiler", version.ref = "androidxAppFunctions" }
-androidx-appfunctions-service = { group = "androidx.appfunctions", name = "appfunctions-service", version.ref = "androidxAppFunctions" }
+androidx-appfunctions-runtime = { group = "androidx.appfunctions", name = "appfunctions", version.ref = "androidxAppFunctions" }
 androidx-benchmark-gradlePlugin = { group = "androidx.benchmark", name = "benchmark-baseline-profile-gradle-plugin", version.ref = "androidxMacroBenchmark" }
 androidx-benchmark-macro = { group = "androidx.benchmark", name = "benchmark-macro-junit4", version.ref = "androidxMacroBenchmark" }
 androidx-bio = { group = "androidx.biometric", name = "biometric", version.ref = "bio" }
@@ -270,6 +269,7 @@ insights-lint = { module = "com.google.play.policy.insights:insights-lint", vers
 jsoup = { module = "org.jsoup:jsoup", version.ref = "jsoup"}
 re2j = { group = "com.google.re2j", name = "re2j", version.ref = "re2j" }
 junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher", version.ref = "junitPlatform" }
+junit-vintage-engine = { group = "org.junit.vintage", name = "junit-vintage-engine", version.ref = "junitPlatform" }
 kotest-assertions-core = { group = "io.kotest", name = "kotest-assertions-core", version.ref = "kotest" }
 kotest-runner-junit5 = { group = "io.kotest", name = "kotest-runner-junit5", version.ref = "kotest" }
 kotest-property = { group = "io.kotest", name = "kotest-property", version.ref = "kotest" }
@@ -305,6 +305,7 @@ maps-ktx = { group = "com.google.maps.android", name = "maps-ktx", version.ref =
 maps-utils-ktx = { group = "com.google.maps.android", name = "maps-utils-ktx", version.ref = "maps" }
 material-themeAdapter = { group = "com.google.android.material", name = "compose-theme-adapter", version.ref = "themeAdapter" }
 mockk-agent = { group = "io.mockk", name = "mockk-agent", version.ref = "mockk" }
+mockk-jvm = { group = "io.mockk", name = "mockk-jvm", version.ref = "mockk" }
 mockk-android = { group = "io.mockk", name = "mockk-android", version.ref = "mockk" }
 modernstorage-bom = { module = "com.google.modernstorage:modernstorage-bom", version.ref = "modernstorageBom" }
 okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }

@@ -1,38 +1,26 @@
 package com.keelim.appfunction.json
 
-import androidx.appfunctions.AppFunctionContext
-import androidx.appfunctions.service.AppFunction
-import com.keelim.data.json.formatJson
-import kotlinx.serialization.json.Json
+import android.os.Build
+import androidx.annotation.RequiresApi
+import androidx.appfunctions.AppFunctionDeclaration
+import androidx.appfunctions.AppFunctionService
+import androidx.appfunctions.AppFunctionServiceEntryPoint
 
-private const val MAX_JSON_INPUT_LENGTH = 64 * 1024
-
-class JsonFormatterAppFunctions internal constructor(
-    private val json: Json,
-) {
-    constructor() : this(
-        Json { prettyPrint = true },
-    )
+@RequiresApi(Build.VERSION_CODES.BAKLAVA)
+@AppFunctionServiceEntryPoint(
+    serviceName = "GeneratedJsonFormatterAppFunctionService",
+    appFunctionXmlFileName = "keelim_json_functions",
+)
+abstract class JsonFormatterAppFunctions : AppFunctionService(), JsonFormatterSchema {
+    private val handler = JsonFormatterFunctionHandler()
 
     /**
      * Formats a JSON value without changing application state.
      *
      * Input must be non-blank, valid JSON and at most 65,536 characters.
      */
-    @AppFunction(isDescribedByKDoc = true)
-    suspend fun formatJson(
-        appFunctionContext: AppFunctionContext,
-        inputJson: String,
-    ): String {
-        require(inputJson.isNotBlank()) { "JSON input must not be blank" }
-        require(inputJson.length <= MAX_JSON_INPUT_LENGTH) {
-            "JSON input must not exceed $MAX_JSON_INPUT_LENGTH characters"
-        }
-
-        return try {
-            json.formatJson(inputJson)
-        } catch (error: IllegalArgumentException) {
-            throw IllegalArgumentException("JSON input must be valid JSON", error)
-        }
+    @AppFunctionDeclaration(isDescribedByKDoc = true)
+    override suspend fun formatJson(inputJson: String): String {
+        return handler.formatJson(inputJson)
     }
 }

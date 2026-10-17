@@ -31,6 +31,7 @@ class IdDetailActivity : ComponentActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setSavedInstanceState(savedInstanceState)
+        if (isFinishing) return
         setContent {
             KeelimTheme {
                 Column(
@@ -54,7 +55,9 @@ class IdDetailActivity : ComponentActivity() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putString(EXTRA_NAME, name)
+        if (::name.isInitialized) {
+            outState.putString(EXTRA_NAME, name)
+        }
         super.onSaveInstanceState(outState)
     }
 
@@ -66,8 +69,7 @@ class IdDetailActivity : ComponentActivity() {
         bundle?.getString(EXTRA_NAME)?.let {
             name = it
         } ?: run {
-            // EXTRA_NAME 정보 없음 오류로그 남기기
-            // EXTRA_NAME
+            name = ""
             finish()
         }
     }

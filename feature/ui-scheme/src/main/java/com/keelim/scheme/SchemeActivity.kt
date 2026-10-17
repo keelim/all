@@ -34,9 +34,8 @@ class SchemeActivity : ComponentActivity() {
                     // 사용자가 뒤로 가기 버튼을 눌렀을 때 메인 화면으로 이동하도록 합니다.
                     addNextIntentWithParentStack(DeepLinkInfo.getMainIntent(this@SchemeActivity))
                 }
-                startActivities()
-            }.run {
                 addNextIntent(deepLinkIntent)
+                startActivities()
             }
         } else {
             // 앱이 이미 실행 중인 경우, 현재 태스크에 딥링크 인텐트를 시작합니다.

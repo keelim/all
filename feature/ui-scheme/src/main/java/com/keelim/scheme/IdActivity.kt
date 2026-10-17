@@ -28,6 +28,7 @@ class IdActivity : ComponentActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setSavedInstanceState(savedInstanceState)
+        if (isFinishing) return
         setContent {
             KeelimTheme {
                 Column(
@@ -48,7 +49,9 @@ class IdActivity : ComponentActivity() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putString(EXTRA_ID, id)
+        if (::id.isInitialized) {
+            outState.putString(EXTRA_ID, id)
+        }
         super.onSaveInstanceState(outState)
     }
 
@@ -60,8 +63,7 @@ class IdActivity : ComponentActivity() {
         bundle?.getString(EXTRA_ID)?.let {
             id = it
         } ?: run {
-            // EXTRA_COUNTRY 정보 없음 오류로그 남기기
-            // EXTRA_COUNTRY
+            id = ""
             finish()
         }
     }

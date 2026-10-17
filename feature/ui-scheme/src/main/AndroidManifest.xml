@@ -20,8 +20,14 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.keelim.scheme.SchemeTestActivity" />
-        <activity android:name="com.keelim.scheme.IdDetailActivity" />
-        <activity android:name="com.keelim.scheme.IdActivity" />
+        <activity
+            android:name="com.keelim.scheme.SchemeTestActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.keelim.scheme.IdDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.keelim.scheme.IdActivity"
+            android:exported="false" />
     </application>
 </manifest>

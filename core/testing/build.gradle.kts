@@ -10,6 +10,7 @@ android {
 }
 
 dependencies {
+    api(platform(libs.androidx.compose.bom))
     api(projects.core.common)
     api(libs.androidx.activity.compose)
     api(libs.androidx.compose.ui.test)

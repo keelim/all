@@ -9,6 +9,10 @@ plugins {
     alias(libs.plugins.keelim.android.hilt)
 }
 
+secrets {
+    defaultPropertiesFileName = "local.defaults.properties"
+}
+
 android {
     defaultConfig {
         applicationId = "com.keelim.arducon"

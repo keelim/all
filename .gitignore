@@ -16,6 +16,7 @@ local.defaults.properties
 .DS_Store
 
 # Temporary agent/tool files
+.agents/
 .omx/
 .serena/
 .claude/

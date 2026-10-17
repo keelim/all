@@ -1,2 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application>
+        <service
+            android:name=".service.KeelimPlatformAppFunctionService"
+            android:enabled="@bool/enableKeelimPlatformAppFunctionService"
+            android:exported="true"
+            android:permission="android.permission.BIND_APP_FUNCTION_SERVICE">
+            <property
+                android:name="android.app.appfunctions"
+                android:value="keelim_app_functions.xml" />
+            <property
+                android:name="android.app.appfunctions.v2"
+                android:value="keelim_app_functions_v2.xml" />
+            <property
+                android:name="android.app.appfunctions.schema"
+                android:value="app_functions_schema.xsd" />
+            <intent-filter>
+                <action android:name="android.app.appfunctions.AppFunctionService" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".service.KeelimExtensionAppFunctionService"
+            android:enabled="@bool/enableKeelimExtensionAppFunctionService"
+            android:exported="true"
+            android:permission="android.permission.BIND_APP_FUNCTION_SERVICE">
+            <property
+                android:name="android.app.appfunctions"
+                android:value="keelim_app_functions.xml" />
+            <property
+                android:name="android.app.appfunctions.v2"
+                android:value="keelim_app_functions_v2.xml" />
+            <property
+                android:name="android.app.appfunctions.schema"
+                android:value="app_functions_schema.xsd" />
+            <intent-filter>
+                <action android:name="android.app.appfunctions.AppFunctionService" />
+            </intent-filter>
+        </service>
+    </application>
+</manifest>

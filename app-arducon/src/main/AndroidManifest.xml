@@ -19,6 +19,7 @@
         android:allowBackup="false"
         android:theme="@style/ArduconTheme"
         android:hardwareAccelerated="true"
+        android:enableOnBackInvokedCallback="true"
         >
         <provider
             android:name="androidx.core.content.FileProvider"

@@ -36,7 +36,10 @@ import androidx.lifecycle.lifecycleScope
 import com.airbnb.deeplinkdispatch.DeepLink
 import com.keelim.cnubus.ui.CnubusApp
 import com.keelim.composeutil.component.dialog.ConfirmDialog
+import com.keelim.composeutil.rememberMutableStateListOf
 import com.keelim.composeutil.ui.theme.KeelimTheme
+import com.keelim.core.navigation.AppRoute
+import com.keelim.core.navigation.CnuBusRoute
 import com.keelim.shared.data.UserStateStore
 import com.keelim.shared.data.model.ThemeType
 import dagger.Lazy
@@ -68,13 +71,15 @@ class MainActivity : ComponentActivity() {
             KeelimTheme(
                 isDarkTheme = isDarkThem,
             ) {
+                val backStack = rememberMutableStateListOf<AppRoute>(CnuBusRoute.Main)
                 CnubusApp(
                     windowSizeClass = calculateWindowSizeClass(this),
+                    backStack = backStack,
                 )
 
                 var isDialogOpen by remember { mutableStateOf(false) }
                 PredictiveBackHandler(
-                    enabled = true,
+                    enabled = backStack.size <= 1,
                 ) { progress ->
                     try {
                         progress.collect()

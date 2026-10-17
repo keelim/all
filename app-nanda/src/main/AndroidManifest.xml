@@ -11,6 +11,7 @@
         android:label="@string/app_name"
         android:localeConfig="@xml/locales_config"
         android:theme="@style/Theme.NANDA"
+        android:enableOnBackInvokedCallback="true"
         android:roundIcon="@mipmap/ic_launcher_round">
 
         <meta-data

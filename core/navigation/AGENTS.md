@@ -16,7 +16,8 @@ Shared route model module for all apps. This module defines route contracts only
 1. Add the route in `core/navigation/src/main/java/com/keelim/core/navigation/RouteModel.kt`.
 2. Register a matching `entry<...>` in the host or feature navigation entry file.
 3. Wire navigation actions (`backStack.add(...)`, back handling) from UI callbacks.
-4. This module has no `testDebugUnitTest` task; report validation as unavailable and do not substitute another task unless explicitly requested.
+4. Ensure root `PredictiveBackHandler` in host activities is enabled only when `backStack.size <= 1` so `NavDisplay` handles back events for deep destinations.
+5. This module has no `testDebugUnitTest` task (pure JVM library); report validation as unavailable and do not substitute another task unless explicitly requested.
 
 ## SETTINGS DESTINATION EXTENSION EXAMPLE
 ```kotlin

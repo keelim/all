@@ -21,7 +21,11 @@ import androidx.navigation3.ui.NavDisplay
 fun <T : Any> KeelimNavDisplay(
     backStack: SnapshotStateList<T>,
     modifier: Modifier = Modifier,
-    onBack: () -> Unit = { backStack.removeLastOrNull() },
+    onBack: () -> Unit = {
+        if (backStack.size > 1) {
+            backStack.removeLastOrNull()
+        }
+    },
     entries: EntryProviderScope<T>.() -> Unit,
 ) {
     val motionScheme = KuiTheme.motionScheme

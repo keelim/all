@@ -12,11 +12,16 @@ import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
+import com.keelim.composeutil.rememberMutableStateListOf
+import com.keelim.core.navigation.AppRoute
+import com.keelim.core.navigation.CnuBusRoute
 
 @Composable
 fun CnubusApp(
     windowSizeClass: WindowSizeClass,
+    backStack: SnapshotStateList<AppRoute> = rememberMutableStateListOf<AppRoute>(CnuBusRoute.Main),
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
@@ -29,6 +34,7 @@ fun CnubusApp(
             modifier = Modifier.padding(padding),
             coroutineScope = coroutineScope,
             bottomSheetState = bottomSheetState,
+            backStack = backStack,
             onShowSnackbar = { message, action ->
                 snackbarHostState.showSnackbar(
                     message = message,

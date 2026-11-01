@@ -5,7 +5,7 @@ another production app. The same Git repository manages two separate build roots
 
 | Root | Build entry point | Ownership |
 | --- | --- | --- |
-| Repository root | `bash script/gradle-light.sh ...` or `./gradlew` | Existing Android/KMP products |
+| Repository root | `./gradlew` (existing workflow) | Existing Android/KMP products |
 | `previews/lightbuild` | `bash script/lightbuild-preview.sh ...` | New Lightbuild sample only |
 
 The root `settings.gradle.kts`, version catalog, convention plugins, and Gradle
@@ -43,10 +43,11 @@ chmod u+x "$HOME/.local/bin/lightbuild"
 Check for an existing destination before copying. `~/.local/bin` must already be
 on PATH, or use the package CLI through this repository's wrapper instead.
 The vendor CLI launcher version (currently 0.0.1) is distinct from the pinned
-build distribution version (0.0.30). Neither helper installs SDK packages or
-accepts licenses. First use unpacks vendor runtimes into `~/.android/lightbuild`;
+build distribution version (0.0.30). The repository wrapper installs no SDK
+packages and accepts no licenses. First use unpacks vendor runtimes into
+`~/.android/lightbuild`;
 first builds also download compiler/build dependencies. The native runtime's
-resource and daemon behavior is vendor-managed, not the Gradle helper's worker cap.
+resource and daemon behavior is vendor-managed.
 
 ## Commands from the repository root
 

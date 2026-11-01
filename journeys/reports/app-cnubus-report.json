@@ -6,7 +6,7 @@
       "status": "FAILED",
       "commands": [
         "adb shell am start -n com.keelim.cnubus/.ui.screen.main.MainActivity",
-        "/Users/keelim/.local/bin/android layout --pretty"
+        "android layout --pretty"
       ],
       "comment": "App crashed on launch with java.lang.StackOverflowError in com.keelim.core.designsystem.component.KuiMaterialAdaptersKt.KuiTab (infinite recursive composition in TabBarLayout)"
     },

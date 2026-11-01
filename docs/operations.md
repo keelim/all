@@ -14,7 +14,7 @@ Dependency changes belong in gradle/libs.versions.toml and the appropriate conve
 
 ## Android CLI Tooling & Workflows
 
-The `android` CLI (`/Users/keelim/.local/bin/android`) integrates SDK management, device/emulator lifecycle, project metadata discovery, application deployment, and journey-based UI inspection.
+The `android` CLI (`~/.local/bin/android`) integrates SDK management, device/emulator lifecycle, project metadata discovery, application deployment, and journey-based UI inspection.
 
 ### 1. Environment Diagnostics & SDK Alignment
 Check local SDK directory and CLI version:

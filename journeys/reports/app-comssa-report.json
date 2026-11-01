@@ -6,7 +6,7 @@
       "status": "FAILED",
       "commands": [
         "adb shell am start -n com.keelim.comssa/.ui.screen.main.MainActivity",
-        "/Users/keelim/.local/bin/android layout --pretty"
+        "android layout --pretty"
       ],
       "comment": "App displayed network error state (\"데이터를 불러오지 못했습니다\") because backend endpoint failed to connect; bottom navigation bar containing \"캘린더\" was not rendered in error state"
     },

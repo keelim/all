@@ -6,7 +6,7 @@
       "status": "FAILED",
       "commands": [
         "adb shell am start -n com.keelim.mysenior/.MainActivity",
-        "/Users/keelim/.local/bin/android layout --pretty"
+        "android layout --pretty"
       ],
       "comment": "App crashed during initial composition with java.lang.IllegalStateException: Given component holder class com.keelim.mysenior.MainActivity does not implement interface dagger.hilt.internal.GeneratedComponent or interface dagger.hilt.internal.GeneratedComponentManager when SettingsRoute invoked hiltViewModel()"
     },

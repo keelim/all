@@ -11,7 +11,7 @@ Per repository hard gates (`AGENTS.md`, `docs/standards.md`, `docs/operations.md
 ## Android CLI & Environment Findings
 
 ### 1. macOS Sandboxing and File System Permissions
-Under macOS agent execution environments, executing Android CLI operations or emulator utilities within sandboxed subshells without filesystem permissions can result in `Operation not permitted` or missing path errors when reading the user-level SDK (`/Users/keelim/Library/Android/sdk`) and AVD definitions (`~/.android/avd/`). All `android` CLI commands must be executed with sandbox bypass (`BypassSandbox: true`) using the canonical CLI wrapper path `/Users/keelim/.local/bin/android`.
+Under macOS agent execution environments, executing Android CLI operations or emulator utilities within sandboxed subshells without filesystem permissions can result in `Operation not permitted` or missing path errors when reading the user-level SDK (`~/Library/Android/sdk`) and AVD definitions (`~/.android/avd/`). All `android` CLI commands must be executed with sandbox bypass (`BypassSandbox: true`) using the canonical CLI wrapper path `~/.local/bin/android`.
 
 ### 2. Multi-App Debug APK Artifact Status
 Inspection via `android describe --project_dir=.` established the current debug APK artifact presence across the 6 applications:

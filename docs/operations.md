@@ -126,3 +126,69 @@ adb -s <serial> shell input swipe <x1> <y1> <x2> <y2> <duration_ms>
 adb -s <serial> shell input keyevent 4
 ```
 Generate structured evaluation JSON reports saved in `journeys/reports/<app>-report.json` recording pass/fail assertions per interaction step.
+
+## Lightweight Mac build (Android CLI + Gradle Wrapper)
+
+Android Studio does not need to run for these commands. Use the existing Android
+CLI for SDK discovery/diagnostics and the checked-in Gradle Wrapper for compilation.
+From the repository root:
+
+```sh
+bash script/android-light.sh doctor
+bash script/android-light.sh check                 # CNUBUS debug compilation, no APK packaging
+bash script/android-light.sh apk                   # CNUBUS debug APK
+bash script/android-light.sh test                  # CNUBUS JVM unit tests
+bash script/android-light.sh apk app-my-grade      # select one of the six Android apps
+```
+
+The script reads the exact Temurin JDK pin from `mise.toml` and uses its existing
+mise installation without trusting configs or auto-installing workspace tools.
+For another installation of the same JDK, set `LIGHT_JAVA_HOME`. It obtains the SDK
+path through `android info sdk`. Preserve the existing `local.properties` SDK path;
+if that points to another SDK, align it manually before building.
+
+Required existing tools/packages:
+
+- Android CLI on PATH, the JDK pinned in `mise.toml`, and Gradle Wrapper 9.4.1.
+- Platform `platforms/android-37.0` (API 37 minor 0 from the version catalog).
+- `build-tools/36.0.0`, the default required by AGP 9.2.1, and command-line tools.
+  Installed Build Tools 37 can coexist; SDK API 37 alone does not require them.
+- Existing SDK license acceptance and the normal private provider configuration.
+
+`doctor` checks installed prerequisites; it does not validate license hashes or
+prove dependency resolution. Missing tools/licenses require explicit setup and
+license review. The script neither installs packages nor accepts licenses, and
+Gradle SDK auto-download is disabled. Existing Firebase/provider and signing
+configuration is reused without printing it.
+
+Build invocations limit Gradle to two workers, disable parallel project and
+configuration-cache execution, run Kotlin compilation in-process, and use
+`--no-daemon` so the single-use Gradle daemon exits afterward. Existing 2 GiB
+Gradle heap settings, incremental compilation, build cache, and configuration
+cache remain in effect. This limits concurrency; it is not a total RAM cap.
+Set `LIGHT_WORKERS=1` for a tighter CPU limit. Cold builds may need network access
+for dependencies. No emulator or system image is needed for compilation/APK tasks.
+
+Successful APK output is printed, normally:
+`app-cnubus/build/outputs/apk/debug/app-cnubus-debug.apk`.
+`check` verifies compilation only; `test` runs JVM tests, and neither verifies
+provider services or device behavior. No clean task is run, preserving incremental
+outputs. The script reports elapsed build time and propagates Gradle failures.
+
+References: [command-line builds](https://developer.android.com/build/building-cmdline)
+and [AGP 9.2 compatibility](https://developer.android.com/build/releases/agp-9-2-0-release-notes).
+
+### Verification baseline (2026-11-01)
+
+The CNUBUS debug compile/APK and 12 JVM tests passed on the existing local tree
+at `7caf5780c`. Script invocations took 40.3s for compile and 35.0s for APK;
+a separate forced unit-test execution took 41.8s. These are cached-environment
+examples, not performance guarantees. Other apps and device/provider execution
+remain unverified; the existing ASM instrumentation warning remains.
+
+On upstream `develop` at `bb9fd47de`, `doctor` passes but `check` stops before
+compilation because the existing catalog selects
+`androidx.appfunctions:appfunctions-service:1.0.0-beta01`, which Google Maven
+returns as HTTP 404. Its published metadata lists alpha01 through alpha09.
+APK/test verification on that baseline remains blocked by dependency resolution.
+This CLI setup does not change the catalog or Gradle Wrapper to work around it.

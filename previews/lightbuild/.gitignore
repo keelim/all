@@ -1,0 +1,5 @@
+# Local state is separate from the repository's Gradle outputs.
+.lightbuild/
+.lume/
+local.properties
+*.log

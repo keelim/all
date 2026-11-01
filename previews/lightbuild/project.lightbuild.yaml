@@ -1,0 +1,16 @@
+project:
+  name: AllLightbuildPreview
+modules:
+  - app
+  - app-core
+repositories:
+  - google
+  - mavenCentral
+lightbuild:
+  version: 0.0.30
+build:
+  java:
+    version: 17
+  kotlin:
+    version: 2.3.20
+  jvmTarget: "17"

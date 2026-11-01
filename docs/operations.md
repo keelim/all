@@ -127,18 +127,52 @@ adb -s <serial> shell input keyevent 4
 ```
 Generate structured evaluation JSON reports saved in `journeys/reports/<app>-report.json` recording pass/fail assertions per interaction step.
 
-## Lightweight Mac build (Android CLI + Gradle Wrapper)
+## Google Lightbuild preview (independent sample)
+
+The repository co-manages an actual Google Lightbuild 0.0.30 sample at
+`previews/lightbuild`, alongside the existing Gradle project. These are separate
+project roots and module graphs. The preview is not a port of CNUBUS or another
+production app and is not included in `settings.gradle.kts`.
+
+From the repository root:
+
+```sh
+bash script/lightbuild-preview.sh doctor
+bash script/lightbuild-preview.sh query
+bash script/lightbuild-preview.sh resolve
+bash script/lightbuild-preview.sh build
+bash script/lightbuild-preview.sh test
+```
+
+Install `build/lightbuild/0.0.30` explicitly with the existing Android CLI after
+reviewing any new license prompt. The helper uses that package's matching CLI and
+an existing JDK; it does not auto-install SDK packages or accept licenses.
+`query` enumerates targets, `build` creates the sample debug APK, and `test` runs
+only `app-core:hostTest` with locked dependencies. Commit generated `resolved.deps`
+files. First use unpacks vendor runtimes and downloads build dependencies.
+
+See [the preview guide](../previews/lightbuild/README.md) for setup, versions,
+layout, output paths, and verification evidence. The preview has independent
+pins and vendor-managed processes. The Gradle helper's worker limits and
+single-use daemon behavior do not configure native Lightbuild.
+
+Lightbuild's experimental release does not support version catalogs, convention
+or custom plugins, KMP modules, or mixing Gradle and Lightbuild modules in one
+project. Existing applications retain their Gradle workflow below. No Gradle
+catalog, wrapper, build-logic, or product source changes are required for this sample.
+
+## Lightweight Gradle workflow (existing applications)
 
 Android Studio does not need to run for these commands. Use the existing Android
 CLI for SDK discovery/diagnostics and the checked-in Gradle Wrapper for compilation.
 From the repository root:
 
 ```sh
-bash script/android-light.sh doctor
-bash script/android-light.sh check                 # CNUBUS debug compilation, no APK packaging
-bash script/android-light.sh apk                   # CNUBUS debug APK
-bash script/android-light.sh test                  # CNUBUS JVM unit tests
-bash script/android-light.sh apk app-my-grade      # select one of the six Android apps
+bash script/gradle-light.sh doctor
+bash script/gradle-light.sh check                 # CNUBUS debug compilation, no APK packaging
+bash script/gradle-light.sh apk                   # CNUBUS debug APK
+bash script/gradle-light.sh test                  # CNUBUS JVM unit tests
+bash script/gradle-light.sh apk app-my-grade      # select one of the six Android apps
 ```
 
 The script reads the exact Temurin JDK pin from `mise.toml` and uses its existing

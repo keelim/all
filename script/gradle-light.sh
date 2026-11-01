@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Scoped Android CLI workflow; never installs tools or accepts SDK licenses.
+# Scoped Gradle CLI workflow; never installs tools or accepts SDK licenses.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -8,7 +8,7 @@ action="${1:-doctor}"
 module="${2:-app-cnubus}"
 case "$action" in
   doctor|check|apk|test) ;;
-  *) echo "Usage: bash script/android-light.sh {doctor|check|apk|test} [app-module]" >&2; exit 2 ;;
+  *) echo "Usage: bash script/gradle-light.sh {doctor|check|apk|test} [app-module]" >&2; exit 2 ;;
 esac
 case "$module" in
   app-cnubus|app-arducon|app-comssa|app-my-grade|app-mysenior|app-nanda) ;;

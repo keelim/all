@@ -1,0 +1,21 @@
+platform: android
+type: library
+android:
+  namespace: com.keelim.lightbuildpreview
+  compileSdk:
+    version:
+      release:
+        apiLevel: 37
+        minorApiLevel: 0
+  minSdk:
+    version:
+      release:
+        apiLevel: 26
+  dependencies:
+    maven:
+      - org.jetbrains.kotlin:kotlin-stdlib:2.3.20
+  tests:
+    test:
+      dependencies:
+        maven:
+          - junit:junit:4.13.2

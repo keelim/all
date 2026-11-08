@@ -60,3 +60,15 @@ debug-log.json
 
 # Rust build output
 /all-rust-lib/target/
+
+# Python virtual environments & cache
+.venv/
+**/.venv/
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+**/.pytest_cache/
+.ruff_cache/
+**/.ruff_cache/

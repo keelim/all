@@ -108,8 +108,10 @@ A multi-app Android and Compose Multiplatform repository for six apps and shared
 │   └── AGENTS.md → Compose application host boundary
 ├── all-rust-lib/
 │   └── AGENTS.md → Native Rust boundary boundary
-└── allIos/
-    └── AGENTS.md → Apple host boundary
+├── allIos/
+│   └── AGENTS.md → Apple host boundary
+└── scripts/
+    └── AGENTS.md → Unified Python automation, build, and verification boundary (uv)
 ```
 
 ## Hard gates

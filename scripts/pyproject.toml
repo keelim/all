@@ -1,0 +1,38 @@
+[project]
+name = "all-scripts"
+version = "0.1.0"
+description = "Unified Python automation, build, and verification scripts for the all monorepo"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+fcm = [
+  "firebase-admin>=6.6.0",
+]
+
+[project.scripts]
+all-scripts = "all_scripts.cli:main"
+android-light = "all_scripts.android_light:main"
+compile-check = "all_scripts.compile_check:main"
+dependency-tree-update = "all_scripts.dependency_tree_update:main"
+fcm-admin = "all_scripts.fcm_admin:main"
+gradle-cache = "all_scripts.gradle_cache:main"
+gradle-dependencies-graph = "all_scripts.gradle_dependencies_graph:main"
+gradle-profile = "all_scripts.gradle_profile:main"
+hello-world = "all_scripts.hello_world:main"
+lightbuild-preview = "all_scripts.lightbuild_preview:main"
+rust-build = "all_scripts.rust_build:main"
+
+[dependency-groups]
+dev = [
+  "pytest>=8.0.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

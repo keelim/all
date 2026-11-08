@@ -9,6 +9,14 @@ import tempfile
 import unittest
 
 
+def find_repo_root() -> Path:
+    current = Path(__file__).resolve().parent
+    for parent in [current, *current.parents]:
+        if (parent / "gradlew").is_file() or (parent / "settings.gradle.kts").is_file():
+            return parent
+    return Path(__file__).resolve().parents[2]
+
+
 class ModuleGraphTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -17,7 +25,7 @@ class ModuleGraphTest(unittest.TestCase):
         cls.gradle = os.environ.get("GRADLE_EXECUTABLE", "gradle")
         if not shutil.which(cls.gradle):
             raise unittest.SkipTest("Set GRADLE_EXECUTABLE to an existing Gradle installation")
-        source = Path(__file__).resolve().parents[1] / "gradle/module-dependency-graph.gradle.kts"
+        source = find_repo_root() / "gradle/module-dependency-graph.gradle.kts"
         shutil.copyfile(source, cls.root / "graph.gradle.kts")
         (cls.root / "settings.gradle.kts").write_text(
             'rootProject.name = "graph-test"\ninclude(":app", ":core", ":leaf", ":unused")\n'

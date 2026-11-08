@@ -3,8 +3,8 @@
 Generate the report from any working directory:
 
 ```bash
-./script/gradle_dependencies_graph.sh
-./script/gradle_dependencies_graph.sh -PmoduleGraph.module=:app-arducon
+python3 scripts/gradle_dependencies_graph.py
+python3 scripts/gradle_dependencies_graph.py -PmoduleGraph.module=:app-arducon
 ```
 
 The equivalent Gradle task is `./gradlew --no-configure-on-demand generateModuleDependencyGraph`.
@@ -50,7 +50,7 @@ test filtering, duplicate edges, isolated modules, longest-path output, selected
 unknown-module errors, cycle handling, and strict configuration-cache reuse:
 
 ```bash
-GRADLE_EXECUTABLE=/path/to/existing/gradle python3 script/test_module_dependency_graph.py
+GRADLE_EXECUTABLE=/path/to/existing/gradle python3 scripts/test_module_dependency_graph.py
 ```
 
 The fixture runs offline and declares an intentionally unavailable external dependency,

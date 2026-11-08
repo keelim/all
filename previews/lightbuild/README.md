@@ -6,7 +6,7 @@ another production app. The same Git repository manages two separate build roots
 | Root | Build entry point | Ownership |
 | --- | --- | --- |
 | Repository root | `./gradlew` (existing workflow) | Existing Android/KMP products |
-| `previews/lightbuild` | `bash script/lightbuild-preview.sh ...` | New Lightbuild sample only |
+| `previews/lightbuild` | `uv run --project scripts python scripts/lightbuild_preview.py ...` | New Lightbuild sample only |
 
 The root `settings.gradle.kts`, version catalog, convention plugins, and Gradle
 Wrappers remain unchanged. The preview has its own YAML module graph, Kotlin pin,
@@ -52,11 +52,11 @@ resource and daemon behavior is vendor-managed.
 ## Commands from the repository root
 
 ```sh
-bash script/lightbuild-preview.sh doctor
-bash script/lightbuild-preview.sh query
-bash script/lightbuild-preview.sh resolve
-bash script/lightbuild-preview.sh build
-bash script/lightbuild-preview.sh test
+uv run --project scripts python scripts/lightbuild_preview.py doctor
+uv run --project scripts python scripts/lightbuild_preview.py query
+uv run --project scripts python scripts/lightbuild_preview.py resolve
+uv run --project scripts python scripts/lightbuild_preview.py build
+uv run --project scripts python scripts/lightbuild_preview.py test
 ```
 
 - `query` discovers the actual targets with `lightbuild query ...`.

@@ -7,7 +7,7 @@ the `all` Git repository. It is a new sample, not a port of CNUBUS or another ap
 - Do not include these modules in `settings.gradle.kts`, or reference Gradle/KMP
   modules from this project. Shared Git ownership does not create a shared build graph.
 - The app module only assembles the APK; sources and host tests belong to `app-core`.
-- Use `bash script/lightbuild-preview.sh query|build|test` from the repository root.
+- Use `uv run --project scripts python scripts/lightbuild_preview.py query|build|test` from the repository root.
   `test` runs `app-core:hostTest` only. Device tests, installation, release signing,
   and publishing are separate work.
 - Generate `resolved.deps` with Lightbuild; commit those files without hand editing.

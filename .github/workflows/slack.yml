@@ -14,7 +14,7 @@ jobs:
 
       - name: Run script and set environment variable
         run: |
-          echo "SCRIPT_RESULT=$(sh script/hello_world.sh | tail -n 1)" >> $GITHUB_ENV
+          echo "SCRIPT_RESULT=$(python3 scripts/hello_world.py | tail -n 1)" >> $GITHUB_ENV
 
       - name: post message to slack with result
         uses: slackapi/slack-github-action@v2.1.1

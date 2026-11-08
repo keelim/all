@@ -137,11 +137,11 @@ production app and is not included in `settings.gradle.kts`.
 From the repository root:
 
 ```sh
-bash script/lightbuild-preview.sh doctor
-bash script/lightbuild-preview.sh query
-bash script/lightbuild-preview.sh resolve
-bash script/lightbuild-preview.sh build
-bash script/lightbuild-preview.sh test
+uv run --project scripts python scripts/lightbuild_preview.py doctor
+uv run --project scripts python scripts/lightbuild_preview.py query
+uv run --project scripts python scripts/lightbuild_preview.py resolve
+uv run --project scripts python scripts/lightbuild_preview.py build
+uv run --project scripts python scripts/lightbuild_preview.py test
 ```
 
 Install `build/lightbuild/0.0.30` explicitly with the existing Android CLI after
@@ -160,3 +160,54 @@ or custom plugins, KMP modules, or mixing Gradle and Lightbuild modules in one
 project. Existing applications continue to use the Gradle Wrapper commands
 described above. No Gradle catalog, wrapper, build-logic, or product source changes
 are required for this sample.
+
+## Lightweight Mac build (Android CLI + Gradle Wrapper)
+
+Android Studio does not need to run for these commands. Use the existing Android
+CLI for SDK discovery/diagnostics and the checked-in Gradle Wrapper for compilation.
+From the repository root:
+
+```sh
+uv run --project scripts python scripts/android_light.py doctor
+uv run --project scripts python scripts/android_light.py check                 # CNUBUS debug compilation, no APK packaging
+uv run --project scripts python scripts/android_light.py apk                   # CNUBUS debug APK
+uv run --project scripts python scripts/android_light.py test                  # CNUBUS JVM unit tests
+uv run --project scripts python scripts/android_light.py apk app-my-grade      # select one of the six Android apps
+```
+
+The script reads the exact Temurin JDK pin from `mise.toml` and uses its existing
+mise installation without trusting configs or auto-installing workspace tools.
+For another installation of the same JDK, set `LIGHT_JAVA_HOME`. It obtains the SDK
+path through `android info sdk`. Preserve the existing `local.properties` SDK path;
+if that points to another SDK, align it manually before building.
+
+Required existing tools/packages:
+
+- Android CLI on PATH, the JDK pinned in `mise.toml`, and Gradle Wrapper 9.4.1.
+- Platform `platforms/android-37.0` (API 37 minor 0 from the version catalog).
+- `build-tools/36.0.0`, the default required by AGP 9.2.1, and command-line tools.
+  Installed Build Tools 37 can coexist; SDK API 37 alone does not require them.
+- Existing SDK license acceptance and the normal private provider configuration.
+
+`doctor` checks installed prerequisites; it does not validate license hashes or
+prove dependency resolution. Missing tools/licenses require explicit setup and
+license review. The script neither installs packages nor accepts licenses, and
+Gradle SDK auto-download is disabled. Existing Firebase/provider and signing
+configuration is reused without printing it.
+
+Build invocations limit Gradle to two workers, disable parallel project and
+configuration-cache execution, run Kotlin compilation in-process, and use
+`--no-daemon` so the single-use Gradle daemon exits afterward. Existing 2 GiB
+Gradle heap settings, incremental compilation, build cache, and configuration
+cache remain in effect. This limits concurrency; it is not a total RAM cap.
+Set `LIGHT_WORKERS=1` for a tighter CPU limit. Cold builds may need network access
+for dependencies. No emulator or system image is needed for compilation/APK tasks.
+
+Successful APK output is printed, normally:
+`app-cnubus/build/outputs/apk/debug/app-cnubus-debug.apk`.
+`check` verifies compilation only; `test` runs JVM tests, and neither verifies
+provider services or device behavior. No clean task is run, preserving incremental
+outputs. The script reports elapsed build time and propagates Gradle failures.
+
+References: [command-line builds](https://developer.android.com/build/building-cmdline)
+and [AGP 9.2 compatibility](https://developer.android.com/build/releases/agp-9-2-0-release-notes).

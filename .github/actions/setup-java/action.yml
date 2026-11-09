@@ -13,7 +13,7 @@ runs:
         echo "version=$java_pin" >> "$GITHUB_OUTPUT"
 
     - name: Install Temurin
-      uses: actions/setup-java@v5.2.0
+      uses: actions/setup-java@v5.7.0
       with:
         distribution: temurin
         java-version: ${{ steps.pin.outputs.version }}

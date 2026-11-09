@@ -1,0 +1,33 @@
+name: Set up pinned Java
+description: Install and verify the Temurin JDK declared in mise.toml
+runs:
+  using: composite
+  steps:
+    - name: Read JDK pin
+      id: pin
+      shell: bash
+      run: |
+        set -euo pipefail
+        java_pin="$(sed -n 's/^java = "temurin-\(.*\)"/\1/p' mise.toml)"
+        test -n "$java_pin"
+        echo "version=$java_pin" >> "$GITHUB_OUTPUT"
+
+    - name: Install Temurin
+      uses: actions/setup-java@v5.2.0
+      with:
+        distribution: temurin
+        java-version: ${{ steps.pin.outputs.version }}
+
+    - name: Verify JDK
+      shell: bash
+      env:
+        EXPECTED_JAVA_RUNTIME: ${{ steps.pin.outputs.version }}
+      run: |
+        set -euo pipefail
+        java_properties="$(java -XshowSettings:properties -version 2>&1)"
+        runtime="$(printf '%s\n' "$java_properties" | sed -n 's/^[[:space:]]*java.runtime.version = //p')"
+        vendor="$(printf '%s\n' "$java_properties" | sed -n 's/^[[:space:]]*java.vendor = //p')"
+        printf 'Java runtime: %s (%s)\n' "$runtime" "$vendor"
+        test "$runtime" = "$EXPECTED_JAVA_RUNTIME"
+        test "$vendor" = 'Eclipse Adoptium'
+        test "$(javac -version 2>&1)" = "javac ${EXPECTED_JAVA_RUNTIME%+*}"

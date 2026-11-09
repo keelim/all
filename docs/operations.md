@@ -183,7 +183,7 @@ if that points to another SDK, align it manually before building.
 
 Required existing tools/packages:
 
-- Android CLI on PATH, the JDK pinned in `mise.toml`, and Gradle Wrapper 9.4.1.
+- Android CLI on PATH, the JDK pinned in `mise.toml`, and Gradle Wrapper 9.8.2.
 - Platform `platforms/android-37.0` (API 37 minor 0 from the version catalog).
 - `build-tools/36.0.0`, the default required by AGP 9.2.1, and command-line tools.
   Installed Build Tools 37 can coexist; SDK API 37 alone does not require them.

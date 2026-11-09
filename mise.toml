@@ -20,10 +20,17 @@ java_properties="$(java -XshowSettings:properties -version 2>&1)"
 runtime="$(printf '%s\n' "$java_properties" | sed -n 's/^[[:space:]]*java.runtime.version = //p')"
 vendor="$(printf '%s\n' "$java_properties" | sed -n 's/^[[:space:]]*java.vendor = //p')"
 printf 'Java runtime: %s (%s)\n' "$runtime" "$vendor"
-test "$runtime" = '17.0.20+8'
+expected_runtime="$(sed -n 's/^java = "temurin-\(.*\)"/\1/p' mise.toml)"
+test -n "$expected_runtime"
+test "$runtime" = "$expected_runtime"
 test "$vendor" = 'Eclipse Adoptium'
-grep -Fq '/gradle-9.4.1-bin.zip' gradle/wrapper/gradle-wrapper.properties
-grep -Fq '/gradle-9.4.1-bin.zip' build-logic/gradle/wrapper/gradle-wrapper.properties
+test "$(javac -version 2>&1)" = "javac ${expected_runtime%+*}"
+for property in distributionUrl distributionSha256Sum; do
+  root_value="$(sed -n "s/^${property}=//p" gradle/wrapper/gradle-wrapper.properties)"
+  build_logic_value="$(sed -n "s/^${property}=//p" build-logic/gradle/wrapper/gradle-wrapper.properties)"
+  test -n "$root_value"
+  test "$root_value" = "$build_logic_value"
+done
 ''',
   "./gradlew --version",
 ]

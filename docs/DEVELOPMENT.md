@@ -5,9 +5,9 @@ The development verification lane pins Eclipse Temurin **17.0.20+8**, matching
 the existing runtime used for scoped module tests. This is the Gradle runtime;
 the Java/Kotlin compilation target remains 17.
 
-The existing Gradle Wrappers remain at **9.4.1**, Android Gradle Plugin at
+The existing Gradle Wrappers use **9.8.2**, Android Gradle Plugin at
 **9.2.1**, Kotlin at **2.4.10**, and compile/target SDK at **37**. AGP 9.2
-requires Gradle 9.4.1 and JDK 17 or newer, supports API 37, and uses Android
+requires at least Gradle 9.4.1 and JDK 17 or newer, supports API 37, and uses Android
 SDK Build Tools 36.0.0 by default. See the
 [Android compatibility table](https://developer.android.com/build/releases/agp-9-2-0-release-notes)
 and [Gradle Java compatibility table](https://docs.gradle.org/current/userguide/compatibility.html).
@@ -40,7 +40,7 @@ provider, signing, or release readiness.
 mise run test
 mise run lint
 mise run build
-# Or run these checks in the same order as CI:
+# Or run these representative checks in sequence:
 mise run ci
 ```
 
@@ -55,15 +55,27 @@ JDK before starting module work. Task execution does not automatically install
 missing mise tools. Run the
 explicit setup command first. When this repository is nested in the maestro
 workspace, mise also reads parent configuration; an enclosing setup can
-therefore declare additional tools. The repository verification workflow runs
-the same tasks from an independent checkout.
+therefore declare additional tools. CI build workflows read the same JDK pin
+from an independent checkout.
 
-The new development verification workflow uses the locked Temurin JDK. Its
-runner must already provide SDK platform 37 and Build Tools 36.0.0; the workflow
-does not provision them or accept licenses.
-Existing release/deployment workflows retain their Zulu 21 setup until their
-runtime is evaluated separately. A development check is not a release build.
+The representative verification tasks require SDK platform 37 and Build Tools
+36.0.0 to be available before execution.
+
+All seven Gradle build workflows use the local `setup-java` composite action,
+which reads the Temurin version from `mise.toml`, installs that exact JDK with
+`actions/setup-java`, and checks both the runtime and `javac`. `doctor` checks
+that the root and build-logic Wrapper URLs and SHA-256 checksums match rather
+than keeping a separate Gradle version pin. A development check is not a release
+build.
 
 Gradle still needs its normal cache and dependency access. If the execution
 environment denies a cache lock or filesystem operation, report that failure;
 changing the mise pin does not fix an operating-system permission denial.
+
+In managed environments with an HTTPS inspection proxy, the selected JDK must
+trust the environment CA. A downloaded Temurin JDK can have a different trust
+store from the system Java installation. Configure the JVM to use the
+operator-provided Java trust store (for example,
+`-Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts` in this Linux cloud
+environment) and the supplied proxy settings. Keep these environment-specific
+paths out of repository-wide Gradle properties; never disable TLS verification.

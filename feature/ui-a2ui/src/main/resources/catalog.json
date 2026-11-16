@@ -1,0 +1,149 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/keelim/all/a2ui/read-only/v1",
+  "catalogId": "https://github.com/keelim/all/a2ui/read-only/v1",
+  "protocolVersion": "1.0",
+  "title": "Keelim read-only catalog",
+  "instructions": "Only literal strings and explicit child IDs. No functions, bindings, actions, media or external resources. See README for session budgets.",
+  "$defs": {
+    "anyComponent": {
+      "oneOf": [
+        {
+          "$ref": "#/components/Text"
+        },
+        {
+          "$ref": "#/components/Column"
+        },
+        {
+          "$ref": "#/components/Row"
+        },
+        {
+          "$ref": "#/components/Card"
+        }
+      ]
+    },
+    "anyFunction": {
+      "not": {}
+    }
+  },
+  "components": {
+    "Text": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z_][A-Za-z0-9_-]{0,63}$"
+        },
+        "component": {
+          "const": "Text"
+        },
+        "text": {
+          "type": "string",
+          "maxLength": 4096
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "text"
+      ],
+      "additionalProperties": false
+    },
+    "Column": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z_][A-Za-z0-9_-]{0,63}$"
+        },
+        "component": {
+          "const": "Column"
+        },
+        "children": {
+          "allOf": [
+            {
+              "$ref": "https://a2ui.org/specification/v1_0/common_types.json#/$defs/ChildList"
+            },
+            {
+              "type": "array",
+              "maxItems": 128,
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z_][A-Za-z0-9_-]{0,63}$"
+              }
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "children"
+      ],
+      "additionalProperties": false
+    },
+    "Row": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z_][A-Za-z0-9_-]{0,63}$"
+        },
+        "component": {
+          "const": "Row"
+        },
+        "children": {
+          "allOf": [
+            {
+              "$ref": "https://a2ui.org/specification/v1_0/common_types.json#/$defs/ChildList"
+            },
+            {
+              "type": "array",
+              "maxItems": 128,
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z_][A-Za-z0-9_-]{0,63}$"
+              }
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "children"
+      ],
+      "additionalProperties": false
+    },
+    "Card": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z_][A-Za-z0-9_-]{0,63}$"
+        },
+        "component": {
+          "const": "Card"
+        },
+        "child": {
+          "allOf": [
+            {
+              "$ref": "https://a2ui.org/specification/v1_0/common_types.json#/$defs/ComponentId"
+            },
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z_][A-Za-z0-9_-]{0,63}$"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "child"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "functions": {}
+}

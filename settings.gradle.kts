@@ -57,6 +57,7 @@ include(
     ":core:testing",
     ":core:navigation",
     ":feature:app-function",
+    ":feature:ui-a2ui",
     ":feature:settings-core",
     ":feature:settings-theme",
     ":feature:settings-notification",

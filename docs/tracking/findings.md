@@ -37,3 +37,15 @@ Inspection via `android describe --project_dir=.` established the current debug 
 
 ### 3. Android Layout CLI Diff Deprecation
 In `android` CLI version 1.0.16625370, the `-d, --diff` option in `android layout` has been deprecated and acts as a no-op. Layout verification workflows must not rely on `--diff`; instead, layout verification must evaluate full formatted dumps (`android layout --pretty` or `--flat`) or compute structured comparisons programmatically.
+
+### 4. Location permission cleanup verification (2026-11-16)
+
+On base `8d500a214`, the changed-app verification command
+`./gradlew :app-cnubus:testDebugUnitTest :app-arducon:testDebugUnitTest`
+cannot complete because `:feature:app-function` requires
+`androidx.appfunctions:appfunctions-service:1.0.0-rc01`, which Gradle cannot
+find in Google Maven, Maven Central, or JitPack. The requested debug main-manifest
+generation is blocked by the same runtime dependency. Source manifests were
+checked, but final merged permissions and device behavior remain unverified;
+existing APKs and older merged manifests are not evidence for this change.
+Resolve the dependency in its owning module before repeating these checks.

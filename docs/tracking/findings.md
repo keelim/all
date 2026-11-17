@@ -49,3 +49,7 @@ generation is blocked by the same runtime dependency. Source manifests were
 checked, but final merged permissions and device behavior remain unverified;
 existing APKs and older merged manifests are not evidence for this change.
 Resolve the dependency in its owning module before repeating these checks.
+
+## Compose list identity verification (2026-11-17)
+
+`:app-cnubus:testDebugUnitTest :app-comssa:testDebugUnitTest :app-cnubus:lintDebug :app-comssa:lintDebug` is blocked before app compilation/tests by existing `androidx.appfunctions:appfunctions-service:1.0.0-rc01` resolution (JitPack HTTP 403) during configuration-cache task graph serialization. The new key regression tests have not executed, and no device frame-time measurement is available. Session-local log: `/tmp/lists-checks.log`.

@@ -49,3 +49,15 @@ generation is blocked by the same runtime dependency. Source manifests were
 checked, but final merged permissions and device behavior remain unverified;
 existing APKs and older merged manifests are not evidence for this change.
 Resolve the dependency in its owning module before repeating these checks.
+
+## R8 serialization keep-rule verification (2026-11-17)
+
+The combined six-app debug unit test and MySenior minification invocation is blocked during existing AppFunctions service dependency resolution (`androidx.appfunctions:appfunctions-service:1.0.0-rc01`, JitPack HTTP 403). This is not evidence of a keep-rule regression; debug tests also cannot establish minified runtime serialization correctness. Session-local log: `/tmp/r8-checks.log`. Consumer rules were inspected in the existing `kotlinx-serialization-core-jvm:1.11.0` artifact. No size reduction or on-device round-trip success is claimed.
+
+A separate MySenior-only run with `--no-configuration-cache` passed AppFunctions
+dependency selection but stopped at `:core:network:compileDebugJavaWithJavac`.
+The existing local advertising values generate empty Java expressions for
+`AD_NANDA_APPLICATION_ID`, `AD_NANDA_BANNER_ID` and `AD_NANDA_TEST_BANNER_ID`.
+No new provider values were fabricated or configured. The app tests and R8
+minification remain unverified. Session-local logs:
+`/tmp/baseline-mysenior-checks.log` and `/tmp/r8-mysenior-checks.log`.

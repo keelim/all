@@ -49,3 +49,15 @@ generation is blocked by the same runtime dependency. Source manifests were
 checked, but final merged permissions and device behavior remain unverified;
 existing APKs and older merged manifests are not evidence for this change.
 Resolve the dependency in its owning module before repeating these checks.
+
+## Baseline Profile cleanup verification (2026-11-17)
+
+The combined `:app-cnubus:testDebugUnitTest :app-comssa:testDebugUnitTest :app-mysenior:testDebugUnitTest` invocation is blocked while resolving the existing `androidx.appfunctions:appfunctions-service:1.0.0-rc01` dependency from `:feature:app-function`. The fallback JitPack request returns HTTP 403; the failure occurs before app tests execute. Profile provenance host tests pass (3 tests). No replacement Baseline Profiles or startup improvements can be verified without a producer and device. See session-local `/tmp/baseline-checks.log`. `scripts` has no Android `testDebugUnitTest` task; its focused host tests are run through Python unittest.
+
+A separate MySenior-only run with `--no-configuration-cache` passed AppFunctions
+dependency selection but stopped at `:core:network:compileDebugJavaWithJavac`.
+The existing local advertising values generate empty Java expressions for
+`AD_NANDA_APPLICATION_ID`, `AD_NANDA_BANNER_ID` and `AD_NANDA_TEST_BANNER_ID`.
+No new provider values were fabricated or configured. The app tests and R8
+minification remain unverified. Session-local logs:
+`/tmp/baseline-mysenior-checks.log` and `/tmp/r8-mysenior-checks.log`.

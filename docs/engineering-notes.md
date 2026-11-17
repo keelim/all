@@ -33,3 +33,18 @@ Run `python3 scripts/check_baseline_profiles.py` to reject reintroduced sample
 profiles before committing. Official guidance:
 https://developer.android.com/topic/performance/baselineprofiles/create-baselineprofile
 https://developer.android.com/topic/performance/baselineprofiles/measure-baselineprofile
+
+## Serialization shrinking
+
+App rules rely on the `kotlinx-serialization-core-jvm:1.11.0` bundled consumer
+rules for serializer/companion lookup, objects and runtime annotations, rather
+than keeping every member of every `@Serializable` class. Retain the optimized
+Android default rules and all unrelated warning rules. Explicit app reflection
+entry points may still need narrow rules; audit new reflection consumers before
+adding them. Validate a minified APK's JSON/polymorphic serialization and typed
+navigation on device before release. Debug unit tests do not exercise R8.
+
+Use `android analyze --analysis=optimization --format=json <apk>` on the same
+release variant before and after a rule change. The current AGP 9.2.1 does not
+provide the AGP 9.3+ standalone `analyzeReleaseR8Config` path. No temporary R8
+version override or release/deploy workflow is necessary for this rule cleanup.

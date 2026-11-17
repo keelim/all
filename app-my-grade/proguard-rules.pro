@@ -14,7 +14,8 @@
 -dontwarn io.ktor.client.plugins.contentnegotiation.ContentNegotiation$Config
 -dontwarn io.ktor.client.plugins.contentnegotiation.ContentNegotiation$Plugin
 -dontwarn io.ktor.client.plugins.contentnegotiation.ContentNegotiation
--keep @kotlinx.serialization.Serializable class * {*;}
+# kotlinx.serialization 1.11 supplies serializer/companion consumer keep rules.
+# Keep individual reflection entry points here only when a concrete use requires it.
 -dontwarn kotlin.native.ObjCName
 -dontwarn okhttp3.internal.Util
 -repackageclasses

@@ -221,7 +221,12 @@ private fun Success(
                 contentPadding = PaddingValues(horizontal = space12),
                 verticalArrangement = Arrangement.spacedBy(space24),
             ) {
-                itemsIndexed(uiState.data) { index, item ->
+                itemsIndexed(
+                    items = uiState.data,
+                    // Station names are the identity used by favorites and route selection.
+                    key = { _, station -> station.name },
+                    contentType = { _, _ -> "station" },
+                ) { index, item ->
                     TimelineItem(
                         position = index,
                         rootTitle = item.name,

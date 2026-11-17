@@ -105,11 +105,11 @@ fun EcocalMainSection(
             state = state,
             modifier = Modifier.fillMaxSize(),
         ) {
-            item(key = "ecocal-header") {
+            item(key = "ecocal-header", contentType = "ecocal-header") {
                 HeaderItem()
             }
             entries.forEach { (header, entries) ->
-                stickyHeader(key = "ecocal-date:$header") {
+                stickyHeader(key = "ecocal-date:$header", contentType = "ecocal-date") {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -134,6 +134,7 @@ fun EcocalMainSection(
                 }
                 items(
                     items = entries,
+                    contentType = { "ecocal-event" },
                     key = { entry ->
                         "${entry.date}|${entry.time}|${entry.country}|${entry.title}"
                     },

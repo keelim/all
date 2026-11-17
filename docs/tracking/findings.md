@@ -73,3 +73,7 @@ The existing local advertising values generate empty Java expressions for
 No new provider values were fabricated or configured. The app tests and R8
 minification remain unverified. Session-local logs:
 `/tmp/baseline-mysenior-checks.log` and `/tmp/r8-mysenior-checks.log`.
+
+## Compose list identity verification (2026-11-17)
+
+`:app-cnubus:testDebugUnitTest :app-comssa:testDebugUnitTest :app-cnubus:lintDebug :app-comssa:lintDebug` is blocked before app compilation/tests by existing `androidx.appfunctions:appfunctions-service:1.0.0-rc01` resolution (JitPack HTTP 403) during configuration-cache task graph serialization. The new key regression tests have not executed, and no device frame-time measurement is available. Session-local log: `/tmp/lists-checks.log`.

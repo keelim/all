@@ -76,6 +76,8 @@ A multi-app Android and Compose Multiplatform repository for six apps and shared
 │   └── common-android/
 │       └── AGENTS.md → common-android ownership and invariants
 ├── feature/
+│   ├── ui-a2ui/
+│   │   └── AGENTS.md → Restricted declarative Compose renderer boundary
 │   ├── ui-web/
 │   │   └── AGENTS.md → ui-web ownership and invariants
 │   ├── ui-scheme/

@@ -8,6 +8,7 @@ import sys
 from all_scripts import (
     android_light,
     compile_check,
+    compose_preview,
     dependency_tree_update,
     fcm_admin,
     gradle_cache,
@@ -19,6 +20,7 @@ from all_scripts import (
 )
 
 COMMANDS = {
+    "compose-preview": (compose_preview.main, "List/render scoped Compose previews without a device"),
     "android-light": (android_light.main, "Scoped Android CLI + Gradle Wrapper workflow"),
     "compile-check": (compile_check.main, "Run :compileDebugSources across core apps"),
     "dependency-tree-update": (

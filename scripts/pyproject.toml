@@ -13,6 +13,7 @@ fcm = [
 
 [project.scripts]
 all-scripts = "all_scripts.cli:main"
+compose-preview = "all_scripts.compose_preview:main"
 android-light = "all_scripts.android_light:main"
 compile-check = "all_scripts.compile_check:main"
 dependency-tree-update = "all_scripts.dependency_tree_update:main"

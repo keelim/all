@@ -34,8 +34,6 @@ A multi-app Android and Compose Multiplatform repository for six apps and shared
 │   └── AGENTS.md → widget ownership and invariants
 ├── app-arducon/
 │   └── AGENTS.md → app-arducon ownership and invariants
-├── catalog/
-│   └── AGENTS.md → catalog ownership and invariants
 ├── shared/
 │   └── AGENTS.md → shared ownership and invariants
 ├── build-logic/

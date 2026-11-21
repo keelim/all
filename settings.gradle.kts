@@ -39,7 +39,6 @@ include(
     ":app-comssa",
     ":app-mysenior",
     ":benchmarks",
-    ":catalog",
     ":composeApp",
     ":core:common",
     ":core:common-android",

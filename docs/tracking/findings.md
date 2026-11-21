@@ -77,3 +77,37 @@ minification remain unverified. Session-local logs:
 ## Compose list identity verification (2026-11-17)
 
 `:app-cnubus:testDebugUnitTest :app-comssa:testDebugUnitTest :app-cnubus:lintDebug :app-comssa:lintDebug` is blocked before app compilation/tests by existing `androidx.appfunctions:appfunctions-service:1.0.0-rc01` resolution (JitPack HTTP 403) during configuration-cache task graph serialization. The new key regression tests have not executed, and no device frame-time measurement is available. Session-local log: `/tmp/lists-checks.log`.
+
+## DataStore 1.3.0 Guard verification (PR #2299)
+
+The existing stdlib launcher `python3 scripts/dependency_tree_update.py
+--no-daemon --max-workers=2 --console=plain --no-configuration-cache
+-Pandroid.builder.sdkDownload=false` successfully wrote five app baselines on
+base `bdcb34fce` and PR head `3e3c4d9c3`. The generated base/head difference is
+20 coordinates per app: 12 DataStore artifacts at 1.3.0, three collection
+artifacts at 1.6.0, three tracing artifacts at 2.0.1, and two okio artifacts at
+3.17.0. Only Nanda's 20 coordinates are accepted in this change. Nanda's unrelated
+existing baseline drift (88 added / 49 removed lines) is preserved and its final
+`dependencyGuard` still fails; a full rebaseline needs separate review.
+
+Nanda's `testDebugUnitTest` passed all seven tests, and `assembleDebug` completed
+with a newly generated APK. The combined five-app unit-test/Nanda-smoke invocation
+still exited with 13 failures in other apps. Arducon, CNUBUS, Comssa and MyGrade
+lack `google-services.json` and cannot resolve the existing
+`androidx.appfunctions:appfunctions-service:1.0.0` dependency from
+`:feature:app-function` (JitPack HTTP 403). Their tests did not execute.
+Arducon also has an unresolved
+`com.github.tehras:charts:0.2.4-alpha` dependency. Explicit
+`dependencies --configuration releaseRuntimeClasspath` reports contain no
+`FAILED` nodes for Nanda and unresolved nodes for the other four apps. A successful
+Guard baseline task alone is insufficient proof of a fully resolved graph: its
+output can omit unresolved components. Their baseline changes were therefore
+reverted, and those four apps remain blocked for complete graph verification.
+MySenior has no checked-in baseline and is outside the five-app helper.
+
+Verification used Temurin 17.0.20+8, Android SDK 37 and the root Gradle 9.9.2
+wrapper with the environment's proxy and system Java CA trust store. `mise` is
+unavailable. Running its checked-in doctor shell directly passes the exact JDK
+checks but fails the existing root/nested wrapper SHA comparison (`971fcd...`
+versus `21bd5d...`); neither wrapper is changed here. Generated baseline snapshots,
+dependency reports, test XML and raw logs are under `/workspace/2299-evidence/`.

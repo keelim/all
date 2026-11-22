@@ -23,6 +23,7 @@ import com.keelim.core.data.model.locationList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -34,6 +35,8 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import com.keelim.data.repository.StationRepository
 import jakarta.inject.Inject
 @Stable
@@ -41,6 +44,7 @@ import jakarta.inject.Inject
 class RootViewModel @Inject constructor(
     private val stationRepository: StationRepository,
 ) : ViewModel() {
+    private val favoriteToggleMutex = Mutex()
     private val modes = MutableStateFlow("a")
     private val _query = MutableStateFlow("")
     private val retrySignal = MutableStateFlow(0)
@@ -101,11 +105,15 @@ class RootViewModel @Inject constructor(
 
     fun toggleFavorite(stationName: String) {
         viewModelScope.launch {
-            val currentFavorites = favorites.value
-            if (currentFavorites.contains(stationName)) {
-                stationRepository.removeFavorite(stationName)
-            } else {
-                stationRepository.addFavorite(stationName)
+            favoriteToggleMutex.withLock {
+                // Read persisted state even before the WhileSubscribed UI flow is collected.
+                // A name still toggles the entire legacy favorite group, including duplicate rows.
+                val currentFavorites = stationRepository.favoriteStations.first()
+                if (currentFavorites.contains(stationName)) {
+                    stationRepository.removeFavorite(stationName)
+                } else {
+                    stationRepository.addFavorite(stationName)
+                }
             }
         }
     }

@@ -225,8 +225,8 @@ private fun Success(
             ) {
                 itemsIndexed(
                     items = uiState.data,
-                    // Station names are the identity used by favorites and route selection.
-                    key = { _, station -> station.name },
+                    // Keep duplicate-name rows distinct; favorite storage stays name-based.
+                    key = { _, station -> station.stationRowKey },
                     contentType = { _, _ -> "station" },
                 ) { index, item ->
                     TimelineItem(

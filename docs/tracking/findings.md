@@ -151,3 +151,22 @@ stored favorite names and route selection behavior, then rerun the clean six-app
 validation and recheck the remote develop SHA before a normal fast-forward push.
 Do not rename/delete duplicate entries, weaken the assertion or migrate persisted
 keys as part of this common-build repair.
+
+## CNUBUS duplicate row-key repair verification (2026-11-17)
+
+The station catalog has 23 rows but only 21 distinct names. `도서관앞` repeats
+even at identical coordinates, with different route membership; `골프장` also
+repeats. The name-only lazy key from #2284 is invalid. The follow-up uses the
+immutable latitude/longitude bit patterns and all four route positions as a
+presentation-only row key. Existing name-group favorites and DataStore keys
+remain unchanged; no data or duplicate rows are removed.
+
+The standard `:app-cnubus:testDebugUnitTest` run remains blocked by the existing
+`appfunctions-service:1.0.0-rc01` resolution failure (JitPack HTTP 403). With the
+service/compiler pair temporarily pinned to alpha09 for diagnosis and synthetic
+local provider/Firebase fixtures, all 20 CNUBUS tests passed, including duplicate
+keys, search filtering, restored favorites, removal/re-add and queued toggles.
+The version catalog was restored byte-for-byte to rc01 before committing.
+Logs: `/tmp/cnubus-identity-rc01.log`, `/tmp/cnubus-identity-alpha09.log`
+(session-local). This does not establish rc01 compatibility, real Firebase
+integration, device rendering or on-disk DataStore restore behavior.

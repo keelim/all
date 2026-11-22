@@ -120,3 +120,11 @@ are changed, preserving selection callbacks and UI behavior. CI uses Gradle `--c
 other consumers while preserving the failing exit status; it never treats this
 failure as passing. Direct develop push remains blocked until consumer validation passes.
 Evidence: https://github.com/keelim/all/actions/runs/44996494354/job/137128529092 .
+
+The combined six-app CI build exposed D8 `Java heap space` during MyGrade dex
+merging with the repository's 2 GiB Gradle heap. Comssa, Nanda and MySenior debug
+APKs built, and Comssa's AppFunctions APK metadata passed. Consumer CI alone uses
+a 4 GiB heap, one worker and in-process Kotlin compilation to control peak memory;
+the repository's local Gradle defaults remain unchanged. This is a resource
+configuration adjustment, not a test exclusion or dependency-version change.
+Evidence: https://github.com/keelim/all/actions/runs/44997329707/job/137131089366 .

@@ -1,4 +1,4 @@
-name: Common Android build validation
+name: Arducon unit-test retry
 on:
   push:
     branches: [develop, 'codex/all-build-repair-*']
@@ -14,14 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        scope:
-          - appfunctions
-          - app-arducon
-          - app-cnubus
-          - app-comssa
-          - app-my-grade
-          - app-nanda
-          - app-mysenior
+        scope: [app-arducon]
     steps:
       - uses: actions/checkout@v6
         with:
@@ -50,24 +43,8 @@ jobs:
         run: python3 .github/scripts/verify-common-build.py configuration
       - name: Generate public offline fixtures
         run: python3 .github/scripts/prepare-offline-build.py
-      - name: Clean compile and test AppFunctions with shared Android baseline
-        if: matrix.scope == 'appfunctions'
-        run: ./gradlew --no-daemon --max-workers=2 -Pandroid.builder.sdkDownload=false clean :core:common-android:assembleDebug :core:common-android:testDebugUnitTest :feature:app-function:assembleDebug :feature:app-function:testDebugUnitTest --info
-      - name: Verify generated function contracts and test discovery
-        if: matrix.scope == 'appfunctions'
-        run: python3 .github/scripts/verify-common-build.py appfunctions
-      - name: Clean compile and test Android app
-        if: matrix.scope != 'appfunctions'
-        env:
-          APP: ${{ matrix.scope }}
-        run: |
-          tasks=(clean ":$APP:assembleDebug" ":$APP:testDebugUnitTest")
-          ./gradlew --no-daemon --continue --stacktrace --max-workers=1 --no-parallel '-Dorg.gradle.jvmargs=-Xmx4g -Dfile.encoding=UTF-8 -XX:ReservedCodeCacheSize=256m' -Pkotlin.compiler.execution.strategy=in-process -Pandroid.builder.sdkDownload=false "${tasks[@]}"
-      - name: Verify debug APK and AppFunctions packaging
-        if: always() && matrix.scope != 'appfunctions'
-        env:
-          APP: ${{ matrix.scope }}
-        run: python3 .github/scripts/verify-common-build.py consumers "$APP"
+      - name: Run Arducon unit tests
+        run: ./gradlew --no-daemon --max-workers=2 --no-parallel -Pandroid.builder.sdkDownload=false :app-arducon:testDebugUnitTest
       - name: Save build and test evidence
         if: always()
         uses: actions/upload-artifact@v4

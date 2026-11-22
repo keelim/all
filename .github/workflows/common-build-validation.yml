@@ -10,11 +10,18 @@ jobs:
   build:
     name: clean-${{ matrix.scope }}
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 50
     strategy:
       fail-fast: false
       matrix:
-        scope: [appfunctions, consumers]
+        scope:
+          - appfunctions
+          - app-arducon
+          - app-cnubus
+          - app-comssa
+          - app-my-grade
+          - app-nanda
+          - app-mysenior
     steps:
       - uses: actions/checkout@v6
         with:
@@ -49,12 +56,18 @@ jobs:
       - name: Verify generated function contracts and test discovery
         if: matrix.scope == 'appfunctions'
         run: python3 .github/scripts/verify-common-build.py appfunctions
-      - name: Clean compile and test all six Android apps
-        if: matrix.scope == 'consumers'
-        run: ./gradlew --no-daemon --continue --stacktrace --max-workers=1 --no-parallel '-Dorg.gradle.jvmargs=-Xmx4g -Dfile.encoding=UTF-8 -XX:ReservedCodeCacheSize=256m' -Pkotlin.compiler.execution.strategy=in-process -Pandroid.builder.sdkDownload=false clean :app-arducon:assembleDebug :app-cnubus:assembleDebug :app-comssa:assembleDebug :app-my-grade:assembleDebug :app-nanda:assembleDebug :app-mysenior:assembleDebug :app-arducon:testDebugUnitTest :app-cnubus:testDebugUnitTest :app-comssa:testDebugUnitTest :app-my-grade:testDebugUnitTest :app-nanda:testDebugUnitTest :app-mysenior:testDebugUnitTest
-      - name: Verify merged AppFunctions services and assets in consumer APKs
-        if: always() && matrix.scope == 'consumers'
-        run: python3 .github/scripts/verify-common-build.py consumers
+      - name: Clean compile and test Android app
+        if: matrix.scope != 'appfunctions'
+        env:
+          APP: ${{ matrix.scope }}
+        run: |
+          tasks=(clean ":$APP:assembleDebug" ":$APP:testDebugUnitTest")
+          ./gradlew --no-daemon --continue --stacktrace --max-workers=1 --no-parallel '-Dorg.gradle.jvmargs=-Xmx4g -Dfile.encoding=UTF-8 -XX:ReservedCodeCacheSize=256m' -Pkotlin.compiler.execution.strategy=in-process -Pandroid.builder.sdkDownload=false "${tasks[@]}"
+      - name: Verify debug APK and AppFunctions packaging
+        if: always() && matrix.scope != 'appfunctions'
+        env:
+          APP: ${{ matrix.scope }}
+        run: python3 .github/scripts/verify-common-build.py consumers "$APP"
       - name: Save build and test evidence
         if: always()
         uses: actions/upload-artifact@v4

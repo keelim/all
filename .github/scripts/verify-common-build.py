@@ -13,6 +13,7 @@ CONTRACTS = {
     'health_app_functions.xml': ('com.keelim.appfunction.health.HealthAppFunctions#getHealthStatus', 'com.keelim.appfunction.health.HealthAppFunctionService'),
 }
 ANDROID = '{http://schemas.android.com/apk/res/android}'
+APPFUNCTIONS_CONSUMERS = ('app-arducon', 'app-cnubus', 'app-comssa', 'app-my-grade')
 
 
 def contract(data, filename):
@@ -63,32 +64,35 @@ def appfunctions():
 
 
 def consumer(app):
-    for app in (app,):
-        apks = list((ROOT / app / 'build/outputs/apk/debug').glob('*.apk'))
-        assert apks, f'No debug APK for {app}'
-        for apk in apks:
-            with zipfile.ZipFile(apk) as archive:
-                for filename in CONTRACTS:
-                    contract(archive.read('assets/' + filename), filename)
-                assert 'assets/app_functions_schema.xsd' in archive.namelist()
-        manifests = list((ROOT / app / 'build/intermediates').glob('merged_manifest*/debug/**/AndroidManifest.xml'))
-        assert manifests, f'No merged debug manifest for {app}'
-        for path in manifests:
-            manifest = ET.parse(path).getroot()
-            for filename, (_, service_name) in CONTRACTS.items():
-                services = [s for s in manifest.iter('service') if s.get(ANDROID + 'name') == service_name]
-                assert len(services) == 1, (app, service_name)
-                service = services[0]
-                assert service.get(ANDROID + 'exported') == 'true'
-                assert service.get(ANDROID + 'permission') == 'android.permission.BIND_APP_FUNCTION_SERVICE'
-                assert any(a.get(ANDROID + 'name') == 'android.app.appfunctions.AppFunctionService' for a in service.iter('action'))
-                assert any(p.get(ANDROID + 'name') == 'android.app.appfunctions.v2' and p.get(ANDROID + 'value') == filename for p in service.iter('property'))
-        print(f'{app}: debug APK contracts and protected merged services verified')
+    apks = list((ROOT / app / 'build/outputs/apk/debug').glob('*.apk'))
+    assert apks, f'No debug APK for {app}'
+    if app not in APPFUNCTIONS_CONSUMERS:
+        print(f'{app}: debug APK verified')
+        return
+
+    for apk in apks:
+        with zipfile.ZipFile(apk) as archive:
+            for filename in CONTRACTS:
+                contract(archive.read('assets/' + filename), filename)
+            assert 'assets/app_functions_schema.xsd' in archive.namelist()
+    manifests = list((ROOT / app / 'build/intermediates').glob('merged_manifest*/debug/**/AndroidManifest.xml'))
+    assert manifests, f'No merged debug manifest for {app}'
+    for path in manifests:
+        manifest = ET.parse(path).getroot()
+        for filename, (_, service_name) in CONTRACTS.items():
+            services = [s for s in manifest.iter('service') if s.get(ANDROID + 'name') == service_name]
+            assert len(services) == 1, (app, service_name)
+            service = services[0]
+            assert service.get(ANDROID + 'exported') == 'true'
+            assert service.get(ANDROID + 'permission') == 'android.permission.BIND_APP_FUNCTION_SERVICE'
+            assert any(a.get(ANDROID + 'name') == 'android.app.appfunctions.AppFunctionService' for a in service.iter('action'))
+            assert any(p.get(ANDROID + 'name') == 'android.app.appfunctions.v2' and p.get(ANDROID + 'value') == filename for p in service.iter('property'))
+    print(f'{app}: debug APK contracts and protected merged services verified')
 
 
 def consumers():
     failures = []
-    for app in ('app-arducon', 'app-cnubus', 'app-comssa', 'app-my-grade'):
+    for app in sys.argv[2:] or APPFUNCTIONS_CONSUMERS:
         try:
             consumer(app)
         except (AssertionError, KeyError, ET.ParseError) as error:

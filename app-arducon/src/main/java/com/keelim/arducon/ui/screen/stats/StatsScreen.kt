@@ -1,13 +1,11 @@
 package com.keelim.arducon.ui.screen.stats
 
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -36,11 +34,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.github.tehras.charts.bar.BarChart
-import com.github.tehras.charts.bar.BarChartData
-import com.github.tehras.charts.bar.renderer.label.SimpleValueDrawer
-import com.github.tehras.charts.bar.renderer.xaxis.SimpleXAxisDrawer
-import com.github.tehras.charts.bar.renderer.yaxis.SimpleYAxisDrawer
 import com.keelim.commonAndroid.extensions.toUiDateTime
 import com.keelim.model.DeepLink
 import com.keelim.model.UsageStat
@@ -239,34 +232,4 @@ private fun StatsLinkItem(item: DeepLink, highlight: Boolean) {
             )
         }
     }
-}
-
-@Composable
-fun StatsBarChart(stats: List<UsageStat>) {
-    if (stats.isEmpty()) {
-        KuiText("데이터 없음", style = KuiTheme.typography.bodyMedium)
-        return
-    }
-    BarChart(
-        barChartData = BarChartData(
-            bars = stats.map {
-                BarChartData.Bar(
-                    label = it.day,
-                    value = it.count.toFloat(),
-                    color = Color(
-                        android.graphics.Color.HSVToColor(
-                            floatArrayOf((it.day.hashCode() % 360).toFloat(), 0.5f, 0.85f),
-                        ),
-                    ),
-                )
-            },
-        ),
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(220.dp),
-        animation = tween(),
-        labelDrawer = SimpleValueDrawer(),
-        xAxisDrawer = SimpleXAxisDrawer(),
-        yAxisDrawer = SimpleYAxisDrawer(),
-    )
 }

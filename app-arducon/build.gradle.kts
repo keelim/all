@@ -55,7 +55,6 @@ dependencies {
     implementation(libs.play.services.code.scanner)
     implementation(libs.timber)
     implementation(libs.jsoup)
-    implementation(libs.tehras.chart)
 
     debugImplementation(libs.leakcanary)
     testImplementation(projects.core.testing)

@@ -17,6 +17,7 @@ dependencies {
     implementation(projects.core.data)
     implementation(libs.androidx.appfunctions)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.coroutines.android)
     ksp(libs.androidx.appfunctions.compiler)
 
     testImplementation(projects.core.testing)

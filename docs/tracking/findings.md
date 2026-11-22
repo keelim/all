@@ -77,3 +77,8 @@ minification remain unverified. Session-local logs:
 ## Compose list identity verification (2026-11-17)
 
 `:app-cnubus:testDebugUnitTest :app-comssa:testDebugUnitTest :app-cnubus:lintDebug :app-comssa:lintDebug` is blocked before app compilation/tests by existing `androidx.appfunctions:appfunctions-service:1.0.0-rc01` resolution (JitPack HTTP 403) during configuration-cache task graph serialization. The new key regression tests have not executed, and no device frame-time measurement is available. Session-local log: `/tmp/lists-checks.log`.
+
+
+## Dependency validation baseline (2026-11-22)
+
+Fresh non-deployment CI with the checked-in Temurin 17.0.20+8 and Gradle 9.9.2 stopped during `:app-arducon` configuration because `local.defaults.properties` is absent from a clean checkout. Run: https://github.com/keelim/all/actions/runs/44985733013 . The validation draft now explicitly copies CI-only public test/empty provider defaults, leaving production configuration and secrets untouched. AppFunctions service resolution and both Arducon/Nanda Dependency Guard remain enabled; no downstream success is claimed until those tasks execute.

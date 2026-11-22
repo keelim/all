@@ -71,191 +71,186 @@ colors:
 typography:
   display-xl:
     fontFamily: System Sans
-    fontSize: 72sp
+    fontSize: 72px
     fontWeight: 700
-    lineHeight: 80sp
+    lineHeight: 80px
     letterSpacing: 0em
   display-lg:
     fontFamily: System Sans
-    fontSize: 52sp
+    fontSize: 52px
     fontWeight: 700
-    lineHeight: 60sp
+    lineHeight: 60px
     letterSpacing: 0em
   h1:
     fontFamily: System Sans
-    fontSize: 32sp
+    fontSize: 32px
     fontWeight: 700
-    lineHeight: 40sp
+    lineHeight: 40px
     letterSpacing: 0em
   h2:
     fontFamily: System Sans
-    fontSize: 24sp
+    fontSize: 24px
     fontWeight: 600
-    lineHeight: 32sp
+    lineHeight: 32px
     letterSpacing: 0em
   h3:
     fontFamily: System Sans
-    fontSize: 20sp
+    fontSize: 20px
     fontWeight: 600
-    lineHeight: 28sp
+    lineHeight: 28px
     letterSpacing: 0em
   h4:
     fontFamily: System Sans
-    fontSize: 16sp
+    fontSize: 16px
     fontWeight: 600
-    lineHeight: 24sp
+    lineHeight: 24px
     letterSpacing: 0em
   title:
     fontFamily: System Sans
-    fontSize: 20sp
+    fontSize: 20px
     fontWeight: 600
-    lineHeight: 28sp
+    lineHeight: 28px
     letterSpacing: 0em
   title-sm:
     fontFamily: System Sans
-    fontSize: 13sp
+    fontSize: 13px
     fontWeight: 500
-    lineHeight: 20sp
+    lineHeight: 20px
     letterSpacing: 0em
   body-lg:
     fontFamily: System Sans
-    fontSize: 17sp
+    fontSize: 17px
     fontWeight: 400
-    lineHeight: 26sp
+    lineHeight: 26px
     letterSpacing: 0em
   body:
     fontFamily: System Sans
-    fontSize: 15sp
+    fontSize: 15px
     fontWeight: 400
-    lineHeight: 22sp
+    lineHeight: 22px
     letterSpacing: 0em
   body-sm:
     fontFamily: System Sans
-    fontSize: 14sp
+    fontSize: 14px
     fontWeight: 400
-    lineHeight: 20sp
+    lineHeight: 20px
     letterSpacing: 0em
   label:
     fontFamily: System Sans
-    fontSize: 13sp
+    fontSize: 13px
     fontWeight: 500
-    lineHeight: 18sp
+    lineHeight: 18px
     letterSpacing: 0em
   caption:
     fontFamily: System Sans
-    fontSize: 12sp
+    fontSize: 12px
     fontWeight: 500
-    lineHeight: 16sp
+    lineHeight: 16px
     letterSpacing: 0em
   label-sm:
     fontFamily: System Sans
-    fontSize: 11sp
+    fontSize: 11px
     fontWeight: 500
-    lineHeight: 16sp
-    letterSpacing: 0.5sp
+    lineHeight: 16px
+    letterSpacing: 0.045em
   overline:
     fontFamily: System Sans
-    fontSize: 11sp
+    fontSize: 11px
     fontWeight: 500
-    lineHeight: 16sp
+    lineHeight: 16px
     letterSpacing: 0.12em
   numeric:
     fontFamily: System Monospace
-    fontSize: 15sp
+    fontSize: 15px
     fontWeight: 400
-    lineHeight: 22sp
+    lineHeight: 22px
     letterSpacing: 0em
   ticker:
     fontFamily: System Monospace
-    fontSize: 28sp
+    fontSize: 28px
     fontWeight: 600
-    lineHeight: 36sp
+    lineHeight: 36px
     letterSpacing: 0em
   code:
     fontFamily: System Monospace
-    fontSize: 13sp
+    fontSize: 13px
     fontWeight: 400
-    lineHeight: 20sp
+    lineHeight: 20px
     letterSpacing: 0.01em
 rounded:
-  xs: 8dp
-  sm: 14dp
-  md: 18dp
-  lg: 24dp
-  xl: 28dp
-  full: 999dp
+  xs: 8px
+  sm: 14px
+  md: 18px
+  lg: 24px
+  xl: 28px
+  full: 999px
 spacing:
-  0: 0dp
-  1: 4dp
-  2: 8dp
-  3: 12dp
-  4: 16dp
-  6: 24dp
-  8: 32dp
-  12: 48dp
-  16: 64dp
-  component-sm: 40dp
-  component-md: 44dp
-  component-lg: 48dp
-  card-padding: 24dp
-  section-gap: 16dp
-elevation:
-  none: 0dp
-  card: 1dp
-  soft: 3dp
-  panel: 6dp
+  0: 0px
+  1: 4px
+  2: 8px
+  3: 12px
+  4: 16px
+  6: 24px
+  8: 32px
+  12: 48px
+  16: 64px
+  component-sm: 40px
+  component-md: 44px
+  component-lg: 48px
+  card-padding: 24px
+  section-gap: 16px
 components:
   button:
     backgroundColor: "{colors.primary}"
     textColor: "{colors.on-primary}"
     typography: "{typography.label}"
     rounded: "{rounded.sm}"
-    padding: 24dp
-    height: 44dp
+    padding: 24px
+    height: 44px
   button-secondary:
     textColor: "{colors.primary}"
     typography: "{typography.label}"
     rounded: "{rounded.sm}"
-    height: 44dp
+    height: 44px
   button-ghost:
     backgroundColor: "{colors.surface-soft}"
     textColor: "{colors.foreground}"
     typography: "{typography.label}"
     rounded: "{rounded.sm}"
-    height: 44dp
+    height: 44px
   button-danger:
     backgroundColor: "{colors.danger}"
     textColor: "{colors.on-danger}"
     typography: "{typography.label}"
     rounded: "{rounded.sm}"
-    height: 44dp
+    height: 44px
   text-field:
     backgroundColor: "{colors.surface-soft}"
     textColor: "{colors.foreground}"
     typography: "{typography.body}"
     rounded: "{rounded.md}"
-    height: 48dp
+    height: 48px
   panel:
     backgroundColor: "{colors.surface}"
     textColor: "{colors.foreground}"
     rounded: "{rounded.lg}"
-    padding: 24dp
+    padding: 24px
   panel-soft:
     backgroundColor: "{colors.surface-soft}"
     textColor: "{colors.foreground}"
     rounded: "{rounded.lg}"
-    padding: 24dp
+    padding: 24px
   card:
     backgroundColor: "{colors.surface}"
     textColor: "{colors.foreground}"
     rounded: "{rounded.lg}"
-    padding: 24dp
+    padding: 24px
   badge:
     backgroundColor: "{colors.surface-soft}"
     textColor: "{colors.foreground}"
     typography: "{typography.label-sm}"
     rounded: "{rounded.full}"
-    padding: 8dp
+    padding: 8px
   badge-success:
     backgroundColor: "{colors.success-soft}"
     textColor: "{colors.on-success-soft}"
@@ -350,6 +345,18 @@ hosts larger compatibility widgets. Do not create a second token system in
 | `Finance` | `financeLightColorScheme` | `financeKuiColors` | System light |
 | `FinanceDark` | `financeDarkColorScheme` | `financeDarkKuiColors` | Never; pass explicitly |
 | `AdminBw` | `adminBwDarkColorScheme` | `adminBwKuiColors` | System dark |
+
+**Units:** the design.md schema accepts `px`, not `dp`/`sp`, so YAML lengths are
+written in `px` with 1px = 1dp = 1sp (baseline density, default font scale).
+Code always uses `dp`/`sp` through `KuiTheme`. `labelSmall`'s 0.5sp tracking is
+written as 0.045em. Elevation (0/1/3/6dp) has no schema key and is documented
+under Elevation & Depth only.
+
+**Lint:** `.github/workflows/design_lint.yml` runs
+`@google/design.md@0.4.0 lint` whenever this file changes; run the same check
+locally with `mise run design-lint`. Errors fail CI. `orphaned-tokens`
+warnings for `finance-dark-*` / `admin-*` keys are expected, because components
+reference the `Finance` roles only.
 
 The YAML `colors` block uses unprefixed keys for `Finance`, `finance-dark-*` for
 `FinanceDark`, and `admin-*` for `AdminBw`. Component entries reference the
@@ -510,7 +517,11 @@ design variants of the primitives above, not separate composables.
 
 Color reinforces state but never carries it alone: status, market movement,
 validation, and destructive actions also need text, an icon, or structure.
-Keep primary touch targets at 44dp or larger, give icon buttons a
+Known gap: Finance `up` (`#DC2626`) on `upSoft` measures about 4.12:1, below
+WCAG AA 4.5:1 for body text (design.md lint `contrast-ratio` warning). Until
+the token is retuned, use market-up chips with `numeric` text plus a sign or
+arrow rather than relying on the color alone. Keep primary touch targets at
+44dp or larger, give icon buttons a
 `contentDescription`, and keep focus and disabled states visible in all three
 themes.
 

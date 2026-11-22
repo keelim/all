@@ -7,5 +7,5 @@ Canonical Android Compose tokens and primitives are under `theme/` and `componen
 ## Boundaries
 
 - Add reusable tokens or primitives here before adding screen-local style values.
-- Update the root `DESIGN.md` in the same change as any token, theme, or primitive API change; the Kotlin sources stay authoritative.
+- Update the root `DESIGN.md` in the same change as any token, theme, or primitive API change; the Kotlin sources stay authoritative. Check it with `mise run design-lint` (CI runs the same linter on `DESIGN.md` changes).
 - Keep public design tokens stable; use `:core:component` for larger compatibility and interactive widgets (`VPrism`, `TextStream`, `KeelimNavDisplay`).

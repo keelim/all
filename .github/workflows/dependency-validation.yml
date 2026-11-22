@@ -1,0 +1,58 @@
+name: Android dependency validation
+on:
+  pull_request:
+    branches: [develop]
+    paths:
+      - '**/*.kt'
+      - '**/*.kts'
+      - gradle/**
+      - gradle.properties
+      - app-arducon/dependencies/releaseRuntimeClasspath.txt
+      - app-nanda/dependencies/releaseRuntimeClasspath.txt
+      - .github/scripts/prepare-offline-build.py
+      - .github/workflows/dependency-validation.yml
+permissions:
+  contents: read
+jobs:
+  android:
+    name: android-${{ matrix.scope }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - scope: library
+            tasks: ':core:common-android:testDebugUnitTest :core:common-android:assembleDebug'
+          - scope: appfunctions
+            tasks: ':feature:app-function:testDebugUnitTest :app-arducon:testDebugUnitTest :app-arducon:assembleDebug :app-arducon:dependencyGuard'
+          - scope: nanda-guard
+            tasks: ':app-nanda:dependencyGuard'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Install Java 21 for API 36 Robolectric tests
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Set up repository-pinned build JDK
+        uses: ./.github/actions/setup-java
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: platform-tools
+          log-accepted-android-sdk-licenses: false
+      - name: Install the exact compile SDK
+        run: sdkmanager 'platforms;android-37.2' 'build-tools;37.0.0'
+      - uses: gradle/actions/setup-gradle@v5
+      - name: Register installed test and build JDKs
+        run: |
+          mkdir -p "$HOME/.gradle"
+          printf 'org.gradle.java.installations.paths=%s,%s\n' "$JAVA_HOME_21_X64" "$JAVA_HOME" >> "$HOME/.gradle/gradle.properties"
+      - name: Generate public offline fixtures
+        run: python3 .github/scripts/prepare-offline-build.py
+      - name: Run scoped build, tests, or Dependency Guard
+        env:
+          VALIDATION_TASKS: ${{ matrix.tasks }}
+        run: ./gradlew --no-daemon -Pandroid.builder.sdkDownload=false $VALIDATION_TASKS

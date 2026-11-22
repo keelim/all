@@ -210,11 +210,6 @@ co.touchlab:kermit-core-android:2.1.0
 co.touchlab:kermit-core:2.1.0
 co.touchlab:kermit:2.1.0
 com.caverock:androidsvg-aar:1.4
-com.github.tehras.charts:bar:0.2.4-alpha
-com.github.tehras.charts:common:0.2.4-alpha
-com.github.tehras.charts:line:0.2.4-alpha
-com.github.tehras.charts:pie:0.2.4-alpha
-com.github.tehras:charts:0.2.4-alpha
 com.google.accompanist:accompanist-drawablepainter:0.32.0
 com.google.accompanist:accompanist-permissions:0.37.3
 com.google.ai.client.generativeai:common:0.8.0

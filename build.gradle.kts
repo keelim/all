@@ -287,7 +287,6 @@ buildscript {
     repositories {
         google()  // Google's Maven repository
         mavenCentral()
-        maven("https://jitpack.io")
     }
     dependencies {
         classpath(libs.play.services.oss.plugin) {

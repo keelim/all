@@ -7,6 +7,8 @@ on:
       - '**/*.kts'
       - gradle/**
       - gradle.properties
+      - app-arducon/dependencies/releaseRuntimeClasspath.txt
+      - app-nanda/dependencies/releaseRuntimeClasspath.txt
       - .github/scripts/prepare-offline-build.py
       - .github/workflows/dependency-validation.yml
 permissions:

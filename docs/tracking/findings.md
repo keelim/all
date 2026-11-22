@@ -227,6 +227,8 @@ and does not change the source or workflow evaluated in the linked CI run.
 
 The dependency-validation workflow uses SDK 37.2, the repository-pinned Java 17
 build JDK, Java 21 for Robolectric, and the common offline fixture generator.
-The earlier runs above describe their linked commits. Nanda and Arducon
-Dependency Guard still need evidence from fully resolved release runtime
-graphs on the final candidate.
+The earlier runs describe their linked commits. The GitHub runner resolved
+both release runtime graphs, including Arducon's JitPack chart and its
+submodules, in run 45021533229. The two release runtime baselines now record
+those verified graphs. The Nanda baseline changes 176 additions and 138
+removals. The Arducon baseline changes 344 additions and 342 removals.

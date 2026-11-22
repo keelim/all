@@ -62,9 +62,6 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-      - name: Debug Permissions
-        run: env | grep ACTIONS_ID_TOKEN_REQUEST_URL || echo "ACTIONS_ID_TOKEN_REQUEST_URL not set"
-
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

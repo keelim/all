@@ -1,0 +1,57 @@
+name: Publish Play Store bundle
+description: Sign and upload an Android App Bundle to the production track
+inputs:
+  app-module:
+    description: App module directory containing the release bundle
+    required: true
+  package-name:
+    description: Play Store application ID
+    required: true
+  signing-key:
+    description: Base64-encoded signing keystore
+    required: true
+  alias:
+    description: Signing key alias
+    required: true
+  key-store-password:
+    description: Signing keystore password
+    required: true
+  key-password:
+    description: Signing key password
+    required: true
+  service-account-json:
+    description: Play Store service account JSON
+    required: true
+  changes-not-sent-for-review:
+    description: Whether to leave changes unsubmitted for Play Store review
+    required: false
+    default: 'false'
+runs:
+  using: composite
+  steps:
+    - name: Sign AAB
+      uses: keelim/upload-google-play@v0.0.8
+      with:
+        type: sign
+        releaseDirectory: ${{ inputs.app-module }}/build/outputs/bundle/release
+        signingKeyBase64: ${{ inputs.signing-key }}
+        alias: ${{ inputs.alias }}
+        keyStorePassword: ${{ inputs.key-store-password }}
+        keyPassword: ${{ inputs.key-password }}
+
+    - name: Write Play Store service account
+      shell: bash
+      env:
+        SERVICE_ACCOUNT_JSON: ${{ inputs.service-account-json }}
+      run: printf '%s\n' "$SERVICE_ACCOUNT_JSON" > service_account.json
+
+    - name: Deploy to Play Store
+      uses: keelim/upload-google-play@v0.0.8
+      with:
+        type: upload
+        serviceAccountJson: service_account.json
+        packageName: ${{ inputs.package-name }}
+        releaseFiles: ${{ inputs.app-module }}/build/outputs/bundle/release/${{ inputs.app-module }}-release.aab
+        track: production
+        status: completed
+        changesNotSentForReview: ${{ inputs.changes-not-sent-for-review }}

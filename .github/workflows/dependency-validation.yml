@@ -1,0 +1,27 @@
+name: Android dependency validation
+on:
+  pull_request:
+    branches: [develop]
+    paths:
+      - '**/*.kt'
+      - '**/*.kts'
+      - gradle/**
+      - gradle.properties
+      - .github/workflows/dependency-validation.yml
+permissions:
+  contents: read
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup-java
+      - uses: android-actions/setup-android@v3
+      - uses: gradle/actions/setup-gradle@v5
+      - name: Verify representative library baseline
+        run: ./gradlew --no-daemon :core:common-android:testDebugUnitTest :core:common-android:assembleDebug
+      - name: Verify AppFunctions and app dependency consumers
+        run: ./gradlew --no-daemon :feature:app-function:testDebugUnitTest :app-arducon:testDebugUnitTest :app-arducon:assembleDebug :app-arducon:dependencyGuard

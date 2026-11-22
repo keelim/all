@@ -78,6 +78,17 @@ minification remain unverified. Session-local logs:
 
 `:app-cnubus:testDebugUnitTest :app-comssa:testDebugUnitTest :app-cnubus:lintDebug :app-comssa:lintDebug` is blocked before app compilation/tests by existing `androidx.appfunctions:appfunctions-service:1.0.0-rc01` resolution (JitPack HTTP 403) during configuration-cache task graph serialization. The new key regression tests have not executed, and no device frame-time measurement is available. Session-local log: `/tmp/lists-checks.log`.
 
+## Kui market-up chip contrast (2026-11-22)
+
+`@google/design.md@0.4.0 lint DESIGN.md` reports a `contrast-ratio` warning:
+Finance `KuiColors.up` (`#DC2626`) on `upSoft` (`Color(0x1ADC2626)`, about
+`#FBE9E9` over white) measures 4.12:1, below WCAG AA 4.5:1 for body text.
+Reproduce with `mise run design-lint`. Impact: red market-up chips and small
+up-delta text may be hard to read. Unresolved because retuning
+`core:designsystem` market tokens changes every consuming app's screens and
+needs a separate, owner-approved token change; `DESIGN.md` documents the gap
+and requires a sign or arrow alongside color.
+
 ## Common Android build repair validation (2026-11-22)
 
 The repair uses the stable `platforms;android-37.2` SDK in both Android convention paths,

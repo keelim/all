@@ -8,6 +8,7 @@ A multi-app Android and Compose Multiplatform repository for six apps and shared
 ./
 ├── AGENTS.md → Working guide
 ├── CLAUDE.md → Same guide for Claude
+├── DESIGN.md → Kui design tokens, themes, and primitive catalog (mirrors core:designsystem)
 ├── docs/
 │   ├── architecture.md → Components and data flow
 │   ├── business-rules.md → Domain meaning and edge cases

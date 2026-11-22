@@ -1,0 +1,22 @@
+name: Benchmark HTML validation
+on:
+  pull_request:
+    branches: [develop]
+    paths:
+      - profile/benchmark.html
+      - .github/scripts/verify-benchmark.py
+      - .github/workflows/benchmark-validation.yml
+permissions:
+  contents: read
+jobs:
+  benchmark-html:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: python3 .github/scripts/verify-benchmark.py

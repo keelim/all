@@ -25,7 +25,7 @@ class JsonFormatterAppFunctionsTest {
     @Before
     fun createService() {
         Build.VERSION.SDK_INT shouldBe 36
-        Runtime.version().feature() shouldBe 21
+        System.getProperty("java.specification.version") shouldBe "21"
         controller = Robolectric.buildService(JsonFormatterAppFunctionService::class.java).create()
     }
 

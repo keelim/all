@@ -12,10 +12,11 @@ import io.kotest.matchers.collections.shouldContainExactly
 import io.kotest.matchers.maps.shouldContainKey
 import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.cancel
+import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.job
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
@@ -64,7 +65,7 @@ class EcocalViewModelTest : FunSpec({
                 ),
             )
             val viewModel = EcocalViewModel(repository)
-            viewModel.items.test {
+            viewModel.testItems {
                 awaitItem() shouldBe SealedUiState.loading()
                 advanceUntilIdle()
 
@@ -109,7 +110,6 @@ class EcocalViewModelTest : FunSpec({
 
                 cancelAndIgnoreRemainingEvents()
             }
-            viewModel.viewModelScope.cancel()
         }
     }
 
@@ -125,7 +125,7 @@ class EcocalViewModelTest : FunSpec({
                 ),
             )
             val viewModel = EcocalViewModel(repository)
-            viewModel.items.test {
+            viewModel.testItems {
                 awaitItem() shouldBe SealedUiState.loading()
                 advanceUntilIdle()
                 awaitSuccessWhere { state ->
@@ -166,7 +166,6 @@ class EcocalViewModelTest : FunSpec({
 
                 cancelAndIgnoreRemainingEvents()
             }
-            viewModel.viewModelScope.cancel()
         }
     }
 
@@ -175,7 +174,7 @@ class EcocalViewModelTest : FunSpec({
             val repository = FakeFirebaseRepository(Result.failure(IllegalStateException("boom")))
             val viewModel = EcocalViewModel(repository)
 
-            viewModel.items.test {
+            viewModel.testItems {
                 awaitItem() shouldBe SealedUiState.loading()
                 advanceUntilIdle()
 
@@ -203,10 +202,20 @@ class EcocalViewModelTest : FunSpec({
 
                 cancelAndIgnoreRemainingEvents()
             }
-            viewModel.viewModelScope.cancel()
         }
     }
 })
+
+private suspend fun EcocalViewModel.testItems(
+    validate: suspend ReceiveTurbine<SealedUiState<Map<String, List<EcoCalModel>>>>.() -> Unit,
+) {
+    try {
+        items.test { validate() }
+    } finally {
+        // Wait for the flow collectors before MainDispatcherRule restores Dispatchers.Main.
+        viewModelScope.coroutineContext.job.cancelAndJoin()
+    }
+}
 
 private class FakeFirebaseRepository(
     initialResult: Result<List<EcoCalEntry>>,

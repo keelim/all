@@ -15,6 +15,9 @@ android {
 
     defaultConfig {
         applicationId = "com.keelim.nandadiagnosis"
+        val releaseVersion = "${libs.versions.versionCode.get()}${libs.versions.nandaVersionCodeSuffix.get()}"
+        versionName = releaseVersion
+        versionCode = releaseVersion.toInt()
     }
 }
 

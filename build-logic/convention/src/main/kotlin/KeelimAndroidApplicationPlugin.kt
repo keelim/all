@@ -38,9 +38,8 @@ class KeelimAndroidApplicationPlugin : Plugin<Project> {
                 configureKotlinAndroid(this)
                 configureDependencyGuard()
                 defaultConfig {
-                    val releaseVersion = libs.findVersion("versionCode").get().displayName
-                    versionName = releaseVersion
-                    versionCode = releaseVersion.substringBefore('-').toInt()
+                    versionName = libs.findVersion("versionCode").get().displayName
+                    versionCode = libs.findVersion("versionCode").get().displayName.toInt()
                     targetSdk = libs.findVersion("targetSdk").get().displayName.toInt()
                 }
                 with(buildFeatures) {

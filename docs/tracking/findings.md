@@ -93,8 +93,8 @@ reproduced checksum verification failure. The official 9.9.2 checksum
 `971fcd7150ca4ba04852c0b2ca0d2d0ab9468e14b03473eab19528809914c76b`
 then passed an actual distribution download and `--version` on the pinned JDK 17.
 
-`Common Android build validation` performs clean shared-module and four consumer-app
-compilation/tests, checks generated function IDs/models and APK metadata, and requires
+`Common Android build validation` performs clean shared-module and six Android app
+compilation/tests (including the four AppFunctions consumers), checks generated function IDs/models and APK metadata, and requires
 actual discovery of the API 36 Robolectric service tests. Robolectric 4.16.1 supports
 API 36 with a Java 21 test runner; compilation still uses the repository Java 17 target.
 API 37 device discovery and real agent invocation are not established by these tests.

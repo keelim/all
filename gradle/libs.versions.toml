@@ -9,7 +9,7 @@ versionCode = "20260727"
 accompanist = "0.37.3"
 androidDesugarJdkLibs = "2.1.5"
 androidGradlePlugin = "9.5.2"
-androidx-sqlite = "2.6.2"
+androidx-sqlite = "2.7.1"
 androidxActivity = "1.12.4"
 androidxAppCompat = "1.7.1"
 # Runtime and compiler use the stable service-entry-point API together.

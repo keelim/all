@@ -2,6 +2,7 @@ package com.keelim.commonAndroid.util
 
 import android.app.Activity
 import android.app.Application
+import android.content.pm.ApplicationInfo
 import android.os.Bundle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ProcessLifecycleOwner
@@ -11,7 +12,6 @@ import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.appopen.AppOpenAd
 import com.keelim.commonAndroid.model.AppInfo
-import com.keelim.deviceAndroid.BuildConfig
 import timber.log.Timber
 import jakarta.inject.Inject
 
@@ -102,9 +102,11 @@ class ApplicationMonitor @Inject constructor(
                  */
                 override fun onAdFailedToLoad(loadAdError: LoadAdError) = Unit
             }
+        val app = application ?: return
+        val isDebuggable = app.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0
         AppOpenAd.load(
-            application ?: return,
-            if (BuildConfig.DEBUG) {
+            app,
+            if (isDebuggable) {
                 AD_UNIT_ID
             } else {
                 if (appInfo.adId.isEmpty()) return

@@ -48,7 +48,7 @@
 - `core:common-android` ->
   - `core:app-runtime-android`
   - `core:observability-android`
-  - `core:device-android`
+  - `core:device` (`androidMain` for Android SDK integrations)
 - `shared` ->
   - `core:persistence-kmp`
   - `core:preferences-kmp`

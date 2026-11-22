@@ -1,5 +1,7 @@
 # :feature:app-function
 
+The feature contract lives in `api/`. Implementation sources and existing tests live in `impl/`.
+
 ## Focus
 
 App Functions are grouped by capability in `json/` and `health/`; keep their tests aligned with the public function behavior.

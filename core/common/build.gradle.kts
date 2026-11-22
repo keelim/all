@@ -46,7 +46,7 @@ kotlin {
         androidMain.dependencies {
             implementation(projects.core.designsystem)
             implementation(projects.shared)
-            implementation(projects.core.dataApi)
+            implementation(projects.core.data.dataApi)
 
             implementation(libs.androidx.core.ktx)
             implementation(libs.androidx.startup)

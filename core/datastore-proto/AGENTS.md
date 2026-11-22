@@ -2,7 +2,7 @@
 
 ## Focus
 
-The persisted user-settings contract is `src/main/proto/com/keelim/core/data/user_setting.proto`.
+The persisted user-settings contract is `src/main/proto/com/keelim/core/data/data-impl/user_setting.proto`.
 
 ## Boundaries
 

@@ -147,12 +147,12 @@ object CoveragePlan {
 
     val trustedParticipantModules = listOf(
         CoverageModule(
-            modulePath = ":feature:app-function",
+            modulePath = ":feature:app-function:impl",
             status = "trusted participant",
             reason = "Verified in the approved execution wave: emits debug XML/HTML coverage and assembles debug cleanly.",
-            reportTask = ":feature:app-function:jacocoTestDebugUnitTestReport",
-            xmlReport = "feature/app-function/build/reports/jacoco/jacocoTestDebugUnitTestReport/jacocoTestDebugUnitTestReport.xml",
-            htmlReport = "feature/app-function/build/reports/jacoco/jacocoTestDebugUnitTestReport/html/index.html",
+            reportTask = ":feature:app-function:impl:jacocoTestDebugUnitTestReport",
+            xmlReport = "feature/app-function/impl/build/reports/jacoco/jacocoTestDebugUnitTestReport/jacocoTestDebugUnitTestReport.xml",
+            htmlReport = "feature/app-function/impl/build/reports/jacoco/jacocoTestDebugUnitTestReport/html/index.html",
         ),
     )
 
@@ -187,12 +187,12 @@ object CoveragePlan {
             reason = "Unit-test dependency parity is incomplete, so test compilation is not yet trustworthy.",
         ),
         CoverageModule(
-            modulePath = ":core:data",
+            modulePath = ":core:data:data-impl",
             status = "candidate blocked on named trust issue",
             reason = "Coverage output exists, but explicit trusted-participant promotion is still pending the baseline trust review.",
-            reportTask = ":core:data:jacocoTestDebugUnitTestReport",
-            xmlReport = "core/data/build/reports/jacoco/jacocoTestDebugUnitTestReport/jacocoTestDebugUnitTestReport.xml",
-            htmlReport = "core/data/build/reports/jacoco/jacocoTestDebugUnitTestReport/html/index.html",
+            reportTask = ":core:data:data-impl:jacocoTestDebugUnitTestReport",
+            xmlReport = "core/data/data-impl/build/reports/jacoco/jacocoTestDebugUnitTestReport/jacocoTestDebugUnitTestReport.xml",
+            htmlReport = "core/data/data-impl/build/reports/jacoco/jacocoTestDebugUnitTestReport/html/index.html",
         ),
         CoverageModule(
             modulePath = ":core:common",
@@ -234,12 +234,12 @@ object CoveragePlan {
             reason = "Support-only test utilities stay non-gating while the trusted-participants baseline is established.",
         ),
         CoverageModule(
-            modulePath = ":feature:ui-setting",
+            modulePath = ":feature:ui-setting:impl",
             status = "observational / out of scope by policy",
             reason = "Coverage remains visible but non-gating until the business-logic trusted set is stabilized.",
-            reportTask = ":feature:ui-setting:jacocoTestDebugUnitTestReport",
-            xmlReport = "feature/ui-setting/build/reports/jacoco/jacocoTestDebugUnitTestReport/jacocoTestDebugUnitTestReport.xml",
-            htmlReport = "feature/ui-setting/build/reports/jacoco/jacocoTestDebugUnitTestReport/html/index.html",
+            reportTask = ":feature:ui-setting:impl:jacocoTestDebugUnitTestReport",
+            xmlReport = "feature/ui-setting/impl/build/reports/jacoco/jacocoTestDebugUnitTestReport/jacocoTestDebugUnitTestReport.xml",
+            htmlReport = "feature/ui-setting/impl/build/reports/jacoco/jacocoTestDebugUnitTestReport/html/index.html",
         ),
     )
 
@@ -251,7 +251,7 @@ object CoveragePlan {
                     ":app-my-grade",
                     ":app-arducon",
                     ":app-comssa",
-                    ":core:data",
+                    ":core:data:data-impl",
                     ":core:common",
                     ":core:domain",
                 )

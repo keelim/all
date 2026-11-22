@@ -9,7 +9,7 @@ import tempfile
 
 ROOT = Path(__file__).resolve().parents[3]
 TARGETS = {
-    "a2ui": ":feature:ui-a2ui",
+    "a2ui": ":feature:ui-a2ui:impl",
     "comssa": ":app-comssa",
     "cnubus": ":app-cnubus",
 }

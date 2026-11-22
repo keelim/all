@@ -1,6 +1,6 @@
 # Module change rules
 
-Keep app behavior in its owner, repository interfaces in `core:data-api`, implementations in `core:data`, and deterministic rules free of Android/UI/persistence dependencies. Coordinate interface/model changes with all persisted, transport, and UI consumers. Do not duplicate shared models in apps. Keep Android design-system work out of sibling web repositories.
+Keep app behavior in its owner, repository interfaces in `core:data:data-api`, implementations in `core:data:data-impl`, and deterministic rules free of Android/UI/persistence dependencies. Coordinate interface/model changes with all persisted, transport, and UI consumers. Do not duplicate shared models in apps. Keep Android design-system work out of sibling web repositories.
 
 Use convention plugins and the version catalog; do not hardcode versions or bypass shared SDK/compiler configuration. JVM target is 17 with context parameters and the existing Parcelize conventions. Keep Hilt DI and Flow/StateFlow outputs, Google Android Kotlin style, resource-based strings, and justified rather than blanket suppressions. No global mutable state or main-thread I/O.
 

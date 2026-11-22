@@ -19,7 +19,7 @@ class KeelimSettingsFeaturePlugin : Plugin<Project> {
                 add("implementation", project(":core:resource"))
                 add("implementation", project(":shared"))
 
-                add("implementation", project(":core:data-api"))
+                add("implementation", project(":core:data:data-api"))
                 add("implementation", project(":core:navigation"))
 
                 add("implementation", libs.findLibrary("androidx.activity.compose").get())

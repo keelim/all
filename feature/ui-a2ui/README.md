@@ -1,6 +1,6 @@
 # A2UI feature
 
-`:feature:ui-a2ui` is an experimental, reusable **read-only A2UI 1.0 profile** for
+`:feature:ui-a2ui:impl` is an experimental, reusable **read-only A2UI 1.0 profile** for
 Android Compose. It is a small local implementation, not an official SDK or a
 complete A2UI renderer. No application currently depends on it. The offline
 `A2uiSample` composable and its Android Studio preview demonstrate integration
@@ -81,7 +81,7 @@ Subsequent messages can replace a component by ID or delete the surface:
 
 ## Supported boundary
 
-The bundled [catalog.json](src/main/resources/catalog.json) is the producer-facing
+The bundled [catalog.json](impl/src/main/resources/catalog.json) is the producer-facing
 schema contract. Its URI is an identifier; the client never downloads it.
 Only `Text(text: string)`, `Column(children: ID[])`, `Row(children: ID[])`, and
 `Card(child: ID)` are registered. They use `core:designsystem` colors, typography,
@@ -119,7 +119,7 @@ capability requires an explicit host contract and new validation tests.
 Run only the new module's tasks (build and lint explicitly requested for this work):
 
 ```sh
-./gradlew :feature:ui-a2ui:testDebugUnitTest :feature:ui-a2ui:lintDebug :feature:ui-a2ui:assembleDebug
+./gradlew :feature:ui-a2ui:impl:testDebugUnitTest :feature:ui-a2ui:impl:lintDebug :feature:ui-a2ui:impl:assembleDebug
 ```
 
 The tests exercise sample escaping, progressive trees, lifecycle and immutable

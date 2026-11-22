@@ -1,5 +1,7 @@
 # :feature:settings-notification
 
+The feature contract lives in `api/`. Implementation sources and existing tests live in `impl/`.
+
 ## Focus
 
 Notification settings UI and state live in `screen/notification/`; navigation is `navigation/SettingsNotificationNavigation.kt`.

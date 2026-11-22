@@ -22,7 +22,7 @@ android {
 dependencies {
     implementation(projects.core.common)
     implementation(projects.core.component)
-    implementation(projects.core.data)
+    implementation(projects.core.data.dataImpl)
     implementation(projects.core.domain)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.hilt.navigation.compose)

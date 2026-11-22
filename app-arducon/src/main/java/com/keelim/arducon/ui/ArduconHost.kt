@@ -27,11 +27,11 @@ import com.keelim.commonAndroid.ui.AppViewModel
 import com.keelim.composeutil.rememberMutableStateListOf
 import com.keelim.core.navigation.AppRoute
 import com.keelim.core.navigation.ArduconRoute
-import com.keelim.core.navigation.FeatureRoute
 import com.keelim.core.navigation.SaastatusRoute
 import com.keelim.core.resource.Res
 import com.keelim.core.resource.arducon_search_screen_loaded
-import com.keelim.setting.screen.device.DeviceInfoScreen
+import com.keelim.setting.navigation.SettingsDeviceDestination
+import com.keelim.setting.navigation.registerSettingsDeviceEntries
 import com.keelim.web.navigateToWebModule
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -86,7 +86,7 @@ fun ArduConHost(
                         backStack.add(ArduconRoute.Base64Encoder)
                     },
                     onNavigateDeviceInfo = {
-                        backStack.add(FeatureRoute.DeviceInfo)
+                        backStack.add(SettingsDeviceDestination)
                     },
                 onNavigateUrlShortener = {
                     backStack.add(ArduconRoute.UrlShortener)
@@ -165,11 +165,7 @@ fun ArduConHost(
                     onNavigateBack = { backStack.removeLastOrNull() },
                 )
             }
-            entry<FeatureRoute.DeviceInfo> {
-                DeviceInfoScreen(
-                    onNavigateBack = { backStack.removeLastOrNull() },
-                )
-            }
+            registerSettingsDeviceEntries(backStack)
         entry<ArduconRoute.UrlShortener> {
             UrlShortenerScreen(
                 onNavigateBack = { backStack.removeLastOrNull() },

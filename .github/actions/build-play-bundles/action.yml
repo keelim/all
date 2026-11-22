@@ -1,0 +1,51 @@
+name: Build Play Store bundles
+description: Configure the release build and build Android App Bundles for the requested Gradle modules
+inputs:
+  app-modules:
+    description: Space-separated list of app module directories
+    required: true
+  google-service-json:
+    description: Base64-encoded Firebase configuration
+    required: true
+  local-properties:
+    description: Base64-encoded Gradle local.properties
+    required: true
+  font-certs:
+    description: Base64-encoded font certificate resource
+    required: true
+  gradle-encryption-key:
+    description: Gradle configuration cache encryption key
+    required: false
+runs:
+  using: composite
+  steps:
+    - name: Set up pinned JDK
+      uses: ./.github/actions/setup-java
+
+    - name: Set up Gradle
+      uses: gradle/actions/setup-gradle@v5
+      with:
+        cache-encryption-key: ${{ inputs.gradle-encryption-key }}
+        build-scan-publish: true
+        build-scan-terms-of-use-url: "https://gradle.com/terms-of-service"
+        build-scan-terms-of-use-agree: "yes"
+
+    - name: Write release configuration and build AABs
+      shell: bash
+      env:
+        APP_MODULES: ${{ inputs.app-modules }}
+        GOOGLE_SERVICE_JSON: ${{ inputs.google-service-json }}
+        LOCAL_PROPERTIES: ${{ inputs.local-properties }}
+        FONT_CERTS: ${{ inputs.font-certs }}
+      run: |
+        printf '%s' "$LOCAL_PROPERTIES" | base64 -d > local.properties
+        mkdir -p core/component/src/commonMain/res/values
+        printf '%s' "$FONT_CERTS" | base64 -d > core/component/src/commonMain/res/values/font_certs.xml
+
+        read -r -a modules <<< "$APP_MODULES"
+        tasks=()
+        for module in "${modules[@]}"; do
+          printf '%s' "$GOOGLE_SERVICE_JSON" | base64 -d > "$module/google-services.json"
+          tasks+=("$module:bundleRelease")
+        done
+        ./gradlew -PenableOssLicenses=true "${tasks[@]}"

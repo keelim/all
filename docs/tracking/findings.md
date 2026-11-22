@@ -266,3 +266,13 @@ repository's public offline fixtures. CNUBUS, Comssa, MyGrade, Nanda, and
 reported `NO-SOURCE`. Android Kotlin and Hilt-generated Java compiled for both
 KMP libraries. Arducon remains blocked locally by the JitPack HTTP 403 for the
 existing chart dependency. Session-local log: `/tmp/keelim-common-stack-unit-tests.log`.
+
+## Android consumer CI timeout (2026-11-22 KST)
+
+The six-app `clean-consumers` job reached its 40-minute timeout on both the
+develop push and the Paging dependency pull request. The consolidated Android
+workflow allows 60 minutes for this job. Completion within that limit still
+needs a GitHub runner result.
+
+[Develop push](https://github.com/keelim/all/actions/runs/45030673466) ·
+[Paging pull request](https://github.com/keelim/all/actions/runs/45030803108)

@@ -4,45 +4,34 @@ on:
     branches: [develop, 'codex/all-build-repair-*']
   pull_request:
     branches: [develop]
+    paths-ignore:
+      - '**/*.md'
+      - 'profile/**'
+      - .github/scripts/verify-benchmark.py
+      - .github/workflows/benchmark-validation.yml
+      - .github/workflows/design_lint.yml
 permissions:
   contents: read
 jobs:
   build:
     name: clean-${{ matrix.scope }}
     runs-on: ubuntu-latest
-    timeout-minutes: 40
     strategy:
       fail-fast: false
       matrix:
-        scope: [appfunctions, consumers]
+        include:
+          - scope: appfunctions
+            timeout: 40
+          - scope: consumers
+            timeout: 60
+    timeout-minutes: ${{ matrix.timeout }}
     steps:
       - uses: actions/checkout@v6
         with:
           persist-credentials: false
-      - name: Install Java 21 for API 36 Robolectric tests
-        uses: actions/setup-java@v5
-        with:
-          distribution: temurin
-          java-version: '21'
-      - name: Set up repository-pinned build JDK
-        uses: ./.github/actions/setup-java
-      - uses: android-actions/setup-android@v3
-        with:
-          packages: platform-tools
-          log-accepted-android-sdk-licenses: false
-      - name: Install the exact compile SDK
-        run: sdkmanager 'platforms;android-37.2' 'build-tools;37.0.0'
-      - uses: gradle/actions/setup-gradle@v5
-        with:
-          cache-read-only: true
-      - name: Register installed test and build JDKs
-        run: |
-          mkdir -p "$HOME/.gradle"
-          printf 'org.gradle.java.installations.paths=%s,%s\n' "$JAVA_HOME_21_X64" "$JAVA_HOME" >> "$HOME/.gradle/gradle.properties"
+      - uses: ./.github/actions/setup-android-validation
       - name: Verify SDK and wrapper declarations
         run: python3 .github/scripts/verify-common-build.py configuration
-      - name: Generate public offline fixtures
-        run: python3 .github/scripts/prepare-offline-build.py
       - name: Clean compile and test AppFunctions with shared Android baseline
         if: matrix.scope == 'appfunctions'
         run: >-
@@ -71,3 +60,22 @@ jobs:
             feature/app-function/build/generated/ksp/debug/**
             app-*/build/outputs/logs/manifest-merger-debug-report.txt
           if-no-files-found: warn
+
+  dependency-guard:
+    if: github.event_name == 'pull_request'
+    name: Dependency Guard (${{ matrix.app }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        app: [app-arducon, app-nanda]
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup-android-validation
+      - name: Verify release dependency baseline
+        env:
+          APP_MODULE: ${{ matrix.app }}
+        run: ./gradlew --no-daemon -Pandroid.builder.sdkDownload=false ":${APP_MODULE}:dependencyGuard"

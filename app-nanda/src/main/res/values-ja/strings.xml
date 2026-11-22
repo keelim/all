@@ -105,4 +105,14 @@
     <string name="morning_signal_notification_body">今日のコンディションを記録してみましょう。</string>
     <string name="morning_signal_channel_name">モーニングシグナル</string>
     <string name="morning_signal_channel_description">毎朝のチェックイン通知</string>
+    <string name="wellness_recent_records_title">直近7日間の記録</string>
+    <string name="wellness_record_present">記録あり</string>
+    <string name="wellness_record_missing">記録なし</string>
+    <string name="wellness_hide_record_details">記録の詳細を閉じる</string>
+    <string name="wellness_record_care_tags">ケアタグ</string>
+    <string name="wellness_record_observations">追加の記録</string>
+    <string name="wellness_record_note">メモ</string>
+    <string name="wellness_show_trend_values">日付ごとの値を表示</string>
+    <string name="wellness_hide_trend_values">日付ごとの値を非表示</string>
+    <string name="wellness_plan_target_description">各アクションの週目標は%1$s回です</string>
 </resources>

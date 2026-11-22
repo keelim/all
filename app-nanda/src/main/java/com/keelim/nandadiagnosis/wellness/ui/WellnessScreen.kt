@@ -62,7 +62,7 @@ import java.util.Locale
 internal fun WellnessScreen(
     uiState: WellnessUiState,
     onSaveCheckIn: (DailyCheckIn) -> Boolean,
-    onSaveCareCheckIn: (CareCondition, Boolean, Boolean, Boolean) -> Unit,
+    onSaveCareCheckIn: (CareCondition, Boolean?, Boolean?, Boolean?) -> Unit,
     onDeleteCheckIn: (String) -> Unit,
     onSaveMeasurement: (String, String, MeasurementState) -> Boolean,
     onAddRoutine: (String, RoutineKind) -> Boolean,
@@ -85,6 +85,7 @@ internal fun WellnessScreen(
 ) {
     var selectedTabIndex by rememberSaveable { mutableIntStateOf(initialTab.ordinal) }
     var privacyMode by rememberSaveable { mutableStateOf(initialPrivacyMode) }
+    var showCheckIn by rememberSaveable { mutableStateOf(false) }
     val selectedTab = WellnessDestination.entries[selectedTabIndex]
 
     BackHandler(enabled = selectedTabIndex != 0) {
@@ -167,6 +168,8 @@ internal fun WellnessScreen(
                     onSaveCareCheckIn = onSaveCareCheckIn,
                     onDeleteCheckIn = onDeleteCheckIn,
                     onSetRoutineCompletion = onSetRoutineCompletion,
+                    showCheckIn = showCheckIn && selectedTab == WellnessDestination.TODAY,
+                    onShowCheckInChange = { showCheckIn = it },
                     listState = todayListState,
                 )
 
@@ -189,6 +192,10 @@ internal fun WellnessScreen(
                     privacySettings = privacySettings,
                     onUpdatePrivacySettings = onUpdatePrivacySettings,
                     onNavigateToTab = { selectedTabIndex = it.ordinal },
+                    onOpenCheckIn = {
+                        selectedTabIndex = WellnessDestination.TODAY.ordinal
+                        showCheckIn = true
+                    },
                     onSaveMeasurement = onSaveMeasurement,
                     morningSignalViewModel = morningSignalViewModel,
                     initialPreviewDestination = initialToolsPreviewDestination,

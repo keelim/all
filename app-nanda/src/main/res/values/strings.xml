@@ -102,7 +102,7 @@
     <string name="wellness_today_greeting">Good morning</string>
     <string name="wellness_today_intro">Would you like to check in with yourself?</string>
     <string name="wellness_care_weather_title">Today’s care weather</string>
-    <string name="wellness_care_weather_helper">Log today’s state with one tap.\nYour record stays private to you.</string>
+    <string name="wellness_care_weather_helper">Log how your body feels with one tap.\nYour record stays private to you.</string>
     <string name="wellness_care_comfortable">Comfortable</string>
     <string name="wellness_care_comfortable_caption">Feels usual</string>
     <string name="wellness_care_aware">A little noticeable</string>
@@ -117,7 +117,7 @@
     <string name="wellness_care_weather_saved">Today’s care weather was saved.</string>
     <string name="wellness_today_actions">Today’s actions</string>
     <string name="wellness_today_actions_empty">No action plan yet. Add one small action from Plan.</string>
-    <string name="wellness_checkin_title">Today’s condition</string>
+    <string name="wellness_checkin_title">Daily condition check-in</string>
     <string name="wellness_checkin_complete">Today’s check-in is complete</string>
     <string name="wellness_checkin_description">Record sleep, stress, and energy in about 30 seconds.</string>
     <string name="wellness_checkin_start">Start 30-second check-in</string>
@@ -131,10 +131,10 @@
     <string name="wellness_action_complete">Mark complete</string>
     <string name="wellness_action_completed">Completed today</string>
     <string name="wellness_action_feedback">You’re building a good rhythm.</string>
-    <string name="wellness_week_progress_title">This week</string>
-    <string name="wellness_week_progress_value">%1$d/%2$d actions completed</string>
+    <string name="wellness_week_progress_title">Actions in the last 7 days</string>
+    <string name="wellness_week_progress_value">%1$s completed out of %2$s scheduled opportunities</string>
     <string name="wellness_insight_more_data">A few more records will help reveal your patterns.</string>
-    <string name="wellness_insight_sleep_energy">Across %1$d recorded days, energy was often also high on higher-sleep days.</string>
+    <string name="wellness_insight_sleep_energy">Across %1$s recorded days, energy was often also high on higher-sleep days.</string>
     <string name="wellness_care_title">Has the discomfort continued?</string>
     <string name="wellness_care_description">Changes that are hard to understand from daily records alone may be worth discussing with a healthcare professional.</string>
 
@@ -160,11 +160,11 @@
     <string name="wellness_plan_title">This week’s plan</string>
     <string name="wellness_plan_intro">About three small actions at a time is enough.</string>
     <string name="wellness_plan_week_range">%1$s – %2$s</string>
-    <string name="wellness_plan_weekly_progress">This week %1$d/%2$d</string>
+    <string name="wellness_plan_weekly_progress">%1$s completed · weekly goal %2$s</string>
     <string name="wellness_plan_add">Add action</string>
     <string name="wellness_plan_empty">Add one small action to try this week.</string>
     <string name="wellness_plan_first_action">Create first action</string>
-    <string name="wellness_plan_item_progress">This week %1$d/%2$d times</string>
+    <string name="wellness_plan_item_progress">This week: %1$s completed · goal %2$s</string>
     <string name="wellness_plan_action_name">Action name</string>
     <string name="wellness_plan_add_action">Add to plan</string>
     <string name="wellness_plan_category_supplement">Medication</string>
@@ -181,7 +181,7 @@
     <string name="wellness_period_twenty_eight">Last 28 days</string>
     <string name="wellness_condition_trend">Condition trend</string>
     <string name="wellness_insights_not_enough">There are not enough records to draw a trend yet.</string>
-    <string name="wellness_chart_summary">%1$d records are shown for %2$s on a 1–5 scale.</string>
+    <string name="wellness_chart_summary">%1$s records are shown for %2$s on a 1–5 scale.</string>
     <string name="wellness_patterns_title">Patterns found</string>
     <string name="wellness_patterns_empty">A first insight appears after at least 5 check-in days.</string>
     <string name="wellness_review_title">Weekly review</string>
@@ -226,4 +226,14 @@
     <string name="morning_signal_notification_body">Take a moment to record how you feel today.</string>
     <string name="morning_signal_channel_name">Morning signal</string>
     <string name="morning_signal_channel_description">Daily morning check-in reminders.</string>
+    <string name="wellness_recent_records_title">Recent 7-day records</string>
+    <string name="wellness_record_present">Recorded</string>
+    <string name="wellness_record_missing">No record</string>
+    <string name="wellness_hide_record_details">Hide record details</string>
+    <string name="wellness_record_care_tags">Care tags</string>
+    <string name="wellness_record_observations">Additional observations</string>
+    <string name="wellness_record_note">Note</string>
+    <string name="wellness_show_trend_values">Show values by date</string>
+    <string name="wellness_hide_trend_values">Hide values by date</string>
+    <string name="wellness_plan_target_description">Weekly goal: %1$s completions per action</string>
 </resources>

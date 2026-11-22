@@ -62,6 +62,7 @@ internal fun ToolsScreen(
     privacyMode: Boolean,
     onPrivacyModeChange: (Boolean) -> Unit,
     onSaveMeasurement: (String, String, MeasurementState) -> Boolean,
+    onOpenCheckIn: () -> Unit,
     privacySettings: PrivacySettings = PrivacySettings(
         appLockEnabled = false,
         obscureRecentApps = true,
@@ -140,11 +141,11 @@ internal fun ToolsScreen(
                 )
                 ToolButton(
                     title = stringResource(R.string.wellness_tools_self_check),
-                    onClick = { onNavigateToTab(WellnessDestination.TODAY) },
+                    onClick = onOpenCheckIn,
                 )
                 ToolButton(
-                    title = stringResource(R.string.wellness_tools_care_notes),
-                    onClick = { onNavigateToTab(WellnessDestination.TODAY) },
+                    title = stringResource(R.string.wellness_recent_records_title),
+                    onClick = { onNavigateToTab(WellnessDestination.INSIGHTS) },
                 )
             }
         }
@@ -188,10 +189,7 @@ internal fun ToolsScreen(
         }
         item(key = "dataTools") {
             ToolSection(title = stringResource(R.string.wellness_tools_data)) {
-                ToolLabel(stringResource(R.string.wellness_tools_export))
-                ToolLabel(stringResource(R.string.wellness_tools_delete_all))
                 ToolLabel(stringResource(R.string.wellness_tools_storage))
-                ToolLabel(stringResource(R.string.wellness_tools_privacy_policy))
             }
         }
         item(key = "appInfo") {

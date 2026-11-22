@@ -159,7 +159,7 @@ class WellnessViewModelTest : FunSpec({
             )
 
             viewModel.saveCareCheckIn(CareCondition.COMFORTABLE, true, false, false)
-            viewModel.saveCareCheckIn(CareCondition.AWARE, true, true, false)
+            viewModel.saveCareCheckIn(CareCondition.AWARE, null, true, null)
             advanceUntilIdle()
 
             repository.state.value.careCheckIns.single() shouldBe CareCheckIn(
@@ -167,6 +167,38 @@ class WellnessViewModelTest : FunSpec({
                 condition = CareCondition.AWARE,
                 sweat = true,
                 friction = true,
+            )
+        }
+    }
+
+    test("status and tag edits preserve the other saved tags") {
+        runTest {
+            val repository = FakeWellnessRepository()
+            val original = CareCheckIn(
+                localDate = "2026-07-19",
+                condition = CareCondition.COMFORTABLE,
+                sweat = true,
+                friction = true,
+                dryness = true,
+            )
+            repository.upsertCareCheckIn(original)
+            val viewModel = WellnessViewModel(
+                repository = repository,
+                timeProvider = FakeTimeProvider(
+                    initialInstant = Instant.parse("2026-07-19T00:00:00Z"),
+                    zone = ZoneId.of("UTC"),
+                ),
+            )
+
+            viewModel.saveCareCheckIn(CareCondition.AWARE, null, null, null)
+            advanceUntilIdle()
+            repository.state.value.careCheckIns.single() shouldBe original.copy(condition = CareCondition.AWARE)
+
+            viewModel.saveCareCheckIn(CareCondition.AWARE, null, false, null)
+            advanceUntilIdle()
+            repository.state.value.careCheckIns.single() shouldBe original.copy(
+                condition = CareCondition.AWARE,
+                friction = false,
             )
         }
     }

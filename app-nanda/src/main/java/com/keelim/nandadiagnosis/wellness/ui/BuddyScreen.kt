@@ -56,7 +56,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.Alignment
@@ -66,6 +65,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.keelim.common.extensions.toUiNumber
 import com.keelim.model.wellness.CareCheckIn
 import com.keelim.model.wellness.CareCondition
 import com.keelim.model.wellness.Routine
@@ -82,9 +82,11 @@ internal fun TodayScreen(
     uiState: WellnessUiState,
     privacyMode: Boolean,
     onSaveCheckIn: (DailyCheckIn) -> Boolean,
-    onSaveCareCheckIn: (CareCondition, Boolean, Boolean, Boolean) -> Unit,
+    onSaveCareCheckIn: (CareCondition, Boolean?, Boolean?, Boolean?) -> Unit,
     onDeleteCheckIn: (String) -> Unit,
     onSetRoutineCompletion: (Routine, Boolean, Int?) -> Unit,
+    showCheckIn: Boolean,
+    onShowCheckInChange: (Boolean) -> Unit,
     listState: LazyListState? = null,
 ) {
     val today = remember { LocalDate.now() }
@@ -113,12 +115,11 @@ internal fun TodayScreen(
         animationSpec = tween(500),
         label = "todayWeeklyProgress",
     )
-    val insight = InsightCalculator.firstPattern(uiState.checkIns)
+    val insight = if (privacyMode) null else InsightCalculator.firstPattern(uiState.checkIns)
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
     val savedMessage = stringResource(R.string.wellness_checkin_saved)
     val careSavedMessage = stringResource(R.string.wellness_care_weather_saved)
-    var showCheckIn by rememberSaveable { mutableStateOf(false) }
 
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
@@ -143,7 +144,7 @@ internal fun TodayScreen(
                 CheckInCard(
                     checkIn = todayCheckIn,
                     privacyMode = privacyMode,
-                    onClick = { showCheckIn = true },
+                    onClick = { onShowCheckInChange(true) },
                 )
             }
             item(key = "careWeather") {
@@ -199,8 +200,8 @@ internal fun TodayScreen(
                         Text(
                             text = stringResource(
                                 R.string.wellness_week_progress_value,
-                                completed,
-                                eligible,
+                                completed.toUiNumber(),
+                                eligible.toUiNumber(),
                             ),
                             style = MaterialTheme.typography.bodyLarge,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -214,19 +215,21 @@ internal fun TodayScreen(
                     }
                 }
             }
-            item(key = "insight") {
-                SupportingCard(
-                    if (insight == null) {
-                        stringResource(R.string.wellness_insight_more_data)
-                    } else {
-                        stringResource(
-                            R.string.wellness_insight_sleep_energy,
-                            insight.sampleDays,
-                        )
-                    },
-                )
+            if (!privacyMode) {
+                item(key = "insight") {
+                    SupportingCard(
+                        if (insight == null) {
+                            stringResource(R.string.wellness_insight_more_data)
+                        } else {
+                            stringResource(
+                                R.string.wellness_insight_sleep_energy,
+                                insight.sampleDays.toUiNumber(),
+                            )
+                        },
+                    )
+                }
             }
-            if (todayCheckIn?.hasDiscomfort == true) {
+            if (!privacyMode && todayCheckIn?.hasDiscomfort == true) {
                 item(key = "care") {
                     CareCard()
                 }
@@ -237,16 +240,16 @@ internal fun TodayScreen(
     if (showCheckIn) {
         DailyCheckInSheet(
             initial = todayCheckIn,
-            onDismiss = { showCheckIn = false },
+            onDismiss = { onShowCheckInChange(false) },
             onDelete = todayCheckIn?.let { checkIn ->
                 {
                     onDeleteCheckIn(checkIn.localDate)
-                    showCheckIn = false
+                    onShowCheckInChange(false)
                 }
             },
             onSave = { checkIn ->
                 if (onSaveCheckIn(checkIn)) {
-                    showCheckIn = false
+                    onShowCheckInChange(false)
                     scope.launch {
                         snackbarHostState.showSnackbar(
                             message = savedMessage,
@@ -263,7 +266,7 @@ private fun CareWeatherSection(
     date: LocalDate,
     checkIn: CareCheckIn?,
     privacyMode: Boolean,
-    onSave: (CareCondition, Boolean, Boolean, Boolean) -> Unit,
+    onSave: (CareCondition, Boolean?, Boolean?, Boolean?) -> Unit,
 ) {
     var conditionName by remember(date, privacyMode) {
         mutableStateOf(checkIn?.condition?.name.takeUnless { privacyMode })
@@ -327,13 +330,7 @@ private fun CareWeatherSection(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             CareCondition.entries.forEach { condition ->
-                val label = stringResource(
-                    when (condition) {
-                        CareCondition.COMFORTABLE -> R.string.wellness_care_comfortable
-                        CareCondition.AWARE -> R.string.wellness_care_aware
-                        CareCondition.NEEDS_ATTENTION -> R.string.wellness_care_needs_attention
-                    },
-                )
+                val label = stringResource(condition.labelRes)
                 val caption = stringResource(
                     when (condition) {
                         CareCondition.COMFORTABLE -> R.string.wellness_care_comfortable_caption
@@ -355,7 +352,7 @@ private fun CareWeatherSection(
                     onClick = {
                         hasLocalEdits = true
                         conditionName = condition.name
-                        onSave(condition, sweat, friction, dryness)
+                        onSave(condition, null, null, null)
                     },
                     modifier = Modifier.weight(1f),
                 )
@@ -389,7 +386,7 @@ private fun CareWeatherSection(
                         selectedCondition?.let { condition ->
                             hasLocalEdits = true
                             sweat = !sweat
-                            onSave(condition, sweat, friction, dryness)
+                            onSave(condition, sweat, null, null)
                         }
                     },
                 )
@@ -401,7 +398,7 @@ private fun CareWeatherSection(
                         selectedCondition?.let { condition ->
                             hasLocalEdits = true
                             friction = !friction
-                            onSave(condition, sweat, friction, dryness)
+                            onSave(condition, null, friction, null)
                         }
                     },
                 )
@@ -413,7 +410,7 @@ private fun CareWeatherSection(
                         selectedCondition?.let { condition ->
                             hasLocalEdits = true
                             dryness = !dryness
-                            onSave(condition, sweat, friction, dryness)
+                            onSave(condition, null, null, dryness)
                         }
                     },
                 )
@@ -421,6 +418,13 @@ private fun CareWeatherSection(
         }
     }
 }
+
+internal val CareCondition.labelRes: Int
+    get() = when (this) {
+        CareCondition.COMFORTABLE -> R.string.wellness_care_comfortable
+        CareCondition.AWARE -> R.string.wellness_care_aware
+        CareCondition.NEEDS_ATTENTION -> R.string.wellness_care_needs_attention
+    }
 
 @Composable
 private fun CareConditionChoice(

@@ -3,7 +3,6 @@
     <string name="wellness_tab_buddy">バディ</string>
     <string name="wellness_tab_routine">ルーティン</string>
     <string name="wellness_privacy_mode">プライバシーモード</string>
-    <string name="wellness_privacy_options">プライバシー設定</string>
 
     <string name="wellness_buddy_title">今日のチェックイン</string>
     <string name="wellness_buddy_intro">記録はこの端末にのみ保存されます。</string>
@@ -89,4 +88,31 @@
 
     <string name="wellness_cancel">キャンセル</string>
     <string name="wellness_confirm_delete">削除</string>
+
+    <string name="wellness_tools_subfeatures">サブ機能</string>
+    <string name="morning_signal_title">モーニングシグナル</string>
+    <string name="morning_signal_description">毎日、今日のチェックインを始める時間をお知らせします。</string>
+    <string name="morning_signal_enabled">モーニングシグナル</string>
+    <string name="morning_signal_enabled_description">毎日の通知を予約しています。</string>
+    <string name="morning_signal_disabled_description">オンにすると毎朝通知を受け取れます。</string>
+    <string name="morning_signal_time">%1$02d:%2$02d</string>
+    <string name="morning_signal_time_title">通知時刻を選択</string>
+    <string name="morning_signal_confirm">完了</string>
+    <string name="morning_signal_schedule_note">端末の状態により通知が少し遅れる場合があります。</string>
+    <string name="morning_signal_permission_denied">モーニングシグナルを使うには、システム設定で通知を許可してください。</string>
+    <string name="morning_signal_schedule_failed">モーニングシグナルを予約できませんでした。もう一度お試しください。</string>
+    <string name="morning_signal_notification_title">モーニングシグナル</string>
+    <string name="morning_signal_notification_body">今日のコンディションを記録してみましょう。</string>
+    <string name="morning_signal_channel_name">モーニングシグナル</string>
+    <string name="morning_signal_channel_description">毎朝のチェックイン通知</string>
+    <string name="wellness_recent_records_title">直近7日間の記録</string>
+    <string name="wellness_record_present">記録あり</string>
+    <string name="wellness_record_missing">記録なし</string>
+    <string name="wellness_hide_record_details">記録の詳細を閉じる</string>
+    <string name="wellness_record_care_tags">ケアタグ</string>
+    <string name="wellness_record_observations">追加の記録</string>
+    <string name="wellness_record_note">メモ</string>
+    <string name="wellness_show_trend_values">日付ごとの値を表示</string>
+    <string name="wellness_hide_trend_values">日付ごとの値を非表示</string>
+    <string name="wellness_plan_target_description">各アクションの週目標は%1$s回です</string>
 </resources>

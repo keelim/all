@@ -1,0 +1,80 @@
+# Development environment
+
+Use mise 2026.10.8 or newer and the checked-in `mise.toml` and `mise.lock`.
+The development verification lane pins Eclipse Temurin **17.0.20+8**, matching
+the existing runtime used for scoped module tests. This is the Gradle runtime;
+the Java/Kotlin compilation target remains 17.
+
+The existing Gradle Wrappers use **9.8.2**, Android Gradle Plugin at
+**9.2.1**, Kotlin at **2.4.10**, and compile/target SDK at **37**. AGP 9.2
+requires at least Gradle 9.4.1 and JDK 17 or newer, supports API 37, and uses Android
+SDK Build Tools 36.0.0 by default. See the
+[Android compatibility table](https://developer.android.com/build/releases/agp-9-2-0-release-notes)
+and [Gradle Java compatibility table](https://docs.gradle.org/current/userguide/compatibility.html).
+
+After reviewing and trusting this checkout's configuration:
+
+```sh
+mise trust mise.toml
+mise install --locked
+mise run doctor
+```
+
+The lockfile contains macOS ARM64 and Linux x64 JDK artifacts. Keep tool
+upgrades separate from setup; do not use `mise upgrade` or regenerate locks
+as a routine installation step. Do not install a separate Gradle version:
+all commands use the repository's `./gradlew`.
+
+Keep the existing Android SDK, `local.properties`, `local.defaults.properties`,
+Firebase files, and signing/provider configuration. The checks do not install
+SDK packages, accept licenses, create credentials, or modify these files.
+Have the required SDK platform and Build Tools installed before Gradle checks.
+The verification tasks pass `-Pandroid.builder.sdkDownload=false` so missing SDK
+packages fail rather than being downloaded automatically.
+`doctor` checks the JDK and Wrapper; a passing result does not certify SDK,
+provider, signing, or release readiness.
+
+## Representative verification
+
+```sh
+mise run test
+mise run lint
+mise run build
+# Or run these representative checks in sequence:
+mise run ci
+```
+
+These tasks cover the Android target of `core:common` through `testAndroidHostTest`,
+`lintAndroidMain`, and `assembleAndroidMain`. For an implementation change,
+follow `AGENTS.md` and the affected module's guide and run its required tests.
+The routine development checks do not sign, publish, or deploy anything.
+
+Each verification task first runs `doctor`, which rejects a missing or different
+JDK before starting module work. Task execution does not automatically install
+missing mise tools. Run the
+explicit setup command first. When this repository is nested in the maestro
+workspace, mise also reads parent configuration; an enclosing setup can
+therefore declare additional tools. CI build workflows read the same JDK pin
+from an independent checkout.
+
+The representative verification tasks require SDK platform 37 and Build Tools
+36.0.0 to be available before execution.
+
+All seven Gradle build workflows use the local `setup-java` composite action,
+which reads the Temurin version from `mise.toml`, installs that exact JDK with
+`actions/setup-java`, and checks both the runtime and `javac`. `doctor` checks
+that the root and build-logic Wrapper URLs and SHA-256 checksums match rather
+than keeping a separate Gradle version pin. A development check is not a release
+build.
+
+Gradle still needs its normal cache and dependency access. If the execution
+environment denies a cache lock or filesystem operation, report that failure;
+changing the mise pin does not fix an operating-system permission denial.
+
+In managed environments with an HTTPS inspection proxy, the selected JDK must
+trust the environment CA. A downloaded Temurin JDK can have a different trust
+store from the system Java installation. Configure the JVM to use the
+operator-provided Java trust store (for example,
+`-Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts` in this Linux cloud
+environment) and the supplied proxy settings. Keep these environment-specific
+paths out of repository-wide Gradle properties; never disable TLS verification.

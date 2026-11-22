@@ -1,29 +1,28 @@
 package com.keelim.arducon.ui.screen.json
 
+import com.keelim.data.json.JsonParser
 import com.keelim.testing.util.MainDispatcherRule
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
+import io.mockk.every
+import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
-import kotlinx.serialization.json.Json
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class JsonFormatterViewModelTest : FunSpec({
 
     lateinit var viewModel: JsonFormatterViewModel
-    lateinit var json: Json
+    lateinit var jsonParser: JsonParser
     val testDispatcher = StandardTestDispatcher()
     val mainDispatcherRule = MainDispatcherRule(testDispatcher)
 
     extension(mainDispatcherRule)
 
     beforeTest {
-        json = Json {
-            prettyPrint = true
-            prettyPrintIndent = "    "
-        }
-        viewModel = JsonFormatterViewModel(json)
+        jsonParser = mockk()
+        viewModel = JsonFormatterViewModel(jsonParser)
     }
 
     test("updateInputJson이 입력 상태를 갱신해야 한다") {
@@ -41,7 +40,8 @@ class JsonFormatterViewModelTest : FunSpec({
     test("formatJson이 성공하면 포맷된 결과를 노출해야 한다") {
         runTest(testDispatcher) {
             val input = """{"name":"keelim"}"""
-            val formatted = "{\n    \"name\": \"keelim\"\n}"
+            val formatted = "{\n  \"name\": \"keelim\"\n}"
+            every { jsonParser.formatJson(input) } returns formatted
             viewModel.updateInputJson(input)
 
             viewModel.formatJson()
@@ -57,19 +57,23 @@ class JsonFormatterViewModelTest : FunSpec({
     test("formatJson이 실패하면 오류 메시지를 노출해야 한다") {
         runTest(testDispatcher) {
             val input = """{"name":}"""
+            every { jsonParser.formatJson(input) } throws IllegalArgumentException("invalid json")
             viewModel.updateInputJson(input)
 
             viewModel.formatJson()
 
-            viewModel.uiState.value.inputJson shouldBe input
-            viewModel.uiState.value.formattedJson shouldBe ""
-            viewModel.uiState.value.errorMessage.isNullOrBlank() shouldBe false
+            viewModel.uiState.value shouldBe JsonFormatterUiState(
+                inputJson = input,
+                formattedJson = "",
+                errorMessage = "invalid json",
+            )
         }
     }
 
     test("clear가 입력과 포맷 결과를 초기화해야 한다") {
         runTest(testDispatcher) {
             val input = """{"name":"keelim"}"""
+            every { jsonParser.formatJson(input) } returns "{}"
             viewModel.updateInputJson(input)
             viewModel.formatJson()
 

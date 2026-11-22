@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="304pt" height="116pt" viewBox="0 0 304 116">
+    <g class="graph" transform="translate(4 112)">
+        <title>G</title>
+        <path fill="#fff" d="M-4 4v-116h303.53V4z"/>
+        <g class="node">
+            <title>:feature:ui-scheme</title>
+            <ellipse cx="143.17" cy="-90" fill="none" stroke="#000" rx="80.01" ry="18"/>
+            <text xml:space="preserve" x="143.17" y="-84.95" font-family="Times,serif" font-size="14" text-anchor="middle">:feature:ui-scheme</text>
+        </g>
+        <g class="node">
+            <title>:core:common</title>
+            <ellipse cx="65.17" cy="-18" fill="none" stroke="#000" rx="65.17" ry="18"/>
+            <text xml:space="preserve" x="65.17" y="-12.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:common</text>
+        </g>
+        <g class="edge">
+            <title>:feature:ui-scheme-&gt;:core:common</title>
+            <path fill="none" stroke="red" stroke-width="2" d="M124.29-72.05c-9.65 8.66-21.57 19.35-32.17 28.86"/>
+            <path fill="red" stroke="red" stroke-width="2" d="m95.64-41.64-9.78 4.07 5.11-9.28z"/>
+        </g>
+        <g class="node">
+            <title>:core:component</title>
+            <ellipse cx="222.17" cy="-18" fill="none" stroke="#000" rx="73.36" ry="18"/>
+            <text xml:space="preserve" x="222.17" y="-12.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:component</text>
+        </g>
+        <g class="edge">
+            <title>:feature:ui-scheme-&gt;:core:component</title>
+            <path fill="none" stroke="#000" d="M162.29-72.05c9.71 8.59 21.67 19.19 32.35 28.65"/>
+            <path stroke="#000" d="m196.93-46.04 5.16 9.25-9.81-4.02z"/>
+        </g>
+    </g>
+</svg>

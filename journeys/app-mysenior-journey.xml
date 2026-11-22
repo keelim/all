@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<journey name="MySenior Settings Navigation Journey">
+   <description>
+      Verifies MySenior settings host, navigates to Device Info sub-screen, and returns to Settings.
+   </description>
+   <actions>
+      <action>Verify that the app is open and "Settings" is displayed in the top app bar</action>
+      <action>Verify that "Theme Change" is visible in the settings list</action>
+      <action>Verify that "알림내역" is visible in the settings list</action>
+      <action>Verify that "실험실" is visible in the settings list</action>
+      <action>Verify that "Device Info" is visible in the settings list</action>
+      <action>Tap "Device Info"</action>
+      <action>Verify that the device info details screen is displayed</action>
+      <action>Press the back button</action>
+      <action>Verify that the app returned to the "Settings" screen</action>
+   </actions>
+</journey>

@@ -1,4 +1,6 @@
-# Feature: UI-Setting
+# :feature:ui-setting
+
+Route contracts live in `api/`. The aggregate settings entry and its UI live in `impl/`.
 
 ## OVERVIEW
 Main settings module providing theme management, notification history, device information, and experimental features (Lab). Focused on high-quality animations and consistent Material 3 UI patterns.

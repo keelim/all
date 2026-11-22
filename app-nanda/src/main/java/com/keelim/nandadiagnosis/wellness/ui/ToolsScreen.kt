@@ -44,10 +44,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.activity.compose.BackHandler
+import androidx.compose.ui.Alignment
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.keelim.common.platform.privacy.PrivacySettings
 import com.keelim.model.wellness.Measurement
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.wellness.WellnessUiState
 import com.keelim.nandadiagnosis.wellness.domain.MeasurementState
+import com.keelim.nandadiagnosis.wellness.morning.MorningSignalViewModel
+import com.keelim.nandadiagnosis.wellness.morning.MorningSignalUiState
+import java.time.Duration
 
 @Composable
 internal fun ToolsScreen(
@@ -55,10 +62,33 @@ internal fun ToolsScreen(
     privacyMode: Boolean,
     onPrivacyModeChange: (Boolean) -> Unit,
     onSaveMeasurement: (String, String, MeasurementState) -> Boolean,
-    privacyOptionsRequired: Boolean,
-    onShowPrivacyOptions: () -> Unit,
+    onOpenCheckIn: () -> Unit,
+    privacySettings: PrivacySettings = PrivacySettings(
+        appLockEnabled = false,
+        obscureRecentApps = true,
+        blockScreenshots = true,
+        autoLockTimeout = Duration.ofMinutes(5),
+    ),
+    onUpdatePrivacySettings: (PrivacySettings) -> Unit = {},
+    onNavigateToTab: (WellnessDestination) -> Unit = {},
+    morningSignalViewModel: MorningSignalViewModel? = null,
+    initialPreviewDestination: ToolsPreviewDestination? = null,
+    morningSignalPreviewState: MorningSignalUiState? = null,
 ) {
-    var showMeasurements by rememberSaveable { mutableStateOf(false) }
+    var showMeasurements by rememberSaveable {
+        mutableStateOf(initialPreviewDestination == ToolsPreviewDestination.MEASUREMENTS)
+    }
+    var showMorningSignal by rememberSaveable {
+        mutableStateOf(initialPreviewDestination == ToolsPreviewDestination.MORNING_SIGNAL)
+    }
+
+    BackHandler(enabled = showMeasurements || showMorningSignal) {
+        when {
+            showMeasurements -> showMeasurements = false
+            showMorningSignal -> showMorningSignal = false
+        }
+    }
+
     if (showMeasurements) {
         MeasurementToolScreen(
             measurements = uiState.measurements,
@@ -68,6 +98,22 @@ internal fun ToolsScreen(
             onBack = { showMeasurements = false },
             onSaveMeasurement = onSaveMeasurement,
         )
+        return
+    }
+    if (showMorningSignal) {
+        if (morningSignalPreviewState != null) {
+            MorningSignalScreen(
+                uiState = morningSignalPreviewState,
+                onBack = { showMorningSignal = false },
+                onEnabledChange = {},
+                onTimeChange = { _, _ -> },
+            )
+        } else {
+            MorningSignalRoute(
+                onBack = { showMorningSignal = false },
+                viewModel = morningSignalViewModel ?: hiltViewModel(),
+            )
+        }
         return
     }
 
@@ -89,50 +135,61 @@ internal fun ToolsScreen(
                     title = stringResource(R.string.wellness_tools_measurement),
                     onClick = { showMeasurements = true },
                 )
-                ToolLabel(stringResource(R.string.wellness_tools_supplements))
-                ToolLabel(stringResource(R.string.wellness_tools_self_check))
-                ToolLabel(stringResource(R.string.wellness_tools_care_notes))
+                ToolButton(
+                    title = stringResource(R.string.wellness_tools_supplements),
+                    onClick = { onNavigateToTab(WellnessDestination.PLAN) },
+                )
+                ToolButton(
+                    title = stringResource(R.string.wellness_tools_self_check),
+                    onClick = onOpenCheckIn,
+                )
+                ToolButton(
+                    title = stringResource(R.string.wellness_recent_records_title),
+                    onClick = { onNavigateToTab(WellnessDestination.INSIGHTS) },
+                )
+            }
+        }
+        item(key = "subFeatures") {
+            ToolSection(title = stringResource(R.string.wellness_tools_subfeatures)) {
+                ToolButton(
+                    title = stringResource(R.string.morning_signal_title),
+                    onClick = { showMorningSignal = true },
+                )
             }
         }
         item(key = "privacyTools") {
             ToolSection(title = stringResource(R.string.wellness_tools_privacy)) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                ) {
-                    Text(
-                        text = stringResource(R.string.wellness_privacy_mode),
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = MaterialTheme.colorScheme.onSurface,
-                    )
-                    Switch(
-                        checked = privacyMode,
-                        onCheckedChange = onPrivacyModeChange,
-                    )
-                }
-                if (privacyOptionsRequired) {
-                    TextButton(
-                        onClick = onShowPrivacyOptions,
-                        modifier = Modifier.fillMaxWidth(),
-                    ) {
-                        Text(
-                            text = stringResource(R.string.wellness_privacy_options),
-                            style = MaterialTheme.typography.bodyLarge,
-                            color = MaterialTheme.colorScheme.primary,
-                        )
-                    }
-                }
-                ToolLabel(stringResource(R.string.wellness_tools_app_lock))
-                ToolLabel(stringResource(R.string.wellness_tools_recent_blur))
-                ToolLabel(stringResource(R.string.wellness_tools_capture))
+                ToolSwitchRow(
+                    title = stringResource(R.string.wellness_privacy_mode),
+                    checked = privacyMode,
+                    onCheckedChange = onPrivacyModeChange,
+                )
+                ToolSwitchRow(
+                    title = stringResource(R.string.wellness_tools_app_lock),
+                    checked = privacySettings.appLockEnabled,
+                    onCheckedChange = { enabled ->
+                        onUpdatePrivacySettings(privacySettings.copy(appLockEnabled = enabled))
+                    },
+                )
+                ToolSwitchRow(
+                    title = stringResource(R.string.wellness_tools_recent_blur),
+                    checked = privacySettings.obscureRecentApps,
+                    onCheckedChange = { enabled ->
+                        onUpdatePrivacySettings(privacySettings.copy(obscureRecentApps = enabled))
+                    },
+                )
+                ToolSwitchRow(
+                    title = stringResource(R.string.wellness_tools_capture),
+                    checked = privacySettings.blockScreenshots,
+                    onCheckedChange = { enabled ->
+                        onUpdatePrivacySettings(privacySettings.copy(blockScreenshots = enabled))
+                    },
+                )
             }
         }
         item(key = "dataTools") {
             ToolSection(title = stringResource(R.string.wellness_tools_data)) {
-                ToolLabel(stringResource(R.string.wellness_tools_export))
-                ToolLabel(stringResource(R.string.wellness_tools_delete_all))
                 ToolLabel(stringResource(R.string.wellness_tools_storage))
-                ToolLabel(stringResource(R.string.wellness_tools_privacy_policy))
             }
         }
         item(key = "appInfo") {
@@ -146,6 +203,8 @@ internal fun ToolsScreen(
         }
     }
 }
+
+internal enum class ToolsPreviewDestination { MEASUREMENTS, MORNING_SIGNAL }
 
 @Composable
 private fun ToolSection(
@@ -179,6 +238,29 @@ private fun ToolButton(
             modifier = Modifier.fillMaxWidth(),
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.primary,
+        )
+    }
+}
+
+@Composable
+private fun ToolSwitchRow(
+    title: String,
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(
+            text = title,
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onSurface,
+        )
+        Switch(
+            checked = checked,
+            onCheckedChange = onCheckedChange,
         )
     }
 }

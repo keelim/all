@@ -23,6 +23,9 @@ core/component/src/*/com/keelim/composeutil/
 
 ## KEY COMPONENTS
 - **KeelimTheme**: Compatibility root provider that delegates to `core:designsystem`.
+- **KeelimNavDisplay**: Navigation 3 display wrapper with expressive transitions and guarded back stack popping (`if (backStack.size > 1)`).
+- **VPrism**: Touch-aimed interactive refraction canvas consuming `KuiTheme` tokens.
+- **TextStream**: Looping scrolling text reel consuming `KuiTheme` typography and colors.
 - **SearchView**: Integrated search field with clear and search actions.
 - **Modifier.shimmer()**: Standard shimmer effect for loading states.
 - **Modifier.conditional()**: Utility to apply modifiers based on conditions.
@@ -43,4 +46,4 @@ core/component/src/*/com/keelim/composeutil/
 
 ## NOTES
 - **Android 16+**: Components leverage the latest API targets for live updates and expressive UI.
-- **KMP Support**: Most components are in `commonMain` for future Multiplatform expansion.
+- **KMP Support**: Most components are in `commonMain` for future Multiplatform expansion. This module is a Kotlin Multiplatform library without a `testDebugUnitTest` task; report validation as unavailable and do not substitute tasks.

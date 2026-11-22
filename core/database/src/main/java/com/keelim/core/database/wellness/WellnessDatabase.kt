@@ -23,21 +23,6 @@ data class MeasurementEntity(
     val state: String,
 )
 
-@Entity(tableName = "daily_check_ins")
-data class DailyCheckInEntity(
-    @PrimaryKey val localDate: String,
-    val sleep: Int? = null,
-    val stress: Int? = null,
-    val energy: Int? = null,
-    val desire: Int? = null,
-    val confidence: Int? = null,
-    val morningCondition: String? = null,
-    val drankAlcohol: Boolean? = null,
-    val didCardio: Boolean? = null,
-    val hasDiscomfort: Boolean? = null,
-    val note: String = "",
-)
-
 @Entity(tableName = "routines")
 data class RoutineEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
@@ -73,13 +58,34 @@ data class WellnessGoalEntity(
     val baselineCm: Double,
 )
 
+@Entity(tableName = "daily_check_ins")
+data class DailyCheckInEntity(
+    @PrimaryKey val localDate: String,
+    val sleep: Int,
+    val stress: Int,
+    val energy: Int,
+    val desire: Int,
+    val confidence: Int,
+    val morningCondition: String,
+    val drankAlcohol: Boolean,
+    val didCardio: Boolean,
+    val hasDiscomfort: Boolean,
+    val note: String,
+)
+
+@Entity(tableName = "care_check_ins")
+data class CareCheckInEntity(
+    @PrimaryKey val localDate: String,
+    val condition: String,
+    val sweat: Boolean,
+    val friction: Boolean,
+    val dryness: Boolean,
+)
+
 @Dao
 interface WellnessDao {
     @Query("SELECT * FROM measurements ORDER BY localDate DESC")
     fun observeMeasurements(): Flow<List<MeasurementEntity>>
-
-    @Query("SELECT * FROM daily_check_ins ORDER BY localDate DESC")
-    fun observeDailyCheckIns(): Flow<List<DailyCheckInEntity>>
 
     @Query("SELECT * FROM routines ORDER BY createdLocalDate, id")
     fun observeRoutines(): Flow<List<RoutineEntity>>
@@ -90,20 +96,29 @@ interface WellnessDao {
     @Query("SELECT * FROM wellness_goal WHERE id = 0")
     fun observeGoal(): Flow<WellnessGoalEntity?>
 
+    @Query("SELECT * FROM daily_check_ins ORDER BY localDate DESC")
+    fun observeCheckIns(): Flow<List<DailyCheckInEntity>>
+
+    @Query("SELECT * FROM care_check_ins ORDER BY localDate DESC")
+    fun observeCareCheckIns(): Flow<List<CareCheckInEntity>>
+
     @Upsert
     suspend fun upsertMeasurement(measurement: MeasurementEntity)
-
-    @Upsert
-    suspend fun upsertDailyCheckIn(checkIn: DailyCheckInEntity)
-
-    @Query("DELETE FROM daily_check_ins WHERE localDate = :localDate")
-    suspend fun deleteDailyCheckIn(localDate: String)
 
     @Upsert
     suspend fun upsertGoal(goal: WellnessGoalEntity)
 
     @Query("DELETE FROM wellness_goal")
     suspend fun deleteGoal()
+
+    @Upsert
+    suspend fun upsertCheckIn(checkIn: DailyCheckInEntity)
+
+    @Query("DELETE FROM daily_check_ins WHERE localDate = :localDate")
+    suspend fun deleteCheckIn(localDate: String)
+
+    @Upsert
+    suspend fun upsertCareCheckIn(checkIn: CareCheckInEntity)
 
     @Insert
     suspend fun insertRoutine(routine: RoutineEntity): Long
@@ -124,12 +139,13 @@ interface WellnessDao {
 @Database(
     entities = [
         MeasurementEntity::class,
-        DailyCheckInEntity::class,
         RoutineEntity::class,
         RoutineCompletionEntity::class,
         WellnessGoalEntity::class,
+        DailyCheckInEntity::class,
+        CareCheckInEntity::class,
     ],
-    version = 3,
+    version = 2,
     exportSchema = true,
 )
 abstract class WellnessDatabase : RoomDatabase() {
@@ -138,16 +154,32 @@ abstract class WellnessDatabase : RoomDatabase() {
     companion object {
         const val NAME = "wellness.db"
 
-        val MIGRATION_2_3 = object : Migration(2, 3) {
+        val MIGRATION_1_2 = object : Migration(1, 2) {
             override fun migrate(db: SupportSQLiteDatabase) {
                 db.execSQL(
                     """
-                    CREATE TABLE `daily_check_ins_new` (
+                    CREATE TABLE IF NOT EXISTS `wellness_goal` (
+                        `id` INTEGER NOT NULL,
+                        `metric` TEXT NOT NULL,
+                        `targetCm` REAL NOT NULL,
+                        `baselineCm` REAL NOT NULL,
+                        PRIMARY KEY(`id`)
+                    )
+                    """.trimIndent(),
+                )
+                db.execSQL(
+                    """
+                    CREATE TABLE IF NOT EXISTS `daily_check_ins` (
                         `localDate` TEXT NOT NULL,
-                        `sleep` INTEGER, `stress` INTEGER, `energy` INTEGER,
-                        `desire` INTEGER, `confidence` INTEGER,
-                        `morningCondition` TEXT,
-                        `drankAlcohol` INTEGER, `didCardio` INTEGER, `hasDiscomfort` INTEGER,
+                        `sleep` INTEGER NOT NULL,
+                        `stress` INTEGER NOT NULL,
+                        `energy` INTEGER NOT NULL,
+                        `desire` INTEGER NOT NULL,
+                        `confidence` INTEGER NOT NULL,
+                        `morningCondition` TEXT NOT NULL,
+                        `drankAlcohol` INTEGER NOT NULL,
+                        `didCardio` INTEGER NOT NULL,
+                        `hasDiscomfort` INTEGER NOT NULL,
                         `note` TEXT NOT NULL,
                         PRIMARY KEY(`localDate`)
                     )
@@ -155,41 +187,17 @@ abstract class WellnessDatabase : RoomDatabase() {
                 )
                 db.execSQL(
                     """
-                    INSERT INTO `daily_check_ins_new`
-                    (`localDate`, `sleep`, `stress`, `energy`, `desire`, `confidence`,
-                     `morningCondition`, `drankAlcohol`, `didCardio`, `hasDiscomfort`, `note`)
-                    SELECT `localDate`, `sleep`, `stress`, `energy`, `desire`, `confidence`,
-                           `morningCondition`, `drankAlcohol`, `didCardio`, `hasDiscomfort`, `note`
-                    FROM `daily_check_ins`
+                    CREATE TABLE IF NOT EXISTS `care_check_ins` (
+                        `localDate` TEXT NOT NULL,
+                        `condition` TEXT NOT NULL,
+                        `sweat` INTEGER NOT NULL,
+                        `friction` INTEGER NOT NULL,
+                        `dryness` INTEGER NOT NULL,
+                        PRIMARY KEY(`localDate`)
+                    )
                     """.trimIndent(),
                 )
-                db.execSQL("DROP TABLE `daily_check_ins`")
-                db.execSQL("ALTER TABLE `daily_check_ins_new` RENAME TO `daily_check_ins`")
             }
         }
-
-        val MIGRATION_1_2 =
-            object : Migration(1, 2) {
-                override fun migrate(db: SupportSQLiteDatabase) {
-                    db.execSQL(
-                        """
-                        CREATE TABLE IF NOT EXISTS `daily_check_ins` (
-                            `localDate` TEXT NOT NULL,
-                            `sleep` INTEGER NOT NULL,
-                            `stress` INTEGER NOT NULL,
-                            `energy` INTEGER NOT NULL,
-                            `desire` INTEGER NOT NULL,
-                            `confidence` INTEGER NOT NULL,
-                            `morningCondition` TEXT NOT NULL,
-                            `drankAlcohol` INTEGER NOT NULL,
-                            `didCardio` INTEGER NOT NULL,
-                            `hasDiscomfort` INTEGER NOT NULL,
-                            `note` TEXT NOT NULL,
-                            PRIMARY KEY(`localDate`)
-                        )
-                        """.trimIndent(),
-                    )
-                }
-            }
     }
 }

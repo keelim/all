@@ -26,19 +26,19 @@ android {
 
 dependencies {
 
-    implementation(projects.core.commonAndroid)
     implementation(projects.core.common)
     implementation(projects.core.component)
     implementation(projects.shared)
 
-    implementation(projects.core.data)
+    implementation(projects.core.data.dataImpl)
     implementation(projects.core.navigation)
     implementation(projects.core.network)
     implementation(projects.core.resource)
 
-    implementation(projects.feature.appFunction)
-    implementation(projects.feature.uiScheme)
-    implementation(projects.feature.uiSetting)
+    implementation(projects.feature.appFunction.impl)
+    implementation(projects.feature.settingsCore.api)
+    implementation(projects.feature.uiScheme.impl)
+    implementation(projects.feature.uiSetting.impl)
     implementation(projects.widget)
 
 
@@ -59,6 +59,7 @@ dependencies {
 
     implementation(libs.play.services.oss)
 
+    debugImplementation(libs.leakcanary)
     testImplementation(projects.core.testing)
 }
 

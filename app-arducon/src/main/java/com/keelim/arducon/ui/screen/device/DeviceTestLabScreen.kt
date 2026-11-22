@@ -181,10 +181,10 @@ fun DeviceTestLabRoute(
     }
 
     val locationPermissionLauncher = rememberLauncherForActivityResult(
-        ActivityResultContracts.RequestMultiplePermissions(),
-    ) { grants ->
+        ActivityResultContracts.RequestPermission(),
+    ) { granted ->
         pendingLocationTest?.let { id ->
-            if (grants.values.any { it }) {
+            if (granted) {
                 runHardwareTest(
                     context = context,
                     id = id,
@@ -235,8 +235,7 @@ fun DeviceTestLabRoute(
                 }
 
                 DeviceTestId.Location -> {
-                    val hasLocationPermission = context.hasPermission(Manifest.permission.ACCESS_FINE_LOCATION) ||
-                        context.hasPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
+                    val hasLocationPermission = context.hasPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
                     if (hasLocationPermission) {
                         runHardwareTest(
                             context = context,
@@ -247,12 +246,7 @@ fun DeviceTestLabRoute(
                     } else {
                         viewModel.markRunning(id)
                         pendingLocationTest = id
-                        locationPermissionLauncher.launch(
-                            arrayOf(
-                                Manifest.permission.ACCESS_FINE_LOCATION,
-                                Manifest.permission.ACCESS_COARSE_LOCATION,
-                            ),
-                        )
+                        locationPermissionLauncher.launch(Manifest.permission.ACCESS_COARSE_LOCATION)
                     }
                 }
 

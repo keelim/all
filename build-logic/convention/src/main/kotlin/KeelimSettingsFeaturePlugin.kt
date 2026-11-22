@@ -13,14 +13,13 @@ class KeelimSettingsFeaturePlugin : Plugin<Project> {
             apply(plugin = "keelim.android.hilt")
 
             dependencies {
-                add("implementation", project(":core:common-android"))
                 add("implementation", project(":core:common"))
                 add("implementation", project(":core:component"))
                 add("implementation", project(":core:model"))
                 add("implementation", project(":core:resource"))
                 add("implementation", project(":shared"))
 
-                add("implementation", project(":core:data-api"))
+                add("implementation", project(":core:data:data-api"))
                 add("implementation", project(":core:navigation"))
 
                 add("implementation", libs.findLibrary("androidx.activity.compose").get())

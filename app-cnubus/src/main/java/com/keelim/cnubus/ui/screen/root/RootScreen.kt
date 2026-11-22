@@ -23,8 +23,6 @@ import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.ExposedDropdownMenu
-import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import com.keelim.core.designsystem.component.KuiButton
 import com.keelim.core.designsystem.component.KuiButtonVariant
 import com.keelim.core.designsystem.component.KuiCard
@@ -32,6 +30,8 @@ import androidx.compose.material3.CardDefaults
 import com.keelim.core.designsystem.component.KuiDropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import com.keelim.core.designsystem.component.KuiExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenu
+import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import com.keelim.core.designsystem.component.KuiIcon
 import com.keelim.core.designsystem.component.KuiIconButton
@@ -223,7 +223,12 @@ private fun Success(
                 contentPadding = PaddingValues(horizontal = space12),
                 verticalArrangement = Arrangement.spacedBy(space24),
             ) {
-                itemsIndexed(uiState.data) { index, item ->
+                itemsIndexed(
+                    items = uiState.data,
+                    // Keep duplicate-name rows distinct; favorite storage stays name-based.
+                    key = { _, station -> station.stationRowKey },
+                    contentType = { _, _ -> "station" },
+                ) { index, item ->
                     TimelineItem(
                         position = index,
                         rootTitle = item.name,
@@ -437,7 +442,6 @@ val roots = listOf(
 )
 
 @Preview
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ExposedDropdownMenuSample() {
     var expanded by remember { mutableStateOf(false) }

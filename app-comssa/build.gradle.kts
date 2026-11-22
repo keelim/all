@@ -28,20 +28,19 @@ android {
 }
 
 dependencies {
-    implementation(projects.core.commonAndroid)
-    implementation(projects.core.deviceAndroid)
+    implementation(projects.core.device)
     implementation(projects.core.common)
     implementation(projects.core.component)
-    implementation(projects.core.data)
+    implementation(projects.core.data.dataImpl)
     implementation(projects.core.model)
     implementation(projects.core.navigation)
     implementation(projects.core.network)
     implementation(projects.core.resource)
     implementation(projects.shared)
     implementation(projects.widget)
-    implementation(projects.feature.appFunction)
-    implementation(projects.feature.uiWeb)
-    implementation(projects.feature.uiSetting)
+    implementation(projects.feature.appFunction.impl)
+    implementation(projects.feature.uiWeb.api)
+    implementation(projects.feature.uiSetting.impl)
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.splashscreen)
@@ -55,6 +54,8 @@ dependencies {
     implementation(libs.bundles.coil)
 
     implementation(libs.play.services.oss)
+
+    debugImplementation(libs.leakcanary)
 
     // Test dependencies
     testImplementation(projects.core.testing)

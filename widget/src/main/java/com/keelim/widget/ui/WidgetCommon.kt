@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.glance.GlanceModifier
 import androidx.glance.LocalContext
 import androidx.glance.action.clickable
+import androidx.glance.appwidget.action.actionStartActivity
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
 
@@ -15,13 +16,15 @@ fun WidgetCommon(
     modifier: GlanceModifier = GlanceModifier,
     context: Context = LocalContext.current,
 ) {
+    val launchIntent = context.packageManager.getLaunchIntentForPackage(context.packageName)
+    val clickModifier = if (launchIntent != null) {
+        modifier.clickable(actionStartActivity(launchIntent))
+    } else {
+        modifier
+    }
     Text(
         text = title,
         style = style,
-        modifier = modifier.clickable {
-            context.packageManager.getLaunchIntentForPackage(
-                context.packageName,
-            )
-        },
+        modifier = clickModifier,
     )
 }

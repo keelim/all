@@ -21,15 +21,16 @@ android {
 
 dependencies {
     implementation(projects.core.common)
-    implementation(projects.core.commonAndroid)
     implementation(projects.core.component)
-    implementation(projects.core.data)
+    implementation(projects.core.data.dataImpl)
     implementation(projects.core.domain)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.fragment.ktx)
     implementation(libs.ads.mobile.sdk)
+
+    debugImplementation(libs.leakcanary)
 
     testImplementation(libs.kotest.assertions.core)
     testImplementation(libs.kotest.runner.junit5)

@@ -1,6 +1,5 @@
 package com.keelim.nandadiagnosis.wellness.ads
 
-import android.util.Log
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -18,10 +17,7 @@ import com.google.android.libraries.ads.mobile.sdk.banner.AdView
 import com.google.android.libraries.ads.mobile.sdk.banner.BannerAd
 import com.google.android.libraries.ads.mobile.sdk.banner.BannerAdRequest
 import com.google.android.libraries.ads.mobile.sdk.common.AdLoadCallback
-import com.google.android.libraries.ads.mobile.sdk.common.LoadAdError
 import com.keelim.nandadiagnosis.BuildConfig
-
-private const val TAG = "WellnessAds"
 
 @Composable
 fun RoutineAdBanner(
@@ -55,17 +51,8 @@ fun RoutineAdBanner(
                                     },
                                     adSize,
                                 ).build(),
-                                object : AdLoadCallback<BannerAd> {
-                                    override fun onAdLoaded(ad: BannerAd) {
-                                        Log.d(TAG, "banner_load_succeeded")
-                                    }
-
-                                    override fun onAdFailedToLoad(error: LoadAdError) {
-                                        Log.w(TAG, "banner_load_failed code=${error.code.name}")
-                                    }
-                                },
+                                object : AdLoadCallback<BannerAd> {},
                             )
-                            Log.d(TAG, "banner_load_requested")
                         }
                     },
                     onRelease = AdView::destroy,

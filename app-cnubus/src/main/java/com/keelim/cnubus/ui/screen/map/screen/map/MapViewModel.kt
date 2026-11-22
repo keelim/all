@@ -34,8 +34,8 @@ data class MapState(
     override val snippet: String
         get() = itemSnippet
 
-    override val zIndex: Float?
-        get() = null
+    override val zIndex: Float? = null
+
 }
 
 @Stable

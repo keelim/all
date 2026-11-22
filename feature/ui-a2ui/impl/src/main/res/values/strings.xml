@@ -1,0 +1,5 @@
+<resources>
+    <string name="a2ui_waiting_for_component">Waiting for content…</string>
+    <string name="a2ui_sample_title">A2UI offline sample</string>
+    <string name="a2ui_sample_body">This card is composed from validated data using native components.</string>
+</resources>

@@ -17,7 +17,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -74,6 +74,7 @@ fun FinanceMainSection(
     onItemClick: (FinanceRssItem) -> Unit,
     modifier: Modifier = Modifier,
 ) = trace("FinanceMainSection") {
+    val itemKeys = remember(items) { financeItemKeys(items) }
     Column(
         modifier = modifier,
     ) {
@@ -84,11 +85,15 @@ fun FinanceMainSection(
             state = state,
             modifier = Modifier.fillMaxSize(),
         ) {
-            item {
+            item(key = "finance-header", contentType = "finance-header") {
                 FinanceHeaderItem()
             }
 
-            items(items) { item ->
+            itemsIndexed(
+                items = items,
+                key = { index, _ -> itemKeys[index] },
+                contentType = { _, _ -> "finance-article" },
+            ) { _, item ->
                 FinanceListItem(
                     item = item,
                     onItemClick = onItemClick,
@@ -97,7 +102,7 @@ fun FinanceMainSection(
                 )
             }
 
-            item {
+            item(key = "finance-footer", contentType = "finance-footer") {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()

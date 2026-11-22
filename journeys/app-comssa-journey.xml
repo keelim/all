@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<journey name="Comssa Economic Calendar &amp; Financial Calculators Journey">
+   <description>
+      Verifies Comssa launch on Economic Calendar, navigation to Financial Calculators, tab interaction, and back navigation.
+   </description>
+   <actions>
+      <action>Verify that the app is open and "캘린더" is displayed in the bottom navigation bar</action>
+      <action>Verify that "환율" is displayed in the bottom navigation bar</action>
+      <action>Verify that "금융" is displayed in the bottom navigation bar</action>
+      <action>Tap the "금융" tab in the bottom navigation bar</action>
+      <action>Verify that "금융 계산기" is displayed in the top bar</action>
+      <action>Verify that "복리 계산기" is displayed in the calculator tabs</action>
+      <action>Verify that "대출 상환 계산기" is displayed in the calculator tabs</action>
+      <action>Tap "대출 상환 계산기"</action>
+      <action>Press the back button</action>
+      <action>Verify that the app returned to the "캘린더" screen</action>
+   </actions>
+</journey>

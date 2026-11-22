@@ -1,0 +1,82 @@
+name: Common Android build validation
+on:
+  push:
+    branches: [develop, 'codex/all-build-repair-*']
+  pull_request:
+    branches: [develop]
+    paths-ignore:
+      - '**/*.md'
+      - 'profile/**'
+      - .github/scripts/verify-benchmark.py
+      - .github/workflows/benchmark-validation.yml
+      - .github/workflows/design_lint.yml
+permissions:
+  contents: read
+jobs:
+  build:
+    name: clean-${{ matrix.scope }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - scope: appfunctions
+            timeout: 40
+          - scope: consumers
+            timeout: 60
+    timeout-minutes: ${{ matrix.timeout }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup-android-validation
+      - name: Verify SDK and wrapper declarations
+        run: python3 .github/scripts/verify-common-build.py configuration
+      - name: Clean compile and test AppFunctions with shared Android baseline
+        if: matrix.scope == 'appfunctions'
+        run: >-
+          ./gradlew --no-daemon --max-workers=2 -Pandroid.builder.sdkDownload=false clean
+          :core:common:assembleAndroidMain :core:common:testAndroidHostTest
+          :feature:app-function:impl:assembleDebug :feature:app-function:impl:testDebugUnitTest --info
+      - name: Verify generated function contracts and test discovery
+        if: matrix.scope == 'appfunctions'
+        run: python3 .github/scripts/verify-common-build.py appfunctions
+      - name: Clean compile and test all six Android apps
+        if: matrix.scope == 'consumers'
+        run: ./gradlew --no-daemon --continue --stacktrace --max-workers=1 --no-parallel '-Dorg.gradle.jvmargs=-Xmx4g -Dfile.encoding=UTF-8 -XX:ReservedCodeCacheSize=256m' -Pkotlin.compiler.execution.strategy=in-process -Pandroid.builder.sdkDownload=false clean :app-arducon:assembleDebug :app-cnubus:assembleDebug :app-comssa:assembleDebug :app-my-grade:assembleDebug :app-nanda:assembleDebug :app-mysenior:assembleDebug :app-arducon:testDebugUnitTest :app-cnubus:testDebugUnitTest :app-comssa:testDebugUnitTest :app-my-grade:testDebugUnitTest :app-nanda:testDebugUnitTest :app-mysenior:testDebugUnitTest
+      - name: Verify merged AppFunctions services and assets in consumer APKs
+        if: always() && matrix.scope == 'consumers'
+        run: python3 .github/scripts/verify-common-build.py consumers
+      - name: Save build and test evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: common-build-${{ matrix.scope }}
+          path: |
+            **/build/test-results/testDebugUnitTest/*.xml
+            **/build/reports/tests/testDebugUnitTest/**
+            core/common/build/test-results/testAndroidHostTest/*.xml
+            core/common/build/reports/tests/testAndroidHostTest/**
+            feature/app-function/api/build/generated/ksp/debug/**
+            feature/app-function/impl/build/generated/ksp/debug/**
+            app-*/build/outputs/logs/manifest-merger-debug-report.txt
+          if-no-files-found: warn
+
+  dependency-guard:
+    if: github.event_name == 'pull_request'
+    name: Dependency Guard (${{ matrix.app }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        app: [app-arducon, app-nanda]
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup-android-validation
+      - name: Verify release dependency baseline
+        env:
+          APP_MODULE: ${{ matrix.app }}
+        run: ./gradlew --no-daemon -Pandroid.builder.sdkDownload=false ":${APP_MODULE}:dependencyGuard"

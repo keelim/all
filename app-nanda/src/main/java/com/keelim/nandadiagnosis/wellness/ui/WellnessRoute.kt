@@ -4,34 +4,33 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.repeatOnLifecycle
+import com.keelim.common.platform.privacy.PrivacySettings
 import com.keelim.nandadiagnosis.wellness.WellnessViewModel
+import com.keelim.nandadiagnosis.wellness.morning.MorningSignalViewModel
+import java.time.Duration
 
 @Composable
 fun WellnessRoute(
+    canLoadAd: Boolean,
+    privacySettings: PrivacySettings = PrivacySettings(
+        appLockEnabled = false,
+        obscureRecentApps = true,
+        blockScreenshots = true,
+        autoLockTimeout = Duration.ofMinutes(5),
+    ),
+    onUpdatePrivacySettings: (PrivacySettings) -> Unit = {},
     viewModel: WellnessViewModel = hiltViewModel(),
-    canRequestAds: Boolean = false,
-    privacyOptionsRequired: Boolean = false,
-    onShowPrivacyOptions: () -> Unit = {},
+    morningSignalViewModel: MorningSignalViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    val lifecycleOwner = androidx.lifecycle.compose.LocalLifecycleOwner.current
-    androidx.compose.runtime.LaunchedEffect(lifecycleOwner, viewModel) {
-        lifecycleOwner.lifecycle.repeatOnLifecycle(androidx.lifecycle.Lifecycle.State.STARTED) {
-            while (true) {
-                viewModel.refreshToday()
-                kotlinx.coroutines.delay(60_000)
-            }
-        }
-    }
     WellnessScreen(
         uiState = uiState,
         onSaveCheckIn = viewModel::saveCheckIn,
+        onSaveCareCheckIn = viewModel::saveCareCheckIn,
         onDeleteCheckIn = viewModel::deleteCheckIn,
         onSaveMeasurement = viewModel::saveMeasurement,
         onAddRoutine = viewModel::addRoutine,
-        onSaveRecoveryGoal = viewModel::saveRecoveryGoal,
         onSetRoutineCompletion = { routine, checked, duration ->
             viewModel.setRoutineCompletion(
                 routine = routine,
@@ -40,8 +39,9 @@ fun WellnessRoute(
             )
         },
         onDeleteRoutine = viewModel::deleteRoutine,
-        canRequestAds = canRequestAds,
-        privacyOptionsRequired = privacyOptionsRequired,
-        onShowPrivacyOptions = onShowPrivacyOptions,
+        canLoadAd = canLoadAd,
+        privacySettings = privacySettings,
+        onUpdatePrivacySettings = onUpdatePrivacySettings,
+        morningSignalViewModel = morningSignalViewModel,
     )
 }

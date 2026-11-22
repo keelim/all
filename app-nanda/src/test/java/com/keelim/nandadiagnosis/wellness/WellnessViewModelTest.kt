@@ -1,18 +1,15 @@
 package com.keelim.nandadiagnosis.wellness
 
 import com.keelim.data.repository.WellnessRepository
-import com.keelim.model.wellness.CheckInRecord
-import com.keelim.model.wellness.DailyTimeBudget
+import com.keelim.model.wellness.CareCheckIn
+import com.keelim.model.wellness.CareCondition
+import com.keelim.model.wellness.DailyCheckIn
 import com.keelim.model.wellness.Measurement
-import com.keelim.model.wellness.RecoveryGoal
-import com.keelim.model.wellness.RecoveryGoalType
 import com.keelim.model.wellness.Routine
 import com.keelim.model.wellness.RoutineCompletion
 import com.keelim.model.wellness.WellnessData
 import com.keelim.model.wellness.WellnessGoal
-import com.keelim.nandadiagnosis.wellness.domain.DailyCheckIn
 import com.keelim.nandadiagnosis.wellness.domain.MeasurementState
-import com.keelim.nandadiagnosis.wellness.domain.RecoveryActionTemplate
 import com.keelim.nandadiagnosis.wellness.domain.RoutineKind
 import com.keelim.testing.platform.FakeTimeProvider
 import io.kotest.core.spec.style.FunSpec
@@ -20,8 +17,7 @@ import io.kotest.matchers.shouldBe
 import java.time.LocalDate
 import java.time.Instant
 import java.time.ZoneId
-import kotlinx.coroutines.async
-import kotlinx.coroutines.test.runCurrent
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
@@ -50,6 +46,55 @@ class WellnessViewModelTest : FunSpec({
         ),
     )
             val date = LocalDate.of(2026, 7, 19)
+
+            val checkIn = DailyCheckIn(
+                localDate = date.toString(),
+                sleep = 3,
+                stress = 3,
+                energy = 3,
+                desire = 3,
+                confidence = 3,
+            )
+            viewModel.saveCheckIn(checkIn)
+            advanceUntilIdle()
+            repository.state.value.checkIns shouldBe listOf(checkIn)
+
+            viewModel.saveCheckIn(checkIn.copy(energy = 4))
+            advanceUntilIdle()
+            repository.state.value.checkIns shouldBe listOf(checkIn.copy(energy = 4))
+
+            viewModel.deleteCheckIn(date.toString())
+            advanceUntilIdle()
+            repository.state.value.checkIns shouldBe emptyList()
+
+            viewModel.saveCareCheckIn(
+                condition = CareCondition.COMFORTABLE,
+                sweat = true,
+                friction = false,
+                dryness = true,
+            )
+            advanceUntilIdle()
+            repository.state.value.careCheckIns shouldBe listOf(
+                CareCheckIn(
+                    localDate = date.toString(),
+                    condition = CareCondition.COMFORTABLE,
+                    sweat = true,
+                    dryness = true,
+                ),
+            )
+
+            viewModel.saveCareCheckIn(
+                condition = CareCondition.AWARE,
+                sweat = false,
+                friction = true,
+                dryness = false,
+            )
+            advanceUntilIdle()
+            repository.state.value.careCheckIns.single() shouldBe CareCheckIn(
+                localDate = date.toString(),
+                condition = CareCondition.AWARE,
+                friction = true,
+            )
 
             viewModel.saveMeasurement("12.3", "9,5", MeasurementState.RELAXED, date)
             viewModel.saveMeasurement("13.0", "10.0", MeasurementState.STRETCHED, date)
@@ -100,240 +145,72 @@ class WellnessViewModelTest : FunSpec({
         }
     }
 
-    test("valid check-in persists and is restored by a recreated view model") {
+    test("latest care selection wins when an earlier save is slower") {
         runTest {
-            val repository = FakeWellnessRepository()
-            val timeProvider =
-                FakeTimeProvider(
-                    initialInstant = Instant.parse("2026-07-19T00:00:00Z"),
-                    zone = ZoneId.of("UTC"),
-                )
-            val checkIn =
-                DailyCheckIn(
-                    localDate = "2026-07-19",
-                    sleep = 4,
-                    stress = 2,
-                    energy = 4,
-                    desire = 3,
-                    confidence = 3,
-                )
-
-            WellnessViewModel(repository, timeProvider).saveCheckIn(checkIn) shouldBe true
-            advanceUntilIdle()
-
-            val recreated = WellnessViewModel(repository, timeProvider)
-            advanceUntilIdle()
-            recreated.uiState.value.checkIns shouldBe listOf(checkIn)
-            recreated.uiState.value.currentStreak shouldBe 1
-        }
-    }
-
-    test("saving the same check-in date replaces the stored record") {
-        runTest {
-            val repository = FakeWellnessRepository()
-            val timeProvider =
-                FakeTimeProvider(
-                    initialInstant = Instant.parse("2026-07-19T00:00:00Z"),
-                    zone = ZoneId.of("UTC"),
-                )
-            val viewModel = WellnessViewModel(repository, timeProvider)
-
-            viewModel.saveCheckIn(DailyCheckIn("2026-07-19", 3, 3, 3, 3, 3)) shouldBe true
-            viewModel.saveCheckIn(DailyCheckIn("2026-07-19", 5, 2, 4, 4, 4)) shouldBe true
-            advanceUntilIdle()
-
-            repository.state.value.checkIns shouldBe
-                listOf(CheckInRecord("2026-07-19", 5, 2, 4, 4, 4))
-        }
-    }
-
-    test("saving a recovery goal adds only allowed actions without deleting existing records") {
-        runTest {
-            val date = LocalDate.of(2026, 8, 24)
-            val existingRoutine =
-                Routine(99, "Existing routine", RoutineKind.CUSTOM.name, "2026-08-20")
-            val existingCompletion = RoutineCompletion(99, "2026-08-23")
-            val existingCheckIn = CheckInRecord("2026-08-23", 3, 2, 4, 3, 3)
-            val measurementGoal = WellnessGoal("LENGTH", 12.0, 10.0)
-            val repository = FakeWellnessRepository().apply {
-                state.value = WellnessData(
-                    checkIns = listOf(existingCheckIn),
-                    routines = listOf(existingRoutine),
-                    completions = listOf(existingCompletion),
-                    goal = measurementGoal,
-                )
+            val repository = FakeWellnessRepository { checkIn ->
+                if (checkIn.condition == CareCondition.COMFORTABLE) delay(100)
             }
             val viewModel = WellnessViewModel(
                 repository = repository,
                 timeProvider = FakeTimeProvider(
-                    initialInstant = Instant.parse("2026-08-24T00:00:00Z"),
+                    initialInstant = Instant.parse("2026-07-19T00:00:00Z"),
                     zone = ZoneId.of("UTC"),
                 ),
             )
 
-            viewModel.saveRecoveryGoal(
-                type = RecoveryGoalType.MORNING_ENERGY,
-                dailyTimeBudget = DailyTimeBudget.FIVE_MINUTES,
-                selectedActions = listOf(
-                    RecoveryRoutineDraft(RecoveryActionTemplate.BRISK_WALK_20, "Wrong action"),
-                    RecoveryRoutineDraft(RecoveryActionTemplate.MORNING_SUNLIGHT_5, "Sunlight"),
-                    RecoveryRoutineDraft(RecoveryActionTemplate.AFTER_LUNCH_WALK_5, "Walk"),
-                    RecoveryRoutineDraft(RecoveryActionTemplate.RECORD_WAKE_TIME, "Wake time"),
-                ),
-                date = date,
-            )
+            viewModel.saveCareCheckIn(CareCondition.COMFORTABLE, true, false, false)
+            viewModel.saveCareCheckIn(CareCondition.AWARE, null, true, null)
             advanceUntilIdle()
 
-            repository.state.value.recoveryGoal shouldBe
-                RecoveryGoal(
-                    type = RecoveryGoalType.MORNING_ENERGY,
-                    dailyTimeBudget = DailyTimeBudget.FIVE_MINUTES,
-                    startedLocalDate = date.toString(),
-                    updatedLocalDate = date.toString(),
-                )
-            repository.state.value.routines.map(Routine::name) shouldBe
-                listOf("Existing routine", "Sunlight", "Walk", "Wake time")
-            repository.state.value.completions shouldBe listOf(existingCompletion)
-            repository.state.value.checkIns shouldBe listOf(existingCheckIn)
-            repository.state.value.goal shouldBe measurementGoal
-
-            viewModel.saveRecoveryGoal(
-                type = RecoveryGoalType.MORNING_ENERGY,
-                dailyTimeBudget = DailyTimeBudget.FIFTEEN_MINUTES,
-                selectedActions = emptyList(),
-                date = date.plusDays(1),
+            repository.state.value.careCheckIns.single() shouldBe CareCheckIn(
+                localDate = "2026-07-19",
+                condition = CareCondition.AWARE,
+                sweat = true,
+                friction = true,
             )
-            advanceUntilIdle()
-            repository.state.value.recoveryGoal?.startedLocalDate shouldBe date.toString()
-
-            viewModel.saveRecoveryGoal(
-                type = RecoveryGoalType.SLEEP_RHYTHM,
-                dailyTimeBudget = DailyTimeBudget.FIFTEEN_MINUTES,
-                selectedActions = emptyList(),
-                date = date.plusDays(2),
-            )
-            advanceUntilIdle()
-            repository.state.value.recoveryGoal?.startedLocalDate shouldBe
-                date.plusDays(2).toString()
         }
     }
 
-    test("ui state exposes this week's action and active day counts") {
+    test("status and tag edits preserve the other saved tags") {
         runTest {
-            val repository = FakeWellnessRepository().apply {
-                state.value = WellnessData(
-                    completions = listOf(
-                        RoutineCompletion(1, "2026-08-23"),
-                        RoutineCompletion(1, "2026-08-24"),
-                        RoutineCompletion(1, "2026-08-25"),
-                        RoutineCompletion(2, "2026-08-25"),
-                        RoutineCompletion(2, "2026-08-27"),
-                    ),
-                )
-            }
+            val repository = FakeWellnessRepository()
+            val original = CareCheckIn(
+                localDate = "2026-07-19",
+                condition = CareCondition.COMFORTABLE,
+                sweat = true,
+                friction = true,
+                dryness = true,
+            )
+            repository.upsertCareCheckIn(original)
             val viewModel = WellnessViewModel(
                 repository = repository,
                 timeProvider = FakeTimeProvider(
-                    initialInstant = Instant.parse("2026-08-26T00:00:00Z"),
+                    initialInstant = Instant.parse("2026-07-19T00:00:00Z"),
                     zone = ZoneId.of("UTC"),
                 ),
             )
+
+            viewModel.saveCareCheckIn(CareCondition.AWARE, null, null, null)
             advanceUntilIdle()
+            repository.state.value.careCheckIns.single() shouldBe original.copy(condition = CareCondition.AWARE)
 
-            viewModel.uiState.value.weeklyActionCompletions shouldBe 3
-            viewModel.uiState.value.weeklyActiveDays shouldBe 2
-        }
-    }
-
-    test("partial check-in uses the save-time date and preserves an edited date") {
-        runTest {
-            val repository = FakeWellnessRepository()
-            val clock = FakeTimeProvider(Instant.parse("2026-09-05T14:59:00Z"), ZoneId.of("Asia/Seoul"))
-            val viewModel = WellnessViewModel(repository, clock)
-            val draft = DailyCheckIn("", energy = 4, note = "  rested  ")
-            clock.advanceBy(java.time.Duration.ofMinutes(2))
-            viewModel.saveCheckIn(draft) shouldBe true
-            val saved = repository.state.value.checkIns.single()
-            saved.localDate shouldBe "2026-09-06"
-            saved.sleep shouldBe null
-            saved.drankAlcohol shouldBe null
-            saved.morningCondition shouldBe null
-            saved.note shouldBe "rested"
-            clock.advanceBy(java.time.Duration.ofDays(1))
-            viewModel.saveCheckIn(DailyCheckIn("2026-09-06", energy = 5, desire = 2)) shouldBe true
-            repository.state.value.checkIns.size shouldBe 1
-            val recreated = WellnessViewModel(repository, clock)
+            viewModel.saveCareCheckIn(CareCondition.AWARE, null, false, null)
             advanceUntilIdle()
-            recreated.uiState.value.checkIns.single().energy shouldBe 5
-            recreated.uiState.value.checkIns.single().desire shouldBe 2
-            viewModel.deleteCheckIn("2026-09-06") shouldBe true
-            repository.state.value.checkIns shouldBe emptyList()
-        }
-    }
-
-    test("failed writes retain the previous record and allow retry") {
-        runTest {
-            val repository = FakeWellnessRepository()
-            val clock = FakeTimeProvider(Instant.parse("2026-09-06T00:00:00Z"), ZoneId.of("UTC"))
-            val viewModel = WellnessViewModel(repository, clock)
-            val original = DailyCheckIn("2026-09-06", sleep = 4, drankAlcohol = false)
-            viewModel.saveCheckIn(original) shouldBe true
-            val before = repository.state.value.checkIns
-            repository.failWrites = true
-            viewModel.saveCheckIn(original.copy(sleep = 5)) shouldBe false
-            viewModel.deleteCheckIn(original.localDate) shouldBe false
-            repository.state.value.checkIns shouldBe before
-            viewModel.uiState.value.validationErrors shouldBe setOf(WellnessValidationError.CHECK_IN_STORAGE)
-            viewModel.uiState.value.isCheckInWriting shouldBe false
-            repository.failWrites = false
-            viewModel.saveCheckIn(original.copy(sleep = null)) shouldBe true
-            repository.state.value.checkIns.single().drankAlcohol shouldBe false
-            repository.state.value.checkIns.single().sleep shouldBe null
-        }
-    }
-
-    test("empty answers are rejected and missing observations do not produce a pattern") {
-        runTest {
-            val repository = FakeWellnessRepository()
-            val clock = FakeTimeProvider(Instant.parse("2026-09-06T00:00:00Z"), ZoneId.of("UTC"))
-            val viewModel = WellnessViewModel(repository, clock)
-            viewModel.saveCheckIn(DailyCheckIn("", note = "  ")) shouldBe false
-            viewModel.saveCheckIn(DailyCheckIn("", energy = 6)) shouldBe false
-            repository.state.value.checkIns shouldBe emptyList()
-            viewModel.saveCheckIn(DailyCheckIn("", morningCondition = com.keelim.nandadiagnosis.wellness.domain.MorningCondition.NOT_CHECKED)) shouldBe true
-            val records = (1..7).map { DailyCheckIn("2026-09-0$it", sleep = 5) }
-            com.keelim.nandadiagnosis.wellness.domain.InsightCalculator.firstPattern(records) shouldBe null
-            val today = LocalDate.of(2026, 3, 1)
-            val dates = com.keelim.nandadiagnosis.wellness.domain.CheckInRules.recentDates(today)
-            dates.size shouldBe 7
-            dates.first() shouldBe LocalDate.of(2026, 2, 23)
-            dates.last() shouldBe today
-        }
-    }
-
-    test("a second submission is rejected while persistence is pending") {
-        runTest {
-            val repository = FakeWellnessRepository()
-            repository.writeGate = kotlinx.coroutines.CompletableDeferred()
-            val clock = FakeTimeProvider(Instant.parse("2026-09-06T00:00:00Z"), ZoneId.of("UTC"))
-            val viewModel = WellnessViewModel(repository, clock)
-            val first = async { viewModel.saveCheckIn(DailyCheckIn("", energy = 4)) }
-            runCurrent()
-            viewModel.saveCheckIn(DailyCheckIn("", energy = 5)) shouldBe false
-            repository.writeGate?.complete(Unit)
-            first.await() shouldBe true
-            repository.state.value.checkIns.single().energy shouldBe 4
+            repository.state.value.careCheckIns.single() shouldBe original.copy(
+                condition = CareCondition.AWARE,
+                friction = false,
+            )
         }
     }
 
 })
 
-private class FakeWellnessRepository : WellnessRepository {
+private class FakeWellnessRepository(
+    private val beforeCareCheckInUpsert: suspend (CareCheckIn) -> Unit = {},
+) : WellnessRepository {
     val state = MutableStateFlow(WellnessData())
     override val data = state
     private var nextRoutineId = 1L
-    var failWrites = false
-    var writeGate: kotlinx.coroutines.CompletableDeferred<Unit>? = null
 
     override suspend fun initializeDefaultRoutines(createdLocalDate: String) = Unit
 
@@ -348,23 +225,6 @@ private class FakeWellnessRepository : WellnessRepository {
         }
     }
 
-    override suspend fun upsertCheckIn(checkIn: CheckInRecord) {
-        check(!failWrites)
-        writeGate?.await()
-        state.update {
-            it.copy(
-                checkIns =
-                    it.checkIns.filterNot { current -> current.localDate == checkIn.localDate } +
-                        checkIn,
-            )
-        }
-    }
-
-    override suspend fun deleteCheckIn(localDate: String) {
-        check(!failWrites)
-        state.update { it.copy(checkIns = it.checkIns.filterNot { record -> record.localDate == localDate }) }
-    }
-
     override suspend fun upsertGoal(goal: WellnessGoal) {
         state.update { it.copy(goal = goal) }
     }
@@ -373,8 +233,31 @@ private class FakeWellnessRepository : WellnessRepository {
         state.update { it.copy(goal = null) }
     }
 
-    override suspend fun upsertRecoveryGoal(goal: RecoveryGoal) {
-        state.update { it.copy(recoveryGoal = goal) }
+    override suspend fun upsertCheckIn(checkIn: DailyCheckIn) {
+        state.update {
+            it.copy(
+                checkIns = it.checkIns.filterNot { current ->
+                    current.localDate == checkIn.localDate
+                } + checkIn,
+            )
+        }
+    }
+
+    override suspend fun deleteCheckIn(localDate: String) {
+        state.update {
+            it.copy(checkIns = it.checkIns.filterNot { checkIn -> checkIn.localDate == localDate })
+        }
+    }
+
+    override suspend fun upsertCareCheckIn(checkIn: CareCheckIn) {
+        beforeCareCheckInUpsert(checkIn)
+        state.update {
+            it.copy(
+                careCheckIns = it.careCheckIns.filterNot { current ->
+                    current.localDate == checkIn.localDate
+                } + checkIn,
+            )
+        }
     }
 
     override suspend fun insertRoutine(routine: Routine): Long {

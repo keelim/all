@@ -17,6 +17,7 @@
 package com.keelim.builds
 
 import com.android.build.api.dsl.CommonExtension
+import com.android.build.api.dsl.KotlinMultiplatformAndroidLibraryTarget
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginExtension
@@ -29,6 +30,7 @@ import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinBaseExtension
+import org.jetbrains.kotlin.gradle.dsl.KotlinCommonCompilerOptions
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 
 /**
@@ -43,7 +45,7 @@ fun Project.configureKotlinAndroid(
     commonExtension.apply {
         compileSdk {
             version = release(libs.findVersion("compileSdk").get().displayName.toInt()) {
-                minorApiLevel = 2
+                minorApiLevel = libs.findVersion("compileSdkMinor").get().displayName.toInt()
             }
         }
         // compileSdkExtension = ProjectConfiguration.compileSdkExtension
@@ -81,7 +83,7 @@ internal fun Project.configureKotlinJvm() {
     configureUnitTests()
 }
 
-private fun Project.configureUnitTests() {
+internal fun Project.configureUnitTests() {
     tasks.withType<Test>().configureEach {
         useJUnitPlatform()
         // Several Android modules have generated unit-test classes but no user-authored tests.
@@ -91,24 +93,33 @@ private fun Project.configureUnitTests() {
 }
 
 private inline fun <reified T : KotlinBaseExtension> Project.configureKotlin() = configure<T> {
-    val warningsAsErrors = providers.gradleProperty("warningsAsErrors").map {
-        it.toBoolean()
-    }.orElse(false)
     when (this) {
         is KotlinAndroidProjectExtension -> compilerOptions
         is KotlinJvmProjectExtension -> compilerOptions
         else -> TODO("Unsupported project extension $this ${T::class}")
     }.apply {
         jvmTarget = JvmTarget.JVM_17
-        allWarningsAsErrors = warningsAsErrors
-        freeCompilerArgs.addAll(
-            listOf(
-                "-opt-in=kotlin.RequiresOptIn",
-                // Enable experimental kotlinx serialization APIs
-//                "-opt-in=kotlinx.serialization.ExperimentalSerializationApi"
-                "-Xcontext-parameters"
-            )
-        )
-
+        val projectPath = this@configureKotlin.path
+        if (projectPath.startsWith(":feature:")) {
+            // Keep Kotlin metadata files distinct when packaging multiple features.
+            moduleName.set(projectPath.removePrefix(":").replace(':', '-'))
+        }
+        configureKotlinCompilerOptions(this)
     }
+}
+
+internal fun Project.configureKotlinCompilerOptions(options: KotlinCommonCompilerOptions) {
+    options.allWarningsAsErrors.set(
+        providers.gradleProperty("warningsAsErrors").map(String::toBoolean).orElse(false),
+    )
+    options.freeCompilerArgs.addAll("-opt-in=kotlin.RequiresOptIn", "-Xcontext-parameters")
+}
+
+internal fun Project.configureMultiplatformAndroid(target: KotlinMultiplatformAndroidLibraryTarget) {
+    target.compileSdk {
+        version = release(libs.findVersion("compileSdk").get().displayName.toInt()) {
+            minorApiLevel = libs.findVersion("compileSdkMinor").get().displayName.toInt()
+        }
+    }
+    target.minSdk = libs.findVersion("minSdk").get().displayName.toInt()
 }

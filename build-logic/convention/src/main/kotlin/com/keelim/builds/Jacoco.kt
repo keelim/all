@@ -117,6 +117,7 @@ private fun Class<*>.findDeclaredFieldInHierarchy(name: String) = run {
 
 internal fun Project.configureJacoco(
     androidComponentsExtension: AndroidComponentsExtension<*, *, *>,
+    coverageSourceDirectories: () -> FileCollection = { androidCoverageSourceDirectories() },
 ) {
     configureJacocoTooling()
 
@@ -142,7 +143,7 @@ internal fun Project.configureJacoco(
             }
 
             classDirectories.setFrom(androidCoverageClassDirectories(variant))
-            sourceDirectories.setFrom(androidCoverageSourceDirectories())
+            sourceDirectories.setFrom(coverageSourceDirectories())
             executionData.setFrom(layout.buildDirectory.file("jacoco/$testTaskName.exec"))
         }
 

@@ -1,5 +1,7 @@
 package com.keelim.nandadiagnosis.wellness.domain
 
+import com.keelim.model.wellness.DailyCheckIn
+
 data class PatternInsight(
     val sampleDays: Int,
     val kind: PatternKind,
@@ -14,12 +16,11 @@ object InsightCalculator {
 
     fun firstPattern(checkIns: List<DailyCheckIn>): PatternInsight? {
         val uniqueDays = checkIns.distinctBy(DailyCheckIn::localDate)
-            .filter { it.sleep != null && it.energy != null }
         if (uniqueDays.size < MINIMUM_DAYS) return null
 
-        val highSleepDays = uniqueDays.filter { it.sleep?.let { value -> value >= 4 } == true }
+        val highSleepDays = uniqueDays.filter { it.sleep >= 4 }
         if (highSleepDays.size < 3) return null
-        val highEnergyCount = highSleepDays.count { it.energy?.let { value -> value >= 4 } == true }
+        val highEnergyCount = highSleepDays.count { it.energy >= 4 }
         return if (highEnergyCount * 2 >= highSleepDays.size) {
             PatternInsight(uniqueDays.size, PatternKind.SLEEP_AND_ENERGY)
         } else {

@@ -1,4 +1,4 @@
-cargo build --target aarch64-linux-android --release
-cargo build --target armv7-linux-androideabi --release
-cargo build --target i686-linux-android --release
-cargo build --target x86_64-linux-android --release
+#!/usr/bin/env bash
+set -euo pipefail
+repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+exec python3 "$repo_root/scripts/rust_build.py" "$@"

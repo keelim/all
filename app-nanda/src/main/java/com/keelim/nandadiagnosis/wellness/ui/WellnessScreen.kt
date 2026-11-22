@@ -9,7 +9,10 @@ import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.togetherWith
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -37,15 +40,19 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.semantics.toggleableState
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.res.stringResource
-import com.keelim.model.wellness.DailyTimeBudget
-import com.keelim.model.wellness.RecoveryGoalType
+import androidx.activity.compose.BackHandler
+import com.keelim.common.platform.privacy.PrivacySettings
 import com.keelim.model.wellness.Routine
+import com.keelim.model.wellness.CareCondition
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.wellness.RecoveryRoutineDraft
 import com.keelim.nandadiagnosis.wellness.WellnessUiState
-import com.keelim.nandadiagnosis.wellness.domain.DailyCheckIn
+import com.keelim.nandadiagnosis.wellness.ads.RoutineAdBanner
+import com.keelim.nandadiagnosis.wellness.morning.MorningSignalViewModel
+import com.keelim.nandadiagnosis.wellness.morning.MorningSignalUiState
+import com.keelim.model.wellness.DailyCheckIn
 import com.keelim.nandadiagnosis.wellness.domain.MeasurementState
 import com.keelim.nandadiagnosis.wellness.domain.RoutineKind
+import java.time.Duration
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
@@ -54,58 +61,86 @@ import java.util.Locale
 @Composable
 internal fun WellnessScreen(
     uiState: WellnessUiState,
-    onSaveCheckIn: suspend (DailyCheckIn) -> Boolean,
-    onDeleteCheckIn: suspend (String) -> Boolean = { false },
+    onSaveCheckIn: (DailyCheckIn) -> Boolean,
+    onSaveCareCheckIn: (CareCondition, Boolean?, Boolean?, Boolean?) -> Unit,
+    onDeleteCheckIn: (String) -> Unit,
     onSaveMeasurement: (String, String, MeasurementState) -> Boolean,
     onAddRoutine: (String, RoutineKind) -> Boolean,
-    onSaveRecoveryGoal: (
-        RecoveryGoalType,
-        DailyTimeBudget,
-        List<RecoveryRoutineDraft>,
-    ) -> Unit,
     onSetRoutineCompletion: (Routine, Boolean, Int?) -> Unit,
     onDeleteRoutine: (Routine) -> Unit,
-    canRequestAds: Boolean = false,
-    privacyOptionsRequired: Boolean = false,
-    onShowPrivacyOptions: () -> Unit = {},
+    canLoadAd: Boolean = false,
+    privacySettings: PrivacySettings = PrivacySettings(
+        appLockEnabled = false,
+        obscureRecentApps = true,
+        blockScreenshots = true,
+        autoLockTimeout = Duration.ofMinutes(5),
+    ),
+    onUpdatePrivacySettings: (PrivacySettings) -> Unit = {},
+    morningSignalViewModel: MorningSignalViewModel? = null,
+    initialTab: WellnessDestination = WellnessDestination.TODAY,
+    initialPrivacyMode: Boolean = true,
+    initialToolsPreviewDestination: ToolsPreviewDestination? = null,
+    morningSignalPreviewState: MorningSignalUiState? = null,
+    todayListState: LazyListState? = null,
 ) {
-    var selectedTabIndex by rememberSaveable { mutableIntStateOf(0) }
-    var privacyMode by rememberSaveable { mutableStateOf(true) }
+    var selectedTabIndex by rememberSaveable { mutableIntStateOf(initialTab.ordinal) }
+    var privacyMode by rememberSaveable { mutableStateOf(initialPrivacyMode) }
+    var showCheckIn by rememberSaveable { mutableStateOf(false) }
     val selectedTab = WellnessDestination.entries[selectedTabIndex]
+
+    BackHandler(enabled = selectedTabIndex != 0) {
+        selectedTabIndex = 0
+    }
+
+    val updatePrivacyMode: (Boolean) -> Unit = { next ->
+        privacyMode = next
+        onUpdatePrivacySettings(
+            privacySettings.copy(
+                blockScreenshots = next,
+                obscureRecentApps = next,
+            ),
+        )
+    }
 
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             WellnessTopBar(
                 privacyMode = privacyMode,
-                onPrivacyModeChange = { privacyMode = !privacyMode },
+                onPrivacyModeChange = { updatePrivacyMode(!privacyMode) },
             )
         },
         bottomBar = {
-            NavigationBar(containerColor = MaterialTheme.colorScheme.surface) {
-                WellnessDestination.entries.forEachIndexed { index, destination ->
-                    val selected = selectedTabIndex == index
-                    NavigationBarItem(
-                        selected = selected,
-                        onClick = { selectedTabIndex = index },
-                        icon = {
-                            Icon(
-                                imageVector = destination.icon,
-                                contentDescription = stringResource(destination.labelRes),
-                            )
-                        },
-                        label = {
-                            Text(
-                                text = stringResource(destination.labelRes),
-                                style = MaterialTheme.typography.labelMedium,
-                                color = if (selected) {
-                                    MaterialTheme.colorScheme.primary
-                                } else {
-                                    MaterialTheme.colorScheme.onSurfaceVariant
-                                },
-                            )
-                        },
-                    )
+            Column {
+                RoutineAdBanner(
+                    canLoadAd = canLoadAd,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+                NavigationBar(containerColor = MaterialTheme.colorScheme.surface) {
+                    WellnessDestination.entries.forEachIndexed { index, destination ->
+                        val selected = selectedTabIndex == index
+                        NavigationBarItem(
+                            selected = selected,
+                            onClick = { selectedTabIndex = index },
+                            icon = {
+                                Icon(
+                                    imageVector = destination.icon,
+                                    contentDescription = stringResource(destination.labelRes),
+                                )
+                            },
+                            label = {
+                                Text(
+                                    text = stringResource(destination.labelRes),
+                                    style = MaterialTheme.typography.labelMedium,
+                                    color = if (selected) {
+                                        MaterialTheme.colorScheme.primary
+                                    } else {
+                                        MaterialTheme.colorScheme.onSurfaceVariant
+                                    },
+                                )
+                            },
+                        )
+                    }
                 }
             }
         },
@@ -130,15 +165,17 @@ internal fun WellnessScreen(
                     uiState = uiState,
                     privacyMode = privacyMode,
                     onSaveCheckIn = onSaveCheckIn,
+                    onSaveCareCheckIn = onSaveCareCheckIn,
                     onDeleteCheckIn = onDeleteCheckIn,
                     onSetRoutineCompletion = onSetRoutineCompletion,
+                    showCheckIn = showCheckIn && selectedTab == WellnessDestination.TODAY,
+                    onShowCheckInChange = { showCheckIn = it },
+                    listState = todayListState,
                 )
 
                 WellnessDestination.PLAN -> PlanScreen(
                     uiState = uiState,
-                    canRequestAds = canRequestAds,
                     onAddRoutine = onAddRoutine,
-                    onSaveRecoveryGoal = onSaveRecoveryGoal,
                     onSetRoutineCompletion = onSetRoutineCompletion,
                     onDeleteRoutine = onDeleteRoutine,
                 )
@@ -151,10 +188,18 @@ internal fun WellnessScreen(
                 WellnessDestination.TOOLS -> ToolsScreen(
                     uiState = uiState,
                     privacyMode = privacyMode,
-                    onPrivacyModeChange = { privacyMode = it },
+                    onPrivacyModeChange = updatePrivacyMode,
+                    privacySettings = privacySettings,
+                    onUpdatePrivacySettings = onUpdatePrivacySettings,
+                    onNavigateToTab = { selectedTabIndex = it.ordinal },
+                    onOpenCheckIn = {
+                        selectedTabIndex = WellnessDestination.TODAY.ordinal
+                        showCheckIn = true
+                    },
                     onSaveMeasurement = onSaveMeasurement,
-                    privacyOptionsRequired = privacyOptionsRequired,
-                    onShowPrivacyOptions = onShowPrivacyOptions,
+                    morningSignalViewModel = morningSignalViewModel,
+                    initialPreviewDestination = initialToolsPreviewDestination,
+                    morningSignalPreviewState = morningSignalPreviewState,
                 )
             }
         }
@@ -189,7 +234,7 @@ private fun WellnessTopBar(
         },
         actions = {
             Text(
-                text = WellnessUiFormat.date(LocalDate.now()),
+                text = privacyState,
                 style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )

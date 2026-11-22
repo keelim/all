@@ -15,8 +15,9 @@ import com.keelim.cnubus.ui.screen.map.screen.map.MapRoute
 import com.keelim.composeutil.rememberMutableStateListOf
 import com.keelim.core.navigation.AppRoute
 import com.keelim.core.navigation.CnuBusRoute
-import com.keelim.core.navigation.FeatureRoute
+import com.keelim.setting.navigation.SettingsHomeDestination
 import com.keelim.setting.navigation.registerSettingsEntries
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
@@ -25,9 +26,9 @@ fun CnubusHost(
     coroutineScope: CoroutineScope,
     onShowSnackbar: suspend (String, String?) -> Boolean,
     modifier: Modifier = Modifier,
+    backStack: SnapshotStateList<AppRoute> = rememberMutableStateListOf<AppRoute>(CnuBusRoute.Main),
 ) {
     val context = LocalContext.current
-    val backStack = rememberMutableStateListOf<AppRoute>(CnuBusRoute.Main)
 
     KeelimNavDisplay(
         modifier = modifier,
@@ -39,7 +40,7 @@ fun CnubusHost(
                         backStack.add(CnuBusRoute.Map)
                     },
                     onNavigateAppSetting = {
-                        backStack.add(FeatureRoute.Settings)
+                        backStack.add(SettingsHomeDestination)
                     },
                 )
             }

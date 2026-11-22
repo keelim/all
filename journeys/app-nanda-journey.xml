@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<journey name="Nanda Buddy Daily Wellness Journey">
+   <description>
+      Verifies Buddy Daily launch, top bar privacy controls, tab navigation to Plan, and return to Today screen.
+   </description>
+   <actions>
+      <action>Verify that the app is open and the title "Buddy Daily" is visible on the screen</action>
+      <action>Verify that "Today" is displayed in the bottom navigation bar</action>
+      <action>Verify that "Plan" is displayed in the bottom navigation bar</action>
+      <action>Verify that "Insights" is displayed in the bottom navigation bar</action>
+      <action>Verify that "Tools" is displayed in the bottom navigation bar</action>
+      <action>Tap the "Plan" tab in the bottom navigation bar</action>
+      <action>Verify that "This week’s plan" is visible on the screen</action>
+      <action>Tap the "Tools" tab in the bottom navigation bar</action>
+      <action>Verify that "Privacy" is visible on the screen</action>
+      <action>Press the back button</action>
+      <action>Verify that the app returned to the "Today" screen</action>
+   </actions>
+</journey>

@@ -4,39 +4,28 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.keelim.data.repository.WellnessRepository
 import com.keelim.common.platform.time.TimeProvider
-import com.keelim.model.wellness.CheckInRecord
-import com.keelim.model.wellness.DailyTimeBudget
+import com.keelim.model.wellness.CareCheckIn
+import com.keelim.model.wellness.CareCondition
+import com.keelim.model.wellness.DailyCheckIn
 import com.keelim.model.wellness.Measurement
-import com.keelim.model.wellness.RecoveryGoal
-import com.keelim.model.wellness.RecoveryGoalType
 import com.keelim.model.wellness.Routine
 import com.keelim.model.wellness.RoutineCompletion
 import com.keelim.nandadiagnosis.wellness.domain.CheckInRules
-import com.keelim.nandadiagnosis.wellness.domain.DailyCheckIn
 import com.keelim.nandadiagnosis.wellness.domain.MeasurementState
-import com.keelim.nandadiagnosis.wellness.domain.MorningCondition
-import com.keelim.nandadiagnosis.wellness.domain.RecoveryActionTemplate
-import com.keelim.nandadiagnosis.wellness.domain.RecoveryGoalRules
 import com.keelim.nandadiagnosis.wellness.domain.RoutineKind
 import com.keelim.nandadiagnosis.wellness.domain.WellnessRules
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.time.LocalDate
-import java.util.Locale
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.async
-import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.sync.Mutex
-
-data class RecoveryRoutineDraft(
-    val template: RecoveryActionTemplate,
-    val name: String,
-)
+import kotlinx.coroutines.sync.withLock
 
 @HiltViewModel
 class WellnessViewModel @Inject constructor(
@@ -44,81 +33,65 @@ class WellnessViewModel @Inject constructor(
     private val timeProvider: TimeProvider,
 ) : ViewModel() {
     private val validationErrors = MutableStateFlow<Set<WellnessValidationError>>(emptySet())
-
-    private val checkInWriting = MutableStateFlow(false)
-    private val today = MutableStateFlow(timeProvider.today())
-    private val checkInMutex = Mutex()
-
-    fun refreshToday() { today.value = timeProvider.today() }
-
+    private val careCheckInMutex = Mutex()
     val uiState: StateFlow<WellnessUiState> =
-        combine(repository.data, validationErrors, checkInWriting, today) { data, errors, writing, date ->
-            val dailyCheckIns = data.checkIns.map(CheckInRecord::toDailyCheckIn)
-            val weeklyActivity = RecoveryGoalRules.weeklyActivitySummary(
-                data.completions.map(RoutineCompletion::localDate),
-                timeProvider.today(),
-            )
+        combine(repository.data, validationErrors) { data, errors ->
             WellnessUiState(
                 measurements = data.measurements,
                 routines = data.routines,
                 completions = data.completions,
-                checkIns = dailyCheckIns,
-                currentStreak =
-                    CheckInRules.calculateStreak(
-                        dailyCheckIns.map(DailyCheckIn::localDate),
-                        timeProvider.today(),
-                    ),
-                recoveryGoal = data.recoveryGoal,
-                weeklyActionCompletions = weeklyActivity.completionCount,
-                weeklyActiveDays = weeklyActivity.activeDays,
+                checkIns = data.checkIns,
+                careCheckIns = data.careCheckIns,
                 validationErrors = errors,
-                isCheckInWriting = writing,
-                today = date,
             )
         }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.Eagerly,
-            initialValue = WellnessUiState(isLoading = true, today = timeProvider.today()),
+            initialValue = WellnessUiState(),
         )
 
     init {
         viewModelScope.launch { repository.initializeDefaultRoutines(timeProvider.today().toString()) }
     }
 
-    suspend fun saveCheckIn(checkIn: DailyCheckIn): Boolean {
+    fun saveCheckIn(checkIn: DailyCheckIn): Boolean {
         if (CheckInRules.validate(checkIn).isNotEmpty()) {
             validationErrors.value = setOf(WellnessValidationError.CHECK_IN)
             return false
         }
-        val record = checkIn.copy(
-            localDate = checkIn.localDate.ifEmpty { timeProvider.today().toString() },
-            note = checkIn.note.trim(),
-        )
-        return writeCheckIn { repository.upsertCheckIn(record.toRecord()) }
+        validationErrors.value = emptySet()
+        viewModelScope.launch { repository.upsertCheckIn(checkIn) }
+        return true
     }
 
-    suspend fun deleteCheckIn(localDate: String): Boolean =
-        writeCheckIn { repository.deleteCheckIn(localDate) }
+    fun deleteCheckIn(localDate: String) {
+        viewModelScope.launch { repository.deleteCheckIn(localDate) }
+    }
 
-    private suspend fun writeCheckIn(write: suspend () -> Unit): Boolean {
-        return viewModelScope.async {
-            if (!checkInMutex.tryLock()) return@async false
-            checkInWriting.value = true
-            validationErrors.value = emptySet()
-            try {
-                write()
-                refreshToday()
-                true
-            } catch (cancelled: CancellationException) {
-                throw cancelled
-            } catch (_: Exception) {
-                validationErrors.value = setOf(WellnessValidationError.CHECK_IN_STORAGE)
-                false
-            } finally {
-                checkInWriting.value = false
-                checkInMutex.unlock()
+    // A null tag means the user did not edit that field.
+    fun saveCareCheckIn(
+        condition: CareCondition,
+        sweat: Boolean?,
+        friction: Boolean?,
+        dryness: Boolean?,
+    ) {
+        val localDate = timeProvider.today().toString()
+        viewModelScope.launch {
+            careCheckInMutex.withLock {
+                val previous = repository.data.first().careCheckIns.firstOrNull {
+                    it.localDate == localDate
+                }
+                repository.upsertCareCheckIn(
+                    CareCheckIn(
+                        localDate = localDate,
+                        condition = condition,
+                        sweat = sweat ?: previous?.sweat ?: false,
+                        friction = friction ?: previous?.friction ?: false,
+                        dryness = dryness ?: previous?.dryness ?: false,
+                    ),
+                )
             }
-        }.await()
+        }
     }
 
     fun saveMeasurement(
@@ -176,49 +149,6 @@ class WellnessViewModel @Inject constructor(
         viewModelScope.launch { repository.deleteRoutine(routine) }
     }
 
-    fun saveRecoveryGoal(
-        type: RecoveryGoalType,
-        dailyTimeBudget: DailyTimeBudget,
-        selectedActions: List<RecoveryRoutineDraft>,
-        date: LocalDate = timeProvider.today(),
-    ) {
-        val currentGoal = uiState.value.recoveryGoal
-        val goal = RecoveryGoal(
-            type = type,
-            dailyTimeBudget = dailyTimeBudget,
-            startedLocalDate = currentGoal
-                ?.takeIf { it.type == type }
-                ?.startedLocalDate
-                ?: date.toString(),
-            updatedLocalDate = date.toString(),
-        )
-        val existingRoutines = uiState.value.routines.mapTo(mutableSetOf()) { routine ->
-            routine.name.trim().lowercase(Locale.ROOT) to routine.kind
-        }
-        val allowedActions = RecoveryGoalRules.recommendations(type, dailyTimeBudget).toSet()
-        val actions = selectedActions
-            .filter { it.template in allowedActions && it.name.isNotBlank() }
-            .distinctBy(RecoveryRoutineDraft::template)
-            .take(3)
-
-        viewModelScope.launch {
-            repository.upsertRecoveryGoal(goal)
-            actions.forEach { action ->
-                val name = action.name.trim()
-                val kind = action.template.kind.name
-                if (existingRoutines.add(name.lowercase(Locale.ROOT) to kind)) {
-                    repository.insertRoutine(
-                        Routine(
-                            name = name,
-                            kind = kind,
-                            createdLocalDate = date.toString(),
-                        ),
-                    )
-                }
-            }
-        }
-    }
-
     fun setRoutineCompletion(
         routine: Routine,
         date: LocalDate = timeProvider.today(),
@@ -248,33 +178,3 @@ class WellnessViewModel @Inject constructor(
         }
     }
 }
-
-private fun CheckInRecord.toDailyCheckIn() =
-    DailyCheckIn(
-        localDate = localDate,
-        sleep = sleep,
-        stress = stress,
-        energy = energy,
-        desire = desire,
-        confidence = confidence,
-        morningCondition = morningCondition?.let(MorningCondition::valueOf),
-        drankAlcohol = drankAlcohol,
-        didCardio = didCardio,
-        hasDiscomfort = hasDiscomfort,
-        note = note,
-    )
-
-private fun DailyCheckIn.toRecord() =
-    CheckInRecord(
-        localDate = localDate,
-        sleep = sleep,
-        stress = stress,
-        energy = energy,
-        desire = desire,
-        confidence = confidence,
-        morningCondition = morningCondition?.name,
-        drankAlcohol = drankAlcohol,
-        didCardio = didCardio,
-        hasDiscomfort = hasDiscomfort,
-        note = note,
-    )

@@ -1,0 +1,36 @@
+name: Set up Android validation
+description: Install the Android SDK and JDKs and prepare public CI fixtures
+runs:
+  using: composite
+  steps:
+    - name: Install Java 21 for API 36 Robolectric tests
+      uses: actions/setup-java@v5
+      with:
+        distribution: temurin
+        java-version: '21'
+
+    - name: Set up repository-pinned build JDK
+      uses: ./.github/actions/setup-java
+
+    - uses: android-actions/setup-android@v3
+      with:
+        packages: platform-tools
+        log-accepted-android-sdk-licenses: false
+
+    - name: Install the exact compile SDK
+      shell: bash
+      run: sdkmanager 'platforms;android-37.2' 'build-tools;37.0.0'
+
+    - uses: gradle/actions/setup-gradle@v5
+      with:
+        cache-read-only: true
+
+    - name: Register installed test and build JDKs
+      shell: bash
+      run: |
+        mkdir -p "$HOME/.gradle"
+        printf 'org.gradle.java.installations.paths=%s,%s\n' "$JAVA_HOME_21_X64" "$JAVA_HOME" >> "$HOME/.gradle/gradle.properties"
+
+    - name: Generate public offline fixtures
+      shell: bash
+      run: python3 .github/scripts/prepare-offline-build.py

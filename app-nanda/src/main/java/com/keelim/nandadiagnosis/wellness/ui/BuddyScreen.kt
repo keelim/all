@@ -10,7 +10,11 @@ import androidx.compose.animation.shrinkVertically
 import androidx.compose.animation.togetherWith
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -18,36 +22,56 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.TextButton
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.FilterChip
+import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.keelim.model.wellness.Routine
 import com.keelim.common.extensions.toUiNumber
+import com.keelim.model.wellness.CareCheckIn
+import com.keelim.model.wellness.CareCondition
+import com.keelim.model.wellness.Routine
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.wellness.WellnessUiState
-import com.keelim.nandadiagnosis.wellness.domain.DailyCheckIn
+import com.keelim.model.wellness.DailyCheckIn
 import com.keelim.nandadiagnosis.wellness.domain.InsightCalculator
 import com.keelim.nandadiagnosis.wellness.domain.WellnessRules
 import java.time.LocalDate
@@ -57,17 +81,18 @@ import kotlinx.coroutines.launch
 internal fun TodayScreen(
     uiState: WellnessUiState,
     privacyMode: Boolean,
-    onSaveCheckIn: suspend (DailyCheckIn) -> Boolean,
-    onDeleteCheckIn: suspend (String) -> Boolean = { false },
+    onSaveCheckIn: (DailyCheckIn) -> Boolean,
+    onSaveCareCheckIn: (CareCondition, Boolean?, Boolean?, Boolean?) -> Unit,
+    onDeleteCheckIn: (String) -> Unit,
     onSetRoutineCompletion: (Routine, Boolean, Int?) -> Unit,
+    showCheckIn: Boolean,
+    onShowCheckInChange: (Boolean) -> Unit,
+    listState: LazyListState? = null,
 ) {
-    val today = uiState.today
-    var editingDate by rememberSaveable { mutableStateOf<String?>(null) }
-    var deletingDate by rememberSaveable { mutableStateOf<String?>(null) }
-    var writing by remember { mutableStateOf(false) }
-    var writeFailed by remember { mutableStateOf(false) }
+    val today = remember { LocalDate.now() }
     val todayIso = today.toString()
     val todayCheckIn = uiState.checkIns.firstOrNull { it.localDate == todayIso }
+    val todayCareCheckIn = uiState.careCheckIns.firstOrNull { it.localDate == todayIso }
     val todayCompletions = uiState.completions.filter { it.localDate == todayIso }
     val visibleRoutines = uiState.routines.take(3)
     val summaries = uiState.routines.map { routine ->
@@ -90,11 +115,11 @@ internal fun TodayScreen(
         animationSpec = tween(500),
         label = "todayWeeklyProgress",
     )
-    val insight = InsightCalculator.firstPattern(uiState.checkIns)
+    val insight = if (privacyMode) null else InsightCalculator.firstPattern(uiState.checkIns)
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
     val savedMessage = stringResource(R.string.wellness_checkin_saved)
-    var showCheckIn by rememberSaveable { mutableStateOf(false) }
+    val careSavedMessage = stringResource(R.string.wellness_care_weather_saved)
 
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
@@ -102,6 +127,7 @@ internal fun TodayScreen(
     ) { padding ->
         LazyColumn(
             modifier = Modifier.fillMaxSize().padding(padding),
+            state = listState ?: rememberLazyListState(),
             contentPadding = PaddingValues(horizontal = 20.dp, vertical = 20.dp),
             verticalArrangement = Arrangement.spacedBy(22.dp),
         ) {
@@ -114,33 +140,25 @@ internal fun TodayScreen(
                     )
                 }
             }
-            item(key = "greeting") {
-                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text(
-                        text = stringResource(R.string.wellness_today_greeting),
-                        style = MaterialTheme.typography.headlineSmall,
-                        color = MaterialTheme.colorScheme.onBackground,
-                    )
-                    Text(
-                        text = stringResource(R.string.wellness_today_intro),
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                }
-            }
             item(key = "checkIn") {
                 CheckInCard(
                     checkIn = todayCheckIn,
                     privacyMode = privacyMode,
-                    onClick = { editingDate = todayCheckIn?.localDate; writeFailed = false; showCheckIn = true },
+                    onClick = { onShowCheckInChange(true) },
                 )
             }
-            item(key = "morningHistory") {
-                MorningHistory(
-                    today = today, checkIns = uiState.checkIns, privacyMode = privacyMode,
-                    enabled = !writing && !uiState.isCheckInWriting,
-                    onEdit = { date -> editingDate = date; writeFailed = false; showCheckIn = true },
-                    onDelete = { date -> deletingDate = date; writeFailed = false },
+            item(key = "careWeather") {
+                CareWeatherSection(
+                    date = today,
+                    checkIn = todayCareCheckIn,
+                    privacyMode = privacyMode,
+                    onSave = { condition, sweat, friction, dryness ->
+                        onSaveCareCheckIn(condition, sweat, friction, dryness)
+                        scope.launch {
+                            snackbarHostState.currentSnackbarData?.dismiss()
+                            snackbarHostState.showSnackbar(careSavedMessage)
+                        }
+                    },
                 )
             }
             item(key = "actionsTitle") {
@@ -182,8 +200,8 @@ internal fun TodayScreen(
                         Text(
                             text = stringResource(
                                 R.string.wellness_week_progress_value,
-                                completed,
-                                eligible,
+                                completed.toUiNumber(),
+                                eligible.toUiNumber(),
                             ),
                             style = MaterialTheme.typography.bodyLarge,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -197,19 +215,21 @@ internal fun TodayScreen(
                     }
                 }
             }
-            item(key = "insight") {
-                SupportingCard(
-                    if (insight == null) {
-                        stringResource(R.string.wellness_insight_more_data)
-                    } else {
-                        stringResource(
-                            R.string.wellness_insight_sleep_energy,
-                            insight.sampleDays,
-                        )
-                    },
-                )
+            if (!privacyMode) {
+                item(key = "insight") {
+                    SupportingCard(
+                        if (insight == null) {
+                            stringResource(R.string.wellness_insight_more_data)
+                        } else {
+                            stringResource(
+                                R.string.wellness_insight_sleep_energy,
+                                insight.sampleDays.toUiNumber(),
+                            )
+                        },
+                    )
+                }
             }
-            if (todayCheckIn?.hasDiscomfort == true) {
+            if (!privacyMode && todayCheckIn?.hasDiscomfort == true) {
                 item(key = "care") {
                     CareCard()
                 }
@@ -217,64 +237,304 @@ internal fun TodayScreen(
         }
     }
 
-    if (showCheckIn && !uiState.isLoading) {
+    if (showCheckIn) {
         DailyCheckInSheet(
-            initial = uiState.checkIns.firstOrNull { it.localDate == editingDate },
-            isSaving = writing || uiState.isCheckInWriting,
-            saveFailed = writeFailed,
-            onDismiss = { if (!writing) showCheckIn = false },
+            initial = todayCheckIn,
+            onDismiss = { onShowCheckInChange(false) },
+            onDelete = todayCheckIn?.let { checkIn ->
+                {
+                    onDeleteCheckIn(checkIn.localDate)
+                    onShowCheckInChange(false)
+                }
+            },
             onSave = { checkIn ->
-                if (!writing) {
-                    writing = true
-                    writeFailed = false
+                if (onSaveCheckIn(checkIn)) {
+                    onShowCheckInChange(false)
                     scope.launch {
-                        try {
-                            if (onSaveCheckIn(checkIn)) {
-                                showCheckIn = false
-                                writing = false
-                                snackbarHostState.showSnackbar(savedMessage)
-                            } else {
-                                writeFailed = true
-                            }
-                        } finally { writing = false }
+                        snackbarHostState.showSnackbar(
+                            message = savedMessage,
+                        )
                     }
                 }
             },
         )
     }
-    deletingDate?.let { date ->
-        AlertDialog(
-            onDismissRequest = { if (!writing) deletingDate = null },
-            title = {
-                Text(stringResource(R.string.morning_delete_title), style = MaterialTheme.typography.titleLarge,
-                    color = MaterialTheme.colorScheme.onSurface)
-            },
-            text = {
-                Text(stringResource(if (writeFailed) R.string.morning_write_failed else R.string.morning_delete_message),
-                    style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            },
-            confirmButton = {
-                TextButton(enabled = !writing && !uiState.isCheckInWriting, onClick = {
-                    writing = true
-                    writeFailed = false
-                    scope.launch {
-                        try {
-                            if (onDeleteCheckIn(date)) deletingDate = null else writeFailed = true
-                        } finally { writing = false }
-                    }
-                }) {
-                    Text(stringResource(R.string.morning_delete), style = MaterialTheme.typography.labelLarge,
-                        color = MaterialTheme.colorScheme.error)
+}
+
+@Composable
+private fun CareWeatherSection(
+    date: LocalDate,
+    checkIn: CareCheckIn?,
+    privacyMode: Boolean,
+    onSave: (CareCondition, Boolean?, Boolean?, Boolean?) -> Unit,
+) {
+    var conditionName by remember(date, privacyMode) {
+        mutableStateOf(checkIn?.condition?.name.takeUnless { privacyMode })
+    }
+    var sweat by remember(date, privacyMode) {
+        mutableStateOf(checkIn?.sweat?.takeUnless { privacyMode } ?: false)
+    }
+    var friction by remember(date, privacyMode) {
+        mutableStateOf(checkIn?.friction?.takeUnless { privacyMode } ?: false)
+    }
+    var dryness by remember(date, privacyMode) {
+        mutableStateOf(checkIn?.dryness?.takeUnless { privacyMode } ?: false)
+    }
+    var hasLocalEdits by remember(date, privacyMode) { mutableStateOf(false) }
+    val selectedCondition = conditionName?.let { name ->
+        CareCondition.entries.firstOrNull { it.name == name }
+    }
+
+    LaunchedEffect(checkIn, privacyMode) {
+        if (!hasLocalEdits) {
+            conditionName = checkIn?.condition?.name.takeUnless { privacyMode }
+            sweat = checkIn?.sweat?.takeUnless { privacyMode } ?: false
+            friction = checkIn?.friction?.takeUnless { privacyMode } ?: false
+            dryness = checkIn?.dryness?.takeUnless { privacyMode } ?: false
+        }
+    }
+
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(14.dp),
+    ) {
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(6.dp),
+        ) {
+            Text(
+                text = stringResource(R.string.wellness_care_weather_title),
+                style = MaterialTheme.typography.headlineMedium,
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+            Text(
+                text = WellnessUiFormat.date(date),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+        Image(
+            painter = painterResource(R.drawable.care_weather_orb),
+            contentDescription = null,
+            modifier = Modifier.size(228.dp),
+        )
+        Text(
+            text = stringResource(R.string.wellness_care_weather_helper),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = TextAlign.Center,
+        )
+        Row(
+            modifier = Modifier.fillMaxWidth().selectableGroup(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            CareCondition.entries.forEach { condition ->
+                val label = stringResource(condition.labelRes)
+                val caption = stringResource(
+                    when (condition) {
+                        CareCondition.COMFORTABLE -> R.string.wellness_care_comfortable_caption
+                        CareCondition.AWARE -> R.string.wellness_care_aware_caption
+                        CareCondition.NEEDS_ATTENTION ->
+                            R.string.wellness_care_needs_attention_caption
+                    },
+                )
+                val icon = when (condition) {
+                    CareCondition.COMFORTABLE -> Icons.Filled.CheckCircle
+                    CareCondition.AWARE -> Icons.Filled.Info
+                    CareCondition.NEEDS_ATTENTION -> Icons.Filled.Warning
                 }
+                CareConditionChoice(
+                    label = label,
+                    caption = caption,
+                    icon = icon,
+                    selected = selectedCondition == condition,
+                    onClick = {
+                        hasLocalEdits = true
+                        conditionName = condition.name
+                        onSave(condition, null, null, null)
+                    },
+                    modifier = Modifier.weight(1f),
+                )
+            }
+        }
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            Text(
+                text = stringResource(R.string.wellness_care_optional_tags),
+                style = MaterialTheme.typography.labelMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            AnimatedVisibility(visible = selectedCondition == null) {
+                Text(
+                    text = stringResource(R.string.wellness_care_choose_condition),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.primary,
+                )
+            }
+            Row(
+                modifier = Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                CareTagChip(
+                    label = stringResource(R.string.wellness_care_tag_sweat),
+                    selected = sweat,
+                    enabled = selectedCondition != null,
+                    onClick = {
+                        selectedCondition?.let { condition ->
+                            hasLocalEdits = true
+                            sweat = !sweat
+                            onSave(condition, sweat, null, null)
+                        }
+                    },
+                )
+                CareTagChip(
+                    label = stringResource(R.string.wellness_care_tag_friction),
+                    selected = friction,
+                    enabled = selectedCondition != null,
+                    onClick = {
+                        selectedCondition?.let { condition ->
+                            hasLocalEdits = true
+                            friction = !friction
+                            onSave(condition, null, friction, null)
+                        }
+                    },
+                )
+                CareTagChip(
+                    label = stringResource(R.string.wellness_care_tag_dryness),
+                    selected = dryness,
+                    enabled = selectedCondition != null,
+                    onClick = {
+                        selectedCondition?.let { condition ->
+                            hasLocalEdits = true
+                            dryness = !dryness
+                            onSave(condition, null, null, dryness)
+                        }
+                    },
+                )
+            }
+        }
+    }
+}
+
+internal val CareCondition.labelRes: Int
+    get() = when (this) {
+        CareCondition.COMFORTABLE -> R.string.wellness_care_comfortable
+        CareCondition.AWARE -> R.string.wellness_care_aware
+        CareCondition.NEEDS_ATTENTION -> R.string.wellness_care_needs_attention
+    }
+
+@Composable
+private fun CareConditionChoice(
+    label: String,
+    caption: String,
+    icon: ImageVector,
+    selected: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val accentColor by animateColorAsState(
+        targetValue = if (selected) {
+            MaterialTheme.colorScheme.primary
+        } else {
+            MaterialTheme.colorScheme.outlineVariant
+        },
+        animationSpec = tween(220),
+        label = "careConditionAccent",
+    )
+    val containerColor by animateColorAsState(
+        targetValue = if (selected) {
+            MaterialTheme.colorScheme.primaryContainer
+        } else {
+            MaterialTheme.colorScheme.surface
+        },
+        animationSpec = tween(220),
+        label = "careConditionContainer",
+    )
+
+    Column(
+        modifier = modifier.selectable(
+            selected = selected,
+            role = Role.RadioButton,
+            onClick = onClick,
+        ).padding(vertical = 4.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        Surface(
+            modifier = Modifier.size(88.dp),
+            shape = CircleShape,
+            color = containerColor,
+            border = BorderStroke(if (selected) 2.dp else 1.dp, accentColor),
+        ) {
+            Box(contentAlignment = Alignment.Center) {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = null,
+                    modifier = Modifier.size(38.dp),
+                    tint = if (selected) {
+                        MaterialTheme.colorScheme.primary
+                    } else {
+                        MaterialTheme.colorScheme.onSurfaceVariant
+                    },
+                )
+            }
+        }
+        Text(
+            text = label,
+            style = MaterialTheme.typography.labelLarge,
+            color = if (selected) {
+                MaterialTheme.colorScheme.primary
+            } else {
+                MaterialTheme.colorScheme.onSurface
             },
-            dismissButton = {
-                TextButton(enabled = !writing, onClick = { deletingDate = null }) {
-                    Text(stringResource(R.string.morning_cancel), style = MaterialTheme.typography.labelLarge,
-                        color = MaterialTheme.colorScheme.primary)
-                }
-            },
+            textAlign = TextAlign.Center,
+        )
+        Text(
+            text = caption,
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = TextAlign.Center,
         )
     }
+}
+
+@Composable
+private fun CareTagChip(
+    label: String,
+    selected: Boolean,
+    enabled: Boolean,
+    onClick: () -> Unit,
+) {
+    FilterChip(
+        selected = selected,
+        onClick = onClick,
+        enabled = enabled,
+        leadingIcon = if (selected) {
+            {
+                Icon(
+                    imageVector = Icons.Filled.Check,
+                    contentDescription = null,
+                    modifier = Modifier.size(18.dp),
+                )
+            }
+        } else {
+            null
+        },
+        label = {
+            Text(
+                text = label,
+                style = MaterialTheme.typography.labelLarge,
+                color = if (enabled) {
+                    MaterialTheme.colorScheme.onSurface
+                } else {
+                    MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
+                },
+            )
+        },
+    )
 }
 
 @Composable
@@ -300,13 +560,19 @@ private fun CheckInCard(
                 verticalArrangement = Arrangement.spacedBy(12.dp),
             ) {
                 Text(
-                    text = stringResource(R.string.morning_title),
+                    text = stringResource(
+                        if (currentCheckIn == null) {
+                            R.string.wellness_checkin_title
+                        } else {
+                            R.string.wellness_checkin_complete
+                        },
+                    ),
                     style = MaterialTheme.typography.titleLarge,
                     color = MaterialTheme.colorScheme.onSurface,
                 )
                 if (currentCheckIn == null) {
                     Text(
-                        text = stringResource(R.string.morning_intro),
+                        text = stringResource(R.string.wellness_checkin_description),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
@@ -322,7 +588,13 @@ private fun CheckInCard(
                             modifier = Modifier.weight(1f),
                         )
                         ConditionSummary(
-                            label = stringResource(R.string.morning_energy),
+                            label = stringResource(R.string.wellness_condition_stress),
+                            value = currentCheckIn.stress,
+                            privacyMode = privacyMode,
+                            modifier = Modifier.weight(1f),
+                        )
+                        ConditionSummary(
+                            label = stringResource(R.string.wellness_condition_energy),
                             value = currentCheckIn.energy,
                             privacyMode = privacyMode,
                             modifier = Modifier.weight(1f),
@@ -336,9 +608,9 @@ private fun CheckInCard(
                     Text(
                         text = stringResource(
                             if (currentCheckIn == null) {
-                                R.string.morning_record
+                                R.string.wellness_checkin_start
                             } else {
-                                R.string.morning_edit
+                                R.string.wellness_checkin_edit
                             },
                         ),
                         style = MaterialTheme.typography.labelLarge,
@@ -353,7 +625,7 @@ private fun CheckInCard(
 @Composable
 private fun ConditionSummary(
     label: String,
-    value: Int?,
+    value: Int,
     privacyMode: Boolean,
     modifier: Modifier = Modifier,
 ) {
@@ -370,7 +642,7 @@ private fun ConditionSummary(
             text = if (privacyMode) {
                 stringResource(R.string.wellness_hidden)
             } else {
-                value?.toUiNumber() ?: stringResource(R.string.morning_unanswered)
+                value.toString()
             },
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.onSurface,

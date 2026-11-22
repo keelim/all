@@ -3,6 +3,7 @@ import androidx.baselineprofile.gradle.consumer.BaselineProfileConsumerExtension
 import com.android.build.api.dsl.ApplicationExtension
 import com.keelim.builds.configureDependencyGuard
 import com.keelim.builds.configureKotlinAndroid
+import com.keelim.builds.configureEmptySecretBuildConfig
 import com.keelim.builds.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -22,6 +23,7 @@ class KeelimAndroidApplicationPlugin : Plugin<Project> {
 
             apply(plugin = "com.android.application")
             apply(plugin = "org.gradle.android.cache-fix")
+            configureEmptySecretBuildConfig()
             // OSS licenses plugin is not configuration-cache compatible.
             // Apply it only for release/publish paths or when explicitly requested.
             if (shouldApplyOssLicensesPlugin()) {
@@ -77,8 +79,6 @@ class KeelimAndroidApplicationPlugin : Plugin<Project> {
     }
 
     private fun Project.shouldApplyOssLicensesPlugin(): Boolean {
-        if (path == ":app-nanda") return false
-
         val enabledByProperty = providers.gradleProperty("enableOssLicenses")
             .orNull
             ?.toBooleanStrictOrNull() == true

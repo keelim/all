@@ -49,27 +49,20 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.keelim.model.wellness.DailyTimeBudget
-import com.keelim.model.wellness.RecoveryGoalType
 import com.keelim.model.wellness.Routine
 import com.keelim.nandadiagnosis.R
-import com.keelim.nandadiagnosis.wellness.RecoveryRoutineDraft
 import com.keelim.nandadiagnosis.wellness.WellnessUiState
-import com.keelim.nandadiagnosis.wellness.ads.RoutineAdBanner
 import com.keelim.nandadiagnosis.wellness.WellnessValidationError
 import com.keelim.nandadiagnosis.wellness.domain.RoutineKind
+import com.keelim.common.extensions.toUiNumber
 import java.time.LocalDate
+
+private const val WEEKLY_COMPLETIONS_PER_ROUTINE = 3
 
 @Composable
 internal fun PlanScreen(
     uiState: WellnessUiState,
-    canRequestAds: Boolean,
     onAddRoutine: (String, RoutineKind) -> Boolean,
-    onSaveRecoveryGoal: (
-        RecoveryGoalType,
-        DailyTimeBudget,
-        List<RecoveryRoutineDraft>,
-    ) -> Unit,
     onSetRoutineCompletion: (Routine, Boolean, Int?) -> Unit,
     onDeleteRoutine: (Routine) -> Unit,
 ) {
@@ -79,15 +72,13 @@ internal fun PlanScreen(
     val weekCompletions = uiState.completions.count {
         runCatching { LocalDate.parse(it.localDate) }.getOrNull() in weekStart..today
     }
-    val weeklyTarget = (uiState.routines.size * 3).coerceAtLeast(1)
+    val weeklyTarget = uiState.routines.size * WEEKLY_COMPLETIONS_PER_ROUTINE
     val weeklyProgress by animateFloatAsState(
-        targetValue = (weekCompletions.toFloat() / weeklyTarget).coerceIn(0f, 1f),
+        targetValue = if (weeklyTarget == 0) 0f else (weekCompletions.toFloat() / weeklyTarget).coerceIn(0f, 1f),
         animationSpec = tween(500),
         label = "planWeeklyProgress",
     )
     var showAddSheet by rememberSaveable { mutableStateOf(false) }
-    var showGoalSheet by rememberSaveable { mutableStateOf(false) }
-    var startWithRecommendations by rememberSaveable { mutableStateOf(false) }
     var pendingDelete by remember { mutableStateOf<Routine?>(null) }
 
     Scaffold(
@@ -106,26 +97,6 @@ internal fun PlanScreen(
             contentPadding = PaddingValues(horizontal = 20.dp, vertical = 20.dp),
             verticalArrangement = Arrangement.spacedBy(20.dp),
         ) {
-            item(key = "recoveryGoal") {
-                RecoveryGoalCard(
-                    goal = uiState.recoveryGoal,
-                    weeklyActionCompletions = uiState.weeklyActionCompletions,
-                    weeklyActiveDays = uiState.weeklyActiveDays,
-                    onChooseGoal = {
-                        startWithRecommendations = false
-                        showGoalSheet = true
-                    },
-                    onViewRecommendations = {
-                        startWithRecommendations = true
-                        showGoalSheet = true
-                    },
-                    onChangeGoal = {
-                        startWithRecommendations = false
-                        showGoalSheet = true
-                    },
-                    modifier = Modifier.animateItem(),
-                )
-            }
             item(key = "planHeader") {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text(
@@ -146,33 +117,6 @@ internal fun PlanScreen(
                         ),
                         style = MaterialTheme.typography.labelMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                }
-            }
-            item(key = "planProgress") {
-                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text(
-                        text = stringResource(
-                            R.string.wellness_plan_weekly_progress,
-                            weekCompletions,
-                            weeklyTarget,
-                        ),
-                        style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.onSurface,
-                    )
-                    LinearProgressIndicator(
-                        progress = { weeklyProgress },
-                        modifier = Modifier.fillMaxWidth(),
-                        color = MaterialTheme.colorScheme.primary,
-                        trackColor = MaterialTheme.colorScheme.surfaceVariant,
-                    )
-                }
-            }
-            if (canRequestAds) {
-                item(key = "planAd") {
-                    RoutineAdBanner(
-                        canLoadAd = true,
-                        modifier = Modifier.fillMaxWidth(),
                     )
                 }
             }
@@ -204,6 +148,33 @@ internal fun PlanScreen(
                     }
                 }
             } else {
+                item(key = "planProgress") {
+                    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Text(
+                            text = stringResource(
+                                R.string.wellness_plan_weekly_progress,
+                                weekCompletions.toUiNumber(),
+                                weeklyTarget.toUiNumber(),
+                            ),
+                            style = MaterialTheme.typography.titleMedium,
+                            color = MaterialTheme.colorScheme.onSurface,
+                        )
+                        Text(
+                            text = stringResource(
+                                R.string.wellness_plan_target_description,
+                                WEEKLY_COMPLETIONS_PER_ROUTINE.toUiNumber(),
+                            ),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                        LinearProgressIndicator(
+                            progress = { weeklyProgress },
+                            modifier = Modifier.fillMaxWidth(),
+                            color = MaterialTheme.colorScheme.primary,
+                            trackColor = MaterialTheme.colorScheme.surfaceVariant,
+                        )
+                    }
+                }
                 items(uiState.routines, key = { it.id }) { routine ->
                     val completedThisWeek = uiState.completions.count { completion ->
                         completion.routineId == routine.id &&
@@ -234,18 +205,6 @@ internal fun PlanScreen(
             onDismiss = { showAddSheet = false },
             onAdd = { name, kind ->
                 if (onAddRoutine(name, kind)) showAddSheet = false
-            },
-        )
-    }
-
-    if (showGoalSheet) {
-        RecoveryGoalSheet(
-            activeGoal = uiState.recoveryGoal,
-            startWithRecommendations = startWithRecommendations,
-            onDismiss = { showGoalSheet = false },
-            onSave = { type, timeBudget, selectedActions ->
-                onSaveRecoveryGoal(type, timeBudget, selectedActions)
-                showGoalSheet = false
             },
         )
     }
@@ -335,8 +294,8 @@ private fun PlanCard(
             Text(
                 text = stringResource(
                     R.string.wellness_plan_item_progress,
-                    completedThisWeek,
-                    3,
+                    completedThisWeek.toUiNumber(),
+                    WEEKLY_COMPLETIONS_PER_ROUTINE.toUiNumber(),
                 ),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,

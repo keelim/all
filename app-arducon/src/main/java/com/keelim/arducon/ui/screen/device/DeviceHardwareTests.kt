@@ -129,8 +129,8 @@ internal object DeviceHardwareTests {
     }
 
     fun checkLocationReadiness(context: Context): DeviceTestOutcome {
-        val hasLocationPermission = context.hasPermission(Manifest.permission.ACCESS_FINE_LOCATION) ||
-            context.hasPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
+        // Provider enumeration requires coarse permission; precise coordinates are not used.
+        val hasLocationPermission = context.hasPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
         if (!hasLocationPermission) {
             return DeviceTestOutcome.fail(DeviceTestMessage.PermissionDenied)
         }

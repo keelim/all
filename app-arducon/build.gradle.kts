@@ -24,22 +24,23 @@ android {
 
 dependencies {
 
-    implementation(projects.core.commonAndroid)
-    implementation(projects.core.deviceAndroid)
+    implementation(projects.core.device)
     implementation(projects.core.common)
     implementation(projects.core.component)
     implementation(projects.core.model)
     implementation(projects.shared)
-    implementation(projects.feature.uiWeb)
+    implementation(projects.feature.uiWeb.api)
 
-    implementation(projects.core.data)
+    implementation(projects.core.data.dataImpl)
     implementation(projects.core.navigation)
     implementation(projects.core.network)
     implementation(projects.core.resource)
-    implementation(projects.feature.appFunction)
-    implementation(projects.feature.settingsDevice)
-    implementation(projects.feature.uiScheme)
-    implementation(projects.feature.uiSetting)
+    implementation(projects.feature.appFunction.impl)
+    implementation(projects.feature.settingsDevice.api)
+    implementation(projects.feature.settingsDevice.impl)
+    implementation(projects.feature.uiScheme.api)
+    implementation(projects.feature.uiScheme.impl)
+    implementation(projects.feature.uiSetting.impl)
 
     implementation(projects.widget)
 
@@ -56,9 +57,8 @@ dependencies {
     implementation(libs.play.services.code.scanner)
     implementation(libs.timber)
     implementation(libs.jsoup)
-    implementation(libs.tehras.chart)
-    implementation(libs.kotlinx.serialization.json)
 
+    debugImplementation(libs.leakcanary)
     testImplementation(projects.core.testing)
 }
 

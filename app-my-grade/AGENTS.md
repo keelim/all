@@ -17,7 +17,7 @@ Comprehensive student utility app featuring grade calculation based on normal di
 |------|----------|-------|
 | Grade Calculation Logic | `ui/screen/main/MainRoute.kt` | Uses `normalProbability.grade()` |
 | Navigation Setup | `ui/MyGradeHost.kt` | Uses `androidx.navigation3` |
-| Grade History | `ui/screen/history/` | Persisted via `core:data` |
+| Grade History | `ui/screen/history/` | Persisted via `core:data:data-impl` |
 | Math Utilities | `libs.apache.math` | Used for probability/statistics |
 | Ad Integration | `MainActivity.kt` | Play Services Ads |
 
@@ -34,10 +34,11 @@ Comprehensive student utility app featuring grade calculation based on normal di
 - **State Management**: ViewModels expose `StateFlow` or `uiState` objects.
 
 ## ANTI-PATTERNS
-- **Direct DB Access**: Do not use Room DAOs directly; always go through `core:data` repositories.
+- **Direct DB Access**: Do not use Room DAOs directly; always go through `core:data:data-impl` repositories.
 - **Complex Logic in Routes**: Keep `*Route.kt` as simple entry points; move logic to `ViewModel`.
 
 ## NOTES
 - Uses **Apache Commons Math** for core statistical calculations.
-- Integrated with `feature:ui-setting` for global theme and notification management.
+- Integrated with `feature:ui-setting:impl` for global theme and notification management.
 - DeepLink support via `deeplinkdispatch`.
+- External Android CLI Journey E2E definition: `journeys/app-my-grade-journey.xml` (`journeys/reports/app-my-grade-report.json`).

@@ -22,6 +22,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -35,14 +36,16 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.withTransform
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.keelim.common.extensions.toUiNumber
 import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.wellness.WellnessUiState
-import com.keelim.nandadiagnosis.wellness.domain.DailyCheckIn
+import com.keelim.model.wellness.DailyCheckIn
 import com.keelim.nandadiagnosis.wellness.domain.InsightCalculator
 import java.time.LocalDate
 
-private enum class ConditionMetric { SLEEP, STRESS, ENERGY, DESIRE, CONFIDENCE }
+internal enum class ConditionMetric { SLEEP, STRESS, ENERGY, DESIRE, CONFIDENCE }
 
 @Composable
 internal fun InsightsScreen(
@@ -51,14 +54,15 @@ internal fun InsightsScreen(
 ) {
     var periodDays by rememberSaveable { mutableIntStateOf(7) }
     var metric by rememberSaveable { mutableStateOf(ConditionMetric.SLEEP) }
-    val startDate = uiState.today.minusDays(periodDays - 1L)
-    val visibleCheckIns = uiState.checkIns.filter {
-        runCatching { LocalDate.parse(it.localDate) }.getOrNull()?.let { date ->
-            !date.isBefore(startDate) && !date.isAfter(uiState.today)
-        } == true
+    var showTrendValues by rememberSaveable(privacyMode) { mutableStateOf(false) }
+    val today = LocalDate.now()
+    val checkInsByDate = remember(uiState.checkIns) { uiState.checkIns.associateBy { it.localDate } }
+    val trendDates = remember(today, periodDays) {
+        List(periodDays) { index -> today.minusDays((periodDays - 1 - index).toLong()) }
     }
-    val metricValues = visibleCheckIns.sortedBy { it.localDate }.mapNotNull { it.valueFor(metric) }
-    val insight = InsightCalculator.firstPattern(visibleCheckIns)
+    val trendRecords = remember(trendDates, checkInsByDate) {
+        trendDates.map { checkInsByDate[it.toString()] }
+    }
 
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
@@ -66,12 +70,27 @@ internal fun InsightsScreen(
         verticalArrangement = Arrangement.spacedBy(22.dp),
     ) {
         item(key = "insightsHeader") {
-            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                Text(
-                    text = stringResource(R.string.wellness_insights_title),
-                    style = MaterialTheme.typography.headlineSmall,
-                    color = MaterialTheme.colorScheme.onBackground,
-                )
+            Text(
+                text = stringResource(R.string.wellness_insights_title),
+                style = MaterialTheme.typography.headlineSmall,
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+        }
+        item(key = "recentRecords") {
+            InsightSectionCard(title = stringResource(R.string.wellness_recent_records_title)) {
+                WellnessRecordHistory(today, checkInsByDate, uiState.careCheckIns, privacyMode)
+            }
+        }
+        item(key = "conditionTrend") {
+            InsightSectionCard(title = stringResource(R.string.wellness_condition_trend)) {
+                if (privacyMode) {
+                    Text(
+                        text = stringResource(R.string.wellness_chart_private),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                    return@InsightSectionCard
+                }
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     listOf(7, 28).forEach { days ->
                         FilterChip(
@@ -80,11 +99,8 @@ internal fun InsightsScreen(
                             label = {
                                 Text(
                                     text = stringResource(
-                                        if (days == 7) {
-                                            R.string.wellness_period_seven
-                                        } else {
-                                            R.string.wellness_period_twenty_eight
-                                        },
+                                        if (days == 7) R.string.wellness_period_seven
+                                        else R.string.wellness_period_twenty_eight,
                                     ),
                                     style = MaterialTheme.typography.labelLarge,
                                     color = MaterialTheme.colorScheme.onSurface,
@@ -93,10 +109,6 @@ internal fun InsightsScreen(
                         )
                     }
                 }
-            }
-        }
-        item(key = "conditionTrend") {
-            InsightSectionCard(title = stringResource(R.string.wellness_condition_trend)) {
                 Row(
                     modifier = Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()),
                     horizontalArrangement = Arrangement.spacedBy(6.dp),
@@ -115,57 +127,81 @@ internal fun InsightsScreen(
                         )
                     }
                 }
-                if (privacyMode) {
+                val values = trendRecords.map { it?.valueFor(metric) }
+                val recordCount = values.count { it != null }
+                if (recordCount < 2) {
                     Text(
-                        text = stringResource(R.string.wellness_chart_private),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                } else if (metricValues.size < 2) {
-                    Text(
-                        text = stringResource(if (metricValues.isEmpty()) R.string.morning_no_values else R.string.wellness_insights_not_enough),
+                        text = stringResource(R.string.wellness_insights_not_enough),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                 } else {
-                    ConditionChart(
-                        values = metricValues,
-                    )
+                    ConditionChart(values)
+                    Row(modifier = Modifier.fillMaxWidth()) {
+                        Text(
+                            text = WellnessUiFormat.date(trendDates.first()),
+                            modifier = Modifier.weight(1f),
+                            style = MaterialTheme.typography.labelMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                        Text(
+                            text = WellnessUiFormat.date(trendDates.last()),
+                            modifier = Modifier.weight(1f),
+                            textAlign = TextAlign.End,
+                            style = MaterialTheme.typography.labelMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
                     Text(
                         text = stringResource(
                             R.string.wellness_chart_summary,
-                            metricValues.size,
+                            recordCount.toUiNumber(),
                             metricLabel(metric),
                         ),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                 }
-            }
-        }
-        item(key = "patterns") {
-            InsightSectionCard(title = stringResource(R.string.wellness_patterns_title)) {
-                Text(
-                    text = if (insight == null) {
-                        stringResource(R.string.wellness_patterns_empty)
-                    } else {
-                        stringResource(
-                            R.string.wellness_insight_sleep_energy,
-                            insight.sampleDays,
+                if (recordCount > 0) {
+                    TextButton(onClick = { showTrendValues = !showTrendValues }) {
+                        Text(
+                            text = stringResource(
+                                if (showTrendValues) R.string.wellness_hide_trend_values
+                                else R.string.wellness_show_trend_values,
+                            ),
+                            style = MaterialTheme.typography.labelLarge,
+                            color = MaterialTheme.colorScheme.primary,
                         )
-                    },
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
+                    }
+                    if (showTrendValues) {
+                        trendDates.zip(values).asReversed().forEach { (date, value) ->
+                            WellnessRecordValue(
+                                label = WellnessUiFormat.date(date),
+                                value = value?.toUiNumber()
+                                    ?: stringResource(R.string.wellness_record_missing),
+                            )
+                        }
+                    }
+                }
             }
         }
-        item(key = "review") {
-            InsightSectionCard(title = stringResource(R.string.wellness_review_title)) {
-                Text(
-                    text = stringResource(R.string.wellness_review_description),
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
+        if (!privacyMode) {
+            item(key = "patterns") {
+                val insight = InsightCalculator.firstPattern(trendRecords.filterNotNull())
+                InsightSectionCard(title = stringResource(R.string.wellness_patterns_title)) {
+                    Text(
+                        text = if (insight == null) {
+                            stringResource(R.string.wellness_patterns_empty)
+                        } else {
+                            stringResource(
+                                R.string.wellness_insight_sleep_energy,
+                                insight.sampleDays.toUiNumber(),
+                            )
+                        },
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
             }
         }
     }
@@ -195,7 +231,7 @@ private fun InsightSectionCard(
 }
 
 @Composable
-private fun ConditionChart(values: List<Int>) {
+private fun ConditionChart(values: List<Int?>) {
     val lineColor = MaterialTheme.colorScheme.primary
     val gridColor = MaterialTheme.colorScheme.outlineVariant
     val reveal = remember { Animatable(0f) }
@@ -207,30 +243,34 @@ private fun ConditionChart(values: List<Int>) {
         )
     }
     Canvas(modifier = Modifier.fillMaxWidth().height(180.dp)) {
+        val inset = 4.dp.toPx()
         repeat(5) { index ->
-            val y = size.height * index / 4f
-            drawLine(gridColor, Offset(0f, y), Offset(size.width, y))
+            val y = inset + (size.height - 2 * inset) * index / 4f
+            drawLine(gridColor, Offset(inset, y), Offset(size.width - inset, y))
         }
         val path = Path()
+        val points = mutableListOf<Offset>()
+        var previousDayHasValue = false
         values.forEachIndexed { index, value ->
-            val x = if (values.size == 1) 0f else size.width * index / (values.size - 1f)
-            val y = size.height * (5 - value) / 4f
-            if (index == 0) path.moveTo(x, y) else path.lineTo(x, y)
+            if (value == null) {
+                previousDayHasValue = false
+            } else {
+                val x = inset + (size.width - 2 * inset) * index / values.lastIndex
+                val y = inset + (size.height - 2 * inset) * (5 - value) / 4f
+                if (previousDayHasValue) path.lineTo(x, y) else path.moveTo(x, y)
+                points.add(Offset(x, y))
+                previousDayHasValue = true
+            }
         }
-        withTransform({
-            scale(
-                scaleX = reveal.value,
-                scaleY = 1f,
-                pivot = Offset.Zero,
-            )
-        }) {
-            drawPath(path, lineColor, style = androidx.compose.ui.graphics.drawscope.Stroke(4f))
+        withTransform({ scale(scaleX = reveal.value, scaleY = 1f, pivot = Offset.Zero) }) {
+            drawPath(path, lineColor, style = androidx.compose.ui.graphics.drawscope.Stroke(2.dp.toPx()))
+            points.forEach { point -> drawCircle(lineColor, radius = 3.dp.toPx(), center = point) }
         }
     }
 }
 
 @Composable
-private fun metricLabel(metric: ConditionMetric): String =
+internal fun metricLabel(metric: ConditionMetric): String =
     stringResource(
         when (metric) {
             ConditionMetric.SLEEP -> R.string.wellness_condition_sleep
@@ -241,7 +281,7 @@ private fun metricLabel(metric: ConditionMetric): String =
         },
     )
 
-private fun DailyCheckIn.valueFor(metric: ConditionMetric): Int? =
+internal fun DailyCheckIn.valueFor(metric: ConditionMetric): Int =
     when (metric) {
         ConditionMetric.SLEEP -> sleep
         ConditionMetric.STRESS -> stress

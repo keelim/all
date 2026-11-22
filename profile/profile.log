@@ -2,12 +2,12 @@
 * Started at 2025-04-06T13:08:31.701821Z
 
 * Settings
-Project dir: /Users/keelim/Desktop/all
-Output dir: /Users/keelim/Desktop/all/profile
+Project dir: .
+Output dir: ./profile
 Profiler: none
 Benchmark: true
 Versions: []
-Gradle User Home: /Users/keelim/.gradle
+Gradle User Home: ~/.gradle
 Targets: []
 
 * Inspecting the build using its default Gradle version
@@ -40,13 +40,13 @@ BUILD SUCCESSFUL in 5s
 Configuration cache entry stored.
 
 * Stopping daemons
-Running command /Users/keelim/.gradle/wrapper/dists/gradle-8.13-bin/5xuhj0ry160q40clulazy9h7d/gradle-8.13/bin/gradle --stop --gradle-user-home /Users/keelim/.gradle
+Running command ~/.gradle/wrapper/dists/gradle-8.13-bin/5xuhj0ry160q40clulazy9h7d/gradle-8.13/bin/gradle --stop --gradle-user-home ~/.gradle
 Stopping Daemon(s)
 2 Daemons stopped
 
 * Scenarios
 Scenario: non_parallel using Gradle 8.13
-  Gradle 8.13 (/Users/keelim/.gradle/wrapper/dists/gradle-8.13-bin/5xuhj0ry160q40clulazy9h7d/gradle-8.13)
+  Gradle 8.13 (~/.gradle/wrapper/dists/gradle-8.13-bin/5xuhj0ry160q40clulazy9h7d/gradle-8.13)
   Run using: Tooling API
   Run: run tasks :app-arducon:assembleDebug
   Cleanup: do nothing
@@ -55,7 +55,7 @@ Scenario: non_parallel using Gradle 8.13
   Warm-ups: 6
   Builds: 10
 Scenario: parallel using Gradle 8.13
-  Gradle 8.13 (/Users/keelim/.gradle/wrapper/dists/gradle-8.13-bin/5xuhj0ry160q40clulazy9h7d/gradle-8.13)
+  Gradle 8.13 (~/.gradle/wrapper/dists/gradle-8.13-bin/5xuhj0ry160q40clulazy9h7d/gradle-8.13)
   Run using: Tooling API
   Run: run tasks :app-arducon:assembleDebug
   Cleanup: do nothing
@@ -67,7 +67,7 @@ Scenario: parallel using Gradle 8.13
 * Running scenario non_parallel using Gradle 8.13 (scenario 1/2)
 
 * Stopping daemons
-Running command /Users/keelim/.gradle/wrapper/dists/gradle-8.13-bin/5xuhj0ry160q40clulazy9h7d/gradle-8.13/bin/gradle --stop --gradle-user-home /Users/keelim/.gradle
+Running command ~/.gradle/wrapper/dists/gradle-8.13-bin/5xuhj0ry160q40clulazy9h7d/gradle-8.13/bin/gradle --stop --gradle-user-home ~/.gradle
 No Gradle daemons are running.
 
 * Build details
@@ -89,10 +89,10 @@ JVM args:
   -Dorg.gradle.profiler.scenario=non_parallel
 Gradle args:
   --gradle-user-home
-  /Users/keelim/.gradle
+  ~/.gradle
   -I
   /private/var/folders/v2/ykdh4rwj09n2v8z_zv89ky7m0000gn/T/gradleProfiler12090169675319070683.gradle
-> Cleaning build-cache- caches in /Users/keelim/.gradle
+> Cleaning build-cache- caches in ~/.gradle
 
 * Running warm-up build #1
 Configuration on demand is an incubating feature.
@@ -409,7 +409,7 @@ Project accessors enabled, but root project name not explicitly set for 'build-l
 > Task :app-arducon:assembleDebug UP-TO-DATE
 > Task :app-arducon:createDebugApkListingFileRedirect UP-TO-DATE
 
-[Incubating] Problems report is available at: file:///Users/keelim/Desktop/all/build/reports/problems/problems-report.html
+[Incubating] Problems report is available at: build/reports/problems/problems-report.html
 
 Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
 
@@ -5151,14 +5151,14 @@ Used daemon with pid 30796
 Execution time 287 ms
 
 * Stopping daemons
-Running command /Users/keelim/.gradle/wrapper/dists/gradle-8.13-bin/5xuhj0ry160q40clulazy9h7d/gradle-8.13/bin/gradle --stop --gradle-user-home /Users/keelim/.gradle
+Running command ~/.gradle/wrapper/dists/gradle-8.13-bin/5xuhj0ry160q40clulazy9h7d/gradle-8.13/bin/gradle --stop --gradle-user-home ~/.gradle
 Stopping Daemon(s)
 1 Daemon stopped
 
 * Running scenario parallel using Gradle 8.13 (scenario 2/2)
 
 * Stopping daemons
-Running command /Users/keelim/.gradle/wrapper/dists/gradle-8.13-bin/5xuhj0ry160q40clulazy9h7d/gradle-8.13/bin/gradle --stop --gradle-user-home /Users/keelim/.gradle
+Running command ~/.gradle/wrapper/dists/gradle-8.13-bin/5xuhj0ry160q40clulazy9h7d/gradle-8.13/bin/gradle --stop --gradle-user-home ~/.gradle
 No Gradle daemons are running.
 
 * Build details
@@ -5180,11 +5180,11 @@ JVM args:
   -Dorg.gradle.profiler.scenario=parallel
 Gradle args:
   --gradle-user-home
-  /Users/keelim/.gradle
+  ~/.gradle
   --parallel
   -I
   /private/var/folders/v2/ykdh4rwj09n2v8z_zv89ky7m0000gn/T/gradleProfiler2519765480168109443.gradle
-> Cleaning build-cache- caches in /Users/keelim/.gradle
+> Cleaning build-cache- caches in ~/.gradle
 
 * Running warm-up build #1
 Configuration on demand is an incubating feature.
@@ -5501,7 +5501,7 @@ Project accessors enabled, but root project name not explicitly set for 'build-l
 > Task :app-arducon:assembleDebug UP-TO-DATE
 > Task :app-arducon:createDebugApkListingFileRedirect UP-TO-DATE
 
-[Incubating] Problems report is available at: file:///Users/keelim/Desktop/all/build/reports/problems/problems-report.html
+[Incubating] Problems report is available at: build/reports/problems/problems-report.html
 
 Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
 
@@ -10243,11 +10243,11 @@ Used daemon with pid 30828
 Execution time 276 ms
 
 * Stopping daemons
-Running command /Users/keelim/.gradle/wrapper/dists/gradle-8.13-bin/5xuhj0ry160q40clulazy9h7d/gradle-8.13/bin/gradle --stop --gradle-user-home /Users/keelim/.gradle
+Running command ~/.gradle/wrapper/dists/gradle-8.13-bin/5xuhj0ry160q40clulazy9h7d/gradle-8.13/bin/gradle --stop --gradle-user-home ~/.gradle
 Stopping Daemon(s)
 1 Daemon stopped
 
-* Results written to /Users/keelim/Desktop/all/profile
-  /Users/keelim/Desktop/all/profile/benchmark.csv
-  /Users/keelim/Desktop/all/profile/benchmark.html
+* Results written to ./profile
+  ./profile/benchmark.csv
+  ./profile/benchmark.html
 

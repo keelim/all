@@ -12,6 +12,17 @@ permissions:
   contents: read
 jobs:
   android:
+    name: android-${{ matrix.scope }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - scope: library
+            tasks: ':core:common-android:testDebugUnitTest :core:common-android:assembleDebug'
+          - scope: appfunctions
+            tasks: ':feature:app-function:testDebugUnitTest :app-arducon:testDebugUnitTest :app-arducon:assembleDebug :app-arducon:dependencyGuard'
+          - scope: nanda-guard
+            tasks: ':app-nanda:dependencyGuard'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -28,7 +39,7 @@ jobs:
         run: |
           cp .github/fixtures/offline.defaults.properties local.defaults.properties
           cp .github/fixtures/offline.defaults.properties local.properties
-      - name: Verify representative library baseline
-        run: ./gradlew --no-daemon :core:common-android:testDebugUnitTest :core:common-android:assembleDebug
-      - name: Verify AppFunctions and app dependency consumers
-        run: ./gradlew --no-daemon :feature:app-function:testDebugUnitTest :app-arducon:testDebugUnitTest :app-arducon:assembleDebug :app-arducon:dependencyGuard :app-nanda:dependencyGuard
+      - name: Run scoped build, tests, or Dependency Guard
+        env:
+          VALIDATION_TASKS: ${{ matrix.tasks }}
+        run: ./gradlew --no-daemon $VALIDATION_TASKS

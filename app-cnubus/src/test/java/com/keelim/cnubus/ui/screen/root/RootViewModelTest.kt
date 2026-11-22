@@ -7,6 +7,7 @@ import com.keelim.data.repository.StationRepository
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -205,6 +206,90 @@ class RootViewModelTest : FunSpec({
         }
     }
 
+    test("duplicate-name search rows keep their keys when the query narrows and clears") {
+        runTest {
+            val viewModel = RootViewModel(FakeStationRepository())
+            viewModel.state.test {
+                awaitItem()
+                advanceUntilIdle()
+                awaitItem()
+                viewModel.setMode("s")
+                advanceUntilIdle()
+                (awaitItem() as MapEvent.MigrateSuccess).data shouldBe emptyList()
+                viewModel.updateQuery("도서관")
+                advanceUntilIdle()
+                val broader = (awaitItem() as MapEvent.MigrateSuccess).data
+                viewModel.updateQuery("도서관앞")
+                advanceUntilIdle()
+                val narrowed = (awaitItem() as MapEvent.MigrateSuccess).data
+                narrowed shouldBe locationList.filter { it.name.contains("도서관앞") }
+                narrowed.count { it.name == "도서관앞" } shouldBe 2
+                narrowed.map { it.stationRowKey }.toSet().size shouldBe narrowed.size
+                narrowed.map { it.stationRowKey } shouldBe broader.filter { it.name.contains("도서관앞") }.map { it.stationRowKey }
+                viewModel.updateQuery("")
+                advanceUntilIdle()
+                (awaitItem() as MapEvent.MigrateSuccess).data shouldBe emptyList()
+                viewModel.updateQuery("도서관앞")
+                advanceUntilIdle()
+                (awaitItem() as MapEvent.MigrateSuccess).data.map { it.stationRowKey } shouldBe narrowed.map { it.stationRowKey }
+            }
+        }
+    }
+
+    test("restored name favorites preserve duplicates and unrelated saved names across removal and re-add") {
+        runTest {
+            val savedNames = setOf("도서관앞", "골프장", "legacy-unknown-station")
+            val repository = FakeStationRepository(savedNames)
+            val viewModel = RootViewModel(repository)
+            val expected = locationList.filter { it.name in savedNames }
+            expected.size shouldBe 4
+            viewModel.state.test {
+                awaitItem()
+                advanceUntilIdle()
+                awaitItem()
+                viewModel.setMode("f")
+                advanceUntilIdle()
+                val restored = (awaitItem() as MapEvent.MigrateSuccess).data
+                restored shouldBe expected
+                restored.map { it.stationRowKey }.toSet().size shouldBe 4
+                // No collector has started viewModel.favorites: toggling must read the repository.
+                viewModel.toggleFavorite("도서관앞")
+                advanceUntilIdle()
+                repository.removedStations shouldBe listOf("도서관앞")
+                repository.favoriteStationsFlow.value shouldBe savedNames - "도서관앞"
+                (awaitItem() as MapEvent.MigrateSuccess).data shouldBe expected.filter { it.name != "도서관앞" }
+                viewModel.toggleFavorite("도서관앞")
+                advanceUntilIdle()
+                repository.addedStations shouldBe listOf("도서관앞")
+                repository.favoriteStationsFlow.value shouldBe savedNames
+                (awaitItem() as MapEvent.MigrateSuccess).data.map { it.stationRowKey } shouldBe restored.map { it.stationRowKey }
+            }
+            val recreated = RootViewModel(repository)
+            recreated.setMode("f")
+            recreated.state.test {
+                awaitItem() shouldBe MapEvent.UnInitialized
+                advanceUntilIdle()
+                val restoredAgain = (awaitItem() as MapEvent.MigrateSuccess).data
+                restoredAgain shouldBe expected
+                restoredAgain.map { it.stationRowKey } shouldBe expected.map { it.stationRowKey }
+                repository.favoriteStationsFlow.value shouldBe savedNames
+            }
+        }
+    }
+
+    test("rapid favorite toggles serialize repository writes without a favorites UI subscriber") {
+        runTest {
+            val repository = FakeStationRepository(setOf("unrelated"), writeDelayMillis = 1)
+            val viewModel = RootViewModel(repository)
+            viewModel.toggleFavorite("골프장")
+            viewModel.toggleFavorite("골프장")
+            advanceUntilIdle()
+            repository.addedStations shouldBe listOf("골프장")
+            repository.removedStations shouldBe listOf("골프장")
+            repository.favoriteStationsFlow.value shouldBe setOf("unrelated")
+        }
+    }
+
     test("retry 는 즐겨찾기 스트림 오류 뒤 다시 구독해야 한다") {
         runTest {
             val repository = FlakyStationRepository()
@@ -229,6 +314,7 @@ class RootViewModelTest : FunSpec({
 
 private class FakeStationRepository(
     initialFavorites: Set<String> = emptySet(),
+    private val writeDelayMillis: Long = 0,
 ) : StationRepository {
     val favoriteStationsFlow = MutableStateFlow(initialFavorites)
     val addedStations = mutableListOf<String>()
@@ -237,11 +323,13 @@ private class FakeStationRepository(
     override val favoriteStations = favoriteStationsFlow
 
     override suspend fun addFavorite(stationName: String) {
+        delay(writeDelayMillis)
         addedStations += stationName
         favoriteStationsFlow.value = favoriteStationsFlow.value + stationName
     }
 
     override suspend fun removeFavorite(stationName: String) {
+        delay(writeDelayMillis)
         removedStations += stationName
         favoriteStationsFlow.value = favoriteStationsFlow.value - stationName
     }

@@ -1,6 +1,7 @@
 [versions]
 # project
 compileSdk = "37"
+compileSdkMinor = "2"
 minSdk = "26"
 targetSdk = "37"
 versionCode = "20260727"
@@ -11,8 +12,7 @@ androidGradlePlugin = "9.5.2"
 androidx-sqlite = "2.6.2"
 androidxActivity = "1.12.4"
 androidxAppCompat = "1.7.1"
-# The standalone service artifact ends at alpha09; keep its compiler aligned
-# until the AppFunctionServiceEntryPoint API migration is implemented.
+# Runtime and compiler use the stable service-entry-point API together.
 androidxAppFunctions = "1.0.0"
 androidxBrowser = "1.9.0"
 androidxComposeBom = "2026.11.01"
@@ -68,6 +68,7 @@ in-app-update = "2.1.0"
 insightsLint = "0.1.5"
 jacoco = "0.8.13"
 junitPlatform = "1.12.2"
+junitVintage = "5.12.2"
 jsoup = "1.22.1"
 re2j = "1.8"
 kotlin = "2.4.21"
@@ -132,7 +133,7 @@ android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", ver
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivity" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppCompat" }
 androidx-appfunctions-compiler = { group = "androidx.appfunctions", name = "appfunctions-compiler", version.ref = "androidxAppFunctions" }
-androidx-appfunctions-service = { group = "androidx.appfunctions", name = "appfunctions-service", version.ref = "androidxAppFunctions" }
+androidx-appfunctions = { group = "androidx.appfunctions", name = "appfunctions", version.ref = "androidxAppFunctions" }
 androidx-benchmark-gradlePlugin = { group = "androidx.benchmark", name = "benchmark-baseline-profile-gradle-plugin", version.ref = "androidxMacroBenchmark" }
 androidx-benchmark-macro = { group = "androidx.benchmark", name = "benchmark-macro-junit4", version.ref = "androidxMacroBenchmark" }
 androidx-bio = { group = "androidx.biometric", name = "biometric", version.ref = "bio" }
@@ -140,7 +141,7 @@ androidx-browser = { group = "androidx.browser", name = "browser", version.ref =
 androidx-compose-animation = { group = "androidx.compose.animation", name = "animation" }
 androidx-compose-animation-core = { group = "androidx.compose.animation", name = "animation-core" }
 androidx-compose-animation-graphics = { group = "androidx.compose.animation", name = "animation-graphics" }
-androidx-compose-bom = { group = "androidx.compose", name = "compose-bom-alpha", version.ref = "androidxComposeBom" }
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidxComposeBom" }
 androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
 androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout" }
 androidx-compose-glance = { group = "androidx.glance", name = "glance", version.ref = "glance" }
@@ -267,6 +268,7 @@ inapp-update = { group = "com.google.android.play", name = "app-update-ktx", ver
 insights-lint = { module = "com.google.play.policy.insights:insights-lint", version.ref = "insightsLint" }
 jsoup = { module = "org.jsoup:jsoup", version.ref = "jsoup"}
 re2j = { group = "com.google.re2j", name = "re2j", version.ref = "re2j" }
+junit-vintage-engine = { group = "org.junit.vintage", name = "junit-vintage-engine", version.ref = "junitVintage" }
 junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher", version.ref = "junitPlatform" }
 kotest-assertions-core = { group = "io.kotest", name = "kotest-assertions-core", version.ref = "kotest" }
 kotest-runner-junit5 = { group = "io.kotest", name = "kotest-runner-junit5", version.ref = "kotest" }

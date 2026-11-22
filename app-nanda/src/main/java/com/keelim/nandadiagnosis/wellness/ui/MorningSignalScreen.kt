@@ -83,7 +83,7 @@ internal fun MorningSignalRoute(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun MorningSignalScreen(
+internal fun MorningSignalScreen(
     uiState: MorningSignalUiState,
     onBack: () -> Unit,
     onEnabledChange: (Boolean) -> Unit,

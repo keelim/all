@@ -18,9 +18,11 @@ import androidx.compose.material3.FilterChip
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.SheetState
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -39,11 +41,13 @@ import java.time.LocalDate
 @Composable
 internal fun DailyCheckInSheet(
     initial: DailyCheckIn?,
+    initialStep: Int = 1,
+    sheetState: SheetState? = null,
     onDismiss: () -> Unit,
     onDelete: (() -> Unit)?,
     onSave: (DailyCheckIn) -> Unit,
 ) {
-    var step by rememberSaveable { mutableIntStateOf(1) }
+    var step by rememberSaveable { mutableIntStateOf(initialStep) }
     var sleep by rememberSaveable { mutableIntStateOf(initial?.sleep ?: 3) }
     var stress by rememberSaveable { mutableIntStateOf(initial?.stress ?: 3) }
     var energy by rememberSaveable { mutableIntStateOf(initial?.energy ?: 3) }
@@ -58,7 +62,10 @@ internal fun DailyCheckInSheet(
     var note by rememberSaveable { mutableStateOf(initial?.note.orEmpty()) }
     var showDeleteConfirmation by rememberSaveable { mutableStateOf(false) }
 
-    ModalBottomSheet(onDismissRequest = onDismiss) {
+    ModalBottomSheet(
+        onDismissRequest = onDismiss,
+        sheetState = sheetState ?: rememberModalBottomSheetState(skipPartiallyExpanded = false),
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()

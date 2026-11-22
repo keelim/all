@@ -24,6 +24,8 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
@@ -83,6 +85,7 @@ internal fun TodayScreen(
     onSaveCareCheckIn: (CareCondition, Boolean, Boolean, Boolean) -> Unit,
     onDeleteCheckIn: (String) -> Unit,
     onSetRoutineCompletion: (Routine, Boolean, Int?) -> Unit,
+    listState: LazyListState? = null,
 ) {
     val today = remember { LocalDate.now() }
     val todayIso = today.toString()
@@ -123,6 +126,7 @@ internal fun TodayScreen(
     ) { padding ->
         LazyColumn(
             modifier = Modifier.fillMaxSize().padding(padding),
+            state = listState ?: rememberLazyListState(),
             contentPadding = PaddingValues(horizontal = 20.dp, vertical = 20.dp),
             verticalArrangement = Arrangement.spacedBy(22.dp),
         ) {
@@ -134,6 +138,13 @@ internal fun TodayScreen(
                         trackColor = MaterialTheme.colorScheme.surfaceVariant,
                     )
                 }
+            }
+            item(key = "checkIn") {
+                CheckInCard(
+                    checkIn = todayCheckIn,
+                    privacyMode = privacyMode,
+                    onClick = { showCheckIn = true },
+                )
             }
             item(key = "careWeather") {
                 CareWeatherSection(
@@ -147,13 +158,6 @@ internal fun TodayScreen(
                             snackbarHostState.showSnackbar(careSavedMessage)
                         }
                     },
-                )
-            }
-            item(key = "checkIn") {
-                CheckInCard(
-                    checkIn = todayCheckIn,
-                    privacyMode = privacyMode,
-                    onClick = { showCheckIn = true },
                 )
             }
             item(key = "actionsTitle") {

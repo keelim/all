@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -47,6 +48,7 @@ import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.wellness.WellnessUiState
 import com.keelim.nandadiagnosis.wellness.ads.RoutineAdBanner
 import com.keelim.nandadiagnosis.wellness.morning.MorningSignalViewModel
+import com.keelim.nandadiagnosis.wellness.morning.MorningSignalUiState
 import com.keelim.model.wellness.DailyCheckIn
 import com.keelim.nandadiagnosis.wellness.domain.MeasurementState
 import com.keelim.nandadiagnosis.wellness.domain.RoutineKind
@@ -75,9 +77,14 @@ internal fun WellnessScreen(
     ),
     onUpdatePrivacySettings: (PrivacySettings) -> Unit = {},
     morningSignalViewModel: MorningSignalViewModel? = null,
+    initialTab: WellnessDestination = WellnessDestination.TODAY,
+    initialPrivacyMode: Boolean = true,
+    initialToolsPreviewDestination: ToolsPreviewDestination? = null,
+    morningSignalPreviewState: MorningSignalUiState? = null,
+    todayListState: LazyListState? = null,
 ) {
-    var selectedTabIndex by rememberSaveable { mutableIntStateOf(0) }
-    var privacyMode by rememberSaveable { mutableStateOf(true) }
+    var selectedTabIndex by rememberSaveable { mutableIntStateOf(initialTab.ordinal) }
+    var privacyMode by rememberSaveable { mutableStateOf(initialPrivacyMode) }
     val selectedTab = WellnessDestination.entries[selectedTabIndex]
 
     BackHandler(enabled = selectedTabIndex != 0) {
@@ -160,6 +167,7 @@ internal fun WellnessScreen(
                     onSaveCareCheckIn = onSaveCareCheckIn,
                     onDeleteCheckIn = onDeleteCheckIn,
                     onSetRoutineCompletion = onSetRoutineCompletion,
+                    listState = todayListState,
                 )
 
                 WellnessDestination.PLAN -> PlanScreen(
@@ -183,6 +191,8 @@ internal fun WellnessScreen(
                     onNavigateToTab = { selectedTabIndex = it.ordinal },
                     onSaveMeasurement = onSaveMeasurement,
                     morningSignalViewModel = morningSignalViewModel,
+                    initialPreviewDestination = initialToolsPreviewDestination,
+                    morningSignalPreviewState = morningSignalPreviewState,
                 )
             }
         }

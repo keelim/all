@@ -53,6 +53,7 @@ import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.wellness.WellnessUiState
 import com.keelim.nandadiagnosis.wellness.domain.MeasurementState
 import com.keelim.nandadiagnosis.wellness.morning.MorningSignalViewModel
+import com.keelim.nandadiagnosis.wellness.morning.MorningSignalUiState
 import java.time.Duration
 
 @Composable
@@ -70,9 +71,15 @@ internal fun ToolsScreen(
     onUpdatePrivacySettings: (PrivacySettings) -> Unit = {},
     onNavigateToTab: (WellnessDestination) -> Unit = {},
     morningSignalViewModel: MorningSignalViewModel? = null,
+    initialPreviewDestination: ToolsPreviewDestination? = null,
+    morningSignalPreviewState: MorningSignalUiState? = null,
 ) {
-    var showMeasurements by rememberSaveable { mutableStateOf(false) }
-    var showMorningSignal by rememberSaveable { mutableStateOf(false) }
+    var showMeasurements by rememberSaveable {
+        mutableStateOf(initialPreviewDestination == ToolsPreviewDestination.MEASUREMENTS)
+    }
+    var showMorningSignal by rememberSaveable {
+        mutableStateOf(initialPreviewDestination == ToolsPreviewDestination.MORNING_SIGNAL)
+    }
 
     BackHandler(enabled = showMeasurements || showMorningSignal) {
         when {
@@ -93,10 +100,19 @@ internal fun ToolsScreen(
         return
     }
     if (showMorningSignal) {
-        MorningSignalRoute(
-            onBack = { showMorningSignal = false },
-            viewModel = morningSignalViewModel ?: hiltViewModel(),
-        )
+        if (morningSignalPreviewState != null) {
+            MorningSignalScreen(
+                uiState = morningSignalPreviewState,
+                onBack = { showMorningSignal = false },
+                onEnabledChange = {},
+                onTimeChange = { _, _ -> },
+            )
+        } else {
+            MorningSignalRoute(
+                onBack = { showMorningSignal = false },
+                viewModel = morningSignalViewModel ?: hiltViewModel(),
+            )
+        }
         return
     }
 
@@ -189,6 +205,8 @@ internal fun ToolsScreen(
         }
     }
 }
+
+internal enum class ToolsPreviewDestination { MEASUREMENTS, MORNING_SIGNAL }
 
 @Composable
 private fun ToolSection(

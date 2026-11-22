@@ -50,6 +50,10 @@ description = "Assemble the representative core:common-android debug library"
 depends = ["doctor"]
 run = "./gradlew --no-daemon -Pandroid.builder.sdkDownload=false :core:common-android:assembleDebug"
 
+[tasks.design-lint]
+description = "Lint the root DESIGN.md (same pinned linter as .github/workflows/design_lint.yml)"
+run = "npx --yes @google/design.md@0.4.0 lint DESIGN.md"
+
 [tasks.ci]
 description = "Run the same representative verification locally and in CI"
 run = [

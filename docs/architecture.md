@@ -1,6 +1,6 @@
 # Android and multiplatform architecture
 
-Six Android application modules compose shared libraries and independently own app navigation and release workflows. `composeApp` is a separate Compose Multiplatform host. The Gradle module registry and included `build-logic` build determine build membership; the Rust crate, iOS host, and TypeSpec package have separate manifests.
+Six Android application modules compose shared libraries and independently own app navigation and release workflows. `composeApp` is a separate Compose Multiplatform host. The Gradle module registry and included `build-logic` build determine build membership; the Rust crate and iOS host have separate manifests.
 
 UI events flow from a Screen through its Route/host callbacks and ViewModel. ViewModels expose StateFlow/Flow; repositories coordinate persistence/network data and return state to lifecycle-aware Compose collectors. App features consume repository contracts rather than constructing DAOs.
 
@@ -10,4 +10,4 @@ UI events flow from a Screen through its Route/host callbacks and ViewModel. Vie
 
 `shared` uses common and platform source sets for models, Room, and platform abstractions. Desktop window code is used only in desktop Compose contexts. `widget` and `benchmarks` provide Glance integration and isolated performance fixtures. They do not own product rules.
 
-Firebase services, Google Maps, ads, and HTTP providers sit behind their app/device/network boundaries. TypeSpec describes API schema; the Rust cdylib provides an experimental native surface and the Xcode host supplies an Apple shell. Their presence is not proof of end-to-end integration.
+Firebase services, Google Maps, ads, and HTTP providers sit behind their app/device/network boundaries. The Rust cdylib provides an experimental native surface and the Xcode host supplies an Apple shell. Their presence is not proof of end-to-end integration.

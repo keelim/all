@@ -38,10 +38,6 @@
                 "com.google.devtools.ksp"
             ],
             "groupName": "kotlin"
-        },
-        {
-            "groupName": "type spec",
-            "matchPackagePatterns": "typespec"
         }
     ]
 }

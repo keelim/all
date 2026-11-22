@@ -1,6 +1,6 @@
 # Application and platform status
 
-Observed 2026-10-04: six Android apps, Compose host, core/feature libraries, Glance widget, component catalog, benchmark fixtures, and Gradle convention build are present. The live settings file registers 37 modules. TypeSpec, Rust/JNI, and Xcode host units are separate manifest boundaries.
+Observed 2026-10-04: six Android apps, Compose host, core/feature libraries, Glance widget, component catalog, benchmark fixtures, and Gradle convention build are present. The live settings file registers 37 modules. Rust/JNI and Xcode host units are separate manifest boundaries.
 
 Inspection confirms implementation structure and existing unit-test sources. It does not establish release signing, physical-device behavior, provider credentials, Google Maps, clinical validity, or cross-platform runtime readiness. Existing build, app-function, map, and dependency-report edits are preserved.
 

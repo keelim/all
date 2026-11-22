@@ -259,3 +259,10 @@ The KMP Android plugin exposes `testAndroidHostTest` for `:core:common`. The
 required `testDebugUnitTest` task is unavailable for this module and the
 included build logic. The Android host tests and Desktop and Wasm compilation
 remain unverified under the changed-module test policy.
+
+After stacking on Device KMP, the same module-scoped run used SDK 37.2 and the
+repository's public offline fixtures. CNUBUS, Comssa, MyGrade, Nanda, and
+`:feature:ui-setting` passed 110 tests in total. MySenior and `:feature:ui-scheme`
+reported `NO-SOURCE`. Android Kotlin and Hilt-generated Java compiled for both
+KMP libraries. Arducon remains blocked locally by the JitPack HTTP 403 for the
+existing chart dependency. Session-local log: `/tmp/keelim-common-stack-unit-tests.log`.

@@ -128,3 +128,26 @@ a 4 GiB heap, one worker and in-process Kotlin compilation to control peak memor
 the repository's local Gradle defaults remain unchanged. This is a resource
 configuration adjustment, not a test exclusion or dependency-version change.
 Evidence: https://github.com/keelim/all/actions/runs/44997329707/job/137131089366 .
+
+### Remaining CNUBUS identity blocker
+
+After the dropdown compatibility fix, `StationIdentityTest` actually executes and
+fails: 23 station entries have only 21 distinct names. `도서관앞` and `골프장`
+each occur twice in `core/data/.../model/Location.kt`. `RootViewModel` selects
+favorites by station name and `RootScreen` also uses the name as the lazy-list
+key. The data, favorite selection and identity test are unchanged by this repair
+(their blobs match the develop baseline). The test must remain enabled.
+
+The prior six-app run passed Arducon 61 tests, Comssa 32, MyGrade 38 and Nanda 7;
+CNUBUS passed 12 of 13 and MySenior's unit-test task is `NO-SOURCE`. It also
+reported a CNUBUS `packageDebug` worker failure without an underlying exception
+in the default log; the validation command now includes `--stacktrace` so any
+persistent packaging failure is diagnosable on the final CI head.
+Evidence: https://github.com/keelim/all/actions/runs/44997771441/job/137132410215 .
+
+Direct develop push is withheld while an actual consumer test is failing.
+Resolve canonical station/route-occurrence identity separately while preserving
+stored favorite names and route selection behavior, then rerun the clean six-app
+validation and recheck the remote develop SHA before a normal fast-forward push.
+Do not rename/delete duplicate entries, weaken the assertion or migrate persisted
+keys as part of this common-build repair.

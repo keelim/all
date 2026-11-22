@@ -30,6 +30,8 @@ import androidx.compose.material3.CardDefaults
 import com.keelim.core.designsystem.component.KuiDropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import com.keelim.core.designsystem.component.KuiExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenu
+import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import com.keelim.core.designsystem.component.KuiIcon
 import com.keelim.core.designsystem.component.KuiIconButton
@@ -223,8 +225,8 @@ private fun Success(
             ) {
                 itemsIndexed(
                     items = uiState.data,
-                    // Station names are the identity used by favorites and route selection.
-                    key = { _, station -> station.name },
+                    // Keep duplicate-name rows distinct; favorite storage stays name-based.
+                    key = { _, station -> station.stationRowKey },
                     contentType = { _, _ -> "station" },
                 ) { index, item ->
                     TimelineItem(
@@ -449,7 +451,7 @@ private fun ExposedDropdownMenuSample() {
         onExpandedChange = { expanded = !expanded },
     ) {
         KuiFilledTextField(
-            modifier = Modifier.menuAnchor(),
+            modifier = Modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable),
             readOnly = true,
             value = selectedOptionText,
             onValueChange = {},

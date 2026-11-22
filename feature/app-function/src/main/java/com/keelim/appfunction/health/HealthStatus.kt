@@ -9,7 +9,7 @@ import androidx.appfunctions.AppFunctionSerializable
  * @property module Name of the originating module providing the status.
  * @property epochMillis Timestamp in milliseconds since Unix epoch when status was evaluated.
  */
-@AppFunctionSerializable
+@AppFunctionSerializable(isDescribedByKDoc = true)
 data class HealthStatus(
     /** Operational health state indicator (e.g. "ok"). */
     val status: String,

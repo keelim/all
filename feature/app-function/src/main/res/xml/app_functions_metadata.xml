@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AppFunctionAppMetadata xmlns:appfn="http://schemas.android.com/apk/androidx.appfunctions"
+    appfn:instructions="Provides read-only JSON formatting and a neutral integration health check. formatJson accepts valid non-blank JSON up to 65536 characters. getHealthStatus reports module status and time, not personal health records. These functions do not modify application data."
+    appfn:displayDescription="@string/app_functions_description" />

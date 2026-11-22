@@ -88,3 +88,96 @@ up-delta text may be hard to read. Unresolved because retuning
 `core:designsystem` market tokens changes every consuming app's screens and
 needs a separate, owner-approved token change; `DESIGN.md` documents the gap
 and requires a sign or arrow alongside color.
+
+## Common Android build repair validation (2026-11-22)
+
+The repair uses the stable `platforms;android-37.2` SDK in both Android convention paths,
+and `androidx.appfunctions:appfunctions:1.0.0` with generated service entry points.
+The former standalone `appfunctions-service:1.0.0` coordinate does not exist.
+The original abstract class names are retained to preserve external function IDs;
+JSON validation, output formatting, and the neutral health status model remain unchanged.
+Public/synthetic offline fixtures are generated only in the isolated CI checkout.
+
+The nested build-logic wrapper originally pointed to Gradle 9.9.2 with the 9.8.2
+checksum. Running the repository wrapper launcher against those nested properties
+reproduced checksum verification failure. The official 9.9.2 checksum
+`971fcd7150ca4ba04852c0b2ca0d2d0ab9468e14b03473eab19528809914c76b`
+then passed an actual distribution download and `--version` on the pinned JDK 17.
+
+`Common Android build validation` performs clean shared-module and six Android app
+compilation/tests (including the four AppFunctions consumers), checks generated function IDs/models and APK metadata, and requires
+actual discovery of the API 36 Robolectric service tests. Robolectric 4.16.1 supports
+API 36 with a Java 21 test runner; compilation still uses the repository Java 17 target.
+API 37 device discovery and real agent invocation are not established by these tests.
+No production secrets, deployment, release signing or targetSdk changes are involved.
+
+The separate Nanda `:app-nanda:dependencyGuard` release-runtime baseline drift in
+[diagnostic CI 44988946234](https://github.com/keelim/all/actions/runs/44988946234)
+is outside this common-build repair. Its check and baseline are unchanged; review
+its exact dependency diff separately before any dependency PR merge. No broad
+baseline regeneration or check suppression is part of this repair.
+
+The first repair CI exposed empty `GENERATIVE` and `SHEET_KEY` values becoming invalid
+Java expressions in generated BuildConfig. CI uses explicit non-empty synthetic
+`offline-placeholder` values for these fields; no working provider key is used.
+
+Consumer validation reached an independent existing Arducon compiler failure in
+`CreateDeepLinkScreen.kt:218,222`: `menuAnchor()` requires a `type` and
+`ExposedDropdownMenu` is unresolved in the current wrapper scope. The same obsolete calls also exist in the CNUBUS dropdown preview. The pinned
+Material3 1.6.0-alpha01 sources confirm that the former member menu is hidden in
+favor of an imported scope extension and `menuAnchor` now requires a type. Both
+read-only fields use `PrimaryNotEditable`; only the import and anchor API binding
+are changed, preserving selection callbacks and UI behavior. CI uses Gradle `--continue` to exercise the
+other consumers while preserving the failing exit status; it never treats this
+failure as passing. Direct develop push remains blocked until consumer validation passes.
+Evidence: https://github.com/keelim/all/actions/runs/44996494354/job/137128529092 .
+
+The combined six-app CI build exposed D8 `Java heap space` during MyGrade dex
+merging with the repository's 2 GiB Gradle heap. Comssa, Nanda and MySenior debug
+APKs built, and Comssa's AppFunctions APK metadata passed. Consumer CI alone uses
+a 4 GiB heap, one worker and in-process Kotlin compilation to control peak memory;
+the repository's local Gradle defaults remain unchanged. This is a resource
+configuration adjustment, not a test exclusion or dependency-version change.
+Evidence: https://github.com/keelim/all/actions/runs/44997329707/job/137131089366 .
+
+### Remaining CNUBUS identity blocker
+
+After the dropdown compatibility fix, `StationIdentityTest` actually executes and
+fails: 23 station entries have only 21 distinct names. `도서관앞` and `골프장`
+each occur twice in `core/data/.../model/Location.kt`. `RootViewModel` selects
+favorites by station name and `RootScreen` also uses the name as the lazy-list
+key. The data, favorite selection and identity test are unchanged by this repair
+(their blobs match the develop baseline). The test must remain enabled.
+
+The prior six-app run passed Arducon 61 tests, Comssa 32, MyGrade 38 and Nanda 7;
+CNUBUS passed 12 of 13 and MySenior's unit-test task is `NO-SOURCE`. It also
+reported a CNUBUS `packageDebug` worker failure without an underlying exception
+in the default log; the validation command now includes `--stacktrace` so any
+persistent packaging failure is diagnosable on the final CI head.
+Evidence: https://github.com/keelim/all/actions/runs/44997771441/job/137132410215 .
+
+Direct develop push is withheld while an actual consumer test is failing.
+Resolve canonical station/route-occurrence identity separately while preserving
+stored favorite names and route selection behavior, then rerun the clean six-app
+validation and recheck the remote develop SHA before a normal fast-forward push.
+Do not rename/delete duplicate entries, weaken the assertion or migrate persisted
+keys as part of this common-build repair.
+
+## CNUBUS duplicate row-key repair verification (2026-11-17)
+
+The station catalog has 23 rows but only 21 distinct names. `도서관앞` repeats
+even at identical coordinates, with different route membership; `골프장` also
+repeats. The name-only lazy key from #2284 is invalid. The follow-up uses the
+immutable latitude/longitude bit patterns and all four route positions as a
+presentation-only row key. Existing name-group favorites and DataStore keys
+remain unchanged; no data or duplicate rows are removed.
+
+The standard `:app-cnubus:testDebugUnitTest` run remains blocked by the existing
+`appfunctions-service:1.0.0-rc01` resolution failure (JitPack HTTP 403). With the
+service/compiler pair temporarily pinned to alpha09 for diagnosis and synthetic
+local provider/Firebase fixtures, all 20 CNUBUS tests passed, including duplicate
+keys, search filtering, restored favorites, removal/re-add and queued toggles.
+The version catalog was restored byte-for-byte to rc01 before committing.
+Logs: `/tmp/cnubus-identity-rc01.log`, `/tmp/cnubus-identity-alpha09.log`
+(session-local). This does not establish rc01 compatibility, real Firebase
+integration, device rendering or on-disk DataStore restore behavior.

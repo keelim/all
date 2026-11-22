@@ -109,3 +109,12 @@ baseline regeneration or check suppression is part of this repair.
 The first repair CI exposed empty `GENERATIVE` and `SHEET_KEY` values becoming invalid
 Java expressions in generated BuildConfig. CI uses explicit non-empty synthetic
 `offline-placeholder` values for these fields; no working provider key is used.
+
+Consumer validation reached an independent existing Arducon compiler failure in
+`CreateDeepLinkScreen.kt:218,222`: `menuAnchor()` requires a `type` and
+`ExposedDropdownMenu` is unresolved in the current wrapper scope. This source is
+unchanged by the common-build repair. CI uses Gradle `--continue` to exercise the
+other consumers while preserving the failing exit status; it never treats this
+failure as passing. Direct develop push remains blocked until consumer validation
+passes or the user explicitly authorizes a different completion condition.
+Evidence: https://github.com/keelim/all/actions/runs/44996494354/job/137128529092 .

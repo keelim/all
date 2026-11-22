@@ -62,8 +62,8 @@ def appfunctions():
     print(f'Generated IDs/models verified; {len(cases)} tests passed, including Java 21 / API 36 service assertions')
 
 
-def consumers():
-    for app in ('app-arducon', 'app-cnubus', 'app-comssa', 'app-my-grade'):
+def consumer(app):
+    for app in (app,):
         apks = list((ROOT / app / 'build/outputs/apk/debug').glob('*.apk'))
         assert apks, f'No debug APK for {app}'
         for apk in apks:
@@ -84,6 +84,16 @@ def consumers():
                 assert any(a.get(ANDROID + 'name') == 'android.app.appfunctions.AppFunctionService' for a in service.iter('action'))
                 assert any(p.get(ANDROID + 'name') == 'android.app.appfunctions.v2' and p.get(ANDROID + 'value') == filename for p in service.iter('property'))
         print(f'{app}: debug APK contracts and protected merged services verified')
+
+
+def consumers():
+    failures = []
+    for app in ('app-arducon', 'app-cnubus', 'app-comssa', 'app-my-grade'):
+        try:
+            consumer(app)
+        except (AssertionError, KeyError, ET.ParseError) as error:
+            failures.append(f'{app}: {error}')
+    assert not failures, '\n'.join(failures)
 
 
 {'configuration': configuration, 'appfunctions': appfunctions, 'consumers': consumers}[sys.argv[1]]()

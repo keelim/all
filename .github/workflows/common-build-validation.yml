@@ -51,9 +51,9 @@ jobs:
         run: python3 .github/scripts/verify-common-build.py appfunctions
       - name: Clean compile and test all AppFunctions consumers
         if: matrix.scope == 'consumers'
-        run: ./gradlew --no-daemon --max-workers=2 -Pandroid.builder.sdkDownload=false clean :app-arducon:assembleDebug :app-cnubus:assembleDebug :app-comssa:assembleDebug :app-my-grade:assembleDebug :app-arducon:testDebugUnitTest :app-cnubus:testDebugUnitTest :app-comssa:testDebugUnitTest :app-my-grade:testDebugUnitTest
+        run: ./gradlew --no-daemon --continue --max-workers=2 -Pandroid.builder.sdkDownload=false clean :app-arducon:assembleDebug :app-cnubus:assembleDebug :app-comssa:assembleDebug :app-my-grade:assembleDebug :app-arducon:testDebugUnitTest :app-cnubus:testDebugUnitTest :app-comssa:testDebugUnitTest :app-my-grade:testDebugUnitTest
       - name: Verify merged AppFunctions services and assets in consumer APKs
-        if: matrix.scope == 'consumers'
+        if: always() && matrix.scope == 'consumers'
         run: python3 .github/scripts/verify-common-build.py consumers
       - name: Save build and test evidence
         if: always()

@@ -291,3 +291,9 @@ needs a GitHub runner result.
 
 [Develop push](https://github.com/keelim/all/actions/runs/45030673466) ·
 [Paging pull request](https://github.com/keelim/all/actions/runs/45030803108)
+
+## Nanda record controls
+
+Recent records are available inside Nanda. Export, whole-history deletion, and
+an in-app privacy-policy destination still need implementation before they can
+be offered as actions. The Tools data section currently shows the storage note.

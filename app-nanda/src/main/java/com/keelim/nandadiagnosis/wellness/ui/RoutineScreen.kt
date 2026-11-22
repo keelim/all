@@ -54,7 +54,10 @@ import com.keelim.nandadiagnosis.R
 import com.keelim.nandadiagnosis.wellness.WellnessUiState
 import com.keelim.nandadiagnosis.wellness.WellnessValidationError
 import com.keelim.nandadiagnosis.wellness.domain.RoutineKind
+import com.keelim.common.extensions.toUiNumber
 import java.time.LocalDate
+
+private const val WEEKLY_COMPLETIONS_PER_ROUTINE = 3
 
 @Composable
 internal fun PlanScreen(
@@ -69,9 +72,9 @@ internal fun PlanScreen(
     val weekCompletions = uiState.completions.count {
         runCatching { LocalDate.parse(it.localDate) }.getOrNull() in weekStart..today
     }
-    val weeklyTarget = (uiState.routines.size * 3).coerceAtLeast(1)
+    val weeklyTarget = uiState.routines.size * WEEKLY_COMPLETIONS_PER_ROUTINE
     val weeklyProgress by animateFloatAsState(
-        targetValue = (weekCompletions.toFloat() / weeklyTarget).coerceIn(0f, 1f),
+        targetValue = if (weeklyTarget == 0) 0f else (weekCompletions.toFloat() / weeklyTarget).coerceIn(0f, 1f),
         animationSpec = tween(500),
         label = "planWeeklyProgress",
     )
@@ -117,25 +120,6 @@ internal fun PlanScreen(
                     )
                 }
             }
-            item(key = "planProgress") {
-                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text(
-                        text = stringResource(
-                            R.string.wellness_plan_weekly_progress,
-                            weekCompletions,
-                            weeklyTarget,
-                        ),
-                        style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.onSurface,
-                    )
-                    LinearProgressIndicator(
-                        progress = { weeklyProgress },
-                        modifier = Modifier.fillMaxWidth(),
-                        color = MaterialTheme.colorScheme.primary,
-                        trackColor = MaterialTheme.colorScheme.surfaceVariant,
-                    )
-                }
-            }
             if (uiState.routines.isEmpty()) {
                 item(key = "planEmpty") {
                     Card(
@@ -164,6 +148,33 @@ internal fun PlanScreen(
                     }
                 }
             } else {
+                item(key = "planProgress") {
+                    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Text(
+                            text = stringResource(
+                                R.string.wellness_plan_weekly_progress,
+                                weekCompletions.toUiNumber(),
+                                weeklyTarget.toUiNumber(),
+                            ),
+                            style = MaterialTheme.typography.titleMedium,
+                            color = MaterialTheme.colorScheme.onSurface,
+                        )
+                        Text(
+                            text = stringResource(
+                                R.string.wellness_plan_target_description,
+                                WEEKLY_COMPLETIONS_PER_ROUTINE.toUiNumber(),
+                            ),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                        LinearProgressIndicator(
+                            progress = { weeklyProgress },
+                            modifier = Modifier.fillMaxWidth(),
+                            color = MaterialTheme.colorScheme.primary,
+                            trackColor = MaterialTheme.colorScheme.surfaceVariant,
+                        )
+                    }
+                }
                 items(uiState.routines, key = { it.id }) { routine ->
                     val completedThisWeek = uiState.completions.count { completion ->
                         completion.routineId == routine.id &&
@@ -283,8 +294,8 @@ private fun PlanCard(
             Text(
                 text = stringResource(
                     R.string.wellness_plan_item_progress,
-                    completedThisWeek,
-                    3,
+                    completedThisWeek.toUiNumber(),
+                    WEEKLY_COMPLETIONS_PER_ROUTINE.toUiNumber(),
                 ),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,

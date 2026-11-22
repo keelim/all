@@ -21,6 +21,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
@@ -67,21 +68,26 @@ class WellnessViewModel @Inject constructor(
         viewModelScope.launch { repository.deleteCheckIn(localDate) }
     }
 
+    // A null tag means the user did not edit that field.
     fun saveCareCheckIn(
         condition: CareCondition,
-        sweat: Boolean,
-        friction: Boolean,
-        dryness: Boolean,
+        sweat: Boolean?,
+        friction: Boolean?,
+        dryness: Boolean?,
     ) {
+        val localDate = timeProvider.today().toString()
         viewModelScope.launch {
             careCheckInMutex.withLock {
+                val previous = repository.data.first().careCheckIns.firstOrNull {
+                    it.localDate == localDate
+                }
                 repository.upsertCareCheckIn(
                     CareCheckIn(
-                        localDate = timeProvider.today().toString(),
+                        localDate = localDate,
                         condition = condition,
-                        sweat = sweat,
-                        friction = friction,
-                        dryness = dryness,
+                        sweat = sweat ?: previous?.sweat ?: false,
+                        friction = friction ?: previous?.friction ?: false,
+                        dryness = dryness ?: previous?.dryness ?: false,
                     ),
                 )
             }

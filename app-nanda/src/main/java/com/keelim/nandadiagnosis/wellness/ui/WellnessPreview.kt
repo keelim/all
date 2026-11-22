@@ -9,6 +9,8 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.keelim.model.wellness.CareCheckIn
+import com.keelim.model.wellness.CareCondition
 import com.keelim.model.wellness.DailyCheckIn
 import com.keelim.model.wellness.Routine
 import com.keelim.model.wellness.RoutineCompletion
@@ -57,6 +59,15 @@ private fun InsightsPreview() {
         state = sampleWellnessUiState.copy(checkIns = sampleTrend),
         initialTab = WellnessDestination.INSIGHTS,
         initialPrivacyMode = false,
+    )
+}
+
+@Preview(name = "Insights · privacy on", showBackground = true, widthDp = 412, heightDp = 892, locale = "ko")
+@Composable
+private fun InsightsPrivacyPreview() {
+    WellnessPreviewShell(
+        state = sampleWellnessUiState,
+        initialTab = WellnessDestination.INSIGHTS,
     )
 }
 
@@ -175,9 +186,12 @@ private val sampleWellnessUiState = WellnessUiState(
             confidence = 3,
         ),
     ),
+    careCheckIns = listOf(
+        CareCheckIn(localDate = previewToday.toString(), condition = CareCondition.AWARE, dryness = true),
+    ),
 )
 
-private val sampleTrend = (0..6).map { offset ->
+private val sampleTrend = listOf(0, 1, 3, 5, 6).map { offset ->
     DailyCheckIn(
         localDate = previewToday.minusDays((6 - offset).toLong()).toString(),
         sleep = if (offset < 4) 4 else 3,

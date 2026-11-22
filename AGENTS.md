@@ -24,7 +24,7 @@ A multi-app Android and Compose Multiplatform repository for six apps and shared
 │   │       ├── index.md → Decision index
 │   │       ├── 0001-shared-ui-boundary.md → Canonical tokens with compatibility widgets
 │   │       └── 0002-focused-module-checks.md → Changed-module unit tests only
-│   └── AGENTS.md → API schema package and technical material boundary
+│   └── AGENTS.md → Operational documentation boundary
 ├── journeys/
 │   ├── AGENTS.md → Multi-app Journey XML E2E suite ownership and invariants
 │   ├── app-*-journey.xml → Per-app Android CLI Journey XML definitions

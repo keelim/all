@@ -10,7 +10,7 @@ Inspect settings.gradle.kts and the changed modules' build.gradle.kts files to d
 
 The example applies only when both modules changed. If a changed unit lacks that task, report unavailable verification. Do not substitute assemble, lint, root test, connected checks, diff-check, or native/platform builds without an explicit request.
 
-Dependency changes belong in gradle/libs.versions.toml and the appropriate convention/module configuration. Do not run an installation or regenerate locks merely to validate prose. Build/release workflows are per app; dispatching releases or changing signing/provider credentials is separate authorized work. The Rust crate, TypeSpec package, and Xcode shell require their own prerequisites and explicit verification scope rather than an assumed Android check.
+Dependency changes belong in gradle/libs.versions.toml and the appropriate convention/module configuration. Do not run an installation or regenerate locks merely to validate prose. Build/release workflows are per app; dispatching releases or changing signing/provider credentials is separate authorized work. The Rust crate and Xcode shell require their own prerequisites and explicit verification scope rather than an assumed Android check.
 
 ## Android CLI Tooling & Workflows
 

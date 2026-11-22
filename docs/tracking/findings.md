@@ -82,3 +82,40 @@ minification remain unverified. Session-local logs:
 ## Dependency validation baseline (2026-11-22)
 
 Fresh non-deployment CI with the checked-in Temurin 17.0.20+8 and Gradle 9.9.2 stopped during `:app-arducon` configuration because `local.defaults.properties` is absent from a clean checkout. Run: https://github.com/keelim/all/actions/runs/44985733013 . The validation draft now explicitly copies CI-only public test/empty provider defaults, leaving production configuration and secrets untouched. AppFunctions service resolution and both Arducon/Nanda Dependency Guard remain enabled; no downstream success is claimed until those tasks execute.
+
+## Current dependency PR baseline and migration proposals (2026-11-22)
+
+Source head `1c173d13b97c686d545a1f4eaf79fc51f16caa04` includes current develop
+`da8f736e8257f9ae9db92329dafbe581b3408e23`. Its non-deployment CI independently
+executes library build/tests, AppFunctions/app consumers, and Nanda Guard:
+https://github.com/keelim/all/actions/runs/44988946234
+
+- `:core:common-android:checkDebugAarMetadata` fails because dependencies require
+  API 37.2+ while the shared convention uses android-37.0. Both Android convention
+  paths explicitly set `minorApiLevel = 0`. Review SDK 37.2 installation and the
+  shared convention together; do not bypass AAR checks or downgrade dependencies.
+- `:feature:app-function:debugCompileClasspath` cannot resolve
+  `androidx.appfunctions:appfunctions-service:1.0.0`. Its Google Maven POM returns
+  404, while `appfunctions:1.0.0` and `appfunctions-compiler:1.0.0` return 200.
+  A separate functional migration must replace the service artifact, adopt
+  AppFunctionServiceEntryPoint and current declaration annotations, remove the
+  obsolete AppFunctionContext/aggregation-option usage, and validate health/JSON
+  tests and service/manifest behavior. The official API change record is
+  https://developer.android.com/jetpack/androidx/releases/appfunctions .
+- `:app-nanda:dependencyGuard` independently fails on releaseRuntimeClasspath
+  drift. The accepted DataStore coordinates in #2299 do not account for existing
+  unrelated drift. Compare fully resolved base/head graphs, review unrelated
+  differences separately, update only approved baselines, and rerun Guard. No
+  whole-repository rebaseline or skipped Guard check is acceptable evidence.
+
+During verification Renovate independently merged out-of-scope #2311 and #2312;
+they were not modified by this task. Validation was updated to current develop
+before these results were recorded. The earlier missing defaults file is handled
+explicitly by CI-only public test/empty configuration, not production secrets.
+
+The root and build-logic wrappers also have different SHA-256 values for their
+shared Gradle 9.9.2 URL (`971fcd...` versus `21bd5d...`). The root wrapper download
+passed its checksum validation in CI; reconcile the nested wrapper separately.
+The eight original Android dependency PRs remain unmerged while these baseline
+failures block actual build/test verification. This entry is documentation only
+and does not change the source or workflow evaluated in the linked CI run.

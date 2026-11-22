@@ -20,6 +20,9 @@ jobs:
           persist-credentials: false
       - uses: ./.github/actions/setup-java
       - uses: android-actions/setup-android@v3
+        with:
+          packages: platform-tools
+          log-accepted-android-sdk-licenses: false
       - uses: gradle/actions/setup-gradle@v5
       - name: Verify representative library baseline
         run: ./gradlew --no-daemon :core:common-android:testDebugUnitTest :core:common-android:assembleDebug

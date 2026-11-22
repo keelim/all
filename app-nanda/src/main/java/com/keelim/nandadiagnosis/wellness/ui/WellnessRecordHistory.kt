@@ -54,13 +54,6 @@ internal fun WellnessRecordHistory(
         )
 
         ListItem(
-            headlineContent = {
-                Text(
-                    text = WellnessUiFormat.date(date),
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onSurface,
-                )
-            },
             supportingContent = {
                 Text(
                     text = stringResource(
@@ -84,7 +77,13 @@ internal fun WellnessRecordHistory(
                     expandedDate = if (expanded) null else key
                 }
             } else Modifier,
-        )
+        ) {
+            Text(
+                text = WellnessUiFormat.date(date),
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onSurface,
+            )
+        }
         if (expanded) {
             Column(
                 modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp),

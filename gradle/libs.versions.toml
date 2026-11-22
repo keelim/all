@@ -14,7 +14,7 @@ androidxAppCompat = "1.7.1"
 # The standalone service artifact ends at alpha09; keep its compiler aligned
 # until the AppFunctionServiceEntryPoint API migration is implemented.
 androidxAppFunctions = "1.0.0"
-androidxBrowser = "1.9.0"
+androidxBrowser = "1.10.0"
 androidxComposeBom = "2026.11.01"
 androidxComposeRuntimeTracing = "1.12.1"
 androidxCore = "1.17.0"

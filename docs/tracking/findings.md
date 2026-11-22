@@ -77,3 +77,35 @@ minification remain unverified. Session-local logs:
 ## Compose list identity verification (2026-11-17)
 
 `:app-cnubus:testDebugUnitTest :app-comssa:testDebugUnitTest :app-cnubus:lintDebug :app-comssa:lintDebug` is blocked before app compilation/tests by existing `androidx.appfunctions:appfunctions-service:1.0.0-rc01` resolution (JitPack HTTP 403) during configuration-cache task graph serialization. The new key regression tests have not executed, and no device frame-time measurement is available. Session-local log: `/tmp/lists-checks.log`.
+
+## Common Android build repair validation (2026-11-22)
+
+The repair uses the stable `platforms;android-37.2` SDK in both Android convention paths,
+and `androidx.appfunctions:appfunctions:1.0.0` with generated service entry points.
+The former standalone `appfunctions-service:1.0.0` coordinate does not exist.
+The original abstract class names are retained to preserve external function IDs;
+JSON validation, output formatting, and the neutral health status model remain unchanged.
+Public/synthetic offline fixtures are generated only in the isolated CI checkout.
+
+The nested build-logic wrapper originally pointed to Gradle 9.9.2 with the 9.8.2
+checksum. Running the repository wrapper launcher against those nested properties
+reproduced checksum verification failure. The official 9.9.2 checksum
+`971fcd7150ca4ba04852c0b2ca0d2d0ab9468e14b03473eab19528809914c76b`
+then passed an actual distribution download and `--version` on the pinned JDK 17.
+
+`Common Android build validation` performs clean shared-module and four consumer-app
+compilation/tests, checks generated function IDs/models and APK metadata, and requires
+actual discovery of the API 36 Robolectric service tests. Robolectric 4.16.1 supports
+API 36 with a Java 21 test runner; compilation still uses the repository Java 17 target.
+API 37 device discovery and real agent invocation are not established by these tests.
+No production secrets, deployment, release signing or targetSdk changes are involved.
+
+The separate Nanda `:app-nanda:dependencyGuard` release-runtime baseline drift in
+[diagnostic CI 44988946234](https://github.com/keelim/all/actions/runs/44988946234)
+is outside this common-build repair. Its check and baseline are unchanged; review
+its exact dependency diff separately before any dependency PR merge. No broad
+baseline regeneration or check suppression is part of this repair.
+
+The first repair CI exposed empty `GENERATIVE` and `SHEET_KEY` values becoming invalid
+Java expressions in generated BuildConfig. CI uses explicit non-empty synthetic
+`offline-placeholder` values for these fields; no working provider key is used.

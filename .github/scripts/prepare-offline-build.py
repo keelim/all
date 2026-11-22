@@ -4,7 +4,8 @@ from pathlib import Path
 
 root = Path(__file__).resolve().parents[2]
 properties = {
-    'MAPS_API_KEY': '', 'GENERATIVE': '', 'SHEET_KEY': '',
+    'MAPS_API_KEY': 'offline-placeholder', 'GENERATIVE': 'offline-placeholder',
+    'SHEET_KEY': 'offline-placeholder',
     'NOTIFICATION_URL': 'https://example.invalid',
     'AD_COMMON_BANNER_DEBUG_ID': 'ca-app-pub-3940256099942544/6300978111',
     'AD_ARDUCON_BANNER_ID': 'ca-app-pub-3940256099942544/6300978111',

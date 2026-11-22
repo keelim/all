@@ -44,8 +44,8 @@ A multi-app Android and Compose Multiplatform repository for six apps and shared
 ├── app-my-grade/
 │   └── AGENTS.md → app-my-grade ownership and invariants
 ├── core/
-│   ├── device-android/
-│   │   └── AGENTS.md → device-android ownership and invariants
+│   ├── device/
+│   │   └── AGENTS.md → device ownership and invariants
 │   ├── database/
 │   │   └── AGENTS.md → database ownership and invariants
 │   ├── designsystem/

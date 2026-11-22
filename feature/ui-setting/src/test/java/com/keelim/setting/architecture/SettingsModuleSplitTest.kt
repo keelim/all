@@ -27,9 +27,9 @@ class SettingsModuleSplitTest : FunSpec({
             ":feature:settings-device",
             ":feature:settings-admin",
             ":feature:settings-lab",
-            ":core:device-android",
+            ":core:device",
         ).forEach { modulePath ->
-            gradleText shouldContain modulePath
+            gradleText shouldContain "\"$modulePath\""
         }
     }
 
@@ -87,14 +87,16 @@ class SettingsModuleSplitTest : FunSpec({
 
         sourceFilesUnder(repoRoot.resolve("core/common-android/src/main/java")).forEach { sourceFile ->
             check(!sourceFile.readText().contains("import com.google.android.gms.")) {
-                "${repoRoot.relativize(sourceFile)} must keep Google Play Services SDK imports in core:device-android"
+                "${repoRoot.relativize(sourceFile)} must keep Google Play Services SDK imports in core:device androidMain"
             }
         }
     }
 
-    test("device-android owns extracted Android SDK startup helpers") {
-        val deviceBuild = repoRoot.resolve("core/device-android/build.gradle.kts")
+    test("device owns the extracted SDK startup helpers in its Android source set") {
+        val deviceModule = repoRoot.resolve("core/device")
+        val deviceBuild = deviceModule.resolve("build.gradle.kts")
         deviceBuild.shouldExist()
+        deviceModule.resolve("src/androidMain/AndroidManifest.xml").shouldExist()
 
         val deviceGradleText = deviceBuild.readText()
         listOf(
@@ -106,16 +108,18 @@ class SettingsModuleSplitTest : FunSpec({
             deviceGradleText shouldContain expectedDependency
         }
 
+        val androidSources = deviceModule.resolve("src/androidMain/kotlin/com/keelim/commonAndroid")
         listOf(
-            "core/device-android/src/main/java/com/keelim/commonAndroid/initialize/MobileAdsInitializer.kt",
-            "core/device-android/src/main/java/com/keelim/commonAndroid/receiver/SmsBroadcastReceiver.kt",
-            "core/device-android/src/main/java/com/keelim/commonAndroid/ui/sms/SMSRetriever.kt",
-            "core/device-android/src/main/java/com/keelim/commonAndroid/model/AppInfo.kt",
-            "core/device-android/src/main/java/com/keelim/commonAndroid/util/ApplicationMonitor.kt",
-            "core/device-android/src/main/java/com/keelim/commonAndroid/util/AppSignatureHashUtil.kt",
-        ).map(repoRoot::resolve).forEach { extractedFile ->
+            "di/DeviceApplicationModule.kt",
+            "initialize/MobileAdsInitializer.kt",
+            "receiver/SmsBroadcastReceiver.kt",
+            "ui/sms/SMSRetriever.kt",
+            "util/ApplicationMonitor.kt",
+            "util/AppSignatureHashUtil.kt",
+        ).map(androidSources::resolve).forEach { extractedFile ->
             extractedFile.shouldExist()
         }
+        deviceModule.resolve("src/commonMain/kotlin/com/keelim/commonAndroid/model/AppInfo.kt").shouldExist()
     }
 
     test("common source remains free of Android framework Compose and SDK imports") {

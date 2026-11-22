@@ -78,6 +78,12 @@ minification remain unverified. Session-local logs:
 
 `:app-cnubus:testDebugUnitTest :app-comssa:testDebugUnitTest :app-cnubus:lintDebug :app-comssa:lintDebug` is blocked before app compilation/tests by existing `androidx.appfunctions:appfunctions-service:1.0.0-rc01` resolution (JitPack HTTP 403) during configuration-cache task graph serialization. The new key regression tests have not executed, and no device frame-time measurement is available. Session-local log: `/tmp/lists-checks.log`.
 
+## Device KMP verification (2026-11-22)
+
+The Android-KMP library `:core:device` has no `testDebugUnitTest` task. Its
+Android sources and Hilt bindings are exercised through the consumer app builds.
+The module layout is covered by `:feature:ui-setting:testDebugUnitTest`.
+
 ## Kui market-up chip contrast (2026-11-22)
 
 `@google/design.md@0.4.0 lint DESIGN.md` reports a `contrast-ratio` warning:

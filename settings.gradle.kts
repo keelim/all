@@ -44,7 +44,7 @@ include(
     ":core:common-android",
     ":core:component",
     ":core:designsystem",
-    ":core:device-android",
+    ":core:device",
     ":core:data",
     ":core:data-api",
     ":core:database",

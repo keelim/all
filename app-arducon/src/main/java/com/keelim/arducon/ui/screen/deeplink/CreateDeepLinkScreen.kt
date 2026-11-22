@@ -22,6 +22,8 @@ import com.keelim.core.designsystem.component.KuiCircularProgressIndicator
 import com.keelim.core.designsystem.component.KuiDropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import com.keelim.core.designsystem.component.KuiExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenu
+import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import com.keelim.core.designsystem.component.KuiIcon
 import com.keelim.core.designsystem.component.KuiIconButton
@@ -215,7 +217,7 @@ fun CreateDeepLinkScreen(
                         trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = isCategoryExpanded) },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .menuAnchor(),
+                            .menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable),
                         shape = KuiTheme.shapes.small,
                     )
 

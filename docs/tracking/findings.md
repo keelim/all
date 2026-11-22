@@ -112,9 +112,11 @@ Java expressions in generated BuildConfig. CI uses explicit non-empty synthetic
 
 Consumer validation reached an independent existing Arducon compiler failure in
 `CreateDeepLinkScreen.kt:218,222`: `menuAnchor()` requires a `type` and
-`ExposedDropdownMenu` is unresolved in the current wrapper scope. This source is
-unchanged by the common-build repair. CI uses Gradle `--continue` to exercise the
+`ExposedDropdownMenu` is unresolved in the current wrapper scope. The same obsolete calls also exist in the CNUBUS dropdown preview. The pinned
+Material3 1.6.0-alpha01 sources confirm that the former member menu is hidden in
+favor of an imported scope extension and `menuAnchor` now requires a type. Both
+read-only fields use `PrimaryNotEditable`; only the import and anchor API binding
+are changed, preserving selection callbacks and UI behavior. CI uses Gradle `--continue` to exercise the
 other consumers while preserving the failing exit status; it never treats this
-failure as passing. Direct develop push remains blocked until consumer validation
-passes or the user explicitly authorizes a different completion condition.
+failure as passing. Direct develop push remains blocked until consumer validation passes.
 Evidence: https://github.com/keelim/all/actions/runs/44996494354/job/137128529092 .

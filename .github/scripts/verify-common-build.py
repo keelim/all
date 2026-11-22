@@ -49,13 +49,13 @@ def configuration():
 
 
 def appfunctions():
-    generated = ROOT / 'feature/app-function/build/generated/ksp/debug'
+    generated = ROOT / 'feature/app-function/impl/build/generated/ksp/debug'
     for filename in CONTRACTS:
         paths = list(generated.rglob(filename))
         assert paths, f'No generated schema: {filename}'
         for path in paths:
             contract(path.read_bytes(), filename)
-    reports = list((ROOT / 'feature/app-function/build/test-results/testDebugUnitTest').glob('TEST-*.xml'))
+    reports = list((ROOT / 'feature/app-function/impl/build/test-results/testDebugUnitTest').glob('TEST-*.xml'))
     assert reports, 'No AppFunctions test reports'
     suites = [ET.parse(path).getroot() for path in reports]
     assert all(int(s.get('failures', 0)) == 0 and int(s.get('errors', 0)) == 0 for s in suites)

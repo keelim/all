@@ -1,5 +1,7 @@
 # :feature:settings-device
 
+The feature contract lives in `api/`. Implementation sources and existing tests live in `impl/`.
+
 ## Focus
 
 Device information UI and state live in `screen/device/`; bindings are in `di/DeviceInfoModule.kt`.

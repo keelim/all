@@ -11,7 +11,6 @@ import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.keelim.composeutil.navigation.KeelimNavDisplay
 import com.keelim.composeutil.rememberMutableStateListOf
 import com.keelim.core.navigation.AppRoute
-import com.keelim.core.navigation.FeatureRoute
 import com.keelim.core.navigation.MyGradeRoute
 import com.keelim.core.resource.Res
 import com.keelim.core.resource.my_grade_feature_preparing
@@ -29,8 +28,9 @@ import com.keelim.mygrade.ui.screen.task.chart.TaskChartRoute
 import com.keelim.mygrade.ui.screen.timer.history.TimerHistoryRoute
 import com.keelim.mygrade.ui.screen.word.show.WordShowRoute
 import com.keelim.mygrade.ui.screen.word.write.WordWriteRoute
-import com.keelim.setting.screen.event.EventRoute
+import com.keelim.setting.navigation.SettingsHomeDestination
 import com.keelim.setting.navigation.registerSettingsEntries
+import com.keelim.setting.navigation.registerSettingsEventEntry
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
@@ -56,9 +56,7 @@ fun MyGradeHost(
                     context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
                 },
             )
-            entry<FeatureRoute.Event> {
-                EventRoute()
-            }
+            registerSettingsEventEntry()
             entry<MyGradeRoute.Main> { route ->
                 MainRoute(
                     onSubmitClick = { subject, normalProbability, student ->
@@ -76,7 +74,7 @@ fun MyGradeHost(
                         backStack.add(MyGradeRoute.History)
                     },
                     onFloatingButtonClick2 = {
-                        backStack.add(FeatureRoute.Settings)
+                        backStack.add(SettingsHomeDestination)
                     },
                     onLabClick = {
                         coroutineScope.launch {

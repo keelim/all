@@ -12,9 +12,9 @@ import com.keelim.composeutil.AppState
 import com.keelim.composeutil.navigation.KeelimNavDisplay
 import com.keelim.composeutil.rememberMutableStateListOf
 import com.keelim.core.navigation.AppRoute
-import com.keelim.core.navigation.FeatureRoute
+import com.keelim.setting.navigation.SettingsHomeDestination
 import com.keelim.setting.navigation.registerSettingsEntries
-import com.keelim.setting.screen.event.EventRoute
+import com.keelim.setting.navigation.registerSettingsEventEntry
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
@@ -25,7 +25,7 @@ fun MySeniorHost(
     modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
-    val backStack = rememberMutableStateListOf<AppRoute>(FeatureRoute.Settings)
+    val backStack = rememberMutableStateListOf<AppRoute>(SettingsHomeDestination)
 
     KeelimNavDisplay(
         modifier = modifier,
@@ -38,8 +38,6 @@ fun MySeniorHost(
                     context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
                 },
             )
-            entry<FeatureRoute.Event> {
-                EventRoute()
-            }
+            registerSettingsEventEntry()
     }
 }

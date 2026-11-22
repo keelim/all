@@ -82,7 +82,7 @@ minification remain unverified. Session-local logs:
 
 The Android-KMP library `:core:device` has no `testDebugUnitTest` task. Its
 Android sources and Hilt bindings are exercised through the consumer app builds.
-The module layout is covered by `:feature:ui-setting:testDebugUnitTest`.
+The module layout is covered by `:feature:ui-setting:impl:testDebugUnitTest`.
 
 ## Kui market-up chip contrast (2026-11-22)
 
@@ -228,6 +228,21 @@ passed its checksum validation in CI; reconcile the nested wrapper separately.
 The eight original Android dependency PRs remain unmerged while these baseline
 failures block actual build/test verification. This entry is documentation only
 and does not change the source or workflow evaluated in the linked CI run.
+
+## Feature and data module split verification (2026-11-23)
+
+`testDebugUnitTest` is unavailable for the JVM projects `:core:data:data-api`,
+`:feature:settings-*:api`, `:feature:ui-a2ui:api`, `:feature:ui-scheme:api`, and
+`:feature:ui-setting:api`, and for the Android-KMP project `:core:common`.
+These projects compile as dependencies of their Android consumers.
+
+Rebasing onto `d24131fca` brought in the Arducon chart migration from #2324,
+which removed the JitPack dependency that blocked the initial run.
+The scoped runs passed 268 tests across 16 modules, including 61 in Arducon.
+Arducon, CNUBUS, Comssa, and MyGrade used the repository's public offline
+fixtures. The AppFunctions service tests used a writable Robolectric cache.
+MySenior, the AppFunctions API, both Web subprojects, and the scheme
+implementation reported `NO-SOURCE`.
 
 ## Dependency validation after the common Android repair
 

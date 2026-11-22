@@ -99,6 +99,11 @@ private inline fun <reified T : KotlinBaseExtension> Project.configureKotlin() =
         else -> TODO("Unsupported project extension $this ${T::class}")
     }.apply {
         jvmTarget = JvmTarget.JVM_17
+        val projectPath = this@configureKotlin.path
+        if (projectPath.startsWith(":feature:")) {
+            // Keep Kotlin metadata files distinct when packaging multiple features.
+            moduleName.set(projectPath.removePrefix(":").replace(':', '-'))
+        }
         configureKotlinCompilerOptions(this)
     }
 }

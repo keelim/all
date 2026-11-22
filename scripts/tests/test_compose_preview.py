@@ -12,7 +12,7 @@ class ComposePreviewTest(unittest.TestCase):
         run.return_value.returncode = 0
         self.assertEqual(compose_preview.main(["list"]), 0)
         command = run.call_args.args[0]
-        self.assertEqual(command, ["/tools/android-cli", "preview", "list", ":feature:ui-a2ui", "--format=json", "--", "-Pandroid.builder.sdkDownload=false"])
+        self.assertEqual(command, ["/tools/android-cli", "preview", "list", ":feature:ui-a2ui:impl", "--format=json", "--", "-Pandroid.builder.sdkDownload=false"])
         self.assertFalse(run.call_args.kwargs.get("shell", False))
 
     @patch("all_scripts.compose_preview.subprocess.run")

@@ -48,5 +48,5 @@ app-nanda/src/main/java/com/keelim/nandadiagnosis/
 - **UI Logic**: Keep Composables lean; move complex conditional logic to ViewModels.
 
 ## NOTES
-- Relies heavily on `shared` and `core:data` for database entities and repositories.
+- Relies heavily on `shared` and `core:data:data-impl` for database entities and repositories.
 - Min SDK 26 is strictly enforced due to notification and background work requirements.

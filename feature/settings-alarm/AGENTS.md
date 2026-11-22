@@ -1,5 +1,7 @@
 # :feature:settings-alarm
 
+The feature contract lives in `api/`. Implementation sources and existing tests live in `impl/`.
+
 ## Focus
 
 Alarm settings are split between `AlarmScreen.kt`, `AlarmSection.kt`, `AlarmViewModel.kt`, and `SettingsAlarmNavigation.kt`.

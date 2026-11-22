@@ -1,5 +1,7 @@
 # :feature:ui-web
 
+The feature contract lives in `api/`. Implementation sources and existing tests live in `impl/`.
+
 ## Focus
 
 WebView integration lives in `WebView.kt`, `KeelimWebViewClient.kt`, and `WebEx.kt`.

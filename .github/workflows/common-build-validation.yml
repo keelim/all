@@ -37,7 +37,7 @@ jobs:
         run: >-
           ./gradlew --no-daemon --max-workers=2 -Pandroid.builder.sdkDownload=false clean
           :core:common:assembleAndroidMain :core:common:testAndroidHostTest
-          :feature:app-function:assembleDebug :feature:app-function:testDebugUnitTest --info
+          :feature:app-function:impl:assembleDebug :feature:app-function:impl:testDebugUnitTest --info
       - name: Verify generated function contracts and test discovery
         if: matrix.scope == 'appfunctions'
         run: python3 .github/scripts/verify-common-build.py appfunctions
@@ -57,7 +57,8 @@ jobs:
             **/build/reports/tests/testDebugUnitTest/**
             core/common/build/test-results/testAndroidHostTest/*.xml
             core/common/build/reports/tests/testAndroidHostTest/**
-            feature/app-function/build/generated/ksp/debug/**
+            feature/app-function/api/build/generated/ksp/debug/**
+            feature/app-function/impl/build/generated/ksp/debug/**
             app-*/build/outputs/logs/manifest-merger-debug-report.txt
           if-no-files-found: warn
 

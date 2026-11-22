@@ -1,5 +1,7 @@
 # :feature:settings-admin
 
+The feature contract lives in `api/`. Implementation sources and existing tests live in `impl/`.
+
 ## Focus
 
 Admin settings are in `screen/admin/`; navigation is `navigation/SettingsAdminNavigation.kt`.

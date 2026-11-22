@@ -1,5 +1,7 @@
 # :feature:ui-scheme
 
+The feature contract lives in `api/`. Implementation sources and existing tests live in `impl/`.
+
 ## Focus
 
 Scheme and deep-link activities are `SchemeActivity.kt`, `SchemeTestActivity.kt`, `IdActivity.kt`, and `IdDetailActivity.kt`; notification handling is in `notification/`.

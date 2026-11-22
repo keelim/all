@@ -56,8 +56,11 @@ A multi-app Android and Compose Multiplatform repository for six apps and shared
 │   │   └── AGENTS.md → navigation ownership and invariants
 │   ├── component/
 │   │   └── AGENTS.md → component ownership and invariants
-│   ├── data-api/
-│   │   └── AGENTS.md → data-api ownership and invariants
+│   ├── data/
+│   │   ├── data-api/ → Repository contracts
+│   │   │   └── AGENTS.md → data-api ownership and invariants
+│   │   └── data-impl/ → Repository implementations and Hilt bindings
+│   │       └── AGENTS.md → data-impl ownership and invariants
 │   ├── testing/
 │   │   └── AGENTS.md → testing ownership and invariants
 │   ├── common/
@@ -66,8 +69,6 @@ A multi-app Android and Compose Multiplatform repository for six apps and shared
 │   │   └── AGENTS.md → model ownership and invariants
 │   ├── resource/
 │   │   └── AGENTS.md → resource ownership and invariants
-│   ├── data/
-│   │   └── AGENTS.md → data ownership and invariants
 │   ├── domain/
 │   │   └── AGENTS.md → domain ownership and invariants
 │   └── datastore-proto/
@@ -112,6 +113,8 @@ A multi-app Android and Compose Multiplatform repository for six apps and shared
 └── scripts/
     └── AGENTS.md → Unified Python automation, build, and verification boundary (uv)
 ```
+
+Each registered feature has an `api/` subproject for its public contract and an `impl/` subproject for its implementation. Feature guides apply to both subprojects.
 
 ## Hard gates
 

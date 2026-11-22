@@ -95,5 +95,9 @@ gradlePlugin {
             id = libs.plugins.keelim.multiplatform.get().pluginId
             implementationClass = "KeelimMultiPlatformConventionPlugin"
         }
+        register("multiplatformLibrary") {
+            id = libs.plugins.keelim.multiplatformLibrary.get().pluginId
+            implementationClass = "KeelimMultiplatformLibraryPlugin"
+        }
     }
 }

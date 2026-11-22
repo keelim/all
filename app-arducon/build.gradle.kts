@@ -24,7 +24,6 @@ android {
 
 dependencies {
 
-    implementation(projects.core.commonAndroid)
     implementation(projects.core.device)
     implementation(projects.core.common)
     implementation(projects.core.component)
@@ -58,6 +57,7 @@ dependencies {
     implementation(libs.jsoup)
     implementation(libs.tehras.chart)
 
+    debugImplementation(libs.leakcanary)
     testImplementation(projects.core.testing)
 }
 

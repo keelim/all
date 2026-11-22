@@ -21,7 +21,6 @@ dependencies {
     implementation(projects.feature.settingsLab)
     implementation(projects.feature.uiWeb)
 
-    implementation(projects.core.commonAndroid)
     implementation(projects.core.common)
     implementation(projects.core.component)
     implementation(projects.core.model)

@@ -18,6 +18,7 @@ Centralized build configuration using Gradle convention plugins. Encapsulates sh
 | `keelim.android.test` | Configuration for Android test-only modules |
 | `keelim.android.hilt` | Sets up Hilt DI with KSP and Android dependencies |
 | `keelim.multiplatform` | Kotlin Multiplatform support (Desktop, Android, Wasm targets) |
+| `keelim.multiplatform.library` | Kotlin Multiplatform library with Android, Desktop, and Wasm targets |
 
 ## WHERE TO LOOK
 - `convention/src/main/kotlin/`: Implementation of all convention plugins.
@@ -43,5 +44,5 @@ Centralized build configuration using Gradle convention plugins. Encapsulates sh
 
 ## NOTES
 - Uses `TYPESAFE_PROJECT_ACCESSORS` for easier module navigation.
-- Multiplatform plugin supports `jvm("desktop")`, `androidTarget()`, and `wasmJs`.
+- Multiplatform plugins use `jvm("desktop")`, the Android-KMP library target, and `wasmJs`.
 - Room plugin enforces schema export to `$projectDir/schemas` for auto-migrations.

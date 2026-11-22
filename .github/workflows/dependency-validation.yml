@@ -21,7 +21,7 @@ jobs:
       matrix:
         include:
           - scope: library
-            tasks: ':core:common-android:testDebugUnitTest :core:common-android:assembleDebug'
+            tasks: ':core:common:testAndroidHostTest :core:common:assembleAndroidMain'
           - scope: appfunctions
             tasks: ':feature:app-function:testDebugUnitTest :app-arducon:testDebugUnitTest :app-arducon:assembleDebug :app-arducon:dependencyGuard'
           - scope: nanda-guard

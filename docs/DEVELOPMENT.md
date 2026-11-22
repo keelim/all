@@ -44,9 +44,8 @@ mise run build
 mise run ci
 ```
 
-These tasks target `core:common-android`: its existing `testDebugUnitTest`,
-`lintDebug`, and `assembleDebug` tasks. They cover a shared Android library,
-not every app or all 37 registered modules. For an implementation change,
+These tasks cover the Android target of `core:common` through `testAndroidHostTest`,
+`lintAndroidMain`, and `assembleAndroidMain`. For an implementation change,
 follow `AGENTS.md` and the affected module's guide and run its required tests.
 The routine development checks do not sign, publish, or deploy anything.
 

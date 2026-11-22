@@ -195,12 +195,12 @@ object CoveragePlan {
             htmlReport = "core/data/build/reports/jacoco/jacocoTestDebugUnitTestReport/html/index.html",
         ),
         CoverageModule(
-            modulePath = ":core:common-android",
+            modulePath = ":core:common",
             status = "candidate blocked on named trust issue",
-            reason = "Android-library JaCoCo participation now emits XML/HTML, but explicit trusted-participant promotion is still pending the baseline trust review.",
-            reportTask = ":core:common-android:jacocoTestDebugUnitTestReport",
-            xmlReport = "core/common-android/build/reports/jacoco/jacocoTestDebugUnitTestReport/jacocoTestDebugUnitTestReport.xml",
-            htmlReport = "core/common-android/build/reports/jacoco/jacocoTestDebugUnitTestReport/html/index.html",
+            reason = "Android host-test coverage remains a candidate pending explicit trusted-participant promotion after the baseline trust review.",
+            reportTask = ":core:common:jacocoTestAndroidHostTestReport",
+            xmlReport = "core/common/build/reports/jacoco/jacocoTestAndroidHostTestReport/jacocoTestAndroidHostTestReport.xml",
+            htmlReport = "core/common/build/reports/jacoco/jacocoTestAndroidHostTestReport/html/index.html",
         ),
         CoverageModule(
             modulePath = ":core:database",
@@ -252,7 +252,7 @@ object CoveragePlan {
                     ":app-arducon",
                     ":app-comssa",
                     ":core:data",
-                    ":core:common-android",
+                    ":core:common",
                     ":core:domain",
                 )
             }

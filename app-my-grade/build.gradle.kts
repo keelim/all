@@ -27,7 +27,6 @@ android {
 
 dependencies {
 
-    implementation(projects.core.commonAndroid)
     implementation(projects.core.device)
     implementation(projects.core.common)
     implementation(projects.core.component)
@@ -62,6 +61,7 @@ dependencies {
 
     implementation(libs.play.services.oss)
 
+    debugImplementation(libs.leakcanary)
     testImplementation(projects.core.testing)
 }
 

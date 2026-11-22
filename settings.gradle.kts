@@ -41,7 +41,6 @@ include(
     ":benchmarks",
     ":composeApp",
     ":core:common",
-    ":core:common-android",
     ":core:component",
     ":core:designsystem",
     ":core:device",

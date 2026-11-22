@@ -55,4 +55,14 @@ jobs:
       - name: Run scoped build, tests, or Dependency Guard
         env:
           VALIDATION_TASKS: ${{ matrix.tasks }}
-        run: ./gradlew --no-daemon -Pandroid.builder.sdkDownload=false $VALIDATION_TASKS
+          VALIDATION_SCOPE: ${{ matrix.scope }}
+        run: |
+          gradle_args=(--no-daemon -Pandroid.builder.sdkDownload=false)
+          if [[ "$VALIDATION_SCOPE" == appfunctions ]]; then
+            gradle_args+=(
+              --max-workers=1 --no-parallel
+              '-Dorg.gradle.jvmargs=-Xmx4g -Dfile.encoding=UTF-8 -XX:ReservedCodeCacheSize=256m'
+              -Pkotlin.compiler.execution.strategy=in-process
+            )
+          fi
+          ./gradlew "${gradle_args[@]}" $VALIDATION_TASKS

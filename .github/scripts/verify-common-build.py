@@ -33,14 +33,19 @@ def contract(data, filename):
 def configuration():
     versions = tomllib.loads((ROOT / 'gradle/libs.versions.toml').read_text())['versions']
     assert versions['compileSdk'] == '37' and versions['compileSdkMinor'] == '2'
-    for path in ('build-logic/convention/src/main/kotlin/com/keelim/builds/KotlinAndroid.kt', 'build-logic/convention/src/main/kotlin/KeelimMultiPlatformConventionPlugin.kt'):
-        assert 'findVersion("compileSdkMinor")' in (ROOT / path).read_text()
+    conventions = ROOT / 'build-logic/convention/src/main/kotlin'
+    android_config = (conventions / 'com/keelim/builds/KotlinAndroid.kt').read_text()
+    android, multiplatform = android_config.split('fun Project.configureMultiplatformAndroid(', maxsplit=1)
+    sdk_minor_lookup = 'findVersion("compileSdkMinor")'
+    assert sdk_minor_lookup in android and sdk_minor_lookup in multiplatform
+    for name in ('KeelimMultiPlatformConventionPlugin.kt', 'KeelimMultiplatformLibraryPlugin.kt'):
+        assert 'configureMultiplatformAndroid(this)' in (conventions / name).read_text()
     for path in ('gradle/wrapper/gradle-wrapper.properties', 'build-logic/gradle/wrapper/gradle-wrapper.properties'):
         text = (ROOT / path).read_text()
         assert 'gradle-9.9.2-bin.zip' in text and f'distributionSha256Sum={SHA}' in text
     sdk = Path(os.environ.get('ANDROID_HOME') or os.environ['ANDROID_SDK_ROOT'])
     assert (sdk / 'platforms/android-37.2/android.jar').is_file(), 'Exact SDK 37.2 was not installed'
-    print('SDK 37.2 installed; both conventions and Gradle 9.9.2 checksums agree')
+    print('SDK 37.2 installed. Android conventions and Gradle 9.9.2 checksums agree.')
 
 
 def appfunctions():

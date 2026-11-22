@@ -13,7 +13,6 @@ class KeelimSettingsFeaturePlugin : Plugin<Project> {
             apply(plugin = "keelim.android.hilt")
 
             dependencies {
-                add("implementation", project(":core:common-android"))
                 add("implementation", project(":core:common"))
                 add("implementation", project(":core:component"))
                 add("implementation", project(":core:model"))

@@ -238,3 +238,31 @@ both release runtime graphs, including Arducon's JitPack chart and its
 submodules, in run 45021533229. The two release runtime baselines now record
 those verified graphs. The Nanda baseline changes 176 additions and 138
 removals. The Arducon baseline changes 344 additions and 342 removals.
+
+## Common KMP migration verification (2026-11-22 KST)
+
+Before stacking on the Device KMP branch, the changed-module `testDebugUnitTest` run with `--no-configuration-cache --continue`
+passed all 13 `:feature:ui-setting` tests. `:feature:ui-scheme` compiled and its
+unit-test task reported `NO-SOURCE`. The `:core:common` Android target compiled
+Kotlin and Hilt-generated Java as transitives of the permitted tasks. Nanda and
+MySenior also compiled their Hilt components and merged the common manifest.
+
+The six app unit-test tasks did not run. Arducon, CNUBUS, Comssa, and MyGrade
+lack local `google-services.json` files and could not resolve the existing
+`androidx.appfunctions:appfunctions-service:1.0.0` dependency. Arducon also could
+not resolve `com.github.tehras:charts:0.2.4-alpha`. JitPack returned HTTP 403 for
+these artifacts. Nanda and MySenior use compile SDK 37.0. Resolved Compose
+1.13.0 artifacts require 37.1, and MySenior's DeepLinkDispatch 7.3.1 requires
+37.2. Session-local log: `/tmp/keelim-common-kmp-unit-tests-retry.log`.
+
+The KMP Android plugin exposes `testAndroidHostTest` for `:core:common`. The
+required `testDebugUnitTest` task is unavailable for this module and the
+included build logic. The Android host tests and Desktop and Wasm compilation
+remain unverified under the changed-module test policy.
+
+After stacking on Device KMP, the same module-scoped run used SDK 37.2 and the
+repository's public offline fixtures. CNUBUS, Comssa, MyGrade, Nanda, and
+`:feature:ui-setting` passed 110 tests in total. MySenior and `:feature:ui-scheme`
+reported `NO-SOURCE`. Android Kotlin and Hilt-generated Java compiled for both
+KMP libraries. Arducon remains blocked locally by the JitPack HTTP 403 for the
+existing chart dependency. Session-local log: `/tmp/keelim-common-stack-unit-tests.log`.

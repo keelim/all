@@ -70,10 +70,8 @@ A multi-app Android and Compose Multiplatform repository for six apps and shared
 │   │   └── AGENTS.md → data ownership and invariants
 │   ├── domain/
 │   │   └── AGENTS.md → domain ownership and invariants
-│   ├── datastore-proto/
-│   │   └── AGENTS.md → datastore-proto ownership and invariants
-│   └── common-android/
-│       └── AGENTS.md → common-android ownership and invariants
+│   └── datastore-proto/
+│       └── AGENTS.md → datastore-proto ownership and invariants
 ├── feature/
 │   ├── ui-a2ui/
 │   │   └── AGENTS.md → Restricted declarative Compose renderer boundary

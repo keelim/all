@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!--Android13 -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+
+    <application
+        android:usesCleartextTraffic="false"
+        android:allowBackup="false">
+
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data
+                android:name="com.keelim.commonAndroid.initialize.ComposeInitializer"
+                android:value="androidx.startup" />
+            <meta-data
+                android:name="com.keelim.commonAndroid.initialize.TimberInitializer"
+                android:value="androidx.startup" />
+        </provider>
+        <provider
+            android:name="com.keelim.commonAndroid.platform.export.PlatformFileProvider"
+            android:authorities="${applicationId}.keelim-platform-files"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/keelim_platform_file_paths" />
+        </provider>
+        <activity
+            android:name="com.keelim.commonAndroid.ui.crash.CrashReportActivity"
+            android:exported="false" />
+    </application>
+</manifest>

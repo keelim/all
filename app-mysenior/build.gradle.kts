@@ -23,7 +23,7 @@ android {
 
 dependencies {
 
-    implementation(projects.core.commonAndroid)
+    implementation(projects.core.common)
     implementation(projects.core.component)
     implementation(projects.core.data)
     implementation(projects.core.navigation)
@@ -55,6 +55,7 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test)
+    debugImplementation(libs.leakcanary)
     debugImplementation(libs.androidx.compose.ui.testManifest)
     ksp(libs.deeplinkdispatch.processor)
 }

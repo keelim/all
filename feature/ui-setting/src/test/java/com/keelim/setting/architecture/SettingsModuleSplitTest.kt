@@ -69,8 +69,8 @@ class SettingsModuleSplitTest : FunSpec({
         }
     }
 
-    test("common-android does not depend on upper data network or domain modules") {
-        val gradleText = repoRoot.resolve("core/common-android/build.gradle.kts").readText()
+    test("common does not depend on upper data network or domain modules") {
+        val gradleText = repoRoot.resolve("core/common/build.gradle.kts").readText()
         listOf(
             "projects.core.component",
             "projects.core.data)",
@@ -81,11 +81,11 @@ class SettingsModuleSplitTest : FunSpec({
             "libs.play.services.auth.api.phone",
         ).forEach { forbiddenDependency ->
             check(!gradleText.contains(forbiddenDependency)) {
-                "common-android must not depend on $forbiddenDependency"
+                "core:common must not depend on $forbiddenDependency"
             }
         }
 
-        sourceFilesUnder(repoRoot.resolve("core/common-android/src/main/java")).forEach { sourceFile ->
+        sourceFilesUnder(repoRoot.resolve("core/common/src/androidMain/kotlin")).forEach { sourceFile ->
             check(!sourceFile.readText().contains("import com.google.android.gms.")) {
                 "${repoRoot.relativize(sourceFile)} must keep Google Play Services SDK imports in core:device androidMain"
             }
@@ -122,7 +122,7 @@ class SettingsModuleSplitTest : FunSpec({
         deviceModule.resolve("src/commonMain/kotlin/com/keelim/commonAndroid/model/AppInfo.kt").shouldExist()
     }
 
-    test("common source remains free of Android framework Compose and SDK imports") {
+    test("shared common source sets remain free of Android framework Compose and SDK imports") {
         val forbiddenImports = listOf(
             "import android.",
             "import androidx.activity",
@@ -133,7 +133,10 @@ class SettingsModuleSplitTest : FunSpec({
             "import dagger.hilt",
         )
 
-        sourceFilesUnder(repoRoot.resolve("core/common/src/main/java")).forEach { sourceFile ->
+        val sharedSources = listOf("commonMain", "jvmAndAndroidMain").flatMap { sourceSet ->
+            sourceFilesUnder(repoRoot.resolve("core/common/src/$sourceSet/kotlin"))
+        }
+        sharedSources.forEach { sourceFile ->
             val source = sourceFile.readText()
             forbiddenImports.forEach { forbiddenImport ->
                 check(!source.contains(forbiddenImport)) {

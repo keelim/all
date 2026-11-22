@@ -36,19 +36,19 @@ done
 ]
 
 [tasks.lint]
-description = "Run Android lint for the representative core:common-android module"
+description = "Run lint for the Android target of core:common"
 depends = ["doctor"]
-run = "./gradlew --no-daemon -Pandroid.builder.sdkDownload=false :core:common-android:lintDebug"
+run = "./gradlew --no-daemon -Pandroid.builder.sdkDownload=false :core:common:lintAndroidMain"
 
 [tasks.test]
-description = "Run existing core:common-android JVM unit tests"
+description = "Run Android host unit tests for core:common"
 depends = ["doctor"]
-run = "./gradlew --no-daemon -Pandroid.builder.sdkDownload=false :core:common-android:testDebugUnitTest"
+run = "./gradlew --no-daemon -Pandroid.builder.sdkDownload=false :core:common:testAndroidHostTest"
 
 [tasks.build]
-description = "Assemble the representative core:common-android debug library"
+description = "Assemble the Android target of core:common"
 depends = ["doctor"]
-run = "./gradlew --no-daemon -Pandroid.builder.sdkDownload=false :core:common-android:assembleDebug"
+run = "./gradlew --no-daemon -Pandroid.builder.sdkDownload=false :core:common:assembleAndroidMain"
 
 [tasks.design-lint]
 description = "Lint the root DESIGN.md (same pinned linter as .github/workflows/design_lint.yml)"

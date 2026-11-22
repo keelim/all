@@ -6,7 +6,7 @@
 ## Why
 - `core/component` mixed reusable UI primitives with demo/sample/screen assets.
 - `feature/ui-setting` is a settings monolith that should be split incrementally.
-- `core/common-android`, `shared`, and `core/data` still need later extractions, but the dependency rules should be frozen before more source moves happen.
+- The original plan identified `core/common-android`, `shared`, and `core/data` as candidates for extraction.
 
 ## Naming Convention
 - `core:<capability>` for reusable horizontal platform or UI foundations.
@@ -15,7 +15,7 @@
 - `catalog` is the dedicated showcase/demo surface for non-production UI samples and previews.
 
 ## Allowed Dependency Directions
-- `app-*` -> `feature:*`, `core:common-android`, selected `core:*` foundations, `shared` only where migration has not finished.
+- `app-*` -> `feature:*`, `core:common`, selected `core:*` foundations, `shared` only where migration has not finished.
 - `feature:*` -> `core:data-api`, `core:domain`, `core:model`, `core:navigation`, `core:resource`, selected reusable UI foundations.
 - `feature:*` must not introduce new dependencies on `core:data` implementation modules.
 - `core:data*` -> `core:data-api`, `core:model`, `core:network`, persistence modules.
@@ -34,6 +34,8 @@
 
 ### Active now
 - `core:component` -> reusable UI primitives, theme resources, utilities, and navigation helpers only
+- `core:common` -> platform-neutral helpers and Android runtime integration in dedicated source sets
+- `core:device` -> device permissions, broadcasts, and SDK integrations in `androidMain`
 - `catalog` -> demo/sample/screen assets extracted from `core:component`
 
 ### Planned next
@@ -45,10 +47,6 @@
   - `feature:settings-maintenance`
   - `feature:settings-admin`
   - `feature:settings-labs` only if explicitly promoted
-- `core:common-android` ->
-  - `core:app-runtime-android`
-  - `core:observability-android`
-  - `core:device` (`androidMain` for Android SDK integrations)
 - `shared` ->
   - `core:persistence-kmp`
   - `core:preferences-kmp`

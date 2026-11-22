@@ -20,7 +20,7 @@ Standardize network client ownership and responsibilities across the monorepo.
 - `core/network`: defines and configures all network clients.
 - `core/data`: consumes injected clients through qualifiers, no direct client construction.
 - `app-*` and `feature/*`: no direct network stack access for business calls; use repository interfaces.
-- `core/common-android`: image initialization uses the Hilt-provided Coil `ImageLoader`.
+- `core/common` (`androidMain`): image initialization uses the Hilt-provided Coil `ImageLoader`.
 
 ## Forbidden patterns
 

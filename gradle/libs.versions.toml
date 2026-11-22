@@ -195,6 +195,7 @@ androidx-navigation-ui = { group = "androidx.navigation", name = "navigation-ui-
 androidx-navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "nav3Core" }
 androidx-navigation3-ui = { module = "androidx.navigation3:navigation3-ui", version.ref = "nav3Core" }
 androidx-paging-common = { group = "androidx.paging", name = "paging-common-ktx", version.ref = "androidxPaging" }
+androidx-paging-multiplatform = { group = "androidx.paging", name = "paging-common", version.ref = "androidxPaging" }
 androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "paging-compose" }
 androidx-paging-runtime = { group = "androidx.paging", name = "paging-runtime-ktx", version.ref = "androidxPaging" }
 androidx-preference-ktx = { module = "androidx.preference:preference-ktx", version.ref = "preferenceKtx" }
@@ -427,3 +428,4 @@ keelim-android-test = {id = "keelim.android.test" }
 keelim-android-hilt = {id = "keelim.android.hilt" }
 keelim-jvm-library = {id = "keelim.jvm.library" }
 keelim-multiplatform = { id = "keelim.multiplatform" }
+keelim-multiplatformLibrary = { id = "keelim.multiplatform.library" }

@@ -9,6 +9,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
+      - name: Write local defaults
+        env:
+          LOCAL_DEFAULT_PROPERTIES: ${{ secrets.LOCAL_DEFAULT_PROPERTIES }}
+        run: printf '%s' "$LOCAL_DEFAULT_PROPERTIES" | base64 -d > local.defaults.properties
+
       - uses: ./.github/actions/build-play-bundles
         with:
           app-modules: app-comssa app-cnubus app-my-grade app-nanda app-arducon

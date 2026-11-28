@@ -254,6 +254,14 @@ submodules, in run 45021533229. The two release runtime baselines now record
 those verified graphs. The Nanda baseline changes 176 additions and 138
 removals. The Arducon baseline changes 344 additions and 342 removals.
 
+The OSS Licenses plugin PR's Dependency Guard jobs reported the same
+`releaseRuntimeClasspath` differences as the earlier ads SDK PR. Both apps
+have SQLite baseline differences. Arducon also has a View Binding removal,
+and Nanda has ads SDK and transitive dependency changes. The baselines still
+need to be reconciled with those merged updates.
+[OSS Licenses CI](https://github.com/keelim/all/actions/runs/46158253168) ·
+[Ads SDK CI](https://github.com/keelim/all/actions/runs/45118235077)
+
 ## Common KMP migration verification (2026-11-22 KST)
 
 Before stacking on the Device KMP branch, the changed-module `testDebugUnitTest` run with `--no-configuration-cache --continue`

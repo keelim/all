@@ -48,4 +48,4 @@ runs:
           printf '%s' "$GOOGLE_SERVICE_JSON" | base64 -d > "$module/google-services.json"
           tasks+=("$module:bundleRelease")
         done
-        ./gradlew -PenableOssLicenses=true "${tasks[@]}"
+        ./gradlew "${tasks[@]}"

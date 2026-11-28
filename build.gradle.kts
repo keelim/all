@@ -289,9 +289,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath(libs.play.services.oss.plugin) {
-            exclude(group = "com.google.protobuf")
-        }
+        classpath(libs.play.services.oss.plugin)
     }
 }
 

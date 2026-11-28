@@ -7,7 +7,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Write local defaults
         env:
@@ -58,7 +58,7 @@ jobs:
             alias_secret: ARDUCON_ALIAS
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           persist-credentials: false
           sparse-checkout: .github/actions/publish-play-bundle

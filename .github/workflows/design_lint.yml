@@ -28,7 +28,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       # Keep the linter version in sync with the `design-lint` task in mise.toml.
       - name: Lint DESIGN.md
